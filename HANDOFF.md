@@ -1,42 +1,39 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-09-23 21:23 KST (Claude Code)
+마지막 갱신: 2026-09-23 21:44 KST (Codex)
 
 세션 **시작**: 이 파일 + `git log -10` + `AGENTS.md`. 세션 **끝**: 이 파일 갱신 + `tools/handoff-commit.sh`.
 상세 실험 일지는 `RESUME_NOTES.md`(2026-09-17~20, 시간순), 설계·근거는 `EXPERIMENT_DESIGN.md`.
 
 ## 1. 실행 중인 작업
 
-없음 (2026-09-23 21:20 확인: SafeDrive 프로세스 0개). GPU 0-3 은 AlpaSim 평가가 쓰고 있고 4-7 은 다른 연구원 작업이 점유 중.
+없음 (2026-09-23 21:35 확인: SafeDrive 프로세스 0개). GPU 0-3 은 AlpaSim 평가가 쓰고 있고 4-7 은 다른 연구원 작업이 점유 중.
 
 ## 2. 최근 결과 (요약 — 상세는 RESUME_NOTES.md)
 
 - baseline 재현: navtest PDMS 90.96 (논문 91.6), navmini 93.59.
 - α(보행자를 sparse world 에 포함): 효과 없음, 가설 기각 (RESUME_NOTES "α 실험 최종 결과").
 - E5 EP 테스트 가중치 스윕, E2 perception 실제 동결: ΔEP 가 난이도 전 구간 −2.5~−3.0 으로 균일 → EP 손실은 상황 의존이 아니라 전역 편향. 난이도 정의 5종 비교표 있음.
-- F1(미래 BEV 감독 제거)·F2(motion 감독 제거) 학습·평가 완료 폴더 존재. F3(pair-NC 제거)·F4(TW-DAC 제거) 는 9/21 에 시작됐으나 **RESUME_NOTES 에 결과 미기록**:
-  - exp/safedrive/eval_f1_nofutbev_ev: 37 파일, 최신 run_evaluation_gpu.log
-  - exp/safedrive/eval_f2_nomotionsup_ev: 37 파일, 최신 run_evaluation_gpu.log
-  - exp/safedrive/f3_nopairnc: 9 파일, 최신 lightning_logs
-  - exp/safedrive/f4_notwdac: 7 파일, 최신 train_ddp_process_1.log
+- F1·F2 평가 CSV는 기준선/E2와 동일한 12,147개 유효 토큰을 담는다. 분해 전 짝차 진단값: F1 ΔPDMS +0.249 (95% 구간 −0.011~+0.509), F2 −0.327 (−0.570~−0.083), F2 ΔEP −0.597. 난이도 B·E 및 시나리오 유형으로 분해하기 전에는 연구 결론을 내리지 않는다. 상세는 RESUME_NOTES.md 4차.
+- F3(pair-NC 제거)는 epoch 0 체크포인트만 있고 F4(TW-DAC 제거)는 체크포인트가 없다. 두 run 모두 현재 프로세스가 없으며 평가 CSV도 없다. 완료로 취급하지 않는다.
 - 체크포인트: ckpts/ = safedrive_phase1_90ep.ckpt,safedrive_phase2_5ep.ckpt safedrive_phase3_10ep.ckpt
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- AGENTS.md 종료 루틴에 `git push mine` 추가 (원격: GitHub JunSeongKW, deploy key `~/.ssh/id_ed25519_junseong*`, ssh 별칭 `github-junseong`, `github-junseong-safedrive`).
-- 미커밋이던 코드(9/13~9/16: transformer_encoder, backbone, features, config/loss/model 의 include_pedestrian 분기 등 6파일 +200/−35)와 Phase2 설정 7종(Alpha, E2, E3, F1~F4), RESUME_NOTES.md, EXPERIMENT_DESIGN.md 를 이 커밋에 포함.
-- AGENTS.md / CLAUDE.md / HANDOFF.md / tools/handoff-commit.sh 추가 (에이전트 인수인계 구조).
+- F1/F2 평가 CSV를 기준선·E2와 토큰별로 대조해 표본 일치와 지표별 짝차·구간을 검증했다. RESUME_NOTES.md 4차에 진단 표와 해석 한계를 기록했다.
+- F3/F4 프로세스·체크포인트·평가 파일 상태를 확인했다. F3는 epoch 0까지, F4는 체크포인트 없음. 완료로 오인하지 않도록 HANDOFF를 정정했다.
+- 기존 난이도 라벨 `scratchpad/navtest_labels.csv`가 현재 경로에서 없어 B·E·시나리오 유형별 분해는 다음 작업으로 남겼다. GPU 4-7 점유 중이라 학습은 시작하지 않았다.
 
 ## 4. 다음 단계
 
-1. F1~F4 결과를 RESUME_NOTES.md 에 정리하고 E2 와 함께 **한 표**로 (난이도 정의 B·E 분해 포함). 위 폴더의 traj_*.csv 확인.
-2. EXPERIMENT_DESIGN.md 의 실험 행렬 중 남은 셀 결정 — 각 실험이 명제의 어느 하위 질문에 답하는지 한 줄 먼저.
-3. 학습을 다시 걸 때: 2 GPU 이상, batch 8/GPU, 종료 후 평가 자동 체이닝, nvidia-smi 프로세스 이름 규칙.
+1. `scratchpad/navtest_labels.csv`를 찾아 복구하거나 navtest에서 동일한 기준으로 재생성한다. F1·F2·E2를 난이도 정의 B·E와 시나리오 유형별로 **한 표**에 분해한다. 라벨 정의와 토큰 수를 검증하고 baseline 점수 계층화는 쓰지 않는다.
+2. F3/F4 중단 원인을 확인하고 2 GPU 이상이 확보되면 학습을 재개·평가한다. F3는 epoch 0 체크포인트가 있고 F4는 없다. batch 8/GPU, 평가 자동 체이닝, nvidia-smi 프로세스 이름 규칙을 적용한다.
+3. EXPERIMENT_DESIGN.md 의 남은 셀을 선택하기 전, 각 실험이 "상황마다 필요한 미래 정보가 다른가"의 어떤 하위 질문에 답하는지 한 줄로 명시한다.
 
 ## 5. 미결 질문 (사용자 결정 필요)
 
 - PDM 롤아웃 병목 대응: num_proposal_2stage 128→32 로 baseline·실험 양쪽 동일 단축할지 (절대 성능은 낮아짐).
-- 다음 실험 축: 정보 종류 라우팅(상황별 선택)으로 갈지, 예산 스윕(K=1..N)으로 갈지.
+- F1/F2의 난이도·시나리오 분해가 끝난 뒤 다음 실험 축을 정보 종류 라우팅(상황별 선택)과 예산 스윕(K=1..N) 중 어디에 둘지.
 
 ## 6. 다른 서버에서 재구성 (git 으로 오지 않는 것)
 
