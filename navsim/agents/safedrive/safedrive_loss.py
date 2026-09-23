@@ -55,11 +55,16 @@ def _proposal_net_loss(targets, predictions, config, loss_dict, stage, loss,
     Adds to `loss_dict` and returns the running `loss`.
     """
     # only vehicles inside the forward cone are matched; everything else is padding
+    # (include_pedestrian=True keeps pedestrians as well, so the matching decides
+    #  how the fixed query budget is split between the classes)
     rad_to_ego = torch.arctan2(targets['agent_states'][..., BoundingBox2DIndex.Y], targets['agent_states'][..., BoundingBox2DIndex.X],)
     in_latent_rad_thresh = torch.logical_and(-config.latent_rad_thresh <= rad_to_ego, rad_to_ego <= config.latent_rad_thresh,)
     gt_valid = torch.logical_and(in_latent_rad_thresh, targets["agent_labels"]!=-1)
     gt_labels = torch.where(in_latent_rad_thresh,targets["agent_labels"],torch.full_like(targets["agent_labels"], -1))
-    gt_labels = gt_labels==0
+    if getattr(config, "include_pedestrian", False):
+        gt_labels = gt_labels >= 0          # vehicle (0) + pedestrian (1)
+    else:
+        gt_labels = gt_labels == 0          # vehicle only (paper default)
     gt_valid = gt_labels
 
     gt_labels_list = [gt_labels[b_id][gt_valid[b_id]] for b_id in range(predictions['ins_labels_0'].shape[0])]

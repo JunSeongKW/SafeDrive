@@ -346,7 +346,10 @@ class SafeDrive_Model(nn.Module):
         valid = torch.logical_and(in_latent_rad_thresh, labels != -1)
         labels = torch.where(in_latent_rad_thresh, labels, torch.full_like(labels, -1))
 
-        valid = (labels == 0) & (L > 0) & (W > 0)
+        if getattr(self._config, "include_pedestrian", False):
+            valid = (labels >= 0) & (L > 0) & (W > 0)   # vehicle + pedestrian
+        else:
+            valid = (labels == 0) & (L > 0) & (W > 0)   # vehicle only
 
         boxes_abs = torch.stack([x, y, yaw, L, W, velx, vely], dim=-1)   # (B,Nmax,5)
 
@@ -502,6 +505,8 @@ class SafeDrive_Model(nn.Module):
         tmp[..., 1:2] = tmp[..., 1:2] * (y1 - y0) + y0
         return outputs_class, tmp, output_coord_sigmoid # cls(B,T,1), states(B,T,K) with x,y in meters
 
+    # 논문의 3단계가 코드에서는 아래 forward 함수 안의 함수 3개로 1:1 대응됨. (0913, jskwak)
+    # output 은 loss가 먹을 결과물, stage는 다음 단계로 넘기는 중간 텐서
     def forward(self, features: Dict[str, torch.Tensor], targets: Dict[str, torch.Tensor]=None) -> Dict[str, torch.Tensor]:
         """Torch module forward pass: ProposalNet -> SWNet -> FRNet.
 
@@ -510,10 +515,10 @@ class SafeDrive_Model(nn.Module):
         output: Dict[str, torch.Tensor] = {}
         stage: Dict[str, torch.Tensor] = {}
 
-        self._forward_proposal_net(features, targets, output, stage)
+        self._forward_proposal_net(features, targets, output, stage) # 논문의 proposalnet
         if not self._config.no_planning:
-            self._forward_swnet(output, stage)
-            self._forward_frnet(output, stage)
+            self._forward_swnet(output, stage) # 논문의 swnet
+            self._forward_frnet(output, stage) # 논문의 frnet
             if not self.training:
                 self._score_at_test_time(output, stage)
 
@@ -528,15 +533,22 @@ class SafeDrive_Model(nn.Module):
         if not self._config.no_planning:
             self._proposal_trajectory(features, output, stage)
 
+    # 아래 함수 proposal_bev_encoder 가 논문의 Figure2 에서 가장 첫 단계라고 보면 될듯
     def _proposal_bev_encoder(self, features, output, stage):
         """Fuse the camera and lidar features into the BEV query, then read the BEV maps off it."""
-        camera_feature: torch.Tensor = features["camera_feature"]
-        lidar_feature: torch.Tensor = features["lidar_feature"]
-        ego_poses = features["ego_poses"]
 
+        # 아래 3줄은 입력 텐서 저장 (1. 이미지, 2. 포인트클라우드, 3. ego pose)
+        camera_feature: torch.Tensor = features["camera_feature"] # camera : (B, 3, 3, 3, 256, 512) Tensor  = (배치, 프레임, 카메라 개수, RGB, H, W)
+        lidar_feature: torch.Tensor = features["lidar_feature"] # Lidar : liset[3] = 프레임별 pointcloud (.pcd를 collate에서 로드)
+        ego_poses = features["ego_poses"] # 프레임별 (x,y,yaw) - 전역 좌표
+
+
+
+
+        # 아래는 lidar2img의 투영 행렬 계산
         # lidar->image projection, recomputed so the cached matrices stay consistent
         l2i, pr, pt = calc_projection_mats(features['matrices'])
-        features['lidar2img'] = l2i
+        features['lidar2img'] = l2i  # lidar 3d 좌표 -> 카메라 픽셀 프레임 변환 행렬
         # post_rots[3] / post_trans[4] inside matrices are replaced by the recomputed values
         mats = features['matrices']
         frame_list = mats if isinstance(mats[0], (list, tuple)) else [mats]
@@ -544,30 +556,53 @@ class SafeDrive_Model(nn.Module):
             frame[3] = pr
             frame[4] = pt
 
-        lidar2img = features['lidar2img']                       # (B, cam, 4, 4)
+
+        lidar2img = features['lidar2img']                       # (B, cam, 4, 4)    # lidar 3d 좌표 -> 카메라 픽셀 프레임 변환 행렬
+
+        # imge_metas : bevformer 계열의 관례 => bevformer의 forward에 넣는 잡다한 정보 (이미지크기, lidar2img 투영행렬, 자세 등등) 를 dict 하나에 묶어서
         img_metas = {
             'img_shape': camera_feature.shape,                  # (B, frame, cam, 3, H, W)
             'lidar2img' : lidar2img,
             'ego_poses' : ego_poses,
         }
+
+        # 핵심 한 줄 (/home/kaist5/data/junseong/SafeDrive/navsim/agents/safedrive/safedrive_backbone.py 의 forward 함수를 호출)
+        # 여러 센서 입력 → BEV feature 한 장
         bev_feature = self.ProposalNet_BEV(camera_feature, lidar_feature, img_metas)  # (B, D, H, W)
 
-        output['bev_semantic_map'] = self._bev_semantic_head_convnext(bev_feature)
+        # 아래 5줄 : BEV feature 한 장에서 뭘 뽑아낼 것인가를 결정
+        # output 에 넣은 건 loss가 먹고, stage에 넣은 건 후속 모듈이 사용
+
+        # 현재 시점 BEV segmentation을 예측 (B, 7, 512, 512) : 7개 클래스 (background, road, walkway, centerline, static objects, vehicle, pedestrian)
+        # 추후 GT (targets['bev_semantic_map']) 과 Loss 계산
+        output['bev_semantic_map'] = self._bev_semantic_head_convnext(bev_feature) 
+
+
         if self._config.future_bev_frames > 0:
+
+            # 미래 BEV segmentation (dense world model)
+            # 미래 BEV는 인퍼런스 에서는 사용x. 오직 gradient를 통해 공유 BEV feature(stage['bev_query'])를 "미래를 아는 표현"으로 학습해주는 간접 경로만 존재
             fut_bev_map = self.future_bev_semantic_head_convnext(bev_feature)
             output['fut_bev_map'] = fut_bev_map
 
+        # bev feature map으로 후속 모듈에서 deformable attention의 value 로 쓰임.
         stage['bev_query'] = bev_feature
 
+
+    # proposal_object_detection : Deformable DETR + DN-DETR + DAB-DETR의 조합을, 이미지 대신 BEV에 적용한 것
+    # DETR 에 대해 알아두면 이해할 때 도움이 됨.
     def _proposal_object_detection(self, features, targets, output, stage):
         """Decode the instance queries against the BEV query; DN queries ride along in training."""
         bev_feature = stage['bev_query']
         batch_size = features["status_feature"].shape[0]
 
         # learned instance queries and their reference points, one set per sample
+        # 256차원 learnable query를 50개 생성 
         agents_query = self.ins_query_emb.weight[None, ...].repeat(batch_size, 1, 1)   # (B, Q, D)
 
         dn_enabled = self.training and self._config.dn_detection
+
+        # 각 쿼리별 bev 내 attn 시작 좌표 -> 0~1 사이 값으로 초기화된 정규화 좌표 (처음에는 랜덤하게 흩어져 있다가, 학습되면서 자리를 잡아감.)
         reference_points = self.ins_ref_points.weight.unsqueeze(0).repeat(batch_size, 1, 1)
 
         if dn_enabled:
@@ -585,10 +620,23 @@ class SafeDrive_Model(nn.Module):
             dn_tgt = torch.zeros((batch_size, pad_size, self._config.tf_d_model)).to(agents_query)
             agents_query = torch.cat([dn_tgt, agents_query], dim=1)    # (B, pad+Q, D)
 
+
+        # (x,y) 숫자 2개를 그대로 transformer에 넣으면 정보가 빈약 -> x,y 각각을 여러 주파수의 sin, cos 으로 펼치는 고전적인 
+        # e.g. x = 0.3  ->  [sin(0.3·f₁), cos(0.3·f₁), sin(0.3·f₂), cos(0.3·f₂), ...]   128개
         query_pos = gen_sineembed_for_position(reference_points, hidden_dim=256)    # (B, pad+Q, D)
+        # 2층 mlp layer를 한 번 더 통과시켜 다듬음.
         query_pos = self.ins_pos_emb_layer(query_pos)
 
+        # 여기까지 해서, agent query 256 차원 + position query 256 차원 -> transformer 준비물
+        # ------------------------------------------ #
+        
+
+
+        # ProposalNet_instance는 DetectionTransformer이고, 그 안의 디코더가 4번 반복
+        # transformer_detection.py:77-121 DetectionTransformer.forward
         outputs = self.ProposalNet_instance(bev_feature, agents_query, self.det_reg_branches, self.det_cls_branches, reference_points = reference_points, query_pos = query_pos, attn_mask=attn_mask) # torch.Size([32, 64, 32, 64])
+
+
 
         bev_embed, det_query, init_reference, inter_references = outputs
         det_query = det_query.permute(0, 2, 1, 3)               # (L, B, pad+Q, D)
@@ -631,10 +679,16 @@ class SafeDrive_Model(nn.Module):
         if self._config.det_coord_detach:
             output_coord_sigmoid = output_coord_sigmoid.detach()
 
-        stage['ins_query'] = det_query
-        stage['ins_coords'] = output_coord_sigmoid
-        stage['noised_motion_trajs'] = noised_motion_trajs
 
+        # ins_query: 학습이 완료된 50개의 learnable query(= 256 차원 feature) => (50x256) -> swnet에서 25개만 골라 sparse world 토큰이 됨.
+        stage['ins_query'] = det_query
+
+        # ins_coords: [x, y, sin, cos, L, W, vx, vy] -> swnet에서 궤적과의 거리를 재서 25개를 고르는 기준이 됨. (가까운 25개만)
+        stage['ins_coords'] = output_coord_sigmoid
+
+        stage['noised_motion_trajs'] = noised_motion_trajs
+    
+    # anchor -> mlp -> planning query -> bev interaction
     def _proposal_trajectory(self, features, output, stage):
         """Encode the trajectory anchors and refine them into the initial plan proposals."""
         bev_feature = stage['bev_query']
@@ -644,21 +698,50 @@ class SafeDrive_Model(nn.Module):
 
         instance_query = det_query[-1].clone()
 
-        plan_anchor = self.plan_anchor.unsqueeze(0).repeat(batch_size,1,1,1)   # (B, K, 40, 3)
+        # anchor를 배치만큼 복사 (모든 배치 샘플이 똑같은 anchor 256개를 사용)
+        plan_anchor = self.plan_anchor.unsqueeze(0).repeat(batch_size,1,1,1)   # (B, K, 40, 3) , K : 256 (anchor 개수)
 
+        # positional encoding (x => [sin(x·2π/1), cos(x·2π/1), sin(x·2π/10), cos(x·2π/10), sin(x·2π/100), cos(x·2π/100), sin(x·2π/1000),cos(x·2π/1000)])
+        # positional encoding (y => [sin(y·2π/1), cos(y·2π/1), sin(y·2π/10), cos(y·2π/10), sin(y·2π/100), cos(y·2π/100), sin(y·2π/1000),cos(y·2π/1000)])
+        # 입력이 (x, y, yaw) 3차원인데 x, y만 인코딩됩니다. anchor의 진행 방향 정보는 query에 들어가지 않음. (다만, 궤적의 모양에서 방향이 암묵적으로 드러나므로 치명적 손실은 아님)
         traj_pos_embed = gen_sineembed_for_position(plan_anchor, hidden_dim=16)
+        
+        # 40개의 waypoints -> 8개의 waypoints 로 솎아내기 (navsim 평가 시점과 동일하게)
         plan_anchor = plan_anchor[:, :, 4::5]                                  # 10 Hz -> (B, K, T, 3)
 
+        # ego_future_mode 개수 설정 (e.g. 256)
         ego_fut_mode = plan_anchor.shape[1]
+
+        # flatten (궤적 하나를 640개 숫자 한 줄로 펴는 것)
         traj_pos_embed = traj_pos_embed.flatten(-2)
+
+        # encoder (640 -> 256)
         traj_feature = self.plan_anchor_encoder(traj_pos_embed)
+
+        # 최신 프레임만 / status_feature : driving_command(4), ego_velocity(2), ego_acceleration(2)
         status_feature = status_feature[:,-1] if status_feature.dim() > 2 else status_feature
+
+        # 8개 숫자를 256차원으로 펼치기
         status_emb = self._status_encoding(status_feature)[:,None]
-        traj_feature += status_emb
+
+
+        traj_feature += status_emb # (B, 256, 256) += (B, 1, 256)
+        # 왜 더하는가? 같은 궤적이라도 자차 상태에 따라 타당성이 달라지기 때문
+        # 왜 concat이 아니라 덧셈인가? 차원을 256으로 유지하기 위해서입니다. Transformer에서 positional encoding을 더하는 것과 같은 관용입니다. concat하면 512가 되어 이후 모든 층의 차원을 바꿔야 합니다.
+
         traj_feature = traj_feature.view(batch_size,ego_fut_mode,-1)           # (B, K, D)
+
+        # 원본 anchor를 나중에 채점할 때 쓰려고 저장 (loss 계산시 gt 역할)
         output['plan_anchor'] = plan_anchor
+
+
         if self.ProposalNet_traj is not None:
             prop_plan_query = traj_feature
+
+            # 핵심 계산 (anchor 256개가 각자 자기 궤적을 따라가며 bev를 들여다보고, 궤적을 조금씩 수정)
+            # 논문: trajectory-guided deformable attention that samples \(F_{BEV}\) along each anchor trajectory
+            # 이 trajectory guided deformable attention 을 2회 반복 수행하며 anchor 궤적을 refine
+            # 이 refine 된 최종 궤적을 가지고 아래에서 scoring (nc, dac 등) 
             motion_outputs = self.ProposalNet_traj(
                 bev_embed=bev_feature,
                 query=prop_plan_query,
@@ -672,33 +755,51 @@ class SafeDrive_Model(nn.Module):
                 status_emb=status_emb,
             )
 
+            # 돌아온 결과를 4개로 풀어놓음. (prop_plan_query: layer 별 anchor 상태, intermediate_reference_points: layer 별 수정된 궤적)
             bev_embed, prop_plan_query, init_traj, intermediate_reference_points = motion_outputs
+
+            # 텐서내 column 순서 변경
             prop_plan_query = prop_plan_query.permute(0,2,1,3)
             # anchor offsets come back normalised; put them back into metres
+
+            # layer0, layer1을 각각 처리 (두 layer 모두 결과를 꺼내서 채점. 마지막 layer만 쓰지 않고 둘 다 쓰는 이유는 중간 layer도 잘하도록 학습시키기 위함.)
             for lvl in range(self.prop_traj_n_layers):
+                # t=0은 자차의 현재 위치라서 항상 (0,0) 이므로 버림.
                 plan_reg_pred = intermediate_reference_points[lvl][:,:,1:,]
+
+                # x,y 좌표를 다시 m 단위로 디코딩
                 plan_reg_pred[..., 0:1] = (plan_reg_pred[..., 0:1] * (self._config.grid_config['x'][1] - self._config.grid_config['x'][0]) + self._config.grid_config['x'][0])
                 plan_reg_pred[..., 1:2] = (plan_reg_pred[..., 1:2] * (self._config.grid_config['y'][1] - self._config.grid_config['y'][0]) + self._config.grid_config['y'][0])
+
+
+                # anchor 256개에 점수를 매김
                 plan_cls = self.proposal_traj_cls_branch[lvl](prop_plan_query[lvl]).squeeze(-1)
 
+                # 추후 loss 계산을 위해 output에 결과를 저장
                 output[f"plan_traj_{lvl}"] = plan_reg_pred
                 output[f"plan_traj_cls_{lvl}"] = plan_cls
 
+            # 마지막 layer의 anchor 벡터를 꺼냄 (가장 많이 다듬어진 상태라서 이걸 사용)
             traj_feature = prop_plan_query[-1].clone()
 
             # query filtering
-            if self._config.proposalnet_2stage:
-                if self._config.scene_level_safety:
+            if self._config.proposalnet_2stage: #256개를 128개로 더 줄일까?
+                if self._config.scene_level_safety: # 안전 점수를 사용할까?
+                    
+                    # 안전 점수 8종류 (nc, dac, ep, ttc, ddc, tlc, lk, pdms)
                     safety_score_pred = {}
                     for k, head in self.scene_level_safety_heads.items():
                         safety_score_pred[k] = head(prop_plan_query[-1]).squeeze(-1)
-                    plan_score = self._config.imi_2stage_weight * safe_log(plan_cls.softmax(-1))
-                    NC = self._config.NC_2stage_weight * safe_log(safety_score_pred['NC'].sigmoid())
-                    DAC = self._config.DAC_2stage_weight * safe_log(safety_score_pred['DAC'].sigmoid())
-                    EP = self._config.EP_2stage_weight * safety_score_pred['EP'].sigmoid()
+
+                    plan_score = self._config.imi_2stage_weight * safe_log(plan_cls.softmax(-1)) # 사람 운전과 비슷한 정도"에 0.5배 가중치
+                    NC = self._config.NC_2stage_weight * safe_log(safety_score_pred['NC'].sigmoid()) # 충돌 안 할 확률에 25배 가중치
+                    DAC = self._config.DAC_2stage_weight * safe_log(safety_score_pred['DAC'].sigmoid()) #도로 안에 있을 확률에 15배
+                    EP = self._config.EP_2stage_weight * safety_score_pred['EP'].sigmoid() # 전진량과 충돌 여유를 더한 뒤 20배
                     TTC = self._config.TTC_2stage_weight * safety_score_pred['TTC'].sigmoid()
                     W = self._config.W_2stage_weight * safe_log((EP + TTC))
                     score = plan_score + NC + DAC + W
+
+                    # 나머지 지표를 추가 (그러나 이 4개의 가중치는 전부 0.0으로 현재는 죽은 코드)
                     if self._config.pred_pdm_score:
                         pdm_score = self._config.pdm_score_2stage_weight * safety_score_pred['pdm_score'].sigmoid()
                         score += pdm_score
@@ -711,27 +812,38 @@ class SafeDrive_Model(nn.Module):
                     if self._config.pred_LK:
                         LK = self._config.LK_2stage_weight * safety_score_pred['LK'].sigmoid()
                         score += LK
+
+                # 안전 점수를 사용하지 않을 때에는, 그냥 사람 흉내 점수만 사용
                 else:
                     score = plan_cls
                 # score[score < -1e+10] = score[score>-1e-10].min()
 
                 # B, N = selected_upper_score.shape
-                K = self._config.num_proposal_2stage
-                topk_idx = score.topk(K, dim=1).indices  # (B, K)
+                K = self._config.num_proposal_2stage  # 최종 trajectory를 몇개 남길지 결정 (여기서는 128개, top-128)
 
+
+                topk_idx = score.topk(K, dim=1).indices  # (B, K) #점수가 높은 128개 뽑음. (topk_idx)
+
+                # 마지막 layer의 256개 궤적 중, 뽑힌 128개만 골라냄.
                 idx = topk_idx[:, :, None, None].expand(batch_size, K, 8, 3)
                 plan_traj = output[f"plan_traj_{self.prop_traj_n_layers-1}"]
                 plan_traj = plan_traj.gather(dim=1, index=idx)
 
+                # anchor 벡터도 똑같이 128개 골라냄. (궤적과 벡터를 같은 topk_idx로 고릅니다. 그래야 "128번 궤적"과 "128번 벡터"가 같은 anchor에서 온 짝이 됩니다. 짝이 어긋나면 SWNet이 완전히 망가짐).
                 idx_feat = topk_idx[:, :, None].expand(batch_size, K, self._config.tf_d_model)
                 traj_feature = traj_feature.gather(dim=1, index=idx_feat)
+
+                # 점수와 뽑힌 번호를 저장
                 output['stage1_score'] = score
                 output['proposal_2stage_topidx'] = topk_idx
             else:
                 plan_traj = output[f"plan_traj_{self.prop_traj_n_layers-1}"]
 
+            # SWNet이 학습하면서 "ProposalNet아, 궤적을 이렇게 바꿔줘"라고 요구하지 못하게 막습니다. 두 단계를 따로따로 안정적으로 학습시키기 위해서
             if self._config.stage1_reference_points_detach:
                 plan_traj = plan_traj.detach()
+
+
         else:
             plan_traj = plan_anchor
 

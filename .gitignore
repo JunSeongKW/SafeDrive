@@ -77,3 +77,9 @@ third_party/
 # Local-only notification helpers: contain SMTP credentials, never commit.
 nhn_bash/send_mail_eval.py
 nhn_bash/send_mail_grid.py
+
+# --- agent handoff workspace (junseong) ---
+.omc/
+.trash-*/
+*.orig-*
+*.nohup

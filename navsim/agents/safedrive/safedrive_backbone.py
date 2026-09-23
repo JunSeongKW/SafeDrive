@@ -86,6 +86,9 @@ class SafeDrive_Backbone(nn.Module):
         super().__init__()
         self.config = config
         try:
+            # timm.create_model()은 PyTorch Image Models(timm) 라이브러리에서 원하는 모델을 이름으로 생성하는 함수
+            # 모델 이름 : config.image_architecture = ResNet-34
+            # features_only=True : classification 의 결과가 아닌 multi-scale image feature map들만 추출하여 사용
             self.image_encoder = timm.create_model(config.image_architecture, pretrained=True, features_only=True)
         except Exception as e:
             print(f"Failed to load image encoder with error: {e}")
@@ -205,7 +208,8 @@ class SafeDrive_Backbone(nn.Module):
             temporal_concat_list.append(bev_embed)
 
         return img_feat, lidar_features, temporal_concat_list, rel_ego_pose_list, new_img_metas
-
+    
+    # SafeDrive_Backbone.forward : 여러 센서 입력 → BEV feature 한 장
     def forward(self, image, lidar, img_metas=None):
         image_features, lidar_features = image, lidar
         img_feat = image_features
@@ -216,26 +220,39 @@ class SafeDrive_Backbone(nn.Module):
         temporal_concat_list = []
         rel_ego_pose_list = []
         B, T, N, C, imH, imW = image_features.shape
+
+        # 1. 과거 프레임들을 각각 BEV로 만들기 (여기서 T = 3 이므로, single_process 함수에서 for문이 3번 돌면서 과거 프레임이 bev로 병합됨.)
         img_feat, lidar_features, temporal_concat_list, rel_ego_pose_list, new_img_metas =\
             self.single_process(T, image_features, img_metas, lidar_features, temporal_concat_list, rel_ego_pose_list)
 
+
+        # 현재 프레임의 LiDAR -> BEV
         # current bev feature
         lidar_feats, voxel_feature = self.compute_voxel_and_feats(lidar_features)
         lidar_feats = lidar_feats.permute(0, 1, 3, 2)
 
+
+        # 카메라 multi-scale feature를 BEV 공간으로 변환하고, LiDAR 기반 BEV query와 함께 fusion해서 BEV feature 생성
+        # obtain_bev: 1. gate = sigmoid(학습 파라미터) / 2.query = gate·LiDAR결과 + (1-gate)·카메라결과 + residual  => Multi-camera image feature와 LiDAR BEV feature를 입력받아 BEVFormer 기반 transformer를 통해 최종 fused BEV feature를 생성
         bev_embed = self.obtain_bev(img_feat, lidar_feats, new_img_metas, rel_ego_pose)
 
+
+        # 과거 bev를 현재 좌표계로 정렬 (과거 프레임의 bev는 그때의 차량 위치 기준으로 그려져 있기 때문에 그냥 concat 하는 것이 아닌 기하학적으로 shift 해서 concat)
         temporal_concat_list.append(bev_embed)
         for t in range(len(rel_ego_pose_list)):
             pose_3x3 = self.pose_to_3x3_transform(rel_ego_pose_list[t])
             temporal_concat_list[t] = self.shift_feature(temporal_concat_list[t],pose_3x3)
+
+        # temporal 융합 + 압축
         temporal_concat = torch.cat(temporal_concat_list, 1)
         bev_embed = self.temporal_concat_layer(temporal_concat)
         bev_embed = self.bev_backbone(bev_embed)
         bev_embed = self.bev_neck(bev_embed)[0]
         bev_embed = self.bev_downsample(bev_embed)
 
-        return bev_embed
+        return bev_embed  # 출력: (B, 256, 64, 64) - 전방 0~64m, 좌우 +- 32m, 1m/cell
+
+
 
     def obtain_bev(self, image_features, lidar_feats, img_metas, rel_ego_pose):
         """Lift the multi-camera features into the BEV grid, warping the previous BEV in."""

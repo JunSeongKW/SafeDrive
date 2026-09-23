@@ -269,6 +269,12 @@ class SafeDrive_Config:
     bev_seg_multi_class: bool = False
     future_bev_frames: int = 4
 
+    # Experiment alpha: let the instance queries cover pedestrians as well as
+    # vehicles. The query budget stays at num_bounding_boxes, so the Hungarian
+    # matching decides how the slots are split between the two classes instead
+    # of vehicles being hard-coded as the only world members.
+    include_pedestrian: bool = False
+
     num_vehicle_bounding_boxes: int = 50
     num_pedestrian_bounding_boxes: int = 100
 

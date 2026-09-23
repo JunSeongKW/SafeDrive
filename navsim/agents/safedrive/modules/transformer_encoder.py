@@ -19,6 +19,7 @@ from navsim.agents.safedrive.modules.decoder_detection import CustomMSDeformable
 from navsim.agents.safedrive.modules.encoder import BEVFormerEncoder
 
 
+# 카메라 multi-scale feature를 BEV 공간으로 변환하고, LiDAR 기반 BEV query와 함께 fusion해서 최종 BEV feature를 만드는 핵심 encoder
 class PerceptionTransformer_encoder(BaseModule):
     """Implements the Detr3D transformer.
     Args:
@@ -55,8 +56,11 @@ class PerceptionTransformer_encoder(BaseModule):
         self.can_bus_norm = can_bus_norm
         self.use_cams_embeds = use_cams_embeds
         self.rotate_center = rotate_center
-
+        
+        # self.level_embeds : 이 feature가 backbone의 어느 scale에서 나온 것인가 (transformer에게 Feature pyramid level을 embeding 으로 주입해 알려줌)
         self.level_embeds = nn.Parameter(torch.Tensor(num_feature_levels, self.embed_dims))
+
+        # self.cams_embeds : 이 feature가 어떤 카메라에서 왔는가 (transformer에게 Camera identity를 embedding 으로 주입해 알려줌)
         self.cams_embeds = nn.Parameter(torch.Tensor(num_cams, self.embed_dims))
 
         self.config = config
@@ -80,6 +84,9 @@ class PerceptionTransformer_encoder(BaseModule):
                     m.init_weights()
 
     @auto_fp16(apply_to=('mlvl_feats', 'bev_queries', 'prev_bev', 'bev_pos'))
+
+
+    # mlvl_feats: ResNet-34로 추출한 multi-camera image feature
     def forward(self,
                 mlvl_feats,
                 bev_queries,
@@ -103,6 +110,9 @@ class PerceptionTransformer_encoder(BaseModule):
         Returns:
             BEV feature of shape (bs, bev_h * bev_w, embed_dim)
         """
+
+
+
         bs = mlvl_feats[0].size(0)
         bev_pos = bev_pos.flatten(2).permute(2, 0, 1)
 
@@ -114,15 +124,24 @@ class PerceptionTransformer_encoder(BaseModule):
 
         feat_flatten = []
         spatial_shapes = []
+
+
         for lvl, feat in enumerate(mlvl_feats):
             bs, num_cam, c, h, w = feat.shape
             spatial_shapes.append((h, w))
             feat = feat.flatten(3).permute(1, 0, 3, 2)
+            
+            # 각 camera feature에 두 종류 embedding을 추가
             if self.use_cams_embeds:
                 feat = feat + self.cams_embeds[:, None, None, :].to(feat.dtype)
             feat = feat + self.level_embeds[None, None, lvl:lvl + 1, :].to(feat.dtype)
             feat_flatten.append(feat)
 
+
+
+        # flatten 및 concat 연산 (텐서의 디멘젼을 조작, 연산량을 줄이기 위함 & 추후 deformable transformer 적용을 위한 차원 일치 목적)
+        # Deformable Attention에서는 flatten만 해버리면 각 token이 원래 어느 spatial resolution에서 왔는지 알 수 없음. -> level_start_index 에 flatten 된 전체 sequence에서 각 feature level이 어디서 시작하는지 저장
+        # 이건 deformable attention 에서 sampling point 를 계산할 때 필요
         feat_flatten = torch.cat(feat_flatten, 2) # 3, 26, 512, 256
         spatial_shapes = torch.as_tensor(spatial_shapes, dtype=torch.long, device=bev_pos.device)
         level_start_index = torch.cat((
@@ -130,32 +149,37 @@ class PerceptionTransformer_encoder(BaseModule):
             spatial_shapes.prod(1).cumsum(0)[:-1]
         ))
         feat_flatten = feat_flatten.permute(0, 2, 1, 3) # 3, 512, 26, 256
-
         lidar_feat_flatten = []
         lidar_spatial_shapes = []
         lidar_spatial_shapes.append((bev_h, bev_w))
-        lidar_feat_flatten.append(bev_queries.clone())
+        lidar_feat_flatten.append(bev_queries.clone()) # 처음 들어온 bev_queries는 여기서 저장해둠 (LiDAR/BEV에서 이미 얻어진 실제 feature)
         # bev_queries.shape : torch.Size([4096, 16, 256])
         lidar_feat_flatten = torch.cat(lidar_feat_flatten, 2) # 2048, 26, 256
         lidar_spatial_shapes = torch.as_tensor(lidar_spatial_shapes, dtype=torch.long, device=bev_pos.device)
         lidar_level_start_index = torch.cat((lidar_spatial_shapes.new_zeros((1,)),lidar_spatial_shapes.prod(1).cumsum(0)[:-1]))
-        bev_queries = self.bev_embedding.weight.to(bev_queries)[:,None,:].repeat(1, bs, 1) #expand(*bev_queries.shape)
 
+
+        bev_queries = self.bev_embedding.weight.to(bev_queries)[:,None,:].repeat(1, bs, 1) #expand(*bev_queries.shape) # learnable BEV query로 덮어씀 (트랜스포머에 들어갈 learnable query)
         bev_embed = self.encoder(
-            bev_queries, # torch.Size([2048, 26, 256])
-            feat_flatten, # torch.Size([3, 512, 26, 256])
-            feat_flatten,
+            bev_queries, # torch.Size([2048, 26, 256])  -> 2048개의 BEV cell 각각에 대해 " 내 위치에 해당하는 scene 정보가 무엇인가를 계속 업데이트 " : learnable query (cross attn 을 통해 이미지와 라이다등에서 정보를 가져오는 역할)
+            feat_flatten, # torch.Size([3, 512, 26, 256])  -> key
+            feat_flatten, # value
             bev_h=bev_h, # 32
             bev_w=bev_w, # 64
-            bev_pos=bev_pos, # torch.Size([2048, 26, 256])
-            spatial_shapes=spatial_shapes, # tensor([[16, 32]], device='cuda:0')
+            bev_pos=bev_pos, # torch.Size([2048, 26, 256])   # positional encoding (BEV query 자체만 있으면 Transformer 입장에서는 각 query가 어느 위치를 가르키는지 알 수 없음)
+            spatial_shapes=spatial_shapes, # tensor([[16, 32]], device='cuda:0')  # flatten되기 전 image feature map의 크기 (Deformable attention이 flatten된 512개 token 중 어느 위치가 원래 이미지의 (x,y) 어디였는가? 를 복구할 때 사용)
             level_start_index=level_start_index, # tensor([0], device='cuda:0')
-            prev_bev=prev_bev,
-            shift=shift,
+            prev_bev=prev_bev, # 이전 timestep에서 만들어진 BEV feature (이를 이용해 Temporal Self-Attention을 수행)
+            shift=shift, # 이전 BEV와 현재 BEV 사이의 ego vehicle movement를 반영
             img_metas=img_metas, # img_shape: torch.Size([26, 3, 3, 256, 512]), lidar2img: torch.Size([26, 3, 4, 4])
             lidar_feat_flatten=lidar_feat_flatten,
             lidar_spatial_shapes=lidar_spatial_shapes,
             lidar_level_start_index=lidar_level_start_index,
         )
+        # bev_embed : 각 BEV query에 실제 scene 정보가 들어간 상태
+        # 처음에는 learnable query 였다면, encoder 이후에는 camera 정보, lidar 정보, previous bev 정보, positional inform 이 들어간 feature
+
+
+        # 마지막 reshape : encoder output을 다시 CNN-style BEV map으로 바꾸는 과정
         bev_feature = bev_embed.permute(0, 2, 1).reshape(bs, self.embed_dims, bev_h, bev_w)
         return bev_feature

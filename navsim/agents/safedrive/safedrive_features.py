@@ -150,6 +150,7 @@ class SafeDrive_FeatureBuilder(AbstractFeatureBuilder):
 
         return tensor_images, matrics, lidar2imgs
 
+    # lidar backbone = SECOND (논문에서도 언급함)
     def _get_lidar_feature_SECOND(self, agent_input: AgentInput) -> torch.Tensor:
         feature_list = []
         for frame_id in range(4-self._config.num_input_frames,4,1):
