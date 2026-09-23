@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-09-23 21:07 KST (Claude Code)
+마지막 갱신: 2026-09-23 21:23 KST (Claude Code)
 
 세션 **시작**: 이 파일 + `git log -10` + `AGENTS.md`. 세션 **끝**: 이 파일 갱신 + `tools/handoff-commit.sh`.
 상세 실험 일지는 `RESUME_NOTES.md`(2026-09-17~20, 시간순), 설계·근거는 `EXPERIMENT_DESIGN.md`.
@@ -23,6 +23,7 @@
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+- AGENTS.md 종료 루틴에 `git push mine` 추가 (원격: GitHub JunSeongKW, deploy key `~/.ssh/id_ed25519_junseong*`, ssh 별칭 `github-junseong`, `github-junseong-safedrive`).
 - 미커밋이던 코드(9/13~9/16: transformer_encoder, backbone, features, config/loss/model 의 include_pedestrian 분기 등 6파일 +200/−35)와 Phase2 설정 7종(Alpha, E2, E3, F1~F4), RESUME_NOTES.md, EXPERIMENT_DESIGN.md 를 이 커밋에 포함.
 - AGENTS.md / CLAUDE.md / HANDOFF.md / tools/handoff-commit.sh 추가 (에이전트 인수인계 구조).
 
