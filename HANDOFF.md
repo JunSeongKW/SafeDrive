@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-09-30 10:19 KST (Claude Opus 5)
+마지막 갱신: 2026-09-30 10:55 KST (Claude Opus 5)
 
 세션 **시작**: 이 파일 + `git log -10` + `AGENTS.md`. 세션 **끝**: 이 파일 갱신 + `tools/handoff-commit.sh`.
 상세 실험 일지는 `RESUME_NOTES.md`(2026-09-17~29, 시간순), 설계·근거는 `EXPERIMENT_DESIGN.md`.
@@ -108,6 +108,32 @@ navtest 12,147 전수, 각 조건 Phase 2 를 5 epoch 재학습(batch 24 × 2 GP
 
 **git 으로 오는 것**: 코드, 설정 yaml, `scripts/run`·`scripts/analysis`, `analysis/*.csv`(라벨·측정값),
 RESUME_NOTES / EXPERIMENT_DESIGN / HANDOFF / AGENTS, trajectory_anchors.
+
+### 서버 이전 실전 메모 (2026-09-30)
+
+이전 서버 `cloud-orO3Hf` 는 사설 IP(192.168.0.2)만 가진 클라우드 VM 이고, 대상
+`AXE-28`(143.248.201.28) 로 **ping·포트22 모두 도달 불가**였다. 양방향 rsync 가 막혀 있어
+대용량 직접 전송이 불가능하다. 따라서:
+
+1. **코드·스크립트·분석 CSV 는 git 으로만 옮긴다** (이미 `mine` 원격에 push 됨, 16 MB).
+2. 새 서버에서 **`bash tools/check-new-server.sh`** 를 먼저 돌려 GPU·디스크·데이터셋·conda·
+   레포 상태를 확인하고, **없는 것만** 옮긴다.
+3. **`exp/safedrive_train_cache`(444 GB) 는 옮기지 않는다** — SafeDrive 전용 feature builder
+   산출물이라 Drive-JEPA 등 다른 모델이 재사용할 수 없다. JEPA 전환에는 원본 데이터셋만 필요하다.
+4. Claude 메모리·대화는 git 으로 오지 않는다. `/home/kaist5/data/junseong/claude-context-0930.tar.gz`
+   (2.5 MB, `memory/` 14개 + 이 세션 transcript)를 별도 경로로 옮긴다. **메모리에 pin 된 연구
+   명제가 들어 있으므로 이것만은 꼭 옮긴다.**
+
+원본 데이터셋 실제 크기(`/home/kaist5/Dataset/navsim/dataset`, 심볼릭 링크 모음):
+
+| 항목 | 크기 |
+|---|---|
+| sensor_blobs | 2.5 TB |
+| **navhard_two_stage** | **31 GB** ← NAVSIM v2 navhard 데이터가 이미 내려와 있다 |
+| navsim_logs | 16 GB |
+| private_test_hard_two_stage | 10 GB |
+| maps | 1.4 GB |
+| warmup_two_stage | 1.2 GB |
 
 ### 환경변수
 
