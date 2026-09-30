@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-09-30 11:00 KST (Claude Opus 5)
+마지막 갱신: 2026-09-30 15:36 KST (Codex)
 
 세션 **시작**: 이 파일 + `git log -10` + `AGENTS.md`. 세션 **끝**: 이 파일 갱신 + `tools/handoff-commit.sh`.
 상세 실험 일지는 `RESUME_NOTES.md`(2026-09-17~29, 시간순), 설계·근거는 `EXPERIMENT_DESIGN.md`.
@@ -52,28 +52,15 @@ navtest 12,147 전수, 각 조건 Phase 2 를 5 epoch 재학습(batch 24 × 2 GP
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- **`/tmp` 스크래치패드에만 있던 자산을 레포로 옮겼다.** 다른 서버로 넘어갈 때 작업이
-  끊기던 가장 큰 구멍이었다. `scripts/run/`(14개 실행 스크립트), `scripts/analysis/`(10개 분석
-  스크립트), `analysis/`(7개 라벨·측정 CSV, 3.5 MB). 하드코딩된 `/tmp/claude-1000/...` 경로를
-  `SD_SCRIPTS` / `SD_LOGS` / `SD_ANALYSIS` 환경변수 기반으로 바꿨고 문법 검사를 통과했다.
-  이전 HANDOFF 4절의 "`navtest_labels.csv` 를 찾을 수 없다" 는 이 경로 문제였고, 이제
-  `analysis/navtest_labels.csv` 로 레포에 있다.
-- **연구 플랫폼을 JEPA 계열로 전환하기로 했다**(0절). SafeDrive 결과는 motivation 으로만 쓴다.
-- **맥락 축을 사전 확정했다**(`scripts/analysis/context_axes.py` → `analysis/context_axes.csv`).
-  입력만으로 7축(회전·agent밀도·보행자·ego속도·요구진행량·곡률·정적물)을 뽑았다. 모델 성능으로
-  계층을 나누면 평균 회귀로 허상이 생긴다(3차에서 baseline 점수 3분위가 +4.93 이라는 허상을 만들었다).
-- **"상황별로 필요한 정보가 다르다" 를 예비 확인했다**(`scripts/analysis/context_check.py`).
-  단조 추세 3건이 핵심 증거. 다중비교(약 76 검정) 때문에 개별 ★은 과신하지 않는다.
-- **오염 요인 2건을 고쳤다.** (a) feature cache 4,321 토큰 소실(step/epoch 1774→1695 이 단서),
-  `force_cache_computation=False` 로 15분에 복구. (b) `pair_Disp` 가 `prediction_loss_weight` 와
-  무관하게 `gt_motion_traj` 를 계속 감독하던 누출 — motion 을 끄는 5개 config 에
-  `pair_Disp_loss_weight: 0.0` 추가.
-- **queue.sh 가 학습 실패를 감지하지 못하던 버그를 고쳤다.** O0 가 외부 SIGTERM 으로 죽었는데
-  큐가 그것을 모르고 epoch=1 체크포인트로 평가를 시작했다. 이제 `TRAIN_DONE` 을 확인하고
-  없으면 평가하지 않고 멈춘다. 긴 작업은 `setsid` 로 띄워 셸 정리에 휩쓸리지 않게 한다.
-- 선행연구 정독: **DA-WAM(2608.19085) NAVSIM v1 93.7 PDMS — SafeDrive(91.6)는 더 이상 SOTA 가 아니다.**
-  PerceptDrive(2607.20175)가 가장 가깝지만 현재 프레임 prior 를 라우팅하고 future 는 단일 latent,
-  예산 스윕 없음, 저자가 *"probes reliance rather than isolated causal effects"* 라고 한계를 자인.
+- **AXE-080 Tier 1 이전 완료.** Claude 메모리 14개와 세션 JSONL 1개, 평가 CSV 22개,
+  `o0_nofuture`·`f3_nopairnc` 재개용 `last.ckpt` 2개를 받았다. 체크포인트 크기는 AICA 원본과
+  일치하고 받다 만 임시 파일은 없다.
+- **공용 데이터 안전 규칙을 확정했다.** `/home/user/data/Dataset/` 전체는 연구실 공용 원본이므로
+  절대 직접 수정하지 않고 심볼릭 링크로만 읽는다. 변환 데이터·metric/feature cache·새 데이터셋은
+  개인 경로 `/home/user/data/processed_dataset/junseong/` 아래에 둔다. 이 규칙을 `AGENTS.md`와
+  pinned Claude 메모리에 기록했다.
+- SafeDrive 에 `dataset -> /home/user/data/Dataset/navsim` 심볼릭 링크를 만들고 maps·navsim_logs·
+  sensor_blobs 를 읽을 수 있음을 확인했다. 링크는 `.gitignore` 대상이고 공용 원본에는 쓰지 않았다.
 
 ## 4. 다음 단계
 
@@ -96,11 +83,16 @@ navtest 12,147 전수, 각 조건 Phase 2 를 5 epoch 재학습(batch 24 × 2 GP
 
 ## 6. 다른 서버에서 재구성 (git 으로 오지 않는 것)
 
+**AXE-080 데이터 규칙(2026-09-30 확인):** 연구실 공용 원본은 `/home/user/data/Dataset/`이며
+절대 직접 수정하지 않는다. 프로젝트에서는 심볼릭 링크로만 읽고, 변환 데이터·metric/feature cache·
+새 데이터셋 다운로드는 개인 경로 `/home/user/data/processed_dataset/junseong/` 아래에 둔다.
+현재 SafeDrive 링크는 `dataset -> /home/user/data/Dataset/navsim`이다.
+
 | 항목 | 이 서버 위치 | 옮기는 방법 |
 |---|---|---|
 | conda env (6.7 GB) | /home/kaist5/miniconda3/envs/safedrive (링크 `kjs-SafeDrive-exp2`) | `scripts/run/build_env.sh` + `build_mmcv.sh`. **mmcv 2.1.0 은 대상 GPU arch 로 소스빌드**(sm_90=H100). 사전빌드 wheel 은 sm_90 커널이 없어 deformable attention 이 조용히 전부 0 이 된다 |
 | 체크포인트 3.0 GB | ckpts/safedrive_phase{1_90ep,2_5ep,3_10ep}.ckpt | rsync |
-| 데이터셋 | dataset -> /home/kaist5/Dataset/navsim/dataset | 대상 서버 navsim 경로로 심볼릭 링크 |
+| 데이터셋 | `dataset -> /home/user/data/Dataset/navsim` | 공용 원본은 읽기 전용으로 취급하고 심볼릭 링크로만 사용 |
 | navtrain feature cache 444 GB / metric cache 22 GB | exp/safedrive_train_cache, exp/train_metric_cache_navtrain | rsync 또는 `scripts/run/cache_navtrain.sh` 재생성(수 시간). **일부만 없으면 `scripts/run/repair_cache.sh` 로 없는 것만 채운다** |
 | navtest/navmini 캐시 5 GB | exp/metric_cache_navtest, exp/feat_cache_navmini, exp/metric_cache_navmini | rsync |
 | 실험 산출물 | exp/safedrive/*, exp/training/* | 결과 CSV(`eval_*/traj_*.csv`)만 rsync 하면 충분 |
