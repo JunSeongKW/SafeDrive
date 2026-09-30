@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-09-30 10:55 KST (Claude Opus 5)
+마지막 갱신: 2026-09-30 11:00 KST (Claude Opus 5)
 
 세션 **시작**: 이 파일 + `git log -10` + `AGENTS.md`. 세션 **끝**: 이 파일 갱신 + `tools/handoff-commit.sh`.
 상세 실험 일지는 `RESUME_NOTES.md`(2026-09-17~29, 시간순), 설계·근거는 `EXPERIMENT_DESIGN.md`.
@@ -111,9 +111,28 @@ RESUME_NOTES / EXPERIMENT_DESIGN / HANDOFF / AGENTS, trajectory_anchors.
 
 ### 서버 이전 실전 메모 (2026-09-30)
 
-이전 서버 `cloud-orO3Hf` 는 사설 IP(192.168.0.2)만 가진 클라우드 VM 이고, 대상
-`AXE-28`(143.248.201.28) 로 **ping·포트22 모두 도달 불가**였다. 양방향 rsync 가 막혀 있어
-대용량 직접 전송이 불가능하다. 따라서:
+이전 서버 `cloud-orO3Hf` 는 사설 IP(192.168.0.2)만 가진 **NAT 뒤 클라우드 VM** 이라
+outbound 가 막혀 있다(AXE-28·AXE-080 모두 ping·포트22 도달 불가). 그러나
+**외부 IP `61.107.200.100` 으로 들어오는 것은 된다** — 이전에 새 서버에서 당겨오기(pull)로
+성공한 이력이 있다.
+
+→ **`tools/pull-from-cloud.sh` 를 새 서버에서 실행한다.** tier 로 나눠 두었다.
+
+| tier | 내용 | 크기 |
+|---|---|---|
+| 1 | Claude 메모리·대화 + 평가 결과 CSV + 재개용 `last.ckpt` | **2.6 GB** |
+| 2 | 사전학습 ckpt + navtest/navmini 캐시 | 8 GB |
+| 3 | navtrain metric cache | 22 GB |
+| 4 | navtrain feature cache (**권장하지 않음**) | 444 GB |
+
+```bash
+bash tools/pull-from-cloud.sh 1          # 포트가 22 가 아니면 SRC_PORT=xxxx 를 앞에 붙인다
+```
+
+tier 1 이 `exp/safedrive` 전체(52 GB)를 받지 않는 이유: 중간 epoch 체크포인트가 run 당
+7.8 GB 씩 쌓여 있는데 재개에는 `last.ckpt` 하나만 필요하다.
+
+그 외 원칙:
 
 1. **코드·스크립트·분석 CSV 는 git 으로만 옮긴다** (이미 `mine` 원격에 push 됨, 16 MB).
 2. 새 서버에서 **`bash tools/check-new-server.sh`** 를 먼저 돌려 GPU·디스크·데이터셋·conda·
