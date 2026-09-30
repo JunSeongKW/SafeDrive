@@ -31,7 +31,7 @@ config:
   lidar_max_x: 64
 
   # Predict Future BEV Seg
-  fut_bev_semantic_weight: 7.0
+  fut_bev_semantic_weight: 0.0
 
   # get target agent per class
 
@@ -127,6 +127,9 @@ config:
   SWNet_num_layers: 4
 
   scene_level_safety: True
+  # === Experiment O0: 미래 표현 감독 4종 전부 제거 (K=0, 바닥값) ===
+  # (미래 표현 노브: futbev=OFF, motion=OFF, pairnc=OFF, twdac=OFF)
+
   # === Phase2: FREEZE perception (backbone/BEV-seg/detection), train only planning+safety ===
   #   Weights loaded from phase1 ckpt (checkpoint_path below / launcher override), NOT a resume.
   #   + resume_from=true ckpt_path=<phase2 last.ckpt>.
@@ -164,18 +167,12 @@ config:
   det_coord_detach: True
   agent_filtering_fix: True
   all_motion_predidction_loss: true
-  # === Experiment F2: remove supervision of the agent-future-trajectory representation ===
-  # prediction_loss_weight scales motion_reg / motion_cls (safedrive_loss.py:266-267).
-  # Note the asymmetry with F1: motion outputs DO reach the planner (motion_traj_group flows
-  # into the sparse world), so zeroing the loss leaves an unsupervised motion signal in place.
-  # This therefore asks whether the explicit human-designed future-trajectory *supervision*
-  # is necessary, not whether the pathway is.
   prediction_loss_weight: 0.0
 
   pwnc_check: True
   # pair-NC GT comes from the live PDM run (targets['pair_collision_gt']),
   # needs targets['agent_token_ids'], so the training cache must carry token ids.
-  pair_NC_loss_weight: 100.0
+  pair_NC_loss_weight: 0.0
   pwnc_focal_loss: True
   pair_NC_class_weighting: True
   pwnc_focal_alpha: 0.75
@@ -191,7 +188,7 @@ config:
   twdac_check: True
   # time-wise DAC GT comes from the live PDM run (targets['twdac_gt']),
   # per-world, so no agent token ids are needed.
-  twdac_loss_weight: 50.0
+  twdac_loss_weight: 0.0
   twdac_focal_loss: True
   twdac_bev_module: True
   twdac_reference_detach: True

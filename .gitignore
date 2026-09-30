@@ -83,3 +83,7 @@ nhn_bash/send_mail_grid.py
 .trash-*/
 *.orig-*
 *.nohup
+
+# scripts/run 의 평가 스크립트는 인수인계에 필요하므로 위 eval*.sh 규칙에서 제외한다
+# (레포 루트에 흩어진 임시 eval 스크립트를 막는 것이 원래 의도였다)
+!scripts/run/eval*.sh
