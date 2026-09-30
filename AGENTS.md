@@ -42,10 +42,11 @@ ls -lt exp/safedrive | head; ls -lt exp/training | head
   작업이 없을 때 지운다.
 - **환경**: conda env `safedrive`(py3.10 / torch 2.1.0+cu121 / mmcv 2.1.0 소스빌드 sm_90 / spconv-cu120 /
   mmdet 3.2.0). 새 의존성은 새 env 에.
-- **데이터 안전(AXE-080)**: `/home/user/data/Dataset/` 전체는 연구실 공용 원본이다. 읽기와 프로젝트
-  심볼릭 링크만 허용하며, 그 안의 파일·디렉터리를 직접 생성·수정·이동·이름 변경·삭제하지 않는다.
-  SafeDrive 는 `dataset -> /home/user/data/Dataset/navsim` 링크로 읽는다. 데이터 변환 결과, metric/feature
-  cache, 새로 다운로드하는 데이터셋은 모두 개인 경로 `/home/user/data/processed_dataset/junseong/` 아래에 둔다.
+- **데이터 경로·안전(AXE-080)**: `/rhome/junseong/`이 코드·변환 결과·metric/feature cache를 포함한
+  작업공간이다. `/home/user/data/Dataset/` 전체는 연구실 공용 원본이므로, 그 안의 파일·디렉터리를
+  직접 생성·수정·이동·이름 변경·삭제하지 않고 작업공간의 프로젝트에 심볼릭 링크로만 연결한다.
+  SafeDrive 는 `dataset -> /home/user/data/Dataset/navsim` 링크로 읽는다. 새로 필요한 데이터셋 원본만
+  `/home/user/data/processed_dataset/`에 총 1 TB 한도 안에서 다운로드한다.
 - **실행 방식**: 확인 질문으로 멈추지 말고 합리적 기본값으로 진행한 뒤 가정을 결과와 함께 보고한다.
   되돌릴 수 없는 삭제만 예외.
 - **경로**: 체크포인트 `ckpts/`, 캐시·학습 산출물 `exp/`(499 GB, git 밖), 설정

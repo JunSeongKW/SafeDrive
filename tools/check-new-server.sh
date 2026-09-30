@@ -20,7 +20,7 @@ echo
 
 echo "---- NAVSIM 데이터셋이 이미 있나 (가장 중요) ----"
 FOUND=""
-for d in ~/Dataset/navsim ~/data/Dataset/navsim /data/navsim /mnt/navsim \
+for d in /home/user/data/Dataset/navsim ~/Dataset/navsim ~/data/Dataset/navsim /data/navsim /mnt/navsim \
          ~/navsim/dataset /workspace/navsim; do
   [ -d "$d" ] && { echo "  발견: $d"; FOUND="$d"; }
 done
