@@ -2,6 +2,8 @@
 
 2026-10-01, Codex. ChatGPT의 `fe8c930` 검토를 반영했다. 이번 작업의 parent는 `9b7d6e1`.
 **확인 사실 / 권고 설계 / 실행 결과 / 미확인**을 아래에서 구분한다.
+이 파일의 실행 상태는 `35fbdcf` 시점의 조사 기록이다. 이후 official encoder/GT ROI 영상 pilot이
+실행됐으며 최신 범위·mixed target·결과는 [영상 pilot 검증](visual_future_prediction_pilot_validation.md)에 있다.
 연구 질문은 바꾸지 않는다: 현재 관측·ego 의도에 따라 같은 예산에서 planning에 유용한 객체의
 미래 예측 대상을 학습할 수 있는가? SafeDrive baseline 연구와 재학습은 계속 잠정 중단이다.
 
@@ -21,8 +23,9 @@ backbone의 ROI adapter를 다음 후보로 비교한다. BEV 도입은 필수 �
 
 **지금 실행한 것**: 실제 NAVSIM mini의 GT 상태 입력·미래 상태 target으로 작은 모델의
 forward/loss/backward를 검사했다. 이것은 visual encoder/JEPA 또는 공식 baseline 재현이 아니다.
-**아직 실행하지 않은 것**: 공식 encoder checkpoint 로딩, image feature ROI, 시각 target encoder,
-planner와 공식 평가 경로의 실제 실행. 본 학습 baseline 확정은 이 gate를 통과한 다음이다.
+**35fbdcf 당시 미실행**: 공식 encoder checkpoint 로딩, image feature ROI, 시각 target encoder,
+planner와 공식 평가 경로. 후속 작업에서 frozen encoder+ROI+신규 planner 연결은 통과했지만
+공식 evaluator/score 재현과 본 학습 baseline 확정은 여전히 미완료다.
 
 ## 2. 소스 기준과 근거
 

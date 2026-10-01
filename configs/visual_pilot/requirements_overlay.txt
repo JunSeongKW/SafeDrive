@@ -1,0 +1,3 @@
+# Separate venv overlay; torch 2.8.0/torchvision 0.23.0 are read-only inherited.
+# Not the official Drive-JEPA full-stack reproduction environment.
+timm==1.0.30

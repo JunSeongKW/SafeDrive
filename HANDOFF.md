@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 12:06 KST (Codex)
+마지막 갱신: 2026-10-01 13:31 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -10,6 +10,7 @@
 CPU v1 결과: [docs/synthetic_validation_results.md](docs/synthetic_validation_results.md).
 실제 데이터 상태 진단: [docs/navsim_state_adapter_validation.md](docs/navsim_state_adapter_validation.md).
 Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](docs/baseline_and_target_adapter_audit.md).
+최신 실제 영상 pilot: [docs/visual_future_prediction_pilot_validation.md](docs/visual_future_prediction_pilot_validation.md).
 현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
 명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
 경로 이전: [docs/directory_migration.md](docs/directory_migration.md).
@@ -29,12 +30,11 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 
 ## 1. 실행 중인 작업
 
-**진행 중인 신규 작업 없음** (2026-10-01). CPU v1 검사와 작은 합성 학습을 완료했다.
-GPU/NAVSIM 학습·공식 평가·cache 생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
-이후 사용자 요청으로 checkout·package·함수·변수·CLI·문서를 가독성 기준으로 재명명했다.
-새 경로에서 CPU 재검증을 마쳤고 진행 중인 신규 프로세스는 없다.
-이후 ChatGPT fe8c930 검토를 반영해 perception-based 소스 감사와 실제 NAVSIM **GT-state**
-adapter smoke까지 완료했다. Official encoder/visual entity target/공식 baseline 재현은 아직 미수행이다.
+**진행 중인 신규 작업 없음** (2026-10-01). CPU v1, 실제 GT-state 진단에 이어
+ChatGPT `35fbdcf` 검토의 **공식 frozen encoder→GT ROI→visual/spatial 미래 target→신규 planner**
+연결 진단을 GPU0에서 완료했다. 한 구간의 gradient/단일 update이며 본 학습이나 성능 결과가 아니다.
+Official full-stack 평가·cache 재생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
+가독성 명명 이후 루트와 현재 package를 유지하고 기존 SafeDrive 자산은 건드리지 않는다.
 
 현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
 RTX A6000 약 48 GB다. 확인 당시 기존 프로세스가 있으므로 비어 있다고 가정하거나
@@ -100,40 +100,40 @@ Log/image hash는 전후 동일. 기존 synthetic gradient norm15개도 변하�
 권고 scaffold는 공식 front encoder+단순 trajectory decoder+새 image ROI/미래 memory adapter다.
 SafeDrive를 주 baseline으로 되돌리지 않는다. Weight/visual batch gate 후 최종 baseline을 결정한다.
 
+**최신 영상 pilot 결과**: official weight5,127,748,765bytes의 pinned revision/SHA256 확인,
+target_encoder292tensor strict load. Frozen encoder303,885,312params + 신규 scaffold2,487,988params.
+실제 mini window0에서32현재 후보 중 front ROI13, K4, future8의 visual1024dim+spatial6dim 예측.
+Planning S/P/D norm0.029646/0.466658/25.917812; visual aux0/3.903199/0; spatial aux0/6.385962/0.
+Future detach는 forward 동일·S/P gradient0, no-future-branch는 S/P 호출 생략·gradient0.
+공동 backward와1회 selector update,33/33tests 통과. 최종 영상 재검사20.24s, CUDA peak allocated
+1,324,247,552bytes. Epoch 비용·학습 성능·전체 process VRAM 측정이 아니다.
+GT geometry/association과 front-only 제한, future ROI의 visibility 편향 및 rectification 미확인이 남는다.
+순수 visual JEPA/공식 Drive-JEPA 전체 모델 재현/H1·H2 성과로 부르지 않는다.
+Shared log1/image10 hashes 전후 동일. 결과: `results/visual_diagnostics/visual_future_pilot_verified_20261001.json`.
+
 ## 3. 마지막 커밋 이후 바뀐 것
 
-최종 근거 재대조 정정: SafeDrive default query 수는 config의30 자체가 아니라 constructor의
-`sum([1,30])=31`이다. 감사 표를 `[layer,B,31,256]`로 고쳤다. 구현·실행 결과에는 영향이 없다.
-아래는 이번 작업 전체 요약이며 주요 구현 commit은 `3b44be1`이다.
+- ChatGPT 35fbdcf 검토를 반영해 official encoder 한 파일의 revision/size/SHA256 고정과 strict load 확인.
+- 새 visual_future_prediction_pilot venv overlay에 timm1.0.30만 추가하고 기존 환경 upgrade는 하지 않음.
+- GT track/box front ROI adapter, frozen teacher, visual+explicit spatial 미래 predictor와 작은 planner 구현.
+- ROI appearance의 motion 보존을 가정하지 않고 current-ego state6dim을 별도 target으로 둔 혼합 감독 pilot.
+- GPU0에서 실제 video clip9개, planning/aux/detach/no-branch gradient와 joint backward·단일 update 검사.
+- 33tests/Ruff 통과, shared log/image hash 불변, ROI contact sheet 직접 확인. 기존 synthetic/GT 결과 보존.
+- 연구 상태·계산 그래프·대조표·실측 JSON·검증 보고·handoff 갱신. SafeDrive 재개/대규모 학습 없음.
 
-- ChatGPT fe8c930 검토의 합성 oracle 해석을 정정했다. Input exact-match와 relevance reference는
-  이 과제에서 같으며 no-intent 정책은 entity-only임을 명시했다. 과거 raw JSON은 보존했다.
-- Drive-JEPA v1 perception-based encoder/refiner/scorer/loss/targets를 함수 수준에서 감사하고
-  SafeDrive 재사용 후보와 비교했다. Source commit·shape·gradient·특권 입력·비용/미확인을 기록했다.
-- 권고 scaffold와 current/future visual ROI target·teacher·association·planner memory 연결을 설계했다.
-  공식 모델 전체 재현과 신규 scaffold를 구분하고 SafeDrive baseline 연구는 계속 잠정 중단했다.
-- 독립 raw NAVSIM GT-state adapter와 8-waypoint fixture 출력, 실행 CLI 및 검사를 추가했다.
-  Target은 별도 builder; track 순서/소멸/좌표/invalid/timestamp/log 경계를 검사했다.
-- 28/28 unittest, 기존 norm15개 정확한 회귀 일치, 실제 mini 두 구간의 S/P/D gradient·공동 backward·
-  단일 update를 확인했다. 실제 yaw 규약 차이를 공식 NAVSIM에 맞춰 수정했다.
-- CPU 진단 결과 JSON·audit·검증 보고서·연구 상태·README를 갱신했다. Official weights/환경 설치·
-  visual perception 실행·GPU·대규모 cache/학습은 하지 않았다. 공유 원본 hash는 전후 동일했다.
+## 4. 다음 단계 — target·범위 확정 후 작은 공동 학습
 
-## 4. 다음 단계 — 실제 visual entity/target 연결
-
-1. `baseline_and_target_adapter_audit.md`와 `navsim_state_adapter_validation.md`를 읽는다.
-   State smoke를 visual perception 검증으로 대신하지 않는다. 추가 synthetic accuracy 튜닝은 불필요하다.
-   Legacy `navsim/`은 보존하고 현재 구현은 `src/planning_aware_future_prediction/`에 추가한다.
-2. 독립 front-encoder 환경·dependency/commit을 고정하고 official weight **한 개만** 골라
-   metadata/state-dict key를 확인해 내려받는다. 전체 weight/cache bundle과 기존 환경 upgrade 금지.
-   현재/future image ROI·동일 track teacher target·미래 memory adapter를 실제 batch로 검사한다.
-   이 gate 후 baseline을 확정한다. SafeDrive로 임의 회귀하지 않는다.
+1. `visual_future_prediction_pilot_validation.md`와 실제 JSON을 읽는다. Weight/영상 연결 gate 완료;
+   env/weight 재생성이나 추가 synthetic/GT-state tuning은 필요 없다. Legacy SafeDrive는 보존한다.
+2. 현재 pilot의 privileged GT/mixed visual+spatial target 범위를 검토한다. 여러 log의 front ROI
+   coverage·occlusion·multiview 필요성과 detector/association 의존도를 확인하고 split을 고정한다.
 3. AD-E2E-JEPA·Causal-JEPA·IA-JEPA·SPARTAN·Drive-JEPA 및 직접 관련 연구의 원문/공식 코드로
    선택 대상·맥락/의도 조건·gradient·예산·train/inference·planning 평가 비교표를 완성한다.
    “못 찾음” 또는 두 열의 “아니오”는 novelty 증명이 아니다.
-4. Visual batch gate 후 동일 K/horizon의 random·강한 규칙·제안 선택을 작은 공동 학습으로 비교한다.
-   미래 감독 on/off의 동일 모듈 대조 및 현재 feature 전달 대조를 분리한다. 미래 경로 무시/collapse,
-   학습량·parameter 통제를 확인하며 동적 K/horizon과 대규모 학습은 보류한다.
+4. 동일 K/horizon의 random·강한 규칙·제안 선택과 최소 감독/branch 대조를 선정한 뒤 작은 공동 학습.
+   visual auxiliary on/off는 spatial 감독을 고정해 분리한다. 모든 미래 감독off/current target/no-future
+   branch를 혼동하지 않는다. All-entity는 다른 예산 참조며 우위를 필수 gate로 삼지 않는다.
+   미래 무시/collapse·현재 side-channel·학습량/parameter 통제 및 진행/중단 조건을 미리 확정한다.
 5. SafeDrive CSV는 별도 CPU motivation 분석에 쓴다. run provenance와 공통 token을 확인하고,
    log-level cross-fitting, 같은 선택 절차의 best-fixed 비교, cluster bootstrap, 정의된 검정군의
    BH-FDR를 사용한다. cross-fitted 규칙을 oracle upper bound라고 부르지 않는다.
@@ -148,9 +148,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 공용 원본 직접 수정 금지; 기존 환경/프로세스 보존; 작업공간은 `/rhome/junseong`;
 새 데이터셋 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
 
-**미결**: 최종 visual baseline/공식 재현, ST surrogate의 실제 학습 적합성, visual entity/association/target encoder,
-planner가 미래를 실제 쓰는지, 동일 예산 비교군 대비 효과, novelty delta, 독립 holdout.
-현재 ST는 조건부 softmax를 쓰는 편향된 임시 추정이다. CPU 성공을 실제 데이터 성공으로 일반화하지 않는다.
+**미결**: 최종 mixed vs pure visual target/baseline·공식 평가, ST 공동 학습 안정성,
+multiview/occlusion/GT 대체association, 미래 활용·동일 예산 효과·novelty delta·독립 holdout.
+Frozen visual teacher와 GT ROI는 구현됐지만 deployment perception/일반화는 검증하지 않았다.
+현재 ST는 편향된 임시 추정이다. 작은 연결 검사 성공을 성능·효율로 일반화하지 않는다.
 **명명 규칙 확정**: 프로젝트·파일·class·function·인자·변수·config·result key가 역할을 직접 설명해야 한다.
 현재 작업명은 Planning-Aware Future Prediction이며 최종 논문명·방법명은 미확정이다.
 

@@ -1,8 +1,8 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
-갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **CPU graph + 실제 NAVSIM GT-state adapter
-진단 완료, perception-based 소스 감사 및 visual adapter 설계안 작성** 상태다.
-공식 NAVSIM baseline 재현·visual JEPA·시각 entity/target 구현 완료 보고는 아니다.
+갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **CPU graph + NAVSIM GT-state 진단 +
+공식 frozen encoder를 이용한 실제 front-video/GT ROI visual·spatial target 연결 검사 완료** 상태다.
+공식 NAVSIM baseline 재현·성능·순수 visual JEPA·배포 가능한 perception 구현 완료 보고는 아니다.
 동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `selective_entity_future_prediction_graph.md`,
 시간순 이력은 `RESUME_NOTES.md`에서 관리한다.
 
@@ -70,13 +70,31 @@
 - 실제 데이터 대조에서 ego yaw convention 차이를 발견해 공식 pyquaternion 규약으로 수정하고
   roll/pitch가 0이 아닌 회귀 검사를 추가했다. 공용 log/image hash는 전후 같다.
 
+### ChatGPT 35fbdcf 검토 이후 추가한 것
+
+- 공식 encoder weight 한 개(5.13GB), pinned revision/size/SHA256 및292tensor strict loading 확인.
+  `FrozenDrivingVideoEncoder`는 eval/no_grad, current와 future에 같은 frozen teacher 사용.
+- 새 venv overlay에 timm1.0.30만 설치했다. 기존 torch환경은 읽기 전용 참조하며 upgrade하지 않았다.
+- GT track/box front ROI adapter와 visual+explicit spatial 미래 predictor, 새 작은 trajectory decoder 구현.
+  ROI appearance만으로 위치·motion 보존을 가정하지 않고 별도 current-ego state target6dim을 쓴다.
+  이는 혼합 감독 pilot이지 pure visual JEPA나 공식 Drive-JEPA 전체 모델이 아니다.
+- GPU0에서 실제 mini window0의 현재·미래 clip9개를 실행, 13front 후보에서K4 선택·future8 예측.
+  Planning→S/P/D, visual/spatial auxiliary→P only, future detach·no-branch 계약 및1회 update 통과.
+- 33/33 unittest(기존28+visual5), Ruff 통과. 추가 synthetic training·GT-state test 확대 없음.
+- ROI contact sheet를 직접 확인했다. 대체로 정합하나 occlusion/rectification 미확인, front 제한 유지.
+  현재/미래 appearance cosine과 명시적 spatial motion을 설명 통계로만 기록했다.
+- 미래 감독 없음 / current-target / no-future-branch / all-entity 참조를 별도 대조로 설계했다.
+  실제 수행은 경계 진단이며 공동 학습 비교나 planning 성능 평가는 아직 하지 않았다.
+- 공유 log1개/image10개 hash 전후 동일. 새 원본 dataset 다운로드·공유 dataset 쓰기 없음.
+  상세: [영상 pilot 검증](visual_future_prediction_pilot_validation.md),
+  `results/visual_diagnostics/visual_future_pilot_verified_20261001.json`.
+
 ### 아직 하지 않은 것 (현재 기준)
 
-- 실제 **시각** entity/target adapter·target encoder·공식 planner 연결은 구현하지 않았다.
-- 실제 GT-state batch forward/backward는 수행했지만 공식 checkpoint/perception 평가는 하지 않았다.
-- 새 외부 의존성 설치, 기존 환경 업그레이드, GPU 학습, 전체 cache 재생성을 하지 않았다.
-- 공용 데이터셋에 쓰거나 새 데이터셋을 다운로드하지 않았다.
-- visual target의 권고 명세는 작성했으나 공식 weight batch gate와 최종 baseline 확정은 남아 있다.
+- Official planner weight/evaluator/benchmark score 재현, detector/tracker 기반 inference.
+- 여러 장면/seed 공동 학습, 미래 활용·collapse·동일-K 성능·효율 평가, novelty 표 완성.
+- 최종 visual-only vs mixed target 및 baseline/독립 holdout 확정.
+- 본 학습·전체 cache 재생성·SafeDrive 재학습. 공용 dataset 수정 및 기존 환경 upgrade.
 
 95015df는 문서·작업 규칙 변경이었다. 이번 v1은 독립 synthetic fixture와 결과 기록을 추가한다.
 기존 모델, loss, 실험 결과 CSV는 변경하지 않았다.
@@ -90,7 +108,7 @@
 | Drive-JEPA 소스 | `/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/Drive-JEPA` |
 | 공식 소스 기준 | `548bb8215e3aae18e162a0f12f1ba83b4d3eb57e`, [공식 저장소](https://github.com/linhanwang/Drive-JEPA/tree/548bb8215e3aae18e162a0f12f1ba83b4d3eb57e) |
 | 현재 호스트 | `user-ESC8000A-E11`; 이전 AXE-080 명칭과 구분 |
-| GPU 0 / 1 | RTX A6000, 각 약 48 GB. 확인 당시 양쪽에 기존 프로세스가 있음 |
+| GPU 0 / 1 | RTX A6000, 각 약48GB. 점유는 변동하며 이번 실행 직전0번25MiB/compute 없음,1번기존 프로세스 보존 |
 | 공용 원본 | `/home/user/data/Dataset/` 전체 **절대 직접 수정하지 않음** |
 | NAVSIM 읽기 링크 | `PlanningAwareFuturePrediction/dataset -> /home/user/data/Dataset/navsim -> /mnt/nfs/data/open_dataset/navsim` |
 | 코드·변환·cache·결과 | `/rhome/junseong/` 아래 사용자 작업공간 |
@@ -100,9 +118,12 @@
 | F3 last.ckpt | `exp/safedrive/f3_nopairnc/lightning_logs/checkpoints/last.ckpt`, 1,382,302,278 bytes |
 | 분석 축 | `analysis/context_axes.csv`; 생성 코드의 일부 축은 미래 reference 기반 |
 | 없는 자산 | 현재 작업공간의 `ckpts/`, `exp/metric_cache_navtest`, `exp/safedrive_train_cache` |
-| 환경 | 기존 base / alpasim-cuda128만 확인; safedrive / drive-jepa 전용 환경 없음 |
-| 기존 torch | alpasim-cuda128에서 torch 2.8.0+cu128을 읽기 전용 조회. 본 연구 호환성 검증 아님 |
+| 환경 | 기존 base / alpasim-cuda128 보존; 공식 full-stack safedrive / drive-jepa 환경 미구성 |
+| 기존 torch | torch 2.8.0+cu128 읽기 전용 상속; CPU와 작은 visual pilot만 실행 확인 |
 | CPU fixture 실행 환경 | `runtime/environments/future_prediction_cpu`, Python 3.12.13 / 기존 torch 읽기 전용 참조 venv. 완전 독립 dependency 환경 아님 |
+| 영상 pilot 환경 | `runtime/environments/visual_future_prediction_pilot`, 별도 venv overlay; timm1.0.30 설치 |
+| Official encoder weight | `runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt`; hash/strict load 검증 |
+| Visual 결과 | `results/visual_diagnostics/visual_future_pilot_verified_20261001.json`; local ROI 그림 `outputs/visual_pilot/` |
 
 체크포인트 크기는 기존 AICA 전송 기록과 일치한다. 체크섬·내용·resume 적합성은 검증하지 않았다.
 공식 Drive-JEPA 전체 cache/weight 다운로드 명령을 무작정 실행하지 않는다.
@@ -171,11 +192,12 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
    Auxiliary의 selector 직접 gradient 차단은 초기 실험 선택이지 보편 원칙이 아니다.
 2. `baseline_and_target_adapter_audit.md`의 권고 scaffold와 visual target·planner memory 연결을 검토한다.
    SafeDrive를 주 baseline으로 되돌리지 않는다. 완료한 GT-state 진단을 visual 검증으로 대신하지 않는다.
-3. 독립 encoder 환경의 dependency·commit을 고정하고 공식 weight **한 파일**의 metadata/key를 확인해
-   선택 다운로드한다. 전체 bundle/cache 또는 기존 환경 업그레이드를 하지 않는다.
-4. 현재/future image clip, same-track ROI/teacher target, planner memory adapter를 구현하고 실제
-   visual batch forward/loss/backward를 검사한다. GPU 사용은 0·1로 제한하며 점유를 먼저 재확인한다.
-5. 현재-feature 전달 대조와 강한 동일-K 비교군, novelty 검증을 마친 후 본 실험 진행 여부를 판단한다.
+3. [영상 pilot 검증](visual_future_prediction_pilot_validation.md)을 읽는다. 공식 weight/ROI/visual
+   batch gate는 완료했다. 환경/weight를 재설치하지 않고 이미 존재하는 검증본을 쓴다.
+4. Mixed visual/spatial target의 주장 범위와 branch·감독·current-feature 대조를 확정한다.
+   Novelty 검증, 여러 log coverage·multiview·GT association 의존도와 split을 먼저 확인한다.
+5. 작은 공동 학습의 budget/학습량/실패 기준을 고정한 뒤 random·강한 규칙·제안 선택을 비교한다.
+   본 학습은 아직 시작하지 않는다. GPU0·1 점유는 실행 직전 재확인한다.
 
 ## 7. Codex ↔ ChatGPT 협업 규약
 

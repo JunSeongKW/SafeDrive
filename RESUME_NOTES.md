@@ -707,3 +707,64 @@ batch → planner memory 연결 → 작은 공동 학습과 미래 경로 무시
 주요 구현/결과 commit은 `3b44be1`. SafeDrive default query shape의 config30을 실제 constructor와
 대조하니 `_query_splits=[1,num_bounding_boxes]`의 합31이었다. 감사 문서의 shape를31로 정정했다.
 원본 SafeDrive 코드나 실제 GT-state 실행 결과는 변경하지 않았다.
+
+## 2026-10-01 — 35fbdcf 검토 이후 실제 front-video / GT ROI pilot (Codex)
+
+### 목적과 설계
+
+실제 영상에서 selector→선택적 미래 예측→planner의 gradient 경계를 확인하는 하위 질문이다.
+SafeDrive는 재개하지 않으며 합성 selector tuning이나 GT-state 테스트 추가 확대는 하지 않았다.
+ROI appearance만으로 미래 위치/운동이 보존된다고 가정하지 않고 visual1024dim과 현재 ego 기준
+future state6dim을 분리했다. 이것은 frozen visual+explicit spatial 혼합 감독 pilot이지 순수 JEPA,
+GT 없는 deployment perception, 공식 Drive-JEPA 전체 모델/점수 재현이 아니다.
+
+### 실제 자산·환경 준비
+
+새 venv `runtime/environments/visual_future_prediction_pilot`은 기존 alpasim-cuda128을 읽기 전용
+상속한다. timm1.0.30만 이 overlay에 추가하고 기존 환경은 upgrade하지 않았다.
+공식 HF dataset LinhanWang/Drive-JEPA revision65e0d7284f69bf29d1a4864affcfd84ca4e97a2e의
+vitl_merge_3dataset_e50.pt 한 개만 받았다. 5,127,748,765bytes, SHA256
+4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f 일치.
+Source548bb8215e3aae18e162a0f12f1ba83b4d3eb57e clean 확인, target_encoder292tensor strict load.
+weights_only/mmap 안전 로딩 성공; missing/mismatch 초기값 대체와 unsafe fallback 없음.
+전체80GB weight bundle/cache를 받지 않았다. 새 dataset 원본 다운로드 없음.
+
+### 실제 실행
+
+승인 GPU0·1의 점유를 재확인한 뒤 GPU0만 사용했다. 기존 타인 프로세스/카드1을 건드리지 않았다.
+Mini log2021.05.12.22.00.38_veh-35_01008_01518, window0, scene165060762e765a5a,
+현재/미래2frame front clip9개를 FP32 frozen encoder로 처리했다. 기존 state smoke와 같은 scene다.
+현재32radius/cap 후보 중 front projected13, 그중K4·8시점. Actual offset끝4.0013s.
+Current H[1,32,1034], future visual target[1,32,8,1024], future state[1,32,8,6], ego[1,8,3].
+
+Planning S/P/D norm0.02964600/0.46665784/25.91781228;
+visual aux0/3.90319871/0; spatial aux0/6.38596213/0.
+Future detach는 출력 동일이며 S/P gradient0. No future branch는 S/P forward 생략/gradient0.
+Current target으로 label만 교체할 때 forward 동일. Frozen teacher/target gradient 없음.
+공동 backward finite와 Adam 단일 selector update 통과; 수렴/중요 객체 학습/성능을 의미하지 않는다.
+
+33/33 unittest(기존28+visual5)와 Ruff 통과. 최초 명령은 PYTHONPATH=src 누락으로 기존module2개
+import 실패했으며 올바른 명령으로 수정해 통과했다. 공식 timm/CUDA attention의 deprecation
+경고는 남았고 기능 실패가 아니므로 official source는 수정하지 않았다.
+최초 영상검사23.67s, 최종 format/시각화 정리 후 재검사20.24s(공식 weight hash/load 포함).
+CUDA peak allocated1,324,247,552bytes(~1.23GiB), whole process/reserved VRAM은 아님.
+Frozen encoder303,885,312params와 새 scaffold2,487,988params를 구분한다. FLOPs/속도 절감 미검증.
+
+ROI 그림을 직접 확인했다. 영역은 차량과 대체로 정합하나 일부 occluded/overlap이다.
+미래 projected 유효수12,10,10,10,10,10,11,12; projection-valid는 실제 가시성 보장이 아니다.
+Appearance cosine평균0.89360와 current-ego metric 이동평균0.91031m/최대13.81093m는 설명 통계다.
+Pinhole distortion/rectification 규약과 상황별 multicamera coverage는 미확인이다.
+공유 log1개와 사용 image10개의 SHA256은 전후 같았다. 공유 원본에는 어떠한 쓰기도 하지 않았다.
+
+### 공유 기록·다음 단계
+
+`results/visual_diagnostics/visual_future_pilot_verified_20261001.json`은 최종 실행의 provenance,
+source/dataset SHA256, shape, budget, gradient, 단일 update, runtime을 담는다.
+`docs/visual_future_prediction_pilot_validation.md`에 해석·한계·재현 명령·최소 대조 후보를 작성했다.
+PNG는 로컬 outputs/visual_pilot에 두고 공용 영상/weight/env는 git에 넣지 않는다.
+
+다음은 visual/spatial 감독 및 branch 대조 확정, novelty 원문/코드 표 완성, 여러 log의 coverage/
+split 조사, 작은 공동 학습이다. 미래 감독 없음/current-target/no-future-branch를 구분하고
+visual 감독 on/off에는 spatial supervision을 동일하게 유지하는 대조를 둔다.
+All-entity 예측은 다른 예산 reference로, 선택 연구의 필수 진행 조건이 아니다.
+본 학습·공식 score·미래 활용/collapse·추론 association·H1/H2·효율은 아직 확인하지 않았다.

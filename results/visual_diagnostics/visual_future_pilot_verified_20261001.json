@@ -1,0 +1,203 @@
+{
+  "created_utc": "2026-10-01T04:21:33.459095+00:00",
+  "scope": "one_same_scene_GT_ROI_front_video_plumbing_not_benchmark_or_H1_H2",
+  "parent_commit": "35fbdcfe8438a5e83d893f28ccd2121efa70c725",
+  "official_encoder": {
+    "checkpoint_sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f",
+    "checkpoint_encoder_key": "target_encoder",
+    "strict_weight_loading": true,
+    "state_dict_tensor_count": 292,
+    "encoder_parameters": 303885312,
+    "source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "target_encoder_policy": "same_frozen_official_encoder_no_ema_update"
+  },
+  "environment": {
+    "torch": "2.8.0+cu128",
+    "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+    "executable": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/visual_future_prediction_pilot/bin/python",
+    "device": "cuda"
+  },
+  "window": {
+    "log_path": "/mnt/nfs/data/open_dataset/navsim/navsim_logs/mini/2021.05.12.22.00.38_veh-35_01008_01518.pkl",
+    "start_index": 0,
+    "current_token": "b214f8e744075e96",
+    "scene_token": "165060762e765a5a",
+    "future_time_offsets_seconds": [
+      0.500014,
+      1.00023,
+      1.500527,
+      2.000775,
+      2.500932,
+      3.001074,
+      3.501152,
+      4.0013
+    ]
+  },
+  "tensor_shapes": {
+    "current_grid": [
+      1,
+      1024,
+      16,
+      32
+    ],
+    "current_entity_features": [
+      1,
+      32,
+      1034
+    ],
+    "future_visual_targets": [
+      1,
+      32,
+      8,
+      1024
+    ],
+    "future_spatial_targets": [
+      1,
+      32,
+      8,
+      6
+    ],
+    "selected_predicted_visual": [
+      1,
+      4,
+      8,
+      1024
+    ],
+    "ego_trajectory": [
+      1,
+      8,
+      3
+    ]
+  },
+  "coverage": {
+    "current_radius_candidates_after_cap32": 32,
+    "current_front_projected_candidates": 13,
+    "selected_budget": 4,
+    "future_front_projected_per_step": [
+      12,
+      10,
+      10,
+      10,
+      10,
+      10,
+      11,
+      12
+    ],
+    "selected_valid_visual_targets": 32,
+    "selected_future_target_slots": 32,
+    "occlusion_visibility_verified": false
+  },
+  "selected_current_entity_indices_UNTRAINED": [
+    21,
+    20,
+    10,
+    18
+  ],
+  "operational_prediction_budget": {
+    "entity_slots": 4,
+    "time_steps": 8,
+    "visual_dim": 1024,
+    "spatial_dim": 6,
+    "predicted_visual_values": 32768,
+    "predicted_spatial_values": 192,
+    "encoder_processes_whole_front_image": true,
+    "flops_or_latency_savings_verified": false
+  },
+  "gradient_contracts": {
+    "planning": {
+      "selector": 0.02964600279758887,
+      "predictor": 0.46665783596330496,
+      "planner": 25.917812280546674
+    },
+    "visual_prediction": {
+      "selector": 0.0,
+      "predictor": 3.903198707586504,
+      "planner": 0.0
+    },
+    "spatial_prediction": {
+      "selector": 0.0,
+      "predictor": 6.385962125270974,
+      "planner": 0.0
+    },
+    "future_detach": {
+      "selector": 0.0,
+      "predictor": 0.0,
+      "planner": 25.917811983878146
+    },
+    "no_future_branch": {
+      "selector": 0.0,
+      "predictor": 0.0,
+      "planner": 25.63127595705274
+    }
+  },
+  "diagnostic_losses_NOT_performance": {
+    "planning_mse": 3.4186859130859375,
+    "visual_prediction": 5.445653915405273,
+    "spatial_prediction": 0.36964330077171326,
+    "current_feature_target_losses": {
+      "visual_prediction": 5.104685306549072,
+      "spatial_prediction": 0.3686005175113678
+    }
+  },
+  "contracts": {
+    "future_detach_forward_equal": true,
+    "training_target_change_forward_equal": true,
+    "frozen_teacher_no_gradient": true,
+    "finite_joint_backward": true,
+    "single_selector_optimizer_update": true,
+    "no_future_branch_skips_selector_predictor": true,
+    "shared_input_hashes_unchanged": true
+  },
+  "untrained_future_zeroing_max_plan_difference_NOT_usefulness": 0.03766852617263794,
+  "target_content_diagnostic": {
+    "current_to_future_cosine_mean": 0.8936002850532532,
+    "current_to_future_cosine_min": 0.7448387145996094,
+    "paired_metric_displacement_mean_meters": 0.9103102087974548,
+    "paired_metric_displacement_max_meters": 13.810928344726562,
+    "location_is_explicit_separate_GT_state_target_NOT_assumed_in_ROI": true,
+    "clip_time_span_seconds": 0.5
+  },
+  "new_scaffold_parameters": 2487988,
+  "new_scaffold_parameters_by_module": {
+    "selector": 264705,
+    "predictor": 1327536,
+    "planner": 895747
+  },
+  "peak_cuda_allocated_bytes": 1324247552,
+  "elapsed_seconds_including_hash_load_encode": 20.24362812936306,
+  "visualization_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/visual_pilot/visual_future_pilot_verified_20261001_roi_contact_sheet.png",
+  "shared_file_sha256": {
+    "/mnt/nfs/data/open_dataset/navsim/navsim_logs/mini/2021.05.12.22.00.38_veh-35_01008_01518.pkl": "0ed544e68158393ea8917b0b29fe5f5856e4418744dafa66ec9712101a21955e",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/1511031bee7b54f5.jpg": "bd04a6e13c16b09483c386f9493fec4cbf992a37c686bd4300fb6538bc6b324b",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/a4daa68eb4de553d.jpg": "37b8bf62301b42a0ce670427268cb2e7f7697c1dde10e41214acf9dad07f3e69",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/fa82294e4d6d56d9.jpg": "18acbec86211f8d7b73a1772e513845d2ff00d3982fc3c50d4ffb0fa5d2d63d3",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/3095cb1410355dd0.jpg": "4d9f2521b7284e3bff5f4fa61d9de9341a25e296fab9bb862cbcb6585435df88",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/f99fb6ef1c2e55b8.jpg": "3e0b60a5e129a66562ad722422719289d2dda559ac404a18d9b9b59ee145d8d6",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/d815a84d9c425eb0.jpg": "b150b2b8ec4594dcefdc902a82e23a3a19d0e4d4ec78adb1cd7108a85c1f6e2b",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/aca177a9ca5c5c75.jpg": "83a6c70bce32f4f92559201e831152f6be38d6b3d9aed833ccc1ff71dfcad4df",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/43221882a5555bd7.jpg": "71bd9b5f8a1d2550a7b3d80eb07e2c67a3c12476e688352ef3d9ba8c8d9fc35c",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/ad0c32099eeb5767.jpg": "e13ae537ab1f04c9e198c4f3246daf97ed08c5d07db20133c3e24f31cfe9e17e",
+    "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/ac84b64c43225faf.jpg": "bb3ac7fff8e7a56324aa8c63bd532d803a6dc9341075b7b0db8107a6711a47a7"
+  },
+  "source_sha256": {
+    "scripts/validate_visual_future_prediction_pilot.py": "82088ba6495fa164430ead385ad0c4171b80db34392efd90482f521a8554851c",
+    "src/planning_aware_future_prediction/adapters/__init__.py": "07ee3a4af64d7265e18594c5114c18ddccd1ffb28c177d2ab0d194bd911a339c",
+    "src/planning_aware_future_prediction/adapters/navsim_tracked_state.py": "6069359ccaeda9300f28cbd093ca3dc3d30f59807830ef78a8df8b4dc7053323",
+    "src/planning_aware_future_prediction/adapters/navsim_visual_entities.py": "392d715e443e488e5f0d20577350ee74a5f2124cbb1ad610d7c6234e86c46bd1",
+    "src/planning_aware_future_prediction/models/__init__.py": "6d6ef61a0103acf462916ba0cd2e0debc8818c027671da5b246105bb86a954ae",
+    "src/planning_aware_future_prediction/models/frozen_driving_video_encoder.py": "71926457f835f66ce17f978cdf65824d68dcf2a1a608d5f5e60af5b401c4fdd9",
+    "src/planning_aware_future_prediction/models/selective_entity_future_prediction.py": "d3be3db0d9378a9affd354a4684c438f429a68d72df6c1006b8e8a5adb3d3852",
+    "src/planning_aware_future_prediction/models/visual_entity_future_planning_pilot.py": "59e2ba2f2891b9b2287f304d5eb9075f9469a9ad731fbf49d9d06adbaf490f4d"
+  },
+  "limitations": [
+    "GT current boxes/association are privileged",
+    "frozen GT ROI visual+spatial mixed supervision not pure JEPA",
+    "front-only candidate/40m/max32 prefilter",
+    "pinhole distortion/rectification unverified",
+    "two-frame tubelet representation not instantaneous object state",
+    "random new planner not official baseline",
+    "one update no stability/importance/efficiency result",
+    "no official planning metrics",
+    "future visibility changes target availability may bias later training"
+  ]
+}

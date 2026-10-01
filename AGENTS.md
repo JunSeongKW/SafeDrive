@@ -12,6 +12,10 @@ Claude Code 는 `CLAUDE.md`(= `@AGENTS.md`)로, Codex 는 이 파일로 같은 �
 `scripts/validate_navsim_state_adapter.py`다.
 이는 **현재 GT 상태를 사용하는 특권 입력 진단**이고 visual JEPA나 공식 baseline 재현이 아니다.
 권고 visual adapter·baseline·남은 gate는 `docs/baseline_and_target_adapter_audit.md`를 읽는다.
+현재 실제 영상 진입점은 `scripts/validate_visual_future_prediction_pilot.py`다.
+Official frozen encoder+GT ROI의 visual/spatial 혼합 감독 pilot을 구현했고
+`docs/visual_future_prediction_pilot_validation.md`에 검증·한계가 있다. 공식 full-stack baseline 재현,
+pure visual JEPA, deployment perception 또는 학습 후 성능으로 해석하지 않는다.
 
 ## 세션 시작 루틴
 

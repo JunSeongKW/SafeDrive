@@ -1,8 +1,9 @@
 # 선택적 미래 예측 계산 그래프 — v1 CPU 진단 구현
 
 상태: 2026-10-01. 기준 협업 commit은 `95015df`이다. 사용자/ChatGPT 피드백을 반영해
-K-slot과 detach 검사를 구체화한 **synthetic CPU fixture**다. NAVSIM agent, visual JEPA,
-target encoder, 실제 entity adapter와 최종 baseline은 아직 구현/확정하지 않았다.
+K-slot과 detach 검사를 구체화한 **synthetic CPU fixture**다. 공식 NAVSIM agent 구현은 아니다.
+추가로 frozen official video encoder+GT ROI visual/spatial pilot을 구현하고 실제 영상 batch를 검사했다.
+최종 baseline과 순수 visual target는 미확정이다. 최신 확장은 아래8절과 영상 pilot 보고서를 읽는다.
 코드: `src/planning_aware_future_prediction/models/selective_entity_future_prediction.py`.
 검사: `tests/test_future_prediction_graph.py` / `scripts/validate_future_prediction_graph.py`.
 실행 결과와 재현 명령은 `synthetic_validation_results.md`에 기록한다.
@@ -75,7 +76,8 @@ EMA를 쓰면 latent collapse와 target drift를 추가 점검해야 한다.
 
 N이 달라질 때 실제 예측 수는 `min(K, 현재 valid 객체 수)`다. 부족한 slot을 중복 객체로
 채우지 않는다. N=0, 전부 invalid, 사라지는 객체에서 NaN 없이 동작해야 한다.
-검출 query ↔ track-token 대응, ego frame 변환 및 새로 등장한 객체 처리는 아직 adapter가 없다.
+GT track 대응과 current-ego 좌표 변환은 state/visual pilot에 구현됐다. 검출 query↔track 대응과
+추론 시 새로 등장한 객체의 perception/association 처리는 아직 없다.
 GT association 실험은 privileged diagnostic이며 perception-based 완성 모델이라고 부르지 않는다.
 
 ## 4. hard top-K의 gradient 문제와 초기 후보
@@ -151,7 +153,7 @@ selector parameter에 들어가는 auxiliary gradient를 의도적으로 막아 
 | 경로 | 재사용할 수 있는 것 | 주 그래프에 없는 것 / 위험 |
 |---|---|---|
 | Drive-JEPA perception-free | pretrained image encoder, 현재/과거 입력, ego command, waypoint decoder | entity token/association, 선택적 미래 predictor, target adapter가 없음 |
-| Drive-JEPA perception-based | BEV/proposal/scorer 기반 공식 구현 존재 | 내부 entity 표현과 future path 감사 미완료; 아직 선정 근거 불충분 |
+| Drive-JEPA perception-based | BEV/proposal/scorer 기반 공식 구현 존재; 내부 감사 완료 | 미래 state 출력은 train-only auxiliary, planner 입력 아님; 신규 entity adapter 필요 |
 | SafeDrive | instance query, joint motion/planning decoder, 미래 track alignment, 평가 자산 | hard 거리 선택; JEPA latent predictor 구조 아님; 기존 cache와 환경 미이전 |
 
 판단: **Drive-JEPA는 재현/encoder 후보이지, B 경로가 이미 구현된 확정 baseline이 아니다.**
@@ -204,9 +206,43 @@ random K, 강한 거리·TTC 규칙 K, context-conditioned K. 규칙의 계산 �
 
 공통 데이터 split, log-level holdout, paired/cluster bootstrap 및 집계+사전 정의한 상황별
 지표를 사용한다. 미래 reference 기반 분석 축을 online selector 입력으로 넣지 않는다.
-첫 K·T·차원·학습량은 실제 loader와 자원 실측 후 결정하며 GPU-hour를 미리 확정하지 않는다.
 
-## 8. 진행 / 재검토 기준
+## 8. 실제 영상 pilot 확장 — 35fbdcf 이후 구현
+
+상세 실행·shape·provenance·gradient는 [영상 pilot 검증](visual_future_prediction_pilot_validation.md).
+공식 encoder만 재사용한 신규 scaffold이며 SafeDrive 재개나 공식 Drive-JEPA 전체 재현이 아니다.
+
+```text
+현재/직전 front 영상 ── frozen official encoder ─┬─ 현재 image grid ──────────────┐
+현재 GT box/track ── projection/ROIAlign ─────────┴─ 현재 ROI + GT state ─┐       │
+현재 command/ego 상태 ───────────────────────────── selector(ST, K4) ───┤       │
+                                             selected current entity  │       │
+                                                      predictor ──────┴──┐    │
+                                                   predicted visual+state ─ planner ─ ego8 ─ Lplan
+미래 영상+미래 동일GT track/box ─ frozen teacher/ROIAlign ─ Zvisual ─┐
+미래 GT state ─ global→현재 ego ─ Zspatial ────────────────────────┴─ Laux
+```
+
+Planner는 현재 image/모든 현재 valid entity/ego와 **예측된** 미래만 받는다.
+미래 GT/ROI/valid는 target loss builder 전용이며 forward signature에 없다.
+Visual target은 `[B,N,8,1024]`; metric target은 `[B,N,8,6]`이다. 현재 ego 기준 위치·속도·heading을
+명시적으로 예측하여 ROI 위치 제거 문제를 회피하지만, **별도 GT-state 감독**이므로 순수 JEPA가 아니다.
+Target encoder는 현재와 같은 frozen pretrained module이며 EMA 학습은 아직 하지 않는다.
+
+Lplan은 S/P/D에 전달된다. Visual/spatial Laux는 detached hard selection으로 P를 다시 호출하므로
+P만 직접 학습한다. K4·8steps·front-only·GT association은 pilot 범위다.
+최종 perception·multiview·target choice, 공동 학습 안정성/효율은 미확인이다.
+
+다음 대조에서 **미래 감독 없음(동일 branch)**, **현재 target(동일 capacity)**,
+**미래 branch 없음(현재 입력만, S/P 호출 생략)**을 구분한다.
+Visual auxiliary를 끌 때 spatial supervision도 같이 꺼버리면 영상 감독 효과를 분리할 수 없다.
+따라서 spatial target을 고정한 visual on/off/current-target도 별도로 둔다.
+모든 미래 예측은 다른 예산의 참고이며 우위를 필수 gate로 삼지 않는다.
+해당 대조의 학습 성능 비교는 아직 하지 않았다.
+Pilot은 K4·future8·visual1024dim으로 검사했다. 본 학습의 표본/학습량/예산은 별도로 고정하고
+GPU-hour를 단일 batch 실행 시간으로 추정 확정하지 않는다.
+
+## 9. 진행 / 재검토 기준
 
 - 그래프·label 경계 검사 실패 → 성능 학습 전에 수정.
 - planner가 future latent를 무시함 → predictor/decoder 접속과 목적함수를 재검토.
@@ -215,7 +251,7 @@ random K, 강한 거리·TTC 규칙 K, context-conditioned K. 규칙의 계산 �
 - 특정 상황 축·seed에만 효과 → 일반적 맥락 적응 주장 유보.
 - selector가 한 종류/객체로 collapse → 원인과 예산·gradient를 점검하고 regularizer의 효과를 분리.
 
-## 9. 구현 동작의 1차 문서 근거
+## 10. 구현 동작의 1차 문서 근거
 
 Detach는 graph에서 분리하지만 storage를 공유하므로 in-place 조작하지 않는다.
 [PyTorch 2.8 detach 문서](https://docs.pytorch.org/docs/2.8/generated/torch.Tensor.detach.html).

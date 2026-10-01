@@ -1,0 +1,19 @@
+{
+  "repository_id": "LinhanWang/Drive-JEPA",
+  "repository_type": "dataset",
+  "revision": "65e0d7284f69bf29d1a4864affcfd84ca4e97a2e",
+  "filename": "vitl_merge_3dataset_e50.pt",
+  "size_bytes": 5127748765,
+  "sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f",
+  "checkpoint_encoder_key": "target_encoder",
+  "source_repository_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "architecture": "vit_large",
+  "patch_size": 16,
+  "tubelet_size": 2,
+  "use_rope": true,
+  "uniform_power": true,
+  "num_input_frames": 2,
+  "input_height_pixels": 256,
+  "input_width_pixels": 512,
+  "weight_role": "frozen_pretrained_driving_video_encoder_not_official_downstream_planner"
+}
