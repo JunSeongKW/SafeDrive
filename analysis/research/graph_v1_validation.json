@@ -1,0 +1,207 @@
+{
+  "timestamp_utc": "2026-10-01T01:56:25.885980+00:00",
+  "baseline_commit": "95015dfadbf4595520bb111b4f74d5793aef9fb3",
+  "source_sha256": {
+    "selective_future_graph.py": "2c2a828672001179b696f714003519d9e35eaaeb5f65065c62998f80b6d0d0c7",
+    "test_selective_future_graph.py": "e51bf877a2288298f5068763b1dc2c969a2e11717c76e0706e6683def9670556",
+    "run_graph_validation.py": "4fe988e4545f43c856c33aa835b636aed9a8a1a6d2ec192abe19786ab6122057"
+  },
+  "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+  "python_executable": "/rhome/junseong/SafeDrive/exp/graph_cpu_env/bin/python",
+  "torch": "2.8.0+cu128",
+  "torch_source": "/rhome/junseong/miniconda3/envs/alpasim-cuda128/lib/python3.12/site-packages/torch/__init__.py",
+  "device": "cpu",
+  "threads": 1,
+  "deterministic_algorithms": true,
+  "config": {
+    "steps": 1000,
+    "batch_size": 128,
+    "holdout_size": 4096,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "output": "exp/research/graph_v1/results_v1_final.json",
+    "n": 6,
+    "k": 2,
+    "horizon": 2,
+    "temperature": 0.7,
+    "lr": 0.003
+  },
+  "tests_run": 13,
+  "tests_passed": true,
+  "gradient_norms": {
+    "planning": {
+      "selector": 0.009557828039569618,
+      "predictor": 0.27547029818215163,
+      "planner": 1.2821721645304507
+    },
+    "auxiliary": {
+      "selector": 0.0,
+      "predictor": 0.5548575224527635,
+      "planner": 0.0
+    },
+    "hard_indices": {
+      "selector": 0.0,
+      "predictor": 0.27547029818215163,
+      "planner": 1.2821721645304507
+    },
+    "selection_detach": {
+      "selector": 0.0,
+      "predictor": 0.27547029818215163,
+      "planner": 1.2821721645304507
+    },
+    "future_detach": {
+      "selector": 0.0,
+      "predictor": 0.0,
+      "planner": 1.2821721645304507
+    }
+  },
+  "failures": [],
+  "selection_learning": [
+    {
+      "seed": 0,
+      "elapsed_seconds": 15.526180062443018,
+      "initial_context_selector": {
+        "planning_mse": 8.635541915893555,
+        "relevant_recall": 0.33349609375,
+        "exact_set_accuracy": 0.06494140625
+      },
+      "selection_learning_passed": true,
+      "policies": {
+        "learned_context": {
+          "planning_mse": 0.0,
+          "relevant_recall": 1.0,
+          "exact_set_accuracy": 1.0
+        },
+        "global_learned_no_intent": {
+          "planning_mse": 7.7603254318237305,
+          "relevant_recall": 0.334228515625,
+          "exact_set_accuracy": 0.06982421875
+        },
+        "shuffled_intent": {
+          "planning_mse": 6.59416389465332,
+          "relevant_recall": 0.3321533203125,
+          "exact_set_accuracy": 0.066650390625
+        },
+        "random": {
+          "planning_mse": 6.808651924133301,
+          "relevant_recall": 0.3365478515625,
+          "exact_set_accuracy": 0.0751953125
+        },
+        "motion": {
+          "planning_mse": 8.279623031616211,
+          "relevant_recall": 0.3336181640625,
+          "exact_set_accuracy": 0.06640625
+        },
+        "fixed_semantic": {
+          "planning_mse": 6.6648359298706055,
+          "relevant_recall": 0.33447265625,
+          "exact_set_accuracy": 0.06640625
+        },
+        "hindsight_oracle": {
+          "planning_mse": 0.0,
+          "relevant_recall": 1.0,
+          "exact_set_accuracy": 1.0
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "elapsed_seconds": 11.384267719462514,
+      "initial_context_selector": {
+        "planning_mse": 6.984260559082031,
+        "relevant_recall": 0.35888671875,
+        "exact_set_accuracy": 0.076171875
+      },
+      "selection_learning_passed": true,
+      "policies": {
+        "learned_context": {
+          "planning_mse": 0.004980416037142277,
+          "relevant_recall": 0.9998779296875,
+          "exact_set_accuracy": 0.999755859375
+        },
+        "global_learned_no_intent": {
+          "planning_mse": 6.701777935028076,
+          "relevant_recall": 0.3282470703125,
+          "exact_set_accuracy": 0.06494140625
+        },
+        "shuffled_intent": {
+          "planning_mse": 6.494373321533203,
+          "relevant_recall": 0.332763671875,
+          "exact_set_accuracy": 0.06787109375
+        },
+        "random": {
+          "planning_mse": 6.822545528411865,
+          "relevant_recall": 0.3232421875,
+          "exact_set_accuracy": 0.058837890625
+        },
+        "motion": {
+          "planning_mse": 8.566129684448242,
+          "relevant_recall": 0.3314208984375,
+          "exact_set_accuracy": 0.065185546875
+        },
+        "fixed_semantic": {
+          "planning_mse": 6.450986862182617,
+          "relevant_recall": 0.3284912109375,
+          "exact_set_accuracy": 0.064697265625
+        },
+        "hindsight_oracle": {
+          "planning_mse": 0.0,
+          "relevant_recall": 1.0,
+          "exact_set_accuracy": 1.0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "elapsed_seconds": 11.827028285712004,
+      "initial_context_selector": {
+        "planning_mse": 13.41163444519043,
+        "relevant_recall": 0.34228515625,
+        "exact_set_accuracy": 0.069580078125
+      },
+      "selection_learning_passed": true,
+      "policies": {
+        "learned_context": {
+          "planning_mse": 0.0,
+          "relevant_recall": 1.0,
+          "exact_set_accuracy": 1.0
+        },
+        "global_learned_no_intent": {
+          "planning_mse": 7.040806293487549,
+          "relevant_recall": 0.3358154296875,
+          "exact_set_accuracy": 0.066650390625
+        },
+        "shuffled_intent": {
+          "planning_mse": 6.842452049255371,
+          "relevant_recall": 0.339111328125,
+          "exact_set_accuracy": 0.07373046875
+        },
+        "random": {
+          "planning_mse": 6.5724382400512695,
+          "relevant_recall": 0.33837890625,
+          "exact_set_accuracy": 0.072021484375
+        },
+        "motion": {
+          "planning_mse": 8.487103462219238,
+          "relevant_recall": 0.3323974609375,
+          "exact_set_accuracy": 0.068115234375
+        },
+        "fixed_semantic": {
+          "planning_mse": 6.885798931121826,
+          "relevant_recall": 0.3284912109375,
+          "exact_set_accuracy": 0.0654296875
+        },
+        "hindsight_oracle": {
+          "planning_mse": 0.0,
+          "relevant_recall": 1.0,
+          "exact_set_accuracy": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_seconds": 38.81792915426195,
+  "claim_scope": "Synthetic graph + analytic-dynamics selector learnability ONLY; no NAVSIM/JEPA performance claim."
+}

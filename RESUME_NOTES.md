@@ -582,3 +582,42 @@ O0 는 `epoch=1-step=3548.ckpt` 까지, F3 는 `epoch=0-step=1774.ckpt` 까지 �
 환경 설치, 학습, cache 생성, baseline 최종 선정은 미수행이다. 먼저 그래프 초안을 함수 경계로
 구체화하고 planning→selector 및 auxiliary 차단을 CPU autograd로 검증한다.
 이 기록은 연구 성능 결과가 아니라 사용자 요청에 따른 **중간 인수인계 커밋**이다.
+
+## 2026-10-01 — 계산 그래프 v1 CPU 계약 검사 및 합성 선택 학습
+
+협업 출발 기준은 `95015df`다. 사용자/ChatGPT 피드백을 반영해 관측 마스킹이 아닌 미래 target
+선택의 최소 synthetic fixture를 `scripts/research/`에 구현했다. 실제 NAVSIM agent 통합은 미수행이다.
+
+### 구현과 계약 검사
+
+순차 조건부 ST는 각 slot에서 이전 hard 선택을 제외하고 remaining valid 후보의 softmax로
+backward한다. Forward는 중복 없는 hard 집합이며 tie는 stable ID 순서다. 이 exclusion은 미분하지
+않으므로 편향된 추정이다. 모든 valid 후보가 K 안에 들어가면 부분집합 surrogate를 차단한다.
+13개 unittest가 모두 통과했다. Detach는 forward 값을 유지하면서 backward만 차단한다.
+미래 latent 제거/다른 샘플과 교환은 값 자체를 바꾸는 별도 개입이다.
+
+실측 gradient norm (selector/predictor/planner):
+planning = 0.009558/0.275470/1.282172;
+auxiliary = 0/0.554858/0;
+future detach = 0/0/1.282172.
+Target encoder와 current encoder는 fixture에 없으므로 해당 encoder까지 검증한 결과가 아니다.
+
+### 작은 합성 학습
+
+N=6, K=2, 고정 analytic 미래값 x+2v, 고정 합산 planner. Intent가 원하는 semantic key 두 개를
+명시하고 entity 순서는 무작위다. Selector만 planning MSE로 학습한다. 정답 selection loss는 없다.
+3-seed, 각 1,000 step×batch 128, 각 별도 생성 holdout 4,096개. 사전 코드 기준 3/3 통과.
+Exact-set 정확도는 100/99.9756/100%. 3-seed 평균 MSE는 learned 0.001660, random 6.734545,
+command 교란 6.643663, no-intent entity-only learned 7.167637이다.
+
+명령이 relevant key를 직접 지정하고 미래도 현재 state의 알려진 함수인 쉬운 과제다.
+선택기의 기술적 학습 가능성만 점검했으며 미래 예측 필요성·NAVSIM 성능·H1/H2·novelty를
+입증하지 않는다. Joint predictor/planner 학습과 같은 용량의 current-feature 대조는 남아 있다.
+
+### 실행 환경·자산·다음 작업
+
+CPU 1 thread, Python 3.12.13, torch 2.8.0+cu128, 최종 전체 실행 약 38.82초.
+`exp/graph_cpu_env`는 기존 torch를 읽기 전용 참조하는 venv다. 기존 환경 설치/업그레이드는 없었다.
+GPU·공용 원본·다운로드·cache는 사용/수정하지 않았다. Source hash/seed/config/raw 수치는
+`analysis/research/graph_v1_validation.json`, 재현 명령과 해석은 `docs/GRAPH_V1_VALIDATION.md`.
+다음은 실제 entity/target adapter와 Drive-JEPA perception-based 내부 감사 후 baseline 결정이다.

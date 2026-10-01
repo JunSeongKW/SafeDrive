@@ -1,12 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 10:14 KST (Codex)
+마지막 갱신: 2026-10-01 11:03 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 공통 조사 상태: [docs/RESEARCH_STATUS.md](docs/RESEARCH_STATUS.md).
 계산 그래프 초안: [docs/SELECTIVE_FUTURE_GRAPH.md](docs/SELECTIVE_FUTURE_GRAPH.md).
 시간순 이력: `RESUME_NOTES.md`. 과거 설계: `EXPERIMENT_DESIGN.md`.
+CPU v1 결과: [docs/GRAPH_V1_VALIDATION.md](docs/GRAPH_V1_VALIDATION.md).
 
 ## 0. 현재 연구 의도 — 최신 사용자 프롬프트가 우선
 
@@ -23,8 +24,8 @@
 
 ## 1. 실행 중인 작업
 
-**이번 조사에서 새로 시작한 학습·평가 없음** (2026-10-01).
-현재 작업은 계산 그래프 명세·코드 감사의 중간 체크포인트. autograd smoke test 미수행.
+**진행 중인 신규 작업 없음** (2026-10-01). CPU v1 검사와 작은 합성 학습을 완료했다.
+GPU/NAVSIM 학습·공식 평가·cache 생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
 
 현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
 RTX A6000 약 48 GB다. 확인 당시 기존 프로세스가 있으므로 비어 있다고 가정하거나
@@ -67,23 +68,28 @@ DAC 상승만으로 planning 과적합이 원인이라고 확정하지 않는다
 실제 파일: CSV 22개, O0/F3 last.ckpt 각각 1,382,312,902 / 1,382,302,278 bytes.
 크기는 이전 전송 기록과 일치한다. checksum·내용 검증은 미수행이다.
 
+**v1 CPU 결과**: 13/13 graph 검사 통과. Planning만 backward하면 S/P/D gradient가 있고,
+auxiliary는 S/D를 직접 차단한다. Detach는 출력이 정확히 같고 해당 gradient만 차단한다.
+3-seed 합성 선택 학습에서 exact-set 정확도 99.9756~100%; command 교란 시 성능 저하.
+이는 고정 analytic predictor/planner를 쓴 쉬운 과제다. 미래 정보 필요성·NAVSIM 성능·H1/H2를
+증명한 것이 아니다. 원본 수치·source hash는 `analysis/research/graph_v1_validation.json`에 있다.
+
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- `docs/RESEARCH_STATUS.md`를 추가했다. 최신 가설·실제 자산·조사한 함수·미실행 작업·
-  선행 해석의 정정·Codex/ChatGPT 협업 규약을 분리해 기록했다.
-- `docs/SELECTIVE_FUTURE_GRAPH.md`에 고정-K entity 미래 target 선택의 tensor 계약,
-  planning→selector 경로, auxiliary gradient 차단 및 최소 검사 계획을 **초안**으로 남겼다.
-- Drive-JEPA 공식 소스를 작업공간에 clone하고 `548bb8215e3aae18e162a0f12f1ba83b4d3eb57e`로
-  근거를 고정했다. 소스 자체는 이 저장소에 중복 커밋하지 않고 경로·공식 링크를 기록했다.
-- `AGENTS.md`의 현재 GPU 승인(0·1), 집계+상황별 평가, 새 서버 환경 및 협업 규칙을 정정했다.
-- HANDOFF의 과거 확정적 표현과 실행 계획을 최신 사용자 범위와 검증 상태에 맞춰 정정했다.
-- 모델·loss 코드, CSV, 공용 데이터는 변경하지 않았다. 환경 설치·학습·autograd 검사는 미실행이다.
+- 사용자/ChatGPT 검토를 반영한 계산 그래프 v1 및 `scripts/research/` CPU fixture를 추가했다.
+- 순차 조건부 ST, unique K-slot, stable ID tie, invalid/padding, full-budget surrogate 차단을 구현했다.
+- Detach의 forward 불변과 backward 차단을 제거/교환 개입과 분리해 13개 테스트로 검증했다.
+- 3-seed planning-only 합성 선택 학습과 비교군을 실행했다. 설정·환경·수치·source SHA256을
+  `analysis/research/graph_v1_validation.json`에 기록했다.
+- `docs/GRAPH_V1_VALIDATION.md`를 추가하고 공통 상태 문서·HANDOFF·시간순 이력을 갱신했다.
+- 기존 환경을 변경하지 않고 torch를 읽기 전용 참조하는 CPU 진단 venv를 만들었다.
+  이는 완전 독립 dependency 환경이나 실제 baseline 재현 환경이 아니다.
+- 기존 SafeDrive/Drive-JEPA 모델·loss·CSV·공용 데이터는 변경하지 않았다. GPU는 사용하지 않았다.
 
 ## 4. 다음 단계 — 계산 그래프 검증부터
 
-1. 그래프 초안의 hard-forward/soft-backward 선택, loss별 detach, target 경계를 실제 함수로 구체화한다.
-   **synthetic CPU autograd test**로 planning→selector, auxiliary 차단,
-   미래 target 교체 시 forward 불변, valid-count edge case를 검사한다.
+1. v1 CPU fixture·13개 계약 검사·합성 학습 결과와 한계를 확인한다. 이미 통과한 검사를
+   반복 설계하지 말고 실제 adapter에서 같은 경계가 유지되는지 검증한다.
 2. Drive-JEPA perception-based 내부와 entity/target adapter를 감사하고 baseline을 결정한다.
    perception-free 분기만으로 직접 연결형 future predictor가 이미 있다고 가정하지 않는다.
 3. AD-E2E-JEPA·Causal-JEPA·IA-JEPA·SPARTAN·Drive-JEPA 및 직접 관련 연구의 원문/공식 코드로
@@ -105,8 +111,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 공용 원본 직접 수정 금지; 기존 환경/프로세스 보존; 작업공간은 `/rhome/junseong`;
 새 데이터셋 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
 
-**미결**: 최종 baseline, hard top-K surrogate, entity 표현/association, target encoder,
+**미결**: 최종 baseline, ST surrogate의 실제 데이터 적합성, entity 표현/association, target encoder,
 planner가 미래를 실제 쓰는지, 동일 예산 비교군 대비 효과, novelty delta, 독립 holdout.
+현재 ST는 조건부 softmax를 쓰는 편향된 임시 추정이다. CPU 성공을 실제 데이터 성공으로 일반화하지 않는다.
 
 AD-E2E-JEPA v1 공개일은 **2026-09-28**이다. 과거 “3주 전” 표기는 잘못됐다.
 원문 §3.4의 downstream IL은 patch predictor를 제거하는 경로다.

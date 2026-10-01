@@ -1,6 +1,7 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
-갱신: 2026-10-01. 이번 문서는 **중간 조사 체크포인트**이며 구현 완료 보고가 아니다.
+갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **계산 그래프 v1 CPU 진단까지 완료**했다.
+실제 NAVSIM 모델·visual JEPA·baseline 구현 완료 보고는 아니다.
 동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `SELECTIVE_FUTURE_GRAPH.md`,
 시간순 이력은 `RESUME_NOTES.md`에서 관리한다.
 
@@ -24,7 +25,7 @@
 
 ## 2. 실제 조사 및 변경 현황
 
-### 실행한 것
+### 95015df까지 실행한 조사
 
 1. SafeDrive 지침, git 상태, HANDOFF, 기존 메모리·분석 자산 및 데이터 경로를 읽었다.
 2. SafeDrive의 instance 선택, joint world/planning decoder, loss 및 미래 target 정렬 코드를 추적했다.
@@ -36,15 +37,31 @@
 5. 호스트의 GPU 종류와 기존 프로세스를 읽기 전용으로 확인했다.
 6. 이 상태 문서와 계산 그래프 **초안**을 작성하고, 과거 인수인계의 오해 소지를 정정했다.
 
+### 이번 v1에서 추가 실행한 것
+
+- 사용자/ChatGPT 검토를 반영해 순차 조건부 ST의 K-slot, invalid, temperature, ID tie,
+  permutation 및 모든 객체가 예산에 들어가는 경우를 구현했다.
+- CPU fixture에 selector/predictor/planner와 loss별 gradient 경계를 구현했다.
+  기존 SafeDrive/Drive-JEPA model에는 아직 붙이지 않았다.
+- **13개 unittest 통과**: planning→selector, auxiliary 차단, detach의 forward 불변과
+  backward 차단, target 교체 독립성, permutation, padding/empty/invalid/tie 등을 검사했다.
+- **3-seed 합성 선택 학습 통과**: 정해진 analytic predictor/planner를 두고 selector만 planning
+  MSE로 학습했다. 별도 holdout에서 두 relevant entity의 exact-set 정확도는 99.9756~100%다.
+- Command 교란 / no-intent entity-only 학습 / random / motion / fixed-semantic / hindsight
+  oracle을 비교했다. 쉬운 인위적 과제이므로 자율주행 H1/H2 증거로 사용하지 않는다.
+- 결과·환경·config·source SHA256은 `analysis/research/graph_v1_validation.json`,
+  해석·한계·재현 명령은 `docs/GRAPH_V1_VALIDATION.md`에 남겼다.
+
 ### 아직 하지 않은 것
 
-- 새 selector / future predictor / target encoder를 **모델 코드에 구현하지 않았다**.
-- autograd smoke test, 실제 batch forward/backward, 공식 checkpoint 평가를 수행하지 않았다.
-- 새 의존성 설치, 기존 환경 업그레이드, GPU 학습, 전체 cache 재생성을 하지 않았다.
+- 실제 NAVSIM selector / future predictor / target encoder / entity adapter 연결은 구현하지 않았다.
+- 실제 batch forward/backward 및 공식 checkpoint 평가를 수행하지 않았다.
+- 새 외부 의존성 설치, 기존 환경 업그레이드, GPU 학습, 전체 cache 재생성을 하지 않았다.
 - 공용 데이터셋에 쓰거나 새 데이터셋을 다운로드하지 않았다.
 - 최종 baseline 및 tensor adapter를 확정하지 않았다.
 
-이번 커밋은 문서·작업 규칙 변경이다. 기존 모델, loss, 실험 결과 CSV는 변경하지 않는다.
+95015df는 문서·작업 규칙 변경이었다. 이번 v1은 독립 synthetic fixture와 결과 기록을 추가한다.
+기존 모델, loss, 실험 결과 CSV는 변경하지 않았다.
 
 ## 3. 실제 경로·버전·자산
 
@@ -67,6 +84,7 @@
 | 없는 자산 | 현재 작업공간의 `ckpts/`, `exp/metric_cache_navtest`, `exp/safedrive_train_cache` |
 | 환경 | 기존 base / alpasim-cuda128만 확인; safedrive / drive-jepa 전용 환경 없음 |
 | 기존 torch | alpasim-cuda128에서 torch 2.8.0+cu128을 읽기 전용 조회. 본 연구 호환성 검증 아님 |
+| CPU fixture 실행 환경 | `exp/graph_cpu_env`, Python 3.12.13 / 기존 torch 읽기 전용 참조 venv. 완전 독립 dependency 환경 아님 |
 
 체크포인트 크기는 기존 AICA 전송 기록과 일치한다. 체크섬·내용·resume 적합성은 검증하지 않았다.
 공식 Drive-JEPA 전체 cache/weight 다운로드 명령을 무작정 실행하지 않는다.
@@ -129,14 +147,13 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
 
 ## 6. 다음 담당자가 바로 할 일
 
-1. `SELECTIVE_FUTURE_GRAPH.md`의 B 경로와 loss별 gradient 표를 읽고 초안을 실제 함수 경계로
-   구체화한다. hard top-K gradient 추정 방식과 JEPA loss의 selector 차단을 먼저 결정한다.
+1. `SELECTIVE_FUTURE_GRAPH.md`와 `GRAPH_V1_VALIDATION.md`의 구현 범위·결과·편향 한계를 읽는다.
+   Auxiliary의 selector 직접 gradient 차단은 초기 실험 선택이지 보편 원칙이 아니다.
 2. perception-based Drive-JEPA 내부와 entity/target adapter 비용을 끝까지 확인하여 baseline을
    선택한다. SafeDrive를 주 baseline으로 되돌리는 변경은 임의로 확정하지 않는다.
-3. **synthetic CPU autograd smoke test**를 구현한다: planning→selector gradient, auxiliary→selector
-   차단, future-label 독립 forward, variable valid count, no-future/detach 대조를 검사한다.
+3. 실제 입력/target tensor, ego-motion 정렬 및 미래 GT 경계를 정의하고 작은 adapter test를 만든다.
 4. 구현 경로가 성립하면 독립 환경과 최소 NAVSIM batch로 검증한다. GPU 사용은 0·1로 제한한다.
-5. novelty 검증과 작은 고정-K 비교 설계를 마친 후 본 실험 진행 여부를 판단한다.
+5. 현재-feature 전달 대조와 강한 동일-K 비교군, novelty 검증을 마친 후 본 실험 진행 여부를 판단한다.
 
 ## 7. Codex ↔ ChatGPT 협업 규약
 
