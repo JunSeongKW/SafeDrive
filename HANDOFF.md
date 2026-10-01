@@ -1,163 +1,118 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-09-30 16:19 KST (Codex)
+마지막 갱신: 2026-10-01 10:14 KST (Codex)
 
-세션 **시작**: 이 파일 + `git log -10` + `AGENTS.md`. 세션 **끝**: 이 파일 갱신 + `tools/handoff-commit.sh`.
-상세 실험 일지는 `RESUME_NOTES.md`(2026-09-17~29, 시간순), 설계·근거는 `EXPERIMENT_DESIGN.md`.
+세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
+세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
+공통 조사 상태: [docs/RESEARCH_STATUS.md](docs/RESEARCH_STATUS.md).
+계산 그래프 초안: [docs/SELECTIVE_FUTURE_GRAPH.md](docs/SELECTIVE_FUTURE_GRAPH.md).
+시간순 이력: `RESUME_NOTES.md`. 과거 설계: `EXPERIMENT_DESIGN.md`.
 
-## 0. ★ 연구 플랫폼이 바뀌었다 — SafeDrive → JEPA 계열 (2026-09-29 사용자 결정)
+## 0. 현재 연구 의도 — 최신 사용자 프롬프트가 우선
 
-사용자가 **"SafeDrive 는 변경 가능 범위가 좁아서 새로운 novelty 를 넣기가 어렵다"** 고
-판단해 **JEPA 기반으로 전환**하기로 했다. 근거: SafeDrive 에서 돌린 실험 5건이 전부
-loss 가중치·개수·불리언 하나를 바꾼 것이고 아키텍처를 건드린 것이 없었다.
+**현재 주행 맥락·ego 의도·planning 목적에 따라 같은 예측 예산에서 유용한 객체의 미래를
+선택하도록 학습할 수 있는가?** JEPA 채택 자체가 핵심 기여는 아니다.
 
-- **SafeDrive 결과는 논문의 motivation 근거로만 쓴다.** 주 실험으로 쓰지 않는다.
-- 새 실험을 제안할 때 SafeDrive 를 기본 플랫폼으로 가정하지 말 것.
-- JEPA 가 명제에 맞는 이유: **"무엇을 예측할지"가 마스크로 표현된다.** 기존 JEPA 마스크
-  (random, multi-block, progressive schedule, object-level)는 전부 입력과 무관하게 사람이
-  고정한 것이므로, **마스크를 주행 맥락 조건부로 planning objective 가 학습**하게 하는 것이
-  명제의 두 질문(사람이 정하지 않기 / 상황마다 다르기)을 동시에 겨냥한다.
+- H1: 상황에 따라 유리한 미래 정보 구성이 다를 수 있다. 아직 일반적 사실로 확립되지 않았다.
+- H2: 맥락/planning-conditioned 선택이 같은 예산의 강한 비교군을 넘는가.
+- H3: 동적 K/horizon은 나중 확장이다. 첫 버전은 **고정 K·고정 horizon**.
+- 관측 마스킹 / 미래 target 선택 / planner 입력 선택을 구분한다. 주 초안은 미래 target 선택.
+- SafeDrive는 기존 motivation 자산과 코드 참고다. 주 baseline으로 임의 회귀하지 않는다.
+- Drive-JEPA는 encoder/재현 후보다. **직접 연결형 future predictor의 확정 baseline은 아니다.**
+- 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
 
-**없음** (2026-09-30 확인). GPU 0~3 비어 있고 4~7 은 junhyeok 의 pycena/physics_server 스택 점유.
+**이번 조사에서 새로 시작한 학습·평가 없음** (2026-10-01).
+현재 작업은 계산 그래프 명세·코드 감사의 중간 체크포인트. autograd smoke test 미수행.
 
-중단된 큐: `scripts/run/queue.sh 0 1` 로 8개 항목(O0 → F3 → F4 → F2b → O1×4)을 돌리던 중
-사용자가 다른 작업을 위해 여러 번 중단했다. **O0 는 epoch 1 체크포인트까지 있다**(3 epoch 남음).
-JEPA 전환에 따라 **O0 · O1×4 는 취소를 권한다**(미래 표현 4종 틀이 JEPA 에서 성립하지 않음).
-**F3·F4 만 남기면 "동적 vs 정적" 대비가 JEPA 마스크 설계의 직접 근거가 된다**(각 약 13시간).
+현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
+RTX A6000 약 48 GB다. 확인 당시 기존 프로세스가 있으므로 비어 있다고 가정하거나
+다른 연구원 작업을 중지하지 않는다. 과거 H100의 할당·batch 설정은 현재 서버에 적용하지 않는다.
 
-## 2. 최근 결과 (요약 — 상세는 RESUME_NOTES.md)
+이전 중단 작업: O0 epoch 1 / F3 epoch 0 checkpoint라는 인수인계가 있다.
+실제 checkpoint 내부 epoch와 resume 적합성은 이번에 검증하지 않았다.
+**O0·O1×4를 재개하지 않고, F3/F4도 현재 실행하지 않는다.**
+큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
-navtest 12,147 전수, 각 조건 Phase 2 를 5 epoch 재학습(batch 24 × 2 GPU 고정).
+## 2. 최근 결과와 조사 사실
 
-| 실험 | PDMS | Δ vs P2 | 뜻 |
+아래는 **이전 서버에서 보고된 결과**다. 이번 세션에서 재계산하거나 학습 provenance를 검증하지 않았다.
+이전 보고 조건: navtest 12,147, Phase 2 5 epoch, batch 24 × 2 GPU.
+
+| 실험 | 보고 PDMS | 보고 Δ vs P2 | 해석 유의점 |
 |---|---:|---:|---|
-| phase3 논문 재현 | 90.96 | +1.96 | 논문 91.6 |
-| **P2 baseline** | **89.00** | — | 기준 |
-| α 보행자 **추가** | 89.09 | +0.09 | 더 넣어도 효과 없음 |
-| **F1 미래 BEV 제거** | **89.25** | **+0.25** | **빼도 손해 없음** |
-| F2 agent궤적 제거\* | 88.67 | −0.33 | \*pair_Disp 누출 있던 버전 |
-| E3 월드 25→5 | 88.62 | −0.38 | 1/5 로 줄여도 0.38 |
-| E2 perception 114M→19M | 87.98 | −1.02 | 6배 줄여도 1.02 |
+| phase3 논문 재현 | 90.96 | +1.96 | 독립적으로 재평가하지 않음 |
+| P2 baseline | 89.00 | — | 기준 |
+| α 보행자 추가 | 89.09 | +0.09 | 객체 클래스 변경 |
+| F1 미래 BEV 감독 제거 | 89.25 | +0.25 | 보조 감독 변경; future latent 입력 제거와 구분 |
+| F2 motion 감독 변경 | 88.67 | −0.33 | 당시 pair_Disp 경로/설정 감사 필요 |
+| E3 월드 25→5 | 88.62 | −0.38 | 객체 수 변경 |
+| E2 perception freeze | 87.98 | −1.02 | 학습 용량 변경 |
 
-- **5개 실험 전부 DAC 가 올랐다**(+0.29~+0.63). 용량이 남아 planning loss 에 과적합되며
-  도로 구조 이해를 망치고 있었다.
-- 손실의 88.7% 가 EP 하나. 안전 지표는 97~99.5 로 포화. 충돌 agent 는 98.1% 가 이미 월드 안.
-- scoring 상수 하나(EP_test_weight 0.75→300)가 **+1.22** — 95M 파라미터 추가 학습(+1.02)보다 크다.
-  단 하이퍼파라미터 튜닝이므로 기여로 주장하지 않는다.
-- ★ **상황별 요구 정보 차이 확인**(2026-09-28). 입력 기반 맥락 축으로 분해하니 단조 추세 3건과
-  부호 역전이 나왔다. 특히 **월드 25명이 직진에서는 필요(−0.67★)하고 좌회전에서는 불필요(+0.20)**.
-  3차에서 "미확립" 이라 보고한 것은 *난이도* 한 축으로만 봤기 때문이었다.
+DAC 상승만으로 planning 과적합이 원인이라고 확정하지 않는다.
+상이한 감독·용량·객체 수·클래스 변경을 동일한 미래 정보 선택 ablation으로 묶지 않는다.
+기존 맥락별 부호 역전은 cross-fitting·log 상관·다중검정을 거쳐 재검증할 관찰이다.
+
+**2026-10-01 코드에서 확인한 것**:
+
+- SafeDrive `select_topk`는 후보 ego 경로와 현재 객체의 거리를 사용하고 정수 top-K index를 gather한다.
+  선택 feature 내용의 gradient와 선택 정책의 gradient는 다르다. 현재 선택기는 학습된 selector가 아니다.
+- Drive-JEPA perception-free downstream은 pretrained encoder→ego trajectory decoder다.
+  감사한 분기에는 별도 entity 미래 latent predictor 호출이 없다.
+- `context_axes.py`의 fwd/lat/dheading/bow는 미래 PDM reference 기반이다.
+  “전부 현재 입력 기반”이라는 과거 설명은 잘못됐다. online selector 입력으로 재사용하지 않는다.
+- target track 정렬과 미래 ego-frame 변환 참고 코드는 있지만 entity latent adapter는 아직 없다.
+
+실제 파일: CSV 22개, O0/F3 last.ckpt 각각 1,382,312,902 / 1,382,302,278 bytes.
+크기는 이전 전송 기록과 일치한다. checksum·내용 검증은 미수행이다.
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- **AXE-080 Tier 1 이전 완료.** Claude 메모리 14개와 세션 JSONL 1개, 평가 CSV 22개,
-  `o0_nofuture`·`f3_nopairnc` 재개용 `last.ckpt` 2개를 받았다. 체크포인트 크기는 AICA 원본과
-  일치하고 받다 만 임시 파일은 없다.
-- **새 서버 데이터 경로 규칙을 확정했다.** `/rhome/junseong/`은 코드·변환 결과·metric/feature
-  cache를 포함한 작업공간이다. `/home/user/data/Dataset/`의 연구실 공용 원본은 절대 직접 수정하지
-  않고 `/rhome/junseong/` 아래 프로젝트에 심볼릭 링크로만 연결한다. 새로 필요한 데이터셋 원본은
-  `/home/user/data/processed_dataset/`에 총 1 TB 한도 안에서 다운로드한다. 이 규칙을 `AGENTS.md`와
-  pinned Claude 메모리에 기록했다.
-- SafeDrive 에 `dataset -> /home/user/data/Dataset/navsim` 심볼릭 링크를 만들고 maps·navsim_logs·
-  sensor_blobs 를 읽을 수 있음을 확인했다. 링크는 `.gitignore` 대상이고 공용 원본에는 쓰지 않았다.
+- `docs/RESEARCH_STATUS.md`를 추가했다. 최신 가설·실제 자산·조사한 함수·미실행 작업·
+  선행 해석의 정정·Codex/ChatGPT 협업 규약을 분리해 기록했다.
+- `docs/SELECTIVE_FUTURE_GRAPH.md`에 고정-K entity 미래 target 선택의 tensor 계약,
+  planning→selector 경로, auxiliary gradient 차단 및 최소 검사 계획을 **초안**으로 남겼다.
+- Drive-JEPA 공식 소스를 작업공간에 clone하고 `548bb8215e3aae18e162a0f12f1ba83b4d3eb57e`로
+  근거를 고정했다. 소스 자체는 이 저장소에 중복 커밋하지 않고 경로·공식 링크를 기록했다.
+- `AGENTS.md`의 현재 GPU 승인(0·1), 집계+상황별 평가, 새 서버 환경 및 협업 규칙을 정정했다.
+- HANDOFF의 과거 확정적 표현과 실행 계획을 최신 사용자 범위와 검증 상태에 맞춰 정정했다.
+- 모델·loss 코드, CSV, 공용 데이터는 변경하지 않았다. 환경 설치·학습·autograd 검사는 미실행이다.
 
-## 4. 다음 단계 — 새 서버에서의 순서
+## 4. 다음 단계 — 계산 그래프 검증부터
 
-**원칙: SafeDrive 는 재학습 없이 뽑을 수 있는 것만 마무리하고, GPU 는 JEPA 에 쓴다.**
-SafeDrive 에 남은 가치는 대부분 이미 있는 평가 CSV 안에 있다(22개 run, `exp/safedrive/eval_*/traj_*.csv`).
-반면 JEPA 는 아직 코드 한 줄도 없다. 따라서 GPU 를 SafeDrive 재학습에 26~65시간 더
-쓰는 것은 우선순위가 아니다.
+1. 그래프 초안의 hard-forward/soft-backward 선택, loss별 detach, target 경계를 실제 함수로 구체화한다.
+   **synthetic CPU autograd test**로 planning→selector, auxiliary 차단,
+   미래 target 교체 시 forward 불변, valid-count edge case를 검사한다.
+2. Drive-JEPA perception-based 내부와 entity/target adapter를 감사하고 baseline을 결정한다.
+   perception-free 분기만으로 직접 연결형 future predictor가 이미 있다고 가정하지 않는다.
+3. AD-E2E-JEPA·Causal-JEPA·IA-JEPA·SPARTAN·Drive-JEPA 및 직접 관련 연구의 원문/공식 코드로
+   선택 대상·맥락/의도 조건·gradient·예산·train/inference·planning 평가 비교표를 완성한다.
+   “못 찾음” 또는 두 열의 “아니오”는 novelty 증명이 아니다.
+4. 방향이 성립하면 독립 환경과 최소 NAVSIM batch로 baseline 및 label 경계를 재현한다.
+   이후 동일 K/horizon의 random·강한 규칙·제안 선택을 작게 비교한다. 동적 K/horizon은 보류한다.
+5. SafeDrive CSV는 별도 CPU motivation 분석에 쓴다. run provenance와 공통 token을 확인하고,
+   log-level cross-fitting, 같은 선택 절차의 best-fixed 비교, cluster bootstrap, 정의된 검정군의
+   BH-FDR를 사용한다. cross-fitted 규칙을 oracle upper bound라고 부르지 않는다.
 
-### 4-0. 세팅 (반나절, GPU 0장)
+navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard 접근·사용 이력·공식 프로토콜을
+확인한 뒤 최종 평가 경로를 정한다. 이전 서버의 데이터 크기·GPU-hour를 현재 실측치로 취급하지 않는다.
+**현재 대규모 학습·SafeDrive 재학습·전체 cache 생성은 시작하지 않는다.**
 
-```bash
-git clone -b junseong/main git@github.com:JunSeongKW/SafeDrive.git && cd SafeDrive
-bash tools/check-new-server.sh          # GPU·디스크·데이터셋·conda 확인
-bash tools/pull-from-cloud.sh 1         # 2.6 GB (메모리/대화 + 평가 CSV + last.ckpt)
-```
+## 5. 확정 범위 / 미결
 
-`check-new-server.sh` 의 답이 이후 분기를 결정한다 — **sensor_blobs(2.5 TB) 와 디스크
-500 GB 여유가 있는가.** 없으면 SafeDrive 재학습(4-3)은 아예 선택지가 아니다.
+**확정**: 미래 예측 대상 선택이 핵심; 고정 K·horizon부터; GPU 0·1만 사용;
+공용 원본 직접 수정 금지; 기존 환경/프로세스 보존; 작업공간은 `/rhome/junseong`;
+새 데이터셋 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
 
-### 4-1. ★ 최우선: 선행연구 novelty 생사 확인 (1~2일, GPU 0장)
+**미결**: 최종 baseline, hard top-K surrogate, entity 표현/association, target encoder,
+planner가 미래를 실제 쓰는지, 동일 예산 비교군 대비 효과, novelty delta, 독립 holdout.
 
-논문의 존재 여부가 여기서 갈린다. **GPU 작업보다 먼저 한다.**
+AD-E2E-JEPA v1 공개일은 **2026-09-28**이다. 과거 “3주 전” 표기는 잘못됐다.
+원문 §3.4의 downstream IL은 patch predictor를 제거하는 경로다.
+이 사실을 goal-conditioned zero-shot 경로 또는 모든 JEPA 구현에 일반화하지 않는다.
 
-| 논문 | 확인할 것 |
-|---|---|
-| `Causal-JEPA` 2602.11389 | Object-Level Latent Masking 이 **맥락 조건부**인가, 고정 규칙인가 |
-| `AD-E2E-JEPA` 2609.34085 | 3주 전 논문. 맥락별 예측 대상 선택을 이미 했다면 명제 재설계 필요 |
-| `Drive-JEPA` 2601.22032 | 코드 공개. 마스크 생성 코드 경로를 직접 읽는다 |
-
-산출물은 **"마스크를 무엇이 정하는가" 표** 한 장이다. 열은
-(무엇을 마스킹 / 누가 정함: 사람·랜덤·스케줄·입력조건부 / planning loss 가 마스크에
-gradient 를 주는가 / 맥락별 분해 평가가 있는가). **마지막 두 열이 전부 "아니오" 면
-이 연구의 자리가 확보된다.** 하나라도 "예" 면 그 논문과의 차이를 먼저 정의해야 한다.
-
-### 4-2. SafeDrive 마무리 — 재학습 없는 것만 (2~3일, GPU 0장)
-
-1. **★ 상황별 oracle 조합 (split-half).** 이 연구 명제의 가장 강한 단일 숫자이고 비용이 0 이다.
-   맥락 버킷마다 6개 조건(baseline · F1 · F2 · E3 · E2 · α) 중 최선을 고른 조합 점수가
-   **어떤 단일 고정 구성보다 높은가**를 본다. 버킷별 승자는 navtest 의 **절반에서 고르고
-   나머지 절반에서 측정**한다(같은 데이터로 고르고 재면 허상이다 — 3차의 평균 회귀 사고와
-   같은 종류의 함정). 이 숫자 하나가 논문 Figure 1 이 된다.
-2. **다중비교 보정.** 맥락 분해에서 약 76개 검정을 했으므로 BH-FDR 를 적용하고, 부호 역전
-   3건(특히 직진 −0.67 / 좌회전 +0.20)이 보정 후에도 남는지 확인한다. 남지 않으면
-   motivation 을 "예비 관찰" 로 낮춰 쓴다.
-3. 위 두 결과로 **motivation 절(논문 Sec.1/3) 초안**을 쓴다. SafeDrive 는 여기서 끝낸다.
-
-### 4-3. SafeDrive 재학습 — **조건부. 조건이 안 맞으면 버린다**
-
-- **O0 · O1×4 는 취소한다**(약 65시간 절약). 미래 표현을 4종으로 나눈 틀 자체가 JEPA 에서
-  성립하지 않으므로, 그 조합표는 쓸 곳이 없다.
-- **F3·F4 만** 값이 있다(각 약 13시간, 2 GPU). 얻는 것은 *동적 상호작용(F3) vs 정적 도로(F4)*
-  대비 한 줄이고, 이것이 JEPA 마스크를 "agent 영역 / 도로 영역" 으로 나누는 설계 근거가 된다.
-- 실행 조건: sensor_blobs 존재 + 디스크 500 GB + GPU 2장 유휴. **feature cache 444 GB 는
-  전송하지 말고 `scripts/run/cache_navtrain.sh` 로 새로 만든다**(수 시간, NAT 뒤 VM 에서
-  444 GB 를 받는 것보다 빠르다). 그 전에 tier 3(metric cache 22 GB)이 필요하다.
-  ```bash
-  bash tools/pull-from-cloud.sh 2   # ckpt + navtest 캐시 (평가용, 8 GB)
-  bash tools/pull-from-cloud.sh 3   # navtrain metric cache (22 GB)
-  bash scripts/run/cache_navtrain.sh
-  bash scripts/run/queue.sh <gpuA> <gpuB> \
-       f3_nopairnc:SafeDrive_Phase2_F3_NoPairNC f4_notwdac:SafeDrive_Phase2_F4_NoTwDAC
-  ```
-  체크포인트가 있으면 자동 재개하고 `TRAIN_DONE` 이 있으면 건너뛴다.
-- **조건이 안 맞으면 미련 없이 버린다.** F3·F4 없이도 4-2 로 motivation 은 성립한다.
-
-### 4-4. JEPA 착수 — 이것이 본편 (4-2 와 병행)
-
-1. **Drive-JEPA 클론 → 재현.** 데이터 파이프라인이 NAVSIM 과 호환되는지, navtest 평가
-   인프라(`exp/metric_cache_navtest`)를 그대로 붙일 수 있는지 먼저 본다. 새 conda env 로
-   만든다(`python-env-isolation` 원칙).
-2. **1차 실험 = SafeDrive 결과의 JEPA 재현.** 고정 마스크 4~5종(random / multi-block /
-   agent 영역 / 도로 영역 / horizon 단축)을 각각 학습하고 `analysis/context_axes.csv` 로
-   분해한다. 이 축은 metric cache 기반이라 NAVSIM 계열이면 그대로 재사용된다.
-   **노리는 결과: 마스크 종류에 따라 상황별 승자가 바뀐다.** 이것이 나오면 method 로 간다.
-   안 나오면 명제가 SafeDrive 특수성이었다는 뜻이므로 그 사실을 보고한다.
-3. **2차 = method.** 맥락 조건부 마스크 생성기를 planning loss 로만 학습하고, 예산 K 를
-   제약해 정보 요구 곡선을 그린다. 1차의 고정 마스크 성적이 gate 가 도달해야 할 상한이 된다.
-   기술 리스크는 gate collapse 이며 load-balancing 또는 명시적 sparsity budget 이 필요하다.
-4. **navhard 이전은 GPU 가 바쁜 동안의 CPU 작업으로 끼워 넣는다.** 데이터(31 GB)는 이미
-   내려와 있고 이 fork 에 v2 코드가 없을 뿐이다.
-
-## 5. 결정된 것 / 남은 미결
-
-**결정했다** (근거는 4절):
-
-- **베이스라인은 Drive-JEPA.** 코드가 공개돼 있어 재현 가능하고, DA-WAM 은 SOTA 지만
-  질문 1 의 최대 경쟁자라 그 위에 쌓으면 우리 delta 가 그 논문 기여와 섞인다.
-  DA-WAM 은 related work 비교 대상으로만 쓴다.
-- **O0 · O1×4 취소, F3 · F4 는 조건부.** SafeDrive 재학습에 GPU 를 쓰지 않는 쪽이 기본값.
-- **벤치마크는 navtest 로 반복하고 navhard 로 최종 주장.** navtest 집계는 포화지만
-  맥락 분해용 인프라가 이미 있고, navhard 는 55.5~56.6 EPDMS 로 포화되지 않았다.
-
-**남은 미결** — 4-1 의 결과를 봐야 답할 수 있다:
-
-- `AD-E2E-JEPA`(3주 전)가 맥락 조건부 마스킹을 이미 했다면 명제의 어느 부분으로 좁힐지.
-  후보: 예산 제약(K 스윕)으로 좁히기 / 마스크가 아니라 *예측 horizon* 의 맥락 적응으로 옮기기.
+아래 6절은 **이전 서버 이전 기록**이다. AICA 환경·과거 데이터 크기는 현재 서버의 검증 결과가 아니다.
 
 ## 6. 다른 서버에서 재구성 (git 으로 오지 않는 것)
 

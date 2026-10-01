@@ -549,3 +549,36 @@ O0 가 외부 SIGTERM 으로 epoch 2 의 32% 에서 죽었는데, 큐가 그것�
 O0 는 `epoch=1-step=3548.ckpt` 까지, F3 는 `epoch=0-step=1774.ckpt` 까지 있다. F4 이후는 미시작.
 사용자가 다른 작업을 위해 GPU 를 여러 번 회수했고, 매번 체크포인트가 보존돼 실제 손실은
 총 2.5시간 정도다.
+
+## 2026-10-01 — Codex/ChatGPT 공유용 중간 코드 감사 체크포인트
+
+### 실제 수행
+
+- 최신 사용자 연구 범위를 H1/H2, 고정 K·horizon, entity 미래 target 선택으로 정리했다.
+- SafeDrive의 거리 top-K, query gather, world/planning 경로, target track 정렬 및 loss를 읽었다.
+  top-K index를 사용하는 현재 선택에 학습된 선택 정책의 미분 경로가 없음을 확인했다.
+- Drive-JEPA 공식 저장소를 `/rhome/junseong/research_sources/Drive-JEPA`에 clone했다.
+  기준 commit: `548bb8215e3aae18e162a0f12f1ba83b4d3eb57e`.
+  perception-free model/agent/features/encoder loader를 감사했다. 이 downstream 분기는
+  pretrained encoder→trajectory decoder이며 별도 entity 미래 predictor를 호출하지 않는다.
+  perception-based 내부 감사는 아직 미완료다.
+- CSV 22개와 O0/F3 checkpoint 두 파일의 존재·바이트 크기를 재확인했다. checksum 미검증.
+- 공용 NAVSIM 링크와 작업/다운로드 경로를 확인했다. 공용 원본에는 쓰지 않았다.
+- 호스트 GPU 0·1은 RTX A6000 약 48 GB다. 기존 프로세스가 있는 상태였고 새 GPU 작업은 시작하지 않았다.
+- `docs/RESEARCH_STATUS.md`, `docs/SELECTIVE_FUTURE_GRAPH.md`를 추가하고 AGENTS/HANDOFF를 정정했다.
+  최신 사용자 승인 GPU(0·1)와 집계+상황별 평가를 반영했다.
+
+### 이전 해석 정정과 한계
+
+- 기존 context 축 중 fwd/lat/dheading/bow는 미래 PDM reference 기반이므로 online selector 입력이 아니다.
+- cross-fitted 선택 규칙을 oracle upper bound로 부르지 않는다.
+- AD-E2E-JEPA v1은 2026-09-28 공개다. 원문 §3.4 downstream IL의 predictor 제거와
+  goal-conditioned zero-shot 경로를 구분한다. 모든 기존 마스크가 입력과 무관하다는 일반화는 철회한다.
+- 과거 SafeDrive 점수·부호 역전·원인 해석은 이번에 재계산하거나 학습 provenance를 확인하지 않았다.
+
+### 미수행 / 이어할 일
+
+모델·loss 코드는 변경하지 않았다. selector 구현, synthetic gradient test, 실제 batch 재현,
+환경 설치, 학습, cache 생성, baseline 최종 선정은 미수행이다. 먼저 그래프 초안을 함수 경계로
+구체화하고 planning→selector 및 auxiliary 차단을 CPU autograd로 검증한다.
+이 기록은 연구 성능 결과가 아니라 사용자 요청에 따른 **중간 인수인계 커밋**이다.
