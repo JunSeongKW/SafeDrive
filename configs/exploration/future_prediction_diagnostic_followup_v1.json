@@ -1,0 +1,26 @@
+{
+  "baseline_commit": "9353acf",
+  "question": "Does bounded additional learning resolve low visual prediction variance, and how does planning-to-predictor coupling affect equally supervised mixed heads?",
+  "cache_directory": "outputs/feature_caches/target_supervision_rectified_v1b",
+  "original_run_directory": "outputs/target_supervision_exploration/seed29_updates200_v1",
+  "baseline_variability_seeds": [11, 47],
+  "baseline_variability_updates": 200,
+  "common_total_updates": 1000,
+  "continued_seed29_conditions": ["A", "B", "C", "D", "E"],
+  "fresh_long_runs": [{"seed": 29, "label": "F"}, {"seed": 11, "label": "E"}, {"seed": 11, "label": "F"}],
+  "evaluation_updates": [0, 200, 500, 750, 1000],
+  "max_new_optimizer_updates": 7400,
+  "batch_size": 8,
+  "selected_entity_budget": 4,
+  "time_limits_seconds": {"per_run_including_evaluation": 600, "whole_invocation": 1800},
+  "optimizer": {"learning_rate": 0.0001, "weight_decay": 0.0001, "gradient_clip_norm": 1.0},
+  "F": {"label": "F", "name": "mixed_auxiliary_planner_inputs_detached", "enable_future_branch": true, "visual_weight": 0.05, "spatial_weight": 0.05, "detach_future_for_planning": true},
+  "continuation_contract": "Restore old model and AdamW state and verify old first200 sampler prefix and initial weights. No scheduler existed. Old RNG snapshots are absent: call this optimizer-state continuation, NOT verified bitwise exact resume. New checkpoints save RNG states.",
+  "decision_rules": [
+    "Complete registered fixed amounts unless nonfinite values, integrity failure, time cap, or new occupancy conflict; no early winner selection.",
+    "A three seeds only measures A variability. E-F uses paired29/11. Single-seed extended A-E is exploratory, not a robust effect claim.",
+    "Report per-horizon persistence/train-mean and C/E/F variance. Do not label target collapse or useful temporal prediction solely from variance or cosine.",
+    "Do not eliminate visual targets at 200 updates. If still worse than persistence after1000, report limitation; residual or delta-target ablation needs a separate bounded preregistration and is not automatic.",
+    "No learned selector, dynamic budget/horizon, probabilistic predictor, new full cache, encoder training, or SafeDrive retraining."
+  ]
+}

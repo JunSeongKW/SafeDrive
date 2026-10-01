@@ -944,3 +944,52 @@ finite state 및 optimizer_updates200을 재검증했다. 공유 JSON/원본 실
 기록과 같다. CPU38/38tests 재통과, Ruff 및 git diff --check 통과.
 따라서 손실된 학습 구간은 없고 남은 작업은 최종 커밋·push였다. 그 부분부터 재개했다.
 기존 raw 결과·cache·체크포인트를 덮어쓰거나 추가 학습하지 않았다.
+
+## 2026-10-01 16:25 KST — 9353acf 이후 C/E 저분산 진단·제한 추가학습
+
+최신HEAD9353acf/clean worktree를확인하고README/AGENTS/HANDOFF 및실제runner/model/config/JSON을읽었다.
+기존cache373/train277/dev96와A–E200 완료작업·복구검증을반복하지않았다.
+GPU0/1 각각15MiB/compute없음, 타인GPU4–7 PID21618/33392/33393/33394를확인하고GPU0만사용했다.
+
+기존C/E checkpoint로mean/persistence/horizon/분산축/교란입력RMS/currentROI입력을측정했다.
+C devvisual MSE.950855 vs train-mean.949572/persistence.395004;target분산.916786은남는다.
+Cswap visual입력RMS.1204/ego변화.00611m, E.4171/.3183m; donor120slot inactive confound확인.
+작은swap만으로branch무시를확정하지않는다. Normalize inverse1.91e-6/manualloss5.96e-8오차.
+Raw373구간 track순서/spatialtarget/valid/gather일치, nominaltimestamp최대편차.012979s.
+Source/cache일관성검사이지GT좌표현실정합의독립증명은아니다. Visualteacher전부재계산하지않았다.
+
+Projection기존4표본감사를재사용하고대표2sheet를다시직접봤다. 원본DB K/D/크기일치 및왕복오차는
+이미보정된JPEG에추가보정이필요하다는증거가아님을명시했다. OpenScene문서/collect_data.py/MTGS A.1을
+직접읽었지만로컬JPEG export이력은확정못했다. 조건부가정유지;근거없는adapter변경/cache재생성없음.
+iPad arXiv2505.15111v1 §3.4/4.3 Table4와README를직접읽었다.90.5→91.7은General→Proposal-centric
+prediction교체이고89.8→91.7은mapping까지바뀐다. Learned selector/adaptive budget효과로인용하지않음.
+기존EgoFSD/ForeDrive감사의원문/구현미확인수준을구분;새모델재현은없다.
+
+사전config `future_prediction_diagnostic_followup_v1.json`: 추가7400update/whole1800s/run600s상한,
+A seed11/47 각200을먼저실행. 이후seed29 A–E총1000(model/AdamW200복원+800), F29/E11/F11각1000.
+기존initialhash/첫200sampler/window순서/AdamWstep200검증. 구RNG없으므로optimizer-state continuation,
+bitwise exact resume으로부르지않는다. 새checkpoint에는optimizer/sampler/Python·NumPy·Torch CPU/CUDA RNG저장.
+F는planner입력만detach하고반환두head는attached. Planning→P0/aux→P양수, aux→D0확인.
+Forward불변/두head학습과분산축계약새3test통과,관련기존5test/Ruff/diff통과. 기존전체38/recovery재실행없음.
+
+총7400update/235.33s완료. DevADE seed29 A/B/C/D/E/F=1.6717/1.7445/1.6485/1.6991/1.5747/1.5536m。
+A200 seed29/11/47=5.9208/6.3224/5.6591,std.3341m(A다른조건변동을대신하지않음).
+E/F29 F이득.0211m,11 .0508m;11의planningloss는F가소폭나쁨. 두seed/4devrecording으로F우월성주장안함.
+C200→1000 visualMSE.9509→.7936, 분산비.0120→.2137; E.9773→.8344/.1202→.2025。
+모든horizon persistence보다MSE나쁘며encoder collapse/visual무효/유용한시간예측/H1·H2/novelty를확정안함.
+초기저분산에학습량이관련됐지만capacity/조건부평균/aux regularization/현재side-channel/실제미래활용은미분리.
+
+새final10checkpoint strict/finite/optimizerstep/samplernext/CPU RNGreplay검증통과. CUDA snapshot은저장만검사,
+CUDA RNG실제replay는CPU검사에서안했다. 종료후GPU0/1 15MiB/타인PID보존,추가학습없음.
+Raw `outputs/future_prediction_diagnostics/bounded_followup_1000_v1/` 약767MB,
+초기진단 `seed29_update200_v2/`, share `results/future_prediction_diagnostics/`4JSON。
+보고서 `docs/future_prediction_variance_followup_results.md`, scope/evidence/config/재현명령/HANDOFF/status갱신.
+원본/cache/구checkpoint/env/타인process/SafeDrive자산/저장소공개설정보존。
+
+다음후보는현재feature+delta residual한가지, 기존C target/계수/K유지하고별도1000update/600s상한을
+사전고정하는안(미실행). 더실패하면target진단을계속연장하지않고front/target제약을검토한다.
+K연구전multiview/중복제거/turn·interaction coverage와JPEG근거를보완해야한다.
+확률적mean/covariance/calibration/계획제약은후속설계만; learned selector/동적K/horizon/대규모cache/학습없음.
+
+16:36 추가정리: B/D200의zero/swap 실제입력RMS도CPU-only로측정해A–E교란표를완성했다.
+추가optimizer update없음. As-run source4개/config SHA는현재파일과일치한다.

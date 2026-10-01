@@ -1,0 +1,12 @@
+{
+  "checked_windows": 373,
+  "track_order_mismatches": 0,
+  "spatial_target_max_absolute_error": 0.0,
+  "spatial_valid_mismatches": 0,
+  "cached_visual_valid_but_no_track_or_projection": 0,
+  "selected_gather_max_absolute_error": 0.0,
+  "time_offset_max_error_seconds": 0.012979000000000074,
+  "future_loss_broadcast_shape": "[window,selected_slot,future_step,channel]",
+  "visual_values": "Frozen teacher values not recomputed; source code maps clip index j+1 to future frame j with current track order.",
+  "source_writes": false
+}

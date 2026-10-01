@@ -22,6 +22,10 @@ pure visual JEPA, deployment perception 또는 학습 후 성능으로 해석하
 최신 실행은 `docs/target_supervision_exploration_results.md`: 거리규칙 K4/seed29/A–E 각200update 완료.
 이는 선택기 학습이 아닌 미래 감독 비교다. 초기 순위로 target을 탈락시키지 않으며 C/E의 낮은 예측 분산을
 검토한 뒤 다음 학습 규모·비교군을 결정한다. 실행 설정은 `configs/exploration/target_supervision_run_v1.json`이다.
+`9353acf` 이후에는 `docs/future_prediction_variance_followup_results.md`가 최신이다.
+완료cache/200학습을 반복하지 않고 추가7400update와mean/persistence/분산·E/F 대응seed진단을 완료했다.
+1000에도visual persistence보다나쁘며 JPEG보정은조건부. 등록상한에서멈췄고 다음구조ablation은미실행이다.
+설정 `configs/exploration/future_prediction_diagnostic_followup_v1.json`, 공유 `results/future_prediction_diagnostics/`.
 
 ## 세션 시작 루틴
 

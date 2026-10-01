@@ -5,6 +5,12 @@
 `09913b5` 이후에는 **명시적 영상 보정/투영 규약,373window 약616MB frozen feature cache,
 현재 거리 K4 fixed-rule runner와 A–E 각200update(seed29,batch8) 비교 완료**로 진행했다.
 최신 실측·한계는 [target 감독 비교 결과](target_supervision_exploration_results.md)다.
+`9353acf` 이후 최신은 [저분산 진단·제한1000update](future_prediction_variance_followup_results.md)다.
+기존cache/200학습 재사용, 추가7400update(A추가2seed/seed29 A–E1000/E–F 대응29·11) 완료.
+C의분산비.012→.214/visual MSE.951→.794지만persistence.395를전horizon에서못넘었다.
+E/F ADE차이는.021/.051m로작고미래정보의인과기여를증명하지않는다.
+구checkpoint는RNG없어optimizer-state continuation이지정확한resume아님. 새checkpoint RNG/optimizer를검사했다.
+JPEG 보정의실필요성은여전히조건부이며cache재생성·residual/확률적/selector추가는없다.
 이는 미래 감독의 학습 가능성/초기 경향이며 selector 학습이나 최종 target·novelty 결정이 아니다.
 공식 NAVSIM baseline 재현·성능·순수 visual JEPA·배포 가능한 perception 구현 완료 보고는 아니다.
 동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `selective_entity_future_prediction_graph.md`,

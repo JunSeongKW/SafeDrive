@@ -1,0 +1,108 @@
+{
+  "new_final_checkpoints": [
+    {
+      "seed": 11,
+      "label": "A",
+      "optimizer_update": 200,
+      "checkpoint_sha256": "baddf4ae71c37602dba1670fc25c2be1fac0b362c40c9bad67f53d44b6aa2b25",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 201
+    },
+    {
+      "seed": 47,
+      "label": "A",
+      "optimizer_update": 200,
+      "checkpoint_sha256": "81747c9bc715b04f334cb2c3e65956b6e8fe36e8695fba32c44d34c15adad87e",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 201
+    },
+    {
+      "seed": 29,
+      "label": "A",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "ca35c6d3b7392de7a9c9180a5693d3c0a1b70e9dc3d62543fc2616aae0114442",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    },
+    {
+      "seed": 29,
+      "label": "B",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "ccc9b8b1ffc61617b8a9d9e650ed18c7d0c506634e463b61ad385d45829e17d9",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    },
+    {
+      "seed": 29,
+      "label": "C",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "4c8e156a3689c2342a8cca99de288e713aa870ea67bb959b75c7158d2ef1797c",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    },
+    {
+      "seed": 29,
+      "label": "D",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "5b4ac576d0ffa609836212c1f136d5eefc0768b6461e1db8d5304b85b701172c",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    },
+    {
+      "seed": 29,
+      "label": "E",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "b807b00340c91d2ddfe3a6077a869c7f5b69f04f5d6c9669403079a48bba951e",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    },
+    {
+      "seed": 29,
+      "label": "F",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "0523b887e617574c11f44aa107a5d92a5f5f0c03fc9f5359179fd88411ec9f43",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    },
+    {
+      "seed": 11,
+      "label": "E",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "6d58eb8e4484307afd2f5ac5faa20eda16b0ddcb136facca90507fbd5801ee64",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    },
+    {
+      "seed": 11,
+      "label": "F",
+      "optimizer_update": 1000,
+      "checkpoint_sha256": "b5e151f63258c2d43c10f747f741773c330f98d9833bedc8ba412a65ddfb9388",
+      "strict_loading_finite_verified": true,
+      "cpu_rng_replay_verified": true,
+      "cuda_rng_snapshot_bytes": 16,
+      "sampler_next_update": 1001
+    }
+  ],
+  "historical_outputs_overwritten": false,
+  "old_checkpoint_bitwise_exact_resume_verified": false,
+  "cuda_rng_restoration": "Snapshot present and finite byte tensors; CUDA RNG replay not executed in this CPU verification.",
+  "sampler_prefix_contract_verified": true
+}

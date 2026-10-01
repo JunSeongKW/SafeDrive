@@ -44,3 +44,10 @@ ForeDrive Appendix F는 고정 horizon 구성을 비교하고 H는 detach/joint 
 - [ForeDrive v2 method/Appendix F/H](https://arxiv.org/html/2609.26299v2)
 
 위 표는 관련 원문을 요약한 것이며 paper score를 비교표에 재사용해 우리 모델 성능처럼 보고하지 않는다.
+
+## 9353acf 이후 관련 근거 추가
+
+[iPad의실제ablation 조건과확인수준](future_prediction_diagnostic_scope_and_evidence.md)을 확인했다.
+당시 EgoFSD/ForeDrive 원문 감사와 이번 iPad 원문/README 확인을 구분한다.
+이번에 세 연구의 모델 구현을 독립 재현하거나 전체 source autograd를 새로 감사한 것은 아니다.
+EgoFSD의noise 학습, 확률적future, Tube-MPC는 서로 다른 방법이며 현재확률적후속아이디어의novelty는미확정이다.

@@ -1,0 +1,58 @@
+{
+  "device": "cpu",
+  "training_updates": 0,
+  "conditions": {
+    "B": {
+      "checkpoint_sha256": "6624fbc37702967f9ef9e4c5dd4c48af791592c12447b1c374ec048867c3425b",
+      "perturbations": {
+        "zero": {
+          "feature_space": "train-normalized coordinates supplied to planner; current-selected active slots only",
+          "visual_feature_change_rms": 0.8788964351999133,
+          "spatial_feature_change_rms": 0.829266068427851,
+          "visual_change_to_original_rms_ratio": 1.0,
+          "mean_output_xy_change_meters": 0.6976168155670166,
+          "mean_window_ade_delta_meters": 0.4202786137660344,
+          "donor_inactive_recipient_active_slots": 0,
+          "interpretation": "Dependency only. Zero may be OOD. Swap also changes slot availability; small feature changes constrain interpretation."
+        },
+        "swap": {
+          "feature_space": "train-normalized coordinates supplied to planner; current-selected active slots only",
+          "visual_feature_change_rms": 0.7818706763484335,
+          "spatial_feature_change_rms": 0.7514648521551474,
+          "visual_change_to_original_rms_ratio": 0.8896050149191805,
+          "mean_output_xy_change_meters": 0.7034339929620425,
+          "mean_window_ade_delta_meters": 0.4425271973013878,
+          "donor_inactive_recipient_active_slots": 120,
+          "interpretation": "Dependency only. Zero may be OOD. Swap also changes slot availability; small feature changes constrain interpretation."
+        }
+      }
+    },
+    "D": {
+      "checkpoint_sha256": "3474870fce43fb917c98672411a4a5aac74cfc3134e93188ed7a6030c66bea41",
+      "perturbations": {
+        "zero": {
+          "feature_space": "train-normalized coordinates supplied to planner; current-selected active slots only",
+          "visual_feature_change_rms": 0.8143427138580465,
+          "spatial_feature_change_rms": 0.6743775696237683,
+          "visual_change_to_original_rms_ratio": 1.0,
+          "mean_output_xy_change_meters": 0.6138516912857691,
+          "mean_window_ade_delta_meters": 0.3971236937989791,
+          "donor_inactive_recipient_active_slots": 0,
+          "interpretation": "Dependency only. Zero may be OOD. Swap also changes slot availability; small feature changes constrain interpretation."
+        },
+        "swap": {
+          "feature_space": "train-normalized coordinates supplied to planner; current-selected active slots only",
+          "visual_feature_change_rms": 0.7651801718435863,
+          "spatial_feature_change_rms": 0.832655417779079,
+          "visual_change_to_original_rms_ratio": 0.9396291743293844,
+          "mean_output_xy_change_meters": 0.4504747688770294,
+          "mean_window_ade_delta_meters": 0.23879655512670675,
+          "donor_inactive_recipient_active_slots": 120,
+          "interpretation": "Dependency only. Zero may be OOD. Swap also changes slot availability; small feature changes constrain interpretation."
+        }
+      }
+    }
+  },
+  "source_sha256": "2eca56da633079c5f9856c3aca13d80a68467281f75a05a123f8dc74b8b5dd1b",
+  "helper_sha256": "12f711376f3ca4394ac7698d7c445a2ee1a9206df05f3a87e0943b9f79273309"
+}

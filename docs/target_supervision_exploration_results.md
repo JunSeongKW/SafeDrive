@@ -5,6 +5,12 @@ GPU0. 이번 질문은 ‘누구를 선택하는가’가 아니라 **선택된 
 planning 학습에 도움이 되는가**다. 최종 target/novelty/H1·H2는 확정하지 않았다.
 실행 원본·hash·곡선·상황별 지표: [공유 결과 JSON](../results/target_supervision_exploration/seed29_updates200_20261001.json).
 
+**9353acf 이후 검토 정정**: 아래는 당시200update의 기록이며 수치는 보존한다.
+낮은 예측 분산과 작은 swap Δ만으로 branch 무시/collapse를 확정하지 않는다.
+JPEG 왕복 오차는 저장 영상에 보정이 필요한지의 증거가 아니다.
+입력 변화량/mean/persistence/variance-axis·1,000update·E/F 후속 결과는
+[최신 저분산 진단](future_prediction_variance_followup_results.md)을 읽는다.
+
 ## 1. 투영·cache에서 확정한 것과 남은 가정
 
 - 네 개 직진/회전 train/dev 표본에서 NAVSIM의 K/D/1920×1080이 원본 nuPlan DB와 일치함을 확인했다.

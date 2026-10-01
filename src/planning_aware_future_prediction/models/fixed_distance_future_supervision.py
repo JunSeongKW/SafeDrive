@@ -71,6 +71,7 @@ class FixedDistanceFutureSupervisionPilot(VisualEntityFuturePlanningPilot):
         stable_entity_ids: Tensor,
         current_ego_status: Tensor,
         enable_future_branch: bool = True,
+        detach_future_for_planning: bool = False,
     ) -> VisualFuturePilotOutput:
         safe_features = torch.where(
             current_entity_valid_mask[..., None], current_entity_features, 0.0
@@ -91,13 +92,20 @@ class FixedDistanceFutureSupervisionPilot(VisualEntityFuturePlanningPilot):
                 current_ego_status,
                 selection.selected_entity_valid_mask,
             )
+        # F keeps attached outputs for BOTH auxiliary heads. Detach only the
+        # planner inputs, not the predictor call or returned training outputs.
+        planner_visual = predicted_visual
+        planner_spatial = predicted_spatial
+        if detach_future_for_planning and enable_future_branch:
+            planner_visual = predicted_visual.detach()
+            planner_spatial = predicted_spatial.detach()
         trajectory = self.ego_planner(
             current_image_grid,
             safe_features,
             current_entity_valid_mask,
             current_ego_status,
-            predicted_visual,
-            predicted_spatial,
+            planner_visual,
+            planner_spatial,
             selection.selected_entity_valid_mask,
         )
         return VisualFuturePilotOutput(
