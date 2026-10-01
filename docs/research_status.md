@@ -2,7 +2,7 @@
 
 갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **계산 그래프 v1 CPU 진단까지 완료**했다.
 실제 NAVSIM 모델·visual JEPA·baseline 구현 완료 보고는 아니다.
-동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `SELECTIVE_FUTURE_GRAPH.md`,
+동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `selective_entity_future_prediction_graph.md`,
 시간순 이력은 `RESUME_NOTES.md`에서 관리한다.
 
 ## 1. 최신 사용자 의도와 범위
@@ -49,8 +49,8 @@
   MSE로 학습했다. 별도 holdout에서 두 relevant entity의 exact-set 정확도는 99.9756~100%다.
 - Command 교란 / no-intent entity-only 학습 / random / motion / fixed-semantic / hindsight
   oracle을 비교했다. 쉬운 인위적 과제이므로 자율주행 H1/H2 증거로 사용하지 않는다.
-- 결과·환경·config·source SHA256은 `analysis/research/graph_v1_validation.json`,
-  해석·한계·재현 명령은 `docs/GRAPH_V1_VALIDATION.md`에 남겼다.
+- 결과·환경·config·source SHA256은 `results/synthetic_diagnostics/future_prediction_graph_v1_before_readability_refactor_20261001.json`,
+  해석·한계·재현 명령은 `docs/synthetic_validation_results.md`에 남겼다.
 
 ### 아직 하지 않은 것
 
@@ -67,14 +67,14 @@
 
 | 항목 | 조사 결과 / 범위 |
 |---|---|
-| SafeDrive | `/rhome/junseong/SafeDrive`, branch `junseong/main` |
+| 현재 연구 checkout (SafeDrive 이력 보존) | `/rhome/junseong/PlanningAwareFuturePrediction`, branch `junseong/main` |
 | SafeDrive 조사 기준 | `6ed73948d272218c5fd34c3eddf2dc0d26510393` |
-| Drive-JEPA 소스 | `/rhome/junseong/research_sources/Drive-JEPA` |
+| Drive-JEPA 소스 | `/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/Drive-JEPA` |
 | 공식 소스 기준 | `548bb8215e3aae18e162a0f12f1ba83b4d3eb57e`, [공식 저장소](https://github.com/linhanwang/Drive-JEPA/tree/548bb8215e3aae18e162a0f12f1ba83b4d3eb57e) |
 | 현재 호스트 | `user-ESC8000A-E11`; 이전 AXE-080 명칭과 구분 |
 | GPU 0 / 1 | RTX A6000, 각 약 48 GB. 확인 당시 양쪽에 기존 프로세스가 있음 |
 | 공용 원본 | `/home/user/data/Dataset/` 전체 **절대 직접 수정하지 않음** |
-| NAVSIM 읽기 링크 | `SafeDrive/dataset -> /home/user/data/Dataset/navsim -> /mnt/nfs/data/open_dataset/navsim` |
+| NAVSIM 읽기 링크 | `PlanningAwareFuturePrediction/dataset -> /home/user/data/Dataset/navsim -> /mnt/nfs/data/open_dataset/navsim` |
 | 코드·변환·cache·결과 | `/rhome/junseong/` 아래 사용자 작업공간 |
 | 신규 원본 다운로드 | `/home/user/data/processed_dataset/`, 사용자 지정 총 1 TB 한도 |
 | 평가 CSV | `exp/safedrive/**/traj_*.csv` 22개. 존재만 확인; run별 의미와 학습 provenance 재감사 필요 |
@@ -84,7 +84,7 @@
 | 없는 자산 | 현재 작업공간의 `ckpts/`, `exp/metric_cache_navtest`, `exp/safedrive_train_cache` |
 | 환경 | 기존 base / alpasim-cuda128만 확인; safedrive / drive-jepa 전용 환경 없음 |
 | 기존 torch | alpasim-cuda128에서 torch 2.8.0+cu128을 읽기 전용 조회. 본 연구 호환성 검증 아님 |
-| CPU fixture 실행 환경 | `exp/graph_cpu_env`, Python 3.12.13 / 기존 torch 읽기 전용 참조 venv. 완전 독립 dependency 환경 아님 |
+| CPU fixture 실행 환경 | `runtime/environments/future_prediction_cpu`, Python 3.12.13 / 기존 torch 읽기 전용 참조 venv. 완전 독립 dependency 환경 아님 |
 
 체크포인트 크기는 기존 AICA 전송 기록과 일치한다. 체크섬·내용·resume 적합성은 검증하지 않았다.
 공식 Drive-JEPA 전체 cache/weight 다운로드 명령을 무작정 실행하지 않는다.
@@ -147,7 +147,7 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
 
 ## 6. 다음 담당자가 바로 할 일
 
-1. `SELECTIVE_FUTURE_GRAPH.md`와 `GRAPH_V1_VALIDATION.md`의 구현 범위·결과·편향 한계를 읽는다.
+1. `selective_entity_future_prediction_graph.md`와 `synthetic_validation_results.md`의 구현 범위·결과·편향 한계를 읽는다.
    Auxiliary의 selector 직접 gradient 차단은 초기 실험 선택이지 보편 원칙이 아니다.
 2. perception-based Drive-JEPA 내부와 entity/target adapter 비용을 끝까지 확인하여 baseline을
    선택한다. SafeDrive를 주 baseline으로 되돌리는 변경은 임의로 확정하지 않는다.
@@ -169,5 +169,13 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
 
 이 문서를 공유할 때의 첫 요청 예:
 
-> 이 commit의 RESEARCH_STATUS.md와 SELECTIVE_FUTURE_GRAPH.md를 읽어 주세요.
+> 이 commit의 research_status.md와 selective_entity_future_prediction_graph.md를 읽어 주세요.
 > 구현된 사실과 초안을 구분해, 선택기의 planning gradient 경로와 가장 작은 검증 실험을 검토해 주세요.
+
+## 8. 가독성 refactor와 현재 진입점
+
+작업 루트는 `/rhome/junseong/PlanningAwareFuturePrediction`다. 이전 SafeDrive 이름의 checkout을 재명명했다.
+현재 package는 `src/planning_aware_future_prediction/`, 검사는 `tests/`에 있다.
+SafeDrive 원본 코드/CSV/checkpoint는 변경하지 않고 중단된 참고 자산으로만 유지한다.
+명명 규칙과 이전 경로 대응은 `docs/naming_conventions.md`와 `docs/directory_migration.md`를 읽는다.
+원격은 협업 이력 보존을 위해 기존 SafeDrive 저장소를 유지한다. 원격 이름은 baseline 결정이 아니다.

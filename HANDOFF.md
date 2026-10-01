@@ -1,13 +1,16 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 11:03 KST (Codex)
+마지막 갱신: 2026-10-01 11:32 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
-공통 조사 상태: [docs/RESEARCH_STATUS.md](docs/RESEARCH_STATUS.md).
-계산 그래프 초안: [docs/SELECTIVE_FUTURE_GRAPH.md](docs/SELECTIVE_FUTURE_GRAPH.md).
+공통 조사 상태: [docs/research_status.md](docs/research_status.md).
+계산 그래프 초안: [docs/selective_entity_future_prediction_graph.md](docs/selective_entity_future_prediction_graph.md).
 시간순 이력: `RESUME_NOTES.md`. 과거 설계: `EXPERIMENT_DESIGN.md`.
-CPU v1 결과: [docs/GRAPH_V1_VALIDATION.md](docs/GRAPH_V1_VALIDATION.md).
+CPU v1 결과: [docs/synthetic_validation_results.md](docs/synthetic_validation_results.md).
+현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
+명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
+경로 이전: [docs/directory_migration.md](docs/directory_migration.md).
 
 ## 0. 현재 연구 의도 — 최신 사용자 프롬프트가 우선
 
@@ -26,6 +29,8 @@ CPU v1 결과: [docs/GRAPH_V1_VALIDATION.md](docs/GRAPH_V1_VALIDATION.md).
 
 **진행 중인 신규 작업 없음** (2026-10-01). CPU v1 검사와 작은 합성 학습을 완료했다.
 GPU/NAVSIM 학습·공식 평가·cache 생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
+이후 사용자 요청으로 checkout·package·함수·변수·CLI·문서를 가독성 기준으로 재명명했다.
+새 경로에서 CPU 재검증을 마쳤고 진행 중인 신규 프로세스는 없다.
 
 현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
 RTX A6000 약 48 GB다. 확인 당시 기존 프로세스가 있으므로 비어 있다고 가정하거나
@@ -72,24 +77,32 @@ DAC 상승만으로 planning 과적합이 원인이라고 확정하지 않는다
 auxiliary는 S/D를 직접 차단한다. Detach는 출력이 정확히 같고 해당 gradient만 차단한다.
 3-seed 합성 선택 학습에서 exact-set 정확도 99.9756~100%; command 교란 시 성능 저하.
 이는 고정 analytic predictor/planner를 쓴 쉬운 과제다. 미래 정보 필요성·NAVSIM 성능·H1/H2를
-증명한 것이 아니다. 원본 수치·source hash는 `analysis/research/graph_v1_validation.json`에 있다.
+증명한 것이 아니다. 원본 수치·source hash는 `results/synthetic_diagnostics/future_prediction_graph_v1_before_readability_refactor_20261001.json`에 있다.
+
+**이름 변경 후 재검증**: 13/13 검사, 같은 3개 seed의 7개 정책×3개 metric=63개 값,
+초기 metric 9개 및 gradient norm 15개가 이전 실행과 정확히 같다.
+새 source hash·경로·환경을 담은 report는
+`results/synthetic_diagnostics/readability_refactor_validation_20261001.json`에 있다.
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자/ChatGPT 검토를 반영한 계산 그래프 v1 및 `scripts/research/` CPU fixture를 추가했다.
-- 순차 조건부 ST, unique K-slot, stable ID tie, invalid/padding, full-budget surrogate 차단을 구현했다.
-- Detach의 forward 불변과 backward 차단을 제거/교환 개입과 분리해 13개 테스트로 검증했다.
-- 3-seed planning-only 합성 선택 학습과 비교군을 실행했다. 설정·환경·수치·source SHA256을
-  `analysis/research/graph_v1_validation.json`에 기록했다.
-- `docs/GRAPH_V1_VALIDATION.md`를 추가하고 공통 상태 문서·HANDOFF·시간순 이력을 갱신했다.
-- 기존 환경을 변경하지 않고 torch를 읽기 전용 참조하는 CPU 진단 venv를 만들었다.
-  이는 완전 독립 dependency 환경이나 실제 baseline 재현 환경이 아니다.
-- 기존 SafeDrive/Drive-JEPA 모델·loss·CSV·공용 데이터는 변경하지 않았다. GPU는 사용하지 않았다.
+- 작업 디렉토리를 `/rhome/junseong/PlanningAwareFuturePrediction/`으로 재명명했다.
+  Git 이력·branch·원격은 보존하며 SafeDrive baseline 연구는 계속 잠정 중단이다.
+- 현재 코드를 `src/planning_aware_future_prediction/`, 검사 `tests/`, 실행 `scripts/`로 분리했다.
+  함수·변수·mask·정책 key·CLI를 대상과 역할이 드러나는 이름으로 바꾸고 표준 외부 API는 유지했다.
+- 공식 Drive-JEPA clone을 `reference_repositories/Drive-JEPA/`로 옮겼다. 원본 코드는 변경하지 않았다.
+- 현재 README와 `docs/naming_conventions.md`, `docs/directory_migration.md`를 추가했다.
+  AGENTS에 향후 명명 규칙을 기록하고 home의 AGENTS/WORKSPACE_GUIDE에도 진입점을 남겼다.
+- 새 경로에 CPU venv를 만들고 13개 검사 및 3-seed 합성 학습을 다시 실행했다.
+  63개 policy metric·9개 초기 metric·15개 gradient norm이 이전과 정확히 같았다.
+- 이전 README/raw report·SafeDrive 코드·CSV·checkpoint는 보존했다. 이름 변경과 알고리즘 변경은
+  구분한다. 공용 원본·다른 프로젝트는 수정하지 않았고 GPU도 사용하지 않았다.
 
 ## 4. 다음 단계 — 계산 그래프 검증부터
 
 1. v1 CPU fixture·13개 계약 검사·합성 학습 결과와 한계를 확인한다. 이미 통과한 검사를
    반복 설계하지 말고 실제 adapter에서 같은 경계가 유지되는지 검증한다.
+   현재 구현은 `src/planning_aware_future_prediction/`에 추가하며 legacy `navsim/`을 임의로 수정하지 않는다.
 2. Drive-JEPA perception-based 내부와 entity/target adapter를 감사하고 baseline을 결정한다.
    perception-free 분기만으로 직접 연결형 future predictor가 이미 있다고 가정하지 않는다.
 3. AD-E2E-JEPA·Causal-JEPA·IA-JEPA·SPARTAN·Drive-JEPA 및 직접 관련 연구의 원문/공식 코드로
@@ -114,6 +127,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 **미결**: 최종 baseline, ST surrogate의 실제 데이터 적합성, entity 표현/association, target encoder,
 planner가 미래를 실제 쓰는지, 동일 예산 비교군 대비 효과, novelty delta, 독립 holdout.
 현재 ST는 조건부 softmax를 쓰는 편향된 임시 추정이다. CPU 성공을 실제 데이터 성공으로 일반화하지 않는다.
+**명명 규칙 확정**: 프로젝트·파일·class·function·인자·변수·config·result key가 역할을 직접 설명해야 한다.
+현재 작업명은 Planning-Aware Future Prediction이며 최종 논문명·방법명은 미확정이다.
 
 AD-E2E-JEPA v1 공개일은 **2026-09-28**이다. 과거 “3주 전” 표기는 잘못됐다.
 원문 §3.4의 downstream IL은 patch predictor를 제거하는 경로다.

@@ -1,17 +1,21 @@
-# 이 저장소에서 에이전트가 지킬 것 (SafeDrive, junseong 작업 규칙)
+# Planning-Aware Future Prediction — 에이전트 작업 규칙
 
 Claude Code 는 `CLAUDE.md`(= `@AGENTS.md`)로, Codex 는 이 파일로 같은 내용을 읽는다.
 **현재 상태**는 `HANDOFF.md`, 상세 실험 기록은 `RESUME_NOTES.md`(시간순 실험 일지)와
 `EXPERIMENT_DESIGN.md`(실험 설계·근거) 에 있다. 이 파일에는 바뀌지 않는 규칙만 둔다.
+
+현재 루트는 `/rhome/junseong/PlanningAwareFuturePrediction/`이다. **SafeDrive baseline 연구는
+잠정 중단**됐다. 이 저장소의 과거 `navsim/`·SafeDrive 학습 script·CSV·checkpoint는 보존된
+참고 자산이다. 현재 코드의 진입점은 `src/planning_aware_future_prediction/`, `tests/`,
+`scripts/validate_future_prediction_graph.py`다. 원격 저장소명은 협업 이력이지 baseline 선택이 아니다.
 
 ## 세션 시작 루틴
 
 ```bash
 git status --short --branch && git log --oneline -10
 cat HANDOFF.md
-ps -eo pid,etimes,args --no-headers | grep -E 'kjs-SafeDriv[e]|safedriv[e]/bin/python' | cut -c1-140
-nvidia-smi --query-gpu=index,memory.used,utilization.gpu --format=csv
-ls -lt exp/safedrive | head; ls -lt exp/training | head
+rg --files src tests docs
+ls -lt results/synthetic_diagnostics
 ```
 
 ## 세션 종료 루틴
@@ -25,6 +29,12 @@ ls -lt exp/safedrive | head; ls -lt exp/training | head
 
 ## 바뀌지 않는 규칙
 
+- **협업 명명(사용자 확정)**: `docs/naming_conventions.md`를 따른다. 폴더·파일·class·function·
+  인자·변수·설정·result key는 대상과 역할이 드러나게 짓는다. 주요 인터페이스의 h/c/u, N/K/T,
+  batch/toy/temp/final 같은 축약·임시명은 피한다. 현재 관측/예측/미래 GT와 각 valid mask를
+  명칭으로 구분한다. 수식 기호와 표준 외부 API(torch.optim, Tensor.grad 등)는 임의로 바꾸지 않는다.
+  재명명 시 import·문서·CLI·환경·result schema도 갱신하고 전후 동작을 검사한다.
+
 - **연구 명제(검증할 가설)**: "planning 에 필요한 미래 정보는 상황마다 다를 수 있고,
   현재 맥락·주행 의도와 planning objective 로 예측 대상을 선택하도록 학습할 수 있는가?"
   모든 실험 제안은 이 명제의 어느 하위 질문에 답하는지 한 줄로 밝힌다. 가설이 기각되면 다음
@@ -37,23 +47,27 @@ ls -lt exp/safedrive | head; ls -lt exp/training | head
   뜻이 아니며 기존 타인 프로세스를 건드리지 않는다. 두 카드는 RTX A6000 약 48 GB로 확인했다.
   이전 서버의 4~7 할당·H100 batch 설정은 현재 서버에 적용하지 않는다. 본 학습 batch/메모리는
   실측하고, 과거 실험과 비교할 때 유효 배치·학습량 차이를 기록한다.
-- **프로세스 이름**: nvidia-smi 에 식별되도록 conda env 심볼릭 링크(`kjs-SafeDrive-exp2` 식)로
-  python 을 절대경로 호출한다.
+- **프로세스 이름**: 연구 목적·실험이 드러나는 환경명을 쓰고 python을 절대경로로 호출한다.
+  현재 CPU 환경은 `runtime/environments/future_prediction_cpu/`다. 과거 SafeDrive env 명칭을
+  새 연구에 재사용하지 않는다. GPU 실행 전 호스트 점유·정책을 다시 확인한다.
 - **공유 머신**: 다른 연구원(junhyeok, hanbin, dogun, uisung)의 프로세스·컨테이너·폴더는 건드리지
   않는다. `pkill -f` 금지, PID 를 먼저 확인하고 죽인다. 대량 삭제는 `.trash-*/` 로 옮겼다가 실행 중인
   작업이 없을 때 지운다.
 - **환경**: 새 의존성은 새 env 에. 이전 서버의 `safedrive` 환경
   (py3.10 / torch 2.1.0+cu121 / mmcv 2.1.0 sm_90 / spconv-cu120 / mmdet 3.2.0)은
   현재 서버에 존재하는 환경이 아니다. 기존 base·타 프로젝트 env를 업그레이드하지 않는다.
-- **연구 협업 상태**: `docs/RESEARCH_STATUS.md`는 확인 사실·실행 이력·미확인 항목,
-  `docs/SELECTIVE_FUTURE_GRAPH.md`는 계산 그래프 명세다. 설계 초안과 구현·실험 결과를 구분하고,
+- **연구 협업 상태**: `docs/research_status.md`는 확인 사실·실행 이력·미확인 항목,
+  `docs/selective_entity_future_prediction_graph.md`는 계산 그래프 명세다. 설계 초안과 구현·실험 결과를 구분하고,
   Codex/ChatGPT 간 인수인계에 commit·경로·근거를 남긴다. ChatGPT 제안을 검증 결과로 취급하지 않는다.
 - **데이터 경로·안전(AXE-080)**: `/rhome/junseong/`이 코드·변환 결과·metric/feature cache를 포함한
   작업공간이다. `/home/user/data/Dataset/` 전체는 연구실 공용 원본이므로, 그 안의 파일·디렉터리를
   직접 생성·수정·이동·이름 변경·삭제하지 않고 작업공간의 프로젝트에 심볼릭 링크로만 연결한다.
-  SafeDrive 는 `dataset -> /home/user/data/Dataset/navsim` 링크로 읽는다. 새로 필요한 데이터셋 원본만
+  기존 `dataset -> /home/user/data/Dataset/navsim` 링크는 그대로 읽기 전용 사용한다. 새 원본만
   `/home/user/data/processed_dataset/`에 총 1 TB 한도 안에서 다운로드한다.
 - **실행 방식**: 확인 질문으로 멈추지 말고 합리적 기본값으로 진행한 뒤 가정을 결과와 함께 보고한다.
   되돌릴 수 없는 삭제만 예외.
-- **경로**: 체크포인트 `ckpts/`, 캐시·학습 산출물 `exp/`(499 GB, git 밖), 설정
-  `navsim/planning/script/config/common/agent/SafeDrive_Phase2_*.yaml`, 결과 CSV `exp/safedrive/eval_*/traj_*.csv`.
+- **현재 경로**: 코드 `src/planning_aware_future_prediction/`, 검사 `tests/`, 실행 `scripts/`,
+  공유 결과 `results/`, 로컬 산출물 `outputs/`, 실행 환경 `runtime/environments/`,
+  공식 참고 clone `reference_repositories/`(마지막 세 항목은 git 제외).
+- **과거 SafeDrive 자산**: `navsim/`, `scripts/run/`, `scripts/analysis/`, `analysis/*.csv`,
+  `exp/safedrive/`, `ckpts/` 등은 중단된 pipeline의 코드·결과다. 현재 명명 작업에서 수정/재학습하지 않는다.

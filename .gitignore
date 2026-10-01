@@ -79,6 +79,9 @@ nhn_bash/send_mail_eval.py
 nhn_bash/send_mail_grid.py
 
 # --- agent handoff workspace (junseong) ---
+reference_repositories/
+runtime/
+outputs/
 .omc/
 .trash-*/
 *.orig-*

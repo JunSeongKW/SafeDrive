@@ -1,112 +1,67 @@
-<div align="center">
-<img src="figure/SafeDrive_logo.png" alt="SafeDrive" width="550"><br><br>
+# Planning-Aware Future Prediction
 
-# SafeDrive: Fine-Grained Safety Reasoning for End-to-End Driving in a Sparse World
+현재 맥락과 ego 주행 의도에 따라, 같은 예산에서 planning에 유용한 객체의 미래를 선택적으로
+예측하도록 학습하는 연구 작업공간이다. **SafeDrive baseline 연구는 잠정 중단 상태다.**
+이 이름은 연구 목적을 설명하는 작업명이며 최종 논문명·방법명·baseline은 아직 미확정이다.
 
-[**Jungho Kim**](https://scholar.google.com/citations?user=9wVmZ5kAAAAJ&hl=ko), **Jiyong Oh**, [**Seunghoon Yu**](https://scholar.google.com/citations?user=RJnWLIUAAAAJ&hl=ko&authuser=1&oi=ao), [**Hongjae Shin**](https://scholar.google.com/citations?user=4zQMBBAAAAAJ&hl=ko&oi=ao), **Donghyuk Kwak**, [**Jun Won Choi**](https://scholar.google.com/citations?user=IHH2PyYAAAAJ&hl=ko&oi=ao)
+## 처음 보는 사람/에이전트의 시작 순서
 
-#### **Seoul National University, ADR Lab**
+1. `AGENTS.md`: 명명 규칙·GPU·환경·공용 데이터 안전.
+2. `HANDOFF.md`: 현재 상태와 다음 작업.
+3. [연구 상태](docs/research_status.md), [계산 그래프](docs/selective_entity_future_prediction_graph.md),
+   [합성 CPU 검증](docs/synthetic_validation_results.md).
+4. [명명 규칙](docs/naming_conventions.md), [경로 이전과 호환성](docs/directory_migration.md).
 
-### **CVPR 2026 Highlight**
+## 현재 구현과 과거 자산의 구분
 
-[![arXiv](https://img.shields.io/badge/arXiv-Paper-red.svg)](https://arxiv.org/abs/2602.18887)
-[![Project](https://img.shields.io/badge/Project-Page-blue.svg)](https://spa-junghokim.github.io/SafeDrive-Page/)
+```text
+PlanningAwareFuturePrediction/
+├── src/planning_aware_future_prediction/models/   현재 연구의 독립 graph fixture
+├── tests/test_future_prediction_graph.py          gradient·경계 계약 검사
+├── scripts/validate_future_prediction_graph.py    CPU 검증과 합성 선택 학습 실행
+├── docs/                                        연구·계산 그래프·검증·명명 문서
+├── results/synthetic_diagnostics/                작은 공유용 검증 결과와 과거 raw 기록
+├── reference_repositories/Drive-JEPA/            공식 코드 참고 clone (git 제외)
+├── runtime/environments/future_prediction_cpu/   CPU 실행 환경 (git 제외)
+├── outputs/synthetic_diagnostics/               실행 산출물 (git 제외)
+├── navsim/, exp/safedrive/, analysis/*.csv        중단된 SafeDrive 참고 자산
+└── README_SAFEDRIVE_ARCHIVE.md                    기존 SafeDrive 안내 보존
+```
 
-</div>
+현재 package는 SafeDrive/NAVSIM을 import하지 않는다. Synthetic CPU fixture만 구현돼 있고,
+실제 entity/target adapter, visual JEPA 및 최종 baseline은 아직 구현/확정되지 않았다.
+`navsim/`, 기존 `setup.py`, 기존 학습·cache script는 역사적 SafeDrive pipeline이다.
+새 연구를 실행하려고 과거 학습/캐시 명령이나 root의 legacy setup을 실행하지 않는다.
 
-## 🔔 News
-- [2026/08]: Code and checkpoints are released! 🚀
-- [2026/04]: SafeDrive is awarded as CVPR 2026 Highlight! ⭐
-- [2026/02]: SafeDrive is accepted at CVPR 2026! 🔥
+## 현재 CPU 검증 실행
 
-## 📽️ Framework
-
-<div align="center">
-<img src="figure/Intro.png" alt="SafeDrive framework" width="900">
-</div>
-
-| Stage | What it does |
-| --- | --- |
-| **ProposalNet** | BEV encoding, object detection, and the initial trajectory proposals |
-| **SWNet** | filters the instances and runs the joint motion / plan decoder |
-| **FRNet** | fine-grained safety: scene-level scores, pair-wise no-collision, time-wise drivable-area compliance |
-
-Safety supervision comes from rolling the model's own plans through the PDM
-simulator during training (`EPDMS Score`).
-
-## 📊 Main Result
-
-NAVSIM **navtest** (12,146 scenarios). All rows are the numbers reported in the
-paper, plus our reproduction of SafeDrive from this repository.
-
-| Method | NC | DAC | TTC | EP | Comf. | PDMS |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| Transfuser | 97.7 | 92.8 | 92.8 | 79.2 | 100 | 84.0 |
-| Hydra-MDP | 98.3 | 96.0 | 94.6 | 78.7 | 100 | 86.5 |
-| DiffusionDrive | 98.2 | 96.2 | 94.7 | 82.2 | 100 | 88.1 |
-| WoTE | 98.5 | 96.8 | 94.9 | 81.9 | 99.9 | 88.3 |
-| **SafeDrive** | **99.5** | **99.0** | **97.2** | **84.3** | 100 | **91.6** |
-| **SafeDrive\*** | 99.5 | 98.8 | 97.1 | 84.8 | 99.5 | **91.6** |
-
-\* reproduced with this release: `test.sh` with the shipped phase 3 checkpoint
-and score weights.
-
-
-## ⚡ Getting Started
-
-- [Environment preparation](docs/install.md)
-- [Preprocessing](docs/preprocess.md)
-- [Training and evaluation](docs/train_eval.md)
+다른 머신에서 받을 때는 checkout 폴더명을 명시한다:
 
 ```bash
-bash cache.sh    # feature cache + metric caches, once
-bash train.sh    # phase 1 -> phase 2 -> phase 3
-bash test.sh     # navtest forward + PDM scoring
+git clone -b junseong/main https://github.com/JunSeongKW/SafeDrive.git PlanningAwareFuturePrediction
 ```
 
-Each script keeps every setting in one configuration block at the top; edit them
-in place rather than passing environment variables.
-
-| Phase | Agent config | Role |
-| --- | --- | --- |
-| 1 | `SafeDrive_Phase1_Perception` | perception pretraining, no planning head |
-| 2 | `SafeDrive_Phase2_Planner_FreezePerception` | planner and safety heads on frozen perception |
-| 3 | `SafeDrive_Phase3_Planner_FullTrain` | end-to-end fine-tune (main config) |
-
-The 256 planning anchors ship as
-`trajectory_anchors/trajectory_anchors_256_GTRS.npy`, and
-[`make_anchors.sh`](make_anchors.sh) rebuilds them by k-means over the navtrain
-ground-truth trajectories.
-
-
-## 🏋️ Checkpoints
-
-Download and place under `ckpts/`. 
-
-| Checkpoint | Training | GDrive |
-| :--- | :--- | :---: |
-| `safedrive_phase1_90ep.ckpt` | perception only | [Link](https://drive.google.com/file/d/1pvxMcWBVNLyruL3h2-4LT8yznOufieXg/view?usp=drive_link) |
-| `safedrive_phase2_5ep.ckpt` | perception freeze | [Link](https://drive.google.com/file/d/12puIwoj7r3NWwqr83sPgk9Bmqxkwce0T/view?usp=drive_link) |
-| `safedrive_phase3_10ep.ckpt` | full training | [Link](https://drive.google.com/file/d/15oLu8JxJZcS8g8taFUrqSd23Npz3UxUA/view?usp=drive_link) |
-
-
-## 📃 Bibtex
-
-```bibtex
-@inproceedings{safedrive,
-  title={SafeDrive: Fine-Grained Safety Reasoning for End-to-End Driving in a Sparse World},
-  author={Kim, Jungho and Oh, Jiyong and Yu, Seunghoon and Shin, Hongjae and Kwak, Donghyuk and Choi, Jun Won},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  year={2026}
-}
+```bash
+cd /rhome/junseong/PlanningAwareFuturePrediction
+CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
+  runtime/environments/future_prediction_cpu/bin/python scripts/validate_future_prediction_graph.py
 ```
 
-## 📄 License
+실행 환경은 기존 torch를 읽기 전용 참조한 venv이며, 완전 독립 baseline 재현 환경은 아니다.
+이전 checkout 경로의 venv를 재사용하지 않고 새 경로에 만들었다. 실제 baseline에는 별도 환경을 만든다.
+단위 검사만 실행하려면:
 
-Released under the [MIT License](LICENSE).
+```bash
+CUDA_VISIBLE_DEVICES='' PYTHONPATH=src \
+  runtime/environments/future_prediction_cpu/bin/python -m unittest discover \
+  -s tests -p test_future_prediction_graph.py -v
+```
 
-## 🙏 Acknowledgement
+## 데이터·GPU·협업
 
-This project builds upon several outstanding open-source projects.
-
-- [NAVSIM](https://github.com/autonomousvision/navsim), [DiffusionDrive](https://github.com/hustvl/DiffusionDrive), [WoTE](https://github.com/liyingyanUCAS/WoTE), [BEVFormer](https://github.com/fundamentalvision/BEVFormer), [GTRS](https://github.com/NVlabs/GTRS), [iPad](https://github.com/Kguo-cs/iPad)
+- `/home/user/data/Dataset/`은 연구실 공용 원본: **절대 직접 수정하지 않는다**.
+- 작업·변환·cache는 `/rhome/junseong/`; 새 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
+- 승인 GPU는 0·1이며 기존 프로세스를 중지할 권한은 아니다. 현재 CPU 검증에서는 GPU를 쓰지 않는다.
+- Git 원격은 협업 이력 보존을 위해 `JunSeongKW/SafeDrive`, branch `junseong/main`을 유지한다.
+  저장소 주소가 현재 연구의 baseline을 의미하지 않는다. 원격 저장소명 자체는 변경하지 않았다.
+- 협업 시작 commit은 `95015df`; 코드·결과·문서를 commit 단위로 공유한다.

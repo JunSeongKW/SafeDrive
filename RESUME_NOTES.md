@@ -621,3 +621,39 @@ CPU 1 thread, Python 3.12.13, torch 2.8.0+cu128, 최종 전체 실행 약 38.82�
 GPU·공용 원본·다운로드·cache는 사용/수정하지 않았다. Source hash/seed/config/raw 수치는
 `analysis/research/graph_v1_validation.json`, 재현 명령과 해석은 `docs/GRAPH_V1_VALIDATION.md`.
 다음은 실제 entity/target adapter와 Drive-JEPA perception-based 내부 감사 후 baseline 결정이다.
+
+## 2026-10-01 — 현재 연구 작업공간·코드 명칭의 가독성 정비
+
+사용자 요청: 다른 사람/에이전트가 이름만 보고 목적을 이해할 수 있도록 폴더뿐 아니라
+함수·변수·설정·결과 key에도 읽기 쉬운 명명 규칙을 적용한다.
+
+### 실제 변경
+
+- Checkout 이름을 `/rhome/junseong/PlanningAwareFuturePrediction/`으로 바꿨다.
+  현재 package `src/planning_aware_future_prediction/`, 검사 `tests/`, 실행 `scripts/`로 분리했다.
+- Scorer / selection operator / future predictor / ego planner를 이름으로 구분했다.
+  h/c/u와 batch/toy 같은 축약명은 entity_features/scene_context/ego_intent와 역할 있는 함수명으로 바꿨다.
+- 현재 후보 / selected slot / 미래 target의 valid mask를 명칭으로 구분했다.
+  합성 시간 범위와 future token 개수도 다른 명칭으로 표현한다.
+- 공식 Drive-JEPA는 `reference_repositories/Drive-JEPA/`로 옮겼지만 코드를 수정하지 않았다.
+- README는 현재 연구 진입점으로 바꾸고 이전 내용을 `README_SAFEDRIVE_ARCHIVE.md`에 보존했다.
+  연구 문서·CLI·환경·result 경로를 갱신하고 naming_conventions/directory_migration 문서를 추가했다.
+- 규칙은 project AGENTS와 docs에 commit 대상이며 home AGENTS/WORKSPACE_GUIDE에도 기록했다.
+  원격 repo명/branch/Git 이력은 유지했다. SafeDrive baseline 연구는 계속 잠정 중단 상태다.
+
+### 검사와 보존
+
+재명명 중 테스트에서 표준 외부 API 참조 변경을 발견해 `torch.autograd.grad` 등 원래 API를
+복구한 뒤 전체 검증을 재실행했다. 새 경로에서 13/13 테스트가 통과했다.
+같은 설정의 3-seed 학습을 다시 실행했으며, 63개 policy metric·9개 초기 metric·15개 gradient
+norm이 기존 실행과 정확히 같다. 새 코드와 environment/source hash는
+`results/synthetic_diagnostics/readability_refactor_validation_20261001.json`에 기록했다.
+
+옛 raw report는 수치·timestamp·source hash를 바꾸지 않고
+`results/synthetic_diagnostics/future_prediction_graph_v1_before_readability_refactor_20261001.json`로 옮겼다.
+기존 SafeDrive 모델·loss·CSV·checkpoint, 공식 Drive-JEPA 코드, 공용 원본, 다른 프로젝트는
+변경하지 않았다. GPU는 사용하지 않았다. 절대경로가 박힌 옛 venv 대신 새 경로의
+`runtime/environments/future_prediction_cpu`를 생성했다. 외부 dependency upgrade/install은 없다.
+빈 이전 디렉토리만 정리하며 실제 파일/데이터는 삭제하지 않는다.
+
+다음 연구 작업의 우선순위는 바뀌지 않았다: 실제 entity/target adapter 및 baseline 코드 감사.

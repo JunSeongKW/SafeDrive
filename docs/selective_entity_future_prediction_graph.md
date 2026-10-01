@@ -3,9 +3,9 @@
 상태: 2026-10-01. 기준 협업 commit은 `95015df`이다. 사용자/ChatGPT 피드백을 반영해
 K-slot과 detach 검사를 구체화한 **synthetic CPU fixture**다. NAVSIM agent, visual JEPA,
 target encoder, 실제 entity adapter와 최종 baseline은 아직 구현/확정하지 않았다.
-코드: `scripts/research/selective_future_graph.py`.
-검사: `test_selective_future_graph.py` / `run_graph_validation.py`.
-실행 결과와 재현 명령은 `GRAPH_V1_VALIDATION.md`에 기록한다.
+코드: `src/planning_aware_future_prediction/models/selective_entity_future_prediction.py`.
+검사: `tests/test_future_prediction_graph.py` / `scripts/validate_future_prediction_graph.py`.
+실행 결과와 재현 명령은 `synthetic_validation_results.md`에 기록한다.
 
 ## 1. 무엇을 선택하는가
 

@@ -6,11 +6,11 @@
 
 ## 1. 변경한 것
 
-- `scripts/research/selective_future_graph.py`: 순차 조건부 ST 선택, 최소 predictor/planner,
+- `src/planning_aware_future_prediction/models/selective_entity_future_prediction.py`: 순차 조건부 ST 선택, 최소 predictor/planner,
   미래 target 분리, planning/auxiliary 직접 gradient 경계.
-- `test_selective_future_graph.py`: stdlib unittest로 13개 graph/선택 계약 검사.
-- `run_graph_validation.py`: 검사 실행, 3-seed 합성 선택 학습, 비교군, 수치/환경/source hash 기록.
-- `SELECTIVE_FUTURE_GRAPH.md`: v1 명세. Detach의 forward 불변과 제거/교환의 출력 개입을 구분.
+- `tests/test_future_prediction_graph.py`: stdlib unittest로 13개 graph/선택 계약 검사.
+- `scripts/validate_future_prediction_graph.py`: 검사 실행, 3-seed 합성 선택 학습, 비교군, 수치/환경/source hash 기록.
+- `selective_entity_future_prediction_graph.md`: v1 명세. Detach의 forward 불변과 제거/교환의 출력 개입을 구분.
 - 기존 SafeDrive/Drive-JEPA 모델이나 공용 데이터는 변경하지 않았다.
 
 ## 2. K-slot 선택 명세
@@ -100,21 +100,21 @@ predictor/planner를 학습하지 않는다. 미래값도 현재 x/v의 알려�
 실측: CPU 1 thread, Python 3.12.13, torch 2.8.0+cu128. GPU는 사용하지 않았다.
 최종 실행 전체 wall time은 약 **38.82초**였다. 현재 호스트에서만 측정한 값이다.
 
-기존 alpasim 환경을 업그레이드하지 않고 `exp/graph_cpu_env` venv를 만들었다.
+기존 alpasim 환경을 업그레이드하지 않고 `runtime/environments/future_prediction_cpu` venv를 만들었다.
 `--system-site-packages`로 기존 torch를 **읽기 전용 참조**하므로 완전 독립 dependency 환경은 아니다.
 그래프 진단용 임시 실행 환경이며 실제 baseline에는 별도 dependency-pinned 환경이 필요하다.
 공용 데이터·외부 원본 다운로드·cache 생성·GPU 점유는 없었다.
 
 ```bash
-cd /rhome/junseong/SafeDrive
-/rhome/junseong/miniconda3/envs/alpasim-cuda128/bin/python -m venv --system-site-packages exp/graph_cpu_env
+cd /rhome/junseong/PlanningAwareFuturePrediction
+/rhome/junseong/miniconda3/envs/alpasim-cuda128/bin/python -m venv --system-site-packages runtime/environments/future_prediction_cpu
 CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 \
-  exp/graph_cpu_env/bin/python scripts/research/run_graph_validation.py \
-  --output exp/research/graph_v1/results_v1_final.json
+  runtime/environments/future_prediction_cpu/bin/python scripts/validate_future_prediction_graph.py \
+  --output outputs/synthetic_diagnostics/future_prediction_validation.json
 ```
 
-Full report: `analysis/research/graph_v1_validation.json`.
-원본 output: `exp/research/graph_v1/results_v1_final.json` (git 제외).
+fe8c930 당시 역사적 raw report (수치·hash 보존): `results/synthetic_diagnostics/future_prediction_graph_v1_before_readability_refactor_20261001.json`.
+이전 실행의 로컬 원본은 `exp/research/graph_v1/results_v1_final.json`에 보존됐다. 위 실행 명령은 재명명 후 현재 경로다.
 Report는 기준 commit, 3개 실행 source의 SHA256, config, seed, 환경, gradient norm 및 raw metric을 포함한다.
 구현 파일은 이 commit에서 추가되므로 기준 commit은 협업 출발점이지 실행 코드 commit이 아니다.
 Source hash로 실행 당시 코드를 식별한다.
@@ -131,3 +131,10 @@ Source hash로 실행 당시 코드를 식별한다.
 ChatGPT에 검토받을 결정: 순차 조건부 ST를 첫 실제 prototype의 임시 선택 방식으로 유지할지,
 어떤 현재-feature 대조와 미래 target adapter가 최소 비용으로 미래 예측의 기여를 분리할지.
 다음 단계는 **실제 adapter 및 perception-based 코드 감사 후 baseline 결정**이다.
+
+## 7. 이름 변경 이후 재현 검사
+
+현재 코드·CLI·문서는 새 명칭으로 갱신됐다. 이전 raw report의 metric/source hash/timestamp는
+바꾸지 않았다. 재명명 후 실행 결과는 `results/synthetic_diagnostics/readability_refactor_validation_20261001.json`에
+별도로 기록하며 `docs/directory_migration.md`에 전후 비교를 남긴다.
+새 결과의 no-intent 정책 key는 `entity_only_selection_without_intent`다.
