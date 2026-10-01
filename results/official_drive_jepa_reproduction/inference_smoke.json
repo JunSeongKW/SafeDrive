@@ -1,0 +1,297 @@
+{
+  "purpose": "normal_operation_smoke_only_not_paper_reproduction_score",
+  "successful_scenes": 3,
+  "failed_scenes": 0,
+  "planning_checkpoint_missing_keys": [],
+  "planning_checkpoint_unexpected_keys": [],
+  "planning_checkpoint_shape_mismatches": [],
+  "strict_full_model_loading": true,
+  "strict_initialization_encoder_loading": true,
+  "checkpoint_metadata": {
+    "epoch": 36,
+    "global_step": 49173,
+    "pytorch-lightning_version": "2.2.1"
+  },
+  "source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "actual_navsim_module_path": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/__init__.py",
+  "conda_python_executable": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/drive_jepa_official_evaluation/bin/python",
+  "python_version": "3.9.23",
+  "torch_version": "2.1.0+cu121",
+  "torch_cuda_version": "12.1",
+  "device_name": "NVIDIA RTX A6000",
+  "visible_physical_gpus": "0",
+  "precision": "official float32 inference; no autocast",
+  "matmul_allow_tf32": false,
+  "cudnn_allow_tf32": true,
+  "initialization_seconds": 26.954509043000144,
+  "scene_records": [
+    {
+      "token": "014369205e025f0c",
+      "valid": true,
+      "feature_shapes": {
+        "camera_feature_1": [
+          3,
+          256,
+          512
+        ],
+        "camera_feature_2": [
+          3,
+          256,
+          512
+        ],
+        "status_feature": [
+          8
+        ]
+      },
+      "raw_front_image_shapes": [
+        [
+          1080,
+          1920,
+          3
+        ],
+        [
+          1080,
+          1920,
+          3
+        ]
+      ],
+      "trajectory_poses_local_xy_meters_heading_radians": [
+        [
+          2.7889015674591064,
+          0.02032708190381527,
+          -0.0054716067388653755
+        ],
+        [
+          5.585785865783691,
+          0.07047180831432343,
+          0.008162052370607853
+        ],
+        [
+          8.273018836975098,
+          0.13267213106155396,
+          0.015022258274257183
+        ],
+        [
+          10.920536041259766,
+          0.23740680515766144,
+          0.029452230781316757
+        ],
+        [
+          13.459242820739746,
+          0.3295675814151764,
+          0.037253037095069885
+        ],
+        [
+          15.895082473754883,
+          0.4357120096683502,
+          0.04438190907239914
+        ],
+        [
+          18.2468204498291,
+          0.5566760897636414,
+          0.0486934557557106
+        ],
+        [
+          20.37735939025879,
+          0.6806902885437012,
+          0.05249375104904175
+        ]
+      ],
+      "trajectory_interval_seconds": 0.5,
+      "trajectory_horizon_seconds": 4.0,
+      "inference_seconds": 1.8966190489991277,
+      "scoring_seconds": 0.08961956999701215,
+      "scene_total_seconds": 2.1860038520026137,
+      "cuda_peak_allocated_bytes": 1284100096,
+      "cuda_peak_reserved_bytes": 3735027712,
+      "scores_fraction_not_percent": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.7225751123724377,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 1.0,
+        "score": 0.884406296821849
+      }
+    },
+    {
+      "token": "025b657634505df3",
+      "valid": true,
+      "feature_shapes": {
+        "camera_feature_1": [
+          3,
+          256,
+          512
+        ],
+        "camera_feature_2": [
+          3,
+          256,
+          512
+        ],
+        "status_feature": [
+          8
+        ]
+      },
+      "raw_front_image_shapes": [
+        [
+          1080,
+          1920,
+          3
+        ],
+        [
+          1080,
+          1920,
+          3
+        ]
+      ],
+      "trajectory_poses_local_xy_meters_heading_radians": [
+        [
+          5.4634809494018555,
+          0.2180483341217041,
+          0.07567664980888367
+        ],
+        [
+          10.89079761505127,
+          0.9534739255905151,
+          0.1650523841381073
+        ],
+        [
+          16.373920440673828,
+          1.98855721950531,
+          0.2091303914785385
+        ],
+        [
+          21.868946075439453,
+          3.226889133453369,
+          0.24416452646255493
+        ],
+        [
+          27.485570907592773,
+          4.5635986328125,
+          0.22778457403182983
+        ],
+        [
+          33.20366668701172,
+          5.9277567863464355,
+          0.21692439913749695
+        ],
+        [
+          38.789512634277344,
+          7.221641540527344,
+          0.20134374499320984
+        ],
+        [
+          44.38410949707031,
+          8.639342308044434,
+          0.17022021114826202
+        ]
+      ],
+      "trajectory_interval_seconds": 0.5,
+      "trajectory_horizon_seconds": 4.0,
+      "inference_seconds": 0.07832845400116639,
+      "scoring_seconds": 0.06781908300035866,
+      "scene_total_seconds": 1.0395952819999366,
+      "cuda_peak_allocated_bytes": 1286066176,
+      "cuda_peak_reserved_bytes": 3735027712,
+      "scores_fraction_not_percent": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9712294805119728,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 1.0,
+        "score": 0.9880122835466553
+      }
+    },
+    {
+      "token": "008d66a74c275479",
+      "valid": true,
+      "feature_shapes": {
+        "camera_feature_1": [
+          3,
+          256,
+          512
+        ],
+        "camera_feature_2": [
+          3,
+          256,
+          512
+        ],
+        "status_feature": [
+          8
+        ]
+      },
+      "raw_front_image_shapes": [
+        [
+          1080,
+          1920,
+          3
+        ],
+        [
+          1080,
+          1920,
+          3
+        ]
+      ],
+      "trajectory_poses_local_xy_meters_heading_radians": [
+        [
+          0.18130405247211456,
+          0.007697022520005703,
+          -0.009073127992451191
+        ],
+        [
+          0.20595721900463104,
+          0.007701774127781391,
+          -0.006969932932406664
+        ],
+        [
+          0.17653797566890717,
+          0.008316353894770145,
+          -0.007271233946084976
+        ],
+        [
+          0.16052938997745514,
+          0.010648534633219242,
+          -0.009522409178316593
+        ],
+        [
+          0.15503846108913422,
+          0.010305737145245075,
+          -0.009964199736714363
+        ],
+        [
+          0.1505691558122635,
+          0.010213511995971203,
+          -0.007624240592122078
+        ],
+        [
+          0.14568175375461578,
+          0.00989900715649128,
+          -0.009589843451976776
+        ],
+        [
+          0.1444917768239975,
+          0.009967043064534664,
+          -0.010455085895955563
+        ]
+      ],
+      "trajectory_interval_seconds": 0.5,
+      "trajectory_horizon_seconds": 4.0,
+      "inference_seconds": 0.06987814300009632,
+      "scoring_seconds": 0.05819055200117873,
+      "scene_total_seconds": 0.2442754289986624,
+      "cuda_peak_allocated_bytes": 1286066176,
+      "cuda_peak_reserved_bytes": 3735027712,
+      "scores_fraction_not_percent": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 1.0,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 1.0,
+        "score": 1.0
+      }
+    }
+  ],
+  "official_source_root": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1"
+}

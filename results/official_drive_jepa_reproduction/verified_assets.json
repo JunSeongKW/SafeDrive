@@ -1,0 +1,24 @@
+{
+  "planning_checkpoint": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+    "size_bytes": 3720285081,
+    "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+  },
+  "initialization_encoder": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+    "size_bytes": 5127748765,
+    "sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f"
+  },
+  "metric_cache_archive": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloads/metric_cache.tar",
+    "size_bytes": 3182510080,
+    "sha256": "9107c2ce88e62e75c2e5cbdcf5d8417a6ebb4acdc4ff1c4caa850a27239d88d5"
+  },
+  "metric_cache_root": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache",
+  "metric_cache_tokens": 12146,
+  "metadata_relocation": {
+    "original_preserved_at": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloads/official_metadata_original.csv",
+    "local_metadata_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/metadata/metric_cache_metadata_node_0.csv",
+    "only_change": "absolute file paths in a downloaded derivative, not cache contents or shared originals"
+  }
+}

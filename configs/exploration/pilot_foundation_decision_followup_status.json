@@ -5,7 +5,8 @@
   "expanded_pilot_execution_authorized": false,
   "additional_predictor_tuning_authorized": false,
   "next_priority": "reproduce a released future-planning foundation, then same-budget contextual selection, learned selection, same-average-budget allocation",
-  "first_official_reproduction_candidate": "WA-JEPA",
+  "first_official_reproduction_candidate": "Drive-JEPA official full planning checkpoint; WA-JEPA follows later",
+  "current_reproduction_configuration": "configs/official_drive_jepa/reproduction_v1.json",
   "source_audit": "docs/public_future_planning_foundation_audit.md",
   "final_selection_unit": "not fixed; distinguish entity instances from native spatial/time tokens",
   "full_official_model_reproduction_complete": false

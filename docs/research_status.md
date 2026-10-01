@@ -1,5 +1,14 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 최신 우선순위 — 공식 Drive-JEPA 재현
+
+사용자 지시로pilot개발·데이터확대·추가학습은보류. WA-JEPA도다음순위다.
+`5c6e6d5`를기준으로전용Conda/공식source별도worktree/PFViT-Lfullplanning checkpoint를준비했다.
+공식v1 navtest12146token의로그·현재front·공식metric cache completeness통과, 3scene strict/scorer smoke완료.
+GPU0·1에겹침없는6075/6071scene execution shard로전체추론·평가실행중(최종수치아직없음).
+진입점: [공식재현보고](official_drive_jepa_reproduction.md), `configs/official_drive_jepa/reproduction_v1.json`.
+종료점은논문Table2 PF89.0과전체공식지표대조·commit/push다. Pilot·WA를자동재개하지않는다.
+
 ## 최신 결정 — `607da52` 이후
 
 현재 pilot은 연결·gradient 검증 자산으로 보존하고 predictor 튜닝·확대 학습은 보류한다.

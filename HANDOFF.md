@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 20:30 KST (Codex)
+마지막 갱신: 2026-10-01 21:17 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -19,7 +19,8 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 [전처리·문헌·실행 범위](docs/future_prediction_diagnostic_scope_and_evidence.md).
 직접 선행연구: [docs/egofsd_foredrive_evidence_audit.md](docs/egofsd_foredrive_evidence_audit.md).
 **607da52 이후 최신 결과**: [pilot 기반 판단](docs/pilot_foundation_decision_results.md).
-**현재 다음 진입점**: [공개 future-planning 기반 감사 / 선택·예산 계획](docs/public_future_planning_foundation_audit.md).
+**최우선 작업(최신 사용자 지시)**: 공식 Drive-JEPA planning checkpoint의 전체 NAVSIM v1 navtest 추론·평가 재현.
+설정: `configs/official_drive_jepa/reproduction_v1.json`. WA-JEPA는 그 다음 순위다.
 현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
 명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
 경로 이전: [docs/directory_migration.md](docs/directory_migration.md).
@@ -41,6 +42,25 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**최신 지시 적용 / 안전 정리**: 기준 HEAD `5c6e6d5`, 시작 시 미커밋 변경 없음.
+호스트의 junseong 프로세스를 확인했고 자체 pilot 학습/cache/평가 실행은 없었다.
+따라서 종료한 프로세스 없음. 다른 사용자의 GPU4–7 작업 및 대화 세션을 건드리지 않았다.
+완료 pilot 결과·373 cache·checkpoint·3620-window manifest는 보존한다.
+200-window profile/확대 cache/확대 학습/held-out 평가 및 WA-JEPA full inference는 미실행·보류.
+Pilot 재개는 별도 사용자 승인 후 기존 config·checkpoint·optimizer/RNG 상태로만 검토한다.
+**이번 작업 종료점은 공식 Drive-JEPA 재현 보고이며 pilot/WA-JEPA를 자동 재개하지 않는다.**
+공식 source `548bb82`의 독립 Conda/worktree, full PF ViT-L planning checkpoint·공식 metric cache 준비 완료.
+세 파일 공식SHA256일치, `pip check`와공식scorer import통과, 3scene full planner/encoder strict·finite·scorer smoke통과.
+공식split12146token/log136/front14247image/cache12146, 누락0. Old split도동일12146이며 oldCSV의12147행은average행 포함이다.
+**GPU0·1 전체 평가 병렬 실행 중**: 각각6075/6071scene,68log,worker2개(총4개), 겹침0/합집합공식전체.
+전용tmux: `tmux -L drive-jepa-official-evaluation ls` (gpu0/gpu1). Raw:
+`outputs/official_drive_jepa_reproduction/full_navtest_gpu{0,1}_v1/`, 로그동일이름`.log`의`logs/`하위.
+완료마커`OFFICIAL_DRIVE_JEPA_EVALUATION_DONE`와공식CSV확인→`audit_official_drive_jepa_evaluation.py --stage summarize --csv-path <gpu0.csv> --csv-path <gpu1.csv>`.
+평균행을제외한원본scene rows를합쳐12146unique/누락0/실패0검사후report한다(두shard평균을단순평균하지않음).
+중단되고CSV가없으면upstream은메모리누적이라정확한중간resume미지원. 로그보존·새run경로로만재시작한다.
+기존singleGPU시작시도는scene평가실행되지않았으며빈로그를보존하고전용tmux로전환했다.
+논문 v2 Table2 perception-free Ours 행 PDMS89.0이 비교 기준이다(encoder-only 또는 PB93.3/93.7 아님).
 
 **실행 중인 학습 없음.** 기준 `607da52`의 373-window cache와 1000-update checkpoint를 재사용했다.
 CPU 기준선·실단위 미래 오차, 한 가지 visual-only residual 대조를 대응 3-seed/새 5000-update로 완료했다.
@@ -181,6 +201,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**최신 공식 Drive-JEPA 재현 준비**:
+- Clean기준5c6e6d5/우리pilot실행없음 확인. 기존자산·환경·공용데이터/타인프로세스보존, pilot·확대·WA보류.
+- Source548bb82/HF65e0d728/NuPlanv1.2ce3c323/논문v2Table2PF89.0 고정.
+- 전용Conda Python3.9/Torch2.1cu121/PFplanner·scorer, `pip check`/import 통과.
+- Fullplanning3.72GB/cache3.18GB다운로드, 기존encoder5.13GB재사용, 모두SHA256검증.
+- 독립worktree의encoder strict loader최소patch. 새다운로드cache의metadata절대경로만재작성.
+- Completeness12146scene/log136/image14247 누락0, 3scene strict·finite·scorer smoke통과.
+- 사용자추가요구로GPU0·1 execution shard6075/6071,총worker4 병렬전체평가시작. 최종수치미확정.
+- 설정/support/환경freeze·JSON/공유report·시작문서추가. 아래는기존5c6e6d5작업이력이다.
+
 - CPU 물리/train-fitted ridge·horizon별 spatial m/yaw/velocity·visual 참조를 기존373cache에서 재현.
 - Prior/zero-head/aux-detach 계약과 한 가지 visual-only residual 대응3seed 비교. 기존 C29 재사용/새5000update.
 - Window 대응·recording cluster bootstrap·checkpoint strict/finite/sampler/RNG·전체54tests/Ruff 확인.
@@ -190,7 +220,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 최신 사용자 지시 반영: pilot 튜닝/확대 보류, 공개 future-planning 기반 공식 재현→선택·평균 예산 연구 우선.
 - 공유 report/JSON/재현 명령/README/AGENTS/HANDOFF/status/일지 갱신. 공용 원본/구결과/SafeDrive/타인 process 보존.
 
-## 4. 다음 단계 — 공개 기반의 공식 재현과 선택·예산 가설
+## 4. 다음 단계 — 공식 Drive-JEPA 재현 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+1. `configs/official_drive_jepa/reproduction_v1.json`의 source/checkpoint/split/scorer를 고정한다.
+2. 독립 Python3.9/Torch2.1+cu121 환경에서 공식 전처리·planner·scorer만 사용한다.
+3. Full planning checkpoint strict loading과 소수 scene smoke→공식 navtest 전체를 평가한다.
+   현재smoke완료/전체GPU0·1실행중이므로반복시작하지않는다. 완료후두CSV원본scene합쳐집계한다.
+4. 예상/성공/실패/누락 scene과 모든 공식 지표·비용·논문 대비 차이를 보고하고 commit/push한다.
+5. 이 보고까지 종료한다. 학습·튜닝·selector 추가와 pilot 자동 재개 금지. WA-JEPA는 이후 별도 결정.
+
+아래는 `5c6e6d5`까지의 보존된 후속 연구 계획이며 지금 실행하지 않는다.
 
 1. 최신 두 report/JSON을 commit 기준으로 ChatGPT·Claude에 검수 공유한다. Pilot 추가 튜닝/확대는 하지 않는다.
 2. WA-JEPA 공식 source/weights/config/environment를 pin하고 strict loading→실제 현재/과거 NAVSIM batch의

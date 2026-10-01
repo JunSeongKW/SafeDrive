@@ -1,0 +1,67 @@
+{
+  "task": "official_checkpoint_inference_and_full_navtest_evaluation_only",
+  "baseline_project_commit": "5c6e6d5fc8f2e20ea5dad90dabce5e1e3f310de8",
+  "official_source_repository": "https://github.com/linhanwang/Drive-JEPA",
+  "official_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "official_source_worktree": "reference_repositories/DriveJEPAOfficialEvaluation",
+  "official_navsim_version": "1.1.0 (Drive-JEPA navsim_v1 fork)",
+  "nuplan_source_commit": "ce3c323af01c0d7ec5672f7832ef53f9c679aab0",
+  "nuplan_source_tag": "nuplan-devkit-v1.2",
+  "conda_environment_prefix": "runtime/environments/drive_jepa_official_evaluation",
+  "python_version": "3.9.23",
+  "pytorch_version": "2.1.0+cu121",
+  "checkpoint_repository": "LinhanWang/Drive-JEPA",
+  "checkpoint_revision": "65e0d7284f69bf29d1a4864affcfd84ca4e97a2e",
+  "planning_checkpoint": {
+    "filename": "drive_jepa_perception_free_agent_vitl.ckpt",
+    "size_bytes": 3720285081,
+    "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+  },
+  "initialization_encoder_checkpoint": {
+    "filename": "vitl_merge_3dataset_e50.pt",
+    "size_bytes": 5127748765,
+    "sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f",
+    "reuse_path": "runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+    "role": "official_constructor_initialization; full planning checkpoint supersedes model parameters"
+  },
+  "metric_cache_archive": {
+    "filename": "metric_cache.tar",
+    "size_bytes": 3182510080,
+    "sha256": "9107c2ce88e62e75c2e5cbdcf5d8417a6ebb4acdc4ff1c4caa850a27239d88d5"
+  },
+  "model": {
+    "agent": "drive_jepa_perception_free_agent",
+    "image_architecture": "vit_large",
+    "num_keyval": 129,
+    "front_only": true,
+    "tf_dropout": 0.0,
+    "freeze_encoder": false,
+    "double_image": true,
+    "sensor_history_indices": [2, 3],
+    "input_image_size": [256, 512],
+    "additional_undistortion": false,
+    "trajectory_num_poses": 8,
+    "trajectory_interval_seconds": 0.5,
+    "trajectory_horizon_seconds": 4.0,
+    "trajectory_frame": "current ego rear-axle local SE2 (meters, radians)"
+  },
+  "split": "navtest",
+  "paper": {
+    "url": "https://arxiv.org/pdf/2601.22032v2",
+    "table": 2,
+    "row": "Ours / ViT-L / Camera / perception-free first block",
+    "reported_percent_scores": {
+      "no_at_fault_collisions": 98.7,
+      "drivable_area_compliance": 96.2,
+      "ego_progress": 82.9,
+      "comfort": 100.0,
+      "time_to_collision_within_bound": 95.5,
+      "score": 89.0
+    },
+    "published_checkpoint_exact_row_identity": "inferred from official filename/evaluation script; no checkpoint-specific result card"
+  },
+  "approved_physical_gpu_indices": [0, 1],
+  "pilot_resume_authorized": false,
+  "training_authorized_for_this_task": false,
+  "wa_jepa_priority": "after this reproduction report; not automatically started"
+}

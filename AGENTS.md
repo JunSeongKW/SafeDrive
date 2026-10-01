@@ -35,6 +35,11 @@ visual-only residual 대응3seed 비교를 완료했다. Pilot은 ridge보다 �
 동일 평균예산 배분이다. WA-JEPA의 source/metadata와 tiny attention autograd만 확인했으며 full 모델은
 미재현이다. Native 공간·시간 token과 객체를 같은 선택 단위로 부르지 않는다. 기존 확대 config를 자동 재개하지 않는다.
 
+최신 사용자 지시: **공식 Drive-JEPA full planning checkpoint 추론·전체 navtest 평가 재현이 최우선**.
+진입점 `docs/official_drive_jepa_reproduction.md`, `configs/official_drive_jepa/reproduction_v1.json`.
+독립 Conda/worktree와 공식 전처리·planner·scorer만 사용. Pilot encoder-only 결과와 구분한다.
+이 작업에서는 학습·fine-tuning·selector·WA-JEPA 실행 금지. 재현 보고 후 pilot을 자동 재개하지 않는다.
+
 ## 세션 시작 루틴
 
 ```bash

@@ -1033,3 +1033,16 @@ ForeDrive v2 원문을 다시 읽었지만 제한 검색에서 공식 code/check
 GPU0/1은 조사 초반 타인 CARLA 점유, 마지막 확인25MiB/compute 없음. 이번 GPU 사용/타인 중지 없음.
 공용 원본/이전 cache·결과/환경/SafeDrive 자산/공개 설정 보존.
 두 보고서와 공유 JSON/manifest·window별 결과를 추가하고 README/AGENTS/HANDOFF/status 갱신.
+
+## 2026-10-01 — 공식 Drive-JEPA planning checkpoint 재현 준비 / GPU0·1 전체 평가 시작
+
+기준5c6e6d5(clean), 실행중우리pilot학습/cache없음. 기존자산보존/확대·pilot·WA보류.
+Source548bb82/HF65e0d728/NuPlanv1.2ce3c323/논문v2Table2PF89.0을고정했다.
+독립Conda Python3.9.23/Torch2.1cu121, 기존base/pilot환경·OSdriver변경없음.
+Fullplanning3.72GB/공식metriccache3.18GB새다운로드, 기존encoder5.13GB재사용, 모두SHA256일치.
+공식source별도worktree의encoder로더만strict강화하고전처리/planner/scorer는공식그대로사용한다.
+12146token/log136/front14247image/cache12146누락0. OldYAML도12146이고sampleCSV12147행은average1행포함.
+3scene fullplanner·encoder strict/유한8×3trajectory/scorer통과. Epoch36/globalstep49173 체크포인트.
+사용자추가요청으로전체공식split을GPU0·1 execution shard6075/6071(68log씩)로병렬실행.
+각worker2/총4, CPU스레드1/worker, 겹침0/합집합전체. source/scorer/precision변경없음.
+전용tmux socket drive-jepa-official-evaluation, gpu0/gpu1. 최종수치아직미확정.

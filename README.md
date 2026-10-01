@@ -23,7 +23,11 @@
 
 ## 현재 구현과 과거 자산의 구분
 
-최신 사용자 결정: 현재 pilot은 연결·gradient 진단 자산으로 보존하고 predictor 튜닝/확대 학습은 보류한다.
+최신 사용자 결정: **공식 Drive-JEPA planning checkpoint의 전체 navtest 평가 재현이 최우선**이다.
+설정은 `configs/official_drive_jepa/reproduction_v1.json`. 자체 pilot·확대 학습·WA-JEPA는 보류한다.
+공식 encoder만 사용했던 pilot은 공식 planning checkpoint 재현이 아니며 모든 기존 자산을 보존한다.
+아래 WA-JEPA 계획은 이전 판단 이력이며 현재 자동 실행하지 않는다.
+현재 pilot은 연결·gradient 진단 자산으로 보존하고 predictor 튜닝/확대 학습은 보류한다.
 WA-JEPA 공식 코드의 joint future/planning 경로와 공개 checkpoint 메타데이터를 확인했다. 다음은
 공식 기반의 가중치 로딩·추론 재현 후 같은 예산의 상황별 선택→학습형 선택→평균 예산 배분 비교다.
 WA-JEPA full model 재현이나 새 selector 구현이 완료된 상태는 아니다. 등록된 pilot 확대 설정을 자동 실행하지 않는다.
