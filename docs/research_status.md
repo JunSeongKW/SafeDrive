@@ -2,8 +2,10 @@
 
 갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **CPU graph + NAVSIM GT-state 진단 +
 공식 frozen encoder를 이용한 실제 front-video/GT ROI visual·spatial target 연결 검사 완료** 상태다.
-`1231767` 이후에는 **연구 범위/target 비교 결정,16recording/128window CPU coverage 조사,
-train/dev recording split 및 최소 A–E 학습 계획 공유 완료; 비교 학습 미실행**으로 진행했다.
+`09913b5` 이후에는 **명시적 영상 보정/투영 규약,373window 약616MB frozen feature cache,
+현재 거리 K4 fixed-rule runner와 A–E 각200update(seed29,batch8) 비교 완료**로 진행했다.
+최신 실측·한계는 [target 감독 비교 결과](target_supervision_exploration_results.md)다.
+이는 미래 감독의 학습 가능성/초기 경향이며 selector 학습이나 최종 target·novelty 결정이 아니다.
 공식 NAVSIM baseline 재현·성능·순수 visual JEPA·배포 가능한 perception 구현 완료 보고는 아니다.
 동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `selective_entity_future_prediction_graph.md`,
 시간순 이력은 `RESUME_NOTES.md`에서 관리한다.
@@ -96,7 +98,8 @@ train/dev recording split 및 최소 A–E 학습 계획 공유 완료; 비교 �
 ### 아직 하지 않은 것 (현재 기준)
 
 - Official planner weight/evaluator/benchmark score 재현, detector/tracker 기반 inference.
-- 여러 장면/seed 공동 학습, 미래 활용·collapse·동일-K 성능·효율 평가, novelty 표 완성.
+- 충분히 수렴한 여러 seed 공동 학습, 최종 미래 활용·동일-K 공식 성능·효율 평가, novelty 표 완성.
+  여러 장면의 작은 fixed-rule200-update 학습/의존도/분산 진단은 아래 최신 실행에서 완료했다.
 - 최종 visual-only vs mixed target 및 baseline/독립 holdout 확정.
 - 본 학습·전체 cache 재생성·SafeDrive 재학습. 공용 dataset 수정 및 기존 환경 upgrade.
 
@@ -122,6 +125,26 @@ train/dev recording split 및 최소 A–E 학습 계획 공유 완료; 비교 �
   C/D/E 공통 visual∩spatial mask, train-only normalization,200update/조건 계획을 실행 전 명시했다.
 - 실제 수행은CPU metadata/projection 조사뿐. 새training runner/cache/normalization/성능metric 구현 및
   GPU실행/공동 학습은 하지 않았다. 공용log16/reviewimage16 hash 전후동일. 기존model source와결과는보존했다.
+
+### ChatGPT 09913b5 검토 이후 — 최신 실제 비교 학습
+
+- 원본DB와camera K/D/image size 대조, 직진/회전4표본 ROI 직접 검토, crop/resize pixel-center 규약 검사.
+  JPEG 가공 이력은 별도 원본 byte 비교로 확정 못했으므로 original-distorted 취급 가정을 남겼다.
+  저장K/D rectification을 메모리에서 수행한 뒤 pinhole ROI를 사용한다. Occlusion/시간 차이는 남는다.
+- Train277/dev96window만 frozen official encoder로cache,616,266,713bytes. Future teacher clip/target/mask는
+  training 전용 dict로 분리하고 현재 candidate/window를 future validity로 거르지 않는다.
+- 고정현재거리 K4, 동일 초기화/batch/normalization, A branch없음/B planning만/C visual/D spatial/E mixed,
+  각200update. B–E는두head·폭동일, aux→planner gradient0. A활성762,627/B–E2,223,283parameter.
+- Train-only common target4,785관측에서whitening; 같은27,659slot/time supervision availability sequence 확인.
+  Dev ADE(scene-macro m)는A5.921/B5.881/C5.921/D5.749/E5.872. 아직모든곡선하락중/단일seed/4devrecording.
+- C예측visual분산/target비율0.012, swap ΔADE0.0006m로평균회귀/branch무시경고. Encoder는freeze되어
+  encoder collapse가아니다. Evisual분산0.120, 모든forecast MSE는current persistence보다아직높다.
+  초기순위로target을탈락시키거나최종planning개선·novelty를주장하지않았다.
+- 38/38tests/Ruff통과, log16/image3,730pre/posthash동일. GPU0만사용하고종료/메모리해제,
+  GPU1기존프로세스보존. Shared원본쓰기/envupgrade/추가download/SafeDrive재학습/동적K구현없음.
+- 실제공유JSON: `results/target_supervision_exploration/seed29_updates200_20261001.json`.
+  Raw cache/last checkpoint/구간별지표/곡선은`outputs/`에있다. 다음은C/E경고와학습량을검토하고
+  충분한동일조건학습/다른seed·current-target 대조를결정하는것이며 자동추가실행은없다.
 
 95015df는 문서·작업 규칙 변경이었다. 이번 v1은 독립 synthetic fixture와 결과 기록을 추가한다.
 기존 모델, loss, 실험 결과 CSV는 변경하지 않았다.

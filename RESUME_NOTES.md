@@ -845,3 +845,102 @@ train/devnative-log/alias분리,373pilot 비중첩window,5고유조건/총aux계
 새training CLI/fixed-rule forward/cache/normalization/evaluator는아직미구현이다.
 학습·GPU실행·공식baseline재현·새원본download·공유dataset쓰기·기존환경upgrade없음.
 다음은이번계획공유/검토후고정규칙runner와제한cache/metrics구현,이후작은A–E비교학습이다.
+
+## 2026-10-01 15:28 KST — Codex: 실제 미래 감독 A–E 200-update 비교 완료
+
+출발 `09913b5`. 최신 사용자 승인 범위는 영상 rectification/투영 정리, 고정 작은 split cache,
+현재 거리 K4/A–E 각200update다. 이번 질문은 **선택된 객체에 어떤 미래 감독을 주면 planning
+학습에 도움이 되는가**이며 selector 선택/최종 target/novelty가 아니다. GPU0만 사용하고 종료했다.
+
+### 투영과 원본 보호
+
+`audit_front_camera_projection.py`로 train/dev×직진/회전4표본을 조사했다. 원본 nuPlan DB의
+K/D/1920×1080가 NAVSIM pickle과 일치한다. DB는 read-only/immutable로 열고 CameraIntrinsic
+list wrapper만 제한적으로 해독했다. Stored K/D로 full-resolution in-memory rectification 후
+상하28px crop, cv2 linear512×256, pixel-center affine/pinhole ROI로 규약을 고정했다.
+원본/보정 ROI sheet를 직접 검토하고 calibrated-FOV distort/undistort 왕복 최대1.14e-12px 확인.
+이는 실제 visibility/3D 정합 정확도 측정이 아니다. Raw distorted corner의 FOV 밖 외삽은
+거짓 큰 ROI를 만들 수 있어 cache에 쓰지 않았다. 기존 단일 pilot의 기본 전처리는 보존했다.
+
+OpenScene/nuPlan schema/MTGS Appendix A.1/OpenCV primary source를 확인했다.
+별도 원본 sensor JPEG가 없어 local export의 byte-level rectification 이력은 증명 못했다.
+Original-distorted로 취급하는 운영 가정을 명시했으며 occlusion/시간 차이는 여전히 미해결이다.
+공유 원본을 변경하지 않고 image remap/cache/output은 모두 작업공간에 생성했다.
+
+### 제한 cache와 runner
+
+`cache_target_supervision_features.py`: 기존 manifest train277/dev96window만 생성, 373개 파일
+합계616,266,713bytes. Full directory 약617MB로2GiB cap 아래. Train8 profile58.65s(첫 kernel
+시작43.95s 포함), 나머지365개188.50s; clip9/window 총3357. Peak allocated1,479,913,472bytes,
+reserved1,648,361,472bytes. Current grid/entity와 future ROI target을 분리 저장했다.
+Current feature geometry10도FP16 저장/FP32 학습으로 미세한 거리 quantization이 있다.
+Teacher는 같은 pinned official frozen encoder이고 미래 clip은 학습 target에만 사용한다.
+
+`FixedDistanceFutureSupervisionPilot`/`train_target_supervision_ablation.py`: 현재 거리+stable ID
+K4만 사용, learned scorer freeze/미호출. 같은초기state SHA와 recording-balanced batch sequence,
+AdamW1e-4/weight decay1e-4/clip1, 조건당200update/batch8/1600draw. B–E는동일두head/branch,
+A는branch가없어활성용량이작다. A762627/B–E2223283active params, stored scaffold2487988,
+encoder303885312frozen을별도로구분한다. No official full-stack baseline/pretraining 주장.
+
+Train-only selected common-valid4785slot/time에서 population std/floor0.05로 normalization;
+floor에닿는채널0. Predictor는whitened좌표를출력해planner에전달하고forecast지표는역변환한다.
+C/D/E common mask는 loss에만 사용하며 future validity로 현재 후보/window/planner를 거르지 않았다.
+모든조건의공통availability27659slot/time/zero-common133sample draw가같음을hash로확인했다.
+Aux→plannergradient정확히0, planning→P/D 정상, scorer변화0, P/D 실제update 확인.
+Step0/50/100/150/200 평가, dev-best를고르지않고last200checkpoint보관. 추가seed/학습없음.
+
+### 결과와 연구 해석
+
+| 조건 | Train planning loss | Dev planning loss | Train scene-macro ADE(m) | Dev scene-macro ADE(m) | Dev FDE(m) |
+|---|---:|---:|---:|---:|---:|
+| A branch없음 | .14899 | .17995 | 4.950 | 5.921 | 12.065 |
+| B planning만 | .14782 | .17940 | 4.853 | 5.881 | 12.212 |
+| C visual aux | .14951 | .18031 | 4.968 | 5.921 | 12.067 |
+| D spatial aux | .14517 | .17615 | 4.753 | 5.749 | 12.035 |
+| E mixed aux | .14730 | .17869 | 4.846 | 5.872 | 12.046 |
+
+모두dev ADE약9.25에서낮아졌고150→200에도0.74~0.88m 감소하여 아직수렴하지않았다.
+D–B −0.132m는 초기관찰이며 target선정/공식안전성능/novelty의근거로확정하지않았다.
+Scene86/devrecording4, paired1000recording bootstrap은설명용만. Context 표본부족flag유지.
+
+**C의평균회귀·branch무시경고**: visual prediction/target분산비율0.011997, future swap의
+window mean ΔADE+0.000572m, branch제거+0.010632m. Frozen encodercollapse는아니다.
+E도visual분산비율0.120223. Commonnormalized visualMSE B/C/D/E1.737/.951/1.616/.977,
+spatial1.445/.760/.355/.386. Currentpersistence visual.395/spatial.153보다아직모두높다.
+Auxloss감소만으로좋은미래표현이라고해석하지않는다. 다른scene/recording예측swap이며미래GT아님.
+Zero는time/type token이남고, 제거는futurememory전체를뺀다. 의존도는재학습대조의대체물이아니다.
+
+Updatewall합26.22s, 전체invocation250.21s에eval/진단/IO포함. Cached-head속도이며전체pipeline효율아님.
+Peakallocated172~239MB, processVRAMsample최대550~626MiB(일부측정unavailable).
+GPU0종료후1MiB, GPU1기존1945MiB보존. 타인process중지없음.
+
+### 검사·산출물·다음
+
+38/38unittest(기존33+fixed-rule/normalization/loss/gradient/resize계약5), Ruff check/format 통과.
+실행전GPU sandbox접근/초기CUDAmemory초기화/OpenCV5API오류를수정했으며실패output도보존했다.
+독립summary 단계에서공유log16/image3730의pre/postSHA와실행source hash 일치를확인했다.
+기존envupgrade/새의존성설치/공유원본쓰기/download/SafeDrive재학습/동적K구현없음.
+
+Raw: `outputs/feature_caches/target_supervision_rectified_v1b/`,
+`outputs/target_supervision_exploration/seed29_updates200_v1/`,
+`outputs/projection_audit/front_camera_rectified_verified_20261001/`.
+Shared: `results/target_supervision_exploration/seed29_updates200_20261001.json`,
+`docs/target_supervision_exploration_results.md`. Code/config/지침/status/HANDOFF/README 갱신.
+원본이미지/ROI sheet/checkpoint는Git원격에올리지않고summary/source만공유한다.
+
+다음은C/E평균회귀·branch무시/학습량을검토하고충분한동일조건학습·다른seed,
+current-target/current-feature대조의우선순위를정하는것이다. 초기순위로조건을탈락시키지않는다.
+Target근거이후selector비교로돌아가며이번커밋에는자동추가학습/대규모cache/최종target선정없음.
+
+### 2026-10-01 15:43 KST — 사용자 전원 중단 보고 후 복구 점검
+
+README/AGENTS/HANDOFF와 git 상태를 다시 읽었다. HEAD09913b5이고 이번 구현·결과·문서는
+아직 커밋되지 않은 상태였다. Cache FEATURE_CACHE_DONE, A–E CONDITION_DONE 및
+TARGET_COMPARISON_DONE이 모두 남아 있었다. 이번 cache/training process는 없었고 현재
+GPU compute process 목록도 비어 있었다. 완료된 학습을 다시 실행하지 않았다.
+
+Cache373파일의 SHA256, checkpoint5개의 기록 SHA256과 CPU weights_only/strict model loading,
+finite state 및 optimizer_updates200을 재검증했다. 공유 JSON/원본 실행 report/실행 source hash도
+기록과 같다. CPU38/38tests 재통과, Ruff 및 git diff --check 통과.
+따라서 손실된 학습 구간은 없고 남은 작업은 최종 커밋·push였다. 그 부분부터 재개했다.
+기존 raw 결과·cache·체크포인트를 덮어쓰거나 추가 학습하지 않았다.

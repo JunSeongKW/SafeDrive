@@ -1,5 +1,10 @@
 # 최소 target 비교 학습 계획 — 실행 전 고정안 v1
 
+**이 문서는 `09913b5` 당시의 계획 기록이다.** 이후 사용자 승인으로 구현·A–E 200-update 실행을
+완료했다. 현재 상태는 [실측 결과](target_supervision_exploration_results.md), 실행 설정은
+`configs/exploration/target_supervision_run_v1.json`을 따른다. 아래 ‘미구현/미실행’ 문구는 당시 상태이며,
+§6의 초기 shortlist threshold는 자동 적용하지 않았다. 최신 지시대로200-update 순위로 target을 확정/탈락시키지 않는다.
+
 2026-10-01, 기준 `1231767` 이후 조사. **아직 학습하지 않았다.** Training CLI, fixed-rule forward,
 feature cache, train-only normalization, evaluator는 다음 구현 작업이다. 이 문서/JSON만으로 학습이
 실행 가능하다고 보고하지 않는다. GPU 연결 smoke를 반복하거나 동적 K/horizon을 구현하지 않는다.

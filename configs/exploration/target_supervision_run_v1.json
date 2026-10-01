@@ -1,0 +1,24 @@
+{
+  "question": "Which future auxiliary supervision helps planning learning under identical current-distance K4 selection?",
+  "cache_directory": "outputs/feature_caches/target_supervision_rectified_v1b",
+  "split_manifest": "results/data_surveys/navsim_recording_split_manifest_20261001.json",
+  "seed": 29,
+  "optimizer_updates": 200,
+  "batch_size": 8,
+  "evaluation_updates": [0, 50, 100, 150, 200],
+  "optimizer": {"learning_rate": 0.0001, "weight_decay": 0.0001, "gradient_clip_norm": 1.0},
+  "selection": {"policy": "nearest_current_ego_distance_with_stable_identity_ties", "num_selected_entities": 4, "learned_selector": false},
+  "future_steps": 8,
+  "normalization": {"fit_split": "train", "fit_mask": "selected_common_visual_spatial_valid", "population_std_floor": 0.05},
+  "conditions": [
+    {"label": "A", "name": "current_context_no_future_branch", "enable_future_branch": false, "visual_weight": 0.0, "spatial_weight": 0.0},
+    {"label": "B", "name": "future_branch_planning_supervision_only", "enable_future_branch": true, "visual_weight": 0.0, "spatial_weight": 0.0},
+    {"label": "C", "name": "future_branch_visual_auxiliary", "enable_future_branch": true, "visual_weight": 0.1, "spatial_weight": 0.0},
+    {"label": "D", "name": "future_branch_spatial_auxiliary", "enable_future_branch": true, "visual_weight": 0.0, "spatial_weight": 0.1},
+    {"label": "E", "name": "future_branch_mixed_auxiliary", "enable_future_branch": true, "visual_weight": 0.05, "spatial_weight": 0.05}
+  ],
+  "time_limits_seconds": {"per_condition_training": 1800, "all_training": 7200},
+  "interpretation": "Learning feasibility and initial trends only; no winner/target elimination, second seed, large training, official planning claim, or novelty decision based on this run.",
+  "future_target_validity_use": "training/evaluation losses only; never current candidates, window filtering, selector input, or planner padding",
+  "metrics": "imitation planning loss, scene/recording/window ADE/FDE/yaw, prediction common/native mask errors, variance, persistence, zero/swap dependence; NOT official PDMS"
+}

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 14:16 KST (Codex)
+마지막 갱신: 2026-10-01 15:44 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -13,7 +13,8 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 최신 실제 영상 pilot: [docs/visual_future_prediction_pilot_validation.md](docs/visual_future_prediction_pilot_validation.md).
 최신 연구 결정: [docs/research_question_and_target_decision.md](docs/research_question_and_target_decision.md).
 여러-log CPU 조사: [docs/navsim_visual_target_coverage.md](docs/navsim_visual_target_coverage.md).
-미실행 최소 학습 계획: [docs/minimal_target_ablation_plan.md](docs/minimal_target_ablation_plan.md).
+당시 최소 학습 계획: [docs/minimal_target_ablation_plan.md](docs/minimal_target_ablation_plan.md).
+**최신 실행 결과**: [docs/target_supervision_exploration_results.md](docs/target_supervision_exploration_results.md).
 직접 선행연구: [docs/egofsd_foredrive_evidence_audit.md](docs/egofsd_foredrive_evidence_audit.md).
 현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
 명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
@@ -36,16 +37,19 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 
 ## 1. 실행 중인 작업
 
-**진행 중인 신규 작업 없음** (2026-10-01). `1231767` 영상 연결 검사는 충분하다는 검토를 받아,
-이번에는 연구 기여/target 결정, 16recording/128window CPU coverage 조사와 고정 train/dev split,
-최소 A–E target 학습 계획을 작성했다. 새 GPU 실행·trainer 구현·cache 생성·학습은 하지 않았다.
-기존 단일 영상 gradient/update는 연결 진단이지 성능 결과가 아니다.
+**진행 중인 신규 작업 없음** (2026-10-01). `09913b5` 검토 후 명시적 영상 보정/투영 규약,
+고정 373window frozen cache, 현재 거리 K4 runner와 A–E 각 200update(seed29,batch8)를 완료했다.
+질문은 ‘선택된 객체의 어떤 미래 감독이 planning 학습에 유용한가’이며 learned selector는 쓰지 않았다.
+이번 결과는 초기 학습 경향/낮은 분산·branch 무시 진단이지 최종 target·H1/H2·novelty 확정이 아니다.
+사용자 전원 중단 보고 후15:43에 복구 점검: cache373개 및 checkpoint5개의 SHA/strict load/200update,
+결과·실행 source hash와38tests를 재확인했다. 학습은 완료돼 있었고 재학습 없이 커밋·공유 마무리를 재개했다.
 Official full-stack 평가·전체 cache 재생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
 가독성 명명 이후 루트와 현재 package를 유지하고 기존 SafeDrive 자산은 건드리지 않는다.
 
 현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
-RTX A6000 약 48 GB다. 확인 당시 기존 프로세스가 있으므로 비어 있다고 가정하거나
-다른 연구원 작업을 중지하지 않는다. 과거 H100의 할당·batch 설정은 현재 서버에 적용하지 않는다.
+RTX A6000 약 48 GB다. 이번에는 GPU0의 빈 상태를 재확인하고 사용/종료했다(종료 후1MiB).
+실행 당시 GPU1 기존1945MiB 사용은 보존했다. 복구 점검 당시 GPU compute process 목록은 비어 있었다.
+이번 에이전트가 다른 연구원 작업을 중지한 일은 없다. 과거 H100 설정은 적용하지 않는다.
 
 이전 중단 작업: O0 epoch 1 / F3 epoch 0 checkpoint라는 인수인계가 있다.
 실제 checkpoint 내부 epoch와 resume 적합성은 이번에 검증하지 않았다.
@@ -133,32 +137,47 @@ Shared log1/image10 hashes 전후 동일. 결과: `results/visual_diagnostics/vi
   미래 target 유효성으로 현재 candidate/window를 필터하지 않았다. CPU약8.08s, log16/image16 hash 전후 일치.
 - 첫 target 비교는 fixed-nearest K4, A branch 없음/B planning만/C visual/D spatial/E mixed.
   B–E 같은2head/branch, C/D/E 공통mask와 train-only normalization, 200update/조건으로 계획했다.
-  Config는 계획이며 training CLI/cache/evaluator/학습 성능은 아직 없다.
+  이는09913b5 당시계획이었으며 아래실행에서구현했다.
+
+**최신 09913b5 이후 실행**:
+
+- Camera K/D/1920×1080가 원본 nuPlan DB와 4표본 일치; in-memory stored-K/D rectification 후
+  crop28/resize512×256, pinhole pixel-center ROI 규약. JPEG export 이력의 byte 검증은 미완료다.
+- Manifest train277/dev96window만 616,266,713bytes cache, current input/future target 분리.
+  같은 초기 state/batch 순서/common-supervision-count sequence로 A–E 각200update 완료.
+- Dev scene-macro ADE(m): A5.921/B5.881/C5.921/D5.749/E5.872; 아직 곡선 하락 중, 단일 seed/4dev recording.
+  D를 최종 target으로 선정하지 않았다. C visual 분산 비율0.012/swap ΔADE0.0006m로 평균 회귀·branch 무시 경고.
+  E visual 분산 비율0.120, 모든 forecast는 현재 persistence보다 아직 MSE가 높다.
+- Train-only common4785관측으로 normalization. Availability27659slot/time/zero-common133draw가 모든 조건 동일.
+  A 활성762627/B–E2223283params; aux→planner gradient0, scorer 변화0, P/D update 확인.
+- 38tests/Ruff 통과, shared log16/image3730 pre/post SHA 동일. GPU0 종료/환경 보존.
+  JSON: `results/target_supervision_exploration/seed29_updates200_20261001.json`.
+  Cache/last200checkpoint/curve: `outputs/feature_caches/target_supervision_rectified_v1b/`,
+  `outputs/target_supervision_exploration/seed29_updates200_v1/`.
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 1231767 검토를 반영해 fixed K를 개발 기반/novelty 미확정으로 정리하고 연구 질문·target 결정 한 페이지 작성.
-- EgoFSD v6/ForeDrive v2 원문 및 EgoFSD official tree를 확인하고 직접 중복/gradient 미확인 경계를 보고.
-- 새 CPU survey script/config로16원본recording/128window의 front/side projection 및 미래 target 유효율 측정.
-- 미래 유효성/모델 결과로 선별하지 않는 recording-level split과 train277/dev96window manifest 공유.
-- Visual/spatial 감독 표본 차이를 통제하는 common-mask A–E 최소 학습 계획/계수/지표/예산/진행 조건 고정.
-- 공유JSON·조사 보고서·연구 상태·계산 그래프·README·HANDOFF·RESUME_NOTES 갱신. 읽은 공용 log/image hash 불변.
-- 새 model/trainer/cache/학습/GPU 실행 없음. 기존 검증 결과/환경/SafeDrive 자산은 보존.
+- Stored camera calibration/rectification·crop/resize·ROI 규약 감사와 명시적 in-memory rectification 추가; 기존 기본값 보존.
+- 고정 373window cache builder, 현재 거리 K4 forward, 동일 조건 training runner와 공유 summary 구현.
+- Seed29/batch8/A–E 각200update GPU0 완료; 초기화·batch 순서·common mask/count 일치 검증.
+- Train/dev planning·forecast loss, 표현 분산, future zero/swap/제거, gradient/update, 활성 params·시간·VRAM 기록.
+- C/E 평균 회귀·branch 무시 경고와 미수렴 곡선 해석; 초기 순위로 target/novelty를 확정하지 않음.
+- 38tests/Ruff/shared log16/image3730 pre/post hash 통과; JSON/보고서/연구 상태/README/HANDOFF/일지 갱신.
+- 전원 중단 후 cache373/checkpoint5 hash·strict load·last200과38tests를 재검증하고 미완료 커밋·push를 재개.
+- 공용 원본/기존 env/다른 process/과거 결과 보존. 동적 K·selector 학습·추가 seed·대규모 학습·SafeDrive 재학습 없음.
 
-## 4. 다음 단계 — 계획 검토 후 target 분리 학습 구현
+## 4. 다음 단계 — 초기 곡선/평균 회귀 검토 후 다음 비교 결정
 
-1. `research_question_and_target_decision.md`, `navsim_visual_target_coverage.md`,
-   `minimal_target_ablation_plan.md`를 읽는다. 이번 요청은 계획/조사 공유까지이며 학습은 아직 하지 않았다.
-2. Fixed-current-rule forward/trainer, 373window만의 작은 feature cache, train-only normalization,
-   ADE/FDE evaluator를 구현한다. GPU0·1 점유 재확인 후 train8window의 시간/메모리/loss scale을 profile한다.
-   Encoder 환경/weight를 다시 만들거나 공유 데이터를 수정하지 않는다. 2GiB cache cap/시간 cap을 유지한다.
-3. 같은 K4·horizon8·현재 입력·B–E 공통branch에서 A–E 각200update로 target 탐색.
-   Final fixed checkpoint를 평가하고 C/D/E common-mask 및 native availability를 기록한다.
-   Zero/swap 의존도 검사와 retraining 대조를 혼동하지 않고 공식 planning 개선으로 보고하지 않는다.
-4. Target shortlist와 seed 확인 뒤 random/규칙/ego-attention/ST, 이후 고정 K2/4/8의 맥락적 예산 이득을 비교한다.
-   Current-target 반복/current-feature adapter는 별도 대조. All-entity 우위를 필수 gate로 쓰지 않는다.
-5. Right/merge coverage, occlusion/rectification, multiview/GT 대체, 공식 evaluator와 독립 holdout을 해결하고
-   전체 novelty 감사를 완성한다. SafeDrive는 보존된 CPU motivation 자산이며 주 baseline/retraining은 중단한다.
+1. 최신 `target_supervision_exploration_results.md`와 공유 JSON의 곡선/분산/의존도를 검토한다.
+   이번 질문은 미래 감독 효과이지 selection policy 비교가 아니다. 초기 순위로 target을 확정하지 않는다.
+2. C/E 평균 회귀·branch 무시, 모든 조건이 아직 못 넘은 current persistence를 다룬다.
+   Current-target 반복/current-feature adapter는 별도 대조로, 동일 조건 학습량 확인과 분리해서 정한다.
+3. 충분한 동일 조건 학습/다른 seed를 검토 후 결정한다. 150→200 curve도 내려가므로 조건을 탈락시키지 않는다.
+   현재 runner는 200update 승인 범위로 제한됨; 자동 추가 학습/shortlist 없음. Cache 재생성 불필요.
+4. Target 근거가 생긴 후 random/강한 규칙/ego-attention/ST, 고정 K별 상황 의존 예산 효과로 돌아간다.
+   All-entity 우위를 필수 gate로 쓰지 않고 novelty·독립 공식 평가를 별도 검증한다.
+5. JPEG export provenance/occlusion, right/merge·multiview/GT 대체, 공식 evaluator/holdout이 남는다.
+   SafeDrive 주 baseline/retraining은 여전히 중단; 기존 환경·공용 원본·다른 process를 보존한다.
 
 navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard 접근·사용 이력·공식 프로토콜을
 확인한 뒤 최종 평가 경로를 정한다. 이전 서버의 데이터 크기·GPU-hour를 현재 실측치로 취급하지 않는다.
@@ -173,6 +192,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 
 **미결**: 최종 visual/spatial/mixed target/baseline·공식 평가, ST 공동 학습 안정성,
 multiview/occlusion/GT 대체association, 미래 활용·동일 예산 효과·novelty delta·독립 holdout.
+이번 200update는 미수렴/한 seed이며 C/E 저분산 원인과 더 충분한 학습·대조의 우선순위가 남았다.
+JPEG original-distorted 취급은 명시적 운영 가정으로 별도 원본 byte 증거는 없다.
 Frozen visual teacher와 GT ROI는 구현됐지만 deployment perception/일반화는 검증하지 않았다.
 현재 ST는 편향된 임시 추정이다. 작은 연결 검사 성공을 성능·효율로 일반화하지 않는다.
 **명명 규칙 확정**: 프로젝트·파일·class·function·인자·변수·config·result key가 역할을 직접 설명해야 한다.

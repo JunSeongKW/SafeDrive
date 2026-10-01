@@ -19,6 +19,9 @@ pure visual JEPA, deployment perception 또는 학습 후 성능으로 해석하
 `1231767` 이후 최신 다음 실행 기준은 `docs/research_question_and_target_decision.md`,
 `docs/navsim_visual_target_coverage.md`, `docs/minimal_target_ablation_plan.md`다.
 고정 K는 개발 기반이며 최종 novelty가 아니다. Target 비교 전에 선택 방식을 동시에 바꾸지 않는다.
+최신 실행은 `docs/target_supervision_exploration_results.md`: 거리규칙 K4/seed29/A–E 각200update 완료.
+이는 선택기 학습이 아닌 미래 감독 비교다. 초기 순위로 target을 탈락시키지 않으며 C/E의 낮은 예측 분산을
+검토한 뒤 다음 학습 규모·비교군을 결정한다. 실행 설정은 `configs/exploration/target_supervision_run_v1.json`이다.
 
 ## 세션 시작 루틴
 
