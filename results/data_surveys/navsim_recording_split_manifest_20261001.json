@@ -1,0 +1,843 @@
+{
+  "config": {
+    "source_subset": "mini",
+    "sampling_seed": "target-budget-survey-v1-20261001",
+    "num_recording_groups": 16,
+    "num_development_groups": 4,
+    "survey_windows_per_group": 8,
+    "pilot_windows_per_group_cap": 24,
+    "num_history_frames": 4,
+    "num_future_steps": 8,
+    "selected_entity_budget": 4,
+    "max_candidate_entities": 32,
+    "entity_radius_meters": 40.0,
+    "turn_analysis_threshold_degrees": 15.0,
+    "camera_channels_for_coverage": [
+      "CAM_F0",
+      "CAM_L0",
+      "CAM_R0"
+    ],
+    "previously_inspected_recording_groups_development_only": [
+      "2021.05.12.22.00.38_veh-35"
+    ],
+    "candidate_filter_uses_future_validity": false,
+    "sampling_uses_prediction_or_planning_results": false,
+    "native_log_and_same_scene_contiguous_windows_only": true
+  },
+  "parent_commit": "123176735725628a349c7cef1690a104ee610d49",
+  "groups": [
+    {
+      "recording_group": "2021.05.12.22.00.38_veh-35",
+      "split": "development",
+      "segment_filename": "2021.05.12.22.00.38_veh-35_01008_01518.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.05.12.22.00.38_veh-35_01008_01518.pkl"
+      ],
+      "log_token": "d908a069f1135360",
+      "segment_frame_count": 1020,
+      "eligible_nonoverlapping_window_count": 77,
+      "pilot_window_starts": [
+        0,
+        36,
+        76,
+        116,
+        168,
+        208,
+        248,
+        304,
+        344,
+        384,
+        436,
+        476,
+        516,
+        556,
+        608,
+        648,
+        688,
+        744,
+        784,
+        824,
+        876,
+        916,
+        956,
+        1008
+      ],
+      "survey_window_starts": [
+        0,
+        116,
+        248,
+        384,
+        556,
+        688,
+        824,
+        1008
+      ],
+      "source_sha256": "0ed544e68158393ea8917b0b29fe5f5856e4418744dafa66ec9712101a21955e",
+      "all_native_log_tokens": [
+        "d908a069f1135360"
+      ]
+    },
+    {
+      "recording_group": "2021.05.12.22.28.35_veh-35",
+      "split": "train",
+      "segment_filename": "2021.05.12.22.28.35_veh-35_00620_01164.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.05.12.22.28.35_veh-35_00620_01164.pkl"
+      ],
+      "log_token": "2e8ff20790ee52fd",
+      "segment_frame_count": 1088,
+      "eligible_nonoverlapping_window_count": 81,
+      "pilot_window_starts": [
+        0,
+        40,
+        80,
+        132,
+        172,
+        224,
+        264,
+        320,
+        360,
+        412,
+        452,
+        504,
+        544,
+        600,
+        640,
+        692,
+        732,
+        784,
+        824,
+        880,
+        920,
+        972,
+        1012,
+        1064
+      ],
+      "survey_window_starts": [
+        0,
+        132,
+        264,
+        412,
+        600,
+        732,
+        880,
+        1064
+      ],
+      "source_sha256": "f61642cd7258d446715e53727f8a7474a22ba282ba0b5d630b006688571db62a",
+      "all_native_log_tokens": [
+        "2e8ff20790ee52fd"
+      ]
+    },
+    {
+      "recording_group": "2021.05.25.14.16.10_veh-35",
+      "split": "development",
+      "segment_filename": "2021.05.25.14.16.10_veh-35_01690_02183.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.05.25.14.16.10_veh-35_01690_02183.pkl"
+      ],
+      "log_token": "150c88bdd9735dcf",
+      "segment_frame_count": 986,
+      "eligible_nonoverlapping_window_count": 73,
+      "pilot_window_starts": [
+        0,
+        44,
+        84,
+        124,
+        164,
+        204,
+        244,
+        284,
+        340,
+        380,
+        420,
+        460,
+        500,
+        540,
+        580,
+        620,
+        672,
+        712,
+        752,
+        792,
+        832,
+        872,
+        912,
+        964
+      ],
+      "survey_window_starts": [
+        0,
+        124,
+        244,
+        380,
+        540,
+        672,
+        792,
+        964
+      ],
+      "source_sha256": "a68091f15db649f6233c603715d78168be0204fd0d2c4b48bf7a16706f61ac7f",
+      "all_native_log_tokens": [
+        "150c88bdd9735dcf"
+      ]
+    },
+    {
+      "recording_group": "2021.06.07.18.53.26_veh-26",
+      "split": "train",
+      "segment_filename": "2021.06.07.18.53.26_veh-26_00005_00427.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.07.18.53.26_veh-26_00005_00427.pkl"
+      ],
+      "log_token": "c3465ea3abda5492",
+      "segment_frame_count": 844,
+      "eligible_nonoverlapping_window_count": 63,
+      "pilot_window_starts": [
+        0,
+        30,
+        70,
+        110,
+        134,
+        174,
+        214,
+        242,
+        282,
+        322,
+        350,
+        390,
+        430,
+        470,
+        494,
+        534,
+        574,
+        602,
+        642,
+        682,
+        710,
+        750,
+        790,
+        830
+      ],
+      "survey_window_starts": [
+        0,
+        110,
+        214,
+        322,
+        470,
+        574,
+        682,
+        830
+      ],
+      "source_sha256": "7e5735b4923ba58f8ff4d2d13d5bd1ab1ce814000affb338b02bfc2bc9bda7ec",
+      "all_native_log_tokens": [
+        "c3465ea3abda5492"
+      ]
+    },
+    {
+      "recording_group": "2021.06.08.12.54.54_veh-26",
+      "split": "train",
+      "segment_filename": "2021.06.08.12.54.54_veh-26_04262_04732.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.08.12.54.54_veh-26_04262_04732.pkl"
+      ],
+      "log_token": "a93ceb0dcdb95d46",
+      "segment_frame_count": 938,
+      "eligible_nonoverlapping_window_count": 68,
+      "pilot_window_starts": [
+        0,
+        34,
+        75,
+        115,
+        155,
+        195,
+        246,
+        286,
+        326,
+        366,
+        406,
+        446,
+        474,
+        514,
+        554,
+        605,
+        645,
+        684,
+        724,
+        764,
+        804,
+        844,
+        884,
+        924
+      ],
+      "survey_window_starts": [
+        0,
+        115,
+        246,
+        366,
+        514,
+        645,
+        764,
+        924
+      ],
+      "source_sha256": "51c94f42a7c7b823563e2e356fccf1d155932e5a6c8f09a3780f18ffc06aa8a0",
+      "all_native_log_tokens": [
+        "a93ceb0dcdb95d46"
+      ]
+    },
+    {
+      "recording_group": "2021.06.09.12.39.51_veh-26",
+      "split": "train",
+      "segment_filename": "2021.06.09.12.39.51_veh-26_01943_02303.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.09.12.39.51_veh-26_01943_02303.pkl",
+        "2021.06.09.12.39.51_veh-26_05620_06003.pkl"
+      ],
+      "log_token": "2f12f4f445a25736",
+      "segment_frame_count": 720,
+      "eligible_nonoverlapping_window_count": 53,
+      "pilot_window_starts": [
+        0,
+        34,
+        58,
+        85,
+        125,
+        153,
+        177,
+        205,
+        245,
+        274,
+        298,
+        325,
+        365,
+        393,
+        417,
+        446,
+        485,
+        513,
+        537,
+        566,
+        605,
+        634,
+        658,
+        697
+      ],
+      "survey_window_starts": [
+        0,
+        85,
+        177,
+        274,
+        393,
+        485,
+        566,
+        697
+      ],
+      "source_sha256": "4ac8a724d7060ab00099874270944fa018364f688c13f1c0da37d5a5f2c2511e",
+      "all_native_log_tokens": [
+        "2f12f4f445a25736"
+      ]
+    },
+    {
+      "recording_group": "2021.06.09.14.58.55_veh-35",
+      "split": "train",
+      "segment_filename": "2021.06.09.14.58.55_veh-35_01095_01484.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.09.14.58.55_veh-35_01095_01484.pkl",
+        "2021.06.09.14.58.55_veh-35_01894_02311.pkl"
+      ],
+      "log_token": "0533defb3f3c58a3",
+      "segment_frame_count": 778,
+      "eligible_nonoverlapping_window_count": 57,
+      "pilot_window_starts": [
+        10,
+        34,
+        62,
+        102,
+        130,
+        170,
+        194,
+        234,
+        262,
+        290,
+        330,
+        354,
+        394,
+        422,
+        462,
+        490,
+        514,
+        554,
+        582,
+        622,
+        650,
+        690,
+        714,
+        754
+      ],
+      "survey_window_starts": [
+        10,
+        102,
+        194,
+        290,
+        422,
+        514,
+        622,
+        754
+      ],
+      "source_sha256": "140ab26e9d48f491f55d46057367d36037ef3a0e3109902a17766767e3e265d9",
+      "all_native_log_tokens": [
+        "0533defb3f3c58a3"
+      ]
+    },
+    {
+      "recording_group": "2021.06.09.17.23.18_veh-38",
+      "split": "train",
+      "segment_filename": "2021.06.09.17.23.18_veh-38_02526_03027.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.09.17.23.18_veh-38_00773_01140.pkl",
+        "2021.06.09.17.23.18_veh-38_02526_03027.pkl"
+      ],
+      "log_token": "8828eea52d6551ab",
+      "segment_frame_count": 1002,
+      "eligible_nonoverlapping_window_count": 75,
+      "pilot_window_starts": [
+        0,
+        39,
+        79,
+        119,
+        159,
+        211,
+        251,
+        291,
+        331,
+        371,
+        427,
+        467,
+        507,
+        547,
+        599,
+        639,
+        679,
+        719,
+        759,
+        811,
+        851,
+        891,
+        931,
+        987
+      ],
+      "survey_window_starts": [
+        0,
+        119,
+        251,
+        371,
+        547,
+        679,
+        811,
+        987
+      ],
+      "source_sha256": "f49beccde6d6f4c003b0edb0f8f0f481d903a49627d94f94183fb6e01f91270f",
+      "all_native_log_tokens": [
+        "8828eea52d6551ab"
+      ]
+    },
+    {
+      "recording_group": "2021.06.14.16.32.09_veh-35",
+      "split": "development",
+      "segment_filename": "2021.06.14.16.32.09_veh-35_05038_05402.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.14.16.32.09_veh-35_05038_05402.pkl"
+      ],
+      "log_token": "51d5ba9acc9955c3",
+      "segment_frame_count": 728,
+      "eligible_nonoverlapping_window_count": 54,
+      "pilot_window_starts": [
+        3,
+        27,
+        55,
+        83,
+        123,
+        147,
+        175,
+        215,
+        243,
+        267,
+        307,
+        335,
+        363,
+        387,
+        427,
+        455,
+        483,
+        523,
+        547,
+        575,
+        615,
+        643,
+        667,
+        707
+      ],
+      "survey_window_starts": [
+        3,
+        83,
+        175,
+        267,
+        387,
+        483,
+        575,
+        707
+      ],
+      "source_sha256": "b35583074dd5e8243ee4875e9573cf9aa9eaa5d7cc131701eee784ea1f9bf504",
+      "all_native_log_tokens": [
+        "51d5ba9acc9955c3"
+      ]
+    },
+    {
+      "recording_group": "2021.06.14.18.42.45_veh-12",
+      "split": "train",
+      "segment_filename": "2021.06.14.18.42.45_veh-12_03445_03902.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.14.18.42.45_veh-12_03445_03902.pkl"
+      ],
+      "log_token": "6b5196172f8653b9",
+      "segment_frame_count": 909,
+      "eligible_nonoverlapping_window_count": 64,
+      "pilot_window_starts": [
+        0,
+        30,
+        81,
+        127,
+        168,
+        211,
+        251,
+        291,
+        319,
+        359,
+        399,
+        439,
+        467,
+        506,
+        546,
+        586,
+        610,
+        665,
+        705,
+        745,
+        769,
+        809,
+        849,
+        889
+      ],
+      "survey_window_starts": [
+        0,
+        127,
+        251,
+        359,
+        506,
+        610,
+        745,
+        889
+      ],
+      "source_sha256": "44e6387d345254aefb324e85bca075a1a750c3dfe6e943f43c9061b6cb893f19",
+      "all_native_log_tokens": [
+        "6b5196172f8653b9"
+      ]
+    },
+    {
+      "recording_group": "2021.06.23.20.43.31_veh-16",
+      "split": "train",
+      "segment_filename": "2021.06.23.20.43.31_veh-16_03607_04007.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.06.23.20.43.31_veh-16_03607_04007.pkl"
+      ],
+      "log_token": "ca5d352efc975d94",
+      "segment_frame_count": 800,
+      "eligible_nonoverlapping_window_count": 60,
+      "pilot_window_starts": [
+        0,
+        26,
+        66,
+        90,
+        130,
+        158,
+        198,
+        226,
+        266,
+        306,
+        330,
+        370,
+        398,
+        438,
+        466,
+        506,
+        546,
+        570,
+        610,
+        638,
+        678,
+        706,
+        746,
+        786
+      ],
+      "survey_window_starts": [
+        0,
+        90,
+        198,
+        306,
+        438,
+        546,
+        638,
+        786
+      ],
+      "source_sha256": "f7c94cd99d0623b24b06c10897134352d276d81e24617a54537c959f63d4d30e",
+      "all_native_log_tokens": [
+        "ca5d352efc975d94"
+      ]
+    },
+    {
+      "recording_group": "2021.07.09.20.59.12_veh-38",
+      "split": "train",
+      "segment_filename": "2021.07.09.20.59.12_veh-38_01208_01692.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.07.09.20.59.12_veh-38_01208_01692.pkl"
+      ],
+      "log_token": "fc2439c4155e5db3",
+      "segment_frame_count": 968,
+      "eligible_nonoverlapping_window_count": 73,
+      "pilot_window_starts": [
+        0,
+        36,
+        76,
+        116,
+        156,
+        196,
+        236,
+        276,
+        328,
+        368,
+        408,
+        448,
+        488,
+        528,
+        568,
+        608,
+        664,
+        704,
+        744,
+        784,
+        824,
+        864,
+        904,
+        956
+      ],
+      "survey_window_starts": [
+        0,
+        116,
+        236,
+        368,
+        528,
+        664,
+        784,
+        956
+      ],
+      "source_sha256": "f4528b69f75a8383f4fa799a6bdb5bab651cf305cb5b0ae2d59512d4d531a318",
+      "all_native_log_tokens": [
+        "fc2439c4155e5db3"
+      ]
+    },
+    {
+      "recording_group": "2021.07.16.18.19.22_veh-35",
+      "split": "train",
+      "segment_filename": "2021.07.16.18.19.22_veh-35_00440_00858.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.07.16.18.19.22_veh-35_00440_00858.pkl"
+      ],
+      "log_token": "58f902fd4d345c79",
+      "segment_frame_count": 836,
+      "eligible_nonoverlapping_window_count": 63,
+      "pilot_window_starts": [
+        0,
+        24,
+        63,
+        103,
+        131,
+        171,
+        211,
+        239,
+        279,
+        319,
+        343,
+        383,
+        423,
+        463,
+        491,
+        531,
+        571,
+        599,
+        639,
+        679,
+        703,
+        743,
+        783,
+        823
+      ],
+      "survey_window_starts": [
+        0,
+        103,
+        211,
+        319,
+        463,
+        571,
+        679,
+        823
+      ],
+      "source_sha256": "4dc68ac469eab090b21db47e91ed2c0d4b07e595e3748fa392c81fa571764d03",
+      "all_native_log_tokens": [
+        "58f902fd4d345c79"
+      ]
+    },
+    {
+      "recording_group": "2021.08.17.16.57.11_veh-08",
+      "split": "train",
+      "segment_filename": "2021.08.17.16.57.11_veh-08_01200_01636.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.08.17.16.57.11_veh-08_01200_01636.pkl"
+      ],
+      "log_token": "7267f6d7190c53b0",
+      "segment_frame_count": 872,
+      "eligible_nonoverlapping_window_count": 65,
+      "pilot_window_starts": [
+        0,
+        24,
+        64,
+        104,
+        144,
+        172,
+        212,
+        252,
+        292,
+        332,
+        360,
+        400,
+        440,
+        480,
+        504,
+        544,
+        584,
+        624,
+        664,
+        692,
+        732,
+        772,
+        812,
+        852
+      ],
+      "survey_window_starts": [
+        0,
+        104,
+        212,
+        332,
+        480,
+        584,
+        692,
+        852
+      ],
+      "source_sha256": "fe90ceb1eff62d5497ed57f3e752a41bb0138b7960a83eb0578d31d3d632ba57",
+      "all_native_log_tokens": [
+        "7267f6d7190c53b0"
+      ]
+    },
+    {
+      "recording_group": "2021.08.24.13.12.55_veh-45",
+      "split": "train",
+      "segment_filename": "2021.08.24.13.12.55_veh-45_00386_00472.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.08.24.13.12.55_veh-45_00386_00472.pkl"
+      ],
+      "log_token": "4788e0642bc75d1b",
+      "segment_frame_count": 172,
+      "eligible_nonoverlapping_window_count": 13,
+      "pilot_window_starts": [
+        0,
+        12,
+        27,
+        39,
+        51,
+        67,
+        79,
+        91,
+        107,
+        119,
+        131,
+        147,
+        159
+      ],
+      "survey_window_starts": [
+        0,
+        12,
+        39,
+        67,
+        79,
+        107,
+        131,
+        159
+      ],
+      "source_sha256": "48e18efce844e832b02fe5d8148d51566832a7304aacda6f2ce0ccc9ef791537",
+      "all_native_log_tokens": [
+        "4788e0642bc75d1b"
+      ]
+    },
+    {
+      "recording_group": "2021.09.16.15.12.03_veh-42",
+      "split": "development",
+      "segment_filename": "2021.09.16.15.12.03_veh-42_01037_01434.pkl",
+      "all_source_segment_aliases_same_split": [
+        "2021.09.16.15.12.03_veh-42_01037_01434.pkl"
+      ],
+      "log_token": "da8243f5075a577f",
+      "segment_frame_count": 794,
+      "eligible_nonoverlapping_window_count": 59,
+      "pilot_window_starts": [
+        5,
+        29,
+        69,
+        97,
+        137,
+        165,
+        205,
+        229,
+        269,
+        297,
+        337,
+        365,
+        405,
+        429,
+        469,
+        497,
+        537,
+        565,
+        605,
+        629,
+        669,
+        697,
+        737,
+        777
+      ],
+      "survey_window_starts": [
+        5,
+        97,
+        205,
+        297,
+        429,
+        537,
+        629,
+        777
+      ],
+      "source_sha256": "70f45afe8094302d9985e837cbe2833e3c975d7d5a5ce12c5ee2dcff83e57503",
+      "all_native_log_tokens": [
+        "da8243f5075a577f"
+      ]
+    }
+  ],
+  "split_scope": "mini_exploration_NOT_official_train_test_or_final_holdout",
+  "original_recording_groups_disjoint": true,
+  "sampled_native_log_tokens_disjoint": true,
+  "pilot_train_window_count": 277,
+  "pilot_development_window_count": 96
+}

@@ -768,3 +768,80 @@ split 조사, 작은 공동 학습이다. 미래 감독 없음/current-target/no
 visual 감독 on/off에는 spatial supervision을 동일하게 유지하는 대조를 둔다.
 All-entity 예측은 다른 예산 reference로, 선택 연구의 필수 진행 조건이 아니다.
 본 학습·공식 score·미래 활용/collapse·추론 association·H1/H2·효율은 아직 확인하지 않았다.
+
+## 2026-10-01 — 1231767 검토 이후 연구 결정·여러-log 유효율·최소 학습 계획 (Codex)
+
+### 요청과 연구 결정
+
+영상 연결 검사는 충분하다는 ChatGPT/사용자 검토를 받아 추가 smoke/합성 tuning 대신
+target 효과를 분리하는 작은 학습의 준비로 전환했다. Fixed K는 개발 기반이고 최종 novelty가 아니다.
+현재 pilot은 frozen visual latent+explicit 객체 spatial-state 감독, official encoder 재사용과 신규 작은
+planner다. 객체 대상은 고르지만 정보 종류를 선택하는 모델은 아니다. SafeDrive 주 baseline/retraining은 중단 유지.
+
+`docs/research_question_and_target_decision.md`에 첫 질문을 고정했다: 같은 현재 정보/거리 규칙/K4/branch에서
+visual·spatial·mixed 미래 보조 감독 중 무엇이 log-held-out ego 경로 예측에 기여하는가?
+이후 target을 좁힌 뒤 선택 비교와 고정 K별 맥락적 추가 예산 효과를 측정한다. 동적 K/horizon 구현 없음.
+
+### 직접 선행연구 확인
+
+EgoFSD arXiv2409.09777v6(2026-02-09)의 §3.4/3.5, Eq.(2)(3), Table3을 확인했다.
+Intention/attention 및 geometry 기반 hierarchical selection과 joint motion/planning은 직접 중복한다.
+Official shallow/no-checkout tree `23fec8aba3e828ef228939e30e3020240d8b0cae`는 README/assets only이며
+모델 source/config/weight가 없어 discrete selection의 planning autograd는 독립 코드 감사 불가다.
+GitHub network는 sandbox DNS 실패 후 승인된 escalation으로 작은 clone/README만 읽었다.
+
+ForeDrive arXiv2609.26299v2(2026-09-23)의 Eq.(1)-(4)/(7), Appendix F/H를 확인했다.
+Visual patch future+future ego status의 current-anchored fusion, fixed horizon/sample-shared gate다.
+Eq.(7)은 planning→encoder/fusion/planner, planning↛predictor를 명시한다. 구현 링크는 제한된 확인에서 찾지 못했다.
+우리의 주변 객체 state/P까지 planning gradient는 그 연구와 다르지만 engineering 차이만으로 기여를 확정하지 않는다.
+Version/source/미확인 경계는 `docs/egofsd_foredrive_evidence_audit.md`에 기록했다. 전체 novelty 표는 여전히 미완료.
+
+### 실제 CPU 데이터 조사와 split
+
+`scripts/survey_navsim_visual_target_coverage.py`, `configs/exploration/data_survey.json`을 추가했다.
+Encoder/학습/GPU 없이 기존 GT-state adapter와 cuboid pinhole projection을 이용했다.
+Mini64segment를capture timestamp+vehicle 기준52recording group으로 묶고16group(1segment/group)을 hash sampling.
+Train12/dev4, 과거 smoke recording은 development-only, 모든 segment alias도 같은 split으로 고정했다.
+Coverage/outcome 이전 pre-survey manifest를 저장했다. Same native log/scene 및0.5±0.05s cadence,
+비중첩 history4+future8 window를 metadata로 선정했다. Pilot train277/dev96window, survey128window.
+Native log token/segment alias split 중복 없음. 미래 target validity로 현재 후보/window를 필터하지 않았다.
+
+128window의현재GT 후보2,647개(40m 최근접cap32) 중front projection-valid621개=23.46%.
+Front count>K4는58/128=45.3125%,0개는7/128. Side-only current projection은candidate의26.8984%.
+현재front 객체를 분모로+4s visual406/621=65.3784%, spatial581/621=93.5588%.
+고정nearest-front-K4는391active slot이며+4s visual238/391=60.8696%, spatial368/391=94.1176%.
+Future-heading left proxy11window/8group은+4s visual12/33=36.3636%; right proxy0, merge label 미확인.
+Future-heading proxy는사후분석값이며online입력으로사용하지않는다. Command 의미도추정하지않았다.
+
+4contact sheet(train/dev×left/low-turn,각최초관측)를직접읽었다. ROI는대체로맞지만가려진GT box도
+유효하여background/occluder feature를담을수있다. 공식load/pinhole code에undistort가없다는것은
+stored JPEG의rectification여부를확정하지못한다. 이문제는미해결이며공유원본/calibration변경없음.
+최종run CPU약8.08s,실패0. 공용log16file/reviewimage16file의SHA256은전후동일했다.
+모든미래이미지의byte hash나실제가시성을검증했다는뜻은아니다.
+
+Raw JSON/PNG는 `outputs/data_surveys/navsim_visual_target_coverage_v1_20261001/`.
+기존조사output을덮어쓰지않았다. 공유summary/manifest는 `results/data_surveys/`, 조사해석은
+`docs/navsim_visual_target_coverage.md`. Shared JSON은실행본과byte단위동일,source hash도최종script와일치한다.
+
+### 최소 학습 계획 — 미실행
+
+`docs/minimal_target_ablation_plan.md`와 `configs/exploration/target_ablation_plan.json`을작성했다.
+Fixed-current-distance K4/horizon8/현재입력을고정하고 selector는학습하지않는다.
+A branch없음/B planning만/C visualaux0.1/D spatialaux0.1/E mixed각0.05.
+B–E 두head/branch폭동일. Visual-only/spatial-only는감독의종류이며planner 정보채널제거가아니다.
+C/D/E공통 visual∩spatial mask,train-only normalization,같은초기weights/mini-batch sequence,
+seed29/200update/조건/batch8계획/마지막fixed checkpoint로고정했다. E는총계수균형의trade-off이며
+혼합기여주장에는matched-weight후속확인이필요하다.
+주지표scene-macro ADE와FDE/heading/recording별결과,사전정의context및native coverage,
+persistence와futurezero/swap의존도,시간/메모리/activeparameter를보고한다. 공식planning지표는아직없다.
+373window작은featurecache만계획(2GiB cap),train8windowprofile후30분/조건·2시간총학습cap.
+이한도는예상GPU-hour가아니다. GPU0·1만허용,실행전점유확인. Novelty/효과확정없이큰학습으로확대하지않는다.
+
+### 실제 검사와 미수행
+
+Ruff check/format check 통과. JSON/config/source hash,128window수치,exact 공유파일,
+train/devnative-log/alias분리,373pilot 비중첩window,5고유조건/총aux계수일치 검사를통과했다.
+기존33modeltests는이번에재실행/확대하지않았고modelsource도변경하지않았다.
+새training CLI/fixed-rule forward/cache/normalization/evaluator는아직미구현이다.
+학습·GPU실행·공식baseline재현·새원본download·공유dataset쓰기·기존환경upgrade없음.
+다음은이번계획공유/검토후고정규칙runner와제한cache/metrics구현,이후작은A–E비교학습이다.

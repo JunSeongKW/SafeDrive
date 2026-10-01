@@ -1,0 +1,19 @@
+{
+  "source_subset": "mini",
+  "sampling_seed": "target-budget-survey-v1-20261001",
+  "num_recording_groups": 16,
+  "num_development_groups": 4,
+  "survey_windows_per_group": 8,
+  "pilot_windows_per_group_cap": 24,
+  "num_history_frames": 4,
+  "num_future_steps": 8,
+  "selected_entity_budget": 4,
+  "max_candidate_entities": 32,
+  "entity_radius_meters": 40.0,
+  "turn_analysis_threshold_degrees": 15.0,
+  "camera_channels_for_coverage": ["CAM_F0", "CAM_L0", "CAM_R0"],
+  "previously_inspected_recording_groups_development_only": ["2021.05.12.22.00.38_veh-35"],
+  "candidate_filter_uses_future_validity": false,
+  "sampling_uses_prediction_or_planning_results": false,
+  "native_log_and_same_scene_contiguous_windows_only": true
+}

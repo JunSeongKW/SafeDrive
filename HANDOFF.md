@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 13:31 KST (Codex)
+마지막 갱신: 2026-10-01 14:16 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -11,6 +11,10 @@ CPU v1 결과: [docs/synthetic_validation_results.md](docs/synthetic_validation_
 실제 데이터 상태 진단: [docs/navsim_state_adapter_validation.md](docs/navsim_state_adapter_validation.md).
 Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](docs/baseline_and_target_adapter_audit.md).
 최신 실제 영상 pilot: [docs/visual_future_prediction_pilot_validation.md](docs/visual_future_prediction_pilot_validation.md).
+최신 연구 결정: [docs/research_question_and_target_decision.md](docs/research_question_and_target_decision.md).
+여러-log CPU 조사: [docs/navsim_visual_target_coverage.md](docs/navsim_visual_target_coverage.md).
+미실행 최소 학습 계획: [docs/minimal_target_ablation_plan.md](docs/minimal_target_ablation_plan.md).
+직접 선행연구: [docs/egofsd_foredrive_evidence_audit.md](docs/egofsd_foredrive_evidence_audit.md).
 현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
 명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
 경로 이전: [docs/directory_migration.md](docs/directory_migration.md).
@@ -22,7 +26,9 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 
 - H1: 상황에 따라 유리한 미래 정보 구성이 다를 수 있다. 아직 일반적 사실로 확립되지 않았다.
 - H2: 맥락/planning-conditioned 선택이 같은 예산의 강한 비교군을 넘는가.
-- H3: 동적 K/horizon은 나중 확장이다. 첫 버전은 **고정 K·고정 horizon**.
+- H3: 동적 K/horizon은 나중 확장이다. 현재는 **고정 K·고정 horizon의 개발 기반**.
+  EgoFSD 중복 때문에 fixed-K 객체 선택을 최종 novelty로 전제하지 않는다.
+  Target을 좁힌 뒤 고정 K별 추가 예측의 맥락적 이득부터 측정한다.
 - 관측 마스킹 / 미래 target 선택 / planner 입력 선택을 구분한다. 주 초안은 미래 target 선택.
 - SafeDrive는 기존 motivation 자산과 코드 참고다. 주 baseline으로 임의 회귀하지 않는다.
 - Drive-JEPA는 encoder/재현 후보다. **직접 연결형 future predictor의 확정 baseline은 아니다.**
@@ -30,10 +36,11 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 
 ## 1. 실행 중인 작업
 
-**진행 중인 신규 작업 없음** (2026-10-01). CPU v1, 실제 GT-state 진단에 이어
-ChatGPT `35fbdcf` 검토의 **공식 frozen encoder→GT ROI→visual/spatial 미래 target→신규 planner**
-연결 진단을 GPU0에서 완료했다. 한 구간의 gradient/단일 update이며 본 학습이나 성능 결과가 아니다.
-Official full-stack 평가·cache 재생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
+**진행 중인 신규 작업 없음** (2026-10-01). `1231767` 영상 연결 검사는 충분하다는 검토를 받아,
+이번에는 연구 기여/target 결정, 16recording/128window CPU coverage 조사와 고정 train/dev split,
+최소 A–E target 학습 계획을 작성했다. 새 GPU 실행·trainer 구현·cache 생성·학습은 하지 않았다.
+기존 단일 영상 gradient/update는 연결 진단이지 성능 결과가 아니다.
+Official full-stack 평가·전체 cache 재생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
 가독성 명명 이후 루트와 현재 package를 유지하고 기존 SafeDrive 자산은 건드리지 않는다.
 
 현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
@@ -111,32 +118,47 @@ GT geometry/association과 front-only 제한, future ROI의 visibility 편향 �
 순수 visual JEPA/공식 Drive-JEPA 전체 모델 재현/H1·H2 성과로 부르지 않는다.
 Shared log1/image10 hashes 전후 동일. 결과: `results/visual_diagnostics/visual_future_pilot_verified_20261001.json`.
 
+**최신1231767 이후 조사/결정**:
+
+- EgoFSD v6의 intention/attention 객체 선택→joint motion/planning, ForeDrive v2의 latent conditioning과
+  직접 중복한다. EgoFSD official tree `23fec8aba3e828ef228939e30e3020240d8b0cae`는 README/assets only;
+  selection autograd는 코드 미공개로 미확인. ForeDrive Eq.(7)은 planning↛predictor를 명시한다.
+- 현재 pilot은 frozen visual+explicit spatial 감독이고 객체 대상 선택이지 정보 종류 선택이 아니다.
+  공식 encoder 재사용·신규 작은 planner라는 사실을 유지한다. Final novelty/target은 미확정.
+- Mini64segment=52recording group proxy. 고정 sampling16group, train12/dev4. 과거 smoke group은 dev only.
+  비중첩 train277/dev96window를 고정하고 native log token overlap 없음을 확인했다.
+- Survey128window: front-valid>K4 58/128=45.3%, front0은7/128. 현재 front621개 중+4s visual406=65.4%,
+  spatial581=93.6%. Left future-heading proxy11window는 visual36.4%; right0, merge label 미확인.
+- Current candidate 중 side-only projection26.9%. 4contact sheet를 직접 읽었고 occlusion/rectification은 미해결.
+  미래 target 유효성으로 현재 candidate/window를 필터하지 않았다. CPU약8.08s, log16/image16 hash 전후 일치.
+- 첫 target 비교는 fixed-nearest K4, A branch 없음/B planning만/C visual/D spatial/E mixed.
+  B–E 같은2head/branch, C/D/E 공통mask와 train-only normalization, 200update/조건으로 계획했다.
+  Config는 계획이며 training CLI/cache/evaluator/학습 성능은 아직 없다.
+
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- ChatGPT 35fbdcf 검토를 반영해 official encoder 한 파일의 revision/size/SHA256 고정과 strict load 확인.
-- 새 visual_future_prediction_pilot venv overlay에 timm1.0.30만 추가하고 기존 환경 upgrade는 하지 않음.
-- GT track/box front ROI adapter, frozen teacher, visual+explicit spatial 미래 predictor와 작은 planner 구현.
-- ROI appearance의 motion 보존을 가정하지 않고 current-ego state6dim을 별도 target으로 둔 혼합 감독 pilot.
-- GPU0에서 실제 video clip9개, planning/aux/detach/no-branch gradient와 joint backward·단일 update 검사.
-- 33tests/Ruff 통과, shared log/image hash 불변, ROI contact sheet 직접 확인. 기존 synthetic/GT 결과 보존.
-- 연구 상태·계산 그래프·대조표·실측 JSON·검증 보고·handoff 갱신. SafeDrive 재개/대규모 학습 없음.
+- 1231767 검토를 반영해 fixed K를 개발 기반/novelty 미확정으로 정리하고 연구 질문·target 결정 한 페이지 작성.
+- EgoFSD v6/ForeDrive v2 원문 및 EgoFSD official tree를 확인하고 직접 중복/gradient 미확인 경계를 보고.
+- 새 CPU survey script/config로16원본recording/128window의 front/side projection 및 미래 target 유효율 측정.
+- 미래 유효성/모델 결과로 선별하지 않는 recording-level split과 train277/dev96window manifest 공유.
+- Visual/spatial 감독 표본 차이를 통제하는 common-mask A–E 최소 학습 계획/계수/지표/예산/진행 조건 고정.
+- 공유JSON·조사 보고서·연구 상태·계산 그래프·README·HANDOFF·RESUME_NOTES 갱신. 읽은 공용 log/image hash 불변.
+- 새 model/trainer/cache/학습/GPU 실행 없음. 기존 검증 결과/환경/SafeDrive 자산은 보존.
 
-## 4. 다음 단계 — target·범위 확정 후 작은 공동 학습
+## 4. 다음 단계 — 계획 검토 후 target 분리 학습 구현
 
-1. `visual_future_prediction_pilot_validation.md`와 실제 JSON을 읽는다. Weight/영상 연결 gate 완료;
-   env/weight 재생성이나 추가 synthetic/GT-state tuning은 필요 없다. Legacy SafeDrive는 보존한다.
-2. 현재 pilot의 privileged GT/mixed visual+spatial target 범위를 검토한다. 여러 log의 front ROI
-   coverage·occlusion·multiview 필요성과 detector/association 의존도를 확인하고 split을 고정한다.
-3. AD-E2E-JEPA·Causal-JEPA·IA-JEPA·SPARTAN·Drive-JEPA 및 직접 관련 연구의 원문/공식 코드로
-   선택 대상·맥락/의도 조건·gradient·예산·train/inference·planning 평가 비교표를 완성한다.
-   “못 찾음” 또는 두 열의 “아니오”는 novelty 증명이 아니다.
-4. 동일 K/horizon의 random·강한 규칙·제안 선택과 최소 감독/branch 대조를 선정한 뒤 작은 공동 학습.
-   visual auxiliary on/off는 spatial 감독을 고정해 분리한다. 모든 미래 감독off/current target/no-future
-   branch를 혼동하지 않는다. All-entity는 다른 예산 참조며 우위를 필수 gate로 삼지 않는다.
-   미래 무시/collapse·현재 side-channel·학습량/parameter 통제 및 진행/중단 조건을 미리 확정한다.
-5. SafeDrive CSV는 별도 CPU motivation 분석에 쓴다. run provenance와 공통 token을 확인하고,
-   log-level cross-fitting, 같은 선택 절차의 best-fixed 비교, cluster bootstrap, 정의된 검정군의
-   BH-FDR를 사용한다. cross-fitted 규칙을 oracle upper bound라고 부르지 않는다.
+1. `research_question_and_target_decision.md`, `navsim_visual_target_coverage.md`,
+   `minimal_target_ablation_plan.md`를 읽는다. 이번 요청은 계획/조사 공유까지이며 학습은 아직 하지 않았다.
+2. Fixed-current-rule forward/trainer, 373window만의 작은 feature cache, train-only normalization,
+   ADE/FDE evaluator를 구현한다. GPU0·1 점유 재확인 후 train8window의 시간/메모리/loss scale을 profile한다.
+   Encoder 환경/weight를 다시 만들거나 공유 데이터를 수정하지 않는다. 2GiB cache cap/시간 cap을 유지한다.
+3. 같은 K4·horizon8·현재 입력·B–E 공통branch에서 A–E 각200update로 target 탐색.
+   Final fixed checkpoint를 평가하고 C/D/E common-mask 및 native availability를 기록한다.
+   Zero/swap 의존도 검사와 retraining 대조를 혼동하지 않고 공식 planning 개선으로 보고하지 않는다.
+4. Target shortlist와 seed 확인 뒤 random/규칙/ego-attention/ST, 이후 고정 K2/4/8의 맥락적 예산 이득을 비교한다.
+   Current-target 반복/current-feature adapter는 별도 대조. All-entity 우위를 필수 gate로 쓰지 않는다.
+5. Right/merge coverage, occlusion/rectification, multiview/GT 대체, 공식 evaluator와 독립 holdout을 해결하고
+   전체 novelty 감사를 완성한다. SafeDrive는 보존된 CPU motivation 자산이며 주 baseline/retraining은 중단한다.
 
 navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard 접근·사용 이력·공식 프로토콜을
 확인한 뒤 최종 평가 경로를 정한다. 이전 서버의 데이터 크기·GPU-hour를 현재 실측치로 취급하지 않는다.
@@ -144,11 +166,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 
 ## 5. 확정 범위 / 미결
 
-**확정**: 미래 예측 대상 선택이 핵심; 고정 K·horizon부터; GPU 0·1만 사용;
+**확정**: 미래 예측 대상/필요성·예산 배분이 연구 질문; 고정 K·horizon은 개발 기반으로 사용;
+첫 target 비교는 selector를 고정하고 감독부터 분리; GPU 0·1만 사용;
 공용 원본 직접 수정 금지; 기존 환경/프로세스 보존; 작업공간은 `/rhome/junseong`;
 새 데이터셋 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
 
-**미결**: 최종 mixed vs pure visual target/baseline·공식 평가, ST 공동 학습 안정성,
+**미결**: 최종 visual/spatial/mixed target/baseline·공식 평가, ST 공동 학습 안정성,
 multiview/occlusion/GT 대체association, 미래 활용·동일 예산 효과·novelty delta·독립 holdout.
 Frozen visual teacher와 GT ROI는 구현됐지만 deployment perception/일반화는 검증하지 않았다.
 현재 ST는 편향된 임시 추정이다. 작은 연결 검사 성공을 성능·효율로 일반화하지 않는다.

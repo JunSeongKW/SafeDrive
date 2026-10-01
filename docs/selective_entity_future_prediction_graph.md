@@ -3,7 +3,8 @@
 상태: 2026-10-01. 기준 협업 commit은 `95015df`이다. 사용자/ChatGPT 피드백을 반영해
 K-slot과 detach 검사를 구체화한 **synthetic CPU fixture**다. 공식 NAVSIM agent 구현은 아니다.
 추가로 frozen official video encoder+GT ROI visual/spatial pilot을 구현하고 실제 영상 batch를 검사했다.
-최종 baseline과 순수 visual target는 미확정이다. 최신 확장은 아래8절과 영상 pilot 보고서를 읽는다.
+최종 baseline과 target는 미확정이다. 최신 확장은 아래8절 및8.1절을 읽는다.
+`1231767` 이후의 고정 K는 개발 기반이고 최종 기여가 아니다. 첫 비교는 선택기를 고정해 target 효과부터 분리한다.
 코드: `src/planning_aware_future_prediction/models/selective_entity_future_prediction.py`.
 검사: `tests/test_future_prediction_graph.py` / `scripts/validate_future_prediction_graph.py`.
 실행 결과와 재현 명령은 `synthetic_validation_results.md`에 기록한다.
@@ -235,12 +236,34 @@ P만 직접 학습한다. K4·8steps·front-only·GT association은 pilot 범위
 
 다음 대조에서 **미래 감독 없음(동일 branch)**, **현재 target(동일 capacity)**,
 **미래 branch 없음(현재 입력만, S/P 호출 생략)**을 구분한다.
-Visual auxiliary를 끌 때 spatial supervision도 같이 꺼버리면 영상 감독 효과를 분리할 수 없다.
-따라서 spatial target을 고정한 visual on/off/current-target도 별도로 둔다.
+두 보조 감독을 동시에 바꾸면 개별 효과를 분리하기 어렵다. 아래8.1절의 첫 target 비교는
+공통mask에서 C visual/D spatial/E mixed를 나눠 탐색하며 필요 시 shortlist의 matched-weight 대조를 추가한다.
 모든 미래 예측은 다른 예산의 참고이며 우위를 필수 gate로 삼지 않는다.
 해당 대조의 학습 성능 비교는 아직 하지 않았다.
 Pilot은 K4·future8·visual1024dim으로 검사했다. 본 학습의 표본/학습량/예산은 별도로 고정하고
 GPU-hour를 단일 batch 실행 시간으로 추정 확정하지 않는다.
+
+### 8.1. 1231767 이후 target 효과부터 보는 계획 — 아직 학습 미실행
+
+[연구 결정](research_question_and_target_decision.md), [target 비교 계획](minimal_target_ablation_plan.md),
+[여러-log 실제 조사](navsim_visual_target_coverage.md)가 최신 다음 실행 기준이다.
+
+```text
+현재 image/entity/ego ───────────────────────────────────────── planner ─ Lplan
+현재 front-valid entity ─ fixed nearest-current-distance K4 ─ predictor ─┘ (B–E)
+미래 ROI/spatial GT ─ train-only common mask + normalization ─ Laux (C/D/E)
+```
+
+A는predictor/future memory를생략, B는같은branch에planning만, C/D/E는보조감독만바꾼다.
+B–E에서두head와planner 입력은동일하다. Visual-only/spatial-only는감독구분이며정보채널제거가아니다.
+Encoder freeze, selector 비학습, planning→P/D, aux→P only. Future-valid는선택/forward에쓰지않는다.
+Train12/dev4recording, train277/dev96window. 공통target-mask/학습량/초기값을맞춘다.
+Native mask 잔존율을별도보고하고,current-target 반복과current-feature 직접adapter는혼동하지않는다.
+
+EgoFSD의선택/joint planning과ForeDrive의미래latent conditioning에직접중복한다.
+현ST나fixedK 자체를novelty로전제하지않는다. Target을좁힌뒤동일예산선택비교와고정K별
+맥락적marginal benefit부터측정하며동적K/horizon은구현하지않는다.
+Common-mask model학습/유효target의planning효과/최종baseline은아직미확인이다.
 
 ## 9. 진행 / 재검토 기준
 

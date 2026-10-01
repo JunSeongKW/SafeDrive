@@ -16,6 +16,9 @@ Claude Code 는 `CLAUDE.md`(= `@AGENTS.md`)로, Codex 는 이 파일로 같은 �
 Official frozen encoder+GT ROI의 visual/spatial 혼합 감독 pilot을 구현했고
 `docs/visual_future_prediction_pilot_validation.md`에 검증·한계가 있다. 공식 full-stack baseline 재현,
 pure visual JEPA, deployment perception 또는 학습 후 성능으로 해석하지 않는다.
+`1231767` 이후 최신 다음 실행 기준은 `docs/research_question_and_target_decision.md`,
+`docs/navsim_visual_target_coverage.md`, `docs/minimal_target_ablation_plan.md`다.
+고정 K는 개발 기반이며 최종 novelty가 아니다. Target 비교 전에 선택 방식을 동시에 바꾸지 않는다.
 
 ## 세션 시작 루틴
 

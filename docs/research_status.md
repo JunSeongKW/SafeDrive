@@ -2,6 +2,8 @@
 
 갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **CPU graph + NAVSIM GT-state 진단 +
 공식 frozen encoder를 이용한 실제 front-video/GT ROI visual·spatial target 연결 검사 완료** 상태다.
+`1231767` 이후에는 **연구 범위/target 비교 결정,16recording/128window CPU coverage 조사,
+train/dev recording split 및 최소 A–E 학습 계획 공유 완료; 비교 학습 미실행**으로 진행했다.
 공식 NAVSIM baseline 재현·성능·순수 visual JEPA·배포 가능한 perception 구현 완료 보고는 아니다.
 동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `selective_entity_future_prediction_graph.md`,
 시간순 이력은 `RESUME_NOTES.md`에서 관리한다.
@@ -14,8 +16,10 @@
 - H1: 상황에 따라 유리한 미래 정보 구성이 다를 수 있다. 아직 일반적인 사실로 확립되지 않았다.
 - H2: context/planning-conditioned 선택이 동일 예산의 강한 random/규칙/학습 비교군보다
   좋은 planning을 만들 수 있다. 검증할 주 가설이다.
-- H3: 정보량 K 또는 horizon의 맥락 적응. 첫 버전에서는 하지 않는다.
-- 첫 범위: 고정 K, 고정 horizon, 차량·보행자 instance의 **미래 예측 대상 선택**.
+- H3: 정보량 K 또는 horizon의 맥락 적응. 동적 구현은 아직 하지 않는다. Target 결정 후
+  고정 K별 맥락적 추가 예산 이득부터 측정하며 최종 기여는 선행연구 검토와 실험 후 결정한다.
+- 개발 범위: 고정 K, 고정 horizon, 차량·보행자 instance의 **미래 예측 대상 선택**.
+  EgoFSD 중복 때문에 이것 자체를 최종 novelty로 전제하지 않는다.
   정차 차량도 후보에서 배제하지 않는다. 도로·신호 등은 공통 맥락으로 유지하는 후보안이다.
 - 관측 마스킹, 미래 예측 대상 선택, 예측 후 planner 입력 선택을 구분한다.
 - 사용자 승인 GPU는 **0, 1**뿐이다. 승인됐다고 기존 타인 프로세스를 중지하거나
@@ -96,6 +100,29 @@
 - 최종 visual-only vs mixed target 및 baseline/독립 holdout 확정.
 - 본 학습·전체 cache 재생성·SafeDrive 재학습. 공용 dataset 수정 및 기존 환경 upgrade.
 
+### ChatGPT 1231767 검토 이후 — 최신 조사/결정
+
+- 연결 검사 추가 확대 대신 [연구 질문·target 결정](research_question_and_target_decision.md)을 작성했다.
+  Fixed K는 개발 기반이고 현재 visual+explicit spatial은 객체를 선택하지 정보 종류를 선택하지 않는다.
+  Official encoder만 재사용했고 planner는 신규 scaffold라는 구분을 유지한다.
+- [EgoFSD/ForeDrive 근거 감사](egofsd_foredrive_evidence_audit.md)를 원문 최신 version과 대조했다.
+  EgoFSD의 intention/attention 기반 선택 및 joint motion/planning, ForeDrive의 latent future conditioning과
+  직접 겹친다. EgoFSD official pinned tree에는 README/assets만 있고 selection autograd는 미확인이다.
+  ForeDrive Eq.(7)은 planning gradient가predictor로 가지 않는 경로를 명시하며, 공개 구현은 확인 못했다.
+- [여러-log CPU 조사](navsim_visual_target_coverage.md):16recording/128window, current front count>K4는
+  45.3%, +4s visual65.4%/spatial93.6% 잔존. Left future-heading proxy11window는visual36.4%, right0,
+  merge semantic label 미확인. Projection-valid를 occlusion visibility로 부르지 않는다.
+- Mini64segment를52원본recording proxy로 묶고16group을 sampling, train12/dev4로 고정했다.
+  이전 smoke recording은dev only. Nonoverlap train277/dev96window manifest, native log token도split 간 불겹침.
+  Coverage나future 유효성으로 현재 candidate/window를 선별하지 않았다.
+- 4개front/side/future projection contact sheet를 직접 확인했다. Occlusion은 남으며
+  공식load/projection 경로에undistort가 없다고 stored JPEG rectification이 확인된 것은 아니다.
+- [최소target 학습 계획](minimal_target_ablation_plan.md): 고정현재거리/K4로 A branch없음,
+  B planning만, C visual aux, D spatial aux, E mixed aux. B–E는같은두head/branch로감독만바꾼다.
+  C/D/E 공통 visual∩spatial mask, train-only normalization,200update/조건 계획을 실행 전 명시했다.
+- 실제 수행은CPU metadata/projection 조사뿐. 새training runner/cache/normalization/성능metric 구현 및
+  GPU실행/공동 학습은 하지 않았다. 공용log16/reviewimage16 hash 전후동일. 기존model source와결과는보존했다.
+
 95015df는 문서·작업 규칙 변경이었다. 이번 v1은 독립 synthetic fixture와 결과 기록을 추가한다.
 기존 모델, loss, 실험 결과 CSV는 변경하지 않았다.
 
@@ -124,6 +151,9 @@
 | 영상 pilot 환경 | `runtime/environments/visual_future_prediction_pilot`, 별도 venv overlay; timm1.0.30 설치 |
 | Official encoder weight | `runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt`; hash/strict load 검증 |
 | Visual 결과 | `results/visual_diagnostics/visual_future_pilot_verified_20261001.json`; local ROI 그림 `outputs/visual_pilot/` |
+| 최신 coverage/split | `results/data_surveys/navsim_visual_target_coverage_summary_20261001.json`, `navsim_recording_split_manifest_20261001.json` |
+| 제한 탐색 계획 | `configs/exploration/target_ablation_plan.json`; 계획이며 trainer/cache/학습 미실행 |
+| EgoFSD official source 조사 | `reference_repositories/EgoFSD`, `23fec8aba3e828ef228939e30e3020240d8b0cae`; README/assets only |
 
 체크포인트 크기는 기존 AICA 전송 기록과 일치한다. 체크섬·내용·resume 적합성은 검증하지 않았다.
 공식 Drive-JEPA 전체 cache/weight 다운로드 명령을 무작정 실행하지 않는다.
@@ -194,10 +224,13 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
    SafeDrive를 주 baseline으로 되돌리지 않는다. 완료한 GT-state 진단을 visual 검증으로 대신하지 않는다.
 3. [영상 pilot 검증](visual_future_prediction_pilot_validation.md)을 읽는다. 공식 weight/ROI/visual
    batch gate는 완료했다. 환경/weight를 재설치하지 않고 이미 존재하는 검증본을 쓴다.
-4. Mixed visual/spatial target의 주장 범위와 branch·감독·current-feature 대조를 확정한다.
-   Novelty 검증, 여러 log coverage·multiview·GT association 의존도와 split을 먼저 확인한다.
-5. 작은 공동 학습의 budget/학습량/실패 기준을 고정한 뒤 random·강한 규칙·제안 선택을 비교한다.
-   본 학습은 아직 시작하지 않는다. GPU0·1 점유는 실행 직전 재확인한다.
+4. [연구 결정](research_question_and_target_decision.md)·[coverage](navsim_visual_target_coverage.md)·
+   [최소 학습 계획](minimal_target_ablation_plan.md)을 읽는다. 초기 학습에서는 selector를 고정하고 target을 분리한다.
+   이미고정한recording split과공통감독mask를유지하고최종front coverage는미해결로남긴다.
+5. 다음작업으로 fixed-rule forward/trainer, manifest만의 작은cache, train-only normalization 및
+   ADE/FDE evaluator를구현한다. Train8window profile 후조건당200update만탐색한다. 현재학습미실행.
+   Target shortlist/seed 확인 이후random·규칙·ego-attention·ST, 이후고정K별예산으로간다.
+   본학습/전체cache/동적K·horizon은보류하고GPU0·1점유는실행직전재확인한다.
 
 ## 7. Codex ↔ ChatGPT 협업 규약
 

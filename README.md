@@ -13,6 +13,8 @@
    다음 단계 조사: [baseline·visual target 명세](docs/baseline_and_target_adapter_audit.md),
    [실제 NAVSIM 상태 adapter 진단](docs/navsim_state_adapter_validation.md),
    최신 [실제 영상 GT ROI pilot 검증](docs/visual_future_prediction_pilot_validation.md).
+   현재 다음 실행 기준: [연구 질문·target 결정](docs/research_question_and_target_decision.md),
+   [여러-log 데이터 유효율](docs/navsim_visual_target_coverage.md), [최소 학습 계획](docs/minimal_target_ablation_plan.md).
 4. [명명 규칙](docs/naming_conventions.md), [경로 이전과 호환성](docs/directory_migration.md).
 
 ## 현재 구현과 과거 자산의 구분
@@ -26,10 +28,13 @@ PlanningAwareFuturePrediction/
 ├── scripts/validate_navsim_state_adapter.py       실제 mini 로그·track·상태 gradient 진단
 ├── scripts/validate_visual_future_prediction_pilot.py  실제 영상·ROI·gradient 진단
 ├── configs/visual_pilot/                         official encoder pin·overlay dependency
+├── configs/exploration/                          여러-log 표본·고정 split·미실행 A–E 학습 계획
+├── scripts/survey_navsim_visual_target_coverage.py  CPU target 유효율/side projection 조사
 ├── docs/                                        연구·계산 그래프·검증·명명 문서
 ├── results/synthetic_diagnostics/                작은 공유용 검증 결과와 과거 raw 기록
 ├── results/adapter_diagnostics/                  실제 상태 연결 진단 (시각 JEPA 아님)
 ├── results/visual_diagnostics/                   영상+GT ROI+spatial 혼합 감독 진단
+├── results/data_surveys/                         여러-log 유효율 summary·탐색 train/dev manifest
 ├── reference_repositories/Drive-JEPA/            공식 코드 참고 clone (git 제외)
 ├── runtime/environments/future_prediction_cpu/   CPU 실행 환경 (git 제외)
 ├── outputs/synthetic_diagnostics/               실행 산출물 (git 제외)
@@ -41,6 +46,9 @@ PlanningAwareFuturePrediction/
 official frozen video encoder+GT ROI visual/spatial target pilot을 구현했다. GPU0 실제 영상 batch의
 gradient·단일 update와33tests를 통과했다. 이는 혼합 감독 연결 진단이며 순수 visual JEPA,
 detector 기반 inference, 공식 baseline score, H1/H2 성능 검증은 아니다.
+최신CPU조사는16recording/128window의target 유효율과train12/dev4recording split을고정했다.
+이후A–E target 학습은**계획만작성**했으며trainer/작은cache/성능평가는아직없다.
+고정K 선택은개발기반이고EgoFSD/ForeDrive 대비최종기여로확정하지않는다.
 `navsim/`, 기존 `setup.py`, 기존 학습·cache script는 역사적 SafeDrive pipeline이다.
 새 연구를 실행하려고 과거 학습/캐시 명령이나 root의 legacy setup을 실행하지 않는다.
 
