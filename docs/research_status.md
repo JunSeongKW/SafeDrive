@@ -1,5 +1,22 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 최신 결정 — `607da52` 이후
+
+현재 pilot은 연결·gradient 검증 자산으로 보존하고 predictor 튜닝·확대 학습은 보류한다.
+물리/train-fitted ridge 재현과 하나의 visual-only residual 대응3seed 비교를 완료했지만,
+pilot은 ridge보다 약하고 residual의 planning 이득을 확인하지 못했다.
+이는 연구 가설 실패가 아니라 기반 적합성 판단이다.
+
+다음은 미래 예측과 planning 연결이 있는 공개 모델의 공식 재현→동일 예산의 상황별 선택→
+현재 관측/ego 의도의 학습형 선택→동일 평균 예산 배분이다. WA-JEPA를 첫 재현 후보로 추천한다.
+공식 source/공개 checkpoint 메타데이터/작은 attention backward만 확인했으며 full 모델 재현은 미수행이다.
+공간·시간 token과 객체 instance의 주장 범위를 구분한다.
+
+실측/한계: [pilot 기반 판단](pilot_foundation_decision_results.md).
+다음 진입점: [공개 기반 감사와 선택·예산 계획](public_future_planning_foundation_audit.md).
+공유 JSON: `results/pilot_foundation_decision/`. 등록된 확대 계획은 자동 재개하지 않는다.
+아래는 이 결정 이전의 보존된 진행 이력이다.
+
 갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **CPU graph + NAVSIM GT-state 진단 +
 공식 frozen encoder를 이용한 실제 front-video/GT ROI visual·spatial target 연결 검사 완료** 상태다.
 `09913b5` 이후에는 **명시적 영상 보정/투영 규약,373window 약616MB frozen feature cache,

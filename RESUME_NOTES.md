@@ -993,3 +993,43 @@ K연구전multiview/중복제거/turn·interaction coverage와JPEG근거를보�
 
 16:36 추가정리: B/D200의zero/swap 실제입력RMS도CPU-only로측정해A–E교란표를완성했다.
 추가optimizer update없음. As-run source4개/config SHA는현재파일과일치한다.
+
+## 2026-10-01 — `607da52` 이후 기준선 재현·bounded residual·공개 기반 결정
+
+기존373cache/normalization/seed29 A–F1000checkpoint를 재사용했다. 전부 CPU 실행.
+Dev scene-macro ADE: 정지9.1239/CV1.0951/CA0.9260/train-fitted ridge0.7677m.
+Ridge는 train-only3 recording fold로 lambda0.0001 선택, fold별 표준화/최종277train fitting.
+공간+4초 common215관측: CV2.0197m vs D/E/F6.3530/5.5511/5.6630m; yaw/velocity도 horizon별 계산.
+
+고정 설정의 한 가지 visual-only residual 대조: seed29/11/47, 1000update, aux0.1/K4 유지.
+기존 C29 재사용, 나머지5run 총5000update/364.26 CPU초. Ego/spatial residual은 이 학습에서 미사용.
+Absolute C dev ADE1.6485/1.7126/1.7588, visual residual1.6189/1.8104/1.8341m.
+대응 차이−0.0297/+0.0978/+0.0753m, 평균+0.04783m. 4recording 조건부 cluster95%CI[+0.01372,+0.08644].
+Visual MSE0.3789/0.3815/0.3833으로 persistence0.3950보다 조금 낮지만 큰 개선은 구조적 skip 효과.
+G1 약세는 pilot 판단이며 미래 예측 가치/선택 가설 기각이 아니다. 새5checkpoint strict/finite/sampler/RNG presence 확인.
+
+현재 rear-axle 고정 frame/ego status 채널과 scaled entity state의 단위를 코드로 재확인했다.
+Prior+zero-output-head/invalid slot/초기 upstream gradient0→1update후양수/detach-aux 계약6tests.
+Recording/group cap/미래 이미지 미필터/scene-macro/cluster estimand6tests를 추가했다.
+GPU graphics 메모리 guard1test도 추가해 최종 전체54tests 통과(PYTHONPATH=src:scripts), Ruff 통과.
+처음 path 없는 discovery의 기존 import1건 실패도 기록했다. Compute-apps 없음만으로 GPU를 비었다고 판단하지 않는다.
+
+Navtrain trainval1192segment/162group, cap24 보존한 고정3-way:train1857/82group,dev865/40,held898/40.
+Held는mini52group 제외, native recording/log/current token 경계와 비중첩 검사. Held 모델 평가는 미실행.
+Cap 이론상3888으로 요청12000에 부족하므로 수를 강제로 맞추지 않았다.
+JPEG4표본 stored/pinhole vs stored/distortion vs undistorted/pinhole 민감도39.69 CPU초.
+OpenScene helper source는 경로/K/D 복사이고 local export 이력은 없어 보정 타당성은 여전히 미확정.
+Fail-closed cache runner는 구현했지만200encoder profile/확대cache/확대학습은 미실행.
+
+WA-JEPA source bec29660f5ea46ac73db8e2d0c33c8d1a72c23ad를 조사했다.
+공식 joint attention의 tiny CPU backward에서 trajectory→scene flag true는 input0.01519/QKV0.11358,
+false는0. Official HF revision15c0770ebd233665214590bb2190a90907499f9e의 public/ungated weight
+1,575,763,741bytes/LFS SHA 확인. Weight 다운로드·strict loading·full model 추론·공식 score는 미수행.
+Official future8192/context4096 token의 dense 처리, 고정 shape, future positional index 변경 필요를 확인했다.
+ForeDrive v2 원문을 다시 읽었지만 제한 검색에서 공식 code/checkpoint 링크는 확인하지 못했다.
+
+사용자 후속 지시로 predictor 튜닝/대규모 pilot 확대는 보류하고, 공개 future-planning 기반 재현 후
+같은 예산의 상황별 차이→학습형 선택→평균 예산 배분으로 복귀한다. WA-JEPA 첫 재현 후보 권고.
+GPU0/1은 조사 초반 타인 CARLA 점유, 마지막 확인25MiB/compute 없음. 이번 GPU 사용/타인 중지 없음.
+공용 원본/이전 cache·결과/환경/SafeDrive 자산/공개 설정 보존.
+두 보고서와 공유 JSON/manifest·window별 결과를 추가하고 README/AGENTS/HANDOFF/status 갱신.

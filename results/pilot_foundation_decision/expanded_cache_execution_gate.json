@@ -1,0 +1,9 @@
+{
+  "can_execute": false,
+  "blockers": [
+    "stored-JPEG geometry/provenance unresolved; no encoder profile or expanded cache"
+  ],
+  "cache_generated": false,
+  "encoder_profile_executed": false,
+  "held_out_model_evaluation_performed": false
+}

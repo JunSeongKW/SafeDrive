@@ -1,0 +1,152 @@
+{
+  "baseline_commit": "607da52",
+  "same_cache_index_sha256": "918cc148f5087a2d94899f72e8d61e8199766d95f80aea857184c1ecbb29db5b",
+  "paired_seed_results": [
+    {
+      "seed": 29,
+      "absolute_ade_meters": 1.6485225981924423,
+      "visual_residual_ade_meters": 1.6188682543850221,
+      "residual_minus_absolute_ade_meters": -0.029654343807420158,
+      "matched_initial_source_and_batch_sequence_verified": true
+    },
+    {
+      "seed": 11,
+      "absolute_ade_meters": 1.7126139167609602,
+      "visual_residual_ade_meters": 1.8104172310856885,
+      "residual_minus_absolute_ade_meters": 0.09780331432472833,
+      "matched_initial_source_and_batch_sequence_verified": true
+    },
+    {
+      "seed": 47,
+      "absolute_ade_meters": 1.758762123106524,
+      "visual_residual_ade_meters": 1.834100855774311,
+      "residual_minus_absolute_ade_meters": 0.07533873266778701,
+      "matched_initial_source_and_batch_sequence_verified": true
+    }
+  ],
+  "absolute_ade_meters": {
+    "values": [
+      1.6485225981924423,
+      1.7126139167609602,
+      1.758762123106524
+    ],
+    "mean": 1.706632879353309,
+    "sample_standard_deviation": 0.05536260307892328
+  },
+  "visual_residual_ade_meters": {
+    "values": [
+      1.6188682543850221,
+      1.8104172310856885,
+      1.834100855774311
+    ],
+    "mean": 1.7544621137483407,
+    "sample_standard_deviation": 0.11802330084511878
+  },
+  "paired_seed_difference_meters": {
+    "values": [
+      -0.029654343807420158,
+      0.09780331432472833,
+      0.07533873266778701
+    ],
+    "mean": 0.04782923439503173,
+    "sample_standard_deviation": 0.06803633606792002
+  },
+  "recording_cluster_bootstrap": {
+    "difference_definition": "visual residual minus absolute, negative ADE difference is better",
+    "scene_macro_difference_meters": 0.04782923439503178,
+    "recording_cluster_percentile_95_interval_meters": [
+      0.013718866782947479,
+      0.08643720480096011
+    ],
+    "recordings": 4,
+    "scenes": 86,
+    "replicates": 2000,
+    "bootstrap_seed": 20261002,
+    "conditional_on": "these three matched training seeds, not training-seed uncertainty",
+    "per_recording": {
+      "2021.05.12.22.00.38_veh-35": {
+        "scenes": 24,
+        "scene_mean_difference_meters": 0.027893619404898762
+      },
+      "2021.05.25.14.16.10_veh-35": {
+        "scenes": 24,
+        "scene_mean_difference_meters": 0.10595173326631385
+      },
+      "2021.06.14.16.32.09_veh-35": {
+        "scenes": 18,
+        "scene_mean_difference_meters": 0.045361263125582967
+      },
+      "2021.09.16.15.12.03_veh-42": {
+        "scenes": 20,
+        "scene_mean_difference_meters": 0.004226147880156838
+      }
+    },
+    "limitations": "only four repeatedly used development recordings; exploratory, not an independent final test"
+  },
+  "final_checkpoint_checks": [
+    {
+      "path": "outputs/pilot_foundation_decision/visual_residual_control_v1/seed29_C_visual_residual/checkpoint_update1000.pt",
+      "sha256": "54ff03bba999a8592011ec0711a73011930ee81c0b98e69676ed3d8cf5d87597",
+      "strict_model_load": true,
+      "model_optimizer_finite": true,
+      "sampler_matches": true,
+      "rng_state_present": true,
+      "optimizer_updates": 1000,
+      "not_performed": "no second training or resume run"
+    },
+    {
+      "path": "outputs/pilot_foundation_decision/visual_residual_control_v1/seed11_C_absolute/checkpoint_update1000.pt",
+      "sha256": "61951a518eb4b20ae48db3c3c0401fe02990484fa917642ab513d69fba241502",
+      "strict_model_load": true,
+      "model_optimizer_finite": true,
+      "sampler_matches": true,
+      "rng_state_present": true,
+      "optimizer_updates": 1000,
+      "not_performed": "no second training or resume run"
+    },
+    {
+      "path": "outputs/pilot_foundation_decision/visual_residual_control_v1/seed11_C_visual_residual/checkpoint_update1000.pt",
+      "sha256": "bc25067ec37351df3bb53475c5444378f5a8e3c57f73394973dbeb4642835780",
+      "strict_model_load": true,
+      "model_optimizer_finite": true,
+      "sampler_matches": true,
+      "rng_state_present": true,
+      "optimizer_updates": 1000,
+      "not_performed": "no second training or resume run"
+    },
+    {
+      "path": "outputs/pilot_foundation_decision/visual_residual_control_v1/seed47_C_absolute/checkpoint_update1000.pt",
+      "sha256": "e5d68b3d8d867b44ecdd4d6aa964f6155f7d93073b77bd0bf97a56d646534e77",
+      "strict_model_load": true,
+      "model_optimizer_finite": true,
+      "sampler_matches": true,
+      "rng_state_present": true,
+      "optimizer_updates": 1000,
+      "not_performed": "no second training or resume run"
+    },
+    {
+      "path": "outputs/pilot_foundation_decision/visual_residual_control_v1/seed47_C_visual_residual/checkpoint_update1000.pt",
+      "sha256": "989e2e38f12a1ad220126d46326edf9a6753310c5722e9d8e02c118d853027c7",
+      "strict_model_load": true,
+      "model_optimizer_finite": true,
+      "sampler_matches": true,
+      "rng_state_present": true,
+      "optimizer_updates": 1000,
+      "not_performed": "no second training or resume run"
+    }
+  ],
+  "raw_training_curve_source_sha256": {
+    "outputs/pilot_foundation_decision/visual_residual_control_v1/seed11_C_absolute/condition_result.json": "493416d8530249a52ee85f095c2c35e19b63c96e2657eaa4f316a27b834b21f8",
+    "outputs/pilot_foundation_decision/visual_residual_control_v1/seed11_C_visual_residual/condition_result.json": "bbac1bd32ce87f0c13f94a4a9d873747b35d7fd49d8f744e7f92087772985f16",
+    "outputs/pilot_foundation_decision/visual_residual_control_v1/seed29_C_absolute/condition_result.json": "8481607fe75bce286eda60723da715940559bc6878572576ac5600c01656cc4f",
+    "outputs/pilot_foundation_decision/visual_residual_control_v1/seed29_C_visual_residual/condition_result.json": "726a4c411da23a77913dee927eb7f50eee652b02a825c5b90a539ad037ccd961",
+    "outputs/pilot_foundation_decision/visual_residual_control_v1/seed47_C_absolute/condition_result.json": "777fa7a74d88c2d5d2ca787b73459b49e349381966ce74b1488a8059eb98f2db",
+    "outputs/pilot_foundation_decision/visual_residual_control_v1/seed47_C_visual_residual/condition_result.json": "3546b29513c75d3c465bb8dfda85de2892c35b7e27aec7c71617856468bcaf60"
+  },
+  "interpretation": "visual forecasting improves over persistence slightly; planning improvement not established; pilot remains weaker than train-fitted ridge",
+  "priority_update": "user paused predictor tuning/data expansion; preserve diagnostic pilot, prioritize released prediction-planning foundation and selection/budget experiments",
+  "completed_new_training_updates": 5000,
+  "cpu_training_comparison_wall_seconds": 364.26012224199985,
+  "expanded_cache_or_training_executed": false,
+  "held_out_model_evaluation_performed": false
+}

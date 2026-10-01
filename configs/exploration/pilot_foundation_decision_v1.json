@@ -1,0 +1,19 @@
+{
+  "baseline_commit": "607da52",
+  "question": "Can a bounded residual pilot beat simple physical/train-fitted references enough to justify a planning-aware selective prediction foundation?",
+  "old_cache_directory": "outputs/feature_caches/target_supervision_rectified_v1b",
+  "selected_entity_budget": 4,
+  "num_history_frames": 4,
+  "num_future_steps": 8,
+  "frame_interval_seconds": 0.5,
+  "ego_prior": "constant_acceleration_vector_in_current_rear_axle_xy_frame_heading_zero",
+  "ego_prior_reason": "Use available current velocity and acceleration without future-derived yaw or fitted weights; freeze before residual results, no switching to ridge.",
+  "ridge": {"lambda_candidates": [0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0], "selection": "3-fold recording-group CV inside train only, scene-macro XY ADE", "fit_intercept": true},
+  "small_cache_visual_comparison": {"conditions": ["C_absolute", "C_visual_residual"], "seeds": [29, 11, 47], "optimizer_updates": 1000, "reuse_completed_absolute_seed29": true, "maximum_new_updates": 5000, "evaluation_updates": [0, 200, 500, 1000], "batch_size": 8, "visual_weight": 0.1, "spatial_weight": 0.0, "optimizer": {"learning_rate": 0.0001, "weight_decay": 0.0001, "gradient_clip_norm": 1.0, "schedule": "constant"}, "per_run_seconds": 600, "whole_comparison_seconds": 1800, "cpu_fallback_allowed": true, "note": "Only visual residual changes here; do not also add ego/spatial residuals in this control."},
+  "expanded_data": {"source_split": "trainval", "official_scene_filter": "reference_repositories/Drive-JEPA/navsim_v1/navsim/planning/script/config/common/train_test_split/scene_filter/navtrain.yaml", "exclude_mini_from_held_out": true, "split_seed": 20261002, "target_windows": {"train": 9000, "development": 1500, "held_out": 1500}, "minimum_development_groups": 40, "held_out_groups": 40, "maximum_windows_per_recording": 24, "window_stride_frames": 12, "profile_windows": 200, "maximum_cache_bytes": 34359738368, "maximum_cache_seconds": 14400, "maximum_profile_seconds": 1800, "minimum_free_disk_bytes": 68719476736, "held_out_model_evaluation_allowed": false, "required_preprocessing_status": "resolved_by_image_provenance_or_independent_alignment_evidence", "future_availability_filters_current_candidates_or_windows": false, "scale_note": "Preserve historical cap24. Actual native recording availability takes precedence over nominal window targets; never duplicate or relax caps to force target counts."},
+  "expanded_training": {"conditions": ["A", "B", "E", "F"], "seeds": [29, 11, 47], "optimizer_updates": 3000, "evaluation_updates": [0, 500, 1500, 3000], "batch_size": 16, "optimizer": {"learning_rate": 0.0001, "weight_decay": 0.0001, "gradient_clip_norm": 1.0, "schedule": "constant"}, "maximum_all_training_seconds": 7200, "execution_gate": "resolved preprocessing, verified 3-way split, successful 200-window encoder profile, approved GPU free; start A only, then registered paired B/E/F if viable"},
+  "statistics": {"recording_cluster_bootstrap_replicates": 2000, "bootstrap_seed": 20261002, "seed_variability_separate_from_data_variability": true},
+  "decision_rules": {"G1": "Ridge-relative ADE is a practical pilot gate, not a rejection of the research hypothesis.", "G2": "Compare spatial position errors in meters by horizon against CV; failure withholds forecast-accuracy claims, not planning utility.", "G3": "Persistence-relative visual MSE is a forecast-accuracy gate, not proof for or against planning utility."},
+  "hard_stops": ["nonfinite values", "source/cache integrity failure", "time/disk bound", "unresolved preprocessing before expanded cache", "other users occupy GPU0/1"],
+  "out_of_scope": ["SafeDrive retraining", "adaptive K/horizon", "probabilistic predictor", "flow matching", "multiview model implementation", "held-out tuning"]
+}

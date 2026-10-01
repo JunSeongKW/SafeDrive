@@ -1,0 +1,105 @@
+{
+  "resolved": false,
+  "operating_assumption": "old cache assumes original distorted JPEG then stored K/D undistortion",
+  "blocker": "Separate nuPlan original sensor JPEG / local export manifest or independent pixel alignment labels unavailable; metadata helper supplies raw path and K/D but does not document redistribution JPEG processing.",
+  "roundtrip_is_provenance_proof": false,
+  "feature_sensitivity_is_alignment_proof": false,
+  "GPU_used": false,
+  "encoder_provenance": {
+    "checkpoint_sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f",
+    "checkpoint_encoder_key": "target_encoder",
+    "strict_weight_loading": true,
+    "state_dict_tensor_count": 292,
+    "encoder_parameters": 303885312,
+    "source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "target_encoder_policy": "same_frozen_official_encoder_no_ema_update"
+  },
+  "examples": [
+    {
+      "recording": "2021.05.12.22.00.38_veh-35",
+      "posthoc_turn_bin": "low_turn_future_heading_proxy",
+      "current_frame_token": "b214f8e744075e96",
+      "hypothesis_overlay": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/pilot_foundation_decision/preprocessing_sensitivity_v1/hypotheses_0.png",
+      "pixel_rgb_mean_absolute_change_0_255": 18.551729838053387,
+      "mean_distortion_roi_coordinate_change_pixels": 5.219295978546143,
+      "grid_feature_rms_change": 2.6950836181640625,
+      "roi_feature_rms_change_raw_pinhole_to_rectified": 0.6049512624740601,
+      "roi_feature_rms_change_raw_distorted_to_rectified": 0.6760846972465515,
+      "current_native_velocity_meters_per_second": [
+        2.6395235955881176,
+        -0.055208265418021575
+      ],
+      "history_pose_difference_velocity_in_current_frame": [
+        2.8063549777907957,
+        -0.011638593094199515
+      ],
+      "past_only_velocity_consistency_error_meters_per_second": 0.17242687271438084,
+      "source_image": "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.00.38_veh-35_01008_01518/CAM_F0/a4daa68eb4de553d.jpg"
+    },
+    {
+      "recording": "2021.05.12.22.28.35_veh-35",
+      "posthoc_turn_bin": "low_turn_future_heading_proxy",
+      "current_frame_token": "000afad751a95adb",
+      "hypothesis_overlay": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/pilot_foundation_decision/preprocessing_sensitivity_v1/hypotheses_1.png",
+      "pixel_rgb_mean_absolute_change_0_255": 11.626332600911459,
+      "mean_distortion_roi_coordinate_change_pixels": 7.559780597686768,
+      "grid_feature_rms_change": 2.7742698192596436,
+      "roi_feature_rms_change_raw_pinhole_to_rectified": 0.7485429048538208,
+      "roi_feature_rms_change_raw_distorted_to_rectified": 0.6840413808822632,
+      "current_native_velocity_meters_per_second": [
+        0.00028316040352848425,
+        -0.001457708039588984
+      ],
+      "history_pose_difference_velocity_in_current_frame": [
+        -3.546063669895014e-05,
+        5.6579320664480546e-05
+      ],
+      "past_only_velocity_consistency_error_meters_per_second": 0.0015474448541705837,
+      "source_image": "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.12.22.28.35_veh-35_00620_01164/CAM_F0/cb33ecf8cd6b5978.jpg"
+    },
+    {
+      "recording": "2021.05.25.14.16.10_veh-35",
+      "posthoc_turn_bin": "left_turn_future_heading_proxy",
+      "current_frame_token": "3a1977d5fae15d3a",
+      "hypothesis_overlay": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/pilot_foundation_decision/preprocessing_sensitivity_v1/hypotheses_2.png",
+      "pixel_rgb_mean_absolute_change_0_255": 23.539596557617188,
+      "mean_distortion_roi_coordinate_change_pixels": 4.191641807556152,
+      "grid_feature_rms_change": 2.793816328048706,
+      "roi_feature_rms_change_raw_pinhole_to_rectified": 0.46292591094970703,
+      "roi_feature_rms_change_raw_distorted_to_rectified": 0.42769739031791687,
+      "current_native_velocity_meters_per_second": [
+        3.04382740855948,
+        -0.06202265447151662
+      ],
+      "history_pose_difference_velocity_in_current_frame": [
+        3.015008951183392,
+        -0.18767572398830695
+      ],
+      "past_only_velocity_consistency_error_meters_per_second": 0.12891546596327663,
+      "source_image": "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.05.25.14.16.10_veh-35_01690_02183/CAM_F0/1772b9680aa35c8b.jpg"
+    },
+    {
+      "recording": "2021.06.09.12.39.51_veh-26",
+      "posthoc_turn_bin": "left_turn_future_heading_proxy",
+      "current_frame_token": "81b14e282bf45552",
+      "hypothesis_overlay": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/pilot_foundation_decision/preprocessing_sensitivity_v1/hypotheses_3.png",
+      "pixel_rgb_mean_absolute_change_0_255": 21.958104451497395,
+      "mean_distortion_roi_coordinate_change_pixels": 4.990747928619385,
+      "grid_feature_rms_change": 2.874783515930176,
+      "roi_feature_rms_change_raw_pinhole_to_rectified": 0.9194872379302979,
+      "roi_feature_rms_change_raw_distorted_to_rectified": 0.7317025661468506,
+      "current_native_velocity_meters_per_second": [
+        3.9317395179888273,
+        -0.1301387746280321
+      ],
+      "history_pose_difference_velocity_in_current_frame": [
+        3.964703925868733,
+        -0.4328119365639851
+      ],
+      "past_only_velocity_consistency_error_meters_per_second": 0.3044629618577281,
+      "source_image": "/mnt/nfs/data/open_dataset/navsim/sensor_blobs/mini/2021.06.09.12.39.51_veh-26_01943_02303/CAM_F0/c1f2d41709525ec1.jpg"
+    }
+  ],
+  "wall_seconds": 39.69270544200117,
+  "peak_process_rss_bytes": 3135504384
+}

@@ -1,0 +1,18 @@
+{
+  "query_scope": "official Hugging Face API metadata only; weight not downloaded or loaded",
+  "api_url": "https://huggingface.co/api/models/AFARI-Research/WA-JEPA",
+  "tree_url": "https://huggingface.co/api/models/AFARI-Research/WA-JEPA/tree/15c0770ebd233665214590bb2190a90907499f9e",
+  "model_id": "AFARI-Research/WA-JEPA",
+  "revision": "15c0770ebd233665214590bb2190a90907499f9e",
+  "private": false,
+  "gated": false,
+  "files": [
+    {"path": "model_state_dict.pt", "size_bytes": 1575763741, "lfs_sha256": "e1d3be013de7dbaa5a6c30925a0d2f91e6ce1a6b17a75ca73fe01a1abe6d6408"},
+    {"path": "state.pt", "size_bytes": 7073, "lfs_sha256": "82924179c7455cf76288e86778e65799052b88e05d8db805fe90c914856ddd0e"}
+  ],
+  "official_source_commit": "bec29660f5ea46ac73db8e2d0c33c8d1a72c23ad",
+  "full_weight_loading_verified": false,
+  "full_model_forward_executed": false,
+  "actual_gpu_latency_or_memory_measured": false,
+  "notes": "HTTP access and published file size/hash verified. This does not establish completeness or compatibility with official evaluation config. NAVSIM presets separately require a Meta pretrained encoder path during model construction."
+}

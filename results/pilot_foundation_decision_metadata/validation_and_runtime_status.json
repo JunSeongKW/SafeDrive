@@ -1,0 +1,26 @@
+{
+  "baseline_commit": "607da52",
+  "test_command": "CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:scripts runtime/environments/visual_future_prediction_pilot/bin/python -m unittest discover -s tests",
+  "tests_passed": 54,
+  "tests_failed": 0,
+  "unittest_body_seconds": 0.396,
+  "initial_discovery_issue": "An earlier run without PYTHONPATH failed to import one existing test module. Package path was corrected; no existing test was removed or skipped to obtain success.",
+  "lint": "Ruff passed on all new code and changed cache helper; E402 ignored for bootstrap imports after explicit source-path setup",
+  "formatted_after_training": true,
+  "historical_as_run_hashes_rewritten": false,
+  "new_final_checkpoint_checks": "five newly trained 1000-update checkpoints: strict model load, finite model/optimizer, matched sampler sequence, next-update 1001, RNG state present; no second resume training performed",
+  "new_gpu_training_or_encoding": false,
+  "last_gpu_occupancy_observation": {
+    "gpu_0_memory_used_mib": 25,
+    "gpu_1_memory_used_mib": 25,
+    "gpu_0_or_1_compute_processes": false,
+    "observation_is_not_a_reservation": true,
+    "earlier_observation": "another user's CARLA processes occupied these GPUs earlier in this task",
+    "other_users_processes_stopped": false
+  },
+  "user_priority": "stop further pilot tuning/expansion; reproduce released future-planning foundation before selection/budget experiments",
+  "official_full_weight_loading_executed": false,
+  "official_model_score_or_gpu_cost_measured": false,
+  "held_out_model_evaluation_executed": false,
+  "shared_original_dataset_writes": false
+}

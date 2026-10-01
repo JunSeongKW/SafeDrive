@@ -1,0 +1,17 @@
+{
+  "source_commit": "bec29660f5ea46ac73db8e2d0c33c8d1a72c23ad",
+  "scope": "actual official ModalitySpecificJointAttention, tiny CPU tensors; no flow sampler or visual encoder/checkpoint",
+  "checks": [
+    {
+      "traj_loss_grad_to_scene_flow": false,
+      "trajectory_loss_to_scene_input_gradient_norm": 0.0,
+      "trajectory_loss_to_scene_qkv_gradient_norm": 0.0
+    },
+    {
+      "traj_loss_grad_to_scene_flow": true,
+      "trajectory_loss_to_scene_input_gradient_norm": 0.015194624662399292,
+      "trajectory_loss_to_scene_qkv_gradient_norm": 0.11357752978801727
+    }
+  ],
+  "wall_seconds": 0.022586966999369906
+}

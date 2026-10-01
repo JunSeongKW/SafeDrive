@@ -43,7 +43,8 @@ def pad_candidate_axis(tensor, candidate_count=32):
     return padded
 
 
-def cache_window(frames, start, sensor_root, encoder, device, source_image_hashes):
+def cache_window(frames, start, sensor_root, encoder, device, source_image_hashes,
+                 rectify_stored_image=True):
     adapter_config = TrackedStateAdapterConfig()
     history, future = frames[start : start + 4], frames[start + 4 : start + 12]
     current = history[-1]
@@ -66,7 +67,7 @@ def cache_window(frames, start, sensor_root, encoder, device, source_image_hashe
             image = (
                 torch.from_numpy(
                     load_front_image(
-                        frame, sensor_root, rectify_stored_image=True
+                        frame, sensor_root, rectify_stored_image=rectify_stored_image
                     ).copy()
                 )
                 .permute(2, 0, 1)

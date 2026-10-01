@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 16:37 KST (Codex)
+마지막 갱신: 2026-10-01 20:30 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -18,6 +18,8 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 **9353acf 이후 최신**: [저분산 후속 결과](docs/future_prediction_variance_followup_results.md),
 [전처리·문헌·실행 범위](docs/future_prediction_diagnostic_scope_and_evidence.md).
 직접 선행연구: [docs/egofsd_foredrive_evidence_audit.md](docs/egofsd_foredrive_evidence_audit.md).
+**607da52 이후 최신 결과**: [pilot 기반 판단](docs/pilot_foundation_decision_results.md).
+**현재 다음 진입점**: [공개 future-planning 기반 감사 / 선택·예산 계획](docs/public_future_planning_foundation_audit.md).
 현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
 명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
 경로 이전: [docs/directory_migration.md](docs/directory_migration.md).
@@ -29,9 +31,10 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 
 - H1: 상황에 따라 유리한 미래 정보 구성이 다를 수 있다. 아직 일반적 사실로 확립되지 않았다.
 - H2: 맥락/planning-conditioned 선택이 같은 예산의 강한 비교군을 넘는가.
-- H3: 동적 K/horizon은 나중 확장이다. 현재는 **고정 K·고정 horizon의 개발 기반**.
+- H3: 같은 평균 예산에서 상황별 예측량 배분이 고정 예산보다 나은가. 공식 기반 재현 후 검증한다.
+  동적 K/horizon은 이번 단계에서 미구현이며 현재 pilot은 **고정 K·고정 horizon의 진단 자산**.
   EgoFSD 중복 때문에 fixed-K 객체 선택을 최종 novelty로 전제하지 않는다.
-  Target을 좁힌 뒤 고정 K별 추가 예측의 맥락적 이득부터 측정한다.
+  Pilot target 튜닝을 선행 필수 과제로 삼지 않고 공개 future-planning 기반 위에서 직접 검증한다.
 - 관측 마스킹 / 미래 target 선택 / planner 입력 선택을 구분한다. 주 초안은 미래 target 선택.
 - SafeDrive는 기존 motivation 자산과 코드 참고다. 주 baseline으로 임의 회귀하지 않는다.
 - Drive-JEPA는 encoder/재현 후보다. **직접 연결형 future predictor의 확정 baseline은 아니다.**
@@ -39,21 +42,18 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 
 ## 1. 실행 중인 작업
 
-**실행 중인 학습 없음**. 기준 `9353acf`의cache373/seed29 A–E200은 반복하지 않았다.
-C/E mean·persistence·분산축·교란 입력량과raw track/time/target373구간을 검사했다.
-A seed11/47 각200 추가, 기존seed29 A–E를model/AdamW200에서1000까지 이어 학습,
-F29와E11/F11을1000회 신규 학습했다. 추가7400update/전체235.33s로 등록 상한에서 종료했다.
-F는planner 입력만detach하고 양head aux는 학습한다. 구checkpoint는RNG가 없어
-optimizer-state continuation이지bitwise exact resume이라고 주장하지 않는다.
-질문은미래 감독/gradient 결합이며 selector·동적예산·확률모델·SafeDrive 재학습은 없다.
-Raw: `outputs/future_prediction_diagnostics/bounded_followup_1000_v1/`,
-공유: `results/future_prediction_diagnostics/bounded_followup_v1.json`.
-협업 출발 `95015df`, 현재루트/package/기존SafeDrive 자산은 유지했다.
+**실행 중인 학습 없음.** 기준 `607da52`의 373-window cache와 1000-update checkpoint를 재사용했다.
+CPU 기준선·실단위 미래 오차, 한 가지 visual-only residual 대조를 대응 3-seed/새 5000-update로 완료했다.
+Recording 3-way manifest, 4표본 JPEG 민감도, 공식 WA-JEPA attention의 CPU gradient 검사도 완료했다.
+Raw: `outputs/pilot_foundation_decision/`, 공유: `results/pilot_foundation_decision/`.
+사용자 후속 지시에 따라 **predictor 튜닝·pilot 데이터 확대·확대 학습은 보류**한다.
+전처리 gate는 미해소. 200-window encoder profile/확대 cache/확대 A/B/E/F/held-out 모델 평가는 미실행이다.
+**다음 작업은 공개 future-planning 기반 재현 후 선택·예산 가설로 직접 복귀**다.
+WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full weight 로딩·공식 추론은 아직 안 했다.
 
-현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
-RTX A6000 약48GB다. 이번에는GPU0/1 각각15MiB/compute process 없음 확인 후GPU0만 사용했다.
-종료 후GPU0/1은15MiB, GPU4–7 타인PID21618/33392/33393/33394는 전후 유지됐다.
-다른 연구원 작업 중지/환경 변경 없음. 과거H100 설정은 적용하지 않는다.
+현재 호스트는 `user-ESC8000A-E11`. 승인 GPU **0·1**, RTX A6000 약48GB.
+조사 초반 타인 CARLA 점유가 있었지만 종료 직전 확인은 각각25MiB/compute process 없음이다.
+이번 신규 실행은CPU뿐이다. 사용 직전에 다시 확인하고 타인프로세스/환경은 건드리지 않는다.
 
 이전 중단 작업: O0 epoch 1 / F3 epoch 0 checkpoint라는 인수인계가 있다.
 실제 checkpoint 내부 epoch와 resume 적합성은 이번에 검증하지 않았다.
@@ -61,6 +61,17 @@ RTX A6000 약48GB다. 이번에는GPU0/1 각각15MiB/compute process 없음 확�
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**최신 실제 결과**: Dev scene-macro ADE 정지9.1239/CV1.0951/CA0.9260/train-fitted ridge0.7677m.
+기존 seed29 A–F/1000은 1.55–1.75m. 대응 3-seed C absolute1.7066±0.0554 vs visual residual1.7545±0.1180m,
+차이+0.0478m; seed별 −0.0297/+0.0978/+0.0753m. Recording cluster CI[+0.0137,+0.0864]는
+4 dev group/고정된 3-seed에 조건부다. Residual visual MSE 약0.381은 persistence0.395보다 조금 낮지만
+큰 0.79→0.38 변화는 구조적 skip 효과다. 공간 +4초 위치오차 CV2.0197m vs D/E/F6.3530/5.5511/5.6630m.
+G1/G2 약세는 pilot 문제이지 연구 가설 기각이 아니다.
+Trainval/navtrain1192segment→162recording, cap24: train1857/82group, dev865/40, held898/40.
+Held에는 mini 없음/모델 평가 없음. 목표12000은 cap 이론상3888로 불가능하여 강제로 맞추지 않았다.
+전체54tests/Ruff/새 final5 checkpoint strict·finite·sampler·RNG presence 확인.
+JPEG export 원본 근거는 여전히 없다. 아래부터는 보존한 이전 결과/역사적 감사다.
 
 아래는 **이전 서버에서 보고된 결과**다. 이번 세션에서 재계산하거나 학습 provenance를 검증하지 않았다.
 이전 보고 조건: navtest 12,147, Phase 2 5 epoch, batch 24 × 2 GPU.
@@ -170,31 +181,29 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 완료작업 재사용; C/E persistence/train-mean/horizon·분산축·swap 입력변화 진단 추가.
-- Raw373구간의track/time/spatial/gather 일관성, normalization/loss 분모/currentROI 입력 검사.
-- JPEG 왕복과실제보정필요성구분; export미확인가정유지/cache재생성없음.
-- F planner-only detach: forward불변/planning→P차단/두aux→P보존. 관련8tests/Ruff통과.
-- 추가7400update: A추가2seed/seed29 A–E1000까지continuation/대응seed29·11 E–F1000.
-- C MSE.951→.794/분산비.012→.214, 여전히persistence.395보다나쁨; E/F차이작음/원인미확정.
-- 구RNG snapshot없음명시; 새final10checkpoint strict/finite/optimizer/sampler/CPU RNG검증.
-- iPad Table4 90.5→91.7은General→Proposal-centric prediction교체임을원문확인/선택효과로과장안함.
-- 공유JSON/보고서/config/재현명령/status/HANDOFF/일지갱신. 원본/cache/구checkpoint/타인process보존.
+- CPU 물리/train-fitted ridge·horizon별 spatial m/yaw/velocity·visual 참조를 기존373cache에서 재현.
+- Prior/zero-head/aux-detach 계약과 한 가지 visual-only residual 대응3seed 비교. 기존 C29 재사용/새5000update.
+- Window 대응·recording cluster bootstrap·checkpoint strict/finite/sampler/RNG·전체54tests/Ruff 확인.
+- Trainval/navtrain config 기반 3-way manifest:162group/3620window, cap24/mini-held 제외/nonoverlap 검사.
+- JPEG export 미확정과 민감도 기록. Fail-closed cache runner/200profile·확대 학습 미실행.
+- 공식 WA-JEPA pin/code·공개 weight 용량/hash·tiny attention gradient 확인. ForeDrive 공식 release 미확인.
+- 최신 사용자 지시 반영: pilot 튜닝/확대 보류, 공개 future-planning 기반 공식 재현→선택·평균 예산 연구 우선.
+- 공유 report/JSON/재현 명령/README/AGENTS/HANDOFF/status/일지 갱신. 공용 원본/구결과/SafeDrive/타인 process 보존.
 
-## 4. 다음 단계 — 영상 persistence보다 나쁜 예측의 후속 결정
+## 4. 다음 단계 — 공개 기반의 공식 재현과 선택·예산 가설
 
-1. 최신저분산 보고서/JSON/F경계/continuation 제한을ChatGPT·Claude에검수공유한다.
-2. 학습량관련근거는생겼지만 모든horizon persistence보다나쁨. Visual을버리거나계속학습하지말고
-   다음하나의통제ablation을결정한다. 초기에작았던swap으로branch무시를확정하지않는다.
-3. 후보는현재feature+delta residual만변경하는C대조(target/K/계수유지),
-   별도config1000update/600s상한제안. 아직실행하지않았고효과주장전양쪽대응seed필요.
-4. JPEG원본export근거/occlusion, multi-view후보중복제거/turn·interaction coverage를보완한다.
-   Dev left6/right1/merge미확인으로일반적상황별K효과를주장하지않는다.
-5. Target근거후random/강한규칙/ego-attention/ST와고정K추가예산을비교한다.
-   확률적calibration/uncertainty planning은후속설계만; novelty/독립평가도별도gate다.
+1. 최신 두 report/JSON을 commit 기준으로 ChatGPT·Claude에 검수 공유한다. Pilot 추가 튜닝/확대는 하지 않는다.
+2. WA-JEPA 공식 source/weights/config/environment를 pin하고 strict loading→실제 현재/과거 NAVSIM batch의
+   추론·gradient·VRAM/latency를 확인한다. 아직 full 모델 실행 없음. 공식 평가 설정을 먼저 고정한다.
+3. 동일 예측 예산에서 future 대상·범위 구성이 맥락별 planning 결과를 바꾸는지 비교한다.
+4. 현재 관측·ego 의도의 선택 학습, 동일 평균 예산의 상황별 배분을 순서대로 검증한다.
+5. WA-JEPA native 공간/시간 token과 객체를 구분하고 최소 adapter/packing을 명세한다.
+   Loss mask만 줄여 predictor 계산 절감을 주장하지 않는다. 동적 K/horizon은 현재 미구현.
 
 navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard 접근·사용 이력·공식 프로토콜을
 확인한 뒤 최종 평가 경로를 정한다. 이전 서버의 데이터 크기·GPU-hour를 현재 실측치로 취급하지 않는다.
 **현재 대규모 학습·SafeDrive 재학습·전체 cache 생성은 시작하지 않는다.**
+등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
 
@@ -206,6 +215,7 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 **미결**: 최종 visual/spatial/mixed target/baseline·공식 평가, ST 공동 학습 안정성,
 multiview/occlusion/GT 대체association, 미래 활용·동일 예산 효과·novelty delta·독립 holdout.
 이번1000update도A–E는단일seed(별도E/F만대응2seed)이고persistence를못넘었다.
+이 문장의1000은607da52까지의 이력이다. 이후 C visual-only 대조3seed를 완료했고 공개 기반으로 우선순위가 바뀌었다.
 C/E저분산은추가학습으로개선됐지만 capacity/조건부평균/regularization/실제미래활용의분리는남았다.
 JPEG original-distorted 취급은 명시적 운영 가정으로 별도 원본 byte 증거는 없다.
 Frozen visual teacher와 GT ROI는 구현됐지만 deployment perception/일반화는 검증하지 않았다.

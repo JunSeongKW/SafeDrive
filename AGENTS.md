@@ -27,6 +27,14 @@ pure visual JEPA, deployment perception 또는 학습 후 성능으로 해석하
 1000에도visual persistence보다나쁘며 JPEG보정은조건부. 등록상한에서멈췄고 다음구조ablation은미실행이다.
 설정 `configs/exploration/future_prediction_diagnostic_followup_v1.json`, 공유 `results/future_prediction_diagnostics/`.
 
+`607da52` 이후에는 `docs/pilot_foundation_decision_results.md`와
+`docs/public_future_planning_foundation_audit.md`가 최신이다. 물리/ridge·실단위 미래 오차와 하나의
+visual-only residual 대응3seed 비교를 완료했다. Pilot은 ridge보다 약하며 추가 튜닝/확대는 최신 사용자
+지시에 따라 보류한다. **현재 predictor 개선을 연구의 선행 필수 과제로 삼지 않는다.**
+다음은 미래 예측과planning 연결이 있는 공개 기반의 공식 동작 재현→상황별 동일예산 선택→학습형 선택→
+동일 평균예산 배분이다. WA-JEPA의 source/metadata와 tiny attention autograd만 확인했으며 full 모델은
+미재현이다. Native 공간·시간 token과 객체를 같은 선택 단위로 부르지 않는다. 기존 확대 config를 자동 재개하지 않는다.
+
 ## 세션 시작 루틴
 
 ```bash

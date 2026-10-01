@@ -16,10 +16,17 @@
    현재 다음 실행 기준: [연구 질문·target 결정](docs/research_question_and_target_decision.md),
    [여러-log 데이터 유효율](docs/navsim_visual_target_coverage.md), [최소 학습 계획](docs/minimal_target_ablation_plan.md),
    [200-update 미래 감독 비교](docs/target_supervision_exploration_results.md),
-   **최신 [저분산 진단·제한1000-update 결과](docs/future_prediction_variance_followup_results.md)**.
+   [저분산 진단·제한1000-update 결과](docs/future_prediction_variance_followup_results.md),
+   **최신 [물리·ridge 기준선 / 3-seed residual 기반 판단](docs/pilot_foundation_decision_results.md)**,
+   **다음 진입점 [공개 future-planning 기반 감사 / 선택·예산 계획](docs/public_future_planning_foundation_audit.md)**.
 4. [명명 규칙](docs/naming_conventions.md), [경로 이전과 호환성](docs/directory_migration.md).
 
 ## 현재 구현과 과거 자산의 구분
+
+최신 사용자 결정: 현재 pilot은 연결·gradient 진단 자산으로 보존하고 predictor 튜닝/확대 학습은 보류한다.
+WA-JEPA 공식 코드의 joint future/planning 경로와 공개 checkpoint 메타데이터를 확인했다. 다음은
+공식 기반의 가중치 로딩·추론 재현 후 같은 예산의 상황별 선택→학습형 선택→평균 예산 배분 비교다.
+WA-JEPA full model 재현이나 새 selector 구현이 완료된 상태는 아니다. 등록된 pilot 확대 설정을 자동 실행하지 않는다.
 
 ```text
 PlanningAwareFuturePrediction/
