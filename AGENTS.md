@@ -35,13 +35,20 @@ visual-only residual 대응3seed 비교를 완료했다. Pilot은 ridge보다 �
 동일 평균예산 배분이다. WA-JEPA의 source/metadata와 tiny attention autograd만 확인했으며 full 모델은
 미재현이다. Native 공간·시간 token과 객체를 같은 선택 단위로 부르지 않는다. 기존 확대 config를 자동 재개하지 않는다.
 
-최신 사용자 지시: **공식 Drive-JEPA full planning checkpoint 추론·전체 navtest 평가 재현이 최우선**.
+보존된 재현 작업: **공식 Drive-JEPA full planning checkpoint 추론·전체 navtest 평가**.
 진입점 `docs/official_drive_jepa_reproduction.md`, `configs/official_drive_jepa/reproduction_v1.json`.
 독립 Conda/worktree와 공식 전처리·planner·scorer만 사용. Pilot encoder-only 결과와 구분한다.
 이 작업에서는 학습·fine-tuning·selector·WA-JEPA 실행 금지. 재현 보고 후 pilot을 자동 재개하지 않는다.
 공식full PFViT-L/navtest 전체평가가완료됐다:12146성공/실패·누락·중복0,PDMS89.224320.
 `results/official_drive_jepa_reproduction/full_navtest_results.json`과report를먼저읽고평가를반복하지않는다.
 논문과의차이0.224320점의정확원인/허용오차는미확정이며선택·예산가설의검증결과가아니다.
+
+**578be6e 이후 최신 지시**: 공식 평가 자산을 보존하고 코드 기반 후보·현재 상황별 현황·최소 통제 실험을 정리한다.
+진입점 `docs/future_prediction_foundation_decision.md`, `docs/official_navtest_current_context_summary.md`.
+Drive PB future auxiliary head는 train-only이며 planner 입력이 아니다. WA-JEPA native spatial patch-tube
+선택을 추천했으나 객체 instance와 다르며 사용자 범위 승인/full checkpoint 호환 gate가 남았다.
+현재 분석·설계 단계에서 **새 환경/대용량 다운로드/학습/selector·동적K 구현/추가 전체 평가 금지**.
+저장navtest 통계는 coverage용이지 H1 증거나 tuning용이 아니다. 완료한PF 전체평가를 반복하지 않는다.
 
 ## 세션 시작 루틴
 

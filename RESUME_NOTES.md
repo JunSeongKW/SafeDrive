@@ -1069,3 +1069,40 @@ Fail-closed 집계5CPUtests(평균행제외·unequal shard/누락/중복/invalid
 OfficialCSV별SHA+정렬sceneCSV/결과JSON/실행비용·Hydrahash/telemetry/report·재현명령을공유한다.
 이것은encoder-only가아닌full planning checkpoint 추론·평가재현이다. 논문정확수치재현/선택·예산효과는미확인.
 PF 추론에는별도future predictor가없다. 자체pilot/확대/WA-JEPA는사용자와결과검토전까지보류한다.
+
+## 2026-10-01 — 578be6e 보존 / 미래 예측 기반 코드 감사·현재 상황 현황·최소 선택 실험 명세
+
+시작HEAD578be6e/clean, 기존공식PFViT-L12146성공/PDMS89.224320과+0.224320미확정원인을보존했다.
+공식결과디렉토리+고정config13개trackedfile이578be6e와byte hash동일함을검사했다.
+Source Drive548bb82/WA bec2966 reference tree도변경없이읽었다.
+
+DrivePB의ImgEncoder/Traj_refiner/Bev_refiner/Scorer/TargetBuilder/agentloss/Lightning/eval를읽었다.
+Scorer futurecollision/areahead는train-only이고planner는그출력을소비하지않는다.
+WA positioner/jointattention/predictor/teacher/flowloss/inference/trainer/loader/config/strictload를읽었다.
+Inference에서scene+ego4stepjoint갱신,trajectoryloss→scenehiddenK/V경로확인.
+Single-forward scene_out은trajectoryloss의ancestor가아니라는예외를명시했다.
+Official dataset의storedcommand누락시future-derived fallback도찾아선택실험에서는금지하기로설계했다.
+ForeDrive v2 원문/제한공식링크조사는paper detach만확인,실제공식code/weight위치미확인으로남겼다.
+공식HF pinnedrevision의작은tree JSON만조회,PB v1/v2·WAweight name/size/LFShash공유.
+Weight 다운로드/full loading/새환경/학습/GPU/추가평가없음.
+
+Current speedbins0.1/2/5/10mps와raw4onehotcommand/min100scene·10recording을scorejoin전에기록했다.
+모든12146scene currentframeindex3에서metadatalabel생성완료후에만저장scoreCSV를join했다.
+12146scene/136native recording/136exportlog,metadata/speed/command/logtoken결손0.
+Speed5bin+invalid/command4+invalid/교차30cell을exhaustive집계했다.
+Command left2501/forward8070/right1575scene,PDMS88.806043/90.153576/85.127191.
+이는coverage/기술통계이고H1·미래필요성·selector개선증거아니다. Navtest tuning없음.
+CPU16.286952초,기존공식Conda사용/sensor로딩없음. 원본CSV SHA
+56010fc01ae91818daef49ec63f38614bf1db6913b6e672c354d650891f99ce5 전후동일.
+
+WA nativecamera/spatialpatch-tube를첫추천기반으로명세했다. 객체instance범위유지안과비용·위험을비교했다.
+Camera당128tube/총2048futuretoken/4step/고정horizon,현재context4096유지.
+Prediction전packing/indexinterface변경, position-mediatedST/auxpolicydetach경로는설계만이고미구현.
+Original/random/fixed-rule/learned/all-future참조와matchedfine-tune/currentfeature대조/zero-swap역할을분리했다.
+Strictweight/config/fullgradient/actualcost/4viewcoverage/all-ID동등성은미확인gate로남겼다.
+범위승인후에만공식WA소수train/dev동작검사를진행하고새selector·대규모학습을자동실행하지않는다.
+DynamicK/horizon/확률적predictor/navhard/pilot·확대·residual/SafeDrive는계속보류.
+
+Newcontext7+기존officialaggregation5CPUtests통과, 관련Ruff/diffcheck/새문서link/JSON검사통과.
+Shared산출물약1.72MB,currentmetadataCSV와summary/config/metadataJSON/두report/상태문서갱신.
+최신보고 docs/future_prediction_foundation_decision.md, docs/official_navtest_current_context_summary.md.

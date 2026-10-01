@@ -1,0 +1,32 @@
+{
+  "purpose": "descriptive_coverage_and_baseline_diagnostics_not_selection_evidence_or_tuning",
+  "baseline_project_commit": "578be6e168e86cd5bebfdf78a0d554fe556c634b",
+  "official_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "scene_scores_path": "results/official_drive_jepa_reproduction/official_scene_scores.csv",
+  "expected_scene_tokens_path": "results/official_drive_jepa_reproduction/expected_scene_tokens.json",
+  "result_directory": "results/foundation_selection/current_context_navtest_v1",
+  "definition_recorded_before_metadata_score_join": true,
+  "current_frame_index_in_official_scene": 3,
+  "ego_speed_definition": "norm of current raw ego_dynamic_state[0:2], m/s; official EgoStatus ego_velocity channels",
+  "speed_bins": [
+    {"name": "stationary_below_0p1_mps", "lower_inclusive_mps": 0.0, "upper_exclusive_mps": 0.1},
+    {"name": "creeping_0p1_to_2_mps", "lower_inclusive_mps": 0.1, "upper_exclusive_mps": 2.0},
+    {"name": "low_speed_2_to_5_mps", "lower_inclusive_mps": 2.0, "upper_exclusive_mps": 5.0},
+    {"name": "medium_speed_5_to_10_mps", "lower_inclusive_mps": 5.0, "upper_exclusive_mps": 10.0},
+    {"name": "high_speed_at_least_10_mps", "lower_inclusive_mps": 10.0, "upper_exclusive_mps": null}
+  ],
+  "command_definition": "current stored driving_command, exactly four finite binary channels with exactly one active channel; preserve raw indices 0/1/2/3, do not infer intent from future trajectory",
+  "command_categories": ["command_index_0", "command_index_1", "command_index_2", "command_index_3", "missing_or_invalid"],
+  "command_semantic_labels": {"command_index_0": "left", "command_index_1": "forward", "command_index_2": "right", "command_index_3": "unknown_route_command"},
+  "command_semantics_evidence": "OpenScene source72860746787a67946bef07aa1f78bbbc6b20e445, docs/dataset_stats.md:122 and DriveEngine/process_data/helpers/driving_command.py:40-100; route-derived current command, not measured future turn; local export exact provenance not independently established",
+  "recording_definition": "current raw log_token identifies native recording; count missing log_token separately; log_name identifies exported segment",
+  "summaries": ["speed", "command", "speed_by_command"],
+  "minimum_scenes_for_descriptive_interpretation": 100,
+  "minimum_native_recordings_for_descriptive_interpretation": 10,
+  "small_group_action": "show counts and metrics but withhold interpretation; no significance or difference claims",
+  "metric_names": ["score", "no_at_fault_collisions", "drivable_area_compliance", "time_to_collision_within_bound", "ego_progress"],
+  "aggregation": "equal scene mean multiplied by 100; counts include original scenes; no ranking by model scores",
+  "missing_metadata_action": "retain every expected scene in missing_or_invalid groups; never silently exclude",
+  "forbidden_inputs": ["future reference trajectory", "future heading", "future target visibility", "prediction errors", "model score for defining bins"],
+  "model_inference_training_or_hyperparameter_selection": false
+}

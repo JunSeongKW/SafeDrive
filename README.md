@@ -19,19 +19,26 @@
    [저분산 진단·제한1000-update 결과](docs/future_prediction_variance_followup_results.md),
    **최신 [물리·ridge 기준선 / 3-seed residual 기반 판단](docs/pilot_foundation_decision_results.md)**,
    [공개 future-planning 기반 감사 / 선택·예산 계획](docs/public_future_planning_foundation_audit.md),
-   **현재 최신 [공식 Drive-JEPA full planning checkpoint 전체 평가](docs/official_drive_jepa_reproduction.md)**.
+   [공식 Drive-JEPA full planning checkpoint 전체 평가](docs/official_drive_jepa_reproduction.md),
+   **현재 최신 [선택적 미래 예측 기반 추천·통제 실험 명세](docs/future_prediction_foundation_decision.md)**,
+   [저장 navtest의 현재 상황별 현황](docs/official_navtest_current_context_summary.md).
 4. [명명 규칙](docs/naming_conventions.md), [경로 이전과 호환성](docs/directory_migration.md).
 
 ## 현재 구현과 과거 자산의 구분
 
-최신 사용자 결정: **공식 Drive-JEPA planning checkpoint의 전체 navtest 평가 재현이 최우선**이다.
-설정은 `configs/official_drive_jepa/reproduction_v1.json`. 자체 pilot·확대 학습·WA-JEPA는 보류한다.
+최신 사용자 결정: **578be6e의 공식 평가 결과를 보존하고 선택 연구의 기반·첫 통제 실험을 결정**한다.
+공식 source/config/scorer/checkpoint는 `configs/official_drive_jepa/reproduction_v1.json` 그대로다.
+Drive-JEPA PB의 train-only future head가 planner에 전달되지 않음을 코드로 재확인했다.
+WA-JEPA는 joint future/trajectory 경로가 있어 다음 기반으로 추천하지만, native spatial patch-tube라는
+범위 축소 승인과 full weight/config 호환 검증이 남았다. **아직 이전/selector 구현/학습을 시작하지 않았다.**
+기존 CSV+현재 speed/command만으로12146scene 상황 통계를CPU16.29초에집계했고metadata누락0/hash불변이다.
+자체 pilot·확대·residual은 보류하며 새 환경/대용량 다운로드/추가 전체 평가는 이번 범위 밖이다.
 **공식 전체 평가 완료**: navtest12,146scene 전부성공/실패·누락·중복0, PFViT-L PDMS89.224320.
 논문v2 Table2 PF89.0 대비+0.224320점이며정확원인/공식허용오차미확정. GPU0·1평가약12분21초,
 총worker4, 종료후카드해제. 결과 `results/official_drive_jepa_reproduction/`, 보고서에재현명령/근거를기록했다.
 학습/selector 구현은하지않았고이평가를반복하거나다른작업을자동재개하지않는다.
 공식 encoder만 사용했던 pilot은 공식 planning checkpoint 재현이 아니며 모든 기존 자산을 보존한다.
-아래 WA-JEPA 계획은 이전 판단 이력이며 현재 자동 실행하지 않는다.
+아래 WA-JEPA 계획은 이전 판단 이력이며 최신 명세를 먼저 읽고 현재 자동 실행하지 않는다.
 현재 pilot은 연결·gradient 진단 자산으로 보존하고 predictor 튜닝/확대 학습은 보류한다.
 WA-JEPA 공식 코드의 joint future/planning 경로와 공개 checkpoint 메타데이터를 확인했다. 다음은
 공식 기반의 가중치 로딩·추론 재현 후 같은 예산의 상황별 선택→학습형 선택→평균 예산 배분 비교다.

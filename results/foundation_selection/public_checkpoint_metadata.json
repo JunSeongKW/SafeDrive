@@ -1,0 +1,31 @@
+{
+  "verification_level": "read_only_official_Hugging_Face_API_tree_at_pinned_revisions; no new weights downloaded or loaded",
+  "baseline_project_commit": "578be6e168e86cd5bebfdf78a0d554fe556c634b",
+  "drive_jepa": {
+    "source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "release_revision": "65e0d7284f69bf29d1a4864affcfd84ca4e97a2e",
+    "metadata_url": "https://huggingface.co/api/datasets/LinhanWang/Drive-JEPA/tree/65e0d7284f69bf29d1a4864affcfd84ca4e97a2e?recursive=true&expand=false",
+    "selected_files": [
+      {"path": "drive_jepa_perception_based_agent_vitl.ckpt", "size_bytes": 3735352913, "published_lfs_sha256": "b3e1d4ab723715be07c8266a7dfbd58abffed6990d654afcf5fbcd8cd97eeb34", "downloaded_or_loaded_in_this_task": false},
+      {"path": "drive_jepa_perception_based_agent_vitl_v2.ckpt", "size_bytes": 3735352913, "published_lfs_sha256": "740335c800e248598949c2f3c70700da79fe52f5fdc282b887d08fe112d30d05", "downloaded_or_loaded_in_this_task": false},
+      {"path": "drive_jepa_perception_free_agent_vitl.ckpt", "size_bytes": 3720285081, "published_lfs_sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237", "existing_official_evaluation_preserved": true}
+    ]
+  },
+  "wa_jepa": {
+    "source_commit": "bec29660f5ea46ac73db8e2d0c33c8d1a72c23ad",
+    "release_revision": "15c0770ebd233665214590bb2190a90907499f9e",
+    "metadata_url": "https://huggingface.co/api/models/AFARI-Research/WA-JEPA/tree/15c0770ebd233665214590bb2190a90907499f9e",
+    "selected_files": [
+      {"path": "model_state_dict.pt", "size_bytes": 1575763741, "published_lfs_sha256": "e1d3be013de7dbaa5a6c30925a0d2f91e6ce1a6b17a75ca73fe01a1abe6d6408"},
+      {"path": "state.pt", "size_bytes": 7073, "published_lfs_sha256": "82924179c7455cf76288e86778e65799052b88e05d8db805fe90c914856ddd0e"}
+    ],
+    "full_checkpoint_loading_verified": false,
+    "published_checkpoint_configuration_mapping_verified": false,
+    "model_gpu_latency_or_memory_measured": false
+  },
+  "foredrive": {
+    "primary_paper": "https://arxiv.org/html/2609.26299v2",
+    "official_implementation_or_checkpoint_link_confirmed": false,
+    "scope": "paper and bounded official-link search only; not a claim that no implementation exists"
+  }
+}

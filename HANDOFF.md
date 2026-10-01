@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 21:39 KST (Codex)
+마지막 갱신: 2026-10-01 22:36 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -19,8 +19,12 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 [전처리·문헌·실행 범위](docs/future_prediction_diagnostic_scope_and_evidence.md).
 직접 선행연구: [docs/egofsd_foredrive_evidence_audit.md](docs/egofsd_foredrive_evidence_audit.md).
 **607da52 이후 최신 결과**: [pilot 기반 판단](docs/pilot_foundation_decision_results.md).
-**최우선 작업(최신 사용자 지시)**: 공식 Drive-JEPA planning checkpoint의 전체 NAVSIM v1 navtest 추론·평가 재현.
-설정: `configs/official_drive_jepa/reproduction_v1.json`. WA-JEPA는 그 다음 순위다.
+**최신 완료 작업(기준578be6e)**: 공식 평가 자산 보존 + 선택적 미래 예측 기반/통제실험 설계.
+보고서: [기반추천·계산그래프](docs/future_prediction_foundation_decision.md),
+[저장navtest 현재상황현황](docs/official_navtest_current_context_summary.md).
+공식 source/checkpoint/scorer 고정 설정: `configs/official_drive_jepa/reproduction_v1.json`.
+WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict compatibility gate는 남았다.
+모델 이전/selector 구현/학습/새 환경/대용량 다운로드/추가 전체 평가를 실행하지 않았다.
 현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
 명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
 경로 이전: [docs/directory_migration.md](docs/directory_migration.md).
@@ -42,6 +46,15 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**완료 이력상 우리 학습/평가는 종료됐고 이번 작업에서 새로 띄우지 않았다.** 시작 HEAD578be6e/작업트리clean을확인했다.
+완료 DrivePF 결과·source·checkpoint·config·scorer·원본CSV는그대로보존했다.
+공식 DrivePB/WA reference소스와학습·추론경계를읽고작은공개metadata만조회했다.
+저장navtest12146scene current speed/command 현황을CPU16.29초에집계, metadata누락0/원본CSVhash불변.
+진입점 `results/foundation_selection/`. 전체평가반복/새cache생성/학습/GPU사용없음.
+Pilot·확대·residual·SafeDrive는계속보류. 다음구현은사용자범위결정후별도승인된단계로진행한다.
+
+아래는 보존된 **이전 공식 평가 실행/안전정리 이력**이다. 당시 baseline HEAD와시간을바꾸지않는다.
 
 **최신 지시 적용 / 안전 정리**: 기준 HEAD `5c6e6d5`, 시작 시 미커밋 변경 없음.
 호스트의 junseong 프로세스를 확인했고 자체 pilot 학습/cache/평가 실행은 없었다.
@@ -83,6 +96,17 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**578be6e 이후 최신 조사**:
+
+- DrivePB `Scorer.forward` 미래collision/areahead는train-only. pred_agents_states를trajectory에소비하는경로없음.
+- WA jointscene/trajectory inference와trajectoryloss→scenehidden 확인. single-forward의finalscene_out은직접planninggradient없음.
+- WA currentstoredcommand누락시futuretrajectory추론fallback발견;향후selectortrain입력에사용금지명세.
+- WA native4view patch-tube선택추천, 객체와구분. Camera당128tube/총2048futuretoken vs8192dense를설계만작성.
+  Shape/indexpacking과positionST/auxpolicydetach미구현,fullweight/config/VRAM/latency미검증.
+- Saved scene분석12146/136recording/metadata누락0. Forward8070/left2501/right1575scene,
+  command별PDMS90.153576/88.806043/85.127191. H1증거나정책tuning데이터아님.
+- 새7context+기존5official집계CPUtests통과/Ruff통과. 기존reproduction디렉토리/config원본보존.
 
 **최신 공식 Drive-JEPA 실측**: 전체12146scene 성공, NC99.082002/DAC96.558538/EP83.034487/
 Comfort99.983534/TTC96.023382/DDC98.196937/PDMS89.224320. 논문PF89.0 대비+0.224320점의정확원인은미확정.
@@ -209,24 +233,27 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-**공식 Drive-JEPA 전체 평가 종료 (준비 commit18663fc 이후)**:
+**공식 결과 보존 후 기반 결정 (기준578be6e)**:
 
-- 기존 전용Conda/source/checkpoint/cache/preflight/smoke를재사용, 다운로드/학습/추론반복없음.
-- GPU0·1 각각6075/6071scene, 총12146 전부valid/finite, 실패/누락/추가/중복0.
-- Scene 원본평균 PDMS89.224320, 논문PF89.0 대비+0.224320점; 하위공식지표와DDC/원본CSV 공유.
-- 약741초/worker4/샘플VRAM7810·7811MiB. 실제Hydra의model/scorer/split/센서설정일치와log/CSVhash확인.
-- Fail-closed 집계5tests/Ruff통과. NaN을skipna로조용히제외하지않도록guard추가.
-- GPU0·1정상해제/전용tmux종료. 더많은worker는재시작손실과거의완료상태때문에미실행;scaling성능미측정.
-- 재현보고/JSON·sceneCSV·telemetry·비용도구/상태문서갱신. 차이정확원인/공식허용오차는미확정.
-- 기존pilot/SafeDrive자산·공용데이터/타인프로세스·환경보존. Pilot·확대·WA-JEPA자동재개금지.
+- DrivePB model/refiner/scorer/targets/agent loss/Lightning training/PB eval를직접재감사;futureheadtrain-only/planner입력아님.
+- WA jointinference/teacher/flowloss/positioner/gradient flags/strictloader/evalpreset를읽고single-forward scene_out예외기록.
+- 공식HF파일목록만조회,PB v1/v2·WA공개weight의name/size/publishedhash공유. 새weightdownload/fullload없음.
+- Score join전에current speed/command bins/minimumsample기록. 저장scene12146전체현황/metadata/CSV/JSON추가.
+- CPU16.29초/GPU0/noinference,meta누락0/136native recording,originalscoreCSVhash불변. H1/tuning으로해석금지.
+- WA native spatial-tube 기반추천과fixedbudget controlled five-condition 계산그래프작성. 미구현/범위결정대기.
+- New7context + existing5official aggregation tests/Ruff통과;기존공식평가자산/referenceclone/pilot환경그대로보존.
+- HANDOFF/README/AGENTS/researchstatus갱신,작업기록/근거/미확인구분. Pilot/확대/residual/새selector/동적K/추가평가없음.
 
-## 4. 다음 단계 — 재현 완료 후 검토 (최신 사용자 지시가 아래 과거 계획에 우선)
+## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-1. `configs/official_drive_jepa/reproduction_v1.json`의 source/checkpoint/split/scorer를 고정한다.
-2. 독립 Python3.9/Torch2.1+cu121 환경에서 공식 전처리·planner·scorer만 사용한다.
-3. Full planning strict loading/3scene smoke/전체12146scene평가·집계·차이감사가완료됐다. 반복 실행하지 않는다.
-4. `docs/official_drive_jepa_reproduction.md`와JSON/sceneCSV를결과commit으로ChatGPT·Claude에검수공유한다.
-5. 이 보고까지 종료한다. 학습·튜닝·selector 추가와 pilot 자동 재개 금지. WA-JEPA는 이후 별도 사용자 결정.
+1. 최신 `docs/future_prediction_foundation_decision.md`를commit기준으로ChatGPT·Claude에검수공유한다.
+2. 준성이WA native spatial-tube라는범위축소를승인할지객체instance유지안을선택할지결정한다.
+3. 승인후전용Conda/worktree/officialweight+Metaencoder/config strict loading/소수train-dev full동작·비용gate부터.
+   현재미실행이며기존Drive환경upgrade/전처리섞기/전체모델재현성공주장금지.
+4. all-ID 원본동등성→prediction전packing/selectorgradient/누출/비용→실행상한등록 순서.
+5. fivecondition 원본/random/fixed-rule/planning-conditioned/all-future 참조를고정K/horizon으로통제.
+   native recording train/dev/독립holdout,paired≥3seed. Dynamicbudget는후속.
+6. 공식DrivePF전체평가를반복하지않고+0.224320원인을미확정으로유지한다. Pilot자동재개/추가학습없음.
 
 아래는 `5c6e6d5`까지의 보존된 후속 연구 계획이며 지금 실행하지 않는다.
 
@@ -244,6 +271,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**이번 추천의 미결**: WA native spatial-tube단위 승인 vs 객체instance유지. WAfullcheckpoint/config
+strict호환/공식score/VRAM/latency, sparse-all 동등성, 실제planning→ST선택학습과camera4coverage.
+Position-mediated ST는편향surrogate설계이지fullgradient검증결과가아니다. 추천을최종novelty확정으로부르지않는다.
 
 **확정**: 미래 예측 대상/필요성·예산 배분이 연구 질문; 고정 K·horizon은 개발 기반으로 사용;
 첫 target 비교는 selector를 고정하고 감독부터 분리; GPU 0·1만 사용;

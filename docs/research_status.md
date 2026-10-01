@@ -1,6 +1,27 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
-## 최신 우선순위 — 공식 Drive-JEPA 재현
+## 최신 우선순위 — `578be6e` 이후 기반 결정과 첫 통제 실험 설계
+
+완료한공식PFViT-L/navtest12146전부성공/PDMS89.224320을변경없이보존했다. +0.224320 원인은미확정.
+이번에는Drive-JEPA PB/WA-JEPA의source를읽고공식공개파일metadata만조회했다.
+PB미래객체head는train-only이고planner에전달되지않는다. WA는jointscene/trajectory추론과
+trajectoryloss→scenehidden경로가있지만single-forward의finalscene_out에는직접planninggradient가없다.
+WA공식train loader의future-derived command fallback도찾아향후선택실험에서는금지하도록명세했다.
+
+**추천: WA-JEPA native spatial patch-tube 선택**. Current4-view encoder/planning자산을보존하고
+prediction전futurequery를pack한다. 객체instance선택과동일한주장은아니다. 범위승인과
+strictweight/config/실제fullgradient·비용검증후에만진행한다. Selector/model수정은미구현.
+학습·새환경·대용량download·추가평가·pilot자동재개없음.
+
+저장sceneCSV와currentmetadata만CPU16.29초분석:12146scene/136recording,metadata누락0,
+속도5구간/command3유효범주/교차구간. OriginalCSV SHA불변. 상황별점수차이는H1증거가아니다.
+새7contexttests+기존5집계tests통과. 사실/문헌/설계/미확인과loss별gradient경계를구분해기록했다.
+
+최신진입점: [기반·계산그래프·최소비교군](future_prediction_foundation_decision.md),
+[현재상황현황표](official_navtest_current_context_summary.md), `results/foundation_selection/`.
+공식소스Drive548bb82/WA bec2966을그대로읽었으며공식reference clone변경없음.
+
+## 보존된 완료 이력 — 공식 Drive-JEPA 재현
 
 사용자 지시로pilot개발·데이터확대·추가학습은보류. WA-JEPA도다음순위다.
 `5c6e6d5`를기준으로전용Conda/공식source별도worktree/PFViT-Lfullplanning checkpoint를준비했다.
@@ -277,19 +298,16 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
 
 ## 6. 다음 담당자가 바로 할 일
 
-1. `selective_entity_future_prediction_graph.md`와 `synthetic_validation_results.md`의 구현 범위·결과·편향 한계를 읽는다.
-   Auxiliary의 selector 직접 gradient 차단은 초기 실험 선택이지 보편 원칙이 아니다.
-2. `baseline_and_target_adapter_audit.md`의 권고 scaffold와 visual target·planner memory 연결을 검토한다.
-   SafeDrive를 주 baseline으로 되돌리지 않는다. 완료한 GT-state 진단을 visual 검증으로 대신하지 않는다.
-3. [영상 pilot 검증](visual_future_prediction_pilot_validation.md)을 읽는다. 공식 weight/ROI/visual
-   batch gate는 완료했다. 환경/weight를 재설치하지 않고 이미 존재하는 검증본을 쓴다.
-4. [연구 결정](research_question_and_target_decision.md)·[coverage](navsim_visual_target_coverage.md)·
-   [최소 학습 계획](minimal_target_ablation_plan.md)을 읽는다. 초기 학습에서는 selector를 고정하고 target을 분리한다.
-   이미고정한recording split과공통감독mask를유지하고최종front coverage는미해결로남긴다.
-5. 다음작업으로 fixed-rule forward/trainer, manifest만의 작은cache, train-only normalization 및
-   ADE/FDE evaluator를구현한다. Train8window profile 후조건당200update만탐색한다. 현재학습미실행.
-   Target shortlist/seed 확인 이후random·규칙·ego-attention·ST, 이후고정K별예산으로간다.
-   본학습/전체cache/동적K·horizon은보류하고GPU0·1점유는실행직전재확인한다.
+1. 최신 [기반추천·통제실험명세](future_prediction_foundation_decision.md)를먼저읽는다.
+   과거pilot target비교/학습계획은완료또는보류이력이며다시실행하지않는다.
+2. 준성이WA native spatial patch-tube범위축소를승인할지, 객체instance를유지할지결정한다.
+3. 승인후에만WA전용Conda/worktree·정확source/config/checkpoint를pin하고strictfull loading/소수train-dev
+   officialforward/gradient·VRAM/latency를확인한다. 현재는모두미실행이며공식점수를우리결과로복사하지않는다.
+4. Prediction전packing과all-ID원본동등성을확인한뒤고정K/horizon matched통제학습의상한을등록한다.
+   Learnedselector는hardindex만으로학습되지않으며planning→position ST경로와auxiliarypolicydetach를검증한다.
+5. Original/random/fixed-rule/planning-conditioned/all-future참조를동일split/core초기화/pairedseed로설계한다.
+   Native recording단위train/dev/독립holdout;navtest fitting/tuning금지. Navhard/scorer/cache는versiongate후별도계획.
+6. Pilot·데이터확대·residual·동적K/horizon은계속보류. GPU0·1도이번조사에서는쓰지않았다.
 
 ## 7. Codex ↔ ChatGPT 협업 규약
 
@@ -305,8 +323,9 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
 
 이 문서를 공유할 때의 첫 요청 예:
 
-> 이 commit의 research_status.md와 selective_entity_future_prediction_graph.md를 읽어 주세요.
-> 구현된 사실과 초안을 구분해, 선택기의 planning gradient 경로와 가장 작은 검증 실험을 검토해 주세요.
+> 이 commit의 research_status.md와 future_prediction_foundation_decision.md를 읽어 주세요.
+> 코드 사실과 미구현 설계를 구분하여 WA spatial-tube 범위 변경, position ST gradient 경로,
+> original/full-reference 통제와 실제 연산 절감 명세를 검토해 주세요.
 
 ## 8. 가독성 refactor와 현재 진입점
 

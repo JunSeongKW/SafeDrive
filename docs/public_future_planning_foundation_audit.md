@@ -1,5 +1,9 @@
 # 공개 future-planning 기반 감사와 다음 선택 실험
 
+이 문서는 `5c6e6d5` 당시 조사/계획 이력이다. `578be6e` 이후의 새 PB/WA 코드 감사,
+single-forward scene_out gradient 예외와 현재 명세는
+[최신 기반 결정](future_prediction_foundation_decision.md)을 먼저 읽는다. 과거 계획을 자동 실행하지 않는다.
+
 ## 결정 요약
 
 최신 사용자 지시에 따라 predictor 개발·대규모 pilot 확대 대신 **이미 미래 예측과 planning이 연결된

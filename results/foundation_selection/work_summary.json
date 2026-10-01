@@ -1,0 +1,63 @@
+{
+  "baseline_project_commit": "578be6e168e86cd5bebfdf78a0d554fe556c634b",
+  "task_scope": "foundation_code_audit_and_saved_baseline_descriptive_analysis_and_experiment_specification_only",
+  "preserved_official_baseline": {
+    "variant": "Drive-JEPA perception-free ViT-L",
+    "split": "navtest",
+    "successful_expected_scenes": 12146,
+    "pdms_percent": 89.22432019890219,
+    "paper_difference_percentage_points": 0.22432019890219168,
+    "difference_cause": "unresolved",
+    "scene_csv_sha256": "56010fc01ae91818daef49ec63f38614bf1db6913b6e672c354d650891f99ce5",
+    "repeated_inference_or_evaluation": false
+  },
+  "direct_code_findings": {
+    "drive_jepa_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "drive_jepa_pb_future_heads_training_only": true,
+    "drive_jepa_pb_predicted_future_head_output_used_by_planner": false,
+    "wa_jepa_source_commit": "bec29660f5ea46ac73db8e2d0c33c8d1a72c23ad",
+    "wa_jepa_joint_future_and_trajectory_predictor_in_inference": true,
+    "wa_jepa_trajectory_loss_scene_hidden_gradient_route_present": true,
+    "wa_jepa_final_scene_out_direct_single_forward_trajectory_loss_route_present": false,
+    "wa_jepa_unmodified_predictor_dense_future_tokens": 8192,
+    "wa_jepa_current_context_tokens": 4096,
+    "wa_jepa_future_based_missing_command_fallback_identified": true,
+    "full_model_autograd_executed_this_task": false
+  },
+  "actual_execution": {
+    "cpu_current_context_analysis_wall_seconds": 16.286952119997295,
+    "scene_metadata_count": 12146,
+    "native_recording_count": 136,
+    "missing_current_metadata_count": 0,
+    "new_context_tests_passed": 7,
+    "existing_official_aggregation_tests_passed": 5,
+    "gpu_used": false,
+    "new_environment_or_packages_installed": false,
+    "new_model_weights_downloaded": false,
+    "training_or_new_cache_generated": false,
+    "reference_repositories_modified": false
+  },
+  "recommendation_not_implementation": {
+    "foundation": "WA-JEPA official joint scene-trajectory predictor",
+    "selection_unit": "camera_spatial_patch_tube_not_entity_instance",
+    "scope_approval_required": true,
+    "checkpoint_configuration_strict_compatibility_verified": false,
+    "selected_spatial_tubes_per_camera": 128,
+    "selected_spatial_tubes_total": 512,
+    "selected_future_tokens_total": 2048,
+    "fixed_future_tubelets_per_tube": 4,
+    "fixed_raw_future_frames": 8,
+    "fixed_inference_steps": 4,
+    "selector_implemented": false,
+    "dynamic_budget_or_horizon_implemented": false,
+    "full_model_gpu_cost_measured": false,
+    "experiment_design_document": "docs/future_prediction_foundation_decision.md"
+  },
+  "literature_only": {
+    "foredrive_primary_paper": "https://arxiv.org/html/2609.26299v2",
+    "foredrive_planning_to_predictor_detach": "paper Eq.7 and Appendix H; not verified in implementation",
+    "foredrive_official_code_or_weights_location_verified": false,
+    "wa_jepa_readme_score_is_our_measurement": false
+  },
+  "still_paused": ["own_pilot_tuning", "dataset_expansion", "residual_training", "SafeDrive_training", "dynamic_K_horizon", "navhard_evaluation"]
+}
