@@ -701,3 +701,9 @@ Ruff와 git diff --check 통과. Source hash/config/raw norm/shape는
 다음: 독립 encoder 환경/선택 official weight 한 파일의 key 검증 → 실제 current/future visual ROI
 batch → planner memory 연결 → 작은 공동 학습과 미래 경로 무시/선택 collapse 검증. GPU0·1만 사용하며
 점유는 실행 직전 재확인한다. SafeDrive 주 baseline 연구는 계속 잠정 중단이다.
+
+### 같은 세션의 최종 소스 대조 정정
+
+주요 구현/결과 commit은 `3b44be1`. SafeDrive default query shape의 config30을 실제 constructor와
+대조하니 `_query_splits=[1,num_bounding_boxes]`의 합31이었다. 감사 문서의 shape를31로 정정했다.
+원본 SafeDrive 코드나 실제 GT-state 실행 결과는 변경하지 않았다.

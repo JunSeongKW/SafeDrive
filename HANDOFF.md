@@ -102,6 +102,10 @@ SafeDrive를 주 baseline으로 되돌리지 않는다. Weight/visual batch gate
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+최종 근거 재대조 정정: SafeDrive default query 수는 config의30 자체가 아니라 constructor의
+`sum([1,30])=31`이다. 감사 표를 `[layer,B,31,256]`로 고쳤다. 구현·실행 결과에는 영향이 없다.
+아래는 이번 작업 전체 요약이며 주요 구현 commit은 `3b44be1`이다.
+
 - ChatGPT fe8c930 검토의 합성 oracle 해석을 정정했다. Input exact-match와 relevance reference는
   이 과제에서 같으며 no-intent 정책은 entity-only임을 명시했다. 과거 raw JSON은 보존했다.
 - Drive-JEPA v1 perception-based encoder/refiner/scorer/loss/targets를 함수 수준에서 감사하고
