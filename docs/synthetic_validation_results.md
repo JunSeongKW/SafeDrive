@@ -69,7 +69,7 @@ Gradient norm의 실제 고정 fixture 측정:
 - 고정 analytic predictor가 선택 객체의 `x+2v`를 계산하고, 고정 planner가 둘의 합/√2를 출력한다.
   여기서 2는 합성 시간 범위이며 실제 데이터의 2초나 2개 future token을 뜻하지 않는다.
 - Selector만 planning MSE로 학습한다. 정답 entity 선택 label에 대한 별도 loss는 없다.
-- Seed 0/1/2, 각각 1,000 step×batch 128. Global no-intent 정책도 같은 구조/학습량으로 학습한다.
+- Seed 0/1/2, 각각 1,000 step×batch 128. Entity-only no-intent 정책도 같은 구조/학습량으로 학습한다.
 - Train/holdout 생성 seed를 분리했다. Holdout은 seed마다 4,096개이며 학습 중 선택/튜닝에 쓰지 않았다.
 - 실행 전 코드에 둔 기준: relevant recall≥0.8, random 대비 MSE≤25%. 3/3 seed 통과.
 
@@ -81,14 +81,21 @@ Gradient norm의 실제 고정 fixture 측정:
 | Random K | 6.734545 | 33.272% | 6.868% |
 | Motion K | 8.444285 | 33.248% | 6.657% |
 | Fixed semantic key K | 6.667207 | 33.049% | 6.551% |
-| Hindsight oracle | 0 | 100% | 100% |
+| Relevance reference (역사적 JSON의 hindsight 명칭 정정) | 0 | 100% | 100% |
 
 학습 전 context selector recall은 seed별 33.35/35.89/34.23%였다.
 학습 후 exact-set 정확도는 seed별 100/99.9756/100%다.
-No-intent 정책도 entity key·현재 x/v는 본다. JSON 이름 `global_learned_no_intent`는
-파라미터 공유 규칙을 뜻하며, 완전한 입력 독립 정책이라는 뜻이 아니다.
+No-intent 정책도 entity key·현재 x/v는 본다. 역사적 JSON의 `global_learned_no_intent`는
+잘못된 이름이며 현재 key는 `entity_only_selection_without_intent`다. 입력 독립 정책이 아니다.
 Fixed semantic은 key 0/1을 고르는 정책이지 불안정한 token index 고정이 아니다.
-Oracle은 relevant label을 보는 hindsight reference이며 배포 가능한 비교군이 아니다.
+
+**ChatGPT 검토 반영 정정**: 이 과제의 relevance는 현재 entity semantic key와 intent의 내적으로
+계산할 수 있다. 따라서 “hindsight이므로 배포 불가”라는 이전 설명은 잘못됐다.
+현재 코드에서 `input_exact_match`는 **현재 입력만** 쓰고, `relevance_oracle`은 정답 relevance를
+직접 쓴다. 이 합성 과제에서는 둘이 동일한 선택을 한다. 추가 optimizer 학습 없이 4,096개 샘플의
+규칙 동등성 검사를 수행했으며 exact-set 100%, planning MSE<1e-12가 통과했다.
+이는 기존 학습 수치를 다시 측정한 것이 아니고, 쉬운 규칙보다 학습 방식이 우월하다는 뜻도 아니다.
+역사적 raw JSON·수치·source hash는 고치지 않고 새 코드/문서의 해석을 정정했다.
 
 **해석 한계**: intent가 중요한 semantic key를 직접 지정하는 매우 쉬운 과제이며,
 predictor/planner를 학습하지 않는다. 미래값도 현재 x/v의 알려진 결정론적 함수다.
@@ -119,10 +126,12 @@ Report는 기준 commit, 3개 실행 source의 SHA256, config, seed, 환경, gra
 구현 파일은 이 commit에서 추가되므로 기준 commit은 협업 출발점이지 실행 코드 commit이 아니다.
 Source hash로 실행 당시 코드를 식별한다.
 
-## 6. 아직 미확인 / 다음 결정
+## 6. v1 이후 조사와 남은 검증
 
-- 실제 entity 생성·track association·미래 latent target·ego-motion 정렬.
-- Drive-JEPA perception-based 내부 감사와 최종 baseline 선정.
+- [실제 adapter 및 baseline 감사](baseline_and_target_adapter_audit.md)를 추가했다.
+  NAVSIM GT-state adapter의 track/좌표 진단은 수행했지만 visual entity/target 연결은 아직 없다.
+- Drive-JEPA perception-based 내부를 함수 경계까지 조사했다. 최종 본 학습 baseline 확정은
+  공식 weight의 visual batch 검사 후 결정하며, SafeDrive 재학습은 계속 잠정 중단이다.
 - 공동 학습되는 predictor/planner에서 selector의 안정성, 미래 latent 무시·collapse.
 - 동일 용량의 **현재 entity feature 전달 adapter** 대비 미래 예측의 추가 기여.
 - 같은 K·학습량의 실제 규칙/random 비교, 상황별 성능, 독립 holdout, wall-clock/FLOPs.
@@ -130,7 +139,7 @@ Source hash로 실행 당시 코드를 식별한다.
 
 ChatGPT에 검토받을 결정: 순차 조건부 ST를 첫 실제 prototype의 임시 선택 방식으로 유지할지,
 어떤 현재-feature 대조와 미래 target adapter가 최소 비용으로 미래 예측의 기여를 분리할지.
-다음 단계는 **실제 adapter 및 perception-based 코드 감사 후 baseline 결정**이다.
+다음 단계는 **공식 encoder weight와 시각 ROI adapter의 실제 batch 검사**다.
 
 ## 7. 이름 변경 이후 재현 검사
 

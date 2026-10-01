@@ -5,14 +5,14 @@ Analytic predictor/planner isolate selector learning: not full JEPA training.
 """
 
 import argparse
-from datetime import datetime, timezone
 import hashlib
 import json
-from pathlib import Path
 import subprocess
 import sys
 import time
 import unittest
+from datetime import datetime, timezone
+from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
@@ -83,6 +83,16 @@ def predict_synthetic_ego_plan(entity_features, selection_weights):
         + SYNTHETIC_PREDICTION_TIME_OFFSET * selected_entity_queries[..., -1]
     )
     return predicted_future_positions.sum(dim=-1) / SELECTED_ENTITY_BUDGET**0.5
+
+
+def compute_input_exact_match_scores(entity_features, ego_intent):
+    """Input-only rule: compare current semantic keys with the requested intent.
+
+    No future target or relevance label is required on this synthetic task.
+    This diagnostic tests learnability, not superiority over a simple rule.
+    """
+    semantic_key_features = entity_features[..., :NUM_CANDIDATE_ENTITIES]
+    return (semantic_key_features * ego_intent[:, None]).sum(dim=-1)
 
 
 def compute_synthetic_selection_metrics(
@@ -238,9 +248,20 @@ def run_synthetic_selection_learning(
         fixed_semantic_selection_weights = entity_selection_operator(
             -stable_entity_ids.float(), entity_valid_mask, stable_entity_ids
         ).hard_selection_weights
-        oracle_selection_weights = entity_selection_operator(
+        exact_match_selection_weights = entity_selection_operator(
+            compute_input_exact_match_scores(entity_features, ego_intent),
+            entity_valid_mask,
+            stable_entity_ids,
+        ).hard_selection_weights
+        relevance_oracle_selection_weights = entity_selection_operator(
             relevant_entity_mask.float(), entity_valid_mask, stable_entity_ids
         ).hard_selection_weights
+        torch.testing.assert_close(
+            exact_match_selection_weights,
+            relevance_oracle_selection_weights,
+            rtol=0,
+            atol=0,
+        )
         policy_metrics = {
             name: compute_synthetic_selection_metrics(
                 entity_features,
@@ -255,7 +276,8 @@ def run_synthetic_selection_learning(
                 ("random_entity_selection", random_selection_weights),
                 ("motion_based_selection", motion_selection_weights),
                 ("fixed_semantic_key_selection", fixed_semantic_selection_weights),
-                ("hindsight_relevant_entity_selection", oracle_selection_weights),
+                ("input_exact_match", exact_match_selection_weights),
+                ("relevance_oracle", relevance_oracle_selection_weights),
             )
         }
         entity_permutation = torch.arange(NUM_CANDIDATE_ENTITIES - 1, -1, -1)

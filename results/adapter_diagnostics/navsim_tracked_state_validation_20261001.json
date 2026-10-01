@@ -1,0 +1,231 @@
+{
+  "created_utc": "2026-10-01T03:02:24.134690+00:00",
+  "reference_commit": "9b7d6e18748f28db965183efd90bacd9998849ac",
+  "source_sha256": {
+    "scripts/validate_navsim_state_adapter.py": "c7374bf02192855ef87af92f91f3c3b1b0c239ee9fc397727ba86d2f3359098f",
+    "src/planning_aware_future_prediction/adapters/navsim_tracked_state.py": "6069359ccaeda9300f28cbd093ca3dc3d30f59807830ef78a8df8b4dc7053323",
+    "src/planning_aware_future_prediction/models/selective_entity_future_prediction.py": "d3be3db0d9378a9affd354a4684c438f429a68d72df6c1006b8e8a5adb3d3852"
+  },
+  "diagnostic_scope": "real_NAVSIM_GT_state_adapter_not_visual_JEPA_or_official_baseline",
+  "privileged_current_annotations": true,
+  "future_inputs_to_selector": false,
+  "official_baseline_reproduced": false,
+  "visual_target_encoder_tested": false,
+  "shared_input_hashes_unchanged": true,
+  "adapter_config": {
+    "num_history_frames": 4,
+    "num_future_steps": 8,
+    "max_candidate_entities": 32,
+    "entity_radius_meters": 40.0,
+    "position_scale_meters": 40.0,
+    "velocity_scale_meters_per_second": 10.0,
+    "box_size_scale_meters": 10.0,
+    "frame_interval_seconds": 0.5,
+    "timestamp_tolerance_seconds": 0.05
+  },
+  "model_initialization_seed": 19,
+  "window_start_indices": [
+    0,
+    12
+  ],
+  "num_optimizer_updates_per_window": 1,
+  "optimizer_learning_rate": 0.001,
+  "device": "cpu",
+  "torch_version": "2.8.0+cu128",
+  "python_version": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+  "python_executable": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/future_prediction_cpu/bin/python",
+  "log_path": "/mnt/nfs/data/open_dataset/navsim/navsim_logs/mini/2021.05.12.22.00.38_veh-35_01008_01518.pkl",
+  "log_sha256": "0ed544e68158393ea8917b0b29fe5f5856e4418744dafa66ec9712101a21955e",
+  "windows_from_same_log_not_independent_scenes": true,
+  "elapsed_seconds": 3.6901421640068293,
+  "scenes": [
+    {
+      "scene_token": "165060762e765a5a",
+      "current_frame_token": "b214f8e744075e96",
+      "window_start_index": 0,
+      "candidate_count": 32,
+      "selected_entity_budget": 4,
+      "online_input_shapes": {
+        "entity_features": [
+          1,
+          32,
+          10
+        ],
+        "scene_context": [
+          1,
+          16
+        ],
+        "ego_intent": [
+          1,
+          4
+        ],
+        "entity_valid_mask": [
+          1,
+          32
+        ],
+        "stable_entity_ids": [
+          1,
+          32
+        ]
+      },
+      "future_state_target_shape": [
+        1,
+        32,
+        8,
+        6
+      ],
+      "predicted_future_state_shape": [
+        1,
+        4,
+        8,
+        6
+      ],
+      "ego_plan_shape": [
+        1,
+        8,
+        3
+      ],
+      "valid_future_target_count": 255,
+      "invalid_future_target_count": 1,
+      "future_time_offsets_seconds": [
+        0.500014,
+        1.00023,
+        1.500527,
+        2.000775,
+        2.500932,
+        3.001074,
+        3.501152,
+        4.0013
+      ],
+      "gradient_norms": {
+        "planning": {
+          "selector": 0.003505356414966115,
+          "predictor": 0.15334629716389211,
+          "planner": 0.9490222442974308
+        },
+        "state_auxiliary": {
+          "selector": 0.0,
+          "predictor": 0.32624449178551096,
+          "planner": 0.0
+        },
+        "selection_detach": {
+          "selector": 0.0,
+          "predictor": 0.15334629716389211,
+          "planner": 0.9490222442974308
+        },
+        "future_detach": {
+          "selector": 0.0,
+          "predictor": 0.0,
+          "planner": 0.9490222442974308
+        }
+      },
+      "state_removal_max_output_change": 0.054330550134181976,
+      "joint_backward_and_single_optimizer_step_finite": true,
+      "losses_before_update": {
+        "planning_mse": 2.8242311477661133,
+        "future_state_prediction_mse": 0.32457348704338074
+      },
+      "front_image_size": [
+        1920,
+        1080
+      ],
+      "front_image_read_scope": "header_and_integrity_only_not_encoder_forward",
+      "front_image_sha256": "37b8bf62301b42a0ce670427268cb2e7f7697c1dde10e41214acf9dad07f3e69",
+      "model_parameter_count": 6601
+    },
+    {
+      "scene_token": "165060762e765a5a",
+      "current_frame_token": "849e06c120f75bfc",
+      "window_start_index": 12,
+      "candidate_count": 32,
+      "selected_entity_budget": 4,
+      "online_input_shapes": {
+        "entity_features": [
+          1,
+          32,
+          10
+        ],
+        "scene_context": [
+          1,
+          16
+        ],
+        "ego_intent": [
+          1,
+          4
+        ],
+        "entity_valid_mask": [
+          1,
+          32
+        ],
+        "stable_entity_ids": [
+          1,
+          32
+        ]
+      },
+      "future_state_target_shape": [
+        1,
+        32,
+        8,
+        6
+      ],
+      "predicted_future_state_shape": [
+        1,
+        4,
+        8,
+        6
+      ],
+      "ego_plan_shape": [
+        1,
+        8,
+        3
+      ],
+      "valid_future_target_count": 249,
+      "invalid_future_target_count": 7,
+      "future_time_offsets_seconds": [
+        0.499835,
+        0.999899,
+        1.500066,
+        2.000301,
+        2.500392,
+        3.000618,
+        3.500902,
+        4.001175
+      ],
+      "gradient_norms": {
+        "planning": {
+          "selector": 5.39201676140865e-05,
+          "predictor": 0.011151459140069993,
+          "planner": 0.05687868524254759
+        },
+        "state_auxiliary": {
+          "selector": 0.0,
+          "predictor": 0.1923390583202883,
+          "planner": 0.0
+        },
+        "selection_detach": {
+          "selector": 0.0,
+          "predictor": 0.011151459140069993,
+          "planner": 0.05687868524254759
+        },
+        "future_detach": {
+          "selector": 0.0,
+          "predictor": 0.0,
+          "planner": 0.05687868524254759
+        }
+      },
+      "state_removal_max_output_change": 0.04165782034397125,
+      "joint_backward_and_single_optimizer_step_finite": true,
+      "losses_before_update": {
+        "planning_mse": 0.013841829262673855,
+        "future_state_prediction_mse": 0.25172412395477295
+      },
+      "front_image_size": [
+        1920,
+        1080
+      ],
+      "front_image_read_scope": "header_and_integrity_only_not_encoder_forward",
+      "front_image_sha256": "c587bd523f6f6105e56a0eee6c16297954fc7a4b269b2d4c2b1cbd587545ae22",
+      "model_parameter_count": 6601
+    }
+  ]
+}

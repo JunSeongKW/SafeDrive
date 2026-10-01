@@ -657,3 +657,47 @@ norm이 기존 실행과 정확히 같다. 새 코드와 environment/source hash
 빈 이전 디렉토리만 정리하며 실제 파일/데이터는 삭제하지 않는다.
 
 다음 연구 작업의 우선순위는 바뀌지 않았다: 실제 entity/target adapter 및 baseline 코드 감사.
+
+## 2026-10-01 — ChatGPT fe8c930 검토 반영, baseline 감사와 실제 GT-state adapter 진단
+
+실행 전 기준 commit은 `9b7d6e1`, 검토 대상은 `fe8c930`이었다. 이번 작업은 SafeDrive 재학습이 아니다.
+
+### 확인·정정·설계
+
+합성 relevance는 현재 key·intent 내적으로 계산 가능하므로 이전 hindsight/배포 불가 해석을 정정했다.
+`input_exact_match`와 `relevance_oracle`은 이 과제에서 같은 선택이다. No-intent scorer는 entity input을
+보므로 입력 독립 global mask가 아니다. 과거 raw 결과는 보존하고 코드/문서를 정정했다.
+추가 synthetic selector 학습·accuracy tuning은 하지 않았다.
+
+Drive-JEPA source548bb8215e3aae18e162a0f12f1ba83b4d3eb57e의 v1 perception-based feature/backbone/
+refiner/scorer/target/agent loss를 감사했다. 기본 query는 object instance가 아니라 ego proposal/time
+query다. Collision-object state head는 train-only auxiliary이며 그 출력을 planner/score가 입력받지 않는다.
+권고는 official front-video encoder와 단순 trajectory decoder를 재사용한 새 scaffold + visual ROI
+instance/target + 미래 memory adapter다. Official Drive-JEPA 전체 재현과는 구분한다.
+Source/shape/gradient/privileged input/association 및 current-feature 대조 설계는
+`docs/baseline_and_target_adapter_audit.md`에 있다. 본 학습 baseline은 official visual batch gate 후 결정한다.
+
+### 실제 구현·실행
+
+Raw NAVSIM GT-state adapter는 history/current와 future label builder를 분리한다. 현재 GT 차량·보행자
+32개 cap, K4, future8/약4s, track-token 정렬 및 lidar/global/current-ego 변환을 구현했다.
+GT 기하 state target은 시각 latent/JEPA가 아니다. 기존 graph에 8 waypoint 출력 옵션을 추가했다.
+초기 실제 데이터 대조에서 yaw Euler convention 차이가 ego lateral label에 최대 약0.00021m 오차를
+만들어 실패했다. 공식 pyquaternion 규약으로 수정하고 nonzero roll/pitch 회귀 검사를 추가했다.
+
+28/28 unittest 통과: 기존 graph13 + state adapter13 + 합성 reference/gradient 회귀2.
+이전 synthetic norm15개가 정확히 같았다. 실제 mini 한 log/scene의 window0/12에서 state forward/loss/
+backward 및 Adam 한 번 update가 통과했다. 첫 구간 planning S/P/D norm =
+0.00350536 / 0.15334630 / 0.94902224, state auxiliary = 0 / 0.32624449 / 0.
+두 번째도 같은 zero/nonzero 계약 통과. 두 구간은 독립 성능 표본이 아니다.
+학습 후 성능·수렴·H1/H2 검증으로 보고하지 않는다. 공식 visual encoder는 아직 실행하지 않았다.
+
+실제 log와 두 front image의 SHA256이 전후 같았다. 공유 원본 쓰기·환경 설치/upgrade·GPU·cache
+재생성·대규모 학습은 없었다. CPU venv(Python3.12.13/torch2.8.0+cu128)만 사용했다.
+Ruff와 git diff --check 통과. Source hash/config/raw norm/shape는
+`results/adapter_diagnostics/navsim_tracked_state_validation_20261001.json`, 명령/해석은
+`docs/navsim_state_adapter_validation.md`에 남겼다.
+
+다음: 독립 encoder 환경/선택 official weight 한 파일의 key 검증 → 실제 current/future visual ROI
+batch → planner memory 연결 → 작은 공동 학습과 미래 경로 무시/선택 collapse 검증. GPU0·1만 사용하며
+점유는 실행 직전 재확인한다. SafeDrive 주 baseline 연구는 계속 잠정 중단이다.

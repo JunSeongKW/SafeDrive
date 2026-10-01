@@ -1,7 +1,8 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
-갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **계산 그래프 v1 CPU 진단까지 완료**했다.
-실제 NAVSIM 모델·visual JEPA·baseline 구현 완료 보고는 아니다.
+갱신: 2026-10-01. 협업 출발점은 `95015df`다. 현재 **CPU graph + 실제 NAVSIM GT-state adapter
+진단 완료, perception-based 소스 감사 및 visual adapter 설계안 작성** 상태다.
+공식 NAVSIM baseline 재현·visual JEPA·시각 entity/target 구현 완료 보고는 아니다.
 동적인 상태는 이 파일과 `HANDOFF.md`, 계산 그래프는 `selective_entity_future_prediction_graph.md`,
 시간순 이력은 `RESUME_NOTES.md`에서 관리한다.
 
@@ -47,18 +48,35 @@
   backward 차단, target 교체 독립성, permutation, padding/empty/invalid/tie 등을 검사했다.
 - **3-seed 합성 선택 학습 통과**: 정해진 analytic predictor/planner를 두고 selector만 planning
   MSE로 학습했다. 별도 holdout에서 두 relevant entity의 exact-set 정확도는 99.9756~100%다.
-- Command 교란 / no-intent entity-only 학습 / random / motion / fixed-semantic / hindsight
-  oracle을 비교했다. 쉬운 인위적 과제이므로 자율주행 H1/H2 증거로 사용하지 않는다.
+- Command 교란 / no-intent entity-only 학습 / random / motion / fixed-semantic / relevance reference를
+  비교했다. 현재 key·intent만으로 relevance를 계산할 수 있으므로 hindsight/배포 불가 해석은 정정했다.
+  쉬운 인위적 과제이므로 자율주행 H1/H2 증거로 사용하지 않는다.
 - 결과·환경·config·source SHA256은 `results/synthetic_diagnostics/future_prediction_graph_v1_before_readability_refactor_20261001.json`,
   해석·한계·재현 명령은 `docs/synthetic_validation_results.md`에 남겼다.
 
-### 아직 하지 않은 것
+### ChatGPT fe8c930 검토 이후 추가한 것
 
-- 실제 NAVSIM selector / future predictor / target encoder / entity adapter 연결은 구현하지 않았다.
-- 실제 batch forward/backward 및 공식 checkpoint 평가를 수행하지 않았다.
+- 합성 `input_exact_match`와 `relevance_oracle`의 동등성 검사. 추가 합성 학습/튜닝 없음.
+  No-intent key는 이미 `entity_only_selection_without_intent`로 바뀐 상태를 유지한다.
+- Drive-JEPA v1 perception-based backbone/refiner/scorer/target/loss를 함수 경계까지 감사했다.
+  agent future-state 출력은 train-only supervision이며 planner/score 입력으로 사용하지 않는다.
+- [baseline 및 target adapter 감사](baseline_and_target_adapter_audit.md)에 source commit·함수·shape·
+  gradient·특권 입력·target association·비용/미확인을 남겼다.
+- 권고 scaffold는 Drive-JEPA frozen front-video encoder+단순 planner+새 visual ROI adapter다.
+  SafeDrive 주 baseline/retraining은 여전히 잠정 중단이고 공식 baseline 재현과 scaffold를 구분한다.
+- 실제 mini 한 log의 두 구간으로 GT-state adapter+waypoint8 graph의 gradient/공동 backward/
+  1회 optimizer update를 검사했다. 시각 encoder는 실행하지 않았고 image header/무결성만 확인했다.
+  이 두 구간은 같은 scene/log로 독립 성능 표본이 아니다.
+- 실제 데이터 대조에서 ego yaw convention 차이를 발견해 공식 pyquaternion 규약으로 수정하고
+  roll/pitch가 0이 아닌 회귀 검사를 추가했다. 공용 log/image hash는 전후 같다.
+
+### 아직 하지 않은 것 (현재 기준)
+
+- 실제 **시각** entity/target adapter·target encoder·공식 planner 연결은 구현하지 않았다.
+- 실제 GT-state batch forward/backward는 수행했지만 공식 checkpoint/perception 평가는 하지 않았다.
 - 새 외부 의존성 설치, 기존 환경 업그레이드, GPU 학습, 전체 cache 재생성을 하지 않았다.
 - 공용 데이터셋에 쓰거나 새 데이터셋을 다운로드하지 않았다.
-- 최종 baseline 및 tensor adapter를 확정하지 않았다.
+- visual target의 권고 명세는 작성했으나 공식 weight batch gate와 최종 baseline 확정은 남아 있다.
 
 95015df는 문서·작업 규칙 변경이었다. 이번 v1은 독립 synthetic fixture와 결과 기록을 추가한다.
 기존 모델, loss, 실험 결과 CSV는 변경하지 않았다.
@@ -126,7 +144,9 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
 
 이 perception-free downstream 경로에는 별도 entity 미래 latent predictor를 호출하는 코드가 없다.
 따라서 “Drive-JEPA를 그대로 사용하면 selector→future predictor→planner가 이미 연결된다”는
-가정은 성립하지 않는다. perception-based 내부 경로 전체에 같은 결론을 일반화하지 않는다.
+가정은 성립하지 않는다. 이후 v1 perception-based 내부도 감사한 근거는 별도
+[baseline 감사](baseline_and_target_adapter_audit.md)에 있다. 미래 state head의 train-only 출력과
+현재 ego proposal query를 안정적 entity 미래 latent와 혼동하지 않는다.
 
 ## 5. 이전 해석을 정정 / 유보한 것
 
@@ -149,10 +169,12 @@ F2의 과거 결과를 “미래 agent 정보 완전 제거”로 해석하려�
 
 1. `selective_entity_future_prediction_graph.md`와 `synthetic_validation_results.md`의 구현 범위·결과·편향 한계를 읽는다.
    Auxiliary의 selector 직접 gradient 차단은 초기 실험 선택이지 보편 원칙이 아니다.
-2. perception-based Drive-JEPA 내부와 entity/target adapter 비용을 끝까지 확인하여 baseline을
-   선택한다. SafeDrive를 주 baseline으로 되돌리는 변경은 임의로 확정하지 않는다.
-3. 실제 입력/target tensor, ego-motion 정렬 및 미래 GT 경계를 정의하고 작은 adapter test를 만든다.
-4. 구현 경로가 성립하면 독립 환경과 최소 NAVSIM batch로 검증한다. GPU 사용은 0·1로 제한한다.
+2. `baseline_and_target_adapter_audit.md`의 권고 scaffold와 visual target·planner memory 연결을 검토한다.
+   SafeDrive를 주 baseline으로 되돌리지 않는다. 완료한 GT-state 진단을 visual 검증으로 대신하지 않는다.
+3. 독립 encoder 환경의 dependency·commit을 고정하고 공식 weight **한 파일**의 metadata/key를 확인해
+   선택 다운로드한다. 전체 bundle/cache 또는 기존 환경 업그레이드를 하지 않는다.
+4. 현재/future image clip, same-track ROI/teacher target, planner memory adapter를 구현하고 실제
+   visual batch forward/loss/backward를 검사한다. GPU 사용은 0·1로 제한하며 점유를 먼저 재확인한다.
 5. 현재-feature 전달 대조와 강한 동일-K 비교군, novelty 검증을 마친 후 본 실험 진행 여부를 판단한다.
 
 ## 7. Codex ↔ ChatGPT 협업 규약

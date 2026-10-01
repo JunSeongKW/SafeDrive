@@ -184,8 +184,10 @@ intent가 서로 다른 두 key를 요청한다. entity 순서는 샘플마다 �
 학습되는 것은 selector뿐이며, 미래 예측/decoder의 동시 학습 난이도는 이 과제에 포함되지 않는다.
 
 3개 seed, 각 1,000 step, batch 128, 별도 생성 seed의 holdout 4,096개를 사용한다.
-온전한 command, shuffled command, no-intent global learned, random, motion, fixed-semantic,
-hindsight oracle을 비교한다. 실행 전 코드에 둔 진단 기준은 recall≥0.8 및 random 대비 MSE≤25%다.
+온전한 command, shuffled command, entity-only no-intent learned, random, motion, fixed-semantic을
+비교한다. `input_exact_match`는 현재 key·intent 내적만 쓰는 규칙이고, `relevance_oracle`은
+정답 relevance reference다. 이 과제에서는 동일하므로 과거 hindsight/배포 불가 해석을 정정한다.
+실행 전 코드에 둔 진단 기준은 recall≥0.8 및 random 대비 MSE≤25%다.
 해당 기준은 자율주행 H1/H2의 성공 기준이 아니다.
 
 이 검사가 통과해도 H1/H2, 실제 미래 정보 사용, 효율, novelty가 입증된 것이 아니다.

@@ -3,8 +3,8 @@
 from dataclasses import dataclass
 
 import torch
-from torch import Tensor, nn
 import torch.nn.functional as F
+from torch import Tensor, nn
 
 
 @dataclass
@@ -196,8 +196,12 @@ class SelectiveEntityFuturePredictionGraph(nn.Module):
         num_future_steps=2,
         num_selected_entities=2,
         hidden_feature_dim=24,
+        num_ego_plan_steps=1,
     ):
         super().__init__()
+        if num_ego_plan_steps < 1:
+            raise ValueError("num_ego_plan_steps must be positive")
+        self.num_ego_plan_steps = num_ego_plan_steps
         self.num_future_steps, self.future_latent_dim = (
             num_future_steps,
             future_latent_dim,
@@ -224,7 +228,7 @@ class SelectiveEntityFuturePredictionGraph(nn.Module):
                 hidden_feature_dim,
             ),
             nn.GELU(),
-            nn.Linear(hidden_feature_dim, 3),
+            nn.Linear(hidden_feature_dim, 3 * num_ego_plan_steps),
         )
 
     def predict_selected_entity_future_latents(
@@ -263,11 +267,14 @@ class SelectiveEntityFuturePredictionGraph(nn.Module):
         pooled_future_latents = (
             predicted_future_latents * selected_entity_valid_mask[..., None, None]
         ).sum(dim=1) / num_valid_selected_entities[:, None, None]
-        return self.ego_planner(
+        ego_plan = self.ego_planner(
             torch.cat(
                 (scene_context, ego_intent, pooled_future_latents.flatten(1)), dim=-1
             )
         )
+        if self.num_ego_plan_steps == 1:
+            return ego_plan  # Preserve the original synthetic fixture interface.
+        return ego_plan.reshape(ego_plan.shape[0], self.num_ego_plan_steps, 3)
 
     def forward(
         self,

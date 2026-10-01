@@ -8,6 +8,10 @@ Claude Code 는 `CLAUDE.md`(= `@AGENTS.md`)로, Codex 는 이 파일로 같은 �
 잠정 중단**됐다. 이 저장소의 과거 `navsim/`·SafeDrive 학습 script·CSV·checkpoint는 보존된
 참고 자산이다. 현재 코드의 진입점은 `src/planning_aware_future_prediction/`, `tests/`,
 `scripts/validate_future_prediction_graph.py`다. 원격 저장소명은 협업 이력이지 baseline 선택이 아니다.
+실제 데이터 진단은 `src/planning_aware_future_prediction/adapters/navsim_tracked_state.py`와
+`scripts/validate_navsim_state_adapter.py`다.
+이는 **현재 GT 상태를 사용하는 특권 입력 진단**이고 visual JEPA나 공식 baseline 재현이 아니다.
+권고 visual adapter·baseline·남은 gate는 `docs/baseline_and_target_adapter_audit.md`를 읽는다.
 
 ## 세션 시작 루틴
 

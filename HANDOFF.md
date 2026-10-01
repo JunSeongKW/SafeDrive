@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 11:32 KST (Codex)
+마지막 갱신: 2026-10-01 12:06 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -8,6 +8,8 @@
 계산 그래프 초안: [docs/selective_entity_future_prediction_graph.md](docs/selective_entity_future_prediction_graph.md).
 시간순 이력: `RESUME_NOTES.md`. 과거 설계: `EXPERIMENT_DESIGN.md`.
 CPU v1 결과: [docs/synthetic_validation_results.md](docs/synthetic_validation_results.md).
+실제 데이터 상태 진단: [docs/navsim_state_adapter_validation.md](docs/navsim_state_adapter_validation.md).
+Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](docs/baseline_and_target_adapter_audit.md).
 현재 작업 루트: `/rhome/junseong/PlanningAwareFuturePrediction/`.
 명명 규칙: [docs/naming_conventions.md](docs/naming_conventions.md).
 경로 이전: [docs/directory_migration.md](docs/directory_migration.md).
@@ -31,6 +33,8 @@ CPU v1 결과: [docs/synthetic_validation_results.md](docs/synthetic_validation_
 GPU/NAVSIM 학습·공식 평가·cache 생성은 시작하지 않았다. 협업 출발 commit은 `95015df`다.
 이후 사용자 요청으로 checkout·package·함수·변수·CLI·문서를 가독성 기준으로 재명명했다.
 새 경로에서 CPU 재검증을 마쳤고 진행 중인 신규 프로세스는 없다.
+이후 ChatGPT fe8c930 검토를 반영해 perception-based 소스 감사와 실제 NAVSIM **GT-state**
+adapter smoke까지 완료했다. Official encoder/visual entity target/공식 baseline 재현은 아직 미수행이다.
 
 현재 호스트는 `user-ESC8000A-E11`. 사용자 승인 GPU는 **0·1**이고 두 카드 모두
 RTX A6000 약 48 GB다. 확인 당시 기존 프로세스가 있으므로 비어 있다고 가정하거나
@@ -84,32 +88,48 @@ auxiliary는 S/D를 직접 차단한다. Detach는 출력이 정확히 같고 �
 새 source hash·경로·환경을 담은 report는
 `results/synthetic_diagnostics/readability_refactor_validation_20261001.json`에 있다.
 
+**후속 실제 데이터 진단**: 28/28 unittest. 같은 mini log/scene의 두 구간에서 GT-state H
+`[1,32,10]`→K4 예측 `[1,4,8,6]`→ego `[1,8,3]`의 gradient 계약·공동 backward·1회 optimizer
+update가 통과했다. Current annotations는 privileged input; visual JEPA/NAVSIM 성능 아님.
+Log/image hash는 전후 동일. 기존 synthetic gradient norm15개도 변하지 않았다.
+합성 relevance는 input key·intent로 계산 가능하여 `input_exact_match`와 `relevance_oracle`을
+구분하고 이전 hindsight/배포 불가 해석을 정정했다. 추가 synthetic training은 하지 않았다.
+
+**감사 결과**: Drive-JEPA v1 perception-based는 proposal query를 정제하고 score로 선택한다.
+미래 collision-object state head는 train-only auxiliary이며 planner/score head의 입력이 아니다.
+권고 scaffold는 공식 front encoder+단순 trajectory decoder+새 image ROI/미래 memory adapter다.
+SafeDrive를 주 baseline으로 되돌리지 않는다. Weight/visual batch gate 후 최종 baseline을 결정한다.
+
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 작업 디렉토리를 `/rhome/junseong/PlanningAwareFuturePrediction/`으로 재명명했다.
-  Git 이력·branch·원격은 보존하며 SafeDrive baseline 연구는 계속 잠정 중단이다.
-- 현재 코드를 `src/planning_aware_future_prediction/`, 검사 `tests/`, 실행 `scripts/`로 분리했다.
-  함수·변수·mask·정책 key·CLI를 대상과 역할이 드러나는 이름으로 바꾸고 표준 외부 API는 유지했다.
-- 공식 Drive-JEPA clone을 `reference_repositories/Drive-JEPA/`로 옮겼다. 원본 코드는 변경하지 않았다.
-- 현재 README와 `docs/naming_conventions.md`, `docs/directory_migration.md`를 추가했다.
-  AGENTS에 향후 명명 규칙을 기록하고 home의 AGENTS/WORKSPACE_GUIDE에도 진입점을 남겼다.
-- 새 경로에 CPU venv를 만들고 13개 검사 및 3-seed 합성 학습을 다시 실행했다.
-  63개 policy metric·9개 초기 metric·15개 gradient norm이 이전과 정확히 같았다.
-- 이전 README/raw report·SafeDrive 코드·CSV·checkpoint는 보존했다. 이름 변경과 알고리즘 변경은
-  구분한다. 공용 원본·다른 프로젝트는 수정하지 않았고 GPU도 사용하지 않았다.
+- ChatGPT fe8c930 검토의 합성 oracle 해석을 정정했다. Input exact-match와 relevance reference는
+  이 과제에서 같으며 no-intent 정책은 entity-only임을 명시했다. 과거 raw JSON은 보존했다.
+- Drive-JEPA v1 perception-based encoder/refiner/scorer/loss/targets를 함수 수준에서 감사하고
+  SafeDrive 재사용 후보와 비교했다. Source commit·shape·gradient·특권 입력·비용/미확인을 기록했다.
+- 권고 scaffold와 current/future visual ROI target·teacher·association·planner memory 연결을 설계했다.
+  공식 모델 전체 재현과 신규 scaffold를 구분하고 SafeDrive baseline 연구는 계속 잠정 중단했다.
+- 독립 raw NAVSIM GT-state adapter와 8-waypoint fixture 출력, 실행 CLI 및 검사를 추가했다.
+  Target은 별도 builder; track 순서/소멸/좌표/invalid/timestamp/log 경계를 검사했다.
+- 28/28 unittest, 기존 norm15개 정확한 회귀 일치, 실제 mini 두 구간의 S/P/D gradient·공동 backward·
+  단일 update를 확인했다. 실제 yaw 규약 차이를 공식 NAVSIM에 맞춰 수정했다.
+- CPU 진단 결과 JSON·audit·검증 보고서·연구 상태·README를 갱신했다. Official weights/환경 설치·
+  visual perception 실행·GPU·대규모 cache/학습은 하지 않았다. 공유 원본 hash는 전후 동일했다.
 
-## 4. 다음 단계 — 계산 그래프 검증부터
+## 4. 다음 단계 — 실제 visual entity/target 연결
 
-1. v1 CPU fixture·13개 계약 검사·합성 학습 결과와 한계를 확인한다. 이미 통과한 검사를
-   반복 설계하지 말고 실제 adapter에서 같은 경계가 유지되는지 검증한다.
-   현재 구현은 `src/planning_aware_future_prediction/`에 추가하며 legacy `navsim/`을 임의로 수정하지 않는다.
-2. Drive-JEPA perception-based 내부와 entity/target adapter를 감사하고 baseline을 결정한다.
-   perception-free 분기만으로 직접 연결형 future predictor가 이미 있다고 가정하지 않는다.
+1. `baseline_and_target_adapter_audit.md`와 `navsim_state_adapter_validation.md`를 읽는다.
+   State smoke를 visual perception 검증으로 대신하지 않는다. 추가 synthetic accuracy 튜닝은 불필요하다.
+   Legacy `navsim/`은 보존하고 현재 구현은 `src/planning_aware_future_prediction/`에 추가한다.
+2. 독립 front-encoder 환경·dependency/commit을 고정하고 official weight **한 개만** 골라
+   metadata/state-dict key를 확인해 내려받는다. 전체 weight/cache bundle과 기존 환경 upgrade 금지.
+   현재/future image ROI·동일 track teacher target·미래 memory adapter를 실제 batch로 검사한다.
+   이 gate 후 baseline을 확정한다. SafeDrive로 임의 회귀하지 않는다.
 3. AD-E2E-JEPA·Causal-JEPA·IA-JEPA·SPARTAN·Drive-JEPA 및 직접 관련 연구의 원문/공식 코드로
    선택 대상·맥락/의도 조건·gradient·예산·train/inference·planning 평가 비교표를 완성한다.
    “못 찾음” 또는 두 열의 “아니오”는 novelty 증명이 아니다.
-4. 방향이 성립하면 독립 환경과 최소 NAVSIM batch로 baseline 및 label 경계를 재현한다.
-   이후 동일 K/horizon의 random·강한 규칙·제안 선택을 작게 비교한다. 동적 K/horizon은 보류한다.
+4. Visual batch gate 후 동일 K/horizon의 random·강한 규칙·제안 선택을 작은 공동 학습으로 비교한다.
+   미래 감독 on/off의 동일 모듈 대조 및 현재 feature 전달 대조를 분리한다. 미래 경로 무시/collapse,
+   학습량·parameter 통제를 확인하며 동적 K/horizon과 대규모 학습은 보류한다.
 5. SafeDrive CSV는 별도 CPU motivation 분석에 쓴다. run provenance와 공통 token을 확인하고,
    log-level cross-fitting, 같은 선택 절차의 best-fixed 비교, cluster bootstrap, 정의된 검정군의
    BH-FDR를 사용한다. cross-fitted 규칙을 oracle upper bound라고 부르지 않는다.
@@ -124,7 +144,7 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 공용 원본 직접 수정 금지; 기존 환경/프로세스 보존; 작업공간은 `/rhome/junseong`;
 새 데이터셋 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
 
-**미결**: 최종 baseline, ST surrogate의 실제 데이터 적합성, entity 표현/association, target encoder,
+**미결**: 최종 visual baseline/공식 재현, ST surrogate의 실제 학습 적합성, visual entity/association/target encoder,
 planner가 미래를 실제 쓰는지, 동일 예산 비교군 대비 효과, novelty delta, 독립 holdout.
 현재 ST는 조건부 softmax를 쓰는 편향된 임시 추정이다. CPU 성공을 실제 데이터 성공으로 일반화하지 않는다.
 **명명 규칙 확정**: 프로젝트·파일·class·function·인자·변수·config·result key가 역할을 직접 설명해야 한다.
