@@ -18,13 +18,18 @@
    [200-update 미래 감독 비교](docs/target_supervision_exploration_results.md),
    [저분산 진단·제한1000-update 결과](docs/future_prediction_variance_followup_results.md),
    **최신 [물리·ridge 기준선 / 3-seed residual 기반 판단](docs/pilot_foundation_decision_results.md)**,
-   **다음 진입점 [공개 future-planning 기반 감사 / 선택·예산 계획](docs/public_future_planning_foundation_audit.md)**.
+   [공개 future-planning 기반 감사 / 선택·예산 계획](docs/public_future_planning_foundation_audit.md),
+   **현재 최신 [공식 Drive-JEPA full planning checkpoint 전체 평가](docs/official_drive_jepa_reproduction.md)**.
 4. [명명 규칙](docs/naming_conventions.md), [경로 이전과 호환성](docs/directory_migration.md).
 
 ## 현재 구현과 과거 자산의 구분
 
 최신 사용자 결정: **공식 Drive-JEPA planning checkpoint의 전체 navtest 평가 재현이 최우선**이다.
 설정은 `configs/official_drive_jepa/reproduction_v1.json`. 자체 pilot·확대 학습·WA-JEPA는 보류한다.
+**공식 전체 평가 완료**: navtest12,146scene 전부성공/실패·누락·중복0, PFViT-L PDMS89.224320.
+논문v2 Table2 PF89.0 대비+0.224320점이며정확원인/공식허용오차미확정. GPU0·1평가약12분21초,
+총worker4, 종료후카드해제. 결과 `results/official_drive_jepa_reproduction/`, 보고서에재현명령/근거를기록했다.
+학습/selector 구현은하지않았고이평가를반복하거나다른작업을자동재개하지않는다.
 공식 encoder만 사용했던 pilot은 공식 planning checkpoint 재현이 아니며 모든 기존 자산을 보존한다.
 아래 WA-JEPA 계획은 이전 판단 이력이며 현재 자동 실행하지 않는다.
 현재 pilot은 연결·gradient 진단 자산으로 보존하고 predictor 튜닝/확대 학습은 보류한다.
@@ -114,6 +119,7 @@ CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTEC
 - 작업·변환·cache는 `/rhome/junseong/`; 새 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
 - 승인 GPU는 0·1이며 기존 프로세스를 중지할 권한은 아니다. 현재 CPU 검증에서는 GPU를 쓰지 않는다.
   영상 pilot과200-update 비교는 점유 재확인 후 GPU0만 사용하고 종료했다. 현재 백그라운드 학습은 없다.
+  공식 Drive-JEPA 전체평가는GPU0·1병렬로완료했고현재우리백그라운드평가도없다.
 - Git 원격은 협업 이력 보존을 위해 `JunSeongKW/SafeDrive`, branch `junseong/main`을 유지한다.
   저장소 주소가 현재 연구의 baseline을 의미하지 않는다. 원격 저장소명 자체는 변경하지 않았다.
 - 협업 시작 commit은 `95015df`; 코드·결과·문서를 commit 단위로 공유한다.

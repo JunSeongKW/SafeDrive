@@ -1,0 +1,254 @@
+{
+  "scope": "read-only samples of approved GPUs0/1; no process mutations",
+  "sampling_started_after_evaluation_launch": true,
+  "sampled_peak_not_continuous_cuda_allocator_peak": true,
+  "poll_seconds": 15.0,
+  "sampling_elapsed_seconds": 235.3433560730009,
+  "both_execution_shards_complete": true,
+  "sampled_peak_device_memory_mib_by_gpu": {
+    "0": 7810,
+    "1": 7811
+  },
+  "samples": [
+    {
+      "utc_time": "2026-10-01T12:23:10.745801+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 16
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 27
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:23:26.825802+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 65
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 29
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:23:42.907698+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 33
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 31
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:23:57.962046+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 28
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 44
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:24:14.135919+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 0
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 0
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:24:30.591876+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 26
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 29
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:24:45.662406+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 33
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 34
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:25:01.260394+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 33
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 45
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:25:16.724938+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 0
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 0
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:25:31.864387+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 29
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 4
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:25:47.207894+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 15
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 27
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:26:02.563438+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 29
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 29
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:26:18.576982+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 28
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 7811,
+          "gpu_utilization_percent": 26
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:26:34.283728+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 0
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 3917,
+          "gpu_utilization_percent": 71
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:26:50.038911+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 7810,
+          "gpu_utilization_percent": 18
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 25,
+          "gpu_utilization_percent": 0
+        }
+      ]
+    },
+    {
+      "utc_time": "2026-10-01T12:27:05.960017+00:00",
+      "gpu_records": [
+        {
+          "physical_gpu": 0,
+          "device_total_memory_used_mib": 25,
+          "gpu_utilization_percent": 0
+        },
+        {
+          "physical_gpu": 1,
+          "device_total_memory_used_mib": 25,
+          "gpu_utilization_percent": 0
+        }
+      ]
+    }
+  ]
+}

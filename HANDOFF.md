@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 21:17 KST (Codex)
+마지막 갱신: 2026-10-01 21:39 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -38,7 +38,7 @@ Baseline·visual adapter 감사: [docs/baseline_and_target_adapter_audit.md](doc
   Pilot target 튜닝을 선행 필수 과제로 삼지 않고 공개 future-planning 기반 위에서 직접 검증한다.
 - 관측 마스킹 / 미래 target 선택 / planner 입력 선택을 구분한다. 주 초안은 미래 target 선택.
 - SafeDrive는 기존 motivation 자산과 코드 참고다. 주 baseline으로 임의 회귀하지 않는다.
-- Drive-JEPA는 encoder/재현 후보다. **직접 연결형 future predictor의 확정 baseline은 아니다.**
+- Drive-JEPA의 공식 PF planning 전체 평가는 완료됐다. **직접 연결형 future predictor의 확정 baseline은 아니다.**
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
@@ -53,14 +53,15 @@ Pilot 재개는 별도 사용자 승인 후 기존 config·checkpoint·optimizer
 공식 source `548bb82`의 독립 Conda/worktree, full PF ViT-L planning checkpoint·공식 metric cache 준비 완료.
 세 파일 공식SHA256일치, `pip check`와공식scorer import통과, 3scene full planner/encoder strict·finite·scorer smoke통과.
 공식split12146token/log136/front14247image/cache12146, 누락0. Old split도동일12146이며 oldCSV의12147행은average행 포함이다.
-**GPU0·1 전체 평가 병렬 실행 중**: 각각6075/6071scene,68log,worker2개(총4개), 겹침0/합집합공식전체.
-전용tmux: `tmux -L drive-jepa-official-evaluation ls` (gpu0/gpu1). Raw:
-`outputs/official_drive_jepa_reproduction/full_navtest_gpu{0,1}_v1/`, 로그동일이름`.log`의`logs/`하위.
-완료마커`OFFICIAL_DRIVE_JEPA_EVALUATION_DONE`와공식CSV확인→`audit_official_drive_jepa_evaluation.py --stage summarize --csv-path <gpu0.csv> --csv-path <gpu1.csv>`.
-평균행을제외한원본scene rows를합쳐12146unique/누락0/실패0검사후report한다(두shard평균을단순평균하지않음).
-중단되고CSV가없으면upstream은메모리누적이라정확한중간resume미지원. 로그보존·새run경로로만재시작한다.
-기존singleGPU시작시도는scene평가실행되지않았으며빈로그를보존하고전용tmux로전환했다.
-논문 v2 Table2 perception-free Ours 행 PDMS89.0이 비교 기준이다(encoder-only 또는 PB93.3/93.7 아님).
+**GPU0·1 전체 평가 완료 / 실행 중인 우리 작업 없음**: 각각6075/6071scene,68log,worker2개(총4개).
+21:14:44→21:27:05 KST, 약12분21초. 공식12146scene 전부valid/finite, 실패·누락·중복0.
+PDMS89.224320 vs 논문v2 Table2 PF89.0, +0.224320점. 임의 허용오차로정확재현성공을단정하지않는다.
+두raw CSV의average행을제외한원본scene mean을사용했다. 실제Hydra model/scorer/센서/split이pinned설정과일치.
+Raw `outputs/official_drive_jepa_reproduction/full_navtest_gpu{0,1}_v1/`와`logs/`보존.
+Shared `results/official_drive_jepa_reproduction/full_navtest_results.json`, `official_scene_scores.csv`, `execution_cost.json`.
+보고서 `docs/official_drive_jepa_reproduction.md`에명령/hash/하위metric/차이감사/검수링크를정리했다.
+완료후전용tmux/gpu0·1우리compute process없음(25MiB baseline). Worker증가·재시작·추가평가/학습없음.
+Pilot·WA-JEPA 자동재개금지. 다음활용방향은사용자와결과검토후결정한다.
 
 **실행 중인 학습 없음.** 기준 `607da52`의 373-window cache와 1000-update checkpoint를 재사용했다.
 CPU 기준선·실단위 미래 오차, 한 가지 visual-only residual 대조를 대응 3-seed/새 5000-update로 완료했다.
@@ -73,7 +74,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 
 현재 호스트는 `user-ESC8000A-E11`. 승인 GPU **0·1**, RTX A6000 약48GB.
 조사 초반 타인 CARLA 점유가 있었지만 종료 직전 확인은 각각25MiB/compute process 없음이다.
-이번 신규 실행은CPU뿐이다. 사용 직전에 다시 확인하고 타인프로세스/환경은 건드리지 않는다.
+위 점유 문장은 이전 pilot 조사 당시 이력이다. 이번 공식 평가에서는 점유 재확인 후 GPU0·1을 사용하고 해제했다.
+다음 실행 시 다시 확인하고 타인프로세스/환경은 건드리지 않는다.
 
 이전 중단 작업: O0 epoch 1 / F3 epoch 0 checkpoint라는 인수인계가 있다.
 실제 checkpoint 내부 epoch와 resume 적합성은 이번에 검증하지 않았다.
@@ -81,6 +83,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**최신 공식 Drive-JEPA 실측**: 전체12146scene 성공, NC99.082002/DAC96.558538/EP83.034487/
+Comfort99.983534/TTC96.023382/DDC98.196937/PDMS89.224320. 논문PF89.0 대비+0.224320점의정확원인은미확정.
+Fullplanning checkpoint·독립Conda·공식전처리/scorer이며pilotencoder-only/ADE가아니다.
+실행약741초/총4worker/샘플VRAM GPU0·1 7,810/7,811MiB, 모든scene finite.
+최종JSON/CSV/hash·설정대조/비용과5집계tests/Ruff를공유한다. 아래pilot결과는보존된이력이다.
 
 **최신 실제 결과**: Dev scene-macro ADE 정지9.1239/CV1.0951/CA0.9260/train-fitted ridge0.7677m.
 기존 seed29 A–F/1000은 1.55–1.75m. 대응 3-seed C absolute1.7066±0.0554 vs visual residual1.7545±0.1180m,
@@ -201,33 +209,24 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-**최신 공식 Drive-JEPA 재현 준비**:
-- Clean기준5c6e6d5/우리pilot실행없음 확인. 기존자산·환경·공용데이터/타인프로세스보존, pilot·확대·WA보류.
-- Source548bb82/HF65e0d728/NuPlanv1.2ce3c323/논문v2Table2PF89.0 고정.
-- 전용Conda Python3.9/Torch2.1cu121/PFplanner·scorer, `pip check`/import 통과.
-- Fullplanning3.72GB/cache3.18GB다운로드, 기존encoder5.13GB재사용, 모두SHA256검증.
-- 독립worktree의encoder strict loader최소patch. 새다운로드cache의metadata절대경로만재작성.
-- Completeness12146scene/log136/image14247 누락0, 3scene strict·finite·scorer smoke통과.
-- 사용자추가요구로GPU0·1 execution shard6075/6071,총worker4 병렬전체평가시작. 최종수치미확정.
-- 설정/support/환경freeze·JSON/공유report·시작문서추가. 아래는기존5c6e6d5작업이력이다.
+**공식 Drive-JEPA 전체 평가 종료 (준비 commit18663fc 이후)**:
 
-- CPU 물리/train-fitted ridge·horizon별 spatial m/yaw/velocity·visual 참조를 기존373cache에서 재현.
-- Prior/zero-head/aux-detach 계약과 한 가지 visual-only residual 대응3seed 비교. 기존 C29 재사용/새5000update.
-- Window 대응·recording cluster bootstrap·checkpoint strict/finite/sampler/RNG·전체54tests/Ruff 확인.
-- Trainval/navtrain config 기반 3-way manifest:162group/3620window, cap24/mini-held 제외/nonoverlap 검사.
-- JPEG export 미확정과 민감도 기록. Fail-closed cache runner/200profile·확대 학습 미실행.
-- 공식 WA-JEPA pin/code·공개 weight 용량/hash·tiny attention gradient 확인. ForeDrive 공식 release 미확인.
-- 최신 사용자 지시 반영: pilot 튜닝/확대 보류, 공개 future-planning 기반 공식 재현→선택·평균 예산 연구 우선.
-- 공유 report/JSON/재현 명령/README/AGENTS/HANDOFF/status/일지 갱신. 공용 원본/구결과/SafeDrive/타인 process 보존.
+- 기존 전용Conda/source/checkpoint/cache/preflight/smoke를재사용, 다운로드/학습/추론반복없음.
+- GPU0·1 각각6075/6071scene, 총12146 전부valid/finite, 실패/누락/추가/중복0.
+- Scene 원본평균 PDMS89.224320, 논문PF89.0 대비+0.224320점; 하위공식지표와DDC/원본CSV 공유.
+- 약741초/worker4/샘플VRAM7810·7811MiB. 실제Hydra의model/scorer/split/센서설정일치와log/CSVhash확인.
+- Fail-closed 집계5tests/Ruff통과. NaN을skipna로조용히제외하지않도록guard추가.
+- GPU0·1정상해제/전용tmux종료. 더많은worker는재시작손실과거의완료상태때문에미실행;scaling성능미측정.
+- 재현보고/JSON·sceneCSV·telemetry·비용도구/상태문서갱신. 차이정확원인/공식허용오차는미확정.
+- 기존pilot/SafeDrive자산·공용데이터/타인프로세스·환경보존. Pilot·확대·WA-JEPA자동재개금지.
 
-## 4. 다음 단계 — 공식 Drive-JEPA 재현 (최신 사용자 지시가 아래 과거 계획에 우선)
+## 4. 다음 단계 — 재현 완료 후 검토 (최신 사용자 지시가 아래 과거 계획에 우선)
 
 1. `configs/official_drive_jepa/reproduction_v1.json`의 source/checkpoint/split/scorer를 고정한다.
 2. 독립 Python3.9/Torch2.1+cu121 환경에서 공식 전처리·planner·scorer만 사용한다.
-3. Full planning checkpoint strict loading과 소수 scene smoke→공식 navtest 전체를 평가한다.
-   현재smoke완료/전체GPU0·1실행중이므로반복시작하지않는다. 완료후두CSV원본scene합쳐집계한다.
-4. 예상/성공/실패/누락 scene과 모든 공식 지표·비용·논문 대비 차이를 보고하고 commit/push한다.
-5. 이 보고까지 종료한다. 학습·튜닝·selector 추가와 pilot 자동 재개 금지. WA-JEPA는 이후 별도 결정.
+3. Full planning strict loading/3scene smoke/전체12146scene평가·집계·차이감사가완료됐다. 반복 실행하지 않는다.
+4. `docs/official_drive_jepa_reproduction.md`와JSON/sceneCSV를결과commit으로ChatGPT·Claude에검수공유한다.
+5. 이 보고까지 종료한다. 학습·튜닝·selector 추가와 pilot 자동 재개 금지. WA-JEPA는 이후 별도 사용자 결정.
 
 아래는 `5c6e6d5`까지의 보존된 후속 연구 계획이며 지금 실행하지 않는다.
 
@@ -251,7 +250,7 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 공용 원본 직접 수정 금지; 기존 환경/프로세스 보존; 작업공간은 `/rhome/junseong`;
 새 데이터셋 원본 다운로드만 `/home/user/data/processed_dataset/`에 총 1 TB 한도.
 
-**미결**: 최종 visual/spatial/mixed target/baseline·공식 평가, ST 공동 학습 안정성,
+**미결**: 최종 visual/spatial/mixed target/선택 연구 기반, ST 공동 학습 안정성,
 multiview/occlusion/GT 대체association, 미래 활용·동일 예산 효과·novelty delta·독립 holdout.
 이번1000update도A–E는단일seed(별도E/F만대응2seed)이고persistence를못넘었다.
 이 문장의1000은607da52까지의 이력이다. 이후 C visual-only 대조3seed를 완료했고 공개 기반으로 우선순위가 바뀌었다.
@@ -259,6 +258,8 @@ C/E저분산은추가학습으로개선됐지만 capacity/조건부평균/regula
 JPEG original-distorted 취급은 명시적 운영 가정으로 별도 원본 byte 증거는 없다.
 Frozen visual teacher와 GT ROI는 구현됐지만 deployment perception/일반화는 검증하지 않았다.
 현재 ST는 편향된 임시 추정이다. 작은 연결 검사 성공을 성능·효율로 일반화하지 않는다.
+공식Drive-JEPA PF 전체평가는완료됐으나논문과의차이0.224320점의정확원인/허용오차는미확정이다.
+PF 추론에는별도futurepredictor가없으므로선택적미래예측기반이최종확정됐다고해석하지않는다.
 **명명 규칙 확정**: 프로젝트·파일·class·function·인자·변수·config·result key가 역할을 직접 설명해야 한다.
 현재 작업명은 Planning-Aware Future Prediction이며 최종 논문명·방법명은 미확정이다.
 

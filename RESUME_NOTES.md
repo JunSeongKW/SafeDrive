@@ -1046,3 +1046,26 @@ Fullplanning3.72GB/공식metriccache3.18GB새다운로드, 기존encoder5.13GB�
 사용자추가요청으로전체공식split을GPU0·1 execution shard6075/6071(68log씩)로병렬실행.
 각worker2/총4, CPU스레드1/worker, 겹침0/합집합전체. source/scorer/precision변경없음.
 전용tmux socket drive-jepa-official-evaluation, gpu0/gpu1. 최종수치아직미확정.
+
+## 2026-10-01 — 공식 Drive-JEPA full planning 전체 평가 완료
+
+준비18663fc의 독립Conda/공식source548bb82/공식weight·cache/SHA와preflight·smoke를재사용했다.
+GPU0·1 각각6075/6071scene 성공, 원본평균행을제외하고전체12146scene을합쳐집계했다.
+실패/누락/추가/중복/비유한metric0. NC99.082002/DAC96.558538/EP83.034487/Comfort99.983534/
+TTC96.023382/DDC98.196937/PDMS89.224320. 논문v2Table2 PF89.0 대비+0.224320점.
+원논문run별체크포인트card/환경lock/sceneCSV/공식허용오차없음으로정확원인은미확정이다.
+공식source·checkpoint·변형/split completeness/cache·scorer/전처리·센서/실행환경 순으로 감사했다.
+저장된각Hydra의agent/simulator/scorer/sampling/센서/split/path가고정설정과일치했다.
+수치를맞추기위한추가학습/설정변경/다른ckpt/sweep는없었다.
+
+실제평가21:14:44→GPU1 21:26:34/GPU0 21:27:05 KST, wall약741초.
+GNUtime740.59/710.22초, shardwall합0.403GPU-allocation-hour(실제SM active시간아님).
+GPU0·1총worker4; 도중시작15초표본VRAMpeak7810/7811MiB, 전체연속peak아님.
+Worker증가요청에는upstream 메모리누적/CSV마지막저장과거의완료진행률을확인하고재시작하지않았다.
+Worker scaling benchmark/추가평가없음. 종료후GPU0·1 25MiB/우리compute process없음, tmux세션정상종료.
+다른연구원의GPU3–7 작업/공용데이터/기존cache·환경은건드리지않았다.
+
+Fail-closed 집계5CPUtests(평균행제외·unequal shard/누락/중복/invalid/NaN)와관련Ruff통과.
+OfficialCSV별SHA+정렬sceneCSV/결과JSON/실행비용·Hydrahash/telemetry/report·재현명령을공유한다.
+이것은encoder-only가아닌full planning checkpoint 추론·평가재현이다. 논문정확수치재현/선택·예산효과는미확인.
+PF 추론에는별도future predictor가없다. 자체pilot/확대/WA-JEPA는사용자와결과검토전까지보류한다.

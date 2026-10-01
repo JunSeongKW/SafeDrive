@@ -1,0 +1,64 @@
+{
+  "official_csv_files": [
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/full_navtest_gpu0_v1/2026.10.01.21.27.02.csv",
+      "sha256": "08acb586fefc7c346cff1e661c881afd74df86fb76108f96a2dfc673018953b6"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/full_navtest_gpu1_v1/2026.10.01.21.26.32.csv",
+      "sha256": "cbeb652fae042484f275b53d3fc547af3871e84404436489d1d6e8e18a09b4da"
+    }
+  ],
+  "expected_scenes": 12146,
+  "result_rows": 12146,
+  "successful_scenes": 12146,
+  "failed_scenes": 0,
+  "failed_tokens": [],
+  "nonfinite_metric_tokens": [],
+  "missing_tokens": [],
+  "unexpected_tokens": [],
+  "duplicate_tokens": [],
+  "comparison": {
+    "no_at_fault_collisions": {
+      "paper_percent_score": 98.7,
+      "server_percent_score": 99.08200230528568,
+      "server_minus_paper_percentage_points": 0.38200230528568113
+    },
+    "drivable_area_compliance": {
+      "paper_percent_score": 96.2,
+      "server_percent_score": 96.558537790219,
+      "server_minus_paper_percentage_points": 0.3585377902190032
+    },
+    "ego_progress": {
+      "paper_percent_score": 82.9,
+      "server_percent_score": 83.03448706936945,
+      "server_minus_paper_percentage_points": 0.13448706936944177
+    },
+    "comfort": {
+      "paper_percent_score": 100.0,
+      "server_percent_score": 99.98353367363741,
+      "server_minus_paper_percentage_points": -0.01646632636258971
+    },
+    "time_to_collision_within_bound": {
+      "paper_percent_score": 95.5,
+      "server_percent_score": 96.02338218343488,
+      "server_minus_paper_percentage_points": 0.523382183434876
+    },
+    "score": {
+      "paper_percent_score": 89.0,
+      "server_percent_score": 89.22432019890219,
+      "server_minus_paper_percentage_points": 0.22432019890219124
+    }
+  },
+  "all_server_percent_metrics": {
+    "no_at_fault_collisions": 99.08200230528568,
+    "drivable_area_compliance": 96.558537790219,
+    "ego_progress": 83.03448706936945,
+    "comfort": 99.98353367363741,
+    "time_to_collision_within_bound": 96.02338218343488,
+    "score": 89.22432019890219,
+    "driving_direction_compliance": 98.19693726329656
+  },
+  "judgment": "numeric comparison only; no official tolerance supplied; no arbitrary reproduction-success threshold",
+  "evaluation_complete": true
+}

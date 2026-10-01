@@ -1,0 +1,122 @@
+{
+  "source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "planning_checkpoint_sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237",
+  "execution_shards": [
+    {
+      "wall_seconds": 740.59,
+      "cpu_user_seconds": 1124.17,
+      "cpu_system_seconds": 36.03,
+      "maximum_reported_child_rss_kib_not_sum_of_workers": 7547264.0,
+      "exit_status": 0.0,
+      "started_at": "2026-10-01T21:14:44+09:00",
+      "completed_at": "2026-10-01T21:27:05+09:00",
+      "log_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/logs/full_navtest_gpu0_v1.log",
+      "log_sha256": "85f76f5593991dbe5be499bb135cfd67c1a65bba0ee3faa607cda1e87adeea59",
+      "physical_gpu": 0,
+      "workers": 2,
+      "scene_count": 6075,
+      "actual_hydra_config_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/full_navtest_gpu0_v1/code/hydra/config.yaml",
+      "actual_hydra_config_sha256": "9e31f02ee8a600eef1e867e689ccd40ef583e201e4dc5dbbaefc4a894c45f549",
+      "model_and_scoring_match_pinned_official_configuration": true,
+      "execution_log_filter_matches_precommitted_manifest": true
+    },
+    {
+      "wall_seconds": 710.22,
+      "cpu_user_seconds": 1155.64,
+      "cpu_system_seconds": 51.54,
+      "maximum_reported_child_rss_kib_not_sum_of_workers": 7134856.0,
+      "exit_status": 0.0,
+      "started_at": "2026-10-01T21:14:44+09:00",
+      "completed_at": "2026-10-01T21:26:34+09:00",
+      "log_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/logs/full_navtest_gpu1_v1.log",
+      "log_sha256": "002455d287a60da8f73dfeaca22218228abbe7ab662ff033f7ad219493ae2c96",
+      "physical_gpu": 1,
+      "workers": 2,
+      "scene_count": 6071,
+      "actual_hydra_config_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/full_navtest_gpu1_v1/code/hydra/config.yaml",
+      "actual_hydra_config_sha256": "f627140cff94f99c527b9e7d279ef02d3de5eee6dc861b383484d2e194618539",
+      "model_and_scoring_match_pinned_official_configuration": true,
+      "execution_log_filter_matches_precommitted_manifest": true
+    }
+  ],
+  "common_actual_model_and_scoring_configuration": {
+    "agent": {
+      "_target_": "navsim.agents.drive_jepa_perception_free.drive_jepa_agent.DriveJEPAAgent",
+      "_convert_": "all",
+      "trajectory_sampling": {
+        "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+        "_convert_": "all",
+        "time_horizon": 4,
+        "interval_length": 0.5
+      },
+      "checkpoint_path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+      "pretrain_pt_path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+      "image_architecture": "vit_large",
+      "tf_d_model": 256,
+      "tf_d_ffn": 1024,
+      "tf_num_layers": 3,
+      "tf_num_head": 8,
+      "tf_dropout": 0.0,
+      "lr": 0.0001,
+      "front_only": true,
+      "num_keyval": 129,
+      "freeze_encoder": false,
+      "double_image": true
+    },
+    "proposal_sampling": {
+      "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+      "_convert_": "all",
+      "num_poses": 40,
+      "interval_length": 0.1
+    },
+    "simulator": {
+      "_target_": "navsim.planning.simulation.planner.pdm_planner.simulation.pdm_simulator.PDMSimulator",
+      "_convert_": "all",
+      "proposal_sampling": {
+        "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+        "_convert_": "all",
+        "num_poses": 40,
+        "interval_length": 0.1
+      }
+    },
+    "scorer": {
+      "_target_": "navsim.planning.simulation.planner.pdm_planner.scoring.pdm_scorer.PDMScorer",
+      "_convert_": "all",
+      "proposal_sampling": {
+        "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+        "_convert_": "all",
+        "num_poses": 40,
+        "interval_length": 0.1
+      },
+      "config": {
+        "_target_": "navsim.planning.simulation.planner.pdm_planner.scoring.pdm_scorer.PDMScorerConfig",
+        "_convert_": "all",
+        "progress_weight": 5.0,
+        "ttc_weight": 5.0,
+        "comfortable_weight": 2.0,
+        "driving_direction_weight": 0.0,
+        "driving_direction_horizon": 1.0,
+        "driving_direction_compliance_threshold": 2.0,
+        "driving_direction_violation_threshold": 6.0,
+        "stopped_speed_threshold": 0.005,
+        "progress_distance_threshold": 5.0
+      }
+    }
+  },
+  "started_at": "2026-10-01T21:14:44+09:00",
+  "completed_at": "2026-10-01T21:27:05+09:00",
+  "concurrent_wall_seconds_timestamp_resolution_1s": 741.0,
+  "maximum_per_shard_gnu_time_wall_seconds": 740.59,
+  "sum_shard_wall_seconds_divided_by_3600_gpu_allocation_hours_not_device_active_hours": 0.40300277777777777,
+  "successful_scenes_per_concurrent_wall_second": 16.39136302294197,
+  "sampled_peak_device_memory_mib_by_gpu": {
+    "0": 7810,
+    "1": 7811
+  },
+  "memory_measurement_limitations": "Telemetry started after launch and is sampled; GPU values include all device allocations, and GNU time RSS is not the sum of concurrent processes.",
+  "duration_scope": "Full evaluation launch to completion only; excludes environment preparation, downloads, preflight and smoke.",
+  "worker_count_changed_during_run": false,
+  "worker_scaling_benchmark_performed": false,
+  "shared_original_dataset_modified": false,
+  "training_or_finetuning_performed": false
+}

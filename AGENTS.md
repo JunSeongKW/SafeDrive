@@ -39,6 +39,9 @@ visual-only residual 대응3seed 비교를 완료했다. Pilot은 ridge보다 �
 진입점 `docs/official_drive_jepa_reproduction.md`, `configs/official_drive_jepa/reproduction_v1.json`.
 독립 Conda/worktree와 공식 전처리·planner·scorer만 사용. Pilot encoder-only 결과와 구분한다.
 이 작업에서는 학습·fine-tuning·selector·WA-JEPA 실행 금지. 재현 보고 후 pilot을 자동 재개하지 않는다.
+공식full PFViT-L/navtest 전체평가가완료됐다:12146성공/실패·누락·중복0,PDMS89.224320.
+`results/official_drive_jepa_reproduction/full_navtest_results.json`과report를먼저읽고평가를반복하지않는다.
+논문과의차이0.224320점의정확원인/허용오차는미확정이며선택·예산가설의검증결과가아니다.
 
 ## 세션 시작 루틴
 

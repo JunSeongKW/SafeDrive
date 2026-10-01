@@ -5,9 +5,13 @@
 사용자 지시로pilot개발·데이터확대·추가학습은보류. WA-JEPA도다음순위다.
 `5c6e6d5`를기준으로전용Conda/공식source별도worktree/PFViT-Lfullplanning checkpoint를준비했다.
 공식v1 navtest12146token의로그·현재front·공식metric cache completeness통과, 3scene strict/scorer smoke완료.
-GPU0·1에겹침없는6075/6071scene execution shard로전체추론·평가실행중(최종수치아직없음).
+GPU0·1에겹침없는6075/6071scene execution shard로전체추론·평가완료:12,146scene 전부valid/finite,
+실패·누락·중복0. PDMS89.224320 vs 논문89.0(+0.224320점), 전체wall약741초/총worker4.
+실제Hydra의모델·scorer·입력·split일치확인, 원본scene별CSV와비용·telemetry·5개결과검사공유.
+GPU0·1해제, 자체pilot/WA-JEPA자동재개없음. 허용오차/원논문실행별상세provenance가없어정확재현성공단정금지.
 진입점: [공식재현보고](official_drive_jepa_reproduction.md), `configs/official_drive_jepa/reproduction_v1.json`.
-종료점은논문Table2 PF89.0과전체공식지표대조·commit/push다. Pilot·WA를자동재개하지않는다.
+종료점인논문Table2 PF89.0과전체공식지표대조까지완료했다. Pilot·WA를자동재개하지않는다.
+이번PF forward는별도future predictor 없이encoder→공식trajectory decoder이므로선택연구기반확정으로부르지않는다.
 
 ## 최신 결정 — `607da52` 이후
 

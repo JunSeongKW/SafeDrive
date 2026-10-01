@@ -264,12 +264,17 @@ def summarize_official_evaluation(workspace, specification, csv_paths):
     expected_tokens = set(json.loads((workspace / "results/official_drive_jepa_reproduction/expected_scene_tokens.json").read_text())["tokens"])
     actual_tokens = set(scene_results["token"])
     paper_scores = specification["paper"]["reported_percent_scores"]
-    finite_metrics = np.isfinite(scene_results[list(paper_scores)].to_numpy()).all(axis=1)
+    metric_columns = list(paper_scores)
+    if "driving_direction_compliance" in scene_results:
+        metric_columns.append("driving_direction_compliance")
+    finite_metrics = np.isfinite(scene_results[metric_columns].to_numpy()).all(axis=1)
     successful_rows = scene_results[scene_results["valid"].eq(True) & finite_metrics]
+    def server_mean(metric):
+        return float(successful_rows[metric].mean() * 100) if len(successful_rows) else None
     comparison = {metric: {
         "paper_percent_score": reported_score,
-        "server_percent_score": float(successful_rows[metric].mean() * 100),
-        "server_minus_paper_percentage_points": float(successful_rows[metric].mean() * 100 - reported_score),
+        "server_percent_score": server_mean(metric),
+        "server_minus_paper_percentage_points": server_mean(metric) - reported_score if len(successful_rows) else None,
     } for metric, reported_score in paper_scores.items()}
     report = {
         "official_csv_files": [{"path": str(csv_path.resolve()), "sha256": hashlib.sha256(csv_path.read_bytes()).hexdigest()} for csv_path in csv_paths],
@@ -283,7 +288,7 @@ def summarize_official_evaluation(workspace, specification, csv_paths):
         "unexpected_tokens": sorted(actual_tokens - expected_tokens),
         "duplicate_tokens": scene_results["token"][scene_results["token"].duplicated()].tolist(),
         "comparison": comparison,
-        "all_server_percent_metrics": {metric: float(successful_rows[metric].mean() * 100) for metric in scene_results.columns if metric not in ("token", "valid", "Unnamed: 0")},
+        "all_server_percent_metrics": {metric: server_mean(metric) for metric in metric_columns},
         "judgment": "numeric comparison only; no official tolerance supplied; no arbitrary reproduction-success threshold",
     }
     report["evaluation_complete"] = (
