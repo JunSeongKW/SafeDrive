@@ -35,6 +35,7 @@ def must_stop(directory):
     return (
         STOP_REQUESTED
         or (directory / "pause.json").exists()
+        or (ROOT / "overnight_sequence_20261003/pause.json").exists()
         or datetime.now().astimezone() >= DEADLINE
     )
 
@@ -94,11 +95,192 @@ def run_stage(directory, name, script, arguments, gpu=True):
     return result
 
 
+def run_projection_series(directory):
+    stages = []
+    predecessor = ROOT / "overnight_sequence_20261003"
+    try:
+        while not (predecessor / "completion.json").exists():
+            if must_stop(directory) or (predecessor / "stopped.json").exists():
+                raise RuntimeError("Deadline/pause/predecessor stopped; no GPU launch")
+            save(
+                directory / "active_stage.json",
+                {
+                    "stage": "waiting_for_coverage_sequence",
+                    "checked_at": datetime.now().astimezone().isoformat(),
+                },
+            )
+            time.sleep(10)
+        output = ROOT / "overnight_projection_transfer_v1_20261003"
+        stages.append(
+            run_stage(
+                directory,
+                "projection_transfer_training",
+                "run_drive_jepa_causal_followup.py",
+                [
+                    "--config",
+                    str(
+                        WORKSPACE
+                        / "configs/drive_jepa_selective_future/overnight_projection_transfer_v1.json"
+                    ),
+                    "--output-directory",
+                    str(output),
+                ],
+            )
+        )
+        stages.append(
+            run_stage(
+                directory,
+                "export_projection_results",
+                "summarize_drive_jepa_causal_followup.py",
+                [
+                    "--run-directory",
+                    str(output),
+                    "--share-directory",
+                    str(
+                        WORKSPACE
+                        / "results/drive_jepa_selective_future/overnight_projection_transfer_v1_20261003"
+                    ),
+                ],
+                gpu=False,
+            )
+        )
+        conservative_output = ROOT / "overnight_conservative_adaptation_v1_20261003"
+        stages.append(
+            run_stage(
+                directory,
+                "conservative_adaptation_training",
+                "run_drive_jepa_causal_followup.py",
+                [
+                    "--config",
+                    str(
+                        WORKSPACE
+                        / "configs/drive_jepa_selective_future/overnight_conservative_adaptation_v1.json"
+                    ),
+                    "--output-directory",
+                    str(conservative_output),
+                ],
+            )
+        )
+        stages.append(
+            run_stage(
+                directory,
+                "export_conservative_results",
+                "summarize_drive_jepa_causal_followup.py",
+                [
+                    "--run-directory",
+                    str(conservative_output),
+                    "--share-directory",
+                    str(
+                        WORKSPACE
+                        / "results/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003"
+                    ),
+                ],
+                gpu=False,
+            )
+        )
+        sharing = commit_completed_results(directory)
+        save(
+            directory / "completion.json",
+            {
+                "complete": True,
+                "stages": stages,
+                "sharing": sharing,
+                "ended_at": datetime.now().astimezone().isoformat(),
+            },
+        )
+        print("PROJECTION_TRANSFER_SEQUENCE_COMPLETE", flush=True)
+    except BaseException as error:
+        save(
+            directory / "stopped.json",
+            {
+                "reason": repr(error),
+                "completed_stages": stages,
+                "automatic_retry": False,
+            },
+        )
+        raise
+
+
+def commit_completed_results(directory):
+    """Commit only known generated evidence, never somebody else's staged work."""
+    branch = subprocess.check_output(
+        ["git", "branch", "--show-current"], cwd=WORKSPACE, text=True
+    ).strip()
+    if branch != "junseong/main":
+        return {"committed": False, "reason": "Unexpected branch; preserve all results"}
+    paths = []
+    for run_name in (
+        "overnight_coverage_training_v1_20261003",
+        "overnight_projection_transfer_v1_20261003",
+        "overnight_conservative_adaptation_v1_20261003",
+    ):
+        for filename in (
+            "summary.json",
+            "source.json",
+            "gradient_and_dependence.json",
+            "window_results.csv",
+        ):
+            path = Path("results/drive_jepa_selective_future") / run_name / filename
+            if not (WORKSPACE / path).is_file():
+                raise RuntimeError("Missing generated evidence before scoped commit")
+            paths.append(str(path))
+    subprocess.run(["git", "add", "--", *paths], cwd=WORKSPACE, check=True)
+    subprocess.run(
+        [
+            "git",
+            "commit",
+            "--only",
+            "-m",
+            "[exp] preserve completed overnight coverage projection and adaptation results",
+            "--",
+            *paths,
+        ],
+        cwd=WORKSPACE,
+        check=True,
+    )
+    commit = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=WORKSPACE, text=True
+    ).strip()
+    environment = {**os.environ, "GIT_TERMINAL_PROMPT": "0"}
+    try:
+        pushed = subprocess.run(
+            ["git", "push", "mine", "junseong/main"],
+            cwd=WORKSPACE,
+            env=environment,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=45,
+            check=False,
+        )
+        (directory / "push.log").write_text(pushed.stdout)
+        return {
+            "committed": True,
+            "commit": commit,
+            "pushed": pushed.returncode == 0,
+            "push_returncode": pushed.returncode,
+        }
+    except subprocess.TimeoutExpired:
+        return {
+            "committed": True,
+            "commit": commit,
+            "pushed": False,
+            "reason": "Push timed out; local results preserved",
+        }
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--detach", action="store_true")
+    parser.add_argument(
+        "--series", choices=["coverage", "projection"], default="coverage"
+    )
     args = parser.parse_args()
-    directory = ROOT / "overnight_sequence_20261003"
+    directory = ROOT / (
+        "overnight_sequence_20261003"
+        if args.series == "coverage"
+        else "overnight_projection_sequence_20261003"
+    )
     directory.mkdir(exist_ok=True)
     if args.detach:
         import fcntl
@@ -108,7 +290,13 @@ def main():
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         with (directory / "supervisor.log").open("a") as log:
             child = subprocess.Popen(
-                [str(PYTHON), "-u", str(Path(__file__).resolve())],
+                [
+                    str(PYTHON),
+                    "-u",
+                    str(Path(__file__).resolve()),
+                    "--series",
+                    args.series,
+                ],
                 cwd=WORKSPACE,
                 stdout=log,
                 stderr=subprocess.STDOUT,
@@ -130,6 +318,8 @@ def main():
         return
     for signum in (signal.SIGINT, signal.SIGTERM):
         signal.signal(signum, request_stop)
+    if args.series == "projection":
+        return run_projection_series(directory)
     first_run = ROOT / "overnight_causal_followup_v1_20261003"
     stages = []
     try:

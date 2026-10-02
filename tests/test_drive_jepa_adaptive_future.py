@@ -12,6 +12,7 @@ from planning_aware_future_prediction.models.drive_jepa_adaptive_future import (
     DriveJEPAAdaptiveFuture,
     EgoQueryPatchSelector,
     LowRankAdaptedLinear,
+    configure_future_projection,
 )
 
 
@@ -140,3 +141,39 @@ def test_no_future_gt_forward_and_invalid_mask_safety():
     assert graph.compute_future_auxiliary_loss(output, status, target, mask).item() == 0
     with pytest.raises(ValueError):
         graph.compute_future_auxiliary_loss(output, status, target, mask.float())
+
+
+@pytest.mark.parametrize("mode", ["frozen_random", "frozen_official", "lora_official"])
+def test_prior_projection_preserves_official_weights_and_gradient_path(mode):
+    graph, current, status = make_graph()
+    original = {
+        name: parameter.detach().clone()
+        for name, parameter in graph.baseline_model.named_parameters()
+    }
+    random_projection = graph.future_bridge.future_projection.weight.detach().clone()
+    configure_future_projection(graph, mode, seed=29)
+    # Compare inference to inference; trainable enabled intermediates otherwise
+    # disable a Transformer fastpath while the frozen disabled path may use it.
+    with torch.no_grad():
+        disabled = graph.forward_cached_observations(
+            current, status, enable_future_branch=False
+        )
+        enabled = graph.forward_cached_observations(current, status)
+    assert torch.equal(disabled["trajectory"], enabled["trajectory"])
+    projection = graph.future_bridge.future_projection
+    if mode == "frozen_random":
+        assert torch.equal(projection.weight, random_projection)
+    else:
+        assert torch.equal(projection(current), graph.baseline_model.image_fc(current))
+    nn.init.normal_(graph.future_bridge.output_projection.weight, std=0.01)
+    graph.forward_cached_observations(current, status)[
+        "trajectory"
+    ].square().mean().backward()
+    assert gradient_norm(graph.patch_selector) > 0
+    assert gradient_norm(graph.future_predictor) > 0
+    if mode == "lora_official":
+        assert projection.output_factor.grad.norm() > 0
+        assert gradient_norm(projection.frozen_linear) == 0
+    for name, parameter in graph.baseline_model.named_parameters():
+        assert torch.equal(original[name], parameter)
+        assert parameter.grad is None

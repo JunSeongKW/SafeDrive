@@ -12,6 +12,7 @@ import json
 import math
 import os
 import signal
+import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
@@ -33,9 +34,13 @@ from validate_drive_jepa_selective_future_connection import (
     parameter_sha256,
 )
 
+from planning_aware_future_prediction.models.drive_jepa_adaptive_future import (
+    configure_future_projection,
+)
 from planning_aware_future_prediction.models.future_gradient_routing import (
     freeze_parameter_gradients,
     project_auxiliary_gradient,
+    relative_memory_residual_penalty,
     uniform_xy_ade_with_heading,
     use_current_feature_prediction,
 )
@@ -180,6 +185,9 @@ def run_condition(
         / f"{architecture}_seed{seed}/auxiliary_warmup_complete.pt"
     )
     restore_delta(model, warmup_path)
+    configure_future_projection(
+        model, options.get("future_projection", "learned_random"), seed
+    )
     initial_hashes = module_hashes(model)
     current_feature_control = intervention == "current_feature_control"
     if current_feature_control:
@@ -259,6 +267,8 @@ def run_condition(
         ],
         weight_decay=specification["weight_decay"],
     )
+    for group in optimizer.param_groups:
+        group["lr"] *= options.get("learning_rate_scale", 1.0)
     scheduler = torch.optim.lr_scheduler.LambdaLR(
         optimizer,
         lambda step: (
@@ -384,7 +394,28 @@ def run_condition(
             weighted_auxiliary = (
                 specification["future_auxiliary_weight"] * auxiliary_loss
             )
-            combined_loss = planning_loss + weighted_auxiliary
+            memory_penalty = planning_loss.new_zeros(())
+            if options.get("memory_penalty_weight", 0):
+                with torch.no_grad():
+                    observed_grid = (
+                        batch["current_patch_latents"]
+                        .reshape(-1, 16, 32, 1024)
+                        .permute(0, 3, 1, 2)
+                    )
+                    pooled = (
+                        model.baseline_model.avg_pool(observed_grid)
+                        .flatten(-2, -1)
+                        .permute(0, 2, 1)
+                    )
+                    current_memory = model.baseline_model.image_fc(pooled)
+                memory_penalty = relative_memory_residual_penalty(
+                    result["future_memory_residual"], current_memory
+                )
+            combined_loss = (
+                planning_loss
+                + weighted_auxiliary
+                + options.get("memory_penalty_weight", 0) * memory_penalty
+            )
             if not torch.isfinite(combined_loss):
                 raise RuntimeError("Nonfinite loss")
             projection = None
@@ -421,6 +452,7 @@ def run_condition(
                     "update": update,
                     "planning_loss": float(planning_loss.detach()),
                     "auxiliary_loss": float(auxiliary_loss.detach()),
+                    "relative_memory_energy": float(memory_penalty.detach()),
                     "gradient_norm": float(norm),
                     "projection": projection,
                 }
@@ -522,6 +554,22 @@ def main():
     if snapshot.is_file() and json.loads(snapshot.read_text()) != specification:
         raise RuntimeError("Output configuration mismatch")
     write_json(snapshot, specification)
+    if not (output / "execution_provenance.json").exists():
+        write_json(
+            output / "execution_provenance.json",
+            {
+                "project_commit": subprocess.check_output(
+                    ["git", "rev-parse", "HEAD"], cwd=WORKSPACE, text=True
+                ).strip(),
+                "config_sha256": file_sha256(config_path),
+                "runner_sha256": file_sha256(Path(__file__).resolve()),
+                "cache_index_sha256": file_sha256(
+                    WORKSPACE / specification["reused_cache"]
+                ),
+                "physical_gpu": os.environ["CUDA_VISIBLE_DEVICES"],
+                "started_at": datetime.now().astimezone().isoformat(),
+            },
+        )
     for signum in (signal.SIGINT, signal.SIGTERM):
         signal.signal(signum, request_stop)
     torch.set_num_threads(1)

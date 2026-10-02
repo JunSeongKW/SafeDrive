@@ -111,25 +111,96 @@ def main():
         for report in reports
         if report["condition"] == specification["conditions"][0]
     }
+    external_reference_provenance = None
+    if "ego_reference" not in windows_by_condition:
+        workspace = Path(__file__).resolve().parents[1]
+        reference_directory = workspace / specification["paired_reference_run"]
+        reference_specification = json.loads(
+            (reference_directory / "specification.json").read_text()
+        )
+        for key in (
+            "reused_cache",
+            "warmup_root",
+            "seeds",
+            "joint_updates",
+            "batch_size",
+            "learning_rate",
+            "selector_learning_rate",
+            "future_auxiliary_weight",
+            "weight_decay",
+            "gradient_clip_norm",
+        ):
+            if specification[key] != reference_specification[key]:
+                raise RuntimeError(f"External paired reference differs on {key}")
+        reference_windows = {}
+        for seed in specification["seeds"]:
+            reference = json.loads(
+                (
+                    reference_directory / f"ego_reference_seed{seed}/results.json"
+                ).read_text()
+            )
+            reference_windows[seed] = reference["evaluations"][final_update][
+                "development"
+            ]["windows"]
+            if any(
+                report["batch_schedule_sha256"] != reference["batch_schedule_sha256"]
+                for report in reports
+                if report["seed"] == seed
+            ):
+                raise RuntimeError("Unpaired training schedule in reference comparison")
+        external_reference_provenance = str(reference_directory)
+    else:
+        reference_windows = windows_by_condition["ego_reference"]
     comparisons = {
         "against_original": {
             condition: paired_recording_comparison(windows, baseline)
             for condition, windows in windows_by_condition.items()
         },
         "against_ego_reference": {
-            condition: paired_recording_comparison(
-                windows, windows_by_condition["ego_reference"]
-            )
+            condition: paired_recording_comparison(windows, reference_windows)
             for condition, windows in windows_by_condition.items()
             if condition != "ego_reference"
         },
     }
+    comparisons["against_matched_reference"] = {}
+    for condition, windows in windows_by_condition.items():
+        default_reference = (
+            "mlp_reference"
+            if condition.startswith("mlp_") and condition != "mlp_reference"
+            else "ego_reference"
+        )
+        reference_name = (
+            specification.get("condition_options", {})
+            .get(condition, {})
+            .get("reference_condition", default_reference)
+        )
+        if condition == reference_name:
+            continue
+        if reference_name in windows_by_condition:
+            matched_windows = windows_by_condition[reference_name]
+        elif external_reference_provenance is not None:
+            matched_windows = {
+                seed: json.loads(
+                    (
+                        Path(external_reference_provenance)
+                        / f"{reference_name}_seed{seed}/results.json"
+                    ).read_text()
+                )["evaluations"][final_update]["development"]["windows"]
+                for seed in specification["seeds"]
+            }
+        else:
+            continue
+        comparisons["against_matched_reference"][condition] = {
+            "reference_condition": reference_name,
+            **paired_recording_comparison(windows, matched_windows),
+        }
     write_json(
         share / "summary.json",
         {
             "specification": specification,
             "completion": completion,
             "aggregate": aggregate,
+            "external_reference_run": external_reference_provenance,
             "paired_comparisons": comparisons,
             "interpretation": "exploratory repeated-development comparison; not independent or safety/PDMS validation; no multiplicity correction",
         },

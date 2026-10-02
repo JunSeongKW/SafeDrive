@@ -190,3 +190,68 @@ Evidence: [summary and paired intervals](../results/drive_jepa_selective_future/
 The local preregistration was8f5b18d; coverage/queue code is9b28ebc. GitHub push
 failed because the configured credential socket is unavailable. Local commits
 and results remain intact; remote visibility must not be claimed.
+
+## Future projection transfer hypothesis
+
+Direct code inspection shows that the bridge initializes a new1024→256 future
+projection, although the frozen original planner already has an `image_fc` with
+that shape. The original projection was trained on pooled current features;
+selected future patch features need not share that distribution. Reusing it is
+therefore a hypothesis, not an established alignment or guaranteed improvement.
+
+Register three further ego-query conditions on the same512/192 cache and exact
+800-update/3-seed schedule, after the coverage study finishes:
+
+- Frozen random projection: isolate removing projection update capacity.
+- Frozen copy of official `image_fc`: isolate pretrained projection initialization
+  relative to the frozen random control.
+- Official projection plus rank4/alpha4 LoRA: test limited trainable adaptation
+  relative to frozen official projection.
+
+The existing coverage ego reference supplies the learned-random projection row;
+do not retrain it. Other module initialization, preserved predictor warmup,
+sample order, targets, losses and original planner remain matched. All copied
+official parameters stay frozen. LoRA applies to the **future projection**, not
+the encoder or original trajectory planner. Active capacities are reported.
+
+The [LoRA paper, §4.1](https://arxiv.org/html/2106.09685v2#S4.SS1) supplies the
+frozen-weight plus scaled low-rank-update idea. Our existing local implementation
+uses Kaiming input-factor initialization and a zero output factor rather than
+the paper's stated Gaussian input initialization; this is not a paper result
+reproduction. Zero output factor makes initial projection exactly official.
+
+Config `overnight_projection_transfer_v1.json`:9 additional runs/7,200 updates,
+same09:00 deadline, two-hour series cap, no new cache. CPU contracts test initial
+identity, gradient flow, and preservation of original parameters. The second
+queue waits for the first queue's completion, so the two do not use GPU1 together.
+This comparison targets how selected futures enter the preserved planner, not a
+new predictor research question. Results are not yet available at registration.
+
+## Conservative adaptation controls
+
+The longer fits degrade after early development improvements on both the small
+and added-recording sets. Inference half-gain helped one historical model but
+training half-gain did not reliably preserve that benefit. A learnable bridge
+can offset a fixed gain; limiting its residual energy is a different test.
+
+Register `overnight_conservative_adaptation_v1.json`: MLP and ego-query each get
+two separate conditions, never combined: all learning rates scaled by0.2, or
+an extra relative-memory-energy penalty with weight1. The latter is
+mean(residual²)/mean(frozen-current-memory²), averaged per sample, and equals0.01
+for a residual with10% of current RMS. The coefficient is fixed before these
+runs; there is no grid search. Targets and future auxiliary weight stay fixed.
+This is a dimensionless L2 regularizer, not a formal trust-region guarantee.
+
+Twelve paired-seed runs use the same512/192 data, same800 updates and matching
+warmup/batch schedules as their MLP/ego references. Report the final fixed step
+and separate regularization loss. Added-dev has already informed this hypothesis,
+so this stage is explicitly further development, not independent confirmation.
+The projection queue executes it only after the prior stages succeed and before
+09:00. In total this night's registered work is69 runs/46,800 joint updates
+(21×400 +27×800 +9×800 +12×800), with time and memory caps taking precedence.
+
+When all stages finish, the supervisor commits only the twelve known generated
+evidence files from the three later result directories, never unrelated staged
+work. It attempts the authorized `mine junseong/main` push once; credential
+failure is recorded and does not erase local results. It does not edit scientific
+conclusions automatically or declare the research hypothesis established.

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 01:18 KST (Codex)
+마지막 갱신: 2026-10-03 01:37 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -97,6 +97,11 @@ Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_2026
 실제상태는 `outputs/drive_jepa_selective_future/overnight_sequence_20261003/active_stage.json`을본다.
 01:14KST queue PID2134994, cache child2135322를확인했다. PID는재사용가능하므로추후실제명령/상태재확인.
 원격push는credential socket오류로실패. 로컬commit과공유결과디렉토리는보존한다.
+후속cache704개완료:301.14초/신규6,042,394,944bytes/reused128/allocated1.207GiB/원본hash불변.
+추가futureprojection3조건×3seed와보수적LR/메모리정규화4조건×3seed를별도등록했다.
+현재27run후에GPU1순차실행하며no-new-cache/동일800update/pairedbatch/09:00상한을지킨다.
+`overnight_projection_sequence_20261003/`는coveragequeue완료를기다린후실행하며동시GPU점유하지않는다.
+전체등록69run/46800jointupdate이며시간·메모리·실패stop우선.끝나면알려진결과파일만scope한commit/push시도.
 기본격리환경CUDA접근실패는업데이트전이며호스트실행으로전환했다. CPU124tests통과.
 아래 완료/진행 문장은 해당 과거 실행 이력이다.
 
@@ -371,6 +376,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 사용자밤샘자율실험승인 반영/09:00KST마감·공유GPU상한 고정.
 - 후속704표본선정/미래validity미사용·노출dev제외·기존train포함검사/9GiB상한을등록했다.
 - 복구가능학습runner에고정/무작위선택·현재feature대조·nested128/512조건을추가,야간단일GPUqueue구현.
+- 기존공식image_fc복사/동결·rank4LoRA 미래projection대조와낮은LR/relative-memory-L2대조를추가등록.
+- 원본projection/encoder/planner는수정하지않음.초기동일성은동일no_grad실행조건에서검사한다.
 - 기존모델읽기전용원인진단script 및 gradient-routing모듈/검사/복구가능run/config/계획추가.
 - 원본frozenplanner/기존cache/checkpoint보존. 이번결과는실행후별도기록한다.
 

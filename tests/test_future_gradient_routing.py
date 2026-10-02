@@ -5,6 +5,7 @@ from torch import nn
 from planning_aware_future_prediction.models.future_gradient_routing import (
     freeze_parameter_gradients,
     project_auxiliary_gradient,
+    relative_memory_residual_penalty,
     uniform_xy_ade_with_heading,
     use_current_feature_prediction,
 )
@@ -81,3 +82,22 @@ def test_current_feature_control_restores_predictor_and_preserves_input_gradient
     assert observed.grad.norm() > 0
     assert all(parameter.grad is None for parameter in predictor.parameters())
     assert torch.equal(original, predictor(observed))
+
+
+def test_memory_penalty_is_scale_normalized_with_detached_reference():
+    reference = torch.ones(2, 4, 3, requires_grad=True)
+    residual = torch.full((2, 4, 3), 0.1, requires_grad=True)
+    penalty = relative_memory_residual_penalty(residual, reference)
+    torch.testing.assert_close(penalty, torch.tensor(0.01))
+    torch.testing.assert_close(
+        penalty, relative_memory_residual_penalty(residual * 3, reference * 3)
+    )
+    penalty.backward()
+    assert residual.grad.norm() > 0
+    assert reference.grad is None
+    assert (
+        relative_memory_residual_penalty(
+            torch.zeros_like(residual), torch.zeros_like(reference)
+        )
+        == 0
+    )

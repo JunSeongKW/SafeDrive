@@ -40,6 +40,30 @@ class LowRankAdaptedLinear(nn.Module):
         )
 
 
+def configure_future_projection(model, projection_mode, seed):
+    """Controlled frozen/random/official/LoRA future-memory projection.
+
+    Called after loading the common warmup state. Original image_fc is copied,
+    never mutated. This changes only the future bridge's projection, not encoder,
+    current memory, trajectory decoder, target definition or auxiliary weights.
+    """
+    if projection_mode == "learned_random":
+        return
+    if projection_mode == "frozen_random":
+        model.future_bridge.future_projection.requires_grad_(False)
+        return
+    if projection_mode not in ("frozen_official", "lora_official"):
+        raise ValueError("Unregistered future projection mode")
+    projection = copy.deepcopy(model.baseline_model.image_fc).requires_grad_(False)
+    if projection_mode == "lora_official":
+        # Keep other module initialization and training RNG untouched.
+        devices = [projection.weight.device.index] if projection.weight.is_cuda else []
+        with torch.random.fork_rng(devices=devices):
+            torch.manual_seed(seed + 50000)
+            projection = LowRankAdaptedLinear(projection, rank=4, alpha=4)
+    model.future_bridge.future_projection = projection
+
+
 class FutureBranchLoRAEncoderTail(nn.Module):
     """Last official ViT blocks copied, with only QKV low-rank factors trainable."""
 

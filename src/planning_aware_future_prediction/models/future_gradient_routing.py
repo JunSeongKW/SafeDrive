@@ -83,3 +83,14 @@ def uniform_xy_ade_with_heading(prediction, target, heading_weight=0.1):
         torch.atan2(heading_difference.sin(), heading_difference.cos()).abs().mean()
     )
     return xy_error + heading_weight * heading_error
+
+
+def relative_memory_residual_penalty(future_memory_residual, current_image_memory):
+    """Dimensionless residual energy anchored to frozen current-memory energy.
+
+    This is an L2 regularizer, not a constrained optimization guarantee. Current
+    reference energy is detached; no future labels enter the penalty.
+    """
+    residual_energy = future_memory_residual.square().mean(dim=(1, 2))
+    reference_energy = current_image_memory.detach().square().mean(dim=(1, 2))
+    return (residual_energy / reference_energy.clamp_min(1e-8)).mean()
