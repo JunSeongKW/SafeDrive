@@ -1,15 +1,16 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 02:33 KST (Codex)
+마지막 갱신: 2026-10-03 02:55 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **현재 우선 작업(2026-10-03 밤샘 승인)**: [원인 분리·재학습 계획](docs/drive_jepa_overnight_causal_followup.md).
 사용자가 추가 질문 없이 다음 오전09:00KST까지 명제를 유지한 실험·문헌 조사·기록을 승인했다.
 기준8159aad, 원인진단 및7조건×3seed×400update를완료했다. 모두고정400update dev평균은원본보다나쁘다.
-소규모데이터에서의gradient/목적함수변경만으로성능이회복되지않았다. 후속coverage27run도완료했다.
+첫 단계69run/46,800update와 실제 모델6,144번patch교체 진단까지 모두완료했다.
 추가dev 원본0.352210/MLPlearned0.361504/random0.351212m; learned 우월성 없음.
-Projection 이전9run 실행 중이며 이후 보수적 adaptation12run이 순차 실행된다.
+낮은LR MLP0.347694/ego0.346338m은 개선경향이나 원본대비cluster CI가0포함한다.
+다음 별도등록18run은 낮은LR fixed/random/jointaux-off/currentfeature대조다. 완료learned모델재사용.
 GPU1단일process/16GiB입장·6GiBreserve·allocated8GiB상한, 원본/공용데이터/WA중단상태 보존.
 아래 '학습 없음/새학습 자동금지'는 이전 완료 시점 이력이며 이번 명시적 승인 범위에는 적용하지 않는다.
 
@@ -88,7 +89,13 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-최신: 첫21run과 coverage27run 완료. Projection queue가 후속9run 실행 중,12run 대기.
+최신: 최초69run과 선택진단은 모두 종료. 별도 matched-conservative-selection18run을 등록했다.
+진입점 `configs/drive_jepa_selective_future/matched_conservative_selection_v1.json`,
+`run_drive_jepa_overnight_sequence.py --series matched_selection --detach`.
+상태 `outputs/drive_jepa_selective_future/matched_conservative_selection_sequence_20261003/active_stage.json`.
+기존 낮은LR learned6run을 재사용하고 같은800update의18개 대조만 새로 실행한다.
+09:00 또는2시간/메모리guard/실패stop; 새 cache·heldout/navtest·WA/pilot 없음.
+아래는 이 밤샘 작업의 앞선 실행 이력이며 실제 실행 여부는 각 completion/stopped marker를 우선한다.
 기존 checkpoint 진단은 완료(149초/1.571GiB). 단순 과적합으로 확정하지 않고 gradient결합,
 fusion 강도, 선택 이동, 목적함수를 분리한다. `latest.pt`에25update마다복구상태저장/--resume제공.
 Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/`.
@@ -473,8 +480,8 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-최신: 등록된 projection/conservative 실험을 마친 뒤 전체69run을 CPU 감사한다.
-이어32train recording에서 실제 patch 교체와 W-gradient 근사의 정합을 진단한다(학습0).
+최신: 등록된 matched-conservative-selection18run을 완료하고 별도CPU감사를 수행한다.
+기존69run감사와32train recording patch교체진단은 이미완료했으므로반복하지않는다.
 이번 고정 마지막 checkpoint 결과와 원본/고정/무작위 대조를 구분해 보고하며,
 더 좋은 중간 step을 골라 최종 성능으로 바꾸지 않는다. Held-out/navtest tuning은 하지 않는다.
 일상적선택은묻지않고기록. 마감/메모리/안전조건을넘으면중단·보존, 실패무한재시작금지.
@@ -527,7 +534,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 
 최신: 현재 학습형 선택의 우월성은 미확인이다. Gradient 경로의 존재와 실제 불연속 선택
 효용을 근사하는지를 구분한다. 공간적 선택 집중은 redundancy 가능성이지만 collapse 증거가 아니다.
-저학습률/메모리 규제/사전학습 projection 결과와 선택근사 진단을 종합한 뒤 다음 구조를 정한다.
+W-gradient의 실제단일patch교체 loss부호일치율은MLP86–92%,ego74–80%; full score/optimizer유효성 보장은아니다.
+같은 낮은LR의 fixed/random과 learned를 비교하기 전 서로다른LR 결과로선택우월성을주장하지않는다.
 
 밤샘연구질문/고정K4/front/원본planner보존은확정. 어느최적화조건이개선되는지는실행전미확정.
 동적K/horizon/WA재개/heldout/navtest튜닝/새확률모델은이번범위밖이다.

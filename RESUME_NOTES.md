@@ -1384,3 +1384,17 @@ LowLR MLPdev .347694±.000392, ego .346338±.001650m; 원본 .352210.
 후속읽기전용진단 v1은single-grad vsbatch33-no_grad의출력차이1.144409e-5>tol1e-5에서중단.
 실패로그/source/confighash보존. v2는batch1/grad-enabled를일치시키며tol/표본/checkpoint는바꾸지않는다.
 실제GPU검사는별도진행하며137CPUtests통과만으로대체하지않는다.
+
+### 2026-10-03 02:35KST — 선택진단 완료 및 다음 통제 비교 등록
+
+Matched-mode 실제모델6×32trainwindow×32교체=6144건 완료. 기준output차이전부0/tol불변.
+128.75초/peakallocated1.189GiB/원본hash불변/optimizerupdate0.
+MLPseed29/47/83 signagreement .917/.897/.864, ego .756/.804/.735.
+LocalW미분과finite교체의정합이며fullscoreJacobian/실제업데이트/일반화/인과적중요도 보장은아니다.
+공유 `overnight_selection_surrogate_diagnosis_v2_20261003.json`에개별교체6144개와checkpointhash보존.
+다음별도실험 matched_conservative_selection_v1은6조건×3seed×800=18run/14400update다.
+기존낮은LR학습형6run재사용, 같은LR고정/무작위(MLP/ego),MLPjointaux-off/currentfeature비교.
+Jointaux-off도공통100updatefuturewarmup은유지하므로미래지식이전혀없는모델로부르지않는다.
+실행전초기모듈hash·batchschedule같음확인, effectiveauxweight와rawgradient진단역할구분.
+기존69run상한은그대로종료했고이번다음단계를별도등록했다. 총등록87run/61200update,현재완료69.
+두시간/09:00/공유GPUreserve상한, 추가cache/target정의변경/공식benchmark/heldout 없음.

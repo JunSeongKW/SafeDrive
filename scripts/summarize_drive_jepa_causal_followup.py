@@ -70,6 +70,10 @@ def main():
             for update in specification["evaluation_updates"]
         }
         summary["active_parameter_count"] = matched[0]["active_parameter_count"]
+        if "effective_joint_auxiliary_weight" in matched[0]:
+            summary["effective_joint_auxiliary_weight"] = matched[0][
+                "effective_joint_auxiliary_weight"
+            ]
         summary["wall_seconds_all_seeds"] = sum(
             report["wall_seconds"] for report in matched
         )
@@ -133,10 +137,14 @@ def main():
             if specification[key] != reference_specification[key]:
                 raise RuntimeError(f"External paired reference differs on {key}")
         reference_windows = {}
+        external_ego_condition = specification.get(
+            "paired_ego_reference_condition", "ego_reference"
+        )
         for seed in specification["seeds"]:
             reference = json.loads(
                 (
-                    reference_directory / f"ego_reference_seed{seed}/results.json"
+                    reference_directory
+                    / f"{external_ego_condition}_seed{seed}/results.json"
                 ).read_text()
             )
             reference_windows[seed] = reference["evaluations"][final_update][
@@ -176,6 +184,16 @@ def main():
         )
         if condition == reference_name:
             continue
+        if specification.get("matched_reference_option_keys"):
+            control_options = specification["condition_options"][condition]
+            reference_options = reference_specification["condition_options"][
+                reference_name
+            ]
+            for option_key in specification["matched_reference_option_keys"]:
+                if control_options.get(option_key) != reference_options.get(option_key):
+                    raise RuntimeError(
+                        f"Unmatched reference option: {condition}/{option_key}"
+                    )
         if reference_name in windows_by_condition:
             matched_windows = windows_by_condition[reference_name]
         elif external_reference_provenance is not None:
@@ -201,6 +219,9 @@ def main():
             "completion": completion,
             "aggregate": aggregate,
             "external_reference_run": external_reference_provenance,
+            "external_ego_reference_condition": specification.get(
+                "paired_ego_reference_condition", "ego_reference"
+            ),
             "paired_comparisons": comparisons,
             "interpretation": "exploratory repeated-development comparison; not independent or safety/PDMS validation; no multiplicity correction",
         },
@@ -221,7 +242,10 @@ def main():
                     "warmup_checkpoint",
                     "warmup_sha256",
                     "batch_schedule_sha256",
+                    "effective_joint_auxiliary_weight",
+                    "gradient_contract_scope",
                 )
+                if key in report
             }
             for report in reports
         ],

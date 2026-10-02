@@ -201,7 +201,9 @@ def run_projection_series(directory):
         raise
 
 
-def commit_completed_results(directory):
+def commit_completed_results(
+    directory, run_names=None, extra_paths=(), commit_message=None
+):
     """Commit only known generated evidence, never somebody else's staged work."""
     branch = subprocess.check_output(
         ["git", "branch", "--show-current"], cwd=WORKSPACE, text=True
@@ -209,7 +211,7 @@ def commit_completed_results(directory):
     if branch != "junseong/main":
         return {"committed": False, "reason": "Unexpected branch; preserve all results"}
     paths = []
-    for run_name in (
+    for run_name in run_names or (
         "overnight_coverage_training_v1_20261003",
         "overnight_projection_transfer_v1_20261003",
         "overnight_conservative_adaptation_v1_20261003",
@@ -224,6 +226,10 @@ def commit_completed_results(directory):
             if not (WORKSPACE / path).is_file():
                 raise RuntimeError("Missing generated evidence before scoped commit")
             paths.append(str(path))
+    for path in extra_paths:
+        if not (WORKSPACE / path).is_file():
+            raise RuntimeError("Missing specified evidence file")
+        paths.append(str(path))
     subprocess.run(["git", "add", "--", *paths], cwd=WORKSPACE, check=True)
     subprocess.run(
         [
@@ -231,7 +237,8 @@ def commit_completed_results(directory):
             "commit",
             "--only",
             "-m",
-            "[exp] preserve completed overnight coverage projection and adaptation results",
+            commit_message
+            or "[exp] preserve completed overnight coverage projection and adaptation results",
             "--",
             *paths,
         ],
@@ -364,12 +371,109 @@ def run_surrogate_diagnosis_series(directory, matched_execution=False):
         raise
 
 
+def run_matched_selection_series(directory):
+    predecessor = ROOT / "overnight_surrogate_matched_sequence_20261003"
+    stages = []
+    study_name = "matched_conservative_selection_v1_20261003"
+    output = ROOT / study_name
+    audit_path = Path(
+        "results/drive_jepa_selective_future/matched_conservative_selection_evidence_audit_20261003.json"
+    )
+    try:
+        while not (predecessor / "completion.json").exists():
+            if must_stop(directory) or (predecessor / "stopped.json").exists():
+                raise RuntimeError("Predecessor/deadline stopped; no followup training")
+            save(
+                directory / "active_stage.json",
+                {"stage": "waiting_for_matched_execution_diagnosis"},
+            )
+            time.sleep(10)
+        stages.append(
+            run_stage(
+                directory,
+                "matched_selection_training",
+                "run_drive_jepa_causal_followup.py",
+                [
+                    "--config",
+                    str(
+                        WORKSPACE
+                        / "configs/drive_jepa_selective_future/matched_conservative_selection_v1.json"
+                    ),
+                    "--output-directory",
+                    str(output),
+                ],
+            )
+        )
+        stages.append(
+            run_stage(
+                directory,
+                "export_matched_selection",
+                "summarize_drive_jepa_causal_followup.py",
+                [
+                    "--run-directory",
+                    str(output),
+                    "--share-directory",
+                    str(WORKSPACE / "results/drive_jepa_selective_future" / study_name),
+                ],
+                gpu=False,
+            )
+        )
+        stages.append(
+            run_stage(
+                directory,
+                "audit_matched_selection",
+                "audit_drive_jepa_overnight_evidence.py",
+                [
+                    "--study",
+                    study_name,
+                    "--output",
+                    str(WORKSPACE / audit_path),
+                ],
+                gpu=False,
+            )
+        )
+        if must_stop(directory):
+            raise RuntimeError("Stop before result commit")
+        sharing = commit_completed_results(
+            directory,
+            run_names=(study_name,),
+            extra_paths=(audit_path,),
+            commit_message="[exp] preserve matched low-rate selection and joint-auxiliary controls",
+        )
+        save(
+            directory / "completion.json",
+            {
+                "complete": True,
+                "stages": stages,
+                "sharing": sharing,
+                "ended_at": datetime.now().astimezone().isoformat(),
+                "further_unregistered_training": False,
+            },
+        )
+    except BaseException as error:
+        save(
+            directory / "stopped.json",
+            {
+                "reason": repr(error),
+                "completed_stages": stages,
+                "automatic_retry": False,
+            },
+        )
+        raise
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--detach", action="store_true")
     parser.add_argument(
         "--series",
-        choices=["coverage", "projection", "surrogate", "surrogate_matched"],
+        choices=[
+            "coverage",
+            "projection",
+            "surrogate",
+            "surrogate_matched",
+            "matched_selection",
+        ],
         default="coverage",
     )
     args = parser.parse_args()
@@ -380,6 +484,7 @@ def main():
             "projection": "overnight_projection_sequence_20261003",
             "surrogate": "overnight_surrogate_sequence_20261003",
             "surrogate_matched": "overnight_surrogate_matched_sequence_20261003",
+            "matched_selection": "matched_conservative_selection_sequence_20261003",
         }[args.series]
     )
     directory.mkdir(exist_ok=True)
@@ -425,6 +530,8 @@ def main():
         return run_surrogate_diagnosis_series(directory)
     if args.series == "surrogate_matched":
         return run_surrogate_diagnosis_series(directory, matched_execution=True)
+    if args.series == "matched_selection":
+        return run_matched_selection_series(directory)
     first_run = ROOT / "overnight_causal_followup_v1_20261003"
     stages = []
     try:

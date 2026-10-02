@@ -8,12 +8,27 @@ from test_drive_jepa_adaptive_future import make_graph
 from torch import nn
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from run_drive_jepa_causal_followup import gradient_contract
+from run_drive_jepa_causal_followup import (
+    gradient_contract,
+    resolve_joint_future_auxiliary_weight,
+)
 
 
 class DiagnosticAgent:
     def compute_loss(self, features, targets, predictions):
         return (predictions["trajectory"] - targets["trajectory"]).square().mean()
+
+
+def test_joint_auxiliary_control_weight_does_not_claim_absent_warmup():
+    specification = {"future_auxiliary_weight": 0.01}
+    assert resolve_joint_future_auxiliary_weight(specification, {}, False) == 0.01
+    assert (
+        resolve_joint_future_auxiliary_weight(
+            specification, {"joint_auxiliary_weight_scale": 0}, False
+        )
+        == 0
+    )
+    assert resolve_joint_future_auxiliary_weight(specification, {}, True) == 0
 
 
 def make_observed_batch(graph, current, status):

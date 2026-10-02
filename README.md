@@ -27,7 +27,13 @@
 
 ## 현재 구현과 과거 자산의 구분
 
-**최신 완료(2026-10-03)**: [구조별 추가 학습 결과](docs/drive_jepa_architecture_followup.md).
+**최신 작업(2026-10-03)**: [원인 분리·동일 예산 선택 비교](docs/drive_jepa_overnight_causal_followup.md).
+69run/46,800update와 실제 모델6,144번 patch교체 진단을 완료했다. 추가dev 원본ADE0.352210m,
+낮은LR ego0.346338m이나 원본대비 cluster CI는0포함, 선택 우월성/PDMS 개선은 아직 미확인이다.
+다음은 같은 낮은LR의 fixed/random/aux-off 대조18run을 별도 등록해 실행한다. 완료모델은재학습하지않는다.
+GPU1단일작업/09:00KST상한/공용데이터와원본weights보존. 상태·재개는HANDOFF를우선한다.
+
+**이전 완료(2026-10-03)**: [구조별 추가 학습 결과](docs/drive_jepa_architecture_followup.md).
 기존 공식 planner를 보존한 채 contextual residual predictor, ego-query selector,
 미래 branch last4 encoder QKV LoRA를15run/4500update로 비교했다.
 MLP+새절차 dev ADE0.209975m, 원본0.220644m, LoRA0.216459m.

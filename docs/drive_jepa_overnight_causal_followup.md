@@ -409,3 +409,63 @@ Evidence: [projection transfer](../results/drive_jepa_selective_future/overnight
 [independent full evidence audit](../results/drive_jepa_selective_future/overnight_evidence_audit_20261003.json).
 Automatic result commit313a3ab was created; push failed with return code128.
 Original69 checkpoints, failed diagnostic logs and all window records remain local.
+
+## Completed actual-model routing diagnosis
+
+The matched-execution v2 completed all6 model/seed cases:32 train recordings,
+32 substitutions each,6,144 total. Reference output differences were exactly0
+in all cases, without changing the1e-5 tolerance. Original weights are unchanged;
+no optimizer updates. Wall128.75 seconds, peak allocated1.189GiB.
+
+| Model / seed | Local derivative sign agreement | Pearson loss-change correlation | Sampled substitutions improving train loss |
+|---|---:|---:|---:|
+| MLP29 | 91.70% | 0.815 | 50.59% |
+| MLP47 | 89.75% | 0.681 | 50.49% |
+| MLP83 | 86.43% | 0.578 | 37.89% |
+| Ego-query29 | 75.59% | 0.475 | 20.21% |
+| Ego-query47 | 80.37% | 0.603 | 35.55% |
+| Ego-query83 | 73.54% | 0.635 | 27.34% |
+
+All6,144 changes exceeded the1e-6 exclusion floor. The local routing derivative
+contains useful directional information in these training examples, but neither
+perfectly predicts finite changes nor establishes that the selector's parameter
+updates learn a good policy. This is not a comparison with a random sign/null
+model, not independent observations for significance testing, and not a measure
+of world-causal relevance. Training-loss-reducing substitutions still exist;
+they were not used to update a model or to report a deployable oracle score.
+Evidence: [all substitutions and checkpoint hashes](../results/drive_jepa_selective_future/overnight_selection_surrogate_diagnosis_v2_20261003.json).
+
+## Next bounded stage: matched conservative selection
+
+The original69-run stage is complete and immutable. Under the user's continuing
+overnight authorization, register a **separate18-run /14,400-update** next stage
+to answer the selection question under matched learning rates, rather than grow
+the earlier optimizer/projection sweep. Deadline09:00 and a two-hour stage cap
+remain. No new cache, architecture, target definition or official benchmark.
+
+Reuse the completed three-seed MLP/ego lower-rate learned references. Add only:
+
+- MLP fixed lattice and seeded random at the same lower rates.
+- MLP joint future auxiliary weight0 after the **same preserved future warmup**.
+  This isolates continued joint auxiliary supervision, not absence of all future
+  knowledge. All predictor/bridge/selector modules stay present and trainable.
+- MLP current-feature bypass at the same lower rates. Its inactive predictor
+  means this is not a capacity-identical no-auxiliary comparison or a speed claim.
+- Ego-query fixed lattice and seeded random at the same lower rates.
+
+All use the same512/192 development setup, K4/horizon4, seeds29/47/83,800 updates,
+fixed evaluation times and final checkpoint; effective rates are predictor/bridge
+2e-5 and selector4e-6. Initial S/P/bridge hashes and batch schedules must exactly
+match the saved learned reference before training. Reference config, architecture,
+rate scale, projection mode and memory-penalty settings are checked at export.
+Gradient reports describe unweighted diagnostic losses; effective joint weights
+and weighted auxiliary losses are recorded separately, especially for aux-off.
+
+Config `matched_conservative_selection_v1.json`; queue `--series matched_selection`.
+This is repeated-development analysis informed by previous results, not a new
+independent validation set. Lower-rate learned references are not retrained.
+The original69-run audit remains unchanged; the new18-run audit is separate.
+Across both stages the registered training total is87 runs /61,200 updates,
+but only69 runs are complete at this registration. The supervisor exports,
+audits and commits only known results, tries the authorized push once, then
+stops; it does not launch further unregistered training or claim success.

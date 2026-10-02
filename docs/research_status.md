@@ -1,5 +1,19 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 최신 상태 — 69run 완료, matched low-rate 선택 비교 등록
+
+첫69run/46,800update 종료. 추가dev192window/24recording에서 원본ADE0.352210m,
+낮은LR MLP0.347694±0.000392, ego0.346338±0.001650m. 이전LR보다는개선되나
+원본대비 cluster CI는0포함하며, 반복개발/다중비교/공식PDMS미평가 한계를유지한다.
+같은높은LR에서는 random0.351212<learnedMLP0.361504이므로선택학습성공으로부르지않는다.
+실제모델6개/patch교체6144건진단완료, 기준출력차이0, 원본hash보존, optimizerupdate0.
+MLP W-gradient부호일치86–92%, ego74–80%는 full selector정책학습이나일반화보장이아니다.
+V1 batch/grad-mode혼합검사 실패도보존했고 V2는tol을늘리지않고실행조건을맞췄다.
+다음별도18run은같은낮은LR의fixed/random, jointaux-off, currentfeature대조다.
+기존learned6run은재사용, 새cache/target/architecture/heldout평가 없음. 사용자밤샘승인·09:00상한 유지.
+상세와재현경로: [밤샘실험 보고서](drive_jepa_overnight_causal_followup.md).
+기존69run로컬결과commit313a3ab; GitHub push는기존인증오류로실패했다.
+
 ## 현재 작업 2026년 10월 3일 원인 분리 재학습
 
 사용자가 다음 오전09:00KST까지 질문 없이 실험·문헌조사를 이어가도록 승인했다.

@@ -17,6 +17,8 @@ STUDIES = {
     "overnight_projection_transfer_v1_20261003": (9, 800),
     "overnight_conservative_adaptation_v1_20261003": (12, 800),
 }
+DEFAULT_STUDIES = tuple(STUDIES)
+STUDIES["matched_conservative_selection_v1_20261003"] = (18, 800)
 
 
 def scene_macro_ade(window_rows):
@@ -180,10 +182,12 @@ def audit_study(workspace, study_name, expected_runs, final_update):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--study", choices=tuple(STUDIES), action="append")
     arguments = parser.parse_args()
     workspace = Path(__file__).resolve().parents[1]
     audited = {
-        name: audit_study(workspace, name, *limits) for name, limits in STUDIES.items()
+        name: audit_study(workspace, name, *STUDIES[name])
+        for name in (arguments.study or DEFAULT_STUDIES)
     }
     result = {
         "all_passed": True,

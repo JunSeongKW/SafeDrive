@@ -161,6 +161,19 @@ def gradient_contract(
     return report
 
 
+def resolve_joint_future_auxiliary_weight(
+    specification, options, current_feature_control
+):
+    if current_feature_control:
+        return 0.0
+    weight = specification["future_auxiliary_weight"] * options.get(
+        "joint_auxiliary_weight_scale", 1.0
+    )
+    if not math.isfinite(weight) or weight < 0:
+        raise ValueError("Future auxiliary weight must be finite and nonnegative")
+    return weight
+
+
 def run_condition(
     agent, cache, records, specification, output, condition, seed, started, resume
 ):
@@ -190,6 +203,22 @@ def run_condition(
     )
     initial_hashes = module_hashes(model)
     current_feature_control = intervention == "current_feature_control"
+    effective_auxiliary_weight = resolve_joint_future_auxiliary_weight(
+        specification, options, current_feature_control
+    )
+    paired_reference = None
+    if specification.get("enforce_identical_initial_module_hashes"):
+        paired_reference = json.loads(
+            (
+                WORKSPACE
+                / specification["paired_reference_run"]
+                / f"{options['reference_condition']}_seed{seed}/results.json"
+            ).read_text()
+        )
+        if initial_hashes != paired_reference["initial_module_hashes"]:
+            raise RuntimeError(
+                "New control is not initialized identically to its saved learned reference"
+            )
     if current_feature_control:
         model.future_predictor.requires_grad_(False)
     if intervention == "ego_selector_frozen" or selection_mode != "learned":
@@ -246,6 +275,11 @@ def run_condition(
         for _ in range(100 + specification["joint_updates"])
     ][100:]
     schedule_hash = hashlib.sha256(json.dumps(schedule).encode()).hexdigest()
+    if (
+        paired_reference is not None
+        and schedule_hash != paired_reference["batch_schedule_sha256"]
+    ):
+        raise RuntimeError("Control batch order differs from saved learned reference")
     optimizer = torch.optim.AdamW(
         [
             {
@@ -391,9 +425,7 @@ def run_condition(
             )
             if current_feature_control:
                 auxiliary_loss = planning_loss * 0
-            weighted_auxiliary = (
-                specification["future_auxiliary_weight"] * auxiliary_loss
-            )
+            weighted_auxiliary = effective_auxiliary_weight * auxiliary_loss
             memory_penalty = planning_loss.new_zeros(())
             if options.get("memory_penalty_weight", 0):
                 with torch.no_grad():
@@ -452,6 +484,7 @@ def run_condition(
                     "update": update,
                     "planning_loss": float(planning_loss.detach()),
                     "auxiliary_loss": float(auxiliary_loss.detach()),
+                    "weighted_auxiliary_loss": float(weighted_auxiliary.detach()),
                     "relative_memory_energy": float(memory_penalty.detach()),
                     "gradient_norm": float(norm),
                     "projection": projection,
@@ -517,6 +550,8 @@ def run_condition(
             "active_parameter_count": sum(
                 parameter.numel() for parameter in trainable_parameters
             ),
+            "effective_joint_auxiliary_weight": effective_auxiliary_weight,
+            "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately",
         }
         checkpoint("complete.pt")
         write_json(directory / "results.json", report)
