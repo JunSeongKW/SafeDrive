@@ -269,17 +269,102 @@ def commit_completed_results(directory):
         }
 
 
+def run_surrogate_diagnosis_series(directory):
+    """Wait for registered training; then audit and diagnose without new updates."""
+    predecessor = ROOT / "overnight_projection_sequence_20261003"
+    stages = []
+    try:
+        while not (predecessor / "completion.json").exists():
+            if must_stop(directory) or (predecessor / "stopped.json").exists():
+                raise RuntimeError(
+                    "Predecessor/deadline stopped; no diagnostic GPU launch"
+                )
+            save(
+                directory / "active_stage.json",
+                {
+                    "stage": "waiting_for_all_registered_training",
+                    "checked_at": datetime.now().astimezone().isoformat(),
+                },
+            )
+            time.sleep(10)
+        stages.append(
+            run_stage(
+                directory,
+                "independent_evidence_audit",
+                "audit_drive_jepa_overnight_evidence.py",
+                [
+                    "--output",
+                    str(
+                        WORKSPACE
+                        / "results/drive_jepa_selective_future/overnight_evidence_audit_20261003.json"
+                    ),
+                ],
+                gpu=False,
+            )
+        )
+        output = ROOT / "overnight_selection_surrogate_diagnosis_v1_20261003"
+        stages.append(
+            run_stage(
+                directory,
+                "selection_surrogate_diagnosis",
+                "diagnose_drive_jepa_selection_surrogate.py",
+                [
+                    "--config",
+                    str(
+                        WORKSPACE
+                        / "configs/drive_jepa_selective_future/overnight_selection_surrogate_diagnosis_v1.json"
+                    ),
+                    "--output-directory",
+                    str(output),
+                ],
+            )
+        )
+        shared = (
+            WORKSPACE
+            / "results/drive_jepa_selective_future/overnight_selection_surrogate_diagnosis_20261003.json"
+        )
+        if shared.exists():
+            raise RuntimeError("Do not overwrite shared diagnostic evidence")
+        result = json.loads((output / "results.json").read_text())
+        result["specification"] = json.loads(
+            (output / "specification.json").read_text()
+        )
+        save(shared, result)
+        save(
+            directory / "completion.json",
+            {
+                "complete": True,
+                "stages": stages,
+                "ended_at": datetime.now().astimezone().isoformat(),
+                "new_training_updates": 0,
+            },
+        )
+    except BaseException as error:
+        save(
+            directory / "stopped.json",
+            {
+                "reason": repr(error),
+                "completed_stages": stages,
+                "automatic_retry": False,
+            },
+        )
+        raise
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--detach", action="store_true")
     parser.add_argument(
-        "--series", choices=["coverage", "projection"], default="coverage"
+        "--series", choices=["coverage", "projection", "surrogate"], default="coverage"
     )
     args = parser.parse_args()
-    directory = ROOT / (
-        "overnight_sequence_20261003"
-        if args.series == "coverage"
-        else "overnight_projection_sequence_20261003"
+    directory = (
+        ROOT
+        / {
+            "coverage": "overnight_sequence_20261003",
+            "projection": "overnight_projection_sequence_20261003",
+            "surrogate": "overnight_surrogate_sequence_20261003",
+        }[args.series]
     )
     directory.mkdir(exist_ok=True)
     if args.detach:
@@ -320,6 +405,8 @@ def main():
         signal.signal(signum, request_stop)
     if args.series == "projection":
         return run_projection_series(directory)
+    if args.series == "surrogate":
+        return run_surrogate_diagnosis_series(directory)
     first_run = ROOT / "overnight_causal_followup_v1_20261003"
     stages = []
     try:

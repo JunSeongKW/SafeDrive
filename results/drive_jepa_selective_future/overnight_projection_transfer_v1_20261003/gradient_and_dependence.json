@@ -1,0 +1,353 @@
+[
+  {
+    "condition": "ego_frozen_random_projection",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.731442537078235,
+        "future_predictor": 0.380939420960407,
+        "future_bridge": 0.6440334838707601
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.49799663761125756,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 1.966137409210205,
+        "trajectory_xy_change_m": 0.149328351020813
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.3388770818710327,
+        "trajectory_xy_change_m": 0.14513525366783142
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "fd20133079b8ad455c8a53e238b130163456617b7f06fd4783afbf058e6e55b0",
+      "predictor": "c76619a8673a7d156297e4018c613e123fec56323120e5e6fb4ec120011a18db",
+      "bridge": "e4c4f2093f09e238df4dccec574b9a736db5aaf60324653d2006e8cd84a2bc97"
+    },
+    "final_module_hashes": {
+      "selector": "1009821a0ba756dc5ae033483d140e1bab01349c4ac6d4ff1d4cdaf76693a18d",
+      "predictor": "3bd87ceb6354212b4ecbbcabe97c5fd74211cdb9b66b8beed7c10691ccb2f706",
+      "bridge": "3e986d412601ff8585a05e38406f66159429ecf3912fd11e4206599ef139b86f"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b2f99483e74e6111997582c970499ae6b6c08d2811c4f8146500648586a39d52",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536"
+  },
+  {
+    "condition": "ego_frozen_random_projection",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.1803644672999016,
+        "future_predictor": 0.07516930757823899,
+        "future_bridge": 0.29355322557263874
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.8061597352820488,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.205277442932129,
+        "trajectory_xy_change_m": 0.10600030422210693
+      },
+      "batch_swap": {
+        "future_input_rms_change": 2.2212119102478027,
+        "trajectory_xy_change_m": 0.10354667901992798
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "011db7b1e87aefeba1d0c94bf5ce1cea9ec83db1a5edb7893cdb4dc685a68b29",
+      "predictor": "f927c9488a52cde24b1d06b9c4bc4bba4cb38e805fbc2409d1add1edeb5cacad",
+      "bridge": "caede6765a77655de3ee5029af7cbdf03bfcefff7900ed7f398660e48af584df"
+    },
+    "final_module_hashes": {
+      "selector": "7aa54dbee7be8dcb959b7e9dcfecceedfb29dfcd927c717c12380d87892ff1ea",
+      "predictor": "a350ac8bf1afa420db13d42fd8449e08241bf28f9ce9bfadfbe990392a738e8b",
+      "bridge": "bd56e6ad4a5d1cebdedc63c375ffb0a0c311a147f7393c6c777476eb271e6083"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "7f9db29c54aa6aa2216558cd6f1f93d74d75171d3b98d9a62fa644a1ba13a6dc",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2"
+  },
+  {
+    "condition": "ego_frozen_random_projection",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.28316181106894306,
+        "future_predictor": 0.18891826751765778,
+        "future_bridge": 0.20321518140781605
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.515107090650405,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.0948283672332764,
+        "trajectory_xy_change_m": 0.05638187751173973
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.9651708602905273,
+        "trajectory_xy_change_m": 0.06534862518310547
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "2dbad9c93431aa366d5cd0339a497ef11c52605089b0bf1d0e49949f9c9873f9",
+      "predictor": "f0222595038e2373a7ce7f8f3ea209dfe5f9a9ff0578d4fecce6365499f75ad1",
+      "bridge": "a074032d8a287bf0f0d70d396def724235fa4e901b37f93bb301ae5d3d694280"
+    },
+    "final_module_hashes": {
+      "selector": "1bac0ab07828268faf6ffc186499a55b4c76cbc44e76cbd4a72616861a152e67",
+      "predictor": "10098c11aa152366f5b2bd97e8952e6fd8d48f61b10ecb44e009ac84f9887b8d",
+      "bridge": "104563c5fa4f98e77d8662b270b09323aa89707e5d973828ef47277a059eccc1"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b6c89db460045b2a224807540cdf411e930683f3911d6dd7808e947f1b3e583e",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32"
+  },
+  {
+    "condition": "ego_frozen_official_projection",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.16361989494320003,
+        "future_predictor": 0.152217195302339,
+        "future_bridge": 0.29696366718728584
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.7163123719692396,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.0098013877868652,
+        "trajectory_xy_change_m": 0.08195821195840836
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.505974531173706,
+        "trajectory_xy_change_m": 0.12388036400079727
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "fd20133079b8ad455c8a53e238b130163456617b7f06fd4783afbf058e6e55b0",
+      "predictor": "c76619a8673a7d156297e4018c613e123fec56323120e5e6fb4ec120011a18db",
+      "bridge": "058855d1fd17b64eafcf23fbd5d0a62c6c365519fa34122a24d6418231bcb1e4"
+    },
+    "final_module_hashes": {
+      "selector": "97436cadc24de427ae0183317e979c03e08ac77102c0a91fc62c9ce337ff0b95",
+      "predictor": "e00fab6be402542ea310f0bcb592eefba554432a7e05d6632731a50728d51a2b",
+      "bridge": "1d612e090dd30fc379f8fd3d65a5f8f688c5eaa1ea67abf56359152973aaa440"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b2f99483e74e6111997582c970499ae6b6c08d2811c4f8146500648586a39d52",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536"
+  },
+  {
+    "condition": "ego_frozen_official_projection",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.32369196084570956,
+        "future_predictor": 0.18201357625043682,
+        "future_bridge": 0.5204121441488778
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.8617210900441957,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.1816329956054688,
+        "trajectory_xy_change_m": 0.30209171772003174
+      },
+      "batch_swap": {
+        "future_input_rms_change": 2.1656157970428467,
+        "trajectory_xy_change_m": 0.32119354605674744
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "011db7b1e87aefeba1d0c94bf5ce1cea9ec83db1a5edb7893cdb4dc685a68b29",
+      "predictor": "f927c9488a52cde24b1d06b9c4bc4bba4cb38e805fbc2409d1add1edeb5cacad",
+      "bridge": "5a23af85e33cf351dc5649c7bd6d2b8cf05686973efbd3d33c742eee460b4574"
+    },
+    "final_module_hashes": {
+      "selector": "ae2508a75b2edd5152487df7c9a0ab23afca3758160b57c62bcbf030d3d00f8a",
+      "predictor": "ea2dfdc92153f24ad6918867d33d6fa35a8944ac1959d236ab62727aa93ce6de",
+      "bridge": "c461ad2156a0f8cf4776d63c2a0cc48886b9886d6452b95e00dbf994513546a3"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "7f9db29c54aa6aa2216558cd6f1f93d74d75171d3b98d9a62fa644a1ba13a6dc",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2"
+  },
+  {
+    "condition": "ego_frozen_official_projection",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.18796238800104248,
+        "future_predictor": 0.10735104669577024,
+        "future_bridge": 0.24369519506028398
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.3912921173753408,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.0497820377349854,
+        "trajectory_xy_change_m": 0.07819128036499023
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.86653733253479,
+        "trajectory_xy_change_m": 0.12960992753505707
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "2dbad9c93431aa366d5cd0339a497ef11c52605089b0bf1d0e49949f9c9873f9",
+      "predictor": "f0222595038e2373a7ce7f8f3ea209dfe5f9a9ff0578d4fecce6365499f75ad1",
+      "bridge": "d8d981410d9193c47ec455e38180926f09085ddcc677a2f9aa5547cb5906d023"
+    },
+    "final_module_hashes": {
+      "selector": "8070dbf13ba6817f36893be39d5760de53f8f56f022e54b1ec0a5867ad10b33c",
+      "predictor": "b1ad249100512f67c49799a4b3b0609f4bae49e1b40489a8ef73ec3fe7a30fe3",
+      "bridge": "c843a6affb6fed566309303e78e0974bc2eb5a1836fc8af8e174dc26133833d6"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b6c89db460045b2a224807540cdf411e930683f3911d6dd7808e947f1b3e583e",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32"
+  },
+  {
+    "condition": "ego_lora_official_projection",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.15172221752621023,
+        "future_predictor": 0.15916582769860393,
+        "future_bridge": 0.28880841663786594
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.9277401972955786,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 1.9965358972549438,
+        "trajectory_xy_change_m": 0.07754954695701599
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.4879887104034424,
+        "trajectory_xy_change_m": 0.10273908823728561
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "fd20133079b8ad455c8a53e238b130163456617b7f06fd4783afbf058e6e55b0",
+      "predictor": "c76619a8673a7d156297e4018c613e123fec56323120e5e6fb4ec120011a18db",
+      "bridge": "b36177bb447b94fe314d4203a0f6393f1336c51a8f3f15aa760ddfae2b08539b"
+    },
+    "final_module_hashes": {
+      "selector": "5aa0cbad06e638b2b97dee9163fbb49af5d619e80cba16b07c7185b31277e836",
+      "predictor": "0d91c7567ede5a722722f6f052e446c876b02756a4bbf4786be1959cab97e890",
+      "bridge": "e9f0c65f58535c40d4cc8caddc427ef4f0e3849e184a3a5ba64fe01ff9b7a552"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b2f99483e74e6111997582c970499ae6b6c08d2811c4f8146500648586a39d52",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536"
+  },
+  {
+    "condition": "ego_lora_official_projection",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.08602061330450884,
+        "future_predictor": 0.12384193058932065,
+        "future_bridge": 0.21474127563316237
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.8500488881721987,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.178020477294922,
+        "trajectory_xy_change_m": 0.3298724591732025
+      },
+      "batch_swap": {
+        "future_input_rms_change": 2.1614654064178467,
+        "trajectory_xy_change_m": 0.36126792430877686
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "011db7b1e87aefeba1d0c94bf5ce1cea9ec83db1a5edb7893cdb4dc685a68b29",
+      "predictor": "f927c9488a52cde24b1d06b9c4bc4bba4cb38e805fbc2409d1add1edeb5cacad",
+      "bridge": "54af984268d383d3a34736190af20d1aa1470d93f2471b9a5651ac89a6dfc877"
+    },
+    "final_module_hashes": {
+      "selector": "950dfc61f06aeff71670e8cda45dfb3e10b78bccd150906e213d2ba77f9a9f64",
+      "predictor": "7ea2a67bd2c8a2056fabec98ff9b1f2d2e55dd975ab41abf6da4b9e1b1099e41",
+      "bridge": "7561af0330c5841f413e17ec99a1aa3983ca3e36836b3a7d984d50824d9ad286"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "7f9db29c54aa6aa2216558cd6f1f93d74d75171d3b98d9a62fa644a1ba13a6dc",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2"
+  },
+  {
+    "condition": "ego_lora_official_projection",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.20393633135274952,
+        "future_predictor": 0.11141845293040617,
+        "future_bridge": 0.23992435066226475
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.42584220307706633,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.0495667457580566,
+        "trajectory_xy_change_m": 0.07678188383579254
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.8975255489349365,
+        "trajectory_xy_change_m": 0.13032186031341553
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "2dbad9c93431aa366d5cd0339a497ef11c52605089b0bf1d0e49949f9c9873f9",
+      "predictor": "f0222595038e2373a7ce7f8f3ea209dfe5f9a9ff0578d4fecce6365499f75ad1",
+      "bridge": "e7dc8a7f3345626f606f9685d88636b9c12cdeba041214ffb475e4aaf71b2ed9"
+    },
+    "final_module_hashes": {
+      "selector": "d8ed804ed3fdd8613c4779d36a24aac5c335c8bec1a284b5b988dd8f7eceb20d",
+      "predictor": "8e2ab0ae23246d8fb9c0726a41fd69f0fcef84563b91c7612b1de3553cececbf",
+      "bridge": "66d94c0dee4eb7b127abce9d06afcf56676ce84e79c1a50c6c6cfe49456b12a2"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b6c89db460045b2a224807540cdf411e930683f3911d6dd7808e947f1b3e583e",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32"
+  }
+]

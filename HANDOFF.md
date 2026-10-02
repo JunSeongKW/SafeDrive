@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 01:57 KST (Codex)
+마지막 갱신: 2026-10-03 02:15 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -112,6 +112,9 @@ Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_2026
 01:52KST coverage queue 완료, 두 번째 queue가 projection child2389185를 시작했다.
 첫48run의 window별 집계/paired batch/원본값/aux gradient 경계를 별도 CPU 검사로 확인했다.
 실험 감사 진입점 `scripts/audit_drive_jepa_overnight_evidence.py`; 전체69run 종료 후 한 JSON으로 기록한다.
+학습 종료 뒤 train32recording의 단일 patch 교체/선택 W gradient 근사를 비교하는 읽기 전용
+진단을 등록했다. `run_drive_jepa_overnight_sequence.py --series surrogate --detach`.
+학습 횟수는 늘리지 않으며 해당 queue는 projection/conservative queue 완료 뒤만 GPU1을 쓴다.
 아래 완료/진행 문장은 해당 과거 실행 이력이다.
 
 추가 구조 비교와 학습 후 실제 영상 checkpoint 검증을 완료했고 GPU 프로세스는 종료했다.
@@ -469,7 +472,10 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-최신: 원인별400update대응3seed검사 → 기록된결과로선택비교/제한coverage검사결정.
+최신: 등록된 projection/conservative 실험을 마친 뒤 전체69run을 CPU 감사한다.
+이어32train recording에서 실제 patch 교체와 W-gradient 근사의 정합을 진단한다(학습0).
+이번 고정 마지막 checkpoint 결과와 원본/고정/무작위 대조를 구분해 보고하며,
+더 좋은 중간 step을 골라 최종 성능으로 바꾸지 않는다. Held-out/navtest tuning은 하지 않는다.
 일상적선택은묻지않고기록. 마감/메모리/안전조건을넘으면중단·보존, 실패무한재시작금지.
 
 추가 학습은 완료됐다. 더 복잡한 구조를 기본 모델로 승격하지 않고, MLP+새절차를 저비용 개발 참조로 보존한다.
@@ -517,6 +523,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신: 현재 학습형 선택의 우월성은 미확인이다. Gradient 경로의 존재와 실제 불연속 선택
+효용을 근사하는지를 구분한다. 공간적 선택 집중은 redundancy 가능성이지만 collapse 증거가 아니다.
+저학습률/메모리 규제/사전학습 projection 결과와 선택근사 진단을 종합한 뒤 다음 구조를 정한다.
 
 밤샘연구질문/고정K4/front/원본planner보존은확정. 어느최적화조건이개선되는지는실행전미확정.
 동적K/horizon/WA재개/heldout/navtest튜닝/새확률모델은이번범위밖이다.

@@ -313,3 +313,37 @@ Evidence: [coverage summary](../results/drive_jepa_selective_future/overnight_co
 [window records](../results/drive_jepa_selective_future/overnight_coverage_training_v1_20261003/window_results.csv).
 Projection transfer and conservative adaptation are still running/queued; no
 performance result for those stages is claimed here.
+
+## Registered train-only selection-surrogate diagnosis
+
+Because learned selection underperformed seeded random selection, add a read-only
+check of the local routing surrogate after all registered training finishes.
+This does **not** increase the69-run /46,800-update training cap. Fixed final800
+MLP and ego-query checkpoints, seeds29/47/83, are tested on32 training recordings,
+one hash-selected window each. Candidate substitutions are seeded without target
+scores: eight unselected IDs per each of four slots,32 substitutions per window.
+No development/held-out/navtest examples or future visual GT enter online inputs.
+
+At the selected hard routing matrix compute the planning-loss derivative with
+respect to its entries. For replacing ID j by j' in slot k, the first-order
+surrogate is dL/dW[k,j']−dL/dW[k,j]. Compare that number with the actual loss
+change after the full predictor, bridge and preserved planner process the
+replacement. Report sign agreement, correlation, exact substitution counts and
+all individual changes; exclude changes of at most1e-6 from sign agreement.
+The continuous derivative need not approximate a large discrete jump well.
+This checks the downstream local W derivative, **not** the full selector-score
+Jacobian, an optimizer update, a world-causal importance or deployable policy.
+Ground-truth ego trajectories are used only to compute this training-only loss;
+the best hindsight substitution is not an oracle bound or reported planning score.
+
+The reference row is included in each batched no-grad counterfactual forward.
+Its output is checked against the gradient-enabled reference with an absolute
+FP32 tolerance1e-5, fixed before execution. Batch/grad-mode differences are
+reported, not silently attributed to a patch replacement. No tolerance sweep.
+Official weights must remain unchanged. Single GPU1,16GiB admission/6GiB free
+reserve/6GiB allocated cap,15-minute wall cap and09:00 deadline. Failure stops
+the diagnostic without repeating training or changing its checkpoints.
+Config `overnight_selection_surrogate_diagnosis_v1.json`, runner
+`diagnose_drive_jepa_selection_surrogate.py`, serial queue `--series surrogate`.
+The queue first independently audits all69 completed experiments on CPU, then
+runs this diagnosis; it cannot overlap GPU training.

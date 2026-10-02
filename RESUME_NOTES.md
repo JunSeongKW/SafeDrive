@@ -1363,3 +1363,12 @@ MLP 미래MSE1.9090<persistence2.2062이나 planning 개선과 동일하지 않�
 학습 선택의 장면내 patch간 거리는 작지만 전체dev에서266–305IDs를 써 전역collapse로 부르지 않는다.
 독립CPU 감사에서 첫48run의 집계·batch순서·원본출력·aux경계 검사 통과.
 Projection queue는01:52KST 후속 학습 시작. 다음12run은 이전 단계 완료 뒤 실행한다.
+
+### 2026-10-03 — 학습 종료 후 선택 근사 진단 등록
+
+69run/46,800update 상한은 그대로 두고 train32 recording·각1window에서 읽기전용 진단을 등록했다.
+Coverage의 MLP/ego 최종800 checkpoint ×3seed, 각window32개의 seeded single-slot교체.
+실제 planning loss차이와 dL/dW의 one-hot변위 근사를 비교한다. 선택 score 전체 Jacobian이나
+실제 optimizer 효과와 동일하지 않으며, GT를 쓰는 반사실적 loss진단을 배포정책/oracle로 부르지 않는다.
+학습은0, 미래GT input 없음, 마지막 queue 완료 뒤 GPU1단독으로만 실행,15분/6GiB cap.
+동일조건 reference FP32비교 tol1e-5와sign검사loss noise floor1e-6을 실행 전에 고정했다.
