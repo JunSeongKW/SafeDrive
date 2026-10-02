@@ -1,0 +1,713 @@
+[
+  {
+    "condition": "mlp_conservative_fixed_lattice",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.026359825494364515,
+        "future_bridge": 0.43248122527475896
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 3.544542775601533,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.8599478602409363,
+        "trajectory_xy_change_m": 0.031478073447942734
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.19793127477169037,
+        "trajectory_xy_change_m": 0.0031643793918192387
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "a6cc2d5cd47efa0a88b032306cfcec7cd5bd040da4dfcd44767942add0574f89",
+      "predictor": "b1ce6a75a341eaca1d8210b6ea648c84b1d3885078ea5bae9fc0596448ce42a8",
+      "bridge": "e4c4f2093f09e238df4dccec574b9a736db5aaf60324653d2006e8cd84a2bc97"
+    },
+    "final_module_hashes": {
+      "selector": "a6cc2d5cd47efa0a88b032306cfcec7cd5bd040da4dfcd44767942add0574f89",
+      "predictor": "5bd9df4d4019d108c896f6ae882f056dee2e92be055873fbb6a5c6b65efcac2c",
+      "bridge": "c88d971fc6698f08a5c5b9420bfb322c9e04de4c54829fcc029046d8053e7d8d"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "88cc0acba20b4e7c739dae960a1021fcbf62d2a4f0eafd14a95be2a89e33b80d",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_fixed_lattice",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.007471669331602347,
+        "future_bridge": 0.20296838287954597
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 4.139080954064418,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.7869487404823303,
+        "trajectory_xy_change_m": 0.02859710343182087
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.44715094566345215,
+        "trajectory_xy_change_m": 0.011993404477834702
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "a17956d6cad534c17c0d9694edc9f43a2dc4b35ceae0e1ed27f80aee2198ba7f",
+      "predictor": "ef664f1633509c2c11022d71754e2cd8d4b5cd64b05c5004d1010a8f4c7fad26",
+      "bridge": "caede6765a77655de3ee5029af7cbdf03bfcefff7900ed7f398660e48af584df"
+    },
+    "final_module_hashes": {
+      "selector": "a17956d6cad534c17c0d9694edc9f43a2dc4b35ceae0e1ed27f80aee2198ba7f",
+      "predictor": "c4881d7cb83123da91d5281d1359b5b1dd723dfc6d45cb07b143e9448630af9d",
+      "bridge": "e2279a411a4a272d48de61693da90adcf939ccc2518580045ed7c529e1e63fc5"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "23a27895b0c8e07e09b2c9c64b216e1bfa432ed4cac9589913402f77e01aa466",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_fixed_lattice",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.003834674858424594,
+        "future_bridge": 0.21697053821373052
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 3.5263388914658425,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.7139292359352112,
+        "trajectory_xy_change_m": 0.01921435445547104
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.2739540934562683,
+        "trajectory_xy_change_m": 0.0030830088071525097
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "8cd3cb8e12c9994822e4ba622c8ebab2e20b8cf2e15241a6d8e2e0229905ca96",
+      "predictor": "e46dbdba008f094d7605c37840ffbd68f52075b49cb3b6e2c19ddc6c7b5a13f6",
+      "bridge": "a074032d8a287bf0f0d70d396def724235fa4e901b37f93bb301ae5d3d694280"
+    },
+    "final_module_hashes": {
+      "selector": "8cd3cb8e12c9994822e4ba622c8ebab2e20b8cf2e15241a6d8e2e0229905ca96",
+      "predictor": "8077321bb9f7f0fb236954765ddf67becb071af78577b83303b124ae5328838b",
+      "bridge": "63c70b89a04fb8b576e92ea4c6efc9f4c65362e438076c14ad5c925cde41d488"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "e2ff25dbfa335c2d5163b63f7fefaedaddca903371bf689f1424006af0ec2039",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_seeded_random",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.022363988770791685,
+        "future_bridge": 0.44194504639152027
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 3.5822929291685632,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.7559351325035095,
+        "trajectory_xy_change_m": 0.02760687842965126
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.22644300758838654,
+        "trajectory_xy_change_m": 0.0024898124393075705
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "a6cc2d5cd47efa0a88b032306cfcec7cd5bd040da4dfcd44767942add0574f89",
+      "predictor": "b1ce6a75a341eaca1d8210b6ea648c84b1d3885078ea5bae9fc0596448ce42a8",
+      "bridge": "e4c4f2093f09e238df4dccec574b9a736db5aaf60324653d2006e8cd84a2bc97"
+    },
+    "final_module_hashes": {
+      "selector": "a6cc2d5cd47efa0a88b032306cfcec7cd5bd040da4dfcd44767942add0574f89",
+      "predictor": "d96b398e75c143e70ee45474c7333a16fdf7bc56b144c942e31cea9306d25c4e",
+      "bridge": "b0f4ce2bcdd25444d2678c9cb37b810c5be7916d55bfd91932bfa3aab7679e42"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "88cc0acba20b4e7c739dae960a1021fcbf62d2a4f0eafd14a95be2a89e33b80d",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_seeded_random",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.005193123379645115,
+        "future_bridge": 0.1885013389832893
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 3.9664065668149235,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.734419584274292,
+        "trajectory_xy_change_m": 0.025674384087324142
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.4203347861766815,
+        "trajectory_xy_change_m": 0.007823267951607704
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "a17956d6cad534c17c0d9694edc9f43a2dc4b35ceae0e1ed27f80aee2198ba7f",
+      "predictor": "ef664f1633509c2c11022d71754e2cd8d4b5cd64b05c5004d1010a8f4c7fad26",
+      "bridge": "caede6765a77655de3ee5029af7cbdf03bfcefff7900ed7f398660e48af584df"
+    },
+    "final_module_hashes": {
+      "selector": "a17956d6cad534c17c0d9694edc9f43a2dc4b35ceae0e1ed27f80aee2198ba7f",
+      "predictor": "fbed3340c66128e8600830339d083d66c306172f019c52dedb91a422f2e3b9e7",
+      "bridge": "45ba1472660a211b030b573bb0a16a225e8c678415a6ad89205e55066a2d33f2"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "23a27895b0c8e07e09b2c9c64b216e1bfa432ed4cac9589913402f77e01aa466",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_seeded_random",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.0037680950528469746,
+        "future_bridge": 0.20393094892859412
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 3.3406460186912867,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.6229700446128845,
+        "trajectory_xy_change_m": 0.017338689416646957
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.2703511714935303,
+        "trajectory_xy_change_m": 0.002788327168673277
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "8cd3cb8e12c9994822e4ba622c8ebab2e20b8cf2e15241a6d8e2e0229905ca96",
+      "predictor": "e46dbdba008f094d7605c37840ffbd68f52075b49cb3b6e2c19ddc6c7b5a13f6",
+      "bridge": "a074032d8a287bf0f0d70d396def724235fa4e901b37f93bb301ae5d3d694280"
+    },
+    "final_module_hashes": {
+      "selector": "8cd3cb8e12c9994822e4ba622c8ebab2e20b8cf2e15241a6d8e2e0229905ca96",
+      "predictor": "9ebdea57dbf95f3bcf58dee4ca472698ae564093aa42aa6fb8a4a3d89c605bda",
+      "bridge": "8837fc87330ff266674e12c8aec836d58864681857a09296113eaf798bd0b41c"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "e2ff25dbfa335c2d5163b63f7fefaedaddca903371bf689f1424006af0ec2039",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_joint_aux_off",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.007752303804489637,
+        "future_predictor": 0.03504351749208523,
+        "future_bridge": 0.49710370103193213
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 1.4206507226717284,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.46694421768188477,
+        "trajectory_xy_change_m": 0.038959283381700516
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.21647100150585175,
+        "trajectory_xy_change_m": 0.004889355972409248
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "a6cc2d5cd47efa0a88b032306cfcec7cd5bd040da4dfcd44767942add0574f89",
+      "predictor": "b1ce6a75a341eaca1d8210b6ea648c84b1d3885078ea5bae9fc0596448ce42a8",
+      "bridge": "e4c4f2093f09e238df4dccec574b9a736db5aaf60324653d2006e8cd84a2bc97"
+    },
+    "final_module_hashes": {
+      "selector": "ea08bdfe50bbef52fb725e78a02abea766ba014a69836192234284987b906790",
+      "predictor": "235e19e38ba12a696b14588186f9dd9b9be1e628c681744e60eb98a6a283461a",
+      "bridge": "18b4cf960918bd14bed42adb76844cdb2a308ed916c552fdfc44c138f8e353e9"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "88cc0acba20b4e7c739dae960a1021fcbf62d2a4f0eafd14a95be2a89e33b80d",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536",
+    "effective_joint_auxiliary_weight": 0.0,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_joint_aux_off",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0031020706074639027,
+        "future_predictor": 0.009664382250304877,
+        "future_bridge": 0.2247406570707184
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 2.7616935529921944,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.5557862520217896,
+        "trajectory_xy_change_m": 0.03371921181678772
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.3257485330104828,
+        "trajectory_xy_change_m": 0.010230792686343193
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "a17956d6cad534c17c0d9694edc9f43a2dc4b35ceae0e1ed27f80aee2198ba7f",
+      "predictor": "ef664f1633509c2c11022d71754e2cd8d4b5cd64b05c5004d1010a8f4c7fad26",
+      "bridge": "caede6765a77655de3ee5029af7cbdf03bfcefff7900ed7f398660e48af584df"
+    },
+    "final_module_hashes": {
+      "selector": "3f08f3497baae946ae7b14f5b9900f64082823ed7f5a3b64576035ab7aa7ca8b",
+      "predictor": "e8c44b3b8ec56eafd863ad6405be431bfb44ed2b352f0dec0185bb00771e5a17",
+      "bridge": "6b46ad5eea998107fb9a3fc1a521eb423106e8f7d1b0951bf9a4612e5df07f9e"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "23a27895b0c8e07e09b2c9c64b216e1bfa432ed4cac9589913402f77e01aa466",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2",
+    "effective_joint_auxiliary_weight": 0.0,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_joint_aux_off",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.003015655723176524,
+        "future_predictor": 0.01051055941322142,
+        "future_bridge": 0.2508229542345532
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 1.4644621815134726,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 0.4619849920272827,
+        "trajectory_xy_change_m": 0.0252499058842659
+      },
+      "batch_swap": {
+        "future_input_rms_change": 0.1961112767457962,
+        "trajectory_xy_change_m": 0.005361470859497786
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "8cd3cb8e12c9994822e4ba622c8ebab2e20b8cf2e15241a6d8e2e0229905ca96",
+      "predictor": "e46dbdba008f094d7605c37840ffbd68f52075b49cb3b6e2c19ddc6c7b5a13f6",
+      "bridge": "a074032d8a287bf0f0d70d396def724235fa4e901b37f93bb301ae5d3d694280"
+    },
+    "final_module_hashes": {
+      "selector": "4803db0cfad1eca169301b394c51ef90facecf24739e7af6c743767e4fd63a22",
+      "predictor": "23b619de0d5f2d10328de33ec9470b526efd4af39f3ed3e365eaed7af5495c04",
+      "bridge": "17100e155524316a7c4710460e25a19984dff83ffdcb3e43387e9de3528857ce"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "e2ff25dbfa335c2d5163b63f7fefaedaddca903371bf689f1424006af0ec2039",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32",
+    "effective_joint_auxiliary_weight": 0.0,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_current_features",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.018330214781260738,
+        "future_predictor": 0.0,
+        "future_bridge": 0.4216131782261184
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.0,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": null,
+    "initial_module_hashes": {
+      "selector": "a6cc2d5cd47efa0a88b032306cfcec7cd5bd040da4dfcd44767942add0574f89",
+      "predictor": "b1ce6a75a341eaca1d8210b6ea648c84b1d3885078ea5bae9fc0596448ce42a8",
+      "bridge": "e4c4f2093f09e238df4dccec574b9a736db5aaf60324653d2006e8cd84a2bc97"
+    },
+    "final_module_hashes": {
+      "selector": "74796189fd81d39160acf6b9165726feb59495f678ae0e88ac0eef4141f03edd",
+      "predictor": "b1ce6a75a341eaca1d8210b6ea648c84b1d3885078ea5bae9fc0596448ce42a8",
+      "bridge": "f28c458bcb5ce0dda07dda19b1103f63796ca005a80622dfd96e459f7ecc5f00"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "88cc0acba20b4e7c739dae960a1021fcbf62d2a4f0eafd14a95be2a89e33b80d",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536",
+    "effective_joint_auxiliary_weight": 0.0,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_current_features",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.006647363246184944,
+        "future_predictor": 0.0,
+        "future_bridge": 0.1794899515434093
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.0,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": null,
+    "initial_module_hashes": {
+      "selector": "a17956d6cad534c17c0d9694edc9f43a2dc4b35ceae0e1ed27f80aee2198ba7f",
+      "predictor": "ef664f1633509c2c11022d71754e2cd8d4b5cd64b05c5004d1010a8f4c7fad26",
+      "bridge": "caede6765a77655de3ee5029af7cbdf03bfcefff7900ed7f398660e48af584df"
+    },
+    "final_module_hashes": {
+      "selector": "2b8e07f1bd113ee5b22fe8da2270b15bfe2de05581ebb3ba34bc6926a8d73ab6",
+      "predictor": "ef664f1633509c2c11022d71754e2cd8d4b5cd64b05c5004d1010a8f4c7fad26",
+      "bridge": "26847bc87441826e9025c1922ef8bbba75da85154157d4665b925bce9bfe2eb8"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "23a27895b0c8e07e09b2c9c64b216e1bfa432ed4cac9589913402f77e01aa466",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2",
+    "effective_joint_auxiliary_weight": 0.0,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "mlp_conservative_current_features",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.008496412255239132,
+        "future_predictor": 0.0,
+        "future_bridge": 0.23565991147697865
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.0,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": null,
+    "initial_module_hashes": {
+      "selector": "8cd3cb8e12c9994822e4ba622c8ebab2e20b8cf2e15241a6d8e2e0229905ca96",
+      "predictor": "e46dbdba008f094d7605c37840ffbd68f52075b49cb3b6e2c19ddc6c7b5a13f6",
+      "bridge": "a074032d8a287bf0f0d70d396def724235fa4e901b37f93bb301ae5d3d694280"
+    },
+    "final_module_hashes": {
+      "selector": "b6c3f2c5e1a50f423ab010070141f792d1efabac6333d461a9c6c52bf1c158f9",
+      "predictor": "e46dbdba008f094d7605c37840ffbd68f52075b49cb3b6e2c19ddc6c7b5a13f6",
+      "bridge": "21b6ba43457a25eaaa68ced8e7071ca24ae13bd9bcecd6fd4f863f609d99e637"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "e2ff25dbfa335c2d5163b63f7fefaedaddca903371bf689f1424006af0ec2039",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32",
+    "effective_joint_auxiliary_weight": 0.0,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "ego_conservative_fixed_lattice",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.01169141874061846,
+        "future_bridge": 0.40282622226050824
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.27031339993231196,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.056654930114746,
+        "trajectory_xy_change_m": 0.053915802389383316
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.4934382438659668,
+        "trajectory_xy_change_m": 0.020496005192399025
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "fd20133079b8ad455c8a53e238b130163456617b7f06fd4783afbf058e6e55b0",
+      "predictor": "c76619a8673a7d156297e4018c613e123fec56323120e5e6fb4ec120011a18db",
+      "bridge": "e4c4f2093f09e238df4dccec574b9a736db5aaf60324653d2006e8cd84a2bc97"
+    },
+    "final_module_hashes": {
+      "selector": "fd20133079b8ad455c8a53e238b130163456617b7f06fd4783afbf058e6e55b0",
+      "predictor": "ca7b711a38a29da039736760b469d719a70a2c0afd30fda0d2ac0c3dee5a9212",
+      "bridge": "91535275cdaf0a762d53e5d9de89d885600716feabc86aaef5d47edcf6f4b2ae"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b2f99483e74e6111997582c970499ae6b6c08d2811c4f8146500648586a39d52",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "ego_conservative_fixed_lattice",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.005572209519662317,
+        "future_bridge": 0.2244759376744911
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.8033147975207199,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.238546133041382,
+        "trajectory_xy_change_m": 0.050865840166807175
+      },
+      "batch_swap": {
+        "future_input_rms_change": 2.190565824508667,
+        "trajectory_xy_change_m": 0.029594991356134415
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "011db7b1e87aefeba1d0c94bf5ce1cea9ec83db1a5edb7893cdb4dc685a68b29",
+      "predictor": "f927c9488a52cde24b1d06b9c4bc4bba4cb38e805fbc2409d1add1edeb5cacad",
+      "bridge": "caede6765a77655de3ee5029af7cbdf03bfcefff7900ed7f398660e48af584df"
+    },
+    "final_module_hashes": {
+      "selector": "011db7b1e87aefeba1d0c94bf5ce1cea9ec83db1a5edb7893cdb4dc685a68b29",
+      "predictor": "bdb921bc3f258a258f53d8b6ba5dc8138d72639350601f3e2ee73d1f53692f50",
+      "bridge": "a03dbf9194b01eb9bd7750a01fdce837bd608bc782334eec8aacc10ca571effc"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "7f9db29c54aa6aa2216558cd6f1f93d74d75171d3b98d9a62fa644a1ba13a6dc",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "ego_conservative_fixed_lattice",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.003606649944084423,
+        "future_bridge": 0.22345615183861164
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.31924201914364486,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.0900747776031494,
+        "trajectory_xy_change_m": 0.02947070822119713
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.7303804159164429,
+        "trajectory_xy_change_m": 0.020219862461090088
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "2dbad9c93431aa366d5cd0339a497ef11c52605089b0bf1d0e49949f9c9873f9",
+      "predictor": "f0222595038e2373a7ce7f8f3ea209dfe5f9a9ff0578d4fecce6365499f75ad1",
+      "bridge": "a074032d8a287bf0f0d70d396def724235fa4e901b37f93bb301ae5d3d694280"
+    },
+    "final_module_hashes": {
+      "selector": "2dbad9c93431aa366d5cd0339a497ef11c52605089b0bf1d0e49949f9c9873f9",
+      "predictor": "6f3f71e6999cc58188b43116aefbda4bea7b908bc4c5918ea418cdc50c750724",
+      "bridge": "25fcb7dd357758fb74efa14020c0536289fa09269afa2622bb95198c1fe4560b"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b6c89db460045b2a224807540cdf411e930683f3911d6dd7808e947f1b3e583e",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "ego_conservative_seeded_random",
+    "seed": 29,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.005450364147911817,
+        "future_bridge": 0.4292357358004869
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.2322496938130144,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.077563762664795,
+        "trajectory_xy_change_m": 0.04667569696903229
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.7697316408157349,
+        "trajectory_xy_change_m": 0.009557533077895641
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "fd20133079b8ad455c8a53e238b130163456617b7f06fd4783afbf058e6e55b0",
+      "predictor": "c76619a8673a7d156297e4018c613e123fec56323120e5e6fb4ec120011a18db",
+      "bridge": "e4c4f2093f09e238df4dccec574b9a736db5aaf60324653d2006e8cd84a2bc97"
+    },
+    "final_module_hashes": {
+      "selector": "fd20133079b8ad455c8a53e238b130163456617b7f06fd4783afbf058e6e55b0",
+      "predictor": "698388fb2369ce5a3b08a38dd34073fe984bd2d078fb5d8547a0eea4c15ad914",
+      "bridge": "0f75a05460ecaa97d7a3504f9b979a36b25aab04bfadfae81c80ec42b26bdc04"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b2f99483e74e6111997582c970499ae6b6c08d2811c4f8146500648586a39d52",
+    "batch_schedule_sha256": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "ego_conservative_seeded_random",
+    "seed": 47,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.0025139390766074927,
+        "future_bridge": 0.3070065611420446
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.7807696603839468,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.2727439403533936,
+        "trajectory_xy_change_m": 0.042741917073726654
+      },
+      "batch_swap": {
+        "future_input_rms_change": 2.3779664039611816,
+        "trajectory_xy_change_m": 0.011516068130731583
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "011db7b1e87aefeba1d0c94bf5ce1cea9ec83db1a5edb7893cdb4dc685a68b29",
+      "predictor": "f927c9488a52cde24b1d06b9c4bc4bba4cb38e805fbc2409d1add1edeb5cacad",
+      "bridge": "caede6765a77655de3ee5029af7cbdf03bfcefff7900ed7f398660e48af584df"
+    },
+    "final_module_hashes": {
+      "selector": "011db7b1e87aefeba1d0c94bf5ce1cea9ec83db1a5edb7893cdb4dc685a68b29",
+      "predictor": "87f6136275fec18547b866cbd9bcda09cb7e0f02783a5990bb523ea3f1546876",
+      "bridge": "5cfc482d328bac2515071688b28cff2adbcf3e5ca7700be4dcda5e980a9e5c2b"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed47/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "7f9db29c54aa6aa2216558cd6f1f93d74d75171d3b98d9a62fa644a1ba13a6dc",
+    "batch_schedule_sha256": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  },
+  {
+    "condition": "ego_conservative_seeded_random",
+    "seed": 83,
+    "gradient_contract": {
+      "planning": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.0012752825608723574,
+        "future_bridge": 0.20164881265223739
+      },
+      "auxiliary": {
+        "patch_selector": 0.0,
+        "future_predictor": 0.3330813606180697,
+        "future_bridge": 0.0
+      }
+    },
+    "branch_dependence": {
+      "zero": {
+        "future_input_rms_change": 2.089750051498413,
+        "trajectory_xy_change_m": 0.024633150547742844
+      },
+      "batch_swap": {
+        "future_input_rms_change": 1.9020291566848755,
+        "trajectory_xy_change_m": 0.005435982719063759
+      }
+    },
+    "initial_module_hashes": {
+      "selector": "2dbad9c93431aa366d5cd0339a497ef11c52605089b0bf1d0e49949f9c9873f9",
+      "predictor": "f0222595038e2373a7ce7f8f3ea209dfe5f9a9ff0578d4fecce6365499f75ad1",
+      "bridge": "a074032d8a287bf0f0d70d396def724235fa4e901b37f93bb301ae5d3d694280"
+    },
+    "final_module_hashes": {
+      "selector": "2dbad9c93431aa366d5cd0339a497ef11c52605089b0bf1d0e49949f9c9873f9",
+      "predictor": "6e9bee3fceca67e5c003715199cf337c0591e1115964673ae03190e8352a2b44",
+      "bridge": "4b94750bd2c03c118979c1b89156c4e487994b4fcda20afc0311ed8ee707c2bc"
+    },
+    "warmup_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed83/auxiliary_warmup_complete.pt",
+    "warmup_sha256": "b6c89db460045b2a224807540cdf411e930683f3911d6dd7808e947f1b3e583e",
+    "batch_schedule_sha256": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32",
+    "effective_joint_auxiliary_weight": 0.01,
+    "gradient_contract_scope": "unweighted diagnostic loss paths; actual training weight is recorded separately"
+  }
+]

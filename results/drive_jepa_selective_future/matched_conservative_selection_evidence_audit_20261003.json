@@ -1,0 +1,825 @@
+{
+  "all_passed": true,
+  "completed_runs": 18,
+  "joint_updates": 14400,
+  "scope": "CPU artifact and independent aggregation checks; no model re-execution or held-out evaluation",
+  "studies": {
+    "matched_conservative_selection_v1_20261003": {
+      "passed": true,
+      "completed_runs": 18,
+      "joint_updates": 14400,
+      "series_wall_seconds": 2934.4165441810037,
+      "peak_allocated_gib": 1.559941291809082,
+      "baseline_development_ade_m": 0.35220981056668926,
+      "development_windows": 192,
+      "summary_path": "results/drive_jepa_selective_future/matched_conservative_selection_v1_20261003/summary.json",
+      "summary_sha256": "4e38252458e3c5f43b834ba175116b769516b817b29d9d68852dcf250f81c1a8",
+      "conditions": {
+        "mlp_conservative_fixed_lattice": {
+          "development_ade_m": {
+            "seed_values": [
+              0.3477749651205818,
+              0.3477300241855638,
+              0.34788370755716014
+            ],
+            "mean": 0.34779623228776857,
+            "sample_std": 7.901812435394918e-05
+          },
+          "versus_original": {
+            "paired_seed_differences": [
+              {
+                "seed": 29,
+                "proposed_minus_reference_ade_m": -0.004434845446107479
+              },
+              {
+                "seed": 47,
+                "proposed_minus_reference_ade_m": -0.00447978638112545
+              },
+              {
+                "seed": 83,
+                "proposed_minus_reference_ade_m": -0.004326103009529166
+              }
+            ],
+            "mean_difference_m": -0.004413578278920698,
+            "recording_differences_m": {
+              "2021.06.07.17.48.02_veh-38": -0.02527775822414292,
+              "2021.06.08.14.14.51_veh-35": 0.016950584948062897,
+              "2021.06.09.17.37.09_veh-12": -0.005432313463340202,
+              "2021.06.14.11.44.56_veh-35": -0.005625806748867035,
+              "2021.06.14.19.22.11_veh-38": -0.0016956197408338385,
+              "2021.06.14.20.14.09_veh-26": -0.003888901167859636,
+              "2021.06.23.14.58.13_veh-35": -0.010217350403157372,
+              "2021.07.09.20.26.06_veh-35": -0.011956284288316963,
+              "2021.07.16.16.01.30_veh-38": -0.006925260648131369,
+              "2021.07.16.18.06.21_veh-38": 0.013836469656477373,
+              "2021.07.16.18.19.22_veh-35": -0.010049388200665513,
+              "2021.08.09.18.37.41_veh-28": -0.005663495200375715,
+              "2021.08.17.18.54.02_veh-45": 0.005944599475090703,
+              "2021.08.24.14.25.28_veh-42": -0.015293152381976443,
+              "2021.08.24.18.07.48_veh-45": -0.015132929508884748,
+              "2021.08.24.20.03.01_veh-45": -0.011515989278753599,
+              "2021.08.31.14.01.15_veh-40": 0.02936581211785476,
+              "2021.08.31.17.42.52_veh-40": -0.03782570300002893,
+              "2021.08.31.18.15.54_veh-40": -0.0026750639081001264,
+              "2021.09.14.15.03.51_veh-45": -0.018021169635984633,
+              "2021.09.14.19.46.05_veh-45": 0.01865142459670703,
+              "2021.09.15.13.52.55_veh-39": 0.0034822660187880192,
+              "2021.10.06.18.52.07_veh-28": -0.008785351878032088,
+              "2021.10.11.07.12.18_veh-50": 0.0015939573446909598
+            },
+            "recording_cluster_bootstrap_95_ci_m": [
+              -0.00970448038570601,
+              0.0012296446793714682
+            ],
+            "interval_scope": "recording_resampling_of_seed_averaged_scene_differences_not_seed_uncertainty"
+          },
+          "actual_training_windows": 512,
+          "selection_spread_by_seed": {
+            "29": {
+              "unique_patch_ids": 4,
+              "marginal_entropy_over_log512": 0.2222222222222222,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3824927551364258,
+              "most_frequent_patch_counts": [
+                [
+                  136,
+                  192
+                ],
+                [
+                  151,
+                  192
+                ],
+                [
+                  360,
+                  192
+                ],
+                [
+                  375,
+                  192
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "47": {
+              "unique_patch_ids": 4,
+              "marginal_entropy_over_log512": 0.2222222222222222,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3824927551364258,
+              "most_frequent_patch_counts": [
+                [
+                  136,
+                  192
+                ],
+                [
+                  151,
+                  192
+                ],
+                [
+                  360,
+                  192
+                ],
+                [
+                  375,
+                  192
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "83": {
+              "unique_patch_ids": 4,
+              "marginal_entropy_over_log512": 0.2222222222222222,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3824927551364258,
+              "most_frequent_patch_counts": [
+                [
+                  136,
+                  192
+                ],
+                [
+                  151,
+                  192
+                ],
+                [
+                  360,
+                  192
+                ],
+                [
+                  375,
+                  192
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            }
+          }
+        },
+        "mlp_conservative_seeded_random": {
+          "development_ade_m": {
+            "seed_values": [
+              0.347738469469842,
+              0.3480511690991429,
+              0.3478427986604172
+            ],
+            "mean": 0.3478774790764674,
+            "sample_std": 0.00015920839482983648
+          },
+          "versus_original": {
+            "paired_seed_differences": [
+              {
+                "seed": 29,
+                "proposed_minus_reference_ade_m": -0.0044713410968472665
+              },
+              {
+                "seed": 47,
+                "proposed_minus_reference_ade_m": -0.004158641467546369
+              },
+              {
+                "seed": 83,
+                "proposed_minus_reference_ade_m": -0.004367011906272107
+              }
+            ],
+            "mean_difference_m": -0.004332331490221914,
+            "recording_differences_m": {
+              "2021.06.07.17.48.02_veh-38": -0.025074128475454118,
+              "2021.06.08.14.14.51_veh-35": 0.01740503021412426,
+              "2021.06.09.17.37.09_veh-12": -0.00512569157096247,
+              "2021.06.14.11.44.56_veh-35": -0.005367390035341184,
+              "2021.06.14.19.22.11_veh-38": -0.0019968611498673754,
+              "2021.06.14.20.14.09_veh-26": -0.0039064823649823666,
+              "2021.06.23.14.58.13_veh-35": -0.010353019150594871,
+              "2021.07.09.20.26.06_veh-35": -0.011934807368864615,
+              "2021.07.16.16.01.30_veh-38": -0.0065818484872579575,
+              "2021.07.16.18.06.21_veh-38": 0.013555766083300115,
+              "2021.07.16.18.19.22_veh-35": -0.009991389156008761,
+              "2021.08.09.18.37.41_veh-28": -0.005775736955304941,
+              "2021.08.17.18.54.02_veh-45": 0.005516270874068141,
+              "2021.08.24.14.25.28_veh-42": -0.01479930430650711,
+              "2021.08.24.18.07.48_veh-45": -0.016152771189808846,
+              "2021.08.24.20.03.01_veh-45": -0.011342778181036314,
+              "2021.08.31.14.01.15_veh-40": 0.02893890005846818,
+              "2021.08.31.17.42.52_veh-40": -0.03659442315498988,
+              "2021.08.31.18.15.54_veh-40": -0.0020208169395724944,
+              "2021.09.14.15.03.51_veh-45": -0.017401630472805765,
+              "2021.09.14.19.46.05_veh-45": 0.018447901639673442,
+              "2021.09.15.13.52.55_veh-39": 0.003340478365619976,
+              "2021.10.06.18.52.07_veh-28": -0.008654280177628,
+              "2021.10.11.07.12.18_veh-50": 0.0019529376489420755
+            },
+            "recording_cluster_bootstrap_95_ci_m": [
+              -0.009475627383597656,
+              0.0012027398663946188
+            ],
+            "interval_scope": "recording_resampling_of_seed_averaged_scene_differences_not_seed_uncertainty"
+          },
+          "actual_training_windows": 512,
+          "selection_spread_by_seed": {
+            "29": {
+              "unique_patch_ids": 406,
+              "marginal_entropy_over_log512": 0.9432952995524302,
+              "mean_pairwise_grid_distance_over_diagonal": 0.38589069004196663,
+              "most_frequent_patch_counts": [
+                [
+                  208,
+                  6
+                ],
+                [
+                  273,
+                  6
+                ],
+                [
+                  394,
+                  5
+                ],
+                [
+                  118,
+                  5
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "47": {
+              "unique_patch_ids": 407,
+              "marginal_entropy_over_log512": 0.9437411527949457,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3856118668831105,
+              "most_frequent_patch_counts": [
+                [
+                  128,
+                  7
+                ],
+                [
+                  45,
+                  5
+                ],
+                [
+                  89,
+                  5
+                ],
+                [
+                  37,
+                  5
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "83": {
+              "unique_patch_ids": 394,
+              "marginal_entropy_over_log512": 0.9376063686523086,
+              "mean_pairwise_grid_distance_over_diagonal": 0.37274342420350975,
+              "most_frequent_patch_counts": [
+                [
+                  238,
+                  7
+                ],
+                [
+                  55,
+                  6
+                ],
+                [
+                  223,
+                  6
+                ],
+                [
+                  124,
+                  5
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            }
+          }
+        },
+        "mlp_conservative_joint_aux_off": {
+          "development_ade_m": {
+            "seed_values": [
+              0.3476236825194824,
+              0.3475316339991168,
+              0.3474025723759781
+            ],
+            "mean": 0.3475192962981924,
+            "sample_std": 0.00011107019419356426
+          },
+          "versus_original": {
+            "paired_seed_differences": [
+              {
+                "seed": 29,
+                "proposed_minus_reference_ade_m": -0.0045861280472069
+              },
+              {
+                "seed": 47,
+                "proposed_minus_reference_ade_m": -0.0046781765675724864
+              },
+              {
+                "seed": 83,
+                "proposed_minus_reference_ade_m": -0.0048072381907112
+              }
+            ],
+            "mean_difference_m": -0.0046905142684968626,
+            "recording_differences_m": {
+              "2021.06.07.17.48.02_veh-38": -0.02935677208006382,
+              "2021.06.08.14.14.51_veh-35": 0.020421103470855288,
+              "2021.06.09.17.37.09_veh-12": -0.007449859287589787,
+              "2021.06.14.11.44.56_veh-35": -0.006350514478981495,
+              "2021.06.14.19.22.11_veh-38": -0.0016185274968544645,
+              "2021.06.14.20.14.09_veh-26": -0.005002246859172981,
+              "2021.06.23.14.58.13_veh-35": -0.011143152718432248,
+              "2021.07.09.20.26.06_veh-35": -0.012941356748342514,
+              "2021.07.16.16.01.30_veh-38": -0.0071657942607998865,
+              "2021.07.16.18.06.21_veh-38": 0.014780434469381968,
+              "2021.07.16.18.19.22_veh-35": -0.010889126686379312,
+              "2021.08.09.18.37.41_veh-28": -0.00514303365101417,
+              "2021.08.17.18.54.02_veh-45": 0.008952355866009992,
+              "2021.08.24.14.25.28_veh-42": -0.01625547765029801,
+              "2021.08.24.18.07.48_veh-45": -0.015465621526042621,
+              "2021.08.24.20.03.01_veh-45": -0.0117608072857062,
+              "2021.08.31.14.01.15_veh-40": 0.03258620699246725,
+              "2021.08.31.17.42.52_veh-40": -0.042006731033325195,
+              "2021.08.31.18.15.54_veh-40": -0.0030464616914590197,
+              "2021.09.14.15.03.51_veh-45": -0.02011353377666738,
+              "2021.09.14.19.46.05_veh-45": 0.01924538819326295,
+              "2021.09.15.13.52.55_veh-39": 0.0031702091606954728,
+              "2021.10.06.18.52.07_veh-28": -0.010078624666978916,
+              "2021.10.11.07.12.18_veh-50": 0.003407921176403761
+            },
+            "recording_cluster_bootstrap_95_ci_m": [
+              -0.01052828185480742,
+              0.0015688603660336956
+            ],
+            "interval_scope": "recording_resampling_of_seed_averaged_scene_differences_not_seed_uncertainty"
+          },
+          "actual_training_windows": 512,
+          "selection_spread_by_seed": {
+            "29": {
+              "unique_patch_ids": 216,
+              "marginal_entropy_over_log512": 0.831898481381791,
+              "mean_pairwise_grid_distance_over_diagonal": 0.16603726107880995,
+              "most_frequent_patch_counts": [
+                [
+                  420,
+                  10
+                ],
+                [
+                  192,
+                  9
+                ],
+                [
+                  163,
+                  9
+                ],
+                [
+                  135,
+                  8
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "47": {
+              "unique_patch_ids": 119,
+              "marginal_entropy_over_log512": 0.6740445794235067,
+              "mean_pairwise_grid_distance_over_diagonal": 0.12456655072159975,
+              "most_frequent_patch_counts": [
+                [
+                  158,
+                  41
+                ],
+                [
+                  157,
+                  33
+                ],
+                [
+                  125,
+                  32
+                ],
+                [
+                  126,
+                  32
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "83": {
+              "unique_patch_ids": 184,
+              "marginal_entropy_over_log512": 0.7576793379484013,
+              "mean_pairwise_grid_distance_over_diagonal": 0.15788845100375387,
+              "most_frequent_patch_counts": [
+                [
+                  26,
+                  24
+                ],
+                [
+                  24,
+                  22
+                ],
+                [
+                  29,
+                  22
+                ],
+                [
+                  28,
+                  21
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            }
+          }
+        },
+        "mlp_conservative_current_features": {
+          "development_ade_m": {
+            "seed_values": [
+              0.3474636216402299,
+              0.3459820028210243,
+              0.34722550126345275
+            ],
+            "mean": 0.346890375241569,
+            "sample_std": 0.0007956322449874562
+          },
+          "versus_original": {
+            "paired_seed_differences": [
+              {
+                "seed": 29,
+                "proposed_minus_reference_ade_m": -0.004746188926459342
+              },
+              {
+                "seed": 47,
+                "proposed_minus_reference_ade_m": -0.006227807745664984
+              },
+              {
+                "seed": 83,
+                "proposed_minus_reference_ade_m": -0.0049843093032365315
+              }
+            ],
+            "mean_difference_m": -0.005319435325120286,
+            "recording_differences_m": {
+              "2021.06.07.17.48.02_veh-38": -0.02350596897304058,
+              "2021.06.08.14.14.51_veh-35": 0.014789977835284338,
+              "2021.06.09.17.37.09_veh-12": -0.0046777422539889795,
+              "2021.06.14.11.44.56_veh-35": -0.007335555429259936,
+              "2021.06.14.19.22.11_veh-38": -0.0026505050870279474,
+              "2021.06.14.20.14.09_veh-26": -0.009382502951969702,
+              "2021.06.23.14.58.13_veh-35": -0.009191000640081864,
+              "2021.07.09.20.26.06_veh-35": -0.012769427926590046,
+              "2021.07.16.16.01.30_veh-38": -0.006153254769742489,
+              "2021.07.16.18.06.21_veh-38": 0.01018256911387046,
+              "2021.07.16.18.19.22_veh-35": -0.00853134311425189,
+              "2021.08.09.18.37.41_veh-28": -0.003150762990117073,
+              "2021.08.17.18.54.02_veh-45": 0.008932844813292224,
+              "2021.08.24.14.25.28_veh-42": -0.014122322615649963,
+              "2021.08.24.18.07.48_veh-45": -0.01569038132826487,
+              "2021.08.24.20.03.01_veh-45": -0.013000196466843285,
+              "2021.08.31.14.01.15_veh-40": 0.02624513953924179,
+              "2021.08.31.17.42.52_veh-40": -0.04285075391332309,
+              "2021.08.31.18.15.54_veh-40": -0.00035120267421006983,
+              "2021.09.14.15.03.51_veh-45": -0.024487183325820495,
+              "2021.09.14.19.46.05_veh-45": 0.01770992577075958,
+              "2021.09.15.13.52.55_veh-39": 0.0008279834873974328,
+              "2021.10.06.18.52.07_veh-28": -0.009855811328937612,
+              "2021.10.11.07.12.18_veh-50": 0.0005964287556707859
+            },
+            "recording_cluster_bootstrap_95_ci_m": [
+              -0.010875126729427115,
+              0.0002832249061342368
+            ],
+            "interval_scope": "recording_resampling_of_seed_averaged_scene_differences_not_seed_uncertainty"
+          },
+          "actual_training_windows": 512,
+          "selection_spread_by_seed": {
+            "29": {
+              "unique_patch_ids": 209,
+              "marginal_entropy_over_log512": 0.8243655255739284,
+              "mean_pairwise_grid_distance_over_diagonal": 0.1531039536684985,
+              "most_frequent_patch_counts": [
+                [
+                  329,
+                  11
+                ],
+                [
+                  420,
+                  11
+                ],
+                [
+                  451,
+                  10
+                ],
+                [
+                  166,
+                  9
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "47": {
+              "unique_patch_ids": 131,
+              "marginal_entropy_over_log512": 0.695373221939911,
+              "mean_pairwise_grid_distance_over_diagonal": 0.12791323303642269,
+              "most_frequent_patch_counts": [
+                [
+                  158,
+                  38
+                ],
+                [
+                  157,
+                  34
+                ],
+                [
+                  126,
+                  29
+                ],
+                [
+                  156,
+                  25
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "83": {
+              "unique_patch_ids": 207,
+              "marginal_entropy_over_log512": 0.7820521420005173,
+              "mean_pairwise_grid_distance_over_diagonal": 0.17008956517982968,
+              "most_frequent_patch_counts": [
+                [
+                  26,
+                  22
+                ],
+                [
+                  19,
+                  22
+                ],
+                [
+                  24,
+                  21
+                ],
+                [
+                  22,
+                  20
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            }
+          }
+        },
+        "ego_conservative_fixed_lattice": {
+          "development_ade_m": {
+            "seed_values": [
+              0.34786688639772134,
+              0.34658116611887463,
+              0.34756864176469515
+            ],
+            "mean": 0.34733889809376367,
+            "sample_std": 0.0006729455955790258
+          },
+          "versus_original": {
+            "paired_seed_differences": [
+              {
+                "seed": 29,
+                "proposed_minus_reference_ade_m": -0.004342924168967938
+              },
+              {
+                "seed": 47,
+                "proposed_minus_reference_ade_m": -0.005628644447814632
+              },
+              {
+                "seed": 83,
+                "proposed_minus_reference_ade_m": -0.0046411688019941146
+              }
+            ],
+            "mean_difference_m": -0.004870912472925561,
+            "recording_differences_m": {
+              "2021.06.07.17.48.02_veh-38": -0.023280610640843715,
+              "2021.06.08.14.14.51_veh-35": 0.011460377938217586,
+              "2021.06.09.17.37.09_veh-12": -0.0008844170564164706,
+              "2021.06.14.11.44.56_veh-35": -0.007675944982717434,
+              "2021.06.14.19.22.11_veh-38": -0.005521649494767189,
+              "2021.06.14.20.14.09_veh-26": -0.006270906887948513,
+              "2021.06.23.14.58.13_veh-35": -0.008812192128971219,
+              "2021.07.09.20.26.06_veh-35": -0.012323868305732805,
+              "2021.07.16.16.01.30_veh-38": -0.008449372214575607,
+              "2021.07.16.18.06.21_veh-38": 0.013784096886714302,
+              "2021.07.16.18.19.22_veh-35": -0.008622366702184081,
+              "2021.08.09.18.37.41_veh-28": -0.0013842911769946422,
+              "2021.08.17.18.54.02_veh-45": 0.004966035950928928,
+              "2021.08.24.14.25.28_veh-42": -0.010925216807259455,
+              "2021.08.24.18.07.48_veh-45": -0.012783093377947807,
+              "2021.08.24.20.03.01_veh-45": -0.014886183043320976,
+              "2021.08.31.14.01.15_veh-40": 0.02671582127610842,
+              "2021.08.31.17.42.52_veh-40": -0.037773946300148964,
+              "2021.08.31.18.15.54_veh-40": -0.0070948190987110155,
+              "2021.09.14.15.03.51_veh-45": -0.016274282915724646,
+              "2021.09.14.19.46.05_veh-45": 0.01738605813847648,
+              "2021.09.15.13.52.55_veh-39": -0.0019998725814123946,
+              "2021.10.06.18.52.07_veh-28": -0.011897681280970573,
+              "2021.10.11.07.12.18_veh-50": 0.006326647475361824
+            },
+            "recording_cluster_bootstrap_95_ci_m": [
+              -0.009850525913222897,
+              0.0005360399289470729
+            ],
+            "interval_scope": "recording_resampling_of_seed_averaged_scene_differences_not_seed_uncertainty"
+          },
+          "actual_training_windows": 512,
+          "selection_spread_by_seed": {
+            "29": {
+              "unique_patch_ids": 4,
+              "marginal_entropy_over_log512": 0.2222222222222222,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3824927551364258,
+              "most_frequent_patch_counts": [
+                [
+                  136,
+                  192
+                ],
+                [
+                  151,
+                  192
+                ],
+                [
+                  360,
+                  192
+                ],
+                [
+                  375,
+                  192
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "47": {
+              "unique_patch_ids": 4,
+              "marginal_entropy_over_log512": 0.2222222222222222,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3824927551364258,
+              "most_frequent_patch_counts": [
+                [
+                  136,
+                  192
+                ],
+                [
+                  151,
+                  192
+                ],
+                [
+                  360,
+                  192
+                ],
+                [
+                  375,
+                  192
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "83": {
+              "unique_patch_ids": 4,
+              "marginal_entropy_over_log512": 0.2222222222222222,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3824927551364258,
+              "most_frequent_patch_counts": [
+                [
+                  136,
+                  192
+                ],
+                [
+                  151,
+                  192
+                ],
+                [
+                  360,
+                  192
+                ],
+                [
+                  375,
+                  192
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            }
+          }
+        },
+        "ego_conservative_seeded_random": {
+          "development_ade_m": {
+            "seed_values": [
+              0.34759337871570833,
+              0.3479027572128881,
+              0.3475077111621971
+            ],
+            "mean": 0.34766794903026454,
+            "sample_std": 0.00020781216134143203
+          },
+          "versus_original": {
+            "paired_seed_differences": [
+              {
+                "seed": 29,
+                "proposed_minus_reference_ade_m": -0.004616431850980926
+              },
+              {
+                "seed": 47,
+                "proposed_minus_reference_ade_m": -0.004307053353801206
+              },
+              {
+                "seed": 83,
+                "proposed_minus_reference_ade_m": -0.004702099404492221
+              }
+            ],
+            "mean_difference_m": -0.004541861536424784,
+            "recording_differences_m": {
+              "2021.06.07.17.48.02_veh-38": -0.023576327289144203,
+              "2021.06.08.14.14.51_veh-35": 0.014056143661340078,
+              "2021.06.09.17.37.09_veh-12": -0.003093533062686525,
+              "2021.06.14.11.44.56_veh-35": -0.0065525427150229625,
+              "2021.06.14.19.22.11_veh-38": -0.0014055745365719003,
+              "2021.06.14.20.14.09_veh-26": -0.004147771745920181,
+              "2021.06.23.14.58.13_veh-35": -0.010751896731865902,
+              "2021.07.09.20.26.06_veh-35": -0.012812665818880001,
+              "2021.07.16.16.01.30_veh-38": -0.006262182258069515,
+              "2021.07.16.18.06.21_veh-38": 0.013382332089046637,
+              "2021.07.16.18.19.22_veh-35": -0.009117649169638751,
+              "2021.08.09.18.37.41_veh-28": -0.0028178906068205825,
+              "2021.08.17.18.54.02_veh-45": 0.003512107689554492,
+              "2021.08.24.14.25.28_veh-42": -0.012180884265237385,
+              "2021.08.24.18.07.48_veh-45": -0.016766251996159554,
+              "2021.08.24.20.03.01_veh-45": -0.012100140253702797,
+              "2021.08.31.14.01.15_veh-40": 0.02674378765126069,
+              "2021.08.31.17.42.52_veh-40": -0.03676999111970266,
+              "2021.08.31.18.15.54_veh-40": -0.003167995251715184,
+              "2021.09.14.15.03.51_veh-45": -0.016518934940298397,
+              "2021.09.14.19.46.05_veh-45": 0.018437263452344477,
+              "2021.09.15.13.52.55_veh-39": 0.0019475459121167655,
+              "2021.10.06.18.52.07_veh-28": -0.011060051930447418,
+              "2021.10.11.07.12.18_veh-50": 0.0027500684373080765
+            },
+            "recording_cluster_bootstrap_95_ci_m": [
+              -0.009588557907778338,
+              0.0007306421506119983
+            ],
+            "interval_scope": "recording_resampling_of_seed_averaged_scene_differences_not_seed_uncertainty"
+          },
+          "actual_training_windows": 512,
+          "selection_spread_by_seed": {
+            "29": {
+              "unique_patch_ids": 406,
+              "marginal_entropy_over_log512": 0.9432952995524302,
+              "mean_pairwise_grid_distance_over_diagonal": 0.38589069004196663,
+              "most_frequent_patch_counts": [
+                [
+                  208,
+                  6
+                ],
+                [
+                  273,
+                  6
+                ],
+                [
+                  394,
+                  5
+                ],
+                [
+                  118,
+                  5
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "47": {
+              "unique_patch_ids": 407,
+              "marginal_entropy_over_log512": 0.9437411527949457,
+              "mean_pairwise_grid_distance_over_diagonal": 0.3856118668831105,
+              "most_frequent_patch_counts": [
+                [
+                  128,
+                  7
+                ],
+                [
+                  45,
+                  5
+                ],
+                [
+                  89,
+                  5
+                ],
+                [
+                  37,
+                  5
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            },
+            "83": {
+              "unique_patch_ids": 394,
+              "marginal_entropy_over_log512": 0.9376063686523086,
+              "mean_pairwise_grid_distance_over_diagonal": 0.37274342420350975,
+              "most_frequent_patch_counts": [
+                [
+                  238,
+                  7
+                ],
+                [
+                  55,
+                  6
+                ],
+                [
+                  223,
+                  6
+                ],
+                [
+                  124,
+                  5
+                ]
+              ],
+              "interpretation": "concentrated spatial choices may be relevant or redundant; neither uniformity nor diversity establishes planning utility"
+            }
+          }
+        }
+      }
+    }
+  }
+}
