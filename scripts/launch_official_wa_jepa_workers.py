@@ -22,11 +22,26 @@ def prepare_owner_labeled_python_entrypoint(workspace, environment, relative_ali
     return python_entrypoint
 
 
+def acknowledge_user_pause_for_explicit_resume(pause_marker, explicit_user_resume):
+    if not pause_marker.exists():
+        return
+    if not explicit_user_resume:
+        raise RuntimeError("Evaluation is explicitly user-paused. Do not launch until user requests resume; then use --resume-user-paused after checking GPU allocation.")
+    pause_metadata = json.loads(pause_marker.read_text())
+    acknowledged_marker = pause_marker.with_name(f"evaluation_pause_acknowledged_{pause_metadata['requested_at_utc'].replace(':', '').replace('+', '_')}.json")
+    if acknowledged_marker.exists():
+        raise RuntimeError("Pause acknowledgement already exists; preserve audit before resume")
+    pause_marker.rename(acknowledged_marker)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--gpu", type=int, choices=[0, 1], required=True)
+    parser.add_argument("--resume-user-paused", action="store_true", help="Only after explicit user resume and renewed GPU availability check")
     arguments = parser.parse_args()
     workspace = Path(__file__).resolve().parents[1]
+    pause_marker = workspace / "outputs/official_wa_jepa_reproduction/evaluation_pause.json"
+    acknowledge_user_pause_for_explicit_resume(pause_marker, arguments.resume_user_paused)
     specification = json.loads((workspace / "configs/official_wa_jepa/reproduction_v1.json").read_text())
     environment = workspace / specification["conda_environment"]
     python_entrypoint = prepare_owner_labeled_python_entrypoint(workspace, environment, specification["process_environment_alias"])

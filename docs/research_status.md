@@ -2,12 +2,19 @@
 
 ## 현재 승인 실행 — `fd5fc5f` 이후 WA-JEPA 공식 재현
 
+**최신상태(2026-10-02 19:12KST): 사용자요청중단. GPU0·1을다른연구원에게반환.**
+우리14worker/CPU감시·집계종료/자동재개금지. 8686/12146(71.513%)보존,3460남음,실패·중복0.
+16개scene파일SHA256검증/별도압축snapshot보존. 재개는명시적사용자요청과GPU재배정확인후에만.
+[중단상태](../results/official_wa_jepa_reproduction/paused_evaluation_state.json),
+[백업metadata](../results/official_wa_jepa_reproduction/paused_snapshot_backup.json).
+
 **실측진행(2026-10-02)**: officialstrict1162keys누락/shape0,6scene원본smoke성공.
 Nativecanonicalall-ID6scene×12step bitwise동일(PE/predictor/denoising/trajectory).
 Untrained fixed/randomfuture8192→2048,QKV/FFN 실제생략,72timedtrials6.69s→약2.07s(약69%latency절감).
 소수PDMS는민감도자료일뿐최종성능/선택학습증거아님. Reserved메모리절감은입증하지않았다.
-공식dense전체는사용자요청으로GPU0·1각7총14worker실행중,각~39.88decimalGB<45GB/OOM0.
-Full12146scene결과와논문Table3대조는**미완료**,완료전PDMS집계미보고. 기존Drive결과보존.
+공식dense전체는GPU0·1각7총14worker/각~39.88decimalGB<45GB/OOM0으로실행하다중단했다.
+Full12146scene결과와논문Table3대조는**미완료**. 中間같은5187scene비교는42.7%시점기술통계이며
+최종결과나미래예측의통제된인과효과가아니다. 기존Drive전체결과보존.
 
 Camera별 spatial patch-tube를 잠정 단위로 승인받았다. 객체 instance/최종 기여는 아니다.
 공식 원본 agent/scorer→dense 전체 평가→all-ID 동등성→fixed/random 소수 scene 비용 검사 순서다.

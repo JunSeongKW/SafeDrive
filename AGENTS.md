@@ -57,6 +57,11 @@ Drive PB future auxiliary head는 train-only이며 planner 입력이 아니다. 
 Canonical spatial patch-tube는 객체 instance가 아니다. All-ID 동일성 확인 전 sparse 제거 금지.
 Fixed/random sparse는 소수 scene만, 학습형 selector와 새 학습은 금지. Drive/pilot/확대/residual은 보존/보류.
 
+**2026-10-02 19:12KST 최신 사용자 지시: GPU0·1반환을 위해 WA 평가를 중단했다.**
+완료8686/12146scene보존/3460남음. 사용자재개요청과GPU재배정확인전GPU작업자동재개금지.
+`outputs/official_wa_jepa_reproduction/evaluation_pause.json`은명시적user pause이므로임의삭제하지않는다.
+재개검증/명령은HANDOFF와WA재현보고서를따른다. CPU보존검사는가능하지만worker/full/smoke기동은금지다.
+
 ## 세션 시작 루틴
 
 ```bash

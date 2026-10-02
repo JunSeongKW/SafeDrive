@@ -1,6 +1,6 @@
 # WA-JEPA official reproduction and untrained sparse interface
 
-Status: smoke/all-ID/sparse profiling complete; **official dense full evaluation running**. Baseline fd5fc5f;
+Status: smoke/all-ID/sparse profiling complete; **official dense full evaluation user-paused, GPUs released**. Baseline fd5fc5f;
 Drive-JEPA baseline 578be6e unchanged. No training or learned selection.
 
 ## Official target fixed before inference scores
@@ -142,14 +142,38 @@ Evidence: [cost summary](../results/official_wa_jepa_reproduction/sparse_cost_su
 Cost hook initially misclassified a scene-FFN time-modulation Linear as token FFN; only the hook filter was corrected.
 Native patch unchanged, completed all-ID results reused for cost-only retry; no model/result tuning.
 
-## How to resume/review the running dense full evaluation
+## User pause / preservation / later resume
+
+2026-10-02 19:12KST: user requested GPUs0/1 for another researcher. Only own verified14evaluation workers
+received SIGINT; own CPU guard/aggregate were also stopped after verifying UID/resolved script/subcommand.
+GPU0/1 each25MiB, no own compute; dedicated tmux server has no sessions. No foreign process stopped.
+8686/12146completed (71.513%),3460remaining, failed/duplicate0. All16scene JSONL SHA256 checks pass.
+Original weights/Conda/metric cache/config/12steps/flowseed/14waypartition and earlier32records remain unchanged.
+Per-scene files flush incrementally; only interrupted, not-yet-recorded scenes need recomputation.
+
+Local immutable snapshot `outputs/official_wa_jepa_reproduction/paused_snapshot_20261002_1912.tar.gz`,
+2885497bytes, SHA256 `b11b8ac6c34b7034d1ffd572f4a0300c9e76a3c60f6ac6760bc65ab70033f967`.
+Includes scene rows/logs/worker inventory/config/pause inventory/source/checkpoint metadata, not large weights/cache.
+Shared [pause state](../results/official_wa_jepa_reproduction/paused_evaluation_state.json) and
+[backup metadata](../results/official_wa_jepa_reproduction/paused_snapshot_backup.json).
+
+**Do not resume automatically.** Pause marker blocks both launcher and direct full/smoke. Explicit user resume
+and renewed physical GPU allocation are required. GPUutil0 alone does not establish availability.
+The first pause invocation stopped workers but bookkeeping hit an argparse/command variable-name collision;
+names were separated, inventory recovered while all workers were already stopped, and all saved files verified.
+The recovered inventory therefore correctly reports0workers newly stopped in its recovery invocation.
+
+Only after explicit resume permission and GPU0/1 availability confirmation:
 
 ```bash
-tmux -L planning-aware-wa-jepa ls
-runtime/environments/wa_jepa_official_evaluation/bin/python scripts/launch_official_wa_jepa_workers.py --gpu 0
-runtime/environments/wa_jepa_official_evaluation/bin/python scripts/launch_official_wa_jepa_workers.py --gpu 1
-# After all14shards finish, or use the already-running wait-and-aggregate session:
-runtime/environments/wa_jepa_official_evaluation/bin/python scripts/evaluate_official_wa_jepa.py aggregate
+cd /rhome/junseong/PlanningAwareFuturePrediction
+/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python scripts/pause_official_wa_jepa_workers.py --verify-only
+nvidia-smi
+# Start the memory guard before workers; guard/evaluator need the dedicated Conda library path.
+tmux -L planning-aware-wa-jepa new-session -d -s official_wa_jepa_memory_guard 'cd /rhome/junseong/PlanningAwareFuturePrediction && exec env LD_LIBRARY_PATH=/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/wa_jepa_official_evaluation/lib /rhome/junseong/envs/kjs-wa-jepa-eval/bin/python -u scripts/guard_official_wa_jepa_memory.py >> outputs/official_wa_jepa_reproduction/memory_guard.log 2>&1'
+/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python scripts/launch_official_wa_jepa_workers.py --gpu 0 --resume-user-paused
+/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python scripts/launch_official_wa_jepa_workers.py --gpu 1
+tmux -L planning-aware-wa-jepa new-session -d -s official_wa_jepa_aggregate 'cd /rhome/junseong/PlanningAwareFuturePrediction && exec env LD_LIBRARY_PATH=/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/wa_jepa_official_evaluation/lib /rhome/junseong/envs/kjs-wa-jepa-eval/bin/python -u scripts/evaluate_official_wa_jepa.py wait-and-aggregate >> outputs/official_wa_jepa_reproduction/aggregate.log 2>&1'
 ```
 
 Launcher skips active named sessions, appends logs and reuses scene records. Do not manually change the shard count
@@ -183,7 +207,7 @@ remain distinguished. No full native training-gradient/selection-learning eviden
 
 ## Four requested questions at this stage
 
-1. Public original WA runs? **Yes, strict6-scene/scorer smoke passed; full navtest still running.**
+1. Public original WA runs? **Yes, strict6-scene/scorer smoke passed; full navtest user-paused at8686/12146.**
 2. All tokens same as original? **Yes,6-scene native bitwise equality,12steps.**
 3. Sparse reduces compute? **Yes, QKV/FFN work actually shrinks and six-scene latency≈69% lower; VRAM gain small.**
 4. Selector learning established? **No. Position-only ST utility/content-replacement surrogate, GT/command boundaries,

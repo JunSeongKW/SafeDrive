@@ -1,0 +1,13 @@
+{
+  "purpose": "Immutable recovery snapshot for user-paused official evaluation",
+  "created_date_kst": "2026-10-02",
+  "archive_relative_path": "outputs/official_wa_jepa_reproduction/paused_snapshot_20261002_1912.tar.gz",
+  "bytes": 2885497,
+  "sha256": "b11b8ac6c34b7034d1ffd572f4a0300c9e76a3c60f6ac6760bc65ab70033f967",
+  "preserved_completed_scenes": 8686,
+  "remaining_scenes": 3460,
+  "included": ["all16full_evaluation_scene_JSONL_files", "all14worker_logs", "worker_PID_inventory", "evaluation_configuration", "pause_marker_and_inventory", "checkpoint_metadata", "resolved_model_configuration", "expected_scene_tokens"],
+  "large_weights_and_metric_cache": "Preserved in original paths, intentionally not duplicated in the snapshot",
+  "restore_policy": "Do not overwrite current records. Inspect/extract to a separate recovery directory only if needed, then verify SHA256 and scene inventory.",
+  "automatic_resume_allowed": false
+}

@@ -1,13 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-02 10:36 KST (Codex)
+마지막 갱신: 2026-10-02 20:06 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **현재 우선 작업(fd5fc5f 이후 승인)**: [WA-JEPA 공식 재현과 sparse 검증](docs/official_wa_jepa_reproduction.md).
-최신:strict6scene/all-ID6scene/72trial sparse비용 완료, **dense전체평가는14worker로실행중**.
-GPU0·1각7worker/각약39.88decimalGB, 사용자45GB상한이내/OOM0. tmuxsocket `planning-aware-wa-jepa`.
-전장면12146완료전fullPDMS미보고. Worker수가14배속도를뜻하지않으며GPU는이미100%compute사용.
+최신(2026-10-02 19:12KST): **사용자명시요청으로평가중단/GPU0·1반환. 자동재개금지.**
+8686/12146scene(71.513%)보존/남은3460/실패·중복0. 우리14worker와CPUguard/aggregate종료.
+종료직후GPU0·1각25MiB/우리compute없음확인. 다른연구원의사용이끝나고사용자가재개요청해야한다.
+Strict6scene/all-ID6scene/72trial비용검사는완료/보존. **FullPDMS는아직미완료**.
 설정 `configs/official_wa_jepa/reproduction_v1.json`, 전용 Conda/worktree. 학습 없음.
 사용자명명/명시적재개승인: 이니셜 `kjs`, `/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python`.
 10:32KST 우리14worker만SIGINT 정상중단/562완료scene보존 후동일14shard/config/seed로재개했다.
@@ -57,12 +58,13 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-**현재실행**: 공식WA dense navtest14-way서로겹치지않는shard. GPU0shard0/2/4/6/8/10/12,
-GPU1shard1/3/5/7/9/11/13. `scripts/launch_official_wa_jepa_workers.py --gpu 0|1`로활성session확인/재개.
-이전4-shard계획32scene를보존/재사용한다. `parallel_worker_manifest.json`에정확한PID/session기록.
-`guard_official_wa_jepa_memory.py`10초마다45GB/RAM감시;검증된우리PID만SIGINT. 타인프로세스변경0.
-`official_wa_jepa_aggregate`tmux는전14shard완료후정확12146token중복/누락검사하고자동JSON/CSV집계.
-전용env/source/cache보존. 결과확인후Table3대조보고서완성및commit/push가남았다. 학습/pilot재개금지.
+**현재실행없음 / 사용자pause**. WA-JEPA原14shard partition/weights/source/seed/12step/scorer변경없음.
+완료8686scene는16JSONL/로그로보존, 파일별SHA256검증통과. Rawpause기록과별도2.89MB압축snapshot보존.
+공유 `results/official_wa_jepa_reproduction/paused_evaluation_state.json`, `paused_snapshot_backup.json`.
+Pause marker `outputs/official_wa_jepa_reproduction/evaluation_pause.json`이launcher/directfull/smoke를차단한다.
+재개요청전marker삭제/acknowledge/worker기동금지. GPU0·1배정·점유재확인뒤doc의명령으로만재개한다.
+`--resume-user-paused`는명시적재개에만사용; 완료scene skip/남은3460과in-flight scene만계산한다.
+CPUguard/aggregate도중단했으므로재개시함께복원해야한다. Source/env/cache/checkpoint/pilot보존.
 
 2026-10-02 WA preparation: 전용Conda clone/공식stage2·Meta encoder 다운로드 완료.
 Checkpoint SHA/구조, 공식navtest12146·4-view71488files/cache completeness와호환성CPU검사통과. 5tests통과.
@@ -258,6 +260,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**846b98d 이후 사용자GPU반환요청**: 우리14worker/CPUguard/aggregate만정상종료. GPU0·1각25MiB확인.
+8686완료/3460남음/실패·중복0,16JSONL SHA256검사와2.89MB별도snapshot백업완료.
+Pause marker/명시적resume gate/CPU보존검사/3pause tests추가. 단순launcher와directfull이기동차단됨확인.
+HANDOFF/research_status/RESUME/report와공유상태JSON갱신. 원본데이터/타인process/기존결과변경없음.
+
+아래는 이전커밋까지의완료이력이다.
+
 공식WA strict1162keys/6scene smoke성공. Nativeall-ID6scene×12step bitwise동일, separatepatch보존.
 Fixed/randomfuture2048vs8192:72timedtrial완료,전체inference6.69s→약2.07s(약69%감소).
 6scene소수PDMS민감도이지논문재현/선택학습성능이아니다. ReservedVRAM은allocatorcarryover로불변.
@@ -282,6 +291,10 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 - HANDOFF/README/AGENTS/researchstatus갱신,작업기록/근거/미확인구분. Pilot/확대/residual/새selector/동적K/추가평가없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**현재는사용자pause. 재개요청전GPU/worker/guard/aggregate기동금지.**
+재개승인시원본JSONL SHA검사→GPU0·1배정/타인점유확인→guard복원→launcherGPU0
+`--resume-user-paused`/GPU1→aggregate복원. 상세명령은WA보고서. 14-way partition은유지한다.
 
 지금은densefull완료를확인한다. 이미끝난smoke/all-ID/72trial를반복하지않는다.
 전체완료후 `scripts/evaluate_official_wa_jepa.py aggregate`(CPU)→Table3하위지표/complete대조→commit/push.

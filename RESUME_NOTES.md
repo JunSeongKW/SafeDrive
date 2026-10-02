@@ -1150,3 +1150,19 @@ Manifest의UID/script/shard/physicalGPU를검증한우리14worker만SIGINT하고
 재개후추가28scene/총590완료·562전부보존·중복/실패0,14active/각GPU39880491008bytes확인.
 환경별칭/기존6검사/순서partition 포함7tests+canonicalID5tests=12통과,compileall/diffcheck통과.
 공유기록 `results/official_wa_jepa_reproduction/process_label_resume.json`;전체평가완료보고와구분한다.
+
+## 2026-10-02 19:12 KST — 사용자요청GPU0/1반환 / 재개가능상태보존
+
+다른연구원GPU사용을위해우리14평가worker에만UID/script/shard/GPU검증후SIGINT했다.
+우리CPUguardPID2345068/aggregatePID2477320도UID/실제상대script경로/subcommand검증후정상중단했다.
+GPU0/1각25MiB/util0/우리compute없음;dedicatedtmuxserver종료확인. 타인process수정0.
+완료8686/12146(71.513255%),남은3460,실패·중복0. 16JSONL SHA256+token/rowcount검증통과.
+원본source/weights/Conda/cache/seed/12step/14waypartition불변;과거32scene도그대로보존했다.
+첫pause는SIGINT완료후argparse変数와cmdline변수충돌로summary작성오류,이름분리후이미종료된상태에서
+inventory를복구했다. 복구invocation은추가stop0이정확하며완료scene손실없음을SHA/token으로확인했다.
+Pause marker와명시적resume gate를추가;기본launcher/directfull/smoke는기동차단한다.
+`--resume-user-paused`는나중에사용자가재개요청하고GPU배정확인했을때만사용한다.
+CPUguard/aggregate는재개시함께복원. 완료scene는skip하고in-flightscene만다시계산한다.
+2.89MB별도tar snapshot보존;SHA/파일크기/경로는paused_snapshot_backup.json에기록했다.
+Shared paused_evaluation_state.json/상태문서/재현명령갱신. CPUpause3+기존official7tests통과.
+GPU재시작/학습/튜닝/새평가없음. 사용자의재개요청전어떤GPU작업도자동재개하지않는다.

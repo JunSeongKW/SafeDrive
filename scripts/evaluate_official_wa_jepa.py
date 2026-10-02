@@ -395,6 +395,8 @@ def main():
     parser.add_argument("--workspace", type=Path, default=Path(__file__).resolve().parents[1])
     arguments = parser.parse_args()
     workspace = arguments.workspace.resolve()
+    if arguments.action in ("smoke", "full") and (workspace / "outputs/official_wa_jepa_reproduction/evaluation_pause.json").exists():
+        raise RuntimeError("Evaluation is explicitly user-paused; GPU inference is prohibited until the user requests resume and the pause is acknowledged by the launcher.")
     specification, source_root, navsim_root, configuration = configure_official_runtime(workspace)
     if arguments.action in ("aggregate", "wait-and-aggregate"):
         while True:

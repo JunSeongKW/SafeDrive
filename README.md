@@ -27,6 +27,8 @@
 ## 현재 구현과 과거 자산의 구분
 
 **현재 승인 작업(fd5fc5f 이후)**: [WA-JEPA 공식 재현·sparse interface](docs/official_wa_jepa_reproduction.md).
+**최신상태: 2026-10-02 사용자요청으로평가중단/GPU0·1반환. 8686/12146(71.5%)보존,3460남음.**
+명시적재개요청과GPU재배정확인전자동재개금지. [중단기록](results/official_wa_jepa_reproduction/paused_evaluation_state.json).
 12-step 공식 source/published checkpoint를 고정하고 전용 Conda에서 원본 agent/scorer를 실행한다.
 Dense 전체 평가와 canonical all-ID/fixed/random 소수 scene 검증만 승인됐으며 학습은 하지 않는다.
 아래는 이전 기반 결정·보존 이력이다. 최신 범위는 HANDOFF와 WA-JEPA 보고서를 따른다.
