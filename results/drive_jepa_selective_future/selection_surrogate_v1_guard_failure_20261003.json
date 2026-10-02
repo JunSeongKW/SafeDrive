@@ -1,0 +1,14 @@
+{
+  "status": "stopped_at_preregistered_numerical_guard",
+  "source_commit": "313a3ab3662143d9b9c10ec021e6650dfc750d52",
+  "runner_sha256": "ac29d5d38b06f70f8ab4f2f465828892ebfa10d46acad9de7244894d31f7c37c",
+  "config_sha256": "e30ce486cb0de3b2f6c70b9c7ed4cfc5a270329bac314fb9e2ae6918e4542142",
+  "max_reference_trajectory_difference": 0.000011444091796875,
+  "preregistered_absolute_tolerance": 0.00001,
+  "reference_execution": "single-window gradient-enabled",
+  "counterfactual_reference_execution": "33-window batch under no_grad",
+  "training_updates": 0,
+  "raw_log": "outputs/drive_jepa_selective_future/overnight_surrogate_sequence_20261003/selection_surrogate_diagnosis.log",
+  "revision": "v2 matches batch size and gradient execution mode; same samples, weights, substitutions, tolerance, and no optimizer updates",
+  "interpretation": "execution-mode differences are a candidate explanation; not evidence of failed training or proof of selector-surrogate quality"
+}

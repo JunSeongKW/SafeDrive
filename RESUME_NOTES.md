@@ -1372,3 +1372,15 @@ Coverage의 MLP/ego 최종800 checkpoint ×3seed, 각window32개의 seeded singl
 실제 optimizer 효과와 동일하지 않으며, GT를 쓰는 반사실적 loss진단을 배포정책/oracle로 부르지 않는다.
 학습은0, 미래GT input 없음, 마지막 queue 완료 뒤 GPU1단독으로만 실행,15분/6GiB cap.
 동일조건 reference FP32비교 tol1e-5와sign검사loss noise floor1e-6을 실행 전에 고정했다.
+
+### 2026-10-03 02:26KST — 등록학습69run 완료 / 선택진단 v1 guard
+
+69run/46,800jointupdate, 시리즈wall 합5,027.30초, 최대allocated1.573GiB.
+전체CPU evidence audit 통과: original hash/scene-macro/seed순서/pairedbatch/aux경계.
+LowLR MLPdev .347694±.000392, ego .346338±.001650m; 원본 .352210.
+이전LR 대비 개선은 있지만 원본대비 recording CI가0포함, 반복개발자료/다중비교를 유의한다.
+최저mean을 선택학습 우월성/PDMS 개선으로 부르지 않는다. 동일LR fixed/random은 미실행.
+공유 결과 자동commit313a3ab, push128(인증오류). 기존 checkpoint/result 보존.
+후속읽기전용진단 v1은single-grad vsbatch33-no_grad의출력차이1.144409e-5>tol1e-5에서중단.
+실패로그/source/confighash보존. v2는batch1/grad-enabled를일치시키며tol/표본/checkpoint는바꾸지않는다.
+실제GPU검사는별도진행하며137CPUtests통과만으로대체하지않는다.

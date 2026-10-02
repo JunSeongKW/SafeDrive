@@ -170,35 +170,52 @@ def main():
                     specification["replacements_per_slot"],
                     sampling_seed,
                 )
-                repeated = {
-                    key: value.expand(len(variants), *value.shape[1:])
-                    for key, value in batch.items()
-                }
-                with torch.no_grad():
+                if (
+                    specification.get("counterfactual_execution_mode")
+                    != "single_window_grad_enabled"
+                ):
+                    raise RuntimeError("Use the registered matched-execution v2 config")
+                actual_losses = []
+                for variant_index, variant in enumerate(variants):
+                    # Same batch size and autograd/attention path as the reference.
+                    # No backward or optimizer call is made for these substitutions.
                     counterfactual = observed_forward(
                         model,
-                        repeated,
+                        batch,
                         selected_patch_indices=torch.tensor(
-                            variants, device="cuda", dtype=torch.long
+                            [variant], device="cuda", dtype=torch.long
                         ),
                     )["trajectory"]
-                    discrepancy = float(
-                        (prediction["trajectory"] - counterfactual[:1]).abs().max()
-                    )
-                    if discrepancy > specification["forward_comparison_tolerance"]:
-                        raise RuntimeError(
-                            f"Gradient/batched-reference mismatch: {discrepancy}"
+                    if variant_index == 0:
+                        discrepancy = float(
+                            (prediction["trajectory"] - counterfactual)
+                            .detach()
+                            .abs()
+                            .max()
                         )
-                    actual_losses = [
+                        if discrepancy > specification["forward_comparison_tolerance"]:
+                            write_json(
+                                output / "reference_failure.json",
+                                {
+                                    "token": row["current_frame_token"],
+                                    "condition": condition,
+                                    "seed": seed,
+                                    "max_difference": discrepancy,
+                                },
+                            )
+                            raise RuntimeError(
+                                f"Matched-reference mismatch: {discrepancy}"
+                            )
+                    actual_losses.append(
                         float(
                             agent.compute_loss(
                                 {},
                                 {"trajectory": batch["ego_trajectory_target"]},
-                                {"trajectory": trajectory[None]},
-                            )
+                                {"trajectory": counterfactual},
+                            ).detach()
                         )
-                        for trajectory in counterfactual
-                    ]
+                    )
+                    del counterfactual
                 for replacement, actual_loss in zip(replacements, actual_losses[1:]):
                     slot, previous_id, new_id = replacement
                     rows.append(
@@ -218,7 +235,7 @@ def main():
                             "reference_forward_max_difference": discrepancy,
                         }
                     )
-                del prediction, selection, loss, batch, repeated, counterfactual
+                del prediction, selection, loss, batch
             noise_floor = specification["loss_change_noise_floor"]
             informative = [
                 row

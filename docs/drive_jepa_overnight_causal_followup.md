@@ -347,3 +347,65 @@ Config `overnight_selection_surrogate_diagnosis_v1.json`, runner
 `diagnose_drive_jepa_selection_surrogate.py`, serial queue `--series surrogate`.
 The queue first independently audits all69 completed experiments on CPU, then
 runs this diagnosis; it cannot overlap GPU training.
+
+### Numerical guard and matched-execution revision
+
+V1 stopped with a reference trajectory difference1.1444091796875e-5, just above
+the preregistered1e-5 guard. It compared a single-window grad-enabled reference
+against a33-window no-grad call, confounding batch and autograd/attention paths.
+The failure and exact source/config hashes are [preserved](../results/drive_jepa_selective_future/selection_surrogate_v1_guard_failure_20261003.json).
+No training was rerun or changed. V2 evaluates each counterfactual with batch1
+and gradients enabled, as for the reference, but performs no backward/optimizer
+update for the counterfactual. Sample selection, checkpoint, substitutions and
+tolerance are unchanged. A fixture test checks that an explicit identical ID
+list preserves the learned-ID output under matched execution. The actual GPU
+test is still required;137 CPU tests do not replace it.
+
+V2 config `overnight_selection_surrogate_diagnosis_v2.json`, queue
+`run_drive_jepa_overnight_sequence.py --series surrogate_matched --detach`.
+Outputs use a separate v2 directory. The completed69-run CPU evidence audit is
+reused, not recomputed or overwritten.
+
+## All registered training completed
+
+All69 runs /46,800 joint updates finished. The four serial training series took
+5,027.30 seconds combined, plus301.14 seconds for the bounded cache and149.06
+seconds for the earlier read-only checkpoint diagnosis. These are process wall
+times, not exclusive GPU compute times. Training peak allocated memory was
+1.573GiB. The immutable original parameter hash and independent window/seed/
+batch-schedule/gradient-boundary checks passed for all69 runs.
+
+The remaining seven conditions use the same192 development windows and fixed
+800-update endpoint as the coverage comparison:
+
+| Condition | Dev ADE mean m | Seed std m | Difference vs original m | Recording-cluster95% interval m |
+|---|---:|---:|---:|---|
+| Frozen random future projection | 0.362767 | 0.013671 | +0.010557 | [−0.004736,+0.025555] |
+| Frozen official future projection | 0.359388 | 0.013887 | +0.007178 | [−0.006943,+0.020092] |
+| Official future projection +LoRA | 0.360904 | 0.011637 | +0.008694 | [−0.006289,+0.022388] |
+| MLP learning rates ×0.2 | 0.347694 | 0.000392 | −0.004515 | [−0.009774,+0.001198] |
+| Ego-query learning rates ×0.2 | 0.346338 | 0.001650 | −0.005872 | [−0.011676,+0.000194] |
+| MLP relative-memory penalty | 0.349090 | 0.003654 | −0.003120 | [−0.010691,+0.003659] |
+| Ego-query relative-memory penalty | 0.358561 | 0.004929 | +0.006351 | [−0.001441,+0.014002] |
+
+Lower learning rates improve relative to their original optimizer settings:
+MLP−0.013809m (cluster interval[−0.024027,−0.004267]), ego−0.025216m
+([−0.037982,−0.012743]). This is evidence that adaptation step size matters in
+this setup, not proof that optimizer choice is the sole cause. Stronger data
+coverage, gradient routing, projection copying or complexity alone did not
+establish improvement over the frozen original. Every listed original-baseline
+interval includes zero; absence of a confirmed difference is not equivalence.
+
+The lowest development mean is ego-query with lower rates, but the1.67% ADE
+reduction is only about5.9mm and comes from repeatedly used development data.
+Do not equate it with PDMS improvement or rank it as a validated method. The
+random/fixed policies have not been retrained at these lower rates, so comparing
+their prior rows directly to the lower-rate learner cannot establish learned
+selection superiority. That matched comparison is a next-stage question, not
+permission to change this completed experiment's endpoint or grow its sweep.
+
+Evidence: [projection transfer](../results/drive_jepa_selective_future/overnight_projection_transfer_v1_20261003/summary.json),
+[conservative adaptation](../results/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003/summary.json),
+[independent full evidence audit](../results/drive_jepa_selective_future/overnight_evidence_audit_20261003.json).
+Automatic result commit313a3ab was created; push failed with return code128.
+Original69 checkpoints, failed diagnostic logs and all window records remain local.

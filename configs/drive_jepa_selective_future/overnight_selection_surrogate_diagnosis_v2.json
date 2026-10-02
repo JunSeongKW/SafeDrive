@@ -1,0 +1,22 @@
+{
+  "task": "compare_local_selection_matrix_gradient_with_actual_single_patch_substitutions",
+  "deadline_iso": "2026-10-03T09:00:00+09:00",
+  "reused_cache": "outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/cache_index.json",
+  "checkpoint_root": "outputs/drive_jepa_selective_future/overnight_coverage_training_v1_20261003",
+  "condition_architectures": {"mlp_reference": "mlp_recipe_control", "ego_reference": "ego_query_residual"},
+  "seeds": [29, 47, 83],
+  "training_recording_count": 32,
+  "windows_per_recording": 1,
+  "replacements_per_slot": 8,
+  "sampling_hash_salt": "selection-surrogate-diagnosis-20261003",
+  "forward_comparison_tolerance": 0.00001,
+  "loss_change_noise_floor": 0.000001,
+  "minimum_free_gpu_gib": 16,
+  "running_reserve_gib": 6,
+  "maximum_peak_allocated_gib": 6,
+  "maximum_wall_seconds": 900,
+  "training_updates": 0,
+  "counterfactual_execution_mode": "single_window_grad_enabled",
+  "v1_failure_preserved": "outputs/drive_jepa_selective_future/overnight_surrogate_sequence_20261003/selection_surrogate_diagnosis.log",
+  "interpretation": "same cases, weights, choices and tolerance as v1; match batch size/autograd path rather than relaxing the numerical guard; no optimizer updates"
+}

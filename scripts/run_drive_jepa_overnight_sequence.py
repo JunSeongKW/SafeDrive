@@ -269,7 +269,7 @@ def commit_completed_results(directory):
         }
 
 
-def run_surrogate_diagnosis_series(directory):
+def run_surrogate_diagnosis_series(directory, matched_execution=False):
     """Wait for registered training; then audit and diagnose without new updates."""
     predecessor = ROOT / "overnight_projection_sequence_20261003"
     stages = []
@@ -287,22 +287,32 @@ def run_surrogate_diagnosis_series(directory):
                 },
             )
             time.sleep(10)
-        stages.append(
-            run_stage(
-                directory,
-                "independent_evidence_audit",
-                "audit_drive_jepa_overnight_evidence.py",
-                [
-                    "--output",
-                    str(
-                        WORKSPACE
-                        / "results/drive_jepa_selective_future/overnight_evidence_audit_20261003.json"
-                    ),
-                ],
-                gpu=False,
-            )
+        audit_path = (
+            WORKSPACE
+            / "results/drive_jepa_selective_future/overnight_evidence_audit_20261003.json"
         )
-        output = ROOT / "overnight_selection_surrogate_diagnosis_v1_20261003"
+        if matched_execution:
+            audit = json.loads(audit_path.read_text())
+            if not audit["all_passed"] or audit["completed_runs"] != 69:
+                raise RuntimeError("Completed experiment audit required")
+        else:
+            stages.append(
+                run_stage(
+                    directory,
+                    "independent_evidence_audit",
+                    "audit_drive_jepa_overnight_evidence.py",
+                    [
+                        "--output",
+                        str(
+                            WORKSPACE
+                            / "results/drive_jepa_selective_future/overnight_evidence_audit_20261003.json"
+                        ),
+                    ],
+                    gpu=False,
+                )
+            )
+        revision = "v2" if matched_execution else "v1"
+        output = ROOT / f"overnight_selection_surrogate_diagnosis_{revision}_20261003"
         stages.append(
             run_stage(
                 directory,
@@ -312,7 +322,7 @@ def run_surrogate_diagnosis_series(directory):
                     "--config",
                     str(
                         WORKSPACE
-                        / "configs/drive_jepa_selective_future/overnight_selection_surrogate_diagnosis_v1.json"
+                        / f"configs/drive_jepa_selective_future/overnight_selection_surrogate_diagnosis_{revision}.json"
                     ),
                     "--output-directory",
                     str(output),
@@ -321,13 +331,16 @@ def run_surrogate_diagnosis_series(directory):
         )
         shared = (
             WORKSPACE
-            / "results/drive_jepa_selective_future/overnight_selection_surrogate_diagnosis_20261003.json"
+            / f"results/drive_jepa_selective_future/overnight_selection_surrogate_diagnosis_{revision}_20261003.json"
         )
         if shared.exists():
             raise RuntimeError("Do not overwrite shared diagnostic evidence")
         result = json.loads((output / "results.json").read_text())
         result["specification"] = json.loads(
             (output / "specification.json").read_text()
+        )
+        result["execution_provenance"] = json.loads(
+            (output / "execution_provenance.json").read_text()
         )
         save(shared, result)
         save(
@@ -355,7 +368,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--detach", action="store_true")
     parser.add_argument(
-        "--series", choices=["coverage", "projection", "surrogate"], default="coverage"
+        "--series",
+        choices=["coverage", "projection", "surrogate", "surrogate_matched"],
+        default="coverage",
     )
     args = parser.parse_args()
     directory = (
@@ -364,6 +379,7 @@ def main():
             "coverage": "overnight_sequence_20261003",
             "projection": "overnight_projection_sequence_20261003",
             "surrogate": "overnight_surrogate_sequence_20261003",
+            "surrogate_matched": "overnight_surrogate_matched_sequence_20261003",
         }[args.series]
     )
     directory.mkdir(exist_ok=True)
@@ -407,6 +423,8 @@ def main():
         return run_projection_series(directory)
     if args.series == "surrogate":
         return run_surrogate_diagnosis_series(directory)
+    if args.series == "surrogate_matched":
+        return run_surrogate_diagnosis_series(directory, matched_execution=True)
     first_run = ROOT / "overnight_causal_followup_v1_20261003"
     stages = []
     try:

@@ -30,6 +30,22 @@ def make_graph():
     return graph, torch.randn(2, 8, 16), torch.randn(2, 8)
 
 
+def test_explicit_ids_match_learned_ids_under_identical_autograd_mode():
+    graph, current, status = make_graph()
+    with torch.no_grad():
+        graph.future_bridge.output_projection.weight.normal_(std=0.01)
+    learned = graph.forward_cached_observations(current[:1], status[:1])
+    torch.autograd.grad(
+        learned["trajectory"].sum(), learned["patch_selection"].selection_weights
+    )
+    explicit = graph.forward_cached_observations(
+        current[:1],
+        status[:1],
+        selected_patch_indices=learned["patch_selection"].selected_patch_indices,
+    )
+    assert torch.equal(learned["trajectory"], explicit["trajectory"])
+
+
 def test_residual_predictor_initializes_to_exact_current_persistence():
     graph, current, status = make_graph()
     with torch.no_grad():
