@@ -1,12 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 01:13 KST (Codex)
+마지막 갱신: 2026-10-03 01:18 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **현재 우선 작업(2026-10-03 밤샘 승인)**: [원인 분리·재학습 계획](docs/drive_jepa_overnight_causal_followup.md).
 사용자가 추가 질문 없이 다음 오전09:00KST까지 명제를 유지한 실험·문헌 조사·기록을 승인했다.
-기준8159aad, 기존 checkpoint 원인 진단 완료. 7조건×3seed×400update 계획을 등록했다.
+기준8159aad, 원인진단 및7조건×3seed×400update를완료했다. 모두고정400update dev평균은원본보다나쁘다.
+소규모데이터에서의gradient/목적함수변경만으로성능이회복되지않았다. 후속coverage/선택비교진행중.
 GPU1단일process/16GiB입장·6GiBreserve·allocated8GiB상한, 원본/공용데이터/WA중단상태 보존.
 아래 '학습 없음/새학습 자동금지'는 이전 완료 시점 이력이며 이번 명시적 승인 범위에는 적용하지 않는다.
 
@@ -85,7 +86,7 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-최신: `run_drive_jepa_causal_followup.py`의 제한된 새 학습을 준비한다.
+최신: `run_drive_jepa_causal_followup.py` 첫21run완료, `run_drive_jepa_overnight_sequence.py`실행중.
 기존 checkpoint 진단은 완료(149초/1.571GiB). 단순 과적합으로 확정하지 않고 gradient결합,
 fusion 강도, 선택 이동, 목적함수를 분리한다. `latest.pt`에25update마다복구상태저장/--resume제공.
 Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/`.
@@ -94,6 +95,8 @@ Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_2026
 `scripts/run_drive_jepa_overnight_sequence.py`가첫실험완료후단일GPU1에서cache→27run학습→export를이어간다.
 09:00마감/실패·pressure자동retry없음; old128cache 재사용,9GiBcache상한,heldout/navtest불사용.
 실제상태는 `outputs/drive_jepa_selective_future/overnight_sequence_20261003/active_stage.json`을본다.
+01:14KST queue PID2134994, cache child2135322를확인했다. PID는재사용가능하므로추후실제명령/상태재확인.
+원격push는credential socket오류로실패. 로컬commit과공유결과디렉토리는보존한다.
 기본격리환경CUDA접근실패는업데이트전이며호스트실행으로전환했다. CPU124tests통과.
 아래 완료/진행 문장은 해당 과거 실행 이력이다.
 
@@ -194,6 +197,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+첫21run/8400update/1096.94초완료. 고정400step dev ADE MLP .232000, ego .239397,
+aux-only .236099, gradientprojection .239264, halfbridge .233743, frozenS .234913, uniformADE .242933.
+원본 .220644보다모두평균이높다. Train은 .1294~.1874로줄어일반화우려가있으나원인단정금지.
+비교군의ego대비recordingCI는모두0을포함. 작은표본의부정적결과도공유JSON/CSV에그대로보존.
 
 새진단: ego-query residual의200update dev ADE .216938 → half-gain개입 .209855m.
 MLP .209975 → current-feature대체 .205721m. 개입/OOD결과이지 별도학습승자나 미래무용성증거아님.

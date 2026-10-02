@@ -1314,3 +1314,27 @@ CPU116tests/Ruff/전용Python3.9compile 검사. 복잡한 구조의 승격을 �
 Held-out/navtest 공식평가·선택우월성·안전성 개선은 이번 범위에서 검증하지 않았다.
 GitHub push는 기존 VSCode credential socket 오류 및No anonymous write access로 실패했다.
 공개설정/원격/credential은 변경하지 않았다. 로컬 커밋은 보존하며 인증 복구 후 push한다.
+
+## 2026-10-03 밤샘 원인 분리와 후속 선택 비교
+
+사용자가명제를유지하고다음오전09:00KST까지질문없이문헌조사/실험/기록을진행하도록승인했다.
+기준8159aad. 8f5b18d에서7조건×3seed×400jointupdate를사전등록했다.
+기존checkpoint읽기전용진단149.06초/1.571GiB. Future경로half-gain개입은ego .216938→.209855,
+gradient충돌은24trainbatch중ego54.2%/MLP62.5%이나인과원인확정아니다.
+ForeDrive원문§3/AppendixH의outputdetach와우리parameter-onlyfreeze를구분했다.
+PCGrad원문§2.3을읽고planning-priority one-sided변형으로명시했다. Authorcode재현주장없음.
+
+기본격리환경CUDA차단으로업데이트전실패했고호스트GPU1로실행했다. 첫21run은1096.94초완료.
+Fixed400 dev mean:MLP .232000,ego .239397,aux-only .236099,projection .239264,
+halfbridge .233743,frozenS .234913,uniformADE .242933m. 원본 .220644m보다모두높다.
+Train은줄어드나작은데이터과적합으로원인을단정하지않고coverage검사를이어간다.
+원본parameterhash불변/gradient계약통과/현재첫학습종료,실패/낮은성능도그대로공유한다.
+Shared `results/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/`.
+
+9b28ebc는후속표본train512/64group,추가dev192/24group을결과전에고정하고단일GPUqueue를구현했다.
+Oldtrain128포함/기존개발recording제외/heldoutnavtest불사용.9GiBcache상한,기존128cache체크섬재사용.
+9조건×3seed×800update:학습표본크기/기존구조/gradient분리/half-gain/목적함수/
+fixed·random·learned선택/현재feature대조. 전체CPU124tests통과.
+01:14KST queuePID2134994/cachePID2135322실행확인. 실제현재단계는active_stage.json참조.
+09:00deadline/메모리압력/단계실패시중단하며원인미확인상태에서자동재시도하지않는다.
+GitHub push는기존credential socket거절로실패했으며remote설정/인증정보는변경하지않았다.

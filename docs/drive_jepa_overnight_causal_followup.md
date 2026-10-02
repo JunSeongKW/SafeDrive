@@ -151,3 +151,42 @@ The first detached launch produced no run artifacts. A subsequent sandbox run
 failed at CUDA initialization before any model update. Host GPU1 execution with
 the same registered configuration is now launched. No new completed retraining
 result is claimed yet. Source/checkpoint/cache provenance is saved per run.
+
+## First controlled comparison results
+
+The first21 runs are complete:8,400 joint updates,1,096.94 seconds total, all
+official baseline parameters preserved. Subsequent coverage/selection extensions
+bring the CPU suite to124 passing tests. This table reports fixed update400,
+not the lower intermediate development values.
+
+| Condition | Train ADE m | Development ADE m | Development seed standard deviation m |
+|---|---:|---:|---:|
+| Original frozen baseline | 0.273974 | 0.220644 | — |
+| MLP reference | 0.187435 | 0.232000 | 0.015184 |
+| Ego-query reference | 0.141326 | 0.239397 | 0.023509 |
+| Predictor auxiliary-only updates | 0.146359 | 0.236099 | 0.013620 |
+| Planning-priority gradient projection | 0.141960 | 0.239264 | 0.025172 |
+| Half bridge gain during training | 0.158500 | 0.233743 | 0.024833 |
+| Frozen selector | 0.130282 | 0.234913 | 0.002932 |
+| Uniform ADE objective | 0.129398 | 0.242933 | 0.018298 |
+
+Training fit improves substantially while added updates hurt development for
+most runs. This supports a generalization concern but does not identify data
+quantity, diversity, architecture capacity or regularization as the sole cause.
+Predictor-gradient separation and projection do not solve the issue here.
+Training with half gain differs from applying half gain after training: the
+adapter can compensate for the scale while optimizing. The inference-only
+improvement must not be substituted for this negative trained comparison.
+
+All six comparisons against the ego reference have recording-cluster95% intervals
+covering zero on the eight development groups. Do not read that as proof of
+equivalence. Seeds and recording uncertainty are reported separately. No row is
+promoted as a confirmed performance improvement; additional-development and
+matched selection results are pending.
+
+Evidence: [summary and paired intervals](../results/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/summary.json),
+[window data](../results/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/window_results.csv),
+[gradient contracts](../results/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/gradient_and_dependence.json).
+The local preregistration was8f5b18d; coverage/queue code is9b28ebc. GitHub push
+failed because the configured credential socket is unavailable. Local commits
+and results remain intact; remote visibility must not be claimed.

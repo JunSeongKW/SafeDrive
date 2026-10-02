@@ -10,7 +10,14 @@
 planning→predictorparameter만차단하며, ForeDrive의future-outputdetach그대로가아니다.
 CPU121tests통과. 기본격리환경의CUDA차단으로학습전실패했고 가중치/optimizer업데이트는없었다.
 호스트GPU1실행으로전환했으며다른사용자process/공용데이터는건드리지않았다.
-완료결과는아직없다. 기존 '새학습금지/실행없음' 문장은아래과거완료시점기록이다.
+첫21run/8400update완료: MLP .232000/ego .239397/aux-only .236099/gradientprojection .239264/
+halfbridge .233743/frozenS .234913/uniformADE .242933m, 원본 .220644m보다평균이높다.
+1096.94초/원본hash불변. Gradient충돌이나목적함수변경하나만의문제로확정하지않는다.
+9b28ebc에서추가navtrain cache704표본과27run×800update를사전등록했다.
+Train128⊂512, dev192/24group은기존mini/extension개발recording과분리;heldout불사용.
+현재GPU1단일queue는cache생성중이며이후동일K fixed/random/learned와현재feature대조를학습한다.
+전체CPU124tests통과. Push는VSCode credential socket오류로실패/로컬커밋보존.
+기존 '새학습금지/실행없음' 문장은아래과거완료시점기록이다.
 
 ## 최신 완료 상태 — 2026-10-03 구조별 추가 학습
 
