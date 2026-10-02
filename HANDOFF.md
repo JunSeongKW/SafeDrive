@@ -1,13 +1,15 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 01:37 KST (Codex)
+마지막 갱신: 2026-10-03 01:57 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **현재 우선 작업(2026-10-03 밤샘 승인)**: [원인 분리·재학습 계획](docs/drive_jepa_overnight_causal_followup.md).
 사용자가 추가 질문 없이 다음 오전09:00KST까지 명제를 유지한 실험·문헌 조사·기록을 승인했다.
 기준8159aad, 원인진단 및7조건×3seed×400update를완료했다. 모두고정400update dev평균은원본보다나쁘다.
-소규모데이터에서의gradient/목적함수변경만으로성능이회복되지않았다. 후속coverage/선택비교진행중.
+소규모데이터에서의gradient/목적함수변경만으로성능이회복되지않았다. 후속coverage27run도완료했다.
+추가dev 원본0.352210/MLPlearned0.361504/random0.351212m; learned 우월성 없음.
+Projection 이전9run 실행 중이며 이후 보수적 adaptation12run이 순차 실행된다.
 GPU1단일process/16GiB입장·6GiBreserve·allocated8GiB상한, 원본/공용데이터/WA중단상태 보존.
 아래 '학습 없음/새학습 자동금지'는 이전 완료 시점 이력이며 이번 명시적 승인 범위에는 적용하지 않는다.
 
@@ -86,7 +88,7 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-최신: `run_drive_jepa_causal_followup.py` 첫21run완료, `run_drive_jepa_overnight_sequence.py`실행중.
+최신: 첫21run과 coverage27run 완료. Projection queue가 후속9run 실행 중,12run 대기.
 기존 checkpoint 진단은 완료(149초/1.571GiB). 단순 과적합으로 확정하지 않고 gradient결합,
 fusion 강도, 선택 이동, 목적함수를 분리한다. `latest.pt`에25update마다복구상태저장/--resume제공.
 Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/`.
@@ -102,7 +104,14 @@ Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_2026
 현재27run후에GPU1순차실행하며no-new-cache/동일800update/pairedbatch/09:00상한을지킨다.
 `overnight_projection_sequence_20261003/`는coveragequeue완료를기다린후실행하며동시GPU점유하지않는다.
 전체등록69run/46800jointupdate이며시간·메모리·실패stop우선.끝나면알려진결과파일만scope한commit/push시도.
-기본격리환경CUDA접근실패는업데이트전이며호스트실행으로전환했다. CPU124tests통과.
+01:43KST 두 번째 queue PID2296713의 coverage 완료 대기를 확인했다. 등록 커밋4355bf2.
+현재 실행 상태는 각 queue의 active_stage.json/completion.json/stopped.json을 우선한다.
+기본격리환경CUDA접근실패는업데이트전이며호스트실행으로전환했다. CPU130tests통과.
+새 projection identity 테스트는 처음에 no-grad fast path와 grad-enabled path를 비교해 실패했다.
+동일 no-grad 조건으로 바로잡은 뒤 bitwise 통과했으며 gradient 검사는 별도로 통과했다.
+01:52KST coverage queue 완료, 두 번째 queue가 projection child2389185를 시작했다.
+첫48run의 window별 집계/paired batch/원본값/aux gradient 경계를 별도 CPU 검사로 확인했다.
+실험 감사 진입점 `scripts/audit_drive_jepa_overnight_evidence.py`; 전체69run 종료 후 한 JSON으로 기록한다.
 아래 완료/진행 문장은 해당 과거 실행 이력이다.
 
 추가 구조 비교와 학습 후 실제 영상 checkpoint 검증을 완료했고 GPU 프로세스는 종료했다.
@@ -202,6 +211,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- Coverage27run/21,600update 완료: 추가dev192window/24recording의 원본ADE0.352210m.
+  MLPlearned0.361504/fixed0.355226/random0.351212/ego-query0.371554m.
+  Random-learned 차이−0.010292m, cluster95%CI[−0.018142,−0.003216]; 탐색적 다중비교다.
+  Random-original 차이의 CI는0포함. 선택학습의 우월성/원본대비 개선을 확정하지 않는다.
+  자세한 수치와 이전64window 결과와의 구분은 밤샘 보고서를 본다.
 
 첫21run/8400update/1096.94초완료. 고정400step dev ADE MLP .232000, ego .239397,
 aux-only .236099, gradientprojection .239264, halfbridge .233743, frozenS .234913, uniformADE .242933.
@@ -380,6 +395,7 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 원본projection/encoder/planner는수정하지않음.초기동일성은동일no_grad실행조건에서검사한다.
 - 기존모델읽기전용원인진단script 및 gradient-routing모듈/검사/복구가능run/config/계획추가.
 - 원본frozenplanner/기존cache/checkpoint보존. 이번결과는실행후별도기록한다.
+- 첫48run 완료 결과와 독립 CPU artifact/scene 집계 감사, spatial selection 분산 진단을 추가했다.
 
 - d3bbced의 사전 고정 5조건×3seed 추가 학습을 4500update에서 종료하고 결과·비용·곡선을 공유했다.
 - MLP+새절차 dev ADE0.209975m, 원본0.220644m; 작은 개발 표본의 CI는0을포함한다.

@@ -1338,3 +1338,28 @@ fixed·random·learned선택/현재feature대조. 전체CPU124tests통과.
 01:14KST queuePID2134994/cachePID2135322실행확인. 실제현재단계는active_stage.json참조.
 09:00deadline/메모리압력/단계실패시중단하며원인미확인상태에서자동재시도하지않는다.
 GitHub push는기존credential socket거절로실패했으며remote설정/인증정보는변경하지않았다.
+
+### 2026-10-03 01:47KST — 등록된 후속 queue
+
+704-window cache 완료: 논리7,385,149,376bytes, 신규6,042,394,944bytes,128파일 재사용.
+301.14초/peakallocated1.207GiB/원본hash불변. GPU1에서27run coverage/selection 비교 진행 중.
+4355bf2는 future projection9run, lower-LR/메모리 잔차 penalty12run을 결과 전에 등록했다.
+동일512train/192dev/3seed/800update, 원본 planner 보존, 새로운 cache/benchmark 없음.
+첫 queue PID2134994 뒤 두 번째 PID2296713이 대기한다. PID는 실시간 명령과 함께 재확인한다.
+두 번째 queue는 모든 후속 완료 시12개 지정 결과 파일만 커밋하고 push를 한 번 시도한다.
+등록 상한69run/46,800jointupdate;09:00/pressure/failure stop이 우선. 새 실험 무제한 확대 없음.
+130 CPU tests 통과. Projection identity 신규 테스트는 처음에 grad-mode를 맞추지 않아 실패했고,
+동일 no-grad 실행 조건으로 수정 후 bitwise 통과했다. Gradient 검사는 별도로 유지/통과했다.
+
+### 2026-10-03 01:55KST — coverage/동일K 선택 비교 완료
+
+27run/21,600update/1,940.08초/peakallocated1.568GiB/원본hash불변.
+추가dev192window/182scene/24recording에서 원본ADE0.352210m,
+MLPsmall .372616/MLPlearned .361504/ego .371554/aux-only .367154/
+halfbridge .366605/uniform .370875/fixed .355226/random .351212/current .365208m.
+Random-learned delta−.010292m/recordingCI[−.018142,−.003216],
+random-original−.000998m/CI[−.010777,+.007704]. 다중비교보정/독립확증/PDMS검증 아님.
+MLP 미래MSE1.9090<persistence2.2062이나 planning 개선과 동일하지 않다.
+학습 선택의 장면내 patch간 거리는 작지만 전체dev에서266–305IDs를 써 전역collapse로 부르지 않는다.
+독립CPU 감사에서 첫48run의 집계·batch순서·원본출력·aux경계 검사 통과.
+Projection queue는01:52KST 후속 학습 시작. 다음12run은 이전 단계 완료 뒤 실행한다.

@@ -146,11 +146,16 @@ Only one child uses GPU1. A failure, explicit `pause.json`, or09:00 deadline sto
 the queue. It never resumes WA or silently retries memory failures. A queue
 completion is not itself an agent's scientific review of its results.
 
-CPU suite: 121 tests passed; dedicated Python 3.9 compile and Ruff passed.
-The first detached launch produced no run artifacts. A subsequent sandbox run
-failed at CUDA initialization before any model update. Host GPU1 execution with
-the same registered configuration is now launched. No new completed retraining
-result is claimed yet. Source/checkpoint/cache provenance is saved per run.
+Launch history:121 CPU tests initially passed; the first detached launch produced
+no run artifacts. A subsequent sandbox run failed at CUDA initialization before
+any model update. Host GPU1 execution subsequently completed the first21 runs
+below. The later projection/regularization controls bring the suite to130 tests.
+Projection identity tests initially compared different grad/fast-path execution
+modes; with matched no-grad execution they pass bitwise. Gradient tests are
+separate. Source/checkpoint/cache provenance is retained, including failed checks.
+Inherited `source.json` describes the historical official-checkpoint reproduction;
+the actual new training split and authorization are in this plan and each run's
+`specification.json`, not its inherited navtest/evaluation-only metadata.
 
 ## First controlled comparison results
 
@@ -255,3 +260,56 @@ evidence files from the three later result directories, never unrelated staged
 work. It attempts the authorized `mine junseong/main` push once; credential
 failure is recorded and does not erase local results. It does not edit scientific
 conclusions automatically or declare the research hypothesis established.
+
+## Completed recording coverage and selection comparison
+
+The second27 runs completed21,600 joint updates in1,940.08 seconds, maximum
+allocated1.568 GiB. The new cache took301.14 seconds and added6.04 GB, reusing
+128 old files. Official weights are unchanged. An independent CPU recomputation
+from window records confirms the scene-macro aggregation, paired batch schedules,
+baseline outputs and auxiliary-gradient boundaries for all48 completed runs.
+The following table uses the preregistered final update800 and the same192
+development windows /182 scenes /24 recordings throughout.
+
+| Condition | Train ADE m | Development ADE m | Seed std m |
+|---|---:|---:|---:|
+| Original | — | 0.352210 | — |
+| MLP,128-window training subset | 0.119066 | 0.372616 | 0.004365 |
+| MLP learned selection,512 train | 0.234251 | 0.361504 | 0.007782 |
+| Ego-query learned selection | 0.194074 | 0.371554 | 0.013255 |
+| Ego predictor auxiliary-only updates | 0.198389 | 0.367154 | 0.007870 |
+| Ego half bridge gain | 0.207424 | 0.366605 | 0.007685 |
+| Ego uniform ADE objective | 0.187032 | 0.370875 | 0.008822 |
+| MLP fixed lattice | 0.236439 | 0.355226 | 0.004661 |
+| MLP seeded random selection | 0.249884 | 0.351212 | 0.003054 |
+| MLP current-feature control | 0.196653 | 0.365208 | 0.014428 |
+
+Do not compare this original0.352210 directly with the earlier0.220644: the
+development population changed. The128-row train metric also has a different
+training population from the512-row conditions. Compare their common dev only.
+
+Random minus learned MLP ADE is−0.010292m, recording-cluster95% interval
+[−0.018142,−0.003216]. Random minus original is−0.000998m with interval
+[−0.010777,+0.007704]; this is not confirmed improvement over the original.
+These are exploratory, seed-averaged recording intervals without multiplicity
+correction, not a general finding that random selection is superior.
+Larger training coverage reduces MLP error by0.011112m relative to the nested
+128-window pool, but its interval includes zero. No condition is promoted yet.
+
+The learned MLP predicts its selected future targets with MSE1.9090 versus its
+matched persistence2.2062; ego-query gives2.2101 versus2.3976. Thus poor planning
+cannot simply be labeled failure to beat visual persistence. Conversely, these
+MSEs concern different selected patch sets across policies and cannot rank the
+policies' forecasting quality on a common target set.
+
+There are46/121/25 windows for command IDs0/1/2; command means in the JSON are
+window-weighted diagnostics, not scene-macro results. Learned selections are
+more spatially concentrated within a frame than random (MLP mean normalized
+pair spacing0.191–0.232 vs random0.373–0.386), but span266–305 distinct IDs
+across development. This is not global selection collapse. Whether nearby
+patches are redundant or legitimately relevant remains an untested hypothesis.
+
+Evidence: [coverage summary](../results/drive_jepa_selective_future/overnight_coverage_training_v1_20261003/summary.json),
+[window records](../results/drive_jepa_selective_future/overnight_coverage_training_v1_20261003/window_results.csv).
+Projection transfer and conservative adaptation are still running/queued; no
+performance result for those stages is claimed here.

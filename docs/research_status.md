@@ -4,7 +4,7 @@
 
 사용자가 다음 오전09:00KST까지 질문 없이 실험·문헌조사를 이어가도록 승인했다.
 기준8159aad, 사전계획/코드커밋8f5b18d. [밤샘 비교 계획](drive_jepa_overnight_causal_followup.md).
-읽기전용 기존checkpoint진단은 완료했고, 7조건×대응3seed×400update를 새로 실행한다.
+읽기전용 기존checkpoint진단과 7조건×대응3seed×400update를 완료했다.
 현재결과를 단순 과적합으로 단정하지 않고 fusion강도·gradient결합·selector변화·목적함수를 분리한다.
 동일192window와auxwarmup을재사용한다. Parameter-onlyfreeze는planning→selector를유지하고
 planning→predictorparameter만차단하며, ForeDrive의future-outputdetach그대로가아니다.
@@ -15,8 +15,15 @@ halfbridge .233743/frozenS .234913/uniformADE .242933m, 원본 .220644m보다평
 1096.94초/원본hash불변. Gradient충돌이나목적함수변경하나만의문제로확정하지않는다.
 9b28ebc에서추가navtrain cache704표본과27run×800update를사전등록했다.
 Train128⊂512, dev192/24group은기존mini/extension개발recording과분리;heldout불사용.
-현재GPU1단일queue는cache생성중이며이후동일K fixed/random/learned와현재feature대조를학습한다.
-전체CPU124tests통과. Push는VSCode credential socket오류로실패/로컬커밋보존.
+704개cache는301.14초에 완료했다(신규6.04GB, 이전128파일 재사용). GPU1단일queue에서
+동일K fixed/random/learned와현재feature대조를 포함한27run도 완료했다.
+추가dev192window/24recording: 원본ADE0.352210, MLPlearned0.361504,
+fixed0.355226, random0.351212m. Random 대비 학습형 선택의 우월성은 확인되지 않았다.
+Random-original 차이의 cluster CI는0포함하며, 다른 dev의 이전0.220644와 직접비교하지 않는다.
+4355bf2에 future projection 이전9run과 보수적 LR/메모리 정규화12run을 추가 등록했다.
+두 번째 queue는 앞 queue 완료를 기다리며 GPU 작업을 중복 실행하지 않는다.
+전체 등록69run/46,800jointupdate, 09:00KST 및 메모리/실패 상한이 우선이다.
+전체CPU130tests통과. Push는VSCode credential socket오류로실패/로컬커밋보존.
 기존 '새학습금지/실행없음' 문장은아래과거완료시점기록이다.
 
 ## 최신 완료 상태 — 2026-10-03 구조별 추가 학습
