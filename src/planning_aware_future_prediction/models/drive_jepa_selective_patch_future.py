@@ -215,27 +215,96 @@ class DriveJEPASelectivePatchFuture(nn.Module):
         if not enable_future_branch:
             return self.baseline_model(observed_camera_clip, current_ego_status)
         current_latents = self.encode_observed_clip(observed_camera_clip)
-        selected = self.patch_selector(
-            current_latents, current_ego_status, self.patch_coordinates
+        return self.forward_from_current_patch_latents(
+            current_latents,
+            current_ego_status,
+            detach_selection=detach_selection,
+            detach_predicted_future=detach_predicted_future,
         )
-        selection_weights = selected.selection_weights
-        if detach_selection:
-            selection_weights = selection_weights.detach()
-        predicted_future = self._predict_selected(
-            current_latents, current_ego_status, selection_weights
+
+    def forward_from_current_patch_latents(
+        self,
+        current_latents: Tensor,
+        current_ego_status: Tensor,
+        enable_future_branch: bool = True,
+        selected_patch_indices: Tensor = None,
+        detach_selection: bool = False,
+        detach_predicted_future: bool = False,
+        current_prediction_context_latents: Tensor = None,
+    ):
+        """Frozen-encoder cache interface; explicit IDs are nonlearned controls.
+
+        Only current observations enter this path. Future targets belong exclusively
+        to compute_future_auxiliary_loss. Original planner weights remain frozen.
+        """
+        if (
+            current_latents.ndim != 3
+            or current_latents.shape[1] != self.patch_coordinates.shape[0]
+        ):
+            raise ValueError("Expected current [batch, camera-grid patch, latent]")
+        prediction_context = (
+            current_latents
+            if current_prediction_context_latents is None
+            else current_prediction_context_latents
         )
-        coordinates = selection_weights @ self.patch_coordinates
-        if detach_predicted_future:
-            predicted_future = predicted_future.detach()
-            coordinates = coordinates.detach()
-        image_grid = current_latents.transpose(1, 2).reshape(
-            current_latents.shape[0], -1, self.grid_height, self.grid_width
-        )
+        if prediction_context.shape != current_latents.shape:
+            raise ValueError("Adapted current context must match the frozen patch grid")
+        selected = predicted_future = coordinates = None
+        if enable_future_branch:
+            if selected_patch_indices is None:
+                selected = self.patch_selector(
+                    prediction_context, current_ego_status, self.patch_coordinates
+                )
+            else:
+                expected = (current_latents.shape[0], self.patch_selector.patch_budget)
+                if (
+                    selected_patch_indices.shape != expected
+                    or selected_patch_indices.dtype != torch.long
+                ):
+                    raise ValueError("Explicit patch IDs must be long [batch, budget]")
+                if (selected_patch_indices < 0).any() or (
+                    selected_patch_indices >= current_latents.shape[1]
+                ).any():
+                    raise ValueError("Explicit patch ID outside current grid")
+                if any(
+                    row.unique().numel() != expected[1]
+                    for row in selected_patch_indices
+                ):
+                    raise ValueError("Explicit patch IDs must be unique")
+                hard_weights = F.one_hot(
+                    selected_patch_indices, current_latents.shape[1]
+                ).to(current_latents.dtype)
+                selected = PatchSelection(
+                    hard_weights,
+                    hard_weights,
+                    selected_patch_indices,
+                    hard_weights @ self.patch_coordinates,
+                )
+            selection_weights = selected.selection_weights
+            if detach_selection:
+                selection_weights = selection_weights.detach()
+            predicted_future = self._predict_selected(
+                prediction_context, current_ego_status, selection_weights
+            )
+            coordinates = selection_weights @ self.patch_coordinates
+            if detach_predicted_future:
+                predicted_future = predicted_future.detach()
+                coordinates = coordinates.detach()
+        # Match official einops B(HW)D -> BDHW, including the batch=1 stride.
+        # transpose-then-reshape can give a different singleton-batch stride and
+        # select a different CUDA pooling kernel despite identical feature values.
+        image_grid = current_latents.reshape(
+            current_latents.shape[0], self.grid_height, self.grid_width, -1
+        ).permute(0, 3, 1, 2)
         pooled = (
             self.baseline_model.avg_pool(image_grid).flatten(-2, -1).permute(0, 2, 1)
         )
         image_memory = self.baseline_model.image_fc(pooled.clone())
-        residual = self.future_bridge(image_memory, predicted_future, coordinates)
+        residual = (
+            self.future_bridge(image_memory, predicted_future, coordinates)
+            if enable_future_branch
+            else torch.zeros_like(image_memory)
+        )
         image_memory = image_memory + residual
         status_memory = self.baseline_model._status_encoding(current_ego_status)
         key_values = torch.cat((image_memory, status_memory[:, None]), dim=1)
@@ -253,6 +322,7 @@ class DriveJEPASelectivePatchFuture(nn.Module):
             "predicted_future_latents": predicted_future,
             "future_memory_residual": residual,
             "current_patch_latents": current_latents,
+            "current_prediction_context_latents": prediction_context,
         }
 
     def compute_future_auxiliary_loss(

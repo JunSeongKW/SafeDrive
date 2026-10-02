@@ -75,6 +75,22 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**최신 "아키텍처 개선 방향으로 추가 학습" 승인**: 기존 선택 비교는 완료했고
+`configs/drive_jepa_selective_future/architecture_followup_v1.json`의5조건×3seed
+warmup100+joint200만 실행한다. 원본planner/teacher 고정, future branch contextual predictor/
+ego-query/last4 QKV LoRA 비교. 같은192window 재사용, 전체90분/condition15분/allocated12GiB 상한.
+GPU0·1 중 점유 재확인 후 사용. 이전 200update 승인 제한은 이 새 범위에서 갱신됐다.
+WA/pilot/데이터 확대/동적K/공식benchmark 반복은 계속 보류. 계획/상태는
+`docs/drive_jepa_architecture_followup.md`를 우선한다.
+
+**`2185ce5` 이후 최신 사용자 지시: 다음 단계 진행 승인.**
+공식 frozen Drive planner 위의 작은 동일 K4 선택 비교를 진행한다.
+`configs/drive_jepa_selective_future/selection_comparison_v1.json`과
+`docs/drive_jepa_selection_comparison_plan.md`: train128/dev64, recording16/8,
+fixed/random/learned/learned-no-aux, 대응3seed 각200update만. 과거 1-step 제한은 이 범위에서 해제됐다.
+원본 no-branch는 평가만, 새 extension만 학습; WA/pilot/대규모 확대/동적K는 계속보류.
+과거 노출 두 recording 제외, held-out/navtest 학습·평가 금지, 원본 모델/환경/공용데이터 보존.
+
 **2026-10-02 최신 사용자 지시가 위 WA 실행 계획에 우선**: WA를9253/12146에서중단하고
 공식Drive-JEPA planner를재사용하는선택적patch 미래extension을설계·구현·연결검사한다.
 진입점 `docs/drive_jepa_selective_future_connection.md`, `configs/drive_jepa_selective_future/connection_v1.json`.

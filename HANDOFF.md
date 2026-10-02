@@ -1,14 +1,23 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-02 22:26 KST (Codex)
+마지막 갱신: 2026-10-02 23:42 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
-**현재 우선 작업(2026-10-02 최신 사용자 승인)**: [Drive-JEPA 선택적patch 미래경로 연결](docs/drive_jepa_selective_future_connection.md).
+**현재 우선 작업(최신 추가 학습 승인)**: [Drive-JEPA 구조별 추가 학습](docs/drive_jepa_architecture_followup.md).
+기존 선택 비교 4조건×3seed×200update는 완료/보존했다. Learned dev ADE0.242582m은 원본0.220644m보다 나쁘다.
+같은192window에서 contextual residual predictor → ego-query selector → future-branch encoder LoRA를
+분리 비교한다. 5조건×3seed, aux warmup100+joint200, 전체90분 상한. CPU114tests 통과.
+실행 진입점 `scripts/run_drive_jepa_architecture_followup.py`, 설정 `architecture_followup_v1.json`.
+아래 이전 진행 문장은 이력이며 최신 상태는 이 절과 report를 우선한다.
+
+**이전 연결 작업**: [Drive-JEPA 선택적patch 미래경로 연결](docs/drive_jepa_selective_future_connection.md).
 WA-JEPA는9253/12146(76.181%)에서7개우리worker만SIGINT/CPUhelper종료, 실패·중복0/해시검증완료.
 부분PDMS91.102506 vs같은9253scene Drive89.019762; 전체결과가아니다. 남은2893은자동재개금지.
 원본Drive 전체PDMS89.224320/weights/환경/source를보존하고공식planner에K4 patchfuture residual을추가한다.
-CPU계약검사/실제navtrain 두recording 연결·gradient·비용만범위이며성능실험/대규모학습은미승인.
+`2185ce5` 이후 "다음 단계 진행" 승인으로 작은 동일K 선택 비교를 실행한다.
+계획 `docs/drive_jepa_selection_comparison_plan.md`, 16train/8dev recording·128/64window,
+4조건×3seed×200update. 원본planner frozen, WA/pilot/대규모 확대는 보류한다.
 
 **아래는 이전 WA 실행 이력**: [WA-JEPA 공식 재현과 sparse 검증](docs/official_wa_jepa_reproduction.md).
 이전(2026-10-02 21:03KST): **사용자요청으로GPU0 5개/GPU1 2개/총7worker로증설했다.**
@@ -66,6 +75,19 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+추가 구조 비교의 CPU114tests 및 전용 Python3.9 compile 검사 통과. 실제 GPU 학습은 이제 시작한다.
+GPU1 단일 프로세스, 원본 planner/teacher 고정, LoRA는 별도 future branch tail만.
+출력 `outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/`; 이전 결과 덮어쓰기 금지.
+실행 중단 시 각 run의 `interrupted_state.pt`에 optimizer/scheduler/RNG/완료 update를 보존한다.
+현재 runner는 새 출력 경로만 허용하며 resume CLI는 아직 없다. checkpoint를 무시한 재시작을 resume이라 부르지 않는다.
+
+**최신 선택 비교 진행 중**: `scripts/run_drive_jepa_selection_comparison.py` GPU0 단일 process.
+Raw `outputs/drive_jepa_selective_future/selection_comparison_v1c_20261002/`.
+FP32 cache192window/2,014,131,648bytes 완료. 각조건 결과·optimizer/RNG/checkpoint를 별도 저장한다.
+V1/v1b는 학습 전 bitwise gate에서 중단되어 학습·cache0; 파일 보존.
+Singleton batch grid stride를 공식 reshape→permute와 맞춘 v1c는 bitwise gate통과.
+아래 실행 현황은 과거 이력이며 최신 완료 여부는 위 raw 결과에서 확인한다.
 
 **현재 GPU작업 없음**: WA 평가/queue/guard/aggregate는중단됐다. Drive selective-future 실제연결진단도완료/프로세스종료했다.
 WA pause marker/16JSONL/새압축snapshot/부분CSV·JSON를보존했다. snapshot SHA256
@@ -148,6 +170,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+선택 비교 완료: 원본 dev ADE0.220644, fixed0.215851, random0.217723,
+learned0.242582, learned-no-aux0.238094m(대응3seed 평균). 공식 planning 성능 검증이 아니다.
+Shared `results/drive_jepa_selective_future/selection_comparison_v1_20261002/`.
+새 구조는 CPU 계약만 검증됐고 실데이터 학습 결과는 아직 없다.
 
 **최신WA중단결과**:9253/12146성공/실패·중복0, partialPDMS91.102506/같은scene Drive89.019762.
 CSV/JSON `results/official_wa_jepa_reproduction/partial_navtest_at_drive_extension_20261002.*`.
@@ -298,6 +325,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+- 기존 동일K 선택 비교의 코드·3seed결과·미니배치stride수정을 보존한다.
+- 새 contextual residual predictor, ego-query selector, copied last4 QKV LoRA와 CPU7계약검사를 추가했다.
+- 공식 planner/frozen target 유지, 동일192window 재사용, 공통 warmup/joint 학습과5조건 비교를 사전 고정했다.
+- 실제 학습 전 저장 checkpoint/실행상한/gradient 경계를 기록했다. 아직 성능 향상 결과는 없다.
+
+**2185ce5 이후**: frozen-encoder cache forward/explicit fixed·random patch ID 입력을추가.
+원본planner와weights 불변, smalltrain/dev3seed 선택비교 config·사전계획·runner·exporter추가.
+Batch1 stride 차이로~9.54e-7 출력오차를 발견해 공식배치와동일화; 허용오차완화없음.
+기존 split에서train16/dev8 recording·192window만캐시, 과거노출2recording제외.
+공통초기화/batch순서·K4/future4·200update/3seed, learned-noaux대조와의존도진단을기록한다.
+GPU0단일작업/새환경설치없음/공용원본·WA·Drive전체평가·기존pilot보존.
+새cached/explicit-ID/split/stride검사포함 전체107CPUtests통과.
+
 **865be79 이후 최신전환**: WA 우리7worker만정상중단, CPUhelper종료/16raw해시확인/9253scene부분JSON·CSV와snapshot보존.
 Drive 원본planner의module을재사용하는K4 learnable patch selection/경량futurepredictor/zero-init residual memory 구현.
 train-only2recording/1diagnosticstep/원본출력보존/gradient·target경계/비용검사 config·script·CPUtests 추가.
@@ -355,9 +395,13 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-**최신**: Drive extension 연결결과를ChatGPT·Claude와검수한다. Selector최적선택/미래정확도/공식planning향상은미검증이다.
-후속은같은K random/규칙/learned와현재feature memory대조·미래감독대조의작은train/dev 비교를사전설계한다.
-추가학습범위는별도승인후정한다. WA전체/기존pilot/residual/확대학습을자동재개하지않는다.
+최신 추가 학습을 고정 상한으로 수행하고 마지막 joint200 checkpoint의 대응 seed/recording 결과를 보고한다.
+공식 baseline/pilot/WA는 보존하며 새 sweep/전체benchmark/동적K를 자동 시작하지 않는다.
+
+**최신**: 승인된4조건×3seed×200update를등록상한에서종료하고, fixed/random/learned와aux없는
+대조의대응seed·recording별개발경향을공유한다. Best-devcheckpoint선택이나실패후튜닝은하지않는다.
+현재-feature직접전달 대조/공식planning평가/더큰학습은이번소규모결과검토후별도결정한다.
+WA전체/기존pilot/residual/확대학습을자동재개하지않는다.
 
 **아래는 WA 중단 전 계획이며 현재 실행 금지**: 공유GPU0:5/GPU1:2. 기존7worker/GPU launcher명령을추가실행하지않는다.
 Queue/status/guard log→남은scene증가/메모리/OOM확인→14shard완료시자동aggregate를확인한다.
@@ -394,6 +438,14 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번 LoRA는 원본 planner encoder fine-tune이 아니라 미래 branch 복제 tail의 적응이다.
+EMA teacher 미도입, frozen future target 유지. 작은 dev 개선 여부와 추가 비용은 실측 대기다.
+
+**현재 작은 비교의 한계**: foundation checkpoint가이미학습했을수있는navtrain의extension용split이다.
+Dev64/8recording·200update는최종독립평가아님. ADE/IL는공식안전·진행지표를대체하지않는다.
+Fixed/random은selector를호출하지않아activeparameters가learned보다작다.
+Aux없는비교도새경로가현재feature변환으로작동할수있으므로미래정보의기여를단독식별하지못한다.
 
 **최신extension미결**: fixedcamera-grid target은객체/ego정렬world state가아니다. ST는current내용과위치의biasedsurrogate이며
 hard선택변경의미래target 교체/중복제외 gradient를근사하지않는다. 원본planner재사용/gradient통과가선택유용성의증거는아니다.

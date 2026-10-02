@@ -95,6 +95,60 @@ def test_disabled_and_zero_initialized_branch_preserve_output(graph_inputs):
     assert torch.equal(original, enabled)
 
 
+def test_cached_current_interface_preserves_original_and_online_outputs(graph_inputs):
+    graph, images, status = graph_inputs
+    with torch.no_grad():
+        latents = graph.encode_observed_clip(images)
+        original = graph.baseline_model(images, status)["trajectory"]
+        for enabled in (False, True):
+            cached = graph.forward_from_current_patch_latents(latents, status, enabled)
+            assert torch.equal(original, cached["trajectory"])
+    open_residual(graph, images, status)
+    assert torch.equal(
+        graph(images, status)["trajectory"],
+        graph.forward_from_current_patch_latents(latents, status)["trajectory"],
+    )
+
+
+def test_explicit_policy_ids_bypass_selector_but_train_predictor(graph_inputs):
+    graph, images, status = graph_inputs
+    open_residual(graph, images, status)
+    latents = graph.encode_observed_clip(images)
+    selected_ids = torch.tensor([[1, 5], [0, 7]])
+    output = graph.forward_from_current_patch_latents(
+        latents, status, selected_patch_indices=selected_ids
+    )
+    assert torch.equal(output["patch_selection"].selected_patch_indices, selected_ids)
+    output["trajectory"].square().mean().backward()
+    assert gradient_norm(graph.patch_selector) == 0
+    assert gradient_norm(graph.future_predictor) > 0
+    for invalid in (
+        torch.tensor([[1, 1], [0, 7]]),
+        selected_ids + 8,
+        selected_ids.float(),
+    ):
+        with pytest.raises(ValueError):
+            graph.forward_from_current_patch_latents(
+                latents, status, selected_patch_indices=invalid
+            )
+
+
+def test_singleton_batch_grid_stride_matches_official_einops(graph_inputs):
+    graph, images, status = graph_inputs
+    # Official ViT output is contiguous B,N,D; the convolution fixture is not.
+    latents = graph.encode_observed_clip(images[:1]).contiguous()
+    observed_strides = []
+    handle = graph.baseline_model.avg_pool.register_forward_pre_hook(
+        lambda module, inputs: observed_strides.append(inputs[0].stride())
+    )
+    with torch.no_grad():
+        graph.forward_from_current_patch_latents(latents, status[:1])
+    handle.remove()
+    expected_grid = latents.reshape(1, 2, 4, 16).permute(0, 3, 1, 2)
+    assert observed_strides == [expected_grid.stride()]
+    assert expected_grid.stride(0) == latents.shape[1] * latents.shape[2]
+
+
 def test_unique_hard_ids_and_sparse_prediction_queries(graph_inputs):
     graph, images, status = graph_inputs
     result = graph(images, status)
