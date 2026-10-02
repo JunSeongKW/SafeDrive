@@ -1,0 +1,182 @@
+{
+  "seed": 29,
+  "scene_tokens": [
+    "42868079cfb75233",
+    "caafcdd4b7835eb0"
+  ],
+  "timing_scope": "two_window_batch_RGB_to_trajectory_excludes_IO_teacher_scorer_shared_GPU_not_pure_kernel",
+  "dtype": "float32",
+  "warmup": 2,
+  "repeats": 7,
+  "conditions": {
+    "mlp_recipe_control": {
+      "strict_trainable_delta_keys": 28,
+      "trained_disabled_bitwise_equal": true,
+      "online_vs_cached_trajectory_max_abs_difference": 1.9073486328125e-06,
+      "enabled_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.12836693499411922,
+          0.12878347000514623,
+          0.09263935498893261,
+          0.08175076299812645,
+          0.06878756900550798,
+          0.06707002999610268,
+          0.06620466899767052
+        ],
+        "mean_seconds": 0.0905146844265151,
+        "peak_allocated_gib": 1.2561883926391602
+      },
+      "cached_branch_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.005148227995960042,
+          0.005121466994751245,
+          0.005175570011488162,
+          0.005117700013215654,
+          0.00511884200386703,
+          0.005168697010958567,
+          0.005129302007844672
+        ],
+        "mean_seconds": 0.005139972291155053,
+        "peak_allocated_gib": 1.2031445503234863
+      }
+    },
+    "contextual_residual": {
+      "strict_trainable_delta_keys": 68,
+      "trained_disabled_bitwise_equal": true,
+      "online_vs_cached_trajectory_max_abs_difference": 1.9073486328125e-06,
+      "enabled_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.0602362549980171,
+          0.06057602500368375,
+          0.06691693200264126,
+          0.07320186299330089,
+          0.11096192499098834,
+          0.12737901200307533,
+          0.13032282300991938
+        ],
+        "mean_seconds": 0.08994211928594657,
+        "peak_allocated_gib": 1.2567634582519531
+      },
+      "cached_branch_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.006033636993379332,
+          0.005970408004941419,
+          0.005946142002358101,
+          0.006992734997766092,
+          0.006958291007322259,
+          0.007002754995482974,
+          0.007950020997668616
+        ],
+        "mean_seconds": 0.006693426999845542,
+        "peak_allocated_gib": 1.2035975456237793
+      }
+    },
+    "ego_query_residual": {
+      "strict_trainable_delta_keys": 72,
+      "trained_disabled_bitwise_equal": true,
+      "online_vs_cached_trajectory_max_abs_difference": 1.9073486328125e-06,
+      "enabled_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.11767253899597563,
+          0.05985618699924089,
+          0.06858153099892661,
+          0.07581078200018965,
+          0.07791640299546998,
+          0.06289752299198881,
+          0.06272533700393979
+        ],
+        "mean_seconds": 0.07506575742653306,
+        "peak_allocated_gib": 1.2568259239196777
+      },
+      "cached_branch_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.008456134994048625,
+          0.008044238013098948,
+          0.006365773006109521,
+          0.007984095005667768,
+          0.009098155991523527,
+          0.008316882987855934,
+          0.008859945999574848
+        ],
+        "mean_seconds": 0.008160746571125596,
+        "peak_allocated_gib": 1.203660011291504
+      }
+    },
+    "ego_query_residual_lora": {
+      "strict_trainable_delta_keys": 80,
+      "trained_disabled_bitwise_equal": true,
+      "online_vs_cached_trajectory_max_abs_difference": 1.9073486328125e-06,
+      "enabled_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.08402073300385382,
+          0.089984138001455,
+          0.0831418460002169,
+          0.08383161599340383,
+          0.08316029100387823,
+          0.07675075500446837,
+          0.0842108009965159
+        ],
+        "mean_seconds": 0.08358574000054173,
+        "peak_allocated_gib": 1.4486823081970215
+      },
+      "cached_branch_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.0206779410073068,
+          0.019861822001985274,
+          0.019924249994801357,
+          0.020597099006408826,
+          0.01969335399917327,
+          0.02055788500001654,
+          0.020950385005562566
+        ],
+        "mean_seconds": 0.020323248002179235,
+        "peak_allocated_gib": 1.4330573081970215
+      }
+    },
+    "lora_current_target_control": {
+      "strict_trainable_delta_keys": 80,
+      "trained_disabled_bitwise_equal": true,
+      "online_vs_cached_trajectory_max_abs_difference": 1.9073486328125e-06,
+      "enabled_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.09130812500370666,
+          0.07699988399690483,
+          0.10285874499822967,
+          0.07935797100071795,
+          0.08133600100700278,
+          0.07604656700277701,
+          0.07927346200449392
+        ],
+        "mean_seconds": 0.08388296500197612,
+        "peak_allocated_gib": 1.4486823081970215
+      },
+      "cached_branch_timing": {
+        "wall_seconds_per_two_window_batch": [
+          0.015748276011436246,
+          0.01548353600082919,
+          0.015522169996984303,
+          0.017174735010485165,
+          0.025458324991632253,
+          0.026175207996857353,
+          0.026796289006597362
+        ],
+        "mean_seconds": 0.020336934144974554,
+        "peak_allocated_gib": 1.4330573081970215
+      }
+    }
+  },
+  "original_timing": {
+    "wall_seconds_per_two_window_batch": [
+      0.08564724000461865,
+      0.06479651400877628,
+      0.09189212600176688,
+      0.12208177300635725,
+      0.06936375499935821,
+      0.06724503000441473,
+      0.06639964699570555
+    ],
+    "mean_seconds": 0.08106086928871394,
+    "peak_allocated_gib": 1.2447443008422852
+  },
+  "original_model_hash_unchanged": true
+}

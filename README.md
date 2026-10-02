@@ -27,6 +27,14 @@
 
 ## 현재 구현과 과거 자산의 구분
 
+**최신 완료(2026-10-03)**: [구조별 추가 학습 결과](docs/drive_jepa_architecture_followup.md).
+기존 공식 planner를 보존한 채 contextual residual predictor, ego-query selector,
+미래 branch last4 encoder QKV LoRA를15run/4500update로 비교했다.
+MLP+새절차 dev ADE0.209975m, 원본0.220644m, LoRA0.216459m.
+작은 개발 표본의 개선 경향이며 공식 PDMS 향상이나 학습형 선택 우월성은 미검증이다.
+원본 hash/branch-off 출력 보존, OOM0, 현재GPU작업없음. 추가 확대/sweep은 자동 실행하지 않는다.
+공유 [결과 JSON](results/drive_jepa_selective_future/architecture_followup_v1_20261003/summary.json).
+
 **최신 사용자 지시(2026-10-02)**: [공식 Drive-JEPA planner 재사용 + 선택적 patch 미래 경로](docs/drive_jepa_selective_future_connection.md).
 WA-JEPA는9253/12146(76.18%)에서중단/보존했고자동재개하지않는다.
 [부분 결과](results/official_wa_jepa_reproduction/partial_navtest_at_drive_extension_20261002.json): PDMS91.102506,

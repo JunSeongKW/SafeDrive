@@ -1261,3 +1261,56 @@ SharedGPU평균on이원본보다작아도speedup으로해석하지않는다. 최
 전체CPU103tests/Ruff통과. 공유connection_v1_20261002.json은이최종train-only결과이고,
 v1b결과는connection_v1b_project_split_rejected_20261002.json으로이동/보존했다. 과거측정값은바꾸지않았다.
 진행조건/미검증주장범위는동일하다. 학습형선택성공/성능개선/미래정확도를선언하지않는다.
+
+## 2026-10-02–03 — Drive-JEPA 선택 비교 보존 및 구조별 추가 학습
+
+기준2185ce5 이후 완료한 선택 비교를 보존했다. Train128/dev64, recording16/8,
+fixed/random/learned/no-aux×seed29/47/83×200update, 원본 frozen planner를 재사용했다.
+Dev scene-macro ADE는 원본0.220644m, fixed0.215851m, random0.217723m,
+learned0.242582m, learned-no-aux0.238094m. Learned는 초반 개선 후 dev가 악화했다.
+같은 patch의 미래 MSE가 persistence보다 나빠 유용한 미래 예측이라고 주장하지 않았다.
+Raw `selection_comparison_v1c_20261002`, 공유 `selection_comparison_v1_20261002`.
+실행 약576초/peak allocated1.476GiB, 원본 hash 불변. 이 결과를 재계산하지 않았다.
+
+사용자가 아키텍처 개선 방향의 추가 학습을 승인했다. `d3bbced`에 코드·사전 계획·기존결과를
+커밋하고 같은192window에서5조건×3seed를 실행했다. 현재 encoder-prefix만402,888,384bytes
+추가했고192개 원본 최종 feature와 차이0을 확인했다. 데이터 확대·미래cache 재생성은 없다.
+조건은 기존MLP/contextual residual/ego-query/last4 QKV LoRA/현재target대조다.
+각각 randomK4 auxwarmup100+learnedjoint200, 고정LRcosine/aux가중치/최종checkpoint를 유지했다.
+15run/4500update 완료, 전체1300.33초/학습run합1205.60초, GPU1만/peak allocated2.674GiB/OOM0.
+LoRA는 별도 future branch tail의65,536factor parameter만 학습한다.
+Teacher는 full planning checkpoint의 frozen encoder이고 EMA를 도입하지 않았다.
+
+Dev ADE3seed평균±표준편차:
+
+- MLP+새절차:0.209975±0.008071m
+- Contextual residual:0.223808±0.006583m
+- Ego-query:0.216938±0.008604m
+- Ego-query+LoRA:0.216459±0.009297m
+- LoRA+현재target:0.219851±0.009602m
+
+MLP 원본대비 차이-0.010669m이나 recording cluster95%CI[-0.025015,+0.000101]이다.
+이전 실험 대비 절차와 초기화가 함께 달라져 warmup 단독 효과로 해석하지 않는다.
+Residual의 같은 patch 미래 MSE는 persistence를 넘었으나 planning 이득과 같지 않았다.
+LoRA 추가 차이-0.000479m/CI[-0.001177,+0.000231]로 추가 이득 미확인이다.
+계획상 마지막joint200을 보고했고 좋은 중간 checkpoint를 고르지 않았다.
+
+실제 공식 모델 planning→selector/predictor/bridge/LoRA, aux→predictor/LoRA만 확인했다.
+Aux selector/bridge0, 원본parameter gradient없음/hash 전후 동일이다.
+학습 후 다섯 조건 seed29의 trainable delta 엄격 key/shape 복원과 RGB2window 검사도 완료했다.
+최초 postflight 참조와 후속출력의9.5367e-7 차이로 bitwise gate 실패를 기록했다.
+동시 반복 원본과off차이0/hash동일; 동결·warmup 조건 일치 후off bitwise 통과했다.
+Online/cache 최대차이1.90735e-6은 사전FP32 기준 안이다. 실패JSON도 공유/보존한다.
+RGB2window 원본81.1ms/MLP90.5ms/LoRA83.6ms이나 shared GPU 변동으로 speedup 주장 금지.
+Cached branch+planner는 MLP5.14ms/ego-query8.16ms/LoRA20.32ms다.
+검증 종료 후 우리 GPU 프로세스 종료. 공용데이터/다른연구원/환경/원본checkpoint 불변이다.
+
+Raw `outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/`.
+Shared `results/drive_jepa_selective_future/architecture_followup_v1_20261003/`.
+보고서 `docs/drive_jepa_architecture_followup.md`, 원문학습 source는d3bbced/SHA 기록.
+완료 후 formatting과 동기 lambda의 loop binding 정리만 추가했다. 추가 학습/sweep은 없다.
+CPU116tests/Ruff/전용Python3.9compile 검사. 복잡한 구조의 승격을 보류하고 MLP를 저비용 개발
+참조로 보존한다. 후속은 같은 절차의 fixed/random/learned 비교 여부를 검토한다.
+Held-out/navtest 공식평가·선택우월성·안전성 개선은 이번 범위에서 검증하지 않았다.
+GitHub push는 기존 VSCode credential socket 오류 및No anonymous write access로 실패했다.
+공개설정/원격/credential은 변경하지 않았다. 로컬 커밋은 보존하며 인증 복구 후 push한다.

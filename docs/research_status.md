@@ -1,6 +1,29 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
-## 현재 승인 실행 — 공식 Drive-JEPA planner의 선택적 미래 extension
+## 최신 완료 상태 — 2026-10-03 구조별 추가 학습
+
+공식 Drive-JEPA planner 위에서 같은192window의 5조건×3seed 학습을 완료했다.
+사전 실행 커밋은 `d3bbced`, 상세는 [구조 비교 결과](drive_jepa_architecture_followup.md)다.
+기존 선택 비교와 이번 추가 학습을 구분한다. 원본 planner·가중치·평가 결과는 변하지 않았다.
+
+기존 비교의 learned dev ADE0.242582m에서, 새 공통 절차의 MLP 대조는0.209975m였다.
+원본0.220644m보다 낮지만 recording-cluster CI가0을 포함하며 학습 절차와 초기화도 달라졌다.
+새 contextual residual0.223808m, ego-query0.216938m, LoRA0.216459m였다.
+미래 latent 정확도와 planning 유용성은 별개였고, 더 복잡한 구조의 우월성을 확인하지 못했다.
+LoRA는 미래 branch의 복제된 last4 QKV에만 적용했고 원본 planner 입력은 유지했다.
+고정 target encoder를 썼으며 EMA/공식 JEPA 사전학습 전체 재현으로 부르지 않는다.
+
+Planning과 aux gradient가 LoRA로 전달되고 aux가 selector/bridge로 가지 않음을 실측했다.
+학습 후 실제영상에서 branch-off 원본 bitwise 보존과 엄격 checkpoint 복원을 검증했다.
+최초 참조와 후속 호출의9.5367e-7 차이도 보존했고, 동결·warmup을 맞춘 검사에서 통과했다.
+원본 hash 불변, OOM0, 최대PyTorch allocated2.674GiB,15run/4500update 약21분40초.
+GPU1 학습·검증은 종료했다. 다른 연구원·공용데이터·기존환경을 변경하지 않았다.
+
+공유: [summary JSON](../results/drive_jepa_selective_future/architecture_followup_v1_20261003/summary.json).
+추가학습/공식benchmark/held-out/WA/pilot 자동재개는 없다. 다음은 원래 선택 질문에 대한
+fixed/random/learned 통제 비교 여부를 검토할 차례다. GitHub push는 기존 인증 오류로 미완료다.
+
+## 이전 연결 검증 — 공식 Drive-JEPA planner의 선택적 미래 extension
 
 2026-10-02 사용자전환승인. WA는9253/12146성공/76.18%에서중단/보존했고자동재개하지않는다.
 PartialPDMS91.102506 vs동일9253scene Drive89.019762; 원본Drive 전체89.224320은그대로다.

@@ -1,0 +1,967 @@
+{
+  "records": [
+    {
+      "token": "42868079cfb75233",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/42868079cfb75233.pt",
+      "sha256": "742d5da0d641642e7acd79905f300f5162c19d5ecf7a3033ccc1e47ca9cb39ac"
+    },
+    {
+      "token": "caafcdd4b7835eb0",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/caafcdd4b7835eb0.pt",
+      "sha256": "9b18669ad4999ccf3474e2a544a805626a1c4c1843016c731303403cbd515cc7"
+    },
+    {
+      "token": "2fa96542484250f0",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/2fa96542484250f0.pt",
+      "sha256": "0ed5f72c81fa929bd3226148f10958df49368f08af2910462da369dbf265e44e"
+    },
+    {
+      "token": "68341772b52f543b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/68341772b52f543b.pt",
+      "sha256": "a48df591ab96a150257cd6e68d722d805a8f846492b7616afaef0c3618bb3e9a"
+    },
+    {
+      "token": "eabd9d1227785454",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/eabd9d1227785454.pt",
+      "sha256": "ea6340de97294d047595e73aa3d6d0a63bd5b9892832a2509de732fd548f0c27"
+    },
+    {
+      "token": "f70d691cf70b5cb3",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f70d691cf70b5cb3.pt",
+      "sha256": "1832f5384ef94b195776882dfd8be0149abe1ed3b27e2979b2550d846bf3d9ae"
+    },
+    {
+      "token": "aa2fce3e3af55b1c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/aa2fce3e3af55b1c.pt",
+      "sha256": "e3141f7048a5c47aa77526138bba67320f243f274232cfd881142620016c78c2"
+    },
+    {
+      "token": "00029eec66d650e1",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/00029eec66d650e1.pt",
+      "sha256": "ae9c32cef48d199e7b1253a940f9d1e79f1934a581b8aed82b7319e21fc8a148"
+    },
+    {
+      "token": "0168dd4fffde52ed",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/0168dd4fffde52ed.pt",
+      "sha256": "55eba13e72f56e94f91380f89645335950f9136a03cf77f9adcbc0a646bbde4e"
+    },
+    {
+      "token": "c4e9600b96ce5d54",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/c4e9600b96ce5d54.pt",
+      "sha256": "787021b0c6ab637c62b3a2e99c5534d506b1f9f7550974a741b318686ba60645"
+    },
+    {
+      "token": "a80c5ee8b1ff56d8",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/a80c5ee8b1ff56d8.pt",
+      "sha256": "6827faa96b4f24860226c1d1f8d86d2d556799e888ceea9a40da41988f518fa5"
+    },
+    {
+      "token": "54f9b4af08e05d79",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/54f9b4af08e05d79.pt",
+      "sha256": "992ed4173523607b9fba6a0c29c0a3965c8372172b7f77bdd0290acda0e5ce6c"
+    },
+    {
+      "token": "1657554fc5445eb6",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/1657554fc5445eb6.pt",
+      "sha256": "653f8a7e3df524f95fb63a73d66f98c552209709fd4cfbf6bbcaf2913ddce85b"
+    },
+    {
+      "token": "e7cde98715555110",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e7cde98715555110.pt",
+      "sha256": "9fd4df9d3754135d1bc242682400a1e3180c8b18614df4ccfbb7518d99765fc6"
+    },
+    {
+      "token": "4bb4fd668a805612",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/4bb4fd668a805612.pt",
+      "sha256": "517bf3801ac03abbfce92e698ffc649373d7492c07476f2f7b215ad9b85f35f7"
+    },
+    {
+      "token": "c1fe3aa66ec55b17",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/c1fe3aa66ec55b17.pt",
+      "sha256": "4fd349316d3bad951016b7bcc9c8e0094f0cda9566b2bb3c4821baf77b88eb65"
+    },
+    {
+      "token": "9fe049486481505a",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9fe049486481505a.pt",
+      "sha256": "11599805bd0441eeef10b70e5aacf0e5f162dea7ca7f07dc48fc8e64737502a6"
+    },
+    {
+      "token": "f895bc253a215fc4",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f895bc253a215fc4.pt",
+      "sha256": "ccb2a4920212fe913ce0fe8f11facde46249fe03976d5d1567b5994921fcdb5d"
+    },
+    {
+      "token": "f1430641b7685542",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f1430641b7685542.pt",
+      "sha256": "f8aae86c73f89651364912ac559e5b4f0e071e280bd051f69e436eb16e958699"
+    },
+    {
+      "token": "ada17d80705459e5",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/ada17d80705459e5.pt",
+      "sha256": "3eb0fe0c30a13da3928c35f5122e558f4e6603780b9ba2d74478bbaf3f2b7160"
+    },
+    {
+      "token": "5442925b5514525c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5442925b5514525c.pt",
+      "sha256": "b042dbea63c9fef6198ac62c561314fdcc9ade43b015296914c24673372a617a"
+    },
+    {
+      "token": "f4be93317adf5091",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f4be93317adf5091.pt",
+      "sha256": "ae0ceb179450bd2b63c5df55a3f344d673f8ae1583631c87a8b741b144dfc988"
+    },
+    {
+      "token": "0c12cf6a804d5e86",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/0c12cf6a804d5e86.pt",
+      "sha256": "9ab27debfbf5d1da188680a15cd9d5621c7447a35b97d75d4d0960a8bee52282"
+    },
+    {
+      "token": "a1da8bec7a1c5c7e",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/a1da8bec7a1c5c7e.pt",
+      "sha256": "a505ea89f191e1d3f19a753abad03ef1348625e12be22331b00d660978957f83"
+    },
+    {
+      "token": "1b173e83ce58518b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/1b173e83ce58518b.pt",
+      "sha256": "a54923311efb27a7c6cb5f086bb4dda205dd5e9afad118bcf6b732fbf186566a"
+    },
+    {
+      "token": "7fa7f2973eb6583d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7fa7f2973eb6583d.pt",
+      "sha256": "e21995e8c4b4fbcd8c955e83b47317665d9ddc4142644e7f3f7294bfaa3db79e"
+    },
+    {
+      "token": "63818d7962335cb9",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/63818d7962335cb9.pt",
+      "sha256": "edc38691cfd8910f8fc70f5a897839c7de2ec57c752b87ca36ba8a2b2d0203a8"
+    },
+    {
+      "token": "eb6af2bd1a635cb2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/eb6af2bd1a635cb2.pt",
+      "sha256": "b5276fa7a499488a2fad4ed715eca87061ae5ae5e937acf39e3c4336b471d454"
+    },
+    {
+      "token": "6f08f1ba4c555d89",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/6f08f1ba4c555d89.pt",
+      "sha256": "acdfcb655450f7aa35945b67f1c94c9a7495a854c1a9b3182ecc6370fe54130e"
+    },
+    {
+      "token": "2af3184e9f0f5697",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/2af3184e9f0f5697.pt",
+      "sha256": "6baca3094643e92de5b1bf75cf48b6b9a8ad66747417fa0fe092aa107f3e54fa"
+    },
+    {
+      "token": "33230d8bfa425f6f",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/33230d8bfa425f6f.pt",
+      "sha256": "a5a6730c2f2eac514ef553565841b86dced5074ac92360d975c9d1e37ed5886b"
+    },
+    {
+      "token": "dcee65c0765f51bf",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/dcee65c0765f51bf.pt",
+      "sha256": "9565b31cf3b24eabb2f7bf46a553fad5e858d8657265b3b03dd40eb526d19d48"
+    },
+    {
+      "token": "82abb0794a955aff",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/82abb0794a955aff.pt",
+      "sha256": "053944485c6c2f04edaea3b51b0e14eb7fd8db7a77ab52054bc0ffda9d567c8f"
+    },
+    {
+      "token": "fa9ebf82174f56e2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/fa9ebf82174f56e2.pt",
+      "sha256": "413cbfec9b12b40aadc2f237bb957a4f761846fdea1c98d3db31bbd65c26b9ed"
+    },
+    {
+      "token": "de7aee4bfd4650d8",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/de7aee4bfd4650d8.pt",
+      "sha256": "4a2223115d25edc3ca187043af82bc39d96a88182ca0b642dbb0fc2af77c30a9"
+    },
+    {
+      "token": "7f74e72074485b12",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7f74e72074485b12.pt",
+      "sha256": "0da90db04a22bf38341130864081cc81e3cc1b1e038503853b2170c1f07a9a33"
+    },
+    {
+      "token": "acf207f491775e7b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/acf207f491775e7b.pt",
+      "sha256": "b2a31ea022dd8093e24ba7fb5ef0872bcc43e8fa92bd76877fbdefff8a4978be"
+    },
+    {
+      "token": "246eb858bec25310",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/246eb858bec25310.pt",
+      "sha256": "8a3a38c1611aa3941ee06b82cf76c254f6712598db184c651f3241358e7d14af"
+    },
+    {
+      "token": "40e23bdca88c5b0d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/40e23bdca88c5b0d.pt",
+      "sha256": "d0428d12e522b66b667808208422193b4332d39c53b9334fcbbba401d64f897e"
+    },
+    {
+      "token": "8d59999281da5243",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/8d59999281da5243.pt",
+      "sha256": "f2b2645d7e26f386b85544699ad4fa25f683f827a5bd2c7f661c581c3c18fdc5"
+    },
+    {
+      "token": "75afc126374359d3",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/75afc126374359d3.pt",
+      "sha256": "5d263f0f6048274a711667c200b9487dfaf6931c98643869a1c87191f5d64c8f"
+    },
+    {
+      "token": "973a7c9d77ca5b23",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/973a7c9d77ca5b23.pt",
+      "sha256": "bd3ca263f033c9e34af5d731cdbef7897920e6c188da48c0551a3a82ea30d41d"
+    },
+    {
+      "token": "095741f4465352b3",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/095741f4465352b3.pt",
+      "sha256": "5dbcb02b6c0ed1c4c1388288c9d2fb6c30e8edea8f3ba8bfd0d7c090f2a409ce"
+    },
+    {
+      "token": "4617f5dbb29c500a",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/4617f5dbb29c500a.pt",
+      "sha256": "9fbc74294ee045e4b6af0558eb14575797fd113db36f166795c9a6b9e7e1691a"
+    },
+    {
+      "token": "b0f67ce7d678590b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/b0f67ce7d678590b.pt",
+      "sha256": "23b3d35eb020ae676d5be64612c965d5668b431b806be3700a93a6465b7ff92d"
+    },
+    {
+      "token": "13456839ba8c52ef",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/13456839ba8c52ef.pt",
+      "sha256": "14929188934fb29461c2b75dca5e76e735d9fc4aaec28623e729fc645fe68763"
+    },
+    {
+      "token": "1df7865b517251d0",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/1df7865b517251d0.pt",
+      "sha256": "d3747c35d539939f43f5123b9646b5307dfacefc2ecfc444bd25fc6c7eb4f7b6"
+    },
+    {
+      "token": "38f3a2f5fe33500f",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/38f3a2f5fe33500f.pt",
+      "sha256": "648f2b89a70c98aa853c18ea395a07b2e90049e50e9945e0f4984b267811d1f2"
+    },
+    {
+      "token": "95535851c7b75757",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/95535851c7b75757.pt",
+      "sha256": "cf17c159be5cd6d3b50c9baebec8e0bdcbb1c23c43b102418e9b02baf91c4519"
+    },
+    {
+      "token": "6764c662e15e5b48",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/6764c662e15e5b48.pt",
+      "sha256": "289c61702ab450b2ad01b1110556bafe57c2a594e3bec393e3c335753eb50769"
+    },
+    {
+      "token": "7bf05e0f52b75ee2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7bf05e0f52b75ee2.pt",
+      "sha256": "78a20d7fc94a64fdb5c87ca14a49d8aa6eb6634ece18ca7eae438ad57c2a6026"
+    },
+    {
+      "token": "673b04fae3fc5595",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/673b04fae3fc5595.pt",
+      "sha256": "ff1875605558e1f53b190c5d16e8b3d4c82d39d334de9d60cd36b2afd67c3846"
+    },
+    {
+      "token": "c8faaa73c9c054d1",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/c8faaa73c9c054d1.pt",
+      "sha256": "f4e6a4c07f3cd63b92227551a083f6fe710be7ef827a7a89eb7467ca8a9d2c11"
+    },
+    {
+      "token": "5e5f522e3ecd5cca",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5e5f522e3ecd5cca.pt",
+      "sha256": "a83d42b8550898c3bf7c498276e4fdeee84fafe664dfe3d8d00dde2251ebed55"
+    },
+    {
+      "token": "378d61da938e5420",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/378d61da938e5420.pt",
+      "sha256": "b2717d0861a571bcad698999eeca033964ea78014e70480b8ae8fd15703d84fd"
+    },
+    {
+      "token": "8bcd32f3329b5729",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/8bcd32f3329b5729.pt",
+      "sha256": "6e4de19033b6da612058bb347888b8e899524bfd1df1adc7f3170c58f2637268"
+    },
+    {
+      "token": "85107617069e5eae",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/85107617069e5eae.pt",
+      "sha256": "45356970a274765d138a3490e75696062bf44e4a7736799365e412356cfb0243"
+    },
+    {
+      "token": "dd9d8e686a345f74",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/dd9d8e686a345f74.pt",
+      "sha256": "80a54593dc6bde2dbe7d945a311d571fe83467ee0ab2949978dd200b9c99b575"
+    },
+    {
+      "token": "d25f823ffc5f55cf",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/d25f823ffc5f55cf.pt",
+      "sha256": "6e4ffd5876ac41ea47043495c637dfdd74d0f850bf6b52a67e4a12a84f05c490"
+    },
+    {
+      "token": "fa41647d02c7591c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/fa41647d02c7591c.pt",
+      "sha256": "949e23af5ce5daf4387774f97044b0a6280e4329c40cc33f5b47b6abcf02f78a"
+    },
+    {
+      "token": "e1513979c1a25a3a",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e1513979c1a25a3a.pt",
+      "sha256": "e9213befcd6764e957c9d84a649fc74956731ff7aedbc2cf68eda2e73753d10e"
+    },
+    {
+      "token": "21a96107cf785a63",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/21a96107cf785a63.pt",
+      "sha256": "2f8f385d8a8d5ef58cd7f3936613f6ed32369d1cf1ad8959eb9c677c15a836bd"
+    },
+    {
+      "token": "0961f8661d8a58c2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/0961f8661d8a58c2.pt",
+      "sha256": "879b953780c7d6cfd62bba5d389e42f5358d5f4c181b4deb0024475003e3d20f"
+    },
+    {
+      "token": "5c78f13876e0582b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5c78f13876e0582b.pt",
+      "sha256": "8c259a21c6c7cdc4014cc5a861a7f2e30fa114d687d6c56b713fab1e6e2ecd43"
+    },
+    {
+      "token": "8b0932e2de6753ab",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/8b0932e2de6753ab.pt",
+      "sha256": "ef85cbd4dc42742b0da6ed7e476d9b23ba709dd221103efa13697ab29276363d"
+    },
+    {
+      "token": "c2b7349b328858ac",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/c2b7349b328858ac.pt",
+      "sha256": "24b89046fc5464afc8344b27efdf183648cf96ea131018672f680dfff30028bb"
+    },
+    {
+      "token": "482e228f118e544b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/482e228f118e544b.pt",
+      "sha256": "89ad23dc0159692d78c569cbc07559dd871e3223e6cfc19ac9856517737071a8"
+    },
+    {
+      "token": "0bcc8551849c538f",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/0bcc8551849c538f.pt",
+      "sha256": "7c7e3b8535e4be0651c9ff9d6978d4a84b0efd7ca501ff3a7d47d58e416564f8"
+    },
+    {
+      "token": "79ea424b3b2b51e7",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/79ea424b3b2b51e7.pt",
+      "sha256": "8f786f48e510ff6b4afc094f313fad45b9fad2e2423accaa44435173d57475fe"
+    },
+    {
+      "token": "5a4f5d512d285fd2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5a4f5d512d285fd2.pt",
+      "sha256": "d149d55d2b13d72450a25e03030d6cc0797e39b3f528910f9118f0b3a744ff4c"
+    },
+    {
+      "token": "f56f173b6d3b52d4",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f56f173b6d3b52d4.pt",
+      "sha256": "fee42b117c2d126523c709f4b627c98fedcc8bcf05d73b2dcbcae526ec6e7a85"
+    },
+    {
+      "token": "7d14dc9e1394504c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7d14dc9e1394504c.pt",
+      "sha256": "cb7080f529cf4e42670f9567cb88b16e10417bfc21b06c8557e9982e4b4a2fe8"
+    },
+    {
+      "token": "a0b601837cc25f9a",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/a0b601837cc25f9a.pt",
+      "sha256": "89e574ec7bd31c5afd740916c09a25d27b9fe8800ed3c80a364b684b195bcb45"
+    },
+    {
+      "token": "dcbf1cf262365995",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/dcbf1cf262365995.pt",
+      "sha256": "b6841abe779dd6a869b2e9d94a6950e6b29bc645723a8cade12f473814838bef"
+    },
+    {
+      "token": "4f0a0a61bdaa5a59",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/4f0a0a61bdaa5a59.pt",
+      "sha256": "28d81af38929dbdcf52d9b3cc29f460fe0f522b04cdf75ffd43381e93a235368"
+    },
+    {
+      "token": "4c2e114b0f5c5cee",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/4c2e114b0f5c5cee.pt",
+      "sha256": "10f7edd716b7e7370500f69e7b3c3878bd9e5bdf788d5cf7634493a9d0d93d45"
+    },
+    {
+      "token": "9ac6b0c708ef57ba",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9ac6b0c708ef57ba.pt",
+      "sha256": "575dca7db50b2519812a003cc8b579a580cfd1de9ab43b185ede5b3b29bbfb61"
+    },
+    {
+      "token": "8a85218e4a3d5fa2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/8a85218e4a3d5fa2.pt",
+      "sha256": "b633546958dac734b4a1e4d3d46850b3a4573d71d4d616b2c9a58240e923209c"
+    },
+    {
+      "token": "23b79e79cec15f05",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/23b79e79cec15f05.pt",
+      "sha256": "e06b914ba3e428a799770017bcd25a8a9d365a2d994da413af195f6d54a86137"
+    },
+    {
+      "token": "e5e57399ea0a5228",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e5e57399ea0a5228.pt",
+      "sha256": "ec16e7db56e9523ae75d55be6d2a91a9e3e09db5ff513ae60e8db7582629351f"
+    },
+    {
+      "token": "e1a8d2a630635703",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e1a8d2a630635703.pt",
+      "sha256": "c4978422197b7dd06b0c6c54fc4e8bb1948e83122fd4002bccaa54648f637375"
+    },
+    {
+      "token": "aece322a1d42538a",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/aece322a1d42538a.pt",
+      "sha256": "efe5f3d93c5646bed23fcca33980a51508f465fbf6058f500aea81c15e577539"
+    },
+    {
+      "token": "9d0bf147438e5fb3",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9d0bf147438e5fb3.pt",
+      "sha256": "96f87d4fd3145cefe00d16c512e3dce98aab298552f6c35035da430115574721"
+    },
+    {
+      "token": "f2d2c1ea12755312",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f2d2c1ea12755312.pt",
+      "sha256": "6826d8b327f111b92f3f9d103d39135e4938e022d3e60b1c920ed204e0e05740"
+    },
+    {
+      "token": "cea14bc9e11e5a9a",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/cea14bc9e11e5a9a.pt",
+      "sha256": "8de80d53ff79465096cc11409efb94c3bbb2aad0e5021be4725f46c57d155d86"
+    },
+    {
+      "token": "4a60572394c95d99",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/4a60572394c95d99.pt",
+      "sha256": "74a903e10537141e1e26ca2cb8c545da07efd12b59b820294946bead1e8a840d"
+    },
+    {
+      "token": "73c60faa4a4f50d5",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/73c60faa4a4f50d5.pt",
+      "sha256": "8a0f28c56110bdbe99a7f63f0ce93d1d0295be25d697779b066e0ef089cc7c7b"
+    },
+    {
+      "token": "19d7d544be8b5ed6",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/19d7d544be8b5ed6.pt",
+      "sha256": "7a40f7c8ff99b8ba923954e7defb920a84e7e61e4b72350b88c0303887f46992"
+    },
+    {
+      "token": "0cee9b6cce6b55bb",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/0cee9b6cce6b55bb.pt",
+      "sha256": "bdc34089ee26dbedc72cc778e00f52e95296b2689612ef0de17f93008a694eed"
+    },
+    {
+      "token": "b7e4f74f963b5911",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/b7e4f74f963b5911.pt",
+      "sha256": "7d10c213835243af0d376cef43348e3b1b9e8b042d9ef99204e3aa4d75009aab"
+    },
+    {
+      "token": "de1498ad86835196",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/de1498ad86835196.pt",
+      "sha256": "f7bfaf0815c285ef3a4c2534899e9057666f9ac62d8028b4fd971f913b3ae761"
+    },
+    {
+      "token": "025ec42ba16f587d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/025ec42ba16f587d.pt",
+      "sha256": "2a3a415ff4de16a1cc5740cab03750e916a2d6be63a835ca5d1c9e74437b8fac"
+    },
+    {
+      "token": "c3fcca93dde25e14",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/c3fcca93dde25e14.pt",
+      "sha256": "a5add861eb3198b9ba3a441c59c1af39d634e0b28bb2b28cfae9fddc10bd3762"
+    },
+    {
+      "token": "e06e9be096c55f62",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e06e9be096c55f62.pt",
+      "sha256": "6df4250e1c35a6fac1c600d2c592e7344be30bcc071e411008ef27972e44e80b"
+    },
+    {
+      "token": "3764fca3eb725eea",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/3764fca3eb725eea.pt",
+      "sha256": "d1e5d37df804831bd7a3104343787111434c72a5bbf97e2d17b8c63f4d141f92"
+    },
+    {
+      "token": "e37afb24cbc354b1",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e37afb24cbc354b1.pt",
+      "sha256": "eceb893d2ffc984e1fe42ae5a55c7152e1faecd3c14bc7d0406a0aa21c97a029"
+    },
+    {
+      "token": "99bf73c4d148509a",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/99bf73c4d148509a.pt",
+      "sha256": "b36e4318fc61fbb056f2f676f9059ce3924d6e39e48831104a12fb0034851bb2"
+    },
+    {
+      "token": "82183d4ed7285e2b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/82183d4ed7285e2b.pt",
+      "sha256": "bb16576b872a3010a0f23fae86fbe87ed8b4e43c5e438187e731db227c4e3943"
+    },
+    {
+      "token": "09fc359e65a65d2d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/09fc359e65a65d2d.pt",
+      "sha256": "6bac74fb90736552af7d0920564ddb3ee79a78eb8b5663c41f82e6a7d2639d70"
+    },
+    {
+      "token": "ee6a818615ff51ba",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/ee6a818615ff51ba.pt",
+      "sha256": "ed01400aeec9e26483bada8bcb8f1ba9fd3a285900e33f5f1338eee8918fc476"
+    },
+    {
+      "token": "e134b297048b5c37",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e134b297048b5c37.pt",
+      "sha256": "9f698b5ef3752a4b9aaf3d227a13be847cc5b6dd6d444658557ee3af2e213296"
+    },
+    {
+      "token": "9c833d715d5a5f2c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9c833d715d5a5f2c.pt",
+      "sha256": "0dd49f1478d2d18bf3c55c6be1721f45f511ade8d0ed0e3fbce6327db47ede04"
+    },
+    {
+      "token": "505bbe9ba4405369",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/505bbe9ba4405369.pt",
+      "sha256": "99e3f523df788001c4dbf70fc24ce1a30d6f72f1c9b1a5c0e57d613afbed9fcb"
+    },
+    {
+      "token": "7c0f902cd4a85505",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7c0f902cd4a85505.pt",
+      "sha256": "605efe841e19157db422c038c9c7f68e459d99f13c3f2374af12b08901608bec"
+    },
+    {
+      "token": "aa5610ae761e5330",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/aa5610ae761e5330.pt",
+      "sha256": "e288c43e623a40596008b805352db6bd6683b5b1488c38c1220d642ef46189a0"
+    },
+    {
+      "token": "06f416ef3dbc5656",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/06f416ef3dbc5656.pt",
+      "sha256": "9309a26360b5733268d36255c3b8959e1a91e9425ac43fd03268e5f789fbc950"
+    },
+    {
+      "token": "9adfdd4c06cf5e8c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9adfdd4c06cf5e8c.pt",
+      "sha256": "ab3517f6a74bd0f39e3986c96bcf538129b58d825645b48bb63165c671ce4e12"
+    },
+    {
+      "token": "94014ea94dae5180",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/94014ea94dae5180.pt",
+      "sha256": "289c8bfb61c7031ba05ff612c6d7d9a3406ad8c663d286d1210f439e9225b850"
+    },
+    {
+      "token": "996a71ebed2d5962",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/996a71ebed2d5962.pt",
+      "sha256": "972e693fc78887d7b80795d240b53992be2b376da688077810497505b8e30cc1"
+    },
+    {
+      "token": "b65cdf1698ec58da",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/b65cdf1698ec58da.pt",
+      "sha256": "f205fa3fc9c8e362e21a7314e3f2fcd48d67816df24dc85aca7ec2615a875cac"
+    },
+    {
+      "token": "7c897aea11555116",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7c897aea11555116.pt",
+      "sha256": "88b0215986739f5bea09c5e9be1f20dac0fb08d6192b870b3214178b90328721"
+    },
+    {
+      "token": "9d8bbe7081805aff",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9d8bbe7081805aff.pt",
+      "sha256": "acfb4d11ad0539be4cbb70580cfbe4752a49136a9f6eeb441e5b678b613f900e"
+    },
+    {
+      "token": "6f13db85eb395da6",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/6f13db85eb395da6.pt",
+      "sha256": "184170c144f83c7ee8f4df6d08c9abe7ddde5da94e94142b7f5f0f097ecf7770"
+    },
+    {
+      "token": "90bab1d26e77539e",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/90bab1d26e77539e.pt",
+      "sha256": "780e1cf9d397ce4266c2a54c39365966315af4aca864e051a39b2a45fbf391ea"
+    },
+    {
+      "token": "a0fad9da427656e1",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/a0fad9da427656e1.pt",
+      "sha256": "1fc31959f98015080bc2192d063ef99c3c7d9f920648028b0fdcde0db7f8c842"
+    },
+    {
+      "token": "cc2769dbb64c51c5",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/cc2769dbb64c51c5.pt",
+      "sha256": "8ecd4bdd410bf5eba0f65f2d4de290490a1681309f83a727a48a88abe872cae3"
+    },
+    {
+      "token": "3a42aaf9c7ad52b0",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/3a42aaf9c7ad52b0.pt",
+      "sha256": "9b8f135e1f983051e64955c5e2a03f4514f667072b6bd87a7fed41aee65e7622"
+    },
+    {
+      "token": "9ce593252631507d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9ce593252631507d.pt",
+      "sha256": "9b5e6666cd772c047778aceedd8223fd65e56b367b3884f353bae1de35d0dfaa"
+    },
+    {
+      "token": "d7bf7fb4d1995e7e",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/d7bf7fb4d1995e7e.pt",
+      "sha256": "9a206bdb7b47e5feb2e28e08c6ed032f2bbd9999d7c2085354b0d5d9e9297433"
+    },
+    {
+      "token": "884a4400377653c4",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/884a4400377653c4.pt",
+      "sha256": "2b6d7732bce5ac418a4a081d491540a04655f5269358fd61fef0362fff700ae9"
+    },
+    {
+      "token": "f2a8a11d1d9957c6",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f2a8a11d1d9957c6.pt",
+      "sha256": "2d1918efe58aa256f505f9bfb2520f6a5f10f163edb6e9b15e2766fc4383d02e"
+    },
+    {
+      "token": "448fcc465ce2589c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/448fcc465ce2589c.pt",
+      "sha256": "c8db9284000b3d5580f7539c0de9d48b496d683db1592cade0e8d05a2adf615c"
+    },
+    {
+      "token": "5b9eea7538235f36",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5b9eea7538235f36.pt",
+      "sha256": "ace8b41263bfe7c892c8817a6f3674eac717e3f89c30e0b7a6b3deb1f6c83e92"
+    },
+    {
+      "token": "8da3d9d2de0c53bd",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/8da3d9d2de0c53bd.pt",
+      "sha256": "48896e8ae4d6c01322e0741f2ff4d33bd039301fc71098164498304f6eeecdd9"
+    },
+    {
+      "token": "4cb6f16e6fd75ae6",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/4cb6f16e6fd75ae6.pt",
+      "sha256": "e3fecbf32bb83514a8a10906e79486a646e22a60c97cde29e03f00f8be1efa51"
+    },
+    {
+      "token": "6bf7c64d674550c0",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/6bf7c64d674550c0.pt",
+      "sha256": "5f5d727b9a22fe123af9745c8fe65c233cf5d578c1c49cf3538dacc39c95ff27"
+    },
+    {
+      "token": "400d720e95ee5e13",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/400d720e95ee5e13.pt",
+      "sha256": "d416e7d0827c10e2baf03671924cc16cfedb0fbfbf1639062ee039bad66bdc4f"
+    },
+    {
+      "token": "f16683fd19e558c2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f16683fd19e558c2.pt",
+      "sha256": "363a93ba31f327ea84b5e7b2931a935fc2fe729932093b72c034554b6c2306ac"
+    },
+    {
+      "token": "5b2b2741a9225324",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5b2b2741a9225324.pt",
+      "sha256": "f615e88f2739df8adfc1985cbc505913e7c235282ae5e549ee81efd47f35d249"
+    },
+    {
+      "token": "1dc3ed89baf15ac3",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/1dc3ed89baf15ac3.pt",
+      "sha256": "57ee5f02eea571ca9ca609294a970fd0d61e9e55fcb2714cb922caf420d092b9"
+    },
+    {
+      "token": "2daea025bb7e5a2c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/2daea025bb7e5a2c.pt",
+      "sha256": "6983ad36afc1780fa8d96f9b70ce21a84f9cc23be27d4775643bb77006084bf4"
+    },
+    {
+      "token": "be3bc0fa680c5e33",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/be3bc0fa680c5e33.pt",
+      "sha256": "6d9559c2efcbcacd43cfb82e6a1c775a9f0f25b13bf1c0b1a364aa52fe2f1682"
+    },
+    {
+      "token": "2903fe2f977f5927",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/2903fe2f977f5927.pt",
+      "sha256": "a518eaef6ad54ba39be72f3fd4f008bfcaf4af2d855457ecad96513bb1fab88d"
+    },
+    {
+      "token": "c362c24b66b351ed",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/c362c24b66b351ed.pt",
+      "sha256": "1d946eeb7b70fda11339838e54dc15faf1597603d494baaafc81b9b3ab10308b"
+    },
+    {
+      "token": "222f5d6a4aa25d89",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/222f5d6a4aa25d89.pt",
+      "sha256": "915933742ff9e475161aa8c6a3206bf2ce4eb1e74f031abac425ba352d2b365c"
+    },
+    {
+      "token": "933f03af8f385207",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/933f03af8f385207.pt",
+      "sha256": "374f325ee237e07dd8e74354817b7df7c46ee3295203668cc7f225cd806b4fcd"
+    },
+    {
+      "token": "063ebdb158075369",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/063ebdb158075369.pt",
+      "sha256": "75d1032201ff371bd1d0a1973630c6f7be23df0e5041950dc947cc0231f12a42"
+    },
+    {
+      "token": "c0a1b812e095547d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/c0a1b812e095547d.pt",
+      "sha256": "0b86c690bfeaacb8065fd84ed80db13dde347216429e749fdd53730dea78b2d0"
+    },
+    {
+      "token": "482f957d79f45f55",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/482f957d79f45f55.pt",
+      "sha256": "411c6e6d54d49579aafa7d4e4191332c293972425d678fad3efb3b62dcc2107c"
+    },
+    {
+      "token": "6561907765f2550f",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/6561907765f2550f.pt",
+      "sha256": "4817f519fdd2fdffef92af1447013699856d3eea2199489f47ee7fc8f78802cb"
+    },
+    {
+      "token": "5742dd4bd86e5127",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5742dd4bd86e5127.pt",
+      "sha256": "42a5a1d021e8b6faf3aa0791522004eb5ce966fcb7aa6ce99cf187e7e1031cd8"
+    },
+    {
+      "token": "ecc85792eb665ba0",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/ecc85792eb665ba0.pt",
+      "sha256": "98798ada211a8c2543dba72aafeb2c5e4f9fe4c2c4a47ca77e9cda8fa48da82f"
+    },
+    {
+      "token": "599c900bc4e95312",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/599c900bc4e95312.pt",
+      "sha256": "890283c55d8a11bb1ac456dc840a83a9b8fe9b7eeae74990e92409cc8025962a"
+    },
+    {
+      "token": "505cdbada0ee59be",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/505cdbada0ee59be.pt",
+      "sha256": "ad8011787cd7d4e7e6ea4d668aecb7a7b0cee8db4e922b032e982351a5217b69"
+    },
+    {
+      "token": "836b76b2c8f35990",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/836b76b2c8f35990.pt",
+      "sha256": "578f0edb4ef8f9f4568e237e9181209ebe57a50faf0050636deac4a256102bae"
+    },
+    {
+      "token": "21eb51db8a675681",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/21eb51db8a675681.pt",
+      "sha256": "c899f8ce39b7c866aa98c457b0ee635a1e7cabca8dba849ce806a90c046eee00"
+    },
+    {
+      "token": "b8bf6e0a15635fa9",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/b8bf6e0a15635fa9.pt",
+      "sha256": "d1db120f6db090ebe8efcc10910a997addb741ea8f42fa67f1aa7a98bf4d4171"
+    },
+    {
+      "token": "005e12630b405e67",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/005e12630b405e67.pt",
+      "sha256": "60d3ff03af3a46993a4fd71ed87e392fe3ac2cd5339cf820ced02692ac513895"
+    },
+    {
+      "token": "4ece654624b452ac",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/4ece654624b452ac.pt",
+      "sha256": "ce9faec26a371bed39cdaa946ad8178c5b261fa732f606be52d0ae4f6ddd1136"
+    },
+    {
+      "token": "a7aa6da460a65457",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/a7aa6da460a65457.pt",
+      "sha256": "d496e0d56a8701427e265b55e2d859845355e7c27096e5bf4c1bf99828efdc9b"
+    },
+    {
+      "token": "cc40016cd26a5ff5",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/cc40016cd26a5ff5.pt",
+      "sha256": "5608d98a2b47e196b0d19d45990fe254af8396c0a1f97bbcef666569971ea1e6"
+    },
+    {
+      "token": "0a7d7aef157c5bc6",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/0a7d7aef157c5bc6.pt",
+      "sha256": "a08ff53c09aae15c444c43793ee7924c6fa5a8cd7e41aaa7b9a99181d1a81052"
+    },
+    {
+      "token": "7b9a55edcf2752fb",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7b9a55edcf2752fb.pt",
+      "sha256": "2c4e90a2929019f8be368220b455aa2a3aa3637b87a5a176f4570a44d061b3e5"
+    },
+    {
+      "token": "faca4ac928255aed",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/faca4ac928255aed.pt",
+      "sha256": "c1dd73764fb1b4cd2bdd62412b52fe6fa665cbe47fdd9b168072ff141023b566"
+    },
+    {
+      "token": "07deb830dc5e525c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/07deb830dc5e525c.pt",
+      "sha256": "2d6092d0efef408b90dd0f7cd3ca7d8a96b4057601400142c05a0991e5b385c8"
+    },
+    {
+      "token": "9ff0cdc8fc715ce3",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9ff0cdc8fc715ce3.pt",
+      "sha256": "395162b9a9b19a796e57249f5dbc778e83ae44a2ffe2b3b1ec8ae62ec0b5e776"
+    },
+    {
+      "token": "461e0a28b1f655aa",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/461e0a28b1f655aa.pt",
+      "sha256": "7e6821e8b6249f200816b6ff71e55cf3e2a4259c95bcdf950f579d91fd4a82e0"
+    },
+    {
+      "token": "548204416ae25b31",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/548204416ae25b31.pt",
+      "sha256": "d97263e4a47ddf875bbd4fec1a2abeb656850ec3f92bcb55fa6fe93b0ff02123"
+    },
+    {
+      "token": "e0b0dcb2ea675ec9",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e0b0dcb2ea675ec9.pt",
+      "sha256": "f7af1798f1da334f2c769cfe4b84d3e99ed8adcd62824967b1bf31ed558bce18"
+    },
+    {
+      "token": "8fe6aa411d2350f4",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/8fe6aa411d2350f4.pt",
+      "sha256": "f5716c2e475e93d2557404d482c9023aae3f78f4ae9022ee1244473a20b6d315"
+    },
+    {
+      "token": "2587746c51ce582c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/2587746c51ce582c.pt",
+      "sha256": "c49b1d841fa5c69effea1fbdbfd21427d006ddc2792664e056f616c02066dfec"
+    },
+    {
+      "token": "cdb8ed61577455d0",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/cdb8ed61577455d0.pt",
+      "sha256": "e58f7a9fc46214160f89a909cbfff3a6ae1302f462a64b6f2f8bc23c1e0ee4b7"
+    },
+    {
+      "token": "359653f71f095eb2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/359653f71f095eb2.pt",
+      "sha256": "a8f2b804b4455aa67f3a1bbcaa48f610a5b1c5d802deaeb2aa713bcd1d92a4c8"
+    },
+    {
+      "token": "e1bd235bf5145312",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/e1bd235bf5145312.pt",
+      "sha256": "f644267150d7c525ccb7d2159ead0a1b509aea06ed8a966a6c6a6757829462c9"
+    },
+    {
+      "token": "21851d86de975750",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/21851d86de975750.pt",
+      "sha256": "4e0917d6e337ad1984f79c634a1975eb9b1685c5da143428dd8f4eb56358e394"
+    },
+    {
+      "token": "41fd5b3cc9cb5e4d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/41fd5b3cc9cb5e4d.pt",
+      "sha256": "4442c0f03324c4be477166367221b0e67446a1dd57d123ac221f118971d097de"
+    },
+    {
+      "token": "80fcfa05a45d5e36",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/80fcfa05a45d5e36.pt",
+      "sha256": "c12eb00a0ec97562d3df3c44219ff7d42ac9e802df0333611115de3ce31e856e"
+    },
+    {
+      "token": "eca9c65e90335fc5",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/eca9c65e90335fc5.pt",
+      "sha256": "0d5a616f1ea015fcaef0a55b9c673b1d8b3e047632f9e7448133c29d41103f7b"
+    },
+    {
+      "token": "ebbd33f9058e5e95",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/ebbd33f9058e5e95.pt",
+      "sha256": "d1909843fe95b5a5cf4dd2573b9c8296ab4ab5edc742720cb6b932232fee029b"
+    },
+    {
+      "token": "9a04bc527d215067",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/9a04bc527d215067.pt",
+      "sha256": "0117929a3e2cbf33ce22650553bfd22ca94a636feb8995c91b1e7552032d42af"
+    },
+    {
+      "token": "5a287daa1f775a79",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5a287daa1f775a79.pt",
+      "sha256": "99efe9454311e7699acded4afb4c07bd0199522a9854a852b53cb7872f313b4f"
+    },
+    {
+      "token": "d9a85f2b168854ba",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/d9a85f2b168854ba.pt",
+      "sha256": "f12370249fa34129387f8225f1b70dea791fdb5ec42ff90e4d9e8a09276e9973"
+    },
+    {
+      "token": "f6d2ad1db3c45c20",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f6d2ad1db3c45c20.pt",
+      "sha256": "70f4650852f02057583ad6588aefefc2552dfaaa79765efd2867c8d30b2de508"
+    },
+    {
+      "token": "5cc6394b1dde5e37",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5cc6394b1dde5e37.pt",
+      "sha256": "92189cd214be0eb3746a6c14b686b150b4fe03eb1f62cd5efd9a55a8383cf6e1"
+    },
+    {
+      "token": "bd6c7b10ae725c06",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/bd6c7b10ae725c06.pt",
+      "sha256": "e21ab125361f64b2e1deea3e27eeaea9e9def2d1765ed414a826f984bc5d3ccc"
+    },
+    {
+      "token": "03ac353ec2a450b4",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/03ac353ec2a450b4.pt",
+      "sha256": "ac1fa304aa894e179d878153d85d5ce1275658e1033adf6c518262a8d17f53d6"
+    },
+    {
+      "token": "193179dedf975965",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/193179dedf975965.pt",
+      "sha256": "0dc5489d652a531f9492d79c9af7504851ebff991226d7be5d12420041b92295"
+    },
+    {
+      "token": "ef07b861b51a554e",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/ef07b861b51a554e.pt",
+      "sha256": "892a9219fcee1b385d2bc1c9e1fac89771b9826bde770c486f24afe383d84755"
+    },
+    {
+      "token": "ce6d2bfacf8655a6",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/ce6d2bfacf8655a6.pt",
+      "sha256": "15a9ff209cc469ecb193d169dc837810b85e6f004061cad974b5321db49ddbf4"
+    },
+    {
+      "token": "6c227ec265b2568d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/6c227ec265b2568d.pt",
+      "sha256": "3d6bfc1cc2a0a6508f80608a5d2426cf10b81564266687bb8efc351fcd2d9af7"
+    },
+    {
+      "token": "b0cebe034a265720",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/b0cebe034a265720.pt",
+      "sha256": "348a6341da17b6c6ec17e7067346ee476b5444d923fcd18548e12c2e3708e2f9"
+    },
+    {
+      "token": "dd2f55420c6b5764",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/dd2f55420c6b5764.pt",
+      "sha256": "835fd33b7ee28835ac64dabedb6994f3cf120bef6fc7b29007fe8052b9d590e2"
+    },
+    {
+      "token": "b630301843b158d4",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/b630301843b158d4.pt",
+      "sha256": "9b6e45b85f6496d28ac4717c3dca9306ddfef3397c6c628d9fcf71834d299727"
+    },
+    {
+      "token": "39fd026d451351e2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/39fd026d451351e2.pt",
+      "sha256": "e52a7226eeb2760b7bacbebb1e1cad8ad4d7cb0177d3c1bb52e27bc82aca121e"
+    },
+    {
+      "token": "5426ae4426ba5534",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/5426ae4426ba5534.pt",
+      "sha256": "83ea27df5e4910b2c41f2446ebab392637d7370b0cb498f1e542eba0408cc63f"
+    },
+    {
+      "token": "fbeab8a882035a94",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/fbeab8a882035a94.pt",
+      "sha256": "42bafba2e65eba2a3d464399b9c4f1da513349176f326fa0547a6461d0aaa6fd"
+    },
+    {
+      "token": "89e963670d89570c",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/89e963670d89570c.pt",
+      "sha256": "1dc9789321f46764da44afe4c0fcb0b326b22ed8d33d40bec68c2cca6aaf7bf0"
+    },
+    {
+      "token": "bcff4b28fd875b3d",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/bcff4b28fd875b3d.pt",
+      "sha256": "033df4382f1063d0e8392b41a304b6b9c5075a6dc9bd41ad44caa615b486bf0b"
+    },
+    {
+      "token": "88666b1c75b75602",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/88666b1c75b75602.pt",
+      "sha256": "0b2ed9ab27ef1983e8734a988d1764a631eb55d9e971ccd0a8fe326b0871f80d"
+    },
+    {
+      "token": "f72865014d6158a2",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/f72865014d6158a2.pt",
+      "sha256": "ac82f0ed3361412abab895c9a4bf911690a71d332c89e12f4cbf06de96c2df4f"
+    },
+    {
+      "token": "7e3b06c8b33156d3",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/7e3b06c8b33156d3.pt",
+      "sha256": "6b74ee82bf12a8d6e46cfeebe72f53dbea85199b2532c252d9be661a3f80814a"
+    },
+    {
+      "token": "655a064f04e1531b",
+      "file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/current_encoder_prefix_cache/655a064f04e1531b.pt",
+      "sha256": "3fb2cc4ede2031fb2bf0777c90bddfb80ccb14b45e5f68f80daf8a5d904aed84"
+    }
+  ],
+  "bytes": 402888384,
+  "max_original_feature_difference": 0.0,
+  "source_cache_sha256": "5051c3cefdbc75cadf79860d7143b6b99a4bcbc8b3557744bf503bf8cc83876e"
+}

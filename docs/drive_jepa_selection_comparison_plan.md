@@ -1,5 +1,12 @@
 # Drive-JEPA 선택 비교 v1 — 실행 전 고정 명세
 
+**완료 기록**: 4조건×3seed×200update를 완료했고 결과는
+`results/drive_jepa_selective_future/selection_comparison_v1_20261002/`에 보존했다.
+Dev ADE는 원본0.220644m, fixed0.215851m, random0.217723m,
+learned0.242582m, learned-no-aux0.238094m이다. 이 비교는 반복하지 않는다.
+사용자 후속 승인으로 진행한 [구조별 추가 학습](drive_jepa_architecture_followup.md)도 완료됐다.
+아래는 원래 실행 전 명세이며 과거 설정과 결과를 유지한다.
+
 기준 `2185ce5`. 사용자의 다음 단계 진행 요청에 따라 연결 검사를 반복하지 않고,
 공식 frozen planner를 유지한 새 patch-future branch의 작은 학습 비교로 넘어간다.
 WA/pilot/확대 cache/동적 예산은 재개하지 않는다.

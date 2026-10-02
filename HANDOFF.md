@@ -1,13 +1,16 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-02 23:42 KST (Codex)
+마지막 갱신: 2026-10-03 00:21 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **현재 우선 작업(최신 추가 학습 승인)**: [Drive-JEPA 구조별 추가 학습](docs/drive_jepa_architecture_followup.md).
 기존 선택 비교 4조건×3seed×200update는 완료/보존했다. Learned dev ADE0.242582m은 원본0.220644m보다 나쁘다.
 같은192window에서 contextual residual predictor → ego-query selector → future-branch encoder LoRA를
-분리 비교한다. 5조건×3seed, aux warmup100+joint200, 전체90분 상한. CPU114tests 통과.
+분리 비교하여 5조건×3seed, aux warmup100+joint200을 모두 완료했다(2026-10-03).
+Dev ADE는 원본0.220644m, MLP+새절차0.209975m, contextual0.223808m,
+ego-query0.216938m, LoRA0.216459m. 작은 dev 개선 경향이지 공식 PDMS/선택 가설 검증은 아니다.
+최대 allocated2.674GiB, 전체21분40초, OOM0. 현재 실행 중인 우리 학습/검증은 없다.
 실행 진입점 `scripts/run_drive_jepa_architecture_followup.py`, 설정 `architecture_followup_v1.json`.
 아래 이전 진행 문장은 이력이며 최신 상태는 이 절과 report를 우선한다.
 
@@ -76,11 +79,14 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-추가 구조 비교의 CPU114tests 및 전용 Python3.9 compile 검사 통과. 실제 GPU 학습은 이제 시작한다.
-GPU1 단일 프로세스, 원본 planner/teacher 고정, LoRA는 별도 future branch tail만.
-출력 `outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/`; 이전 결과 덮어쓰기 금지.
-실행 중단 시 각 run의 `interrupted_state.pt`에 optimizer/scheduler/RNG/완료 update를 보존한다.
-현재 runner는 새 출력 경로만 허용하며 resume CLI는 아직 없다. checkpoint를 무시한 재시작을 resume이라 부르지 않는다.
+추가 구조 비교와 학습 후 실제 영상 checkpoint 검증을 완료했고 GPU 프로세스는 종료했다.
+GPU1만 사용, 원본 planner/teacher 고정, LoRA는 별도 future branch tail만 학습했다.
+Raw `outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/`,
+공유 `results/drive_jepa_selective_future/architecture_followup_v1_20261003/`.
+기존 cache192개를 재사용하고 current-prefix만402.9MB 추가했다. 공용 데이터는 읽기만 했다.
+학습 후 off 출력은 동결·warmup을 맞추면 원본 bitwise 동일, 원본 weight hash 불변.
+각 run의 stage별 checkpoint에 optimizer/scheduler/RNG/완료 update를 보존했다.
+Runner는 새 출력만 허용하고 resume CLI는 아직 없다. 완료 학습을 반복하지 않는다.
 
 **최신 선택 비교 진행 중**: `scripts/run_drive_jepa_selection_comparison.py` GPU0 단일 process.
 Raw `outputs/drive_jepa_selective_future/selection_comparison_v1c_20261002/`.
@@ -174,7 +180,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 선택 비교 완료: 원본 dev ADE0.220644, fixed0.215851, random0.217723,
 learned0.242582, learned-no-aux0.238094m(대응3seed 평균). 공식 planning 성능 검증이 아니다.
 Shared `results/drive_jepa_selective_future/selection_comparison_v1_20261002/`.
-새 구조는 CPU 계약만 검증됐고 실데이터 학습 결과는 아직 없다.
+추가 학습은 사전 커밋d3bbced에서15run/4500update를 완료했다.
+MLP dev0.209975±0.008071m, 원본 대비 차이-0.010669m이나 recording CI[-0.025015,+0.000101]로
+일반적 개선을 확정하지 않는다. Contextual/ego-query/LoRA는 같은 patch persistence MSE를 넘었지만
+planning 개선은 일관적이지 않다. LoRA 추가 ADE 차이-0.000479m/CI에0포함.
+실제planning·aux→LoRA 전달, aux→selector/bridge 차단 확인. GPU1/최대allocated2.674GiB/OOM0.
+첫 postflight 초기 참조의9.5367e-7 FP32차이는별도보존; 동일동결·warmup검사에서bitwise통과.
+보고서 `docs/drive_jepa_architecture_followup.md`, 원본/과거결과/학습조건과미확인해석을분리한다.
 
 **최신WA중단결과**:9253/12146성공/실패·중복0, partialPDMS91.102506/같은scene Drive89.019762.
 CSV/JSON `results/official_wa_jepa_reproduction/partial_navtest_at_drive_extension_20261002.*`.
@@ -325,10 +337,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 기존 동일K 선택 비교의 코드·3seed결과·미니배치stride수정을 보존한다.
-- 새 contextual residual predictor, ego-query selector, copied last4 QKV LoRA와 CPU7계약검사를 추가했다.
-- 공식 planner/frozen target 유지, 동일192window 재사용, 공통 warmup/joint 학습과5조건 비교를 사전 고정했다.
-- 실제 학습 전 저장 checkpoint/실행상한/gradient 경계를 기록했다. 아직 성능 향상 결과는 없다.
+- d3bbced의 사전 고정 5조건×3seed 추가 학습을 4500update에서 종료하고 결과·비용·곡선을 공유했다.
+- MLP+새절차 dev ADE0.209975m, 원본0.220644m; 작은 개발 표본의 CI는0을포함한다.
+- Contextual residual의 미래 MSE 개선과 planning 효과를 분리하고, LoRA의 추가 이득 미확인을 기록했다.
+- 학습된 실제 영상경로의 off 원본 보존/online-cache 일치/엄격delta복원/추론 비용을 검증했다.
+- 최초postflight의미세차이도보존했다. 원본 hash불변/OOM0/모든우리GPU프로세스종료.
+- 공유JSON/CSV, 보고서와재현명령, 최신handoff를갱신했다. GitHub push는credential오류로미완료.
 
 **2185ce5 이후**: frozen-encoder cache forward/explicit fixed·random patch ID 입력을추가.
 원본planner와weights 불변, smalltrain/dev3seed 선택비교 config·사전계획·runner·exporter추가.
@@ -395,8 +409,10 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-최신 추가 학습을 고정 상한으로 수행하고 마지막 joint200 checkpoint의 대응 seed/recording 결과를 보고한다.
-공식 baseline/pilot/WA는 보존하며 새 sweep/전체benchmark/동적K를 자동 시작하지 않는다.
+추가 학습은 완료됐다. 더 복잡한 구조를 기본 모델로 승격하지 않고, MLP+새절차를 저비용 개발 참조로 보존한다.
+다음은 새 절차의 fixed/random/learned 선택 비교 여부를 검토한다. 이번에는 추가 sweep을 실행하지 않았다.
+공식 baseline/pilot/WA/held-out는 보존하며 새학습/전체benchmark/동적K를 자동 시작하지 않는다.
+Git 인증이 복구되면 `git push mine junseong/main`으로 로컬 커밋을 공유한다.
 
 **최신**: 승인된4조건×3seed×200update를등록상한에서종료하고, fixed/random/learned와aux없는
 대조의대응seed·recording별개발경향을공유한다. Best-devcheckpoint선택이나실패후튜닝은하지않는다.
@@ -440,7 +456,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 ## 5. 확정 범위 / 미결
 
 이번 LoRA는 원본 planner encoder fine-tune이 아니라 미래 branch 복제 tail의 적응이다.
-EMA teacher 미도입, frozen future target 유지. 작은 dev 개선 여부와 추가 비용은 실측 대기다.
+EMA teacher 미도입, frozen future target 유지. Dev 개선 경향은 있으나 일반화/선택 우월성/공식 안전지표는 미검증이다.
+학습비용과 제한된 추론비용은 실측했다. Shared GPU timing을 순수 architecture speedup으로 해석하지 않는다.
 
 **현재 작은 비교의 한계**: foundation checkpoint가이미학습했을수있는navtrain의extension용split이다.
 Dev64/8recording·200update는최종독립평가아님. ADE/IL는공식안전·진행지표를대체하지않는다.

@@ -82,6 +82,9 @@ ego-query/last4 QKV LoRA 비교. 같은192window 재사용, 전체90분/conditio
 GPU0·1 중 점유 재확인 후 사용. 이전 200update 승인 제한은 이 새 범위에서 갱신됐다.
 WA/pilot/데이터 확대/동적K/공식benchmark 반복은 계속 보류. 계획/상태는
 `docs/drive_jepa_architecture_followup.md`를 우선한다.
+2026-10-03 위5조건×3seed는 완료됐다. 같은 작업을 반복하지 말고 공유결과를 읽는다.
+원본planner/teacher hash보존/branch-off동일, 현재GPU학습없음. LoRA의추가이득은확인하지못했다.
+새학습·확대·sweep·benchmark는 자동시작하지 않는다.
 
 **`2185ce5` 이후 최신 사용자 지시: 다음 단계 진행 승인.**
 공식 frozen Drive planner 위의 작은 동일 K4 선택 비교를 진행한다.
