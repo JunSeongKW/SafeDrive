@@ -26,6 +26,11 @@
 
 ## 현재 구현과 과거 자산의 구분
 
+**현재 승인 작업(fd5fc5f 이후)**: [WA-JEPA 공식 재현·sparse interface](docs/official_wa_jepa_reproduction.md).
+12-step 공식 source/published checkpoint를 고정하고 전용 Conda에서 원본 agent/scorer를 실행한다.
+Dense 전체 평가와 canonical all-ID/fixed/random 소수 scene 검증만 승인됐으며 학습은 하지 않는다.
+아래는 이전 기반 결정·보존 이력이다. 최신 범위는 HANDOFF와 WA-JEPA 보고서를 따른다.
+
 최신 사용자 결정: **578be6e의 공식 평가 결과를 보존하고 선택 연구의 기반·첫 통제 실험을 결정**한다.
 공식 source/config/scorer/checkpoint는 `configs/official_drive_jepa/reproduction_v1.json` 그대로다.
 Drive-JEPA PB의 train-only future head가 planner에 전달되지 않음을 코드로 재확인했다.

@@ -1106,3 +1106,12 @@ DynamicK/horizon/확률적predictor/navhard/pilot·확대·residual/SafeDrive는
 Newcontext7+기존officialaggregation5CPUtests통과, 관련Ruff/diffcheck/새문서link/JSON검사통과.
 Shared산출물약1.72MB,currentmetadataCSV와summary/config/metadataJSON/두report/상태문서갱신.
 최신보고 docs/future_prediction_foundation_decision.md, docs/official_navtest_current_context_summary.md.
+
+## 2026-10-02 — WA-JEPA official reproduction preparation (baseline fd5fc5f)
+
+사용자 승인으로camera별 spatial patch-tube/공식원본재현/sparse진단을준비한다. 학습형selector/학습금지.
+Sourcelatestbec2966은4-step,직전공식404d8af/publishedstate.pt/paper는12-step. 결과조회전404d8af고정.
+전용Conda를known-workingDrive환경에서독립clone하고새officialNAVSIMv1/sourceworktree에연결한다.
+HF고정revisionplanning/state와Metaencoder다운로드완료. Preflight/strictloading/원본agent·scorerharness추가.
+GPU0타인CARLA는건드리지않고GPU1우선. Full은등록된completeness/smoke/costgate통과후한번만실행.
+새config: configs/official_wa_jepa/reproduction_v1.json;진입보고 docs/official_wa_jepa_reproduction.md.

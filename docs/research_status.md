@@ -1,5 +1,13 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 현재 승인 실행 — `fd5fc5f` 이후 WA-JEPA 공식 재현
+
+Camera별 spatial patch-tube를 잠정 단위로 승인받았다. 객체 instance/최종 기여는 아니다.
+공식 원본 agent/scorer→dense 전체 평가→all-ID 동등성→fixed/random 소수 scene 비용 검사 순서다.
+학습형 selector/학습/pilot 재개는 금지. 진입점 [WA-JEPA 실행 보고](official_wa_jepa_reproduction.md).
+Latest bec2966은4-step, 직전 공식404d8af/published state.pt/논문은12-step이다.
+결과를 보기 전404d8af 원본12-step preset으로 고정했다. 기존Drive 재현값은 변경하지 않는다.
+
 ## 최신 우선순위 — `578be6e` 이후 기반 결정과 첫 통제 실험 설계
 
 완료한공식PFViT-L/navtest12146전부성공/PDMS89.224320을변경없이보존했다. +0.224320 원인은미확정.

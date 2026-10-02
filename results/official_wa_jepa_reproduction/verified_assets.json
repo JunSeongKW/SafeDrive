@@ -1,0 +1,33 @@
+{
+  "model_state_dict.pt": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/wa_jepa_official_evaluation/model_state_dict.pt",
+    "bytes": 1575763741,
+    "sha256": "e1d3be013de7dbaa5a6c30925a0d2f91e6ce1a6b17a75ca73fe01a1abe6d6408",
+    "source": {
+      "url": "https://huggingface.co/AFARI-Research/WA-JEPA/resolve/15c0770ebd233665214590bb2190a90907499f9e/model_state_dict.pt",
+      "bytes": 1575763741,
+      "sha256": "e1d3be013de7dbaa5a6c30925a0d2f91e6ce1a6b17a75ca73fe01a1abe6d6408"
+    }
+  },
+  "state.pt": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/wa_jepa_official_evaluation/state.pt",
+    "bytes": 7073,
+    "sha256": "82924179c7455cf76288e86778e65799052b88e05d8db805fe90c914856ddd0e",
+    "source": {
+      "url": "https://huggingface.co/AFARI-Research/WA-JEPA/resolve/15c0770ebd233665214590bb2190a90907499f9e/state.pt",
+      "bytes": 7073,
+      "sha256": "82924179c7455cf76288e86778e65799052b88e05d8db805fe90c914856ddd0e"
+    }
+  },
+  "vjepa2_1_vitl_dist_vitG_384.pt": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/wa_jepa_official_evaluation/vjepa2_1_vitl_dist_vitG_384.pt",
+    "bytes": 5151198524,
+    "sha256": "7ea9b7cb4a75d10644a8a8d42cff9e177b10dca8f02173f0eaf2b0bed82838c6",
+    "source": {
+      "url": "https://dl.fbaipublicfiles.com/vjepa2/vjepa2_1_vitl_dist_vitG_384.pt",
+      "bytes": 5151198524,
+      "official_sha256": null,
+      "s3_version_id_from_head": "rvOh9i1lxn4MTZlgKtGSNjnMHsZ5hvfL"
+    }
+  }
+}

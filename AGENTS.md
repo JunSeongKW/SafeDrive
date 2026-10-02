@@ -50,6 +50,13 @@ Drive PB future auxiliary head는 train-only이며 planner 입력이 아니다. 
 현재 분석·설계 단계에서 **새 환경/대용량 다운로드/학습/selector·동적K 구현/추가 전체 평가 금지**.
 저장navtest 통계는 coverage용이지 H1 증거나 tuning용이 아니다. 완료한PF 전체평가를 반복하지 않는다.
 
+**fd5fc5f 이후 최신 사용자 승인**: WA-JEPA 공식 checkpoint 재현과 학습 없는 sparse interface 검사.
+진입점 `configs/official_wa_jepa/reproduction_v1.json`, `scripts/evaluate_official_wa_jepa.py`,
+`docs/official_wa_jepa_reproduction.md`. 과거 조사 단계의 환경/download/평가 금지는 이번 승인 범위에서 해제됐다.
+공식 source 별도 worktree/전용 Conda/strict loading/소수 scene smoke 후 gate 통과 시 dense 전체 평가.
+Canonical spatial patch-tube는 객체 instance가 아니다. All-ID 동일성 확인 전 sparse 제거 금지.
+Fixed/random sparse는 소수 scene만, 학습형 selector와 새 학습은 금지. Drive/pilot/확대/residual은 보존/보류.
+
 ## 세션 시작 루틴
 
 ```bash

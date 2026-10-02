@@ -1,0 +1,11 @@
+{
+  "missing_keys": [],
+  "unexpected_keys": [],
+  "shape_mismatches": [],
+  "explicit_pytorch_strict_true_completed": true,
+  "model_state_key_count": 1162,
+  "encoder_loading_policy": "Official require_pretrained=true, allow_partial_load=false, min_checkpoint_load_ratio=1.0",
+  "model_parameter_dtype_counts": {
+    "torch.float32": 787692035
+  }
+}

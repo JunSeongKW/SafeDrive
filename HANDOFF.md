@@ -1,9 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-01 22:36 KST (Codex)
+마지막 갱신: 2026-10-02 09:29 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
+**현재 우선 작업(fd5fc5f 이후 승인)**: [WA-JEPA 공식 재현과 sparse 검증](docs/official_wa_jepa_reproduction.md).
+설정 `configs/official_wa_jepa/reproduction_v1.json`, 전용 Conda/worktree. 학습 없음.
+Latest4-step와논문/checkpoint12-step 불일치를 찾아 직전 공식404d8af/12-step를 결과 확인 전 고정했다.
+이전 조사 단계의 환경/다운로드/평가 금지는 이번 승인 범위에는 적용하지 않는다.
 공통 조사 상태: [docs/research_status.md](docs/research_status.md).
 계산 그래프 초안: [docs/selective_entity_future_prediction_graph.md](docs/selective_entity_future_prediction_graph.md).
 시간순 이력: `RESUME_NOTES.md`. 과거 설계: `EXPERIMENT_DESIGN.md`.
@@ -46,6 +50,14 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-02 WA preparation: 전용Conda clone/공식stage2·Meta encoder 다운로드 완료.
+Checkpoint SHA/구조, 공식navtest12146·4-view71488files/cache completeness와호환성CPU검사통과. 5tests통과.
+원본agent key/shape검사일치확인; GPUsmoke진행중. LD_LIBRARY_PATH에전용prefix/lib를프로세스별로지정한다.
+원본reference bec2966 보존, 실행worktree404d8af. GPU0의 타인CARLA는건드리지않고 GPU1우선 사용.
+재개: `runtime/environments/wa_jepa_official_evaluation/bin/python scripts/evaluate_official_wa_jepa.py preflight`.
+GPU는CUDA_VISIBLE_DEVICES=1/CPU스레드1로 `smoke`, gate 통과 후 `full`. 우리 학습은없다.
+공유결과 `results/official_wa_jepa_reproduction/`, 재개scene기록 `outputs/official_wa_jepa_reproduction/`.
 
 **완료 이력상 우리 학습/평가는 종료됐고 이번 작업에서 새로 띄우지 않았다.** 시작 HEAD578be6e/작업트리clean을확인했다.
 완료 DrivePF 결과·source·checkpoint·config·scorer·원본CSV는그대로보존했다.
@@ -233,6 +245,10 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전12-step404d8af고정.
+독립Conda/worktree/공식NAVSIMv1 준비, 공개planning/encoder weights 확보, preflight/strictloading/
+원본agent·scorer 평가harness와config 추가. 이번은준비/검사이며학습결과가아니다.
+
 **공식 결과 보존 후 기반 결정 (기준578be6e)**:
 
 - DrivePB model/refiner/scorer/targets/agent loss/Lightning training/PB eval를직접재감사;futureheadtrain-only/planner입력아님.
@@ -245,6 +261,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - HANDOFF/README/AGENTS/researchstatus갱신,작업기록/근거/미확인구분. Pilot/확대/residual/새selector/동적K/추가평가없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신 승인 순서: preflight/strictsmoke→공식dense전체→별도sparse all-ID동등성→fixed/random소수scene.
+학습형selector·동적K/horizon·pilot·WA학습 금지. Full은smoke/cost/호환gate통과조건부.
 
 1. 최신 `docs/future_prediction_foundation_decision.md`를commit기준으로ChatGPT·Claude에검수공유한다.
 2. 준성이WA native spatial-tube라는범위축소를승인할지객체instance유지안을선택할지결정한다.
