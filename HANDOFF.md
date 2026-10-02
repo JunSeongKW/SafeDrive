@@ -1,10 +1,16 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 00:21 KST (Codex)
+마지막 갱신: 2026-10-03 00:46 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
-**현재 우선 작업(최신 추가 학습 승인)**: [Drive-JEPA 구조별 추가 학습](docs/drive_jepa_architecture_followup.md).
+**현재 우선 작업(2026-10-03 밤샘 승인)**: [원인 분리·재학습 계획](docs/drive_jepa_overnight_causal_followup.md).
+사용자가 추가 질문 없이 다음 오전09:00KST까지 명제를 유지한 실험·문헌 조사·기록을 승인했다.
+기준8159aad, 기존 checkpoint 원인 진단 완료. 7조건×3seed×400update 계획을 등록했다.
+GPU1단일process/16GiB입장·6GiBreserve·allocated8GiB상한, 원본/공용데이터/WA중단상태 보존.
+아래 '학습 없음/새학습 자동금지'는 이전 완료 시점 이력이며 이번 명시적 승인 범위에는 적용하지 않는다.
+
+**이전 완료 작업**: [Drive-JEPA 구조별 추가 학습](docs/drive_jepa_architecture_followup.md).
 기존 선택 비교 4조건×3seed×200update는 완료/보존했다. Learned dev ADE0.242582m은 원본0.220644m보다 나쁘다.
 같은192window에서 contextual residual predictor → ego-query selector → future-branch encoder LoRA를
 분리 비교하여 5조건×3seed, aux warmup100+joint200을 모두 완료했다(2026-10-03).
@@ -78,6 +84,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신: `run_drive_jepa_causal_followup.py`의 제한된 새 학습을 준비한다.
+기존 checkpoint 진단은 완료(149초/1.571GiB). 단순 과적합으로 확정하지 않고 gradient결합,
+fusion 강도, 선택 이동, 목적함수를 분리한다. `latest.pt`에25update마다복구상태저장/--resume제공.
+Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/`.
+아래 완료/진행 문장은 해당 과거 실행 이력이다.
 
 추가 구조 비교와 학습 후 실제 영상 checkpoint 검증을 완료했고 GPU 프로세스는 종료했다.
 GPU1만 사용, 원본 planner/teacher 고정, LoRA는 별도 future branch tail만 학습했다.
@@ -176,6 +188,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+새진단: ego-query residual의200update dev ADE .216938 → half-gain개입 .209855m.
+MLP .209975 → current-feature대체 .205721m. 개입/OOD결과이지 별도학습승자나 미래무용성증거아님.
+P planning/aux gradient의음수cosine비율 MLP62.5%/ego54.2%(각24trainbatch), 인과원인미확정.
+ForeDrive의outputdetach를그대로쓰면S학습이끊기므로parameter-onlyfreeze대조를 별도명세했다.
 
 선택 비교 완료: 원본 dev ADE0.220644, fixed0.215851, random0.217723,
 learned0.242582, learned-no-aux0.238094m(대응3seed 평균). 공식 planning 성능 검증이 아니다.
@@ -337,6 +354,10 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+- 사용자밤샘자율실험승인 반영/09:00KST마감·공유GPU상한 고정.
+- 기존모델읽기전용원인진단script 및 gradient-routing모듈/검사/복구가능run/config/계획추가.
+- 원본frozenplanner/기존cache/checkpoint보존. 이번결과는실행후별도기록한다.
+
 - d3bbced의 사전 고정 5조건×3seed 추가 학습을 4500update에서 종료하고 결과·비용·곡선을 공유했다.
 - MLP+새절차 dev ADE0.209975m, 원본0.220644m; 작은 개발 표본의 CI는0을포함한다.
 - Contextual residual의 미래 MSE 개선과 planning 효과를 분리하고, LoRA의 추가 이득 미확인을 기록했다.
@@ -409,6 +430,9 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
+최신: 원인별400update대응3seed검사 → 기록된결과로선택비교/제한coverage검사결정.
+일상적선택은묻지않고기록. 마감/메모리/안전조건을넘으면중단·보존, 실패무한재시작금지.
+
 추가 학습은 완료됐다. 더 복잡한 구조를 기본 모델로 승격하지 않고, MLP+새절차를 저비용 개발 참조로 보존한다.
 다음은 새 절차의 fixed/random/learned 선택 비교 여부를 검토한다. 이번에는 추가 sweep을 실행하지 않았다.
 공식 baseline/pilot/WA/held-out는 보존하며 새학습/전체benchmark/동적K를 자동 시작하지 않는다.
@@ -454,6 +478,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+밤샘연구질문/고정K4/front/원본planner보존은확정. 어느최적화조건이개선되는지는실행전미확정.
+동적K/horizon/WA재개/heldout/navtest튜닝/새확률모델은이번범위밖이다.
 
 이번 LoRA는 원본 planner encoder fine-tune이 아니라 미래 branch 복제 tail의 적응이다.
 EMA teacher 미도입, frozen future target 유지. Dev 개선 경향은 있으나 일반화/선택 우월성/공식 안전지표는 미검증이다.
