@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import subprocess
 import time
 from collections import defaultdict
 from datetime import datetime
@@ -64,10 +65,23 @@ def main():
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output-directory", type=Path, required=True)
     arguments = parser.parse_args()
-    specification = json.loads(arguments.config.resolve().read_text())
+    config_path = arguments.config.resolve()
+    specification = json.loads(config_path.read_text())
     output = arguments.output_directory.resolve()
     output.mkdir(parents=True, exist_ok=False)
     write_json(output / "specification.json", specification)
+    write_json(
+        output / "execution_provenance.json",
+        {
+            "project_commit": subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=WORKSPACE, text=True
+            ).strip(),
+            "config_sha256": file_sha256(config_path),
+            "runner_sha256": file_sha256(Path(__file__).resolve()),
+            "started_at": datetime.now().astimezone().isoformat(),
+            "physical_gpu": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        },
+    )
     if os.environ.get("CUDA_VISIBLE_DEVICES") not in ("0", "1"):
         raise RuntimeError("One approved GPU required")
     if torch.cuda.mem_get_info()[0] < specification["minimum_free_gpu_gib"] * 2**30:
@@ -88,6 +102,13 @@ def main():
         min(grouped[recording], key=lambda row: stable_key(row["current_frame_token"]))
         for recording in recordings
     ]
+    if (
+        specification["windows_per_recording"] != 1
+        or len(chosen) != specification["training_recording_count"]
+    ):
+        raise RuntimeError(
+            "Expected exactly one window per registered training recording"
+        )
     write_json(output / "resolved_training_windows.json", chosen)
     current_inputs = []
     for row in chosen:
@@ -108,6 +129,11 @@ def main():
     agent, source = load_official_agent(output)
     write_json(output / "source.json", source)
     original_hash = parameter_sha256(agent._model)
+    if (
+        original_hash
+        != "05af3ccd8a8e7db1b9b2ae2e77f81ef753446a3309989cef08c161ce0614476a"
+    ):
+        raise RuntimeError("Unexpected official baseline parameters")
     all_rows, summaries = [], {}
     for condition, architecture in specification["condition_architectures"].items():
         for seed in specification["seeds"]:
@@ -226,7 +252,10 @@ def main():
             all_rows.extend(rows)
             write_json(
                 output / "partial_results.json",
-                {"summaries": summaries, "rows": all_rows},
+                {
+                    "condition_seed_summaries": summaries,
+                    "substitution_results": all_rows,
+                },
             )
             del model
             torch.cuda.empty_cache()
@@ -236,8 +265,8 @@ def main():
         output / "results.json",
         {
             "complete": True,
-            "summaries": summaries,
-            "rows": all_rows,
+            "condition_seed_summaries": summaries,
+            "substitution_results": all_rows,
             "wall_seconds": time.monotonic() - started,
             "peak_allocated_gib": torch.cuda.max_memory_allocated() / 2**30,
             "original_parameter_hash_unchanged": original_hash,

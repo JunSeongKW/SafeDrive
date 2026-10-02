@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 02:15 KST (Codex)
+마지막 갱신: 2026-10-03 02:22 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -399,6 +399,7 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 기존모델읽기전용원인진단script 및 gradient-routing모듈/검사/복구가능run/config/계획추가.
 - 원본frozenplanner/기존cache/checkpoint보존. 이번결과는실행후별도기록한다.
 - 첫48run 완료 결과와 독립 CPU artifact/scene 집계 감사, spatial selection 분산 진단을 추가했다.
+- 이후 읽기 전용 실제 patch교체 진단을 등록했고, 실행 source/config hash와 의미가 명확한 JSON 필드를 기록한다.
 
 - d3bbced의 사전 고정 5조건×3seed 추가 학습을 4500update에서 종료하고 결과·비용·곡선을 공유했다.
 - MLP+새절차 dev ADE0.209975m, 원본0.220644m; 작은 개발 표본의 CI는0을포함한다.
