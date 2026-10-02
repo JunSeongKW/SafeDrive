@@ -1,5 +1,17 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 현재 작업 2026년 10월 3일 원인 분리 재학습
+
+사용자가 다음 오전09:00KST까지 질문 없이 실험·문헌조사를 이어가도록 승인했다.
+기준8159aad, 사전계획/코드커밋8f5b18d. [밤샘 비교 계획](drive_jepa_overnight_causal_followup.md).
+읽기전용 기존checkpoint진단은 완료했고, 7조건×대응3seed×400update를 새로 실행한다.
+현재결과를 단순 과적합으로 단정하지 않고 fusion강도·gradient결합·selector변화·목적함수를 분리한다.
+동일192window와auxwarmup을재사용한다. Parameter-onlyfreeze는planning→selector를유지하고
+planning→predictorparameter만차단하며, ForeDrive의future-outputdetach그대로가아니다.
+CPU121tests통과. 기본격리환경의CUDA차단으로학습전실패했고 가중치/optimizer업데이트는없었다.
+호스트GPU1실행으로전환했으며다른사용자process/공용데이터는건드리지않았다.
+완료결과는아직없다. 기존 '새학습금지/실행없음' 문장은아래과거완료시점기록이다.
+
 ## 최신 완료 상태 — 2026-10-03 구조별 추가 학습
 
 공식 Drive-JEPA planner 위에서 같은192window의 5조건×3seed 학습을 완료했다.

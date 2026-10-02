@@ -14,6 +14,7 @@ import signal
 import subprocess
 import time
 from collections import Counter, defaultdict
+from datetime import datetime
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -99,6 +100,12 @@ def control_patch_indices(condition, batch_size, specification, generator):
 
 
 def enforce_limits(started, specification):
+    if specification.get(
+        "deadline_iso"
+    ) and datetime.now().astimezone() >= datetime.fromisoformat(
+        specification["deadline_iso"]
+    ):
+        raise RuntimeError("Registered deadline reached")
     if (
         STOP_REQUESTED
         or time.perf_counter() - started > specification["maximum_wall_seconds"]
@@ -114,7 +121,14 @@ def enforce_limits(started, specification):
 
 
 def build_cache(
-    agent, extension, official_root, specification, connection, output, started
+    agent,
+    extension,
+    official_root,
+    specification,
+    connection,
+    output,
+    started,
+    reused_cache_index=None,
 ):
     from navsim.common.dataclasses import AgentInput, Scene
 
@@ -141,7 +155,18 @@ def build_cache(
     sensor_root = WORKSPACE / "dataset/sensor_blobs/trainval"
     log_root = WORKSPACE / "dataset/navsim_logs/trainval"
     cached_logs, source_hashes, records, skipped = {}, {}, [], []
-    cache_bytes = 0
+    cache_bytes, reused_bytes, reused_count = 0, 0, 0
+    reused_records = {}
+    if reused_cache_index is not None:
+        prior = json.loads(Path(reused_cache_index).read_text())
+        if (
+            prior["manifest_sha256"] != file_sha256(manifest_path)
+            or not prior["cache_baseline_bitwise_equivalent"]
+        ):
+            raise RuntimeError("Prior cache manifest/equivalence mismatch")
+        reused_records = {row["current_frame_token"]: row for row in prior["records"]}
+        source_hashes.update(prior["source_hashes"])
+    checked_online_equivalence = False
     (output / "feature_cache").mkdir()
     for index, record in enumerate(selected):
         enforce_limits(started, specification)
@@ -151,6 +176,20 @@ def build_cache(
             or record["current_frame_token"] in navtest_tokens
         ):
             raise RuntimeError("Unofficial training segment or navtest overlap")
+        if record["current_frame_token"] in reused_records:
+            previous = reused_records[record["current_frame_token"]]
+            if any(previous[key] != value for key, value in record.items()):
+                raise RuntimeError("Reused window metadata changed")
+            previous_path = Path(previous["cache_file"])
+            if file_sha256(previous_path) != previous["cache_sha256"]:
+                raise RuntimeError("Reused cache checksum mismatch")
+            cache_bytes += previous_path.stat().st_size
+            if cache_bytes > specification["maximum_cache_gib"] * 2**30:
+                raise RuntimeError("Registered total logical cache cap reached")
+            reused_bytes += previous_path.stat().st_size
+            reused_count += 1
+            records.append(previous)
+            continue
         if log_path.name not in cached_logs:
             with log_path.open("rb") as handle:
                 cached_logs = {log_path.name: pickle.load(handle)}
@@ -201,7 +240,7 @@ def build_cache(
         with torch.no_grad():
             current_latents = extension.encode_observed_clip(current_clip)
             # Real-image cached/online/original equivalence, not a synthetic substitute.
-            if not records:
+            if not checked_online_equivalence:
                 encoder_outputs = []
                 encoder_hook = agent._model.image_encoder.register_forward_hook(
                     lambda module, inputs, result, encoder_outputs=encoder_outputs: (
@@ -242,6 +281,7 @@ def build_cache(
                     raise RuntimeError(
                         "Cached path failed bitwise baseline equivalence"
                     )
+                checked_online_equivalence = True
             future_latents, future_valid = [], []
             for pair in connection["future_frame_pairs"]:
                 valid = all(paths[position].is_file() for position in pair)
@@ -319,6 +359,9 @@ def build_cache(
         "records": records,
         "skipped": skipped,
         "cache_bytes": cache_bytes,
+        "reused_cache_bytes": reused_bytes,
+        "reused_cache_window_count": reused_count,
+        "new_cache_bytes": cache_bytes - reused_bytes,
         "source_hashes": source_hashes,
         "manifest_sha256": file_sha256(manifest_path),
         "future_validity_used_for_selection": False,

@@ -6,6 +6,7 @@ from planning_aware_future_prediction.models.future_gradient_routing import (
     freeze_parameter_gradients,
     project_auxiliary_gradient,
     uniform_xy_ade_with_heading,
+    use_current_feature_prediction,
 )
 
 
@@ -59,3 +60,24 @@ def test_heading_wrap_and_zero_error_are_finite():
     assert loss < 1e-6
     loss.backward()
     assert torch.isfinite(prediction.grad).all()
+
+
+def test_current_feature_control_restores_predictor_and_preserves_input_gradient():
+    class FuturePredictor(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.projection = nn.Linear(3, 3)
+
+        def forward(self, selected_features):
+            return self.projection(selected_features)[:, :, None].expand(-1, -1, 4, -1)
+
+    predictor = FuturePredictor()
+    observed = torch.randn(2, 4, 3, requires_grad=True)
+    original = predictor(observed)
+    with use_current_feature_prediction(predictor):
+        controlled = predictor(observed)
+    assert torch.equal(controlled, observed[:, :, None].expand_as(controlled))
+    controlled.square().sum().backward()
+    assert observed.grad.norm() > 0
+    assert all(parameter.grad is None for parameter in predictor.parameters())
+    assert torch.equal(original, predictor(observed))

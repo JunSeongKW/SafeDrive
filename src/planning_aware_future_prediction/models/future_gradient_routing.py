@@ -6,6 +6,22 @@ import torch
 
 
 @contextmanager
+def use_current_feature_prediction(predictor):
+    """Planning-side persistence control; no future target is read.
+
+    The predictor is still executed and its output replaced, so this diagnostic
+    implementation does NOT claim predictor-compute savings.
+    """
+    handle = predictor.register_forward_hook(
+        lambda module, inputs, output: inputs[0][:, :, None].expand_as(output)
+    )
+    try:
+        yield
+    finally:
+        handle.remove()
+
+
+@contextmanager
 def freeze_parameter_gradients(module):
     """Treat parameters as constants while retaining gradients to module inputs.
 

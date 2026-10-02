@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 00:46 KST (Codex)
+마지막 갱신: 2026-10-03 01:13 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -89,6 +89,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 기존 checkpoint 진단은 완료(149초/1.571GiB). 단순 과적합으로 확정하지 않고 gradient결합,
 fusion 강도, 선택 이동, 목적함수를 분리한다. `latest.pt`에25update마다복구상태저장/--resume제공.
 Raw경로 `outputs/drive_jepa_selective_future/overnight_causal_followup_v1_20261003/`.
+후속표본704window(train512/64recording, 추가dev192/24recording)를CPU에서사전고정했다.
+`overnight_recording_coverage_v1.json`/`overnight_coverage_training_v1.json`과
+`scripts/run_drive_jepa_overnight_sequence.py`가첫실험완료후단일GPU1에서cache→27run학습→export를이어간다.
+09:00마감/실패·pressure자동retry없음; old128cache 재사용,9GiBcache상한,heldout/navtest불사용.
+실제상태는 `outputs/drive_jepa_selective_future/overnight_sequence_20261003/active_stage.json`을본다.
+기본격리환경CUDA접근실패는업데이트전이며호스트실행으로전환했다. CPU124tests통과.
 아래 완료/진행 문장은 해당 과거 실행 이력이다.
 
 추가 구조 비교와 학습 후 실제 영상 checkpoint 검증을 완료했고 GPU 프로세스는 종료했다.
@@ -355,6 +361,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 ## 3. 마지막 커밋 이후 바뀐 것
 
 - 사용자밤샘자율실험승인 반영/09:00KST마감·공유GPU상한 고정.
+- 후속704표본선정/미래validity미사용·노출dev제외·기존train포함검사/9GiB상한을등록했다.
+- 복구가능학습runner에고정/무작위선택·현재feature대조·nested128/512조건을추가,야간단일GPUqueue구현.
 - 기존모델읽기전용원인진단script 및 gradient-routing모듈/검사/복구가능run/config/계획추가.
 - 원본frozenplanner/기존cache/checkpoint보존. 이번결과는실행후별도기록한다.
 

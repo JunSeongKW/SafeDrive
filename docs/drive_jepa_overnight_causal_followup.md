@@ -105,6 +105,49 @@ expand automatically to full cache/benchmark sweeps. Retain negative results.
 
 ## Execution status
 
-CPU routing tests and first-run launch pending at plan creation. No new retraining
-result is claimed in this document yet. Status/results will be appended after
-execution; source/checkpoint/cache provenance remains in the run snapshots.
+### Registered recording coverage and selection followup
+
+Before seeing any added-window model score, fixed 512 train windows from 64
+recordings and 192 additional development windows from 24 recordings. Train128
+is nested inside train512. Excluded the prior extension's eight development
+recordings, all four old mini development recordings, and the known exposure
+exceptions. Assignments remain in the original three-way manifest; held-out is
+untouched. Sampling uses hashes, current-file eligibility and non-overlap, never
+future availability or model errors. The official baseline itself was pretrained
+on navtrain, so these are not an independent baseline benchmark or final test.
+
+Cache uses the same official frozen encoder/crop/resize, without the old pilot's
+ROI or rectification. Prior128 training cache files are reused by checksum.
+Maximum logical cache 9 GiB, one hour generation cap, no dataset download. This
+is a bounded extension data-coverage check, not a full dataset cache or old pilot
+restart. Sample IDs and exclusions are already saved in
+`outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/`.
+
+Config `overnight_coverage_training_v1.json` fixes nine conditions × three seeds
+×800 joint updates, all initialized from the same preserved per-seed warmup:
+MLP on128 / MLP on512 / ego-query / predictor-aux-only / half-gain / uniform-ADE /
+MLP fixed-lattice / MLP seeded-random / MLP current-feature control. Current-feature
+control learns selector/bridge only; predictor output is replaced by current
+selected features and auxiliary supervision is disabled. Its active parameter
+count differs and the implementation still executes the unused predictor, so
+neither matched active capacity nor compute saving is claimed.
+
+The paired same-K MLP fixed/random/learned comparison returns directly to the
+research question. Per-window evaluation random IDs are stable across batch
+order and checkpoint, while training random IDs change by update. Added-dev
+is evaluated at0/100/200/400/800; final800 is the endpoint, not best checkpoint.
+The128/512 comparison holds updates constant, not epochs. The128 condition's
+training metrics use only its128 training windows. All rows share added-dev192.
+
+`run_drive_jepa_overnight_sequence.py --detach` waits for the existing first study
+without spawning another one, then exports results, builds the bounded cache,
+trains the registered comparison and exports paired-seed/window/cluster evidence.
+Only one child uses GPU1. A failure, explicit `pause.json`, or09:00 deadline stops
+the queue. It never resumes WA or silently retries memory failures. A queue
+completion is not itself an agent's scientific review of its results.
+
+CPU suite: 121 tests passed; dedicated Python 3.9 compile and Ruff passed.
+The first detached launch produced no run artifacts. A subsequent sandbox run
+failed at CUDA initialization before any model update. Host GPU1 execution with
+the same registered configuration is now launched. No new completed retraining
+result is claimed yet. Source/checkpoint/cache provenance is saved per run.

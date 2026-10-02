@@ -37,7 +37,9 @@ from planning_aware_future_prediction.models.future_gradient_routing import (
     freeze_parameter_gradients,
     project_auxiliary_gradient,
     uniform_xy_ade_with_heading,
+    use_current_feature_prediction,
 )
+from planning_aware_future_prediction.patch_selection_controls import control_patch_ids
 
 STOP_REQUESTED = False
 
@@ -73,14 +75,21 @@ def enforce_safety(specification, started, run_started=None):
         raise RuntimeError("Our allocated-memory cap reached")
 
 
-def planning_forward(model, observed_batch, condition):
+def planning_forward(model, observed_batch, condition, selected_patch_indices=None):
     parameter_context = (
         freeze_parameter_gradients(model.future_predictor)
         if condition == "ego_predictor_aux_only"
         else contextlib.nullcontext()
     )
-    with parameter_context:
-        return observed_forward(model, observed_batch)
+    feature_context = (
+        use_current_feature_prediction(model.future_predictor)
+        if condition == "current_feature_control"
+        else contextlib.nullcontext()
+    )
+    with parameter_context, feature_context:
+        return observed_forward(
+            model, observed_batch, selected_patch_indices=selected_patch_indices
+        )
 
 
 def planning_objective(agent, result, batch, condition, specification):
@@ -95,7 +104,9 @@ def planning_objective(agent, result, batch, condition, specification):
     )
 
 
-def gradient_contract(model, agent, batch, condition, specification):
+def gradient_contract(
+    model, agent, batch, condition, specification, selected_patch_indices=None
+):
     report = {}
     named = [
         (name, parameter)
@@ -103,7 +114,7 @@ def gradient_contract(model, agent, batch, condition, specification):
         if parameter.requires_grad
     ]
     for kind in ("planning", "auxiliary"):
-        result = planning_forward(model, batch, condition)
+        result = planning_forward(model, batch, condition, selected_patch_indices)
         loss = (
             planning_objective(agent, result, batch, condition, specification)
             if kind == "planning"
@@ -114,6 +125,8 @@ def gradient_contract(model, agent, batch, condition, specification):
                 batch["future_target_valid_mask"],
             )
         )
+        if kind == "auxiliary" and condition == "current_feature_control":
+            loss = result["trajectory"].sum() * 0
         gradients = torch.autograd.grad(
             loss, [parameter for _, parameter in named], allow_unused=True
         )
@@ -132,7 +145,11 @@ def gradient_contract(model, agent, batch, condition, specification):
         and report["planning"]["future_predictor"] != 0
     ):
         raise RuntimeError("Predictor parameter freeze violated")
-    if condition != "ego_selector_frozen" and report["planning"]["patch_selector"] <= 0:
+    if (
+        condition != "ego_selector_frozen"
+        and selected_patch_indices is None
+        and report["planning"]["patch_selector"] <= 0
+    ):
         raise RuntimeError(
             "Selector planning gradient disconnected after bridge warmup"
         )
@@ -149,8 +166,12 @@ def run_condition(
         return json.loads((directory / "results.json").read_text())
     directory.mkdir(exist_ok=resume)
     run_started = time.perf_counter()
-    architecture = (
-        "mlp_recipe_control" if condition == "mlp_reference" else "ego_query_residual"
+    options = specification.get("condition_options", {}).get(condition, {})
+    intervention = options.get("intervention", condition)
+    selection_mode = options.get("selection_mode", "learned")
+    architecture = options.get(
+        "architecture",
+        "mlp_recipe_control" if condition == "mlp_reference" else "ego_query_residual",
     )
     model = build_model(agent._model, architecture, seed)
     warmup_path = (
@@ -160,18 +181,52 @@ def run_condition(
     )
     restore_delta(model, warmup_path)
     initial_hashes = module_hashes(model)
-    if condition == "ego_selector_frozen":
+    current_feature_control = intervention == "current_feature_control"
+    if current_feature_control:
+        model.future_predictor.requires_grad_(False)
+    if intervention == "ego_selector_frozen" or selection_mode != "learned":
         model.patch_selector.requires_grad_(False)
     bridge_handle = (
         model.future_bridge.register_forward_hook(
             lambda module, inputs, result: result * 0.5
         )
-        if condition == "ego_bridge_half"
+        if intervention == "ego_bridge_half"
         else None
     )
     train_indices = [
         index for index, row in enumerate(records) if row["split"] == "train"
     ]
+    evaluation_records = records
+    if options.get("training_subset_cache"):
+        subset = json.loads((WORKSPACE / options["training_subset_cache"]).read_text())
+        tokens = {
+            row["current_frame_token"]
+            for row in subset["records"]
+            if row["split"] == "train"
+        }
+        train_indices = [
+            index
+            for index in train_indices
+            if records[index]["current_frame_token"] in tokens
+        ]
+        if len(train_indices) != len(tokens):
+            raise RuntimeError("Training subset missing from current cache")
+        evaluation_records = [
+            {**row, "split": "unused_train"}
+            if row["split"] == "train" and index not in train_indices
+            else row
+            for index, row in enumerate(records)
+        ]
+
+    def selected_ids(indices, update=None):
+        ids = control_patch_ids(
+            [records[index]["current_frame_token"] for index in indices],
+            selection_mode,
+            seed,
+            update,
+        )
+        return None if ids is None else ids.cuda()
+
     batch_generator = torch.Generator().manual_seed(seed + 10000)
     # Consume the original 100 warmup draws so the first 200 joint batches match.
     schedule = [
@@ -295,7 +350,14 @@ def run_condition(
                     )
             evaluations["0"] = {
                 split: evaluate(
-                    model, cache, records, split, specification["batch_size"]
+                    model,
+                    cache,
+                    evaluation_records,
+                    split,
+                    specification["batch_size"],
+                    selection_mode,
+                    seed,
+                    current_feature_control,
                 )
                 for split in ("train", "development")
             }
@@ -305,9 +367,11 @@ def run_condition(
             batch = get_training_batch(cache, schedule[update - 1])
             model.train()
             optimizer.zero_grad(set_to_none=True)
-            result = planning_forward(model, batch, condition)
+            result = planning_forward(
+                model, batch, intervention, selected_ids(schedule[update - 1], update)
+            )
             planning_loss = planning_objective(
-                agent, result, batch, condition, specification
+                agent, result, batch, intervention, specification
             )
             auxiliary_loss = model.compute_future_auxiliary_loss(
                 result,
@@ -315,6 +379,8 @@ def run_condition(
                 batch["future_target_latents"],
                 batch["future_target_valid_mask"],
             )
+            if current_feature_control:
+                auxiliary_loss = planning_loss * 0
             weighted_auxiliary = (
                 specification["future_auxiliary_weight"] * auxiliary_loss
             )
@@ -322,7 +388,7 @@ def run_condition(
             if not torch.isfinite(combined_loss):
                 raise RuntimeError("Nonfinite loss")
             projection = None
-            if condition == "ego_planning_priority_projection":
+            if intervention == "ego_planning_priority_projection":
                 planning_gradients = torch.autograd.grad(
                     planning_loss,
                     predictor_parameters,
@@ -362,7 +428,14 @@ def run_condition(
             if update in specification["evaluation_updates"]:
                 evaluations[str(update)] = {
                     split: evaluate(
-                        model, cache, records, split, specification["batch_size"]
+                        model,
+                        cache,
+                        evaluation_records,
+                        split,
+                        specification["batch_size"],
+                        selection_mode,
+                        seed,
+                        current_feature_control,
                     )
                     for split in ("train", "development")
                 }
@@ -384,6 +457,8 @@ def run_condition(
                 )
         report = {
             "condition": condition,
+            "condition_options": options,
+            "actual_training_window_count": len(train_indices),
             "seed": seed,
             "evaluations": evaluations,
             "curve": curve,
@@ -396,11 +471,14 @@ def run_condition(
                 model,
                 agent,
                 get_training_batch(cache, schedule[0]),
-                condition,
+                intervention,
                 specification,
+                selected_ids(schedule[0]),
             ),
-            "branch_dependence": branch_dependence(
-                model, get_training_batch(cache, schedule[0])
+            "branch_dependence": None
+            if current_feature_control
+            else branch_dependence(
+                model, get_training_batch(cache, schedule[0]), selected_ids(schedule[0])
             ),
             "wall_seconds": time.perf_counter() - run_started,
             "peak_allocated_gib": torch.cuda.max_memory_allocated() / 2**30,
@@ -451,7 +529,23 @@ def main():
         raise RuntimeError("Insufficient shared GPU launch headroom")
     started = time.perf_counter()
     agent, source = load_official_agent(output)
-    records, cache = load_reused_cache(specification)
+    if "expected_cache_counts" not in specification:
+        records, cache = load_reused_cache(specification)
+    else:
+        index = json.loads((WORKSPACE / specification["reused_cache"]).read_text())
+        if index["counts"] != specification["expected_cache_counts"]:
+            raise RuntimeError("Unexpected expanded-cache counts")
+        records, loaded = index["records"], []
+        if any(row["split"] not in ("train", "development") for row in records):
+            raise RuntimeError("Held-out admission forbidden")
+        for row in records:
+            if file_sha256(row["cache_file"]) != row["cache_sha256"]:
+                raise RuntimeError("Cache checksum mismatch")
+            loaded.append(
+                torch.load(row["cache_file"], map_location="cpu", weights_only=True)
+            )
+        cache = {key: torch.stack([row[key] for row in loaded]) for key in loaded[0]}
+        del loaded
     baseline_hash = parameter_sha256(agent._model)
     if (
         baseline_hash

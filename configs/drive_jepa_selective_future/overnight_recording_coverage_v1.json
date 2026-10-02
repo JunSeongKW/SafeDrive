@@ -1,0 +1,20 @@
+{
+  "task": "bounded_official_front_patch_cache_for_extension_recording_coverage_check",
+  "deadline_iso": "2026-10-03T09:00:00+09:00",
+  "base_connection_specification": "configs/drive_jepa_selective_future/connection_v1.json",
+  "project_recording_split_manifest": "results/pilot_foundation_decision/navtrain_three_way_manifest.json",
+  "reused_cache": "outputs/drive_jepa_selective_future/selection_comparison_v1c_20261002/cache_index.json",
+  "excluded_recordings": ["2021.05.12.19.36.12_veh-35", "2021.05.12.22.00.38_veh-35"],
+  "additional_exclusion_rule": "exclude all previously evaluated mini development recordings and the eight extension development recordings from added-development only",
+  "recording_counts": {"train": 64, "development": 24},
+  "windows_per_recording": 8,
+  "subset_order": "sha256(selection-comparison-v1|recording), then sha256(current_frame_token)",
+  "maximum_cache_gib": 9,
+  "maximum_wall_seconds": 3600,
+  "maximum_peak_allocated_gib": 6,
+  "minimum_free_gpu_gib": 16,
+  "future_validity_used_for_selection": false,
+  "held_out_evaluation": false,
+  "full_benchmark_evaluation": false,
+  "interpretation": "additional development recordings for frozen-baseline extension; official baseline may have trained on navtrain; not a final independent benchmark"
+}

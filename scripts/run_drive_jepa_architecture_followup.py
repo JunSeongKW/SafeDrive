@@ -40,6 +40,10 @@ from planning_aware_future_prediction.models.drive_jepa_selective_patch_future i
     PatchSelection,
     PlanningConditionedPatchSelector,
 )
+from planning_aware_future_prediction.models.future_gradient_routing import (
+    use_current_feature_prediction,
+)
+from planning_aware_future_prediction.patch_selection_controls import control_patch_ids
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 STOP_REQUESTED = False
@@ -216,14 +220,37 @@ def target_for_condition(batch, condition):
 
 
 @torch.no_grad()
-def evaluate(model, cache, records, split, batch_size):
+def evaluate(
+    model,
+    cache,
+    records,
+    split,
+    batch_size,
+    selection_mode="learned",
+    selection_seed=29,
+    current_feature_control=False,
+):
     model.eval()
     indices = [index for index, row in enumerate(records) if row["split"] == split]
     rows, predictions, targets = [], [], []
     for start in range(0, len(indices), batch_size):
         selected = indices[start : start + batch_size]
         batch = get_training_batch(cache, selected)
-        result = observed_forward(model, batch)
+        patch_ids = control_patch_ids(
+            [records[index]["current_frame_token"] for index in selected],
+            selection_mode,
+            selection_seed,
+        )
+        with (
+            use_current_feature_prediction(model.future_predictor)
+            if current_feature_control
+            else contextlib.nullcontext()
+        ):
+            result = observed_forward(
+                model,
+                batch,
+                selected_patch_indices=None if patch_ids is None else patch_ids.cuda(),
+            )
         prediction, target = result["trajectory"], batch["ego_trajectory_target"]
         predictions.append(prediction.cpu())
         targets.append(target.cpu())
@@ -343,8 +370,10 @@ def loss_gradient_contract(model, batch, agent, condition):
 
 
 @torch.no_grad()
-def branch_dependence(model, batch):
-    normal = observed_forward(model, batch)
+def branch_dependence(model, batch, selected_patch_indices=None):
+    normal = observed_forward(
+        model, batch, selected_patch_indices=selected_patch_indices
+    )
     predicted = normal["predicted_future_latents"]
     report = {}
     for name, replacement in (
@@ -355,7 +384,9 @@ def branch_dependence(model, batch):
             lambda module, inputs, output, replacement=replacement: replacement
         )
         try:
-            changed = observed_forward(model, batch)
+            changed = observed_forward(
+                model, batch, selected_patch_indices=selected_patch_indices
+            )
         finally:
             hook.remove()
         report[name] = {
