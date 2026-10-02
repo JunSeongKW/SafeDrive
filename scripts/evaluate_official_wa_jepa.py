@@ -163,10 +163,22 @@ def initialize_official_agent(workspace, specification, source_root):
     import torch
     from eval.navsim_agent import WorldModelNavsimAgent
     from training.checkpoint import _state_dict_key_diff
+    import psutil
+    free_device_bytes, total_device_bytes = torch.cuda.mem_get_info()
+    available_host_bytes = psutil.virtual_memory().available
+    safety = specification["memory_safety"]
+    save_json(workspace / "results/official_wa_jepa_reproduction" / f"memory_preflight_gpu{os.environ.get('CUDA_VISIBLE_DEVICES', 'unknown')}.json", {
+        "free_device_bytes": free_device_bytes, "total_device_bytes": total_device_bytes,
+        "host_available_bytes": available_host_bytes, "policy": safety,
+    })
+    if free_device_bytes < safety["minimum_free_device_gib_before_model_load"] * 2**30 or available_host_bytes < safety["minimum_host_available_gib_before_model_load"] * 2**30:
+        raise RuntimeError("Insufficient free device/host memory; no model allocation attempted")
     torch.set_num_threads(1)
     torch.manual_seed(specification["execution_seed"])
-    torch.backends.cuda.matmul.allow_tf32 = True
-    torch.backends.cudnn.allow_tf32 = True
+    from omegaconf import OmegaConf
+    requested_tf32 = bool(OmegaConf.load(source_root / specification["official_model_config"]).get("tf32", False))
+    torch.backends.cuda.matmul.allow_tf32 = requested_tf32
+    torch.backends.cudnn.allow_tf32 = requested_tf32
     dependency_check = subprocess.run([sys.executable, "-m", "pip", "check"], capture_output=True, text=True)
     save_json(workspace / "results/official_wa_jepa_reproduction/runtime_environment.json", {
         "python_executable": sys.executable, "python_version": platform.python_version(),
@@ -177,6 +189,7 @@ def initialize_official_agent(workspace, specification, source_root):
         "torch_version": torch.__version__, "cuda_version": torch.version.cuda,
         "matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
         "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
+        "tf32_control_provenance": "Harness explicitly applies the pinned YAML tf32 field; bare upstream NAVSIM launcher does not explicitly set these global flags. This is an execution-control difference, not a post-score adjustment.",
         "existing_drive_environment_modified": False,
     })
     agent = WorldModelNavsimAgent(
@@ -202,7 +215,7 @@ def initialize_official_agent(workspace, specification, source_root):
     return agent
 
 
-def evaluate_official_scenes(workspace, specification, source_root, configuration, full_evaluation=False):
+def evaluate_official_scenes(workspace, specification, source_root, configuration, full_evaluation=False, execution_shard=None):
     import numpy as np
     import torch
     from hydra.utils import instantiate
@@ -223,10 +236,23 @@ def evaluate_official_scenes(workspace, specification, source_root, configuratio
     simulator = instantiate(configuration.simulator)
     scorer = instantiate(configuration.scorer)
     tokens = sorted(scene_loader.tokens) if full_evaluation else preflight["smoke_scene_tokens_fixed_before_gpu_inference"]
+    if execution_shard is not None:
+        num_execution_shards = specification["parallel_evaluation"]["execution_shards"]
+        if not full_evaluation or not 0 <= execution_shard < num_execution_shards:
+            raise ValueError("Execution shard outside registered dense full-evaluation plan")
+        tokens = tokens[execution_shard::num_execution_shards]
     output_root = workspace / "outputs/official_wa_jepa_reproduction"
     output_root.mkdir(parents=True, exist_ok=True)
-    record_path = output_root / ("dense_full_scene_records.jsonl" if full_evaluation else "dense_smoke_scene_records.jsonl")
+    shard_suffix = f"_workers{specification['parallel_evaluation']['execution_shards']}_shard{execution_shard}" if execution_shard is not None else ""
+    record_path = output_root / (f"dense_full_scene_records{shard_suffix}.jsonl" if full_evaluation else "dense_smoke_scene_records.jsonl")
     previous_records = [json.loads(line) for line in record_path.read_text().splitlines()] if record_path.exists() else []
+    if full_evaluation and execution_shard is not None:
+        # Preserve/reuse the original4-worker plan's records without copying or
+        # overwriting its files. Partition completed scenes under the new plan.
+        assigned_tokens = set(tokens)
+        for earlier_path in sorted(output_root.glob("dense_full_scene_records_shard*.jsonl")):
+            earlier_records = [json.loads(line) for line in earlier_path.read_text().splitlines()]
+            previous_records.extend(record for record in earlier_records if record["token"] in assigned_tokens)
     if len({record["token"] for record in previous_records}) != len(previous_records):
         raise RuntimeError("Duplicate saved tokens; do not silently overwrite")
     completed_tokens = {record["token"] for record in previous_records}
@@ -270,6 +296,9 @@ def evaluate_official_scenes(workspace, specification, source_root, configuratio
             record["scene_total_seconds"] = time.perf_counter() - scene_start
             record_file.write(json.dumps(record, allow_nan=False) + "\n")
             records.append(record)
+            if not record["valid"] and ("out of memory" in record.get("error", "").lower()):
+                save_json(results_root / f"oom_abort{shard_suffix}.json", record)
+                raise RuntimeError("CUDA OOM: scene preserved; this worker stops without retry/config sweep")
             if not full_evaluation or len(records) % 100 == 0:
                 print(f"WAJEPA_DENSE_PROGRESS {len(records)}/{len(tokens)} valid={record['valid']} seconds={record['scene_total_seconds']:.3f}", flush=True)
             if not full_evaluation and not record["valid"]:
@@ -278,6 +307,7 @@ def evaluate_official_scenes(workspace, specification, source_root, configuratio
     aggregate = {key: float(np.mean([record["scores_fraction"][key] for record in valid_records])) for key in valid_records[0]["scores_fraction"]} if valid_records else {}
     report = {
         "purpose": "official_full_navtest_single_preset_seed" if full_evaluation else "normal_operation_and_resource_smoke_not_paper_reproduction_score",
+        "execution_shard": execution_shard,
         "expected_scenes": len(tokens), "processed_scenes": len(records), "successful_scenes": len(valid_records),
         "failed_scene_tokens": [record["token"] for record in records if not record["valid"]],
         "missing_scene_tokens": sorted(set(tokens) - {record["token"] for record in records}),
@@ -292,9 +322,9 @@ def evaluate_official_scenes(workspace, specification, source_root, configuratio
         "scene_records": str(record_path), "evaluation_schedule_difference": "Sorted sequential scenes, one initialized official agent/scorer; per-scene incremental persistence. Official generator resets each call so ordering does not change model noise.",
         "paper_comparison_limitation": "Single preset seed versus reported 10-seed paper mean; no numerical reproduction tolerance claimed",
     }
-    save_json(results_root / ("full_navtest_results.json" if full_evaluation else "smoke_results.json"), report)
+    save_json(results_root / (f"full_navtest_results{shard_suffix}.json" if full_evaluation else "smoke_results.json"), report)
     if full_evaluation:
-        csv_path = results_root / "official_scene_scores.csv"
+        csv_path = results_root / f"official_scene_scores{shard_suffix}.csv"
         columns = ["token", "valid"] + list(aggregate)
         with csv_path.open("w", newline="") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=columns)
@@ -306,17 +336,80 @@ def evaluate_official_scenes(workspace, specification, source_root, configuratio
         print(json.dumps(report, indent=2), flush=True)
 
 
+def aggregate_completed_official_evaluation(workspace, specification):
+    """Only publish the dense benchmark aggregate when every shard is complete."""
+    import numpy as np
+    results_root = workspace / "results/official_wa_jepa_reproduction"
+    num_workers = specification["parallel_evaluation"]["execution_shards"]
+    shard_paths = [results_root / f"full_navtest_results_workers{num_workers}_shard{index}.json" for index in range(num_workers)]
+    if not all(path.is_file() for path in shard_paths):
+        raise RuntimeError("Full evaluation not complete; aggregate withheld")
+    shard_reports = [json.loads(path.read_text()) for path in shard_paths]
+    if any(report["missing_scene_tokens"] for report in shard_reports):
+        raise RuntimeError("An execution shard has missing scenes")
+    output_root = workspace / "outputs/official_wa_jepa_reproduction"
+    record_paths = sorted(output_root.glob("dense_full_scene_records_shard*.jsonl")) + sorted(output_root.glob(f"dense_full_scene_records_workers{num_workers}_shard*.jsonl"))
+    records = [json.loads(line) for path in record_paths for line in path.read_text().splitlines()]
+    actual_tokens = [record["token"] for record in records]
+    expected_tokens = set(json.loads((results_root / "expected_scene_tokens.json").read_text())["tokens"])
+    if len(set(actual_tokens)) != len(actual_tokens) or set(actual_tokens) != expected_tokens:
+        raise RuntimeError("Full evaluation has duplicate/missing/extra scene records; aggregate withheld")
+    valid_records = [record for record in records if record["valid"]]
+    metric_names = list(valid_records[0]["scores_fraction"]) if valid_records else []
+    aggregate = {metric: float(np.mean([record["scores_fraction"][metric] for record in valid_records])) for metric in metric_names}
+    with (results_root / "official_scene_scores.csv").open("w", newline="") as result_file:
+        writer = csv.DictWriter(result_file, fieldnames=["token", "valid"] + metric_names)
+        writer.writeheader()
+        for record in sorted(records, key=lambda item: item["token"]):
+            writer.writerow({"token": record["token"], "valid": record["valid"], **record.get("scores_fraction", {})})
+    maximum_device_memory_bytes = {}
+    telemetry_path = output_root / "memory_guard_telemetry.jsonl"
+    if telemetry_path.is_file():
+        telemetry = [json.loads(line) for line in telemetry_path.read_text().splitlines()]
+        maximum_device_memory_bytes = {gpu: max(record["gpu_used_bytes"][gpu] for record in telemetry) for gpu in ("0", "1")}
+    report = {
+        "purpose": "official_dense_full_navtest_single_preset_seed",
+        "expected_scenes": len(expected_tokens), "processed_scenes": len(records), "successful_scenes": len(valid_records),
+        "failed_scene_tokens": [record["token"] for record in records if not record["valid"]],
+        "missing_scene_tokens": [], "extra_scene_tokens": [], "duplicate_scene_tokens": [],
+        "aggregate_fraction_not_percent": aggregate,
+        "aggregate_denominator": "Successful scenes; failures explicitly listed, not silently omitted",
+        "paper_reference_percent": specification["paper_result"],
+        "single_seed_pdms_minus_paper_mean_points": aggregate["score"] * 100 - specification["paper_result"]["PDMS"] if valid_records else None,
+        "inference_source": specification["official_source_commit"], "navsim_source": specification["navsim_source_commit"],
+        "steps": 12, "flow_seed": specification["flow_inference_seed"], "actual_dtype": "float32; official agent has no autocast",
+        "paper_comparison_limitations": "Single preset seed vs10-seed published mean; exact reproduction tolerance unknown. Do not compare v1PDMS with v2EPDMS.",
+        "execution_shards": num_workers, "reused_completed_four_worker_scene_count": sum(len(path.read_text().splitlines()) for path in output_root.glob("dense_full_scene_records_shard*.jsonl")),
+        "maximum_monitored_total_device_used_bytes": maximum_device_memory_bytes,
+        "scene_scores_sha256": compute_file_sha256(results_root / "official_scene_scores.csv"),
+    }
+    save_json(results_root / "full_navtest_results.json", report)
+    print("WAJEPA_DENSE_AGGREGATE_DONE", flush=True)
+    return report
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["preflight", "smoke", "full"])
+    parser.add_argument("action", choices=["preflight", "smoke", "full", "aggregate", "wait-and-aggregate"])
+    parser.add_argument("--execution-shard", type=int)
     parser.add_argument("--workspace", type=Path, default=Path(__file__).resolve().parents[1])
     arguments = parser.parse_args()
     workspace = arguments.workspace.resolve()
     specification, source_root, navsim_root, configuration = configure_official_runtime(workspace)
-    if arguments.action == "preflight":
+    if arguments.action in ("aggregate", "wait-and-aggregate"):
+        while True:
+            try:
+                aggregate_completed_official_evaluation(workspace, specification)
+                break
+            except (RuntimeError, json.JSONDecodeError) as error:
+                if arguments.action == "aggregate":
+                    raise
+                print(f"WAJEPA_AGGREGATE_WAIT {error}", flush=True)
+                time.sleep(30)
+    elif arguments.action == "preflight":
         run_preflight(workspace, specification, source_root, navsim_root, configuration)
     else:
-        evaluate_official_scenes(workspace, specification, source_root, configuration, full_evaluation=arguments.action == "full")
+        evaluate_official_scenes(workspace, specification, source_root, configuration, full_evaluation=arguments.action == "full", execution_shard=arguments.execution_shard)
 
 
 if __name__ == "__main__":

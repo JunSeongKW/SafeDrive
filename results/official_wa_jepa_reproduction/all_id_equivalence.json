@@ -1,0 +1,7246 @@
+{
+  "tolerance_registered_before_inference": {
+    "absolute": 0.0,
+    "relative": 0.0,
+    "reason": "Canonical all-ID packing preserves ordering, tensor shape, parameters, dtype and kernels; bitwise equality required, including same-run dense repeat. Any non-determinism or divergence must be investigated, not hidden by relaxing tolerance."
+  },
+  "scene_records": [
+    {
+      "token": "014369205e025f0c",
+      "all_comparisons_bitwise_equal": true,
+      "original_steps": 12,
+      "packed_steps": 12,
+      "initial_scene_noise_sha256": "9718a57bc776835b22cbb8602b17cad5e20db7dfb5b456000417f5e50036475b",
+      "initial_ego_noise_sha256": "c22d63904154942a1c3e786d57111ee1667f45a33e25bbf0da52100ab9274fa1",
+      "comparisons": [
+        {
+          "name": "final_ego_trajectory",
+          "shape": [
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output0",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output1",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output2",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output3",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output4",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output5",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output6",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output7",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output8",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output9",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output10",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output11",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output12",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output13",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output14",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output15",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output16",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output17",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output18",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output19",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output20",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output21",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output22",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output23",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output24",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output25",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output26",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output27",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output28",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output29",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output30",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output31",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output32",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output33",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output34",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output35",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "raw_canonical_positional_embedding",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        }
+      ],
+      "actual_transition_check": "Recomputed GPU Euler post-state equals actual next pre-state for11 transitions; final post-state recomputed because original method does not expose final scene state"
+    },
+    {
+      "token": "025b657634505df3",
+      "all_comparisons_bitwise_equal": true,
+      "original_steps": 12,
+      "packed_steps": 12,
+      "initial_scene_noise_sha256": "9718a57bc776835b22cbb8602b17cad5e20db7dfb5b456000417f5e50036475b",
+      "initial_ego_noise_sha256": "c22d63904154942a1c3e786d57111ee1667f45a33e25bbf0da52100ab9274fa1",
+      "comparisons": [
+        {
+          "name": "final_ego_trajectory",
+          "shape": [
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output0",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output1",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output2",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output3",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output4",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output5",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output6",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output7",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output8",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output9",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output10",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output11",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output12",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output13",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output14",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output15",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output16",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output17",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output18",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output19",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output20",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output21",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output22",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output23",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output24",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output25",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output26",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output27",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output28",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output29",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output30",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output31",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output32",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output33",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output34",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output35",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "raw_canonical_positional_embedding",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        }
+      ],
+      "actual_transition_check": "Recomputed GPU Euler post-state equals actual next pre-state for11 transitions; final post-state recomputed because original method does not expose final scene state"
+    },
+    {
+      "token": "008d66a74c275479",
+      "all_comparisons_bitwise_equal": true,
+      "original_steps": 12,
+      "packed_steps": 12,
+      "initial_scene_noise_sha256": "9718a57bc776835b22cbb8602b17cad5e20db7dfb5b456000417f5e50036475b",
+      "initial_ego_noise_sha256": "c22d63904154942a1c3e786d57111ee1667f45a33e25bbf0da52100ab9274fa1",
+      "comparisons": [
+        {
+          "name": "final_ego_trajectory",
+          "shape": [
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output0",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output1",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output2",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output3",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output4",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output5",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output6",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output7",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output8",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output9",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output10",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output11",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output12",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output13",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output14",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output15",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output16",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output17",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output18",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output19",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output20",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output21",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output22",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output23",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output24",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output25",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output26",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output27",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output28",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output29",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output30",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output31",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output32",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output33",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output34",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output35",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "raw_canonical_positional_embedding",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        }
+      ],
+      "actual_transition_check": "Recomputed GPU Euler post-state equals actual next pre-state for11 transitions; final post-state recomputed because original method does not expose final scene state"
+    },
+    {
+      "token": "108fd8b55b1952af",
+      "all_comparisons_bitwise_equal": true,
+      "original_steps": 12,
+      "packed_steps": 12,
+      "initial_scene_noise_sha256": "9718a57bc776835b22cbb8602b17cad5e20db7dfb5b456000417f5e50036475b",
+      "initial_ego_noise_sha256": "c22d63904154942a1c3e786d57111ee1667f45a33e25bbf0da52100ab9274fa1",
+      "comparisons": [
+        {
+          "name": "final_ego_trajectory",
+          "shape": [
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output0",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output1",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output2",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output3",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output4",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output5",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output6",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output7",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output8",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output9",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output10",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output11",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output12",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output13",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output14",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output15",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output16",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output17",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output18",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output19",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output20",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output21",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output22",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output23",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output24",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output25",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output26",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output27",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output28",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output29",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output30",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output31",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output32",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output33",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output34",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output35",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "raw_canonical_positional_embedding",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        }
+      ],
+      "actual_transition_check": "Recomputed GPU Euler post-state equals actual next pre-state for11 transitions; final post-state recomputed because original method does not expose final scene state"
+    },
+    {
+      "token": "0727a3cccad352d7",
+      "all_comparisons_bitwise_equal": true,
+      "original_steps": 12,
+      "packed_steps": 12,
+      "initial_scene_noise_sha256": "9718a57bc776835b22cbb8602b17cad5e20db7dfb5b456000417f5e50036475b",
+      "initial_ego_noise_sha256": "c22d63904154942a1c3e786d57111ee1667f45a33e25bbf0da52100ab9274fa1",
+      "comparisons": [
+        {
+          "name": "final_ego_trajectory",
+          "shape": [
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output0",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output1",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output2",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output3",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output4",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output5",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output6",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output7",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output8",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output9",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output10",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output11",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output12",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output13",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output14",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output15",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output16",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output17",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output18",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output19",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output20",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output21",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output22",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output23",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output24",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output25",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output26",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output27",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output28",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output29",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output30",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output31",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output32",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output33",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output34",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output35",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "raw_canonical_positional_embedding",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        }
+      ],
+      "actual_transition_check": "Recomputed GPU Euler post-state equals actual next pre-state for11 transitions; final post-state recomputed because original method does not expose final scene state"
+    },
+    {
+      "token": "02328c7410405c5a",
+      "all_comparisons_bitwise_equal": true,
+      "original_steps": 12,
+      "packed_steps": 12,
+      "initial_scene_noise_sha256": "9718a57bc776835b22cbb8602b17cad5e20db7dfb5b456000417f5e50036475b",
+      "initial_ego_noise_sha256": "c22d63904154942a1c3e786d57111ee1667f45a33e25bbf0da52100ab9274fa1",
+      "comparisons": [
+        {
+          "name": "final_ego_trajectory",
+          "shape": [
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step0:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step1:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step2:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step3:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step4:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step5:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step6:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step7:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step8:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step9:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step10:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_before",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_before",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:time",
+          "shape": [
+            1
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_scene",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:predicted_trajectory",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:scene_state_after_recomputed",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "step11:ego_state_after_recomputed",
+          "shape": [
+            1,
+            8,
+            3
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output0",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output1",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output2",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output3",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output4",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output5",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output6",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output7",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output8",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output9",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output10",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output11",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output12",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output13",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output14",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output15",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output16",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output17",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output18",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output19",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output20",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output21",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output22",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output23",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output24",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output25",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output26",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output27",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output28",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output29",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output30",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output31",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output32",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output33",
+          "shape": [
+            1,
+            4096,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output34",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "positioner_output35",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        {
+          "name": "raw_canonical_positional_embedding",
+          "shape": [
+            1,
+            8192,
+            512
+          ],
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        }
+      ],
+      "actual_transition_check": "Recomputed GPU Euler post-state equals actual next pre-state for11 transitions; final post-state recomputed because original method does not expose final scene state"
+    }
+  ],
+  "all_id_gate_passed": true
+}

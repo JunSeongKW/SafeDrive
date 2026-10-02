@@ -1,0 +1,222 @@
+{
+  "conditions": {
+    "original_dense": {
+      "scene_count": 6,
+      "timed_trial_count": 18,
+      "future_tokens": 8192,
+      "total_joint_tokens": 12296,
+      "metrics": {
+        "predictor_cuda_seconds": {
+          "mean": 6.412559004041885,
+          "median": 6.413905395507813,
+          "minimum": 6.394678283691406,
+          "maximum": 6.441535461425781
+        },
+        "future_pipeline_cuda_seconds_including_noise_packing_euler": {
+          "mean": 6.416499131944445,
+          "median": 6.417597167968751,
+          "minimum": 6.39838232421875,
+          "maximum": 6.445341796875
+        },
+        "overall_inference_seconds_including_selection_preprocessing_encoder_prediction": {
+          "mean": 6.694436939333779,
+          "median": 6.691596947996004,
+          "minimum": 6.664109100005589,
+          "maximum": 6.739123949999339
+        },
+        "peak_cuda_allocated_bytes": {
+          "mean": 3693275648.0,
+          "median": 3693275648.0,
+          "minimum": 3693275648,
+          "maximum": 3693275648
+        },
+        "peak_cuda_reserved_bytes": {
+          "mean": 5347737600.0,
+          "median": 5347737600.0,
+          "minimum": 5347737600,
+          "maximum": 5347737600
+        },
+        "trajectory_xy_mean_difference_from_dense_m": {
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        }
+      },
+      "official_scores_fraction_scene_mean": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9193770718352884,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 1.0,
+        "score": 0.9664071132647035
+      }
+    },
+    "packed_all": {
+      "scene_count": 6,
+      "timed_trial_count": 18,
+      "future_tokens": 8192,
+      "total_joint_tokens": 12296,
+      "metrics": {
+        "predictor_cuda_seconds": {
+          "mean": 6.430919474283855,
+          "median": 6.429661254882813,
+          "minimum": 6.424950744628906,
+          "maximum": 6.438823974609375
+        },
+        "future_pipeline_cuda_seconds_including_noise_packing_euler": {
+          "mean": 6.435181504991319,
+          "median": 6.43422314453125,
+          "minimum": 6.4291953125,
+          "maximum": 6.4426943359375
+        },
+        "overall_inference_seconds_including_selection_preprocessing_encoder_prediction": {
+          "mean": 6.713062910830356,
+          "median": 6.710282464999182,
+          "minimum": 6.668134562991327,
+          "maximum": 6.802145337991533
+        },
+        "peak_cuda_allocated_bytes": {
+          "mean": 3710183936.0,
+          "median": 3710183936.0,
+          "minimum": 3710183936,
+          "maximum": 3710183936
+        },
+        "peak_cuda_reserved_bytes": {
+          "mean": 5347737600.0,
+          "median": 5347737600.0,
+          "minimum": 5347737600,
+          "maximum": 5347737600
+        },
+        "trajectory_xy_mean_difference_from_dense_m": {
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        }
+      },
+      "official_scores_fraction_scene_mean": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9193770718352884,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 1.0,
+        "score": 0.9664071132647035
+      }
+    },
+    "fixed_spatial_lattice": {
+      "scene_count": 6,
+      "timed_trial_count": 18,
+      "future_tokens": 2048,
+      "total_joint_tokens": 6152,
+      "metrics": {
+        "predictor_cuda_seconds": {
+          "mean": 1.8111666437784828,
+          "median": 1.8097792892456055,
+          "minimum": 1.8042247314453126,
+          "maximum": 1.8204040985107421
+        },
+        "future_pipeline_cuda_seconds_including_noise_packing_euler": {
+          "mean": 1.8128042534722222,
+          "median": 1.8115773315429688,
+          "minimum": 1.80562646484375,
+          "maximum": 1.8220220947265624
+        },
+        "overall_inference_seconds_including_selection_preprocessing_encoder_prediction": {
+          "mean": 2.0784935948888434,
+          "median": 2.0724944274988957,
+          "minimum": 2.034119274991099,
+          "maximum": 2.1609862170007546
+        },
+        "peak_cuda_allocated_bytes": {
+          "mean": 3651243008.0,
+          "median": 3651243008.0,
+          "minimum": 3651243008,
+          "maximum": 3651243008
+        },
+        "peak_cuda_reserved_bytes": {
+          "mean": 5347737600.0,
+          "median": 5347737600.0,
+          "minimum": 5347737600,
+          "maximum": 5347737600
+        },
+        "trajectory_xy_mean_difference_from_dense_m": {
+          "mean": 0.344150943060716,
+          "median": 0.28307709097862244,
+          "minimum": 0.06738483905792236,
+          "maximum": 0.6953616142272949
+        }
+      },
+      "official_scores_fraction_scene_mean": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9089679865435114,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 1.0,
+        "score": 0.9620699943931298
+      }
+    },
+    "seeded_random_spatial_tubes": {
+      "scene_count": 6,
+      "timed_trial_count": 18,
+      "future_tokens": 2048,
+      "total_joint_tokens": 6152,
+      "metrics": {
+        "predictor_cuda_seconds": {
+          "mean": 1.8090300233629018,
+          "median": 1.8094710693359375,
+          "minimum": 1.8017946014404296,
+          "maximum": 1.8178212127685547
+        },
+        "future_pipeline_cuda_seconds_including_noise_packing_euler": {
+          "mean": 1.8107076416015626,
+          "median": 1.8110677490234375,
+          "minimum": 1.8036015625,
+          "maximum": 1.819608154296875
+        },
+        "overall_inference_seconds_including_selection_preprocessing_encoder_prediction": {
+          "mean": 2.0643332519458557,
+          "median": 2.071157165504701,
+          "minimum": 2.025474731999566,
+          "maximum": 2.103204682993237
+        },
+        "peak_cuda_allocated_bytes": {
+          "mean": 3651243008.0,
+          "median": 3651243008.0,
+          "minimum": 3651243008,
+          "maximum": 3651243008
+        },
+        "peak_cuda_reserved_bytes": {
+          "mean": 5347737600.0,
+          "median": 5347737600.0,
+          "minimum": 5347737600,
+          "maximum": 5347737600
+        },
+        "trajectory_xy_mean_difference_from_dense_m": {
+          "mean": 0.3933721259236336,
+          "median": 0.29560694098472595,
+          "minimum": 0.06871765851974487,
+          "maximum": 0.9038885235786438
+        }
+      },
+      "official_scores_fraction_scene_mean": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9124810752389676,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 1.0,
+        "score": 0.9635337813495698
+      }
+    }
+  },
+  "source_reference": "404d8afd4f5e3334fe4b15a6ca7587b98cc35243",
+  "dtype_actual": "float32 without autocast",
+  "smoke_scenes_only_not_full_benchmark": true,
+  "no_training_or_learned_selector": true,
+  "timing_limitations": "CUDA events measure queued device intervals; overall wall includes ID generation/transfer, official preprocessing and encoder but excludes preloaded sensor disk I/O and scorer. Future-pipeline interval includes noise draw, packing,12predictor calls and Euler/decode; selection CPU wall reported separately.",
+  "allocation_policy": "One loaded parameter set, one evaluation process on GPU1; CPU-only traces, no duplicate full model; no concurrent GPU1 full evaluation during benchmark"
+}

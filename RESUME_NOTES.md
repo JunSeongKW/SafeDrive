@@ -1115,3 +1115,38 @@ Sourcelatestbec2966은4-step,직전공식404d8af/publishedstate.pt/paper는12-st
 HF고정revisionplanning/state와Metaencoder다운로드완료. Preflight/strictloading/원본agent·scorerharness추가.
 GPU0타인CARLA는건드리지않고GPU1우선. Full은등록된completeness/smoke/costgate통과후한번만실행.
 새config: configs/official_wa_jepa/reproduction_v1.json;진입보고 docs/official_wa_jepa_reproduction.md.
+
+## 2026-10-02 — WA native smoke/interface complete; dense benchmark running
+
+Preparation commit b81b1bf를mine에push했다. Official12-step404d8af strict1162keys shape/missing0.
+6scene원본agent/scorer성공,현재4-view[4,4,3,256,512]/historytraj[4,3]/ego8,출력[8,3]/0.5s.
+YAMLBF16이나원본agentparameter787692035개FP32/noautocast. HarnessTF32는pinnedYAMLtrue명시적적용;
+bareupstreamlauncher가globalTF32flag를설정하지않는실행차이도기록했다. NumPy/Torchdeclaredversion차이는공개.
+All-ID6scene×12step bitwise동일,rawPE/normalizedPE/noise/predictor/Eulertransition/ego검사.
+Originalreference trackedsource보존,수정은별도worktree;Git공유patch를추가했다.
+Fixedlattice/random29camera당128tube→future2048;실제QKV/FFN2048/current4096/ego8shapehook통과.
+72timedtrial(6scene×4condition×3repeat),original6.694s/packedall6.713/fixed2.078/random2.064;
+predictor6.413→1.81s. 6scenePDMS96.641/96.641/96.207/96.353은untrained민감도만,선택학습성능주장금지.
+Allocated3.440→3.400GiB,Reserved4.980GiBallocatorcarryover불변;전체VRAM절감주장불가.
+첫costhook이시간modulationLinear를tokenFFN으로오분류해수정,완료all-ID는재사용했다.
+초기nohupbackground는유지되지않아결과손실0. Dedicatedtmux2GPU0worker가32scene저장 후사용자증설요청.
+확인된우리PID2207310/2207311만SIGINT,32records그대로보존/14-waypartition에서재사용한다.
+사용자45GB승인→각GPU7/총14worker,실제NVML39880491008bytes각카드/OOM0/RAM>300GiB.
+Memoryguard는등록UID/PID/command/shard검증후에만SIGINT. 타인프로세스/공용데이터수정0.
+전14shard자동집계는정확12146token/중복·누락·추가검사뒤에만fullJSON/CSV생성. Full은아직진행중.
+다음세션은완료여부/완전성/Table3차이원인을확인하고보고/commit/push. 학습/pilot/selector재개금지.
+
+## 2026-10-02 10:32 KST — 사용자 요청 kjs 명칭으로 평가 pause/resume
+
+사용자이니셜kjs에맞춰실행별칭 `/rhome/junseong/envs/kjs-wa-jepa-eval`을추가했다.
+실제Conda prefix `runtime/environments/wa_jepa_official_evaluation`은이동/재설치하지않는다.
+처음에는새실행부터적용하려했으나사용자가현재평가도잠시중단/재개하도록명시적으로요청했다.
+Manifest의UID/script/shard/physicalGPU를검증한우리14worker만SIGINT하고30s이내정상종료확인.
+562unique완료scene/실패0,기존JSONL/로그그대로보존. `kjs_process_label_pause.json`에PID/명령/token기록.
+동일14-waypartition/원본agent/12step/seed/scorer/weight로각GPU7worker재개,완료scene재평가없음.
+새launcher는별칭Python절대경로를사용하며guard/자동aggregate는그대로작동한다.
+명명검사용15sCUDA컨텍스트306MiB에서nvidia-smi가kjs별칭을표시함을확인했고임시프로세스는종료했다.
+타인프로세스/공용데이터/과거결과수정없음. Full전체평가결과는아직미완료다.
+재개후추가28scene/총590완료·562전부보존·중복/실패0,14active/각GPU39880491008bytes확인.
+환경별칭/기존6검사/순서partition 포함7tests+canonicalID5tests=12통과,compileall/diffcheck통과.
+공유기록 `results/official_wa_jepa_reproduction/process_label_resume.json`;전체평가완료보고와구분한다.

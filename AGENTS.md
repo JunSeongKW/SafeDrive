@@ -96,6 +96,8 @@ ls -lt results/synthetic_diagnostics
   이전 서버의 4~7 할당·H100 batch 설정은 현재 서버에 적용하지 않는다. 본 학습 batch/메모리는
   실측하고, 과거 실험과 비교할 때 유효 배치·학습량 차이를 기록한다.
 - **프로세스 이름**: 연구 목적·실험이 드러나는 환경명을 쓰고 python을 절대경로로 호출한다.
+  사용자 이니셜 `kjs`를 붙여 `kjs-<연구/모델>-<역할>` 형식을 사용한다(예: `kjs-wa-jepa-eval`).
+  실행 중인 환경/prefix는 이동하지 않으며 필요하면 실행 별칭 symlink로 다음 실행부터 적용한다.
   현재 CPU 환경은 `runtime/environments/future_prediction_cpu/`다. 과거 SafeDrive env 명칭을
   새 연구에 재사용하지 않는다. GPU 실행 전 호스트 점유·정책을 다시 확인한다.
 - **공유 머신**: 다른 연구원(junhyeok, hanbin, dogun, uisung)의 프로세스·컨테이너·폴더는 건드리지

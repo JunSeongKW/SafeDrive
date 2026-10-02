@@ -42,6 +42,18 @@ Scorer는 score를 학습하고 selection operator는 score에서 K개를 고른
 
 ## 변경 시 확인할 것
 
+### 공유 서버의 환경·GPU 프로세스 식별
+
+- 사용자 이니셜은 **`kjs`**. 새 실행 환경 또는 실행 경로는 `kjs-<모델/연구>-<역할>` 형식을 쓴다.
+  예: `kjs-wa-jepa-eval`, `kjs-drive-jepa-eval`, `kjs-future-selection-train`.
+- `nvidia-smi`에서 식별할 수 있도록 해당 경로의 Python을 절대경로로 실행한다.
+  기존의 긴 환경명은 실제 Conda prefix로 보존하고 짧은 디렉토리 symlink를 실행 별칭으로 사용할 수 있다.
+- WA-JEPA 별칭: `/rhome/junseong/envs/kjs-wa-jepa-eval` → 프로젝트의 `runtime/environments/wa_jepa_official_evaluation`.
+  이는 별도 환경 설치나 prefix 이동이 아니며 패키지·가중치·추론 설정을 바꾸지 않는다.
+- 이미 실행 중인 프로세스의 이름은 소급 변경하지 않는다. 기본적으로 새 worker부터 별칭을 사용한다.
+  사용자가 명명 변경을 위한 재개를 명시적으로 요청한 경우만 우리 worker를 정상 중단하고 저장된 scene부터 재개한다.
+  과거 실행 metadata의 실제 경로는 그대로 남긴다.
+
 - 상대 import, 문서 링크, 실행 명령, 환경 경로, 설정과 metadata key를 함께 갱신한다.
 - Virtualenv는 절대 shebang 경로를 포함하므로 디렉토리만 옮겨 재사용하지 않고 새 경로에서 만든다.
 - 체크포인트의 state-dict key를 변경하는 실제 모델 refactor에는 변환/호환 계획이 필요하다.

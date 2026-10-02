@@ -1,0 +1,13 @@
+{
+  "free_device_bytes": 48933044224,
+  "total_device_bytes": 50908823552,
+  "host_available_bytes": 401799090176,
+  "policy": {
+    "max_evaluation_processes_per_gpu": 7,
+    "user_gpu_memory_cap_bytes": 45000000000,
+    "minimum_free_device_gib_before_model_load": 12,
+    "minimum_host_available_gib_before_model_load": 24,
+    "abort_on_cuda_oom": true,
+    "no_automatic_precision_batch_or_worker_sweep": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "purpose": "User-authorized name-only pause/resume of official dense evaluation",
+  "pause_timestamp_utc": "2026-10-02T01:32:01.818712+00:00",
+  "process_owner_initials": "kjs",
+  "python_entrypoint_after_resume": "/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python",
+  "preserved_conda_prefix": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/wa_jepa_official_evaluation",
+  "original_workers_gracefully_stopped": 14,
+  "resumed_workers": 14,
+  "workers_per_gpu": 7,
+  "allowed_physical_gpus": [0, 1],
+  "completed_scenes_preserved_at_pause": 562,
+  "post_resume_verification": {
+    "completed_scenes_at_check": 590,
+    "new_scenes_since_resume": 28,
+    "all_previous_completed_scenes_preserved": true,
+    "duplicate_scene_count": 0,
+    "failed_scene_count": 0,
+    "active_registered_workers": 14,
+    "gpu_used_bytes_each": 39880491008,
+    "user_gpu_memory_cap_bytes_each": 45000000000
+  },
+  "unchanged_evaluation": ["source", "planning_checkpoint", "encoder", "NAVSIM_scorer", "metric_cache", "navtest_scene_set", "14_way_partition", "12_inference_steps", "precision", "flow_seed"],
+  "paused_record_inventory": "outputs/official_wa_jepa_reproduction/kjs_process_label_pause.json",
+  "full_evaluation_complete": false
+}

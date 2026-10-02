@@ -1,5 +1,6 @@
 """Provenance/protocol guards; these tests do not execute GPU inference."""
 import json
+import runpy
 import unittest
 from pathlib import Path
 
@@ -16,6 +17,17 @@ class OfficialWAJEPAReproductionTests(unittest.TestCase):
         self.assertEqual(self.specification["paper_inference"]["steps"], 12)
         self.assertEqual(self.specification["official_source_commit"], "404d8afd4f5e3334fe4b15a6ca7587b98cc35243")
         self.assertFalse(self.specification["training_authorized"])
+
+    def test_owner_labeled_entrypoint_preserves_original_conda_environment(self):
+        launcher = runpy.run_path(str(WORKSPACE / "scripts/launch_official_wa_jepa_workers.py"))
+        original_environment = WORKSPACE / self.specification["conda_environment"]
+        entrypoint = launcher["prepare_owner_labeled_python_entrypoint"](
+            WORKSPACE, original_environment, self.specification["process_environment_alias"]
+        )
+        self.assertEqual(self.specification["process_owner_initials"], "kjs")
+        self.assertEqual(entrypoint.parent.parent.name, "kjs-wa-jepa-eval")
+        self.assertEqual(entrypoint.parent.parent.parent, WORKSPACE.parent / "envs")
+        self.assertEqual(entrypoint.resolve(), (original_environment / "bin/python").resolve())
 
     def test_no_sparse_full_benchmark_or_training(self):
         benchmark = self.specification["sparse_benchmark"]
@@ -46,6 +58,15 @@ class OfficialWAJEPAReproductionTests(unittest.TestCase):
         agreement = preflight["checkpoint_metadata"]["checkpoint_preset_agreement"]
         self.assertTrue(all(item["matches"] for item in agreement.values()))
         self.assertEqual(agreement["num_inference_steps"]["checkpoint"], 12)
+
+    def test_parallel_scene_partition_has_no_overlap_or_omission(self):
+        expected = json.loads((self.results_root / "expected_scene_tokens.json").read_text())["tokens"]
+        num_workers = self.specification["parallel_evaluation"]["execution_shards"]
+        partitions = [expected[index::num_workers] for index in range(num_workers)]
+        combined = [token for partition in partitions for token in partition]
+        self.assertEqual(len(combined), len(set(combined)))
+        self.assertEqual(set(combined), set(expected))
+        self.assertEqual(self.specification["memory_safety"]["user_gpu_memory_cap_bytes"], 45_000_000_000)
 
 
 if __name__ == "__main__":

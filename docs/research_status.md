@@ -2,6 +2,13 @@
 
 ## 현재 승인 실행 — `fd5fc5f` 이후 WA-JEPA 공식 재현
 
+**실측진행(2026-10-02)**: officialstrict1162keys누락/shape0,6scene원본smoke성공.
+Nativecanonicalall-ID6scene×12step bitwise동일(PE/predictor/denoising/trajectory).
+Untrained fixed/randomfuture8192→2048,QKV/FFN 실제생략,72timedtrials6.69s→약2.07s(약69%latency절감).
+소수PDMS는민감도자료일뿐최종성능/선택학습증거아님. Reserved메모리절감은입증하지않았다.
+공식dense전체는사용자요청으로GPU0·1각7총14worker실행중,각~39.88decimalGB<45GB/OOM0.
+Full12146scene결과와논문Table3대조는**미완료**,완료전PDMS집계미보고. 기존Drive결과보존.
+
 Camera별 spatial patch-tube를 잠정 단위로 승인받았다. 객체 instance/최종 기여는 아니다.
 공식 원본 agent/scorer→dense 전체 평가→all-ID 동등성→fixed/random 소수 scene 비용 검사 순서다.
 학습형 selector/학습/pilot 재개는 금지. 진입점 [WA-JEPA 실행 보고](official_wa_jepa_reproduction.md).

@@ -1,11 +1,17 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-02 09:29 KST (Codex)
+마지막 갱신: 2026-10-02 10:36 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **현재 우선 작업(fd5fc5f 이후 승인)**: [WA-JEPA 공식 재현과 sparse 검증](docs/official_wa_jepa_reproduction.md).
+최신:strict6scene/all-ID6scene/72trial sparse비용 완료, **dense전체평가는14worker로실행중**.
+GPU0·1각7worker/각약39.88decimalGB, 사용자45GB상한이내/OOM0. tmuxsocket `planning-aware-wa-jepa`.
+전장면12146완료전fullPDMS미보고. Worker수가14배속도를뜻하지않으며GPU는이미100%compute사용.
 설정 `configs/official_wa_jepa/reproduction_v1.json`, 전용 Conda/worktree. 학습 없음.
+사용자명명/명시적재개승인: 이니셜 `kjs`, `/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python`.
+10:32KST 우리14worker만SIGINT 정상중단/562완료scene보존 후동일14shard/config/seed로재개했다.
+실제Conda prefix는이동하지않고symlink만추가했다. 저장완료scene를skip하며in-flightscene만재계산한다.
 Latest4-step와논문/checkpoint12-step 불일치를 찾아 직전 공식404d8af/12-step를 결과 확인 전 고정했다.
 이전 조사 단계의 환경/다운로드/평가 금지는 이번 승인 범위에는 적용하지 않는다.
 공통 조사 상태: [docs/research_status.md](docs/research_status.md).
@@ -50,6 +56,13 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**현재실행**: 공식WA dense navtest14-way서로겹치지않는shard. GPU0shard0/2/4/6/8/10/12,
+GPU1shard1/3/5/7/9/11/13. `scripts/launch_official_wa_jepa_workers.py --gpu 0|1`로활성session확인/재개.
+이전4-shard계획32scene를보존/재사용한다. `parallel_worker_manifest.json`에정확한PID/session기록.
+`guard_official_wa_jepa_memory.py`10초마다45GB/RAM감시;검증된우리PID만SIGINT. 타인프로세스변경0.
+`official_wa_jepa_aggregate`tmux는전14shard완료후정확12146token중복/누락검사하고자동JSON/CSV집계.
+전용env/source/cache보존. 결과확인후Table3대조보고서완성및commit/push가남았다. 학습/pilot재개금지.
 
 2026-10-02 WA preparation: 전용Conda clone/공식stage2·Meta encoder 다운로드 완료.
 Checkpoint SHA/구조, 공식navtest12146·4-view71488files/cache completeness와호환성CPU검사통과. 5tests통과.
@@ -245,6 +258,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+공식WA strict1162keys/6scene smoke성공. Nativeall-ID6scene×12step bitwise동일, separatepatch보존.
+Fixed/randomfuture2048vs8192:72timedtrial완료,전체inference6.69s→약2.07s(약69%감소).
+6scene소수PDMS민감도이지논문재현/선택학습성능이아니다. ReservedVRAM은allocatorcarryover로불변.
+사용자요청에따라14worker/45decimalGBcap/owned-PIDmemoryguard/재개·자동집계 구현.
+전용tmux14worker실행확인/현재각GPU약39.88GB/OOM0. Full평가아직미완료,과거32scene재사용.
+명시적사용자요청으로562완료scene보존 후우리14worker만정상중단/재개, `kjs-wa-jepa-eval` 실행별칭적용.
+Conda prefix/weights/14-waypartition/seed/scorer불변. 기록 `outputs/official_wa_jepa_reproduction/kjs_process_label_pause.json`.
+
 WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전12-step404d8af고정.
 독립Conda/worktree/공식NAVSIMv1 준비, 공개planning/encoder weights 확보, preflight/strictloading/
 원본agent·scorer 평가harness와config 추가. 이번은준비/검사이며학습결과가아니다.
@@ -262,6 +283,9 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
+지금은densefull완료를확인한다. 이미끝난smoke/all-ID/72trial를반복하지않는다.
+전체완료후 `scripts/evaluate_official_wa_jepa.py aggregate`(CPU)→Table3하위지표/complete대조→commit/push.
+Currentno-grad진단은학습형selectorutility의증거가아니다. 새학습은별도승인전금지.
 최신 승인 순서: preflight/strictsmoke→공식dense전체→별도sparse all-ID동등성→fixed/random소수scene.
 학습형selector·동적K/horizon·pilot·WA학습 금지. Full은smoke/cost/호환gate통과조건부.
 

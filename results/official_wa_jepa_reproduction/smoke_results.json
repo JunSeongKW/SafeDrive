@@ -1,0 +1,32 @@
+{
+  "purpose": "normal_operation_and_resource_smoke_not_paper_reproduction_score",
+  "expected_scenes": 6,
+  "processed_scenes": 6,
+  "successful_scenes": 6,
+  "failed_scene_tokens": [],
+  "missing_scene_tokens": [],
+  "all_scenes_successful": true,
+  "aggregate_fraction_not_percent": {
+    "no_at_fault_collisions": 1.0,
+    "drivable_area_compliance": 1.0,
+    "ego_progress": 0.9193770718352884,
+    "time_to_collision_within_bound": 1.0,
+    "comfort": 1.0,
+    "driving_direction_compliance": 1.0,
+    "score": 0.9664071132647035
+  },
+  "estimated_full_single_gpu_hours": 25.44991402869631,
+  "elapsed_this_invocation_seconds_excluding_initialization": 45.2614381040039,
+  "torch_version": "2.1.0+cu121",
+  "cuda_version": "12.1",
+  "device": "NVIDIA RTX A6000",
+  "physical_gpus": "1",
+  "actual_navsim_module": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/NAVSIMOfficialV1ForWAJEPA/navsim/__init__.py",
+  "conda_python": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/wa_jepa_official_evaluation/bin/python",
+  "python": "3.9.23",
+  "model_source_commit": "404d8afd4f5e3334fe4b15a6ca7587b98cc35243",
+  "official_steps": 12,
+  "scene_records": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_wa_jepa_reproduction/dense_smoke_scene_records.jsonl",
+  "evaluation_schedule_difference": "Sorted sequential scenes, one initialized official agent/scorer; per-scene incremental persistence. Official generator resets each call so ordering does not change model noise.",
+  "paper_comparison_limitation": "Single preset seed versus reported 10-seed paper mean; no numerical reproduction tolerance claimed"
+}

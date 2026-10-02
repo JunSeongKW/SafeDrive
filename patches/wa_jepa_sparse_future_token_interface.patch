@@ -1,0 +1,138 @@
+diff --git a/models/multiview_causal_future_jepa.py b/models/multiview_causal_future_jepa.py
+index f0523ba..ae38037 100644
+--- a/models/multiview_causal_future_jepa.py
++++ b/models/multiview_causal_future_jepa.py
+@@ -576,10 +576,21 @@ class SceneInputPositioner(nn.Module):
+     def forward(
+         self,
+         tokens: torch.Tensor,
+-        token_indices: torch.Tensor,
++        token_indices: torch.Tensor | None = None,
+         *,
+         time_offset: int,
++        canonical_future_token_ids: torch.Tensor | None = None,
+     ) -> torch.Tensor:
++        if canonical_future_token_ids is not None:
++            if token_indices is not None:
++                raise ValueError("Provide local token indices or canonical future IDs, not both")
++            if canonical_future_token_ids.shape != tokens.shape[:2]:
++                raise ValueError("Canonical IDs must have the same batch/token shape as packed tokens")
++            position = self.canonical_future_position_embeddings(
++                canonical_future_token_ids, time_offset=time_offset,
++                dtype=tokens.dtype, device=tokens.device,
++            )
++            return self.out_norm(tokens + position)
+         if tokens.ndim != 3:
+             raise ValueError(f"tokens must be [B,V*N,D], got {tuple(tokens.shape)}")
+         bsz, flat_tokens, dim = tokens.shape
+@@ -602,6 +613,32 @@ class SceneInputPositioner(nn.Module):
+         )
+         return self.out_norm((tokens_by_view + pos).reshape(bsz, flat_tokens, self.scene_dim))
+ 
++    def canonical_future_position_embeddings(
++        self,
++        canonical_future_token_ids: torch.Tensor,
++        *,
++        time_offset: int,
++        dtype: torch.dtype,
++        device: torch.device,
++    ) -> torch.Tensor:
++        """Preserve the original camera/time/spatial positions after sparse packing.
++
++        Canonical IDs flatten camera -> future tubelet -> row/column. They are
++        not object identities. No new parameters or checkpoint keys are added.
++        """
++        future_steps = self.max_time_steps - int(time_offset)
++        future_tokens_per_camera = future_steps * self.tokens_per_step
++        camera_ids = torch.div(canonical_future_token_ids, future_tokens_per_camera, rounding_mode="floor")
++        local_future_ids = canonical_future_token_ids % future_tokens_per_camera
++        time_ids, spatial_ids = self._position_from_token_indices(local_future_ids, time_offset=time_offset)
++        if int(camera_ids.min().item()) < 0 or int(camera_ids.max().item()) >= self.num_cameras:
++            raise ValueError("Canonical future ID outside camera/time/spatial range")
++        batch_size, num_selected_tokens = canonical_future_token_ids.shape
++        camera_position = self.camera_embed.to(dtype=dtype, device=device).index_select(0, camera_ids.flatten()).reshape(batch_size, num_selected_tokens, self.scene_dim)
++        time_position = self.time_embed.to(dtype=dtype, device=device)[0].index_select(0, time_ids.flatten()).reshape(batch_size, num_selected_tokens, self.scene_dim)
++        spatial_position = self.spatial_embed.to(dtype=dtype, device=device).reshape(self.tokens_per_step, self.scene_dim).index_select(0, spatial_ids.flatten()).reshape(batch_size, num_selected_tokens, self.scene_dim)
++        return camera_position + time_position + spatial_position
++
+ 
+ class RMSNorm(nn.Module):
+     def __init__(self, dim: int, eps: float = 1e-6) -> None:
+@@ -1122,13 +1159,15 @@ class SceneTrajectoryFlowPredictor(nn.Module):
+         noisy_trajectory: torch.Tensor | None = None,
+         ego_status: torch.Tensor | None = None,
+         history_trajectory: torch.Tensor | None = None,
++        future_token_ids: torch.Tensor | None = None,
+     ) -> tuple[torch.Tensor, torch.Tensor | None]:
+         if context_scene.ndim != 3 or noisy_future_scene.ndim != 3 or future_condition_scene.ndim != 3:
+             raise ValueError("context_scene, noisy_future_scene, and future_condition_scene must be [B,N,D]")
+         bsz = context_scene.size(0)
++        num_expected_future_tokens = self.num_scene_tokens if future_token_ids is None else future_token_ids.size(1)
+         if (
+-            noisy_future_scene.shape[:2] != (bsz, self.num_scene_tokens)
+-            or future_condition_scene.shape[:2] != (bsz, self.num_scene_tokens)
++            noisy_future_scene.shape[:2] != (bsz, num_expected_future_tokens)
++            or future_condition_scene.shape[:2] != (bsz, num_expected_future_tokens)
+         ):
+             raise ValueError(
+                 "Flow predictor shape mismatch: "
+@@ -1158,16 +1197,12 @@ class SceneTrajectoryFlowPredictor(nn.Module):
+             time_offset=0,
+         )
+         future_indices = self.future_token_indices.to(device=noisy_future_scene.device).expand(bsz, -1)
+-        noisy_future_scene = self.scene_positioner(
+-            noisy_future_scene.to(dtype=dtype),
+-            future_indices,
+-            time_offset=self.scene_history_steps,
+-        )
+-        future_condition_scene = self.scene_positioner(
+-            future_condition_scene.to(dtype=dtype),
+-            future_indices,
+-            time_offset=self.scene_history_steps,
+-        )
++        if future_token_ids is None:
++            noisy_future_scene = self.scene_positioner(noisy_future_scene.to(dtype=dtype), future_indices, time_offset=self.scene_history_steps)
++            future_condition_scene = self.scene_positioner(future_condition_scene.to(dtype=dtype), future_indices, time_offset=self.scene_history_steps)
++        else:
++            noisy_future_scene = self.scene_positioner(noisy_future_scene.to(dtype=dtype), time_offset=self.scene_history_steps, canonical_future_token_ids=future_token_ids)
++            future_condition_scene = self.scene_positioner(future_condition_scene.to(dtype=dtype), time_offset=self.scene_history_steps, canonical_future_token_ids=future_token_ids)
+ 
+         context = self.context_proj(context_scene)
+         context = context + self.context_type_embed.to(dtype=dtype, device=context.device)
+@@ -2254,7 +2289,7 @@ class MultiViewCausalFutureMaskedJEPA(ModelBase):
+         return noise.to(device=device, dtype=dtype)
+ 
+     @torch.no_grad()
+-    def predict_trajectory(self, features: dict[str, Any]) -> torch.Tensor:
++    def predict_trajectory(self, features: dict[str, Any], *, future_token_ids: torch.Tensor | None = None) -> torch.Tensor:
+         if not self.enable_trajectory_head:
+             raise RuntimeError("predict_trajectory requires enable_trajectory_head=true")
+         was_training = self.training
+@@ -2325,6 +2360,19 @@ class MultiViewCausalFutureMaskedJEPA(ModelBase):
+                 dtype=context_scene.dtype,
+                 device=clip.device,
+             )
++            if future_token_ids is not None:
++                if future_token_ids.dtype != torch.long or future_token_ids.ndim != 2 or future_token_ids.size(0) != bsz:
++                    raise ValueError("future_token_ids must be a long tensor [batch, selected canonical IDs]")
++                if future_token_ids.size(1) == 0 or int(future_token_ids.min().item()) < 0 or int(future_token_ids.max().item()) >= self.predictor.num_scene_tokens:
++                    raise ValueError("Future IDs must be nonempty and inside the dense canonical range")
++                if any(row.unique().numel() != row.numel() for row in future_token_ids):
++                    raise ValueError("Duplicate future token IDs are not permitted")
++                future_token_ids = future_token_ids.to(device=clip.device)
++                packing_indices = future_token_ids.unsqueeze(-1).expand(-1, -1, scene.size(-1))
++                # Draw the original dense noise BEFORE gathering so both selected
++                # scene noise and the following ego noise preserve RNG identity.
++                scene = scene.gather(1, packing_indices)
++                future_condition_scene = future_condition_scene.gather(1, packing_indices)
+             steps = max(self.flow_num_inference_steps, 1)
+             dt = 1.0 / float(steps)
+             for step in range(steps):
+@@ -2338,6 +2386,7 @@ class MultiViewCausalFutureMaskedJEPA(ModelBase):
+                     future_condition_scene=future_condition_scene,
+                     t_cont=t_cont,
+                     trajectory_inputs=trajectory_inputs,
++                    future_token_ids=future_token_ids,
+                 )
+                 denom = (1.0 - t_cont).clamp_min(1e-3)
+                 scene = scene + dt * (pred_scene - scene) / denom.view(-1, 1, 1)
