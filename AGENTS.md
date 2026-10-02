@@ -75,6 +75,14 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-02 최신 사용자 지시가 위 WA 실행 계획에 우선**: WA를9253/12146에서중단하고
+공식Drive-JEPA planner를재사용하는선택적patch 미래extension을설계·구현·연결검사한다.
+진입점 `docs/drive_jepa_selective_future_connection.md`, `configs/drive_jepa_selective_future/connection_v1.json`.
+WA raw/partialCSV·JSON/비용/가중치는보존, pause marker유지/자동재개금지.
+새경로의learnable selector/경량predictor/residual memory adapter는승인됐다. 원본planner교체금지.
+작은train-only CPU/GPU forward/gradient/비용과1diagnostic step만수행; 대규모학습·pilot확대·동적K/horizon은미승인.
+현재선택단위는front camera patch이며객체instance로부르지않는다. 공식baseline checkpoint/config는수정하지않는다.
+
 ```bash
 git status --short --branch && git log --oneline -10
 cat HANDOFF.md

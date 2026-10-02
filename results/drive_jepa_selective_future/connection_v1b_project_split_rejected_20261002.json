@@ -1,0 +1,386 @@
+{
+  "status": "official_real_image_connection_passed_NOT_performance_or_selection_learning",
+  "created_at_utc": "2026-10-02T13:05:11.795249+00:00",
+  "source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "implementation_sha256": "70060300aeb4bf22e5b266ef8d4f554063498618d76302c05adb45bf47d01dde",
+  "validation_script_sha256": "ca2d6b470091dd15beeaf8ea529abecf958c572a88d646aa4c9b867b16911694",
+  "environment": {
+    "python_executable": "/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python",
+    "torch_version": "2.1.0+cu121",
+    "cuda_version": "12.1",
+    "gpu_name": "NVIDIA RTX A6000",
+    "existing_conda_reused_read_only": true
+  },
+  "existing_official_source_diff_sha256_unchanged": "5385d97215ab3956a0b16aeba8b208c07fdb7b8c38f48e0d51b47802a34eb3c3",
+  "planning_checkpoint": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+    "size_bytes": 3720285081,
+    "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+  },
+  "checkpoint_metadata": {
+    "epoch": 36,
+    "global_step": 49173
+  },
+  "strict_loading": {
+    "missing_keys": [],
+    "unexpected_keys": []
+  },
+  "specification": {
+    "task": "preserve_official_planner_and_validate_selective_future_connection_only",
+    "baseline_specification": "configs/official_drive_jepa/reproduction_v1.json",
+    "selected_patch_budget": 4,
+    "patch_grid_height": 16,
+    "patch_grid_width": 32,
+    "visual_latent_dim": 1024,
+    "predictor_hidden_dim": 128,
+    "future_tubelet_end_seconds": [
+      1.0,
+      2.0,
+      3.0,
+      4.0
+    ],
+    "future_frame_pairs": [
+      [
+        4,
+        5
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        10,
+        11
+      ]
+    ],
+    "history_frames": 4,
+    "future_frames": 8,
+    "frame_interval_seconds": 0.5,
+    "timestamp_tolerance_seconds": 0.05,
+    "selector_temperature": 0.7,
+    "seed": 29,
+    "connection_recording_count": 2,
+    "data_split": "navtrain/trainval_only",
+    "diagnostic_optimizer_steps": 1,
+    "diagnostic_learning_rate": 0.001,
+    "timing_warmups": 1,
+    "timing_repeats": 5,
+    "maximum_wall_seconds": 900,
+    "minimum_free_gpu_gib": 12,
+    "maximum_peak_allocated_gib": 6,
+    "approved_physical_gpus": [
+      0,
+      1
+    ],
+    "target_encoder": "same_frozen_FULL_PLANNING_checkpoint_visual_encoder_no_ema",
+    "target_coordinates": "fixed_front_camera_image_grid_no_object_association_no_ego_motion_warp",
+    "loss_contract": "official_planning_loss_to_bridge_predictor_selector; auxiliary_to_predictor_only",
+    "training_sweep_authorized": false,
+    "full_benchmark_authorized": false
+  },
+  "specification_sha256": "24b723ec4d79a633d05022dfc234af7ca957624f0c5b7cded61c2d36ab3c67d7",
+  "train_windows": [
+    {
+      "token": "5170c41411905efc",
+      "recording": "2021.05.12.19.36.12_veh-35",
+      "segment": "2021.05.12.19.36.12_veh-35_00215_00405",
+      "native_log_token": "4f5ff8e85e8558a5",
+      "future_valid": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "actual_frame_intervals_seconds": [
+        0.500152,
+        0.500064,
+        0.499773,
+        0.499502,
+        0.499374,
+        0.499523,
+        0.499944,
+        0.500134,
+        0.500179,
+        0.500148,
+        0.500108
+      ],
+      "actual_future_tubelet_end_seconds": [
+        0.998876,
+        1.998343,
+        2.998656,
+        3.998912
+      ]
+    },
+    {
+      "token": "e92f91c385185b7d",
+      "recording": "2021.05.12.22.00.38_veh-35",
+      "segment": "2021.05.12.22.00.38_veh-35_00005_00118",
+      "native_log_token": "d5f5cb893ce65704",
+      "future_valid": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "actual_frame_intervals_seconds": [
+        0.500152,
+        0.500173,
+        0.500176,
+        0.500216,
+        0.500181,
+        0.499824,
+        0.499521,
+        0.499662,
+        0.499614,
+        0.499908,
+        0.50024
+      ],
+      "actual_future_tubelet_end_seconds": [
+        1.000397,
+        1.999742,
+        2.999018,
+        3.999166
+      ]
+    }
+  ],
+  "skipped_for_missing_current_only": [
+    "a6a284584b19599f",
+    "dd4b5dfa0a795d43",
+    "641a49337fe952b3",
+    "3f42f6e12e3253b3",
+    "3baf08ec6b335e39",
+    "f2720eccb2305bae",
+    "3d8c3e14907f567d",
+    "da78631c324752f0",
+    "1e3c3cfad65c5c99",
+    "9c57c1aebeb95fb7",
+    "27facd22c6ed5cca",
+    "7031ab8012545423",
+    "613bf69d0a6156a7",
+    "7f8f6a4bd2865d74",
+    "7128b624519458c5",
+    "9ae2eab60b3b52e0",
+    "db41d0e9cf095d66",
+    "ad9908fbe1bd59a5",
+    "0571d5cf2d13582c",
+    "0936e7122c00508f",
+    "f5e97fc3bfaa532f",
+    "1b52f9f8752a55ca",
+    "e4ca355ce94a5a9e",
+    "7c4003c54336527c",
+    "12f47dcbdf435dff",
+    "54be7cef41a95b2d",
+    "d9704d46623451df",
+    "78792154c4f4539e",
+    "f8813b0d87e85d64",
+    "381ec4a38449526a",
+    "53a576e2b7ac5c2e",
+    "bea8d85a41305768",
+    "8ba3946d11125bb3",
+    "07c70f9f9c875aa1",
+    "fe821ddc56d65543",
+    "fc5c9e7a3db65210",
+    "f48e4d5f4d595d03",
+    "89cf984a9dcd5e94",
+    "8fef68d2fd645eb8",
+    "8397ed93d577511b",
+    "d833b91c5fca5ff1",
+    "6a3a5c6c9b795b7b",
+    "37f990dd786f52e7",
+    "9a0cdf849f305a06",
+    "589e9ae884a651e6",
+    "1e320790f7595ea1",
+    "0f3eab1c4e685c3c",
+    "4eb4484e4cda5124",
+    "d181e76e2f345db0",
+    "9074ed6113d756d6",
+    "696a889616ab54fc",
+    "92766392ec4a5acf",
+    "c12f16dcf47451b0",
+    "374132df35b25ea1",
+    "fdf602093bc553bf",
+    "711fb407bafc5443",
+    "59c13783daac520e",
+    "6aa1c03d49ff5261"
+  ],
+  "input_shapes": {
+    "observed_clip": [
+      2,
+      3,
+      2,
+      256,
+      512
+    ],
+    "current_ego_status": [
+      2,
+      8
+    ],
+    "future_target": [
+      2,
+      4,
+      512,
+      1024
+    ],
+    "ego_trajectory": [
+      2,
+      8,
+      3
+    ]
+  },
+  "selected_patch_ids_after_bridge_step": [
+    [
+      268,
+      128,
+      196,
+      456
+    ],
+    [
+      305,
+      317,
+      273,
+      288
+    ]
+  ],
+  "actual_predictor_query_shape": [
+    2,
+    4,
+    4,
+    2074
+  ],
+  "original_transformer_and_head_reused": true,
+  "branch_off_bitwise_equal_before_and_after_step": true,
+  "branch_on_update0_bitwise_equal_under_no_grad_inference": true,
+  "future_detach_forward_equal": true,
+  "missing_target_loss_zero": true,
+  "baseline_parameter_sha256_before": "05af3ccd8a8e7db1b9b2ae2e77f81ef753446a3309989cef08c161ce0614476a",
+  "baseline_parameter_sha256_after": "05af3ccd8a8e7db1b9b2ae2e77f81ef753446a3309989cef08c161ce0614476a",
+  "original_parameter_count": 309981955,
+  "new_trainable_parameter_count": 1271489,
+  "gradient_norms": {
+    "planning_at_zero_initialization": {
+      "selector": 0.0,
+      "predictor": 0.0,
+      "bridge": 0.12352273005912724,
+      "original_model": 0.0
+    },
+    "planning_after_one_diagnostic_step": {
+      "selector": 1.3014543459963368e-05,
+      "predictor": 1.1457289201046758e-05,
+      "bridge": 0.12351813007007634,
+      "original_model": 0.0
+    },
+    "future_auxiliary": {
+      "selector": 0.0,
+      "predictor": 1.2479748518094171,
+      "bridge": 0.0,
+      "original_model": 0.0
+    },
+    "detach_predicted_future": {
+      "selector": 0.0,
+      "predictor": 0.0,
+      "bridge": 0.12351813030570033,
+      "original_model": 0.0
+    },
+    "detach_selection": {
+      "selector": 0.0,
+      "predictor": 1.145728920570436e-05,
+      "bridge": 0.12351813007007634,
+      "original_model": 0.0
+    }
+  },
+  "valid_future_patch_time_targets": 3072,
+  "valid_selected_patch_time_targets": 24,
+  "losses_diagnostic_only": {
+    "initial_planning": 0.06928901374340057,
+    "planning_after_one_step": 0.06927366554737091,
+    "future_auxiliary": 4.479055881500244
+  },
+  "timing": [
+    {
+      "condition": "official_original",
+      "wall_seconds_per_two_window_batch": [
+        0.1302748110028915,
+        0.1398167589941295,
+        0.14982526800304186,
+        0.13047861499944702,
+        0.1321356339904014
+      ],
+      "mean_seconds_per_batch": 0.13650621739798224,
+      "peak_allocated_bytes": 1347412480,
+      "peak_reserved_bytes": 1421869056,
+      "excludes": "sensor_disk_IO_future_teacher_encoding_official_scoring"
+    },
+    {
+      "condition": "extension_disabled",
+      "wall_seconds_per_two_window_batch": [
+        0.14031932699435856,
+        0.08668952700099908,
+        0.10767769999802113,
+        0.1248560279927915,
+        0.18843280999863055
+      ],
+      "mean_seconds_per_batch": 0.12959507839696016,
+      "peak_allocated_bytes": 1347412480,
+      "peak_reserved_bytes": 1421869056,
+      "excludes": "sensor_disk_IO_future_teacher_encoding_official_scoring"
+    },
+    {
+      "condition": "extension_enabled",
+      "wall_seconds_per_two_window_batch": [
+        0.1835175690066535,
+        0.19966768499580212,
+        0.19958292400406208,
+        0.2002104999992298,
+        0.19927813899994362
+      ],
+      "mean_seconds_per_batch": 0.19645136340113822,
+      "peak_allocated_bytes": 1353703936,
+      "peak_reserved_bytes": 1421869056,
+      "excludes": "sensor_disk_IO_future_teacher_encoding_official_scoring"
+    }
+  ],
+  "enabled_module_cuda_seconds_one_shared_gpu_trial": {
+    "encoder": 0.17690931701660156,
+    "patch_selection": 0.00024063999950885772,
+    "future_predictor": 4.5056000351905825e-05,
+    "future_bridge": 0.00010649599879980087,
+    "official_transformer": 0.0008663039803504944
+  },
+  "backward_peak_allocated_bytes": 1349080576,
+  "physical_gpu": 0,
+  "gpu_free_bytes_before_load": 34782773248,
+  "total_wall_seconds": 56.67329428299854,
+  "source_files_sha256_unchanged": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/navsim_logs/trainval/2021.05.12.19.36.12_veh-35_00215_00405.pkl": "8f4621571958ab0990545f993dd0dd3c029d24c5844f99628716a7b861903381",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/navsim_logs/trainval/2021.05.12.22.00.38_veh-35_00005_00118.pkl": "c8a642b5dacdb58e21ebdd4457517cc5da1110266c7dd92dcdbcd750800d35f4",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/011f30a26bb25f37.jpg": "35258be8a017afc8f19006650ae1cfb5b282a519a2fe881d3cb189bcf2a8592c",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/0696b510a42f5831.jpg": "2b482dfb8103231d73f0066f5023bca2ef7aa3b5939c936421ff12474b5b5554",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/0d762f6483995e3a.jpg": "49578aa197176ca41fe4d249f46ec08f1176dbe5a92cee7e0fb3856260a2345d",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/11863609e1a9523f.jpg": "2e3dd7e801716d736704a88c8c24db5f4713b959cb2757c75db651577e763422",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/313df27c6b345d1f.jpg": "3c757aeba2c85d182005277442e864497f53be2c491ded75635865387526b4dc",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/3636d9cb2c635b76.jpg": "55693dd795aa86ba2b16754f4573d97d21b46ea771caaafaf976c678b592f8c1",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/429fe3a6818256d1.jpg": "ec7ad53c1b2cef844b6e91ce9a259cc9c318f486e595943ff4053f9154c7ffe0",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/584cad816efe54ba.jpg": "b2f94784dc6e8a351c4403e5abf5a2b7ce0abe19eed535fd72754cad3ac297f8",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/60c121a39d415706.jpg": "7049e284920dd3f6f83dd382ee6037b6ffdaa0ed6909db1eab426935f03559d8",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.19.36.12_veh-35_00215_00405/CAM_F0/cc97d268ad1c5b2e.jpg": "190af871d07d9a8d7943e8ef878c4a4c98864d854ff9dcae77c2f8cc924cf6a2",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.00.38_veh-35_00005_00118/CAM_F0/243888a72b9f5c6b.jpg": "699d01d7380b89b76737154fc06ec6ae72cafb42aa6232f68e7b3f6d0b074a61",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.00.38_veh-35_00005_00118/CAM_F0/35d8e3623f9150c9.jpg": "822f1a2bc440f8682c2be3cd10eaca73c7195ca44670c2efb95852b7e5637650",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.00.38_veh-35_00005_00118/CAM_F0/5edb425ccd6b5ba4.jpg": "43173094c1126590d872fe074ca9c129962761bf19e2294caeb93f8f8903c9c7",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.00.38_veh-35_00005_00118/CAM_F0/7571dddcb2cf5399.jpg": "bc4211737b40130bd77eedf65521261ed3f9e3abf9c439f47aad7466bc6a8ea3",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.00.38_veh-35_00005_00118/CAM_F0/777f971f0d86595e.jpg": "f97e4002c781355953e9ebc8718d7e70f50c5bc906ed346c5e9205d4969f2e33",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.00.38_veh-35_00005_00118/CAM_F0/7b79ee76294f5b05.jpg": "186a725e36b53cc3f30ba0b6bd4b48567b15a91ebd7195cbd6bb1350625e0b60",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.00.38_veh-35_00005_00118/CAM_F0/edaa11a0f930565b.jpg": "ddf9245322923dd66fb283092bf6a5a0297fc11526452d8fa4aee85b147aaed3"
+  },
+  "no_new_packages_or_shared_data_writes": true,
+  "limitations": [
+    "Only two train windows; not performance evaluation",
+    "ST gradients are biased and do not prove useful discrete selection",
+    "Fixed image-grid future target, not object tracking",
+    "Front-only; shared-GPU timing",
+    "No optimal choice, future prediction accuracy, safety gain or novelty claim"
+  ]
+}

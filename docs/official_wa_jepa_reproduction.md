@@ -1,7 +1,16 @@
 # WA-JEPA official reproduction and untrained sparse interface
 
-Status: smoke/all-ID/sparse profiling complete; **official dense full evaluation user-paused, GPUs released**. Baseline fd5fc5f;
+Status: smoke/all-ID/sparse profiling complete; **official dense full evaluation user-paused at9253/12146**. Baseline fd5fc5f;
 Drive-JEPA baseline 578be6e unchanged. No training or learned selection.
+
+Latest user decision: preserve WA and implement a small selective-future extension on the evaluated
+Drive-JEPA planner. Seven own WA workers and CPU helpers were stopped; no automatic WA resume.
+All9253saved scenes successful, raw SHA256 verified; partialPDMS91.102506 versus matched Drive89.019762.
+This is not a full benchmark result. [Partial scene CSV/summary](../results/official_wa_jepa_reproduction/partial_navtest_at_drive_extension_20261002.json).
+New local snapshot `outputs/official_wa_jepa_reproduction/paused_snapshot_before_drive_extension_20261002.tar.gz`,
+SHA256 `6aed87ec3feea7ecb7c9813ab0855af3fea84c3036e21f5b894eadb14f71249b`.
+Earlier interruption snapshots and sparse measurements are unchanged. Resume commands below are historical,
+require a new explicit user request and must NOT be run for the Drive extension.
 
 ## Official target fixed before inference scores
 

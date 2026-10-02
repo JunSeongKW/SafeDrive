@@ -1,0 +1,344 @@
+{
+  "status": "official_real_image_connection_passed_NOT_performance_or_selection_learning",
+  "created_at_utc": "2026-10-02T13:22:18.774923+00:00",
+  "source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "implementation_sha256": "70060300aeb4bf22e5b266ef8d4f554063498618d76302c05adb45bf47d01dde",
+  "validation_script_sha256": "62036453ea7325ccecfeae65d97e186a718a228667cef827bc55ac4d25c32c11",
+  "environment": {
+    "python_executable": "/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python",
+    "torch_version": "2.1.0+cu121",
+    "cuda_version": "12.1",
+    "gpu_name": "NVIDIA RTX A6000",
+    "existing_conda_reused_read_only": true
+  },
+  "existing_official_source_diff_sha256_unchanged": "5385d97215ab3956a0b16aeba8b208c07fdb7b8c38f48e0d51b47802a34eb3c3",
+  "planning_checkpoint": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+    "size_bytes": 3720285081,
+    "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+  },
+  "checkpoint_metadata": {
+    "epoch": 36,
+    "global_step": 49173
+  },
+  "strict_loading": {
+    "missing_keys": [],
+    "unexpected_keys": []
+  },
+  "specification": {
+    "task": "preserve_official_planner_and_validate_selective_future_connection_only",
+    "baseline_specification": "configs/official_drive_jepa/reproduction_v1.json",
+    "selected_patch_budget": 4,
+    "patch_grid_height": 16,
+    "patch_grid_width": 32,
+    "visual_latent_dim": 1024,
+    "predictor_hidden_dim": 128,
+    "future_tubelet_end_seconds": [
+      1.0,
+      2.0,
+      3.0,
+      4.0
+    ],
+    "future_frame_pairs": [
+      [
+        4,
+        5
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        10,
+        11
+      ]
+    ],
+    "history_frames": 4,
+    "future_frames": 8,
+    "frame_interval_seconds": 0.5,
+    "timestamp_tolerance_seconds": 0.05,
+    "selector_temperature": 0.7,
+    "seed": 29,
+    "connection_recording_count": 2,
+    "data_split": "navtrain/trainval_only",
+    "project_recording_split_manifest": "results/pilot_foundation_decision/navtrain_three_way_manifest.json",
+    "required_project_recording_split": "train",
+    "diagnostic_optimizer_steps": 1,
+    "diagnostic_learning_rate": 0.001,
+    "timing_warmups": 1,
+    "timing_repeats": 5,
+    "maximum_wall_seconds": 900,
+    "minimum_free_gpu_gib": 12,
+    "maximum_peak_allocated_gib": 6,
+    "approved_physical_gpus": [
+      0,
+      1
+    ],
+    "target_encoder": "same_frozen_FULL_PLANNING_checkpoint_visual_encoder_no_ema",
+    "target_coordinates": "fixed_front_camera_image_grid_no_object_association_no_ego_motion_warp",
+    "loss_contract": "official_planning_loss_to_bridge_predictor_selector; auxiliary_to_predictor_only",
+    "training_sweep_authorized": false,
+    "full_benchmark_authorized": false
+  },
+  "specification_sha256": "4a9ae57a1852e58a0b088e3af0a457e8a84c70df24c88c8a04869f20476ddab9",
+  "project_recording_split_manifest_sha256": "17c553ad7e068f253299adf9b82767904401b65e87c8deb478e2bc2438112c0b",
+  "previous_rejected_diagnostic": "results/drive_jepa_selective_future/project_split_exposure_audit_20261002.json",
+  "train_windows": [
+    {
+      "token": "611d4a6e8ab15bbb",
+      "recording": "2021.05.12.22.28.35_veh-35",
+      "project_recording_split": "train",
+      "segment": "2021.05.12.22.28.35_veh-35_00025_00115",
+      "native_log_token": "83d096fba6d65c6e",
+      "future_valid": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "actual_frame_intervals_seconds": [
+        0.500324,
+        0.500284,
+        0.499851,
+        0.499587,
+        0.499664,
+        0.499618,
+        0.499853,
+        0.500184,
+        0.500285,
+        0.500291,
+        0.500088
+      ],
+      "actual_future_tubelet_end_seconds": [
+        0.999251,
+        1.998722,
+        2.999191,
+        3.99957
+      ]
+    },
+    {
+      "token": "b9baa92698925a54",
+      "recording": "2021.05.12.23.36.44_veh-35",
+      "project_recording_split": "train",
+      "segment": "2021.05.12.23.36.44_veh-35_00063_00141",
+      "native_log_token": "2f2479efbf675f79",
+      "future_valid": [
+        true,
+        false,
+        false,
+        false
+      ],
+      "actual_frame_intervals_seconds": [
+        0.500062,
+        0.500194,
+        0.500126,
+        0.500176,
+        0.500002,
+        0.499712,
+        0.49974,
+        0.499832,
+        0.499987,
+        0.500063,
+        0.500247
+      ],
+      "actual_future_tubelet_end_seconds": [
+        1.000178,
+        1.99963,
+        2.999449,
+        3.999759
+      ]
+    }
+  ],
+  "skipped_for_missing_current_only": [
+    "84a36ebaadcc50eb",
+    "447244795b8a5406",
+    "7ea7200c7be05831",
+    "5633ec10c9d25778",
+    "7a8d280ce98e5393",
+    "7f494ef5372155fb",
+    "132ddadbe48755c5",
+    "bc3f9be784515834",
+    "b590d14ed774552a",
+    "46dc24694f0156ad",
+    "137941d9a7d15e83",
+    "d19f193803bb54cf",
+    "4553135c5929558b"
+  ],
+  "input_shapes": {
+    "observed_clip": [
+      2,
+      3,
+      2,
+      256,
+      512
+    ],
+    "current_ego_status": [
+      2,
+      8
+    ],
+    "future_target": [
+      2,
+      4,
+      512,
+      1024
+    ],
+    "ego_trajectory": [
+      2,
+      8,
+      3
+    ]
+  },
+  "selected_patch_ids_after_bridge_step": [
+    [
+      207,
+      270,
+      206,
+      78
+    ],
+    [
+      275,
+      276,
+      505,
+      274
+    ]
+  ],
+  "actual_predictor_query_shape": [
+    2,
+    4,
+    4,
+    2074
+  ],
+  "original_transformer_and_head_reused": true,
+  "branch_off_bitwise_equal_before_and_after_step": true,
+  "branch_on_update0_bitwise_equal_under_no_grad_inference": true,
+  "future_detach_forward_equal": true,
+  "missing_target_loss_zero": true,
+  "baseline_parameter_sha256_before": "05af3ccd8a8e7db1b9b2ae2e77f81ef753446a3309989cef08c161ce0614476a",
+  "baseline_parameter_sha256_after": "05af3ccd8a8e7db1b9b2ae2e77f81ef753446a3309989cef08c161ce0614476a",
+  "original_parameter_count": 309981955,
+  "new_trainable_parameter_count": 1271489,
+  "gradient_norms": {
+    "planning_at_zero_initialization": {
+      "selector": 0.0,
+      "predictor": 0.0,
+      "bridge": 0.10146410782788547,
+      "original_model": 0.0
+    },
+    "planning_after_one_diagnostic_step": {
+      "selector": 9.394805189010932e-06,
+      "predictor": 1.0500550776602577e-05,
+      "bridge": 0.1014639032363054,
+      "original_model": 0.0
+    },
+    "future_auxiliary": {
+      "selector": 0.0,
+      "predictor": 1.5981776645768802,
+      "bridge": 0.0,
+      "original_model": 0.0
+    },
+    "detach_predicted_future": {
+      "selector": 0.0,
+      "predictor": 0.0,
+      "bridge": 0.10146389362718888,
+      "original_model": 0.0
+    },
+    "detach_selection": {
+      "selector": 0.0,
+      "predictor": 1.0500551107412167e-05,
+      "bridge": 0.1014639033797252,
+      "original_model": 0.0
+    }
+  },
+  "valid_future_patch_time_targets": 2560,
+  "valid_selected_patch_time_targets": 20,
+  "losses_diagnostic_only": {
+    "initial_planning": 0.07687821984291077,
+    "planning_after_one_step": 0.07686778903007507,
+    "future_auxiliary": 4.536360263824463
+  },
+  "timing": [
+    {
+      "condition": "official_original",
+      "wall_seconds_per_two_window_batch": [
+        0.1306371330138063,
+        0.11529383799643256,
+        0.1224676719866693,
+        0.12947897700360045,
+        0.13236145599512383
+      ],
+      "mean_seconds_per_batch": 0.1260478151991265,
+      "peak_allocated_bytes": 1347412480,
+      "peak_reserved_bytes": 1421869056,
+      "excludes": "sensor_disk_IO_future_teacher_encoding_official_scoring"
+    },
+    {
+      "condition": "extension_disabled",
+      "wall_seconds_per_two_window_batch": [
+        0.12984682199021336,
+        0.12979775900021195,
+        0.10668368499318603,
+        0.1209803960082354,
+        0.06727138499263674
+      ],
+      "mean_seconds_per_batch": 0.11091600939689669,
+      "peak_allocated_bytes": 1347412480,
+      "peak_reserved_bytes": 1421869056,
+      "excludes": "sensor_disk_IO_future_teacher_encoding_official_scoring"
+    },
+    {
+      "condition": "extension_enabled",
+      "wall_seconds_per_two_window_batch": [
+        0.09865648200502619,
+        0.12429614999564365,
+        0.1299183869996341,
+        0.13280449200829025,
+        0.11465002399927471
+      ],
+      "mean_seconds_per_batch": 0.12006510700157377,
+      "peak_allocated_bytes": 1353703936,
+      "peak_reserved_bytes": 1421869056,
+      "excludes": "sensor_disk_IO_future_teacher_encoding_official_scoring"
+    }
+  ],
+  "enabled_module_cuda_seconds_one_shared_gpu_trial": {
+    "encoder": 0.11853004455566406,
+    "patch_selection": 0.00023244799673557281,
+    "future_predictor": 4.419200122356415e-05,
+    "future_bridge": 0.0024391679763793943,
+    "official_transformer": 0.0008477439880371094
+  },
+  "backward_peak_allocated_bytes": 1349080576,
+  "physical_gpu": 0,
+  "gpu_free_bytes_before_load": 41530687488,
+  "total_wall_seconds": 45.17607422299625,
+  "source_files_sha256_unchanged": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/navsim_logs/trainval/2021.05.12.22.28.35_veh-35_00025_00115.pkl": "4d976c12ddd21c0bfbbad665103ddc466b4317a580aaeb3d16f22329c02bfc78",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/navsim_logs/trainval/2021.05.12.23.36.44_veh-35_00063_00141.pkl": "0a2fbe415ef67cfb6097386d6873256f52eecd3f233cee0ef916a3220670f2b4",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/0a6efaa561ee5041.jpg": "70271b798e89a00a4bf8416439fb4df21742f65281ece2c5b9bb3c5c98ece697",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/232b9975605d5d92.jpg": "efa41a39c2c2a1c4b79c7cc49b1f6b59b3fd64d1d71ab95b86f6ea861f439711",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/23a3b37022365ea8.jpg": "647b6a9a4fb32f25d1653db9d320e8f1c12633d8301fbd153285eacab614c7e4",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/664362ffbbef5397.jpg": "5dd2b1bce6d1cf1f5dce3417fff4e9f36a0a4f41bd0ca35c98af64418efb97dd",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/76599ef506145068.jpg": "5488a9c43092b6d057e356f621feac3b994130c4ecf8a5b9f28035650a1a10db",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/8380464b81b95633.jpg": "b4ae6d5c6202e286f0a2f7df77483250f75089b2d4667faa7b567e3c5d80ecf7",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/9efc1bfa0bcf5ca4.jpg": "19e9a8bf39874dda31457f31b3d2f93c5832172f83f3ff6822e4bfae9c03c153",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/aa7e48a177355e60.jpg": "b03588488f53954b06e56eb8749bb88b25c57326928c0527b4820c76e3f5cefc",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/d6175d001d0255f1.jpg": "7eae32b5dcf2bbe74e43b671f08df5b0fec424ad81ce6f06f80494d1917ebce7",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.22.28.35_veh-35_00025_00115/CAM_F0/e496035d288d5a96.jpg": "7a15cfc3cfe7d92e7d6bc9e2bb10419011b80754b7d3755746afa285089b24e1",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.23.36.44_veh-35_00063_00141/CAM_F0/2fb16e7e166e569f.jpg": "8c0a13e612e64a91479ca847a29d78666dddea7f027a928e956187b0151a4d77",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.23.36.44_veh-35_00063_00141/CAM_F0/5218a56551835605.jpg": "fb824ec44068a0d451b2e5fff295a0d5a464a6c0afeb6de35784a9a77faed125",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.23.36.44_veh-35_00063_00141/CAM_F0/b620e3c3fbcf5a67.jpg": "de23ef900412d8c896d4e370998380d3d3c32259233ae959709c3cac21f2b8ac",
+    "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.05.12.23.36.44_veh-35_00063_00141/CAM_F0/f3aab80633015406.jpg": "e819f8a9b714cb9b4b2366b0c416d3ff33aa28ed1255c4f461a27cb143a2083d"
+  },
+  "no_new_packages_or_shared_data_writes": true,
+  "limitations": [
+    "Only two train windows; not performance evaluation",
+    "ST gradients are biased and do not prove useful discrete selection",
+    "Fixed image-grid future target, not object tracking",
+    "Front-only; shared-GPU timing",
+    "No optimal choice, future prediction accuracy, safety gain or novelty claim"
+  ]
+}

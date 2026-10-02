@@ -1,8 +1,25 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
-## 현재 승인 실행 — `fd5fc5f` 이후 WA-JEPA 공식 재현
+## 현재 승인 실행 — 공식 Drive-JEPA planner의 선택적 미래 extension
 
-**최신상태(2026-10-02 21:03KST): 사용자요청으로 GPU0:5/GPU1:2/총7worker.**
+2026-10-02 사용자전환승인. WA는9253/12146성공/76.18%에서중단/보존했고자동재개하지않는다.
+PartialPDMS91.102506 vs동일9253scene Drive89.019762; 원본Drive 전체89.224320은그대로다.
+새설계 [선택적patch 미래 연결](drive_jepa_selective_future_connection.md): current front512patch→learnable K4
+→4futuretubelet latent→zero-init residual over original128image memories→원본Transformer/trajectoryhead.
+원본planner/encoder freeze, target은동일fullcheckpoint frozenencoder의future camera-grid feature다.
+미래GT는별도auxloss에만공급, policyauxgradient는차단/online current-only. ST는최적선택보장이아니다.
+연결진단만승인됐으며새성능결과/학습형선택성공/novelty확정은아니다. 자체pilot·확대·WA학습은보류한다.
+실제official fullcheckpoint strict load/2navtrain recording에서연결gate통과: off/init-on bitwise동일,
+bridge1step후planning→selector/predictor, aux→predictoronly, detachforward동일/해당backward차단.
+원본weights hash불변/원본planner modules재사용/신규1271489params. CPU전체103tests통과.
+최종project-train진단45.176s/peakallocated1.261GiB/현재GPU프로세스없음. [실측JSON](../results/drive_jepa_selective_future/connection_v1_20261002.json).
+단일diagnosticstep은bridge출력projection만갱신했고selector/predictor의유용한학습은아직미실행이다.
+이전v1b진단의내부split필터누락(heldout1/development1노출)은[별도audit](../results/drive_jepa_selective_future/project_split_exposure_audit_20261002.json)로공개했다.
+그weights/결과는최종진단에재사용하지않았다. 기존split은보존하지만노출recording을독립holdout으로주장하면안된다.
+
+## 보존된 실행 이력 — `fd5fc5f` 이후 WA-JEPA 공식 재현
+
+**이전상태(2026-10-02 21:03KST): 사용자요청으로 GPU0:5/GPU1:2/총7worker.**
 20:40각2개로재개후GPU0만증설. CPUqueue교체시기존GPUworker를adopt/중단0; profile v2.
 기존14-waypartition을bounded queue로순차처리하고model/12step/seed/scorer/config는불변.
 8686/12146(71.513%)완료·3460남음을출발점으로재사용하며학습/추가benchmark는없다.

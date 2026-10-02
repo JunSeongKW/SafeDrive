@@ -1,7 +1,8 @@
 # Planning-Aware Future Prediction
 
-현재 맥락과 ego 주행 의도에 따라, 같은 예산에서 planning에 유용한 객체의 미래를 선택적으로
-예측하도록 학습하는 연구 작업공간이다. **SafeDrive baseline 연구는 잠정 중단 상태다.**
+현재 맥락과 ego 주행 의도에 따라, 같은 예산에서 planning에 유용한 미래 예측 대상을 선택하도록
+학습하는 연구 작업공간이다. 현재 구현 단위는 camera patch이며 객체 instance와 구분한다.
+**SafeDrive baseline 연구는 잠정 중단 상태다.**
 이 이름은 연구 목적을 설명하는 작업명이며 최종 논문명·방법명·baseline은 아직 미확정이다.
 
 ## 처음 보는 사람/에이전트의 시작 순서
@@ -26,8 +27,16 @@
 
 ## 현재 구현과 과거 자산의 구분
 
-**현재 승인 작업(fd5fc5f 이후)**: [WA-JEPA 공식 재현·sparse interface](docs/official_wa_jepa_reproduction.md).
-**최신상태: 2026-10-02 21:03KST 사용자요청으로 GPU0은5개/GPU1은2개, 총7worker로증설.**
+**최신 사용자 지시(2026-10-02)**: [공식 Drive-JEPA planner 재사용 + 선택적 patch 미래 경로](docs/drive_jepa_selective_future_connection.md).
+WA-JEPA는9253/12146(76.18%)에서중단/보존했고자동재개하지않는다.
+[부분 결과](results/official_wa_jepa_reproduction/partial_navtest_at_drive_extension_20261002.json): PDMS91.102506,
+동일9253scene Drive89.019762; 전체평가수치가아니다. 원본Drive 전체PDMS89.224320은그대로보존한다.
+새경로는learnable K4 front patch선택→경량future latent→원본planner memory의zero-init residual이다.
+CPU전체103tests/실제project-train2recording의출력보존·gradient·비용gate를통과했고현재GPU작업없다.
+성능향상/최적선택/새논문기여를주장하지않는다. [연결결과JSON](results/drive_jepa_selective_future/connection_v1_20261002.json).
+
+**아래는 보존된 WA 작업 이력(fd5fc5f 이후)**: [WA-JEPA 공식 재현·sparse interface](docs/official_wa_jepa_reproduction.md).
+**이전상태: 2026-10-02 21:03KST 사용자요청으로 GPU0은5개/GPU1은2개, 총7worker로증설.**
 20:40 재개시각2개였고GPU0대기열만추가했다. 최소6GiB reserve/타인작업보호/기존14-waypartition 유지.
 8686/12146(71.5%)완료scene를 재사용하고 남은3460을 같은14-way partition에서 순차처리한다.
 모델·12-step·seed·scorer·checkpoint 불변. 12GiB launch admission/6GiB running reserve/우리worker만SIGINT.

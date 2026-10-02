@@ -1,0 +1,24 @@
+{
+  "issue": "The first diagnostic checked official navtrain membership but omitted the existing project recording-level train/development/held-out assignment.",
+  "rejected_run": "outputs/drive_jepa_selective_future/connection_v1b_20261002",
+  "rejected_shared_report": "results/drive_jepa_selective_future/connection_v1b_project_split_rejected_20261002.json",
+  "exposures": [
+    {
+      "recording": "2021.05.12.19.36.12_veh-35",
+      "previous_project_split": "held_out",
+      "scene_token": "5170c41411905efc",
+      "use": "Single bridge diagnostic optimizer step and gradient/loss inspection. NOT an official planning score or benchmark evaluation."
+    },
+    {
+      "recording": "2021.05.12.22.00.38_veh-35",
+      "previous_project_split": "development",
+      "scene_token": "e92f91c385185b7d",
+      "use": "Single bridge diagnostic optimizer step and gradient/loss inspection."
+    }
+  ],
+  "correction": "Keep all old logs/weights/results, do not reuse rejected diagnostic weights. Filter official navtrain segments by existing project assignment == train BEFORE loading candidates, and rerun from the original checkpoint/new seeded branch initialization.",
+  "original_split_manifest_unchanged": true,
+  "held_out_pristine_status": "This exposed recording must NOT be described as untouched independent holdout for subsequent Drive extension claims. Preserve the old manifest as historical; account for this exposure when fixing a future independent evaluation protocol.",
+  "no_automatic_split_reassignment": true,
+  "reported_to_user": true
+}

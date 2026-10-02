@@ -1202,3 +1202,62 @@ Packed-all finaltrajectory bitwise동일. Fixedpacking27.957ms/ID생성9.918ms; 
 CUDAelapsed는경쟁/CPUlaunchgap포함. SensorIO/scorer제외,onewarmup+onetime/condition.
 최초dense2call+추가packed/fixed4call,15분상한내완료/diagnosticprocess종료. 평가는계속실행중이다.
 새2CPUprofiletests통과, namespace오류는테스트로회귀방지. JSON module_timing_summary와보고서에한계기록.
+
+## 2026-10-02 — WA 보존·중단 / 공식 Drive-JEPA 선택적 미래 연결 gate
+
+기준865be79/clean tree. 사용자최신지시로WA를정리하고공식Driveplanner를재사용하는extension을승인받았다.
+우리7WAworker만UID/script/shard/GPU검증후SIGINT, CPUqueue자체종료/우리guard·aggregate종료.
+9253/12146성공/실패·중복0/76.181%에서중단, raw16JSONL SHA256검증. 남은2893은자동재개금지.
+PartialPDMS91.102506 vs동일9253scene Drive89.019762(+2.082744점). 전체점수로해석하지않는다.
+원본scene별부분CSV·JSON와새2835084bytes snapshot보존, snapshot SHA256
+6aed87ec3feea7ecb7c9813ab0855af3fea84c3036e21f5b894eadb14f71249b.
+WA sparse/all-ID/비용 및원본Drive전체89.224320/weights/Conda/pilot자산은그대로유지했다.
+
+실행전connection_v1 config/design고정: front512patch중learnable K4/uniquehard·softbackwardST,
+current feature·position·ego8채널→경량4tubelet latent predictor→zero-init residual128image memories
+→원본DriveTransformer/trajectoryhead. 원본planner를새로만들지않고모듈identity/weights hash검사했다.
+원본309981955params freeze/eval, 신규1271489params; futuretarget은동일FULL planning encoder의fixedcamera-grid latent.
+GT/미래validity는loss밖online forward에없다. Aux는detachedhardselection으로predictor별도호출→selector/bridge직접gradient차단.
+ST는current내용·좌표mixing의biasedsurrogate이며hardID교체의미래target/중복제외gradient는근사하지않는다.
+
+Conda패키지변경없이기존Drive전용환경을읽기전용재사용; 별칭envs/kjs-drive-jepa-extension.
+첫실제run은strictweights통과후exact500000us cadence검사에서중단; 원본jitter약0.5ms확인.
+기존adapter0.05s검사tolerance로수정/원본frame·offset유지, 처음실패디렉토리보존/결과튜닝아님.
+같은사전선정규칙의2개officialnavtrain native recording으로실행/val·navtest fitting없음.
+현재파일존재조건만입장에사용; 한window의+3/+4s future사진누락도window를유지하고loss만mask했다.
+
+공식strictfull missing/unexpected0, off전후/init-on(no-grad)원본bitwise동일.
+Planning atzero: selector0/predictor0/bridge.123523. 1bridge diagnosticstep후S1.30145e-5/P1.14573e-5/bridge.123518.
+Futureaux: S0/P1.247975/bridge0; futuredetach forward동일/S/P0/bridge양수; selectiondetach S0/P양수.
+원본gradient0/weights hash전후동일. Predictor실제query[2,4,4,2074]→latent[2,4,4,1024], ego[2,8,3].
+Futuretubelet6/8valid/selected24targets만감독. Selector/predictor는아직유용한선택·미래예측으로최적화되지않았다.
+Optimizer1step은초기zero bridge출력projection만갱신; 이후nonzerogradient검사가학습성공을뜻하지않는다.
+
+1warmup/5repeat/2windowbatch sharedGPU0:원본.136506s/off.129595s/on.196451s, peakallocated1.261GiB.
+CUDAhook1trial encoder176.909ms/selector.241ms/predictor.045ms/bridge.106ms/원본Transformer.866ms.
+공유GPU점유변동을포함해전체차이를순수moduleoverhead로주장하지않는다. SensorIO/targetteacher/scorer제외.
+성공run전체56.673s/최대15분·peak6GiB상한준수/OOM없음/종료후우리GPUprocess없음.
+공유JSON results/drive_jepa_selective_future/connection_v1_20261002.json, local원시로그/1stepstate는outputs에보존.
+최종CPU전체101tests(11신규)/Ruff/gitdiffcheck통과. 구현/runner/config해시와원본source/input해시를기록했다.
+Gate는원본보존·계산그래프·실행가능성만통과했다. 성능/최적선택/미래정확도/안전향상/novelty는미검증.
+WA/pilot/큰학습자동재개없음. 다음은같은K random/규칙/learned/currentfeature대조의작은train/dev 계획을검수한다.
+
+### 후속 split 감사 — 위 첫 contract 진단은 내부 train-only 요건을 만족하지 않아 기각
+
+Officialnavtrain 안에도기존projectheldout/dev가있음을뒤늦게확인했다. 위56.673s진단의두recording은
+2021.05.12.19.36.12_veh-35(held_out)/2021.05.12.22.00.38_veh-35(development)였다.
+단일bridgeupdate/gradient·loss열람을이미수행했으므로해당heldoutgroup을향후extension의미사용독립평가로취급하면안된다.
+원본split은그대로보존했고무단재배정하지않았다. rejected_shared_report와exposureaudit로공개/사용자에게알렸다.
+위report/state는보존만하고재사용하지않았다. 새필터는기존manifest assignments.split_by_recording==train을
+window로딩전에확인한다. Config에manifest경로/필수train조건추가, 회귀2tests로이전recording입장차단을확인했다.
+
+최종v1c_train_split은원본checkpoint/branch seed29에서새초기화. 실제recording은
+2021.05.12.22.28.35_veh-35 / 2021.05.12.23.36.44_veh-35, 둘다projecttrain/서로다른native log.
+Source/splitmanifest SHA기록, off/init-on bitwise/원본weights hash불변/gradient계약은다시통과했다.
+Bridge1step후S9.394805e-6/P1.050055e-5/bridge.101464; auxS0/P1.598178/bridge0.
+Target5/8tubelets valid/selected20targets. +2/+3/+4future사진없는trainwindow를그대로유지해loss만mask했다.
+최종two-windowbatch original.126048s/off.110916s/on.120065s. Encoder118.530ms/selector.232ms/predictor.044ms/bridge2.439ms.
+SharedGPU평균on이원본보다작아도speedup으로해석하지않는다. 최종진단45.176s/peak1.261GiB/종료.
+전체CPU103tests/Ruff통과. 공유connection_v1_20261002.json은이최종train-only결과이고,
+v1b결과는connection_v1b_project_split_rejected_20261002.json으로이동/보존했다. 과거측정값은바꾸지않았다.
+진행조건/미검증주장범위는동일하다. 학습형선택성공/성능개선/미래정확도를선언하지않는다.

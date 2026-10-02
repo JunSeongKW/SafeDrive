@@ -1,11 +1,17 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-02 21:17 KST (Codex)
+마지막 갱신: 2026-10-02 22:26 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
-**현재 우선 작업(fd5fc5f 이후 승인)**: [WA-JEPA 공식 재현과 sparse 검증](docs/official_wa_jepa_reproduction.md).
-최신(2026-10-02 21:03KST): **사용자요청으로GPU0 5개/GPU1 2개/총7worker로증설했다.**
+**현재 우선 작업(2026-10-02 최신 사용자 승인)**: [Drive-JEPA 선택적patch 미래경로 연결](docs/drive_jepa_selective_future_connection.md).
+WA-JEPA는9253/12146(76.181%)에서7개우리worker만SIGINT/CPUhelper종료, 실패·중복0/해시검증완료.
+부분PDMS91.102506 vs같은9253scene Drive89.019762; 전체결과가아니다. 남은2893은자동재개금지.
+원본Drive 전체PDMS89.224320/weights/환경/source를보존하고공식planner에K4 patchfuture residual을추가한다.
+CPU계약검사/실제navtrain 두recording 연결·gradient·비용만범위이며성능실험/대규모학습은미승인.
+
+**아래는 이전 WA 실행 이력**: [WA-JEPA 공식 재현과 sparse 검증](docs/official_wa_jepa_reproduction.md).
+이전(2026-10-02 21:03KST): **사용자요청으로GPU0 5개/GPU1 2개/총7worker로증설했다.**
 20:40 각2개/총4worker로재개한뒤GPU0여유확인후대기구간4·6·8을추가했다. 기존GPUworker중단없음.
 8686/12146scene(71.513%)보존/남은3460/실패·중복0을 출발점으로 기존14shard를 queue처리한다.
 원본model/source/checkpoint/12step/seed/scorer/config 불변; 새변경은동시성·메모리보호뿐이다.
@@ -61,7 +67,14 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-**현재 bounded dense평가 실행중**. 20:40KST 사용자권한 확인/16JSONL SHA256검증 후pause marker를acknowledged로보존.
+**현재 GPU작업 없음**: WA 평가/queue/guard/aggregate는중단됐다. Drive selective-future 실제연결진단도완료/프로세스종료했다.
+WA pause marker/16JSONL/새압축snapshot/부분CSV·JSON를보존했다. snapshot SHA256
+`6aed87ec3feea7ecb7c9813ab0855af3fea84c3036e21f5b894eadb14f71249b`.
+원본Drive planner와encoder를freeze/eval하며runtimeinput gradient는유지한다. 새패키지설치/환경수정없다.
+Conda 실행별칭 `/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python`은기존Drive전용prefix의symlink다.
+실행 `scripts/validate_drive_jepa_selective_future_connection.py`, 새local결과 `outputs/drive_jepa_selective_future/`.
+
+**아래는 중단 전 이력**: bounded dense평가. 20:40KST 사용자권한 확인/16JSONL SHA256검증 후pause marker를acknowledged로보존.
 공유 `results/official_wa_jepa_reproduction/shared_gpu_resume_state.json`; 과거pause/snapshotJSON는 역사적기록으로유지.
 Dedicated tmux `planning-aware-wa-jepa`: memory_guard/bounded_scheduler/aggregate와동시에최대7worker(0:5/1:2).
 `scripts/schedule_official_wa_jepa_workers.py`는 14-waypartition을변경하지않고같은GPU의다음shard를순차기동.
@@ -135,6 +148,19 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**최신WA중단결과**:9253/12146성공/실패·중복0, partialPDMS91.102506/같은scene Drive89.019762.
+CSV/JSON `results/official_wa_jepa_reproduction/partial_navtest_at_drive_extension_20261002.*`.
+Sparse/all-ID/모듈시간 결과는그대로보존. 전체WA점수/학습형선택성능/가설검증결과로해석금지.
+**Drive extension**: 설계·모듈·CPU계약검사 구현. 실제모델검사결과는새report에서확인하고기존pilot과혼동하지않는다.
+공식strict full loading/2project-train navtrain recording/11신규계약+2split검사·전체103tests통과.
+off 전후/init-on bitwise원본동일, 원본309981955params hash불변; 신규1271489params.
+zero-initialbridge1step후planning→selector9.39481e-6/predictor1.05006e-5/bridge.101464,
+aux→selector0/predictor1.598178/bridge0, futuredetach→S/P0/bridge는양수. 원본planner gradients0/frozen.
+Future teacher5/8tubelets valid/selected20target; +2/+3/+4s없는window도유지/현재선택에미래validity미사용.
+2window batch timing 원본.126048/off.110916/on.120065s, sharedGPU차이를순수overhead/속도향상으로해석금지.
+Peakallocated 약1.261GiB/최종진단45.176s/OOM없음/현재GPU작업없음. JSON `results/drive_jepa_selective_future/connection_v1_20261002.json`.
+이는연결검사이며selector/predictor최적화·미래정확도·planning향상은미검증; optimizer1step은bridge출력projection만갱신했다.
 
 **578be6e 이후 최신 조사**:
 
@@ -272,6 +298,18 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**865be79 이후 최신전환**: WA 우리7worker만정상중단, CPUhelper종료/16raw해시확인/9253scene부분JSON·CSV와snapshot보존.
+Drive 원본planner의module을재사용하는K4 learnable patch selection/경량futurepredictor/zero-init residual memory 구현.
+train-only2recording/1diagnosticstep/원본출력보존/gradient·target경계/비용검사 config·script·CPUtests 추가.
+Timestamp의sub-ms jitter를exact0.5s로오인한loader검사를수정하고실제offset을기록; 첫실패로그보존.
+원본Drive source/weights/환경·WA자산/공용원본/타인process는변경하지않았다.
+최종전체CPU103tests/Ruff/gitdiffcheck통과, 실제official2window연결gate통과/결과JSON·재현명령·한계문서공유.
+첫contract진단은officialnavtrain만확인하고내부split필터를누락하여held_out1/development1recording을사용했다.
+이전weights는재사용하지않고rejectreport/exposureaudit보존, 기존projecttrain만선택하는필터/회귀검사후새초기화로재검사했다.
+원본splitmanifest는수정하지않았고노출된heldout group은향후이extension의미사용독립평가로주장하면안된다.
+
+아래는865be79까지의변경이력이다.
+
 후속GPU0증설: 새v2 GPU별상한5/2, CPUqueue 기존4worker adopt후교체, GPUworker중단0/추가3개확인.
 Moduleprofiling script/2CPUtests/공유JSON/보고서 추가. Dense timing완료후packing진단namespace오류가있었고
 unwrap으로수정, 완료dense측정은보존·재사용했다. Packed-all최종trajectory bitwise동일/현재profiler종료.
@@ -317,7 +355,11 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-**현재는공유GPU0:5/GPU1:2로재개중. 기존7worker/GPU launcher명령을추가실행하지않는다.**
+**최신**: Drive extension 연결결과를ChatGPT·Claude와검수한다. Selector최적선택/미래정확도/공식planning향상은미검증이다.
+후속은같은K random/규칙/learned와현재feature memory대조·미래감독대조의작은train/dev 비교를사전설계한다.
+추가학습범위는별도승인후정한다. WA전체/기존pilot/residual/확대학습을자동재개하지않는다.
+
+**아래는 WA 중단 전 계획이며 현재 실행 금지**: 공유GPU0:5/GPU1:2. 기존7worker/GPU launcher명령을추가실행하지않는다.
 Queue/status/guard log→남은scene증가/메모리/OOM확인→14shard완료시자동aggregate를확인한다.
 새pause/메모리pressure가발생하면추가기동없이보존하고보고. 상세명령은WA보고서/새safety profile.
 
@@ -352,6 +394,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**최신extension미결**: fixedcamera-grid target은객체/ego정렬world state가아니다. ST는current내용과위치의biasedsurrogate이며
+hard선택변경의미래target 교체/중복제외 gradient를근사하지않는다. 원본planner재사용/gradient통과가선택유용성의증거는아니다.
+최초zeroresidual에서는selector/predictorgradient0이정상; bridge1step후검사와구분한다. 현재baselineweights는freeze/preserve.
+Split노출기록 `results/drive_jepa_selective_future/project_split_exposure_audit_20261002.json`을새최종프로토콜에반영해야한다.
 
 **이번재개의미결**: 공유GPU의타인메모리/연산수요는변동가능하며reserve/guard는OOM완전보장이아니다.
 전체평가완료시간은현재동시사용속도로실측후판단. Fullmetric은12146완료전확정하지않는다.

@@ -1,0 +1,69 @@
+{
+  "created_at_utc": "2026-10-02T12:55:55.367934+00:00",
+  "status": "USER_PAUSED_PARTIAL_NOT_FULL_BENCHMARK",
+  "expected_scenes": 12146,
+  "completed_scenes": 9253,
+  "successful_scenes": 9253,
+  "failed_tokens": [],
+  "remaining_scenes": 2893,
+  "protocol": "NAVSIM_v1.1_navtest_PDMS_official_12step_seed0",
+  "comparison_same_scene_subset_only": {
+    "no_at_fault_collisions": {
+      "wa_partial_percent": 99.24889225116178,
+      "drive_same_scenes_percent": 99.04895709499621,
+      "difference_points": 0.19993515616556579
+    },
+    "drivable_area_compliance": {
+      "wa_partial_percent": 97.92499729817357,
+      "drive_same_scenes_percent": 96.37955257754241,
+      "difference_points": 1.5454447206311528
+    },
+    "ego_progress": {
+      "wa_partial_percent": 84.84621844953006,
+      "drive_same_scenes_percent": 82.73263641542755,
+      "difference_points": 2.1135820341025067
+    },
+    "time_to_collision_within_bound": {
+      "wa_partial_percent": 96.80103750135092,
+      "drive_same_scenes_percent": 96.08775532259808,
+      "difference_points": 0.7132821787528343
+    },
+    "comfort": {
+      "wa_partial_percent": 99.98919269426132,
+      "drive_same_scenes_percent": 99.97838538852264,
+      "difference_points": 0.010807305738680384
+    },
+    "driving_direction_compliance": {
+      "wa_partial_percent": 98.6112612125797,
+      "drive_same_scenes_percent": 98.15735437155517,
+      "difference_points": 0.4539068410245335
+    },
+    "score": {
+      "wa_partial_percent": 91.1025056662502,
+      "drive_same_scenes_percent": 89.01976151978315,
+      "difference_points": 2.08274414646705
+    }
+  },
+  "scene_csv": "results/official_wa_jepa_reproduction/partial_navtest_at_drive_extension_20261002.csv",
+  "scene_csv_sha256": "9e1e300224b0c770b7a53cb452ff918d988eb252f53c32ead83d7c1193e725b6",
+  "raw_scene_sha256": {
+    "dense_full_scene_records_shard0.jsonl": "52dfb12f590a58748aaa9f2459b3adb42ed6d3b7ce0731b564b344d9da1a5c47",
+    "dense_full_scene_records_shard2.jsonl": "04266006ebb127b9548b1e803cc2e533db33cc472d819fec0eedbf646b1197d2",
+    "dense_full_scene_records_workers14_shard0.jsonl": "64203f634e2b8663f64067287a5eb9c37ce721dd6d649e5a34061b4b829d45c7",
+    "dense_full_scene_records_workers14_shard1.jsonl": "3251ec172551c412a57d807736562b0db5a5731640b2d156c0078035bcdcf5e5",
+    "dense_full_scene_records_workers14_shard10.jsonl": "733f6d5738a3f30a47618986ae588445ff9faff66d281956be315e62a0bc9c29",
+    "dense_full_scene_records_workers14_shard11.jsonl": "213c205aed427b28cf64df55a070774206c10befa23a79fbce0d1719c18eae4f",
+    "dense_full_scene_records_workers14_shard12.jsonl": "1c3f8a27604f790ebe9f67964730aaa49f4ee63e1d6d0d172ecaf8abf969a2cb",
+    "dense_full_scene_records_workers14_shard13.jsonl": "c1a9fcad7e01cd75c6d6ab78398d38e348fd116731737affe14c63fbf4b4f4f9",
+    "dense_full_scene_records_workers14_shard2.jsonl": "c385bc404fb78bca4e624316f82e7d81b2d67cd91d81e998c22b8b2ef7c191ba",
+    "dense_full_scene_records_workers14_shard3.jsonl": "25d67d0f76701e81ee08701c137418077be4f442dce6292b521f4419cc103608",
+    "dense_full_scene_records_workers14_shard4.jsonl": "ebe24281ed4762b9aae29cd143540d5ed50b6b8509aa1f0f882d489de7a0434d",
+    "dense_full_scene_records_workers14_shard5.jsonl": "909e715d0487aca297db0c87e2b214a57c41fb46851c36ec60dd966339da74b7",
+    "dense_full_scene_records_workers14_shard6.jsonl": "1ddca7ae3d3e00eea2ee31042033d779dfabdb7668b6787611b718e3470479e9",
+    "dense_full_scene_records_workers14_shard7.jsonl": "d4a41f26ed02e7b31531a5147615b62c4c8256281a5be3b22872f545157a9384",
+    "dense_full_scene_records_workers14_shard8.jsonl": "b408d0fd523e64cb0c7a8cd96189d9a35a3095aac561151263ad84d0babaa209",
+    "dense_full_scene_records_workers14_shard9.jsonl": "db6e00654d374880ad3a1c2cf05d0deecdc344cbf3984df4546169fa79dbb097"
+  },
+  "no_automatic_resume": true,
+  "sparse_results_preserved": "results/official_wa_jepa_reproduction/sparse_cost_summary.json"
+}
