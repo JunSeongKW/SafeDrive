@@ -1,7 +1,7 @@
 {
-  "free_device_bytes": 48932519936,
+  "free_device_bytes": 19192217600,
   "total_device_bytes": 50908823552,
-  "host_available_bytes": 401948475392,
+  "host_available_bytes": 368370786304,
   "policy": {
     "max_evaluation_processes_per_gpu": 7,
     "user_gpu_memory_cap_bytes": 45000000000,

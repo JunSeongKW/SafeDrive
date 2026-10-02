@@ -62,6 +62,17 @@ Fixed/random sparse는 소수 scene만, 학습형 selector와 새 학습은 금�
 `outputs/official_wa_jepa_reproduction/evaluation_pause.json`은명시적user pause이므로임의삭제하지않는다.
 재개검증/명령은HANDOFF와WA재현보고서를따른다. CPU보존검사는가능하지만worker/full/smoke기동은금지다.
 
+**2026-10-02 20:40KST 후속 사용자 지시가 위 pause를 해제**: 공유 GPU0·1에서 워커를 줄여 재개.
+각GPU 최대2/총4 worker, 기존14-way partition/source/weight/12step/seed/scorer 유지.
+`shared_gpu_resume_v1.json`의 12GiB launch admission과6GiB reserve, CPUguard와bounded queue를 사용한다.
+메모리압력으로 중단된 worker는 자동재시작하지 않으며 타인process는 절대중단하지 않는다.
+새사용자pause는 항상 우선하고 queue도pause marker를 확인한다. Pilot·학습·추가benchmark 실행은 여전히보류.
+
+**2026-10-02 21:03KST 사용자후속요청**: GPU0만최대5개로증설, GPU1은2개유지.
+`shared_gpu_resume_v2.json`의GPU별상한과동일12GiB입장/6GiBreserve를사용한다.
+CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하지않는다.
+모듈별비용진단의짧은단일model process는종료됐고공식dense평가는그대로실행중이다.
+
 ## 세션 시작 루틴
 
 ```bash

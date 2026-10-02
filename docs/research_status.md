@@ -2,9 +2,15 @@
 
 ## 현재 승인 실행 — `fd5fc5f` 이후 WA-JEPA 공식 재현
 
-**최신상태(2026-10-02 19:12KST): 사용자요청중단. GPU0·1을다른연구원에게반환.**
-우리14worker/CPU감시·집계종료/자동재개금지. 8686/12146(71.513%)보존,3460남음,실패·중복0.
-16개scene파일SHA256검증/별도압축snapshot보존. 재개는명시적사용자요청과GPU재배정확인후에만.
+**최신상태(2026-10-02 21:03KST): 사용자요청으로 GPU0:5/GPU1:2/총7worker.**
+20:40각2개로재개후GPU0만증설. CPUqueue교체시기존GPUworker를adopt/중단0; profile v2.
+기존14-waypartition을bounded queue로순차처리하고model/12step/seed/scorer/config는불변.
+8686/12146(71.513%)완료·3460남음을출발점으로재사용하며학습/추가benchmark는없다.
+16개scene파일SHA256검증/별도압축snapshot/이전pause를보존했다. 12GiB입장/6GiB reserve와우리PID만guard.
+Pressure-stop은자동retry없음. [재개기록](../results/official_wa_jepa_reproduction/shared_gpu_resume_state.json).
+[GPU0증설](../results/official_wa_jepa_reproduction/gpu0_worker_increase.json),
+[모듈별시간](wa_jepa_inference_module_timing.md): shareddenseencoder0.545s/predictor24.105s/model24.698s,
+predictor97.6%; isolated6scene predictor6.413s/agent6.694s(95.8%). Predictor가주병목이며학습/설정변경없음.
 [중단상태](../results/official_wa_jepa_reproduction/paused_evaluation_state.json),
 [백업metadata](../results/official_wa_jepa_reproduction/paused_snapshot_backup.json).
 

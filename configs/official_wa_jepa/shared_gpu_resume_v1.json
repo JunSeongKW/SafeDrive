@@ -1,0 +1,18 @@
+{
+  "purpose": "User-authorized resume on shared GPUs, bounded concurrency without changing the official model or 14-way partition",
+  "baseline_commit": "5ed8a60",
+  "evaluation_configuration": "configs/official_wa_jepa/reproduction_v1.json",
+  "maximum_concurrent_workers_per_gpu": 2,
+  "estimated_peak_worker_device_gib": 6,
+  "minimum_free_device_gib_before_launch": 12,
+  "minimum_device_free_gib_while_running": 6,
+  "minimum_host_available_gib_before_launch": 24,
+  "poll_interval_seconds": 5,
+  "user_gpu_memory_cap_bytes": 45000000000,
+  "execution_shards": 14,
+  "physical_gpus": [0, 1],
+  "automatic_retry_of_failed_or_guard_stopped_workers": false,
+  "preserved_completed_scenes_before_resume": 8686,
+  "remaining_scenes_before_resume": 3460,
+  "other_user_processes_may_be_stopped": false
+}

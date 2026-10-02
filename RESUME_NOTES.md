@@ -1166,3 +1166,39 @@ CPUguard/aggregate는재개시함께복원. 완료scene는skip하고in-flightsce
 2.89MB별도tar snapshot보존;SHA/파일크기/경로는paused_snapshot_backup.json에기록했다.
 Shared paused_evaluation_state.json/상태문서/재현명령갱신. CPUpause3+기존official7tests통과.
 GPU재시작/학습/튜닝/새평가없음. 사용자의재개요청전어떤GPU작업도자동재개하지않는다.
+
+## 2026-10-02 20:40 KST — 사용자요청 공유 GPU0/1에서 bounded 재개
+
+기준5ed8a60/clean tree. 다른연구원GPU작업이남아있지만사용자가여유범위에서워커를줄여재개하도록요청했다.
+16JSONL SHA256/8686scene·실패0/config SHA확인 후pause marker를acknowledged로보존했다.
+원본reproduction_v1.json/source/weight/Conda/12step/noise/scorer/14-waypartition을바꾸지않았다.
+새shared_gpu_resume_v1 profile: 각GPU 최대2/총4worker, 입장12GiB(로딩중worker추가reservation차감),
+worker 예상peak6GiB/running reserve6GiB/host24GiB/poll5s. OOM 완전보장이나타인메모리예약은아니다.
+새CPUqueue는현재구간이끝나면같은GPU의다음구간을처리하고완료scene를재평가하지않는다.
+Failed/guard-stop 자동재시도없음. Guard가압력marker를남기고등록된UID/script/shard/GPU검증우리worker만SIGINT.
+Launcher는특정기존shard를선택할수있고manifest atomic write로감시JSON읽기경합을방지했다.
+Dedicatedtmux guard/queue/aggregate복원, GPU0 workers55343/56687, GPU1 workers58708/59289기동확인.
+시작직전GPU free25539/18834MiB; warmup이후21875/7976MiB, 네worker가strict model loading을통과했다.
+초기38scene추가/총8724/실패0/pressure0; 기존8686행prefix SHA256는전부일치한다.
+새6CPU scheduling tests+기존3pause tests통과. 결과는진행상태이며최종공식평가완료가아니다.
+Runtime bounded_scheduler_status.json/로그로추적; 공유shared_gpu_resume_state.json은재개시점의기록이다.
+다른userprocess/공용데이터/기존Drive·pilot결과를수정하지않았다. 학습·selector·pilot재개없음.
+
+## 2026-10-02 21:03 KST — GPU0증설 / 모듈별추론병목진단
+
+사용자요청으로GPU0상한2→5/GPU1은2유지. v2 GPU별상한profile/CPUqueue liveworker adopt추가.
+UID/script확인된우리CPUqueue55310만SIGINT/교체; 기존GPUworker중단0.
+구간4·6·8의worker278797/280724/281681추가. 기존14-waypartition/config/12step/seed/scorer/가중치불변.
+Launch12GiB/reserve6GiB/우리PID만guard/pressure-stop 자동retry금지 정책을유지한다.
+공유gpu0_worker_increase.json/runtimequeue로그와상태로실측추적. Userprocess변경없음.
+
+사용자추론시간질문: 이전단독6scene18dense측정predictor6.41256s/agent6.69444s(95.79%)를재사용했다.
+Encoder와packing은미분리였으므로짧은공식model1개diagnostic을GPU0여유범위에서실행했다.
+Shareddense1scene encoder0.54474s/predictor24.10485s(12actualsteps,mean2.00874)/model24.69828s(97.60%).
+첫dense측정후packing AST진단이no_grad wrapperglobals를사용해NameError; inspect.unwrap으로수정하고
+완료dense측정을재사용/packed-all·fixed만수행했다. Officialevaluation실패가아니며기존결과변경0.
+Packed-all finaltrajectory bitwise동일. Fixedpacking27.957ms/ID생성9.918ms; sparsepredictor13.195s/model14.236s.
+동시worker수2→5/타인workload변동이있어new조건간ratio를통제된speedup으로해석하지않는다.
+CUDAelapsed는경쟁/CPUlaunchgap포함. SensorIO/scorer제외,onewarmup+onetime/condition.
+최초dense2call+추가packed/fixed4call,15분상한내완료/diagnosticprocess종료. 평가는계속실행중이다.
+새2CPUprofiletests통과, namespace오류는테스트로회귀방지. JSON module_timing_summary와보고서에한계기록.

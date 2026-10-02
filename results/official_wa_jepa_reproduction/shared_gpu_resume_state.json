@@ -1,0 +1,85 @@
+{
+  "status": "running_bounded_shared_gpu_evaluation",
+  "resume_timestamp_utc": "2026-10-02T11:40:44.189122+00:00",
+  "user_authority": "Explicit request to resume on GPU0/1 with reduced workers and OOM precautions",
+  "baseline_commit": "5ed8a60",
+  "completed_scenes_reused": 8686,
+  "remaining_scenes_at_resume": 3460,
+  "evaluation_configuration_sha256_unchanged": "c0ce392a711a453d7ea75ff1c919a3e25a828ce0e934ca6a1dea01525597f614",
+  "scheduling_profile": "configs/official_wa_jepa/shared_gpu_resume_v1.json",
+  "scheduling_profile_sha256": "d2cb7c32baf03dc34c5fa5bcf96e850aea9d9482a9b0eb02a748f8945992cc02",
+  "execution_shards_unchanged": 14,
+  "maximum_concurrent_workers_per_gpu": 2,
+  "reserve_gib_per_gpu": 6,
+  "gpu_telemetry_before_resume": [
+    "0, 23013, 25539, 100",
+    "1, 29717, 18834, 100",
+    "2, 13147, 35404, 95",
+    "3, 13461, 35091, 0",
+    "4, 37075, 11477, 100",
+    "5, 37082, 11469, 100",
+    "6, 37080, 11471, 100",
+    "7, 37041, 11511, 100"
+  ],
+  "automatic_failed_worker_retry": false,
+  "other_user_processes_modified": false,
+  "model_precision_steps_seed_and_scorer_unchanged": true,
+  "post_resume_verification": {
+    "timestamp_utc": "2026-10-02T11:51:38.500099+00:00",
+    "active_own_workers": [
+      {
+        "shard": 0,
+        "physical_gpu": 0,
+        "session": "official_wa_jepa_gpu0_worker0",
+        "pane_pid": 55343,
+        "log": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_wa_jepa_reproduction/dense_full_workers14_shard0.log",
+        "python_entrypoint": "/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python",
+        "process_owner_initials": "kjs"
+      },
+      {
+        "shard": 2,
+        "physical_gpu": 0,
+        "session": "official_wa_jepa_gpu0_worker2",
+        "pane_pid": 56687,
+        "log": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_wa_jepa_reproduction/dense_full_workers14_shard2.log",
+        "python_entrypoint": "/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python",
+        "process_owner_initials": "kjs"
+      },
+      {
+        "shard": 1,
+        "physical_gpu": 1,
+        "session": "official_wa_jepa_gpu1_worker1",
+        "pane_pid": 58708,
+        "log": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_wa_jepa_reproduction/dense_full_workers14_shard1.log",
+        "python_entrypoint": "/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python",
+        "process_owner_initials": "kjs"
+      },
+      {
+        "shard": 3,
+        "physical_gpu": 1,
+        "session": "official_wa_jepa_gpu1_worker3",
+        "pane_pid": 59289,
+        "log": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_wa_jepa_reproduction/dense_full_workers14_shard3.log",
+        "python_entrypoint": "/rhome/junseong/envs/kjs-wa-jepa-eval/bin/python",
+        "process_owner_initials": "kjs"
+      }
+    ],
+    "gpu_free_gib": {
+      "0": 21.3623046875,
+      "1": 7.7890625
+    },
+    "own_worker_memory_mib": {
+      "55343": 5424.0,
+      "56687": 5424.0,
+      "58708": 5424.0,
+      "59289": 5424.0
+    },
+    "completed_scenes": 8746,
+    "new_scenes_since_resume": 60,
+    "failed_scenes": 0,
+    "duplicate_scenes": 0,
+    "all_original_scene_prefix_sha256_verified": true,
+    "memory_pressure_stop_exists": false,
+    "related_cpu_tests_passed": 21
+  }
+}

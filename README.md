@@ -27,8 +27,14 @@
 ## 현재 구현과 과거 자산의 구분
 
 **현재 승인 작업(fd5fc5f 이후)**: [WA-JEPA 공식 재현·sparse interface](docs/official_wa_jepa_reproduction.md).
-**최신상태: 2026-10-02 사용자요청으로평가중단/GPU0·1반환. 8686/12146(71.5%)보존,3460남음.**
-명시적재개요청과GPU재배정확인전자동재개금지. [중단기록](results/official_wa_jepa_reproduction/paused_evaluation_state.json).
+**최신상태: 2026-10-02 21:03KST 사용자요청으로 GPU0은5개/GPU1은2개, 총7worker로증설.**
+20:40 재개시각2개였고GPU0대기열만추가했다. 최소6GiB reserve/타인작업보호/기존14-waypartition 유지.
+8686/12146(71.5%)완료scene를 재사용하고 남은3460을 같은14-way partition에서 순차처리한다.
+모델·12-step·seed·scorer·checkpoint 불변. 12GiB launch admission/6GiB running reserve/우리worker만SIGINT.
+타인작업은 건드리지 않는다. [재개기록](results/official_wa_jepa_reproduction/shared_gpu_resume_state.json),
+[이전중단기록](results/official_wa_jepa_reproduction/paused_evaluation_state.json).
+[모듈별추론병목측정](docs/wa_jepa_inference_module_timing.md): shared denseencoder0.545s/
+predictor24.105s/model24.698s, predictor약98%. 이전단독GPU측정은6.413/6.694s(95.8%).
 12-step 공식 source/published checkpoint를 고정하고 전용 Conda에서 원본 agent/scorer를 실행한다.
 Dense 전체 평가와 canonical all-ID/fixed/random 소수 scene 검증만 승인됐으며 학습은 하지 않는다.
 아래는 이전 기반 결정·보존 이력이다. 최신 범위는 HANDOFF와 WA-JEPA 보고서를 따른다.

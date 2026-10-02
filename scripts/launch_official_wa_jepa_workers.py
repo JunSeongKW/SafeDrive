@@ -37,12 +37,17 @@ def acknowledge_user_pause_for_explicit_resume(pause_marker, explicit_user_resum
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--gpu", type=int, choices=[0, 1], required=True)
+    parser.add_argument("--execution-shard", type=int, help="Launch only this existing partition; never change the partition count")
     parser.add_argument("--resume-user-paused", action="store_true", help="Only after explicit user resume and renewed GPU availability check")
     arguments = parser.parse_args()
     workspace = Path(__file__).resolve().parents[1]
     pause_marker = workspace / "outputs/official_wa_jepa_reproduction/evaluation_pause.json"
-    acknowledge_user_pause_for_explicit_resume(pause_marker, arguments.resume_user_paused)
     specification = json.loads((workspace / "configs/official_wa_jepa/reproduction_v1.json").read_text())
+    if arguments.execution_shard is not None:
+        assignments = specification["parallel_evaluation"]["physical_gpu_by_shard"]
+        if not 0 <= arguments.execution_shard < len(assignments) or assignments[arguments.execution_shard] != arguments.gpu:
+            raise ValueError("Requested shard does not belong to the requested physical GPU")
+    acknowledge_user_pause_for_explicit_resume(pause_marker, arguments.resume_user_paused)
     environment = workspace / specification["conda_environment"]
     python_entrypoint = prepare_owner_labeled_python_entrypoint(workspace, environment, specification["process_environment_alias"])
     socket_name = "planning-aware-wa-jepa"
@@ -53,8 +58,10 @@ def main():
     for shard_index, physical_gpu in enumerate(specification["parallel_evaluation"]["physical_gpu_by_shard"]):
         if physical_gpu != arguments.gpu:
             continue
+        if arguments.execution_shard is not None and shard_index != arguments.execution_shard:
+            continue
         session_name = f"official_wa_jepa_gpu{physical_gpu}_worker{shard_index}"
-        if subprocess.run(["tmux", "-L", socket_name, "has-session", "-t", session_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0:
+        if subprocess.run(["tmux", "-L", socket_name, "has-session", "-t", session_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False).returncode == 0:
             print(f"Already active: {session_name}")
             continue
         log_path = workspace / f"outputs/official_wa_jepa_reproduction/dense_full_workers14_shard{shard_index}.log"
@@ -63,7 +70,9 @@ def main():
         subprocess.run(["tmux", "-L", socket_name, "new-session", "-d", "-s", session_name, shell_command], check=True)
         pane_pid = int(subprocess.check_output(["tmux", "-L", socket_name, "display-message", "-p", "-t", session_name, "#{pane_pid}"], text=True).strip())
         manifest["registered_workers"].append({"shard": shard_index, "physical_gpu": physical_gpu, "session": session_name, "pane_pid": pane_pid, "log": str(log_path), "python_entrypoint": str(python_entrypoint), "process_owner_initials": specification["process_owner_initials"]})
-        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+        staged_manifest = manifest_path.with_name(f"{manifest_path.name}.{os.getpid()}.pending")
+        staged_manifest.write_text(json.dumps(manifest, indent=2) + "\n")
+        staged_manifest.replace(manifest_path)
         print(f"Started {session_name}, pid={pane_pid}", flush=True)
 
 
