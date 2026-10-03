@@ -5,20 +5,92 @@
   "reused_history": "outputs/drive_jepa_selective_future/region_research_v1_20261003/observed_history_cache",
   "reused_metric_manifest": "outputs/drive_jepa_selective_future/region_research_pdm_v1_20261003/metric_cache_manifest.json",
   "conditions": {
-    "encoder_planning": {"ego_intent": false, "auxiliary": "none", "targets": "uniform", "masked_observation": false},
-    "intent_planning": {"ego_intent": true, "auxiliary": "none", "targets": "uniform", "masked_observation": false},
-    "intent_uniform_future": {"ego_intent": true, "auxiliary": "future", "targets": "uniform", "masked_observation": false},
-    "intent_motion_future": {"ego_intent": true, "auxiliary": "future", "targets": "motion", "masked_observation": false},
-    "intent_planning_future": {"ego_intent": true, "auxiliary": "future", "targets": "planning", "masked_observation": false},
-    "intent_uniform_masked_future": {"ego_intent": true, "auxiliary": "future", "targets": "uniform", "masked_observation": true},
-    "intent_planning_masked_future": {"ego_intent": true, "auxiliary": "future", "targets": "planning", "masked_observation": true},
-    "intent_planning_masked_current": {"ego_intent": true, "auxiliary": "current", "targets": "planning", "masked_observation": true}
+    "encoder_planning": {
+      "ego_intent": false,
+      "auxiliary": "none",
+      "targets": "uniform",
+      "masked_observation": false
+    },
+    "intent_planning": {
+      "ego_intent": true,
+      "auxiliary": "none",
+      "targets": "uniform",
+      "masked_observation": false
+    },
+    "intent_uniform_future": {
+      "ego_intent": true,
+      "auxiliary": "future",
+      "targets": "uniform",
+      "masked_observation": false
+    },
+    "intent_motion_future": {
+      "ego_intent": true,
+      "auxiliary": "future",
+      "targets": "motion",
+      "masked_observation": false
+    },
+    "intent_planning_future": {
+      "ego_intent": true,
+      "auxiliary": "future",
+      "targets": "planning",
+      "masked_observation": false
+    },
+    "intent_uniform_masked_future": {
+      "ego_intent": true,
+      "auxiliary": "future",
+      "targets": "uniform",
+      "masked_observation": true
+    },
+    "intent_planning_masked_future": {
+      "ego_intent": true,
+      "auxiliary": "future",
+      "targets": "planning",
+      "masked_observation": true
+    },
+    "intent_planning_masked_current": {
+      "ego_intent": true,
+      "auxiliary": "current",
+      "targets": "planning",
+      "masked_observation": true
+    },
+    "encoder_planning_last6": {
+      "ego_intent": false,
+      "auxiliary": "none",
+      "targets": "uniform",
+      "masked_observation": false,
+      "num_trainable_encoder_blocks": 6
+    },
+    "intent_planning_last6": {
+      "ego_intent": true,
+      "auxiliary": "none",
+      "targets": "uniform",
+      "masked_observation": false,
+      "num_trainable_encoder_blocks": 6
+    },
+    "intent_uniform_future_last6": {
+      "ego_intent": true,
+      "auxiliary": "future",
+      "targets": "uniform",
+      "masked_observation": false,
+      "num_trainable_encoder_blocks": 6
+    },
+    "intent_planning_masked_future_last6": {
+      "ego_intent": true,
+      "auxiliary": "future",
+      "targets": "planning",
+      "masked_observation": true,
+      "num_trainable_encoder_blocks": 6
+    }
   },
-  "seeds": [29, 47, 83],
+  "seeds": [
+    29,
+    47,
+    83
+  ],
   "joint_updates": 512,
   "batch_size": 8,
-  "encoder_learning_rate": 0.000002,
-  "intent_learning_rate": 0.00001,
+  "encoder_learning_rate": 2e-06,
+  "intent_learning_rate": 1e-05,
   "prediction_learning_rate": 0.0001,
   "weight_decay": 0.01,
   "auxiliary_weight": 0.05,
@@ -29,13 +101,77 @@
   "maximum_peak_allocated_gib": 20,
   "minimum_free_gpu_gib": 26,
   "running_reserve_gib": 6,
-  "maximum_run_wall_seconds": 3600,
-  "maximum_worker_wall_seconds": 28800,
-  "maximum_cache_gib": 12,
-  "expected_counts": {"train": 512, "development": 192},
-  "primary_comparisons": [["intent_planning", "encoder_planning"], ["intent_uniform_future", "intent_planning"], ["intent_motion_future", "intent_uniform_future"], ["intent_planning_future", "intent_uniform_future"], ["intent_uniform_masked_future", "intent_uniform_future"], ["intent_planning_masked_future", "intent_planning_future"], ["intent_planning_masked_future", "intent_uniform_masked_future"], ["intent_planning_masked_future", "intent_planning_masked_current"]],
-  "decision": "Run all 8 conditions x3 paired seeds to update512; no best-dev checkpoint selection or result-dependent tuning. If resource/gradient/equivalence gates fail, preserve and diagnose before changing the registration.",
-  "scope": "Continued partial encoder fine-tuning from the full PF planning checkpoint, not full 330-hour Drive-JEPA pretraining. Frozen first22 blocks and fixed original planner; full training of final2 blocks and final norm. FiLM injects observed 8D status within trainable encoder. No selector or future residual at inference. Old final-feature cache is only teacher/reference; differentiable student tail uses freshly verified prefix features. Dev is not an independent test and may have been exposed during foundation training.",
+  "maximum_run_wall_seconds": 5400,
+  "maximum_worker_wall_seconds": 43200,
+  "maximum_cache_gib": 24,
+  "expected_counts": {
+    "train": 512,
+    "development": 192
+  },
+  "primary_comparisons": [
+    [
+      "intent_planning",
+      "encoder_planning"
+    ],
+    [
+      "intent_uniform_future",
+      "intent_planning"
+    ],
+    [
+      "intent_motion_future",
+      "intent_uniform_future"
+    ],
+    [
+      "intent_planning_future",
+      "intent_uniform_future"
+    ],
+    [
+      "intent_uniform_masked_future",
+      "intent_uniform_future"
+    ],
+    [
+      "intent_planning_masked_future",
+      "intent_planning_future"
+    ],
+    [
+      "intent_planning_masked_future",
+      "intent_uniform_masked_future"
+    ],
+    [
+      "intent_planning_masked_future",
+      "intent_planning_masked_current"
+    ],
+    [
+      "encoder_planning_last6",
+      "encoder_planning"
+    ],
+    [
+      "intent_planning_last6",
+      "intent_planning"
+    ],
+    [
+      "intent_uniform_future_last6",
+      "intent_uniform_future"
+    ],
+    [
+      "intent_planning_masked_future_last6",
+      "intent_planning_masked_future"
+    ],
+    [
+      "intent_planning_last6",
+      "encoder_planning_last6"
+    ],
+    [
+      "intent_uniform_future_last6",
+      "intent_planning_last6"
+    ],
+    [
+      "intent_planning_masked_future_last6",
+      "intent_uniform_future_last6"
+    ]
+  ],
+  "decision": "Run all12 conditions x3 paired seeds to update512, including four matched last6-depth controls added after the user questioned last2 sufficiency and before any cache/training result. No best-dev checkpoint selection or result-dependent tuning.",
+  "scope": "Continued partial encoder fine-tuning from the full PF planning checkpoint, not full 330-hour Drive-JEPA pretraining. Frozen first22 (last2 arms) or first18 (last6 arms) blocks and fixed original planner; full training of final2 or final6 blocks and final norm. FiLM injects observed 8D status within trainable encoder. No selector or future residual at inference. Old final-feature cache is only teacher/reference; differentiable student tail uses freshly verified prefix features. Dev is not an independent test and may have been exposed during foundation training.",
   "teacher": "Frozen official planning encoder, inspired by fixed-teacher latent learning; no EMA and not a reproduction of SALT's pixel-trained teacher.",
   "target_policy": "Uniform32 or16 highest observed motion/planner-Jacobian regions plus16 uniform remaining regions. Planner sensitivity is a current-feature proxy, not future utility labels. Future camera frames are teacher-only. All four future tubelets supervised with validity masks; horizon adaptation is not claimed.",
   "mask_policy": "Masked auxiliary stream removes all4 native patches of32 spatial regions BEFORE the first frozen encoder block. Two deterministic views per window/strategy; IDs preserved through RoPE. Dense current stream always feeds planner; all comparisons use identical observed images and teacher targets. Current control has identical four queries and future validity mask but current targets.",

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 15:32 KST (Codex)
+마지막 갱신: 2026-10-03 15:34 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -8,7 +8,7 @@
 기존 selector/future bridge 제거와 encoder 입력에 ego intent 추가를 승인했다.
 `docs/encoder_future_learning.md`, `configs/encoder_future_learning/controlled_comparison_v1.json`.
 LoRA 없이 원본 ViT 마지막2block+norm 전체 가중치를 학습하고 encoder 내부FiLM을 비교한다.
-앞22block/원본planner/teacher고정;512train/192dev/8조건×3seed×512update. 이전학습금지는이번범위에서해제.
+앞22block/원본planner/teacher고정;512train/192dev/12조건×3seed×512update. 이전학습금지는이번범위에서해제.
 현재 CPU5계약검사통과, prefix준비·GPU gradient gate·학습·공식개발PDM은아직미실행.
 완료된 이전실험/WA/navtest를자동재개하지않으며공용데이터/원본자산을보존한다.
 
@@ -585,7 +585,7 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-새승인실험: exact prefix 준비 → GPU gradient/마스킹 gate →24run 학습 → 공식개발PDM/공통representation probe →전체결과 보고.
+새승인실험: exact prefix 준비 → GPU gradient/마스킹 gate →36run 학습 → 공식개발PDM/공통representation probe →전체결과 보고.
 
 **현재 다음 판단:** 기존global비교군유지. 현재특징전달과미래변화정보의planning기여를분리하는후속설계가우선이며구현/학습미실행. 완료27run/PDM을반복하지않고새sweep는자동시작하지않는다.
 

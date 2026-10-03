@@ -15,7 +15,7 @@ encoder's output for the same observed scene?
 ## Design registered before outcomes
 
 Configuration: `configs/encoder_future_learning/controlled_comparison_v1.json`.
-Eight conditions x three seeds (29/47/83), 512 updates, batch8. Same existing
+Twelve conditions x three seeds (29/47/83), 512 updates, batch8. Same existing
 512 train /192 development windows, 64/24 disjoint recording groups. Original
 foundation-training exposure is not excluded: this is development evidence, not
 an independent benchmark. No best-dev checkpoint selection or adaptive sweep.
@@ -83,10 +83,10 @@ encoder/predictor gradient routes, unique spatial masks, and intent sensitivity.
 GPU checks require nonzero planning AND future-loss gradients to encoder blocks,
 zero planning gradients to the training-only head, and fixed original model hash.
 Masked observations are computed at encoder input, not by deleting contextualized
-full-view features. Disk cap12GiB; allocated GPU cap20GiB, admission26GiB,
-running reserve6GiB, one process per approved GPU. Max1hour/run,8hours/worker.
+full-view features. Disk cap24GiB; allocated GPU cap20GiB, admission26GiB,
+running reserve6GiB, one process per approved GPU. Max1.5hours/run,12hours/worker.
 
-All final checkpoints receive official PDM scoring on the same192 dev windows,
+All36 final checkpoints receive official PDM scoring on the same192 dev windows,
 scene-macro ADE, recording-cluster bootstrap intervals, paired seeds, command and
 two alternative speed strata. PDM component scores must accompany overall score.
 Same-encoder frozen linear probes compare future information with identical probe
@@ -96,3 +96,7 @@ vary only the encoder input; sensitivity alone does not establish correct behavi
 ## Status
 
 Implementation and gates in progress. No learned performance result yet.
+
+## Depth control amendment before any training outcome
+
+User questioned whether last2 training suffices. Add last6 full-update arms for encoder_planning, intent_planning, intent_uniform_future, intent_planning_masked_future; same inputs/order/learning rates/update counts. Cache block18 and22 outputs separately. This checks a larger adaptation depth without treating either partial adaptation as full pretraining. First sandbox GPU launch failed before loading; retry with required GPU access. No training result informed the amendment.

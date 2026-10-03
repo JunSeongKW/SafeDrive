@@ -50,7 +50,7 @@ def guard(specification, started, run_started=None):
 def build_encoder_and_head(baseline_model, options, seed, specification):
     torch.manual_seed(seed + 61000)
     encoder = IntentConditionedEncoderTail(baseline_model.image_encoder,
-        specification["num_trainable_encoder_blocks"], options["ego_intent"]).cuda().eval()
+        options.get("num_trainable_encoder_blocks", specification["num_trainable_encoder_blocks"]), options["ego_intent"]).cuda().eval()
     torch.manual_seed(seed + 62000)
     prediction_head = TrainingOnlyFutureHead().cuda().eval()
     return encoder, prediction_head
@@ -113,7 +113,11 @@ def prepare_prefix_cache(agent, specification, output_directory, started):
             torch.testing.assert_close(features["status_feature"], teacher["current_ego_status"], atol=0, rtol=0)
             observed_clip = torch.stack((features["camera_feature_2"], features["camera_feature_1"]), 1)[None].cuda()
             ego_status = teacher["current_ego_status"][None].cuda()
-            observed_prefix = encode_frozen_prefix(agent._model, observed_clip)
+            observed_prefix_last6 = encode_frozen_prefix(agent._model, observed_clip, num_trainable_blocks=6)
+            with torch.no_grad():
+                observed_prefix = observed_prefix_last6
+                for block in agent._model.image_encoder.blocks[-6:-2]:
+                    observed_prefix = block(observed_prefix, mask=None, attn_mask=None, T=1, H_patches=16, W_patches=32)
             with torch.no_grad():
                 reproduced_features = encoder(observed_prefix, ego_status)
                 torch.testing.assert_close(reproduced_features[0].cpu(), teacher["current_patch_latents"], atol=1e-5, rtol=1e-5)
@@ -129,6 +133,7 @@ def prepare_prefix_cache(agent, specification, output_directory, started):
             history = torch.load(history_path, map_location="cpu", weights_only=True)
             prepared = {
                 "observed_prefix_features": observed_prefix[0].cpu(),
+                "observed_prefix_features_last6": observed_prefix_last6[0].cpu(),
                 "current_teacher_regions": pool_spatial_regions(teacher["current_patch_latents"]),
                 "future_teacher_regions": pool_spatial_regions(teacher["future_target_latents"]),
                 "future_region_valid_mask": pool_spatial_regions(teacher["future_target_valid_mask"].float()[..., None]).squeeze(-1) == 1,
@@ -139,18 +144,45 @@ def prepare_prefix_cache(agent, specification, output_directory, started):
                 "original_trajectory": original_trajectory[0].cpu(),
             }
             for strategy in ("uniform", "planning"):
-                masked_prefixes, observed_ids, selected_ids = [], [], []
+                masked_prefixes, masked_prefixes_last6, observed_ids, selected_ids = [], [], [], []
                 for view_index in range(specification["masked_views_per_strategy"]):
                     digest = hashlib.sha256(f"encoder-mask:{token}:{view_index}".encode()).digest()
                     generator = torch.Generator().manual_seed(int.from_bytes(digest[:8], "little") % (2**63 - 1))
                     selected_regions = select_training_regions(planning_scores[None], strategy,
                         specification["selected_region_budget"], generator).cuda()
                     visible_indices = visible_patch_indices(selected_regions)
-                    masked_prefix = encode_frozen_prefix(agent._model, observed_clip, observed_patch_indices=visible_indices)
+                    masked_prefix_last6 = encode_frozen_prefix(agent._model, observed_clip, num_trainable_blocks=6,
+                                                               observed_patch_indices=visible_indices)
+                    with torch.no_grad():
+                        masked_prefix = masked_prefix_last6
+                        for block in agent._model.image_encoder.blocks[-6:-2]:
+                            masked_prefix = block(masked_prefix, mask=visible_indices, attn_mask=None, T=1, H_patches=16, W_patches=32)
+                    if record_index == 0 and strategy == "uniform" and view_index == 0:
+                        with torch.no_grad():
+                            removed_pixel_mask = torch.ones(1, 512, device="cuda")
+                            removed_pixel_mask.scatter_(1, visible_indices, 0)
+                            removed_pixel_mask = torch.nn.functional.interpolate(removed_pixel_mask.reshape(1, 1, 16, 32),
+                                                                                size=(256, 512), mode="nearest")[:, :, None]
+                            changed_clip = observed_clip + removed_pixel_mask * .25
+                            changed_prefix = encode_frozen_prefix(agent._model, changed_clip, num_trainable_blocks=6,
+                                                                 observed_patch_indices=visible_indices)
+                            torch.testing.assert_close(changed_prefix, masked_prefix_last6, atol=0, rtol=0)
+                            normalized_clip = agent._model.transform(observed_clip.permute(0, 2, 1, 3, 4).reshape(2, 3, 256, 512))
+                            normalized_clip = normalized_clip.reshape(1, 2, 3, 256, 512).permute(0, 2, 1, 3, 4)
+                            official_masked_features = agent._model.image_encoder(normalized_clip, masks=visible_indices)
+                            reproduced_masked_features = encoder(masked_prefix, ego_status, visible_indices)
+                            torch.testing.assert_close(official_masked_features, reproduced_masked_features, atol=1e-5, rtol=1e-5)
+                            write_json(output_directory / "input_mask_contract.json", {
+                                "changed_removed_pixels_leave_prefix_bitwise_equal": True,
+                                "masked_prefix_tail_matches_official_masked_encoder": True,
+                                "maximum_masked_feature_difference": float((official_masked_features - reproduced_masked_features).abs().max()),
+                                "visible_patch_count": visible_indices.shape[1], "token": token})
                     masked_prefixes.append(masked_prefix[0].cpu())
+                    masked_prefixes_last6.append(masked_prefix_last6[0].cpu())
                     observed_ids.append(visible_indices[0].cpu())
                     selected_ids.append(selected_regions[0].cpu())
                 prepared[f"{strategy}_masked_prefix_features"] = torch.stack(masked_prefixes)
+                prepared[f"{strategy}_masked_prefix_features_last6"] = torch.stack(masked_prefixes_last6)
                 prepared[f"{strategy}_visible_patch_indices"] = torch.stack(observed_ids)
                 prepared[f"{strategy}_selected_regions"] = torch.stack(selected_ids)
             torch.save(prepared, cache_path)
@@ -190,12 +222,14 @@ def load_training_cache(specification, output_directory):
 
 def observed_training_batch(cache, indices, options, update_index, generator, specification):
     training_batch = {key: cache[key][indices].cuda() for key in (
-        "observed_prefix_features", "ego_status", "ego_trajectory_target", "future_teacher_regions",
+        "ego_status", "ego_trajectory_target", "future_teacher_regions",
         "future_region_valid_mask", "current_teacher_regions")}
+    depth_suffix = "_last6" if options.get("num_trainable_encoder_blocks", 2) == 6 else ""
+    training_batch["observed_prefix_features"] = cache["observed_prefix_features" + depth_suffix][indices].cuda()
     if options["masked_observation"]:
         strategy = options["targets"]
         view_index = update_index % specification["masked_views_per_strategy"]
-        training_batch["auxiliary_prefix_features"] = cache[f"{strategy}_masked_prefix_features"][indices, view_index].cuda()
+        training_batch["auxiliary_prefix_features"] = cache[f"{strategy}_masked_prefix_features{depth_suffix}"][indices, view_index].cuda()
         training_batch["auxiliary_visible_indices"] = cache[f"{strategy}_visible_patch_indices"][indices, view_index].cuda()
         training_batch["selected_regions"] = cache[f"{strategy}_selected_regions"][indices, view_index].cuda()
     else:
@@ -235,7 +269,8 @@ def evaluate_encoder(agent, encoder, cache, records, split, batch_size=8, collec
     for offset in range(0, len(indices), batch_size):
         selected_indices = indices[offset:offset + batch_size]
         ego_status = cache["ego_status"][selected_indices].cuda()
-        encoder_features = encoder(cache["observed_prefix_features"][selected_indices].cuda(), ego_status)
+        depth_suffix = "_last6" if len(encoder.blocks) == 6 else ""
+        encoder_features = encoder(cache["observed_prefix_features" + depth_suffix][selected_indices].cuda(), ego_status)
         trajectory = plan_from_encoder_features(agent._model, encoder_features, ego_status)["trajectory"].cpu()
         target = cache["ego_trajectory_target"][selected_indices]
         errors = (trajectory[..., :2] - target[..., :2]).norm(dim=-1).mean(-1)
@@ -365,7 +400,8 @@ def run_training_condition(agent, cache, records, specification, output_director
     development_result, development_features = evaluate_encoder(agent, encoder, cache, records, "development", collect_features=True)
     indices = diagnostic_indices
     with torch.no_grad():
-        observed_prefix = cache["observed_prefix_features"][indices].cuda()
+        depth_suffix = "_last6" if len(encoder.blocks) == 6 else ""
+        observed_prefix = cache["observed_prefix_features" + depth_suffix][indices].cuda()
         original_status = cache["ego_status"][indices].cuda()
         original_features = encoder(observed_prefix, original_status)
         changed_status = original_status.clone()

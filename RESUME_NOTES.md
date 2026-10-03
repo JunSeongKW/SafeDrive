@@ -1500,3 +1500,5 @@ Sparse연결밀도19.63%이나dense연산이므로FLOPs효율주장없음. 객�
 ## 2026-10-03 Encoder 자체 미래 표현 학습 승인 및 사전등록
 
 사용자승인: encoder 입력/학습목적 변경 및 불필요한selector/predictor제거 가능. LoRA사용아님: 원본last2block+norm full update와FiLM.8조건×3seed×512update,같은512/192window;현재준비단계,CPU5검사통과.설계/근거는docs/encoder_future_learning.md.
+
+사용자가last2충분성을질문해학습전last6대조4조건을추가했다. 총12조건×3seed. 첫sandbox실행은CUDA불가로모델로드전에종료했고sandbox밖GPU권한으로재시도한다.
