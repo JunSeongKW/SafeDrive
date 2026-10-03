@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 17:07 KST (Codex)
+마지막 갱신: 2026-10-03 17:09 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -492,14 +492,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 등록한 추가 12회까지 완료하고 본 36회와 통합한 48회 표·대응 CI·상황별·PDM 구성 점수·공통 future probe를 저장했다.
-- 동일 target 마스킹 통제와 10배 보조 loss 통제를 포함했다. 본 source ae5c2da / 추가 source e7d57b1 기록을 보존했다.
-- 추가 평가의 최종 validation이 공용 input_mask_contract를 잘못된 출력 루트에서 읽던 오류를 수정했다.
-  저장 prediction hash와 PDM/probe를 대조해 보고서만 복구했으며 학습과 scorer 재실행은 없었다.
-- 48개 encoder를 실제 현재 영상에서 재추론했고 future head 없는 추론과 encoder 내부 명령 개입을 검증했다.
-- 통합 검증 JSON, 공유 CSV/JSON, SVG/PDF 그림과 한국어 결과 보고서를 추가했다.
-- 마지막 두 블록의 ADE 감소와 미래 감독의 추가 효과를 구분하고 PDM 불확실성·상황별 악화·독립 test 부재를 명시했다.
-- README·연구 상태·AGENTS·HANDOFF·RESUME_NOTES를 완료 상태로 갱신했다.
+- 실험 결과 commit `955e82f`를 보존하고 원격 공유 재시도 결과를 기록했다.
+- GitHub push는 DNS 제한 밖 재시도에도 기존 VS Code Git 인증 오류로 실패했다.
+- 학습·평가·코드·수치는 변경하지 않았으며 인증 복구 후 push만 남았다.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
@@ -577,7 +572,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 이번은 작은 512 train / 192 dev의 부분 encoder continued fine-tuning이며 LoRA·전체 encoder 사전학습은 아니다.
 미래 target은 fixed camera region·4개 horizon·32개 region으로 고정했다. Learned adaptive selector·객체 추적·동적 예산은 미구현이다.
 Bootstrap은 seed 평균 차이의 recording 불확실성만 나타내고 다중 비교 보정이 없다.
-원본과 공용 데이터, 이전 결과는 보존했고 모든 GPU 작업은 종료했다. 원격 push는 이전 인증 실패가 있어 이번에 재시도한다.
+원본과 공용 데이터, 이전 결과는 보존했고 모든 GPU 작업은 종료했다.
+결과 commit은 `955e82f`다. `git push mine`은 sandbox DNS 실패 후 제한 밖에서 재시도했으나
+VS Code Git 인증 소켓 ECONNREFUSED / No anonymous write access로 실패했다.
+실험·평가·로컬 보존은 완료했으며 인증 복구 후 push만 남았다.
 
 **아래는 이전 실험의 미결 사항이다.**
 
