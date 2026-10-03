@@ -181,6 +181,7 @@ class ContextualResidualFuturePredictor(nn.Module):
         current_patch_latents,
         ego_status,
         all_patch_coordinates,
+        query_time_embeddings=None,
     ):
         batch_size, patch_budget, _ = selected_current_latents.shape
         memory = (
@@ -189,15 +190,20 @@ class ContextualResidualFuturePredictor(nn.Module):
         )
         ego_query = self.ego_projection(ego_status)
         memory = torch.cat((memory, ego_query[:, None]), dim=1)
+        time_embeddings = (
+            self.time_embeddings.weight
+            if query_time_embeddings is None
+            else query_time_embeddings
+        )
         queries = (
             self.current_projection(selected_current_latents)[:, :, None]
             + self.coordinate_projection(coordinates)[:, :, None]
-            + self.time_embeddings.weight[None, None]
+            + time_embeddings[None, None]
             + ego_query[:, None, None]
         )
         self.last_prediction_query_shape = tuple(queries.shape)
         decoded = self.decoder(queries.flatten(1, 2), memory).reshape(
-            batch_size, patch_budget, self.future_tubelet_count, -1
+            batch_size, patch_budget, time_embeddings.shape[0], -1
         )
         return selected_current_latents[:, :, None] + self.delta_head(decoded)
 

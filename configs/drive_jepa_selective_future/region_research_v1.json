@@ -1,0 +1,158 @@
+{
+  "question": "At fixed K8, does location-preserving future fusion, sparse dependency routing, masked observed-region history, or observed motion selection improve planning and learned selection utility?",
+  "basis_commit": "5cac8aa",
+  "reused_cache": "outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/cache_index.json",
+  "warmup_root": "outputs/drive_jepa_selective_future/architecture_followup_v1_20261002",
+  "reference_root": "outputs/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003",
+  "conditions": {
+    "located_dense_learned": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "learned",
+      "sparse_connections": false,
+      "history_objective": "none",
+      "current_features_only": false
+    },
+    "located_dense_random": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "random",
+      "sparse_connections": false,
+      "history_objective": "none",
+      "current_features_only": false
+    },
+    "located_sparse_learned": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "learned",
+      "sparse_connections": true,
+      "history_objective": "none",
+      "current_features_only": false
+    },
+    "located_sparse_random": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "random",
+      "sparse_connections": true,
+      "history_objective": "none",
+      "current_features_only": false
+    },
+    "located_sparse_current_only": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "learned",
+      "sparse_connections": true,
+      "history_objective": "none",
+      "current_features_only": true
+    },
+    "sparse_history_unmasked": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "learned",
+      "sparse_connections": true,
+      "history_objective": "unmasked",
+      "current_features_only": false
+    },
+    "sparse_history_masked": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "learned",
+      "sparse_connections": true,
+      "history_objective": "masked",
+      "current_features_only": false
+    },
+    "sparse_history_masked_random": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "random",
+      "sparse_connections": true,
+      "history_objective": "masked",
+      "current_features_only": false
+    },
+    "sparse_history_masked_motion": {
+      "region_side": 2,
+      "region_budget": 8,
+      "selection_mode": "motion",
+      "sparse_connections": true,
+      "history_objective": "masked",
+      "current_features_only": false
+    }
+  },
+  "seeds": [
+    29,
+    47,
+    83
+  ],
+  "joint_updates": 800,
+  "evaluation_updates": [
+    0,
+    800
+  ],
+  "batch_size": 8,
+  "learning_rate": 2e-05,
+  "selector_learning_rate": 4e-06,
+  "weight_decay": 0.01,
+  "future_auxiliary_weight": 0.01,
+  "gradient_clip_norm": 1.0,
+  "maximum_wall_seconds": 10800,
+  "maximum_condition_wall_seconds": 1200,
+  "maximum_peak_allocated_gib": 8,
+  "minimum_free_gpu_gib": 16,
+  "running_reserve_gib": 6,
+  "expected_cache_counts": {
+    "train": 512,
+    "development": 192
+  },
+  "primary_comparisons": [
+    [
+      "located_dense_learned",
+      "preserved_global_learned"
+    ],
+    [
+      "located_sparse_learned",
+      "located_dense_learned"
+    ],
+    [
+      "sparse_history_masked",
+      "sparse_history_unmasked"
+    ],
+    [
+      "sparse_history_masked_motion",
+      "sparse_history_masked"
+    ],
+    [
+      "sparse_history_masked",
+      "sparse_history_masked_random"
+    ]
+  ],
+  "secondary_comparisons": [
+    [
+      "located_dense_learned",
+      "located_dense_random"
+    ],
+    [
+      "located_sparse_learned",
+      "located_sparse_random"
+    ],
+    [
+      "located_sparse_learned",
+      "located_sparse_current_only"
+    ],
+    [
+      "sparse_history_masked_motion",
+      "sparse_history_masked_random"
+    ]
+  ],
+  "decision": "No result-dependent architecture choices: all nine conditions preregistered and run in listed priority order, 3 seeds x800. A negative result ends this sweep.",
+  "budget_definition": "K output region tokens per horizon; native area K*side^2, resolution and token budget reported separately. Encoder/current context always dense.",
+  "scope": "Same 704 windows and recording split, fixed seeds/update800. Frozen original planner/encoder. Add observed frames0,1 for train-only anchor and IA observed motion. No navtest, no adaptive sweeps. Optional official scorer on these development windows only; it is not a benchmark reproduction.",
+  "success_evidence": "Report all last-checkpoint runs, paired seed averages and recording-cluster 95% bootstrap intervals, context strata and cost. Preliminary development evidence; do not select checkpoints or claim independent test improvement.",
+  "current_reconstruction_weight": 0.01,
+  "connection_sparsity_weight": 0.0001,
+  "minimum_observed_history_count": 704,
+  "paper_adaptations": {
+    "SPARTAN": "One state-conditioned hard edge layer in future-to-planner bridge, ST threshold and fixed sparsity penalty. No Gumbel sampling, Lagrangian constraint, multi-layer path regularizer or causal claims. Dense attention predictor unchanged.",
+    "C-JEPA": "Training-only hide latest selected spatial-region history, keep earlier two-frame anchor, reconstruct sampled current and all selected futures. Spatial regions are not persistent object identities. Fully observed inference.",
+    "IA-JEPA": "Observed four-frame second difference of absolute pixel changes pooled into8x16, deterministic top8. No future frames, collision labels, learned saliency, or ego-motion compensation."
+  }
+}

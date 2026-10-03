@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 13:12 KST (Codex)
+마지막 갱신: 2026-10-03 13:44 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -116,6 +116,11 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-03 최신 사용자 승인:** SPARTAN/C-JEPA/IA-JEPA 착안 변형을 순서대로 적용하고 planning 개선 확인.
+`region_research_v1.json` 9조건×3seed×800update를 결과 확인 전 등록했다.
+계획 `docs/drive_jepa_region_research.md`; 구현·CPU 검사 후 GPU1 여유 확인해 실행한다.
+과거 새 학습 보류 범위는 이 명시적 요청에 한해 갱신됐다. WA/pilot/navtest는 재개하지 않는다.
 
 새region실험15run과후속위치진단모두완료/GPU작업없음. 새출력 `outputs/drive_jepa_selective_future/spatial_region_selection_v1_20261003/`.
 중단시 같은config/output에 `train_drive_jepa_spatial_regions.py --resume`; optimizer/scheduler/RNG/완료update복원.
@@ -444,6 +449,10 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 원본cache/구결과/기존전체recovery는반복하지않았다.
 
 ## 3. 마지막 커밋 이후 바뀐 것
+
+- SPARTAN/C-JEPA/IA-JEPA 착안 통제 비교를 등록: 위치 bridge, sparse edge, 과거 anchor 마스킹, 관측 motion 선택.
+- 같은 K8/704window/3seed/800update, 현재 특징·random·unmasked 대조군과 gradient/위치 CPU 검사를 추가했다.
+- 원본 planner/encoder와 기존 실험 자산을 보존하며 결과 확인 전 조건을 고정한다.
 
 - 등록15run완료/33분29초/원본hash불변. 결과·동일6scene gallery·checkpoint감사완료.
 - 최신사용자지시반영: 추가count/size중단, 동일K8위치학습경로읽기전용진단등록.

@@ -3,7 +3,7 @@
 No NAVSIM imports, new planner or future-GT argument in online forward.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import torch
 import torch.nn.functional as F
@@ -122,7 +122,7 @@ class FutureMemoryResidualBridge(nn.Module):
         nn.init.zeros_(self.output_projection.weight)
         nn.init.zeros_(self.output_projection.bias)
 
-    def forward(self, current_image_memory, predicted_future_latents, coordinates):
+    def forward(self, current_image_memory, predicted_future_latents, coordinates, selection=None):
         memory = (
             self.future_projection(predicted_future_latents)
             + self.coordinate_projection(coordinates)[:, :, None]
@@ -283,6 +283,7 @@ class DriveJEPASelectivePatchFuture(nn.Module):
             selection_weights = selected.selection_weights
             if detach_selection:
                 selection_weights = selection_weights.detach()
+                selected = replace(selected, selection_weights=selection_weights)
             predicted_future = self._predict_selected(
                 prediction_context, current_ego_status, selection_weights
             )
@@ -301,7 +302,7 @@ class DriveJEPASelectivePatchFuture(nn.Module):
         )
         image_memory = self.baseline_model.image_fc(pooled.clone())
         residual = (
-            self.future_bridge(image_memory, predicted_future, coordinates)
+            self.future_bridge(image_memory, predicted_future, coordinates, selection=selected)
             if enable_future_branch
             else torch.zeros_like(image_memory)
         )

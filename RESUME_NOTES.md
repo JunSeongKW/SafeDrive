@@ -1472,3 +1472,8 @@ CUDA_VISIBLE_DEVICES=1 LD_LIBRARY_PATH=/rhome/junseong/PlanningAwareFuturePredic
   --config configs/drive_jepa_selective_future/location_learning_diagnosis_v1.json \
   --output-directory outputs/drive_jepa_selective_future/location_learning_diagnosis_<run_id>
 ```
+
+
+## 2026-10-03 — SPARTAN/C-JEPA/IA-JEPA 착안 적용 등록 (Codex)
+
+사용자 명시적 적용·성능 확인 요청. region_research_v1.json에 9조건×3seed×800update를 결과 확인 전 고정했다. 위치 bridge→희소 관계→관측 history mask→관측 motion 순서이며 current-only/random/unmasked 대조군 포함. 같은 704window/원본 frozen planner와 warmup/batch순서 재사용. 과거 관측 4frame 존재704/704, dev 5초 state192/192. 코드 관련 CPU40검사통과. 공식 논문 재현이 아닌 region 구조 변형이며 자세한 범위는 docs/drive_jepa_region_research.md. 학습은 등록 commit 뒤 GPU1 여유 재확인 후 실행, navtest/WA는 재개하지 않는다.
