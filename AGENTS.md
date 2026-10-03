@@ -75,6 +75,13 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**최신 완료: 사용자 요청 LPWM 객체 중심 표현 파일럿.**
+공식 main 4cf53c4·Sketchy checkpoint·전용 환경에서 raw/rotation_stabilized ×3seed×300update를 완료했다.
+진입점 `docs/lpwm_navsim_adaptation_results.md`, `docs/lpwm_paper_and_driving_assessment.md`.
+복원은 개선되나 주요 객체 대응·과거만의 미래 예측 추가 효용은 미확정이다.
+이전 학습 금지는 이번 명시적 LPWM 파일럿 승인 범위에서 해제됐고 등록 6회는 종료됐다.
+완료 파일럿·WA·기존 encoder 재실행이나 추가 sweep을 자동 시작하지 않는다.
+
 **2026-10-03 최신 완료: encoder 자체 미래 표현 학습.**
 사용자의 encoder 재학습 요청으로 마지막 2개/6개 block 직접 갱신, 내부 intent FiLM,
 미래 감독·입력 마스킹·target 선택·강한 보조 loss 비교를 16조건 × 3 seed × 512 update로 완료했다.

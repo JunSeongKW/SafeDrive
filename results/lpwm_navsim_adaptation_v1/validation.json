@@ -1,0 +1,14 @@
+{
+  "raw_seed29_replay_max_metric_difference": 0.0,
+  "rotation_stabilized_seed29_replay_max_metric_difference": 0.0,
+  "geometry_tests": "3 passed",
+  "training_runs": 6,
+  "evaluated_models": 8,
+  "future_intervention_max_difference": 0.0,
+  "official_source_tracked_files_unchanged": true,
+  "source_note": "Initial two evaluations were replayed to add masks and reconstruction LPIPS; all previously saved metrics agree within 1e-6; initial results retained.",
+  "evaluation_script_sha256": "ca347680660229bcf141b6d7d74aa2f044a2918a4feb1c515184d23906f0aa16",
+  "host_process_check": "No remaining LPWM training/evaluation processes; only the inspection command matched ps output",
+  "visual_inspection": "4 PNG figures checked; particle overlay, reconstruction, metrics, controlled occlusion",
+  "source_diff_check": "Official tracked source unchanged; project git diff --check passed"
+}

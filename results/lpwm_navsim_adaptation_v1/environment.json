@@ -1,0 +1,17 @@
+{
+  "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+  "base_environment_read_only": "/rhome/junseong/miniconda3/envs/alpasim-cuda128",
+  "environment": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/lpwm_navsim_adaptation",
+  "module_versions": {
+    "torch": "2.8.0+cu128",
+    "torchvision": "0.23.0+cu128",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "cv2": "5.0.0",
+    "matplotlib": "3.11.1",
+    "PIL": "12.3.0",
+    "requests": "2.34.2",
+    "einops": "0.8.2",
+    "Crypto": "3.23.0"
+  }
+}

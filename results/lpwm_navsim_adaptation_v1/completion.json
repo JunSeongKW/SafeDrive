@@ -1,0 +1,21 @@
+{
+  "completed_at": "2026-10-03T18:55:01.049868+09:00",
+  "training_runs": 6,
+  "optimizer_updates": 1800,
+  "evaluated_models": 8,
+  "evaluation_clips_per_model": 30,
+  "supplementary_read_only_replays": 2,
+  "all_processes_finished": true,
+  "planning_evaluated": false,
+  "training_seconds_sum": 807.3942330500286,
+  "artifact_sha256": {
+    "outputs/lpwm_navsim_adaptation_v1/visualization/01_particles_and_masks.png": "b1d11ebd17b5777bbea2535466528c67a776a7f5530f1e984d7ede8c59bde086",
+    "outputs/lpwm_navsim_adaptation_v1/visualization/04_controlled_occlusion.png": "845415675eb14882819e021de96724611a89182873025383a2e2fe482d83ed69",
+    "outputs/lpwm_navsim_adaptation_v1/visualization/03_quantitative_summary.png": "3670768a74b59eaaf4fbe33258f89c224ddeddc9f71bd7c5f281729369202e6a",
+    "outputs/lpwm_navsim_adaptation_v1/visualization/02_reconstruction_and_causal_forecast.png": "40e958bc9a6997e4d94d136caeeea80290d18d092f1a1c93e29eb80540aadbef",
+    "outputs/lpwm_navsim_adaptation_v1/visualization/particles_straight.gif": "ab1384c4a969e898204510f62e2065165b75ba8b13ff085dca0777f787e091fa",
+    "outputs/lpwm_navsim_adaptation_v1/visualization/particles_projected_overlap.gif": "b92ec99d1cac6a8c8acf90fa4e2503dab7fb6ac9823e33ad8008ad404d110f87",
+    "outputs/lpwm_navsim_adaptation_v1/visualization/particles_turn.gif": "73b52add57a85818d706b9ba467ab15442213b48492f1d59c42f8765cca21006",
+    "results/lpwm_navsim_adaptation_v1/lpwm_navsim_visualizations.pdf": "59fe9af6ffcae180388a5d5c7d2bee7dfc19b7a3c2df1e2b5232a8c76a1ca3fe"
+  }
+}

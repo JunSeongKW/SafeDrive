@@ -1585,3 +1585,21 @@ dfaf7f0318b25029(-11.693442cm),7c72be317cca5e4a(-0.443103cm),fe38f82d16e35220(+5
 공유PDF/JSON results/encoder_future_learning_v1/visualization/.
 새학습·모델inference·PDM재계산·GPU사용0. 기존weights/실험수치/원본데이터수정없음.
 결과보고서의실험결과이미지절과README/research_status/HANDOFF갱신.
+
+
+## 2026-10-03 18:48 KST LPWM 객체 표현의 NAVSIM 적응 완료
+
+**완료: LPWM의 NAVSIM 객체 표현 적응 실험.**
+공식 main `4cf53c4`와 49쪽 논문을 조사하고 Sketchy checkpoint를 strict loading했다.
+원영상·회전 보정 × 3 seed × 300 update, 90 train/30 development clip의 학습·평가를 완료했다.
+원영상 적응의 복원 MSE는 0.05680→0.01640이지만, 객체 박스 대응률은 17.71→18.47%로 추가 개선 미확정이다.
+과거만 사용하는 미래 MSE는 0.03015, 마지막 영상 유지 0.03032로 차이 CI가 0을 포함한다.
+회전 보정은 시야 손실이 커 채택하지 않는다. Planning/PDMS 이득은 평가하지 않았다.
+보고서 `docs/lpwm_navsim_adaptation_results.md`, 논문 검토 `docs/lpwm_paper_and_driving_assessment.md`.
+실제 이미지·GIF `outputs/lpwm_navsim_adaptation_v1/visualization/`, 공유 PDF/JSON `results/lpwm_navsim_adaptation_v1/`.
+좌표 검사 3개, 미래 입력 교란 검사 8개 모델 통과. 등록 작업 종료, 기존 Drive/WA/공용데이터 보존.
+
+공식원본코드불변, horizon scalar7·KL contiguous adapter만외부에서적용. 109545263개전체parameter직접적응.
+학습6회합계807.39초/peak10.145GiB/원본보존. 새전용venv에pycryptodome만추가.
+첫2평가에마스크와복원LPIPS를추가저장하기위한재추론은기존metric차이0; 초기결과보존.
+결과source/run config/환경/selection/checkpoint hash는 results/lpwm_navsim_adaptation_v1/에있다.

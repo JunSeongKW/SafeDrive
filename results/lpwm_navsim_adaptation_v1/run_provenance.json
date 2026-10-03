@@ -1,0 +1,30 @@
+{
+  "source_commit": "7d0677c75321ac19922ce31912786793ec1c716d",
+  "official_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "training_source_sha256": {
+    "src/planning_aware_future_prediction/object_centric/lpwm_bridge.py": "3ba98034c9bc05ad65735f1b8dd24cbec7edb62ab3a38c04213d0e9433304845",
+    "src/planning_aware_future_prediction/object_centric/__init__.py": "802014c404cadceab406d781090ec53a05f917cab9090e47199efa4ca5e77ba6",
+    "scripts/run_lpwm_navsim_adaptation.py": "9b9f0f764a11ee1f38838b86ba83ba5c884868cf23ecd6f246ed9fa7ad65883a",
+    "configs/lpwm_navsim_adaptation/pilot_v1.json": "d64352a2e6d89479d37e9095fac0615ab85c552345c3a1cd091a544a02393228"
+  },
+  "torch": "2.8.0+cu128",
+  "python": "3.12.13",
+  "cuda_gpus": [
+    0,
+    1
+  ],
+  "launched_source_sha256": {
+    "scripts/run_lpwm_navsim_adaptation.py": "9b9f0f764a11ee1f38838b86ba83ba5c884868cf23ecd6f246ed9fa7ad65883a",
+    "src/planning_aware_future_prediction/object_centric/lpwm_bridge.py": "72745ae965d188d6c87e0b4ee885a519373b9a40247fea0304fdd50501c3ce03",
+    "configs/lpwm_navsim_adaptation/pilot_v1.json": "d64352a2e6d89479d37e9095fac0615ab85c552345c3a1cd091a544a02393228"
+  },
+  "prelaunch_manifest_note": "Initial training_source_sha256 snapshot preceded a half-pixel evaluation coordinate correction; launched_source_sha256 reflects the actual source loaded by all six runs. Objective and training code unchanged.",
+  "checkpoint_download": {
+    "official_source": "https://github.com/taldatech/lpwm",
+    "public_handle": "YVMnyZYJ",
+    "filename": "sketchy.zip",
+    "bytes": 406488462,
+    "sha256": "979a0cee748c67bf9f6dda3a86b5caffca1f2ba204d54ba483189bcdfcf4454f",
+    "mega_mac_verified": true
+  }
+}

@@ -1,8 +1,19 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 17:23 KST (Codex)
+마지막 갱신: 2026-10-03 18:55 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
+
+**완료: LPWM의 NAVSIM 객체 표현 적응 실험.**
+공식 main `4cf53c4`와 49쪽 논문을 조사하고 Sketchy checkpoint를 strict loading했다.
+원영상·회전 보정 × 3 seed × 300 update, 90 train/30 development clip의 학습·평가를 완료했다.
+원영상 적응의 복원 MSE는 0.05680→0.01640이지만, 객체 박스 대응률은 17.71→18.47%로 추가 개선 미확정이다.
+과거만 사용하는 미래 MSE는 0.03015, 마지막 영상 유지 0.03032로 차이 CI가 0을 포함한다.
+회전 보정은 시야 손실이 커 채택하지 않는다. Planning/PDMS 이득은 평가하지 않았다.
+보고서 `docs/lpwm_navsim_adaptation_results.md`, 논문 검토 `docs/lpwm_paper_and_driving_assessment.md`.
+실제 이미지·GIF `outputs/lpwm_navsim_adaptation_v1/visualization/`, 공유 PDF/JSON `results/lpwm_navsim_adaptation_v1/`.
+좌표 검사 3개, 미래 입력 교란 검사 8개 모델 통과. 등록 작업 종료, 기존 Drive/WA/공용데이터 보존.
+
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **완료(2026-10-03): encoder 자체 미래 표현 학습과 개발 평가.**
 LoRA 없이 마지막 2개 또는 6개 encoder block을 직접 학습하고,
@@ -135,6 +146,13 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**LPWM 등록 학습·평가 종료.** 6개 모델/총1800update, 8모델×30clip 평가를 완료했다.
+PID2583673/2583803 queue는 PILOT_VARIANT_DONE으로 종료, 추가 읽기 전용 2개 재평가도 종료했다.
+GPU 학습 peak10.145GiB, 합계 학습807.39초. 현재 새 학습을 실행하지 않는다.
+파일럿 source/config/checkpoint/metrics는 outputs/lpwm_navsim_adaptation_v1/와 results/에 보존한다.
+
+아래는 이전 완료 작업의 이력이다.
 
 **최신 시각화 완료:** `scripts/visualize_encoder_planning_results.py`로 저장 결과만 CPU에서 렌더링했다.
 PNG `outputs/encoder_future_learning_v1/visualization/`, 공유 PDF/감사 JSON `results/encoder_future_learning_v1/visualization/`.
@@ -294,6 +312,14 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+LPWM 6run 완료: 원영상 적응 복원 MSE0.01640, 객체 점 포함31.76%, 박스IoU≥0.3 대응18.47%, 미래MSE0.03015.
+공식무적응은0.05680/40.73%/17.71%/0.06934, 마지막영상유지 미래MSE0.03032다.
+객체 박스 대응 개선+0.76pp의recording CI[-5.80,+6.43]로0포함. 회전보정 미래MSE0.08633이나
+공통유효영역에서는raw0.03025/rotation0.03319로 시야손실이 악화의 상당부분을 차지한다.
+과거4→미래4(2초), future GT/pose 누수없음. 객체 지표는투영GT있는24clip,영상지표30clip.
+3개좌표검사/8모델미래교란0/두재평가기존지표차이0,6개checkpoint보존.
+4PNG/3GIF/공유PDF, 논문및코드검토와결과보고서를작성했다.
 
 **시각화에서 확인한 거리 변화:** 6블록 planning의 192개 구간에서 seed 평균 ADE 기준
 113개 개선·4개 ±1mm·75개 악화다. ±1mm는 표시용이며 통계적 동등성 기준이 아니다.
@@ -503,15 +529,20 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청에 따라 encoder 실험 결과를 한국어 이미지 3장으로 렌더링하는 CPU script를 추가했다.
-- 전체 ADE 변화·개선/악화 구간 분포·현재 명령별 PDM, 실제 전방 영상/BEV/시간별 오차,
-  미래 감독 추가 시 경로 이동량과 오차 변화를 각각 시각화했다.
-- 저장 결과 hash 보존, 원본 사진 token/cache hash, 3사례 GT ADE 대조를 검증했다.
-- PDF와 provenance JSON을 공유하고 결과 보고서·README·연구 상태·인수인계를 갱신했다.
-- 기존 checkpoint/결과 변경, 새 학습·모델 추론·PDM scoring·GPU 사용은 없었다.
-
+- 사용자 요청 LPWM 공식 repository와 checkpoint를 다운로드하고 49쪽 논문·코드·선행연구를 조사했다.
+- 별도 환경, NAVSIM 읽기 전용 clip adapter, strict loader, 카메라 회전 보정, 공식 ELBO 학습과 과거만의 평가를 구현했다.
+- 90train/30development, 원영상·회전보정 ×3seed×300update를 완료하고 무적응·격자·persistence 대조군과 비교했다.
+- 객체/영상/상황별/공통시야/가림 진단·recording bootstrap과 실제 PNG4장/GIF3개/PDF를 생성했다.
+- 결과·source 및 checkpoint provenance·검증3개·미래누수검사·환경기록과 README/AGENTS/HANDOFF/연구상태를 갱신했다.
+- 복원 개선과 객체 이해를 구분했으며 planning 이득은 미검증으로 기록했다. 기존 모델·환경·공용 데이터는 보존했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**LPWM 파일럿 완료 후 제안:** 결과·실제 particle 시각화를 검토한다.
+다음 후보는 RGB 복원 추가 확대보다 의미 feature/depth 감독, particle 상태의 ego motion 분리,
+가림 belief, encoder 내부 ego intent와 planning loss의 통제 비교다. 후속 구조는 아직 실행하지 않았다.
+완료6run/전체navtest/WA를 자동재개하지 않는다. 최신결론은 LPWM 결과보고서를 우선한다.
+아래는 이전 단계의 이력이다.
 
 **최신 사용자 요청 처리:** 생성한 세 이미지를 사용자에게 전달한다. 상세 설명은 결과 보고서의
 `실험 결과 이미지` 절이다. 이전에 질문한 다음 방향은 시각화 요청으로 전환됐으며 새 학습을 시작하지 않았다.
@@ -583,6 +614,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**최신 LPWM 범위:** 작은 continued adaptation과 개발 평가이며 논문 전체 재현/새 독립test/PDMS 평가는 아니다.
+Object-centric decomposition과planning중요도는미확정, particle ID는persistent객체ID가 아니다.
+회전warp는병진시차를제거하지않고시야손실이있다. 가림후보는projected-overlap proxy이며semantic/visibility정답이없다.
+SAVi++/3D-DLP를고려하면depth/3D추가자체는novelty가아니다. 완료학습은더확대하지않는다.
+
 
 **시각화 범위:** 저장된 개발 결과와 실제 사진이다. 선택된 3사례는 결과 기반 설명용이며 일반 성능 표본이 아니다.
 BEV에 지도/장애물 정보는 없고 closed-loop 재생도 아니다. 미래 특징 중요도나 생성된 미래 영상으로 해석하지 않는다.
