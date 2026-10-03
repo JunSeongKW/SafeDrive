@@ -1652,3 +1652,5 @@ User requested no further interruptions for optional profiling. Current supervis
 
 Health check while training continued: {"update": 400, "training_loss": 25.616626262664795, "fixed_scene_means": {"initial_reconstruction_mse": 0.04461017088033259, "update128_reconstruction_mse": 0.01081353472545743, "initial_forecast_mse": 0.05366304004564881, "update128_forecast_mse": 0.035020887618884444, "last_frame_persistence_mse": 0.040329359006136656, "initial_presence_sum": 41.96882390975952, "update128_presence_sum": 45.00778150558472}}
 All four core module gradients nonzero; GPU0/1 utilization100percent, free11.3GiB each. Do not equate early reconstruction improvement with object binding or planning improvement. No extra training interruption.
+
+Commit dea246b saved full training implementation and health records. git push mine: sandbox DNS failed; escalated retry reached GitHub but VSCode credential socket was unavailable and remote rejected authentication. Background GPU training continues independently.

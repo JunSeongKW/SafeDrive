@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 21:52 KST (Codex)
+마지막 갱신: 2026-10-03 21:54 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -681,6 +681,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 공유 상태: dea246b 로컬 commit 완료. `git push mine`은 DNS sandbox 오류 후 host 재시도했으나 VSCode credential socket 연결거절/GitHub 인증실패. 원격 반영 미완료이며 GPU학습은 영향 없이 계속된다.
+
 
 **현재 확정/미결:**
 - Stage1 공개전체 LPWM world-model 적응 → 성공 시 Stage2 저LR LPWM+전체planner 공동학습. frozen LPWM 및 별도Stage3는 사용자정정으로 대체됨.
