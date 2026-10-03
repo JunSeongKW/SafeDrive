@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 14:58 KST (Codex)
+마지막 갱신: 2026-10-03 14:59 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -461,6 +461,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+- 결과 commit `215cb6b` 이후 원격 인증 실패를 인수인계에 기록했다. 실험 코드·결과 수치는 변경하지 않았다.
+
 - 등록27run(21600update)을완료하고공식PDM192장면×34조건6528score를집계했다.
 - 기존globalcheckpoint6개를optimizer없이복원/ADE·module hash대조후PDM으로동일평가했다.
 - 162CPU검사/원본hash보존/gradient차단/recording분리/미래입력차단근거를validation.json에저장했다.
@@ -630,7 +632,7 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 
 ## 5. 확정 범위 / 미결
 
-**현재 미결:** 세착안변형의추가이득/미래예측필요성/학습선택우월성미확인. Region변형이며객체기반논문재현/독립test/동적예산개선이아니다. 원격 push 결과는 세션 종료 시 확인한다.
+**현재 미결:** 세착안변형의추가이득/미래예측필요성/학습선택우월성미확인. Region변형이며객체기반논문재현/독립test/동적예산개선이아니다. 실험 결과 로컬 commit은 `215cb6b`다. `git push mine`은 sandbox DNS 차단 후 밖에서 재시도했으나, 기존 VS Code Git 인증 소켓 ECONNREFUSED / No anonymous write access로 실패했다. 인증 복구 후 push만 남았으며 실험·평가는 모두 완료됐다.
 
 현재region-retention은frozen current-planner의정보유지proxy이며 semantic/인과/future중요도정답아님.
 Globally contextual latent/mean대체분포변화가한계. 큰영역평균은공간상세도를낮추므로픽셀면적과출력token예산을별도보고.

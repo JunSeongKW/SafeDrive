@@ -1494,3 +1494,5 @@ Sparse연결밀도19.63%이나dense연산이므로FLOPs효율주장없음. 객�
 새방법채택·추가sweep없음. 현재특징전달과미래변화정보의planning기여분리만후속설계로권고하며미실행.
 상세docs/drive_jepa_region_research.md; 공유results/drive_jepa_region_research_v1/(summary.json,comparison.csv,validation.json,planning_comparison.png,development_pdm_results.json).
 실행train_drive_jepa_region_research.py; 평가evaluate_drive_jepa_region_research_pdm.py/evaluate_preserved_region_research_controls.py; 집계report_drive_jepa_region_research.py.
+
+결과 commit `215cb6b`. `git push mine`은 sandbox DNS 실패 후 밖에서 재시도했으나 기존 VS Code Git 인증 소켓 ECONNREFUSED / No anonymous write access로 실패했다. 로컬 결과·코드는 모두 커밋됐고 작업 트리는 정리됐다. 원격 인증 복구 후 push만 남으며 GPU/학습/평가 작업은 없다.
