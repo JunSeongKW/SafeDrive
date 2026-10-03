@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 23:00 KST (Codex)
+마지막 갱신: 2026-10-03 23:02 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -702,6 +702,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 최신 공유 상태: e968b1a 로컬 commit 완료. 이번 `git push mine`도 sandbox DNS 실패 후 host 재시도에서 기존 VSCode credential socket ECONNREFUSED/GitHub 인증 실패로 끝났다. 원격 반영 미완료, 학습·queue에는 영향 없음.
 
 - Stage1 RGB decoder는 `decode_with_ctx=False`; 복원 gradient는 encoder/decoder에, dynamics/context KL이 encoder/context/dynamics에 전달된다. Stage1은 ego command/객체 GT/경로 loss 없음. Scalar loss에서 복원 비중≈96%는 gradient 비중이 아니다. 현재 module gradient만 기록하며 loss별 norm/방향은 미측정. Stage1/2의 완전한 인과분리를 완료했다고 주장하지 않는다.
 
