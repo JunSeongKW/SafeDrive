@@ -1508,3 +1508,5 @@ CPU전체검사는Python3.9공식환경에서기존Python3.10문법때문에coll
 704prefix준비완료:552.29초/13,671,549,056bytes/최대feature차이0/64train24devrecording.12조건GPUgradient계약모두통과(각blocknonzero,planning→head0),peak5.538GiB. GPU검사원본hash보존.36run학습/공식PDM·probe기동예정.
 
 입력마스킹비교의targetschedule혼입(마스킹fixed2views vsunmasked매번sampling)을코드감사로확인했다. 개발성능미조회상태에서same-target unmasked2조건×3seed를별도등록. 기존36run보존/새6run추가/총42run. 기존일반마스킹대조는복합recipe효과로표기한다.
+
+초기train8window의weighted auxiliary/plan encodergradnorm이1.2–2.6%임을확인해개발성능조회전last6uniform/plan-mask의auxweight0.5대조2조건×3seed추가등록. 기존0.05와다른설정불변. 추가통제설정additional_controls_v1.json에fixedtarget6+strength6을통합,총48run. 기존matched2조건등록은보존하며중복실행하지않는다.

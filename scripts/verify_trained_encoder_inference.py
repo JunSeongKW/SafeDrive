@@ -23,9 +23,14 @@ RUN_DIRECTORY = WORKSPACE / "outputs/encoder_future_learning_v1"
 
 
 def main():
+    global RUN_DIRECTORY
     parser = argparse.ArgumentParser()
     parser.add_argument("--wait-for-training", action="store_true")
+    parser.add_argument("--configuration", type=Path, default=WORKSPACE / "configs/encoder_future_learning/controlled_comparison_v1.json")
+    parser.add_argument("--run-directory", type=Path, default=RUN_DIRECTORY)
+    parser.add_argument("--share-directory", type=Path, default=WORKSPACE / "results/encoder_future_learning_v1")
     args = parser.parse_args()
+    RUN_DIRECTORY = args.run_directory.resolve()
     started = time.perf_counter()
     if args.wait_for_training:
         while not all((RUN_DIRECTORY / f"train_worker{worker}/completion.json").exists() for worker in (0, 1)):
@@ -37,7 +42,7 @@ def main():
     torch.set_num_threads(2)
     if torch.cuda.mem_get_info()[0] < 26 * 2**30:
         raise RuntimeError("Postflight admission reserve unavailable")
-    specification = json.loads((WORKSPACE / "configs/encoder_future_learning/controlled_comparison_v1.json").read_text())
+    specification = json.loads(args.configuration.read_text())
     audit_directory = RUN_DIRECTORY / "trained_inference_audit"
     audit_directory.mkdir(exist_ok=True)
     agent, source = load_official_agent(audit_directory)
@@ -69,7 +74,7 @@ def main():
                 name = f"{condition}_seed{seed}"
                 encoder = IntentConditionedEncoderTail(agent._model.image_encoder,
                     options.get("num_trainable_encoder_blocks", 2), options["ego_intent"]).cuda().eval()
-                checkpoint = torch.load(RUN_DIRECTORY / name / "checkpoint.pt", map_location="cpu", mmap=True)
+                checkpoint = torch.load(str(RUN_DIRECTORY / name / "checkpoint.pt"), map_location="cpu", mmap=True)
                 encoder.load_state_dict(checkpoint["encoder_state"], strict=True)
                 del checkpoint
                 replayed = predict_trajectory_from_observations(agent._model, encoder, observed_clips, ego_statuses)["trajectory"]
@@ -99,7 +104,7 @@ def main():
                 print(f"ENCODER_RAW_REPLAY_COMPLETE {name}", flush=True)
     if parameter_sha256(agent._model) != original_hash:
         raise RuntimeError("Original reference changed during postflight")
-    write_json(WORKSPACE / "results/encoder_future_learning_v1/trained_inference_audit.json", {
+    write_json(args.share_directory / "trained_inference_audit.json", {
         "complete": True, "original_model_preserved": True, "methods": results, "source": source,
         "selected_tokens": [record["current_frame_token"] for record in selected_records],
         "valid_command_indices": [0, 1, 2], "planner_status_held_fixed": True,

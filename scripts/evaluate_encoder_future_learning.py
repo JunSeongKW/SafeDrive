@@ -113,7 +113,7 @@ def prepare_common_probe_targets(specification):
     projection = torch.randn(1024, 16, generator=torch.Generator().manual_seed(9173)) / 32
     future_changes, valid_horizons, ego_statuses = [], [], []
     for record in records:
-        cached_window = torch.load(RUN_DIRECTORY / "prefix_cache" / f"{record['current_frame_token']}.pt",
+        cached_window = torch.load(str(RUN_DIRECTORY / "prefix_cache" / f"{record['current_frame_token']}.pt"),
                                    map_location="cpu", weights_only=True, mmap=True)
         def compress_targets(region_features):
             normalized_features = F.layer_norm(region_features, (1024,))

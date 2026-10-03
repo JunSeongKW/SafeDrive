@@ -12,7 +12,8 @@ import numpy as np
 def main():
     workspace = Path(__file__).resolve().parents[1]
     share_directory = workspace / "results/encoder_future_learning_v1"
-    summary = json.loads((share_directory / "summary.json").read_text())
+    summary_path = share_directory / "combined_summary.json"
+    summary = json.loads((summary_path if summary_path.exists() else share_directory / "summary.json").read_text())
     conditions = list(summary["specification"]["conditions"])
     labels = {
         "encoder_planning": "Planning only / 2 blocks",
@@ -27,13 +28,17 @@ def main():
         "intent_planning_last6": "Intent + planning / 6 blocks",
         "intent_uniform_future_last6": "Uniform future / 6 blocks",
         "intent_planning_masked_future_last6": "Planning future + mask / 6 blocks",
+        "intent_uniform_fixed_targets_future": "Uniform fixed targets / 2 blocks",
+        "intent_planning_fixed_targets_future": "Planning fixed targets / 2 blocks",
+        "intent_uniform_future_last6_strong_auxiliary": "Uniform future, stronger loss / 6 blocks",
+        "intent_planning_masked_future_last6_strong_auxiliary": "Planning mask, stronger loss / 6 blocks",
     }
-    figure, axes = plt.subplots(1, 2, figsize=(12, 7.5), sharey=True)
+    figure, axes = plt.subplots(1, 2, figsize=(12, 1.5 + .5 * len(conditions)), sharey=True)
     for position, condition in enumerate(conditions):
         key = condition + "_minus_original_frozen"
         ade = summary["paired_ade_comparisons"][key]
         pdm = summary["paired_pdm_comparisons"][key]
-        color = "#c56522" if condition.endswith("last6") else "#2476a8"
+        color = "#c56522" if "last6" in condition else "#2476a8"
         for axis, mean, interval in (
             (axes[0], ade["mean_difference_m"] * 1000,
              np.asarray(ade["recording_cluster_bootstrap_95_ci_m"]) * 1000),

@@ -116,3 +116,7 @@ Updates, sample order, teacher targets, inference planner and target budget are 
 ## Matched-target control amendment
 
 A code audit during training, before inspecting any learned development metric, identified that unmasked arms resample target IDs every update while masked arms use two cached target views. Their difference bundles observation masking and target diversity. Register `matched_target_controls_v1.json`: two additional unmasked last2 controls (uniform/planning), three seeds each, same fixed target IDs/view schedule as their masked counterparts. Preserve all36 original runs; execute6 additional runs after original GPU work, then compare masked versus matching unmasked controls. The original masked-versus-resampled contrast is reported as a combined recipe difference, not an isolated masking effect. Final total42trained models.
+
+## Auxiliary-strength control amendment
+
+The initial train-only gradient audit measured weighted future-to-planning encoder gradient norm ratios of1.2–2.6%. Before reading learned development scores, add two last6 controls with auxiliary weight0.5 instead of0.05 (uniform future and planning-mask future), three paired seeds each; all other settings unchanged. `additional_controls_v1.json` combines these6runs with the6 fixed-target controls, preserving the earlier registration. Final total48runs. This tests a tenfold stronger future signal without a result-dependent hyperparameter sweep. Initial norm ratios do not describe all training steps or Adam update contributions.

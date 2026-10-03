@@ -1,0 +1,8 @@
+{
+  "compared_window_updates": 32,
+  "all_selected_target_ids_equal": true,
+  "all_teacher_targets_and_validity_equal": true,
+  "all_dense_planning_inputs_equal": true,
+  "auxiliary_input_mask_is_the_only_forward_difference": true,
+  "scope": "two target policies, both views repeated, four real cached windows, CUDA transfer patched to identity for CPU-only input-contract audit"
+}

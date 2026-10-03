@@ -376,7 +376,7 @@ def run_training_condition(agent, cache, records, specification, output_director
             training_batch = observed_training_batch(cache, indices, options, update_index, target_generator, specification)
             optimizer.zero_grad(set_to_none=True)
             planning_loss, auxiliary_loss = compute_training_objectives(agent, encoder, prediction_head, training_batch, options)
-            total_loss = planning_loss + specification["auxiliary_weight"] * auxiliary_loss
+            total_loss = planning_loss + options.get("auxiliary_weight", specification["auxiliary_weight"]) * auxiliary_loss
             if not torch.isfinite(total_loss):
                 raise RuntimeError("Non-finite training loss")
             total_loss.backward()
