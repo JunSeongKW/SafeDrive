@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 23:02 KST (Codex)
+마지막 갱신: 2026-10-04 01:05 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-04 01:05 KST 상태 점검:** Stage1 7,280/28,920 update, epoch5/20 개발평가 완료. GPU0/1 PID920132/920133 정상, utilization87/100%, 카드당약36.1GiB 사용/11.3GiB 여유. queue1481082 및 CPUteacher1481089 유지.
 
 **2026-10-03 23:00 KST Stage1 설명 감사:** 본학습 update2,832/28,920 유지, 새 queue는 `waiting_for_stage1_full_training_and_validation`. 실행 source hash 모두 등록과 일치. 최신 설명은 `docs/lpwm_planning_experiment.md` 첫 절.
 
@@ -338,6 +340,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-04 01:05 KST:** 고정dev512 epoch5 loss21.1328(초기64.8380), PSNR20.8349dB(초기13.1449), dynamicsKL3840.44, contextKL710.35. 모든 기록loss/gradient finite, 56회 module검사 양수. 최근평균1.586s/update. `results/lpwm_navsim_full_posttraining_v2/health_check_20261004_0104.json` 참조.
 
 **Stage1 실제 목적 확인:** 12장 posterior 복원+11전이 particle/context KL이며, 4장→8장 free rollout RGB loss는 없다. 첫 epoch dev512 loss64.838→23.399/PSNR13.145→20.461dB. 고정8장면 causal forecast MSE0.053663→0.029535, persistence0.040329; 전체 적응 통과 결과 아님. `results/lpwm_navsim_full_posttraining_v2/stage1_diagnostic_snapshot_20261003.json`에 원시값/hash 보존.
 
@@ -591,17 +595,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 추가로 Stage1의 정확한 ELBO 가중치·정규화, loss별 gradient 경로, teacher-forcing/자율추론 차이, 현재 지표와 Stage1/2 원인분리 한계를 코드와 로그로 감사해 문서화. README의 4+8 설명 명확화. 런타임 수정 없음.
-
-- DrivoR/Hydra/DriveSuprim/SafeDrive 로직을 LPWM에 맞게 설계, 미래particle 기반 후보평가·32개경로보정·재채점·시점별안전loss 구현.
-- 전체navtrain train-only512vocabulary와공식PDM CPUteacher 준비, 원본단일scorer와일괄scorer progress정규화 parity검증.
-- 저LR LPWM+새planner 전체학습 코드에 imitation/metric/refinement loss 및 실제보정경로 online CPUoracle 연결.
-- Stage1/teacher/각Stage2condition의 strictgate, worldretention/future개입/pairedPDMS보고, durable queue와기존supervisor join routing 구현.
-- CPU6검사와공개LPWM실제영상역전파/intent/future누출 audit통과. Stage2 GPU실측/본학습은 Stage1gate 이후.
-- 기존 Stage1을 유지하고 새 queue1481082 및 CPU16worker teacher1481089 실행. 원본dataset/다른GPU/기존baseline 보존.
-- 설계보고·README/AGENTS/HANDOFF/RESUME_NOTES와공유 JSON에 구현과미실행항목구분.
+- Stage1/GPU/메모리/gradient/개발지표/checkpoint/queue/CPUteacher를 읽기전용 점검하고 health JSON 및 인수인계 기록 갱신.
+- 현재실행 source/config/학습량/프로세스는 변경하지 않음. 과거SIGINT traceback과현재정상실행구분.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 2026-10-04 01:05 KST 점검에서 재시작·설정변경 필요 없음. 기존 full Stage1→개발검증→gate→Stage2 queue 유지. 학습만 ETA10/04 10:40~11:30KST 수준이며 최종전체개발평가는 별도.
 
 - Stage1 복원/ELBO 개선을 곧바로 미래/객체/planning 성공으로 보고하지 않는다. 전체7,745개 개발 평가와 supplement gate를 따른다. 고정 공개/적응LPWM 대조, 고정/공동학습 대조, oracle future 및 loss별 gradient 분해는 필요시 추가할 진단이며 현재 queue에 실행 등록됐다고 하지 않는다.
 
@@ -702,6 +701,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 10/04 상태 점검: 학습/개발ELBO 개선과 정상 실행 확인, 전체7,745개 과거만의 미래예측·객체 적응gate 및 Stage2 PDMS는 아직 미확정. 기존원격 Git 인증오류 상태는 이번push 결과와 함께 확인.
 
 - 최신 공유 상태: e968b1a 로컬 commit 완료. 이번 `git push mine`도 sandbox DNS 실패 후 host 재시도에서 기존 VSCode credential socket ECONNREFUSED/GitHub 인증 실패로 끝났다. 원격 반영 미완료, 학습·queue에는 영향 없음.
 

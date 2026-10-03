@@ -1686,3 +1686,9 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 ### 2026-10-03 23:02 KST 원격 공유 시도
 
 - e968b1a commit 완료. git push mine: sandbox DNS 오류 후 require_escalated host 재시도, 기존 VSCode Git credential socket ECONNREFUSED 및 GitHub Authentication failed(exit128). 원격 반영을 주장하지 않는다. GPU학습/queue 계속 유지.
+
+## 2026-10-04 01:05 KST — 사용자 요청 Stage1 학습 상태 점검
+
+- 7280/28920 update, dev512 epoch5 loss21.132790/PSNR20.834908dB. finite objective/gradient, module audit56회 전부양수. GPU0/1 87/100%,36.1GiB사용/11.3GiB여유, RAMavailable354GiB.
+- 최근1.586s/update, 학습ETA10/04 10:40~11:30KST(전체최종검증제외). Checkpoint갱신/queue heartbeat/CPUteacher 20361scene진행확인. Source hash등록일치.
+- 원시근거 `results/lpwm_navsim_full_posttraining_v2/health_check_20261004_0104.json`. 이전SIGINT traceback3개를현재오류로집계하지않음. 학습중단/재시작/설정변경없음. 전체적응/PDMS개선은미확정.
