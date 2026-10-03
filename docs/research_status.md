@@ -8,8 +8,18 @@ K16 native / K4 2×2지역 / K8지역 random·planning·retention의5조건×3se
 Region평균 미래latent를예측하며planner현재입력은512개그대로. 미래mask는aux에만사용.
 Retention은선택current정보로원본planner판단을보존하는training-only SmoothL1 proxy이며selector만갱신.
 이는contextual features/mean masking의모델의존도측정이지인과적중요도나미래효용의정답이아니다.
-동일K8 controls가주비교, K/면적증가조건은자원변경을분리해서해석한다. CPU7검사통과, 학습미시작.
+동일K8 controls가주비교, K/면적증가조건은자원변경을분리해서해석한다. CPU전체151검사통과.
+등록코드commit8e8e49a, GPU1단일학습PID2624673(실제명령확인필수), 시작11:41경.
+첫3run(K16native)800update완료, 나머지등록조건실행중. 원본출력동일성과gradient경계통과.
 2시간/condition20분/own8GiB/sharedreserve6GiB; 등록상한뒤추가자동튜닝없음.
+
+설계근거: 선택하는면적0.78%와초기zero-bridge의간접planning신호만으로의미있는대상선택을보장할수없다.
+Native4→16은개수,4patch→4region은영역풀링,8region 3조건은동일예산선택신호를비교한다.
+Teacher행동을보존하는선택학습의참고는 [DynamicViT §3.3의 teacher/distillation losses](https://papers.nips.cc/paper_files/paper/2021/file/747d3443e319a22747fbb873e8b2f9f2-Paper.pdf).
+논문의분류token sparsification/attention masking을재현하는것은아니다. 이실험은원본현재경로를그대로두고,
+training-only mean-replacement readout으로selector에SmoothL1XY목표를추가한다. 일반적설계참고이지novelty주장아님.
+Raw `outputs/drive_jepa_selective_future/spatial_region_selection_v1_20261003/`, 로그는동명`.log`.
+원격push는기존VSCodecredential socket거절/anonymous write오류로실패; 로컬commit은보존했다.
 
 ## 최신 — 87run 완료 및 실제 selector/predictor 시각화
 

@@ -1,10 +1,17 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 11:40 KST (Codex)
+마지막 갱신: 2026-10-03 13:02 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **최신 사용자 요청(2026-10-03): 중요 요소 선택을 개선하는 크기·개수·학습 신호 비교.**
+**후속최신지시: 개수·크기보다위치이동과학습파이프라인진단이우선.** 확인시등록15run은이미완료됐고
+PID2624673은종료돼중단할process없었다. 새크기/개수/학습sweep는시작하지않는다.
+같은K8/2×2region의planning vsretention 6모델을읽기전용진단한다.
+설정 `location_learning_diagnosis_v1.json`, train16recording을결과무관hash고정,
+scoregradient·hard교체·미래slot교란·fusion attention/원본의존도; optimizerupdate0/15분/4GiB상한.
+이전15run결과: retention은위치74–89%교체/현재teacher유지오차0.824→0.457m이나
+devADE0.347129→0.346951m으로선택효용미확정. 장면중앙으로쏠리는다른편향이관측된다.
 기준122e885. `spatial_region_selection_v1.json`에 5조건×3seed×800update를 결과 확인 전 등록했다.
 현재704cache/공식frozen planner/공통warmup·batch순서 재사용. 작은16patch, 큰4region,
 큰8region random/planning/planner-retention 비교. Region은2×2native token 평균이며 객체가 아니다.
@@ -434,6 +441,10 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 원본cache/구결과/기존전체recovery는반복하지않았다.
 
 ## 3. 마지막 커밋 이후 바뀐 것
+
+- 등록15run완료/33분29초/원본hash불변. 결과·동일6scene gallery·checkpoint감사완료.
+- 최신사용자지시반영: 추가count/size중단, 동일K8위치학습경로읽기전용진단등록.
+- `diagnose_drive_jepa_location_learning.py`/scoretrace코드·등가성test추가; 진단GPU실행전.
 
 - 5조건×3seed/800update region크기·개수·학습신호비교를사전등록.
 - Native현재입력불변인2×2region pooling, selector-only frozen-planner retention proxy와지역전체valid mask구현.

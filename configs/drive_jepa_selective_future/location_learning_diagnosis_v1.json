@@ -1,0 +1,18 @@
+{
+  "task": "Read-only diagnosis of selection-location learning at fixed K8 and fixed 2x2 region size",
+  "region_run": "outputs/drive_jepa_selective_future/spatial_region_selection_v1_20261003",
+  "conditions": ["region8_planning", "region8_planner_retention"],
+  "seeds": [29, 47, 83],
+  "training_recording_count": 16,
+  "sampling_hash_salt": "location-pipeline-diagnosis-v1-20261003",
+  "near_boundary_substitutions": 4,
+  "random_substitutions": 4,
+  "forward_tolerance": 0.000001,
+  "loss_change_noise_floor": 0.0000001,
+  "maximum_wall_seconds": 900,
+  "minimum_free_gpu_gib": 8,
+  "running_reserve_gib": 6,
+  "maximum_peak_allocated_gib": 4,
+  "optimizer_updates": 0,
+  "scope": "Same training windows fixed by hash, no outcome filtering. Gradient and perturbation diagnostics are local model-dependence evidence, not semantic importance ground truth. No count/size/hyperparameter exploration."
+}
