@@ -1,0 +1,53 @@
+{
+  "profiles": [
+    {
+      "name": "batch2_accumulation4_workers0",
+      "execution_config": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_navsim_adaptation/execution/batch2_accumulation4_workers0.json",
+      "effective_batch_size": 16,
+      "median_update_seconds": 1.729105481004808,
+      "clips_per_second": 9.253339472790387,
+      "median_data_wait_seconds": 0.00707946001784876,
+      "maximum_peak_allocated_gib": 15.432947635650635,
+      "estimated_training_hours_excluding_evaluation": 13.890480697405291,
+      "measured_updates": 6,
+      "profile_weights_are_discarded": true
+    },
+    {
+      "name": "batch4_accumulation2_workers0",
+      "execution_config": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_navsim_adaptation/execution/batch4_accumulation2_workers0.json",
+      "effective_batch_size": 16,
+      "median_update_seconds": 1.6119273829972371,
+      "clips_per_second": 9.926005457050682,
+      "median_data_wait_seconds": 0.004593835008563474,
+      "maximum_peak_allocated_gib": 28.698551654815674,
+      "estimated_training_hours_excluding_evaluation": 12.949149976744472,
+      "measured_updates": 6,
+      "profile_weights_are_discarded": true
+    },
+    {
+      "name": "batch4_accumulation2_workers2",
+      "execution_config": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_navsim_adaptation/execution/batch4_accumulation2_workers2.json",
+      "effective_batch_size": 16,
+      "median_update_seconds": 1.6265291859890567,
+      "clips_per_second": 9.836896956921649,
+      "median_data_wait_seconds": 0.0015015290264273062,
+      "maximum_peak_allocated_gib": 28.698551654815674,
+      "estimated_training_hours_excluding_evaluation": 13.066451127445422,
+      "measured_updates": 6,
+      "profile_weights_are_discarded": true
+    }
+  ],
+  "recommended": {
+    "name": "batch4_accumulation2_workers0",
+    "execution_config": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_navsim_adaptation/execution/batch4_accumulation2_workers0.json",
+    "effective_batch_size": 16,
+    "median_update_seconds": 1.6119273829972371,
+    "clips_per_second": 9.926005457050682,
+    "median_data_wait_seconds": 0.004593835008563474,
+    "maximum_peak_allocated_gib": 28.698551654815674,
+    "estimated_training_hours_excluding_evaluation": 12.949149976744472,
+    "measured_updates": 6,
+    "profile_weights_are_discarded": true
+  },
+  "note": "Short shared-GPU benchmark; long-run speed and co-tenants can change"
+}

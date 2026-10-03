@@ -1603,3 +1603,52 @@ dfaf7f0318b25029(-11.693442cm),7c72be317cca5e4a(-0.443103cm),fe38f82d16e35220(+5
 학습6회합계807.39초/peak10.145GiB/원본보존. 새전용venv에pycryptodome만추가.
 첫2평가에마스크와복원LPIPS를추가저장하기위한재추론은기존metric차이0; 초기결과보존.
 결과source/run config/환경/selection/checkpoint hash는 results/lpwm_navsim_adaptation_v1/에있다.
+
+
+## 2026-10-03 LPWM planning 연결과 사용자 방향 수정
+
+**최신 방향 수정: LPWM encoder·context·dynamics·planner 공동 학습.** 사용자가 원본 context/dynamics를 제외한 선택을 지적하고 공동 학습을 요청했다.
+기존 encoder-only는 완료7run(frozen3/planning3/uniform seed29)만 보존하고 우리 worker3425264/3425265/scorer3425266을 SIGINT 종료했다.
+`outputs/lpwm_planning_v1/superseded_by_joint_world_model.json`을 따른다. 이전18run queue/finalizer를 자동 재개하지 않는다.
+새 코드 `src/planning_aware_future_prediction/object_centric/lpwm_joint_world_planner.py`: 공식 encoder6.035M/context39.389M/dynamics59.869M+planner0.821M, RGB decoder만 제외.
+과거2영상→관측transition posterior→미래8step은policy prior만으로 autoregressive rollout, activation checkpointing으로 gradient 보존.
+GPU0 batch1 3update에서 planning/future loss 각각 세모듈gradient>0, 미래label변경시예측동일을 통과했다. bf16 batch4 profile 진행/새 데이터·규모 준비 중이다.
+기존512train 중13개/192dev 중2개가 공식navtrain token필터밖임을 발견했다(로그는전부navtrain). 새 학습은 공식token까지엄격필터한다.
+
+초기 등록 commit e1086f1. Encoder-only1000update/seed29 planning공동학습239.75s,3.67GiB, 실제 가중치변화238state tensors를 확인했다.
+User는 데이터/학습량 및 작은VRAM에 문제를 제기했고, 원본context/dynamics 공동학습을 요청했다. 이전실험은 완료대조군으로만보존하며 전체LPWM학습으로 해석하지 않는다.
+
+
+## 2026-10-03 21:47 KST — Full NAVSIM LPWM training, batch/worker timing and process naming
+
+**이번 세션의 확인 결과:**
+- 공식 navtrain log AND token 필터, 기존40개 development recording 유지. 나머지122개 recording 모두 학습 사용.
+- 이전 navtrain heldout recording도 이번 사용자 전체학습 승인으로 train에 포함됐으므로 독립평가로 부르지 않는다. navtest 학습 사용 없음.
+- 공유 RGB cache152,495장/약7.0GiB. Stage1 train23,126/dev7,745; Stage2 train75,297/dev27,076.
+- Stage2 ego 상태·미래 경로 생성 시 기존 공식 cached target과 max차이0.0.
+- 공개 원본 Sketchy SHA6d62bf5a...부터 시작. 전체4모듈 gradient>0/weight change 검사 통과.
+- batch2/accum4/worker0:1.729s; batch4/accum2/worker0:1.612s. worker2:1.627s,4:1.634s,8:1.612s,0재확인:1.624s. 각8update 중 초반2개 제외; 짧은 공유GPU 측정이며 전역최적 증거가 아니다.
+- 본 학습 batch4 peakallocated29.10GiB, nvidia process약36.1GiB. 6개 처리량 측정에서 OOM0, worker증가 추가이득 미확인.
+- planning gradient 독립 CPU audit: encoder4.015/context0.590/dynamics2.472/planner157.929, 미래GT교란 출력차이0, 1진단update 후 intent particle차이0.01828. 진단weight미저장/Stage2성능결과아님.
+- 프로토콜/카메라기하/분산데이터 재개·RNG 검사8개 통과. Stage2 GPU경로는 gate 후 검증 예정.
+- 공유 기록 `results/lpwm_navsim_full_posttraining_v2/`; 아직 전체 학습 완료나 planning 개선 결과 없음.
+
+
+**2026-10-03 21:47 KST 최신: 전체 navtrain Stage1 본 학습이 GPU0·1에서 계속 실행 중이다.**
+- Supervisor919150 / torchrun920080 / ranks920132,920133; 프로세스와 interpreter alias `kjs-lpwm-stage1`.
+- 마지막 확인 update208 이상 / 총28,920, 20epoch; train23,126/122recording, dev7,745/40recording.
+- batch4/GPU × accumulation2 × 2GPU =16; FP32; DataLoader worker0, torch CPU threads4/rank.
+- GPU 각각 사용률100%, process VRAM36.1GiB/free11.3GiB, rank RSS 약3.21GiB씩 실측. GPU reserve6GiB.
+- 최근 1.55s/update, 남은 순수학습12.35h; 중간진단 포함13~14h 추정. 최종적응평가/Stage2 시간 제외.
+- 사용자는 더 이상의 속도 실험으로 중단하지 말고 빨리 본 학습을 계속하라고 지시했다. 필요 없는 GPU profile/worker 변경 금지.
+- 최초 첫-update 이전 정체는 재기동으로 해소됐으나 정확 원인은 미확정. source amendment1~3에 변경 이력 보존.
+- `outputs/lpwm_navsim_full_posttraining_v2/active_stage.json`, `stage1/progress.json`, `stage1_full_training.log`를 먼저 확인한다.
+- particle gallery는 동일 장면 update0/128/512 및 epoch1/5/10/15/20. 현재 update128 저장 완료.
+- 자동 체인: 전체Stage1 → 원본/적응본 dev7,745 평가 → 적응 gate → 통합Stage2 두조건 학습 → 전체 dev 및 navtest12,146 공식PDM.
+- Stage2 GPU preflight는 gate 통과 후 실행. 아직 Stage2 학습·PDMS 결과 없음. 원래 18run encoder-only queue와 WA는 재개하지 않는다.
+
+
+User requested no further interruptions for optional profiling. Current supervisor919150 and GPU ranks920132/920133 remain running during this handoff. Stage2 pipeline code is connected but GPU validation waits for stage1 adaptation gate; no Stage2 results yet.
+
+Health check while training continued: {"update": 400, "training_loss": 25.616626262664795, "fixed_scene_means": {"initial_reconstruction_mse": 0.04461017088033259, "update128_reconstruction_mse": 0.01081353472545743, "initial_forecast_mse": 0.05366304004564881, "update128_forecast_mse": 0.035020887618884444, "last_frame_persistence_mse": 0.040329359006136656, "initial_presence_sum": 41.96882390975952, "update128_presence_sum": 45.00778150558472}}
+All four core module gradients nonzero; GPU0/1 utilization100percent, free11.3GiB each. Do not equate early reconstruction improvement with object binding or planning improvement. No extra training interruption.

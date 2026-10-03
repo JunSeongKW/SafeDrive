@@ -75,6 +75,20 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**현재 진행: 전체 navtrain 가용 영상으로 공개 LPWM의 Stage 1 post-training.**
+공식 encoder·context·dynamics·RGB decoder 전체 109.55M parameter와 temporal ELBO를 유지한다.
+학습 23,126 clip/122 recording, development 7,745 clip/40 recording; 12프레임(4 observed+8 future).
+20 epoch / 28,920 update. GPU0·1 DDP, GPU당 batch4×누적2, 유효batch16, FP32, 데이터 worker0.
+실측 batch2 1.73s → batch4 1.61s/update; worker0·2·4·8은 1.61~1.63s로 추가 이득 미확인.
+현재 `kjs-lpwm-stage1` 이름으로 본 학습 중; 추가 속도 실험을 위해 중단하지 않는다.
+설정 `configs/lpwm_navsim_adaptation/full_posttraining_v2.json` + `execution/batch4_accumulation2_workers0.json`.
+시각화 `outputs/lpwm_navsim_full_posttraining_v2/visualization/index.html` (같은 개발 장면 학습 전·중·후).
+Stage1 적응 gate 통과 후 LPWM 낮은LR + planner 전체 학습의 통합Stage2, planning-only/영상목표유지 비교.
+Stage2 train75,297/dev27,076; GPU 실행은 적응 gate 후. 현재 성능 개선이나 학습 완료를 주장하지 않는다.
+이전 cap8,192/4epoch 실행안은 대체됐고, v1 파일과 과거 결과는 그대로 보존한다.
+
+아래 과거 승인·결과는 보존 이력이다. 현재 실행은 HANDOFF 최신 절을 우선한다.
+
 **2026-10-03 최신 후속 승인: LPWM을 planning 객체·미래 감독으로 재학습하고 planner 연결 후 PDMS 평가.**
 `docs/lpwm_planning_experiment.md`의 6조건×3seed×1000update 및 dev192 공식 PDM 실행이다.
 이 명시적 요청이 이전 완료 파일럿의 추가 학습 보류를 해당 범위에서 갱신한다. 기존 WA/Drive 실험은 재개하지 않는다.

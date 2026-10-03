@@ -1,0 +1,15 @@
+{
+  "status": "predeclared diagnostic hypotheses, not established driving-domain failures of LPWM",
+  "high_ego_speed_mps": 10.0,
+  "large_yaw_range_degrees": 15.0,
+  "small_projected_box_area_pixels": 64.0,
+  "far_object_camera_depth_meters": 40.0,
+  "minimum_projected_object_side_pixels": 1.0,
+  "high_median_flow_pixels_per_frame": 4.0,
+  "pixel_threshold_resolution": [128, 128],
+  "occlusion_caveat": "Projected overlap and projected-track disappearance are proxies, not verified occlusion or identity loss",
+  "optical_flow_caveat": "Farneback flow is a diagnostic of visual change and includes ego/background/object motion",
+  "gate_noninferiority_relative_margin": 0.10,
+  "minimum_recordings_for_stratum_gate": 5,
+  "stage2_gate": "For each adequately represented risk stratum, the paired CI upper bound of posttrained minus persistence forecast LPIPS must be <= 10 percent of mean persistence LPIPS"
+}

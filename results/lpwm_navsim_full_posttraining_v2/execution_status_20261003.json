@@ -1,0 +1,106 @@
+{
+  "observed_at_kst": "2026-10-03T21:49:23.529842+09:00",
+  "stage": "stage1_full_training",
+  "supervisor_pid": 919150,
+  "torchrun_pid": 920080,
+  "rank_pids": [
+    920132,
+    920133
+  ],
+  "process_name": "kjs-lpwm-stage1",
+  "progress_snapshot": {
+    "update": 304,
+    "total_updates": 28920,
+    "epoch_fraction": 0.21023513139695713,
+    "updates_per_epoch": 1446,
+    "sampled_clips_including_epoch_padding": 4864,
+    "global_batch_size": 16,
+    "microbatch_size_per_gpu": 4,
+    "gradient_accumulation": 2,
+    "world_size": 2,
+    "data_loader_workers_per_rank": 0,
+    "data_wait_seconds": 0.0023452390159945935,
+    "elapsed_seconds": 671.326174604008,
+    "update_seconds": 1.5461044100229628,
+    "peak_allocated_gib": 29.103778839111328,
+    "gradient_norm_before_clip": 37.37335205078125,
+    "module_gradients": {
+      "image_encoder": {
+        "norm": 28.23805046081543,
+        "parameters_with_nonzero_gradient": 6035191
+      },
+      "context": {
+        "norm": 0.29037371277809143,
+        "parameters_with_nonzero_gradient": 39389417
+      },
+      "dynamics": {
+        "norm": 0.8547880053520203,
+        "parameters_with_nonzero_gradient": 59869416
+      },
+      "rgb_decoder": {
+        "norm": 17.675647735595703,
+        "parameters_with_nonzero_gradient": 4251239
+      }
+    },
+    "kl": 1109.98583984375,
+    "kl_dyn": 4245.502380371094,
+    "loss": 25.7569842338562,
+    "loss_kl_context": 739.8897705078125,
+    "loss_kl_depth": 162.47039413452148,
+    "loss_kl_depth_dyn": 165.0597686767578,
+    "loss_kl_feat": 448.593505859375,
+    "loss_kl_feat_dyn": 1531.7901611328125,
+    "loss_kl_kp": 208.1411476135254,
+    "loss_kl_kp_dyn": 1236.342025756836,
+    "loss_kl_obj_on": 81.63510322570801,
+    "loss_kl_obj_on_dyn": 338.9179382324219,
+    "loss_kl_scale": 653.2532653808594,
+    "loss_kl_scale_dyn": 882.0139617919922,
+    "loss_kl_score_dyn": 0.0,
+    "loss_obj_reg": 1734.4449157714844,
+    "loss_rec": 29683.74755859375,
+    "obj_on_l1": 41.70043468475342,
+    "psnr": 19.965834140777588
+  },
+  "training_clips": 23126,
+  "development_clips": 7745,
+  "training_recordings": 122,
+  "development_recordings": 40,
+  "planning_train_scenes": 75297,
+  "planning_development_scenes": 27076,
+  "microbatch_per_gpu": 4,
+  "gradient_accumulation": 2,
+  "effective_batch": 16,
+  "data_loader_workers_per_rank": 0,
+  "cpu_threads_per_rank": 4,
+  "gpu_process_memory_mib_last_observed": [
+    36962,
+    36962
+  ],
+  "gpu_free_mib_last_observed": [
+    11557,
+    11556
+  ],
+  "gpu_utilization_percent_last_observed": [
+    100,
+    100
+  ],
+  "rank_rss_kib_last_observed": [
+    3362140,
+    3364816
+  ],
+  "minimum_free_gpu_gib": 6,
+  "minimum_free_host_gib_during_worker_profiles": 32,
+  "full_training_has_no_explicit_host_ram_cap": true,
+  "stage1_remaining_training_estimate_hours": {
+    "compute_only": 12.35,
+    "including_periodic_diagnostics": [
+      13,
+      14
+    ]
+  },
+  "stage2_status": "implemented; CPU planning-gradient/causality audit passed; full GPU/DDP profile and training run only after successful stage1 adaptation gate",
+  "tests": "8 protocol/geometry tests passed",
+  "startup_issue": "First attempt stalled before update1; stopped verified own processes, source-instrumented restart succeeded. Exact root cause unresolved; no first-attempt training updates claimed.",
+  "latest_user_instruction": "Stop optional throughput experiments; keep actual training running; use name kjs-lpwm-stage1 and avoid OOM."
+}

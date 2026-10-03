@@ -1,0 +1,15 @@
+{
+  "status": "latest user-confirmed downstream direction; training budget pending stage1 adaptation evidence",
+  "prerequisite": "NAVSIM stage1 post-training and predeclared adaptation gate",
+  "stage_structure": "stage1 world-model post-training, then merged stage2",
+  "merged_stage2": {
+    "lpwm": "fine-tune pretrained/post-trained weights at a lower learning rate",
+    "planner": "train all planner parameters",
+    "gradient_path": "planning loss -> planner -> causal predicted particles -> dynamics/context/image encoder",
+    "comparison": "planning loss only versus planning plus retained official reconstruction/dynamics objectives",
+    "intent_comparison": "current driving command input inside particle generation, compared separately with no command conditioning",
+    "future_ground_truth": "training targets and posterior world-model loss only, never planner inference inputs"
+  },
+  "supersedes": ["a mandatory frozen LPWM stage2 followed by a separate stage3", "stage2_on_success frozen-policy wording in the earlier stage1-only posttraining_v1 registration"],
+  "research_hypothesis": "Planning gradients preserve task-relevant object and motion information in particles beyond visual/dynamical pretraining; benefit requires PDMS and representation evidence"
+}

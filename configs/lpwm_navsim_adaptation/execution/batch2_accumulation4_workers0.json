@@ -1,0 +1,7 @@
+{
+  "microbatch_size_per_gpu": 2,
+  "gradient_accumulation": 4,
+  "data_loader_workers_per_rank": 0,
+  "maximum_allocated_gib": 32,
+  "reason": "User requested throughput optimization with unchanged effective batch 16, all model modules, FP32, training set, objective and optimizer schedule."
+}

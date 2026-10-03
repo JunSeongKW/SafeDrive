@@ -1,0 +1,217 @@
+{
+  "scope": "Read-only health check; training was not interrupted. Eight fixed development scenes are qualitative diagnostics, not the full adaptation evaluation.",
+  "latest_logged_training": {
+    "update": 400,
+    "total_updates": 28920,
+    "epoch_fraction": 0.2766251728907331,
+    "updates_per_epoch": 1446,
+    "sampled_clips_including_epoch_padding": 6400,
+    "global_batch_size": 16,
+    "microbatch_size_per_gpu": 4,
+    "gradient_accumulation": 2,
+    "world_size": 2,
+    "data_loader_workers_per_rank": 0,
+    "data_wait_seconds": 0.0019482909701764584,
+    "elapsed_seconds": 827.5336099640117,
+    "update_seconds": 1.5527063659974374,
+    "peak_allocated_gib": 29.103778839111328,
+    "gradient_norm_before_clip": 27.025087356567383,
+    "module_gradients": {
+      "image_encoder": {
+        "norm": 25.358150482177734,
+        "parameters_with_nonzero_gradient": 6035191
+      },
+      "context": {
+        "norm": 0.2406688630580902,
+        "parameters_with_nonzero_gradient": 39389417
+      },
+      "dynamics": {
+        "norm": 0.7703303694725037,
+        "parameters_with_nonzero_gradient": 59869416
+      },
+      "rgb_decoder": {
+        "norm": 19.638072967529297,
+        "parameters_with_nonzero_gradient": 4251239
+      }
+    },
+    "kl": 963.4552917480469,
+    "kl_dyn": 4422.7880859375,
+    "loss": 25.616626262664795,
+    "loss_kl_context": 812.9178314208984,
+    "loss_kl_depth": 144.37161254882812,
+    "loss_kl_depth_dyn": 172.79312896728516,
+    "loss_kl_feat": 442.33702850341797,
+    "loss_kl_feat_dyn": 1541.7504577636719,
+    "loss_kl_kp": 201.18189239501953,
+    "loss_kl_kp_dyn": 1320.4749145507812,
+    "loss_kl_obj_on": 74.6845645904541,
+    "loss_kl_obj_on_dyn": 340.0839157104492,
+    "loss_kl_scale": 538.7938842773438,
+    "loss_kl_scale_dyn": 954.8696594238281,
+    "loss_kl_score_dyn": 0.0,
+    "loss_obj_reg": 1518.010009765625,
+    "loss_rec": 29494.29345703125,
+    "obj_on_l1": 39.75609302520752,
+    "psnr": 19.902279376983643
+  },
+  "initial_logged_training": {
+    "update": 1,
+    "total_updates": 28920,
+    "epoch_fraction": 0.0006915629322268327,
+    "updates_per_epoch": 1446,
+    "sampled_clips_including_epoch_padding": 16,
+    "global_batch_size": 16,
+    "microbatch_size_per_gpu": 2,
+    "gradient_accumulation": 4,
+    "world_size": 2,
+    "elapsed_seconds": 108.55948637600522,
+    "update_seconds": 7.680636524979491,
+    "peak_allocated_gib": 14.617864608764648,
+    "gradient_norm_before_clip": 243.34268188476562,
+    "module_gradients": {
+      "image_encoder": {
+        "norm": 149.2615509033203,
+        "parameters_with_nonzero_gradient": 6035191
+      },
+      "context": {
+        "norm": 12.530949592590332,
+        "parameters_with_nonzero_gradient": 39389417
+      },
+      "dynamics": {
+        "norm": 11.072880744934082,
+        "parameters_with_nonzero_gradient": 59869416
+      },
+      "rgb_decoder": {
+        "norm": 191.460205078125,
+        "parameters_with_nonzero_gradient": 4251239
+      }
+    },
+    "kl": 1021.6405868530273,
+    "kl_dyn": 12197.892944335938,
+    "loss": 66.35612726211548,
+    "loss_kl_context": 1116.634048461914,
+    "loss_kl_depth": 245.36890411376953,
+    "loss_kl_depth_dyn": 467.54394912719727,
+    "loss_kl_feat": 400.82661056518555,
+    "loss_kl_feat_dyn": 3233.7775268554688,
+    "loss_kl_kp": 335.0175476074219,
+    "loss_kl_kp_dyn": 2796.0684509277344,
+    "loss_kl_obj_on": 75.99597549438477,
+    "loss_kl_obj_on_dyn": 3444.058837890625,
+    "loss_kl_scale": 361.24989318847656,
+    "loss_kl_scale_dyn": 1987.8112182617188,
+    "loss_kl_score_dyn": 0.0,
+    "loss_obj_reg": 1901.4187927246094,
+    "loss_rec": 76730.6015625,
+    "obj_on_l1": 42.2433123588562,
+    "psnr": 12.836504101753235
+  },
+  "fixed_scene_means": {
+    "initial_reconstruction_mse": 0.04461017088033259,
+    "update128_reconstruction_mse": 0.01081353472545743,
+    "initial_forecast_mse": 0.05366304004564881,
+    "update128_forecast_mse": 0.035020887618884444,
+    "last_frame_persistence_mse": 0.040329359006136656,
+    "initial_presence_sum": 41.96882390975952,
+    "update128_presence_sum": 45.00778150558472
+  },
+  "fixed_scenes": [
+    {
+      "token": "399635380c935794",
+      "initial_reconstruction_mse": 0.0644010603427887,
+      "update128_reconstruction_mse": 0.010534181259572506,
+      "initial_forecast_mse": 0.07506441324949265,
+      "update128_forecast_mse": 0.03686976432800293,
+      "last_frame_persistence_mse": 0.0484955757856369,
+      "initial_presence_sum": 39.361507415771484,
+      "update128_presence_sum": 45.39039993286133
+    },
+    {
+      "token": "40c9bf1987b9570a",
+      "initial_reconstruction_mse": 0.029154391959309578,
+      "update128_reconstruction_mse": 0.005131367594003677,
+      "initial_forecast_mse": 0.041428204625844955,
+      "update128_forecast_mse": 0.02709966152906418,
+      "last_frame_persistence_mse": 0.020641310140490532,
+      "initial_presence_sum": 33.478458404541016,
+      "update128_presence_sum": 38.548065185546875
+    },
+    {
+      "token": "76e801d6c90b5f14",
+      "initial_reconstruction_mse": 0.030189668759703636,
+      "update128_reconstruction_mse": 0.016414614394307137,
+      "initial_forecast_mse": 0.050660986453294754,
+      "update128_forecast_mse": 0.04538837447762489,
+      "last_frame_persistence_mse": 0.04524116590619087,
+      "initial_presence_sum": 46.243343353271484,
+      "update128_presence_sum": 52.341529846191406
+    },
+    {
+      "token": "8a61b6f43a50544d",
+      "initial_reconstruction_mse": 0.03558855131268501,
+      "update128_reconstruction_mse": 0.014700672589242458,
+      "initial_forecast_mse": 0.03869706392288208,
+      "update128_forecast_mse": 0.02944445051252842,
+      "last_frame_persistence_mse": 0.03649085387587547,
+      "initial_presence_sum": 47.81117248535156,
+      "update128_presence_sum": 51.90330505371094
+    },
+    {
+      "token": "8bcacef2dab251e0",
+      "initial_reconstruction_mse": 0.0774846002459526,
+      "update128_reconstruction_mse": 0.007620901335030794,
+      "initial_forecast_mse": 0.0816306546330452,
+      "update128_forecast_mse": 0.024917135015130043,
+      "last_frame_persistence_mse": 0.029745690524578094,
+      "initial_presence_sum": 40.02277755737305,
+      "update128_presence_sum": 39.32715606689453
+    },
+    {
+      "token": "c4de723f8eb256b1",
+      "initial_reconstruction_mse": 0.024854684248566628,
+      "update128_reconstruction_mse": 0.007513690739870071,
+      "initial_forecast_mse": 0.05274001881480217,
+      "update128_forecast_mse": 0.05061427876353264,
+      "last_frame_persistence_mse": 0.05471396446228027,
+      "initial_presence_sum": 40.99876403808594,
+      "update128_presence_sum": 35.50916290283203
+    },
+    {
+      "token": "e0176c9b70e45873",
+      "initial_reconstruction_mse": 0.05366447567939758,
+      "update128_reconstruction_mse": 0.018015408888459206,
+      "initial_forecast_mse": 0.04955082759261131,
+      "update128_forecast_mse": 0.04409400746226311,
+      "last_frame_persistence_mse": 0.06216788291931152,
+      "initial_presence_sum": 47.035057067871094,
+      "update128_presence_sum": 54.9993896484375
+    },
+    {
+      "token": "e06eb0bd75c35409",
+      "initial_reconstruction_mse": 0.04154393449425697,
+      "update128_reconstruction_mse": 0.00657744100317359,
+      "initial_forecast_mse": 0.03953215107321739,
+      "update128_forecast_mse": 0.021739428862929344,
+      "last_frame_persistence_mse": 0.025138428434729576,
+      "initial_presence_sum": 40.79951095581055,
+      "update128_presence_sum": 42.043243408203125
+    }
+  ],
+  "interpretation": "All four core modules have nonzero gradients. Reconstruction visually adapts from Sketchy appearance to road/background structure; small-object identity and forecasting beyond persistence not established. Latest full validation is still the pre-training baseline.",
+  "gpu_process_names": [
+    "kjs-lpwm-stage1",
+    "kjs-lpwm-stage1"
+  ],
+  "gpu_utilization_percent_observed": [
+    100,
+    100
+  ],
+  "gpu_free_mib_observed": [
+    11557,
+    11556
+  ],
+  "rank_rss_kib_observed": [
+    5090376,
+    4889288
+  ]
+}

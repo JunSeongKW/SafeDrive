@@ -1,0 +1,28 @@
+{
+  "reason": "Investigate startup stall before first optimizer update with per-microbatch trace and timed Python stack dump; allow explicit immutable source amendment chain. No model, objective, data, batch or schedule change.",
+  "completed_optimizer_updates_before_change": 0,
+  "time_unix": 1791030221.5188735,
+  "configuration_sha256": "66fea9c3f74b43bff3e112dd52bc0fb1864da12e5d53e1b23ce05b8db30d6aa5",
+  "previous_source_sha256": {
+    "scripts/train_lpwm_navtrain_distributed.py": "ddcd80501063538d20a86fa648a50ecfaa3ac27a86f4e039787584862fe08745",
+    "scripts/run_lpwm_navsim_posttraining.py": "eabaea9d34d60d8b774b6314de04ba78d2065a1e4c31c5be09cbbde1bc80e584",
+    "scripts/prepare_lpwm_navsim_posttraining.py": "750e3350723ab26ae3b45d3c412dd419c12562a48e8669a465d479c8e1d1acb3",
+    "scripts/prepare_lpwm_driving_risk_diagnostics.py": "e50454a3c707d5f765780637283918b1a7772349f30e5840bf6770b0b99e0c5a",
+    "scripts/visualize_lpwm_posttraining_progress.py": "728ad5fc41f2c53881e18391aef513d6c38f9b9619b16a40f54a319c4ac3660d",
+    "scripts/summarize_lpwm_posttraining.py": "16797c34c0d0afd3ca7bb566076670cf5ca5673e884e7bdca18145a37791730f",
+    "scripts/prepare_lpwm_full_planning_targets.py": "4f2bcf828aa85509cf1363e017380b3e96f571c31c12f2ef61cc3b9cd411dda6",
+    "scripts/launch_lpwm_full_navtrain.py": "7543eaa6d3b63d7b67c1d0e64a602a2d02e94e26bef3e7828a853deb72c82244",
+    "configs/lpwm_navsim_adaptation/driving_risks_v1.json": "8e04d9cf8c5d98c5a7d40b3327d042dede72b8f7c213caf889139f3312bbd55b"
+  },
+  "updated_source_sha256": {
+    "scripts/train_lpwm_navtrain_distributed.py": "f9f703c9255cdfed9a8d1fb707a633888542570e03aafb10d5b273b6d1ed16af",
+    "scripts/run_lpwm_navsim_posttraining.py": "eabaea9d34d60d8b774b6314de04ba78d2065a1e4c31c5be09cbbde1bc80e584",
+    "scripts/prepare_lpwm_navsim_posttraining.py": "750e3350723ab26ae3b45d3c412dd419c12562a48e8669a465d479c8e1d1acb3",
+    "scripts/prepare_lpwm_driving_risk_diagnostics.py": "e50454a3c707d5f765780637283918b1a7772349f30e5840bf6770b0b99e0c5a",
+    "scripts/visualize_lpwm_posttraining_progress.py": "728ad5fc41f2c53881e18391aef513d6c38f9b9619b16a40f54a319c4ac3660d",
+    "scripts/summarize_lpwm_posttraining.py": "16797c34c0d0afd3ca7bb566076670cf5ca5673e884e7bdca18145a37791730f",
+    "scripts/prepare_lpwm_full_planning_targets.py": "4f2bcf828aa85509cf1363e017380b3e96f571c31c12f2ef61cc3b9cd411dda6",
+    "scripts/launch_lpwm_full_navtrain.py": "e37799ff2ee2a970c3e82d56d19e1f94669a2fcdb3d89909b4e8d3af4768d21c",
+    "configs/lpwm_navsim_adaptation/driving_risks_v1.json": "8e04d9cf8c5d98c5a7d40b3327d042dede72b8f7c213caf889139f3312bbd55b"
+  }
+}

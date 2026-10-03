@@ -1,0 +1,77 @@
+{
+  "research_subquestion": "Does the published LPWM retain useful object and future information after NAVSIM domain post-training, before learning an action policy?",
+  "official_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "output_directory": "outputs/lpwm_navsim_posttraining_v1",
+  "shared_results_directory": "results/lpwm_navsim_posttraining_v1",
+  "initial_checkpoint": "published Sketchy best_lpips, never an earlier NAVSIM-adapted checkpoint",
+  "data": {
+    "official_scene_filter": "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/planning/script/config/common/train_test_split/scene_filter/navtrain.yaml",
+    "recording_assignment": "results/pilot_foundation_decision/navtrain_three_way_manifest.json",
+    "train_clips": 8192,
+    "development_clips": 512,
+    "sequence_frames": 12,
+    "observed_frames": 4,
+    "future_frames": 8,
+    "frame_interval_seconds": 0.5,
+    "resolution": [128, 128],
+    "selection": "official log AND token filter, complete RGB sequences, stable hash then recording round-robin; no scenario or performance selection",
+    "heldout_usage": false
+  },
+  "training": {
+    "seed": 47,
+    "epochs": 4,
+    "microbatch_size": 2,
+    "gradient_accumulation": 4,
+    "optimizer": "Adam",
+    "learning_rate": 0.00008,
+    "epsilon": 0.000001,
+    "betas": [0.9, 0.999],
+    "weight_decay": 0,
+    "gradient_clip": 100,
+    "precision": "float32",
+    "warmup_epochs": 0,
+    "num_static_frames": 1,
+    "checkpoint_interval_updates": 128,
+    "maximum_seconds": 43200,
+    "checkpoint_selection": "fixed final epoch; epoch checkpoints for diagnosis only"
+  },
+  "loss": {
+    "implementation": "official DLP.forward and calc_dyn_elbo, full encoder/context/dynamics/RGB decoder",
+    "recon_loss_type": "vgg",
+    "beta_kl": 0.08,
+    "beta_obj": 0.08,
+    "beta_dyn": 0.2,
+    "beta_rec": 1.0,
+    "beta_dyn_rec": 1.0,
+    "kl_balance": 0.01
+  },
+  "visualization": {
+    "optimizer_updates": [0, 128, 512, 1024, 2048, 3072, 4096],
+    "scenes_per_scenario": 2,
+    "scene_selection": "fixed hash within straight/turn/projected_overlap/other; same development frames at every snapshot",
+    "layers": ["all 64 particle centers", "top16 presence-ranked particle boxes", "presence", "reconstruction", "past-only future prediction"],
+    "particle_identity_warning": "Particle color and ID identify a patch-origin particle, not a persistent object track"
+  },
+  "adaptation_gate": {
+    "comparison": "paired recording bootstrap, 2000 resamples, 95 percent interval",
+    "required": [
+      "final reconstruction LPIPS lower than published checkpoint, paired CI upper bound < 0",
+      "final past-only 4-second forecast LPIPS lower than published checkpoint, paired CI upper bound < 0",
+      "final past-only 4-second forecast LPIPS lower than last-frame persistence, paired CI upper bound < 0",
+      "final forecast object-region MSE lower than last-frame persistence, paired CI upper bound < 0",
+      "top16 object-box recall IoU0.1 noninferiority vs published checkpoint, paired CI lower bound >= -0.02",
+      "finite outputs, nonzero gradients and weight changes in all four core modules, and observed-particle causality check"
+    ],
+    "stage2_on_failure": "do not start a planner; report the unmet criteria and diagnosis",
+    "stage2_on_success": "freeze adapted LPWM, register LPWM-style latent-action-to-policy training and official PDM comparison"
+  },
+  "resource_limits": {"allowed_gpus": [0, 1], "training_workers": 1, "minimum_free_gib": 6, "maximum_allocated_gib": 22},
+  "deviations_from_original": [
+    "NAVSIM front RGB at 2 Hz, cropped and resized to 128 square",
+    "12-frame clips within unchanged learned temporal embeddings",
+    "post-training starts from public pretrained weights, no from-scratch warmup",
+    "effective batch 8 via accumulation, gradient norm safety cap 100",
+    "single seed domain-adaptation run, not a replication of the original paper",
+    "no added ego FiLM, object labels, trajectory loss, selectors or planner in stage1"
+  ]
+}

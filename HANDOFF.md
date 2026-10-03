@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 19:22 KST (Codex)
+마지막 갱신: 2026-10-03 21:52 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -147,11 +147,29 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
-`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
-512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
-관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
-기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
+**2026-10-03 21:47 KST 최신: 전체 navtrain Stage1 본 학습이 GPU0·1에서 계속 실행 중이다.**
+- Supervisor919150 / torchrun920080 / ranks920132,920133; 프로세스와 interpreter alias `kjs-lpwm-stage1`.
+- 마지막 확인 update208 이상 / 총28,920, 20epoch; train23,126/122recording, dev7,745/40recording.
+- batch4/GPU × accumulation2 × 2GPU =16; FP32; DataLoader worker0, torch CPU threads4/rank.
+- GPU 각각 사용률100%, process VRAM36.1GiB/free11.3GiB, rank RSS 약3.21GiB씩 실측. GPU reserve6GiB.
+- 최근 1.55s/update, 남은 순수학습12.35h; 중간진단 포함13~14h 추정. 최종적응평가/Stage2 시간 제외.
+- 사용자는 더 이상의 속도 실험으로 중단하지 말고 빨리 본 학습을 계속하라고 지시했다. 필요 없는 GPU profile/worker 변경 금지.
+- 최초 첫-update 이전 정체는 재기동으로 해소됐으나 정확 원인은 미확정. source amendment1~3에 변경 이력 보존.
+- `outputs/lpwm_navsim_full_posttraining_v2/active_stage.json`, `stage1/progress.json`, `stage1_full_training.log`를 먼저 확인한다.
+- particle gallery는 동일 장면 update0/128/512 및 epoch1/5/10/15/20. 현재 update128 저장 완료.
+- 자동 체인: 전체Stage1 → 원본/적응본 dev7,745 평가 → 적응 gate → 통합Stage2 두조건 학습 → 전체 dev 및 navtest12,146 공식PDM.
+- Stage2 GPU preflight는 gate 통과 후 실행. 아직 Stage2 학습·PDMS 결과 없음. 원래 18run encoder-only queue와 WA는 재개하지 않는다.
+
+### 아래는 이전 실행 이력 (위 최신 상태와 구분)
+
+
+**최신 방향 수정: LPWM encoder·context·dynamics·planner 공동 학습.** 사용자가 원본 context/dynamics를 제외한 선택을 지적하고 공동 학습을 요청했다.
+기존 encoder-only는 완료7run(frozen3/planning3/uniform seed29)만 보존하고 우리 worker3425264/3425265/scorer3425266을 SIGINT 종료했다.
+`outputs/lpwm_planning_v1/superseded_by_joint_world_model.json`을 따른다. 이전18run queue/finalizer를 자동 재개하지 않는다.
+새 코드 `src/planning_aware_future_prediction/object_centric/lpwm_joint_world_planner.py`: 공식 encoder6.035M/context39.389M/dynamics59.869M+planner0.821M, RGB decoder만 제외.
+과거2영상→관측transition posterior→미래8step은policy prior만으로 autoregressive rollout, activation checkpointing으로 gradient 보존.
+GPU0 batch1 3update에서 planning/future loss 각각 세모듈gradient>0, 미래label변경시예측동일을 통과했다. bf16 batch4 profile 진행/새 데이터·규모 준비 중이다.
+기존512train 중13개/192dev 중2개가 공식navtrain token필터밖임을 발견했다(로그는전부navtrain). 새 학습은 공식token까지엄격필터한다.
 
 **LPWM 등록 학습·평가 종료.** 6개 모델/총1800update, 8모델×30clip 평가를 완료했다.
 PID2583673/2583803 queue는 PILOT_VARIANT_DONE으로 종료, 추가 읽기 전용 2개 재평가도 종료했다.
@@ -319,11 +337,28 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 
 ## 2. 최근 결과와 조사 사실
 
-**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
-`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
-512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
-관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
-기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
+**이번 세션의 확인 결과:**
+- 공식 navtrain log AND token 필터, 기존40개 development recording 유지. 나머지122개 recording 모두 학습 사용.
+- 이전 navtrain heldout recording도 이번 사용자 전체학습 승인으로 train에 포함됐으므로 독립평가로 부르지 않는다. navtest 학습 사용 없음.
+- 공유 RGB cache152,495장/약7.0GiB. Stage1 train23,126/dev7,745; Stage2 train75,297/dev27,076.
+- Stage2 ego 상태·미래 경로 생성 시 기존 공식 cached target과 max차이0.0.
+- 공개 원본 Sketchy SHA6d62bf5a...부터 시작. 전체4모듈 gradient>0/weight change 검사 통과.
+- batch2/accum4/worker0:1.729s; batch4/accum2/worker0:1.612s. worker2:1.627s,4:1.634s,8:1.612s,0재확인:1.624s. 각8update 중 초반2개 제외; 짧은 공유GPU 측정이며 전역최적 증거가 아니다.
+- 본 학습 batch4 peakallocated29.10GiB, nvidia process약36.1GiB. 6개 처리량 측정에서 OOM0, worker증가 추가이득 미확인.
+- planning gradient 독립 CPU audit: encoder4.015/context0.590/dynamics2.472/planner157.929, 미래GT교란 출력차이0, 1진단update 후 intent particle차이0.01828. 진단weight미저장/Stage2성능결과아님.
+- 프로토콜/카메라기하/분산데이터 재개·RNG 검사8개 통과. Stage2 GPU경로는 gate 후 검증 예정.
+- 공유 기록 `results/lpwm_navsim_full_posttraining_v2/`; 아직 전체 학습 완료나 planning 개선 결과 없음.
+
+### 이전 완료 결과 보존
+
+
+**최신 방향 수정: LPWM encoder·context·dynamics·planner 공동 학습.** 사용자가 원본 context/dynamics를 제외한 선택을 지적하고 공동 학습을 요청했다.
+기존 encoder-only는 완료7run(frozen3/planning3/uniform seed29)만 보존하고 우리 worker3425264/3425265/scorer3425266을 SIGINT 종료했다.
+`outputs/lpwm_planning_v1/superseded_by_joint_world_model.json`을 따른다. 이전18run queue/finalizer를 자동 재개하지 않는다.
+새 코드 `src/planning_aware_future_prediction/object_centric/lpwm_joint_world_planner.py`: 공식 encoder6.035M/context39.389M/dynamics59.869M+planner0.821M, RGB decoder만 제외.
+과거2영상→관측transition posterior→미래8step은policy prior만으로 autoregressive rollout, activation checkpointing으로 gradient 보존.
+GPU0 batch1 3update에서 planning/future loss 각각 세모듈gradient>0, 미래label변경시예측동일을 통과했다. bf16 batch4 profile 진행/새 데이터·규모 준비 중이다.
+기존512train 중13개/192dev 중2개가 공식navtrain token필터밖임을 발견했다(로그는전부navtrain). 새 학습은 공식token까지엄격필터한다.
 
 LPWM 6run 완료: 원영상 적응 복원 MSE0.01640, 객체 점 포함31.76%, 박스IoU≥0.3 대응18.47%, 미래MSE0.03015.
 공식무적응은0.05680/40.73%/17.71%/0.06934, 마지막영상유지 미래MSE0.03032다.
@@ -541,26 +576,34 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
-`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
-512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
-관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
-기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
-
-- 사용자 요청 LPWM 공식 repository와 checkpoint를 다운로드하고 49쪽 논문·코드·선행연구를 조사했다.
-- 별도 환경, NAVSIM 읽기 전용 clip adapter, strict loader, 카메라 회전 보정, 공식 ELBO 학습과 과거만의 평가를 구현했다.
-- 90train/30development, 원영상·회전보정 ×3seed×300update를 완료하고 무적응·격자·persistence 대조군과 비교했다.
-- 객체/영상/상황별/공통시야/가림 진단·recording bootstrap과 실제 PNG4장/GIF3개/PDF를 생성했다.
-- 결과·source 및 checkpoint provenance·검증3개·미래누수검사·환경기록과 README/AGENTS/HANDOFF/연구상태를 갱신했다.
-- 복원 개선과 객체 이해를 구분했으며 planning 이득은 미검증으로 기록했다. 기존 모델·환경·공용 데이터는 보존했다.
+- 공개 LPWM NAVSIM 전체 post-training 데이터 준비·DDP 학습·공식 ELBO·미래입력누출검사·상황별적응gate·동일장면 particle gallery 구현.
+- small v1 계획을 보존하고 full v2로 확장. source/config/manifest 원래 hash와 engineering amendment1~3을 보존.
+- microbatch와 prefetch worker0/2/4/8 실측, batch4/accum2/worker0 채택. 요청된 kjs-lpwm-stage1 프로세스 이름/환경 alias로 update96부터 복구, 실제 계속학습 확인.
+- 저LR LPWM+전체planner Stage2 모델/학습/시각화/독립gradient audit/전체dev+navtest입력·추론·공식PDM·조건부launcher 연결 구현. CPU검사통과, Stage2 GPU검증·학습은 아직 미실행.
+- 기존 encoder-only 완료7run의 결과와 superseded joint prototype 보존; 과거실험결과를 full LPWM결과로 부르지 않음.
+- README/AGENTS/HANDOFF 최신화, RESUME_NOTES append, 실행/처리량 JSON 공유. 사용자 요청 본학습을 중단하지 않음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
-`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
-512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
-관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
-기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
+**최우선: 실행 중인 Stage1을 그대로 계속한다.**
+1. `stage1/progress.json`과 worker PID/실제 update 증가를 확인하되 optional batch/worker profile을 재실행하지 않는다.
+2. fault 발생 시 원래설정/manifest/공개weight/hash/학습checkpoint 보존. 승인GPU0·1에서 우리 PID만 처리. 현 프로세스는 SIGINT로 update경계 저장 가능.
+3. 필요 시 재개 명령: `runtime/environments/kjs-lpwm-stage1/bin/python scripts/launch_lpwm_full_navtrain.py --config configs/lpwm_navsim_adaptation/full_posttraining_v2.json --execution-config configs/lpwm_navsim_adaptation/execution/batch4_accumulation2_workers0.json --detach --resume`.
+4. 원래 source registration은 덮어쓰지 않는다. 변경필요시 source_amendments 해시체인을 append하고 실제 checkpoint진행도를 기록한다.
+5. Stage1 종료 후 original/posttrained 전체dev 평가 및 gate가 자동 실행된다. gate실패면 Stage2를 강행하지 말고 unmet criteria를 보고한다.
+6. gate통과 시 `launch_lpwm_full_planning.py`: 실제 적응weight의 GPU planninggradient audit → 실제누적조건 DDP profile → 두조건각20epoch → dev27,076 및 navtest12,146 평가/공식PDM. engineering실패시 임의자동retry없음.
+7. Stage2 구현은 아직 GPU실행되지 않았으므로 첫profile로그/메모리/공식scoring연결을 확인해야 한다. 학습완료/성능향상을 미리 주장하지 않는다.
+
+### 과거 다음단계 (자동 실행 금지)
+
+
+**최신 방향 수정: LPWM encoder·context·dynamics·planner 공동 학습.** 사용자가 원본 context/dynamics를 제외한 선택을 지적하고 공동 학습을 요청했다.
+기존 encoder-only는 완료7run(frozen3/planning3/uniform seed29)만 보존하고 우리 worker3425264/3425265/scorer3425266을 SIGINT 종료했다.
+`outputs/lpwm_planning_v1/superseded_by_joint_world_model.json`을 따른다. 이전18run queue/finalizer를 자동 재개하지 않는다.
+새 코드 `src/planning_aware_future_prediction/object_centric/lpwm_joint_world_planner.py`: 공식 encoder6.035M/context39.389M/dynamics59.869M+planner0.821M, RGB decoder만 제외.
+과거2영상→관측transition posterior→미래8step은policy prior만으로 autoregressive rollout, activation checkpointing으로 gradient 보존.
+GPU0 batch1 3update에서 planning/future loss 각각 세모듈gradient>0, 미래label변경시예측동일을 통과했다. bf16 batch4 profile 진행/새 데이터·규모 준비 중이다.
+기존512train 중13개/192dev 중2개가 공식navtrain token필터밖임을 발견했다(로그는전부navtrain). 새 학습은 공식token까지엄격필터한다.
 
 **LPWM 파일럿 완료 후 제안:** 결과·실제 particle 시각화를 검토한다.
 다음 후보는 RGB 복원 추가 확대보다 의미 feature/depth 감독, particle 상태의 ego motion 분리,
@@ -639,11 +682,24 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 
 ## 5. 확정 범위 / 미결
 
-**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
-`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
-512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
-관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
-기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
+**현재 확정/미결:**
+- Stage1 공개전체 LPWM world-model 적응 → 성공 시 Stage2 저LR LPWM+전체planner 공동학습. frozen LPWM 및 별도Stage3는 사용자정정으로 대체됨.
+- 현 실행설정은 측정한 범위의 합리적선택이며 모든 batch/precision/worker의 전역최적이 아니다. 학습을멈추는 추가탐색은 사용자최신지시와 충돌한다.
+- OOM 여유6GiB를 지키며 다른사람프로세스/공용데이터를 수정하지 않는다. CPU RAM은 충분하며 fulltrainer자체 hostRAMcap은 없다(workerbenchmark만32GiB reserve감시).
+- Stage1은20epoch의1seed. adaptationgate는dev기반, 독립test/객체identity/planning향상 증거가 아니다.
+- Stage2 VRAM·throughput·완료시각은 아직 미측정. 독립CPUaudit 및 구문검사만 완료, gate 이후 GPU/DDP profile을 필수 실행한다.
+- Stage1첫시도의 첫update정체 원인 미확정; 계측후 재기동은 정상. source/counters/log를 보존했으며 완료하지않은update를 학습량에 포함하지 않는다.
+
+### 과거 범위 이력
+
+
+**최신 방향 수정: LPWM encoder·context·dynamics·planner 공동 학습.** 사용자가 원본 context/dynamics를 제외한 선택을 지적하고 공동 학습을 요청했다.
+기존 encoder-only는 완료7run(frozen3/planning3/uniform seed29)만 보존하고 우리 worker3425264/3425265/scorer3425266을 SIGINT 종료했다.
+`outputs/lpwm_planning_v1/superseded_by_joint_world_model.json`을 따른다. 이전18run queue/finalizer를 자동 재개하지 않는다.
+새 코드 `src/planning_aware_future_prediction/object_centric/lpwm_joint_world_planner.py`: 공식 encoder6.035M/context39.389M/dynamics59.869M+planner0.821M, RGB decoder만 제외.
+과거2영상→관측transition posterior→미래8step은policy prior만으로 autoregressive rollout, activation checkpointing으로 gradient 보존.
+GPU0 batch1 3update에서 planning/future loss 각각 세모듈gradient>0, 미래label변경시예측동일을 통과했다. bf16 batch4 profile 진행/새 데이터·규모 준비 중이다.
+기존512train 중13개/192dev 중2개가 공식navtrain token필터밖임을 발견했다(로그는전부navtrain). 새 학습은 공식token까지엄격필터한다.
 
 **최신 LPWM 범위:** 작은 continued adaptation과 개발 평가이며 논문 전체 재현/새 독립test/PDMS 평가는 아니다.
 Object-centric decomposition과planning중요도는미확정, particle ID는persistent객체ID가 아니다.

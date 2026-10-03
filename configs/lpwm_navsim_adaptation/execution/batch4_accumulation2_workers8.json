@@ -1,0 +1,7 @@
+{
+  "microbatch_size_per_gpu": 4,
+  "gradient_accumulation": 2,
+  "data_loader_workers_per_rank": 8,
+  "maximum_allocated_gib": 32,
+  "reason": "User requested additional worker4 and worker8 throughput comparison; matched batch4, accumulation2 and repeated worker0 reference."
+}
