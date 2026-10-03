@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 15:34 KST (Codex)
+마지막 갱신: 2026-10-03 15:44 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -9,7 +9,7 @@
 `docs/encoder_future_learning.md`, `configs/encoder_future_learning/controlled_comparison_v1.json`.
 LoRA 없이 원본 ViT 마지막2block+norm 전체 가중치를 학습하고 encoder 내부FiLM을 비교한다.
 앞22block/원본planner/teacher고정;512train/192dev/12조건×3seed×512update. 이전학습금지는이번범위에서해제.
-현재 CPU5계약검사통과, prefix준비·GPU gradient gate·학습·공식개발PDM은아직미실행.
+현재CPU167검사통과. GPU0입력준비PID613492실행중. 실제입력마스킹누출/공식동일성통과. GPUgradient gate·본학습·공식개발PDM은아직미실행.
 완료된 이전실험/WA/navtest를자동재개하지않으며공용데이터/원본자산을보존한다.
 
 **이전 작업 완료:** SPARTAN/C-JEPA/IA-JEPA 착안9조건×3seed×800update 및개발PDM비교를완료했다.
@@ -133,7 +133,7 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-현재 encoder_future_learning_v1 준비 중; 아직 GPU 프로세스 미기동.
+현재encoder_future_learning_v1 GPU0 prefix준비PID613492실행중. 준비완료후GPU검사/36run/공식개발PDM·probe예정.
 
 **현재 실행중인 작업 없음.** 등록27run과CPU PDM192장면×34조건모두종료했다.
 출력 `outputs/drive_jepa_selective_future/region_research_v1_20261003/`,
@@ -281,7 +281,7 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 
 ## 2. 최근 결과와 조사 사실
 
-새실험 성능 결과 없음. 새CPU5계약검사 통과.
+새실험성능결과없음. CPU167검사통과. Masked input 교란시prefix bitwise동일/공식masked encoder와최대차이0.
 
 **최신 결과:** 27run완료. SPARTAN추가연결희소화/C-JEPA마스킹/IA움직임선택의추가planning이득은확인하지못했다. 원본대비일부ADE감소는있지만current-only도동일하며PDM개선CI는0포함. 전체수치/상황별/구성요소/비용은새report참조.
 

@@ -1,7 +1,6 @@
 """Prepare exact prefix caches and run registered planning-facing encoder learning."""
 
 import argparse
-import copy
 import hashlib
 import json
 import os
@@ -11,7 +10,6 @@ import subprocess
 import time
 from pathlib import Path
 
-import numpy as np
 import torch
 
 from diagnose_drive_jepa_learning_limitations import load_official_agent
@@ -301,6 +299,7 @@ def gradient_contract(agent, encoder, prediction_head, training_batch, options):
         gradients = torch.autograd.grad(loss, [parameter for _, parameter in named_parameters],
             allow_unused=True, retain_graph=objective == "planning")
         group_norms = {"encoder_blocks": 0., "encoder_intent": 0., "prediction_head": 0.}
+        block_norms = {str(block_index): 0. for block_index in range(len(encoder.blocks))}
         for (name, _), gradient in zip(named_parameters, gradients):
             group = "prediction_head" if name.startswith("prediction_head") else (
                 "encoder_intent" if "intent_conditioning" in name else "encoder_blocks")
@@ -308,7 +307,12 @@ def gradient_contract(agent, encoder, prediction_head, training_batch, options):
                 if not torch.isfinite(gradient).all():
                     raise RuntimeError("Non-finite diagnostic gradient")
                 group_norms[group] += float(gradient.square().sum())
+                if name.startswith("encoder.blocks."):
+                    block_norms[name.split(".")[2]] += float(gradient.square().sum())
         report[objective] = {group: squared_norm ** .5 for group, squared_norm in group_norms.items()}
+        report[objective]["per_encoder_block_gradient_norm"] = {name: norm ** .5 for name, norm in block_norms.items()}
+        if any(norm <= 0 for norm in block_norms.values()):
+            raise RuntimeError("An intended trainable encoder block is disconnected")
     if report["planning"]["encoder_blocks"] <= 0 or report["planning"]["prediction_head"] != 0:
         raise RuntimeError("Planner-to-encoder gradient contract failed")
     if options["auxiliary"] != "none" and report["auxiliary"]["encoder_blocks"] <= 0:
@@ -455,6 +459,8 @@ def main():
     write_json(worker_directory / "provenance.json", {"source": source, "configuration": specification,
         "configuration_sha256": file_sha256(CONFIGURATION), "original_model_hash": original_hash,
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=WORKSPACE, text=True).strip(),
+        "implementation_sha256": {str(path.relative_to(WORKSPACE)): file_sha256(path) for path in (
+            Path(__file__).resolve(), WORKSPACE / "src/planning_aware_future_prediction/models/intent_conditioned_encoder.py")},
         "physical_gpu": os.environ["CUDA_VISIBLE_DEVICES"], "torch_version": torch.__version__})
     if args.mode == "prepare":
         prepare_prefix_cache(agent, specification, OUTPUT_DIRECTORY, started)

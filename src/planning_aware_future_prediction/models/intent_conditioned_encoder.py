@@ -48,6 +48,18 @@ def plan_from_encoder_features(baseline_model, encoder_features, ego_status):
     return baseline_model._trajectory_head(baseline_model._transformer(src=memory, tgt=queries))
 
 
+def predict_trajectory_from_observations(baseline_model, trained_encoder, observed_camera_clip, ego_status):
+    """Deployment path: observed frames -> conditioned encoder -> original planner.
+
+    No training-only predictor, future image, future latent, selector, or memory
+    bridge is constructed or called by this interface.
+    """
+    observed_prefix = encode_frozen_prefix(baseline_model, observed_camera_clip,
+                                           num_trainable_blocks=len(trained_encoder.blocks))
+    encoder_features = trained_encoder(observed_prefix, ego_status)
+    return plan_from_encoder_features(baseline_model, encoder_features, ego_status)
+
+
 def pool_spatial_regions(patch_features: Tensor) -> Tensor:
     """Average 2x2 patches, preserving preceding batch/time dimensions."""
     leading_shape = patch_features.shape[:-2]

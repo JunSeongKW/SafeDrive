@@ -100,3 +100,7 @@ Implementation and gates in progress. No learned performance result yet.
 ## Depth control amendment before any training outcome
 
 User questioned whether last2 training suffices. Add last6 full-update arms for encoder_planning, intent_planning, intent_uniform_future, intent_planning_masked_future; same inputs/order/learning rates/update counts. Cache block18 and22 outputs separately. This checks a larger adaptation depth without treating either partial adaptation as full pretraining. First sandbox GPU launch failed before loading; retry with required GPU access. No training result informed the amendment.
+
+## Common representation probe protocol (registered before training)
+
+Project1024D encoder channels with a fixed random1024x16 matrix(seed9173), spatially average to4x8 cells, and concatenate observed8D ego status:520 input dimensions. Fit a separate closed-form ridge(alpha10, intercept, train-only normalization) for each future tubelet. Targets are changes in normalized frozen-teacher region features, projected/pool-aligned to the same4x8 cells. Invalid future windows are excluded per horizon. Same protocol for original and every trained encoder; no dev-selected ridge hyperparameters. Report per-horizon MSE and persistence baseline. This measures linear accessibility of a particular future-feature target, not semantic understanding.
