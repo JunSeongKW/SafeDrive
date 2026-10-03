@@ -1,10 +1,19 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 09:45 KST (Codex)
+마지막 갱신: 2026-10-03 11:40 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
-**최신 사용자 요청: 학습된 selector/predictor 시각화.** 밤샘 87run/61,200update는
+**최신 사용자 요청(2026-10-03): 중요 요소 선택을 개선하는 크기·개수·학습 신호 비교.**
+기준122e885. `spatial_region_selection_v1.json`에 5조건×3seed×800update를 결과 확인 전 등록했다.
+현재704cache/공식frozen planner/공통warmup·batch순서 재사용. 작은16patch, 큰4region,
+큰8region random/planning/planner-retention 비교. Region은2×2native token 평균이며 객체가 아니다.
+Retention은현재planner의선택정보의존도proxy로 selector만학습;미래중요도의정답으로해석하지않는다.
+2시간전체/20분조건/allocated8GiB/여유6GiB, 단일GPU0또는1만. 기존결과덮어쓰기없음.
+진입점 `scripts/train_drive_jepa_spatial_regions.py`, 현재는CPU7검사통과/학습시작전이다.
+이번명시적재학습요청이아래시각화전용·09:00마감의과거범위를갱신한다.
+
+**이전 사용자 요청: 학습된 selector/predictor 시각화.** 밤샘 87run/61,200update는
 03:45에 모두 종료됐고 결과 commit은 `8182f6c`다. 아래 18run 등록/실행 문장은 과거 이력이다.
 이번에는 새 학습 없이 기존 seed29의 MLP/ego-query 낮은LR final800을 CPU에서 복원했다.
 192dev window/24recording 모두 저장 GPU selected IDs와 일치, window MSE 차이 최대9.54e-7.
@@ -98,6 +107,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+새region실험 등록/구현 완료, GPU시작전. 새출력 `outputs/drive_jepa_selective_future/spatial_region_selection_v1_20261003/`.
+중단시 같은config/output에 `train_drive_jepa_spatial_regions.py --resume`; optimizer/scheduler/RNG/완료update복원.
 
 현재 우리 학습 작업은 없다. 87run 종료 후 사용자 요청으로 CPU 시각화를 생성했다.
 진입점 `scripts/visualize_drive_jepa_learned_modules.py`, config `learned_modules_visualization_v1.json`.
@@ -235,6 +247,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Region CPU7검사 통과: pooling/비중복/명시ID검증/원본출력보존/aux경계/retention→selector만/빈target.
+새학습결과는아직없음. Native K4영상은선택편향이있지만 그것만으로semantic중요도부재를확정하지않는다.
 
 2026-10-03 CPU 시각화 검증: seed29 warmup100→joint800에서 selector 선택 교체율은
 ego-query43.1%, MLP26.6%. Parameter 상대변화는 selector .759%/.915%, predictor3.11%/10.47%.
@@ -420,6 +435,10 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+- 5조건×3seed/800update region크기·개수·학습신호비교를사전등록.
+- Native현재입력불변인2×2region pooling, selector-only frozen-planner retention proxy와지역전체valid mask구현.
+- 독립runner와CPU7검사추가. 원본/기존결과불변; GPU학습전.
+
 - 최신: 학습된 selector/predictor CPU 시각화 script·config·6개 계약검사·공유요약 추가.
 - 현재/future GT 사진과 predicted latent를 명확히 구분하고 before는auxwarmup후임을 표기.
 - 동일 final-selected 위치로 warmup/final/persistence 비교, 공식front crop/resize 재사용.
@@ -509,6 +528,9 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
+현재다음: CPU전체검사→GPU0/1점유확인→등록15run→대응seed/recording비교와동일6scene시각화.
+고정마지막800checkpoint만보고. 실패해도추가구조/weight/sweep를자동확장하지않는다.
+
 최신: 사용자에게 CPU 시각화 갤러리와 ZIP을 전달해 실제선택위치/미래latent를 검토한다.
 가중치·선택변화와 예측오차 감소는 좋은 선택정책/안전성향상의 증거와 구분한다.
 추가 학습을 자동 재개하지 않는다. 아래는 과거 다음단계 이력이다.
@@ -564,6 +586,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재region-retention은frozen current-planner의정보유지proxy이며 semantic/인과/future중요도정답아님.
+Globally contextual latent/mean대체분포변화가한계. 큰영역평균은공간상세도를낮추므로픽셀면적과출력token예산을별도보고.
+기존K4warmup에서이어진비교이며처음부터최적region학습을증명하지않음. 공식PDMS/heldout/WA재개없음.
 
 최신 시각화: strict submodule loading·CPU/GPU 저장결과 대조 통과. Encoder는 기존 캐시,
 planner/scorer는 이번에 다시 실행하지 않았다. 사진은 실제GT, latent heatmap은1024개channel

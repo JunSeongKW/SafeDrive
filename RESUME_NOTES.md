@@ -1429,3 +1429,15 @@ PYTHONPATH=src OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 CUDA_VISIBLE_DEVICES='' 
   --config configs/drive_jepa_selective_future/learned_modules_visualization_v1.json \
   --output-directory outputs/drive_jepa_selective_future/selector_predictor_visualization_<run_id>
 ```
+
+## 2026-10-03 11:40 KST — Spatial region selection comparison registered
+
+Latest user requested more/larger meaningful patches rather than visualization alone.
+Base122e885; config `configs/drive_jepa_selective_future/spatial_region_selection_v1.json`.
+5conditions×3pairedseeds×800jointupdates; same704cache and commonwarmup100.
+K16native, K4pooled2×2, K8pooled random/planning/planner-retention.
+Current planner always receives full original grid. Retention masks only a training readout,
+uses current full-planner teacher, and gradients go only to selector. Futureaux goes only to predictor.
+No new target-validity candidate filtering or semantic GT importance assertion.
+151CPUtests pass,GPU0/1both48GBfree at11:39. Registered2hwhole/20mincondition/8GiBown/6GiBfree caps.
+No performance result yet. Resume restores this runner optimizer/scheduler/RNG; old runs preserved.

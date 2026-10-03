@@ -1,5 +1,16 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 2026-10-03 — 선택 영역 확대·planning 보조 신호 실험 등록
+
+사용자가선택시각화를확인한뒤재학습요청. 기준122e885, 새설정 `spatial_region_selection_v1.json`.
+K16 native / K4 2×2지역 / K8지역 random·planning·retention의5조건×3seed×800update.
+같은704cache, 공통100warmup과기존800batch순서·낮은LR고정. 원본planner/encoder frozen.
+Region평균 미래latent를예측하며planner현재입력은512개그대로. 미래mask는aux에만사용.
+Retention은선택current정보로원본planner판단을보존하는training-only SmoothL1 proxy이며selector만갱신.
+이는contextual features/mean masking의모델의존도측정이지인과적중요도나미래효용의정답이아니다.
+동일K8 controls가주비교, K/면적증가조건은자원변경을분리해서해석한다. CPU7검사통과, 학습미시작.
+2시간/condition20분/own8GiB/sharedreserve6GiB; 등록상한뒤추가자동튜닝없음.
+
 ## 최신 — 87run 완료 및 실제 selector/predictor 시각화
 
 자동 후속18run까지03:45종료, commit8182f6c. 낮은LR에서도 learned-vs-fixed/random의
