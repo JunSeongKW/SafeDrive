@@ -1,5 +1,18 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 최신 — 87run 완료 및 실제 selector/predictor 시각화
+
+자동 후속18run까지03:45종료, commit8182f6c. 낮은LR에서도 learned-vs-fixed/random의
+recording CI는0포함한다. Current-feature 전달도0.346890m이며 미래 예측의추가효용은미확정.
+새사용자요청에따라 기존 seed29 MLP/ego-query checkpoint만 CPU로복원해 시각화했다.
+Dev192/24recording 전체의 selected IDs는 저장GPU결과와 같고 predictorMSE차이는최대9.54e-7.
+Before=100auxwarmup후, After=고정800jointupdate. 같은최종선택위치로predictor를비교한다.
+Ego-query는선택43.1%교체/MSE2.3792→2.2716(copy2.3964), MLP26.6%교체/4.3746→2.8763(copy2.1647).
+이는가중치업데이트와예측학습의관측이며 좋은선택/PDMS개선의증명은아니다.
+실제사진은정답참조, 별도latent heatmap은비공간1024channel값이며RGB생성이아니다.
+갤러리경로: `outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003/index.html`.
+새GPU/학습/환경설치/공용데이터변경없음. 전체CPU144tests통과. 아래실행상태는과거이력이다.
+
 ## 최신 상태 — 69run 완료, matched low-rate 선택 비교 등록
 
 첫69run/46,800update 종료. 추가dev192window/24recording에서 원본ADE0.352210m,

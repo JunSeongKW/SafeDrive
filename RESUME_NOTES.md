@@ -1398,3 +1398,34 @@ Jointaux-off도공통100updatefuturewarmup은유지하므로미래지식이전�
 실행전초기모듈hash·batchschedule같음확인, effectiveauxweight와rawgradient진단역할구분.
 기존69run상한은그대로종료했고이번다음단계를별도등록했다. 총등록87run/61200update,현재완료69.
 두시간/09:00/공유GPUreserve상한, 추가cache/target정의변경/공식benchmark/heldout 없음.
+
+### 2026-10-03 오전 — 87run 완료 확인 및 실제 학습 모듈 시각화
+
+후속18run도03:45완료, 자동결과commit8182f6c. Push는인증오류로실패했다.
+사용자 요청은 selector/predictor가 학습됐는지 눈으로 확인할 시각화다. 추가학습은하지않았다.
+낮은LR seed29 MLP/ego-query final800을 CPU에서 strict submodule복원했다.
+기존공식encoder캐시를읽고 fullplanner/encoder/scorer는재실행하지않았다.
+Dev192/24recording 전부GPU저장selected IDs일치, window MSE 최대차이는
+ego4.768e-7/MLP9.537e-7(tol1e-5 사전설정). 출력finite/캐시checksum검사통과.
+6개명령별hash표본의현재선택전후/softmax/미래실제영상·crop/1024-Dlatent값·MSE를그렸다.
+Before는100auxwarmup후이고동일한final-selected ID에대해predictor를비교한다.
+사진은생성prediction이아니라GT참조이며,고정camera-grid는객체track이아니다.
+결측future는제외표본선정에사용하지않고오차공백/GT회색으로표시한다.
+Ego predictor유효patch-time MSE2.379169→2.271626(current-copy2.396446),
+MLP4.374582→2.876284(copy2.164686). Selector선택교체43.10%/26.56%.
+이는학습진행관측이며최적선택/공식planning성능향상은검증하지않는다.
+주최종render56.10초/CPU1thread/GPU0, 초기errorcurve렌더도보존했다.
+144pytest통과/Ruff통과/HTML65파일로컬참조·ZIP CRC검사통과,ZIP30.03MB.
+이미지·latent NPZ·전체JSON은Git에넣지않고소형summary만공유한다.
+갤러리 `outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003/index.html`.
+ZIP `outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003.zip`.
+공유 `results/drive_jepa_selective_future/learned_module_visualization_20261003.json`.
+
+재현(새 output-directory 필요):
+```bash
+PYTHONPATH=src OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 CUDA_VISIBLE_DEVICES='' \
+  runtime/environments/future_prediction_cpu/bin/python \
+  scripts/visualize_drive_jepa_learned_modules.py \
+  --config configs/drive_jepa_selective_future/learned_modules_visualization_v1.json \
+  --output-directory outputs/drive_jepa_selective_future/selector_predictor_visualization_<run_id>
+```

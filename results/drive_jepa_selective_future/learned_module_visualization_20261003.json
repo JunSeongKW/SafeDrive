@@ -1,0 +1,379 @@
+{
+  "complete": true,
+  "cpu_only": true,
+  "training_performed": false,
+  "development_windows": 192,
+  "recordings": 24,
+  "metric_aggregation": "valid_patch_time_mean; not scene-macro planning ADE",
+  "models": {
+    "ego_query": {
+      "warmup_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+      "warmup_sha256": "b2f99483e74e6111997582c970499ae6b6c08d2811c4f8146500648586a39d52",
+      "final_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003/ego_lower_learning_rate_seed29/complete.pt",
+      "final_sha256": "d90f4445426c8156cce4752a15affd38b82462791f67f06c4ea27e1b25078bdc",
+      "strict_submodule_loading": true,
+      "selector_relative_parameter_change": 0.007588640321046114,
+      "predictor_relative_parameter_change": 0.031087419018149376,
+      "stage_comparison": "after100_auxiliary_warmup_vs_after800_joint_updates",
+      "cpu_gpu_all_selected_ids_equal": true,
+      "maximum_cpu_gpu_window_mse_difference": 4.76837158203125e-07,
+      "selection_retention_mean": 0.5690104166666666,
+      "mse_before_by_horizon": [
+        1.8807416975870728,
+        2.260865240206576,
+        2.708735002248093,
+        3.182677202026049
+      ],
+      "mse_before_valid_patch_time_mean": 2.3791693646904672,
+      "mse_after_by_horizon": [
+        1.7944204140206177,
+        2.162833782088043,
+        2.580194613441478,
+        3.041926691631476
+      ],
+      "mse_after_valid_patch_time_mean": 2.2716258253171064,
+      "mse_copy_by_horizon": [
+        1.8924475724001726,
+        2.276328570376604,
+        2.729847109941549,
+        3.209525942206383
+      ],
+      "mse_copy_valid_patch_time_mean": 2.3964459712956554,
+      "cosine_before_by_horizon": [
+        0.7902238414684931,
+        0.7511212475215777,
+        0.7068024009119632,
+        0.6643908397356669
+      ],
+      "cosine_before_valid_patch_time_mean": 0.7407221533619216,
+      "cosine_after_by_horizon": [
+        0.7968540883560975,
+        0.758352567624842,
+        0.7165144143062968,
+        0.6744558782378832
+      ],
+      "cosine_after_valid_patch_time_mean": 0.748737836831084,
+      "cosine_copy_by_horizon": [
+        0.7893894947568576,
+        0.7501266016346267,
+        0.7052763600422199,
+        0.6624668575326602
+      ],
+      "cosine_copy_valid_patch_time_mean": 0.7395140604751411,
+      "valid_patch_times_by_horizon": [
+        600,
+        468,
+        344,
+        300
+      ]
+    },
+    "mlp": {
+      "warmup_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed29/auxiliary_warmup_complete.pt",
+      "warmup_sha256": "88cc0acba20b4e7c739dae960a1021fcbf62d2a4f0eafd14a95be2a89e33b80d",
+      "final_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003/mlp_lower_learning_rate_seed29/complete.pt",
+      "final_sha256": "a7558dc0711d819764fe1798957ecac0c64579f3c76abe99e4c4b1d0ea18c206",
+      "strict_submodule_loading": true,
+      "selector_relative_parameter_change": 0.009147325530648232,
+      "predictor_relative_parameter_change": 0.10468184947967529,
+      "stage_comparison": "after100_auxiliary_warmup_vs_after800_joint_updates",
+      "cpu_gpu_all_selected_ids_equal": true,
+      "maximum_cpu_gpu_window_mse_difference": 9.5367431640625e-07,
+      "selection_retention_mean": 0.734375,
+      "mse_before_by_horizon": [
+        4.298744993607203,
+        4.3108128181889525,
+        4.410076571065326,
+        4.5850345094998675
+      ],
+      "mse_before_valid_patch_time_mean": 4.374581827320785,
+      "mse_after_by_horizon": [
+        2.7845306823650997,
+        2.800169208110907,
+        2.9284609729467435,
+        3.1187024188041685
+      ],
+      "mse_after_valid_patch_time_mean": 2.8762844037090507,
+      "mse_copy_by_horizon": [
+        1.6449875530352196,
+        2.087420973385501,
+        2.4433100880231966,
+        3.005129784544309
+      ],
+      "mse_copy_valid_patch_time_mean": 2.164686421150011,
+      "cosine_before_by_horizon": [
+        0.2695960981212556,
+        0.2705675471478548,
+        0.2628046129938475,
+        0.25567595911522706
+      ],
+      "cosine_before_valid_patch_time_mean": 0.2660577368822436,
+      "cosine_after_by_horizon": [
+        0.6919768890117606,
+        0.6912577290438179,
+        0.6752467950762704,
+        0.6620769495765368
+      ],
+      "cosine_after_valid_patch_time_mean": 0.6831791664595568,
+      "cosine_copy_by_horizon": [
+        0.8230743912855784,
+        0.7754298837648498,
+        0.7398684702293817,
+        0.6898696530361971
+      ],
+      "cosine_copy_valid_patch_time_mean": 0.7699891764270229,
+      "valid_patch_times_by_horizon": [
+        600,
+        468,
+        344,
+        300
+      ]
+    }
+  },
+  "wall_seconds": 56.10151230599149,
+  "execution_specification": {
+    "config": {
+      "task": "inspect_actual_learned_selector_and_predictor_without_new_training",
+      "seed": 29,
+      "cache_index": "outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/cache_index.json",
+      "gallery_hash_salt": "learned-module-visualization-v1-20261003",
+      "gallery_windows_per_command": 2,
+      "maximum_wall_seconds": 1800,
+      "cpu_gpu_mse_absolute_tolerance": 1e-05,
+      "models": {
+        "ego_query": {
+          "architecture": "ego_query_residual",
+          "warmup_checkpoint": "outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+          "final_checkpoint": "outputs/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003/ego_lower_learning_rate_seed29/complete.pt"
+        },
+        "mlp": {
+          "architecture": "mlp_recipe_control",
+          "warmup_checkpoint": "outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed29/auxiliary_warmup_complete.pt",
+          "final_checkpoint": "outputs/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003/mlp_lower_learning_rate_seed29/complete.pt"
+        }
+      }
+    },
+    "gallery_records": [
+      {
+        "segment_filename": "2021.06.14.20.14.09_veh-26_01121_01211.pkl",
+        "start_index": 161,
+        "current_frame_token": "3af5997ba679558e",
+        "scene_token": "88c795d26c3c50dd",
+        "native_log_name": "2021.06.14.20.14.09_veh-26_01121_01211",
+        "native_log_token": "0732f660a8175968",
+        "history_begin_timestamp_us": 1623717386633244,
+        "future_end_timestamp_us": 1623717392126275,
+        "command_raw_index": 0,
+        "ego_speed_meters_per_second": 0.01116911885698994,
+        "recording_group": "2021.06.14.20.14.09_veh-26",
+        "split": "development",
+        "future_tubelet_valid": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/feature_cache/3af5997ba679558e.pt",
+        "cache_sha256": "9f92b87af2d76a8589ed585077e96d05eab8fcb957bbd6560f610f56e5c90e6e",
+        "actual_frame_intervals_seconds": [
+          0.499048,
+          0.499029,
+          0.499003,
+          0.499302,
+          0.499363,
+          0.499474,
+          0.499434,
+          0.499552,
+          0.499442,
+          0.499643,
+          0.499741
+        ]
+      },
+      {
+        "segment_filename": "2021.08.24.20.03.01_veh-45_00269_00428.pkl",
+        "start_index": 183,
+        "current_frame_token": "70738626d9985a8b",
+        "scene_token": "473799c8bb585e69",
+        "native_log_name": "2021.08.24.20.03.01_veh-45_00269_00428",
+        "native_log_token": "0432aab08e7d5809",
+        "history_begin_timestamp_us": 1629835818099893,
+        "future_end_timestamp_us": 1629835823599820,
+        "command_raw_index": 0,
+        "ego_speed_meters_per_second": 4.892364792871164,
+        "recording_group": "2021.08.24.20.03.01_veh-45",
+        "split": "development",
+        "future_tubelet_valid": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/feature_cache/70738626d9985a8b.pt",
+        "cache_sha256": "70b00e32cde7afe58ced622c11dbab0db38ce22fc38f43fc8ab22ed0b23a5e99",
+        "actual_frame_intervals_seconds": [
+          0.499751,
+          0.499725,
+          0.500095,
+          0.500589,
+          0.500504,
+          0.500433,
+          0.499796,
+          0.499636,
+          0.49976,
+          0.499783,
+          0.499855
+        ]
+      },
+      {
+        "segment_filename": "2021.08.09.18.37.41_veh-28_00053_00548.pkl",
+        "start_index": 533,
+        "current_frame_token": "7f1a9a055ee05802",
+        "scene_token": "f784d2c9e901504b",
+        "native_log_name": "2021.08.09.18.37.41_veh-28_00053_00548",
+        "native_log_token": "3fc582378f7757ae",
+        "history_begin_timestamp_us": 1628534632999917,
+        "future_end_timestamp_us": 1628534638500154,
+        "command_raw_index": 1,
+        "ego_speed_meters_per_second": 7.898083549320957,
+        "recording_group": "2021.08.09.18.37.41_veh-28",
+        "split": "development",
+        "future_tubelet_valid": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/feature_cache/7f1a9a055ee05802.pt",
+        "cache_sha256": "ba58767fcf75793cd42eaadd3ec1fab85c8201e32b5446e059f4f4c7f9750a2d",
+        "actual_frame_intervals_seconds": [
+          0.500114,
+          0.500187,
+          0.499815,
+          0.499875,
+          0.500178,
+          0.500098,
+          0.499805,
+          0.49993,
+          0.499989,
+          0.500286,
+          0.49996
+        ]
+      },
+      {
+        "segment_filename": "2021.06.09.17.37.09_veh-12_01465_01790.pkl",
+        "start_index": 51,
+        "current_frame_token": "a8b1d415ede15e57",
+        "scene_token": "42bfb038d4ca56a6",
+        "native_log_name": "2021.06.09.17.37.09_veh-12_01465_01790",
+        "native_log_token": "4f5c5772cbcc5c83",
+        "history_begin_timestamp_us": 1623276273399616,
+        "future_end_timestamp_us": 1623276278900014,
+        "command_raw_index": 1,
+        "ego_speed_meters_per_second": 0.8407561297801336,
+        "recording_group": "2021.06.09.17.37.09_veh-12",
+        "split": "development",
+        "future_tubelet_valid": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/feature_cache/a8b1d415ede15e57.pt",
+        "cache_sha256": "273bd2e2edabb7a5b6749bb55be56a8356225cc884928dbe0a17861d7955e54d",
+        "actual_frame_intervals_seconds": [
+          0.500093,
+          0.500082,
+          0.499917,
+          0.499924,
+          0.499855,
+          0.499997,
+          0.500192,
+          0.500228,
+          0.500134,
+          0.500115,
+          0.499861
+        ]
+      },
+      {
+        "segment_filename": "2021.07.16.18.06.21_veh-38_04933_05307.pkl",
+        "start_index": 70,
+        "current_frame_token": "90a79351977a5f32",
+        "scene_token": "2a5823115ccd5a2c",
+        "native_log_name": "2021.07.16.18.06.21_veh-38_04933_05307",
+        "native_log_token": "b48dfbec6b225ffd",
+        "history_begin_timestamp_us": 1626464736499801,
+        "future_end_timestamp_us": 1626464741999636,
+        "command_raw_index": 2,
+        "ego_speed_meters_per_second": 0.8865243738142043,
+        "recording_group": "2021.07.16.18.06.21_veh-38",
+        "split": "development",
+        "future_tubelet_valid": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/feature_cache/90a79351977a5f32.pt",
+        "cache_sha256": "0f7cfec15c405185c38ffb340c2dfc1e2f1e2385636e7bff516a0977b322120a",
+        "actual_frame_intervals_seconds": [
+          0.500253,
+          0.500127,
+          0.500082,
+          0.499954,
+          0.499776,
+          0.499955,
+          0.50009,
+          0.500036,
+          0.499839,
+          0.499885,
+          0.499838
+        ]
+      },
+      {
+        "segment_filename": "2021.08.17.18.54.02_veh-45_00665_01065.pkl",
+        "start_index": 163,
+        "current_frame_token": "569089a5dfd65be6",
+        "scene_token": "e74d6613d44b5b7a",
+        "native_log_name": "2021.08.17.18.54.02_veh-45_00665_01065",
+        "native_log_token": "ea7e17fc617f50c3",
+        "history_begin_timestamp_us": 1629227648399968,
+        "future_end_timestamp_us": 1629227653900187,
+        "command_raw_index": 2,
+        "ego_speed_meters_per_second": 1.5589278790402614,
+        "recording_group": "2021.08.17.18.54.02_veh-45",
+        "split": "development",
+        "future_tubelet_valid": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/feature_cache/569089a5dfd65be6.pt",
+        "cache_sha256": "789891a69b604904146d7822a5f2dfa1b81ed4585d99d0941a9437db8a63bff6",
+        "actual_frame_intervals_seconds": [
+          0.500133,
+          0.500002,
+          0.499758,
+          0.499819,
+          0.499887,
+          0.500062,
+          0.500267,
+          0.500254,
+          0.500303,
+          0.500111,
+          0.499623
+        ]
+      }
+    ],
+    "source_commit": "8182f6cb2ecdc58d05a1ed02ac1200f3948e4a2f",
+    "runner_sha256": "d0d5483220e5cb5935628b4185ed85449836724e15b02ec3aa4d9c1e50a197ae"
+  },
+  "gallery_path": "outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003/index.html",
+  "artifact_zip": "outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003.zip",
+  "validation": {
+    "pytest_tests_passed": 144,
+    "ruff_check_passed": true,
+    "image_preprocessing": "official front RGB[28:-28], cv2.resize(512,256), no extra rectification",
+    "comparisons": "same final-selected IDs for warmup/final/current-copy; no future-validity filtering of candidates",
+    "interpretation": "updates/finite outputs/feature learning are not proof of optimal selection or planning improvement"
+  }
+}

@@ -27,6 +27,13 @@
 
 ## 현재 구현과 과거 자산의 구분
 
+**최신 사용자용 시각화(2026-10-03)**: 학습된 MLP/ego-query selector와predictor의
+전후 선택위치·미래latent 오차·실제1024-D출력을 확인하는 CPU 갤러리를 생성했다.
+`outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003/index.html`.
+진입점 `scripts/visualize_drive_jepa_learned_modules.py`, config `learned_modules_visualization_v1.json`.
+새학습/GPU사용 없이 dev192개 저장결과 대조. 모든 사진은 실제참조영상이며 생성예측영상이 아니다.
+밤샘학습은87run/61,200update 전부종료(commit8182f6c). 아래69run/18run진행안내는과거이력이다.
+
 **최신 작업(2026-10-03)**: [원인 분리·동일 예산 선택 비교](docs/drive_jepa_overnight_causal_followup.md).
 69run/46,800update와 실제 모델6,144번 patch교체 진단을 완료했다. 추가dev 원본ADE0.352210m,
 낮은LR ego0.346338m이나 원본대비 cluster CI는0포함, 선택 우월성/PDMS 개선은 아직 미확인이다.

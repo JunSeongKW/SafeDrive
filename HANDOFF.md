@@ -1,9 +1,19 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 02:55 KST (Codex)
+마지막 갱신: 2026-10-03 09:45 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
+**최신 사용자 요청: 학습된 selector/predictor 시각화.** 밤샘 87run/61,200update는
+03:45에 모두 종료됐고 결과 commit은 `8182f6c`다. 아래 18run 등록/실행 문장은 과거 이력이다.
+이번에는 새 학습 없이 기존 seed29의 MLP/ego-query 낮은LR final800을 CPU에서 복원했다.
+192dev window/24recording 모두 저장 GPU selected IDs와 일치, window MSE 차이 최대9.54e-7.
+사용자용 갤러리: `outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003/index.html`.
+명령 ID별 2개·서로 다른6recording을 결과/미래유효성과 무관하게 hash선정했다.
+현재영상 선택 전후/확률·빈도/미래정답영상과crop/예측오차/실제1024-D latent 비교를 제공한다.
+사진은 모두 실제 참조 영상이며 생성 예측 영상이 아니다. 미래target은고정격자·2frame tubelet이다.
+이 요청은 시각화·읽기전용 검증이며 GPU/학습/WA/pilot 재개는 하지 않는다.
+
 **현재 우선 작업(2026-10-03 밤샘 승인)**: [원인 분리·재학습 계획](docs/drive_jepa_overnight_causal_followup.md).
 사용자가 추가 질문 없이 다음 오전09:00KST까지 명제를 유지한 실험·문헌 조사·기록을 승인했다.
 기준8159aad, 원인진단 및7조건×3seed×400update를완료했다. 모두고정400update dev평균은원본보다나쁘다.
@@ -88,6 +98,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+현재 우리 학습 작업은 없다. 87run 종료 후 사용자 요청으로 CPU 시각화를 생성했다.
+진입점 `scripts/visualize_drive_jepa_learned_modules.py`, config `learned_modules_visualization_v1.json`.
+재현은 새 output-directory를 지정한다. 기존 cache/checkpoint/결과는 덮어쓰지 않는다.
 
 최신: 최초69run과 선택진단은 모두 종료. 별도 matched-conservative-selection18run을 등록했다.
 진입점 `configs/drive_jepa_selective_future/matched_conservative_selection_v1.json`,
@@ -221,6 +235,14 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-03 CPU 시각화 검증: seed29 warmup100→joint800에서 selector 선택 교체율은
+ego-query43.1%, MLP26.6%. Parameter 상대변화는 selector .759%/.915%, predictor3.11%/10.47%.
+같은 final-selected 위치의 유효 patch-time 평균 MSE(before/after/current-copy):
+ego2.3792/2.2716/2.3964, MLP4.3746/2.8763/2.1647. 두 모듈 업데이트·유한출력 확인이나
+선택 효용/공식planning 개선은 별도 미확정이다. 전체dev192개·24recording/seed29만의 진단이다.
+미래유효감독 patch-time수는 horizon1/2/3/4별600/468/344/300; 없는GT는회색/곡선공백.
+Source source commit8182f6c + 실행 runner SHA, checkpoint/cache/image hash를 결과에 보존한다.
 
 - Coverage27run/21,600update 완료: 추가dev192window/24recording의 원본ADE0.352210m.
   MLPlearned0.361504/fixed0.355226/random0.351212/ego-query0.371554m.
@@ -398,6 +420,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+- 최신: 학습된 selector/predictor CPU 시각화 script·config·6개 계약검사·공유요약 추가.
+- 현재/future GT 사진과 predicted latent를 명확히 구분하고 before는auxwarmup후임을 표기.
+- 동일 final-selected 위치로 warmup/final/persistence 비교, 공식front crop/resize 재사용.
+- 192dev 전부 저장GPU 선택ID일치와MSE오차tol1e-5 검증, 144개CPU테스트 통과.
+- 이미지·NPZ·전체JSON은 로컬갤러리/ZIP, Git에는코드·설정·소형요약·기록만 포함한다.
+- 기존 18run 등록 상태를 완료87run/commit8182f6c로 갱신. 추가학습/GPU점유 없음.
+
 - 사용자밤샘자율실험승인 반영/09:00KST마감·공유GPU상한 고정.
 - 후속704표본선정/미래validity미사용·노출dev제외·기존train포함검사/9GiB상한을등록했다.
 - 복구가능학습runner에고정/무작위선택·현재feature대조·nested128/512조건을추가,야간단일GPUqueue구현.
@@ -480,6 +509,10 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
+최신: 사용자에게 CPU 시각화 갤러리와 ZIP을 전달해 실제선택위치/미래latent를 검토한다.
+가중치·선택변화와 예측오차 감소는 좋은 선택정책/안전성향상의 증거와 구분한다.
+추가 학습을 자동 재개하지 않는다. 아래는 과거 다음단계 이력이다.
+
 최신: 등록된 matched-conservative-selection18run을 완료하고 별도CPU감사를 수행한다.
 기존69run감사와32train recording patch교체진단은 이미완료했으므로반복하지않는다.
 이번 고정 마지막 checkpoint 결과와 원본/고정/무작위 대조를 구분해 보고하며,
@@ -531,6 +564,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신 시각화: strict submodule loading·CPU/GPU 저장결과 대조 통과. Encoder는 기존 캐시,
+planner/scorer는 이번에 다시 실행하지 않았다. 사진은 실제GT, latent heatmap은1024개channel
+값이지 공간/RGB reconstruction이 아니다. 선택의 인과적 중요도와 learned정책우월성은미확정.
 
 최신: 현재 학습형 선택의 우월성은 미확인이다. Gradient 경로의 존재와 실제 불연속 선택
 효용을 근사하는지를 구분한다. 공간적 선택 집중은 redundancy 가능성이지만 collapse 증거가 아니다.

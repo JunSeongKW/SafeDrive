@@ -1,0 +1,21 @@
+{
+  "task": "inspect_actual_learned_selector_and_predictor_without_new_training",
+  "seed": 29,
+  "cache_index": "outputs/drive_jepa_selective_future/overnight_recording_coverage_v1_20261003/cache_index.json",
+  "gallery_hash_salt": "learned-module-visualization-v1-20261003",
+  "gallery_windows_per_command": 2,
+  "maximum_wall_seconds": 1800,
+  "cpu_gpu_mse_absolute_tolerance": 0.00001,
+  "models": {
+    "ego_query": {
+      "architecture": "ego_query_residual",
+      "warmup_checkpoint": "outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/ego_query_residual_seed29/auxiliary_warmup_complete.pt",
+      "final_checkpoint": "outputs/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003/ego_lower_learning_rate_seed29/complete.pt"
+    },
+    "mlp": {
+      "architecture": "mlp_recipe_control",
+      "warmup_checkpoint": "outputs/drive_jepa_selective_future/architecture_followup_v1_20261002/mlp_recipe_control_seed29/auxiliary_warmup_complete.pt",
+      "final_checkpoint": "outputs/drive_jepa_selective_future/overnight_conservative_adaptation_v1_20261003/mlp_lower_learning_rate_seed29/complete.pt"
+    }
+  }
+}
