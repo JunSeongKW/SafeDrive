@@ -408,6 +408,19 @@ def run_training_condition(agent, cache, records, specification, output_director
         observed_prefix = cache["observed_prefix_features" + depth_suffix][indices].cuda()
         original_status = cache["ego_status"][indices].cuda()
         original_features = encoder(observed_prefix, original_status)
+        reference_features = observed_prefix
+        block_update_rms = []
+        for trained_block, reference_block in zip(encoder.blocks, agent._model.image_encoder.blocks[-len(encoder.blocks):]):
+            reference_features = reference_block(reference_features, mask=None, attn_mask=None,
+                                                  T=1, H_patches=16, W_patches=32)
+            squared_update, parameter_count = 0., 0
+            for trained_parameter, reference_parameter in zip(trained_block.parameters(), reference_block.parameters()):
+                squared_update += float((trained_parameter - reference_parameter).square().sum())
+                parameter_count += trained_parameter.numel()
+            block_update_rms.append((squared_update / parameter_count) ** .5)
+        reference_features = agent._model.image_encoder.norm(reference_features)
+        if any(value <= 0 for value in block_update_rms):
+            raise RuntimeError("An intended encoder block was not updated")
         changed_status = original_status.clone()
         changed_status[:, :4] = changed_status[:, :4].roll(1, 1)
         changed_features = encoder(observed_prefix, changed_status)
@@ -415,6 +428,8 @@ def run_training_condition(agent, cache, records, specification, output_director
         changed_plan = plan_from_encoder_features(agent._model, changed_features, original_status)["trajectory"]
         intervention = {"same_observed_prefix": True, "planner_status_held_fixed": True,
             "encoder_feature_rms_change": float((changed_features - original_features).square().mean().sqrt()),
+            "adapted_feature_rms_change_from_original": float((original_features - reference_features).square().mean().sqrt()),
+            "per_encoder_block_weight_update_rms": block_update_rms,
             "trajectory_xy_mean_change_m": float((changed_plan[..., :2] - original_plan[..., :2]).norm(dim=-1).mean()),
             "scope": "command sensitivity only; not counterfactual correctness"}
     updated_encoder_hash = parameter_sha256(encoder)
