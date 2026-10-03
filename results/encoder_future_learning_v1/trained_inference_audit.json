@@ -1,0 +1,1744 @@
+{
+  "complete": true,
+  "original_model_preserved": true,
+  "methods": {
+    "encoder_planning_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "encoder_planning_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 7.62939453125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "encoder_planning_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.01869291067123413,
+            0.012799181044101715
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02688739076256752,
+            0.0028690651524811983
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02760905772447586,
+            0.0,
+            0.01518369372934103
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022927168756723404,
+            0.0,
+            0.017537452280521393
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.015738677233457565,
+            0.014176219701766968,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011571701616048813,
+            0.024613432586193085,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 7.62939453125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.020650580525398254,
+            0.010536717250943184
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03393281251192093,
+            0.0013537195045500994
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.030525347217917442,
+            0.0,
+            0.021998804062604904
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02265452966094017,
+            0.0,
+            0.024836409837007523
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012404446490108967,
+            0.020406682044267654,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0057481941767036915,
+            0.03479748219251633,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 1.9073486328125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.01800815388560295,
+            0.010861149057745934
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026640959084033966,
+            0.0034230921883136034
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02695109322667122,
+            0.0,
+            0.015329948626458645
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02281276509165764,
+            0.0,
+            0.015316246077418327
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.014194202609360218,
+            0.013909710571169853,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.008731430396437645,
+            0.02094682864844799,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018724652007222176,
+            0.01281447522342205
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0269521065056324,
+            0.002890403848141432
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02766561321914196,
+            0.0,
+            0.015180811285972595
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022996453568339348,
+            0.0,
+            0.017527706921100616
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.01577943004667759,
+            0.014172610826790333,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.01163509488105774,
+            0.02460392378270626,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0206547062844038,
+            0.010525964200496674
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03394348919391632,
+            0.0013485646340996027
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.03052031807601452,
+            0.0,
+            0.022003037855029106
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022693535313010216,
+            0.0,
+            0.024866551160812378
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012385891750454903,
+            0.02041071280837059,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.005740353837609291,
+            0.034826211631298065,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018011007457971573,
+            0.010870663449168205
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02662729099392891,
+            0.003392561571672559
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02695648744702339,
+            0.0,
+            0.015336902812123299
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022816333919763565,
+            0.0,
+            0.015314999967813492
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.014209011569619179,
+            0.013917322270572186,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.008730607107281685,
+            0.02095581591129303,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_motion_future_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018729079514741898,
+            0.01281419862061739
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02696077898144722,
+            0.0028920609038323164
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.027674470096826553,
+            0.0,
+            0.015186936594545841
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.023005828261375427,
+            0.0,
+            0.01753535121679306
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.015780001878738403,
+            0.014178179204463959,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011637363582849503,
+            0.024611616507172585,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_motion_future_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.020657943561673164,
+            0.01052643172442913
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03394951671361923,
+            0.001347035402432084
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.030524974688887596,
+            0.0,
+            0.02200532890856266
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022699134424328804,
+            0.0,
+            0.02486768178641796
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012386351823806763,
+            0.020412635058164597,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.00574226351454854,
+            0.03482746332883835,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_motion_future_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.01801302284002304,
+            0.010872646234929562
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026631062850356102,
+            0.0033941862639039755
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.026959585025906563,
+            0.0,
+            0.015337565913796425
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022818338125944138,
+            0.0,
+            0.015317041426897049
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.01421198807656765,
+            0.01391793042421341,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.008732885122299194,
+            0.020956289023160934,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_future_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018701255321502686,
+            0.012809411622583866
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026896435767412186,
+            0.002885849215090275
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.027625177055597305,
+            0.0,
+            0.015166975557804108
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022954069077968597,
+            0.0,
+            0.017513509839773178
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.01576550491154194,
+            0.014159957878291607,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.01161227747797966,
+            0.024579323828220367,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_future_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 1.1444091796875e-05,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.020666226744651794,
+            0.010531987994909286
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03399618715047836,
+            0.001339792856015265
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.03054269775748253,
+            0.0,
+            0.021998265758156776
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022673258557915688,
+            0.0,
+            0.024868357926607132
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012394962832331657,
+            0.020410696044564247,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.005758674815297127,
+            0.03483981266617775,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_future_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018000032752752304,
+            0.010863925330340862
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02660263329744339,
+            0.0033870399929583073
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02693876437842846,
+            0.0,
+            0.015328424051404
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022798562422394753,
+            0.0,
+            0.015301968902349472
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.014200049452483654,
+            0.01391049474477768,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.00872344896197319,
+            0.020939582958817482,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_masked_future_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018724478781223297,
+            0.012815067544579506
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026951350271701813,
+            0.0028916364535689354
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02766543999314308,
+            0.0,
+            0.015182153321802616
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02299582213163376,
+            0.0,
+            0.017530711367726326
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.015778925269842148,
+            0.014173598028719425,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011634032242000103,
+            0.02460792474448681,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_masked_future_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.02067182958126068,
+            0.010527157224714756
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03400387614965439,
+            0.001318394555710256
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.030550222843885422,
+            0.0,
+            0.02198476530611515
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02268959768116474,
+            0.0,
+            0.024835888296365738
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012394684366881847,
+            0.020397236570715904,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0057679153978824615,
+            0.03479890525341034,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_masked_future_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.01801074482500553,
+            0.010870958678424358
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02662668377161026,
+            0.003390984609723091
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02695581316947937,
+            0.0,
+            0.015337309800088406
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02281619794666767,
+            0.0,
+            0.01531573012471199
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.014209264889359474,
+            0.01391757931560278,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0087306909263134,
+            0.02095562405884266,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018717804923653603,
+            0.012809325940907001
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026935676112771034,
+            0.002888432238250971
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.027650896459817886,
+            0.0,
+            0.015189268626272678
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022983485832810402,
+            0.0,
+            0.017551209777593613
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.015763666480779648,
+            0.014180799946188927,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011615503579378128,
+            0.024629972875118256,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.020660635083913803,
+            0.010530075989663601
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03397853299975395,
+            0.0013339896686375141
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.030532129108905792,
+            0.0,
+            0.021986914798617363
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022669054567813873,
+            0.0,
+            0.02483455277979374
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012393035925924778,
+            0.020399171859025955,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.005760034080594778,
+            0.03480922430753708,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 7.62939453125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.017996490001678467,
+            0.010867300443351269
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026596492156386375,
+            0.0033886032178997993
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.026932818815112114,
+            0.0,
+            0.015321644954383373
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02279047481715679,
+            0.0,
+            0.0152969341725111
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.01420273445546627,
+            0.013904672116041183,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.00872943177819252,
+            0.020930809900164604,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_current_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018709426745772362,
+            0.012803798541426659
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026915986090898514,
+            0.0028787367045879364
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.027636172249913216,
+            0.0,
+            0.015186268836259842
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022957902401685715,
+            0.0,
+            0.01753995567560196
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.015754180029034615,
+            0.014177226461470127,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011598706245422363,
+            0.02462155371904373,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_current_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.020665213465690613,
+            0.010528606362640858
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.033992066979408264,
+            0.001335300737991929
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.03054167702794075,
+            0.0,
+            0.021997103467583656
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02267500013113022,
+            0.0,
+            0.024861812591552734
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012393731623888016,
+            0.02040942944586277,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.005754611920565367,
+            0.03483068197965622,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_current_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.01800447888672352,
+            0.010862698778510094
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026615694165229797,
+            0.0034087502863258123
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02694425731897354,
+            0.0,
+            0.015323764644563198
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022799093276262283,
+            0.0,
+            0.015293316915631294
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0142019372433424,
+            0.013906341046094894,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.008730607107281685,
+            0.020926713943481445,
+            0.0
+          ]
+        }
+      ]
+    },
+    "encoder_planning_last6_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "encoder_planning_last6_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "encoder_planning_last6_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_last6_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 7.62939453125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.032973963767290115,
+            0.024244625121355057
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.029565097764134407,
+            0.00705946097150445
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.04490138590335846,
+            0.0,
+            0.024198533967137337
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.03184078633785248,
+            0.0,
+            0.019469980150461197
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.029759643599390984,
+            0.02327367104589939,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.018350673839449883,
+            0.026083044707775116,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_last6_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.03327733650803566,
+            0.019658109173178673
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03612346202135086,
+            0.0032096505165100098
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0459427684545517,
+            0.0,
+            0.03188493847846985
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0282145868986845,
+            0.0,
+            0.02634226717054844
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.023185262456536293,
+            0.030498122796416283,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011499311774969101,
+            0.033969491720199585,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_last6_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.029733313247561455,
+            0.021202681586146355
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.030777981504797935,
+            0.01155336294323206
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.041666287928819656,
+            0.0,
+            0.02441589906811714
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.030636614188551903,
+            0.0,
+            0.014613593928515911
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.026869438588619232,
+            0.023588210344314575,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.014419911429286003,
+            0.01867855340242386,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_last6_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 7.62939453125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.03302288427948952,
+            0.02426113374531269
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02972118742763996,
+            0.007094708736985922
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.045030705630779266,
+            0.0,
+            0.024225367233157158
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.032007381319999695,
+            0.0,
+            0.019560933113098145
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.029819438233971596,
+            0.023293867707252502,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.018440505489706993,
+            0.02618958055973053,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_last6_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.03338231146335602,
+            0.019638177007436752
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0365484356880188,
+            0.0032860985957086086
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.046117350459098816,
+            0.0,
+            0.032003819942474365
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02835683524608612,
+            0.0,
+            0.026562241837382317
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.02318088337779045,
+            0.03061102330684662,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011523178778588772,
+            0.034279391169548035,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_last6_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.029670635238289833,
+            0.021160177886486053
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.030629508197307587,
+            0.011471855454146862
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.04151704162359238,
+            0.0,
+            0.0244181826710701
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.030453529208898544,
+            0.0,
+            0.014495301991701126
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.026801111176609993,
+            0.023595057427883148,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.01430562511086464,
+            0.018603641539812088,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_last6_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 1.1444091796875e-05,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.03300761058926582,
+            0.024263113737106323
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02953212335705757,
+            0.007091761566698551
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.044957492500543594,
+            0.0,
+            0.024197369813919067
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.031934767961502075,
+            0.0,
+            0.019458314403891563
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.029813753440976143,
+            0.023265903815627098,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.018440399318933487,
+            0.026023350656032562,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_last6_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.033361781388521194,
+            0.019649920985102654
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03639388456940651,
+            0.0032596730161458254
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.046074531972408295,
+            0.0,
+            0.031967129558324814
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.028336703777313232,
+            0.0,
+            0.026443980634212494
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.023191062733530998,
+            0.030583523213863373,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011536819860339165,
+            0.0341607928276062,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_last6_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.02965381182730198,
+            0.021145567297935486
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.030573595315217972,
+            0.011437437497079372
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.0414896160364151,
+            0.0,
+            0.024420764297246933
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.030427133664488792,
+            0.0,
+            0.014511452987790108
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.02677341178059578,
+            0.02359536476433277,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.014264913275837898,
+            0.018595360219478607,
+            0.0
+          ]
+        }
+      ]
+    }
+  },
+  "source": {
+    "specification": {
+      "task": "official_checkpoint_inference_and_full_navtest_evaluation_only",
+      "baseline_project_commit": "5c6e6d5fc8f2e20ea5dad90dabce5e1e3f310de8",
+      "official_source_repository": "https://github.com/linhanwang/Drive-JEPA",
+      "official_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+      "official_source_worktree": "reference_repositories/DriveJEPAOfficialEvaluation",
+      "official_navsim_version": "1.1.0 (Drive-JEPA navsim_v1 fork)",
+      "nuplan_source_commit": "ce3c323af01c0d7ec5672f7832ef53f9c679aab0",
+      "nuplan_source_tag": "nuplan-devkit-v1.2",
+      "conda_environment_prefix": "runtime/environments/drive_jepa_official_evaluation",
+      "python_version": "3.9.23",
+      "pytorch_version": "2.1.0+cu121",
+      "checkpoint_repository": "LinhanWang/Drive-JEPA",
+      "checkpoint_revision": "65e0d7284f69bf29d1a4864affcfd84ca4e97a2e",
+      "planning_checkpoint": {
+        "filename": "drive_jepa_perception_free_agent_vitl.ckpt",
+        "size_bytes": 3720285081,
+        "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+      },
+      "initialization_encoder_checkpoint": {
+        "filename": "vitl_merge_3dataset_e50.pt",
+        "size_bytes": 5127748765,
+        "sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f",
+        "reuse_path": "runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+        "role": "official_constructor_initialization; full planning checkpoint supersedes model parameters"
+      },
+      "metric_cache_archive": {
+        "filename": "metric_cache.tar",
+        "size_bytes": 3182510080,
+        "sha256": "9107c2ce88e62e75c2e5cbdcf5d8417a6ebb4acdc4ff1c4caa850a27239d88d5"
+      },
+      "model": {
+        "agent": "drive_jepa_perception_free_agent",
+        "image_architecture": "vit_large",
+        "num_keyval": 129,
+        "front_only": true,
+        "tf_dropout": 0.0,
+        "freeze_encoder": false,
+        "double_image": true,
+        "sensor_history_indices": [
+          2,
+          3
+        ],
+        "input_image_size": [
+          256,
+          512
+        ],
+        "additional_undistortion": false,
+        "trajectory_num_poses": 8,
+        "trajectory_interval_seconds": 0.5,
+        "trajectory_horizon_seconds": 4.0,
+        "trajectory_frame": "current ego rear-axle local SE2 (meters, radians)"
+      },
+      "split": "navtest",
+      "paper": {
+        "url": "https://arxiv.org/pdf/2601.22032v2",
+        "table": 2,
+        "row": "Ours / ViT-L / Camera / perception-free first block",
+        "reported_percent_scores": {
+          "no_at_fault_collisions": 98.7,
+          "drivable_area_compliance": 96.2,
+          "ego_progress": 82.9,
+          "comfort": 100.0,
+          "time_to_collision_within_bound": 95.5,
+          "score": 89.0
+        },
+        "published_checkpoint_exact_row_identity": "inferred from official filename/evaluation script; no checkpoint-specific result card"
+      },
+      "approved_physical_gpu_indices": [
+        0,
+        1
+      ],
+      "pilot_resume_authorized": false,
+      "training_authorized_for_this_task": false,
+      "wa_jepa_priority": "after this reproduction report; not automatically started"
+    },
+    "assets": {
+      "planning_checkpoint": {
+        "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+        "size_bytes": 3720285081,
+        "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+      },
+      "initialization_encoder": {
+        "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+        "size_bytes": 5127748765,
+        "sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f"
+      },
+      "metric_cache_archive": {
+        "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloads/metric_cache.tar",
+        "size_bytes": 3182510080,
+        "sha256": "9107c2ce88e62e75c2e5cbdcf5d8417a6ebb4acdc4ff1c4caa850a27239d88d5"
+      },
+      "metric_cache_root": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache",
+      "metric_cache_tokens": 12146,
+      "metadata_relocation": {
+        "original_preserved_at": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloads/official_metadata_original.csv",
+        "local_metadata_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/metadata/metric_cache_metadata_node_0.csv",
+        "only_change": "absolute file paths in a downloaded derivative, not cache contents or shared originals"
+      }
+    },
+    "loading": "<All keys matched successfully>",
+    "official_root": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1"
+  },
+  "selected_tokens": [
+    "54772fdb42105222",
+    "622b0402246e5a04",
+    "8d7aa320cc5e5bf9"
+  ],
+  "valid_command_indices": [
+    0,
+    1,
+    2
+  ],
+  "planner_status_held_fixed": true,
+  "scope": "observed-image deployment equivalence and command sensitivity, not counterfactual correctness",
+  "peak_allocated_gib": 1.5584526062011719,
+  "wall_seconds_including_wait": 1074.9064861109946
+}

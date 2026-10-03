@@ -1,0 +1,16 @@
+{
+  "all_runs_complete": true,
+  "paired_schedules_match": true,
+  "all_encoders_changed": true,
+  "original_model_preserved": true,
+  "input_mask_contract_source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/encoder_future_learning_v1/input_mask_contract.json",
+  "input_mask_contract": {
+    "changed_removed_pixels_leave_prefix_bitwise_equal": true,
+    "masked_prefix_tail_matches_official_masked_encoder": true,
+    "maximum_masked_feature_difference": 0.0,
+    "visible_patch_count": 384,
+    "token": "42868079cfb75233"
+  },
+  "window_score_count": 2496,
+  "configuration_sha256": "b45e964fd3cc1ed426aa0ec180a415f419d6ed5d26b99ab7f64bd0bd82a7e2a0"
+}

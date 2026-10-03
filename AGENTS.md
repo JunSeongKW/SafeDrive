@@ -75,7 +75,18 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
-**2026-10-03 최신완료:** 사용자승인SPARTAN/C-JEPA/IA-JEPA착안9조건×3seed×800update 및dev192공식PDM비교를완료했다.
+**2026-10-03 최신 완료: encoder 자체 미래 표현 학습.**
+사용자의 encoder 재학습 요청으로 마지막 2개/6개 block 직접 갱신, 내부 intent FiLM,
+미래 감독·입력 마스킹·target 선택·강한 보조 loss 비교를 16조건 × 3 seed × 512 update로 완료했다.
+진입점 `docs/encoder_future_learning_results.md`, `results/encoder_future_learning_v1/combined_summary.json`.
+LoRA 없음. 기존 selector/future bridge는 추론에서 제거했고 미래 head는 학습 전용이다.
+두 블록으로도 ADE 감소는 관측됐으나 선택적 미래 감독의 실질적 추가 이득은 확인하지 못했다.
+CPU 167개 검사와 48개 encoder raw 영상 추론 검증 통과, 원본 가중치 보존, 모든 작업 종료.
+전체 사전학습·독립 test가 아니며 완료 48회, WA, 기존 navtest 평가를 자동 재시작하지 않는다.
+아래의 과거 실행 범위는 해당 시점의 이력이다. 현재 상태는 HANDOFF와 이 결과 보고서를 우선한다.
+
+
+**이전 완료:** 사용자승인SPARTAN/C-JEPA/IA-JEPA착안9조건×3seed×800update 및dev192공식PDM비교를완료했다.
 `docs/drive_jepa_region_research.md`, `results/drive_jepa_region_research_v1/summary.json`이최신이다.
 새변형은기존global비교군을넘지못했고current-only도동일성능으로미래예측추가효용미확인이다.
 CPU162통과/원본hash보존/학습·평가종료. 완료실험재실행/추가sweep/WA·navtest자동재개없음.

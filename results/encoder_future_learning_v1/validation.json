@@ -1,0 +1,15 @@
+{
+  "all_runs_complete": true,
+  "paired_schedules_match": true,
+  "all_encoders_changed": true,
+  "original_model_preserved": true,
+  "input_mask_contract": {
+    "changed_removed_pixels_leave_prefix_bitwise_equal": true,
+    "masked_prefix_tail_matches_official_masked_encoder": true,
+    "maximum_masked_feature_difference": 0.0,
+    "visible_patch_count": 384,
+    "token": "42868079cfb75233"
+  },
+  "window_score_count": 7104,
+  "configuration_sha256": "79ac7dbb9a92478ea61190964089191f07636d0565a9b7a7ab8abe6713a6d732"
+}

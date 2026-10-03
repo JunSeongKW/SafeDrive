@@ -1,11 +1,14 @@
 # Planning-Aware Future Prediction
 
-**현재 실행 중(2026-10-03): encoder 자체 미래 표현 학습·평가.**
-LoRA 없이 planning에 사용하는 encoder의 마지막2개/6개block을 직접 학습한다.
-Ego intent 내부FiLM, 미래latent감독, 움직임/planner민감도target선택, 입력마스킹을12조건×3seed×512update로비교한다.
-기존추론용selector/futurebridge는제거했고predictor는학습전용이다.
-CPU167검사와실제prefix/마스킹/encodergradient gate를통과했다. GPU0·1학습후공식개발PDM과공통futureprobe예정.
-[설계·범위·근거](docs/encoder_future_learning.md)
+**완료(2026-10-03): encoder 자체 미래 표현 학습과 개발 평가.**
+LoRA 없이 마지막 2개 또는 6개 encoder block을 직접 학습하고,
+내부 ego FiLM·미래 감독·target 선택·입력 마스킹·미래 loss 강도를 16조건 × 3 seed로 비교했다.
+총 48회 / 24,576 update, 공식 개발 PDM과 공통 future probe, 48개 raw 영상 추론 검증을 완료했다.
+원본 ADE/PDM은 0.352210 m / 87.119134%, planning-only 2블록은 0.347629 m / 88.396320%,
+6블록은 0.346061 m / 88.718100%다. ADE 감소는 관측됐지만 PDM 개선 구간은 0을 포함한다.
+**미래 감독의 실질적인 추가 planning 이득은 확인하지 못했다.** Intent에 따른 encoder 출력 변화는 검증했다.
+CPU 167개 검사 통과, 원본 가중치 보존, 우리 학습·평가 종료. 독립 test나 전체 encoder 사전학습 결과가 아니다.
+[전체 결과와 한계](docs/encoder_future_learning_results.md), [등록 설계](docs/encoder_future_learning.md)
 
 
 현재 맥락과 ego 주행 의도에 따라, 같은 예산에서 planning에 유용한 미래 예측 대상을 선택하도록
@@ -35,7 +38,7 @@ CPU167검사와실제prefix/마스킹/encodergradient gate를통과했다. GPU0�
 
 ## 현재 구현과 과거 자산의 구분
 
-**최신(2026-10-03): 세 논문 착안 적용·평가 완료.** SPARTAN 희소 연결 → C-JEPA 관측 마스킹 →
+**이전 완료(2026-10-03): 세 논문 착안 적용·평가.** SPARTAN 희소 연결 → C-JEPA 관측 마스킹 →
 IA-JEPA 움직임 선택을 9조건 × 3 seed × 800 update로 비교했다.
 같은 개발 192개 window의 PDM은 기존 global 88.826, 새 sparse 87.742, 마스킹 87.742,
 움직임 선택 87.692다. 현재 특징만 쓰는 대조군도 87.742로, 추가 미래 예측의 이득은 확인하지 못했다.

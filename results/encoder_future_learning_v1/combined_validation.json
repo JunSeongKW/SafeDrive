@@ -1,0 +1,68 @@
+{
+  "complete": true,
+  "training_run_count": 48,
+  "total_gradient_updates": 24576,
+  "development_windows": 192,
+  "unique_model_window_scores": 9408,
+  "executed_model_window_scores": 9600,
+  "duplicate_baseline_between_stages": "Original frozen model was scored once per stage; its per-window results match exactly.",
+  "all_48_raw_image_replays_pass": true,
+  "raw_image_replay_max_abs_trajectory_error": 1.1444091796875e-05,
+  "all_48_inference_paths_construct_no_future_head": true,
+  "planning_and_applicable_auxiliary_gradients_reach_every_trained_block": true,
+  "planning_gradient_to_future_head_is_zero": true,
+  "all_42_conditioned_models_change_encoder_features_under_valid_commands": true,
+  "all_6_unconditioned_models_are_command_invariant_in_encoder": true,
+  "original_model_preserved": true,
+  "cpu_pytest_passed": 167,
+  "total_training_process_seconds": 5711.109253715025,
+  "maximum_training_allocated_gib": 5.6410231590271,
+  "stage_validations": {
+    "encoder_future_learning_v1": {
+      "all_runs_complete": true,
+      "paired_schedules_match": true,
+      "all_encoders_changed": true,
+      "original_model_preserved": true,
+      "input_mask_contract": {
+        "changed_removed_pixels_leave_prefix_bitwise_equal": true,
+        "masked_prefix_tail_matches_official_masked_encoder": true,
+        "maximum_masked_feature_difference": 0.0,
+        "visible_patch_count": 384,
+        "token": "42868079cfb75233"
+      },
+      "window_score_count": 7104,
+      "configuration_sha256": "79ac7dbb9a92478ea61190964089191f07636d0565a9b7a7ab8abe6713a6d732"
+    },
+    "encoder_future_additional_controls_v1": {
+      "all_runs_complete": true,
+      "paired_schedules_match": true,
+      "all_encoders_changed": true,
+      "original_model_preserved": true,
+      "input_mask_contract_source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/encoder_future_learning_v1/input_mask_contract.json",
+      "input_mask_contract": {
+        "changed_removed_pixels_leave_prefix_bitwise_equal": true,
+        "masked_prefix_tail_matches_official_masked_encoder": true,
+        "maximum_masked_feature_difference": 0.0,
+        "visible_patch_count": 384,
+        "token": "42868079cfb75233"
+      },
+      "window_score_count": 2496,
+      "configuration_sha256": "b45e964fd3cc1ed426aa0ec180a415f419d6ed5d26b99ab7f64bd0bd82a7e2a0"
+    }
+  },
+  "masking_target_input_contract": {
+    "compared_window_updates": 32,
+    "all_selected_target_ids_equal": true,
+    "all_teacher_targets_and_validity_equal": true,
+    "all_dense_planning_inputs_equal": true,
+    "auxiliary_input_mask_is_the_only_forward_difference": true,
+    "scope": "two target policies, both views repeated, four real cached windows, CUDA transfer patched to identity for CPU-only input-contract audit"
+  },
+  "report_recovery": "Supplemental PDM and probes completed before final validation path error. Recovered final report using exact saved metrics and prepared_cache_directory; no retraining or rescoring.",
+  "configuration_prose_correction": "Historical analysis text saying all24 final checkpoints is stale prose. Executed stage counts are36 and12 from conditions x3 seeds; configuration hashes remain unchanged.",
+  "source_commits": {
+    "main_training": "ae5c2da",
+    "additional_training": "e7d57b1"
+  },
+  "summary_sha256": "96bb220632305f74c3267368920356f9187f29c3723db687fde83dac08ad620f"
+}

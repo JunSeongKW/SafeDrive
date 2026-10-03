@@ -1,0 +1,17 @@
+{
+  "intent_uniform_future_minus_intent_planning": {
+    "encoder_state_rms_difference": 2.0389851530886286e-06,
+    "maximum_abs_difference": 0.0001341920578852296,
+    "seed": 29
+  },
+  "intent_uniform_future_last6_minus_intent_planning_last6": {
+    "encoder_state_rms_difference": 1.523339241566518e-06,
+    "maximum_abs_difference": 0.00013980967923998833,
+    "seed": 29
+  },
+  "intent_planning_masked_future_last6_minus_intent_planning_last6": {
+    "encoder_state_rms_difference": 1.5857749682883173e-06,
+    "maximum_abs_difference": 0.00014485197607427835,
+    "seed": 29
+  }
+}

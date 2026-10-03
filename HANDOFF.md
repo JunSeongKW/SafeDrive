@@ -1,16 +1,19 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 16:31 KST (Codex)
+마지막 갱신: 2026-10-03 17:07 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
-**최신 사용자 승인(2026-10-03): encoder 자체의 planning용 미래 표현 학습·평가.**
-기존 selector/future bridge 제거와 encoder 입력에 ego intent 추가를 승인했다.
-`docs/encoder_future_learning.md`, `configs/encoder_future_learning/controlled_comparison_v1.json`.
-LoRA 없이 원본 ViT 마지막2block+norm 전체 가중치를 학습하고 encoder 내부FiLM을 비교한다.
-앞22block/원본planner/teacher고정;512train/192dev/12조건×3seed×512update. 이전학습금지는이번범위에서해제.
-CPU167통과.704window prefix준비552.29초/최대feature차이0/13.67GB.12조건GPUgradient검사67.06초/peak5.538GiB,원본hash보존.36run본학습과공식개발PDM을다음실행.
-완료된 이전실험/WA/navtest를자동재개하지않으며공용데이터/원본자산을보존한다.
+**완료(2026-10-03): encoder 자체 미래 표현 학습과 개발 평가.**
+LoRA 없이 마지막 2개 또는 6개 encoder block을 직접 학습하고,
+내부 ego FiLM·미래 감독·target 선택·입력 마스킹·미래 loss 강도를 16조건 × 3 seed로 비교했다.
+총 48회 / 24,576 update, 공식 개발 PDM과 공통 future probe, 48개 raw 영상 추론 검증을 완료했다.
+원본 ADE/PDM은 0.352210 m / 87.119134%, planning-only 2블록은 0.347629 m / 88.396320%,
+6블록은 0.346061 m / 88.718100%다. ADE 감소는 관측됐지만 PDM 개선 구간은 0을 포함한다.
+**미래 감독의 실질적인 추가 planning 이득은 확인하지 못했다.** Intent에 따른 encoder 출력 변화는 검증했다.
+CPU 167개 검사 통과, 원본 가중치 보존, 우리 학습·평가 종료. 독립 test나 전체 encoder 사전학습 결과가 아니다.
+보고서 `docs/encoder_future_learning_results.md`, 통합 `results/encoder_future_learning_v1/combined_summary.json`.
+본 학습 source `ae5c2da`, 추가 대조군 `e7d57b1`. 아래 이전 작업은 완료 이력이다.
 
 **이전 작업 완료:** SPARTAN/C-JEPA/IA-JEPA 착안9조건×3seed×800update 및개발PDM비교를완료했다.
 등록commit5b85a01. 원본0.352210m/87.119134, 기존global0.347129m/88.826031,
@@ -133,7 +136,14 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-현재encoder_future_learning_v1 학습PID821023(GPU0)/821025(GPU1),평가대기PID821590(CPU). 각run정확512update;36run완료후공식개발PDM·probe자동연결. 로그outputs/encoder_future_learning_v1/.
+**현재 실행 중인 우리 학습·평가는 없다.**
+본 36회와 추가 12회 모두 512 update에서 종료했고, 공식 개발 PDM·future probe·raw 영상 재추론을 완료했다.
+`outputs/encoder_future_learning_v1/`, `outputs/encoder_future_additional_controls_v1/`에 체크포인트와 로그가 있다.
+각 train worker와 `results/`의 completion.json, trained_inference_audit.json은 완료 상태다.
+추가 평가의 마지막 validation 경로 오류는 공용 prefix cache 위치를 참조하도록 수정하고 저장 점수로 복구했다.
+학습이나 PDM 재실행 없이 종료했으며 완료 launcher를 다시 실행하지 않는다.
+
+**아래는 종료된 이전 실행 이력이다.**
 
 **현재 실행중인 작업 없음.** 등록27run과CPU PDM192장면×34조건모두종료했다.
 출력 `outputs/drive_jepa_selective_future/region_research_v1_20261003/`,
@@ -281,7 +291,16 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 
 ## 2. 최근 결과와 조사 사실
 
-새실험성능결과없음. CPU167검사통과. Masked input 교란시prefix bitwise동일/공식masked encoder와최대차이0.
+**최신 결과: 48회 / 24,576 update 완료.**
+원본 ADE/PDM 0.352210 m / 87.119134%; planning-only 2블록 0.347629 / 88.396320,
+6블록 0.346061 / 88.718100. 2블록 ADE 차이 −4.581 mm의 recording 95% CI는 [−6.595, −2.570].
+6블록 대 2블록의 ADE/PDM 비교 구간은 0을 포함해 깊이 증가의 우월성은 미확정이다.
+6블록 intent planning PDM 88.437488, 균등 미래 λ0.05 88.438069, λ0.5 88.438153으로 미래 감독 추가 이득은 매우 작다.
+Raw 영상 명령 개입에서 intent 모델 42개는 encoder 표현이 바뀌고 비조건부 6개는 불변이었다.
+귀책 충돌 없음 점수와 우회전 명령·정지 근처 구간의 악화가 있어 평균 PDM 상승을 안전성 개선으로 해석하지 않는다.
+CPU 167개 통과, 원본 보존, 48개 raw 추론 오차 최대 1.145e-5. 상세 CI·상황별·비용은 최신 보고서 참조.
+
+**아래는 보존된 이전 결과다.**
 
 **최신 결과:** 27run완료. SPARTAN추가연결희소화/C-JEPA마스킹/IA움직임선택의추가planning이득은확인하지못했다. 원본대비일부ADE감소는있지만current-only도동일하며PDM개선CI는0포함. 전체수치/상황별/구성요소/비용은새report참조.
 
@@ -473,121 +492,24 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-Planning-facing encoder last2 full update, 내부 intent FiLM, training-only latent head, 입력부터 spatial masking,8조건 등록/config/runner/tests/docs를 추가했다.
+- 등록한 추가 12회까지 완료하고 본 36회와 통합한 48회 표·대응 CI·상황별·PDM 구성 점수·공통 future probe를 저장했다.
+- 동일 target 마스킹 통제와 10배 보조 loss 통제를 포함했다. 본 source ae5c2da / 추가 source e7d57b1 기록을 보존했다.
+- 추가 평가의 최종 validation이 공용 input_mask_contract를 잘못된 출력 루트에서 읽던 오류를 수정했다.
+  저장 prediction hash와 PDM/probe를 대조해 보고서만 복구했으며 학습과 scorer 재실행은 없었다.
+- 48개 encoder를 실제 현재 영상에서 재추론했고 future head 없는 추론과 encoder 내부 명령 개입을 검증했다.
+- 통합 검증 JSON, 공유 CSV/JSON, SVG/PDF 그림과 한국어 결과 보고서를 추가했다.
+- 마지막 두 블록의 ADE 감소와 미래 감독의 추가 효과를 구분하고 PDM 불확실성·상황별 악화·독립 test 부재를 명시했다.
+- README·연구 상태·AGENTS·HANDOFF·RESUME_NOTES를 완료 상태로 갱신했다.
 
-- 결과 commit `215cb6b` 이후 원격 인증 실패를 인수인계에 기록했다. 실험 코드·결과 수치는 변경하지 않았다.
-
-- 등록27run(21600update)을완료하고공식PDM192장면×34조건6528score를집계했다.
-- 기존globalcheckpoint6개를optimizer없이복원/ADE·module hash대조후PDM으로동일평가했다.
-- 162CPU검사/원본hash보존/gradient차단/recording분리/미래입력차단근거를validation.json에저장했다.
-- 전체비교표·recording CI·상황별·PDM구성요소·그림·코드·재현명령과음성결과해석을공유한다.
-- 세기법추가이득은미확인/current-only도동일성능. 원본대비ADE변화와미래예측효용을구분했다.
-
-- SPARTAN/C-JEPA/IA-JEPA 착안 통제 비교를 등록: 위치 bridge, sparse edge, 과거 anchor 마스킹, 관측 motion 선택.
-- 같은 K8/704window/3seed/800update, 현재 특징·random·unmasked 대조군과 gradient/위치 CPU 검사를 추가했다.
-- 원본 planner/encoder와 기존 실험 자산을 보존하며 결과 확인 전 조건을 고정한다.
-
-- 등록15run완료/33분29초/원본hash불변. 결과·동일6scene gallery·checkpoint감사완료.
-- 최신사용자지시반영: 추가count/size중단, 동일K8위치학습경로읽기전용진단등록.
-- `diagnose_drive_jepa_location_learning.py`/scoretrace코드·등가성test추가; 진단6모델/768교체완료.
-- 원본경로오류는진단측정전실패로보존/v1b성공; source_commit cwd오표기는별도provenance정정문서로보존.
-
-- 5조건×3seed/800update region크기·개수·학습신호비교를사전등록.
-- Native현재입력불변인2×2region pooling, selector-only frozen-planner retention proxy와지역전체valid mask구현.
-- 독립runner와CPU7검사추가. 원본/기존결과불변; GPU학습전.
-
-- 최신: 학습된 selector/predictor CPU 시각화 script·config·6개 계약검사·공유요약 추가.
-- 현재/future GT 사진과 predicted latent를 명확히 구분하고 before는auxwarmup후임을 표기.
-- 동일 final-selected 위치로 warmup/final/persistence 비교, 공식front crop/resize 재사용.
-- 192dev 전부 저장GPU 선택ID일치와MSE오차tol1e-5 검증, 144개CPU테스트 통과.
-- 이미지·NPZ·전체JSON은 로컬갤러리/ZIP, Git에는코드·설정·소형요약·기록만 포함한다.
-- 기존 18run 등록 상태를 완료87run/commit8182f6c로 갱신. 추가학습/GPU점유 없음.
-
-- 사용자밤샘자율실험승인 반영/09:00KST마감·공유GPU상한 고정.
-- 후속704표본선정/미래validity미사용·노출dev제외·기존train포함검사/9GiB상한을등록했다.
-- 복구가능학습runner에고정/무작위선택·현재feature대조·nested128/512조건을추가,야간단일GPUqueue구현.
-- 기존공식image_fc복사/동결·rank4LoRA 미래projection대조와낮은LR/relative-memory-L2대조를추가등록.
-- 원본projection/encoder/planner는수정하지않음.초기동일성은동일no_grad실행조건에서검사한다.
-- 기존모델읽기전용원인진단script 및 gradient-routing모듈/검사/복구가능run/config/계획추가.
-- 원본frozenplanner/기존cache/checkpoint보존. 이번결과는실행후별도기록한다.
-- 첫48run 완료 결과와 독립 CPU artifact/scene 집계 감사, spatial selection 분산 진단을 추가했다.
-- 이후 읽기 전용 실제 patch교체 진단을 등록했고, 실행 source/config hash와 의미가 명확한 JSON 필드를 기록한다.
-
-- d3bbced의 사전 고정 5조건×3seed 추가 학습을 4500update에서 종료하고 결과·비용·곡선을 공유했다.
-- MLP+새절차 dev ADE0.209975m, 원본0.220644m; 작은 개발 표본의 CI는0을포함한다.
-- Contextual residual의 미래 MSE 개선과 planning 효과를 분리하고, LoRA의 추가 이득 미확인을 기록했다.
-- 학습된 실제 영상경로의 off 원본 보존/online-cache 일치/엄격delta복원/추론 비용을 검증했다.
-- 최초postflight의미세차이도보존했다. 원본 hash불변/OOM0/모든우리GPU프로세스종료.
-- 공유JSON/CSV, 보고서와재현명령, 최신handoff를갱신했다. GitHub push는credential오류로미완료.
-
-**2185ce5 이후**: frozen-encoder cache forward/explicit fixed·random patch ID 입력을추가.
-원본planner와weights 불변, smalltrain/dev3seed 선택비교 config·사전계획·runner·exporter추가.
-Batch1 stride 차이로~9.54e-7 출력오차를 발견해 공식배치와동일화; 허용오차완화없음.
-기존 split에서train16/dev8 recording·192window만캐시, 과거노출2recording제외.
-공통초기화/batch순서·K4/future4·200update/3seed, learned-noaux대조와의존도진단을기록한다.
-GPU0단일작업/새환경설치없음/공용원본·WA·Drive전체평가·기존pilot보존.
-새cached/explicit-ID/split/stride검사포함 전체107CPUtests통과.
-
-**865be79 이후 최신전환**: WA 우리7worker만정상중단, CPUhelper종료/16raw해시확인/9253scene부분JSON·CSV와snapshot보존.
-Drive 원본planner의module을재사용하는K4 learnable patch selection/경량futurepredictor/zero-init residual memory 구현.
-train-only2recording/1diagnosticstep/원본출력보존/gradient·target경계/비용검사 config·script·CPUtests 추가.
-Timestamp의sub-ms jitter를exact0.5s로오인한loader검사를수정하고실제offset을기록; 첫실패로그보존.
-원본Drive source/weights/환경·WA자산/공용원본/타인process는변경하지않았다.
-최종전체CPU103tests/Ruff/gitdiffcheck통과, 실제official2window연결gate통과/결과JSON·재현명령·한계문서공유.
-첫contract진단은officialnavtrain만확인하고내부split필터를누락하여held_out1/development1recording을사용했다.
-이전weights는재사용하지않고rejectreport/exposureaudit보존, 기존projecttrain만선택하는필터/회귀검사후새초기화로재검사했다.
-원본splitmanifest는수정하지않았고노출된heldout group은향후이extension의미사용독립평가로주장하면안된다.
-
-아래는865be79까지의변경이력이다.
-
-후속GPU0증설: 새v2 GPU별상한5/2, CPUqueue 기존4worker adopt후교체, GPUworker중단0/추가3개확인.
-Moduleprofiling script/2CPUtests/공유JSON/보고서 추가. Dense timing완료후packing진단namespace오류가있었고
-unwrap으로수정, 완료dense측정은보존·재사용했다. Packed-all최종trajectory bitwise동일/현재profiler종료.
-최종 관련CPU tests 24/24통과, 수정/신규scripts·tests의Ruff검사통과. 실행source hash와lint후source hash는별도기록.
-현재같은공식설정의full평가는계속중이며원본/Git-public설정/타인process/데이터변경없음.
-
-**5ed8a60 이후 공유GPU재개**: 사용자요청으로각GPU2개/총4worker 상한, 14-waypartition은그대로.
-새bounded CPUqueue/메모리입장검사/6GiB reserve profile과7개CPU tests를추가했다.
-Launcher는특정기존shard만선택기동; manifest atomic write. Guard는free memory/GPU mapping 검증,
-압력marker를남기고우리PID만SIGINT한다. 실패/guard-stop worker 자동재시도없음.
-8686완료scene의SHA/config hash확인, pause archive, guard/queue/aggregate복원,4worker 기동확인.
-README/AGENTS/HANDOFF/research_status/RESUME/report 갱신. 기존config/model/scorer/seed/12step 불변.
-
-**846b98d 이후 사용자GPU반환요청**: 우리14worker/CPUguard/aggregate만정상종료. GPU0·1각25MiB확인.
-8686완료/3460남음/실패·중복0,16JSONL SHA256검사와2.89MB별도snapshot백업완료.
-Pause marker/명시적resume gate/CPU보존검사/3pause tests추가. 단순launcher와directfull이기동차단됨확인.
-HANDOFF/research_status/RESUME/report와공유상태JSON갱신. 원본데이터/타인process/기존결과변경없음.
-
-아래는 이전커밋까지의완료이력이다.
-
-공식WA strict1162keys/6scene smoke성공. Nativeall-ID6scene×12step bitwise동일, separatepatch보존.
-Fixed/randomfuture2048vs8192:72timedtrial완료,전체inference6.69s→약2.07s(약69%감소).
-6scene소수PDMS민감도이지논문재현/선택학습성능이아니다. ReservedVRAM은allocatorcarryover로불변.
-사용자요청에따라14worker/45decimalGBcap/owned-PIDmemoryguard/재개·자동집계 구현.
-전용tmux14worker실행확인/현재각GPU약39.88GB/OOM0. Full평가아직미완료,과거32scene재사용.
-명시적사용자요청으로562완료scene보존 후우리14worker만정상중단/재개, `kjs-wa-jepa-eval` 실행별칭적용.
-Conda prefix/weights/14-waypartition/seed/scorer불변. 기록 `outputs/official_wa_jepa_reproduction/kjs_process_label_pause.json`.
-
-WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전12-step404d8af고정.
-독립Conda/worktree/공식NAVSIMv1 준비, 공개planning/encoder weights 확보, preflight/strictloading/
-원본agent·scorer 평가harness와config 추가. 이번은준비/검사이며학습결과가아니다.
-
-**공식 결과 보존 후 기반 결정 (기준578be6e)**:
-
-- DrivePB model/refiner/scorer/targets/agent loss/Lightning training/PB eval를직접재감사;futureheadtrain-only/planner입력아님.
-- WA jointinference/teacher/flowloss/positioner/gradient flags/strictloader/evalpreset를읽고single-forward scene_out예외기록.
-- 공식HF파일목록만조회,PB v1/v2·WA공개weight의name/size/publishedhash공유. 새weightdownload/fullload없음.
-- Score join전에current speed/command bins/minimumsample기록. 저장scene12146전체현황/metadata/CSV/JSON추가.
-- CPU16.29초/GPU0/noinference,meta누락0/136native recording,originalscoreCSVhash불변. H1/tuning으로해석금지.
-- WA native spatial-tube 기반추천과fixedbudget controlled five-condition 계산그래프작성. 미구현/범위결정대기.
-- New7context + existing5official aggregation tests/Ruff통과;기존공식평가자산/referenceclone/pilot환경그대로보존.
-- HANDOFF/README/AGENTS/researchstatus갱신,작업기록/근거/미확인구분. Pilot/확대/residual/새selector/동적K/추가평가없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-추가통제등록: 마스킹조건의fixed2target views와unmasked매번sampling 혼입을코드감사에서발견(개발성능조회전). 동일targetIDs의unmasked2조건×3seed를별도configs/encoder_future_learning/matched_target_controls_v1.json에등록했다. 기존36run보존후6run추가;마스킹단독효과는이대조로판단한다.
+**이번 등록 실험은 모두 완료했다.** 결과 보고서를 기준으로 다음 encoder 학습 목적을 검토한다.
+Planning-only 기준선을 유지하고 미래 변화 정보를 같은 용량의 readout으로 더 잘 꺼낼 수 있는지를 우선 검증할 것을 제안한다.
+이는 후속 제안이며 새 학습 구성은 실행하지 않았다. 단순 block 수·loss weight 추가 sweep은 이번에 더 하지 않는다.
+원격 인증이 복구되면 `git push mine junseong/main`으로 로컬 결과를 공유한다.
 
-새승인실험: exact prefix 준비 → GPU gradient/마스킹 gate →36run 학습 → 공식개발PDM/공통representation probe →전체결과 보고.
+**아래는 이전 단계의 다음 작업 이력이며 현재 자동 실행 지시가 아니다.**
 
 **현재 다음 판단:** 기존global비교군유지. 현재특징전달과미래변화정보의planning기여를분리하는후속설계가우선이며구현/학습미실행. 완료27run/PDM을반복하지않고새sweep는자동시작하지않는다.
 
@@ -650,7 +572,14 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 
 ## 5. 확정 범위 / 미결
 
-새실험은 partial encoder continued fine-tuning이며 전체 encoder 사전학습·독립 test가 아니다. 성능개선/선택적미래감독효용은미확정.
+**확정:** 두 블록 학습으로 encoder 표현과 개발 ADE를 바꿀 수 있다. 내부 intent도 표현에 영향을 준다.
+**미확정:** 선택적 미래 감독의 실질적 planning 이득, 6블록의 2블록 대비 우월성, 독립 test 일반화.
+이번은 작은 512 train / 192 dev의 부분 encoder continued fine-tuning이며 LoRA·전체 encoder 사전학습은 아니다.
+미래 target은 fixed camera region·4개 horizon·32개 region으로 고정했다. Learned adaptive selector·객체 추적·동적 예산은 미구현이다.
+Bootstrap은 seed 평균 차이의 recording 불확실성만 나타내고 다중 비교 보정이 없다.
+원본과 공용 데이터, 이전 결과는 보존했고 모든 GPU 작업은 종료했다. 원격 push는 이전 인증 실패가 있어 이번에 재시도한다.
+
+**아래는 이전 실험의 미결 사항이다.**
 
 **현재 미결:** 세착안변형의추가이득/미래예측필요성/학습선택우월성미확인. Region변형이며객체기반논문재현/독립test/동적예산개선이아니다. 실험 결과 로컬 commit은 `215cb6b`다. `git push mine`은 sandbox DNS 차단 후 밖에서 재시도했으나, 기존 VS Code Git 인증 소켓 ECONNREFUSED / No anonymous write access로 실패했다. 인증 복구 후 push만 남았으며 실험·평가는 모두 완료됐다.
 

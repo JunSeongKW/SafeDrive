@@ -1,0 +1,664 @@
+{
+  "complete": true,
+  "original_model_preserved": true,
+  "methods": {
+    "intent_uniform_fixed_targets_future_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.01872374676167965,
+            0.012814102694392204
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02694959007203579,
+            0.0028905405197292566
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02766409143805504,
+            0.0,
+            0.015180838294327259
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022994618862867355,
+            0.0,
+            0.01752757653594017
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.015778636559844017,
+            0.014172511175274849,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.01163400523364544,
+            0.024603627622127533,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_fixed_targets_future_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.020654020830988884,
+            0.010526131838560104
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.0339418463408947,
+            0.0013480489142239094
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.030519085004925728,
+            0.0,
+            0.022002244368195534
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022692427039146423,
+            0.0,
+            0.024863962084054947
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012385915033519268,
+            0.02040993981063366,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.005739748477935791,
+            0.03482358902692795,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_fixed_targets_future_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 4.76837158203125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018011584877967834,
+            0.010871249251067638
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.026629485189914703,
+            0.003391900798305869
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.026956932619214058,
+            0.0,
+            0.015336506068706512
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022816656157374382,
+            0.0,
+            0.015314910560846329
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.014210003428161144,
+            0.013917052187025547,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.008731162175536156,
+            0.020956534892320633,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_fixed_targets_future_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018711203709244728,
+            0.012808789499104023
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02692370116710663,
+            0.00288600567728281
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.02764120325446129,
+            0.0,
+            0.015180448070168495
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022970296442508698,
+            0.0,
+            0.017535172402858734
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.01576402224600315,
+            0.01417213398963213,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011611885391175747,
+            0.02460959181189537,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_fixed_targets_future_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.02066480927169323,
+            0.010532131418585777
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03399292379617691,
+            0.0013405535137280822
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.030541006475687027,
+            0.0,
+            0.021997151896357536
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.022670863196253777,
+            0.0,
+            0.024866385385394096
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.012394859455525875,
+            0.020409775897860527,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.005757513456046581,
+            0.034837182611227036,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_fixed_targets_future_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 7.62939453125e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.018000280484557152,
+            0.010864168405532837
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.02660246379673481,
+            0.00338804186321795
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.026939302682876587,
+            0.0,
+            0.015328451991081238
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.02279849722981453,
+            0.0,
+            0.015301370993256569
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.014200386591255665,
+            0.013910518027842045,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.008723489940166473,
+            0.02093946374952793,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_last6_strong_auxiliary_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.033116474747657776,
+            0.02424958348274231
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.029850952327251434,
+            0.007256295531988144
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.045304201543331146,
+            0.0,
+            0.02425852045416832
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.032579995691776276,
+            0.0,
+            0.01955333910882473
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.030056769028306007,
+            0.023297889158129692,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.018808063119649887,
+            0.02622947469353676,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_last6_strong_auxiliary_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.033519450575113297,
+            0.019427016377449036
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03674985468387604,
+            0.003275363240391016
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.04607278108596802,
+            0.0,
+            0.032330647110939026
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.028815243393182755,
+            0.0,
+            0.026670824736356735
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.022945819422602654,
+            0.030852727591991425,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011382875964045525,
+            0.03464728593826294,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_uniform_future_last6_strong_auxiliary_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.030024293810129166,
+            0.02124534174799919
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.03043188527226448,
+            0.011209340766072273
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.041736312210559845,
+            0.0,
+            0.024705810472369194
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.030579831451177597,
+            0.0,
+            0.01431269571185112
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.0268707312643528,
+            0.02386368438601494,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.014258136972784996,
+            0.018683556467294693,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_last6_strong_auxiliary_seed29": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.033136434853076935,
+            0.02436373196542263
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.029831726104021072,
+            0.0073958528228104115
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.045325566083192825,
+            0.0,
+            0.024201741442084312
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.03262177109718323,
+            0.0,
+            0.019532401114702225
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.030210739001631737,
+            0.023233687505126,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.019160684198141098,
+            0.026073681190609932,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_last6_strong_auxiliary_seed47": {
+      "raw_image_replay_max_abs_trajectory_error": 5.7220458984375e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.03342393413186073,
+            0.019485462456941605
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.036421436816453934,
+            0.0032754302956163883
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.04594099894165993,
+            0.0,
+            0.03210199996829033
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.028561733663082123,
+            0.0,
+            0.026426728814840317
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.022984327748417854,
+            0.03068777732551098,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.011459087021648884,
+            0.03428834676742554,
+            0.0
+          ]
+        }
+      ]
+    },
+    "intent_planning_masked_future_last6_strong_auxiliary_seed83": {
+      "raw_image_replay_max_abs_trajectory_error": 3.814697265625e-06,
+      "no_future_head_constructed": true,
+      "valid_command_interventions": [
+        {
+          "encoder_command_index": 0,
+          "feature_rms_changes_by_window": [
+            0.0,
+            0.029904333874583244,
+            0.021269867196679115
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.0,
+            0.030138816684484482,
+            0.01118825189769268
+          ]
+        },
+        {
+          "encoder_command_index": 1,
+          "feature_rms_changes_by_window": [
+            0.04152604937553406,
+            0.0,
+            0.024637605994939804
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.03033636324107647,
+            0.0,
+            0.014099922962486744
+          ]
+        },
+        {
+          "encoder_command_index": 2,
+          "feature_rms_changes_by_window": [
+            0.026908734813332558,
+            0.02378915622830391,
+            0.0
+          ],
+          "trajectory_xy_changes_m_by_window": [
+            0.014383181929588318,
+            0.01837715320289135,
+            0.0
+          ]
+        }
+      ]
+    }
+  },
+  "source": {
+    "specification": {
+      "task": "official_checkpoint_inference_and_full_navtest_evaluation_only",
+      "baseline_project_commit": "5c6e6d5fc8f2e20ea5dad90dabce5e1e3f310de8",
+      "official_source_repository": "https://github.com/linhanwang/Drive-JEPA",
+      "official_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+      "official_source_worktree": "reference_repositories/DriveJEPAOfficialEvaluation",
+      "official_navsim_version": "1.1.0 (Drive-JEPA navsim_v1 fork)",
+      "nuplan_source_commit": "ce3c323af01c0d7ec5672f7832ef53f9c679aab0",
+      "nuplan_source_tag": "nuplan-devkit-v1.2",
+      "conda_environment_prefix": "runtime/environments/drive_jepa_official_evaluation",
+      "python_version": "3.9.23",
+      "pytorch_version": "2.1.0+cu121",
+      "checkpoint_repository": "LinhanWang/Drive-JEPA",
+      "checkpoint_revision": "65e0d7284f69bf29d1a4864affcfd84ca4e97a2e",
+      "planning_checkpoint": {
+        "filename": "drive_jepa_perception_free_agent_vitl.ckpt",
+        "size_bytes": 3720285081,
+        "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+      },
+      "initialization_encoder_checkpoint": {
+        "filename": "vitl_merge_3dataset_e50.pt",
+        "size_bytes": 5127748765,
+        "sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f",
+        "reuse_path": "runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+        "role": "official_constructor_initialization; full planning checkpoint supersedes model parameters"
+      },
+      "metric_cache_archive": {
+        "filename": "metric_cache.tar",
+        "size_bytes": 3182510080,
+        "sha256": "9107c2ce88e62e75c2e5cbdcf5d8417a6ebb4acdc4ff1c4caa850a27239d88d5"
+      },
+      "model": {
+        "agent": "drive_jepa_perception_free_agent",
+        "image_architecture": "vit_large",
+        "num_keyval": 129,
+        "front_only": true,
+        "tf_dropout": 0.0,
+        "freeze_encoder": false,
+        "double_image": true,
+        "sensor_history_indices": [
+          2,
+          3
+        ],
+        "input_image_size": [
+          256,
+          512
+        ],
+        "additional_undistortion": false,
+        "trajectory_num_poses": 8,
+        "trajectory_interval_seconds": 0.5,
+        "trajectory_horizon_seconds": 4.0,
+        "trajectory_frame": "current ego rear-axle local SE2 (meters, radians)"
+      },
+      "split": "navtest",
+      "paper": {
+        "url": "https://arxiv.org/pdf/2601.22032v2",
+        "table": 2,
+        "row": "Ours / ViT-L / Camera / perception-free first block",
+        "reported_percent_scores": {
+          "no_at_fault_collisions": 98.7,
+          "drivable_area_compliance": 96.2,
+          "ego_progress": 82.9,
+          "comfort": 100.0,
+          "time_to_collision_within_bound": 95.5,
+          "score": 89.0
+        },
+        "published_checkpoint_exact_row_identity": "inferred from official filename/evaluation script; no checkpoint-specific result card"
+      },
+      "approved_physical_gpu_indices": [
+        0,
+        1
+      ],
+      "pilot_resume_authorized": false,
+      "training_authorized_for_this_task": false,
+      "wa_jepa_priority": "after this reproduction report; not automatically started"
+    },
+    "assets": {
+      "planning_checkpoint": {
+        "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+        "size_bytes": 3720285081,
+        "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+      },
+      "initialization_encoder": {
+        "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+        "size_bytes": 5127748765,
+        "sha256": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f"
+      },
+      "metric_cache_archive": {
+        "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloads/metric_cache.tar",
+        "size_bytes": 3182510080,
+        "sha256": "9107c2ce88e62e75c2e5cbdcf5d8417a6ebb4acdc4ff1c4caa850a27239d88d5"
+      },
+      "metric_cache_root": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache",
+      "metric_cache_tokens": 12146,
+      "metadata_relocation": {
+        "original_preserved_at": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloads/official_metadata_original.csv",
+        "local_metadata_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/metadata/metric_cache_metadata_node_0.csv",
+        "only_change": "absolute file paths in a downloaded derivative, not cache contents or shared originals"
+      }
+    },
+    "loading": "<All keys matched successfully>",
+    "official_root": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1"
+  },
+  "selected_tokens": [
+    "54772fdb42105222",
+    "622b0402246e5a04",
+    "8d7aa320cc5e5bf9"
+  ],
+  "valid_command_indices": [
+    0,
+    1,
+    2
+  ],
+  "planner_status_held_fixed": true,
+  "scope": "observed-image deployment equivalence and command sensitivity, not counterfactual correctness",
+  "peak_allocated_gib": 1.5584526062011719,
+  "wall_seconds_including_wait": 1085.501538587996
+}

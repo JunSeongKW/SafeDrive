@@ -229,10 +229,12 @@ def summarize_experiment(specification, predictions, reports, pdm_results, probe
         writer = csv.DictWriter(stream, fieldnames=list(table[0]))
         writer.writeheader()
         writer.writerows(table)
+    prepared_directory = WORKSPACE / specification.get("prepared_cache_directory", str(RUN_DIRECTORY))
     write_json(SHARE_DIRECTORY / "validation.json", {"all_runs_complete": True, "paired_schedules_match": True,
         "all_encoders_changed": all(report["updated_encoder_hash"] != report["original_encoder_hash"] for report in reports.values()),
         "original_model_preserved": all(json.loads((RUN_DIRECTORY / f"train_worker{worker}/completion.json").read_text())["original_model_preserved"] for worker in (0, 1)),
-        "input_mask_contract": json.loads((RUN_DIRECTORY / "input_mask_contract.json").read_text()),
+        "input_mask_contract_source": str(prepared_directory / "input_mask_contract.json"),
+        "input_mask_contract": json.loads((prepared_directory / "input_mask_contract.json").read_text()),
         "window_score_count": sum(len(rows) for rows in pdm_results["windows"].values()),
         "configuration_sha256": file_sha256(CONFIGURATION)})
     print(json.dumps(table, indent=2), flush=True)

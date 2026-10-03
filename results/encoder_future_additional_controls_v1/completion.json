@@ -1,0 +1,5 @@
+{
+  "complete": true,
+  "recovery_report_wall_seconds": 0.7799512180208694,
+  "recovery": "Final validation read shared input-mask contract from prepared_cache_directory; exact saved PDM/probe results reused without rescoring or retraining."
+}

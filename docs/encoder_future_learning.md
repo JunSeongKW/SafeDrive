@@ -95,7 +95,7 @@ vary only the encoder input; sensitivity alone does not establish correct behavi
 
 ## Status
 
-Implementation and gates in progress. No learned performance result yet.
+Completed on2026-10-03:48runs/24,576updates including both registered control amendments below. Official development PDM, common probes, and all48 raw-image replays are complete. See [results and limitations](encoder_future_learning_results.md). Historical registration counts below preserve the amendment chronology.
 
 ## Depth control amendment before any training outcome
 

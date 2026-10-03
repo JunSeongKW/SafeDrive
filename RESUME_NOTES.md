@@ -1510,3 +1510,48 @@ CPU전체검사는Python3.9공식환경에서기존Python3.10문법때문에coll
 입력마스킹비교의targetschedule혼입(마스킹fixed2views vsunmasked매번sampling)을코드감사로확인했다. 개발성능미조회상태에서same-target unmasked2조건×3seed를별도등록. 기존36run보존/새6run추가/총42run. 기존일반마스킹대조는복합recipe효과로표기한다.
 
 초기train8window의weighted auxiliary/plan encodergradnorm이1.2–2.6%임을확인해개발성능조회전last6uniform/plan-mask의auxweight0.5대조2조건×3seed추가등록. 기존0.05와다른설정불변. 추가통제설정additional_controls_v1.json에fixedtarget6+strength6을통합,총48run. 기존matched2조건등록은보존하며중복실행하지않는다.
+
+본36run완료:GPU0worker1862.38초/GPU1worker2575.77초,원본hash보존.36모델raw replay최대성분절대차이1.1444e-5/validcommands0,1,2검증통과. 추가12통제run시작:GPU0 PID1283398/GPU1 PID1283399;공식dev평가대기1283637/raw대기1284511. 본evalPID1074518진행중.
+
+
+## 2026-10-03 Encoder 미래 표현 학습 48회 완료
+
+사용자 요청에 따라 encoder 자체를 planning에 필요한 미래 정보를 보존하도록 학습했다.
+마지막 두 블록으로 충분한지 질문을 반영해 학습 전에 여섯 블록 대조를 등록했다.
+LoRA 없이 원래 마지막 2/6개 ViT block과 norm을 직접 갱신하고 내부 intent FiLM을 적용했다.
+기존 selector/future bridge를 추론에서 제거했고 미래 head는 학습 전용이다.
+
+본 source ae5c2da의 36회와 추가 source e7d57b1의 12회 모두 완료했다.
+16조건 × seed29/47/83 × 512update = 48회 / 24,576update. Train512/64recording, dev192/24recording.
+추가는 동일 fixed target의 마스킹 대조 6회와 미래 loss 0.05→0.5 대조 6회다.
+모두 코드 감사·train 초기 gradient를 근거로 개발 성능을 읽기 전에 등록했다.
+
+원본 ADE/PDM 0.352209793m / 87.119134167%; planning-only 2블록 0.347628701 / 88.396320378,
+6블록 0.346061389 / 88.718099738. 2블록 ADE 변화 −4.581091mm CI[−6.595189,−2.570006].
+PDM 원본 대비 개선 구간은 0 포함. 6블록 대 2블록 우월성도 미확정이다.
+6블록 intent planning 88.437487974, uniform future λ0.05 88.438068996,
+λ0.5 88.438153327. 미래 감독·움직임/planner target·마스킹 추가 효과는 실질적으로 매우 작다.
+일부 tiny PDM 차이 CI는 0을 포함하지 않으므로 모두 유의하지 않다고 단정하지 않았다.
+강한 미래 loss probe MSE .150730104 vs intent planning .150741347로 미세한 차이만 관측했다.
+
+48개 encoder raw 영상 replay(모델당 현재명령별 3개 window) 최대trajectory차이1.144409e-5,
+future head 미생성 확인. Planner status를 고정한 encoder 명령 개입에서 intent모델42개 표현변화,
+비조건부6개 불변. 표현의 조건부 변화가 의미적으로 올바른 미래·계획을 뜻하지는 않는다.
+평균 PDM이 가장 높은 no-intent6block도 우회전명령−2.4648pp, 정지근처두정의모두악화,
+귀책충돌없음100→99.826389. 상황별/구성점수/CI/동일용량probe를 보고서에 포함했다.
+
+CPU167pytest 통과. 원본model hash보존/모든blockgradient/pairedschedule/마스킹입력계약통과.
+Official PDM9600score(두단계original중복192;고유9408), 실패없음.
+학습process합5711.109초/최대trainingallocated5.641023GiB. 두GPU0·1만사용하고모든작업종료.
+추가PDM/probe완료뒤validation의input_mask_contract경로가추가root를참조해FileNotFoundError발생.
+공용prepared_cache_directory를참조하도록고치고저장predictionhash대조후report만복구;
+기존점수/학습/metric cache불변,재학습/재scoring없음. 원래오류로그보존.
+
+통합 results/encoder_future_learning_v1/combined_summary.json, combined_comparison.csv,
+combined_validation.json, paired_planning_comparison.svg/pdf.
+한국어 docs/encoder_future_learning_results.md, 설계 docs/encoder_future_learning.md.
+추가원자료 results/encoder_future_additional_controls_v1/;체크포인트outputs/각family/.
+Config 설명의 all24 잔여문구를validation/report에정정했고과거confighash는바꾸지않았다.
+작업문서저장은 pages:write-page 지침의기존저장소문서경로존중에따라로컬docs에수행했다.
+전체사전학습/독립test/학습형동적target선택검증은아니다. 이후sweep미실행.
+원격push는세션말재시도하고인증결과를별도로기록한다.
