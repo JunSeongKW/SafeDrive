@@ -75,6 +75,11 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-03 최신 후속 승인: LPWM을 planning 객체·미래 감독으로 재학습하고 planner 연결 후 PDMS 평가.**
+`docs/lpwm_planning_experiment.md`의 6조건×3seed×1000update 및 dev192 공식 PDM 실행이다.
+이 명시적 요청이 이전 완료 파일럿의 추가 학습 보류를 해당 범위에서 갱신한다. 기존 WA/Drive 실험은 재개하지 않는다.
+
+
 **최신 완료: 사용자 요청 LPWM 객체 중심 표현 파일럿.**
 공식 main 4cf53c4·Sketchy checkpoint·전용 환경에서 raw/rotation_stabilized ×3seed×300update를 완료했다.
 진입점 `docs/lpwm_navsim_adaptation_results.md`, `docs/lpwm_paper_and_driving_assessment.md`.

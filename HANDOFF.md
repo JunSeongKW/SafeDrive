@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 18:55 KST (Codex)
+마지막 갱신: 2026-10-03 19:22 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
+`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
+512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
+관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
+기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
 
 **LPWM 등록 학습·평가 종료.** 6개 모델/총1800update, 8모델×30clip 평가를 완료했다.
 PID2583673/2583803 queue는 PILOT_VARIANT_DONE으로 종료, 추가 읽기 전용 2개 재평가도 종료했다.
@@ -312,6 +318,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
+`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
+512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
+관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
+기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
 
 LPWM 6run 완료: 원영상 적응 복원 MSE0.01640, 객체 점 포함31.76%, 박스IoU≥0.3 대응18.47%, 미래MSE0.03015.
 공식무적응은0.05680/40.73%/17.71%/0.06934, 마지막영상유지 미래MSE0.03032다.
@@ -529,6 +541,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
+`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
+512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
+관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
+기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
+
 - 사용자 요청 LPWM 공식 repository와 checkpoint를 다운로드하고 49쪽 논문·코드·선행연구를 조사했다.
 - 별도 환경, NAVSIM 읽기 전용 clip adapter, strict loader, 카메라 회전 보정, 공식 ELBO 학습과 과거만의 평가를 구현했다.
 - 90train/30development, 원영상·회전보정 ×3seed×300update를 완료하고 무적응·격자·persistence 대조군과 비교했다.
@@ -537,6 +555,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 복원 개선과 객체 이해를 구분했으며 planning 이득은 미검증으로 기록했다. 기존 모델·환경·공용 데이터는 보존했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
+`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
+512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
+관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
+기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
 
 **LPWM 파일럿 완료 후 제안:** 결과·실제 particle 시각화를 검토한다.
 다음 후보는 RGB 복원 추가 확대보다 의미 feature/depth 감독, particle 상태의 ego motion 분리,
@@ -614,6 +638,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**진행: LPWM encoder와 플래너 공동 학습 및 공식 개발 PDMS.** 사용자 명시적 후속 요청으로 새 실행 승인.
+`docs/lpwm_planning_experiment.md`, `configs/lpwm_planning/controlled_v1.json`을 따른다.
+512 train/192 dev, 6조건×3seed×1000update, GPU0·1 한 worker씩. 공식 LPWM encoder 기반 task model이며 RGB decoder/context/dynamics는 사용하지 않는다.
+관측 RGB 2장+현재 ego status만 추론 입력, GT 객체/미래는 감독만. 3-update gradient/intent 검사와 CPU6검사 통과.
+기존 파일럿/WA/Drive 결과 보존. `outputs/lpwm_planning_v1/` worker/PDM log와 process manifest로 진행 확인.
 
 **최신 LPWM 범위:** 작은 continued adaptation과 개발 평가이며 논문 전체 재현/새 독립test/PDMS 평가는 아니다.
 Object-centric decomposition과planning중요도는미확정, particle ID는persistent객체ID가 아니다.
