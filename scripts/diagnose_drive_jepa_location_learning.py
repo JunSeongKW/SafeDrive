@@ -106,6 +106,9 @@ def main():
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output-directory", type=Path, required=True)
     args = parser.parse_args()
+    # Official imports temporarily change cwd; never retain relative output paths.
+    args.config = args.config.resolve()
+    args.output_directory = args.output_directory.resolve()
     specification = json.loads(args.config.read_text())
     args.output_directory.mkdir(parents=True, exist_ok=False)
     write_json(args.output_directory / "specification.json", specification)
@@ -423,7 +426,7 @@ def main():
             "baseline_hash_unchanged": original_hash,
             "optimizer_updates": 0,
             "source_commit": subprocess.check_output(
-                ["git", "rev-parse", "HEAD"], text=True
+                ["git", "rev-parse", "HEAD"], cwd=WORKSPACE, text=True
             ).strip(),
             "runner_sha256": file_sha256(Path(__file__).resolve()),
             "limitations": [

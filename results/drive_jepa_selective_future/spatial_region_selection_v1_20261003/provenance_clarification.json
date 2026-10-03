@@ -1,0 +1,12 @@
+{
+  "reason": "Official configuration setup changes cwd. The original source_commit fields were queried there and identify the official reference repository, not the project repository. Raw execution records have not been rewritten.",
+  "original_reported_source_commit_is_official_reference": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "training_project_commit": "8e8e49af189ac7dd372672c0ad876be3f0b5a048",
+  "executed_training_runner_sha256": "fb6c75564d83da68fef690d49ca44999972a06d0a248525d12f9bead1af0bbba",
+  "executed_region_model_sha256": "aa4fe0aa064bf1962f3e7f193ee0759562402314de0456eefba2eab125682725",
+  "diagnostic_project_base_commit": "9dcf80cf1100f36bd3b91c4717b1fafcabdfc852",
+  "diagnostic_uncommitted_change_at_execution": "Resolve config and output paths before official imports change cwd; no model, metric, selection or training changes.",
+  "executed_diagnostic_runner_sha256": "cc195943430ff55479fe4c07bab51dfcefc05d3e99663a444418c31cce8b10a4",
+  "failed_diagnostic_attempt": "location_learning_diagnosis_v1_20261003 failed at strict_loading.log path creation before official model loading or measurements. Preserved. Successful attempt is location_learning_diagnosis_v1b_20261003.",
+  "subsequent_code_fix": "Future runs query git with cwd=WORKSPACE. This metadata correction does not require repeating completed experiments."
+}

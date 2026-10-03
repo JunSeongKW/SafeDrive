@@ -1,6 +1,76 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
-## 2026-10-03 — 선택 영역 확대·planning 보조 신호 실험 등록
+## 최신: 선택 위치 학습·파이프라인 진단 완료 (2026-10-03)
+
+결론: **위치는 학습으로 바뀌지만, planning에 중요한 요소로 이동하는 학습은 아직 입증되지 않았다.**
+사용자 후속 지시에 따라 추가 개수·크기 탐색은 하지 않았다. 확인 시 등록된 15run은 이미 완료돼
+종료할 프로세스가 없었다. 현재 GPU 학습·진단 작업은 모두 종료됐다.
+
+### 고정 개수·크기에서 확인한 것
+
+동일한 8개 영역/각 2×2 native patch(입력 영상상 32×32 pixel), 3개 seed, 각 800update다.
+영역은 객체가 아니며 좌표를 연속 이동시키는 모델이 아니라 격자 후보의 선택 순위를 학습한다.
+
+| 동일 예산 조건 | 학습 전후 선택 집합 교체율 | Dev scene-macro XY ADE, m (평균 ± seed SD) |
+|---|---:|---:|
+| 무작위 (현재 window별 고정) | 해당 없음 | 0.347460 ± 0.000108 |
+| Planning loss로 선택 | 26.0–37.2% | 0.347129 ± 0.000866 |
+| 현재 planner 유지 보조 목표 추가 | 74.0–89.1% | 0.346951 ± 0.000446 |
+
+마지막 조건은 선택된 현재 특징만으로 원본 planner의 출력을 보존하는 proxy를 추가했다.
+이 proxy의 오차는 0.824→0.457m로 낮아졌지만, planning ADE 차이는 확인하지 못했다.
+마지막 조건−planning 조건의 대응 recording-bootstrap 95% CI는 [-0.000943,+0.000625]m,
+무작위 대비 [-0.001206,+0.000172]m다. 둘 다 0을 포함한다. 반복 개발 데이터이며 확증 검정이 아니다.
+동일한 6개 장면의 그림에서 화면 아래쪽을 벗어나기도 하지만, 중앙 먼 영역으로 집중하면서
+가까운 보행자·차량을 놓치는 사례도 보인다. 의미적 중요 대상의 GT 검증으로 해석하지 않는다.
+
+### 실제 코드·checkpoint에서 분리한 원인
+
+Train의 서로 다른 16 recording을 결과와 무관하게 hash로 고정했다. 위 두 학습 방식×3seed,
+가중치 업데이트 없이 768회 hard 위치 교체와 score gradient·미래 특징 교란을 검사했다.
+
+1. **Gradient 단절은 관측하지 않았다.** 최종 모델의 planning→선택 점수 gradient norm은
+   0.000395–0.000792다. 점수 instrumentation/명시 ID 경로 모두 원래 출력과 max 차이 0이었다.
+   CPU에서는 instrumentation 전후 parameter gradient도 bitwise 동일했다.
+   Hard 교체 손실 변화와 score 기반 근사의 부호 일치는 81.6–93.7%다.
+   이는 국소적인 근사 점검이지 ST가 전역 최적 선택을 보장한다는 뜻은 아니다.
+2. **위치-미래 특징 대응을 활용하는 정도가 약하다.** 보조 목표 모델에서 미래 branch를 끄면
+   궤적이 평균 5.6–7.0cm 바뀌지만, 좌표는 유지한 채 미래 특징을 선택 slot 사이에서 섞으면
+   0.24–0.27mm만 바뀐다. 이때 feature RMS 변화는 1.12–1.14로 입력 교란 자체는 작지 않다.
+   현재 구조는 미래 특징들을 cross-attention으로 전체 current memory에 전달한다.
+   위치 대응보다 전체 내용에 의존할 가능성을 지지하지만, 단독으로 구조적 원인을 확정하지는 않는다.
+   Attention normalized entropy는 0.82–0.86이므로 '완전히 균등 평균한다'는 해석도 하지 않는다.
+3. **새 보조 목표의 방향이 planning과 어긋난다.** 보조 목표 모델에서 weighted proxy의 score
+   gradient norm은 planning의 약 4.3–10.5배이며 두 gradient의 평균 cosine은 -0.067~+0.021이다.
+   중앙으로 선택을 움직이게 할 수 있어도 미래 정보의 planning 효용을 가르치는 목표는 아니었다.
+4. **표현·평가의 한계가 남는다.** Frozen ViT token은 이미 전역 맥락을 담고, predictor도 전체
+   current grid를 본다. 그림의 사각형을 '그 안의 물체만 참고한다'고 해석할 수 없다.
+   고정 영상 좌표의 미래 tubelet을 예측하며 객체 추적/ego-motion 정렬 기반 중요도는 아니다.
+
+따라서 개수·크기나 proxy 가중치를 더 올리는 것은 다음 우선순위가 아니다. 다음 구현 후보는
+**K·크기를 고정하고, 선택된 미래 특징을 대응하는 current spatial memory 위치에 연결하는 방식**이다.
+현재의 전역 fusion과 동일 조건으로 비교해 '어디의 미래인가'에 대한 실제 유용성이 증가하는지 먼저
+확인해야 한다. 이 변경/추가 학습은 아직 실행하지 않았다. 잘못된 선택을 가려주는 위치 규칙도 추가하지 않았다.
+
+### 보존·재현·검수
+
+- 기준 `122e885` → 학습 등록/실행 코드 `8e8e49a` → 결과/진단 등록 `9dcf80c`.
+- 학습: 15run/12,000update, 2,008.58초, peak allocated 1.665GiB, GPU1만 사용, OOM 없음.
+- 읽기 전용 진단: 62.91초/1.260GiB, optimizer update 0, 공식 모델 및 각 extension hash 불변.
+- CPU 전체 154 tests 및 새 코드 Ruff 통과. 공용 원본/기존 결과/공식 baseline 보존.
+- [결과 JSON](../results/drive_jepa_selective_future/spatial_region_selection_v1_20261003/summary.json),
+  [진단 JSON](../results/drive_jepa_selective_future/spatial_region_selection_v1_20261003/location_diagnosis/summary.json).
+- 시각화: `outputs/drive_jepa_selective_future/spatial_region_selection_visualization_20261003/index.html`.
+  현재 실제 사진/선택 위치이며 미래 생성 영상이 아니다. 이전과 동일한 6개 recording, seed29 고정.
+- 코드: `scripts/train_drive_jepa_spatial_regions.py`, `scripts/diagnose_drive_jepa_location_learning.py`,
+  `scripts/report_drive_jepa_spatial_regions.py`. 각 config와 새 output 경로를 명시해 재현한다.
+- 진단 첫 시도는 official import의 cwd 변경에 따른 상대 출력 경로 오류로 측정 전에 중단됐다.
+  원본 실패 디렉토리를 보존하고 절대 경로로 v1b에서 완료했다. Raw source_commit이 official
+  reference commit을 가리킨 metadata 문제는 원본을 바꾸지 않고
+  [provenance clarification](../results/drive_jepa_selective_future/spatial_region_selection_v1_20261003/provenance_clarification.json)에 정정했다.
+- GitHub push는 기존 VSCode credential socket 오류로 막혀 있다. 로컬 커밋과 산출물은 보존한다.
+
+## 이전 등록 및 진행 이력 — 선택 영역 확대·planning 보조 신호
 
 사용자가선택시각화를확인한뒤재학습요청. 기준122e885, 새설정 `spatial_region_selection_v1.json`.
 K16 native / K4 2×2지역 / K8지역 random·planning·retention의5조건×3seed×800update.
@@ -10,7 +80,7 @@ Retention은선택current정보로원본planner판단을보존하는training-onl
 이는contextual features/mean masking의모델의존도측정이지인과적중요도나미래효용의정답이아니다.
 동일K8 controls가주비교, K/면적증가조건은자원변경을분리해서해석한다. CPU전체151검사통과.
 등록코드commit8e8e49a, GPU1단일학습PID2624673(실제명령확인필수), 시작11:41경.
-첫3run(K16native)800update완료, 나머지등록조건실행중. 원본출력동일성과gradient경계통과.
+당시 첫3run(K16native)800update완료. 이후15run전체완료/원본출력동일성과gradient경계통과.
 2시간/condition20분/own8GiB/sharedreserve6GiB; 등록상한뒤추가자동튜닝없음.
 
 설계근거: 선택하는면적0.78%와초기zero-bridge의간접planning신호만으로의미있는대상선택을보장할수없다.

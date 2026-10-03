@@ -1441,3 +1441,34 @@ uses current full-planner teacher, and gradients go only to selector. Futureaux 
 No new target-validity candidate filtering or semantic GT importance assertion.
 151CPUtests pass,GPU0/1both48GBfree at11:39. Registered2hwhole/20mincondition/8GiBown/6GiBfree caps.
 No performance result yet. Resume restores this runner optimizer/scheduler/RNG; old runs preserved.
+
+## 2026-10-03 — Registered region training completed; user redirects to location diagnosis
+
+15runs/12,000updates completed in2008.58seconds, peakallocated1.665GiB, GPU1only, noOOM, originalhashunchanged.
+At user redirection, knownPID2624673hadalreadyexited; nootherprocesswasstopped. Noadditionalcount/sizeexperiment.
+Dev ADE: native16 .346896; region4 .346354; region8 random .347460; region8 planning .347129;
+region8 retention .346951m. SameK8 lasttwoCIcontains0. Retention moves74–89%ofsites but often towarddistantcenter,
+not demonstrably toward all important nearby agents. Same6scene gallery exported without outcome selection.
+
+Read-onlydiagnosis registered9dcf80c; 16hashchosen trainrecordings×2conditions×3seeds,768hardreplacements.
+Score instrumentation and explicit reference exactlymatch productionoutput. Final planning-score gradients nonzero.
+STscore signagreement81.6–93.7%islocalfiniteprobe, notglobaloptimality. Retentionbranch-offchanges5.6–7.0cm,
+slotshuffle0.24–0.27mm despitefeatureRMS1.12–1.14. Weightedretentiongradient4.3–10.5×planning,
+directioncosine-0.067..+0.021. Supportsweakspatialidentityusage and surrogateobjective mismatch, notdeadgradient.
+63seconds/1.260GiB, optimizerupdates0, extension+officialhashunchanged. Noautoadditionaltraining.
+Nextcandidate: fixedK/size, location-aligned future injection into current spatial memory; NOTimplementedyet.
+
+Firstdiagnostic failed beforemeasurement becauseofficialimport changescwdandoutputwasrelative; preservedv1.
+Absolute-pathv1bcompleted. Original source_commit fields accidentallyrefer toofficial548bb82 duecwd.
+Keeprawrecordsunchanged; `provenance_clarification.json` identifies projecttraining8e8e49a/diagnostic9dcf80c+pathfix
+and executedfilehashes. Futurecodeusescwd=WORKSPACEforgit. SharedJSON/code/docs inlocalcommits;
+pushstillfailsVSCodecredential socket/anonymouswrite. CPU154tests+Ruffpass.
+
+Reproduction commands (new output paths; do not rerun completed learning by default):
+```bash
+CUDA_VISIBLE_DEVICES=1 LD_LIBRARY_PATH=/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/drive_jepa_official_evaluation/lib \
+  OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=src \
+  /rhome/junseong/envs/kjs-drive-jepa-extension/bin/python -u scripts/diagnose_drive_jepa_location_learning.py \
+  --config configs/drive_jepa_selective_future/location_learning_diagnosis_v1.json \
+  --output-directory outputs/drive_jepa_selective_future/location_learning_diagnosis_<run_id>
+```

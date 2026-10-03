@@ -1,15 +1,17 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 13:02 KST (Codex)
+마지막 갱신: 2026-10-03 13:12 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
 **최신 사용자 요청(2026-10-03): 중요 요소 선택을 개선하는 크기·개수·학습 신호 비교.**
 **후속최신지시: 개수·크기보다위치이동과학습파이프라인진단이우선.** 확인시등록15run은이미완료됐고
 PID2624673은종료돼중단할process없었다. 새크기/개수/학습sweep는시작하지않는다.
-같은K8/2×2region의planning vsretention 6모델을읽기전용진단한다.
+같은K8/2×2region의planning vsretention 6모델의읽기전용진단도완료했다.
 설정 `location_learning_diagnosis_v1.json`, train16recording을결과무관hash고정,
 scoregradient·hard교체·미래slot교란·fusion attention/원본의존도; optimizerupdate0/15분/4GiB상한.
+실측62.91초/1.260GiB, 768hard교체. Gradient단절없음/위치대응활용약함/proxy방향불일치관측.
+현재실행중인우리학습·진단없음. 최신결론·재현은 `docs/research_status.md` 맨위절을본다.
 이전15run결과: retention은위치74–89%교체/현재teacher유지오차0.824→0.457m이나
 devADE0.347129→0.346951m으로선택효용미확정. 장면중앙으로쏠리는다른편향이관측된다.
 기준122e885. `spatial_region_selection_v1.json`에 5조건×3seed×800update를 결과 확인 전 등록했다.
@@ -17,7 +19,7 @@ devADE0.347129→0.346951m으로선택효용미확정. 장면중앙으로쏠리�
 큰8region random/planning/planner-retention 비교. Region은2×2native token 평균이며 객체가 아니다.
 Retention은현재planner의선택정보의존도proxy로 selector만학습;미래중요도의정답으로해석하지않는다.
 2시간전체/20분조건/allocated8GiB/여유6GiB, 단일GPU0또는1만. 기존결과덮어쓰기없음.
-진입점 `scripts/train_drive_jepa_spatial_regions.py`, 현재는CPU7검사통과/학습시작전이다.
+진입점 `scripts/train_drive_jepa_spatial_regions.py`, 15run/33분29초/peak1.665GiB완료. CPU전체154검사통과.
 이번명시적재학습요청이아래시각화전용·09:00마감의과거범위를갱신한다.
 
 **이전 사용자 요청: 학습된 selector/predictor 시각화.** 밤샘 87run/61,200update는
@@ -115,7 +117,7 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-새region실험 등록/구현 완료, GPU시작전. 새출력 `outputs/drive_jepa_selective_future/spatial_region_selection_v1_20261003/`.
+새region실험15run과후속위치진단모두완료/GPU작업없음. 새출력 `outputs/drive_jepa_selective_future/spatial_region_selection_v1_20261003/`.
 중단시 같은config/output에 `train_drive_jepa_spatial_regions.py --resume`; optimizer/scheduler/RNG/완료update복원.
 
 현재 우리 학습 작업은 없다. 87run 종료 후 사용자 요청으로 CPU 시각화를 생성했다.
@@ -255,8 +257,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 
 ## 2. 최근 결과와 조사 사실
 
-Region CPU7검사 통과: pooling/비중복/명시ID검증/원본출력보존/aux경계/retention→selector만/빈target.
-새학습결과는아직없음. Native K4영상은선택편향이있지만 그것만으로semantic중요도부재를확정하지않는다.
+CPU전체154검사 통과. K8 plain→retention은위치교체26–37%→74–89%, ADE0.347129→0.346951m이나CI0포함.
+진단: planning→score연결정상; future slot교환후trajectory0.24–0.27mm변화; proxygradient4–10배/방향거의직교.
+전체현재입력bypass+위치정보를섞는future fusion+현재teacher proxy불일치가원인후보. 의미GT평가아님.
 
 2026-10-03 CPU 시각화 검증: seed29 warmup100→joint800에서 selector 선택 교체율은
 ego-query43.1%, MLP26.6%. Parameter 상대변화는 selector .759%/.915%, predictor3.11%/10.47%.
@@ -444,7 +447,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 - 등록15run완료/33분29초/원본hash불변. 결과·동일6scene gallery·checkpoint감사완료.
 - 최신사용자지시반영: 추가count/size중단, 동일K8위치학습경로읽기전용진단등록.
-- `diagnose_drive_jepa_location_learning.py`/scoretrace코드·등가성test추가; 진단GPU실행전.
+- `diagnose_drive_jepa_location_learning.py`/scoretrace코드·등가성test추가; 진단6모델/768교체완료.
+- 원본경로오류는진단측정전실패로보존/v1b성공; source_commit cwd오표기는별도provenance정정문서로보존.
 
 - 5조건×3seed/800update region크기·개수·학습신호비교를사전등록.
 - Native현재입력불변인2×2region pooling, selector-only frozen-planner retention proxy와지역전체valid mask구현.
@@ -539,8 +543,8 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-현재다음: CPU전체검사→GPU0/1점유확인→등록15run→대응seed/recording비교와동일6scene시각화.
-고정마지막800checkpoint만보고. 실패해도추가구조/weight/sweep를자동확장하지않는다.
+현재다음: K/크기고정, global future fusion 대신선택위치에대응하는spatial-memory연결을검토.
+아직구현/추가학습하지않았다. 개수·크기/proxyweight추가sweep금지. 현재15run을반복하지않는다.
 
 최신: 사용자에게 CPU 시각화 갤러리와 ZIP을 전달해 실제선택위치/미래latent를 검토한다.
 가중치·선택변화와 예측오차 감소는 좋은 선택정책/안전성향상의 증거와 구분한다.

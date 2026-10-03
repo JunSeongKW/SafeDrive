@@ -580,7 +580,7 @@ def main():
         args.output_directory / "provenance.json",
         {
             "source_commit": subprocess.check_output(
-                ["git", "rev-parse", "HEAD"], text=True
+                ["git", "rev-parse", "HEAD"], cwd=WORKSPACE, text=True
             ).strip(),
             "config_sha256": file_sha256(args.config),
             "cache_index_sha256": file_sha256(

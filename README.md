@@ -27,6 +27,12 @@
 
 ## 현재 구현과 과거 자산의 구분
 
+**최신(2026-10-03): 선택 위치 학습·파이프라인 진단 완료.**
+등록15run 후 사용자 지시에 따라 개수·크기 탐색을 추가하지 않고 동일K8/같은크기로진단했다.
+위치교체는관측되지만planning상중요요소선택은미입증이다. Gradient단절보다위치대응활용약함과
+보조목표방향불일치가의심된다. 현재GPU작업없음. [최신결과·원인·재현](docs/research_status.md).
+새갤러리 `outputs/drive_jepa_selective_future/spatial_region_selection_visualization_20261003/index.html`.
+
 **최신 사용자용 시각화(2026-10-03)**: 학습된 MLP/ego-query selector와predictor의
 전후 선택위치·미래latent 오차·실제1024-D출력을 확인하는 CPU 갤러리를 생성했다.
 `outputs/drive_jepa_selective_future/selector_predictor_visualization_20261003/index.html`.
