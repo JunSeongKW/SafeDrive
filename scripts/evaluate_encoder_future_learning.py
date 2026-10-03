@@ -98,6 +98,14 @@ def score_official_development(specification, predictions):
 
 
 def prepare_common_probe_targets(specification):
+    if "prepared_cache_directory" in specification:
+        parent_targets = WORKSPACE / specification["prepared_cache_directory"] / "common_representation_probe_targets.pt"
+        wait_started = time.perf_counter()
+        while not parent_targets.exists():
+            if time.perf_counter() - wait_started > 1800:
+                raise RuntimeError("Parent probe target preparation wait cap")
+            time.sleep(10)
+        return torch.load(parent_targets, map_location="cpu", weights_only=True)
     prepared_path = RUN_DIRECTORY / "common_representation_probe_targets.pt"
     if prepared_path.exists():
         return torch.load(prepared_path, map_location="cpu", weights_only=True)
@@ -200,7 +208,7 @@ def summarize_experiment(specification, predictions, reports, pdm_results, probe
             "peak_allocated_gib": max(reports[name]["peak_allocated_gib"] for name in names),
             "trainable_encoder_parameters": reports[names[0]]["trainable_encoder_parameters"]}
     comparisons = specification["primary_comparisons"] + [[condition, "original_frozen"] for condition in specification["conditions"]]
-    result = {"scope": "matched development-only encoder continuation, final512, all36runs; unadjusted exploratory multiple comparisons",
+    result = {"scope": f"matched development-only encoder continuation, final512, all{len(reports)}runs; unadjusted exploratory multiple comparisons",
         "table": table, "methods": methods, "specification": specification,
         "paired_ade_comparisons": {f"{proposed}_minus_{reference}": paired_recording_comparison(ade_rows[proposed], ade_rows[reference])
                                    for proposed, reference in comparisons},
@@ -231,9 +239,15 @@ def summarize_experiment(specification, predictions, reports, pdm_results, probe
 
 
 def main():
+    global CONFIGURATION, RUN_DIRECTORY, SHARE_DIRECTORY
     parser = argparse.ArgumentParser()
     parser.add_argument("--wait-for-training", action="store_true")
+    parser.add_argument("--configuration", type=Path, default=CONFIGURATION)
+    parser.add_argument("--run-directory", type=Path, default=RUN_DIRECTORY)
+    parser.add_argument("--share-directory", type=Path, default=SHARE_DIRECTORY)
     args = parser.parse_args()
+    CONFIGURATION = args.configuration.resolve()
+    RUN_DIRECTORY, SHARE_DIRECTORY = args.run_directory.resolve(), args.share_directory.resolve()
     torch.set_num_threads(2)
     specification = json.loads(CONFIGURATION.read_text())
     SHARE_DIRECTORY.mkdir(parents=True, exist_ok=True)

@@ -1506,3 +1506,5 @@ Sparse연결밀도19.63%이나dense연산이므로FLOPs효율주장없음. 객�
 CPU전체검사는Python3.9공식환경에서기존Python3.10문법때문에collection실패해코드를바꾸지않고기존CPU환경으로실행했다:167passed. 입력마스킹actualpixel교란불변/공식maskedencoder동일성통과. 준비GPU0 PID613492. 공식devPDM/공통미래delta ridge probe/paired분석runner추가.
 
 704prefix준비완료:552.29초/13,671,549,056bytes/최대feature차이0/64train24devrecording.12조건GPUgradient계약모두통과(각blocknonzero,planning→head0),peak5.538GiB. GPU검사원본hash보존.36run학습/공식PDM·probe기동예정.
+
+입력마스킹비교의targetschedule혼입(마스킹fixed2views vsunmasked매번sampling)을코드감사로확인했다. 개발성능미조회상태에서same-target unmasked2조건×3seed를별도등록. 기존36run보존/새6run추가/총42run. 기존일반마스킹대조는복합recipe효과로표기한다.

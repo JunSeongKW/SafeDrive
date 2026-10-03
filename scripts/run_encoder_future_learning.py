@@ -207,8 +207,10 @@ def prepare_prefix_cache(agent, specification, output_directory, started):
 
 def load_training_cache(specification, output_directory):
     records = json.loads((WORKSPACE / specification["reused_cache"]).read_text())["records"]
-    manifest = json.loads((output_directory / "prefix_cache_manifest.json").read_text())
-    if manifest["configuration_sha256"] != file_sha256(CONFIGURATION):
+    prepared_directory = WORKSPACE / specification.get("prepared_cache_directory", str(output_directory))
+    prepared_configuration = WORKSPACE / specification.get("prepared_cache_configuration", str(CONFIGURATION))
+    manifest = json.loads((prepared_directory / "prefix_cache_manifest.json").read_text())
+    if manifest["configuration_sha256"] != file_sha256(prepared_configuration):
         raise RuntimeError("Preparation configuration differs")
     cached_windows = []
     for record, entry in zip(records, manifest["records"]):
@@ -224,11 +226,12 @@ def observed_training_batch(cache, indices, options, update_index, generator, sp
         "future_region_valid_mask", "current_teacher_regions")}
     depth_suffix = "_last6" if options.get("num_trainable_encoder_blocks", 2) == 6 else ""
     training_batch["observed_prefix_features"] = cache["observed_prefix_features" + depth_suffix][indices].cuda()
-    if options["masked_observation"]:
+    if options["masked_observation"] or options.get("fixed_training_targets", False):
         strategy = options["targets"]
         view_index = update_index % specification["masked_views_per_strategy"]
-        training_batch["auxiliary_prefix_features"] = cache[f"{strategy}_masked_prefix_features{depth_suffix}"][indices, view_index].cuda()
-        training_batch["auxiliary_visible_indices"] = cache[f"{strategy}_visible_patch_indices"][indices, view_index].cuda()
+        if options["masked_observation"]:
+            training_batch["auxiliary_prefix_features"] = cache[f"{strategy}_masked_prefix_features{depth_suffix}"][indices, view_index].cuda()
+            training_batch["auxiliary_visible_indices"] = cache[f"{strategy}_visible_patch_indices"][indices, view_index].cuda()
         training_batch["selected_regions"] = cache[f"{strategy}_selected_regions"][indices, view_index].cuda()
     else:
         score_key = "motion_region_scores" if options["targets"] == "motion" else "planning_region_scores"
@@ -450,11 +453,15 @@ def run_training_condition(agent, cache, records, specification, output_director
 
 
 def main():
+    global CONFIGURATION, OUTPUT_DIRECTORY
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=("prepare", "smoke", "train"))
     parser.add_argument("--worker-index", type=int, default=0)
     parser.add_argument("--worker-count", type=int, default=1)
+    parser.add_argument("--configuration", type=Path, default=CONFIGURATION)
+    parser.add_argument("--output-directory", type=Path, default=OUTPUT_DIRECTORY)
     args = parser.parse_args()
+    CONFIGURATION, OUTPUT_DIRECTORY = args.configuration.resolve(), args.output_directory.resolve()
     specification = json.loads(CONFIGURATION.read_text())
     OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
     torch.set_num_threads(2)
@@ -497,7 +504,8 @@ def main():
             write_json(OUTPUT_DIRECTORY / "smoke.json", {"conditions": smoke_reports,
                 "peak_allocated_gib": torch.cuda.max_memory_allocated() / 2**30})
         else:
-            if not (OUTPUT_DIRECTORY / "smoke.json").is_file():
+            smoke_directory = WORKSPACE / specification.get("gradient_gate_directory", str(OUTPUT_DIRECTORY))
+            if not (smoke_directory / "smoke.json").is_file():
                 raise RuntimeError("GPU gradient smoke gate not completed")
             if args.worker_index == 0:
                 baseline_result, baseline_development_features = evaluate_encoder(agent, initial_encoder, cache, records, "development", collect_features=True)

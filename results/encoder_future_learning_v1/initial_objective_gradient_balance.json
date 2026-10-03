@@ -1,0 +1,14 @@
+{
+  "auxiliary_weight": 0.05,
+  "weighted_auxiliary_to_planning_encoder_gradient_norm_at_initialization": {
+    "intent_uniform_future": 0.023989113655532395,
+    "intent_motion_future": 0.023931824219799044,
+    "intent_planning_future": 0.023931821706370704,
+    "intent_uniform_masked_future": 0.02425390306860008,
+    "intent_planning_masked_future": 0.02518583608361414,
+    "intent_planning_masked_current": 0.02594412105525869,
+    "intent_uniform_future_last6": 0.012247201974397387,
+    "intent_planning_masked_future_last6": 0.012905912403874642
+  },
+  "scope": "one common8-window training diagnostic batch at initialization; not gradients averaged across all training or optimizer step contributions"
+}

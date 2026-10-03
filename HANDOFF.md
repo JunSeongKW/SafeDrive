@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 15:47 KST (Codex)
+마지막 갱신: 2026-10-03 16:10 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -133,7 +133,7 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-현재encoder_future_learning_v1 준비/GPU검사완료.36run학습GPU0·1기동예정;이후공식개발PDM·probe자동연결.
+현재encoder_future_learning_v1 학습PID821023(GPU0)/821025(GPU1),평가대기PID821590(CPU). 각run정확512update;36run완료후공식개발PDM·probe자동연결. 로그outputs/encoder_future_learning_v1/.
 
 **현재 실행중인 작업 없음.** 등록27run과CPU PDM192장면×34조건모두종료했다.
 출력 `outputs/drive_jepa_selective_future/region_research_v1_20261003/`,
@@ -584,6 +584,8 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 - HANDOFF/README/AGENTS/researchstatus갱신,작업기록/근거/미확인구분. Pilot/확대/residual/새selector/동적K/추가평가없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+추가통제등록: 마스킹조건의fixed2target views와unmasked매번sampling 혼입을코드감사에서발견(개발성능조회전). 동일targetIDs의unmasked2조건×3seed를별도configs/encoder_future_learning/matched_target_controls_v1.json에등록했다. 기존36run보존후6run추가;마스킹단독효과는이대조로판단한다.
 
 새승인실험: exact prefix 준비 → GPU gradient/마스킹 gate →36run 학습 → 공식개발PDM/공통representation probe →전체결과 보고.
 

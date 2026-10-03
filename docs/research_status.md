@@ -1,5 +1,13 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+**현재 실행 중(2026-10-03): encoder 자체 미래 표현 학습·평가.**
+LoRA 없이 planning에 사용하는 encoder의 마지막2개/6개block을 직접 학습한다.
+Ego intent 내부FiLM, 미래latent감독, 움직임/planner민감도target선택, 입력마스킹을12조건×3seed×512update로비교한다.
+기존추론용selector/futurebridge는제거했고predictor는학습전용이다.
+CPU167검사와실제prefix/마스킹/encodergradient gate를통과했다. GPU0·1학습후공식개발PDM과공통futureprobe예정.
+[설계·범위·근거](encoder_future_learning.md)
+
+
 ## 완료 — 2026-10-03 SPARTAN/C-JEPA/IA-JEPA 착안 통제 비교
 
 등록 commit `5b85a01`: 9조건 × 3 seed × 800 update를 완료했다.

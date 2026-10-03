@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**현재 실행 중(2026-10-03): encoder 자체 미래 표현 학습·평가.**
+LoRA 없이 planning에 사용하는 encoder의 마지막2개/6개block을 직접 학습한다.
+Ego intent 내부FiLM, 미래latent감독, 움직임/planner민감도target선택, 입력마스킹을12조건×3seed×512update로비교한다.
+기존추론용selector/futurebridge는제거했고predictor는학습전용이다.
+CPU167검사와실제prefix/마스킹/encodergradient gate를통과했다. GPU0·1학습후공식개발PDM과공통futureprobe예정.
+[설계·범위·근거](docs/encoder_future_learning.md)
+
+
 현재 맥락과 ego 주행 의도에 따라, 같은 예산에서 planning에 유용한 미래 예측 대상을 선택하도록
 학습하는 연구 작업공간이다. 현재 구현 단위는 camera patch이며 객체 instance와 구분한다.
 **SafeDrive baseline 연구는 잠정 중단 상태다.**

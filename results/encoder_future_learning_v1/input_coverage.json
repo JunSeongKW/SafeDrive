@@ -1,0 +1,40 @@
+{
+  "train": {
+    "windows": 512,
+    "recordings": 64,
+    "unique_scenes": 497,
+    "command_counts": {
+      "1": 348,
+      "0": 100,
+      "2": 64
+    },
+    "valid_future_windows_by_tubelet": [
+      388,
+      314,
+      244,
+      206
+    ],
+    "any_future_valid_windows": 424,
+    "all_future_valid_windows": 158
+  },
+  "development": {
+    "windows": 192,
+    "recordings": 24,
+    "unique_scenes": 182,
+    "command_counts": {
+      "1": 121,
+      "0": 46,
+      "2": 25
+    },
+    "valid_future_windows_by_tubelet": [
+      150,
+      117,
+      86,
+      75
+    ],
+    "any_future_valid_windows": 161,
+    "all_future_valid_windows": 53
+  },
+  "foundation_pretraining_exposure": "not excluded; extension split does not establish independent test generalization",
+  "training_only_selection_policy": "fixed heuristics with random exploration; learned adaptive selector or dynamic horizon not implemented"
+}

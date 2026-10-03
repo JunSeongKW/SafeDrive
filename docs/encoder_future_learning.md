@@ -104,3 +104,15 @@ User questioned whether last2 training suffices. Add last6 full-update arms for 
 ## Common representation probe protocol (registered before training)
 
 Project1024D encoder channels with a fixed random1024x16 matrix(seed9173), spatially average to4x8 cells, and concatenate observed8D ego status:520 input dimensions. Fit a separate closed-form ridge(alpha10, intercept, train-only normalization) for each future tubelet. Targets are changes in normalized frozen-teacher region features, projected/pool-aligned to the same4x8 cells. Invalid future windows are excluded per horizon. Same protocol for original and every trained encoder; no dev-selected ridge hyperparameters. Report per-horizon MSE and persistence baseline. This measures linear accessibility of a particular future-feature target, not semantic understanding.
+
+## Raw deployment and valid-intent postflight
+
+After all training, reload every final encoder and replay one outcome-independent dev window per observed command from raw camera images, with no future predictor constructed. Compare saved trajectories at1e-4 absolute/relative tolerance. Hold original planner status fixed and intervene on encoder commands0/1/2 only. The quick training diagnostic rolls all four command channels (including unobserved reserved channel3); final interpretation uses this valid-command postflight. This audit changes no learned weights or method choices.
+
+## Comparison limits
+
+Updates, sample order, teacher targets, inference planner and target budget are matched. Training FLOPs are NOT matched: masked objectives add a second encoder-tail pass and deeper adaptation costs more. Report measured training time/memory separately, with shared-GPU timing caveats. Planning-sensitive target choice is a fixed current-dependence heuristic, not a learned selector or true future-utility annotation. Only future latent type, fixed4tubelets and fixed32regions are tested; adaptive type/horizon/amount and object identity remain outside this experiment.
+
+## Matched-target control amendment
+
+A code audit during training, before inspecting any learned development metric, identified that unmasked arms resample target IDs every update while masked arms use two cached target views. Their difference bundles observation masking and target diversity. Register `matched_target_controls_v1.json`: two additional unmasked last2 controls (uniform/planning), three seeds each, same fixed target IDs/view schedule as their masked counterparts. Preserve all36 original runs; execute6 additional runs after original GPU work, then compare masked versus matching unmasked controls. The original masked-versus-resampled contrast is reported as a combined recipe difference, not an isolated masking effect. Final total42trained models.
