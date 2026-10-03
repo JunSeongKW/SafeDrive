@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "superseded_config": "configs/lpwm_planning/full_joint_training_v1.json",
+  "active_config": "configs/lpwm_planning/metric_distillation_v2.json",
+  "reason": "User requested E2E metric supervision, future-particle candidate refinement and a validation gate after each stage; existing stage1 supervisor joins this queue"
+}

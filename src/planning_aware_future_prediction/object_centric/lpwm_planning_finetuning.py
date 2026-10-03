@@ -71,6 +71,14 @@ class PlanningFineTunedLPWM(nn.Module):
                 recon_loss_func=reconstruction_loss, **arguments)
             return output["loss_dict"]["loss"]
 
+    def plan_from_memory(self, memory, ego_status):
+        queries = self.waypoint_queries[None] + self.ego_projection(normalized_ego_status(ego_status))[:, None]
+        decoded = self.trajectory_decoder(queries, memory)
+        future_times = torch.arange(1, 9, device=ego_status.device, dtype=ego_status.dtype) * .5
+        constant_velocity = ego_status.new_zeros((len(ego_status), 8, 3))
+        constant_velocity[..., :2] = ego_status[:, None, 4:6] * future_times[None, :, None]
+        return {"trajectory": constant_velocity + self.trajectory_head(decoded) * decoded.new_tensor([10, 10, 1])}
+
     def forward(self, observed_images, ego_status, auxiliary_world_images=None, auxiliary_ego_status=None,
                 reconstruction_loss=None, world_loss_configuration=None, intervention=None):
         assert observed_images.shape[1:] == (4, 3, 128, 128)
@@ -90,19 +98,14 @@ class PlanningFineTunedLPWM(nn.Module):
             future_attributes = future_attributes.roll(1, 0)
         attributes = torch.cat((observed_attributes, future_attributes), 1)
         memory = self.particle_projection(attributes) + self.time_embedding[None, :, None] + self.particle_embedding[None, None]
-        queries = self.waypoint_queries[None] + self.ego_projection(normalized_ego_status(ego_status))[:, None]
-        decoded = self.trajectory_decoder(queries, memory.flatten(1, 2))
-        future_times = torch.arange(1, 9, device=ego_status.device, dtype=ego_status.dtype) * .5
-        constant_velocity = ego_status.new_zeros((len(ego_status), 8, 3))
-        constant_velocity[..., :2] = ego_status[:, None, 4:6] * future_times[None, :, None]
-        trajectory = constant_velocity + self.trajectory_head(decoded) * decoded.new_tensor([10, 10, 1])
-        objective = trajectory.new_zeros(())
+        planner_output = self.plan_from_memory(memory.flatten(1, 2), ego_status)
+        objective = planner_output["trajectory"].new_zeros(())
         if auxiliary_world_images is not None:
             assert auxiliary_ego_status is not None and reconstruction_loss is not None
             def calculate_world_objective(videos, status):
                 return self._world_objective(videos, status, reconstruction_loss, world_loss_configuration)
             objective = checkpoint(calculate_world_objective, auxiliary_world_images, auxiliary_ego_status, use_reentrant=False)
-        return {"trajectory": trajectory, "world_objective": objective,
+        return {**planner_output, "world_objective": objective,
             "observed_particle_attributes": observed_attributes, "predicted_particle_attributes": future_attributes}
 
     def optimizer_parameter_groups(self, world_learning_rate, planner_learning_rate):

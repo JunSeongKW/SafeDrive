@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 21:54 KST (Codex)
+마지막 갱신: 2026-10-03 23:00 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -147,18 +147,20 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-**2026-10-03 21:47 KST 최신: 전체 navtrain Stage1 본 학습이 GPU0·1에서 계속 실행 중이다.**
-- Supervisor919150 / torchrun920080 / ranks920132,920133; 프로세스와 interpreter alias `kjs-lpwm-stage1`.
-- 마지막 확인 update208 이상 / 총28,920, 20epoch; train23,126/122recording, dev7,745/40recording.
-- batch4/GPU × accumulation2 × 2GPU =16; FP32; DataLoader worker0, torch CPU threads4/rank.
-- GPU 각각 사용률100%, process VRAM36.1GiB/free11.3GiB, rank RSS 약3.21GiB씩 실측. GPU reserve6GiB.
-- 최근 1.55s/update, 남은 순수학습12.35h; 중간진단 포함13~14h 추정. 최종적응평가/Stage2 시간 제외.
-- 사용자는 더 이상의 속도 실험으로 중단하지 말고 빨리 본 학습을 계속하라고 지시했다. 필요 없는 GPU profile/worker 변경 금지.
-- 최초 첫-update 이전 정체는 재기동으로 해소됐으나 정확 원인은 미확정. source amendment1~3에 변경 이력 보존.
-- `outputs/lpwm_navsim_full_posttraining_v2/active_stage.json`, `stage1/progress.json`, `stage1_full_training.log`를 먼저 확인한다.
-- particle gallery는 동일 장면 update0/128/512 및 epoch1/5/10/15/20. 현재 update128 저장 완료.
-- 자동 체인: 전체Stage1 → 원본/적응본 dev7,745 평가 → 적응 gate → 통합Stage2 두조건 학습 → 전체 dev 및 navtest12,146 공식PDM.
-- Stage2 GPU preflight는 gate 통과 후 실행. 아직 Stage2 학습·PDMS 결과 없음. 원래 18run encoder-only queue와 WA는 재개하지 않는다.
+**2026-10-03 23:00 KST Stage1 설명 감사:** 본학습 update2,832/28,920 유지, 새 queue는 `waiting_for_stage1_full_training_and_validation`. 실행 source hash 모두 등록과 일치. 최신 설명은 `docs/lpwm_planning_experiment.md` 첫 절.
+
+**2026-10-03 22:49 KST 최신: Stage1을 유지하면서 planner/검증 queue와 CPU teacher 준비를 실행했다.**
+- Stage1 supervisor919150 / torchrun920080 / ranks920132,920133, `kjs-lpwm-stage1` 그대로 유지.
+- 마지막 확인 update2,432/28,920, loss21.9190, 1.619s/update. 본 GPU학습 중단·추가 GPU실험 없음.
+- Stage1 batch4/GPU×누적2×2GPU=16, FP32, worker0. train23,126/dev7,745,20epoch.
+- 새 queue PID1481082, CPU teacher PID1481089, CPU16worker. `outputs/lpwm_metric_planning_v2/queue_state.json` 및 `candidate_teacher.log` 확인.
+- 현재 queue는 기존 Stage1 완료·전체개발평가를 기다린다. CPU는 전체102,373 planning 장면의512후보 공식채점 정답/metric cache 준비 중.
+- `configs/lpwm_planning/metric_distillation_v2.json`: metric_plus_world / imitation_plus_world / metric_refinement_plus_world, 각20epoch/94,140update.
+- 원래 Stage1 supervisor는 종료 후 `launch_lpwm_full_planning.py`를 부르며, active_pipeline.json dispatcher가 새 queue에 join. 중복 GPU학습을 시작하지 않는다.
+- Stage1 적응gate+8장면 causal검사/coverage/noncollapse →teacher gate→planning gradient/GPU profile→조건별 학습/개발/world검증→독립navtest.
+- **Stage2 본학습/PDMS는 아직 없음.** 후보oracle ADE 및 CPU1update 연결검사를 성능으로 해석하지 않는다.
+- queue_registration.json에 실행source hash 고정. 시작 후 runtime코드 변경은 queue source 검사를 실패시키므로 임의 수정하지 않는다.
+- Gate 실패 시 queue_failed.json 진단 저장/의존작업 차단. Stage1 학습은 새 queue가 소유하지 않으며 중단하지 않는다.
 
 ### 아래는 이전 실행 이력 (위 최신 상태와 구분)
 
@@ -336,6 +338,19 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**Stage1 실제 목적 확인:** 12장 posterior 복원+11전이 particle/context KL이며, 4장→8장 free rollout RGB loss는 없다. 첫 epoch dev512 loss64.838→23.399/PSNR13.145→20.461dB. 고정8장면 causal forecast MSE0.053663→0.029535, persistence0.040329; 전체 적응 통과 결과 아님. `results/lpwm_navsim_full_posttraining_v2/stage1_diagnostic_snapshot_20261003.json`에 원시값/hash 보존.
+
+**2026-10-03 22:49 KST: LPWM planner 설계 및 CPU 연결검사 (본학습 결과 아님).**
+- DrivoR/DriveSuprim 공식 source clone 및 논문, Hydra-MDP/Drive-JEPA 논문, 보존 SafeDrive 코드 읽기검토.
+- train-only512 trajectory medoid: train oracleADE0.35923m/dev0.34544m, devp95 0.72152m. 실제planner 성능아님.
+- 512후보 일괄채점의 progress를 PDM reference와 개별 정규화, 공식개별score와 train/dev 오차≤2.14e-8. 전체준비에서도segment별4후보 parity검사.
+- SafeDrive의 future BEV head는 auxiliary이며 planner입력으로 오해하지 않음. 우리refiner는 predicted LPWM future particles를 직접 읽음.
+- 실제공개LPWM/학습영상 CPU1update: planning gradient encoder23.0228/context5.0042/dynamics15.0257, RGBdecoder0 (worldloss 없는진단).
+- future_refiner/offset/refined_metric/temporal_safety gradient 모두>0, 미래GT교란 trajectory/logit차이0, command변경 particle평균차이0.02015.
+- CPU6개 검사통과; 별도 source-hashed report `results/lpwm_metric_planning_v2/`. 진단weight저장없음.
+- CPU공식cache save_buffer가 sandbox에서정체돼검증한 CPU PID3개만종료, sandbox밖재실행정상. GPU학습미중단.
+
 
 **이번 세션의 확인 결과:**
 - 공식 navtrain log AND token 필터, 기존40개 development recording 유지. 나머지122개 recording 모두 학습 사용.
@@ -576,23 +591,29 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공개 LPWM NAVSIM 전체 post-training 데이터 준비·DDP 학습·공식 ELBO·미래입력누출검사·상황별적응gate·동일장면 particle gallery 구현.
-- small v1 계획을 보존하고 full v2로 확장. source/config/manifest 원래 hash와 engineering amendment1~3을 보존.
-- microbatch와 prefetch worker0/2/4/8 실측, batch4/accum2/worker0 채택. 요청된 kjs-lpwm-stage1 프로세스 이름/환경 alias로 update96부터 복구, 실제 계속학습 확인.
-- 저LR LPWM+전체planner Stage2 모델/학습/시각화/독립gradient audit/전체dev+navtest입력·추론·공식PDM·조건부launcher 연결 구현. CPU검사통과, Stage2 GPU검증·학습은 아직 미실행.
-- 기존 encoder-only 완료7run의 결과와 superseded joint prototype 보존; 과거실험결과를 full LPWM결과로 부르지 않음.
-- README/AGENTS/HANDOFF 최신화, RESUME_NOTES append, 실행/처리량 JSON 공유. 사용자 요청 본학습을 중단하지 않음.
+- 추가로 Stage1의 정확한 ELBO 가중치·정규화, loss별 gradient 경로, teacher-forcing/자율추론 차이, 현재 지표와 Stage1/2 원인분리 한계를 코드와 로그로 감사해 문서화. README의 4+8 설명 명확화. 런타임 수정 없음.
+
+- DrivoR/Hydra/DriveSuprim/SafeDrive 로직을 LPWM에 맞게 설계, 미래particle 기반 후보평가·32개경로보정·재채점·시점별안전loss 구현.
+- 전체navtrain train-only512vocabulary와공식PDM CPUteacher 준비, 원본단일scorer와일괄scorer progress정규화 parity검증.
+- 저LR LPWM+새planner 전체학습 코드에 imitation/metric/refinement loss 및 실제보정경로 online CPUoracle 연결.
+- Stage1/teacher/각Stage2condition의 strictgate, worldretention/future개입/pairedPDMS보고, durable queue와기존supervisor join routing 구현.
+- CPU6검사와공개LPWM실제영상역전파/intent/future누출 audit통과. Stage2 GPU실측/본학습은 Stage1gate 이후.
+- 기존 Stage1을 유지하고 새 queue1481082 및 CPU16worker teacher1481089 실행. 원본dataset/다른GPU/기존baseline 보존.
+- 설계보고·README/AGENTS/HANDOFF/RESUME_NOTES와공유 JSON에 구현과미실행항목구분.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
-**최우선: 실행 중인 Stage1을 그대로 계속한다.**
-1. `stage1/progress.json`과 worker PID/실제 update 증가를 확인하되 optional batch/worker profile을 재실행하지 않는다.
-2. fault 발생 시 원래설정/manifest/공개weight/hash/학습checkpoint 보존. 승인GPU0·1에서 우리 PID만 처리. 현 프로세스는 SIGINT로 update경계 저장 가능.
-3. 필요 시 재개 명령: `runtime/environments/kjs-lpwm-stage1/bin/python scripts/launch_lpwm_full_navtrain.py --config configs/lpwm_navsim_adaptation/full_posttraining_v2.json --execution-config configs/lpwm_navsim_adaptation/execution/batch4_accumulation2_workers0.json --detach --resume`.
-4. 원래 source registration은 덮어쓰지 않는다. 변경필요시 source_amendments 해시체인을 append하고 실제 checkpoint진행도를 기록한다.
-5. Stage1 종료 후 original/posttrained 전체dev 평가 및 gate가 자동 실행된다. gate실패면 Stage2를 강행하지 말고 unmet criteria를 보고한다.
-6. gate통과 시 `launch_lpwm_full_planning.py`: 실제 적응weight의 GPU planninggradient audit → 실제누적조건 DDP profile → 두조건각20epoch → dev27,076 및 navtest12,146 평가/공식PDM. engineering실패시 임의자동retry없음.
-7. Stage2 구현은 아직 GPU실행되지 않았으므로 첫profile로그/메모리/공식scoring연결을 확인해야 한다. 학습완료/성능향상을 미리 주장하지 않는다.
+- Stage1 복원/ELBO 개선을 곧바로 미래/객체/planning 성공으로 보고하지 않는다. 전체7,745개 개발 평가와 supplement gate를 따른다. 고정 공개/적응LPWM 대조, 고정/공동학습 대조, oracle future 및 loss별 gradient 분해는 필요시 추가할 진단이며 현재 queue에 실행 등록됐다고 하지 않는다.
+
+**최우선: Stage1과 검증 queue를 유지한다.**
+1. Stage1 progress/PID와 새queue state, CPUteacher worker_progress/segments를 확인한다. 추가GPU profile로Stage1중단금지.
+2. 활성 Stage2 설정은 `metric_distillation_v2.json`이고, source hash는 `outputs/lpwm_metric_planning_v2/queue_registration.json`이다.
+3. Gate통과전 Stage2를직접실행하지않는다. 실제적응checkpoint의GPUgradient/DDP누적profile이queue에등록됐다.
+4. 실패시 `queue_failed.json`과해당validation_gate.json의원인을진단한다. 문턱을낮추거나학습완료를가정하지않는다.
+5. 새queue가종료돼도현재Stage1은별도기존supervisor가계속관리한다. 실패분석없이 old 단일경로planner를켜지않는다.
+6. Source버그수정이필요하면기존queue등록/완료node를보존하고명시적amendment/재등록한다. 고정source검사를우회하지않는다.
+7. 모든조건검증후fullnavtest12,146과pairedrecording CI. 이전Drive-JEPAfullbaseline을재추론하지않고보존결과참조.
+8. 원격push는과거 VSCode Gitcredential socket 문제로실패했다. 이번push상태는로그/마지막note확인.
 
 ### 과거 다음단계 (자동 실행 금지)
 
@@ -681,6 +702,15 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- Stage1 RGB decoder는 `decode_with_ctx=False`; 복원 gradient는 encoder/decoder에, dynamics/context KL이 encoder/context/dynamics에 전달된다. Stage1은 ego command/객체 GT/경로 loss 없음. Scalar loss에서 복원 비중≈96%는 gradient 비중이 아니다. 현재 module gradient만 기록하며 loss별 norm/방향은 미측정. Stage1/2의 완전한 인과분리를 완료했다고 주장하지 않는다.
+
+**최신 planner 범위:** 3조건 full navtrain20epoch/seed47. world-off ablation은사용자추가refinement요청을우선해후속으로보류.
+LPWM은full-low-LR, 새planner는full-LR; LoRA/encoderfreeze아님. 원본체크포인트보존.
+카메라128×128/정규화particle depth의한계, 객체ID미보장, action-conditioned worldmodel아님.
+적응gate통과가완벽한주행이해나planning개선증명은아니다. Stage2 GPUprofile·성능은미검증.
+CPUteacher는16worker/host여유64GiB, 학습중onlineoracle는4/rank. GPU0·1만, DDP입장free44GiB/실행reserve6GiB/allocated상한38GiB.
+
 
 - 공유 상태: dea246b 로컬 commit 완료. `git push mine`은 DNS sandbox 오류 후 host 재시도했으나 VSCode credential socket 연결거절/GitHub 인증실패. 원격 반영 미완료이며 GPU학습은 영향 없이 계속된다.
 

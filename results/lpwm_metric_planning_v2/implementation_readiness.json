@@ -1,0 +1,145 @@
+{
+  "recorded_at": "2026-10-03 22:49 KST",
+  "status": "stage1_training_and_cpu_teacher_preparation_running; stage2_full_training_not_started",
+  "queue_pid": 1481082,
+  "teacher_pid": 1481089,
+  "teacher_workers": 16,
+  "stage1_progress_at_recording": {
+    "update": 2432,
+    "total_updates": 28920,
+    "epoch_fraction": 1.681881051175657,
+    "updates_per_epoch": 1446,
+    "sampled_clips_including_epoch_padding": 38912,
+    "global_batch_size": 16,
+    "microbatch_size_per_gpu": 4,
+    "gradient_accumulation": 2,
+    "world_size": 2,
+    "data_loader_workers_per_rank": 0,
+    "data_wait_seconds": 0.0028256369987502694,
+    "elapsed_seconds": 4272.209966116003,
+    "update_seconds": 1.6194172840041574,
+    "peak_allocated_gib": 29.103778839111328,
+    "gradient_norm_before_clip": 27.997697830200195,
+    "module_gradients": {
+      "image_encoder": {
+        "norm": 22.75804901123047,
+        "parameters_with_nonzero_gradient": 6035191
+      },
+      "context": {
+        "norm": 0.22985883057117462,
+        "parameters_with_nonzero_gradient": 39389417
+      },
+      "dynamics": {
+        "norm": 1.525457501411438,
+        "parameters_with_nonzero_gradient": 59869416
+      },
+      "rgb_decoder": {
+        "norm": 16.234603881835938,
+        "parameters_with_nonzero_gradient": 4251239
+      }
+    },
+    "kl": 799.3007354736328,
+    "kl_dyn": 3856.6673583984375,
+    "loss": 21.918970108032227,
+    "loss_kl_context": 724.8630523681641,
+    "loss_kl_depth": 74.4688606262207,
+    "loss_kl_depth_dyn": 128.6851978302002,
+    "loss_kl_feat": 407.0616760253906,
+    "loss_kl_feat_dyn": 1371.9104919433594,
+    "loss_kl_kp": 198.70297241210938,
+    "loss_kl_kp_dyn": 1145.2443542480469,
+    "loss_kl_obj_on": 67.90283012390137,
+    "loss_kl_obj_on_dyn": 283.90637969970703,
+    "loss_kl_scale": 454.1554718017578,
+    "loss_kl_scale_dyn": 847.5570068359375,
+    "loss_kl_score_dyn": 0.0,
+    "loss_obj_reg": 1153.367431640625,
+    "loss_rec": 25230.24560546875,
+    "obj_on_l1": 34.20547866821289,
+    "psnr": 20.74241542816162
+  },
+  "vocabulary": {
+    "count": 512,
+    "train_only": true,
+    "sha256": "f9cd0531967b51208e5484b9b3b66c4e1efeba0d56c033ac3b3d62dd00a4f510",
+    "coverage": {
+      "train": {
+        "scenes": 75297,
+        "oracle_ade_meters": 0.35923006597352036,
+        "oracle_ade_p95_meters": 0.7345427393913269
+      },
+      "development": {
+        "scenes": 27076,
+        "oracle_ade_meters": 0.3454394979165224,
+        "oracle_ade_p95_meters": 0.7215180099010468
+      }
+    },
+    "construction": "train-only XY MiniBatchKMeans, real training trajectory medoids"
+  },
+  "official_scoring_profile": {
+    "profile_only": true,
+    "segments": [
+      {
+        "entries": [
+          {
+            "token": "e92f91c385185b7d",
+            "index": 506,
+            "split": "development",
+            "recording_group": "2021.05.12.22.00.38_veh-35",
+            "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/profile/metric_cache/2021.05.12.22.00.38_veh-35_00005_00118/unknown/e92f91c385185b7d/metric_cache.pkl"
+          }
+        ],
+        "unavailable": [],
+        "parity": [
+          {
+            "token": "e92f91c385185b7d",
+            "candidate_indices": [
+              0,
+              17,
+              256,
+              511
+            ],
+            "maximum_difference": 1.5635961414517396e-08
+          }
+        ],
+        "seconds": 6.684646829991834,
+        "source_log_sha256": "c8a642b5dacdb58e21ebdd4457517cc5da1110266c7dd92dcdbcd750800d35f4"
+      },
+      {
+        "entries": [
+          {
+            "token": "1aa44d46e4ab5bc7",
+            "index": 0,
+            "split": "train",
+            "recording_group": "2021.05.12.19.36.12_veh-35",
+            "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/profile/metric_cache/2021.05.12.19.36.12_veh-35_00005_00204/unknown/1aa44d46e4ab5bc7/metric_cache.pkl"
+          }
+        ],
+        "unavailable": [],
+        "parity": [
+          {
+            "token": "1aa44d46e4ab5bc7",
+            "candidate_indices": [
+              0,
+              17,
+              256,
+              511
+            ],
+            "maximum_difference": 2.1314305986841475e-08
+          }
+        ],
+        "seconds": 7.649430827994365,
+        "source_log_sha256": "1a44a1c0488643900fa216f596604401a86e6137ef670fb45bbb1f04f31718be"
+      }
+    ]
+  },
+  "unit_tests": {
+    "passed": 6,
+    "suite": "tests/test_lpwm_candidate_supervision.py"
+  },
+  "notes": [
+    "CPU audits use public Sketchy initialization, real navtrain inputs, and one diagnostic step; weights are discarded",
+    "Actual adapted weights undergo GPU/DDP preflight only after both adaptation gates",
+    "No Stage2 PDMS result exists; vocabulary oracle ADE is not model performance"
+  ]
+}

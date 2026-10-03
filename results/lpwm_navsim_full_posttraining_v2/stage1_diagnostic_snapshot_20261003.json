@@ -1,0 +1,361 @@
+{
+  "captured_at": "2026-10-03T22:56:52.726422+09:00",
+  "progress": {
+    "update": 2704,
+    "total_updates": 28920,
+    "epoch_fraction": 1.8699861687413555,
+    "updates_per_epoch": 1446,
+    "sampled_clips_including_epoch_padding": 43264,
+    "global_batch_size": 16,
+    "microbatch_size_per_gpu": 4,
+    "gradient_accumulation": 2,
+    "world_size": 2,
+    "data_loader_workers_per_rank": 0,
+    "data_wait_seconds": 0.004584554000757635,
+    "elapsed_seconds": 4720.290324975009,
+    "update_seconds": 1.6049746759817936,
+    "peak_allocated_gib": 29.103778839111328,
+    "gradient_norm_before_clip": 38.96036911010742,
+    "module_gradients": {
+      "image_encoder": {
+        "norm": 39.896366119384766,
+        "parameters_with_nonzero_gradient": 6035191
+      },
+      "context": {
+        "norm": 0.363603413105011,
+        "parameters_with_nonzero_gradient": 39389417
+      },
+      "dynamics": {
+        "norm": 0.8856164813041687,
+        "parameters_with_nonzero_gradient": 59869416
+      },
+      "rgb_decoder": {
+        "norm": 12.991491317749023,
+        "parameters_with_nonzero_gradient": 4251239
+      }
+    },
+    "kl": 861.7448883056641,
+    "kl_dyn": 3847.6547241210938,
+    "loss": 22.305837631225586,
+    "loss_kl_context": 710.3137817382812,
+    "loss_kl_depth": 79.27254295349121,
+    "loss_kl_depth_dyn": 130.8664093017578,
+    "loss_kl_feat": 420.45775604248047,
+    "loss_kl_feat_dyn": 1351.1433410644531,
+    "loss_kl_kp": 213.2861671447754,
+    "loss_kl_kp_dyn": 1144.0125427246094,
+    "loss_kl_obj_on": 70.37642860412598,
+    "loss_kl_obj_on_dyn": 278.20702743530273,
+    "loss_kl_scale": 494.6051940917969,
+    "loss_kl_scale_dyn": 860.6888732910156,
+    "loss_kl_score_dyn": 0.0,
+    "loss_obj_reg": 1292.2314453125,
+    "loss_rec": 25683.0927734375,
+    "obj_on_l1": 35.5294075012207,
+    "psnr": 20.29148817062378
+  },
+  "epoch_validation": [
+    {
+      "epoch": 0,
+      "optimizer_update": 0,
+      "validation_clips": 512,
+      "kl_dyn": 12153.411155700684,
+      "loss": 64.83803288638592,
+      "loss_kl_context": 1120.7517466545105,
+      "loss_rec": 74927.43740844727,
+      "obj_on_l1": 41.990604139864445,
+      "psnr": 13.144877184182405
+    },
+    {
+      "epoch": 1,
+      "optimizer_update": 1446,
+      "validation_clips": 512,
+      "kl_dyn": 4004.8474044799805,
+      "loss": 23.399082094430923,
+      "loss_kl_context": 784.6606607437134,
+      "loss_rec": 26949.302932739258,
+      "obj_on_l1": 36.12716454267502,
+      "psnr": 20.461119547486305
+    }
+  ],
+  "last_gradient_audit_update": 2688,
+  "last_module_gradients": {
+    "image_encoder": {
+      "norm": 39.896366119384766,
+      "parameters_with_nonzero_gradient": 6035191
+    },
+    "context": {
+      "norm": 0.363603413105011,
+      "parameters_with_nonzero_gradient": 39389417
+    },
+    "dynamics": {
+      "norm": 0.8856164813041687,
+      "parameters_with_nonzero_gradient": 59869416
+    },
+    "rgb_decoder": {
+      "norm": 12.991491317749023,
+      "parameters_with_nonzero_gradient": 4251239
+    }
+  },
+  "weighted_loss_contributions": {
+    "loss_rec": 21.402577311197916,
+    "kl": 0.05744965922037761,
+    "kl_dyn": 0.6412757873535156,
+    "loss_kl_context": 0.11838563028971355,
+    "loss_obj_reg": 0.08614876302083334
+  },
+  "reconstruction_scalar_loss_share": 0.9595056534096165,
+  "fixed_visualization_scenes": [
+    {
+      "optimizer_update": 0,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.04461017088033259,
+        "forecast_mse": 0.05366304004564881,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.0644010603427887,
+          "forecast_mse": 0.07506441324949265,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.029154391959309578,
+          "forecast_mse": 0.041428204625844955,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.030189668759703636,
+          "forecast_mse": 0.050660986453294754,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.03558855131268501,
+          "forecast_mse": 0.03869706392288208,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.0774846002459526,
+          "forecast_mse": 0.0816306546330452,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.024854684248566628,
+          "forecast_mse": 0.05274001881480217,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.05366447567939758,
+          "forecast_mse": 0.04955082759261131,
+          "persistence_mse": 0.06216788291931152
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.04154393449425697,
+          "forecast_mse": 0.03953215107321739,
+          "persistence_mse": 0.025138428434729576
+        }
+      ]
+    },
+    {
+      "optimizer_update": 128,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.01081353472545743,
+        "forecast_mse": 0.035020887618884444,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.010534181259572506,
+          "forecast_mse": 0.03686976432800293,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.005131367594003677,
+          "forecast_mse": 0.02709966152906418,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.016414614394307137,
+          "forecast_mse": 0.04538837447762489,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.014700672589242458,
+          "forecast_mse": 0.02944445051252842,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.007620901335030794,
+          "forecast_mse": 0.024917135015130043,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.007513690739870071,
+          "forecast_mse": 0.05061427876353264,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.018015408888459206,
+          "forecast_mse": 0.04409400746226311,
+          "persistence_mse": 0.06216788291931152
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.00657744100317359,
+          "forecast_mse": 0.021739428862929344,
+          "persistence_mse": 0.025138428434729576
+        }
+      ]
+    },
+    {
+      "optimizer_update": 512,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.009315394039731473,
+        "forecast_mse": 0.03329123114235699,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.008387372829020023,
+          "forecast_mse": 0.040279094129800797,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.003970952704548836,
+          "forecast_mse": 0.022832171991467476,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.014672690071165562,
+          "forecast_mse": 0.038587022572755814,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.011021132580935955,
+          "forecast_mse": 0.02942904829978943,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.00605658208951354,
+          "forecast_mse": 0.029962314292788506,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.0072179571725428104,
+          "forecast_mse": 0.04564986750483513,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.01736147701740265,
+          "forecast_mse": 0.038930296897888184,
+          "persistence_mse": 0.06216788291931152
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.005834987852722406,
+          "forecast_mse": 0.0206600334495306,
+          "persistence_mse": 0.025138428434729576
+        }
+      ]
+    },
+    {
+      "optimizer_update": 1446,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.009260268765501678,
+        "forecast_mse": 0.029535210924223065,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.008146756328642368,
+          "forecast_mse": 0.0359831340610981,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.0037897545844316483,
+          "forecast_mse": 0.016281770542263985,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.016537219285964966,
+          "forecast_mse": 0.03457779064774513,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.011588919907808304,
+          "forecast_mse": 0.029617398977279663,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.005868041887879372,
+          "forecast_mse": 0.024237224832177162,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.006335783749818802,
+          "forecast_mse": 0.03981569781899452,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.01626206748187542,
+          "forecast_mse": 0.03778570145368576,
+          "persistence_mse": 0.06216788291931152
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.0055536068975925446,
+          "forecast_mse": 0.0179829690605402,
+          "persistence_mse": 0.025138428434729576
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "configs/lpwm_navsim_adaptation/full_posttraining_v2.json": "66fea9c3f74b43bff3e112dd52bc0fb1864da12e5d53e1b23ce05b8db30d6aa5",
+    "configs/lpwm_navsim_adaptation/execution/batch4_accumulation2_workers0.json": "76b69aad4e214586205e2fbf061280f6581cc767191405b9478b8e9b5d48fd21",
+    "scripts/train_lpwm_navtrain_distributed.py": "b09b0e1a6d410ac01c748d8f211ae2c3609ca30eae0d8c363655b7b126c262a0",
+    "scripts/run_lpwm_navsim_posttraining.py": "eabaea9d34d60d8b774b6314de04ba78d2065a1e4c31c5be09cbbde1bc80e584",
+    "reference_repositories/LPWM/models.py": "dec85330ed6867e0454b9bb4e564d4a8a1cf190f62cc4f983c1d5f4396460b35",
+    "reference_repositories/LPWM/modules/modules.py": "e1035cc2b20b9e62d66ba46c1ebadaf844e006de6af808c30368c82e2269208f",
+    "reference_repositories/LPWM/utils/loss_functions.py": "8320fb966b0ff7323a0535019d208fadb76c336ffc8facf67d3f39b5b5cc0706"
+  },
+  "interpretation": [
+    "Epoch validation uses posterior reconstruction and teacher-forced temporal ELBO, not autonomous 4-second forecast.",
+    "Eight fixed scenes are descriptive visual monitoring, not full development adaptation-gate evidence.",
+    "Scalar objective contributions do not determine relative gradient contributions.",
+    "Training sources and running processes were not modified by this diagnostic."
+  ]
+}

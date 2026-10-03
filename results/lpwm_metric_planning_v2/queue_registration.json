@@ -1,0 +1,14 @@
+{
+  "configuration_sha256": "5a5ec5ff0e5e7ec2b9d0cf25a5946a762cb311330aacc466edcbcadafe19e87d",
+  "source_sha256": {
+    "scripts/queue_lpwm_validated_training.py": "d4a6f04ac3f3c9443b21f365e1091982061b9f77344df4f072bc1bd234f629d3",
+    "scripts/train_lpwm_full_planning.py": "e9f9418ddf06a729369a1fdd215fd87b06f154d5ba7360f09c0c25c1d908abce",
+    "scripts/evaluate_lpwm_full_planning.py": "08041b5a9185081d5a63968f674cfe18471f5194a54d842dda721e807f084700",
+    "scripts/prepare_lpwm_candidate_teacher.py": "89695c2223d3da100052e2f0f8ca7d1085beff150bcf007bb6c3071c9264f9f7",
+    "scripts/validate_lpwm_stage_transition.py": "785516034a3bc9b50e3363e9c21346000794fe6139023ed679fdc451936f67e2",
+    "scripts/audit_lpwm_planning_finetuning.py": "be10e49b2b44c64578743b5551b0d1a9c628712b7170adaf80226d2310fe2874",
+    "scripts/lpwm_refinement_oracle.py": "2d27d2ac17ee158bbe4620485d2bc45d616f95e0a7afe92eed2ece6dd2bb4cba",
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": "5e2e73835d045b9e011411687e1cd2f1df9da4697e645a77e0ffd0010c7b7d67",
+    "src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py": "ed60759e16b33c87073d73fc817f9ed420080262503e09fc10220a8cd0eac67f"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "engineering_audit_only": true,
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_navsim_adaptation_v1/pretrained/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_best_lpips.pth",
+  "device": "cpu",
+  "condition": "metric_refinement_plus_world",
+  "source_sha256": {
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": "5e2e73835d045b9e011411687e1cd2f1df9da4697e645a77e0ffd0010c7b7d67",
+    "scripts/lpwm_refinement_oracle.py": "2d27d2ac17ee158bbe4620485d2bc45d616f95e0a7afe92eed2ece6dd2bb4cba"
+  },
+  "planning_gradient_norms": {
+    "image_encoder": 23.022777557373047,
+    "context": 5.004220485687256,
+    "dynamics": 15.025690078735352,
+    "rgb_decoder": 0.0,
+    "planner_and_command": 60.71596145629883
+  },
+  "future_target_intervention_max_prediction_difference": 0.0,
+  "refinement_gradient_norms": {
+    "future_refinement_decoder": 0.03475958853960037,
+    "refinement_offset_head": 21.15394401550293,
+    "refined_metric_head": 42.599300384521484,
+    "temporal_safety_head": 4.179442882537842
+  },
+  "future_target_intervention_max_metric_logit_difference": 0.0,
+  "intent_particle_mean_absolute_difference_after_one_diagnostic_update": 0.020153367891907692,
+  "diagnostic_updates": 1,
+  "diagnostic_weights_saved": false,
+  "seconds": 45.913445109996246
+}

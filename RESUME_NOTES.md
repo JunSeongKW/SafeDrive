@@ -1654,3 +1654,31 @@ Health check while training continued: {"update": 400, "training_loss": 25.61662
 All four core module gradients nonzero; GPU0/1 utilization100percent, free11.3GiB each. Do not equate early reconstruction improvement with object binding or planning improvement. No extra training interruption.
 
 Commit dea246b saved full training implementation and health records. git push mine: sandbox DNS failed; escalated retry reached GitHub but VSCode credential socket was unavailable and remote rejected authentication. Background GPU training continues independently.
+
+
+## 2026-10-03 22:49 KST — LPWM candidate metrics/refinement and validated queue
+
+사용자 추가요청: E2E planner 논문 활용, 단일human회귀이외loss, SafeDrive식Stage1표현활용후보보정, 각stage검증과자동대기열, 상세설계보고.
+Stage1 supervisor919150/ranks920132,920133은 그대로계속, 이기록시update2432/28920. GPU실험추가없음.
+공식DrivoR fc6e5aa/DriveSuprim80fe792clone/논문, Hydra-MDP/Drive-JEPA 및기존SafeDrive읽기검토.
+LPWM768particlememory→512train-onlycandidate scoring→32distinct shortlist→future-particlecrossattention boundedoffset→actualrefinedtrajectoryre-scoring 구현.
+기본softimitation CE+6metricBCE+.02officialworldELBO, refine조건은WTA회귀+6live-metricBCE+.5prefixNC/DACBCE+.01acceleration/jerkproxy 추가.
+지도/미래GT는teacher전용, particle depth/ID의3D객체가정없음. 기존SafeDrivefutureBEV는auxiliary임을명시.
+전용source/client IPC로공식Python3.9 CPUoracle와LPWMPython3.12 GPU를분리, 후보좌표detach/원래anchor점수재사용금지.
+CPU6test통과; CPU실제학습영상/공개weight1update gradient image23.0228/context5.0042/dyn15.0257/refiner>0, 미래교란0, intentparticle차이.02015. 검사용weight미저장.
+후보oracledevADE.34544m/p95.72152m는모델성능아님. 512배치/단일공식scoreparity 최대2.14e-8. 전체teacher에서도segment별확인.
+CPUprofile sandbox save_buffer정체를확인한CPU3PID만종료후host재실행. Stage1은중단없음.
+queue1481082 / teacher1481089 CPU16worker실행, source registration고정. 현재전체102373scenes teacher준비와기존Stage1완료대기.
+새queue는원래Stage1의train/eval완료를adopt하고originalgate+8causal/coverage/noncollapse gate를추가, teacheroraclecoverage/quality gate후Stage2.
+metric_plus_world→검증→imitation_plus_world→검증→metric_refinement_plus_world→검증→locked fullnavtest12146. 각조건20epoch94140update, 동일stage1weight, lowLR1e-6/new3e-4.
+world-off비교는최신refinement요청우선으로보류. Gate실패는diagnostics/차단, 강제넘김/무제한retry없음.
+설계 docs/lpwm_planning_experiment.md, 설정 metric_distillation_v2.json, 공유 results/lpwm_metric_planning_v2/.
+Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
+
+## 2026-10-03 23:00 KST — Stage1 목적함수·gradient·실패 원인 진단 설명
+
+- 실제 공식 calc_dyn_elbo/encoder/context/DDP forward를 감사했다. 12프레임 posterior 복원, 11전이 teacher-forced particle/context KL, 첫프레임 prior/presence 규제. 총 loss=(.01/12)*(rec+.08static+.2dyn+.2context+.08presence).
+- decode_with_ctx=False, detach_dyn_inputs=False; 복원과 context/dynamics gradient 경로를 구분. LPIPS frozen VGG는 생성영상 gradient를 유지. kl_balance=.01은 static appearance 가중치이며 gradient balance=.5와 다름.
+- dev512 epoch1 loss23.3991/PSNR20.4611, 고정8장면 causal forecastMSE0.029535 vs persistence0.040329. 전체개발 검증 전이며 실제 적응/PDMS 성공 주장 없음. 공유 snapshot JSON에 source hash/기여항/모듈norm/scene별값 보존.
+- 현재 queue 검증과 미등록 후속 frozen-LPWM/oracle-future/gradient분해 대조를 구분. 문서·README·HANDOFF만 보완했고 Stage1/Stage2 runtime source hash불변.
+- 본학습 update2832/28920, queue waiting_for_stage1_full_training_and_validation; GPU학습 중단 없음.

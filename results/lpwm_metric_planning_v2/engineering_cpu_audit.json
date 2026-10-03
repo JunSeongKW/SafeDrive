@@ -1,0 +1,18 @@
+{
+  "engineering_audit_only": true,
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_navsim_adaptation_v1/pretrained/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_best_lpips.pth",
+  "device": "cpu",
+  "planning_gradient_norms": {
+    "image_encoder": 1.4177838563919067,
+    "context": 0.4504620432853699,
+    "dynamics": 1.2450981140136719,
+    "rgb_decoder": 0.0,
+    "planner_and_command": 19.260473251342773
+  },
+  "future_target_intervention_max_prediction_difference": 0.0,
+  "future_target_intervention_max_metric_logit_difference": 0.0,
+  "intent_particle_mean_absolute_difference_after_one_diagnostic_update": 0.004494231194257736,
+  "diagnostic_updates": 1,
+  "diagnostic_weights_saved": false,
+  "seconds": 37.43991199799348
+}

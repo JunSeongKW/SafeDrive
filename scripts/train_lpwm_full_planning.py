@@ -23,6 +23,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 from planning_aware_future_prediction.object_centric.lpwm_planning_finetuning import PlanningFineTunedLPWM
+from planning_aware_future_prediction.object_centric.lpwm_candidate_planner import build_planning_model, compute_candidate_losses, compute_refinement_losses, uses_world_objective
 from planning_aware_future_prediction.object_centric.lpwm_bridge import ARTIFACT_ROOT, checkpoint_digest
 from run_lpwm_navsim_posttraining import write_json, unique_module_parameters, check_gpu_reserve
 from train_lpwm_navtrain_distributed import distributed_epoch_order
@@ -43,6 +44,11 @@ def load_training_inputs(config_path, condition):
     assert gate["adaptation_gate_passed"], "Merged stage2 requires successful stage1 adaptation"
     checkpoint_path = stage1_root / "stage1/checkpoint.pt"
     assert checkpoint_digest(checkpoint_path) == gate["training"]["checkpoint_sha256"]
+    if specification.get("planner_architecture") == "particle_candidate_metrics":
+        readiness = json.loads((PROJECT_ROOT / specification["output_directory"] / "stage1_validation_gate.json").read_text())
+        assert readiness["passed"] and readiness["checkpoint_sha256"] == checkpoint_digest(checkpoint_path)
+        teacher = json.loads((PROJECT_ROOT / specification["teacher_directory"] / "completion.json").read_text())
+        assert teacher["teacher_gate_passed"]
     manifest = json.loads((stage1_root / "planning_manifest.json").read_text())
     records = manifest["records"]
     with np.load(stage1_root / "planning_targets.npz") as stored_targets:
@@ -73,6 +79,8 @@ def module_gradient_norms(model):
 
 
 def run(arguments):
+    import ctypes
+    ctypes.CDLL(None).prctl(15, b"kjs-lpwm-stage2", 0, 0, 0)
     rank, world_size, local_rank = (int(os.environ[name]) for name in ("RANK", "WORLD_SIZE", "LOCAL_RANK"))
     assert world_size == 2 and local_rank in (0, 1)
     torch.set_num_threads(4)
@@ -90,10 +98,18 @@ def run(arguments):
     os.environ["TORCH_HOME"] = str(ARTIFACT_ROOT / "torch")
     os.chdir(ARTIFACT_ROOT)
     torch.manual_seed(specification["seed"])
-    model = PlanningFineTunedLPWM(start_checkpoint).to(device)
+    model = build_planning_model(start_checkpoint, specification, arguments.condition, PROJECT_ROOT).to(device)
+    candidate_teacher = None
+    refinement_oracle = None
+    if specification.get("planner_architecture") == "particle_candidate_metrics":
+        candidate_teacher = np.load(PROJECT_ROOT / specification["teacher_directory"] / "candidate_metrics.npy", mmap_mode="r")
+    if "refinement" in arguments.condition:
+        from lpwm_refinement_oracle import RefinementOracleClient
+        refinement_oracle = RefinementOracleClient(PROJECT_ROOT / specification["teacher_directory"] / "metric_cache_manifest.json",
+            output_root, rank, specification["refinement_oracle_workers_per_rank"])
     from utils.loss_functions import LossLPIPS
     reconstruction_loss = LossLPIPS(normalized_rgb=False).to(device).eval()
-    if arguments.condition == "planning_only":
+    if not uses_world_objective(arguments.condition):
         model.world_model.decoder_module.requires_grad_(False)
     optimizer = torch.optim.AdamW(model.optimizer_parameter_groups(specification["lpwm_learning_rate"], specification["planner_learning_rate"]),
         weight_decay=specification["weight_decay"])
@@ -186,13 +202,13 @@ def run(arguments):
                 learning_rate_factor = min(1., (update_index + 1) / warmup_updates) if update_index < warmup_updates else .1 + .9 * .5 * (1 + math.cos(math.pi * (update_index - warmup_updates) / (total_updates - warmup_updates)))
                 optimizer.param_groups[0]["lr"] = specification["lpwm_learning_rate"] * learning_rate_factor
                 optimizer.param_groups[1]["lr"] = specification["planner_learning_rate"] * learning_rate_factor
-            losses_to_log = torch.zeros(3, device=device, dtype=torch.float64)
+            losses_to_log = torch.zeros(10, device=device, dtype=torch.float64)
             update_start = time.monotonic()
             for micro_index in range(accumulation):
                 chosen = selected[micro_index * microbatch_size:(micro_index + 1) * microbatch_size]
                 observed, status, target = make_planning_inputs(records, chosen, frame_cache, target_arrays, device)
                 world_video = world_status = None
-                if arguments.condition == "planning_plus_world":
+                if uses_world_objective(arguments.condition):
                     generator = np.random.default_rng(specification["seed"] + update_index * world_size * accumulation + rank * accumulation + micro_index)
                     selected_world = generator.choice(world_indices, size=specification["world_auxiliary_clips_per_gpu_microbatch"], replace=False)
                     world_video, world_status, _ = make_planning_inputs(records, selected_world, frame_cache, target_arrays, device, include_future=True)
@@ -200,12 +216,29 @@ def run(arguments):
                 with synchronization, torch.autocast("cuda", dtype=torch.bfloat16):
                     predicted = distributed_model(observed, status, world_video, world_status,
                         reconstruction_loss, stage1_configuration["loss"])
-                    trajectory_loss = planning_loss(predicted["trajectory"], target)
+                    imitation_value = metric_value = coverage_value = target.new_zeros(())
+                    if candidate_teacher is not None:
+                        teacher_metrics = torch.from_numpy(np.array(candidate_teacher[chosen])).to(device)
+                        candidate_losses = compute_candidate_losses(predicted, target, model.trajectory_vocabulary, teacher_metrics,
+                            specification["candidate_imitation_temperature_meters"],
+                            0. if arguments.condition.startswith("imitation") else specification["metric_loss_weight"])
+                        trajectory_loss = candidate_losses["objective"]
+                        imitation_value, metric_value, coverage_value = (candidate_losses[name] for name in ("imitation_loss", "metric_loss", "teacher_coverage"))
+                    else:
+                        trajectory_loss = planning_loss(predicted["trajectory"], target)
+                    refinement_values = [target.new_zeros(()) for _ in range(4)]
+                    if refinement_oracle is not None:
+                        metric_labels, temporal_labels = refinement_oracle.score(chosen, predicted["refined_candidates"].detach().float().cpu().numpy())
+                        refinement_losses = compute_refinement_losses(predicted, target, status,
+                            torch.from_numpy(metric_labels).to(device), torch.from_numpy(temporal_labels).to(device))
+                        trajectory_loss = trajectory_loss + refinement_losses["objective"]
+                        refinement_values = [refinement_losses[name] for name in ("refinement_imitation", "refined_metric_loss", "temporal_safety_loss", "comfort_proxy")]
                     objective = trajectory_loss + specification["world_objective_weight"] * predicted["world_objective"]
                     if not torch.isfinite(objective):
                         raise FloatingPointError("Nonfinite stage2 objective")
                     (objective / accumulation).backward()
-                losses_to_log += torch.stack((trajectory_loss.detach(), predicted["world_objective"].detach(), objective.detach())).double() / accumulation
+                losses_to_log += torch.stack((trajectory_loss.detach(), predicted["world_objective"].detach(), objective.detach(),
+                    imitation_value.detach(), metric_value.detach(), coverage_value.detach(), *[value.detach() for value in refinement_values])).double() / accumulation
                 del observed, status, target, predicted, objective, trajectory_loss, world_video, world_status
             if update_index == 0 or arguments.profile or (update_index + 1) % 128 == 0:
                 gradients = module_gradient_norms(model)
@@ -224,6 +257,9 @@ def run(arguments):
                         "train_clips": len(train_indices), "global_batch_size": global_batch,
                         "sampled_clips_including_padding": completed_updates * global_batch,
                         "planning_loss": float(losses_to_log[0]), "world_objective": float(losses_to_log[1]), "loss": float(losses_to_log[2]),
+                        "imitation_loss": float(losses_to_log[3]), "metric_distillation_loss": float(losses_to_log[4]), "teacher_coverage": float(losses_to_log[5]),
+                        "refinement_imitation": float(losses_to_log[6]), "refined_metric_loss": float(losses_to_log[7]),
+                        "temporal_safety_loss": float(losses_to_log[8]), "refinement_comfort_proxy": float(losses_to_log[9]),
                         "module_gradients": gradients, "lpwm_lr": optimizer.param_groups[0]["lr"], "planner_lr": optimizer.param_groups[1]["lr"],
                         "peak_allocated_gib": torch.cuda.max_memory_allocated(device) / 1024**3,
                         "update_seconds": time.monotonic() - update_start, "elapsed_seconds": previous_seconds + time.monotonic() - training_start}
@@ -270,13 +306,15 @@ def run(arguments):
             write_json(output_root / "stopped.json", {"error": repr(error), "completed_updates": completed_updates})
         raise
     finally:
+        if refinement_oracle is not None:
+            refinement_oracle.close()
         distributed.destroy_process_group()
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=PROJECT_ROOT / "configs/lpwm_planning/full_joint_training_v1.json")
-    parser.add_argument("--condition", choices=("planning_plus_world", "planning_only"), required=True)
+    parser.add_argument("--condition", required=True)
     parser.add_argument("--profile", action="store_true")
     parser.add_argument("--resume", action="store_true")
     arguments = parser.parse_args()

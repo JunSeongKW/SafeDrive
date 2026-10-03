@@ -16,6 +16,14 @@ OFFICIAL_PYTHON = PROJECT_ROOT / "runtime/environments/drive_jepa_official_evalu
 
 
 def main(arguments):
+    route_path = PROJECT_ROOT / "configs/lpwm_planning/active_pipeline.json"
+    if route_path.exists():
+        route = json.loads(route_path.read_text())
+        if route["enabled"] and arguments.config.resolve() == (PROJECT_ROOT / route["superseded_config"]).resolve():
+            # The already running stage1 parent will reach this code later.
+            # Join the registered queue; never launch the superseded planner.
+            os.execv(str(PYTHON), [str(PYTHON), str(PROJECT_ROOT / "scripts/queue_lpwm_validated_training.py"),
+                "--config", str(PROJECT_ROOT / route["active_config"]), "--join"])
     configuration = json.loads(arguments.config.read_text())
     output_root = PROJECT_ROOT / configuration["output_directory"]
     output_root.mkdir(parents=True, exist_ok=True)

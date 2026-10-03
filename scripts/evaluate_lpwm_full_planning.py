@@ -84,6 +84,7 @@ def prepare_navtest(specification):
 def predict(arguments, specification):
     import torch
     from train_lpwm_full_planning import load_training_inputs, make_planning_inputs, PlanningFineTunedLPWM
+    from planning_aware_future_prediction.object_centric.lpwm_candidate_planner import build_planning_model
     from run_lpwm_navsim_posttraining import check_gpu_reserve
     torch.set_num_threads(4)
     torch.cuda.set_device(arguments.gpu)
@@ -91,10 +92,15 @@ def predict(arguments, specification):
     _, _, stage1_root, initial_checkpoint, manifest, targets, frames, _ = load_training_inputs(arguments.config, arguments.condition)
     output_root = PROJECT_ROOT / specification["output_directory"]
     condition_root = output_root / arguments.condition
-    training = json.loads((condition_root / "training_summary.json").read_text())
-    assert not training["profile_only"] and training["epochs"] == specification["epochs"]
+    initial_evaluation = getattr(arguments, "initial", False)
     checkpoint_path = condition_root / "checkpoint.pt"
-    assert digest(checkpoint_path) == training["checkpoint_sha256"]
+    if initial_evaluation:
+        assert arguments.subset == "development"
+        training = {"checkpoint_sha256": "initial-from-" + digest(initial_checkpoint)}
+    else:
+        training = json.loads((condition_root / "training_summary.json").read_text())
+        assert not training["profile_only"] and training["epochs"] == specification["epochs"]
+        assert digest(checkpoint_path) == training["checkpoint_sha256"]
     if arguments.subset == "navtest":
         cache_root = output_root / "navtest_inputs"
         manifest = json.loads((cache_root / "manifest.json").read_text())
@@ -105,7 +111,7 @@ def predict(arguments, specification):
     indices = np.array([index for index, record in enumerate(records) if record["split"] == arguments.subset])
     assert len(indices) == (12146 if arguments.subset == "navtest" else 27076)
     intervention_suffix = "" if arguments.intervention == "none" else "__" + arguments.intervention
-    destination = condition_root / "evaluations" / (arguments.subset + intervention_suffix)
+    destination = condition_root / "evaluations" / (arguments.subset + intervention_suffix + ("__initial" if initial_evaluation else ""))
     destination.mkdir(parents=True, exist_ok=True)
     identity = {"checkpoint_sha256": training["checkpoint_sha256"], "subset": arguments.subset,
         "intervention": arguments.intervention, "expected_scenes": len(indices), "configuration_sha256": digest(arguments.config)}
@@ -115,8 +121,13 @@ def predict(arguments, specification):
         write_json(destination / "identity.json", identity)
     if (destination / "results.json").exists():
         return
-    model = PlanningFineTunedLPWM(initial_checkpoint).to(device)
-    model.load_state_dict(torch.load(checkpoint_path, map_location=device, weights_only=True), strict=True)
+    torch.manual_seed(specification["seed"])
+    model = build_planning_model(initial_checkpoint, specification, arguments.condition, PROJECT_ROOT).to(device)
+    if not initial_evaluation:
+        model.load_state_dict(torch.load(checkpoint_path, map_location=device, weights_only=True), strict=True)
+    teacher_metrics = None
+    if specification.get("planner_architecture") == "particle_candidate_metrics" and arguments.subset == "development":
+        teacher_metrics = np.load(PROJECT_ROOT / specification["teacher_directory"] / "candidate_metrics.npy", mmap_mode="r")
     model.eval()
     rows = []
     if (destination / "predictions.jsonl").exists():
@@ -140,6 +151,13 @@ def predict(arguments, specification):
                 row = {"token": records[index]["current_frame_token"], "recording_group": records[index]["recording_group"],
                     "trajectory": prediction[batch_index].cpu().tolist(), "ade_meters": float(distances[batch_index].mean()),
                     "fde_meters": float(distances[batch_index, -1])}
+                if "candidate_indices" in output:
+                    row["candidate_index"] = int(output["candidate_indices"][batch_index])
+                    if teacher_metrics is not None and np.isfinite(teacher_metrics[index]).all():
+                        labels = torch.from_numpy(np.array(teacher_metrics[index, :, :6])).to(device)
+                        row["candidate_metric_bce"] = float(torch.nn.functional.binary_cross_entropy_with_logits(output["metric_logits"][batch_index].float(), labels))
+                    if "selected_refined_metric_logits" in output:
+                        row["selected_refined_metric_logits"] = output["selected_refined_metric_logits"][batch_index].float().cpu().tolist()
                 rows.append(row)
                 stream.write(json.dumps(row, allow_nan=False) + "\n")
             stream.flush()
@@ -163,7 +181,9 @@ def score(arguments, specification):
     from navsim.evaluate.pdm_score import pdm_score
     simulator, scorer = instantiate(configuration.simulator), instantiate(configuration.scorer)
     root = PROJECT_ROOT / specification["output_directory"]
-    predictions_path = root / arguments.condition / "evaluations" / arguments.subset / "results.json"
+    intervention_suffix = "" if arguments.intervention == "none" else "__" + arguments.intervention
+    evaluation_name = arguments.subset + intervention_suffix + ("__initial" if getattr(arguments, "initial", False) else "")
+    predictions_path = root / arguments.condition / "evaluations" / evaluation_name / "results.json"
     predictions = json.loads(predictions_path.read_text())
     by_token = {row["token"]: row for row in predictions["windows"]}
     if arguments.subset == "navtest":
@@ -171,19 +191,43 @@ def score(arguments, specification):
             json.loads((root / "navtest_inputs/manifest.json").read_text())["records"]]
         assert len(entries) == 12146 and set(by_token) == {entry["token"] for entry in entries}
     else:
-        all_entries = json.loads((PROJECT_ROOT / "outputs/drive_jepa_selective_future/region_research_pdm_v1_20261003/metric_cache_manifest.json").read_text())
+        cache_manifest = (PROJECT_ROOT / specification["teacher_directory"] / "metric_cache_manifest.json") if "teacher_directory" in specification else (PROJECT_ROOT / "outputs/drive_jepa_selective_future/region_research_pdm_v1_20261003/metric_cache_manifest.json")
+        all_entries = json.loads(cache_manifest.read_text())
         entries = [entry for entry in all_entries if entry["token"] in by_token]
         assert len(entries) > 0
         for entry in entries:
-            assert digest(entry["metric_cache_file"]) == entry["cache_sha256"]
-    destination = PROJECT_ROOT / specification["shared_results_directory"] / "pdm" / f"{arguments.condition}__{arguments.subset}.json"
+            if "cache_sha256" in entry:
+                assert digest(entry["metric_cache_file"]) == entry["cache_sha256"]
+    destination = PROJECT_ROOT / specification["shared_results_directory"] / "pdm" / f"{arguments.condition}__{evaluation_name}.json"
     prediction_digest = digest(predictions_path)
     if destination.exists():
         assert json.loads(destination.read_text())["prediction_sha256"] == prediction_digest
         return
-    partial_path = root / arguments.condition / "evaluations" / arguments.subset / "pdm_scores.jsonl"
+    partial_path = root / arguments.condition / "evaluations" / evaluation_name / "pdm_scores.jsonl"
     rows = [json.loads(line) for line in partial_path.read_text().splitlines()] if partial_path.exists() else []
     completed = {row["token"] for row in rows}
+    if specification.get("planner_architecture") == "particle_candidate_metrics":
+        from concurrent.futures import ProcessPoolExecutor
+        import multiprocessing
+        from lpwm_refinement_oracle import initialize_oracle, score_refined_scene
+        from prepare_lpwm_candidate_teacher import METRIC_NAMES
+        pending_entries = [entry for entry in entries if entry["token"] not in completed]
+        oracle_manifest = partial_path.parent / "evaluation_oracle_manifest.json"
+        write_json(oracle_manifest, [{**entry, "index": index} for index, entry in enumerate(pending_entries)])
+        jobs = [(index, np.asarray([by_token[entry["token"]]["trajectory"]], dtype=np.float32)) for index, entry in enumerate(pending_entries)]
+        with ProcessPoolExecutor(max_workers=specification["teacher_workers"], mp_context=multiprocessing.get_context("spawn"),
+                initializer=initialize_oracle, initargs=(str(oracle_manifest),)) as executor, partial_path.open("a") as stream:
+            for entry, (metric_values, _temporal) in zip(pending_entries, executor.map(score_refined_scene, jobs)):
+                assert np.isfinite(metric_values).all()
+                predicted = by_token[entry["token"]]
+                row = {"token": entry["token"], "recording_group": predicted["recording_group"], **dict(zip(METRIC_NAMES, metric_values[0].tolist()))}
+                if "selected_refined_metric_logits" in predicted:
+                    logits = np.asarray(predicted["selected_refined_metric_logits"])
+                    row["selected_refined_metric_bce"] = float(np.mean(np.logaddexp(0., logits) - metric_values[0, :6] * logits))
+                rows.append(row)
+                stream.write(json.dumps(row, allow_nan=False) + "\n")
+                stream.flush()
+        completed = {row["token"] for row in rows}
     with partial_path.open("a") as stream:
         for entry in entries:
             if entry["token"] in completed:
@@ -201,7 +245,7 @@ def score(arguments, specification):
     assert len(rows) == len(entries) and len({row["token"] for row in rows}) == len(rows)
     summary = {name: float(np.mean([row[name] for row in rows])) for name in rows[0] if name not in ("token", "recording_group")}
     write_json(destination, {"windows": rows, "summary": summary, "scenes": len(rows), "prediction_sha256": prediction_digest,
-        "scope": "official full navtest" if arguments.subset == "navtest" else "available cached strict-navtrain development intersection",
+        "scope": "official full navtest" if arguments.subset == "navtest" else "all eligible cached strict-navtrain development tokens",
         "scorer_source": str(official_root)})
     print("LPWM_FULL_PDM_DONE", arguments.condition, arguments.subset, summary, flush=True)
 
@@ -223,7 +267,19 @@ def summarize(specification):
             return [{"token": row["token"], "recording_group": row["recording_group"], "metrics": {"ade": row["ade_meters"]}} for row in rows]
         reports[condition]["forecast_vs_persistent_future_ade"] = paired_recording_interval(paired_rows(actual["windows"]), paired_rows(control["windows"]), "ade")
     baseline = json.loads((PROJECT_ROOT / "results/official_drive_jepa_reproduction/full_navtest_results.json").read_text())
+    paired_comparisons = {}
+    if specification.get("planner_architecture") == "particle_candidate_metrics":
+        for subset in ("development", "navtest"):
+            def score_rows(condition):
+                rows = json.loads((result_root / "pdm" / f"{condition}__{subset}.json").read_text())["windows"]
+                return [{"token": row["token"], "recording_group": row["recording_group"], "metrics": {"pdms": row["score"] * 100}} for row in rows]
+            for condition, reference in (("metric_plus_world", "imitation_plus_world"), ("metric_refinement_plus_world", "metric_plus_world")):
+                paired_comparisons[subset + ":" + condition + "-" + reference] = paired_recording_interval(score_rows(condition), score_rows(reference), "pdms")
+        for condition in specification["conditions"]:
+            gate = json.loads((root / condition / "validation_gate.json").read_text())
+            reports[condition]["development_validation"] = gate
     report = {"conditions": reports, "drive_jepa_unchanged_reference": baseline["all_server_percent_metrics"],
+        "paired_pdms_percentage_point_comparisons": paired_comparisons,
         "scope": "One seed per registered condition; development was used for adaptation diagnostics. All navtest scenes evaluated after fixed final training epochs.",
         "performance_improvement_is_not_assumed": True}
     write_json(result_root / "summary.json", report)
@@ -248,7 +304,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=PROJECT_ROOT / "configs/lpwm_planning/full_joint_training_v1.json")
     parser.add_argument("--mode", choices=("prepare-navtest", "predict", "score", "summarize"), required=True)
-    parser.add_argument("--condition", choices=("planning_plus_world", "planning_only"))
+    parser.add_argument("--condition")
+    parser.add_argument("--initial", action="store_true")
     parser.add_argument("--subset", choices=("development", "navtest"), default="development")
     parser.add_argument("--gpu", type=int, choices=(0, 1), default=0)
     parser.add_argument("--intervention", choices=("none", "persistent_future"), default="none")

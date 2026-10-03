@@ -1,0 +1,102 @@
+{
+  "research_question": "Does low-learning-rate planning fine-tuning of a NAVSIM-adapted LPWM produce particles useful for trajectory planning while preserving visual dynamics?",
+  "stage1_config": "configs/lpwm_navsim_adaptation/full_posttraining_v2.json",
+  "output_directory": "outputs/lpwm_metric_planning_v2",
+  "shared_results_directory": "results/lpwm_metric_planning_v2",
+  "seed": 47,
+  "conditions": [
+    "metric_plus_world",
+    "imitation_plus_world",
+    "metric_refinement_plus_world"
+  ],
+  "epochs": 20,
+  "microbatch_size_per_gpu": 4,
+  "gradient_accumulation": 2,
+  "world_size": 2,
+  "lpwm_learning_rate": 1e-06,
+  "planner_learning_rate": 0.0003,
+  "world_objective_weight": 0.02,
+  "world_auxiliary_clips_per_gpu_microbatch": 1,
+  "precision": "FP32 official image encoder, BF16 dynamics/planner, activation checkpointing",
+  "optimizer": "AdamW",
+  "weight_decay": 0.0001,
+  "gradient_clip": 5,
+  "schedule": "linear warmup 1 percent updates, cosine decay to 10 percent initial LR",
+  "checkpoint_interval_updates": 256,
+  "maximum_seconds_per_condition": 1814400,
+  "minimum_free_gib": 6,
+  "maximum_allocated_gib": 38,
+  "planner_input": "four observed RGB frames, current 8D ego status, causal eight-step LPWM prior rollout",
+  "encoder_conditioning": "zero-initialized bounded FiLM from current four-dimensional driving command inside particle attribute CNN",
+  "planning_loss": "soft expert trajectory classification + six NAVSIM-v1 simulator subscore BCE terms; world ELBO retained except metric_only",
+  "world_loss": "unchanged official stage1 temporal ELBO on independently sampled training clips, never future input to planner",
+  "data": "all eligible observed-input navtrain training records, same recording validation split as stage1; no fixed clip cap",
+  "checkpoint_selection": "fixed final epoch, epoch diagnostics do not select the best development checkpoint",
+  "evaluation": "full development ADE/FDE and all eligible official PDM; validate each condition before the next; locked full navtest after development gates",
+  "stage1_gate_required": true,
+  "teacher_directory": "outputs/lpwm_candidate_teacher_v1",
+  "candidate_count": 512,
+  "planner_architecture": "particle_candidate_metrics",
+  "candidate_imitation_temperature_meters": 0.5,
+  "inference_imitation_exponent": 0.1,
+  "metric_loss_weight": 1.0,
+  "teacher_workers": 16,
+  "method_sources": {
+    "DrivoR": {
+      "paper": "https://arxiv.org/html/2601.05083v2",
+      "repository": "https://github.com/valeoai/DrivoR",
+      "commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+      "use": "compact perception memory and trajectory-conditioned subscore decoder; our fixed vocabulary replaces continuous proposal generation"
+    },
+    "DriveSuprim": {
+      "paper": "https://arxiv.org/html/2506.06659v3",
+      "repository": "https://github.com/William-Yao-2000/DriveSuprim",
+      "commit": "80fe792d7654a596d92e20d030d1650f6f605c02",
+      "use": "reviewed candidate imitation and metric distillation; coarse-to-fine selection and camera augmentation deferred"
+    },
+    "Hydra-MDP": {
+      "paper": "https://arxiv.org/html/2406.06978v3",
+      "repository": "https://github.com/NVlabs/Hydra-MDP",
+      "use": "train-only trajectory vocabulary and privileged simulator metric distillation; official implementation unavailable at review"
+    },
+    "Drive-JEPA": {
+      "paper": "https://arxiv.org/html/2601.22032v2",
+      "repository": "https://github.com/linhanwang/Drive-JEPA",
+      "use": "reviewed safe multimodal trajectory supervision; full PF checkpoint remains an unchanged evaluation reference"
+    },
+    "SafeDrive_workspace": {
+      "source": "navsim/agents/safedrive",
+      "use": "read-only reference: candidate refinement, scene safety and temporal drivable supervision, live rescoring of refined trajectories; no BEV-coordinate or object-identity assumptions transferred"
+    }
+  },
+  "validation_gates": {
+    "minimum_teacher_coverage": 0.95,
+    "stage1_all_causal_audits_pass": true,
+    "minimum_causal_audit_scenes": 8,
+    "maximum_vocabulary_dev_oracle_ade_meters": 1.5,
+    "maximum_vocabulary_dev_oracle_ade_p95_meters": 4.0,
+    "minimum_candidate_oracle_pdms": 0.85,
+    "minimum_dev_pdms_gain_over_initial": 0.0,
+    "maximum_world_reconstruction_relative_degradation": 0.1,
+    "maximum_world_forecast_relative_degradation": 0.1,
+    "minimum_risk_recordings": 5,
+    "minimum_dev_metric_calibration_improvement": 0.0
+  },
+  "refinement_oracle_workers_per_rank": 4,
+  "refinement": {
+    "shortlist": "16 predicted metric-ranked + 16 predicted imitation-ranked; no GT selection in forward",
+    "maximum_xy_offset_meters": 3.0,
+    "maximum_heading_offset_radians": 0.3,
+    "future_particle_cross_attention_layers": 2,
+    "refined_score_decoder_layers": 2,
+    "online_teacher": "actual detached refined trajectories; unchanged official PDM simulator/scorer with pairwise reference normalization",
+    "extra_objective": "nearest refined expert smoothL1 XY + 0.5 circular heading + six refined subscore BCE + 0.5 two temporal safety BCE + 0.01 differentiable acceleration/jerk excess",
+    "temporal_targets": "prefix no-at-fault collision and prefix drivable compliance at 0.5,...,4.0 s",
+    "comfort_proxy_thresholds": {
+      "acceleration_mps2": 4.0,
+      "jerk_mps3": 8.0
+    },
+    "temporal_supervision_does_not_require_particle_object_ids": true
+  },
+  "deferred_comparison": "world-objective-off comparison is deferred in favor of the newly requested future-particle candidate refinement comparison; no completed run is changed"
+}

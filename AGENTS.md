@@ -83,7 +83,10 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 현재 `kjs-lpwm-stage1` 이름으로 본 학습 중; 추가 속도 실험을 위해 중단하지 않는다.
 설정 `configs/lpwm_navsim_adaptation/full_posttraining_v2.json` + `execution/batch4_accumulation2_workers0.json`.
 시각화 `outputs/lpwm_navsim_full_posttraining_v2/visualization/index.html` (같은 개발 장면 학습 전·중·후).
-Stage1 적응 gate 통과 후 LPWM 낮은LR + planner 전체 학습의 통합Stage2, planning-only/영상목표유지 비교.
+Stage1 적응 gate 후 LPWM 낮은LR + planner 전체학습: 후보 imitation / metric 증류 / 미래particle 후보보정 3조건 비교.
+현재 queue `scripts/queue_lpwm_validated_training.py`, 설정 `metric_distillation_v2.json`; CPU teacher16worker 병행.
+각조건 학습 후 검증 gate를 통과해야 다음 작업/독립test로 진행한다. 설계 `docs/lpwm_planning_experiment.md` 최신절.
+과거 `full_joint_training_v1.json` 호출은 `active_pipeline.json`을 통해 새 queue에 join한다. 이전 단일경로 planner를 별도로 실행하지 않는다.
 Stage2 train75,297/dev27,076; GPU 실행은 적응 gate 후. 현재 성능 개선이나 학습 완료를 주장하지 않는다.
 이전 cap8,192/4epoch 실행안은 대체됐고, v1 파일과 과거 결과는 그대로 보존한다.
 
