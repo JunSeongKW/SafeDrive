@@ -1,9 +1,17 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 13:44 KST (Codex)
+마지막 갱신: 2026-10-03 14:58 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
+**현재 최신 작업 완료:** SPARTAN/C-JEPA/IA-JEPA 착안9조건×3seed×800update 및개발PDM비교를완료했다.
+등록commit5b85a01. 원본0.352210m/87.119134, 기존global0.347129m/88.826031,
+새sparse0.349238m/87.742199, +mask0.349230m/87.742244, +motion0.348680m/87.691769.
+현재특징만0.349207m/87.742499로미래예측추가효용미확인. 기법별추가효과CI모두0포함.
+CPU162통과/원본hash보존/학습56.39분/peak1.719GiB/개발6528score완료. 우리GPU작업없음.
+`docs/drive_jepa_region_research.md`, `results/drive_jepa_region_research_v1/summary.json`이최신이다.
+새방법채택/추가sweep/WA/navtest자동재개하지않는다. 아래이전최신표시는이력이다.
+
 **최신 사용자 요청(2026-10-03): 중요 요소 선택을 개선하는 크기·개수·학습 신호 비교.**
 **후속최신지시: 개수·크기보다위치이동과학습파이프라인진단이우선.** 확인시등록15run은이미완료됐고
 PID2624673은종료돼중단할process없었다. 새크기/개수/학습sweep는시작하지않는다.
@@ -117,10 +125,11 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 
 ## 1. 실행 중인 작업
 
-**2026-10-03 최신 사용자 승인:** SPARTAN/C-JEPA/IA-JEPA 착안 변형을 순서대로 적용하고 planning 개선 확인.
-`region_research_v1.json` 9조건×3seed×800update를 결과 확인 전 등록했다.
-계획 `docs/drive_jepa_region_research.md`; 구현·CPU 검사 후 GPU1 여유 확인해 실행한다.
-과거 새 학습 보류 범위는 이 명시적 요청에 한해 갱신됐다. WA/pilot/navtest는 재개하지 않는다.
+**현재 실행중인 작업 없음.** 등록27run과CPU PDM192장면×34조건모두종료했다.
+출력 `outputs/drive_jepa_selective_future/region_research_v1_20261003/`,
+`region_research_pdm_v1_20261003/`, `region_research_preserved_controls_v1_20261003/`.
+학습PID3270611/평가PID3289792/보존대조PID3381536은완료됐다. 완료작업자동재개없음.
+집계보고서와검증은 `results/drive_jepa_region_research_v1/`에공유한다.
 
 새region실험15run과후속위치진단모두완료/GPU작업없음. 새출력 `outputs/drive_jepa_selective_future/spatial_region_selection_v1_20261003/`.
 중단시 같은config/output에 `train_drive_jepa_spatial_regions.py --resume`; optimizer/scheduler/RNG/완료update복원.
@@ -261,6 +270,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**최신 결과:** 27run완료. SPARTAN추가연결희소화/C-JEPA마스킹/IA움직임선택의추가planning이득은확인하지못했다. 원본대비일부ADE감소는있지만current-only도동일하며PDM개선CI는0포함. 전체수치/상황별/구성요소/비용은새report참조.
 
 CPU전체154검사 통과. K8 plain→retention은위치교체26–37%→74–89%, ADE0.347129→0.346951m이나CI0포함.
 진단: planning→score연결정상; future slot교환후trajectory0.24–0.27mm변화; proxygradient4–10배/방향거의직교.
@@ -450,6 +461,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+- 등록27run(21600update)을완료하고공식PDM192장면×34조건6528score를집계했다.
+- 기존globalcheckpoint6개를optimizer없이복원/ADE·module hash대조후PDM으로동일평가했다.
+- 162CPU검사/원본hash보존/gradient차단/recording분리/미래입력차단근거를validation.json에저장했다.
+- 전체비교표·recording CI·상황별·PDM구성요소·그림·코드·재현명령과음성결과해석을공유한다.
+- 세기법추가이득은미확인/current-only도동일성능. 원본대비ADE변화와미래예측효용을구분했다.
+
 - SPARTAN/C-JEPA/IA-JEPA 착안 통제 비교를 등록: 위치 bridge, sparse edge, 과거 anchor 마스킹, 관측 motion 선택.
 - 같은 K8/704window/3seed/800update, 현재 특징·random·unmasked 대조군과 gradient/위치 CPU 검사를 추가했다.
 - 원본 planner/encoder와 기존 실험 자산을 보존하며 결과 확인 전 조건을 고정한다.
@@ -552,6 +569,8 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
+**현재 다음 판단:** 기존global비교군유지. 현재특징전달과미래변화정보의planning기여를분리하는후속설계가우선이며구현/학습미실행. 완료27run/PDM을반복하지않고새sweep는자동시작하지않는다.
+
 현재다음: K/크기고정, global future fusion 대신선택위치에대응하는spatial-memory연결을검토.
 아직구현/추가학습하지않았다. 개수·크기/proxyweight추가sweep금지. 현재15run을반복하지않는다.
 
@@ -610,6 +629,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**현재 미결:** 세착안변형의추가이득/미래예측필요성/학습선택우월성미확인. Region변형이며객체기반논문재현/독립test/동적예산개선이아니다. 원격 push 결과는 세션 종료 시 확인한다.
 
 현재region-retention은frozen current-planner의정보유지proxy이며 semantic/인과/future중요도정답아님.
 Globally contextual latent/mean대체분포변화가한계. 큰영역평균은공간상세도를낮추므로픽셀면적과출력token예산을별도보고.

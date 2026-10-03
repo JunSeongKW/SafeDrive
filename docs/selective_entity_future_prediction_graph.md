@@ -280,3 +280,12 @@ Detach는 graph에서 분리하지만 storage를 공유하므로 in-place 조작
 [PyTorch 2.8 detach 문서](https://docs.pytorch.org/docs/2.8/generated/torch.Tensor.detach.html).
 Stable argsort의 동점 순서 보존을 사용하되 먼저 entity ID를 정렬한다.
 [PyTorch 2.8 argsort 문서](https://docs.pytorch.org/docs/2.8/generated/torch.argsort.html).
+
+
+## 2026-10-03 구현 보충: 위치 연결·희소 관계·관측 이력 마스킹
+
+고정된공식Drive-JEPA planner위region K8/4시점extension의실제계산그래프는[세논문착안구현명세](drive_jepa_region_research.md#구현검증)에있다.
+현재memory전체는유지하고예측미래residual을선택위치에scatter한다. SPARTAN착안hard관계는bridge한층에적용하며predictorcontext는dense다.
+C-JEPA착안마스킹은보조forward에서만관측최신region을이전anchor로대체하고현재/미래latent를복원한다. 정답gradient는predictor만받는다.
+IA착안선택은현재까지4frame의움직임점수top8이며futureGT/validmask/충돌label을읽지않는다.
+27run/개발PDM평가완료:추가planning이득과미래예측필요성은확인하지못했다. 객체instance계산그래프의완성/일반화검증으로해석하지않는다.

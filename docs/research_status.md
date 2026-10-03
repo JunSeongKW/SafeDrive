@@ -1,5 +1,31 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 완료 — 2026-10-03 SPARTAN/C-JEPA/IA-JEPA 착안 통제 비교
+
+등록 commit `5b85a01`: 9조건 × 3 seed × 800 update를 완료했다.
+GPU1에서 56.39분, 최대 allocated 1.719GiB. CPU 162개 검사 통과.
+같은 train 512 / dev 192 window(개발 182 scene / 24 recording), K8·4초, frozen Drive-JEPA를 유지했다.
+
+| 조건 | 개발 ADE(m) | 개발 PDM(%) |
+|---|---:|---:|
+| 원본 | 0.352210 | 87.119134 |
+| 기존 global learned | 0.347129 | 88.826031 |
+| 새 sparse | 0.349238 | 87.742199 |
+| + C-JEPA 마스킹 | 0.349230 | 87.742244 |
+| + IA-JEPA 움직임 선택 | 0.348680 | 87.691769 |
+| 현재 특징만 사용하는 대조군 | 0.349207 | 87.742499 |
+
+각 기법의 추가 효과와 learned 대 random의 대응 CI는 0을 포함한다.
+원본 대비 일부 ADE 감소가 관측되지만 current-only도 동일하고, PDM 개선 CI는 0을 포함한다.
+**추가 planning 이득·미래 예측의 필요성·선택 가설은 아직 입증하지 못했다.**
+새 방법으로 교체하거나 추가 sweep를 하지 않는다.
+
+공식 scorer로 개발 34조건 × 192 = 6,528개 score를 완료했다. Navtest 전체 재평가는 하지 않았다.
+우리 GPU 작업은 모두 종료됐다. [범위·표·CI·상황별·해석](drive_jepa_region_research.md),
+[공유 수치](../results/drive_jepa_region_research_v1/summary.json).
+후속 제안은 현재 특징 전달과 미래 변화 정보의 기여 분리이며, 아직 실행하지 않았다.
+원본 모델·공용 데이터·WA pause를 보존했다.
+
 ## 최신: 선택 위치 학습·파이프라인 진단 완료 (2026-10-03)
 
 결론: **위치는 학습으로 바뀌지만, planning에 중요한 요소로 이동하는 학습은 아직 입증되지 않았다.**

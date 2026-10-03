@@ -1,0 +1,715 @@
+{
+  "cpu_tests": {
+    "passed": 162,
+    "failed": 0,
+    "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src runtime/environments/future_prediction_cpu/bin/python -m pytest tests -q"
+  },
+  "completed_runs": 27,
+  "optimizer_updates": 21600,
+  "preregistration_commit": "5b85a01",
+  "baseline_parameter_hash_unchanged": "05af3ccd8a8e7db1b9b2ae2e77f81ef753446a3309989cef08c161ce0614476a",
+  "zero_initialized_original_output_equality_passed_all_runs": true,
+  "paired_schedule_hashes": {
+    "29": "25fa22c8add55ccf46e61301589f771260a198e9f23f649d2d1175a29fa04536",
+    "47": "539e23a5f9c07ae91c0f15e27ff12ea2ff082264ecbbd82939530e432d1801f2",
+    "83": "43d7de2451ef872ca6b6f21ade5680b3b908c7d11c2c54c0cb75807a34e37e32"
+  },
+  "common_warmup_module_hashes_identical_within_seed": true,
+  "recording_groups": {
+    "train": 64,
+    "development": 24
+  },
+  "train_development_recording_overlap": 0,
+  "navtest_current_token_overlap": 0,
+  "observed_history_frames_available": 704,
+  "gradient_contracts": {
+    "located_dense_learned_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.034359278583082416
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.18591509419523838,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.013461260255409769,
+          "future_predictor": 0.0022707886664663193,
+          "future_bridge": 0.05328352630085281
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.3046713758235577,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_dense_learned_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.0375894749005502
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.33568705474360605,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.013530408756189148,
+          "future_predictor": 0.0007413799965338519,
+          "future_bridge": 0.03633837130099665
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.44684269604875676,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_dense_learned_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.017748557502613976
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.14678659740221145,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.04123947412365235,
+          "future_predictor": 0.0007295286253340619,
+          "future_bridge": 0.03960227278075892
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.25634487784699533,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_dense_random_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03339003751880624
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.14851419583793718,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0022143003210011863,
+          "future_bridge": 0.042181237728091264
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.22064728752186308,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_dense_random_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.019967553967148405
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.5067298820459364,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.004814877035261949,
+          "future_bridge": 0.04569344563757242
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.5889697195752343,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_dense_random_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.018145473404026932
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.12368605960378071,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.004131503332425547,
+          "future_bridge": 0.04297607581419449
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.2133325716037735,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_sparse_learned_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03409973292631223
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.18591509356777414,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.013864892387207103,
+          "future_predictor": 0.0020895864788785046,
+          "future_bridge": 0.05188715218700823
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.3035774697389089,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_sparse_learned_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03684681952676028
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.335687054743533,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.014447969387166266,
+          "future_predictor": 0.0006503855894518211,
+          "future_bridge": 0.03554815601701241
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.46242574331845754,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_sparse_learned_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.017467995391915524
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.1467865974084177,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.03404303241289918,
+          "future_predictor": 0.000650737326264158,
+          "future_bridge": 0.03141751211598278
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.24236274966665458,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_sparse_random_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.033063320294490384
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.1485141950632576,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.001972160986385887,
+          "future_bridge": 0.04054890437854176
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.2197949453211213,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_sparse_random_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.02004303514783108
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.506729882041352,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.003454857695413214,
+          "future_bridge": 0.047949632329340866
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.6089114134281386,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_sparse_random_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.017997613766073232
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.12368605959826576,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.00327876859354754,
+          "future_bridge": 0.04665044172669732
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.2147674522291249,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "located_sparse_current_only_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03409072232009325
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.014136230430071802,
+          "future_predictor": 0.0,
+          "future_bridge": 0.051401697575374564
+        }
+      }
+    },
+    "located_sparse_current_only_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.036817726999329004
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.014897576057510986,
+          "future_predictor": 0.0,
+          "future_bridge": 0.0357199004173373
+        }
+      }
+    },
+    "located_sparse_current_only_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.01746183797209922
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.03351949470312516,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03154520018466132
+        }
+      }
+    },
+    "sparse_history_unmasked_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03409973978758264
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.18029379807457105,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.013901863691193313,
+          "future_predictor": 0.0017843767161606363,
+          "future_bridge": 0.051823542051833454
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.24799311437640773,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_unmasked_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03684681636114919
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.3347392428001629,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.014557109536532296,
+          "future_predictor": 0.0006292785289954103,
+          "future_bridge": 0.035554026937530604
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.49102904941182113,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_unmasked_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.017467994555599813
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.15686616908552864,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.03408851446501242,
+          "future_predictor": 0.0005983143638182611,
+          "future_bridge": 0.03144669238790276
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.18265942653947903,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03409973636694946
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.2595924011267656,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.013659009202214805,
+          "future_predictor": 0.0026638180001623394,
+          "future_bridge": 0.05176891398281062
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.38767737405260744,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.036846832238568154
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.3275869518520362,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.014428051788585708,
+          "future_predictor": 0.000658626504826394,
+          "future_bridge": 0.035562663155664385
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.7393829298627673,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.017467993716029914
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.253947547566966,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0344874832263696,
+          "future_predictor": 0.0006953948475630876,
+          "future_bridge": 0.03140746388658035
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.3731044098714087,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_random_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.0330633061486712
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.2508278432826633,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0023122860814284744,
+          "future_bridge": 0.040556697147539456
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.45137699799882663,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_random_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.02004303295271401
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.39927935750839405,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.002880836041149725,
+          "future_bridge": 0.047002236378337864
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.9992119111653757,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_random_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.0179976186426212
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.24062996293283365,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0033087600088911795,
+          "future_bridge": 0.0464180044796203
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.36700387731838946,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_motion_seed29": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.021019872695858473
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.2617670877402634,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.001279373080020277,
+          "future_bridge": 0.02374732429074487
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.3142560765781524,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_motion_seed47": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.014182065111340635
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.3795490134653706,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0009659583018853034,
+          "future_bridge": 0.021495177460208445
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.9069416047643842,
+          "future_bridge": 0.0
+        }
+      }
+    },
+    "sparse_history_masked_motion_seed83": {
+      "initial": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0,
+          "future_bridge": 0.03196284009835719
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.28848298465013467,
+          "future_bridge": 0.0
+        }
+      },
+      "completed": {
+        "planning": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.0004794809563411063,
+          "future_bridge": 0.02056337217968443
+        },
+        "future_auxiliary": {
+          "patch_selector": 0.0,
+          "future_predictor": 0.6863578795932473,
+          "future_bridge": 0.0
+        }
+      }
+    }
+  },
+  "provenance": {
+    "source_commit": "5b85a01f92b5f5e64f2f9552d4e3e0578e122895",
+    "config_sha256": "58ad903e0c3c79f3ae93bbef6a87be27c480c7b69c53cb5da7b9e93e47e76a70",
+    "cache_index_sha256": "fdb1af342ec5fa36ac8537856b08d45f3afdcf576a541ba57e8e394a0121b872",
+    "physical_gpu": "1",
+    "torch_version": "2.1.0+cu121"
+  },
+  "official_source_note": "Pinned 548bb8215e3aae18e162a0f12f1ba83b4d3eb57e with the previously recorded strict_encoder_loading.patch; no new reference-source edits.",
+  "pdm_validation": {
+    "conditions": 34,
+    "windows_per_condition": 192,
+    "scored_predictions": 6528,
+    "missing_or_duplicate_tokens": 0,
+    "nonfinite_scores": 0,
+    "all_conditions_use_same_tokens": true
+  }
+}

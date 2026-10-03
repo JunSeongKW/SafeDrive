@@ -1477,3 +1477,20 @@ CUDA_VISIBLE_DEVICES=1 LD_LIBRARY_PATH=/rhome/junseong/PlanningAwareFuturePredic
 ## 2026-10-03 — SPARTAN/C-JEPA/IA-JEPA 착안 적용 등록 (Codex)
 
 사용자 명시적 적용·성능 확인 요청. region_research_v1.json에 9조건×3seed×800update를 결과 확인 전 고정했다. 위치 bridge→희소 관계→관측 history mask→관측 motion 순서이며 current-only/random/unmasked 대조군 포함. 같은 704window/원본 frozen planner와 warmup/batch순서 재사용. 과거 관측 4frame 존재704/704, dev 5초 state192/192. 코드 관련 CPU40검사통과. 공식 논문 재현이 아닌 region 구조 변형이며 자세한 범위는 docs/drive_jepa_region_research.md. 학습은 등록 commit 뒤 GPU1 여유 재확인 후 실행, navtest/WA는 재개하지 않는다.
+
+
+## 2026-10-03 — 세 논문 착안27run 및개발PDM완료 (Codex)
+
+사용자요청에따라등록5b85a01/region_research_v1의9조건×3seed×800=21600update를모두완료했다.
+GPU1단일process/전체56.39분/학습peak1.719GiB/CPU162통과. 원본 frozen parameter SHA-256 유지(validation.json 참조).
+관측4frame704/704확인후earlieranchor/motioncache를workspace에만추가했고기존cache·모델·공용데이터보존.
+공식PDM save_buffer의sandbox정체를10초probe timeout/밖에서SAVE_OK로확인했고우리PID3276645만종료후PID3289792재개. 빈미완성cache는이름바꿔보존했다.
+Dev192window/182scene/24recording에대해새27+보존6+원본=34조건6528score완료. 기존6checkpoint추론은modulehash와저장ADE(1e-6)대조통과/optimizer0.
+ADE/PDM: 원본0.352210/87.119134, 기존global learned0.347129/88.826031,
+새denselearned0.349222/87.640696,sparselearned0.349238/87.742199,current-only0.349207/87.742499,
+C-JEPA unmasked0.349226/87.742247,masked0.349230/87.742244,motion0.348680/87.691769.
+세기법추가효과와learned-vs-random의대응95%CI모두0포함. 원본대비일부ADE감소는관측되나current-only도동일하고PDM개선CI는0포함한다.
+Sparse연결밀도19.63%이나dense연산이므로FLOPs효율주장없음. 객체slot/causal discovery/독립test/동적K결과가아니다.
+새방법채택·추가sweep없음. 현재특징전달과미래변화정보의planning기여분리만후속설계로권고하며미실행.
+상세docs/drive_jepa_region_research.md; 공유results/drive_jepa_region_research_v1/(summary.json,comparison.csv,validation.json,planning_comparison.png,development_pdm_results.json).
+실행train_drive_jepa_region_research.py; 평가evaluate_drive_jepa_region_research_pdm.py/evaluate_preserved_region_research_controls.py; 집계report_drive_jepa_region_research.py.

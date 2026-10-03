@@ -75,6 +75,11 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-03 최신완료:** 사용자승인SPARTAN/C-JEPA/IA-JEPA착안9조건×3seed×800update 및dev192공식PDM비교를완료했다.
+`docs/drive_jepa_region_research.md`, `results/drive_jepa_region_research_v1/summary.json`이최신이다.
+새변형은기존global비교군을넘지못했고current-only도동일성능으로미래예측추가효용미확인이다.
+CPU162통과/원본hash보존/학습·평가종료. 완료실험재실행/추가sweep/WA·navtest자동재개없음.
+
 **최신 "아키텍처 개선 방향으로 추가 학습" 승인**: 기존 선택 비교는 완료했고
 `configs/drive_jepa_selective_future/architecture_followup_v1.json`의5조건×3seed
 warmup100+joint200만 실행한다. 원본planner/teacher 고정, future branch contextual predictor/
