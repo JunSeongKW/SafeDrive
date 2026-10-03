@@ -1496,3 +1496,7 @@ Sparse연결밀도19.63%이나dense연산이므로FLOPs효율주장없음. 객�
 실행train_drive_jepa_region_research.py; 평가evaluate_drive_jepa_region_research_pdm.py/evaluate_preserved_region_research_controls.py; 집계report_drive_jepa_region_research.py.
 
 결과 commit `215cb6b`. `git push mine`은 sandbox DNS 실패 후 밖에서 재시도했으나 기존 VS Code Git 인증 소켓 ECONNREFUSED / No anonymous write access로 실패했다. 로컬 결과·코드는 모두 커밋됐고 작업 트리는 정리됐다. 원격 인증 복구 후 push만 남으며 GPU/학습/평가 작업은 없다.
+
+## 2026-10-03 Encoder 자체 미래 표현 학습 승인 및 사전등록
+
+사용자승인: encoder 입력/학습목적 변경 및 불필요한selector/predictor제거 가능. LoRA사용아님: 원본last2block+norm full update와FiLM.8조건×3seed×512update,같은512/192window;현재준비단계,CPU5검사통과.설계/근거는docs/encoder_future_learning.md.

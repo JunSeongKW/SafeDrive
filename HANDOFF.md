@@ -1,10 +1,18 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 14:59 KST (Codex)
+마지막 갱신: 2026-10-03 15:32 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
-**현재 최신 작업 완료:** SPARTAN/C-JEPA/IA-JEPA 착안9조건×3seed×800update 및개발PDM비교를완료했다.
+**최신 사용자 승인(2026-10-03): encoder 자체의 planning용 미래 표현 학습·평가.**
+기존 selector/future bridge 제거와 encoder 입력에 ego intent 추가를 승인했다.
+`docs/encoder_future_learning.md`, `configs/encoder_future_learning/controlled_comparison_v1.json`.
+LoRA 없이 원본 ViT 마지막2block+norm 전체 가중치를 학습하고 encoder 내부FiLM을 비교한다.
+앞22block/원본planner/teacher고정;512train/192dev/8조건×3seed×512update. 이전학습금지는이번범위에서해제.
+현재 CPU5계약검사통과, prefix준비·GPU gradient gate·학습·공식개발PDM은아직미실행.
+완료된 이전실험/WA/navtest를자동재개하지않으며공용데이터/원본자산을보존한다.
+
+**이전 작업 완료:** SPARTAN/C-JEPA/IA-JEPA 착안9조건×3seed×800update 및개발PDM비교를완료했다.
 등록commit5b85a01. 원본0.352210m/87.119134, 기존global0.347129m/88.826031,
 새sparse0.349238m/87.742199, +mask0.349230m/87.742244, +motion0.348680m/87.691769.
 현재특징만0.349207m/87.742499로미래예측추가효용미확인. 기법별추가효과CI모두0포함.
@@ -124,6 +132,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+현재 encoder_future_learning_v1 준비 중; 아직 GPU 프로세스 미기동.
 
 **현재 실행중인 작업 없음.** 등록27run과CPU PDM192장면×34조건모두종료했다.
 출력 `outputs/drive_jepa_selective_future/region_research_v1_20261003/`,
@@ -270,6 +280,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+새실험 성능 결과 없음. 새CPU5계약검사 통과.
 
 **최신 결과:** 27run완료. SPARTAN추가연결희소화/C-JEPA마스킹/IA움직임선택의추가planning이득은확인하지못했다. 원본대비일부ADE감소는있지만current-only도동일하며PDM개선CI는0포함. 전체수치/상황별/구성요소/비용은새report참조.
 
@@ -461,6 +473,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+Planning-facing encoder last2 full update, 내부 intent FiLM, training-only latent head, 입력부터 spatial masking,8조건 등록/config/runner/tests/docs를 추가했다.
+
 - 결과 commit `215cb6b` 이후 원격 인증 실패를 인수인계에 기록했다. 실험 코드·결과 수치는 변경하지 않았다.
 
 - 등록27run(21600update)을완료하고공식PDM192장면×34조건6528score를집계했다.
@@ -571,6 +585,8 @@ WA공식source/preset/checkpoint12 vs4 sampling불일치 확인, 결과조회전
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
+새승인실험: exact prefix 준비 → GPU gradient/마스킹 gate →24run 학습 → 공식개발PDM/공통representation probe →전체결과 보고.
+
 **현재 다음 판단:** 기존global비교군유지. 현재특징전달과미래변화정보의planning기여를분리하는후속설계가우선이며구현/학습미실행. 완료27run/PDM을반복하지않고새sweep는자동시작하지않는다.
 
 현재다음: K/크기고정, global future fusion 대신선택위치에대응하는spatial-memory연결을검토.
@@ -631,6 +647,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+새실험은 partial encoder continued fine-tuning이며 전체 encoder 사전학습·독립 test가 아니다. 성능개선/선택적미래감독효용은미확정.
 
 **현재 미결:** 세착안변형의추가이득/미래예측필요성/학습선택우월성미확인. Region변형이며객체기반논문재현/독립test/동적예산개선이아니다. 실험 결과 로컬 commit은 `215cb6b`다. `git push mine`은 sandbox DNS 차단 후 밖에서 재시도했으나, 기존 VS Code Git 인증 소켓 ECONNREFUSED / No anonymous write access로 실패했다. 인증 복구 후 push만 남았으며 실험·평가는 모두 완료됐다.
 
