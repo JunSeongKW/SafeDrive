@@ -283,6 +283,31 @@ Future head가 예측 부담을 흡수했는지, 고정 teacher가 planning에 �
 원래 연구의 객체별·상황별 예측 범위와 양을 학습하는 전체 명제는 남아 있다.
 등록한 이번 실험은 모두 완료했으며 추가 sweep은 실행하지 않았다.
 
+## 실험 결과 이미지
+
+PDMS 숫자와 함께 경로 변화의 크기를 볼 수 있도록 저장된 결과를 CPU에서 시각화했다.
+새 학습·모델 추론·PDM 재계산은 하지 않았다.
+
+- [전체 거리 오차와 상황별 변화 PDF](../results/encoder_future_learning_v1/visualization/01_encoder_learning_overview.pdf):
+  핵심 조건의 ADE 변화, 192개 구간의 개선·악화 분포, 현재 명령별 PDM 변화.
+- [실제 전방 영상과 예측 궤적 PDF](../results/encoder_future_learning_v1/visualization/02_observed_scenes_and_trajectories.pdf):
+  seed 29의 6블록 planning에서 ADE 변화가 가장 좋은 구간·중앙값 근처·가장 나쁜 구간을 보여준다.
+  결과를 기준으로 고른 설명용 사례이며 대표 표본이 아니다. 사진은 실제 현재 관측이고,
+  경로는 현재 ego 좌표계의 4초 예측이다. GT와의 거리 오차도 함께 표시했다.
+- [미래 감독의 추가 효과 PDF](../results/encoder_future_learning_v1/visualization/03_future_supervision_effect.pdf):
+  원본→6블록 planning의 4초 끝점 이동량 중앙값은 6.263 cm,
+  6블록 intent planning→강한 미래 감독의 끝점 이동량 중앙값은 1.790 mm다.
+  이 값은 모델 간 출력 차이이며 정답 대비 개선량이 아니다.
+
+3개 seed의 구간별 ADE 차이를 평균한 뒤 ±1 mm 표시 구간으로 나누면,
+6블록 planning은 113개 개선·4개 작은 변화·75개 악화다. 표시 기준을 통계적 동등성으로 해석하지 않는다.
+선택된 장면의 cached GT로 ADE를 다시 계산해 저장 수치와 맞는지 확인했고,
+원본 사진 token·cache·결과 파일 hash를 대조했다. 생성 모델로 그림을 꾸미지 않았다.
+
+PNG는 로컬 `outputs/encoder_future_learning_v1/visualization/`에 있고,
+공유 PDF와 [감사 JSON](../results/encoder_future_learning_v1/visualization/visualization_audit.json)은 결과 디렉터리에 있다.
+재생성 진입점은 [visualize_encoder_planning_results.py](../scripts/visualize_encoder_planning_results.py)다.
+
 ## 코드와 재현 자료
 
 | 역할 | 진입점 |

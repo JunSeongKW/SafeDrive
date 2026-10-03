@@ -10,6 +10,9 @@ LoRA 없이 마지막 2개 또는 6개 encoder block을 직접 학습하고,
 CPU 167개 검사 통과, 원본 가중치 보존, 우리 학습·평가 종료. 독립 test나 전체 encoder 사전학습 결과가 아니다.
 [전체 결과와 한계](docs/encoder_future_learning_results.md), [등록 설계](docs/encoder_future_learning.md)
 
+**사용자용 이미지:** 실제 전방 영상·원본/재학습 궤적·장면별 오차·미래 감독의 추가 효과를 3장으로 정리했다.
+[이미지 설명과 PDF](docs/encoder_future_learning_results.md#실험-결과-이미지). 새 학습이나 GPU 추론은 하지 않았다.
+
 
 현재 맥락과 ego 주행 의도에 따라, 같은 예산에서 planning에 유용한 미래 예측 대상을 선택하도록
 학습하는 연구 작업공간이다. 현재 구현 단위는 camera patch이며 객체 instance와 구분한다.

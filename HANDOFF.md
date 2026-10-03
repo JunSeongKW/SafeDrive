@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-03 17:09 KST (Codex)
+마지막 갱신: 2026-10-03 17:23 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 세션 끝: 상태 문서 갱신 + `tools/handoff-commit.sh` + `git push mine`.
@@ -135,6 +135,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**최신 시각화 완료:** `scripts/visualize_encoder_planning_results.py`로 저장 결과만 CPU에서 렌더링했다.
+PNG `outputs/encoder_future_learning_v1/visualization/`, 공유 PDF/감사 JSON `results/encoder_future_learning_v1/visualization/`.
+새 학습·모델 추론·PDM 재계산·GPU 사용은 없다. 그림 3장 모두 시각적으로 확인했다.
 
 **현재 실행 중인 우리 학습·평가는 없다.**
 본 36회와 추가 12회 모두 512 update에서 종료했고, 공식 개발 PDM·future probe·raw 영상 재추론을 완료했다.
@@ -290,6 +294,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**시각화에서 확인한 거리 변화:** 6블록 planning의 192개 구간에서 seed 평균 ADE 기준
+113개 개선·4개 ±1mm·75개 악화다. ±1mm는 표시용이며 통계적 동등성 기준이 아니다.
+4초 예측 끝점의 모델 간 이동량 중앙값은 원본→6블록 planning 6.263cm,
+6블록 intent planning→강한 미래 감독 1.790mm. 이동량과 GT 오차 감소는 다른 지표다.
+실제 영상/BEV/시간별 GT 오차 3사례는 seed29의 ADE 개선 최대·중앙·악화 최대를 의도적으로 선택했다.
+원본 사진 token과 cache hash, cached GT의 ADE 대조를 통과했다.
 
 **최신 결과: 48회 / 24,576 update 완료.**
 원본 ADE/PDM 0.352210 m / 87.119134%; planning-only 2블록 0.347629 / 88.396320,
@@ -492,12 +503,18 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 실험 결과 commit `955e82f`를 보존하고 원격 공유 재시도 결과를 기록했다.
-- GitHub push는 DNS 제한 밖 재시도에도 기존 VS Code Git 인증 오류로 실패했다.
-- 학습·평가·코드·수치는 변경하지 않았으며 인증 복구 후 push만 남았다.
+- 사용자 요청에 따라 encoder 실험 결과를 한국어 이미지 3장으로 렌더링하는 CPU script를 추가했다.
+- 전체 ADE 변화·개선/악화 구간 분포·현재 명령별 PDM, 실제 전방 영상/BEV/시간별 오차,
+  미래 감독 추가 시 경로 이동량과 오차 변화를 각각 시각화했다.
+- 저장 결과 hash 보존, 원본 사진 token/cache hash, 3사례 GT ADE 대조를 검증했다.
+- PDF와 provenance JSON을 공유하고 결과 보고서·README·연구 상태·인수인계를 갱신했다.
+- 기존 checkpoint/결과 변경, 새 학습·모델 추론·PDM scoring·GPU 사용은 없었다.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**최신 사용자 요청 처리:** 생성한 세 이미지를 사용자에게 전달한다. 상세 설명은 결과 보고서의
+`실험 결과 이미지` 절이다. 이전에 질문한 다음 방향은 시각화 요청으로 전환됐으며 새 학습을 시작하지 않았다.
 
 **이번 등록 실험은 모두 완료했다.** 결과 보고서를 기준으로 다음 encoder 학습 목적을 검토한다.
 Planning-only 기준선을 유지하고 미래 변화 정보를 같은 용량의 readout으로 더 잘 꺼낼 수 있는지를 우선 검증할 것을 제안한다.
@@ -566,6 +583,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**시각화 범위:** 저장된 개발 결과와 실제 사진이다. 선택된 3사례는 결과 기반 설명용이며 일반 성능 표본이 아니다.
+BEV에 지도/장애물 정보는 없고 closed-loop 재생도 아니다. 미래 특징 중요도나 생성된 미래 영상으로 해석하지 않는다.
+공유 PDF에 그림을 보존하고 PNG는 로컬 outputs에 둔다. 결과 원본 파일은 변경하지 않았다.
 
 **확정:** 두 블록 학습으로 encoder 표현과 개발 ADE를 바꿀 수 있다. 내부 intent도 표현에 영향을 준다.
 **미확정:** 선택적 미래 감독의 실질적 planning 이득, 6블록의 2블록 대비 우월성, 독립 test 일반화.

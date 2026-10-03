@@ -1,0 +1,144 @@
+{
+  "complete": true,
+  "source_results_unchanged": true,
+  "new_model_inference": false,
+  "new_training": false,
+  "gpu_used": false,
+  "scope": "Saved development results; 192 windows,182 unique scenes,24 recordings,3 seeds. Not independent test.",
+  "sources": {
+    "outputs/encoder_future_learning_v1/original_baseline.json": "4c9983b0750d36b42773dd9df830181eb8cab93e9187f76e3fb3dca264cb8688",
+    "results/encoder_future_learning_v1/combined_summary.json": "96bb220632305f74c3267368920356f9187f29c3723db687fde83dac08ad620f",
+    "outputs/encoder_future_learning_v1/encoder_planning_seed29/results.json": "9d33e8fc68c27316ef28a43ca12756898e035053172197b84fd8833f5cef3783",
+    "outputs/encoder_future_learning_v1/encoder_planning_seed47/results.json": "294ee1ebe596f684079aa24dbd33929b15e324bf94e580796d6363658be90dd8",
+    "outputs/encoder_future_learning_v1/encoder_planning_seed83/results.json": "e3af0d34aa4802243480793b7a4b5b39115f98ab9bc45cf5c92db9fe0ee390e6",
+    "outputs/encoder_future_learning_v1/encoder_planning_last6_seed29/results.json": "3e7e0b783ec45e360a492e0e40ab79dd4a7000dedd8e079a6e3002630feca7ee",
+    "outputs/encoder_future_learning_v1/encoder_planning_last6_seed47/results.json": "b921e48e3277c4bc63741f25ae35dae1b6b4c2644d98da43cc28bdec8d6afefe",
+    "outputs/encoder_future_learning_v1/encoder_planning_last6_seed83/results.json": "f0c88728b592b4027defe69e90307830271b9b053c8078a6e819447aa4e78bb6",
+    "outputs/encoder_future_learning_v1/intent_planning_last6_seed29/results.json": "7aec40a7c88fea8c37c3510e511b7b9007628762be5b74bead38b31e19e633b7",
+    "outputs/encoder_future_learning_v1/intent_planning_last6_seed47/results.json": "c873162856be6fb2665b8df51f13e6127fb657ee8d7da369ad22f8e8b770d480",
+    "outputs/encoder_future_learning_v1/intent_planning_last6_seed83/results.json": "581502959be335dbe65d1b9888ebb1cc71e4c0ca12e113950af14ab1bd3a2e54",
+    "outputs/encoder_future_learning_v1/intent_uniform_future_last6_seed29/results.json": "3d75f17576b93331b23912ceb3539c8f8cf2f07a247b2c091264f7a1b424a228",
+    "outputs/encoder_future_learning_v1/intent_uniform_future_last6_seed47/results.json": "639ec8a7d45c5f7813a5e36605ff4082152a477267aa672fcc4dd0863c84cd40",
+    "outputs/encoder_future_learning_v1/intent_uniform_future_last6_seed83/results.json": "a215c52b1c30e559c77ed342adede4cf63e726c8c27d2042fe7d489372aa0b02",
+    "outputs/encoder_future_additional_controls_v1/intent_uniform_future_last6_strong_auxiliary_seed29/results.json": "9b1d401bffdf4a5d6f422774598366220436e94233ec5538c7589be643476609",
+    "outputs/encoder_future_additional_controls_v1/intent_uniform_future_last6_strong_auxiliary_seed47/results.json": "19e40ffa8a0ccc3fb6a6f04887a40b582cb654c69c4d6dd52f675b2a90a21af8",
+    "outputs/encoder_future_additional_controls_v1/intent_uniform_future_last6_strong_auxiliary_seed83/results.json": "a07b3b8b8a41e101fe110385237e7f05c8f642be6bf6199a340496b866f8098c"
+  },
+  "window_change_counts": {
+    "encoder_planning": {
+      "improved_more_than_1mm": 112,
+      "within_1mm": 11,
+      "worse_more_than_1mm": 69
+    },
+    "encoder_planning_last6": {
+      "improved_more_than_1mm": 113,
+      "within_1mm": 4,
+      "worse_more_than_1mm": 75
+    },
+    "intent_uniform_future_last6_strong_auxiliary": {
+      "improved_more_than_1mm": 105,
+      "within_1mm": 8,
+      "worse_more_than_1mm": 79
+    }
+  },
+  "scene_cases": [
+    {
+      "selection": "오차 감소가 가장 큰 예시",
+      "token": "dfaf7f0318b25029",
+      "seed": 29,
+      "ade_change_m": -0.11693441867828369,
+      "endpoint_change_cm": 98.4058585798741,
+      "original_ade_m": 1.5561356059881049,
+      "trained_ade_m": 1.4392012829251808,
+      "cached_ground_truth_matches_reported_ade": true,
+      "ground_truth_cache_sha256": "3ba57245d4e788b09e5c36923b99ab8388d5fb40224b19d6185f3c8b35d878bc",
+      "current_frame_token": "dfaf7f0318b25029",
+      "image_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.20.03.01_veh-45_00171_00238/CAM_F0/d5a1c20797955799.jpg",
+      "image_sha256": "cfed72ac69899fe6893e835a2e2762bf4d8d062da28697174cbff15bf6d1316b"
+    },
+    {
+      "selection": "오차 변화가 중앙값에 가까운 예시",
+      "token": "7c72be317cca5e4a",
+      "seed": 29,
+      "ade_change_m": -0.00443103164434433,
+      "endpoint_change_cm": 2.058108940735306,
+      "original_ade_m": 0.060867008157882735,
+      "trained_ade_m": 0.05643597944689688,
+      "cached_ground_truth_matches_reported_ade": true,
+      "ground_truth_cache_sha256": "1443e4d459d46b5c8fe0645172abad64e232d3d4e1ac4bd7de98afed7909b9d2",
+      "current_frame_token": "7c72be317cca5e4a",
+      "image_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.15.13.52.55_veh-39_00371_00631/CAM_F0/079f4aac250057be.jpg",
+      "image_sha256": "3a62c388bb69532e6462f922bb90491daea19e386bf78b2fd65c34fa1500a6ba"
+    },
+    {
+      "selection": "오차 증가가 가장 큰 예시",
+      "token": "fe38f82d16e35220",
+      "seed": 29,
+      "ade_change_m": 0.056125104427337646,
+      "endpoint_change_cm": 13.862285977633467,
+      "original_ade_m": 0.3270227072940589,
+      "trained_ade_m": 0.3831478024312749,
+      "cached_ground_truth_matches_reported_ade": true,
+      "ground_truth_cache_sha256": "eac2b418efae7aa5b9c3d01678c3561d2b9671c02d369a2919bd75125a814bcd",
+      "current_frame_token": "fe38f82d16e35220",
+      "image_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.09.17.37.09_veh-12_02639_02992/CAM_F0/bfb39b09271f5d9b.jpg",
+      "image_sha256": "7517e2be17e56c9d6fbbec38ce363dcf4f9bba1c6a517aea40ec68ad7eeb762d"
+    }
+  ],
+  "future_effect": {
+    "planning_change_median_cm_by_time": [
+      0.5190372036353564,
+      1.1143491700926191,
+      1.9935007221215724,
+      2.8155525931081713,
+      3.4704425261293728,
+      4.137041762534404,
+      5.113942600434808,
+      6.262622814373146
+    ],
+    "future_change_median_mm_by_time": [
+      0.09012476103372377,
+      0.16595993331867365,
+      0.3211408371600336,
+      0.46874586168468735,
+      0.6239253240286131,
+      0.9012155249703994,
+      1.2273130718790866,
+      1.7895669156938487
+    ],
+    "future_change_p10_mm_by_time": [
+      0.01857214707678057,
+      0.037080304756154994,
+      0.07978211307187903,
+      0.132633471875315,
+      0.17825172936862158,
+      0.22633640607379496,
+      0.2707662725680408,
+      0.39593737536179857
+    ],
+    "future_change_p90_mm_by_time": [
+      0.2505230602611319,
+      0.44474855097412475,
+      0.9098704721730494,
+      1.3255004155481007,
+      1.8288049852065171,
+      2.409331244292499,
+      3.0639932425844547,
+      4.696078244223561
+    ],
+    "future_ade_change_mm_quantiles": [
+      -7.77590274810791,
+      -0.7284795244534811,
+      0.009370346864064535,
+      0.8152738213539127,
+      5.518356959025065
+    ]
+  },
+  "case_selection": "Seed29 planning-last6 vs original ADE change: minimum, upper median, maximum; illustrative outcome-selected cases, not representative sampling.",
+  "plot_script_sha256": "773a752d80fb887a816ec555200b0a96531874f4303f009d1cb668d1fa879100",
+  "images": [
+    "outputs/encoder_future_learning_v1/visualization/01_encoder_learning_overview.png",
+    "outputs/encoder_future_learning_v1/visualization/02_observed_scenes_and_trajectories.png",
+    "outputs/encoder_future_learning_v1/visualization/03_future_supervision_effect.png"
+  ]
+}

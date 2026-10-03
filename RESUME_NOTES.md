@@ -1563,3 +1563,25 @@ Config 설명의 all24 잔여문구를validation/report에정정했고과거conf
 `git push mine`은 sandbox에서 DNS 실패, 제한 밖 재시도에서는 기존 VS Code Git 소켓
 ECONNREFUSED와 No anonymous write access로 인증 실패했다.
 학습·평가는 완료했으며 로컬 자료는 보존됐다. 인증 복구 후 push만 남았다.
+
+
+## 2026-10-03 Encoder 실험 결과의 실제 장면 시각화
+
+사용자가 PDMS 숫자만으로 감이 오지 않는다며 이미지 시각화를 요청했다.
+`visualize_encoder_planning_results.py`를 추가해 저장된 48회 실험 중 핵심 조건을 CPU에서 렌더링했다.
+세 이미지: 전체 ADE/개선악화분포/명령별 PDM, 실제 전방영상+BEV+시간별GT오차,
+미래 감독의 추가 경로 이동량과 ADE변화. 한국어 NotoSansCJK를 사용하고 모두 육안 확인했다.
+
+구간별3seed평균ADE에표시용±1mm경계를적용: 2block112/11/69, 6block113/4/75,
+intent+strongfuture105/8/79(개선/작은변화/악화). 통계적 동등성 기준이 아니다.
+4초예측끝점모델간거리중앙값: original→planning6 6.262623cm,
+intentplanning6→strongfuture6 1.789567mm. 출력이동량이지GT오차개선량이아니다.
+사진사례는seed29 planning6의ADE변화가최소/상위중앙/최대인3개로의도적선택:
+dfaf7f0318b25029(-11.693442cm),7c72be317cca5e4a(-0.443103cm),fe38f82d16e35220(+5.612510cm).
+사례대표성주장없음. 실제currenttoken사진/GTcachehash와재계산ADE일치검증,
+참조sourcehash불변. Camera사진은실제관측;BEV는ego좌표계경로로closedloop재생아님.
+
+로컬PNG outputs/encoder_future_learning_v1/visualization/,
+공유PDF/JSON results/encoder_future_learning_v1/visualization/.
+새학습·모델inference·PDM재계산·GPU사용0. 기존weights/실험수치/원본데이터수정없음.
+결과보고서의실험결과이미지절과README/research_status/HANDOFF갱신.
