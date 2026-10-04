@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 23:09 KST (Codex)
+마지막 갱신: 2026-10-04 23:12 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- **2026-10-04 23:10 KST:** 사용자의부분학습대LoRA차이질문에현재코드/원논문을대조해설명했다. 기존부분queue running/첫조건240update·source20개/config불변을파일로확인. LoRA추가/학습재시작없음.
 
 - **2026-10-04 23:07 KST 상태점검:** 부분미세조정queue1601034/torchrun1602577 유지, 첫조건metric_plus_world192/4707update(4.08%) 진행. 새학습/추론/설정변경없이기존로그·프로세스·GPU·등록hash를확인했다. 최신근거 `results/lpwm_partial_planning_v1/status_review_20261004_2307.json`.
 
@@ -386,6 +388,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 부분계층선택과LoRA갱신방식은별도축이다. 현재는native출력12모듈직접학습이고중간attention LoRA와의직접비교없음. W고정이어도LoRA유효W+BA로encoder표현변경가능;activation/backward비용은적용위치에좌우된다. 예시1024²행렬의rank8은학습파라미터1,048,576→16,384이며64배속/총메모리64배절감주장은아님. 원논문/공식구현과현계산그래프해석을연구문서에구분해기록했다.
 
 - 23:07점검: 최근128update의wall평균3.843초/update, 초반loss11.309→최근7.540(서로다른train batch의로그). Update128기준encoder/context/dynamics/planner gradient유한·양수, RGBdecoder0. Failure/stopped없음/등록source20개·config불변. GPU전체36.444/36.311GB/사용률83·84%,우리peakallocated12.073GiB. 첫학습후개발모니터는아직미실행(초기0만완료)이므로PDMS개선판정없음.
 
@@ -704,11 +708,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자요청현재학습요약·ETA를위해기존queue/progress/validation/sourcehash와호스트GPU·프로세스를읽어확인했다. 본학습을중단·재시작하거나runtime/config를변경하지않았다.
-- 첫조건192/4707update,최근128update평균3.843초, GPU별전체VRAM36.44/36.31GB를근거JSON에보존하고HANDOFF1–5절/RESUME를갱신했다. 첫조건학습10/5 04:00–04:30,전체두조건+검증10/5 10:00–11:00예상이며GT ON속도·검증시간·공유부하불확실성을명시했다.
-- 직전8294fc3은로컬커밋완료/원격push GitHub인증실패였고학습은영향없이진행중이다.
+- 사용자질문에선택계층직접미세조정과LoRA의갱신자유도/적용위치/optimizer메모리/backward비용차이를원논문과현재LPWM코드로설명하고연구문서/HANDOFF/RESUME에기록했다.
+- 기존부분queue첫조건240update/source20개·config불변확인. 새GPU학습·추론·LoRA구현·대기열변경은없으며LoRA의LPWM성능/시간우월성은미측정이다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 현재부분GT두조건queue를유지한다. LoRA는후속설계후보이며이번설명만으로추가실행하지않는다. 비교시적용계층/intent위치/학습량/GT·SSL조건을맞추고실제step시간·VRAM·PDMS·world유지를함께측정한다.
 
 - 최신ETA(23:07KST): 첫512update개발모니터10/4 23:30경, 첫조건학습10/5 04:00–04:30, 두조건학습+검증10/5 10:00–11:00. 최근3.843초/update 기준학습만의합산은09:00경이며검증등여유를포함했다. GT ON조건속도/전체panel검증시간은미실측이므로다음로그로갱신한다.
 
@@ -872,6 +877,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- LoRA가현재출력계층부분학습보다더빠르거나PDMS가높다는근거는아직없다. 현재particle재구성을목적으로하면영상encoder경로의적용위치가핵심이며context/dynamics전용LoRA와구분한다. 직전b2c48fd원격push도GitHub인증오류로실패했다.
 
 - 이번턴은상태확인·요약·ETA보고다. 초기무작위planner평가만있고학습후PDMS개선미확인. 두조건GT OFF/ON각1epoch와SSL유지/부분갱신설정그대로이며새대조조건/추가epoch를등록하지않았다. 기존fullrun2095updatepause유지. 직전8294fc3원격push는인증오류로실패했다.
 

@@ -1870,3 +1870,10 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 최근128update경과시간기준3.843초/update(최근64도3.842),loss초기11.309→최근7.540,update128에서측정한모듈gradient유한/양수·decoder0. 등록20source/config불변,queue/training실패marker없음. GPU0·1사용률83/84%,전체VRAM36.444/36.311GB<46decimalGB,peakallocated12.073GiB.
 - 학습후dev모니터는아직없고초기128dev만완료. 첫512update평가23:30경예상. 최근속도기준학습계산만첫조건10/5 03:56/두조건08:58,모니터·저장·각조건검증을고려해사용자에게첫조건04:00–04:30/전체10:00–11:00KST로보고. GT ON속도/전체panel평가소요미실측·공유부하/입장대기로변동가능명시.
 - 근거 `results/lpwm_partial_planning_v1/status_review_20261004_2307.json` 보존,HANDOFF1–5/RESUME갱신. 직전8294fc3push는GitHub인증실패였으며학습영향없음.
+
+
+## 2026-10-04 23:10 KST — 일부 계층 학습과 LoRA 차이 설명
+
+- 사용자개념질문에현재LPWM부분학습구현/LoRA원논문(2106.09685)/microsoft공식구현을대조. 선택계층을직접갱신하는것과그계층변화량을저랭크로제한하는것은별도축이며조합가능. 원본W고정상태에서도LoRA유효W+BA가encoder표현을수정함을설명했다.
+- 현재native출력12모듈직접학습과중간attention LoRA의가설을구분. LoRA로학습파라미터/optimizer메모리는줄일수있으나앞쪽적용시backward/activation비용이남고우리rollout8step/SSL12frame계산도유지되므로속도/PDMS우열은직접비교필요.1024²/rank8예시는64배파라미터감소만의계산이며속도수치아님.
+- 기존queue running/첫조건240update/source20개·config불변을파일조회로확인. GPU실험/LoRA구현/대기열변경없음. 문서/HANDOFF갱신;직전b2c48fdpush는GitHub인증실패상태다.

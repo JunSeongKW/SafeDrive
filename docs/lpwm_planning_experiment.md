@@ -1,5 +1,31 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 후속 질문: 일부 계층 직접 미세조정과 LoRA의 차이
+
+갱신할계층의선택과그계층의갱신방식은별도축이다. 일부계층만LoRA로갱신하는조합도가능하다.
+선택한행렬을직접미세조정하면변화량에저랭크제약이없다. LoRA는원래행렬W를고정하고
+W_eff=W+(alpha/r)BA의작은행렬A/B를학습하여변화량rank를r이하로제한한다.
+예를들어bias없는1024×1024행렬은직접학습1,048,576개,rank8 LoRA는16,384개다.
+이는해당행렬의학습파라미터비교이며전체모델메모리나속도가64배개선된다는뜻은아니다.
+[LoRA 원논문](https://arxiv.org/abs/2106.09685),
+[공식 구현 및 적용계층 안내](https://github.com/microsoft/LoRA#additional-notes).
+
+현재부분학습은encoder/context/dynamics의12개native출력모듈을직접갱신한다. Particle위치·크기·
+presence·feature및미래particle출력이바뀔수있지만,고정된중간Transformer의가중치를직접수정하지는않는다.
+중간attention에LoRA를넣으면그연산의유효가중치도planning gradient로수정할수있다.
+원본W고정과encoder출력고정은다르다. 현재particle을수정하려면영상particle생성경로에적용해야하며,
+context/dynamics에만적용한LoRA는그것만으로현재영상particle encoder의함수를바꾸지않는다.
+
+계산그래프관점에서LoRA는gradient/optimizer상태를줄이지만앞쪽LoRA를학습할경우중간연산을통과하는
+backward와activation비용이남는다. 마지막계층만직접학습하면고정prefix에대한backward를생략할수있는
+경우가있다. 우리모델은미래8step rollout과12frame SSL도유지하므로LoRA전환의시간이득은실측해야한다.
+현재모듈5.56M의부분학습과LPWM용LoRA의PDMS/속도직접비교는없다.
+
+현재빠른실험은계속수행하고,향후중간객체관계/시간상호작용수정의효용을시험할때particle interaction/
+context/dynamics의선택한attention LoRA+native출력head학습을별도후속가설로검토할수있다.
+그비교는동일Stage1/intent위치/planner/데이터/학습량/GT보조설정/SSL을맞추고step시간·메모리·
+PDMS·world유지성능을함께봐야한다. 이번질문에서는LoRA실행/설정변경/새실험등록을하지않았다.
+
 ## 2026-10-04 후속 질문: 두 단계 학습과 Stage2 갱신 범위의 선행 사례
 
 2단계 학습은 표현/세계모델을 먼저학습한뒤행동학습으로전달하는실제선행사례가있다.
