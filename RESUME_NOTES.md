@@ -1711,3 +1711,8 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - published: 3248/7745 (41.94%), 11:21이후2.381clip/s, ETA2026-10-04T12:13:30.870112+09:00.
 - posttrained: 3208/7745 (41.42%), 11:21이후2.350clip/s, ETA2026-10-04T12:14:13.359031+09:00.
 - Supervisor/queue/평가2process정상,등록sourcehash불변. Stage2는Stage1gate후GPUprofile전이며전체완료시각미측정. `results/lpwm_navsim_full_posttraining_v2/evaluation_progress_20261004_1142.json`. 학습/queue변경없음.
+
+## 2026-10-04 11:46 KST — Particle 시각화 범례 설명
+
+- draw_particles/capture_particle_snapshot 및공식decode_objects와실제straight PNG를대조.64중심점, learned-scale/presence상위16box,HSV색particle index,점면적7+16presence/alpha.25+.75presence확인.
+- Box는지역glimpse배치범위이며object detector GT box/분산아님; 내부alpha/depth가실제합성을결정. Presence sum은객체수가아니고top16은시각화만. GIF는동일장면의checkpoint변화. 기존문서에범례추가/실행코드와출력불변.

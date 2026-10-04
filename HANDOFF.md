@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 11:42 KST (Codex)
+마지막 갱신: 2026-10-04 11:46 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 11:46 KST: 사용자 particle/사각형 의미 질문은 저장시각화와코드읽기로답변. 실행중평가/queue/source변경없음. 아래진행률은해당시점의기록이다.
 
 **2026-10-04 11:42 KST 진행/ETA 점검:** Stage1 전체개발평가 공개/적응 각3248/3208/7,745clip. GPU0 PID3569927/GPU1 PID3569928 정상, 기존supervisor919150/queue1481082 유지. 학습20epoch는완료, Stage2는gate대기.
 
@@ -346,6 +348,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 시각화확인:64개중심점, presence상위16개 learned-scale 사각형,색은particle index,점크기/alpha는presence. GT/검출box/불확실성/위험도표시아님. Presence sum은객체수아님,16개선택은시각화만.
 
 **2026-10-04 11:42 KST:** 11:21의각242clip 기록과현재카운트로평가처리율/ETA계산. 공개2.381clip/s,적응2.350clip/s. 각GPU48/51%,VRAM2.6/2.9GiB는추론측정. `results/lpwm_navsim_full_posttraining_v2/evaluation_progress_20261004_1142.json`에기준시각/완료예정시각보존.
 
@@ -607,10 +611,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재공개/적응LPWM 전체개발평가진행률과프로세스/GPU를점검하고실측처리율기반ETA JSON보존.
-- Stage1학습완료/현재검증진행/Stage2 gate대기와각예상시간범위를구분해인수인계갱신. 런타임변경없음.
+- 사용자질문에따라실제시각화코드/저장PNG/공식RGBA decoder를대조하고점·사각형·색·presence·GIF의의미를기존연구문서에명시.
+- 런타임/이미지/평가결과변경없이문서와인수인계만갱신.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 시각화해석시점/박스/색/presence설명은 `docs/lpwm_planning_experiment.md`의시각화범례절참조. 기존학습·평가queue를이설명작업때문에수정/재시작하지않는다.
 
 - 최신ETA는전체개발평가추론에한정한다. 이후통계집계/Stage1추가검사/teacher gate/GPUprofile가이어진다. Stage2조건별94,140update×3의전체완료시각은실제GPUthroughput측정전확정하지않는다.
 
@@ -719,6 +725,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- Particle 중심/scale는지역표현의기하이며검출객체정답경계/영속적tracking을보장하지않는다. GIF는동일장면의학습checkpoint변화이지실제시간객체이동영상이아니다.
 
 - 평가진행률/ETA는부분개발결과의성능판정이아니다. 전체Stage1gate/Stage2시작미완료이며GPU소량사용은현재추론단계때문이다. 처리율변동/후속집계시간은ETA에불확실성을준다.
 
