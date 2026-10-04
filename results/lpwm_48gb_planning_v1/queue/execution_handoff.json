@@ -1,0 +1,101 @@
+{
+  "reason": "User requested48GB VRAM cap and batch increase",
+  "training": {
+    "pid": 1602577,
+    "state": "S",
+    "parent_pid": 1,
+    "start_ticks": "28571490",
+    "uid": 1020,
+    "arguments": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nnodes=1",
+      "--nproc-per-node=2",
+      "scripts/train_lpwm_partial_planning.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/partial_output_layers_v1.json",
+      "--condition",
+      "metric_plus_world",
+      "--resume"
+    ]
+  },
+  "workers": [
+    {
+      "pid": 1602652,
+      "state": "S",
+      "parent_pid": 1602577,
+      "start_ticks": "28571766",
+      "uid": 1020,
+      "arguments": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+        "-u",
+        "scripts/train_lpwm_partial_planning.py",
+        "--config",
+        "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/partial_output_layers_v1.json",
+        "--condition",
+        "metric_plus_world",
+        "--resume"
+      ]
+    },
+    {
+      "pid": 1602653,
+      "state": "S",
+      "parent_pid": 1602577,
+      "start_ticks": "28571766",
+      "uid": 1020,
+      "arguments": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+        "-u",
+        "scripts/train_lpwm_partial_planning.py",
+        "--config",
+        "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/partial_output_layers_v1.json",
+        "--condition",
+        "metric_plus_world",
+        "--resume"
+      ]
+    }
+  ],
+  "supervisors": [
+    [
+      {
+        "pid": 1709131,
+        "state": "S",
+        "parent_pid": 1,
+        "start_ticks": "28918202",
+        "uid": 1020,
+        "arguments": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/queue_lpwm_followup_methods.py",
+          "--config",
+          "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/four_method_sequence_v1.json"
+        ]
+      },
+      "outputs/lpwm_four_method_queue_v1"
+    ],
+    [
+      {
+        "pid": 1675463,
+        "state": "S",
+        "parent_pid": 1,
+        "start_ticks": "28807718",
+        "uid": 1020,
+        "arguments": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/queue_lpwm_adaptation_methods.py",
+          "--config",
+          "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/adaptation_method_comparison_v1.json"
+        ]
+      },
+      "outputs/lpwm_adaptation_method_comparison_v1"
+    ]
+  ],
+  "new_queue_pid": 1902774,
+  "time_unix": 1791128146.7465298,
+  "strategy": "Stop only owned CPU supervisors with SIGKILL, then SIGINT each training rank for an atomic model+AdamW checkpoint",
+  "completed_updates": 1576,
+  "optimizer_states": 125,
+  "checkpoint_sha256": "b3d06344cb3fe3c67cdc7708d6f30a36539f98f2d5bece64502f69968b5a3337",
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/queue/partial_resume_source.pt"
+}

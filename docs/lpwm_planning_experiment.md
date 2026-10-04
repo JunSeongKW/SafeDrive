@@ -1,5 +1,65 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 48GB 상한과 배치8 실행 전환
+
+사용자가 VRAM48GB로 상한을 올리고 배치/워커를 늘려 실제 진행하도록 승인했다.
+기존46GB/6GiB 여유 및 학습을 중단하지 않는 이전 조회 범위는 이 요청으로 갱신됐다.
+다른 사용자의 GPU process나 원본 데이터는 변경하지 않았다.
+
+### 실행 변경과 실측
+
+| 항목 | 기존 | 새 실행 |
+|---|---:|---:|
+| 카드 전체 VRAM 상한(다른 사용자 포함) |46decimalGB|48decimalGB|
+| GPU당 planning microbatch |4|8|
+| Gradient accumulation |2|1|
+| GPU 수 / 유효 planning batch |2 /16|2 /16|
+| SSL clip 수/update |8|8|
+| 입력 worker/rank |0|0|
+| 운영 중 최소 물리 free |6GiB|3GiB|
+| CUDA allocator 상한 |22GiB|23.2GiB|
+| Tensor allocated 상한 |21.5GiB|22.75GiB|
+
+동일한1576 checkpoint 모델/AdamW에서 배치4/8을 각각8update 측정했다. 첫2회를 제외한
+평균은4.4078→2.9921s/update(시간32.12% 감소, 처리량1.473배)였다. 공유 GPU 부하에
+따라 달라질 수 있는 짧은 순차 실측이며 전역 최적이나 장기 속도 보장은 아니다.
+Batch8의 rank0 tensor peak22.0778GiB, 두 카드 전체 최대 관측45.5921decimalGB,
+최소 물리 free4.9521GiB,48GB 대비 여유2.2425GiB. OOM/메모리 guard 중단 없음.
+Profile 동안0.5초 간격의 카드 통계이며 순간적인 모든 peak를 측정한 것은 아니다.
+선택 기준은 유한 loss/gradient,48GB 대비 최소0.5GiB 여유,물리free3GiB와 속도다.
+개발 성능은 배치 선택에 쓰지 않았다. 워커0/2/4/8의 앞선 CPU 입력 비교에서0이
+가장 빨랐고 입력 준비가 학습시간의약0.38%여서 worker0을 유지했다.
+
+### 학습 보존과 이어가기
+
+Partial1576에서 모든 rank에SIGINT를 보내 update 경계에서 model+AdamW를 저장했다.
+125optimizer state가 모두step1576임을 확인했고, 원본을 보존한 별도 복사본 SHA는
+`b3d06344cb3fe3c67cdc7708d6f30a36539f98f2d5bece64502f69968b5a3337`이다.
+Profile 가중치는 버리고 본학습은1577부터 시작했다. 본학습은 총4707update/75,297train장면,
+원래LR/loss/모델/분할/SSL비중/activation checkpointing을 유지한다. Microbatch 그룹이 바뀌면
+Dropout 및 개별 SSL clip의 RNG는 달라질 수 있으므로 bitwise 동일한 학습 연속성 주장은 하지 않는다.
+기존 로그와 초기 particle 시각화도 새 실행 폴더에 복사해 전·중·후 비교를 이어간다.
+
+### 검증과 대기열
+
+- CPU 검사3개 통과: 과학적 설정 변경 거부, 재개 전후 다음AdamW update 동일성, 빠르지만 메모리 여유가 부족한 profile 탈락.
+- 실행 설정9개에서 유효planning16/SSL8 및 기존 scientific field 동일성 확인.
+- 두 GPU profile에서 encoder/context/dynamics/planner gradient가 유한하고 양수이며 frozen RGB gradient0 확인.
+- 새 wrapper의4planning/2world engineering evaluation 통과. 이는 성능평가 결과가 아니다.
+- 새 queue1902774, 현재 본학습 torchrun1978684. 원래 CPU queue1675463/1709131 및 training1602577은 정상인계 후 종료.
+- 순서: Partial학습→1024planning/256world검증→LoRA4/8 profile·감사·학습·검증→Adapter2/4/8→full2/4 재개·검증→네 방법paired보고.
+- 후속 방법도 성공한 실측 중 안전하고 빠른 배치 선택. 메모리만의 profile 실패는 작은 배치로 fallback, 다른 실행 오류는 중단.
+- Scientific 효용 gate 실패는 보고하고 다음 독립 비교를 계속한다. 불완전 학습/실행/인과검사 오류는 의존 작업을 차단한다.
+- 객체 GT 보조loss OFF/후순위. Full은 원본2095checkpoint와20epoch scheduler/conv_in명령 위치를 유지하고4707까지 이어간다.
+
+현재 상태: `outputs/lpwm_48gb_planning_v1/queue/queue_state.json`.
+실측: `results/lpwm_48gb_planning_v1/execution_review.json`.
+설정: `configs/lpwm_planning/execution_48gb_v1/queue.json`.
+새 실행 source38개/config20개를 hash등록했다. 실행 중 해당 source/config를 바꾸지 않는다.
+본학습 중 카드 통계는2초마다 감시하며48GB 또는free3GiB guard가 걸리면 우리 작업만 중단한다.
+공유GPU의 외부 메모리 급증이나 순간 할당까지 막는 하드웨어 격리 보장은 아니다.
+
+
 ## 2026-10-05: VRAM 상한48GB 가능성
 
 48GB 상한 검토: batch8 중심 추정47.07–47.20GB는 수치상 들어가지만 상한 여유0.80–0.93GB뿐이며, 추가 workspace1GiB를 포함하면48.14–48.28GB다. 예상 free3.45–3.58GiB로 현재6GiB guard도 충족하지 못한다.6GiB는 우리가 정한 보수적 운용 여유이며 물리적 불가능을 뜻하지 않는다. 현재코드 GB는10진(48GB=44.70GiB). 질문에대한계산검토만수행했고 실제batch8/제한변경없음.

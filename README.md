@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**최신(2026-10-05): 사용자 요청으로48GB 실행 설정을 별도 등록했다.**
+`configs/lpwm_planning/execution_48gb_v1/queue.json`에 네 가지 미세조정 순서를 유지했다.
+부분학습1576 checkpoint+AdamW를 보존하고 배치4/8 실측 후1577부터 이어간다.
+GPU별 전체48decimalGB/여유3GiB, 유효batch16/SSL8,worker0. 실측 결과와 실행 상태는
+`outputs/lpwm_48gb_planning_v1/queue/queue_state.json` 및 방법별`*_execution_selection.json`.
+이전 두 queue는 종료·대체됐으며 아래 PID/46GB는 이전 이력이다.
+
+
 **최신(2026-10-04 23:53 KST): 네 가지 미세조정 순차 비교를 등록했고 부분 학습은 계속 실행 중이다.**
 일부 계층 → 검증 → LoRA → 검증 → Adapter → 검증 → 이전 전체 미세조정 재개 → 검증.
 직접 객체 GT 보조 loss는 후순위이며 자동 실행하지 않는다. 전체 조건은 기존 model+AdamW update2095를

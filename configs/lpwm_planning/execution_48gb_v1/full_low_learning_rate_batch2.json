@@ -1,0 +1,151 @@
+{
+  "research_question": "Compare partial, LoRA, residual adapters and full low-learning-rate adaptation, each from the same Stage1 model and initial planner.",
+  "stage1_config": "configs/lpwm_navsim_adaptation/full_posttraining_v2.json",
+  "output_directory": "outputs/lpwm_48gb_planning_v1/full_low_learning_rate/batch2",
+  "shared_results_directory": "results/lpwm_48gb_planning_v1/full_low_learning_rate/batch2",
+  "seed": 47,
+  "conditions": [
+    "metric_plus_world"
+  ],
+  "epochs": 1,
+  "microbatch_size_per_gpu": 2,
+  "gradient_accumulation": 4,
+  "world_size": 2,
+  "lpwm_learning_rate": 1e-06,
+  "planner_learning_rate": 0.0003,
+  "world_objective_weight": 0.02,
+  "world_auxiliary_clips_per_gpu_microbatch": 1,
+  "precision": "FP32 official image encoder, BF16 dynamics/planner, activation checkpointing",
+  "optimizer": "AdamW",
+  "weight_decay": 0.0001,
+  "gradient_clip": 5,
+  "schedule": "Continue original20epoch warmup/cosine schedule at update2096, stop at4707 for one-epoch trend comparison; no scheduler reset.",
+  "checkpoint_interval_updates": 256,
+  "maximum_seconds_per_condition": 86400,
+  "minimum_free_gib": 3,
+  "maximum_allocated_gib": 22.75,
+  "planner_input": "four observed RGB frames, current 8D ego status, causal eight-step LPWM prior rollout",
+  "encoder_conditioning": "Original full model command FiLM at attribute CNN conv_in, preserved for checkpoint compatibility; partial/LoRA/adapter use conv_out.",
+  "planning_loss": "Soft candidate imitation + six official PDM subscore BCE + 0.02 original SSL, no direct object GT auxiliary loss.",
+  "world_loss": "unchanged official stage1 temporal ELBO on independently sampled training clips, never future input to planner",
+  "data": "all eligible observed-input navtrain training records, same recording validation split as stage1; no fixed clip cap",
+  "checkpoint_selection": "fixed final epoch, epoch diagnostics do not select the best development checkpoint",
+  "evaluation": "Same preregistered 1024 planning / 256 world development scenes as the ongoing partial baseline; paired method comparison, no independent-test claim.",
+  "stage1_gate_required": true,
+  "teacher_directory": "outputs/lpwm_candidate_teacher_v1",
+  "candidate_count": 512,
+  "planner_architecture": "particle_candidate_metrics",
+  "candidate_imitation_temperature_meters": 0.5,
+  "inference_imitation_exponent": 0.1,
+  "metric_loss_weight": 1.0,
+  "teacher_workers": 16,
+  "method_sources": {
+    "DrivoR": {
+      "paper": "https://arxiv.org/html/2601.05083v2",
+      "repository": "https://github.com/valeoai/DrivoR",
+      "commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+      "use": "compact perception memory and trajectory-conditioned subscore decoder; our fixed vocabulary replaces continuous proposal generation"
+    },
+    "DriveSuprim": {
+      "paper": "https://arxiv.org/html/2506.06659v3",
+      "repository": "https://github.com/William-Yao-2000/DriveSuprim",
+      "commit": "80fe792d7654a596d92e20d030d1650f6f605c02",
+      "use": "reviewed candidate imitation and metric distillation; coarse-to-fine selection and camera augmentation deferred"
+    },
+    "Hydra-MDP": {
+      "paper": "https://arxiv.org/html/2406.06978v3",
+      "repository": "https://github.com/NVlabs/Hydra-MDP",
+      "use": "train-only trajectory vocabulary and privileged simulator metric distillation; official implementation unavailable at review"
+    },
+    "Drive-JEPA": {
+      "paper": "https://arxiv.org/html/2601.22032v2",
+      "repository": "https://github.com/linhanwang/Drive-JEPA",
+      "use": "reviewed safe multimodal trajectory supervision; full PF checkpoint remains an unchanged evaluation reference"
+    },
+    "SafeDrive_workspace": {
+      "source": "navsim/agents/safedrive",
+      "use": "read-only reference: candidate refinement, scene safety and temporal drivable supervision, live rescoring of refined trajectories; no BEV-coordinate or object-identity assumptions transferred"
+    }
+  },
+  "validation_gates": {
+    "minimum_teacher_coverage": 0.95,
+    "stage1_all_causal_audits_pass": true,
+    "minimum_causal_audit_scenes": 8,
+    "maximum_vocabulary_dev_oracle_ade_meters": 1.5,
+    "maximum_vocabulary_dev_oracle_ade_p95_meters": 4.0,
+    "minimum_candidate_oracle_pdms": 0.85,
+    "minimum_dev_pdms_gain_over_initial": 0.0,
+    "maximum_world_reconstruction_relative_degradation": 0.1,
+    "maximum_world_forecast_relative_degradation": 0.1,
+    "minimum_risk_recordings": 5,
+    "minimum_dev_metric_calibration_improvement": 0.0
+  },
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "profile_updates": 8,
+  "initial_evaluation_after_training": true,
+  "automatic_navtest": false,
+  "stage1_admission_amendment": "results/lpwm_object_future_planning_v3/stage1_admission_amendment.json",
+  "object_auxiliary": {
+    "target_directory": "outputs/lpwm_stage2_object_targets_v1",
+    "categories": [
+      "vehicle",
+      "pedestrian",
+      "bicycle"
+    ],
+    "minimum_projected_side_pixels": 1.0,
+    "preparation_workers": 4,
+    "state_scales": [
+      40.0,
+      20.0,
+      10.0,
+      10.0
+    ],
+    "current_state_weight": 0.2,
+    "future_state_weight": 0.2,
+    "category_weight": 0.02,
+    "association": "detached multi-particle Gaussian ROI overlap, no presence weighting or one-to-one constraint; GT boxes enter loss only",
+    "gaussian_minimum_sigma_pixels": 2.0,
+    "auxiliary_head_hidden_dimension": 64
+  },
+  "comparison": "Resume earlier full run from2095 to4707updates. Partial/LoRA/adapter start from Stage1; full method retains original conv_in intent input and20epoch learning-rate schedule. Comparison is a practical method/configuration comparison, not isolated PEFT ablation.",
+  "object_supervision_decision": "Deferred by user; not scheduled in this method comparison.",
+  "continue_ablation_after_scientific_gate_failure": true,
+  "maximum_reserved_gib": 23.2,
+  "resource_limits": {
+    "maximum_gpu_used_bytes": 48000000000,
+    "interpretation": "48 decimal GB total per GPU including other users; minimum3GiB physical free; allocator capped at23.2GiB. CPU RAM has no48GB cap."
+  },
+  "workers_per_rank": 0,
+  "partial_finetuning": {
+    "policy": "output_layers",
+    "checkpoint_future_rollout": true,
+    "checkpoint_world_objective": true,
+    "rgb_decoder": "all native weights trainable at LPWM LR; receives SSL reconstruction gradients, no planning gradient",
+    "initialization": "Resume preserved Stage2 full model and AdamW state at2095; original Stage1 only used to construct the architecture and evaluation reference."
+  },
+  "trend_evaluation": {
+    "planning_scenes": 1024,
+    "world_clips": 256,
+    "selection": "recording round-robin with stable token hash, fixed before any predictions",
+    "monitor_interval_updates": 512,
+    "monitor_scenes": 128
+  },
+  "adaptation_method": "full_low_learning_rate",
+  "resume_from_prior_full": {
+    "checkpoint": "outputs/lpwm_object_future_planning_v3/user_pause_20261004/checkpoint_update002095.pt",
+    "checkpoint_sha256": "aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac",
+    "source_configuration": "configs/lpwm_planning/object_future_joint_v3.json",
+    "completed_updates": 2095,
+    "scheduler_epochs": 20,
+    "target_total_updates": 4707,
+    "reason": "User requested reusing the earlier paused full-finetuning checkpoint. Resume model and AdamW state; preserve old scheduler and conv_in command conditioning; stop at first-epoch trend checkpoint. Original paused run remains unchanged."
+  },
+  "execution_amendment": {
+    "parent_configuration": "configs/lpwm_planning/full_low_learning_rate_batch2_accumulation4_v1.json",
+    "parent_configuration_sha256": "dfc417759d9908d79cdb64febcde998b2f07117c2a2c0d7b833a6fa9d74be921",
+    "authorization": "User explicitly requested48GB VRAM cap and larger batch/workers. Workers0 retained after measured loading comparison.",
+    "invariants": "Effective planning batch16/world8; same model, LR, loss, data split, target4707updates.",
+    "rng_caveat": "Microbatch regrouping changes dropout and sampled SSL clips; continuation preserves model/AdamW/counters, not bitwise-equivalent updates."
+  }
+}

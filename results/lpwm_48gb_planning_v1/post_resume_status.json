@@ -1,0 +1,59 @@
+{
+  "checked_at_kst": "2026-10-05T00:42:33.152452+09:00",
+  "queue_pid": 1902774,
+  "training_pid": 1978684,
+  "progress": {
+    "update": 1616,
+    "total_updates": 4707,
+    "epoch_fraction": 0.343318461865307,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 25856,
+    "planning_loss": 6.700199127197266,
+    "world_objective": 17.759132385253906,
+    "loss": 7.055381774902344,
+    "imitation_loss": 4.543226957321167,
+    "metric_distillation_loss": 2.156972110271454,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {},
+    "lpwm_lr": 7.711357135481674e-06,
+    "planner_lr": 0.0002313407140644502,
+    "peak_allocated_gib": 22.077826499938965,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.011058859003242105,
+    "update_seconds": 2.6738698449917138,
+    "elapsed_seconds": 6210.413495353074
+  },
+  "gpu_resources": {
+    "0": {
+      "used_bytes": 45592084480,
+      "free_gib": 4.9521484375
+    },
+    "1": {
+      "used_bytes": 45570064384,
+      "free_gib": 4.9736328125
+    }
+  },
+  "source_checks": {
+    "source_sha256": true,
+    "configuration_sha256": true
+  },
+  "post_resume_logged_steps": [
+    1584,
+    1600,
+    1616
+  ],
+  "post_resume_logged_mean_update_seconds": 2.749098308656054,
+  "oom_or_guard_failure_observed": false,
+  "resume_checkpoint_sha256": "b3d06344cb3fe3c67cdc7708d6f30a36539f98f2d5bece64502f69968b5a3337"
+}

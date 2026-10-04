@@ -75,6 +75,17 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-05 최신 사용자 실행 승인: GPU별 전체 VRAM48decimalGB로 올리고 배치 증설 실측.**
+`configs/lpwm_planning/execution_48gb_v1/queue.json` / `scripts/queue_lpwm_48gb_planning.py`가
+기존 두 CPU queue를 대체했다(새 queue1902774). 이전46GB/6GiB 및 현재학습중단금지 규칙은 이번 승인에 한해 갱신된다.
+총48GB/물리free3GiB/allocator23.2GiB/allocated22.75GiB, GPU0·1만 사용한다.
+Partial1576 model+AdamW125state를 별도 보존 후 batch4/8을 실측하고 안전한 빠른 설정으로1577부터 재개한다.
+LoRA4/8 → Adapter2/4/8 → full2/4도 독립 profile 후 본학습·검증. 유효planning16/SSL8,worker0,
+기존 모델/loss/LR/navtrain75,297/4707updates/검증panel 유지. Profile weights는 본학습에 사용하지 않는다.
+Source/config는 새queue 등록hash를 따르며 실행 중 수정금지. 원본full2095/pause도 보존한다.
+전체 중단 요청은 새queue root의pause.requested로 전달하며 중복queue를 기동하지 않는다.
+
+
 **2026-10-04 23:53KST 최신 지시: 일부 계층 → LoRA → Adapter → 전체 low-LR 재개 순서.**
 `four_method_sequence_v1.json`과 `queue_lpwm_followup_methods.py`가 기존 partial/LoRA queue 완료 뒤
 Adapter와 full을 순차 실행한다. 각 조건 뒤 검증, 직접 객체 GT는 후순위. 현재 training1602577와

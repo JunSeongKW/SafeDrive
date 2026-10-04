@@ -1,0 +1,65 @@
+{
+  "output_directory": "outputs/lpwm_48gb_planning_v1/queue",
+  "shared_results_directory": "results/lpwm_48gb_planning_v1/queue",
+  "methods": [
+    {
+      "method": "partial_output_layers",
+      "profiles": [
+        "configs/lpwm_planning/execution_48gb_v1/partial_output_layers_batch4.json",
+        "configs/lpwm_planning/execution_48gb_v1/partial_output_layers_batch8.json"
+      ]
+    },
+    {
+      "method": "attention_lora",
+      "profiles": [
+        "configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+        "configs/lpwm_planning/execution_48gb_v1/attention_lora_batch8.json"
+      ]
+    },
+    {
+      "method": "residual_adapter",
+      "profiles": [
+        "configs/lpwm_planning/execution_48gb_v1/residual_adapter_batch2.json",
+        "configs/lpwm_planning/execution_48gb_v1/residual_adapter_batch4.json",
+        "configs/lpwm_planning/execution_48gb_v1/residual_adapter_batch8.json"
+      ]
+    },
+    {
+      "method": "full_low_learning_rate",
+      "profiles": [
+        "configs/lpwm_planning/execution_48gb_v1/full_low_learning_rate_batch2.json",
+        "configs/lpwm_planning/execution_48gb_v1/full_low_learning_rate_batch4.json"
+      ]
+    }
+  ],
+  "method_order": [
+    "partial_output_layers",
+    "attention_lora",
+    "residual_adapter",
+    "full_low_learning_rate"
+  ],
+  "maximum_gpu_used_bytes": 48000000000,
+  "minimum_free_gib": 3,
+  "profile_selection_cap_headroom_gib": 0.5,
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "old_followup_queue_pid": 1709131,
+  "old_comparison_queue_pid": 1675463,
+  "old_training_pid": 1602577,
+  "old_worker_pids": [
+    1602652,
+    1602653
+  ],
+  "automatic_object_gt_training": false,
+  "limitations": [
+    "One epoch and one seed; trends rather than convergence",
+    "Different adaptation locations/capacity; full method also changes LPWM LR",
+    "Fixed previously exposed development panels, no independent test",
+    "No separately trained frozen-LPWM control",
+    "Shared GPU timing is load-dependent",
+    "Resumed full method retains conv_in command conditioning and original20epoch scheduler, while other methods use conv_out and1epoch scheduler. Not an isolated adaptation-method comparison.",
+    "Partial resumes a preserved checkpoint with a newly measured execution batch; microbatch RNG regrouping is not bitwise equivalent.",
+    "Timing under shared GPU load may vary; selection uses speed and memory only, never development performance."
+  ],
+  "profile_selection": "Eight updates, discard first2 and choose fastest remaining mean with >=0.5GiB measured headroom below48decimalGB and >=3GiB free. Controlled allocator-limit failures reject larger batch; no development-based selection."
+}

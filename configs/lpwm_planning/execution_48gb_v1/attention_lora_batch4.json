@@ -1,0 +1,161 @@
+{
+  "research_question": "Compare attention LoRA with native output-layer tuning, without direct object auxiliary supervision, after one complete navtrain epoch.",
+  "stage1_config": "configs/lpwm_navsim_adaptation/full_posttraining_v2.json",
+  "output_directory": "outputs/lpwm_48gb_planning_v1/attention_lora/batch4",
+  "shared_results_directory": "results/lpwm_48gb_planning_v1/attention_lora/batch4",
+  "seed": 47,
+  "conditions": [
+    "metric_plus_world"
+  ],
+  "epochs": 1,
+  "microbatch_size_per_gpu": 4,
+  "gradient_accumulation": 2,
+  "world_size": 2,
+  "lpwm_learning_rate": 1e-05,
+  "planner_learning_rate": 0.0003,
+  "world_objective_weight": 0.02,
+  "world_auxiliary_clips_per_gpu_microbatch": 2,
+  "precision": "FP32 official image encoder, BF16 dynamics/planner, activation checkpointing",
+  "optimizer": "AdamW",
+  "weight_decay": 0.0001,
+  "gradient_clip": 5,
+  "schedule": "linear warmup 1 percent updates, cosine decay to 10 percent initial LR",
+  "checkpoint_interval_updates": 256,
+  "maximum_seconds_per_condition": 86400,
+  "minimum_free_gib": 3,
+  "maximum_allocated_gib": 22.75,
+  "planner_input": "four observed RGB frames, current 8D ego status, causal eight-step LPWM prior rollout",
+  "encoder_conditioning": "Same zero-initialized command FiLM after attribute CNN conv_out as the partial baseline; native LPWM weights frozen.",
+  "planning_loss": "Soft candidate imitation + six official PDM subscore BCE + 0.02 original SSL, no direct object GT auxiliary loss.",
+  "world_loss": "unchanged official stage1 temporal ELBO on independently sampled training clips, never future input to planner",
+  "data": "all eligible observed-input navtrain training records, same recording validation split as stage1; no fixed clip cap",
+  "checkpoint_selection": "fixed final epoch, epoch diagnostics do not select the best development checkpoint",
+  "evaluation": "Same preregistered 1024 planning / 256 world development scenes as the ongoing partial baseline; paired method comparison, no independent-test claim.",
+  "stage1_gate_required": true,
+  "teacher_directory": "outputs/lpwm_candidate_teacher_v1",
+  "candidate_count": 512,
+  "planner_architecture": "particle_candidate_metrics",
+  "candidate_imitation_temperature_meters": 0.5,
+  "inference_imitation_exponent": 0.1,
+  "metric_loss_weight": 1.0,
+  "teacher_workers": 16,
+  "method_sources": {
+    "DrivoR": {
+      "paper": "https://arxiv.org/html/2601.05083v2",
+      "repository": "https://github.com/valeoai/DrivoR",
+      "commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+      "use": "compact perception memory and trajectory-conditioned subscore decoder; our fixed vocabulary replaces continuous proposal generation"
+    },
+    "DriveSuprim": {
+      "paper": "https://arxiv.org/html/2506.06659v3",
+      "repository": "https://github.com/William-Yao-2000/DriveSuprim",
+      "commit": "80fe792d7654a596d92e20d030d1650f6f605c02",
+      "use": "reviewed candidate imitation and metric distillation; coarse-to-fine selection and camera augmentation deferred"
+    },
+    "Hydra-MDP": {
+      "paper": "https://arxiv.org/html/2406.06978v3",
+      "repository": "https://github.com/NVlabs/Hydra-MDP",
+      "use": "train-only trajectory vocabulary and privileged simulator metric distillation; official implementation unavailable at review"
+    },
+    "Drive-JEPA": {
+      "paper": "https://arxiv.org/html/2601.22032v2",
+      "repository": "https://github.com/linhanwang/Drive-JEPA",
+      "use": "reviewed safe multimodal trajectory supervision; full PF checkpoint remains an unchanged evaluation reference"
+    },
+    "SafeDrive_workspace": {
+      "source": "navsim/agents/safedrive",
+      "use": "read-only reference: candidate refinement, scene safety and temporal drivable supervision, live rescoring of refined trajectories; no BEV-coordinate or object-identity assumptions transferred"
+    }
+  },
+  "validation_gates": {
+    "minimum_teacher_coverage": 0.95,
+    "stage1_all_causal_audits_pass": true,
+    "minimum_causal_audit_scenes": 8,
+    "maximum_vocabulary_dev_oracle_ade_meters": 1.5,
+    "maximum_vocabulary_dev_oracle_ade_p95_meters": 4.0,
+    "minimum_candidate_oracle_pdms": 0.85,
+    "minimum_dev_pdms_gain_over_initial": 0.0,
+    "maximum_world_reconstruction_relative_degradation": 0.1,
+    "maximum_world_forecast_relative_degradation": 0.1,
+    "minimum_risk_recordings": 5,
+    "minimum_dev_metric_calibration_improvement": 0.0
+  },
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "profile_updates": 8,
+  "initial_evaluation_after_training": true,
+  "automatic_navtest": false,
+  "stage1_admission_amendment": "results/lpwm_object_future_planning_v3/stage1_admission_amendment.json",
+  "object_auxiliary": {
+    "target_directory": "outputs/lpwm_stage2_object_targets_v1",
+    "categories": [
+      "vehicle",
+      "pedestrian",
+      "bicycle"
+    ],
+    "minimum_projected_side_pixels": 1.0,
+    "preparation_workers": 4,
+    "state_scales": [
+      40.0,
+      20.0,
+      10.0,
+      10.0
+    ],
+    "current_state_weight": 0.2,
+    "future_state_weight": 0.2,
+    "category_weight": 0.02,
+    "association": "detached multi-particle Gaussian ROI overlap, no presence weighting or one-to-one constraint; GT boxes enter loss only",
+    "gaussian_minimum_sigma_pixels": 2.0,
+    "auxiliary_head_hidden_dimension": 64
+  },
+  "comparison": "One full navtrain epoch and identical Stage1/planner initialization, learning rates, candidate vocabulary, data order, SSL weight and development panels. Adaptation locations and degrees of freedom differ.",
+  "object_supervision_decision": "Deferred by user; not scheduled in this method comparison.",
+  "continue_ablation_after_scientific_gate_failure": true,
+  "maximum_reserved_gib": 23.2,
+  "resource_limits": {
+    "maximum_gpu_used_bytes": 48000000000,
+    "interpretation": "48 decimal GB total per GPU including other users; minimum3GiB physical free; allocator capped at23.2GiB. CPU RAM has no48GB cap."
+  },
+  "workers_per_rank": 0,
+  "partial_finetuning": {
+    "policy": "output_layers",
+    "checkpoint_future_rollout": true,
+    "checkpoint_world_objective": true,
+    "rgb_decoder": "frozen weights; SSL gradient to its particle inputs retained",
+    "initialization": "same Stage1 SSL checkpoint and seed47 planner as partial baseline; no warm start from trained partial weights"
+  },
+  "trend_evaluation": {
+    "planning_scenes": 1024,
+    "world_clips": 256,
+    "selection": "recording round-robin with stable token hash, fixed before any predictions",
+    "monitor_interval_updates": 512,
+    "monitor_scenes": 128
+  },
+  "lora_finetuning": {
+    "rank": 16,
+    "alpha": 32,
+    "dropout": 0.0,
+    "regions": [
+      "encoder_module.particle_inter_enc.pte",
+      "encoder_module.ctx_enc.pte",
+      "dyn_module.particle_transformer"
+    ],
+    "projections": [
+      "query",
+      "key",
+      "value",
+      "proj"
+    ],
+    "native_lpwm_weights": "all frozen, including native output heads and RGB decoder",
+    "planner_and_command": "fully trainable, exactly matching baseline architecture and initialization",
+    "initialization": "Kaiming A and zero B, separate restored RNG stream; effective model initially identical to partial baseline"
+  },
+  "adaptation_method": "attention_lora",
+  "execution_amendment": {
+    "parent_configuration": "configs/lpwm_planning/lora_attention_batch4_accumulation2_v1.json",
+    "parent_configuration_sha256": "b85cfb84f1f16a643577899aa98cf6aabbeb8d7789ca2f12127362045b2c1039",
+    "authorization": "User explicitly requested48GB VRAM cap and larger batch/workers. Workers0 retained after measured loading comparison.",
+    "invariants": "Effective planning batch16/world8; same model, LR, loss, data split, target4707updates.",
+    "rng_caveat": "Microbatch regrouping changes dropout and sampled SSL clips; continuation preserves model/AdamW/counters, not bitwise-equivalent updates."
+  }
+}

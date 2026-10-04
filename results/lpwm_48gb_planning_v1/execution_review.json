@@ -1,0 +1,89 @@
+{
+  "partial_checkpoint_update": 1576,
+  "partial_checkpoint_sha256": "b3d06344cb3fe3c67cdc7708d6f30a36539f98f2d5bece64502f69968b5a3337",
+  "profiles": [
+    {
+      "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/partial_output_layers_batch4.json",
+      "microbatch_size_per_gpu": 4,
+      "passed": true,
+      "returncode": 0,
+      "memory_guard": null,
+      "maximum_sampled_gpu_used_bytes": 35664166912,
+      "minimum_free_gib": 14.1982421875,
+      "minimum_cap_headroom_gib": 11.488639831542969,
+      "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+      "finished_unix": 1791128237.906642,
+      "training_summary": {
+        "condition": "metric_plus_world",
+        "completed_updates": 8,
+        "epochs": 0.0016995963458678563,
+        "train_clips": 75297,
+        "effective_batch_size": 16,
+        "world_size": 2,
+        "seconds": 51.41850493400125,
+        "peak_allocated_gib": 12.065181732177734,
+        "module_gradients": {
+          "image_encoder": 37.50771713256836,
+          "context": 5.640617847442627,
+          "dynamics": 60.625099182128906,
+          "rgb_decoder": 0.0,
+          "planner_and_command": 4.528833389282227
+        },
+        "trainable_parameters": 7770364,
+        "checkpoint_sha256": "555d7240241b2096527b48c5c4816ed7f74c52a53f68e27663c7c62030350d2d",
+        "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+        "configuration_sha256": "9b0e278b837e7f10bb645d9955d9ae5a272ed95487b845e9f07ab4de5dfe8998",
+        "profile_only": true
+      },
+      "steady_update_seconds": 4.407794231005634
+    },
+    {
+      "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/partial_output_layers_batch8.json",
+      "microbatch_size_per_gpu": 8,
+      "passed": true,
+      "returncode": 0,
+      "memory_guard": null,
+      "maximum_sampled_gpu_used_bytes": 45592084480,
+      "minimum_free_gib": 4.9521484375,
+      "minimum_cap_headroom_gib": 2.2425460815429688,
+      "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+      "finished_unix": 1791128311.2519376,
+      "training_summary": {
+        "condition": "metric_plus_world",
+        "completed_updates": 8,
+        "epochs": 0.0016995963458678563,
+        "train_clips": 75297,
+        "effective_batch_size": 16,
+        "world_size": 2,
+        "seconds": 44.30919662601082,
+        "peak_allocated_gib": 22.077826499938965,
+        "module_gradients": {
+          "image_encoder": 101.28620147705078,
+          "context": 12.359197616577148,
+          "dynamics": 56.92816162109375,
+          "rgb_decoder": 0.0,
+          "planner_and_command": 5.1121745109558105
+        },
+        "trainable_parameters": 7770364,
+        "checkpoint_sha256": "090dbdde737270eb3d7f9f65bc44523c70a35eff285383c32c7635c85fa1eb17",
+        "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+        "configuration_sha256": "fa90b04f2c953a06cd0000f01d8a74688e6ad78641c415e5a57844fe90f67464",
+        "profile_only": true
+      },
+      "steady_update_seconds": 2.9921335151787694
+    }
+  ],
+  "selected_configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/partial_output_layers_batch8.json",
+  "profile_update_time_reduction_fraction": 0.32117214226306634,
+  "profile_throughput_ratio": 1.4731275220993219,
+  "effective_batch": 16,
+  "world_clips_per_update": 8,
+  "workers_per_rank": 0,
+  "maximum_gpu_used_bytes": 48000000000,
+  "minimum_free_gib": 3,
+  "maximum_reserved_gib": 23.2,
+  "maximum_allocated_gib": 22.75,
+  "cpu_checks": "3passed: scientific-invariant rejection, next AdamW update identity and memory-safe profile selection",
+  "scope": "8updates per configuration from the same preserved state; compare last6. Shared GPU workload may change; not a global optimum or converged performance claim.",
+  "resume_semantics": "Model and AdamW states and cumulative update count preserved. Batch regrouping changes dropout and independent SSL sampling RNG; profile updates discarded."
+}
