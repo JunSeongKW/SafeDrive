@@ -1692,3 +1692,10 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 7280/28920 update, dev512 epoch5 loss21.132790/PSNR20.834908dB. finite objective/gradient, module audit56회 전부양수. GPU0/1 87/100%,36.1GiB사용/11.3GiB여유, RAMavailable354GiB.
 - 최근1.586s/update, 학습ETA10/04 10:40~11:30KST(전체최종검증제외). Checkpoint갱신/queue heartbeat/CPUteacher 20361scene진행확인. Source hash등록일치.
 - 원시근거 `results/lpwm_navsim_full_posttraining_v2/health_check_20261004_0104.json`. 이전SIGINT traceback3개를현재오류로집계하지않음. 학습중단/재시작/설정변경없음. 전체적응/PDMS개선은미확정.
+
+## 2026-10-04 11:17 KST — Stage1 종료 직전 재점검
+
+- 28912/28920update, dev512 epoch19 loss19.692797/PSNR21.100133dB. GPU0/1 100%,VRAM36.1GiB/여유11.3GiB, RAMavailable362GiB. 225개modulegradient감사모두양수/finite.
+- 전체ELBO/복원은좋아지지만dev dynamicsKL은epoch5 3840→epoch19 4210반등. 고정8장면causal 미래MSE epoch10 .023120→15 .023096으로정체. 실제원인/전체적응성공은최종검증전미확정.
+- CPUteacher complete/coverage gate true,train75165/dev27034,coverage99.82%/99.84%,official parity max2.98e-8. Queue는원래Stage1전체검증대기라node status가아직running인것이며parent완료는오류아님.
+- `results/lpwm_navsim_full_posttraining_v2/health_check_20261004_1117.json`에근거보존. runtime source등록hash일치/학습·queue변경없음. 이전pipeline_stopped 및SIGINT로그는현실행전이력.

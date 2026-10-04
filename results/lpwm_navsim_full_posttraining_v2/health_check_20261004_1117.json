@@ -1,0 +1,639 @@
+{
+  "checked_at": "2026-10-04T11:17:38.905743+09:00",
+  "execution_status": "stable_near_end_of_stage1",
+  "learning_interpretation": "Reconstruction/ELBO improve; late development dynamics KL increases and eight-scene future MSE gain plateaus. Await full causal evaluation; do not declare adaptation success.",
+  "progress": {
+    "update": 28912,
+    "total_updates": 28920,
+    "epoch_fraction": 19.994467496542185,
+    "updates_per_epoch": 1446,
+    "sampled_clips_including_epoch_padding": 462592,
+    "global_batch_size": 16,
+    "microbatch_size_per_gpu": 4,
+    "gradient_accumulation": 2,
+    "world_size": 2,
+    "data_loader_workers_per_rank": 0,
+    "data_wait_seconds": 0.0023367540270555764,
+    "elapsed_seconds": 49182.862240470015,
+    "update_seconds": 1.5450336009962484,
+    "peak_allocated_gib": 29.103778839111328,
+    "gradient_norm_before_clip": 28.36428451538086,
+    "module_gradients": {
+      "image_encoder": {
+        "norm": 29.661291122436523,
+        "parameters_with_nonzero_gradient": 6035191
+      },
+      "context": {
+        "norm": 0.5429531335830688,
+        "parameters_with_nonzero_gradient": 39389417
+      },
+      "dynamics": {
+        "norm": 2.1901752948760986,
+        "parameters_with_nonzero_gradient": 59869416
+      },
+      "rgb_decoder": {
+        "norm": 14.725417137145996,
+        "parameters_with_nonzero_gradient": 4251239
+      }
+    },
+    "kl": 815.9398193359375,
+    "kl_dyn": 3679.99755859375,
+    "loss": 19.64058780670166,
+    "loss_kl_context": 536.1857299804688,
+    "loss_kl_depth": 60.00060749053955,
+    "loss_kl_depth_dyn": 144.76559448242188,
+    "loss_kl_feat": 416.11180114746094,
+    "loss_kl_feat_dyn": 1376.0381774902344,
+    "loss_kl_kp": 226.81638717651367,
+    "loss_kl_kp_dyn": 1072.6915588378906,
+    "loss_kl_obj_on": 72.70899391174316,
+    "loss_kl_obj_on_dyn": 209.0297737121582,
+    "loss_kl_scale": 452.25269317626953,
+    "loss_kl_scale_dyn": 795.9142913818359,
+    "loss_kl_score_dyn": 0.0,
+    "loss_obj_reg": 1057.739013671875,
+    "loss_rec": 22575.57470703125,
+    "obj_on_l1": 31.877286911010742,
+    "psnr": 20.514477729797363
+  },
+  "epoch_validation": [
+    {
+      "epoch": 0,
+      "optimizer_update": 0,
+      "validation_clips": 512,
+      "kl_dyn": 12153.411155700684,
+      "loss": 64.83803288638592,
+      "loss_kl_context": 1120.7517466545105,
+      "loss_rec": 74927.43740844727,
+      "obj_on_l1": 41.990604139864445,
+      "psnr": 13.144877184182405
+    },
+    {
+      "epoch": 1,
+      "optimizer_update": 1446,
+      "validation_clips": 512,
+      "kl_dyn": 4004.8474044799805,
+      "loss": 23.399082094430923,
+      "loss_kl_context": 784.6606607437134,
+      "loss_rec": 26949.302932739258,
+      "obj_on_l1": 36.12716454267502,
+      "psnr": 20.461119547486305
+    },
+    {
+      "epoch": 2,
+      "optimizer_update": 2892,
+      "validation_clips": 512,
+      "kl_dyn": 3951.308568954468,
+      "loss": 22.33469144999981,
+      "loss_kl_context": 745.704948425293,
+      "loss_rec": 25698.031982421875,
+      "obj_on_l1": 35.11758403480053,
+      "psnr": 20.59924452006817
+    },
+    {
+      "epoch": 3,
+      "optimizer_update": 4338,
+      "validation_clips": 512,
+      "kl_dyn": 3948.3817615509033,
+      "loss": 21.85966293513775,
+      "loss_kl_context": 752.7707557678223,
+      "loss_rec": 25125.794631958008,
+      "obj_on_l1": 35.323994576931,
+      "psnr": 20.65707005560398
+    },
+    {
+      "epoch": 4,
+      "optimizer_update": 5784,
+      "validation_clips": 512,
+      "kl_dyn": 3925.6736068725586,
+      "loss": 21.477465987205505,
+      "loss_kl_context": 726.4293756484985,
+      "loss_rec": 24684.75715637207,
+      "obj_on_l1": 34.31344746053219,
+      "psnr": 20.766813278198242
+    },
+    {
+      "epoch": 5,
+      "optimizer_update": 7230,
+      "validation_clips": 512,
+      "kl_dyn": 3840.4396476745605,
+      "loss": 21.132789626717567,
+      "loss_kl_context": 710.3514742851257,
+      "loss_rec": 24302.591278076172,
+      "obj_on_l1": 32.72509354352951,
+      "psnr": 20.834908202290535
+    },
+    {
+      "epoch": 6,
+      "optimizer_update": 8676,
+      "validation_clips": 512,
+      "kl_dyn": 3866.80108833313,
+      "loss": 20.934655249118805,
+      "loss_kl_context": 699.6057877540588,
+      "loss_rec": 24058.36622619629,
+      "obj_on_l1": 33.08173502981663,
+      "psnr": 20.86817567050457
+    },
+    {
+      "epoch": 7,
+      "optimizer_update": 10122,
+      "validation_clips": 512,
+      "kl_dyn": 3863.504274368286,
+      "loss": 20.790220364928246,
+      "loss_kl_context": 705.790135383606,
+      "loss_rec": 23887.202423095703,
+      "obj_on_l1": 32.65065515041351,
+      "psnr": 20.844473481178284
+    },
+    {
+      "epoch": 8,
+      "optimizer_update": 11568,
+      "validation_clips": 512,
+      "kl_dyn": 3769.2658290863037,
+      "loss": 20.591791227459908,
+      "loss_kl_context": 692.7780094146729,
+      "loss_rec": 23676.048263549805,
+      "obj_on_l1": 31.402555748820305,
+      "psnr": 20.901588052511215
+    },
+    {
+      "epoch": 9,
+      "optimizer_update": 13014,
+      "validation_clips": 512,
+      "kl_dyn": 3934.2300357818604,
+      "loss": 20.48767927289009,
+      "loss_kl_context": 692.4905135631561,
+      "loss_rec": 23510.176559448242,
+      "obj_on_l1": 32.844468519091606,
+      "psnr": 20.949064031243324
+    },
+    {
+      "epoch": 10,
+      "optimizer_update": 14460,
+      "validation_clips": 512,
+      "kl_dyn": 3886.3703746795654,
+      "loss": 20.358095660805702,
+      "loss_kl_context": 689.2564804553986,
+      "loss_rec": 23372.19319152832,
+      "obj_on_l1": 31.793668910861015,
+      "psnr": 20.945034846663475
+    },
+    {
+      "epoch": 11,
+      "optimizer_update": 15906,
+      "validation_clips": 512,
+      "kl_dyn": 3987.295581817627,
+      "loss": 20.257865726947784,
+      "loss_kl_context": 705.2345247268677,
+      "loss_rec": 23221.4833984375,
+      "obj_on_l1": 32.49196572601795,
+      "psnr": 20.96661189198494
+    },
+    {
+      "epoch": 12,
+      "optimizer_update": 17352,
+      "validation_clips": 512,
+      "kl_dyn": 3911.3997440338135,
+      "loss": 20.13857811689377,
+      "loss_kl_context": 715.937511920929,
+      "loss_rec": 23095.354598999023,
+      "obj_on_l1": 32.09759570658207,
+      "psnr": 21.02820174396038
+    },
+    {
+      "epoch": 13,
+      "optimizer_update": 18798,
+      "validation_clips": 512,
+      "kl_dyn": 3982.4241733551025,
+      "loss": 20.077662408351898,
+      "loss_kl_context": 696.9000220298767,
+      "loss_rec": 23013.731674194336,
+      "obj_on_l1": 31.68709234893322,
+      "psnr": 21.03543494641781
+    },
+    {
+      "epoch": 14,
+      "optimizer_update": 20244,
+      "validation_clips": 512,
+      "kl_dyn": 3993.4980697631836,
+      "loss": 20.026523038744926,
+      "loss_kl_context": 686.1702184677124,
+      "loss_rec": 22954.558227539062,
+      "obj_on_l1": 31.14085590839386,
+      "psnr": 21.047117456793785
+    },
+    {
+      "epoch": 15,
+      "optimizer_update": 21690,
+      "validation_clips": 512,
+      "kl_dyn": 4015.5797367095947,
+      "loss": 19.88685917854309,
+      "loss_kl_context": 697.3519015312195,
+      "loss_rec": 22779.026107788086,
+      "obj_on_l1": 31.56049770116806,
+      "psnr": 21.05742645263672
+    },
+    {
+      "epoch": 16,
+      "optimizer_update": 23136,
+      "validation_clips": 512,
+      "kl_dyn": 4124.077930450439,
+      "loss": 19.891482681035995,
+      "loss_kl_context": 706.4858818054199,
+      "loss_rec": 22756.750900268555,
+      "obj_on_l1": 32.02454386651516,
+      "psnr": 21.059770196676254
+    },
+    {
+      "epoch": 17,
+      "optimizer_update": 24582,
+      "validation_clips": 512,
+      "kl_dyn": 4126.544038772583,
+      "loss": 19.83746801316738,
+      "loss_kl_context": 710.4837212562561,
+      "loss_rec": 22697.35466003418,
+      "obj_on_l1": 31.130948916077614,
+      "psnr": 21.04479968547821
+    },
+    {
+      "epoch": 18,
+      "optimizer_update": 26028,
+      "validation_clips": 512,
+      "kl_dyn": 4205.54151725769,
+      "loss": 19.740950599312782,
+      "loss_kl_context": 715.6275148391724,
+      "loss_rec": 22561.67218017578,
+      "obj_on_l1": 31.38573256134987,
+      "psnr": 21.112609282135963
+    },
+    {
+      "epoch": 19,
+      "optimizer_update": 27474,
+      "validation_clips": 512,
+      "kl_dyn": 4209.575937271118,
+      "loss": 19.692796662449837,
+      "loss_kl_context": 708.526782989502,
+      "loss_rec": 22507.456329345703,
+      "obj_on_l1": 31.161721661686897,
+      "psnr": 21.100132554769516
+    }
+  ],
+  "all_logged_objectives_gradients_finite": true,
+  "module_gradient_audit_count": 225,
+  "all_module_gradient_audits_positive_finite": true,
+  "recent_seconds_per_update": 1.5566038563447364,
+  "recent_train_loss_mean": 18.406818374991417,
+  "gradient_audit": {
+    "update": 28800,
+    "modules": {
+      "image_encoder": {
+        "norm": 29.661291122436523,
+        "parameters_with_nonzero_gradient": 6035191
+      },
+      "context": {
+        "norm": 0.5429531335830688,
+        "parameters_with_nonzero_gradient": 39389417
+      },
+      "dynamics": {
+        "norm": 2.1901752948760986,
+        "parameters_with_nonzero_gradient": 59869416
+      },
+      "rgb_decoder": {
+        "norm": 14.725417137145996,
+        "parameters_with_nonzero_gradient": 4251239
+      }
+    }
+  },
+  "gpu_host_observation": {
+    "gpu0": {
+      "utilization_percent": 100,
+      "used_mib": 36995,
+      "free_mib": 11557,
+      "pid": 920132
+    },
+    "gpu1": {
+      "utilization_percent": 100,
+      "used_mib": 36995,
+      "free_mib": 11556,
+      "pid": 920133
+    },
+    "host_available_memory_gib": 362
+  },
+  "queue_stage": "waiting_for_stage1_full_training_and_validation",
+  "queue_failed": false,
+  "runtime_sources_match_registration": true,
+  "teacher_preparation": {
+    "complete": true,
+    "teacher_gate_passed": true,
+    "coverage": {
+      "train": 0.9982469421092474,
+      "development": 0.9984488107549121
+    },
+    "valid_counts": {
+      "train": 75165,
+      "development": 27034
+    },
+    "maximum_official_scorer_parity_error": 2.9801488943270726e-08,
+    "note": "Preparation coverage gate passed; downstream teacher oracle/vocabulary gate still pending."
+  },
+  "fixed_eight_scene_visualization": [
+    {
+      "update": 0,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.04461017088033259,
+        "forecast_mse": 0.05366304004564881,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.0774846002459526,
+          "forecast_mse": 0.0816306546330452,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.024854684248566628,
+          "forecast_mse": 0.05274001881480217,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.03558855131268501,
+          "forecast_mse": 0.03869706392288208,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.04154393449425697,
+          "forecast_mse": 0.03953215107321739,
+          "persistence_mse": 0.025138428434729576
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.030189668759703636,
+          "forecast_mse": 0.050660986453294754,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.0644010603427887,
+          "forecast_mse": 0.07506441324949265,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.029154391959309578,
+          "forecast_mse": 0.041428204625844955,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.05366447567939758,
+          "forecast_mse": 0.04955082759261131,
+          "persistence_mse": 0.06216788291931152
+        }
+      ]
+    },
+    {
+      "update": 1446,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.009260268765501678,
+        "forecast_mse": 0.029535210924223065,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.005868041887879372,
+          "forecast_mse": 0.024237224832177162,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.006335783749818802,
+          "forecast_mse": 0.03981569781899452,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.011588919907808304,
+          "forecast_mse": 0.029617398977279663,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.0055536068975925446,
+          "forecast_mse": 0.0179829690605402,
+          "persistence_mse": 0.025138428434729576
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.016537219285964966,
+          "forecast_mse": 0.03457779064774513,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.008146756328642368,
+          "forecast_mse": 0.0359831340610981,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.0037897545844316483,
+          "forecast_mse": 0.016281770542263985,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.01626206748187542,
+          "forecast_mse": 0.03778570145368576,
+          "persistence_mse": 0.06216788291931152
+        }
+      ]
+    },
+    {
+      "update": 7230,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.009160400630207732,
+        "forecast_mse": 0.026576985139399767,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.005726767238229513,
+          "forecast_mse": 0.02242673933506012,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.006190701853483915,
+          "forecast_mse": 0.031174467876553535,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.011696450412273407,
+          "forecast_mse": 0.027446387335658073,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.005407422780990601,
+          "forecast_mse": 0.016624202951788902,
+          "persistence_mse": 0.025138428434729576
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.01502448320388794,
+          "forecast_mse": 0.036508962512016296,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.007660968694835901,
+          "forecast_mse": 0.029529878869652748,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.003844982711598277,
+          "forecast_mse": 0.017782915383577347,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.017731428146362305,
+          "forecast_mse": 0.031122326850891113,
+          "persistence_mse": 0.06216788291931152
+        }
+      ]
+    },
+    {
+      "update": 14460,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.009278482961235568,
+        "forecast_mse": 0.023120444850064814,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.005949655082076788,
+          "forecast_mse": 0.01760030724108219,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.006381468381732702,
+          "forecast_mse": 0.020604193210601807,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.012963657267391682,
+          "forecast_mse": 0.029465995728969574,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.005069867242127657,
+          "forecast_mse": 0.015862861648201942,
+          "persistence_mse": 0.025138428434729576
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.016298679634928703,
+          "forecast_mse": 0.03817825764417648,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.007512272801250219,
+          "forecast_mse": 0.021252142265439034,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.002905055647715926,
+          "forecast_mse": 0.010464257560670376,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.017147207632660866,
+          "forecast_mse": 0.031535543501377106,
+          "persistence_mse": 0.06216788291931152
+        }
+      ]
+    },
+    {
+      "update": 21690,
+      "scenes": 8,
+      "means": {
+        "reconstruction_mse": 0.008926894428441301,
+        "forecast_mse": 0.02309637941652909,
+        "persistence_mse": 0.040329359006136656
+      },
+      "records": [
+        {
+          "token": "8bcacef2dab251e0",
+          "reconstruction_mse": 0.005797595251351595,
+          "forecast_mse": 0.020579956471920013,
+          "persistence_mse": 0.029745690524578094
+        },
+        {
+          "token": "c4de723f8eb256b1",
+          "reconstruction_mse": 0.006052846554666758,
+          "forecast_mse": 0.018900243565440178,
+          "persistence_mse": 0.05471396446228027
+        },
+        {
+          "token": "8a61b6f43a50544d",
+          "reconstruction_mse": 0.013553406111896038,
+          "forecast_mse": 0.029071511700749397,
+          "persistence_mse": 0.03649085387587547
+        },
+        {
+          "token": "e06eb0bd75c35409",
+          "reconstruction_mse": 0.004343405365943909,
+          "forecast_mse": 0.015576447360217571,
+          "persistence_mse": 0.025138428434729576
+        },
+        {
+          "token": "76e801d6c90b5f14",
+          "reconstruction_mse": 0.015404696576297283,
+          "forecast_mse": 0.03818809241056442,
+          "persistence_mse": 0.04524116590619087
+        },
+        {
+          "token": "399635380c935794",
+          "reconstruction_mse": 0.006811451632529497,
+          "forecast_mse": 0.01737235300242901,
+          "persistence_mse": 0.0484955757856369
+        },
+        {
+          "token": "40c9bf1987b9570a",
+          "reconstruction_mse": 0.0028762964066118,
+          "forecast_mse": 0.007736537139862776,
+          "persistence_mse": 0.020641310140490532
+        },
+        {
+          "token": "e0176c9b70e45873",
+          "reconstruction_mse": 0.016575457528233528,
+          "forecast_mse": 0.03734589368104935,
+          "persistence_mse": 0.06216788291931152
+        }
+      ]
+    }
+  ],
+  "late_development_dynamics_kl_change_since_epoch5_percent": 9.611823735339131,
+  "old_error_markers": "Three historical SIGINT tracebacks and pipeline_stopped.json at 2026-10-03 21:34 precede the active run; no new runtime failure identified.",
+  "actions": "Read-only health check. No training source, optimizer, weights, queue or configuration changed."
+}
