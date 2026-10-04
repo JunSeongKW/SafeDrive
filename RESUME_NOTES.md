@@ -1830,3 +1830,13 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 진단은 GPU0 batch1/allocator4GiB/전체44GB 중단선/10분 제한으로 287.9초 완료. Peak allocated0.661GiB, 관측 GPU0 전체 최대36.489GB. 종료 후 본학습 GPU0/1 전체35.266/35.219GB로 사용자46decimalGB 제한 이내. 본학습 process-tree RSS18.66GB는 공유 mapping 중복을 포함하며 CPU46GB 제한은 없다.
 - 프로토콜/checkpoint hash/예측/weight audit/로그 검토/최신 상태 JSON과 학습 곡선 PNG를 `results/lpwm_object_future_planning_v3/health_check_20261004_2132/`에 보존. PNG 직접 확인, 문서/HANDOFF 갱신. 진단 결과로 checkpoint/epoch/config를 선택하지 않았다.
 - 약7.75초/update 기준 첫 epoch512장면 ADE/FDE 모니터는 10월5일04시 전후, 첫 조건 본학습 종료는 약8.3일 후 예상(향후 검증/공유 부하 제외). 객체 GT auxiliary on 조건은 첫 조건 학습·검증 후 자동 실행하며 채택 여부 미정. 전체 world retention/전체 개발 PDMS는 아직 미완료다. 직전1eb9471 push는 기존 Git 인증 오류로 실패한 상태다.
+
+## 2026-10-04 21:57 KST — 현재 Stage2 학습의 상세 실행 명세 보고
+
+- 사용자 요청으로 config/forward/loss/optimizer/teacher/검증 queue와 공식 LPWM 구현을 읽어 대조. 첫 조건1,888/94,140 update(0.4011epoch), queue1131167 계속, source14개/config hash 일치, failure/stopped 없음. 새 GPU 실행·학습·추론·runtime 수정 없음.
+- 연구 문서 첫 절에 관측4장/ego8D/명령 FiLM→full64 particle×12시점×14D→768개256D memory→512고정 train medoid 후보의2층Transformer scorer 구조를 기록했다. Context는 미래 particle에 영향을 주며 planner14D에는 직접 포함되지 않는다. 예측 미래는512후보 공통이고 후보 action별 rollout/상황별 particle·horizon 선택은 미구현이다.
+- 실제 loss는 soft XY-L1-distance candidate CE+6공식subscore BCE+0.02공식world ELBO. SSL은 별도로 뽑은12장 posterior 복원+11전이 KL이며 past-only RGB rollout loss가 아니다. MSE+0.1LPIPS, 내부0.01/12와beta(.08,.2,.08), KL balance 기본.5/feature kl_balance.01 차이, 주요 no-detach 경로와 부분 SG를 문서화했다.
+- LPWM109.55M 저LR1e-6/새planner·command LR3e-4, 총111.76M 전체 학습. Planning16장면과SSL8clip/update, AdamW/warmup941/cosine/clip5, DDP batch2×accum4×2GPU, worker0/RGB mmap/FP32 encoder·world+BF16 planning dynamics를 확인했다. RGBdecoder는SSL만 받고 planner loss 단독gradient는0인 기존 감사를 인용했다.
+- 두 번째 조건은 같은 Stage1/같은초기planner에서 새로 시작하며 current/future state와class 보조 항을 추가한다. GT/다대다Gaussian ROI association SG, 위치/개수/presence 강제 없음, 현재 투영3종의track만future유효시점 감독. 현재 두조건 모두refiner없음. GT감독채택 미정 유지.
+- 매epoch512dev/epoch0·1·5·10·15·20시각화/조건후전체27076dev(공식PDM유효27034)/7745world유지/미래persistence대조/두조건paired비교를 정리했다. 조건당1seed/고정최종epoch,10%world유지기준,과거노출navtest와미완료독립probe 한계 명시.
+- 상태근거 `results/lpwm_object_future_planning_v3/training_execution_review_20261004_2200.json` 저장. Config자유서술의first-condition 객체GT 오기와구refiner/stop문구는actual condition/분기와구분해문서에주석했고,등록config는불변이다. GPU각35.266/35.219GB<46GB,CPU RSS18.83GB(공유중복포함). 직전75687c2 push는기존인증오류로실패한상태다.

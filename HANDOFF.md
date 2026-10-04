@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 21:47 KST (Codex)
+마지막 갱신: 2026-10-04 22:01 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- **2026-10-04 21:57 KST 실행 명세 확인:** 첫 조건1,888/94,140 update, 0.4011epoch. Queue1131167 유지, source14개/config hash 일치, 오류 marker 없음. 사용자 요청은 현재 학습 방식의 상세 설명이며 이번 턴 새 GPU 진단/학습/추론/설정 변경 없음. 최신 근거 `results/lpwm_object_future_planning_v3/training_execution_review_20261004_2200.json`.
 
 - **2026-10-04 21:32–21:44 중간점검:** 기존queue1131167/torchrun1135635의첫조건본학습계속,1,744update시점0.3705epoch/94,140. Failure/stopped없음·source14개/config불변. 별도고정128dev/31recording 진단은완료됐고GPU반환,학습은중단·재시작하지않음. 최신시점은 `results/lpwm_object_future_planning_v3/health_check_20261004_2132/post_diagnostic_training_status.json`.
 
@@ -378,6 +380,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 실제 구성 재확인: 관측4장/ego8D→명령 FiLM particle encoder→causal 미래8step→768개14D particle token→2층256D 후보 scorer. 고정512개 train medoid, soft L1-distance imitation+6metric BCE+0.02공식ELBO. 첫 조건 object/refiner 비활성, 두 번째만 object GT auxiliary. World branch는 별도12장 posterior 복원+전이KL이며 past-only RGB rollout loss가 아니다. 조건당 전체20epoch, planning16/SSL8clip 샘플 per update. 새 수치 평가 없이 기존 실행 코드를 대조한 설명이다.
 
 - 중간점검: 초기16–256vs최근1504–1744로그평균total9.6775→7.0208/imitation5.9555→4.5907/metric3.3568→2.0600/world18.2615→18.5083. 128update단위gradient모든모듈유한/양수;첫update큰gradient와clip5유지. Saved1,536의746optimizerstate와실제모든모듈weight변경확인(LPWM상대L2약.05–.07%,planner16.8%).
 - 같은저장본1,536의고정128dev/31recording 간이평가: 미학습planner→학습후ADE8.4098→1.5844m/FDE17.6252→3.7796m/PDMS1.9397→78.5124. 초기무작위planner대비진전이며강한baseline/LPWM표현/GTaux효용증거아님. 전체dev/world유지검증미완료. 본학습VRAM각35.2GB,진단중최대36.489GB<46GB,진단287.9초/.661GiB완료. 최근7.75秒/update,첫epoch정기ADE/FDE예상10/5 04시전후.
@@ -682,11 +686,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자중간점검요청으로진행/로그/gradient/메모리/체크포인트/sourcehash를읽기검토했다. 실행중source/config/queue/모델은수정하지않음.
-- 독립read-only `check_lpwm_stage2_training_health.py`추가,update1,536checkpoint를hardlink로고정해optimizer/실제parameter변경검증. 기존epoch-monitor hash첫128개dev를예측전등록해초기planner와paired평가. GPU0진단4GiB상한·전체44GB중단선·10분제한내287.9초완료,전체최대36.489GB. 본학습계속확인.
-- 공유JSON에protocol/weightaudit/초기·학습후예측/pairedsummary/로그통계/진단후상태저장. 실제training curvePNG생성·시각확인. 기존연구문서/HANDOFF/RESUME에중간개선과작은개발집합·미학습planner비교의한계기록. 성능결과로학습량·checkpoint선택변경없음.
+- 사용자 상세 보고 요청으로 현재 config/model/loss/optimizer/teacher/검증 queue와 공식 LPWM 소스를 읽어 대조했다. 실행 중 source/config/queue/model 변경 및 신규 학습·추론 없음.
+- 기존 연구 문서 첫 절에 실제 forward/차원/ego FiLM/후보 선택/loss 수식/SG/두 조건/자원/검증 순서를 기록했다. 별도 SSL clip과 planning clip, posterior 복원과 past-only rollout, metric BCE와 좌표 안전 보정, full64 planner와30개 native decoder를 구분했다.
+- 시점별 상태와 등록 hash 일치 결과를 `training_execution_review_20261004_2200.json`에 저장했다. Config 자유서술의 first-condition 객체 GT 오기/이전 refiner 문구를 실행 분기와 구분해 설명했으며 hash 등록된 config는 수정하지 않았다. HANDOFF/RESUME 갱신.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 현재 구현 상세는 `docs/lpwm_planning_experiment.md`의 2026-10-04 실행 명세를 우선한다. 이번 요청에 따라 학습 전략을 바꾼 것은 아니다. 고정64particle/8future/한 장면 공통미래→후보 채점 구조이며 상황별 예측 예산 선택, 후보 action별 세계 rollout은 미구현이다. 독립 표현 효용 검증과 GT 채택을 이미 완료했다고 하지 않는다.
 
 - 완료중간진단을반복하지말고health_check_20261004_2132/summary.json을읽는다. 첫epoch4707update의512dev ADE/FDE정기평가가다음확인시점(초기예상10/5 04시). 최종전체dev/PDM/world유지및GTaux on/off는등록queue에서계속. Update1,536의78.51PDMS를전체개발·최종·독립test성능으로인용하지않는다.
 
@@ -833,6 +839,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 최신 요청은 현재 학습을 상세 설명하는 것이다. 기존 queue를 그대로 유지했다. Config 설명문 일부가 구안이지만 actual conditions와 model 분기는 명확하다. 실행 중 hash를 바꾸지 말고 향후 종료 후 문구 정리를 고려한다. 직전75687c2 push는 기존 GitHub 인증 오류로 실패했다.
 
 - 이번요청은실행중학습중간점검이다. 기존training을보존하며로그/가중치/고정128dev의초기진전을확인했다. LPWM표현미세조정효용·객체GT채택·영상/미래성능유지·최종PDMS는여전히미정. 신규진단은완료/기존queue계속,본학습재시작없음. 직전1eb9471의원격push는기존Git인증오류로실패한상태.
 

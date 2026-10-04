@@ -1,5 +1,232 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 현재 Stage2 학습의 실제 실행 명세
+
+사용자 요청에 따라 실행 설정과 forward/loss/optimizer/검증 코드를 읽어 대조했다.
+아래는 제안이 아니라 현재 `object_future_joint_v3.json`으로 실행하는 구성이다.
+21:57 KST에 첫 조건은 1,888/94,140 update, 0.4011/20 epoch이며 queue1131167은 계속 실행 중이다.
+등록 source14개/config hash 일치, queue_failed/stopped 없음. 이번 설명 작업에서 학습·추론을
+새로 실행하거나 runtime를 수정하지 않았다. 시점별 근거는
+`results/lpwm_object_future_planning_v3/training_execution_review_20261004_2200.json`에 보존했다.
+
+### 1. 실험 질문과 두 조건
+
+현재 실험의 직접 질문은 **같은 planning+SSL 학습에 현재/미래 객체 보조 감독을 추가하면
+planning 성능과 표현 보존이 개선되는가**다. 원래의 상황·의도별 미래 정보 선택 가설을 위한
+기반 실험이며, 동적 particle 수나 예측 시간 선택은 이번 구현에 없다.
+
+| 항목 | 첫 조건: 현재 실행 | 두 번째 조건: 대기 |
+|---|---|---|
+| 이름 | `metric_plus_world` | `metric_object_future_plus_world` |
+| LPWM 시작점 | Stage1 SSL 최종 checkpoint | 동일 checkpoint에서 새로 시작 |
+| Planner | 같은 seed47의 새 후보 채점기 | 같은 초기 planner |
+| 학습 | planning + SSL | planning + SSL + 객체 보조 loss |
+| LPWM/플래너 학습량 | 전체 가중치, 20 epoch | 동일 |
+| Refiner | 없음 | 없음 |
+
+두 번째 조건은 첫 번째 조건의 학습 결과를 이어받지 않는다. 각 조건 학습 후 검증한 뒤
+다음 조건을 실행하고 paired 비교한다. 직접 객체 GT 감독의 채택은 아직 결정하지 않았다.
+
+### 2. Stage1과 데이터
+
+Stage1은 공개 Sketchy `best_lpips` LPWM을 NAVSIM에 SSL post-training한 완료 작업이다.
+객체 GT/경로 loss/ego FiLM 없이 encoder·context·dynamics·RGB decoder를 모두 학습했다.
+23,126 train clip/122 recording, 7,745 development clip/40 recording, 20 epoch/28,920 update다.
+공개 모델 대비 복원·미래예측 개선과 원래 top16 박스 proxy 실패 기록은 모두 보존했다.
+Stage2 진입은 해당 proxy의 필수 gate 타당성 정정과 별도 admission amendment에 근거한다.
+Stage1이 모든 객체 정보를 완전히 학습했다는 판정은 아니다.
+
+Stage2 planning은 공식 navtrain log/token 필터와 관측 영상·ego GT 조건을 만족하는
+75,297 train 장면/122 recording, 27,076 development 장면/40 recording을 쓴다.
+SSL 보조 branch는 완전한 12장 영상이 있는 Stage1 train23,126 clip에서 별도로 샘플링한다.
+따라서 planning 장면 수와 world-model clip 수가 다르다. Train/development는 recording 단위로
+분리하며 exposed navtest를 자동 독립 test로 쓰지 않는다.
+
+- 영상: 전방 CAM_F0 한 대, 원영상 위아래28 pixel crop 후 128×128 RGB로 resize, 2Hz.
+- Planning 입력: 시간 −1.5, −1.0, −0.5, 0초의 영상4장 및 현재 ego8D.
+- Ego8D: driving command4D + 평면 속도2D + 평면 가속도2D.
+- 출력/GT: 현재 ego 좌표계의 0.5~4.0초, 8개 `(x,y,heading)`.
+- 이미지 cache는 전처리한 RGB uint8이며 LPWM feature cache가 아니다. 매 update encoder forward/backward를 수행한다.
+- 현재 planner에 LiDAR/BEV/HD map/미래 GT 영상/GT 객체 박스를 입력하지 않는다.
+  지도와 미래 환경은 PDM teacher label 생성에만 사용한다.
+
+### 3. Forward와 ego intent
+
+관측4장 → 영상 particle encoder/context → 관측64 particle/frame → context prior와 dynamics의
+8-step autoregressive rollout → 관측4+예측8시점 particle → 후보 채점 planner 순서다.
+미래 context는 관측/자신이 예측한 이력에서 생성하며 실제 미래 particle posterior를 넣지 않는다.
+Planning branch의 latent sampling은 deterministic이고 training dropout은 적용된다.
+
+Particle은 위치2D, scale2D, presence1D, depth latent1D, appearance4D를 가진다.
+Background4D를 각 particle에 함께 붙여 planner 입력은14D다. Depth는 metric depth GT가 아니며,
+64 particle은 객체64개/영속 track64개를 뜻하지 않는다. Planner는 full64를 사용한다.
+원래 RGB 복원 decoder의 variance 기준30개 선택, 시각화의 presence 상위16개와 구분한다.
+
+14D → 256D projection에 시간/particle-index embedding을 더해 **12×64=768 memory token**을
+만든다. Context latent는 dynamics를 통해 미래 particle에 영향을 주며 planner 입력14D에
+직접 concatenate하지 않는다. 모든 장면에서64개/8미래step을 유지한다.
+
+Command4D는 `4→64→64` MLP를 지나 particle attribute CNN의 첫 conv 출력에 FiLM으로 들어간다.
+`features*(1+0.1*tanh(scale))+0.1*tanh(shift)`이고 마지막 선형층은0으로 초기화한다.
+시작 시 원래 encoder를 보존하면서 학습 후 같은 영상의 표현이 명령에 따라 달라질 수 있다.
+현재 ego8D는 별도로 각 후보 query에도 더한다. 후보별 ego trajectory를 world dynamics의 action으로
+넣는 구현은 없으며, 한 장면의 동일한 미래 memory를512개 후보가 함께 읽는다.
+
+### 4. 후보 채점 planner와 inference
+
+Train GT 경로의 XY16D를 MiniBatchKMeans512개로 묶고 각 중심에 가까운 실제 train 경로를
+대표 후보로 고른다. 후보는8×3 좌표의 고정 buffer이며 optimizer가 좌표를 바꾸지 않는다.
+Dev/test 경로를 vocabulary 생성에 넣지 않았다.
+
+각 후보를 `[20m,20m,pi]`로 정규화하고24D→256D projection한 query에 ego embedding을 더한다.
+2층 Transformer decoder(hidden256,8 heads,FFN1024,dropout0.1)가768개 memory에 cross-attention한다.
+후보당 imitation logit1개와 PDM metric logit6개를 출력한다.
+
+Metric 순서는 무과실 충돌 회피/주행가능영역 준수/진행도/TTC/comfort/주행방향 준수다.
+확률을 각각 `collision,drivable,progress,ttc,comfort,direction`으로 쓰면 현재 NAVSIM-v1 합성은
+`PDMS_hat=collision*drivable*(5*progress+5*ttc+2*comfort)/12`이다.
+주행방향은 BCE 감독하지만 이 설정의 합성 점수 가중치는0이다.
+최종 선택은 `argmax(log(PDMS_hat)+0.1*log_softmax(imitation_logits))`이다.
+
+현재 구현의 안전 학습은 위험 후보를 낮게 채점하고 대안을 선택하게 한다. Refiner/경로 좌표
+회귀/좌표 collision repulsion loss는 두 조건 모두 비활성이다. 이전 refiner 설계 설명을 현재
+실행으로 해석하지 않는다. 현재 후보 bank 밖의 경로 생성 능력은 없다.
+
+### 5. 현재 loss의 정확한 계산
+
+첫 조건의 총 loss는 `L_imitation + L_metric + 0.02*L_world`이다.
+
+**Imitation:** 후보와 human GT의 XY 절대 차이를 시간·좌표축 평균한 거리 `distance`를 사용한다.
+Soft target은 `softmax(-distance/0.5)`이고 예측 imitation softmax와 cross entropy를 계산한다.
+이 거리는 L1 기반이며 ADE의 L2 거리와 다르다. 가장 가까운 후보 하나만 정답으로 강제하지 않는다.
+Heading GT는 후보 좌표에 포함되지만 이 imitation target 거리 계산에는 사용하지 않는다.
+
+**Metric:** 각 장면의512개 후보를 공식 simulator/scorer로 미리 평가한6개[0,1] subscore에
+BCEWithLogits를 적용한다. 후보512개를 평균하고 metric6개는 합하며 장면을 평균한다.
+Progress 등의 연속값도 soft BCE target으로 쓴다. PDM simulator는 미분하지 않는다.
+유효 teacher는 train75,165/75,297, dev27,034/27,076이다. Teacher가 없는 train132장면도
+imitation 학습에는 남기고 해당 장면 metric loss만0으로 mask한다. 유효 수 재정규화가 아니라
+원래 batch 장면 수로 나눈다.
+
+**World:** 별도로 샘플링한12프레임 train clip에 공식 `DLP.forward/calc_dyn_elbo`를 적용한다.
+각 프레임 실제 영상을 encode한 posterior로 RGB를 복원하고, 이전 posterior와 context를 이용해
+다음 posterior 분포를 맞추는 dynamics/context KL을 계산한다. **과거4장만으로8장 RGB를 자유
+rollout해서 맞추는 loss가 아니다.** 그 과거 전용 rollout은 planning forward와 별도 검증에 있다.
+
+이 설정의 공식 loss는 내부 집계 항을 사용해 다음과 같다.
+
+`L_world = (0.01/12) * (L_rec + 0.08*KL_static + 0.2*KL_particle_dynamics + 0.2*KL_context_dynamics + 0.08*R_presence)`.
+
+`L_rec`은 전체12장에 대한 pixel MSE+0.1 LPIPS이며 공식 코드의 픽셀 수 배율을 유지한다.
+Static prior는 첫 프레임, 전이 KL은 나머지11개 전이이며 `R_presence`는 첫 프레임 presence 합의
+제곱이다. `beta_dyn_rec=1`, `kl_balance=0.01`은 공식 static KL 내부의 feature/기하 비중 설정이다.
+이 값을 KL stop-gradient 비율로 해석하지 않는다. Dynamic KL의 별도 `balance`는 기본0.5이며
+현재 Gaussian/Beta KL은 posterior와 prior 양쪽에 미분한다. 내부 loss0.01/12와 외부0.02는 별개다.
+
+### 6. Gradient와 optimizer
+
+| 모듈 | Planning loss | SSL world loss | 기준 LR |
+|---|---|---|---:|
+| 영상 particle encoder | 전달 | 전달 | 1e-6 |
+| Context encoder/prior | 전달 | 전달 | 1e-6 |
+| Dynamics | 전달 | 전달 | 1e-6 |
+| RGB decoder | 전달 경로 없음 | 전달 | 1e-6 |
+| Command FiLM | 전달 | 전달 | 3e-4 |
+| Particle/ego/candidate projection, embeddings, candidate decoder, heads | 전달 | 전달 경로 없음 | 3e-4 |
+
+LPWM 전체를 직접 업데이트한다. Freeze/LoRA/마지막 일부 block만의 학습이 아니다.
+현재 조건의 trainable parameter는111,757,238개다. Planning particle→context/dynamics→encoder
+주요 경로에 일괄 detach가 없다. 공식 context의 보조 variance/score 입력에는 기존 부분 detach가
+있으며 `argmax`/GT/후보 bank/PDM teacher에는 gradient가 없다. RGB decoder는 optimizer에
+포함되지만 planning branch에서 호출하지 않으므로 SSL만 받는다. LPIPS 기준망은 고정한다.
+Backward 때 activation checkpointing으로 forward 일부를 재계산하며 gradient를 차단하지 않는다.
+
+학습 전 planning-loss 단독 검사에서 encoder/context/dynamics/planner gradient 양수,
+RGB decoder0을 확인했다. 중간검사의 실제 저장 weight 비교에서도 모든 모듈이 변경됐다.
+
+GPU0·1 DDP, GPU당 microbatch2를4회 누적하므로 optimizer1회당 planning16장면이다.
+각 GPU의 각 microbatch마다 world clip1개를 추가하므로 SSL은 전역8clip 샘플이다.
+각 microbatch loss를4로 나눈 뒤 backward, 앞3회 DDP no_sync, 마지막에 동기화하고
+global gradient norm5 clipping 후 AdamW step을 수행한다. AdamW weight_decay1e-4,
+기본betas(0.9,0.999)/eps1e-8, warmup941update 이후 cosine으로 기준 LR의10%까지 감소한다.
+Train 순서는 epoch마다 seed로 shuffle하고 DDP 마지막 batch는 결정적으로 padding한다.
+Epoch당4,707update, 조건당94,140update/약150.6만 planning 샘플 노출이다.
+
+Image encoder와 world objective는FP32, planning dynamics/planner는BF16 autocast다.
+Worker0이며 decoded RGB mmap을 직접 읽는다. 최근 입력 준비 약0.08초/update 대 전체약7.7초로
+현재 I/O 비중이 작다. CPU thread는 rank당4개다.
+
+### 7. 두 번째 객체 GT 보조 조건
+
+첫 조건의 loss에 `0.2*L_current_state + 0.2*L_future_state + 0.02*L_category`를 더한다.
+현재 및 미래8step의 foreground particle10D+ego8D+time1D를 작은 공유 MLP(19→64→7)에 넣어
+`x,y,vx,vy`4개와 종류logit3개를 출력한다. 이 head는 loss용이고 planner 추론 입력에 GT를 주지 않는다.
+State target은 현재 ego 좌표계이며 `[40m,20m,10m/s,10m/s]`로 나누고 SmoothL1을 계산한다.
+종류는 vehicle/pedestrian/bicycle이다. 정지선·차선 등의 직접 semantic GT 항은 없다.
+
+GT3D box를 각 시점 camera에 투영한 ROI와 particle Gaussian 영역으로 다대다 가중치를 만들고,
+가중 평균한 particle 예측을 GT 상태/종류에 맞춘다. Association 가중치·GT·valid mask는 SG이며
+head/particle feature/context/dynamics/encoder에는 gradient가 흐른다. Presence weighting,
+객체당 particle 하나, 정답 중심으로 끌어당기는 좌표 loss, 정답 객체 수 강제는 없다.
+그러나 particle 속성/crop을 통한 gradient 때문에 위치 변화나 라벨 편향이 불가능한 것은 아니다.
+
+현재 화면에 투영된 주석 객체를 track으로 미래에 연결하고 유효한 시점만 감독한다.
+미래에 새로 진입하는 객체, 미주석 객체, 화면 밖/투영 무효 시점의 직접 object loss는 없다.
+이들을 배경 negative로 강제하지 않으며 영상 SSL/PDM 감독은 유지한다.
+미래 GT ego pose는 label 좌표변환에만 쓰고 planning forward에는 들어가지 않는다.
+
+### 8. 검증과 자원 관리
+
+- 매16update: loss/teacher coverage/LR/timing/VRAM 로그. 매128update: 모듈 gradient 측정.
+  사이 로그의 gradient는 직전 측정값이며 매번 새로 측정한 값이 아니다.
+- 매256update: model+optimizer+진행상태를 `latest.pt`에 atomic 저장.
+- 매epoch: 고정512dev ADE/FDE, epoch checkpoint. Epoch0/1/5/10/15/20에 고정장면 particle/경로 시각화.
+- 조건 완료: 전체27,076dev의 초기/학습후/미래 persistence 입력 대조. 유효27,034개 공식 후보
+  PDM 평가와 ADE/FDE/metric BCE를 보고한다. 후보가 고정이므로 실제 선택 후보의 사전 공식 점수를
+  읽을 수 있고, 모델이 예측한 점수를 실제 PDMS로 보고하지 않는다.
+- World 유지: Stage1과 같은7,745dev clip의 복원 LPIPS와 과거4장→미래8장 LPIPS 비교.
+  Recording bootstrap2,000회95%CI. 차이 CI 상한이 Stage1 평균의10% 이내인지 확인한다.
+- 미래효용: 예측 미래를 마지막 관측 particle 반복으로 바꾸고 PDMS 변화 확인.
+  이는 미래 branch의 사용 여부 진단이지 frozen-vs-finetuned LPWM 효과 분리와 동일하지 않다.
+- 상황별 분석: world dev7,745개에 있는 위험 metadata 범위에서 진행. 전체 planning dev 모두에
+  상세 위험 label이 있는 것처럼 보고하지 않는다.
+- 두 조건 비교: 객체 보조 조건의 PDMS 차이 CI 하한>0, world 유지, 학습 검증 통과일 때만
+  개발셋에서 채택을 지지한다. 조건당 seed1개라 seed 분산은 이 CI에 포함되지 않는다.
+- 성능 가설 실패는 기록하고 반대 조건의 비교를 계속한다. 실행 오류/누출/불완전 학습/메모리
+  실패는 의존 작업을 차단한다. 고정20epoch 최종 checkpoint를 쓰고 최고 dev epoch를 고르지 않는다.
+
+GPU별 타인 포함 전체46,000,000,000byte 상한을15초마다 감시한다. 우리 allocator20GiB,
+allocated19.5GiB 상한 및 free6GiB guard가 별도로 있다. 외부 작업 급증까지 사전 방지하는
+원자적 제한은 아니므로 여유를 남기고 초과 감지 시 우리 child에만 저장·중단 signal을 보낸다.
+21:57 전체GPU0/1은35.266/35.219GB, 학습 peak allocated11.873GiB, process-tree RSS18.83GB다.
+CPU RSS는 공유 mapping 중복을 포함한 합계이고 사용자46GB 제한은 VRAM에만 적용한다.
+
+### 9. 현재 구현이 확인해 주는 범위와 코드 근거
+
+Planner 설계는 DrivoR의 간결한 memory/후보 조건부 subscore 채점, Hydra-MDP의 train-only
+trajectory vocabulary/metric distillation, DriveSuprim에서 검토한 imitation+metric 감독을
+참고한 자체 구성이다. 어느 공식 E2E 모델 전체를 재현하거나 그 pretrained planner를 가져온 것은
+아니다. DiffusionDrive의 diffusion proposal, SafeDrive refiner, VAD의 직접 기하 안전 loss는 현재
+활성 경로에 없다. 세부 근거와 source commit은 설정의 `method_sources`와 앞선 연구 감사에 보존했다.
+
+현재는 의도에 따른 encoder 조절과 미래 표현에서 planning loss로 이어지는 경로를 학습한다.
+동적64→소수 particle 선택, 상황별 시간 범위/예산 학습, 후보별 action-conditioned 세계 rollout,
+주변 객체별 독립 정보 개입은 미구현이다. 같은 미래 memory를 사용하는512후보 scorer의 추가 효용과
+객체 GT 보조 감독의 효용을 먼저 검증한다. Native instance mask/독립 미래 상태 probe는 후속이다.
+
+주요 코드:
+`scripts/train_lpwm_full_planning.py`(샘플링/optimizer/검증),
+`src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py`(FiLM/causal rollout/world loss),
+`src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py`(후보/채점/loss),
+`src/planning_aware_future_prediction/object_centric/lpwm_object_supervision.py`(객체 loss/SG),
+`scripts/prepare_lpwm_candidate_teacher.py`(train-only vocabulary/공식 PDM),
+`scripts/validate_lpwm_stage_transition.py`와`scripts/summarize_lpwm_object_auxiliary_ablation.py`(판정).
+
+실행 config의 자유서술 `planning_loss`에는 객체 보조 항을 first condition이라고 쓴 오기가 있고,
+`refinement`/`deferred_comparison`/`evaluation`에는 이전 계획 문구가 일부 남아 있다.
+실제 `conditions`, `object_future`/`refinement` 분기, `continue_ablation_after_scientific_gate_failure`
+값을 위 설명의 근거로 삼았다. 등록 hash를 보존하기 위해 실행 중 config를 수정하지 않았다.
+
 ## 2026-10-04 21:32–21:44 KST Stage2 중간점검
 
 첫 조건 `metric_plus_world`(직접 객체 GT 보조 loss 없음)가 진행 중이다. 21:37시점1,744/
