@@ -246,7 +246,7 @@ LPWM 표현 자체와 실제 주행 성능을 개선하는가?** 객체별 선�
 
 | 근거 | 가져온 로직 | 이번 구현에서의 차이 |
 |---|---|---|
-| [DrivoR §3.3–3.5](https://arxiv.org/html/2601.05083v2) | scene token에 attention하는 경로/점수 decoder, oracle subscore BCE, 생성과 채점의 gradient 분리 | ViT/register 대신 LPWM particle memory, 초기에는 train-only 후보 사전 사용 |
+| [DrivoR §3.3–3.5](https://arxiv.org/html/2601.05083v2) | scene token에 attention하는 경로/점수 decoder, oracle subscore BCE, 보정 좌표의 채점 입력 detach | ViT/register 대신 LPWM particle memory와 train-only 후보 사전. 우리 scorer에는 coarse candidate feature도 들어가므로 원 논문의 생성/채점 완전 분리와 다름 |
 | [Hydra-MDP](https://arxiv.org/html/2406.06978v3) | 후보 trajectory vocabulary, imitation+여러 simulator 지표 증류 | 512개 train-only 실제 궤적 medoid, 현재 NAVSIM-v1 scorer 기준; 논문 로직을 구현하며 공식 미공개 코드를 재사용했다고 하지 않음 |
 | [DriveSuprim](https://arxiv.org/html/2506.06659v3) | 많은 후보를 먼저 평가하고 일부를 상세 평가하는 구조 | 우리 후단은 점수 평가뿐 아니라 실제 좌표를 보정; EMA soft-label/다중카메라 ego augmentation은 미적용 |
 | [Drive-JEPA](https://arxiv.org/html/2601.22032v2) | video representation과 다중 경로 감독 연결 검토 | 현재 full MTD 구현·안전 pseudo-GT 경로 회귀를 그대로 이식하지 않음. 공식 PF full checkpoint 결과는 보존된 비교 기준 |
@@ -295,10 +295,95 @@ Particle의 depth는 실제 m 단위 거리, particle 번호는 객체 track ID�
   공식 comfort score 자체의 미분은 아니다. 공식 comfort BCE 및 최종 PDMS로 별도 확인한다.
 
 PDM simulator는 미분하지 않는다. Pose를 detach하여 teacher를 호출하고, 생성된 정답으로 score head와
-LPWM을 학습한다. 채점 입력의 보정 좌표도 detach하여 scorer가 회귀를 쉽게 하려고 경로를 바꾸는 것을
-분리한다. Refiner는 경로 회귀와 미분 가능한 comfort 항으로 학습하고, safety score는 최종 후보 선택에 쓴다.
-Planning gradient는 encoder/context/dynamics까지, world loss는 RGB decoder까지 전달한다.
-미래 GT 영상은 planner forward 입력이 아니며 별도의 world objective에만 사용한다.
+LPWM을 학습한다. 채점 입력의 보정 좌표도 detach한다. Refiner 고유의 decoder/offset head는 경로 회귀와
+미분 가능한 comfort 항으로 학습한다. Refined metric score는 최종 후보 선택에 사용하고,
+temporal safety head는 학습용 보조 감독이다. Planning gradient는 encoder/context/dynamics까지,
+world loss는 RGB decoder까지 전달한다. 미래 GT 영상은 별도의 world objective에서만 사용한다.
+
+#### 2026-10-04 코드 기준: 세 조건의 실제 목적함수
+
+`compute_candidate_losses`와 `compute_refinement_losses`, trainer의 최종 합산을 대조했다.
+기존 단일 경로 `planning_loss()`는 후보 planner 설정의 실행 경로가 아니다.
+
+| 조건 | 최종 objective |
+|---|---|
+| `imitation_plus_world` | coarse imitation CE + 0.02 world ELBO |
+| `metric_plus_world` | coarse imitation CE + coarse 6-metric BCE + 0.02 world ELBO |
+| `metric_refinement_plus_world` | 위 metric 조건 + refined WTA regression + refined 6-metric BCE + 0.5 temporal safety BCE + 0.01 comfort proxy |
+
+- Coarse imitation 정답: 후보별 `d = mean(abs(candidate_xy - expert_xy))`,
+  `q = softmax(-d / 0.5)`. 전체512개에 soft CE를 적용한다. Euclidean ADE와 구분한다.
+- Coarse metric: 후보축 평균 후 6개 지표축 합. 각 지표의 가중치는1이며,
+  정답은 실제 공식 PDM의0~1 subscore라서 연속 soft target도 BCE로 학습한다.
+  Teacher가 없는 장면은 metric만 mask하고 imitation은 유지한다. 분모는 전체 batch 크기다.
+- Refined WTA: 보정32개 중 평균 XY Euclidean 거리가 GT에 가장 가까운 하나를 고른다.
+  `SmoothL1(XY) + 0.5 mean(1-cos(heading error))`를 그 후보에 적용한다.
+  이 회귀 후보는 추론의 predicted-score argmax와 다를 수 있다.
+- Refined metric: 현재 forward의 실제 보정32개를 재채점한다. 고정 사전의 과거 label을 재사용하지 않는다.
+  후보축 평균·6지표 합. Temporal safety는 후보·8시점 평균 후2종 안전지표 합이다.
+- Comfort: 현재 ego velocity/acceleration을 경계 조건으로0.5초 차분하고,
+  `mean(relu(norm(acceleration)/4-1)^2) + mean(relu(norm(jerk)/8-1)^2)`.
+  WTA에서 선택한 회귀 후보에만 적용하며 공식 comfort 판정함수의 미분이 아니다.
+- World ELBO: Stage1과 같은 목적을 독립적으로 뽑은12프레임 학습clip에 적용한다.
+  GPU당 planning microbatch4에 world clip1개를 사용한다. `.02`는 objective의 계수이며
+  gradient 기여가2%라는 뜻은 아니다. 전체 합을 누적2회로 나눠 backward 후 clip5/AdamW update한다.
+
+#### Stop-gradient와 가중치 갱신 경계
+
+`SG(x)`는 forward 값은 유지하고 해당 입력으로의 backward를 끊는 `x.detach()`다.
+
+```text
+4 observed RGB + command -> LPWM encoder -> observed particles
+                              |                 |
+                              +-> context/dynamics -> 8 predicted particle frames
+                                                |
+                          observed + predicted memory (768 tokens)
+                                                |
+fixed 512 trajectories -> trainable embedding -> coarse decoder -> imitation/metric heads
+                                                |
+                              selected coarse features (gradient 유지)
+                                                |
+                              future-particle decoder -> offset head -> refined poses
+                                                                         |       |
+                                                          WTA regression/comfort SG
+                                                                                 |
+                           selected coarse features + embedding(SG(refined poses))
+                                                |
+                                 refined score decoder <- shared particle memory
+                                                |
+                                   refined metric / temporal safety BCE
+
+SG(refined poses) -> CPU official PDM -> fixed metric/temporal labels
+independent 12-frame clip -> same LPWM + RGB decoder -> world ELBO
+```
+
+| 경계/모듈 | 실제 gradient 동작 |
+|---|---|
+| LPWM 출력 → particle projection → planner | detach 없음. 관측 encoder와 미래 rollout의 context/dynamics까지 역전파 |
+| 주행 명령 → encoder attribute CNN FiLM | 새 modulation module은 planner LR3e-4, CNN은 LPWM LR1e-6 |
+| LPWM encoder/context/dynamics | 전체 parameter 학습 대상, LR1e-6. 일부 block/LoRA 학습이 아님 |
+| RGB decoder | world ELBO로만 갱신. 세 등록 조건 모두 world objective 유지 |
+| 고정512 trajectory vocabulary | buffer라 좌표는 고정. 좌표 embedding network는 학습 |
+| Shortlist top-k, 최종 argmax, WTA argmin | 선택 index는 미분하지 않음. gather한 feature와 WTA 선택 pose의 gradient는 유지 |
+| Refined poses → score embedding | 명시적 detach. Refined metric/temporal loss는 이 좌표 경로를 거쳐 offset head/refinement decoder를 갱신하지 않음 |
+| Coarse candidate features → refined score decoder | detach 없음. Refined score loss가 coarse decoder와 공유 LPWM을 갱신 |
+| Refined poses → CPU PDM teacher | detach 후 NumPy. Simulator/정답 생성 전체는 autograd 밖 |
+| GT 경로·지도·미래 객체 상태 및 metric labels | 감독 정답, 학습 parameter 아님. 미래 GT는 planner 입력 아님 |
+| LPIPS 특징망 | 가중치 고정, 생성 영상에 대한 gradient는 유지 |
+
+**해석상 한계:** refined score loss가 offset head로 직접 전달되지 않아도 공유 LPWM/coarse feature가
+바뀌면 다음 forward의 보정 경로가 간접적으로 달라질 수 있다. 생성·채점 optimizer 전체가 완전히
+독립됐다고 해석하면 안 된다. DrivoR 원형은 채점기에 생성 latent를 다시 주지 않지만, 우리 구현은
+`score_queries + candidate_features`를 사용한다. 또한 `-predicted_PDMS`를 직접 최소화하거나
+미분 가능한 collision/도로경계 비용으로 좌표를 밀어내는 objective는 현재 없다.
+Temporal safety 출력도 최종 선택식에 직접 추가하지 않는다.
+
+현재 목적은 여러 후보의 안전·진행·편안함을 예측하게 하여 LPWM과 후보 선택을 학습하는 것이다.
+Particle에 객체 종류별 정답 위치나 object ID를 직접 주는 손실은 없다. Safety loss로 particle이
+실제로 유용해졌는지, 좌표 보정에 안전 감독을 더 직접 전달해야 하는지는 별도 성능/개입 검증 문제다.
+기존 실제영상 CPU 역전파 검사는 합산 planning loss에 대한 모듈 연결 검사이며,
+loss별 gradient 기여·충돌이나 particle별 개입 효과를 측정한 결과가 아니다.
+이 절은 코드/논문 설명 보강이며 등록 runtime/config와 실행 중인 평가·queue는 변경하지 않았다.
 
 ### 학습·검증·자동 대기열
 

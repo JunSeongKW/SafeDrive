@@ -1722,3 +1722,10 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 실제particle_attributes에position/scale/presence/features경로가detach없이연결, LPWMfull-low-LR/egoFiLM/worldELBO.02확인. 객체중심배치직접loss없고현재6개metrics에정지선준수독립항없음.
 - RGB목적·화면면적·질감·patch기원·128해상도로배경표현을학습할가능성은있으나시각화만으로원인확정불가. Geometry이동과feature/future/활용변화는분리해검증필요.
 - 현재queue는worldretention/futurepersistence검사까지만포함. Stage2semantic재배치/면적보정/particle개입/frozenLPWM대조는후속진단설계이며미구현. 문서갱신만수행/학습·평가·queue불변.
+
+## 2026-10-04 12:06 KST — Planner loss·stop-gradient·선행연구 대조
+
+- `lpwm_candidate_planner.py`/`lpwm_planning_finetuning.py`/trainer/config의 실제 실행 경로를 대조. Coarse512 soft CE+6metric BCE; refined32 WTA SmoothL1/circular heading+6metric BCE+0.5 temporal BCE+0.01 normalized acceleration/jerk penalty; 별도clip worldELBO0.02.
+- LPWM/planner는 연속 역전파. 좌표→score embedding 및 CPU oracle에 detach, top-k/argmax/argmin index는 비미분. Gather된 coarse feature와 WTA pose는 gradient 유지. Refined score BCE가 고유 refiner로 직접 전달되지 않지만 공유 LPWM/coarse feature는 갱신하므로 완전 독립은 아님.
+- DrivoR§3.4는 생성 latent를 채점기에 주지 않지만 현재코드는 `score_queries+candidate_features`; 원형 재현으로 보고하지 않는다. Hydra-MDP의 vocabulary/privileged metric distillation, DriveSuprim coarse/fine scoring, Drive-JEPA MTD 범위도 원문 재확인. Temporal safety는 보조감독이며 최종순위 직접항 없음.
+- 기존연구문서/HANDOFF만 수정. 추가학습·GPU진단·runtime변경 없음. Queue `waiting_for_stage1_full_training_and_validation`, Stage2 본학습은 적응gate 후. 기존 CPU 연결검사는 합산 planning loss 수준이며 loss별 autograd 실측을 새로 했다고 주장하지 않음.

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 11:53 KST (Codex)
+마지막 갱신: 2026-10-04 12:09 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 12:06 KST: planner loss/SG/문헌 대조는 읽기 전용 코드 감사. Queue는 Stage1 전체학습·검증 대기 상태이며 Stage2 본학습 미시작. Runtime/config/평가/queue 변경 없음.
 
 - 2026-10-04 11:53 KST: 배경particle/Stage2재배치가능성에대해현재소스와손실을읽기검토. 실행중학습·평가·queue·시각화코드변경없음.
 
@@ -350,6 +352,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- Planner 감사: 512후보 soft CE+6metric BCE, 보정32개 WTA regression+6metric BCE+0.5 temporal BCE+0.01 comfort, 전체+0.02 world ELBO. LPWM/planner 경계 SG 없음. Refined pose→채점 embedding 및 CPU oracle에 SG; 공유 coarse feature는 채점기로 gradient 유지. Temporal head는 보조감독, 최종선택식에 직접 미사용. DrivoR의 완전한 생성/채점 분리를 그대로 구현한 것은 아님.
 
 - Stage2의14D particle attribute(position/scale/presence/depth/features/bg)는detach없이planner에연결됨. LPWMLR1e-6/planner3e-4/worldELBO.02. 위치재배치는가능하나명시적객체중심배치loss/정지선감독없음. 기존aggregate gradient/command차이검사는위치별gradient나의미있는이동증거아님.
 
@@ -615,10 +619,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 배경중심particle의가능원인과Stage2위치/속성gradient경로를현재구현으로확인해기존연구문서에추가.
-- 의미있는재배치와단순위치변화/feature변화/attention변화를구분하고현재queue에없는추가진단범위를명시. 런타임변경없음.
+- 실제 후보 planner/trainer의 loss reduction, 가중치, WTA와 추론선택의 차이, SG 및 학습률을 기존 연구문서에 상세 기록.
+- Hydra-MDP/DrivoR/DriveSuprim/Drive-JEPA 원문 재확인. 공유 coarse feature 경로 때문에 DrivoR 원형과 gradient 분리 범위가 다름을 명시. Safety 감독은 좌표를 직접 최적화하지 않으며 temporal head는 보조감독임을 명확화. Runtime/학습/queue 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- Planner 설명은 `docs/lpwm_planning_experiment.md`의 Loss와 gradient 상세절 기준. 기존 합산 loss 연결검사를 loss별 기여나 안전 좌표 최적화의 실증으로 표현하지 않는다. 등록 queue를 유지하며 Stage1 gate 후 Stage2 실제 GPU audit/profile/본학습으로 진행한다.
 
 - Stage2재배치가설확인은같은scene/command의geometry·presence·feature/future·planning개입을분리한다. 객체/지도coverage의면적·visibility보정과frozenLPWM대조는추가진단설계이며현재queue에등록됐다고보고하지않는다.
 
@@ -731,6 +737,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- Refiner 고유 decoder/offset head는 WTA 회귀·comfort로 직접 학습한다. Refined 안전 BCE는 공유 LPWM/coarse feature와 scorer를 학습하지만 detached pose 경로로 offset head를 직접 학습하지 않는다. 추가 collision 좌표 loss/DrivoR식 완전 분리는 현재 실험에 미구현이며 이번 설명 요청으로 runtime을 변경하지 않음.
 
 - 배경집중의원인을reconstruction하나로단정하지않음. RGB면적/무늬/patch기원/해상도도가능원인. 정지선준수독립metric없음,위치이동은planning표현개선의필요·충분조건아님.
 
