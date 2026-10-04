@@ -1,0 +1,71 @@
+{
+  "verified_at": "2026-10-04T22:23:49.691139+09:00",
+  "condition": "metric_plus_world",
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/latest.pt",
+  "checkpoint_sha256": "aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac",
+  "bytes": 1342277703,
+  "modified_at": "2026-10-04T22:22:56.822643+09:00",
+  "completed_updates": 2095,
+  "epoch_fraction": 0.4450817930741449,
+  "total_updates": 94140,
+  "save_reason": "signal",
+  "elapsed_seconds": 16275.529901586997,
+  "model_state_entries": 1129,
+  "optimizer_state_entries": 746,
+  "optimizer_steps": [
+    2095
+  ],
+  "optimizer_parameter_groups": [
+    {
+      "lr": 9.996601684442947e-07,
+      "name": "lpwm",
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0.0001,
+      "amsgrad": false,
+      "maximize": false,
+      "foreach": null,
+      "capturable": false,
+      "differentiable": false,
+      "fused": null,
+      "decoupled_weight_decay": true
+    },
+    {
+      "lr": 0.00029989805053328843,
+      "name": "planner_and_command_input",
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0.0001,
+      "amsgrad": false,
+      "maximize": false,
+      "foreach": null,
+      "capturable": false,
+      "differentiable": false,
+      "fused": null,
+      "decoupled_weight_decay": true
+    }
+  ],
+  "configuration_sha256": "72e50a14438e7358414bdcd6e87fd4bab60749c01df5f1f1086d84e987494f5f",
+  "configuration_matches": true,
+  "source_hashes_match": true,
+  "world_size": 2,
+  "pause_marker_exists": true,
+  "incomplete_training_not_marked_complete": true,
+  "automatic_resume_authorized": false,
+  "resume_policy": "Explicit user resume only; archive pause/failure evidence, verify source/config/weights, then launch same queue using --detach; training command already supplies --resume",
+  "resume_state_notes": "Model and optimizer are stored. LR, epoch permutation, rank/update Torch seed, and auxiliary NumPy sampling are reconstructed deterministically from config/update. No GPU resume trial was run during this pause.",
+  "preserved_checkpoint_snapshot": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/user_pause_20261004/checkpoint_update002095.pt",
+  "our_gpu_workers_absent_after_pause": true,
+  "previous_gpu_worker_pids": [
+    1135737,
+    1135738
+  ],
+  "gpu_verification": "Host nvidia-smi compute process list on GPU0/1 contained only pre-existing other-user processes after checkpoint save",
+  "queue_pause_record": "queue_failed.json contains RuntimeError(Queue paused by marker), expected current queue implementation; preserved as pause evidence, not a numerical training failure"
+}

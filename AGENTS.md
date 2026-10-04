@@ -75,6 +75,14 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-04 22:23 KST 최신 사용자 요청: Stage2 일시중단.**
+`outputs/lpwm_object_future_planning_v3/pause.requested`와 `user_pause_status.json`을 따른다.
+첫 조건2,095 update의 model+optimizer checkpoint를 보존했고 queue/torchrun/GPU worker는 종료했다.
+명시적 사용자 재개 요청 전 GPU 학습·추론·다음 조건/queue를 자동 재시작하지 않는다.
+이번 사용자 pause는 아래 이전 실행 승인보다 우선한다. `queue_failed.json`의 pause-marker 예외는
+현재 queue 구현이 남기는 중단 기록이며 학습 발산으로 해석하지 않는다. 원본 기록을 지우지 않는다.
+재개 절차와 checkpoint SHA는 HANDOFF4절 및 `results/lpwm_object_future_planning_v3/user_pause_20261004.json`.
+
 **2026-10-04 최신 사용자 승인: GPU0·1 Stage2 시작, 객체 GT 보조 감독은 on/off 어블레이션 후 채택 결정.**
 최신 진입점은 `configs/lpwm_planning/object_future_joint_v3.json`과 HANDOFF 1–5절이다.
 Queue1131167, `outputs/lpwm_object_future_planning_v3/queue_state.json`; 처음 `metric_plus_world` 본학습 시작.

@@ -1840,3 +1840,11 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 두 번째 조건은 같은 Stage1/같은초기planner에서 새로 시작하며 current/future state와class 보조 항을 추가한다. GT/다대다Gaussian ROI association SG, 위치/개수/presence 강제 없음, 현재 투영3종의track만future유효시점 감독. 현재 두조건 모두refiner없음. GT감독채택 미정 유지.
 - 매epoch512dev/epoch0·1·5·10·15·20시각화/조건후전체27076dev(공식PDM유효27034)/7745world유지/미래persistence대조/두조건paired비교를 정리했다. 조건당1seed/고정최종epoch,10%world유지기준,과거노출navtest와미완료독립probe 한계 명시.
 - 상태근거 `results/lpwm_object_future_planning_v3/training_execution_review_20261004_2200.json` 저장. Config자유서술의first-condition 객체GT 오기와구refiner/stop문구는actual condition/분기와구분해문서에주석했고,등록config는불변이다. GPU각35.266/35.219GB<46GB,CPU RSS18.83GB(공유중복포함). 직전75687c2 push는기존인증오류로실패한상태다.
+
+## 2026-10-04 22:23 KST — 사용자 요청 Stage2 일시중단 및 재개 상태 보존
+
+- 사용자가 학습 시간 때문에 잠시 중단하고 나중에 재개할 수 있는지 요청했다. 기존 queue의 pause 경로를 확인하고22:22:36 `pause.requested` 작성. Queue는22:22:52 이를 확인해 후속작업을 차단하고우리torchrun/worker에SIGINT를 전달했다. 직접타인process를제어하지않았다.
+- Worker는진행중update를끝내고22:22:56 **2,095/94,140update(0.4451epoch)** signal checkpoint를atomic저장했다. CPU로드에서model1129stateentry/optimizer746state모두step2095,reason=signal,source14개/config hash일치확인. 경과학습시간16,275.53초. latest.pt1,342,277,703bytes,SHA aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac.
+- `user_pause_20261004/checkpoint_update002095.pt` hardlink보존,이전queue/progress/registration와요청/queue_failed/검증을별도저장. 공유결과 `results/lpwm_object_future_planning_v3/user_pause_20261004.json`,현재상태 `outputs/lpwm_object_future_planning_v3/user_pause_status.json`. 마지막로그2080보다checkpoint가최신이다.
+- 호스트ps로queue1131167/torchrun1135635/worker1135737·1135738모두없음확인,nvidia-smi GPU0·1은기존다른사용자process만남음. 우리GPU메모리반환확인. Queue의 `RuntimeError('Queue paused by marker')` 원문은보존하며수치학습실패로해석하지않음. Training stopped/완료sentinel없음.
+- README/AGENTS/HANDOFF/연구문서에사용자pause우선/자동재개금지및재개절차명시. 명시적요청후pause/failure를이력보존하고같은queue를실행하면본학습 --resume으로2096부터계속. LR/데이터순서/난수는update/config로재구성. GPU재개시험이나학습방법변경은없음. 기존ETA는pause로무효. 직전92509d9push는기존Git인증오류로실패했다.

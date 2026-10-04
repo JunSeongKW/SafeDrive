@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 22:01 KST (Codex)
+마지막 갱신: 2026-10-04 22:26 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- **2026-10-04 22:23 KST 사용자 요청으로 Stage2 일시중단. 자동 재개 금지.** `metric_plus_world`2,095/94,140 update(0.4451epoch), model+optimizer 저장 완료. Queue1131167/torchrun1135635/worker1135737·1135738 모두 host ps에서 종료 확인, GPU compute 목록에서 우리 worker 없음. `outputs/lpwm_object_future_planning_v3/user_pause_status.json`이 현재 상태다. 아래 진행 중 문구는 중단 전 이력이며 사용자 재개 요청 전 신규 GPU 작업/후속 조건/queue를 시작하지 않는다.
 
 - **2026-10-04 21:57 KST 실행 명세 확인:** 첫 조건1,888/94,140 update, 0.4011epoch. Queue1131167 유지, source14개/config hash 일치, 오류 marker 없음. 사용자 요청은 현재 학습 방식의 상세 설명이며 이번 턴 새 GPU 진단/학습/추론/설정 변경 없음. 최신 근거 `results/lpwm_object_future_planning_v3/training_execution_review_20261004_2200.json`.
 
@@ -380,6 +382,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 일시중단 체크포인트는22:22:56 atomic 저장, reason=`signal`, update2,095, optimizer746개 state 전부step2,095, source14개/config hash 일치. SHA `aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac`,1,342,277,703bytes. 학습 elapsed16,275.53초. `latest.pt`와 `user_pause_20261004/checkpoint_update002095.pt` hardlink 보존, 원본Stage1/기존결과불변. 마지막 progress 로그2,080보다 signal checkpoint가 최신이다.
+- Pause marker를 queue가 확인해 정상 signal 저장을 요청했다. `queue_failed.json`의 `RuntimeError('Queue paused by marker')`는 이 구현의 의도된 중단 기록이며 수치/OOM 실패가 아니다. Training stopped marker와 완료 sentinel은 없다. 자동 후속 작업 차단, 실제 GPU 재개 시험은 실행하지 않음. CPU에서 checkpoint 로드/optimizer 일치 검증 완료.
 
 - 실제 구성 재확인: 관측4장/ego8D→명령 FiLM particle encoder→causal 미래8step→768개14D particle token→2층256D 후보 scorer. 고정512개 train medoid, soft L1-distance imitation+6metric BCE+0.02공식ELBO. 첫 조건 object/refiner 비활성, 두 번째만 object GT auxiliary. World branch는 별도12장 posterior 복원+전이KL이며 past-only RGB rollout loss가 아니다. 조건당 전체20epoch, planning16/SSL8clip 샘플 per update. 새 수치 평가 없이 기존 실행 코드를 대조한 설명이다.
 
@@ -686,11 +691,20 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 상세 보고 요청으로 현재 config/model/loss/optimizer/teacher/검증 queue와 공식 LPWM 소스를 읽어 대조했다. 실행 중 source/config/queue/model 변경 및 신규 학습·추론 없음.
-- 기존 연구 문서 첫 절에 실제 forward/차원/ego FiLM/후보 선택/loss 수식/SG/두 조건/자원/검증 순서를 기록했다. 별도 SSL clip과 planning clip, posterior 복원과 past-only rollout, metric BCE와 좌표 안전 보정, full64 planner와30개 native decoder를 구분했다.
-- 시점별 상태와 등록 hash 일치 결과를 `training_execution_review_20261004_2200.json`에 저장했다. Config 자유서술의 first-condition 객체 GT 오기/이전 refiner 문구를 실행 분기와 구분해 설명했으며 hash 등록된 config는 수정하지 않았다. HANDOFF/RESUME 갱신.
+- 사용자의 잠시 중단 요청에 따라 pause.requested를 생성해 기존 queue의 정상 중단 경로를 실행했다. 다음 작업 자동 시작을 차단하고2,095 update에서 signal checkpoint를 저장한 뒤 queue/torchrun/두GPU worker 종료를 확인했다.
+- CPU에서 model+optimizer state와746개 optimizer step 일치, source/config hash, checkpoint SHA를 검증했다. 원래 latest.pt를 별도 중단 디렉터리에 hardlink 보존하고 pause 요청/이전상태/queue 예외/검증 JSON을 보존했다. 모델 구조·학습 source/config/실험 조건은 변경하지 않았다.
+- README/AGENTS/HANDOFF/연구문서/RESUME에 사용자 pause 우선 규칙과 명시적 요청 후 재개 절차를 기록했다. GPU 재개 시험/새 학습·추론은 하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- **최우선: 사용자 재개 요청을 기다린다.** 아래 queue 유지/검증 예정은 중단 이전 계획이다. 자동 재개·pause marker 제거 금지. 현재 task는 일시중단 및 재개 가능성 확인까지 완료했다.
+- **명시적 재개 요청을 받은 뒤의 절차:** (1) host 프로세스/queue lock/GPU0·1 점유 확인, (2) checkpoint SHA·update2,095·optimizer/config/source hash 확인, (3) `queue_failed.json`이 정확히 사용자 pause 예외인지 확인하고 `pause.requested`/`queue_failed.json`/`user_pause_status.json`을 날짜별 이력 디렉터리로 이동 보존, (4) 같은 config로 아래 queue를 `--detach` 실행, (5)2,096 이후 진행/메모리/다음작업차단해제 확인. 완전학습 sentinel은 없으므로 queue는 기존 준비·감사/profile 완료를 재사용하고 본학습에 `--resume`을 전달한다. 기존 failure를 삭제하거나 gate를 변경할 필요가 없다.
+
+```bash
+/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python scripts/queue_lpwm_validated_training.py --config configs/lpwm_planning/object_future_joint_v3.json --detach
+```
+
+- 위 명령은 지금 실행하지 않는다. 현재 user pause 해제 승인 후 프로젝트 루트에서 사용한다. LR/epoch permutation/rank-update Torch seed/world NumPy sampling은 저장 update/config로 복원된다. 동일설정 resume와 LoRA/freeze로 바꾸는 새 실험은 구분하며, 구조/optimizer를 바꿀 경우 기존 full-finetune 결과를 이어진 동일실험으로 보고하지 않는다.
 
 - 현재 구현 상세는 `docs/lpwm_planning_experiment.md`의 2026-10-04 실행 명세를 우선한다. 이번 요청에 따라 학습 전략을 바꾼 것은 아니다. 고정64particle/8future/한 장면 공통미래→후보 채점 구조이며 상황별 예측 예산 선택, 후보 action별 세계 rollout은 미구현이다. 독립 표현 효용 검증과 GT 채택을 이미 완료했다고 하지 않는다.
 
@@ -839,6 +853,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- **최신 확정 상태는 사용자 pause다.**2,095 update까지 보존/재개가능성 CPU검증/우리GPU메모리반환확인. 명시적 요청 전 재개하지 않는다. LoRA/부분학습 전환은 이번에 요청·적용되지 않았다. 기존 first-epoch ETA와 종료 ETA는 중단으로 무효이며 재개 시 다시 계산한다. 직전92509d9 원격push는기존인증오류로실패했다.
 
 - 최신 요청은 현재 학습을 상세 설명하는 것이다. 기존 queue를 그대로 유지했다. Config 설명문 일부가 구안이지만 actual conditions와 model 분기는 명확하다. 실행 중 hash를 바꾸지 말고 향후 종료 후 문구 정리를 고려한다. 직전75687c2 push는 기존 GitHub 인증 오류로 실패했다.
 

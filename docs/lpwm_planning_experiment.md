@@ -1,5 +1,28 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 22:23 KST 사용자 요청에 따른 Stage2 일시중단
+
+학습 시간을 검토하기 위해 사용자가 잠시 중단을 요청했다. `pause.requested`를 생성해 기존
+queue가 다음 작업을 차단하고 학습 worker에 signal을 보내도록 했다. Worker는 진행 중 update를
+마친 후 **2,095 update(0.4451epoch)**에서 모델·optimizer를 atomic 저장하고 종료했다.
+Queue1131167/torchrun1135635/worker1135737·1135738 종료와 GPU0·1에서 우리 메모리 반환을 확인했다.
+
+- 재개 checkpoint: `outputs/lpwm_object_future_planning_v3/metric_plus_world/latest.pt`.
+- 보존 hardlink: `outputs/lpwm_object_future_planning_v3/user_pause_20261004/checkpoint_update002095.pt`.
+- 크기1,342,277,703bytes, SHA `aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac`.
+- CPU 로드 검증: reason=`signal`, optimizer746개 state 모두step2,095, source14개/config hash 일치.
+- 마지막 progress.json은2,080update이며 더 최신 signal checkpoint가 재개 기준이다.
+- `queue_failed.json`의 `RuntimeError('Queue paused by marker')`는 현재 queue의 사용자 중단 기록이다.
+  OOM/NaN으로 실패한 결과가 아니며 원본 예외를 보존했다. 본학습 완료 sentinel은 생성되지 않았다.
+- 근거 [user_pause_20261004.json](../results/lpwm_object_future_planning_v3/user_pause_20261004.json).
+
+**자동 재개하지 않는다.** 명시적 요청 후 pause/failure 기록을 이력으로 이동 보존하고 같은
+config/source의 queue를 실행하면 `--resume`으로 model·optimizer·완료update를 읽어2,096부터
+계속한다. Learning rate, epoch shuffle과 rank/update별 난수 seed는 config/update로 재구성한다.
+이번에는 CPU checkpoint 검증만 수행했고 GPU 재개 시험은 하지 않았다. 구체적 절차는 HANDOFF4절.
+LoRA/부분 freeze 방식으로 바꾸는 것은 별도 실험 변경이며 이번에 적용하지 않았다.
+아래 실행 중 상태와 완료 예상 시간은 중단 전 이력이다.
+
 ## 2026-10-04 현재 Stage2 학습의 실제 실행 명세
 
 사용자 요청에 따라 실행 설정과 forward/loss/optimizer/검증 코드를 읽어 대조했다.

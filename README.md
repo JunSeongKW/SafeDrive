@@ -1,5 +1,15 @@
 # Planning-Aware Future Prediction
 
+**현재 상태(2026-10-04 22:23 KST): 사용자 요청으로 Stage2 일시중단. 자동 재개 금지.**
+첫 조건 `metric_plus_world`의 **2,095 update / 0.4451 epoch**에서 정상 signal checkpoint를 저장했다.
+모델과 optimizer746개 state의 step2,095 일치, source/config hash 일치, GPU0·1 worker 종료를 확인했다.
+재개 파일은 `outputs/lpwm_object_future_planning_v3/metric_plus_world/latest.pt`이며,
+별도 보존본 `outputs/lpwm_object_future_planning_v3/user_pause_20261004/checkpoint_update002095.pt`도 있다.
+명시적 재개 요청 후 같은 설정으로 update2,096부터 이어간다. `pause.requested`를 임의 제거하거나
+다음 조건을 시작하지 않는다. 상태 `user_pause_status.json`, 근거
+[중단 검증](results/lpwm_object_future_planning_v3/user_pause_20261004.json), 재개 절차는 HANDOFF4절.
+아래 실행 중 문구와 ETA는 중단 이전 이력이다.
+
 **현재 실행(2026-10-04): GPU0·1에서 Stage2 전체 navtrain 어블레이션 시작.**
 사용자는 객체 GT 감독의 채택을 확정하지 않았으며 **객체 보조 loss 없음/있음 비교 후 결정**을 요청했다.
 `configs/lpwm_planning/object_future_joint_v3.json`: `metric_plus_world` → 전체 개발 검증 →
