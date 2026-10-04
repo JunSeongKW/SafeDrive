@@ -1,0 +1,57 @@
+{
+  "torch_version": "2.8.0+cu128",
+  "device": "cpu",
+  "full_model_training_or_evaluation": false,
+  "source_manifest": "results/e2e_planner_safety_audit_20261004/source_manifest.json",
+  "vad_collision": {
+    "loss_before": 1.2999999523162842,
+    "loss_after_one_coordinate_step": 1.2687499523162842,
+    "coordinate_gradient": [
+      [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.25,
+          0.25
+        ]
+      ]
+    ],
+    "gradient_norm": 0.7905694246292114,
+    "coordinate_step_size": 0.05,
+    "scope": "synthetic two-step geometry; official undecorated loss kernel only"
+  },
+  "vad_boundary": {
+    "loss_before": 0.363616019487381,
+    "loss_after_one_coordinate_step": 0.30260390043258667,
+    "coordinate_gradient": [
+      [
+        [
+          0.8647760152816772,
+          -0.4704614281654358
+        ],
+        [
+          0.3904343843460083,
+          -0.31234753131866455
+        ]
+      ]
+    ],
+    "gradient_norm": 1.104161024093628,
+    "coordinate_step_size": 0.05,
+    "scope": "synthetic two-step geometry; official undecorated loss kernel only"
+  },
+  "vad_collision_coupled_gradient_norms": {
+    "ego_offsets": 0.7905694246292114,
+    "predicted_agent_position": 0.7071067690849304,
+    "predicted_agent_future_offsets": 0.7905694246292114
+  },
+  "uniad_collision": {
+    "commit": "532fc330151758c5e345aef74d2a1bf1042e50ab",
+    "loss": 2.8499999046325684,
+    "loss_requires_grad": false,
+    "numerical_x_derivative": 2.000093460083008,
+    "cause": "CollisionLoss.to_corners reconstructs predicted center via torch.tensor(bbox[:2])",
+    "scope": "downloaded public implementation only; not evidence about authors' historical training"
+  }
+}

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 12:31 KST (Codex)
+마지막 갱신: 2026-10-04 12:47 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 12:42 KST: 사용자요청 E2E 안전/refinement 선행연구 감사 완료. 공식 소스 pin+VAD/UniAD 핵심loss CPU검사만 수행. Stage2 gate 차단 유지, LPWM runtime/학습/queue 변경 없음.
 
 - 2026-10-04 12:29 KST: Stage1 전체평가 완료. 원래 적응gate의 object_box_recall_noninferiority 실패로 queue의 stage1_gate가 exit2, 의존Stage2 차단. 추가causal/noncollapse/coverage 전부통과. Checkpoint보존, 강제진입/기준완화/새학습 없음. 이번 요청은 안전BCE/충돌좌표loss 의미 설명.
 
@@ -354,6 +356,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- SafeDrive 공식 Phase3는 TwDAC 좌표 reference를 detach하지만 shared motion/plan query는 FRNet에 연결돼 safety BCE가 SWNet decoder를 학습함. 우리 scorer는 coarse feature를 읽으므로 고유 future_refinement_decoder에 이 경로가 없는 차이를 확인. 직접 회피 좌표비용과 구분.
+- VAD 공식 kernel CPU검사: collision grad norm0.790569/loss1.3→1.26875, boundary1.104161/.363616→.302604. UniAD공개532fc33 CollisionLoss는 torch.tensor(bbox[:2])로끊겨 loss2.85의requires_grad=False/수치미분2.00009. 해당공개함수의문제이며논문전체재현아님. `results/e2e_planner_safety_audit_20261004/` 참조.
 
 - Stage1 top16 object box recall@IoU0.1 공개0.3219947→적응0.2893251, paired 차이-0.0326696/CI[-0.0415200,-0.0236445], 등록 CI하한>=-0.02 미충족. `results/lpwm_navsim_full_posttraining_v2/summary.json` 자동생성본을보존. 복원/미래LPIPS·객체ROI 및나머지위험gate 통과. Stage2 미시작.
 - 안전 BCE의 unsafe정답0은 안전확률을 낮추는 감독이므로 detach 제거만으로 충돌회피 목적이 되지 않음. 직접 좌표 회피 목적에는 미래GT footprint clearance/안전pseudo경로 회귀 등의 별도 objective가 필요하며 이번에는 설명만 기록.
@@ -624,10 +629,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 안전점수 BCE와 충돌회피 좌표 목적의 차이, SG 제거만으로 해결되지 않는 이유, 직접 기하/안전pseudo-target 보완안을 기존 문서에 설명. 구현/학습조건 변경 없음.
-- 확인 중 자동완료된 Stage1 전체개발평가의 객체대응 gate 실패와 Stage2 차단을 현재상태 문서에 반영하고 자동생성 summary를 보존. 나머지 적응gate 통과와 구분. 기준완화/재학습 없음.
+- VAD/UniAD/SafeDrive/DiffusionDrive 공식코드·설정 pin, 기존 DrivoR/DriveSuprim코드와 Hydra-MDP/Drive-JEPA 논문을 비교. 기존연구문서에 안전BCE 공유feature·직접좌표비용·안전pseudo경로·추론최적화 경계를 기록.
+- 공식loss를 추출한 재현가능 CPU gradient검사와 source manifest 추가. VAD의 직접gradient 확인, UniAD 특정공개버전의 좌표autograd단절 확인. SafeDrive가 공유SWNet을 safety BCE로 학습하는데 우리 고유refiner는 그렇지 않은 차이를 명확화. LPWM실행코드/학습/queue 불변.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 선행연구 감사 후 후속비교안은 shared refined-feature safety 감독, 안전 다중pseudo-target 회귀, footprint/road 직접비용을 분리하는 것. 현재는 설계 제안이며 등록runtime에 적용되지 않았음. Stage1 실패원인 진단/gate가 우선한다.
 
 - 최우선 상태 갱신: Stage1 gate 실패 원인인 top16 box recall 감소를 원시표본/scale/presence/객체종류로 진단한 뒤 다음 학습을 정한다. Queue 실패를 무시하거나 임계값을 완화하지 않는다. 아래 Stage1 평가진행/gate후 자동실행은 실패 전 계획. 충돌좌표loss는 제안이며 구현됐다고 보고하지 않는다.
 
@@ -744,6 +751,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 안전BCE가 공유decoder를 학습하는 것과 좌표를 안전방향으로 직접 미분하는 것을 구별한다. SafeDrive와 우리refiner를 같은gradient설계로부르지않음. UniAD공개kernel검사결과를논문저자실험전체에일반화하지않음. 이번8연구 비교는 문헌/코드와 작은CPU검사이며PDMS우월성검증없음.
 
 - Stage1 적응 gate는 전체평가 후 실패했으며 Stage2가 시작되지 않음. Box 대응 proxy 감소와 reconstruction/future 예측 개선이 공존한다. 최신 질문은 BCE/SG의 의미 설명으로 처리했고 runtime/source등록 변경 없음. 추가 안전좌표loss의 방식·가중치·검증은 아직 미등록.
 

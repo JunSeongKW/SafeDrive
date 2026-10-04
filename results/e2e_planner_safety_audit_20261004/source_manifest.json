@@ -1,0 +1,562 @@
+{
+  "retrieved_utc": "2026-10-04T03:36:47.012590+00:00",
+  "sources": {
+    "VAD": {
+      "repository": "hustvl/VAD",
+      "commit": "1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8",
+      "files": [
+        {
+          "path": "projects/mmdet3d_plugin/VAD/utils/plan_loss.py",
+          "sha256": "63f8866b4532669e270e90da65c9d820a8d9912f9f13fe881acd2d2d9a737a14",
+          "bytes": 19057,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/mmdet3d_plugin/VAD/utils/plan_loss.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/mmdet3d_plugin/VAD/utils/plan_loss.py"
+        },
+        {
+          "path": "projects/mmdet3d_plugin/VAD/VAD_head.py",
+          "sha256": "4e3c828125aeee521fe40756a422b5fb13410381c2dfd998ab26048f75b7f22f",
+          "bytes": 91044,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/mmdet3d_plugin/VAD/VAD_head.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/mmdet3d_plugin/VAD/VAD_head.py"
+        },
+        {
+          "path": "projects/configs/VAD/VAD_base_e2e.py",
+          "sha256": "7b4460a6c65985b16d8c58cb18d253efd25b65c043a0369ef978c91460c514a5",
+          "bytes": 17089,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/VAD/VAD_base_e2e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/VAD/VAD_base_e2e.py"
+        },
+        {
+          "path": "projects/configs/VAD/VAD_base_stage_1.py",
+          "sha256": "aacf5ebebaa0e6687646bf2c1043b65e376511d3059a60a9666859e25f6ebc86",
+          "bytes": 17073,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/VAD/VAD_base_stage_1.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/VAD/VAD_base_stage_1.py"
+        },
+        {
+          "path": "projects/configs/VAD/VAD_base_stage_2.py",
+          "sha256": "8afd426fa437148ec9481df0091d9298ad71eda6166b67cedd077d8e9d3ce172",
+          "bytes": 17127,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/VAD/VAD_base_stage_2.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/VAD/VAD_base_stage_2.py"
+        },
+        {
+          "path": "projects/configs/VAD/VAD_tiny_e2e.py",
+          "sha256": "c0fbb8b31fe84f4aad00b58717d6dc7a894337992aa47ff28937770e98ab9af3",
+          "bytes": 17073,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/VAD/VAD_tiny_e2e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/VAD/VAD_tiny_e2e.py"
+        },
+        {
+          "path": "projects/configs/VAD/VAD_tiny_stage_1.py",
+          "sha256": "fda3e3f01ad1d93846f975c31bb564db0190984bfc115a0f8be9ce5305eed059",
+          "bytes": 17496,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/VAD/VAD_tiny_stage_1.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/VAD/VAD_tiny_stage_1.py"
+        },
+        {
+          "path": "projects/configs/VAD/VAD_tiny_stage_2.py",
+          "sha256": "340bb3101151ce82ce69c5472b5152ccb08e52de0c5d1ec021d538774aa0530f",
+          "bytes": 17550,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/VAD/VAD_tiny_stage_2.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/VAD/VAD_tiny_stage_2.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/coco_instance.py",
+          "sha256": "1306f8c091776ad10a8cdc871c47e4e451490b7b3686c2c5c787cf3666398f6a",
+          "bytes": 1718,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/coco_instance.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/coco_instance.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/kitti-3d-3class.py",
+          "sha256": "248b74f968fa20413e7064b52a4d7e4fb236ea025e6fb00634eda929b25af4a7",
+          "bytes": 4597,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/kitti-3d-3class.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/kitti-3d-3class.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/kitti-3d-car.py",
+          "sha256": "045cc89e3e3d34fd5027d549aaca3fbd8706947fb3d9c34e64d35aa99f62aa7e",
+          "bytes": 4503,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/kitti-3d-car.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/kitti-3d-car.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/lyft-3d.py",
+          "sha256": "5d4ed5b36fc6d178b87686493a5dd199ed82f016ba06c1a15ebe949ef6bca817",
+          "bytes": 4568,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/lyft-3d.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/lyft-3d.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/nuim_instance.py",
+          "sha256": "b6bf9ae488b3c56b04666d2a6ce769ed012880887311aea5fe82ac0ce707779c",
+          "bytes": 1991,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/nuim_instance.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/nuim_instance.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/nus-3d.py",
+          "sha256": "89f7e6d1fa1707826b6d409d522cddea06ab6489ab030222e25cd83af7e77445",
+          "bytes": 4915,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/nus-3d.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/nus-3d.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/nus-mono3d.py",
+          "sha256": "c8d44052e8444e9292511c8dc654f2cff468ba5421b40b6b4c7deb308f979e83",
+          "bytes": 3236,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/nus-mono3d.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/nus-mono3d.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/range100_lyft-3d.py",
+          "sha256": "73311a145fba735ae5360de7ab8c7461b464256f6a88497b97284cda52ed2451",
+          "bytes": 4572,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/range100_lyft-3d.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/range100_lyft-3d.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/s3dis-3d-5class.py",
+          "sha256": "5f6110beb0b28900bbb5c6bfe26b453ca2f48596e970fdeda4f08be2edbfbc97",
+          "bytes": 3562,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/s3dis-3d-5class.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/s3dis-3d-5class.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/s3dis_seg-3d-13class.py",
+          "sha256": "18f113eb8e2fcf1784a711d4ca2e11b5319ed52828501c7c6b66a4e5b951bd00",
+          "bytes": 4323,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/s3dis_seg-3d-13class.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/s3dis_seg-3d-13class.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/scannet-3d-18class.py",
+          "sha256": "dad612b78d80a76a0101bbb01cdd9e9bb5bc3953972ca28aeca71b82a2cc43bd",
+          "bytes": 4037,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/scannet-3d-18class.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/scannet-3d-18class.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/scannet_seg-3d-20class.py",
+          "sha256": "4a898d55a252131dd6a8237179364c5e3d321d0ce57beb4bf6f051953449c8a9",
+          "bytes": 4253,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/scannet_seg-3d-20class.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/scannet_seg-3d-20class.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/sunrgbd-3d-10class.py",
+          "sha256": "3d3a48580c8378d74eb31e63d2d58044ebfa423970d26041b58d2a3f68526f87",
+          "bytes": 3289,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/sunrgbd-3d-10class.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/sunrgbd-3d-10class.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/waymoD5-3d-3class.py",
+          "sha256": "cc5c0704f04bb03c580f10bf1ceeefc1d171cbb01c382519afed3eae8595ae1c",
+          "bytes": 4789,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/waymoD5-3d-3class.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/waymoD5-3d-3class.py"
+        },
+        {
+          "path": "projects/configs/_base_/datasets/waymoD5-3d-car.py",
+          "sha256": "870ca5cca4f4d01c23a791bfaf31e7a8d706c8008463a7b1b931441438be93b5",
+          "bytes": 4683,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/datasets/waymoD5-3d-car.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/datasets/waymoD5-3d-car.py"
+        },
+        {
+          "path": "projects/configs/_base_/default_runtime.py",
+          "sha256": "778df7b551bf0348f09490f0e8df0252d2bd8c006ba916153a6b0f74e4b5c988",
+          "bytes": 485,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/default_runtime.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/default_runtime.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/3dssd.py",
+          "sha256": "d5d7cf484537d442ada2c9662d0f1f139d98c11b04f15ec5aea7646a034dd646",
+          "bytes": 3085,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/3dssd.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/3dssd.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/cascade_mask_rcnn_r50_fpn.py",
+          "sha256": "621113589edd597c560fda1c8f7099a0d5af5500c549d0a58e8ffa462910ecb7",
+          "bytes": 6976,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/cascade_mask_rcnn_r50_fpn.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/cascade_mask_rcnn_r50_fpn.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/centerpoint_01voxel_second_secfpn_nus.py",
+          "sha256": "f6163544fe3e3418b515313057fec34242126440fb278684cc055f210f2a5b04",
+          "bytes": 3275,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/centerpoint_01voxel_second_secfpn_nus.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/centerpoint_01voxel_second_secfpn_nus.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/centerpoint_02pillar_second_secfpn_nus.py",
+          "sha256": "413c49c57712f4e623db37dc62173daad04760aa71c32a030322547c88f6caf2",
+          "bytes": 3183,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/centerpoint_02pillar_second_secfpn_nus.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/centerpoint_02pillar_second_secfpn_nus.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/fcos3d.py",
+          "sha256": "bab967a7491acbdf3924ce743dc581b91156ec1bef13548ac6bb9885722c4621",
+          "bytes": 2279,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/fcos3d.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/fcos3d.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/groupfree3d.py",
+          "sha256": "fbbe18add44f9b13cc41bdebf77c4fffcef90bf903b5738a816b5a6d0e18d1ca",
+          "bytes": 2593,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/groupfree3d.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/groupfree3d.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/h3dnet.py",
+          "sha256": "9aa03ba4e3a8345421ed525ea601d76f79c13038a89a79b811f86de1acafe46e",
+          "bytes": 10970,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/h3dnet.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/h3dnet.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/hv_pointpillars_fpn_lyft.py",
+          "sha256": "cb0a3ab6233900184a8a2e97031d0ced8d4980254752f620d0f9296a4c977433",
+          "bytes": 963,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/hv_pointpillars_fpn_lyft.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/hv_pointpillars_fpn_lyft.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/hv_pointpillars_fpn_nus.py",
+          "sha256": "f417182670ab50b553b29db05d4b2b8df68a7f676d6bf1e078bc0f91ebe2f995",
+          "bytes": 3314,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/hv_pointpillars_fpn_nus.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/hv_pointpillars_fpn_nus.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/hv_pointpillars_fpn_range100_lyft.py",
+          "sha256": "4928c31fcbc6ff33c9a97e5e76c329fb5b534eacbabb0604005c5c5d23f7cd50",
+          "bytes": 975,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/hv_pointpillars_fpn_range100_lyft.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/hv_pointpillars_fpn_range100_lyft.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/hv_pointpillars_secfpn_kitti.py",
+          "sha256": "2480a7d3cbc41f30b601e69106327a5b69636c4a049ae4a45047283fcede5a66",
+          "bytes": 3136,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/hv_pointpillars_secfpn_kitti.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/hv_pointpillars_secfpn_kitti.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/hv_pointpillars_secfpn_waymo.py",
+          "sha256": "37455b4c78dfb4ed1c7c3dab5e59d269887852abefb2a83e55576883ba2194a9",
+          "bytes": 3987,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/hv_pointpillars_secfpn_waymo.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/hv_pointpillars_secfpn_waymo.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/hv_second_secfpn_kitti.py",
+          "sha256": "0cb5d1a3581c7c6443b379c02c766f77c2840c4e492ee5598adc4de71dea508f",
+          "bytes": 2909,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/hv_second_secfpn_kitti.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/hv_second_secfpn_kitti.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/hv_second_secfpn_waymo.py",
+          "sha256": "2c35d39544abcfe6f904e1eeeef477fec6b1040c54e3735e8279ab6dd586130f",
+          "bytes": 3503,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/hv_second_secfpn_waymo.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/hv_second_secfpn_waymo.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/imvotenet_image.py",
+          "sha256": "795e83d38570572f16dee355fb616162206e5e0afe3c05686e5628a16be68936",
+          "bytes": 3563,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/imvotenet_image.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/imvotenet_image.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/mask_rcnn_r50_fpn.py",
+          "sha256": "ff1bedf9c7428fa5ce86db3cfa8e9b72d3c6ede6745175cc88fee08a0bb72112",
+          "bytes": 4080,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/mask_rcnn_r50_fpn.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/mask_rcnn_r50_fpn.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/paconv_cuda_ssg.py",
+          "sha256": "47645b3f815fe910b09deabb45fab95e56944aeb0f6caf51322ed2cc288373fd",
+          "bytes": 180,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/paconv_cuda_ssg.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/paconv_cuda_ssg.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/paconv_ssg.py",
+          "sha256": "dfa6be75021f499fbc4b2eb664de74f99777cef6e11b1fad1b2c9ba11c8867a8",
+          "bytes": 2005,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/paconv_ssg.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/paconv_ssg.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/parta2.py",
+          "sha256": "6864b671e942c982d96f1f80103f8262a080b7bfcb074a6589349d7b3f0503fc",
+          "bytes": 7012,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/parta2.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/parta2.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/pointnet2_msg.py",
+          "sha256": "a36a53be96d6698a68b88eb9aac2fc9af9288bf3f5e8f1c7fe86aba8eea2ba5d",
+          "bytes": 1223,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/pointnet2_msg.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/pointnet2_msg.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/pointnet2_ssg.py",
+          "sha256": "949499445cf609cdc1a2f3fa1e2485b11b7b15b17f57fadd7c535509e8ebaadf",
+          "bytes": 1266,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/pointnet2_ssg.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/pointnet2_ssg.py"
+        },
+        {
+          "path": "projects/configs/_base_/models/votenet.py",
+          "sha256": "c22033142265e9ea0b3154fb131ef1e32834b1363a01802243e6d879a5fd9a6d",
+          "bytes": 2576,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/models/votenet.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/models/votenet.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/cosine.py",
+          "sha256": "6ee1342ba6d129a160971e3e963f6f45564fe14b0fafb1e15c2ec5f0b7f4c767",
+          "bytes": 536,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/cosine.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/cosine.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/cyclic_20e.py",
+          "sha256": "66cf50b2bbcf06e9b2fe4f2be35f406e45d1d78bef9bea48a73335dd741295e2",
+          "bytes": 797,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/cyclic_20e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/cyclic_20e.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/cyclic_40e.py",
+          "sha256": "c329bd5e71b8ff9234b74b07897d7a82840acd599c050ead994d49af54888187",
+          "bytes": 1572,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/cyclic_40e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/cyclic_40e.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/mmdet_schedule_1x.py",
+          "sha256": "b2234be7d7e85b929c966c3c938124ac0e674a34207acf638e9a970a7c366c38",
+          "bytes": 319,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/mmdet_schedule_1x.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/mmdet_schedule_1x.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/schedule_2x.py",
+          "sha256": "c56ad1fad25bae260ca483bd7e62a8f2a234de944e025c952d8305e15e48b2fc",
+          "bytes": 459,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/schedule_2x.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/schedule_2x.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/schedule_3x.py",
+          "sha256": "01bc8ba7aaee522db4475a44c083d89ed2d2b75f67cbca95b397da02e0a791b6",
+          "bytes": 399,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/schedule_3x.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/schedule_3x.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/seg_cosine_150e.py",
+          "sha256": "e9843bdd077a2f4ca1ada0755dd0967a45e3bca72e4ddd43aad19f78a8abd69a",
+          "bytes": 361,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/seg_cosine_150e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/seg_cosine_150e.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/seg_cosine_200e.py",
+          "sha256": "899e241ebd8129ece13c73a12769cb1cd9108627383e509b72e033bff517a630",
+          "bytes": 349,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/seg_cosine_200e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/seg_cosine_200e.py"
+        },
+        {
+          "path": "projects/configs/_base_/schedules/seg_cosine_50e.py",
+          "sha256": "e5aa3d7ee0162b6b40f65bfe3661c861199d8b7b2dfe80891f548ee6fe8f30d0",
+          "bytes": 347,
+          "source_url": "https://raw.githubusercontent.com/hustvl/VAD/1688c4b1c3a9e2e7873ca9700ff8058170c0e3c8/projects/configs/_base_/schedules/seg_cosine_50e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/VAD/projects/configs/_base_/schedules/seg_cosine_50e.py"
+        }
+      ]
+    },
+    "UniAD": {
+      "repository": "OpenDriveLab/UniAD",
+      "commit": "532fc330151758c5e345aef74d2a1bf1042e50ab",
+      "files": [
+        {
+          "path": "projects/mmdet3d_plugin/losses/planning_loss.py",
+          "sha256": "94926492273fa1f4acf9f46a7d4067faf2e19a85d2bf11e716891633ffc7e065",
+          "bytes": 3487,
+          "source_url": "https://raw.githubusercontent.com/OpenDriveLab/UniAD/532fc330151758c5e345aef74d2a1bf1042e50ab/projects/mmdet3d_plugin/losses/planning_loss.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/UniAD/projects/mmdet3d_plugin/losses/planning_loss.py"
+        },
+        {
+          "path": "projects/mmdet3d_plugin/uniad/dense_heads/planning_head.py",
+          "sha256": "1c851bbb30a89a472632e1f6428910fbc6d24aa324854c790e6dd155c01cd16b",
+          "bytes": 11392,
+          "source_url": "https://raw.githubusercontent.com/OpenDriveLab/UniAD/532fc330151758c5e345aef74d2a1bf1042e50ab/projects/mmdet3d_plugin/uniad/dense_heads/planning_head.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/UniAD/projects/mmdet3d_plugin/uniad/dense_heads/planning_head.py"
+        },
+        {
+          "path": "projects/mmdet3d_plugin/uniad/dense_heads/planning_head_plugin/collision_optimization.py",
+          "sha256": "4aabdc6772953d5dd6ad31e1923a628a3c14b8cb085ad92eb8a95ea2cdf532c3",
+          "bytes": 4891,
+          "source_url": "https://raw.githubusercontent.com/OpenDriveLab/UniAD/532fc330151758c5e345aef74d2a1bf1042e50ab/projects/mmdet3d_plugin/uniad/dense_heads/planning_head_plugin/collision_optimization.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/UniAD/projects/mmdet3d_plugin/uniad/dense_heads/planning_head_plugin/collision_optimization.py"
+        },
+        {
+          "path": "projects/configs/stage2_e2e/base_e2e.py",
+          "sha256": "4491d2173a742b92ec153abe87d672f5258324659529c5a8c688b20322a43378",
+          "bytes": 24150,
+          "source_url": "https://raw.githubusercontent.com/OpenDriveLab/UniAD/532fc330151758c5e345aef74d2a1bf1042e50ab/projects/configs/stage2_e2e/base_e2e.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/UniAD/projects/configs/stage2_e2e/base_e2e.py"
+        }
+      ]
+    },
+    "DiffusionDrive": {
+      "repository": "hustvl/DiffusionDrive",
+      "commit": "9b52ed0ec06b073d82d6f392ab084c7b301c8681",
+      "files": [
+        {
+          "path": "navsim/agents/diffusiondrive/modules/multimodal_loss.py",
+          "sha256": "699d732b1c8d858ed8b5cd72f31607ed433e031c12441c46baac697a463283fd",
+          "bytes": 6757,
+          "source_url": "https://raw.githubusercontent.com/hustvl/DiffusionDrive/9b52ed0ec06b073d82d6f392ab084c7b301c8681/navsim/agents/diffusiondrive/modules/multimodal_loss.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/DiffusionDrive/navsim/agents/diffusiondrive/modules/multimodal_loss.py"
+        },
+        {
+          "path": "navsim/agents/diffusiondrive/transfuser_config.py",
+          "sha256": "9be65fcc34a7ea9d2d1662adf70e3aa6c4807faf049c168956f3e12adb25cefb",
+          "bytes": 4520,
+          "source_url": "https://raw.githubusercontent.com/hustvl/DiffusionDrive/9b52ed0ec06b073d82d6f392ab084c7b301c8681/navsim/agents/diffusiondrive/transfuser_config.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_config.py"
+        },
+        {
+          "path": "navsim/agents/diffusiondrive/transfuser_loss.py",
+          "sha256": "5b70e51da6ac10d3b1f2c805db689b0ff8fe738d960a224ea578c19d529d7790",
+          "bytes": 6486,
+          "source_url": "https://raw.githubusercontent.com/hustvl/DiffusionDrive/9b52ed0ec06b073d82d6f392ab084c7b301c8681/navsim/agents/diffusiondrive/transfuser_loss.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_loss.py"
+        },
+        {
+          "path": "navsim/agents/diffusiondrive/transfuser_model_v2.py",
+          "sha256": "84a7f824fa51f172d6d2a940ad566a96eb253f26231065f5283bf6507701a697",
+          "bytes": 22659,
+          "source_url": "https://raw.githubusercontent.com/hustvl/DiffusionDrive/9b52ed0ec06b073d82d6f392ab084c7b301c8681/navsim/agents/diffusiondrive/transfuser_model_v2.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_model_v2.py"
+        }
+      ]
+    },
+    "SafeDrive": {
+      "repository": "SPA-junghokim/SafeDrive",
+      "commit": "ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f",
+      "files": [
+        {
+          "path": "navsim/agents/safedrive/safedrive_model.py",
+          "sha256": "bf138c452b71d2da1495e27a399d535b72f46f41359baa080a9f555272f65630",
+          "bytes": 64532,
+          "source_url": "https://raw.githubusercontent.com/SPA-junghokim/SafeDrive/ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f/navsim/agents/safedrive/safedrive_model.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/SafeDrive/navsim/agents/safedrive/safedrive_model.py"
+        },
+        {
+          "path": "navsim/agents/safedrive/safedrive_loss.py",
+          "sha256": "a66db6667d425ae2f5dcb1edbede3da9bbd013ee856b61fb802e51c92873cf73",
+          "bytes": 58530,
+          "source_url": "https://raw.githubusercontent.com/SPA-junghokim/SafeDrive/ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f/navsim/agents/safedrive/safedrive_loss.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/SafeDrive/navsim/agents/safedrive/safedrive_loss.py"
+        },
+        {
+          "path": "navsim/agents/safedrive/safedrive_agent.py",
+          "sha256": "a8e030df76252a05abebb29ce4a00a41977fda2dbc48aad20e9d1178fec40d1a",
+          "bytes": 17556,
+          "source_url": "https://raw.githubusercontent.com/SPA-junghokim/SafeDrive/ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f/navsim/agents/safedrive/safedrive_agent.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/SafeDrive/navsim/agents/safedrive/safedrive_agent.py"
+        },
+        {
+          "path": "navsim/agents/safedrive/safedrive_config.py",
+          "sha256": "47c72a69e79c0af938f9df596717fd5476f151666cd2da0f7ccc03af8d58e95c",
+          "bytes": 12732,
+          "source_url": "https://raw.githubusercontent.com/SPA-junghokim/SafeDrive/ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f/navsim/agents/safedrive/safedrive_config.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/SafeDrive/navsim/agents/safedrive/safedrive_config.py"
+        },
+        {
+          "path": "navsim/agents/safedrive/modules/transformer_motion.py",
+          "sha256": "522ff47f55ed7045baefcb10d6606a12623d1a64416ba76a6e6b00faca29b78d",
+          "bytes": 9954,
+          "source_url": "https://raw.githubusercontent.com/SPA-junghokim/SafeDrive/ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f/navsim/agents/safedrive/modules/transformer_motion.py",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/SafeDrive/navsim/agents/safedrive/modules/transformer_motion.py"
+        },
+        {
+          "path": "train.sh",
+          "sha256": "107478ca0b44d510c7f7e10b78e344d3b4cd4a95acff40563442143706c5f034",
+          "bytes": 4135,
+          "source_url": "https://raw.githubusercontent.com/SPA-junghokim/SafeDrive/ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f/train.sh",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/SafeDrive/train.sh"
+        },
+        {
+          "path": "navsim/planning/script/config/common/agent/SafeDrive_Phase3_Planner_FullTrain.yaml",
+          "sha256": "89d04266da94d1658234f4fdf0079576067bcd9563a62e6b634861cd6cd5e77d",
+          "bytes": 5512,
+          "source_url": "https://raw.githubusercontent.com/SPA-junghokim/SafeDrive/ea7791d6c2ebdeedfb6ed514f080cdfa1675b76f/navsim/planning/script/config/common/agent/SafeDrive_Phase3_Planner_FullTrain.yaml",
+          "local_path": "reference_repositories/E2ESafetyGradientAudit/SafeDrive/navsim/planning/script/config/common/agent/SafeDrive_Phase3_Planner_FullTrain.yaml"
+        }
+      ]
+    }
+  },
+  "reviewed_existing_checkouts": {
+    "DrivoR": {
+      "commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+      "repository": "valeoai/DrivoR",
+      "files": [
+        {
+          "path": "navsim/agents/drivoR/drivor_model.py",
+          "sha256": "bd530b606970fb72bd657363924cbbd4f5f072f8560f8a1cd3d39ee0bd91f59d",
+          "source_url": "https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/agents/drivoR/drivor_model.py"
+        },
+        {
+          "path": "navsim/agents/drivoR/score_module/scorer.py",
+          "sha256": "f8f3c467d67cf6d593c06cbff71471749ccd92e14cbcc86a12b4a813ec3a4b54",
+          "source_url": "https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/agents/drivoR/score_module/scorer.py"
+        },
+        {
+          "path": "navsim/agents/drivoR/layers/losses/drivor_loss.py",
+          "sha256": "e928a06a58d56363ff31bd8664f56a4f27af5b975125ba7c6bdb2d02715f8efb",
+          "source_url": "https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/agents/drivoR/layers/losses/drivor_loss.py"
+        }
+      ]
+    },
+    "DriveSuprim": {
+      "commit": "80fe792d7654a596d92e20d030d1650f6f605c02",
+      "repository": "William-Yao-2000/DriveSuprim",
+      "files": [
+        {
+          "path": "navsim/agents/drivesuprim/drivesuprim_model.py",
+          "sha256": "3a069b5befbc313b7881745641e0b1154d90c222462e1d6e8e971b810727ed4b",
+          "source_url": "https://github.com/William-Yao-2000/DriveSuprim/blob/80fe792d7654a596d92e20d030d1650f6f605c02/navsim/agents/drivesuprim/drivesuprim_model.py"
+        },
+        {
+          "path": "navsim/agents/drivesuprim/drivesuprim_loss_fn.py",
+          "sha256": "15d489316eac0e5c461c937ab309c1ae890177df9e0cd0affcda4352a0170896",
+          "source_url": "https://github.com/William-Yao-2000/DriveSuprim/blob/80fe792d7654a596d92e20d030d1650f6f605c02/navsim/agents/drivesuprim/drivesuprim_loss_fn.py"
+        }
+      ]
+    }
+  },
+  "paper_only_reviews": {
+    "Hydra-MDP": "https://arxiv.org/html/2406.06978v3",
+    "Drive-JEPA MTD": "https://arxiv.org/html/2601.22032v2"
+  }
+}

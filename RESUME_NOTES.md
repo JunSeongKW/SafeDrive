@@ -1735,3 +1735,10 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 사용자 BCE/SG 질문에 따라 unsafe정답0을 정확히 예측하는 BCE와 안전좌표를 생성하는 목적을 구분. Detach만 제거하면 안전확률을 낮추는 gradient가 좌표로 전달될 수 있어 해결책이 아님. 기하학적미분가능clearance/Drive-JEPA식 안전pseudo경로회귀를 보완설계로 설명했으며 runtime 미구현/실행변경 없음.
 - 확인 중 전체7745clip 평가 종료 및 queue_failed.json 발견. 유일한 원래gate 실패는 object_box_recall_noninferiority: top16 recall@IoU0.1 0.3219947→0.2893251, paired CI[-0.0415200,-0.0236445], 등록하한기준-0.02. 추가causal/noncollapse/coverage는전부통과. Stage2 진입차단 유지.
 - 자동생성 `results/lpwm_navsim_full_posttraining_v2/summary.json`을 그대로보존하고 README/AGENTS/HANDOFF현재상태갱신. 학습/queue/source/threshold 변경없음. 다음은box대응proxy실패원인진단. 이번 설명을 직접안전loss구현이나실험완료로해석하지않음.
+
+## 2026-10-04 12:42 KST — E2E 선행연구 안전 loss·refinement 실제 구현 비교
+
+- 공식 VAD1688c4b/UniAD532fc33/SafeDriveea7791d/DiffusionDrive9b52ed0 소스와설정 hash보존. 기존DrivoRfc6e5aa/DriveSuprim80fe792 및Hydra-MDP/Drive-JEPA 논문대조. 재현근거 `results/e2e_planner_safety_audit_20261004/`.
+- SafeDrive Phase3 TwDAC reference detach=True이나 motion/plan query는FRNet에연결돼BCE가SWNetdecoder를학습. 우리refined_score_decoder는coarsefeature를읽으므로고유refinementdecoder가안전BCE를직접받지않는차이확인. Safety score calibration/직접collision좌표loss를구별.
+- 공식kernel AST에서등록/reduction decorator만제거한 CPU검사: VADcollision1.3→1.26875/grad.790569, boundary.363616→.302604/grad1.104161. UniADloss2.85는requires_grad=False이나수치x미분2.00009; tensor재생성에의한공개함수gradient단절. Full planner재현/논문전체오류주장아님.
+- 기존문서에8방법비교/직접감독·안전pseudoGT·공유latent·추론후처리의차이와추천ablation기록. 신규학습/GPU/PDMS/runtime변경없음. Stage1gate실패에따른Stage2차단유지.
