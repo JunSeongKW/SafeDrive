@@ -1,0 +1,35 @@
+{
+  "research_question": "Does attention LoRA or native output-layer adaptation improve planning more efficiently, with direct object GT supervision deferred?",
+  "output_directory": "outputs/lpwm_adaptation_method_comparison_v1",
+  "shared_results_directory": "results/lpwm_adaptation_method_comparison_v1",
+  "partial_config": "configs/lpwm_planning/partial_output_layers_v1.json",
+  "partial_condition": "metric_plus_world",
+  "lora_profiles": [
+    "configs/lpwm_planning/lora_attention_batch4_accumulation2_v1.json",
+    "configs/lpwm_planning/lora_attention_batch8_accumulation1_v1.json"
+  ],
+  "profile_selection": "Among successfully completed finite five-update profiles below memory limits, choose lowest mean duration of updates 3\u20135. No development performance enters selection.",
+  "superseded_queue_pid": 1601034,
+  "adopt_training_pid": 1602577,
+  "deferred_conditions": [
+    "metric_object_future_plus_world"
+  ],
+  "automatic_object_gt_training": false,
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "minimum_free_gib": 6,
+  "maximum_gpu_used_bytes": 46000000000,
+  "profile_failure_policy": "Only a documented allocator/allocated-memory guard failure permits trying the other batch. Causal, nonfinite, source and other execution failures block the queue.",
+  "fixed_effective_batch": {
+    "planning": 16,
+    "world_clips": 8
+  },
+  "limitations": [
+    "One seed and one epoch",
+    "LoRA targets internal attention while partial tuning targets native output layers: method-level comparison, not isolated low-rank parameterization",
+    "No trained frozen-LPWM control yet",
+    "Evaluation uses previously exposed small development panels"
+  ],
+  "batch_upsize_workspace_margin_gib": 1.0,
+  "batch_upsize_admission": "Before launching larger batch, extrapolate successful smaller-batch peak linearly by batch ratio plus 1GiB workspace margin; skip if it exceeds the registered allocated cap. Runtime guards still apply."
+}

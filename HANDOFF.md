@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 23:12 KST (Codex)
+마지막 갱신: 2026-10-04 23:56 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,14 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**최신 2026-10-04 23:56 KST**: Partial torchrun1602577를 재시작 없이 queue1675463이 인계했다.
+GT ON 자동 실행은 제거됐고 partial→검증→LoRA→검증→paired비교가 실행된다.
+후속 queue1709131은 `four_method_sequence_v1.json`으로 앞 queue를 기다리며 Adapter→검증→full재개→검증을 실행한다.
+Full은 사용자의 최신 지시로 기존2095 model+AdamW를 별도 출력에서4707까지 이어간다. 기존 pause 자산은 보존한다.
+23:53KST partial912/4707, 최근3.66초/update, 오류/NaN 없음. GPU0·1 전체약36.44/36.31GB.
+LoRA/Adapter/full GPU 본학습은 아직 대기 중이며 속도/결과가 확인되지 않았다.
+
 
 - **2026-10-04 23:10 KST:** 사용자의부분학습대LoRA차이질문에현재코드/원논문을대조해설명했다. 기존부분queue running/첫조건240update·source20개/config불변을파일로확인. LoRA추가/학습재시작없음.
 
@@ -388,6 +396,14 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신: partial512update 고정128dev 모니터PDMS70.8503%, ADE1.86759m, FDE4.20983m(유효PDM127).
+초기random planner2.41294%/8.45013m 대비 학습 진전이며 LPWM 적응만의 이득은 미분리.
+Partial trainable world5,558,389/planner2,211,975. LoRA world1,343,488, Adapter704,960, full109,545,263.
+LoRA/Adapter/full CPU causal/gradient/SSL 검사와 관련7개unit test 통과. GPU검사는 각 조건 직전 대기 중.
+Full2095 checkpoint와746 AdamW state 복원/원모델 출력 차이0 검증. `to_logvar`는 현재Identity로 파라미터0.
+근거 `results/lpwm_four_method_queue_v1/launch_and_health_check.json` 및 연구문서 최신절.
+
 
 - 부분계층선택과LoRA갱신방식은별도축이다. 현재는native출력12모듈직접학습이고중간attention LoRA와의직접비교없음. W고정이어도LoRA유효W+BA로encoder표현변경가능;activation/backward비용은적용위치에좌우된다. 예시1024²행렬의rank8은학습파라미터1,048,576→16,384이며64배속/총메모리64배절감주장은아님. 원논문/공식구현과현계산그래프해석을연구문서에구분해기록했다.
 
@@ -708,10 +724,22 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자질문에선택계층직접미세조정과LoRA의갱신자유도/적용위치/optimizer메모리/backward비용차이를원논문과현재LPWM코드로설명하고연구문서/HANDOFF/RESUME에기록했다.
-- 기존부분queue첫조건240update/source20개·config불변확인. 새GPU학습·추론·LoRA구현·대기열변경은없으며LoRA의LPWM성능/시간우월성은미측정이다.
+- 객체 GT를 후순위로 옮기고 기존 partial GPU학습을 보존한 채 CPUqueue를 교체, LoRA 학습/검증을 추가했다.
+- 사용자 후속 지시에 따라 Adapter와 전체low-LR 후속queue를 등록했다. 전체는 보존된2095 model+AdamW에서4707까지 재개한다.
+- LoRA/Adapter/full 모델·trainer/evaluator wrappers·CPU감사·profile안전선택·paired보고서를 추가했다. 원래 실행source/config는 변경하지 않았다.
+- 현재partial 정확한 모듈별 학습 범위와 Identity to_logvar를 기록하고 최신 학습/gradient/VRAM/중간PDMS를 점검했다.
+- CPU 모델감사/실제746optimizer 복원 및7개unit test 통과. GPU본학습은partial만 실행 중, 후속비교성능은 아직 미완료다.
+
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재 두 queue 상태를 읽고 완료될 때마다 고정 평가 결과와 비용을 확인한다.
+`outputs/lpwm_adaptation_method_comparison_v1/queue_state.json`과 `outputs/lpwm_four_method_queue_v1/queue_state.json`이 최신이다.
+새 중복 queue/기존 GT ON queue/원본20epoch 전체 queue를 실행하지 않는다. Source/config 변경이 필요하면 별도 amendment를 등록한다.
+전체 순서를 중단하려면 현재 활성 queue와 후속 queue에 pause marker를 기록한다. 과거 full root의 pause는 보존용이며 새 후속queue의 pause와 다르다.
+현재 partial 학습은10/5 약04시 전후 완료 예상, 검증 시간·공유GPU 부하로 변동. 나머지 전체 ETA는 각 profile 실측 후 갱신한다.
+최종 `results/lpwm_four_method_queue_v1/four_method_summary.json`을 확인한다. 현재 아직 없다.
+
 
 - 현재부분GT두조건queue를유지한다. LoRA는후속설계후보이며이번설명만으로추가실행하지않는다. 비교시적용계층/intent위치/학습량/GT·SSL조건을맞추고실제step시간·VRAM·PDMS·world유지를함께측정한다.
 
@@ -877,6 +905,13 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신 승인 범위는 전체train1epoch의 네 조건 경향 비교다. 객체GT loss는 모두OFF/후순위.
+Full은 기존2095update를 이어받으므로 새학습2612update이며, 원래conv_in명령과20epoch스케줄을 유지한다.
+다른 방법과 명령 위치/스케줄/적응 위치·자유도가 달라 순수한 PEFT 효과를 분리한 비교는 아니다.
+No trained frozen-LPWM control,1seed,노출된dev panel; 독립test/수렴/LPWM만의 인과적 이득은 미확정.
+원본2095 checkpoint와pause기록 보존, 새로운자동재개는 별도full후속조건만 승인됨. GPU46GB는 CPU RAM 제한이 아니다.
+
 
 - LoRA가현재출력계층부분학습보다더빠르거나PDMS가높다는근거는아직없다. 현재particle재구성을목적으로하면영상encoder경로의적용위치가핵심이며context/dynamics전용LoRA와구분한다. 직전b2c48fd원격push도GitHub인증오류로실패했다.
 

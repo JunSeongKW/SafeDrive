@@ -1,0 +1,28 @@
+{
+  "engineering_audit_only": true,
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+  "device": "cpu",
+  "condition": "metric_plus_world",
+  "source_sha256": {
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": "4b8fb0131c1bf39dd7ea137b235046298a42f1fd3331c7563bd1e90ec1c70fd0",
+    "scripts/lpwm_refinement_oracle.py": "2d27d2ac17ee158bbe4620485d2bc45d616f95e0a7afe92eed2ece6dd2bb4cba"
+  },
+  "planning_gradient_norms": {
+    "image_encoder": 0.06237023323774338,
+    "context": 0.010985921137034893,
+    "dynamics": 0.01988883875310421,
+    "rgb_decoder": 0.0,
+    "planner_and_command": 19.294099807739258
+  },
+  "isolated_future_object_loss_gradient_norms": {},
+  "future_target_intervention_max_prediction_difference": 0.0,
+  "refinement_gradient_norms": {},
+  "future_target_intervention_max_metric_logit_difference": 0.0,
+  "intent_particle_mean_absolute_difference_after_one_diagnostic_update": 6.754632340744138e-05,
+  "diagnostic_updates": 1,
+  "diagnostic_weights_saved": false,
+  "seconds": 46.73255767603405,
+  "complete": false,
+  "issue": "CPU-only background encoder view rejected channels-last strides during additional SSL audit",
+  "resolution": "Use contiguous CPU video in engineering audit; official source and running GPU training unchanged"
+}

@@ -75,6 +75,26 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-04 23:53KST 최신 지시: 일부 계층 → LoRA → Adapter → 전체 low-LR 재개 순서.**
+`four_method_sequence_v1.json`과 `queue_lpwm_followup_methods.py`가 기존 partial/LoRA queue 완료 뒤
+Adapter와 full을 순차 실행한다. 각 조건 뒤 검증, 직접 객체 GT는 후순위. 현재 training1602577와
+queue1675463/1709131을 중복 실행하지 않는다. 실행 중 source34개/config10개 hash를 변경하지 않는다.
+사용자가 마지막 full은 이전checkpoint 재사용을 요청했으므로 이 새 후속 조건에 한해 재개를 승인했다.
+기존20epoch 원본의 pause marker/2095checkpoint/config/source는 보존하고, 별도 출력에서2096→4707로 이어간다.
+원래 conv_in 명령 위치/20epoch LR 스케줄/AdamW746state를 유지한다. 다른 세 조건과의 차이를 보고한다.
+GPU0·1/전체46decimalGB/6GiB 여유 유지. 현재 partial을 멈추는 추가 GPU benchmark를 실행하지 않는다.
+
+
+**2026-10-04 최신 사용자 우선순위 변경: 객체 GT 조건 후순위, partial 대 LoRA 먼저.**
+신규진입점 `configs/lpwm_planning/adaptation_method_comparison_v1.json`과
+`scripts/queue_lpwm_adaptation_methods.py`다. 현재partial OFF GPU학습은보존·인계하고,
+기존CPUqueue만교체해GT ON자동실행을제거한다. Partial학습/검증→LoRA메모리·속도profile/
+gradient검증→LoRA학습/검증→paired방법비교순서다. 두방법모두직접객체GT보조OFF,
+같은Stage1/planner/명령위치/loss/LR/전체train1epoch. 새LoRA는rank16/alpha32,
+particle interaction/context/dynamics attention84projection, native LPWM전체가중치고정.
+GPU0·1/전체46decimalGB제한유지. 배치8은작은배치실측으로안전여유가예측될때만시험한다.
+기존source/config/20epoch fullpause는그대로보존하고추가감독실험을자동실행하지않는다.
+
 **2026-10-04 22:51 KST 최신 사용자 승인: 빠른 Stage2 부분 미세조정 별도 실험.**
 사용자가 LoRA 또는 일부 계층 학습으로 경향을 먼저 보도록 요청했다. 신규 실행은
 `configs/lpwm_planning/partial_output_layers_v1.json` / `scripts/queue_lpwm_partial_planning.py`다.

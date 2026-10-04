@@ -1,0 +1,47 @@
+{
+  "research_question": "Four adaptation methods with direct object GT loss deferred",
+  "output_directory": "outputs/lpwm_four_method_queue_v1",
+  "shared_results_directory": "results/lpwm_four_method_queue_v1",
+  "predecessor_config": "configs/lpwm_planning/adaptation_method_comparison_v1.json",
+  "predecessor_queue_directory": "outputs/lpwm_adaptation_method_comparison_v1",
+  "method_order": [
+    "partial_output_layers",
+    "attention_lora",
+    "residual_adapter",
+    "full_low_learning_rate"
+  ],
+  "followup_methods": [
+    {
+      "method": "residual_adapter",
+      "profiles": [
+        "configs/lpwm_planning/residual_adapter_batch2_accumulation4_v1.json",
+        "configs/lpwm_planning/residual_adapter_batch4_accumulation2_v1.json",
+        "configs/lpwm_planning/residual_adapter_batch8_accumulation1_v1.json"
+      ]
+    },
+    {
+      "method": "full_low_learning_rate",
+      "profiles": [
+        "configs/lpwm_planning/full_low_learning_rate_batch2_accumulation4_v1.json",
+        "configs/lpwm_planning/full_low_learning_rate_batch4_accumulation2_v1.json"
+      ]
+    }
+  ],
+  "automatic_object_gt_training": false,
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "minimum_free_gib": 6,
+  "maximum_gpu_used_bytes": 46000000000,
+  "batch_upsize_workspace_margin_gib": 1.0,
+  "profile_selection": "Fastest mean of the last three of five finite updates under memory caps, independent of evaluation performance. Larger batch requires smaller-batch peak extrapolation plus1GiB <=21.5GiB.",
+  "scientific_gate_policy": "Record failed efficacy/world-retention checks and continue independent registered comparison methods; execution, causality, nonfinite, source mismatch or incomplete training blocks dependent jobs.",
+  "initialization": "Partial/LoRA/adapter independently start from Stage1 and seed47 planner. Full method resumes earlier model+AdamW checkpoint2095, preserving its conv_in command and20epoch scheduler, stopping at cumulative4707.",
+  "limitations": [
+    "One epoch and one seed; trends rather than convergence",
+    "Different adaptation locations/capacity; full method also changes LPWM LR",
+    "Fixed previously exposed development panels, no independent test",
+    "No separately trained frozen-LPWM control",
+    "Shared GPU timing is load-dependent",
+    "Resumed full method retains conv_in command conditioning and original20epoch scheduler, while other methods use conv_out and1epoch scheduler. Not an isolated adaptation-method comparison."
+  ]
+}

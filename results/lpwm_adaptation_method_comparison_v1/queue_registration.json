@@ -1,0 +1,38 @@
+{
+  "source_sha256": {
+    "scripts/queue_lpwm_validated_training.py": "e3e0b74d7f5934b0633a0420602535a0b6a84655370a5ad5d9c5ed62f9c4de6f",
+    "scripts/train_lpwm_full_planning.py": "d49ad66501d670c31d5d74426d80c38b0fb905d377896e2729d314fa44dd4e09",
+    "scripts/evaluate_lpwm_full_planning.py": "08041b5a9185081d5a63968f674cfe18471f5194a54d842dda721e807f084700",
+    "scripts/prepare_lpwm_candidate_teacher.py": "89695c2223d3da100052e2f0f8ca7d1085beff150bcf007bb6c3071c9264f9f7",
+    "scripts/validate_lpwm_stage_transition.py": "54cf98a8633c1b6ed674c07c217eacf95838dc8c0bf210546f0f9b1dd6fd36a1",
+    "scripts/audit_lpwm_planning_finetuning.py": "b5854e011520e4abe19e011e713e3377f86677aa377e303b628c8c21304a73ad",
+    "scripts/lpwm_refinement_oracle.py": "2d27d2ac17ee158bbe4620485d2bc45d616f95e0a7afe92eed2ece6dd2bb4cba",
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": "4b8fb0131c1bf39dd7ea137b235046298a42f1fd3331c7563bd1e90ec1c70fd0",
+    "src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py": "0b1471cf46bcf10fbd59140994cbe712c5667e59fbb280c6a7205711690ef03f",
+    "scripts/lpwm_stage2_admission.py": "c628278a3809e9d1b438354e65d32fb896b8489fe6103f1a75a2603704731492",
+    "scripts/prepare_lpwm_stage2_object_targets.py": "e1e5c4b224b56c4f35e3981827b44e7bf01ecf2f27a3e304a01383a207b55d7d",
+    "scripts/summarize_lpwm_object_auxiliary_ablation.py": "3d1fe4f09fde9d609a8d6fecf8e5156603ecde95d42b9147a6898857b41985cb",
+    "src/planning_aware_future_prediction/object_centric/lpwm_object_supervision.py": "fae15111f7088997d0f6920230474ce6ac770c6d6f66c2c4f206875c4f3b7d27",
+    "results/lpwm_object_future_planning_v3/stage1_admission_amendment.json": "7f52100708c230ddea884aeb9cd353b9d6b08ea9a52acc97a9d64f42bae4409d",
+    "scripts/train_lpwm_partial_planning.py": "760bc057b2b21a6f2a310c1d39216286b257e10ba7491929ea0d1daf37646713",
+    "scripts/evaluate_lpwm_partial_planning.py": "36a63dc71e065a4468a07740ca67708d591ea7437c0d9495309649865ee61098",
+    "scripts/audit_lpwm_partial_finetuning.py": "9c24632ee19430aac0b3274fa71d3e9934de84286730f4b5327e52b488e4f02c",
+    "scripts/lpwm_partial_protocol.py": "8fef52bebc264faa399b5332df2874dd74ba0e4fabc8af0c917702cefcedf35e",
+    "scripts/queue_lpwm_partial_planning.py": "48c4e728ab4b2a211501f0b8537e0ce2db36711764e5270302caa9fa47f16182",
+    "src/planning_aware_future_prediction/object_centric/lpwm_partial_finetuning.py": "44877414d9fa6f81a54244d69a19a3f818a382d5681c40cae764d86d2a83848e",
+    "src/planning_aware_future_prediction/object_centric/lpwm_lora_finetuning.py": "10780fc7fc6374f1f9fa12cf2a156f37e89bb62ef195a58f3379025366cad0e2",
+    "scripts/train_lpwm_lora_planning.py": "b314164317b35ea45c86d021826a36496184dfa83c392f718d2877ae35f9d2df",
+    "scripts/evaluate_lpwm_lora_planning.py": "ec35e1cf74b22e29cbc1e219564d733073daf815f58bed76fa2a3779c07e1b4c",
+    "scripts/audit_lpwm_lora_finetuning.py": "0400146299eaa4ab2f1efc4dcc29be89a0ad776fc82ca8a3810fef5bd99bb025",
+    "scripts/queue_lpwm_adaptation_methods.py": "2740761bceadea907af0db5bc0cdaf1f6cc1ae02774711ecf8c054c95049f999",
+    "scripts/summarize_lpwm_adaptation_methods.py": "9c8ad4fdebd472351dc6e9fe6f8077784172f71a46f65c2658c85e184f221660"
+  },
+  "configuration_sha256": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/adaptation_method_comparison_v1.json": "ba34b8cb69c91b8e4d73527f3437c3a7bffcbda5d2d1080ef7aba2bd8bf807f7",
+    "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/partial_output_layers_v1.json": "4046f8bbb245f7ba77ee29bc51a9118ed96608549b9181b97cc86f43a5bd1bbc",
+    "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/lora_attention_batch4_accumulation2_v1.json": "b85cfb84f1f16a643577899aa98cf6aabbeb8d7789ca2f12127362045b2c1039",
+    "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/lora_attention_batch8_accumulation1_v1.json": "a10c12742a0f7553f354a41b1f7732e28f39d058464cff3031bcb333a93591cf"
+  },
+  "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+  "object_gt_condition_deferred": true
+}

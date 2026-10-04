@@ -1,0 +1,138 @@
+{
+  "checked_at_kst": "2026-10-04T23:53:20.705408+09:00",
+  "partial_progress": {
+    "update": 912,
+    "total_updates": 4707,
+    "epoch_fraction": 0.19375398342893563,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 14592,
+    "planning_loss": 6.680024981498718,
+    "world_objective": 18.36075210571289,
+    "loss": 7.0472400188446045,
+    "imitation_loss": 4.562867999076843,
+    "metric_distillation_loss": 2.1171570420265198,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 64.95307159423828,
+      "context": 12.182888984680176,
+      "dynamics": 41.47130584716797,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 4.1507649421691895
+    },
+    "lpwm_lr": 9.257965429573516e-06,
+    "planner_lr": 0.00027773896288720544,
+    "peak_allocated_gib": 12.072834968566895,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.010423863015603274,
+    "update_seconds": 3.5527558979811147,
+    "elapsed_seconds": 3522.3885962040513
+  },
+  "validation": [
+    {
+      "epoch": 0,
+      "update": 0,
+      "clips": 128,
+      "ade_meters": 8.450129672884941,
+      "fde_meters": 17.812133342027664,
+      "cached_official_pdms_percent": 2.4129434833376426,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.1087741661355428,
+      "update": 512,
+      "clips": 128,
+      "ade_meters": 1.8675856590270996,
+      "fde_meters": 4.209834940731525,
+      "cached_official_pdms_percent": 70.85029642412982,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    }
+  ],
+  "recent_mean": {
+    "loss": 7.062479987740517,
+    "planning_loss": 6.686460018157959,
+    "world_objective": 18.80099831521511,
+    "update_seconds": 3.6484983626796748,
+    "input_preparation_seconds": 0.01469607169565279
+  },
+  "finite_all_logged_objectives": true,
+  "no_saved_training_error": true,
+  "queue_states": {
+    "lpwm_adaptation_method_comparison_v1": {
+      "queue_pid": 1675463,
+      "status": "running",
+      "current_stage": "partial_training_adopted",
+      "created_unix": 1791124426.4637036,
+      "nodes": {
+        "partial_training": {
+          "status": "running",
+          "pid": 1602577,
+          "adopted_without_restart": true
+        }
+      },
+      "object_gt_condition_deferred": true,
+      "heartbeat_unix": 1791125596.730769,
+      "resources": {
+        "0": {
+          "used_bytes": 36444307456,
+          "free_gib": 13.4716796875
+        },
+        "1": {
+          "used_bytes": 36311138304,
+          "free_gib": 13.5966796875
+        }
+      }
+    },
+    "lpwm_four_method_queue_v1": {
+      "queue_pid": 1709131,
+      "status": "waiting",
+      "current_stage": "waiting_for_partial_and_lora",
+      "method_order": [
+        "partial_output_layers",
+        "attention_lora",
+        "residual_adapter",
+        "full_low_learning_rate"
+      ],
+      "nodes": {},
+      "created_unix": 1791125540.8263621,
+      "object_gt_deferred": true,
+      "predecessor_stage": "partial_training_adopted",
+      "predecessor_status": "running",
+      "heartbeat_unix": 1791125590.8381557
+    }
+  },
+  "registered_source_checks": {
+    "lpwm_adaptation_method_comparison_v1": {
+      "source_count": 26,
+      "all_sources_match": true,
+      "config_count": 4,
+      "all_configs_match": true
+    },
+    "lpwm_four_method_queue_v1": {
+      "source_count": 34,
+      "all_sources_match": true,
+      "config_count": 10,
+      "all_configs_match": true
+    }
+  },
+  "tests": {
+    "command": "python -m unittest tests.test_lpwm_lora_adaptation tests.test_lpwm_adapter_continuation -v",
+    "passed": 7,
+    "failed": 0
+  },
+  "worker_speed_assessment": "Input preparation about0.015sec versus3.66sec/update; extra loader workers do not target the measured bottleneck. Current workers0 retained.",
+  "batch_upsize": "Current partial batch4 peak12.073GiB; conservative batch8 estimate25.146GiB exceeds21.5GiB cap. New methods profile smaller batch first and only try larger when estimate passes. Effective batch16 stays fixed.",
+  "full_resume": "Model and746 AdamW states at2095 restored onCPU, legacy-versus-restored logits and particles exactly equal; queued continuation to4707, original archived run unchanged."
+}

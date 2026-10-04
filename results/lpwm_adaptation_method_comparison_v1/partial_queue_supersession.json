@@ -1,0 +1,75 @@
+{
+  "reason": "User prioritizes partial-vs-LoRA before direct object GT supervision",
+  "superseded_supervisor": {
+    "pid": 1601034,
+    "state": "S",
+    "parent_pid": 1,
+    "start_ticks": "28566534",
+    "uid": 1020,
+    "arguments": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+      "/rhome/junseong/PlanningAwareFuturePrediction/scripts/queue_lpwm_partial_planning.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/partial_output_layers_v1.json"
+    ]
+  },
+  "adopted_training": {
+    "pid": 1602577,
+    "state": "S",
+    "parent_pid": 1601034,
+    "start_ticks": "28571490",
+    "uid": 1020,
+    "arguments": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nnodes=1",
+      "--nproc-per-node=2",
+      "scripts/train_lpwm_partial_planning.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/partial_output_layers_v1.json",
+      "--condition",
+      "metric_plus_world",
+      "--resume"
+    ]
+  },
+  "previous_queue_state": {
+    "queue_pid": 1601034,
+    "status": "running",
+    "current_stage": "metric_plus_world_training",
+    "nodes": {
+      "metric_plus_world_gradient_audit": {
+        "status": "complete",
+        "pid": 1601187,
+        "started_unix": 1791122009.8975167,
+        "returncode": 0,
+        "finished_unix": 1791122053.6249664
+      },
+      "metric_plus_world_training": {
+        "status": "running",
+        "pid": 1602577,
+        "started_unix": 1791122054.7306325
+      }
+    },
+    "configuration_sha256": "4046f8bbb245f7ba77ee29bc51a9118ed96608549b9181b97cc86f43a5bd1bbc",
+    "created_unix": 1791122008.5298424,
+    "heartbeat_unix": 1791124421.7894924,
+    "resources": {
+      "0": {
+        "used_bytes": 36444307456,
+        "free_gib": 13.4716796875
+      },
+      "1": {
+        "used_bytes": 36311138304,
+        "free_gib": 13.5966796875
+      }
+    }
+  },
+  "new_queue_pid": 1675463,
+  "time_unix": 1791124426.4654095,
+  "old_source_and_configuration_unchanged": true,
+  "supervisor_signal": "SIGKILL to supervisor PID only; its SIGTERM handler would stop training",
+  "training_signal_sent": false,
+  "object_auxiliary_condition": "deferred; not automatically scheduled"
+}

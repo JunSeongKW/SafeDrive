@@ -1,5 +1,22 @@
 # Planning-Aware Future Prediction
 
+**최신(2026-10-04 23:53 KST): 네 가지 미세조정 순차 비교를 등록했고 부분 학습은 계속 실행 중이다.**
+일부 계층 → 검증 → LoRA → 검증 → Adapter → 검증 → 이전 전체 미세조정 재개 → 검증.
+직접 객체 GT 보조 loss는 후순위이며 자동 실행하지 않는다. 전체 조건은 기존 model+AdamW update2095를
+이어받아 총4707에서1epoch 경향 검증하며 원본 보존. 이전20epoch LR 스케줄/conv_in 명령 입력도 유지한다.
+현재 torchrun1602577, Partial/LoRA queue1675463, 후속 queue1709131(waiting).
+진입점 `configs/lpwm_planning/four_method_sequence_v1.json`; 상태 `outputs/lpwm_four_method_queue_v1/queue_state.json`.
+[정확한 모듈·gradient·재개·평가 범위](docs/lpwm_planning_experiment.md).
+아래 과거 두 조건/새 full 초기화 계획은 이 최신 지시로 대체됐다.
+
+**최신(2026-10-04): 객체GT보조학습을후순위로옮기고 일부계층 미세조정 대 LoRA를 먼저 비교.**
+현재partial GPU학습은이어받고, 두방법모두GT보조OFF/전체navtrain학습분할75,297개/1epoch.
+새queue `scripts/queue_lpwm_adaptation_methods.py`, 설정 `adaptation_method_comparison_v1.json`,
+상태 `outputs/lpwm_adaptation_method_comparison_v1/queue_state.json`.
+Partial학습→검증→LoRA batch4/안전할경우8 profile→학습→검증·paired비교.
+LoRA rank16/alpha32/84attention projection, LPWM adapter1.343M+planner2.212M학습.
+Native LPWM가중치는고정, 기존SSL·명령입력·학습률·평가장면유지. 이전GT ON자동실행은해제됐다.
+
 **최신 사용자 승인(2026-10-04 22:51 KST): Stage2 일부 계층 미세조정으로 빠른 경향 확인.**
 `partial_output_layers_v1.json`: LPWM native 출력계층5.56M와 planner2.21M 학습,
 전체75,297개 navtrain/조건별1epoch/4,707update, 객체GT 보조loss off/on 비교.

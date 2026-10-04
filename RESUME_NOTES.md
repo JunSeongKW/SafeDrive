@@ -1877,3 +1877,20 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 사용자개념질문에현재LPWM부분학습구현/LoRA원논문(2106.09685)/microsoft공식구현을대조. 선택계층을직접갱신하는것과그계층변화량을저랭크로제한하는것은별도축이며조합가능. 원본W고정상태에서도LoRA유효W+BA가encoder표현을수정함을설명했다.
 - 현재native출력12모듈직접학습과중간attention LoRA의가설을구분. LoRA로학습파라미터/optimizer메모리는줄일수있으나앞쪽적용시backward/activation비용이남고우리rollout8step/SSL12frame계산도유지되므로속도/PDMS우열은직접비교필요.1024²/rank8예시는64배파라미터감소만의계산이며속도수치아님.
 - 기존queue running/첫조건240update/source20개·config불변을파일조회로확인. GPU실험/LoRA구현/대기열변경없음. 문서/HANDOFF갱신;직전b2c48fdpush는GitHub인증실패상태다.
+
+
+## 2026-10-04 23:56 KST — 네 가지 미세조정 대기열과 기존full 이어학습
+
+
+최신 사용자 지시에 따라 **일부 계층 → LoRA → Adapter → 낮은 학습률 전체 미세조정** 순서로 실행한다.
+각 학습 뒤에 planning/world 검증을 완료하고 다음 조건으로 넘어간다. 직접 객체 GT 보조 loss는 모두 OFF이며 후순위다.
+현재 부분 학습을 재시작하지 않고 CPU supervisor만 교체했다. 학습 torchrun1602577은 계속 실행 중이다.
+
+
+Partial torchrun1602577를 CPUqueue1675463이 adopt; old supervisor1601034만 종료. 후속queue1709131은 CPU 대기 중.
+Full2095checkpoint SHA aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac, optimizer746states 복원/출력차0. 원본pause 보존.
+Partial912/4707, monitor512 PDMS70.8503/ADE1.86759, 메모리46GB 이내/모든logged loss finite.
+LoRA1.343M/Adapter0.705M nativefrozen, full109.545M trainable, planner공통2.212M.7개tests/CPU감사통과.
+현재partial 학습범위 image2.377M/context0.803M/dynamics2.378M/RGB0; feature to_logvar Identity.
+새후속34source/10config hash 등록. Full command conv_in+20epoch LR schedule 차이,1seed/노출dev/no frozencontrol 한계 기록.
+LoRA/Adapter/full GPUprofile/학습/최종검증은 아직 대기. 문서 docs/lpwm_planning_experiment.md 최신절 및 results/lpwm_four_method_queue_v1/ 참조.

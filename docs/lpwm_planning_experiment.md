@@ -1,5 +1,113 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04: 네 가지 미세조정 비교와 기존 전체 학습 재개
+
+최신 사용자 지시에 따라 **일부 계층 → LoRA → Adapter → 낮은 학습률 전체 미세조정** 순서로 실행한다.
+각 학습 뒤에 planning/world 검증을 완료하고 다음 조건으로 넘어간다. 직접 객체 GT 보조 loss는 모두 OFF이며 후순위다.
+현재 부분 학습을 재시작하지 않고 CPU supervisor만 교체했다. 학습 torchrun1602577은 계속 실행 중이다.
+
+### 실행 상태와 진입점
+
+- Partial/LoRA queue: `scripts/queue_lpwm_adaptation_methods.py`, 설정 `adaptation_method_comparison_v1.json`, PID1675463.
+- Adapter/전체 재개 후속 queue: `scripts/queue_lpwm_followup_methods.py`, 설정 `four_method_sequence_v1.json`, PID1709131.
+- 후속 queue는 앞 queue의 완료 marker와 실제 검증 보고서를 확인한 뒤 기동한다. PID 소멸을 성공으로 해석하지 않는다.
+- GPU0·1만 사용하며, 다른 사용자 점유를 포함한 카드별 전체 VRAM46decimalGB 상한과6GiB 여유를 유지한다.
+- 현재 부분 학습은23:53KST에912/4707update. 저장된 모든 loss는 finite이며 오류 기록이 없다.
+- 첫512update 모니터: 고정128dev(127개 유효 PDM), PDMS70.8503%, ADE1.86759m, FDE4.20983m.
+  초기 무작위 planner는PDMS2.41294%, ADE8.45013m였다. 이는 planner 학습의 진전이며 LPWM 미세조정만의 효용은 아니다.
+
+### 현재 부분 학습의 정확한 범위
+
+`lpwm_partial_finetuning.py`의 policy는 `output_layers`다. 마지막 Transformer block을 여는 `last_block`은 선택하지 않았다.
+LPWM은 단일 ViT가 아니라 영상 particle encoder, interaction, context, dynamics, RGB decoder로 구성된다.
+
+| 영역 | 전체 파라미터 | 현재 학습 파라미터 | 실제 학습 대상 |
+|---|---:|---:|---|
+| Image encoder + particle interaction | 6,035,191 | 2,377,278 | attribute CNN `conv_out`, `xy_head`, `scale_xy_head`, `obj_on_head`, appearance `to_mu`, interaction `particle_decoder` |
+| Context | 39,389,417 | 802,844 | `ctx_enc.pte.head`, `posterior_decoder`, `prior_decoder` |
+| Dynamics(공유 context 제외) | 59,869,416 | 2,378,267 | `particle_transformer.head`, `particle_decoder` |
+| RGB decoder | 4,251,239 | 0 | 고정, SSL gradient는 입력 particle 쪽으로 전달 |
+| Planner + command 입력 | 2,211,975 | 2,211,975 | 전체 학습 |
+
+LPWM 합계5,558,389 + planner2,211,975 =7,770,364개를 학습한다. 주요 CNN/attention/MLP body는 고정한다.
+`particle_features_enc.to_logvar`도 선택 목록에 있지만 현재 공식 구성에서는 `Identity`이므로 학습 파라미터0개다.
+따라서 ‘12개 선택 모듈’을 ‘12개 모두 파라미터가 있는 학습 계층’으로 해석하지 않는다.
+여기서 particle decoder는 latent 속성 출력 head이고 RGB 영상 복원 decoder와 다르다.
+출력 head 자체가 고정돼도 앞단 trainable feature가 바뀌면 그 출력이 바뀔 수 있다.
+
+현재 입력은 과거4 RGB + 현재 ego status이고 causal prior로8step 미래 particle을 만든다.
+Planner는 관측/예측 particle memory로512개 고정 candidate의 imitation 및6개 PDM subscore를 예측한다.
+현재 조건에는 refiner나 객체 상태 보조 head를 붙이지 않았다. 학습 objective는
+`soft candidate imitation + six PDM-subscore BCE + 0.02 * original temporal ELBO`다.
+Planning gradient가 planner→미래 dynamics→context/현재 encoder의 선택된 계층으로 전달된다.
+`requires_grad=False`는 해당 가중치 업데이트를 끄는 것이며, 그 연산의 입력 gradient까지 일괄 detach하는 것은 아니다.
+원래 LPWM 내부 연산의 세부 detach/확률적 모델 정의는 유지하며, 실제 각 영역의 planning gradient>0을 독립 검사했다.
+SSL은 별도로 샘플링한 train12frame clip을 사용한다. 미래 영상은 planner 입력으로 전달하지 않는다.
+명령 FiLM은 부분/LoRA/Adapter에서 attribute CNN `conv_out` 직후, 학습률은 planner 그룹이다.
+
+### 네 가지 조건
+
+| 조건 | LPWM 학습 대상/개수 | LPWM 초기 LR | 시작점 |
+|---|---|---:|---|
+| 일부 계층 | native 출력 모듈5,558,389 | 1e-5 | Stage1 + seed47 planner |
+| LoRA | image interaction/context/dynamics attention의 q/k/v/out84개, rank16/alpha32,1,343,488 | 1e-5 | 동일 Stage1/planner, zero-B |
+| Adapter | interaction1/context4/dynamics6개 block 뒤 bottleneck64 residual,704,960 | 1e-5 | 동일 Stage1/planner, zero-output |
+| 전체 재개 | LPWM 전체109,545,263(RGB decoder 포함) | 1e-6 | 기존 Stage2 update2095의 model+AdamW |
+
+모든 조건에서 planner/command2,211,975개를 LR3e-4로 학습하고 SSL0.02를 유지한다.
+Adapter는 [Houlsby 등의 residual bottleneck 원리](https://arxiv.org/abs/1902.00751)를 참고한 LPWM용 배치다.
+전체 block 뒤 `LayerNorm→Linear→GELU→zero Linear` residual 하나를 추가하며 원논문 구현을 그대로 재현한 것은 아니다.
+LoRA는 [원논문](https://arxiv.org/abs/2106.09685)의 frozen W + scaled BA를 사용한다.
+Native LPWM 가중치를 고정해도 이 모듈들로 particle/미래 출력은 바뀔 수 있다.
+
+모두 전체 train75,297장면/122recording을 누적1epoch,4,707update 학습한다. 유효 planning batch16/SSL8clip이다.
+데이터 split, vocabulary, seed, loss, 고정 평가 panel은 공통이다. LoRA와 Adapter의 적용 위치/자유도는 partial과 다르다.
+
+### 전체 조건의 체크포인트 재사용 — 사용자 후속 정정 반영
+
+처음 준비한 Stage1부터 새로 시작하는 full 조건은 기동하지 않았다. 사용자 요청에 따라 보존된
+`outputs/lpwm_object_future_planning_v3/user_pause_20261004/checkpoint_update002095.pt`를 이어받는다.
+SHA256 `aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac`.
+CPU에서 model strict load, AdamW746개 state의 step2095·shape·finite, 원래 모델 대비 logits/관측particle/예측particle 최대차0을 확인했다.
+다음 update2096부터 추가2612회 수행하여 누적4707에서 멈추고 같은 panel로 검증한다.
+원래20epoch 실험의 원본checkpoint/pause marker/config/source는 보존하고, 새 출력 디렉토리에 이어진 결과를 저장한다.
+
+호환성을 위해 전체 조건은 원래 `conv_in` 명령 입력과20epoch(94,140update) 기준 LR 스케줄을 유지한다.
+학습을1epoch에서 멈춘다고 기존 스케줄을 중간부터1epoch cosine으로 바꾸지 않는다.
+다른 세 조건은 `conv_out` 명령 입력 +1epoch 스케줄이므로 **엄밀히 방법만 바꾼 통제 비교는 아니다**.
+실제 비용과 성능 경향을 비교하며, 우열이 보여도 이 차이들과 분리된 PEFT 인과효과로 주장하지 않는다.
+전체 조건 RGB decoder는 SSL에 의해 업데이트되며 planning loss에서 직접 받는 gradient는0이다.
+
+### 속도와 메모리 조정
+
+현재 부분 학습은 GPU당 microbatch4×누적2×2GPU=16, worker0이다.
+최근 input 준비≈0.015초/update, 전체≈3.66초/update로 입력 병목이 작다. 현재 worker 증설의 이득은 확인되지 않았다.
+현재 partial peak allocated12.073GiB, batch8의 보수적 추정25.146GiB는21.5GiB cap보다 커서 시도하지 않는다.
+LoRA는4×2, 안전 추정 통과 시8×1을 비교한다. Adapter는2×4→4×2→8×1, 전체는2×4→4×2를 검토한다.
+항상 작은 배치 실측 peak×배치비율 +1GiB가 cap 이하일 때만 다음 배치를 실행한다.
+5update profile의 마지막3update 평균 시간이 가장 작은 유효 조건을 사용하며, 평가 성능은 배치 선택에 사용하지 않는다.
+Profile 가중치는 본학습으로 넘기지 않는다. 전체 재개는 profile 후 보존된2095checkpoint에서 다시 읽는다.
+OOM 완전 방지를 보장할 수는 없으므로 allocator cap, 전체 VRAM 감시, reserve guard를 함께 적용한다.
+LoRA/Adapter/full의 실제 속도와 완료 ETA는 아직 미측정이며 현재 partial 결과로 대신하지 않는다.
+
+### 검증과 해석 범위
+
+- 초기/512update마다128dev monitor, 전·중·후 동일 장면 particle 시각화.
+- 각 조건 뒤 동일1,024planning +256world panel: PDM/ADE/FDE/metric BCE, persistent-future intervention, reconstruction/forecast LPIPS 유지와 위험별 결과.
+- 현재 panel은 이전에 노출된 development이다. 전체dev27,076 또는 독립test 검증이 완료됐다는 의미가 아니다.
+- 실행 오류/NaN/미래 입력 누출/학습량 미완료/source 변경은 후속 작업을 차단한다.
+- 성능 가설/유지성 gate가 실패한 경우 이를 결과에 보존하고 독립된 다른 조건 비교는 계속한다.
+- LoRA CPU causal/gradient/freeze/SSL 검사, Adapter/full CPU 검사 및 관련7개 unit test 통과.
+- Full initial CPU 비교에서7.15e-7 수준 부동소수점 차이가 관측돼 허용오차1e-5로 판정한다. 실제2095 복원 출력 차이는0이다.
+- GPU별 gradient audit, DDP profile, 평가 실행 검사는 각 조건 앞에서 자동 수행한다. 아직 GPU audit 완료로 보고하지 않는다.
+- 학습된 frozen-LPWM + planner 대조가 없어 LPWM 적응만의 순수 이득을 분리하지 못하며,1seed/1epoch의 경향 비교다.
+
+실행 상태: `outputs/lpwm_adaptation_method_comparison_v1/queue_state.json`,
+`outputs/lpwm_four_method_queue_v1/queue_state.json`.
+공유 근거: `results/lpwm_four_method_queue_v1/launch_and_health_check.json`,
+`partial_module_scope.json`, `residual_adapter_cpu_audit.json`, `full_low_learning_rate_cpu_audit.json`.
+최종 자동 보고서는 `results/lpwm_four_method_queue_v1/four_method_summary.json`에 생성된다(현재 미완료).
+
 ## 2026-10-04 후속 질문: 일부 계층 직접 미세조정과 LoRA의 차이
 
 갱신할계층의선택과그계층의갱신방식은별도축이다. 일부계층만LoRA로갱신하는조합도가능하다.
