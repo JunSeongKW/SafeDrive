@@ -99,6 +99,8 @@ class PlanningFineTunedLPWM(nn.Module):
         attributes = torch.cat((observed_attributes, future_attributes), 1)
         memory = self.particle_projection(attributes) + self.time_embedding[None, :, None] + self.particle_embedding[None, None]
         planner_output = self.plan_from_memory(memory.flatten(1, 2), ego_status)
+        if hasattr(self, "object_state_head"):
+            planner_output.update(self.object_state_head(torch.cat((observed_attributes[:, -1:], future_attributes), 1), ego_status))
         objective = planner_output["trajectory"].new_zeros(())
         if auxiliary_world_images is not None:
             assert auxiliary_ego_status is not None and reconstruction_loss is not None

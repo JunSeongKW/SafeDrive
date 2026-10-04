@@ -1,5 +1,101 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 Stage2 시작: 객체 GT 보조 감독 채택 여부의 통제 비교
+
+사용자는 GPU0·1에서 Stage2 학습을 승인했으며 **객체 정답을 넣는 것은 아직 확정이 아니므로
+넣은 조건과 뺀 조건의 어블레이션 후 결정**하도록 명확히 했다. 아래 과거 GT auxiliary 채택을
+확정적으로 읽힐 수 있게 쓴 문장은 이 지시로 대체된다. 답하려는 하위 질문은 **객체 상태·미래
+보조 감독이 planning+SSL보다 planning에 유용한 particle 표현을 학습시키는가**다.
+
+### 등록 조건과 진입 근거
+
+| 항목 | 객체 보조 loss 없음 | 객체 보조 loss 있음 |
+|---|---|---|
+| Condition | `metric_plus_world` | `metric_object_future_plus_world` |
+| 시작점 | 동일 Stage1 SSL checkpoint | 동일 checkpoint |
+| Planner | 동일512개 train-only 후보 및 metric scorer | 동일 |
+| Planning 감독 | Soft expert candidate classification +6개 공식 PDM subscore BCE | 동일 |
+| SSL 유지 | 공식 temporal ELBO×0.02 | 동일 |
+| 직접 객체 감독 | 없음 | 현재상태×0.2 + causal 미래상태×0.2 + 종류×0.02 |
+| 학습량 | 전체 train75,297장면,20epoch,94,140update | 동일 |
+| LPWM/planner LR | 1e-6 /3e-4,1%warmup+cosine | 동일 |
+| 실행 | GPU0·1 DDP, batch2/GPU×누적4=유효16 | 동일 |
+
+‘객체 GT 없음’은 **직접 객체 상태/종류 auxiliary loss 없음**이다. 공통 PDM teacher는 privileged
+simulation supervision을 사용하므로 첫 조건을 전체 pipeline의 label-free 학습으로 부르지 않는다.
+GT on 조건에만 작은 train-only 상태 head가 추가되며 planner 본체 초기 가중치·후보·seed47·샘플
+순서는 동일하다. 완성된 공식 E2E 방법 재현이 아니라 DrivoR/Hydra-MDP에서 참고한 후보채점 설계다.
+기존 refiner는 이번 두 조건에 사용하지 않으며 refiner 안전 좌표 개선을 주장하지 않는다.
+
+`results/lpwm_object_future_planning_v3/stage1_admission_amendment.json`에 사용자 승인·원래 gate와
+checkpoint/evidence SHA를 등록했다. 원래 top16 box recall 실패는 보존한다. 해당 glimpse-box
+proxy를 표현 실패의 단독 필수 지표로 쓰는 타당성이 부족하고, 나머지15개 기준 및 causal/
+noncollapse/coverage검사가 통과했으며 frozen readout이 일부 개선됐기 때문에 **Stage2 실험 진입**을
+허용했다. 완전한 객체 이해·미래 객체 상태 보존을 검증했다고 해석하지 않는다. 이전 v2 queue를
+되살리거나 기존 failure를 success로 덮어쓰지 않았다.
+
+### 객체 보조 감독 구현과 gradient
+
+- 입력은 관측 전방RGB4장/현재ego status·command다. Context/dynamics로8step causal rollout을
+  만들며 미래 영상·객체box·ego pose는 온라인 입력에 들어가지 않는다.
+- 작은 shared head가 현재/예측 particle의 foreground속성10차원+현재ego8차원+시간1차원을 읽어
+  ego x/y/vx/vy와3종 class logit을 예측한다. GT association **이전에** 모든 particle의 출력을 계산한다.
+- GT ROI와 detached particle center/scale의 Gaussian overlap으로 여러 particle 출력을 모은다.
+  이것은 명시적인 loss용 기하 association이며 native decoder alpha/instance mask가 아니다.
+  Presence로 particle를 거르지 않고, 객체 하나=particle 하나/개수/box중심/presence 정답을 강제하지 않는다.
+  Association support가 없으면 nearest fallback을 사용하며 비율을 기록한다.
+- GT box/track/미래ego pose는 loss측 association·좌표 변환에만 사용하고 detach한다. 미주석·시야밖·
+  비유효 미래는 unknown mask로 제외하며 negative/no-object로 학습하지 않는다. 현재투영객체를 모두
+  보존하고 미래에도 유효한 track에 감독한다. 새로 진입하는 객체의 미래 감독은 이번 구성에 포함하지 않는다.
+- State는 current ego좌표이며 [40m,20m,10m/s,10m/s]로 정규화한 SmoothL1이다. 장면·시간별 객체
+  평균 후 합산하여 dense scene이나8개 미래step의 단순 개수가 loss를 지배하지 않게 한다.
+  계수는 위 표대로 고정했고 development 결과로 조정하지 않았다.
+- Feature→encoder/context/dynamics gradient는 살아 있다. Detached association 때문에 기하 경로로
+  직접 GT box를 따라가게 하지는 않지만, feature readout의 gradient로 위치·크기 등이 바뀔 수 있다.
+  GT taxonomy/투영box오차/annotation편향은 남으므로 PDMS 및 SSL 유지와 함께 채택 여부를 판단한다.
+
+### 실행 전 확인
+
+- CPU14개 검사 통과: 미주석 무감독, target/association SG, feature gradient, 미래/current target분리,
+  원래 실패gate보존, 기존 planning/safety계약 포함.
+- GPU에서 객체 미래 loss만 역전파했을 때 norm: encoder0.2705/context0.0666/dynamics1.1311/
+  planner·aux0.4065/RGBdecoder0. Combined planning경로와 분리해 확인했다. RGBdecoder는 유지SSL이 학습한다.
+- Future GT 교란 후 trajectory/metric logit 차이0. 진단1update 후 command별 particle차이>0.
+  진단 가중치는 본학습에 쓰지 않았다. 이것은 연결 검사이며 성능 검증이 아니다.
+- 객체target:102,373 train+dev planning record, 현재객체1,216,641관측, 최대149객체/장면.
+  별도 CPU4worker로544.8초 준비. 기존readout에서3,223개객체를 대조해현재box차이0/
+  상태최대차이3.82e-6 확인. 공용 원본은 읽기만 했다.
+- 처음 batch4가 공유GPU용 allocator20GiB cap에 걸려 OOM예외로 중단됐으며 당시 GPUfree6.91GiB였다.
+  실패산출물은 보존했다. Batch2×누적4의5update 검사에서 peak allocated11.88GiB,
+  steady update약6.9–7.6초, 이후 실제 본학습 진입을 확인했다. 실패를 OOM0이라고 보고하지 않는다.
+
+### 본학습·메모리·후속 대기열
+
+Queue `scripts/queue_lpwm_validated_training.py --config configs/lpwm_planning/object_future_joint_v3.json`,
+PID1131167. `kjs-lpwm-stage2`2rank. 첫 조건의 본학습 update16/94,140을 확인했다.
+샘플 mmap을 직접 읽으며 worker0, 입력준비약0.03–0.11초/update라 현재 병목은GPU계산이다.
+111.76M 전체 parameter학습, FP32영상encoder/공식world loss + BF16 dynamics/planner,
+activation checkpointing, gradient clip5. 256update마다복구checkpoint/epoch별checkpoint와고정장면시각화.
+
+사용자가 정정한 제한은 **GPU당 전체 VRAM46GB 이하**이며 다른 사용자 점유를 포함한다.
+46GB는 보수적으로46,000,000,000byte로 등록했다. CPU RAM에46GB제한은 없다.
+우리 PyTorch allocator20GiB cap,allocated19.5GiB cap,최소6GiB여유 확인과queue15초감시를 함께 쓴다.
+관측시GPU각전체약35.9GB,우리training peak allocated11.87GiB. 외부작업의 순간할당을 통제할 수는
+없으며 초과감지시 우리학습만 checkpoint/종료하도록 signal한다. 타인process는 건드리지 않는다.
+
+현재속도의 단순 외삽은 조건당 본학습약7.5–8.5일이며 초기소수update에근거한예상이다.
+전체개발/유지검증은 별도시간이며 두조건을순차실행하므로 합산시간은 더 길다. 성능을 본 뒤
+epoch를 줄이지 않고 정한학습량을 유지한다. 실측추이가 달라지면 ETA를 갱신한다.
+
+대기열: 첫조건학습→초기/학습후27,076dev 추론·공식후보PDM→persistent future개입→7,745clip
+world유지평가→학습/성능판정→GT추가조건도동일실행→paired개발비교. 초기모델평가는동일seed로
+복원하여본학습후실행하며학습중checkpoint선택에는쓰지않는다.
+실행오류/누출/불완전학습/메모리문제는중단한다. 반면PDMS향상가설이나world유지기준미충족은
+실패결과를보존하고독립적인나머지등록어블레이션을진행한다. 비교군을생략하거나통과로바꾸지않는다.
+GT채택은대응PDMS개선CI와world유지를함께검토하며,입증되지않으면optional로남긴다.
+이미노출된navtest를독립test로간주하는자동평가는이번queue에서제외했다. 미래객체상태의독립probe/
+native mask/planner 객체개입은별도후속이며현재queue가자동으로완료해주는항목이아니다.
+
 ## 2026-10-04 완료된 frozen 객체 판독 결과와 판단
 
 답하려는 하위 질문은 **SSL 도메인 적응 후 particle에서 현재 객체 종류·상태를 더 잘 읽을 수

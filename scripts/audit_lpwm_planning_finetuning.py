@@ -71,6 +71,20 @@ def main(arguments):
                     torch.from_numpy(metric_targets).to(device), torch.from_numpy(temporal_targets).to(device))["objective"]
         else:
             objective = planning_loss(output["trajectory"], target)
+    auxiliary_gradient_audit = {}
+    if specification and "object_future" in arguments.condition:
+        from planning_aware_future_prediction.object_centric.lpwm_object_supervision import ObjectTargetCache, compute_object_auxiliary_losses
+        cache = ObjectTargetCache(PROJECT_ROOT / specification["object_auxiliary"]["target_directory"])
+        object_targets = cache.select_batch(indices, device)
+        auxiliary = compute_object_auxiliary_losses(output, object_targets, specification["object_auxiliary"])
+        assert auxiliary["valid_future_objects"] > 0
+        auxiliary["future_state_loss"].backward(retain_graph=True)
+        auxiliary_gradient_audit = module_gradient_norms(model)
+        assert all(auxiliary_gradient_audit[name] > 0 and np.isfinite(auxiliary_gradient_audit[name])
+            for name in ("image_encoder", "context", "dynamics", "planner_and_command"))
+        assert auxiliary_gradient_audit["rgb_decoder"] == 0
+        model.zero_grad(set_to_none=True)
+        objective = objective + auxiliary["objective"]
     objective.backward()
     gradients = module_gradient_norms(model)
     refinement_gradients = {}
@@ -105,7 +119,8 @@ def main(arguments):
         "condition": arguments.condition,
         "source_sha256": {name: __import__("hashlib").sha256((PROJECT_ROOT / name).read_bytes()).hexdigest() for name in (
             "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py", "scripts/lpwm_refinement_oracle.py")},
-        "planning_gradient_norms": gradients, "future_target_intervention_max_prediction_difference": future_difference,
+        "planning_gradient_norms": gradients, "isolated_future_object_loss_gradient_norms": auxiliary_gradient_audit,
+        "future_target_intervention_max_prediction_difference": future_difference,
         "refinement_gradient_norms": refinement_gradients,
         "future_target_intervention_max_metric_logit_difference": logit_difference,
         "intent_particle_mean_absolute_difference_after_one_diagnostic_update": intent_difference,

@@ -28,6 +28,8 @@ from planning_aware_future_prediction.object_centric.lpwm_bridge import ARTIFACT
 from run_lpwm_navsim_posttraining import write_json, unique_module_parameters, check_gpu_reserve
 from train_lpwm_navtrain_distributed import distributed_epoch_order
 from visualize_lpwm_planning_progress import capture_planning_snapshot
+from lpwm_stage2_admission import require_stage2_admission
+from planning_aware_future_prediction.object_centric.lpwm_object_supervision import ObjectTargetCache, compute_object_auxiliary_losses
 
 
 def planning_loss(predicted_trajectory, target_trajectory):
@@ -41,8 +43,8 @@ def load_training_inputs(config_path, condition):
     stage1_configuration = json.loads((PROJECT_ROOT / specification["stage1_config"]).read_text())
     stage1_root = PROJECT_ROOT / stage1_configuration["output_directory"]
     gate = json.loads((stage1_root / "adaptation_gate.json").read_text())
-    assert gate["adaptation_gate_passed"], "Merged stage2 requires successful stage1 adaptation"
     checkpoint_path = stage1_root / "stage1/checkpoint.pt"
+    require_stage2_admission(specification, PROJECT_ROOT, stage1_root, checkpoint_path)
     assert checkpoint_digest(checkpoint_path) == gate["training"]["checkpoint_sha256"]
     if specification.get("planner_architecture") == "particle_candidate_metrics":
         readiness = json.loads((PROJECT_ROOT / specification["output_directory"] / "stage1_validation_gate.json").read_text())
@@ -88,11 +90,15 @@ def run(arguments):
     device = torch.device(f"cuda:{local_rank}")
     distributed.init_process_group("nccl", timeout=timedelta(minutes=30), device_id=device)
     specification, stage1_configuration, stage1_root, start_checkpoint, manifest, target_arrays, frame_cache, world_indices = load_training_inputs(arguments.config, arguments.condition)
+    if "maximum_reserved_gib" in specification:
+        torch.cuda.set_per_process_memory_fraction(specification["maximum_reserved_gib"] * 1024**3 / torch.cuda.get_device_properties(device).total_memory, device)
     output_root = PROJECT_ROOT / specification["output_directory"] / arguments.condition
     if arguments.profile:
         output_root = output_root / "profile"
     output_root.mkdir(parents=True, exist_ok=True)
     if (output_root / "training_summary.json").exists():
+        previous = json.loads((output_root / "training_summary.json").read_text())
+        assert previous["configuration_sha256"] == checkpoint_digest(arguments.config), "Completed run belongs to another configuration"
         distributed.destroy_process_group()
         return
     os.environ["TORCH_HOME"] = str(ARTIFACT_ROOT / "torch")
@@ -101,6 +107,7 @@ def run(arguments):
     model = build_planning_model(start_checkpoint, specification, arguments.condition, PROJECT_ROOT).to(device)
     candidate_teacher = None
     refinement_oracle = None
+    object_targets = ObjectTargetCache(PROJECT_ROOT / specification["object_auxiliary"]["target_directory"]) if "object_future" in arguments.condition else None
     if specification.get("planner_architecture") == "particle_candidate_metrics":
         candidate_teacher = np.load(PROJECT_ROOT / specification["teacher_directory"] / "candidate_metrics.npy", mmap_mode="r")
     if "refinement" in arguments.condition:
@@ -122,7 +129,7 @@ def run(arguments):
     rank_batch = microbatch_size * accumulation
     global_batch = rank_batch * world_size
     updates_per_epoch = math.ceil(len(train_indices) / global_batch)
-    total_updates = 3 if arguments.profile else updates_per_epoch * specification["epochs"]
+    total_updates = specification.get("profile_updates", 3) if arguments.profile else updates_per_epoch * specification["epochs"]
     completed_updates, previous_seconds = 0, 0.
     latest_path = output_root / "latest.pt"
     if latest_path.exists():
@@ -202,9 +209,11 @@ def run(arguments):
                 learning_rate_factor = min(1., (update_index + 1) / warmup_updates) if update_index < warmup_updates else .1 + .9 * .5 * (1 + math.cos(math.pi * (update_index - warmup_updates) / (total_updates - warmup_updates)))
                 optimizer.param_groups[0]["lr"] = specification["lpwm_learning_rate"] * learning_rate_factor
                 optimizer.param_groups[1]["lr"] = specification["planner_learning_rate"] * learning_rate_factor
-            losses_to_log = torch.zeros(10, device=device, dtype=torch.float64)
+            losses_to_log = torch.zeros(16, device=device, dtype=torch.float64)
             update_start = time.monotonic()
+            input_preparation_seconds = 0.
             for micro_index in range(accumulation):
+                input_started = time.monotonic()
                 chosen = selected[micro_index * microbatch_size:(micro_index + 1) * microbatch_size]
                 observed, status, target = make_planning_inputs(records, chosen, frame_cache, target_arrays, device)
                 world_video = world_status = None
@@ -212,6 +221,7 @@ def run(arguments):
                     generator = np.random.default_rng(specification["seed"] + update_index * world_size * accumulation + rank * accumulation + micro_index)
                     selected_world = generator.choice(world_indices, size=specification["world_auxiliary_clips_per_gpu_microbatch"], replace=False)
                     world_video, world_status, _ = make_planning_inputs(records, selected_world, frame_cache, target_arrays, device, include_future=True)
+                input_preparation_seconds += time.monotonic() - input_started
                 synchronization = contextlib.nullcontext() if micro_index == accumulation - 1 else distributed_model.no_sync()
                 with synchronization, torch.autocast("cuda", dtype=torch.bfloat16):
                     predicted = distributed_model(observed, status, world_video, world_status,
@@ -234,11 +244,19 @@ def run(arguments):
                         trajectory_loss = trajectory_loss + refinement_losses["objective"]
                         refinement_values = [refinement_losses[name] for name in ("refinement_imitation", "refined_metric_loss", "temporal_safety_loss", "comfort_proxy")]
                     objective = trajectory_loss + specification["world_objective_weight"] * predicted["world_objective"]
+                    object_values = [target.new_zeros(()) for _ in range(6)]
+                    if object_targets is not None:
+                        auxiliary_targets = object_targets.select_batch(chosen, device)
+                        object_losses = compute_object_auxiliary_losses(predicted, auxiliary_targets, specification["object_auxiliary"])
+                        objective = objective + object_losses["objective"]
+                        object_values = [object_losses[name] for name in ("current_state_loss", "future_state_loss", "category_loss",
+                            "association_fallback_fraction", "valid_current_objects", "valid_future_objects")]
                     if not torch.isfinite(objective):
                         raise FloatingPointError("Nonfinite stage2 objective")
                     (objective / accumulation).backward()
                 losses_to_log += torch.stack((trajectory_loss.detach(), predicted["world_objective"].detach(), objective.detach(),
-                    imitation_value.detach(), metric_value.detach(), coverage_value.detach(), *[value.detach() for value in refinement_values])).double() / accumulation
+                    imitation_value.detach(), metric_value.detach(), coverage_value.detach(), *[value.detach() for value in refinement_values],
+                    *[value.detach() for value in object_values])).double() / accumulation
                 del observed, status, target, predicted, objective, trajectory_loss, world_video, world_status
             if update_index == 0 or arguments.profile or (update_index + 1) % 128 == 0:
                 gradients = module_gradient_norms(model)
@@ -260,8 +278,12 @@ def run(arguments):
                         "imitation_loss": float(losses_to_log[3]), "metric_distillation_loss": float(losses_to_log[4]), "teacher_coverage": float(losses_to_log[5]),
                         "refinement_imitation": float(losses_to_log[6]), "refined_metric_loss": float(losses_to_log[7]),
                         "temporal_safety_loss": float(losses_to_log[8]), "refinement_comfort_proxy": float(losses_to_log[9]),
+                        "object_current_state_loss": float(losses_to_log[10]), "object_future_state_loss": float(losses_to_log[11]),
+                        "object_category_loss": float(losses_to_log[12]), "object_association_fallback_fraction": float(losses_to_log[13]),
+                        "valid_current_object_targets": float(losses_to_log[14]), "valid_future_object_targets": float(losses_to_log[15]),
                         "module_gradients": gradients, "lpwm_lr": optimizer.param_groups[0]["lr"], "planner_lr": optimizer.param_groups[1]["lr"],
                         "peak_allocated_gib": torch.cuda.max_memory_allocated(device) / 1024**3,
+                        "data_loader_workers_per_rank": 0, "input_preparation_seconds": input_preparation_seconds,
                         "update_seconds": time.monotonic() - update_start, "elapsed_seconds": previous_seconds + time.monotonic() - training_start}
                     write_json(output_root / "progress.json", row)
                     with (output_root / "training_log.jsonl").open("a") as stream:

@@ -1,5 +1,20 @@
 # Planning-Aware Future Prediction
 
+**현재 실행(2026-10-04): GPU0·1에서 Stage2 전체 navtrain 어블레이션 시작.**
+사용자는 객체 GT 감독의 채택을 확정하지 않았으며 **객체 보조 loss 없음/있음 비교 후 결정**을 요청했다.
+`configs/lpwm_planning/object_future_joint_v3.json`: `metric_plus_world` → 전체 개발 검증 →
+`metric_object_future_plus_world` → 전체 개발 검증·paired 비교. LPWM 전체 low LR1e-6,
+planner3e-4, 원래 SSL world loss 유지, 각75,297개 train 장면/20epoch/94,140update.
+GPU당batch2×누적4×2GPU=16. 프로세스 `kjs-lpwm-stage2`, queue PID1131167.
+GPU별 **전체 VRAM46GB 이하**(다른 사용자 점유 포함), CPU RAM에는46GB 제한 없음.
+현재 첫 조건 본학습 update16 확인, 전체VRAM각약35.9GB/학습 peak allocated11.87GiB.
+진행 `outputs/lpwm_object_future_planning_v3/queue_state.json`,
+`outputs/lpwm_object_future_planning_v3/metric_plus_world/progress.json`.
+기존Stage1 실패gate는 수정하지 않았다. Top16 박스proxy의타당성정정과나머지검증결과에근거한
+별도 [진입 amendment](results/lpwm_object_future_planning_v3/stage1_admission_amendment.json)로 실험 진입을 등록했다.
+미래 객체 상태/native mask 검증은 미완료이며 완전한 적응이나 PDMS 개선을 이미 입증했다는 뜻이 아니다.
+과거 v2 queue를 재개하지 않는다. 아래 Stage2 미시작/GT loss 미구현 문장은 이번 실행 이전 이력이다.
+
 **완료(2026-10-04): 객체 정보 보존 검증의 첫 단계인 frozen current-state readout.** 공개/적응
 LPWM의 전체 train23,126/dev7,745 clip 표현 추출과 CPU linear readout 학습·평가를 완료했다.
 종류 판독 점수는 개선됐으나 위치·속도 결과는 혼재하며 GT-ROI geometry 대조보다 약하다.

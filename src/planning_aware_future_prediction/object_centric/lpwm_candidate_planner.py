@@ -110,8 +110,13 @@ def build_planning_model(checkpoint, specification, condition, project_root):
     if specification.get("planner_architecture") != "particle_candidate_metrics":
         return PlanningFineTunedLPWM(checkpoint)
     candidates = np.load(Path(project_root) / specification["teacher_directory"] / "trajectory_vocabulary.npy")
-    return ParticleCandidatePlanner(checkpoint, candidates, metric_selection=not condition.startswith("imitation"),
+    model = ParticleCandidatePlanner(checkpoint, candidates, metric_selection=not condition.startswith("imitation"),
         imitation_exponent=specification["inference_imitation_exponent"], refine_candidates="refinement" in condition)
+    if "object_future" in condition:
+        from .lpwm_object_supervision import ParticleObjectStateHead
+        configuration = specification["object_auxiliary"]
+        model.object_state_head = ParticleObjectStateHead(configuration["auxiliary_head_hidden_dimension"], len(configuration["categories"]))
+    return model
 
 
 def compute_refinement_losses(predictions, target_trajectory, ego_status, metric_targets, temporal_targets):

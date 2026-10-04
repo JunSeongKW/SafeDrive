@@ -1,0 +1,50 @@
+{
+  "complete": true,
+  "identity": {
+    "manifest_sha256": "7cc3490d5639be90d091df7dfe470deb5b5d52e21bcf600b1f814ee52c3b7b21",
+    "source_sha256": "e1e5c4b224b56c4f35e3981827b44e7bf01ecf2f27a3e304a01383a207b55d7d",
+    "categories": [
+      "vehicle",
+      "pedestrian",
+      "bicycle"
+    ],
+    "minimum_side_pixels": 1.0
+  },
+  "records": 102373,
+  "objects": 1216641,
+  "maximum_objects_per_record": 149,
+  "valid_object_observations_by_horizon": {
+    "train": [
+      861858,
+      801458,
+      746802,
+      696508,
+      650076,
+      607072,
+      567150,
+      530296,
+      496231
+    ],
+    "development": [
+      354783,
+      330951,
+      309433,
+      289649,
+      271398,
+      254546,
+      239075,
+      224778,
+      211571
+    ]
+  },
+  "seconds": 544.7666961660143,
+  "scope": "Current projected objects and their visible annotated future states in CURRENT ego coordinates; future GT association/poses are LOSS ONLY; unobserved objects are unknown, never negative presence labels",
+  "files_sha256": {
+    "categories.npy": "5858623fa69d18ba18500c3835ee342137123a98526781dd498fc6bcbf3e8e1c",
+    "current_ego_states.npy": "ce9ae97a94885333f3061ca0b622272b38f390931334694481576ebf7944fa78",
+    "object_offsets.npy": "1dfe241379b467879697dc1623a569b8033874b3cb6fbe453459f7a8626deaef",
+    "projected_boxes.npy": "ccb3ecd914553acd728d11c78008ca4665a7370f11308bccd71c2fe5d2ce69e8",
+    "state_valid.npy": "515afceae150ab7f976da35836c1d3494814d816b5f205d133dcd87a49c5973c",
+    "track_identities.npy": "377b0318a565d170b8ddd3fbd2ede50dc82f5e271ee0320891f2df9acfd18d09"
+  }
+}

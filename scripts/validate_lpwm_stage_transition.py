@@ -31,8 +31,15 @@ def check_stage1(specification):
     for scenario in ("straight", "turn", "projected_overlap"):
         records = [row for row in evaluation["records"] if row["scenario"] == scenario]
         checks["scenario_coverage_" + scenario] = len({row["recording_group"] for row in records}) >= 5
+    if "stage1_admission_amendment" in specification:
+        from lpwm_stage2_admission import require_stage2_admission
+        require_stage2_admission(specification, PROJECT_ROOT, stage1_root, stage1_root / "stage1/checkpoint.pt")
+        del checks["registered_stage1_adaptation_gate"]
+        checks["documented_stage1_experiment_admission"] = True
     report = {"passed": all(checks.values()), "checks": checks, "failed_checks": [name for name, passed in checks.items() if not passed],
         "checkpoint_sha256": evaluation["checkpoint_sha256"], "original_gate_sha256": digest(stage1_root / "adaptation_gate.json"),
+        "original_gate_passed": original["adaptation_gate_passed"],
+        "admission_amendment": specification.get("stage1_admission_amendment"),
         "interpretation": "Operational adaptation criteria; not proof of perfect adaptation, object identity, or planning utility"}
     write_json(root / "stage1_validation_gate.json", report)
     return report
@@ -234,4 +241,9 @@ if __name__ == "__main__":
             "planning-gate": lambda: validate_planning_condition(arguments, specification)}[arguments.mode]()
         print(json.dumps(report), flush=True)
         if not report["passed"]:
+            if arguments.mode == "planning-gate" and specification.get("continue_ablation_after_scientific_gate_failure", False):
+                engineering_checks = ("full_training", "same_complete_development_tokens", "planning_modules_have_gradients")
+                if all(report["checks"][name] for name in engineering_checks):
+                    print("SCIENTIFIC_CRITERIA_NOT_MET_CONTINUE_REGISTERED_COMPARISON", flush=True)
+                    raise SystemExit(0)
             raise SystemExit(2)

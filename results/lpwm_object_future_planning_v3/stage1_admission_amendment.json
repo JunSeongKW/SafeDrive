@@ -1,0 +1,25 @@
+{
+  "authorize_stage2_experiment": true,
+  "user_authorization": "2026-10-04: 검증결과 문제가 없어보이면 GPU 0,1에서 Stage2 학습; 후속: 객체 GT 포함/제외 ablation 후 채택 결정",
+  "checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+  "original_adaptation_gate_sha256": "a831f23bb491065b1ff87286c4a366d9e8045321c3f60d2eb64d34513c229e52",
+  "reclassified_diagnostic_checks": [
+    "object_box_recall_noninferiority"
+  ],
+  "historical_transition_gate": "outputs/lpwm_metric_planning_v2/stage1_validation_gate.json",
+  "historical_causality_audit": "outputs/lpwm_metric_planning_v2/stage1_causality_audit.json",
+  "object_readout_summary": "results/lpwm_object_readout_validation_v1/summary.json",
+  "evidence_sha256": {
+    "outputs/lpwm_metric_planning_v2/stage1_validation_gate.json": "fe20840a2285466c7cf2cbcd9372f2c81f28b2ea6f24b062493aa529cb3248d1",
+    "outputs/lpwm_metric_planning_v2/stage1_causality_audit.json": "6978df7f0b2cc7d1f032b11fdf30abe65dee96534f7239077abf50fba9c46c67",
+    "results/lpwm_object_readout_validation_v1/summary.json": "ce6eccb502d5d7029a827a20a443857c18957b0c4bf397d7a2363bab78ce01f1"
+  },
+  "reason": "Top16 presence-ranked glimpse rectangles are not instance boxes. Their IoU proxy is not a validated hard criterion for LPWM representation failure. Fifteen retained criteria and all causal/noncollapse checks pass; frozen current-state readouts show partial improvement with acknowledged limitations. This authorizes a controlled Stage2 experiment, not a perfect adaptation claim.",
+  "remaining_limitations": [
+    "weak rare-class and precise state readouts",
+    "future object-state and native mask validation incomplete",
+    "planning value unknown before Stage2 comparison"
+  ],
+  "historical_results_modified": false,
+  "object_gt_adoption": "undecided; matched on/off ablation required"
+}

@@ -1,0 +1,6 @@
+{
+  "checked_objects": 3223,
+  "maximum_current_state_difference_from_readout_manifest": 3.814531751800132e-06,
+  "maximum_current_box_difference": 0.0,
+  "scope": "Systematic stride97 consistency check across existing train/dev observed GT; no model metrics or hyperparameter selection"
+}

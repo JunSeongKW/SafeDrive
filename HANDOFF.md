@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 14:58 KST (Codex)
+마지막 갱신: 2026-10-04 18:00 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- **2026-10-04 최신: Stage2 본학습 시작, queue1131167 / GPU0·1 / `kjs-lpwm-stage2`.** `object_future_joint_v3.json`, `outputs/lpwm_object_future_planning_v3/queue_state.json`; `metric_plus_world` update16/94,140 본학습확인. 이어 검증→`metric_object_future_plus_world`→검증·paired어블레이션. GT채택은미확정. Batch2/GPU×누적4×2GPU=16,20epoch/75,297train. LPWM1e-6/planner3e-4/SSL0.02. 사용자46GB제한은**각GPU전체VRAM**(다른사용자포함),CPU RAM제한아님. 과거실패v2queue재개금지/현재queue중복기동금지/source수정금지.
 
 - 2026-10-04 14:55 KST: 완료된 frozen readout의 전체/종류별/크기·거리·장면별 결과 해석 완료. 저장 summary만 읽었으며 추출·학습 재실행 없음. 현재 상태 판독의 일부 개선, 위치·희소 클래스 병목, GT 위치 조건부 범위를 연구 문서 첫 절에 정리. Stage2 미시작 유지.
 
@@ -374,6 +376,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- Stage2진입은새명시적 `results/lpwm_object_future_planning_v3/stage1_admission_amendment.json`. 원래top16박스proxy실패는보존,나머지15기준과causal/noncollapse통과 및readout부분개선/사용자승인에근거한통제실험진입이다. 완전적응·미래객체이해·PDMS개선의입증아님.
+- CPU14검사통과. 미래objectloss단독gradient encoder.2705/context.0666/dynamics1.1311/planner·aux.4065/RGBdecoder0. 미래GT교란trajectory/logit차이0/명령particle차이>0. GT보조head는loss전용;추론GT입력없음. 전체target102,373record/1,216,641현재객체관측;기존판독3,223객체와현재box차이0/상태최대3.82e-6.
+- Batch4는공유GPU용20GiB allocatorcap에걸려OOM(당시free6.91GiB),실패보존. Batch2누적4의5update검사통과/peak11.88GiB/steady6.9–7.6초. 본학습update16검증전체VRAM각35.9GB(46GB미만),입력준비0.03–0.11초로worker0사용. 본학습초기예상조건당7.5–8.5일+검증,2조건순차. 시점별 `launch_verification_20261004.json` 참조.
 
 - 2026-10-04 결과 상세: combined 차량 F1 67.13→73.26/보행자47.08→50.72/자전거1.15→1.32(×100). 자전거133/359 정답이나 예측19,807건으로 오탐 다수; encoder·class-balanced linear probe·불균형 원인 분리 필요. 작은 box macro-F1 33.64→36.18,40m이상32.97→34.77. 회전은분류상승에도위치오차악화;겹침우선분류에따른그룹편향과CI없음 명시. 미래·native instance·PDMS 검증 미완료.
 
@@ -671,11 +677,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 완료된 frozen object readout summary의7대조/전체 confusion/상태 paired CI/크기·거리·장면별 결과를 검토했다. 원본 결과·모델·source·queue·gate 변경 없음.
-- 기존 연구 문서에 비교표와 해석 추가. Appearance/combined 개선과 GT-ROI-only 우세, 자전거 오탐·불균형/판독기 한계, 회전 위치 악화와 scenario 편향을 기록했다. 클래스 단일 strata F1을 전체 confusion의 클래스별 F1로 오해하지 않는다.
-- Stage1 SSL 유지/Stage2 GT auxiliary 원칙, causal future/native mask/planner 개입 미완료와 PDMS 미실행을 명시했다. 이번 작업은 결과 보고이며 새로운 학습·GPU 추론 없음.
+- 사용자Stage2시작승인/GT on-off어블레이션요구/46GB는VRAM이라는정정을반영. Stage1실패로그를수정하지않고근거hash를고정한새amendment와v3config를등록했다.
+- Loss전용particle상태head/SG다대다ROIassociation/현재·causal미래상태및classloss,전체navtrain target준비,GT on/off학습·개발·world유지·paired판정queue를구현했다. 후보planner본체/GT입력차단/SSL유지/전체LPWM lowLR. 이전refiner재학습은이번비교에서제외.
+- CPU14검사,GTcache3,223객체일치,GPU계획/GT단독gradient·미래누출검사통과. Batch4 allocatorcap OOM보존후batch2누적4로5update검사통과. Queue1131167에서실제첫조건본학습시작확인;등록sourcehash불변검사와완료/시점별JSON공유.
+- GPU마다전체VRAM46decimalGB감시/최소6GiB여유/PyTorchreserved20GiB·allocated19.5GiB상한. CPU RAM에46GB상한없음. Runtime오류는중단,성능가설미충족은보존후나머지어블레이션진행. 노출navtest자동평가없음. 문서/README/AGENTS/HANDOFF최신실행반영.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- **현재queue유지:** `outputs/lpwm_object_future_planning_v3/queue_state.json`, `metric_plus_world/progress.json`, `queue_failed.json`유무를확인한다. 시작후source/config변경금지. Source14개hash는queue_registration에고정,GT추가조건검증까지자동연결. 진행중작업을과거gate차단상태로오해해중복재실행하지않는다.
+- 학습후각27,076dev의초기/학습후/미래persistence비교·공식후보PDM/7,745world유지검증. 두조건후 `ablation_summary.json`에paired PDMS와world비교. GT채택은개발증거에근거한잠정판정이며독립futureprobe/native mask/planner객체개입은아직후속. 실제PDMS결과를이전prototype와혼동하지않는다.
+- VRAM상한46GB/GPU는다른사용자포함. 현재우리할당11.9GiB이지만외부점유변동감시;초과시우리child만signal checkpoint정지. CPU RAM은관측만. Checkpoint복구는등록config/source그대로하며실패원인확인전자동반복금지.
 
 - 완료 결과 상세는 연구 문서 첫 절. 현재 정보의 일부 판독 개선을 보존하되 과거만의 미래 상태 판독을 persistence/ego-motion 대조와 비교하는 후속 검증이 필요하다. 자전거 점수의 낮음은 encoder뿐 아니라 balanced ridge/불균형을 분리해야 한다. Stage2 GT auxiliary 구현·진행 기준 amendment는 아직 미실행이며 기존 queue를 임의 재개하지 않는다.
 
@@ -816,6 +827,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- **최신 사용자 결정:** Stage2실행승인,객체GT보조감독채택은미확정이며없음/있음어블레이션후결정. Stage1SSL유지. GPU0·1각전체VRAM46GB이하/CPU RAM46GB제한아님. 본학습source/config고정. 같은후보teacher를쓰므로‘GT없음’은직접객체보조loss없음이지privileged metric-supervision까지없는조건은아님.
+- 새진입amendment는top16 proxy만보조지표로재분류,원래실패수치/기준/source보존. 성능향상판정실패시반대조건의실험은계속하며실행정합성/누출/메모리실패는중단한다. 조건당20epoch고정. 기존3조건(refiner/imitation-only)계획은현재2조건비교에의해보류. Navtest는노출이력이있어독립검증으로자동진행하지않는다.
 
 - 이번 요청은 완료 검증 결과 보고다. 현재 정보 판독의 부분 개선으로 해석하며 객체 자동 발견/정밀 상태·미래/PDMS 향상으로 일반화하지 않는다. 현재 판독만 완료, Stage2/새 gate 변경 없음. 직전 bb3a6be의 push는 기존 credential socket/GitHub 인증 오류로 실패해 원격 동기화가 안 된 상태다.
 

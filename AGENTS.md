@@ -75,6 +75,16 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-04 최신 사용자 승인: GPU0·1 Stage2 시작, 객체 GT 보조 감독은 on/off 어블레이션 후 채택 결정.**
+최신 진입점은 `configs/lpwm_planning/object_future_joint_v3.json`과 HANDOFF 1–5절이다.
+Queue1131167, `outputs/lpwm_object_future_planning_v3/queue_state.json`; 처음 `metric_plus_world` 본학습 시작.
+기존 top16 box gate 실패와 source/수치는 보존하고 명시적 `stage1_admission_amendment.json`으로
+해당 proxy만 단독 진입 조건에서 제외했다. 아래 과거 ‘Stage2 차단’ 상태를 현재 승인 범위에 적용하지 않는다.
+Stage1 SSL 유지, Stage2 직접 객체 GT loss 유무 비교. GPU마다 다른 사용자를 포함한 전체VRAM46GB 이하,
+CPU RAM46GB 제한은 사용자가 아니라고 정정했다. 본학습 source/config hash등록됨; 실행 중 변경/중복기동 금지.
+과거 metric_distillation_v2 실패 queue 자동재개 금지. 조건별 학습 후 검증하며 성능가설 미충족은 숨기지
+않고 다른 등록조건의 비교를 계속하되, 실행오류/누출/불완전학습/메모리한계는 의존 작업을 차단한다.
+
 **현재 상태(2026-10-04 12:29 KST): Stage1 학습·전체 개발평가 완료, 객체 박스 대응 비열등성 gate 실패로 Stage2 차단.**
 Top16 box recall@IoU0.1 paired CI[-0.04152,-0.02364]의 하한이 등록기준-0.02에 미달했다.
 나머지 원래gate와 추가causal/noncollapse/coverage는 통과. Checkpoint/summary 보존 후 원인 진단하며 기준완화/강제Stage2 금지.

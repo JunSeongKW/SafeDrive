@@ -1,0 +1,31 @@
+{
+  "engineering_audit_only": true,
+  "checkpoint": "outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+  "device": "cuda:0",
+  "condition": "metric_object_future_plus_world",
+  "source_sha256": {
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": "4b8fb0131c1bf39dd7ea137b235046298a42f1fd3331c7563bd1e90ec1c70fd0",
+    "scripts/lpwm_refinement_oracle.py": "2d27d2ac17ee158bbe4620485d2bc45d616f95e0a7afe92eed2ece6dd2bb4cba"
+  },
+  "planning_gradient_norms": {
+    "image_encoder": 1.837906002998352,
+    "context": 0.16387441754341125,
+    "dynamics": 2.8279435634613037,
+    "rgb_decoder": 0.0,
+    "planner_and_command": 19.17151641845703
+  },
+  "isolated_future_object_loss_gradient_norms": {
+    "image_encoder": 0.2704676389694214,
+    "context": 0.06655710190534592,
+    "dynamics": 1.1310856342315674,
+    "rgb_decoder": 0.0,
+    "planner_and_command": 0.40654656291007996
+  },
+  "future_target_intervention_max_prediction_difference": 0.0,
+  "refinement_gradient_norms": {},
+  "future_target_intervention_max_metric_logit_difference": 0.0,
+  "intent_particle_mean_absolute_difference_after_one_diagnostic_update": 0.0007032349240034819,
+  "diagnostic_updates": 1,
+  "diagnostic_weights_saved": false,
+  "seconds": 19.87428029900184
+}

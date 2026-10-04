@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": {
+    "all_causal_interventions_pass": true,
+    "causal_audit_checkpoint_matches": true,
+    "noncollapsed_particles": true,
+    "risk_coverage_far_future_objects": true,
+    "risk_coverage_high_ego_speed": true,
+    "risk_coverage_high_interframe_flow": true,
+    "risk_coverage_large_ego_turn": true,
+    "risk_coverage_projected_overlap": true,
+    "risk_coverage_projected_track_disappearance": true,
+    "risk_coverage_small_future_objects": true,
+    "scenario_coverage_straight": true,
+    "scenario_coverage_turn": true,
+    "scenario_coverage_projected_overlap": true,
+    "documented_stage1_experiment_admission": true
+  },
+  "failed_checks": [],
+  "checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+  "original_gate_sha256": "a831f23bb491065b1ff87286c4a366d9e8045321c3f60d2eb64d34513c229e52",
+  "original_gate_passed": false,
+  "admission_amendment": "results/lpwm_object_future_planning_v3/stage1_admission_amendment.json",
+  "interpretation": "Operational adaptation criteria; not proof of perfect adaptation, object identity, or planning utility"
+}

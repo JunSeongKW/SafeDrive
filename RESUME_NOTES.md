@@ -1808,3 +1808,15 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - Combined 위치x11.094→10.914m(CI0포함),y4.097→4.141m(차이CI양수),vx1.751→1.698m/s(CI음수),vy/depth개선불확정. Appearance-only 위치/vx는개선CI가0제외하나절대오차크다. GT-localized linear정보검사이고자동검출성능이아님.
 - 작은box33.64→36.18/40m이상32.97→34.77 F1. 직진313/회전1783/겹침87333객체관측이며겹침우선scenario분류는전체직진·회전을대표하지않음. 회전분류상승에도위치x12.321→12.858/y5.080→5.364m악화. 그룹별CI없음/투영겹침은가림GT아님.
 - 연구문서에평가조건/수치표/제한/판단추가,HANDOFF1–5갱신. Stage1 SSL유지/GT보조감독Stage2원칙유지,causal future/native mask/planner개입·PDMS미완료. 원본결과·모델보존. bb3a6be원격push는기존인증오류로실패한상태다.
+
+## 2026-10-04 17:59 KST — Stage2 본학습 시작, 객체 GT 감독 on/off 비교
+
+- 사용자 GPU0·1 Stage2시작승인. 후속정정: 객체정답사용은아직확정아니며없음/있음어블레이션후결정. 46GB제한은VRAM기준이며CPU RAM아님을확인했다. `object_future_joint_v3.json`, 조건 `metric_plus_world`→검증→`metric_object_future_plus_world`→검증·paired비교로등록. 기존3조건v2queue는실패상태보존/재개하지않음.
+- Top16 box기하proxy의hardgate타당성정정/나머지15기준과causal/noncollapse통과/readout부분개선/사용자승인을근거로새stage1_admission_amendment를작성. 기존failure값/기준/hash불변. 새admission코드는수정허용proxy가정확히한항목인지,나머지검증·evidence/checkpoint hash가일치하는지확인. 완전한적응·미래객체이해를입증했다고하지않음.
+- ParticleObjectStateHead와loss전용detached Gaussian ROI다대다association추가. Current/future normalizedstate SmoothL1가중치.2/.2,종류CE.02;GT center/개수/presence강제없고미주석unknown. GT/futurepose는loss만,현재영상4장·ego/command→causal8step만planner입력. 직접객체aux없음조건도공통privileged PDMteacher는사용하므로label-free로부르지않음.
+- TargetCPU4worker544.8초,102,373planning record/1,216,641현재객체관측,최대149. 기존readout3,223객체비교현재box차이0/상태최대3.82e-6. CPU14검사통과. GPU미래objectloss단독gradient encoder.2705/context.0666/dynamics1.1311/planner·aux.4065/decoder0;GTfuture교란trajectory/logit차이0,명령별particle변화>0. 진단가중치저장/본학습사용없음.
+- Batch4 profile은공유GPU를보호한20GiB allocatorcap에걸려OOM예외(당시GPUfree6.91GiB),실패checkpoint/log보존. Batch2누적4로변경,유효16유지.5update두검사완료,peak11.88GiB/steady6.9–7.6초,입력준비0.03–0.11초.14검사/구문/diff확인후등록source14개고정.
+- Queue1131167기동,첫조건본학습update16및48/94,140확인.75,297train/20epoch,LPWM1e-6/planner3e-4/SSL.02,111.76M전체학습,GPU0·1 DDP,kjs-lpwm-stage2.256update복구/epochcheckpoint/전중후시각화. 조건당초기예상7.5–8.5일+검증;고정최종epoch사용.
+- GPU마다전체46,000,000,000byte상한감시(타사용자포함),우리reserved20GiB/allocated19.5GiB/최소6GiB여유. 실제각35.9GB,CPUprocess-tree RSS8.7GB(공유mapping중복포함). CPU46GB제한은사용자정정후제거. 메모리문제시우리child만checkpoint정지,타인process불변.
+- 각조건27,076dev초기/학습후/persistent미래+공식후보PDM,7,745clip world유지평가자동연결. Runtime/누출/불완전학습실패는중단;성능가설실패는보존하고나머지어블레이션진행. 노출navtest를독립test로자동사용하지않음. 실제미래객체독립probe/native mask/객체planning개입은후속. active_pipeline을v3queue로갱신하여이전launcher도중복기동없이현재queue에join.
+- README/AGENTS/연구문서/HANDOFF및공유launch_verification·audits·targetmetadata갱신. 직전2131e24원격push는기존VSCode credential socket/GitHub인증오류로실패한상태다.

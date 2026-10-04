@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checks": {
+    "coverage": true,
+    "train_only_vocabulary": true,
+    "vocabulary_hash": true,
+    "labels_hash": true,
+    "planning_manifest_hash": true,
+    "official_scorer_parity": true,
+    "oracle_ade": true,
+    "oracle_ade_p95": true,
+    "oracle_pdms": true
+  },
+  "failed_checks": [],
+  "oracle_pdms": 0.9972605109214783,
+  "dev_scenes": 27034,
+  "completion_sha256": "059c2f18fc585704a4c77affb4c24a0911bcf500a608178d303a199c8134f9bd"
+}

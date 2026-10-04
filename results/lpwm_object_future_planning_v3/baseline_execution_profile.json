@@ -1,0 +1,22 @@
+{
+  "condition": "metric_plus_world",
+  "completed_updates": 5,
+  "epochs": 0.0010622477161674102,
+  "train_clips": 75297,
+  "effective_batch_size": 16,
+  "world_size": 2,
+  "seconds": 59.29252630699193,
+  "peak_allocated_gib": 11.87766170501709,
+  "module_gradients": {
+    "image_encoder": 121.1318359375,
+    "context": 57.23992919921875,
+    "dynamics": 28.86140251159668,
+    "rgb_decoder": 0.49687984585762024,
+    "planner_and_command": 5.0160017013549805
+  },
+  "trainable_parameters": 111757238,
+  "checkpoint_sha256": "f862cf2f5c46767776ac076493bf5808fcd75e40bdff1c94665f8f90356f98f4",
+  "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+  "configuration_sha256": "72e50a14438e7358414bdcd6e87fd4bab60749c01df5f1f1086d84e987494f5f",
+  "profile_only": true
+}

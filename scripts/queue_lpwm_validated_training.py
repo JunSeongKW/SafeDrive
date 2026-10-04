@@ -60,19 +60,39 @@ def run(arguments):
         "current_stage": "prepare_candidate_teacher_while_stage1_runs", "adopted_stage1": str(stage1_root), "nodes": {},
         "planned_sequence": ["candidate_teacher", "stage1_full_training_and_evaluation_external", "stage1_causality", "stage1_gate", "teacher_gate", "planning_gradient_audit"]
             + [condition + " -> full_training -> development -> world_retention -> validation_gate" for condition in specification["conditions"]]
-            + ["locked_full_navtest", "paired_report"]}
+            + (["locked_full_navtest", "paired_report"] if specification.get("automatic_navtest", True) else ["paired_development_ablation_report"])}
     source_paths = [Path(__file__).resolve(), PROJECT_ROOT / "scripts/train_lpwm_full_planning.py",
         PROJECT_ROOT / "scripts/evaluate_lpwm_full_planning.py", PROJECT_ROOT / "scripts/prepare_lpwm_candidate_teacher.py",
         PROJECT_ROOT / "scripts/validate_lpwm_stage_transition.py", PROJECT_ROOT / "scripts/audit_lpwm_planning_finetuning.py",
         PROJECT_ROOT / "scripts/lpwm_refinement_oracle.py",
         PROJECT_ROOT / "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py",
         PROJECT_ROOT / "src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py"]
+    if "stage1_admission_amendment" in specification:
+        source_paths.extend(PROJECT_ROOT / name for name in (
+            "scripts/lpwm_stage2_admission.py", "scripts/prepare_lpwm_stage2_object_targets.py",
+            "scripts/summarize_lpwm_object_auxiliary_ablation.py",
+            "src/planning_aware_future_prediction/object_centric/lpwm_object_supervision.py",
+            specification["stage1_admission_amendment"]))
     identity = {"configuration_sha256": digest(arguments.config), "source_sha256": {str(path.relative_to(PROJECT_ROOT)): digest(path) for path in source_paths}}
     if (root / "queue_registration.json").exists():
         assert json.loads((root / "queue_registration.json").read_text()) == identity
     else:
         write_json(root / "queue_registration.json", identity)
     children, streams = [], []
+    def resource_usage():
+        import psutil
+        process = psutil.Process(os.getpid())
+        cpu_rss = 0
+        for member in [process, *process.children(recursive=True)]:
+            try:
+                cpu_rss += member.memory_info().rss
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+        used_bytes = {gpu: int(subprocess.check_output(["nvidia-smi", f"--id={gpu}",
+            "--query-gpu=memory.used", "--format=csv,noheader,nounits"], text=True).strip()) * 1024**2 for gpu in (0, 1)}
+        state["resource_usage"] = {"training_process_tree_rss_bytes": cpu_rss, "gpu_total_used_bytes": used_bytes,
+            "cpu_rss_note": "Conservative sum including shared mappings; other users' CPU processes excluded"}
+        return cpu_rss, used_bytes
     def save_state():
         state["heartbeat_unix"] = time.time()
         write_json(root / "queue_state.json", state)
@@ -85,7 +105,7 @@ def run(arguments):
             raise RuntimeError("Explicit queue pause marker present")
         if not cpu:
             distributed_training = "torch.distributed.run" in command
-            required_free_gib = 44 if distributed_training else 24
+            required_free_gib = specification.get("minimum_training_admission_free_gib", 44) if distributed_training else specification.get("minimum_evaluation_admission_free_gib", 24)
             devices = (0, 1) if distributed_training else (0,)
             waiting_started = time.time()
             while True:
@@ -111,6 +131,17 @@ def run(arguments):
         return child
     def finish(name, child):
         while child.poll() is None:
+            if "resource_limits" in specification:
+                cpu_rss, gpu_usage = resource_usage()
+                limits = specification["resource_limits"]
+                cpu_exceeded = ("maximum_training_cpu_rss_bytes" in limits and
+                    cpu_rss > limits["maximum_training_cpu_rss_bytes"] - limits.get("cpu_stop_reserve_bytes", 0))
+                gpu_exceeded = any(value > limits["maximum_gpu_used_bytes"] for value in gpu_usage.values())
+                if cpu_exceeded or gpu_exceeded:
+                    state["resource_stop"] = {"cpu_limit_approached": cpu_exceeded, "gpu_limit_exceeded": gpu_exceeded}
+                    save_state()
+                    os.killpg(child.pid, signal.SIGINT)
+                    raise RuntimeError("User memory limit approached; training signalled to checkpoint and stop")
             save_state()
             if (root / "pause.requested").exists():
                 os.killpg(child.pid, signal.SIGINT)
@@ -152,7 +183,13 @@ def run(arguments):
                 raise RuntimeError("Queue pause marker present")
             save_state()
             time.sleep(15)
-        checked("stage1_causality", [*validation, "--mode", "stage1-causality"])
+        if "stage1_admission_amendment" in specification:
+            import shutil
+            amendment = json.loads((PROJECT_ROOT / specification["stage1_admission_amendment"]).read_text())
+            shutil.copyfile(PROJECT_ROOT / amendment["historical_causality_audit"], root / "stage1_causality_audit.json")
+            state["nodes"]["stage1_causality"] = {"status": "reused_verified_evidence", "source": amendment["historical_causality_audit"]}
+        else:
+            checked("stage1_causality", [*validation, "--mode", "stage1-causality"])
         checked("stage1_gate", [*validation, "--mode", "stage1-gate"], cpu=True)
         if teacher_process is not None:
             finish("candidate_teacher", teacher_process)
@@ -163,13 +200,18 @@ def run(arguments):
         for condition in specification["conditions"]:
             condition_arguments = ["--condition", condition]
             training = [*distributed, "scripts/train_lpwm_full_planning.py", *config_arguments, *condition_arguments]
-            if "refinement" in condition:
+            if "object_future" in condition:
+                checked("object_target_preparation", ["scripts/prepare_lpwm_stage2_object_targets.py", *config_arguments], cpu=True)
+            if "refinement" in condition or "object_future" in condition:
                 checked(condition + "_gradient_audit", ["scripts/audit_lpwm_planning_finetuning.py", *config_arguments,
                     "--condition", condition, "--device", "cuda:0", "--checkpoint", str(stage1_root / "stage1/checkpoint.pt"),
                     "--output", str(root / (condition + "_gradient_audit.json"))])
             checked(condition + "_profile", [*training, "--profile"])
-            checked(condition + "_initial_development", [*inference, "--mode", "predict", *condition_arguments, "--initial"])
+            if not specification.get("initial_evaluation_after_training", False):
+                checked(condition + "_initial_development", [*inference, "--mode", "predict", *condition_arguments, "--initial"])
             checked(condition + "_training", [*training, "--resume"])
+            if specification.get("initial_evaluation_after_training", False):
+                checked(condition + "_initial_development", [*inference, "--mode", "predict", *condition_arguments, "--initial"])
             checked(condition + "_development", [*inference, "--mode", "predict", *condition_arguments])
             if "refinement" in condition:
                 checked(condition + "_initial_development_pdm", [*inference, "--mode", "score", *condition_arguments, "--initial"], OFFICIAL_PYTHON, cpu=True)
@@ -179,12 +221,14 @@ def run(arguments):
                 checked(condition + "_persistent_future_pdm", [*inference, "--mode", "score", *condition_arguments, "--intervention", "persistent_future"], OFFICIAL_PYTHON, cpu=True)
             checked(condition + "_world_retention", [*validation, "--mode", "world-retention", *condition_arguments])
             checked(condition + "_gate", [*validation, "--mode", "planning-gate", *condition_arguments], cpu=True)
-        # All learning/retention gates are resolved before observing independent test.
-        checked("navtest_inputs", [*inference, "--mode", "prepare-navtest"], OFFICIAL_PYTHON, cpu=True)
-        for condition in specification["conditions"]:
-            checked(condition + "_navtest", [*inference, "--mode", "predict", "--condition", condition, "--subset", "navtest"])
-            checked(condition + "_navtest_score", [*inference, "--mode", "score", "--condition", condition, "--subset", "navtest"], OFFICIAL_PYTHON, cpu=True)
-        checked("paired_planning_report", [*inference, "--mode", "summarize"], cpu=True)
+        if specification.get("automatic_navtest", True):
+            checked("navtest_inputs", [*inference, "--mode", "prepare-navtest"], OFFICIAL_PYTHON, cpu=True)
+            for condition in specification["conditions"]:
+                checked(condition + "_navtest", [*inference, "--mode", "predict", "--condition", condition, "--subset", "navtest"])
+                checked(condition + "_navtest_score", [*inference, "--mode", "score", "--condition", condition, "--subset", "navtest"], OFFICIAL_PYTHON, cpu=True)
+            checked("paired_planning_report", [*inference, "--mode", "summarize"], cpu=True)
+        else:
+            checked("paired_object_auxiliary_report", ["scripts/summarize_lpwm_object_auxiliary_ablation.py", *config_arguments], cpu=True)
         state["current_stage"] = "complete"
         save_state()
         write_json(root / "queue_completion.json", {"complete": True, "conditions": specification["conditions"], "time_unix": time.time()})
