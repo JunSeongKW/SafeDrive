@@ -2026,3 +2026,14 @@ C-D는같은SSL후속학습에planninggradient를표현까지전달하는것의�
 있으므로미세조정표현의품질개선증거로충분하지않다. Gradient가흐르거나가중치가변했다는사실도
 PDMS기여를보장하지않는다. 기존persistent_future평가는학습된planner가미래입력에의존하는지의
 보조개입이며LPWM미세조정대조를대체하지않는다.
+
+### 2026-10-05 01:59 KST — 학습 진행 조회
+
+Partial3184/4707update(67.64%), queue1902774/torchrun1978684/두rank 정상. 기존batch8/accum1/유효16/worker0유지.
+최근로그평균2.780s,최근256update wall2.913s/update;남은학습약1.23h,완료03:15–03:30KST예상(최종검증별도).
+고정dev128/유효PDM127:2048update PDMS78.9990/ADE1.35675m,2560update82.3708/1.39076m,
+3072update81.8502/1.28197m/FDE2.97124m. 최근PDMS0.52점하락과ADE/FDE개선을함께관찰하며단조개선주장없음.
+모든loggedloss유한,3072gradient유한·양수/frozenRGB0,OOM·오류marker없음,source38/config20hash일치.
+GPU0/1총45.592/45.570GB,각free4.95GiB이상.2353update중간particle시각화저장확인.
+최종1024planning/256world평가와LoRA→Adapter→full학습검증대기. Frozen대조군은제안만있고미실행.
+기존GPU학습이나queue/source/config변경없음. 근거 `results/lpwm_48gb_planning_v1/status_20261005_0159.json`.

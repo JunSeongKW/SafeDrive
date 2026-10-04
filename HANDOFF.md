@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 00:52 KST (Codex)
+마지막 갱신: 2026-10-05 02:00 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신10/5 01:59KST: Partial3184/4707(67.64%)까지정상진행. Queue1902774/torchrun1978684/worker1979560·1979561유지. 읽기전용상태조회이며runtime변경없음. `results/lpwm_48gb_planning_v1/status_20261005_0159.json`.
 
 최신추가질문은LPWM대planner효과분리방법설명. 기존4방법queue/source/config를변경하지않았고새대조군학습미실행. 마지막상태점검은아래00:47KST기록.
 
@@ -408,6 +410,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신3072monitor PDMS81.8502/ADE1.28197m/FDE2.97124m;2560의82.3708/1.39076/3.28219대비PDMS0.52점하락·ADE/FDE개선. 고정dev128/유효PDM127.2353중간시각화저장. Loss/gradient유한/OOM0/해시38source20config일치/VRAM총45.6GB.
 
 효과분리설계: optimizer의planner그룹에는particle생성에영향주는ego-FiLM도포함됨. A(world+FiLM고정,planner학습),B(world고정,FiLM+planner학습),C현재부분학습을구분. C-B가native LPWM적응의조건부추가효과. C와동일한학습계층을SSL만으로갱신하는D와비교해야planning gradient자체의효용검증가능. 모두제안이며실험결과없음.
 
@@ -746,12 +750,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자질문에따라LPWM/ego-FiLM/planner학습범위를코드로확인하고효과분리A/B/C및SSL-only D대조를제안으로기록.
-- FiLM이planner optimizer그룹에있어도particle표현을바꾼다는점을명시. 미학습planner비교/LPWM교체/gradient만으로는효과식별불가.
-- 공정한batch일정·SSL·seed·평가/paired CI와표현readout진단범위를정리. 새GPU실험/queue/config변경없음.
+- 사용자진행상황질문에기존로그/process/GPU/등록hash조회. Partial3184update(67.64%)확인.
+- 최신3072dev PDMS81.8502/ADE1.28197m,직전PDMS0.52점하락·ADE/FDE개선과2353시각화저장보고.
+- 현재속도와메모리기록및학습완료ETA03:15–03:30KST갱신. Runtime/source/config변경이나새GPU작업없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신ETA: 현재partial학습10/5 03:15–03:30KST예상(현재wall2.913s/update,공유부하변동·종료후검증별도). 다음3584monitor와종료후1024planning/256world평가확인. 기존LoRA→Adapter→full대기열유지.
 
 효과분리대조는연구문서최신절에제안으로기록. 현재4방법queue에자동추가하지않았다. 추가시native고정+FiLM학습B를우선비교하고batch4→8일정/seed/SSL/학습량을맞춘다.
 
@@ -935,6 +941,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신개발PDMS는79–82주변변동이며단조상승아님. 이번배치8본학습은정상. 최종world보존/독립test/미세조정단독효과는미확정이고frozen대조군은제안단계. 현재학습이나실험등록변경없음.
 
 현재미학습planner초기값대비상승은LPWM미세조정단독효과를식별하지못한다. 학습된planner에Stage1 LPWM을교체하는것도표현분포불일치때문에단독증거로부족. Frozen대조및SSL-only대조는아직제안단계.
 
