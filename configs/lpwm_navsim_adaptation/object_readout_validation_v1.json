@@ -1,0 +1,34 @@
+{
+  "research_subquestion": "Do frozen LPWM particles preserve readable object category and state after NAVSIM adaptation, conditional on observed GT localization?",
+  "stage1_directory": "outputs/lpwm_navsim_full_posttraining_v2",
+  "output_directory": "outputs/lpwm_object_readout_validation_v1",
+  "shared_results_directory": "results/lpwm_object_readout_validation_v1",
+  "checkpoints": {
+    "published": {"path": "outputs/lpwm_navsim_adaptation_v1/pretrained", "glob": "*best_lpips.pth", "sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731"},
+    "posttrained": {"path": "outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt", "sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f"}
+  },
+  "observed_frames": 4,
+  "current_frame_index": 3,
+  "expected_particles": 64,
+  "categories": ["vehicle", "pedestrian", "bicycle"],
+  "minimum_projected_side_pixels": 1.0,
+  "small_box_area_pixels": 64.0,
+  "far_depth_meters": 40.0,
+  "probe_validation_recording_fraction": 0.2,
+  "split_seed": 47,
+  "ridge_regularization_candidates": [0.0001, 0.01, 1.0, 100.0],
+  "readouts": ["roi_geometry", "particle_geometry", "particle_appearance", "particle_combined", "background", "combined_with_background", "shuffled_appearance"],
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 2047,
+  "resources": {"allowed_gpus": [0, 1], "clips_per_batch": 4, "cpu_threads": 4, "minimum_free_gib": 6, "maximum_allocated_gib": 8},
+  "interpretation": [
+    "LPWM frozen; only deterministic linear ridge readouts are fitted on train recordings.",
+    "Observed GT boxes/tracks are used for pooling; this is not autonomous detection or tracking.",
+    "No future image, box, pose or label enters feature extraction. No planner training.",
+    "Include all eligible current objects without a particle-support or top-K exclusion.",
+    "Selection of ridge strength uses an internal recording split of train, then refit on all train.",
+    "Existing development recordings are not an independent test set.",
+    "This diagnostic does not replace the historical gate or automatically start Stage2.",
+    "Pixel instance masks, causal future readouts and trained-planner interventions remain separate follow-up evaluations."
+  ]
+}

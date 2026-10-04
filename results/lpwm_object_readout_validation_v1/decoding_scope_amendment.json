@@ -1,0 +1,8 @@
+{
+  "reason": "Code audit before readout fitting: the native decoder selects 30 of 64 particles by z_base_var, while the registered diagnostic explicitly uses filter_key=None.",
+  "registered_diagnostic": "All 64 encoder particles are decoded together for alpha-weighted GT-localized feature pooling. This is a controlled readout construction, not native 30-particle reconstruction contributions.",
+  "native_segmentation_evaluation": "Future instance-mask evaluation must apply the native variance filter, map selected IDs back to 64 positions, and report full64 decoding separately.",
+  "source_and_configuration_changed": false,
+  "checkpoint_or_training_changed": false,
+  "scientific_claim": "Conditional information readout only; no native instance discovery or native RGB reconstruction metric is reported."
+}

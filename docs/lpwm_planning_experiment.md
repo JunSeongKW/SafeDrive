@@ -1,5 +1,113 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 GT 객체 감독의 위치와 Stage2 방향 판단
+
+사용자가 GT box를 Stage1 입력/loss에 사용하는 안과 Stage2 공동학습으로 개선하는 안의 판단을
+요청했고, 앞 절에서 제안한 객체 표현 검증 방법의 적용에 동의했다.
+
+**현재 권고:** GT box는 학습 시 감독으로 활용한다. 센서 기반 추론 경로는 관측 영상/ego 상태/
+command로 유지한다. 먼저 현재 checkpoint의 frozen 정보 판독을 검증하고, 정보가 유지된다면
+현재 Stage1에서 Stage2 full-low-LR 공동학습을 시작해 **planning + world + 객체/미래 보조 감독**을
+비교하는 것이 우선이다. 현재 객체 정보부터 부족하다는 근거가 나오면 동일 checkpoint에서
+객체 감독을 추가한 Stage1 적응을 먼저 수행한다. Box proxy 감소만으로 Stage1을 다시 학습하지 않는다.
+새 Stage1/Stage2 학습 조건은 이 절의 설계안이며 아직 runtime/queue에 등록하거나 기동하지 않았다.
+
+### GT를 어디에 사용하는지 구분
+
+| 사용 방식 | 기대 효과와 판단 |
+|---|---|
+| GT box를 encoder의 필수 입력/초기 particle 위치로 제공 | 객체 위치를 알려주는 특권 입력이 된다. 실제 추론의 predicted box 또는 box-free 경로를 별도로 설계/검증해야 하므로 현재 주 경로로 추천하지 않음 |
+| 관측 영상으로 만든 표현에 GT box/category/state loss 적용 | 객체 정보를 보존하는 직접 감독. GT는 loss/association에만 쓰고 추론 시 제거할 수 있음. Supervised NAVSIM adaptation이며 순수 비지도 LPWM과 구분 |
+| Stage2 planning loss만으로 LPWM 미세조정 | 유용한 정보를 강조할 가능성은 있지만, 쉬운 ego/배경 단서에 의존하거나 드문 작은 객체를 놓칠 수 있음. 개선을 보장하지 않음 |
+| Stage2 planning + world + 객체/미래 보조 loss | 기본 객체 정보와 의사결정 효용을 함께 학습하는 권고 비교 조건. 동일 후보/데이터/업데이트의 보조 loss 없는 대조 필요 |
+
+Held-out box 검증 수치가 개선될 수 있지만, box regression을 학습하고 그 box만 평가하면 감독한
+목표의 개선을 보여준 것이다. 미래 상태·작은 객체·독립 판독기·planning 이득으로 일반화됐는지
+별도로 확인한다. 학습용 auxiliary head의 점수를 frozen representation probe 성능으로 대체하지 않는다.
+
+### 추가 감독의 설계 범위
+
+권고 목적함수의 형태는 아래와 같다. 가중치는 아직 확정하지 않았다.
+
+\[
+\mathcal L = \mathcal L_{\rm planning}
+ + \lambda_{\rm world}\mathcal L_{\rm LPWM}
+ + \lambda_{\rm state}\mathcal L_{\rm object\ state}
+ + \lambda_{\rm future}\mathcal L_{\rm object\ future}.
+\]
+
+- `object state`: 객체 종류, 위치/거리, 관측 구간 속도. GT box는 여러 particle를 객체에 연결하는
+  감독에 사용한다. Particle glimpse 사각형 하나를 GT box 하나에 강제 일치시키는 loss는 우선하지 않는다.
+  Region 가중 복원은 구현이 쉬운 비교군이지만 객체 정보나 instance 분리를 직접 보장하지 않는다.
+- `object future`: 관측 정보로 생성한 causal future particle에서 미래 위치/움직임 등을 예측하도록
+  감독한다. 미래 GT는 target이며 context에 미래 영상을 넣는 posterior 감독과 구분한다.
+  단일 미래의 다중 가능성/가림/시야 밖 target-valid mask를 명시한다.
+- GT target와 discrete matching/진단용 association은 SG로 두되, auxiliary head가 읽는 particle
+  feature는 detach하지 않아 encoder로 gradient가 전달되게 한다. Future loss는 dynamics/context/
+  encoder를 학습한다. 현재 frame feature loss만으로 dynamics가 학습된다고 설명하지 않는다.
+- Alpha 기반 grouping을 loss에 사용할 때 영역 자체를 조작해 답을 맞히는 shortcut을 점검한다.
+  고정 association 대조, geometry-only 대조, correspondence confidence/missing coverage가 필요하다.
+  새 head가 모든 인식을 대신 학습하지 않도록 작은 판독 구조부터 비교하고 encoder 변화를 측정한다.
+- LPWM 전체 low LR + planner full LR, world objective 유지 원칙은 기존 사용자 결정을 따른다.
+  객체 supervision은 객체가 가진 정보를 가르치지만 ego intent에 따른 중요도는 알려주지 않으므로,
+  intent conditioning과 planning gradient, 동일 scene/다른 command 검증이 함께 필요하다.
+- 차량/보행자/bicycle box 주석은 차선·정지선·도로 경계 감독을 포함하지 않는다. 필요한 지도 정보는
+  별도의 target/검증 범위를 정의해야 하며 객체 loss로 모두 해결했다고 보고하지 않는다.
+
+문헌 근거: [VAD §3.4](https://arxiv.org/html/2303.12077v3#S3.SS4)는 agent class/attribute/motion 및
+map 감독을 planning constraint/imitation과 함께 사용한다. 이는 중간 감독과 E2E 최적화가 양립함을
+보여주는 설계 선행연구이며 LPWM/NAVSIM에서의 개선을 보장하는 결과는 아니다.
+기존 LPWM 비지도 적응 checkpoint를 보존하여 감독 추가에 따른 변경을 구분한다.
+
+### 비교와 다음 단계 결정
+
+1. 현재 공개/적응 모델에 동일한 독립 frozen readout 검사를 적용한다. 현재 정보와 미래 정보를
+   분리하고, class/크기/거리/회전별 coverage와 오차를 본다. 박스 proxy만의 개선을 목표로 삼지 않는다.
+2. 현재 정보가 읽히고 미래도 유지된다면, Stage2에서 `planning+world`와
+   `planning+world+object/future`를 같은 초기 checkpoint/후보/학습량으로 비교한다.
+3. 현재 객체 정보가 약하다면, Stage1의 `world+object state` 추가 적응을 먼저 비교한다.
+   현재 상태는 좋고 미래만 약하다면 encoder box 정렬보다 causal dynamics 감독을 우선한다.
+4. Frozen LPWM+planner 대조는 fine-tuning 효과를 확인하는 기준으로 유지한다. Stage1 추가 적응이
+   들어간 조건은 추가 update/주석 예산이 같은 대조를 두어 학습량 효과와 분리한다.
+5. 객체 판독 개선만 있고 PDMS/후보 선택 손실 개선이 없다면 perception 감독 이득으로 보고하며,
+   planning-aware 표현 학습 성공으로 확대 해석하지 않는다.
+
+기존 실패 gate는 원본 그대로 남겨둔다. 후속 진입 판단은 proxy의 타당성 정정과 새 검사 결과를
+명시적으로 기록하여 새 실행으로 등록한다. 단독 box gate를 성공으로 바꿔 예전 queue를 우회하지 않는다.
+
+### 승인된 검증의 첫 구현
+
+설정 `configs/lpwm_navsim_adaptation/object_readout_validation_v1.json`, 실행
+`scripts/validate_lpwm_object_readouts.py`, 평가 모듈 `object_readout_diagnostics.py`.
+전체 기존 train23,126/dev7,745 clip의 관측4장과 GT observed track association을 사용한다.
+128해상도에서 최소변1pixel 이상 투영 객체를 포함하고 GT/alpha support 실패로 객체를 제외하지 않는다.
+원래 top16 box proxy의 최소변3pixel 모집단과 다르므로 해당 recall과 직접 비교하지 않는다.
+
+Linear ridge 분류/상태 회귀, geometry/appearance/결합/background/GT-ROI/feature-shuffle 7대조,
+train 내부 recording split에서 정규화 강도를 선택한 뒤 전체train으로 다시 적합한다.
+상태 target는 현재ego x/y/velocity x/y와 camera depth다. GT track으로 과거 ROI를 알려주는 조건부
+판독이므로 geometry-only/GT-ROI 비교가 핵심이며 자동 detection/tracking 결과로 해석하지 않는다.
+Macro-F1/종류별 recall은 점 추정, 상태오차 차이는40개 recording paired bootstrap CI를 제공한다.
+Pixel mask 검사·causal future readout·학습된 planner 개입은 별도 후속 항목이다.
+
+CPU 핵심/보고서 직렬화 검사5개 통과. 첫 GPU0 4clip 추론은2.95초/peak2.69GiB, LPWM optimizer update0으로
+연결·메모리 검사를 통과했다. Full-image ROI를 사용한 실행 검사이며 객체 정확도 결과가 아니다.
+실제 진행 상태는 `outputs/lpwm_object_readout_validation_v1/`의 progress/queue/summary를 확인한다.
+
+14:20 KST: 주석 준비342초 완료, 객체 관측312,611건(train222,646/dev89,965; 물리적으로 고유한
+객체 수가 아님). Train 내부98 fitting/24 validation recording, development40 recording.
+`kjs-lpwm-object-validation` queue504595, 공개GPU0 worker504614/적응GPU1 worker504615.
+추출 후 CPU probe fit와paired report가 자동 실행된다. 적응 모델4,356/30,871clip 추출/223초,
+peak2.69GiB/free22.34GiB. 최종 결과는 아직 없으며 Stage2는 기동하지 않았다.
+
+**추출 범위 추가 명시:** 공식 모델은64개 encoder particle 중 variance 기준30개를 decoder에서
+선택한다(`models.py:247–255, 1148`). 이번 등록 판독은 `filter_key=None`으로64개를 함께 decode하여
+GT-localized pooling weight를 계산한다. 이는 **전체 encoder 표현을 읽기 위한 평가 구성**이며,
+원래30개 복원에서의 기여 mask와 같지 않다. Native instance-mask 검사는30개 선택 ID를64개에
+다시 대응하고 full64 재합성 결과와 구분해야 한다. Probe 결과 확인 전에
+`results/lpwm_object_readout_validation_v1/decoding_scope_amendment.json`에 이 해석 범위를 기록했다.
+등록 source/config와 모델은 바꾸지 않았으며 이 검사로 native segmentation 품질을 주장하지 않는다.
+
 ## 2026-10-04 객체 구분·정보 보존의 검증 설계 — 제안, 미실행
 
 **답하려는 하위 질문:** LPWM이 현재 장면의 개별 객체와 움직임을 표현하고, planning에 필요한

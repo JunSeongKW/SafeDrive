@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction
 
+**진행 중(2026-10-04 14:20 KST): 승인된 객체 정보 보존 검증.** 공개/적응 LPWM을 고정하여
+전체 train23,126/dev7,745 clip의 관측 표현 추출 → CPU linear readout 학습·평가를 자동 실행 중이다.
+설정 `configs/lpwm_navsim_adaptation/object_readout_validation_v1.json`, 상태
+`outputs/lpwm_object_readout_validation_v1/queue_state.json`. 모델 재학습/Stage2 실행은 아니다.
+[GT 감독과 Stage2 방향 판단·검증 범위](docs/lpwm_planning_experiment.md): GT는 학습 감독으로
+활용하는 안을 권고하며, 현재 표현 검증 후 공동학습+객체/미래 보조 loss 또는 Stage1 보정을 결정한다.
+
 **현재 상태(2026-10-04 12:29 KST): Stage1 학습·전체 개발7,745clip 평가 완료. 객체 박스 대응 비열등성 gate 실패로 Stage2 진입 차단.**
 복원·미래예측 등 나머지 gate는 통과했지만 top16 box recall@IoU0.1의 paired CI 하한이 등록 기준에 미달했다.
 **해석 정정(13:30 KST):** 이 항목은 자체 particle–GT 박스 기하 proxy이며 LPWM의 detection/segmentation

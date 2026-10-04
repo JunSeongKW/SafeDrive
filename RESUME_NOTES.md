@@ -1772,3 +1772,12 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - GT-localized probe는 자동 발견과 다름. Geometry/background/GT-ROI 대조, 미대응 객체 coverage, parts 분해와 merge 분리, GT oracle union의 한계, 미래 GT association/ego pose 누출 방지, zero-out의 OOD 혼란을 기록했다. Recording 단위 분할·paired CI, probe seed와 encoder seed 불확실성도 구분했다.
 - 현재 cache는 projected box/category/track 주석이며 검수된 pixel instance mask는 확인되지 않았다. 전체 feature/alpha 신규 추출과 약200프레임 mask audit는 제안으로 남겼다. 기존 full-dev 저장 metrics만으로 probe를 이미 실행했다고 보고하지 않는다.
 - 문서/HANDOFF/RESUME만 변경. 새 학습·추론·GPU 실행·gate 변경·Stage2 기동 없음. 원본 결과/실패 로그 보존. 직전 6e20108의 원격 공유는 기존 credential socket/GitHub 인증 오류로 실패한 상태다.
+
+## 2026-10-04 14:20 KST — GT 감독 위치 판단과 승인된 객체 판독 검증 기동
+
+- 사용자 요청은 GT box를 Stage1 입력/loss에 사용하는 안 vs Stage2 공동학습의 적합성 판단이며, 앞서 제안한 검증 방법 적용에도 동의했다. VAD§3.4의 class/attribute/motion 감독+planning loss를 원문 확인. GT는train-only감독으로 활용하고, 현재정보가 유지되면Stage2 planning+world+object/future 보조loss, 부족하면Stage1추가적응을 우선하는 설계를 기존 연구 문서에 기록했다. 학습조건 변경·Stage2기동은 아직 없음.
+- `object_readout_validation_v1.json`, `object_readout_diagnostics.py`, `validate_lpwm_object_readouts.py`, `launch_lpwm_object_validation.py`를 추가했다. 공유 원본을 읽어 관측4장 GT track/ROI, 현재ego 위치·속도/camera depth를 준비. 총30,871clip/객체관측312,611건, 준비342초. Train222,646(차량137,526/보행자83,806/bicycle1,314), dev89,965(55,924/33,682/359). 98fit/24validation/40dev recording, 동일train/dev split 유지.
+- 7입력대조의 선형ridge class/state 판독: ROIgeometry/particlegeometry/appearance/combined/background/combined+background/shuffle. 정규화강도train내선택 후전체train재적합. 분류점추정과상태오차recording bootstrap2000. 주석/미래GT는encoder입력에없고observed GT는probeassociation만 사용. 자동detection/tracking이 아니며단독hardgate로사용하지않음.
+- CPU5검사통과. 초기pytest는PYTHONPATH 누락으로collection실패했고명시한후정상. GPU0 4clip실행검사2.95초/peak2.69GiB/LPWMupdate0; 정확도검사는아님. nohupqueue504595, 공개GPU0worker504614/적응GPU1worker504615 기동. 14:20적응4356/30871/223초;free22.34GiB/peak2.69GiB. `kjs-lpwm-object-validation` 실행별칭추가,원환경이동없음. 추출→CPU판독→sharedsummary 자동연결.
+- Source/config/checkpoint hash는registration.json에보존. 추출도중공식decoder가64중variance기준30개선택임을추가확인. 이번판독의filter_key=None은full64재합성에의한pooling이며native30복원기여와다름을probe결과확인전 `decoding_scope_amendment.json`으로명시했다. Runtime변경은없으며nativeinstance검사는별도로30선택ID를고려해야함.
+- 원본Stage1/Stage2 source·gate·checkpoint·실패로그보존. 새학습loss미구현,Stage2미시작. 수동mask검수/causal future판독/학습된planner개입은후속. 직전0a8fd30 원격push는기존VSCode credential socket/GitHub인증오류로실패했다.
