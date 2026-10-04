@@ -1699,3 +1699,9 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 전체ELBO/복원은좋아지지만dev dynamicsKL은epoch5 3840→epoch19 4210반등. 고정8장면causal 미래MSE epoch10 .023120→15 .023096으로정체. 실제원인/전체적응성공은최종검증전미확정.
 - CPUteacher complete/coverage gate true,train75165/dev27034,coverage99.82%/99.84%,official parity max2.98e-8. Queue는원래Stage1전체검증대기라node status가아직running인것이며parent완료는오류아님.
 - `results/lpwm_navsim_full_posttraining_v2/health_check_20261004_1117.json`에근거보존. runtime source등록hash일치/학습·queue변경없음. 이전pipeline_stopped 및SIGINT로그는현실행전이력.
+
+### 2026-10-04 11:21 KST — 점검 도중 Stage1 학습 완료 및 자동 평가 전환
+
+- 전체28920update/20epoch 완료, checkpoint SHA71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f. 네모듈parameter sample변화/gradient정상. Dev512 loss19.696784/PSNR21.076768,dynKL4221.361.
+- 최종고정8장면미래MSE0.0210534로epoch15보다추가개선. 직전기록의epoch10→15정체가끝까지지속됐다고해석하지않는다. 전체개발gate는미완료.
+- 공개/적응full evaluation자동기동로그확인. `results/lpwm_navsim_full_posttraining_v2/training_completion_check_20261004.json` 및각evaluation records/log를다음확인. b7a42d3 push기존인증실패,학습에는영향없음.

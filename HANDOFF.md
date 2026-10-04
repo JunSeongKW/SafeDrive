@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 11:17 KST (Codex)
+마지막 갱신: 2026-10-04 11:21 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-04 11:21 KST 최신:** Stage1 20epoch/28,920update 완료, training_summary.json 및 최종checkpoint 확인. 기존supervisor가 공개GPU0/적응GPU1 전체7,745개 개발평가를자동시작했다. Stage2는적응gate대기. CPUteacher준비완료. 이전학습중상태는당시기록.
 
 **2026-10-04 11:17 KST 재점검:** Stage1 28,912/28,920(99.97%) 계속진행. GPU0/1 모두100%,약36.1GiB사용/11.3GiB여유. queue1481082 정상. CPUteacher준비완료102,199유효장면(train75,165/dev27,034); parent종료정상. 아직전체Stage1 gate미완료.
 
@@ -342,6 +344,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**Stage1 최종 학습결과:** dev512 loss19.696784,PSNR21.076768,dynKL4221.361,contextKL697.720. 고정8장면미래MSE .0210534로epoch15 .0230964에서추가개선; persistence .0403294. 앞선10→15정체가최종20epoch까지지속된것은아님. `results/lpwm_navsim_full_posttraining_v2/training_completion_check_20261004.json`; 전체적응성공판정전.
 
 **2026-10-04 11:17 KST:** dev512 epoch19 loss19.6928/PSNR21.1001dB. DynamicsKL epoch5 3840.44→epoch19 4209.58(+9.61%). 고정8장면 미래MSE epoch5 .026577→10 .023120→15 .023096으로후반개선정체. 실행정상과미래학습성공구분; 최종전체평가필요. `results/lpwm_navsim_full_posttraining_v2/health_check_20261004_1117.json` 참조.
 
@@ -599,11 +603,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Stage1 종료직전학습/GPU/225회gradient감사/epoch개발지표/고정8장면미래예측추이를확인하고공유health JSON 저장.
-- Teacher준비완료/99.8%coverage/공식채점parity확인. 후반dynamicsKL반등과미래개선정체를미확정진단신호로기록.
-- 학습과queue변경없음; 인수인계기록만갱신.
+- 점검중Stage1 20epoch/28920update완료확인. 최종dev512/고정8장면미래예측/weight변화와전체개발평가자동전환근거JSON보존.
+- README/AGENTS/HANDOFF/RESUME_NOTES를학습완료·전체검증진행으로갱신. 학습/source/queue변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 최우선: 이미완료한Stage1을재학습하지않고 공개/적응전체개발평가와gate를확인한다. 기존supervisor/새queue유지. 과거pipeline_stopped(10/03 21:34)는현재실패로오해하지않는다.
 
 - 2026-10-04 11:17 KST: 등록20epoch 최종checkpoint를유지하고 완료후공개/적응전체7,745clip 평가→기존gate판정. 개발dynamicsKL반등과미래MSE정체는진단신호이며threshold완화/학습중단/epoch추가/최종checkpoint교체근거로즉시사용하지않는다.
 
@@ -708,6 +713,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- Stage1학습완료와적응검증완료를구분한다. 개발dynamicsKL후반상승은남아있지만최종8장면자율미래MSE는epoch15대비추가개선. 전체7,745평가/CI/위험별결과로판정한다. 이번원격push도기존Git인증문제로실패(b7a42d3); 로컬기록보존.
 
 - 최신점검에서복원개선지속이나후반개발dynamicsKL상승,소수장면자율미래예측정체관측. 과적합/실패로단정하지않으며 전체개발과거전용평가대기. Teacher coverage통과는별도oracle/vocabulary gate나Stage1성공을의미하지않음.
 

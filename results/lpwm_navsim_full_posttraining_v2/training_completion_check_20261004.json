@@ -1,0 +1,112 @@
+{
+  "recorded_at": "2026-10-04T11:21:00.316792+09:00",
+  "training_complete": true,
+  "epochs": 20,
+  "optimizer_updates": 28920,
+  "checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+  "final_development_monitor": {
+    "epoch": 20,
+    "optimizer_update": 28920,
+    "validation_clips": 512,
+    "kl_dyn": 4221.361480712891,
+    "loss": 19.69678394496441,
+    "loss_kl_context": 697.7197823524475,
+    "loss_rec": 22514.686965942383,
+    "obj_on_l1": 30.619263276457787,
+    "psnr": 21.076768085360527
+  },
+  "parameter_tensors_changed_in_sample": {
+    "image_encoder": 218,
+    "context": 154,
+    "dynamics": 224,
+    "rgb_decoder": 92
+  },
+  "last_module_gradients": {
+    "image_encoder": {
+      "norm": 29.661291122436523,
+      "parameters_with_nonzero_gradient": 6035191
+    },
+    "context": {
+      "norm": 0.5429531335830688,
+      "parameters_with_nonzero_gradient": 39389417
+    },
+    "dynamics": {
+      "norm": 2.1901752948760986,
+      "parameters_with_nonzero_gradient": 59869416
+    },
+    "rgb_decoder": {
+      "norm": 14.725417137145996,
+      "parameters_with_nonzero_gradient": 4251239
+    }
+  },
+  "fixed_eight_scene_final_means": {
+    "reconstruction_mse": 0.00937953797983937,
+    "forecast_mse": 0.021053400821983814,
+    "persistence_mse": 0.040329359006136656
+  },
+  "fixed_eight_scene_final_records": [
+    {
+      "token": "399635380c935794",
+      "reconstruction_mse": 0.006720366422086954,
+      "forecast_mse": 0.01377539336681366,
+      "persistence_mse": 0.0484955757856369
+    },
+    {
+      "token": "40c9bf1987b9570a",
+      "reconstruction_mse": 0.0026899499353021383,
+      "forecast_mse": 0.00876068789511919,
+      "persistence_mse": 0.020641310140490532
+    },
+    {
+      "token": "76e801d6c90b5f14",
+      "reconstruction_mse": 0.016129396855831146,
+      "forecast_mse": 0.035333242267370224,
+      "persistence_mse": 0.04524116590619087
+    },
+    {
+      "token": "8a61b6f43a50544d",
+      "reconstruction_mse": 0.013265121728181839,
+      "forecast_mse": 0.027882350608706474,
+      "persistence_mse": 0.03649085387587547
+    },
+    {
+      "token": "8bcacef2dab251e0",
+      "reconstruction_mse": 0.006046788301318884,
+      "forecast_mse": 0.020030362531542778,
+      "persistence_mse": 0.029745690524578094
+    },
+    {
+      "token": "c4de723f8eb256b1",
+      "reconstruction_mse": 0.006197447422891855,
+      "forecast_mse": 0.01530398428440094,
+      "persistence_mse": 0.05471396446228027
+    },
+    {
+      "token": "e0176c9b70e45873",
+      "reconstruction_mse": 0.020009206607937813,
+      "forecast_mse": 0.03197380527853966,
+      "persistence_mse": 0.06216788291931152
+    },
+    {
+      "token": "e06eb0bd75c35409",
+      "reconstruction_mse": 0.003978026565164328,
+      "forecast_mse": 0.01536738034337759,
+      "persistence_mse": 0.025138428434729576
+    }
+  ],
+  "full_development_evaluation": [
+    {
+      "model": "published",
+      "evaluated_clips": 242,
+      "log_exists": true
+    },
+    {
+      "model": "posttrained",
+      "evaluated_clips": 242,
+      "log_exists": true
+    }
+  ],
+  "adaptation_gate_ready": false,
+  "interpretation": "All registered Stage1 optimizer updates completed. Full 7745-clip evaluation started; adaptation/planning success not yet established. Dev dynamics KL increases after early epochs, while final eight-scene causal MSE improves again relative to epoch15.",
+  "remote_sync": "Prior status commit b7a42d3 push failed with existing VSCode credential socket and GitHub authentication error."
+}

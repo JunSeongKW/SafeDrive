@@ -75,19 +75,19 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
-**현재 진행: 전체 navtrain 가용 영상으로 공개 LPWM의 Stage 1 post-training.**
+**현재 진행: Stage 1 전체20epoch/28,920update 학습 완료, 공개·적응 LPWM의 전체 개발7,745clip 평가 중.**
 공식 encoder·context·dynamics·RGB decoder 전체 109.55M parameter와 temporal ELBO를 유지한다.
 학습 23,126 clip/122 recording, development 7,745 clip/40 recording; 12프레임(4 observed+8 future).
 20 epoch / 28,920 update. GPU0·1 DDP, GPU당 batch4×누적2, 유효batch16, FP32, 데이터 worker0.
 실측 batch2 1.73s → batch4 1.61s/update; worker0·2·4·8은 1.61~1.63s로 추가 이득 미확인.
-현재 `kjs-lpwm-stage1` 이름으로 본 학습 중; 추가 속도 실험을 위해 중단하지 않는다.
+`kjs-lpwm-stage1` 본학습은2026-10-04 11:19KST경 완료. 기존supervisor의공개/적응모델 전체개발평가를 유지한다.
 설정 `configs/lpwm_navsim_adaptation/full_posttraining_v2.json` + `execution/batch4_accumulation2_workers0.json`.
 시각화 `outputs/lpwm_navsim_full_posttraining_v2/visualization/index.html` (같은 개발 장면 학습 전·중·후).
 Stage1 적응 gate 후 LPWM 낮은LR + planner 전체학습: 후보 imitation / metric 증류 / 미래particle 후보보정 3조건 비교.
-현재 queue `scripts/queue_lpwm_validated_training.py`, 설정 `metric_distillation_v2.json`; CPU teacher16worker 병행.
+현재 queue `scripts/queue_lpwm_validated_training.py`, 설정 `metric_distillation_v2.json`; CPU teacher준비완료(train/dev coverage99.8%).
 각조건 학습 후 검증 gate를 통과해야 다음 작업/독립test로 진행한다. 설계 `docs/lpwm_planning_experiment.md` 최신절.
 과거 `full_joint_training_v1.json` 호출은 `active_pipeline.json`을 통해 새 queue에 join한다. 이전 단일경로 planner를 별도로 실행하지 않는다.
-Stage2 train75,297/dev27,076; GPU 실행은 적응 gate 후. 현재 성능 개선이나 학습 완료를 주장하지 않는다.
+Stage2 train75,297/dev27,076; GPU 실행은 적응 gate 후. Stage1학습은완료됐으나 적응gate/PDMS개선은아직미확정.
 이전 cap8,192/4epoch 실행안은 대체됐고, v1 파일과 과거 결과는 그대로 보존한다.
 
 아래 과거 승인·결과는 보존 이력이다. 현재 실행은 HANDOFF 최신 절을 우선한다.
