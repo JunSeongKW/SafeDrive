@@ -1,0 +1,207 @@
+{
+  "reviewed_at_utc": "2026-10-04T04:20:55.210047+00:00",
+  "scope": "Review completed saved Stage1 evaluation; no model execution or gate modification",
+  "summary_sha256": "a831f23bb491065b1ff87286c4a366d9e8045321c3f60d2eb64d34513c229e52",
+  "evaluation_integrity": {
+    "published": {
+      "records": 7745,
+      "unique_records": 7745,
+      "missing_records": 0,
+      "unexpected_records": 0,
+      "checkpoint_metadata_matches_training": true,
+      "profile_only": false
+    },
+    "posttrained": {
+      "records": 7745,
+      "unique_records": 7745,
+      "missing_records": 0,
+      "unexpected_records": 0,
+      "checkpoint_metadata_matches_training": true,
+      "profile_only": false
+    }
+  },
+  "horizon_means": [
+    {
+      "future_seconds": 0.5,
+      "forecast_lpips_by_horizon": 0.3290794103606583,
+      "persistence_lpips_by_horizon": 0.2614259777011036,
+      "forecast_mse_by_horizon": 0.011142273720448837,
+      "persistence_mse_by_horizon": 0.018481274603880996
+    },
+    {
+      "future_seconds": 2.0,
+      "forecast_lpips_by_horizon": 0.379731271744467,
+      "persistence_lpips_by_horizon": 0.4068493432224066,
+      "forecast_mse_by_horizon": 0.019902277775313237,
+      "persistence_mse_by_horizon": 0.03675015105948867
+    },
+    {
+      "future_seconds": 4.0,
+      "forecast_lpips_by_horizon": 0.4271648289793303,
+      "persistence_lpips_by_horizon": 0.4746430273322308,
+      "forecast_mse_by_horizon": 0.0294446393881135,
+      "persistence_mse_by_horizon": 0.04847614814246553
+    }
+  ],
+  "gate_checks": {
+    "reconstruction_lpips_vs_published": true,
+    "forecast_lpips_vs_published": true,
+    "forecast_lpips_vs_persistence": true,
+    "forecast_object_region_mse_vs_persistence": true,
+    "object_box_recall_noninferiority": false,
+    "all_core_modules_updated": true,
+    "all_core_modules_receive_gradient": true,
+    "published_causal_forecast": true,
+    "posttrained_causal_forecast": true,
+    "risk_noninferiority_far_future_objects": true,
+    "risk_noninferiority_high_ego_speed": true,
+    "risk_noninferiority_high_interframe_flow": true,
+    "risk_noninferiority_large_ego_turn": true,
+    "risk_noninferiority_projected_overlap": true,
+    "risk_noninferiority_projected_track_disappearance": true,
+    "risk_noninferiority_small_future_objects": true
+  },
+  "failed_criteria": [
+    "object_box_recall_noninferiority"
+  ],
+  "paired_recording_comparisons": {
+    "reconstruction_lpips_vs_published": {
+      "mean_difference": -0.47065916113348605,
+      "ci95": [
+        -0.48606731028497463,
+        -0.4508271389891979
+      ],
+      "clips": 7745,
+      "recordings": 40
+    },
+    "forecast_lpips_vs_published": {
+      "mean_difference": -0.4249440139939971,
+      "ci95": [
+        -0.44063942622027646,
+        -0.40400387845518715
+      ],
+      "clips": 7745,
+      "recordings": 40
+    },
+    "forecast_lpips_vs_persistence": {
+      "mean_difference": -0.016492532327376772,
+      "ci95": [
+        -0.026989265942941758,
+        -0.004075074842853574
+      ],
+      "clips": 7745,
+      "recordings": 40
+    },
+    "forecast_object_region_mse_vs_persistence": {
+      "mean_difference": -0.01310929523762382,
+      "ci95": [
+        -0.01564178948006084,
+        -0.010581255935985636
+      ],
+      "clips": 7416,
+      "recordings": 40
+    },
+    "object_box_recall_vs_published": {
+      "mean_difference": -0.03266962784718101,
+      "ci95": [
+        -0.04152001424357859,
+        -0.023644542235357793
+      ],
+      "clips": 6926,
+      "recordings": 40
+    }
+  },
+  "scenario_forecast_comparisons": {
+    "straight": {
+      "clips": 126,
+      "posttrained_lpips": 0.4001428581892498,
+      "persistence_lpips": 0.37987707555294037,
+      "paired_interval": {
+        "mean_difference": 0.02026578263630943,
+        "ci95": [
+          0.010808923216920587,
+          0.03164584934593353
+        ],
+        "clips": 126,
+        "recordings": 22
+      }
+    },
+    "turn": {
+      "clips": 1289,
+      "posttrained_lpips": 0.40523784086859627,
+      "persistence_lpips": 0.47327791281547354,
+      "paired_interval": {
+        "mean_difference": -0.0680400719468773,
+        "ci95": [
+          -0.09632906353557054,
+          -0.042785970821770145
+        ],
+        "clips": 1289,
+        "recordings": 35
+      }
+    },
+    "projected_overlap": {
+      "clips": 5958,
+      "posttrained_lpips": 0.37575075329700625,
+      "persistence_lpips": 0.38353583220418724,
+      "paired_interval": {
+        "mean_difference": -0.007785078907181009,
+        "ci95": [
+          -0.018148990062002605,
+          0.005004796719884521
+        ],
+        "clips": 5958,
+        "recordings": 40
+      }
+    },
+    "other": {
+      "clips": 372,
+      "posttrained_lpips": 0.4161193833476113,
+      "persistence_lpips": 0.40590701404438223,
+      "paired_interval": {
+        "mean_difference": 0.010212369303229035,
+        "ci95": [
+          -0.0011325409915481433,
+          0.023679149661162115
+        ],
+        "clips": 372,
+        "recordings": 29
+      }
+    }
+  },
+  "shared_summary_matches_adaptation_gate": true,
+  "adaptation_gate_hash_matches_transition_gate": true,
+  "transition_gate": {
+    "passed": false,
+    "checks": {
+      "registered_stage1_adaptation_gate": false,
+      "all_causal_interventions_pass": true,
+      "causal_audit_checkpoint_matches": true,
+      "noncollapsed_particles": true,
+      "risk_coverage_far_future_objects": true,
+      "risk_coverage_high_ego_speed": true,
+      "risk_coverage_high_interframe_flow": true,
+      "risk_coverage_large_ego_turn": true,
+      "risk_coverage_projected_overlap": true,
+      "risk_coverage_projected_track_disappearance": true,
+      "risk_coverage_small_future_objects": true,
+      "scenario_coverage_straight": true,
+      "scenario_coverage_turn": true,
+      "scenario_coverage_projected_overlap": true
+    },
+    "failed_checks": [
+      "registered_stage1_adaptation_gate"
+    ],
+    "checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "original_gate_sha256": "a831f23bb491065b1ff87286c4a366d9e8045321c3f60d2eb64d34513c229e52",
+    "interpretation": "Operational adaptation criteria; not proof of perfect adaptation, object identity, or planning utility"
+  },
+  "interpretation_limits": [
+    "One training seed; confidence intervals resample 40 recordings, not training seeds",
+    "Box metrics use top16 presence-ranked particle glimpse boxes and projected annotated objects, not detection predictions",
+    "Scenario labels prioritize projected overlap before turn/straight; overlap is an occlusion proxy",
+    "Risk noninferiority passes do not establish superiority in every subgroup",
+    "Horizon means are descriptive; no new horizon-specific confidence interval computed",
+    "Planning performance remains unmeasured; Stage2 blocked"
+  ]
+}

@@ -1,5 +1,59 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 Stage1 최종 검증 결과 재확인
+
+원본 `results/lpwm_navsim_full_posttraining_v2/summary.json`과 adaptation/transition gate,
+공개·적응 모델의 장면별 평가를 직접 확인했다. 최종 gate 파일은 12:17 KST에 생성됐다.
+이번 재확인 기록은 `results/lpwm_navsim_full_posttraining_v2/validation_review_20261004.json`이다.
+학습/추론을 반복하거나 gate 기준·원본 결과를 변경하지 않았다.
+
+- 학습: navtrain 23,126 clip/122 recording, 20epoch/28,920update, 전체 LPWM 109.55M 갱신.
+- 개발평가: 학습 recording과 분리된 7,745 clip/40 recording. 공개·적응 모델 각각 7,745개 고유 token,
+  누락/추가/중복0, 평가 metadata의 checkpoint hash가 training summary와 일치. 독립 test는 아니다.
+- 공유 summary와 adaptation gate 내용 동일, transition gate가 기록한 원본 gate SHA도 일치.
+- **원래 16개 검증 항목 중15개 통과, 객체 박스 대응 비열등성1개 실패. Stage2 차단 유지.**
+  추가8장면 future-GT 개입, 비붕괴 proxy 및 scenario/risk coverage 검사는 통과했다.
+
+| 지표 | 공개 모델 | 마지막 관측 영상 유지 | Stage1 적응 후 |
+|---|---:|---:|---:|
+| 영상 복원 MSE ↓ | 0.051140 | — | 0.007799 |
+| 미래 영상 MSE ↓ | 0.061362 | 0.036617 | 0.020829 |
+| 미래 영상 LPIPS ↓ | 0.807938 | 0.399487 | 0.382994 |
+| 미래 객체 영역 MSE ↓ | 0.037932 | 0.042921 | 0.029812 |
+| 현재 top16 객체 박스 대응률 IoU≥0.1 ↑ | 32.20% | — | **28.93%** |
+| 현재 top16 객체 박스 대응률 IoU≥0.3 ↑ | 13.01% | — | 17.77% |
+| 4초 후 top16 객체 박스 대응률 IoU≥0.1 ↑ | 19.39% | — | 26.74% |
+
+Forecast는 과거4장만으로8미래 프레임을 생성한 결과다. MSE/LPIPS는 미래8프레임 평균이며,
+복원은12장 posterior reconstruction이다. Top16은 presence 순서로 고른 particle glimpse box와
+GT projected box의 Hungarian 일대일 대응이다. 검출 정확도·객체 identity·planning 효용과 같지 않다.
+
+실패 항목은 현재 top16 recall@IoU0.1: paired 차이 **−3.267pp**, recording bootstrap95% CI
+**[−4.152,−2.364]pp**. 등록 기준은 CI하한≥−2pp이며, 객체가 있는6,926clip/40recording으로 계산됐다.
+미래 객체ROI 오차 비교는 유효7,416clip이다. IoU0.3와4초미래box proxy는 개선돼, 객체 표현의
+모든 측면이 악화됐다고 단정할 수 없다. Point coverage는36.47→28.14%, presence합은41.73→30.58로
+감소했다. Presence합은 실제 객체/particle 개수가 아니며 scale·배치·presence별 원인 분해가 필요하다.
+
+장면별 LPIPS(낮을수록 좋음, persistence 대비):
+
+| 등록 scenario | Clip | 단순 유지 | 적응 모델 | 차이의95% CI / 해석 |
+|---|---:|---:|---:|---|
+| 직진 | 126 | 0.37988 | 0.40014 | [+0.01081,+0.03165], 악화 |
+| 회전 | 1,289 | 0.47328 | 0.40524 | [−0.09633,−0.04279], 개선 |
+| 투영 객체 겹침 | 5,958 | 0.38354 | 0.37575 | [−0.01815,+0.00500], 우월성 미확정 |
+
+Scenario는 overlap≥0.35를 먼저 배정하고, 나머지에서 yaw≥15도 회전 / yaw≤5도·속도≥1m/s 직진을
+배정한다. 따라서 위 직진126개를 전체 직진의 대표 통계로 일반화하지 않는다. 겹침은 실제 가림GT가 아니다.
+7개 위험 계층의 gate는 상대10% 비열등성 기준으로 통과했으며, 모든 계층에서 persistence를 유의하게
+능가했다는 뜻은 아니다. 큰회전 독립flag(n=3,530)에서도 LPIPS 개선 CI[−0.06750,−0.04076]를 확인했다.
+
+시간별 평균도 서로 다르다: LPIPS 적응/유지는0.5초0.32908/0.26143,2초0.37973/0.40685,
+4초0.42716/0.47464. 이 시간별 값은 저장평가에서 산출한 평균이며 새로운 CI를 계산하지 않았다.
+
+판단: 영상 복원과 전체 평균 미래예측의 개선은 확인됐지만, 모든 장면·객체 표현에 걸친 적응 성공이나
+planning 이득은 입증되지 않았다. 원본checkpoint를 보존하고 실패 proxy의 geometry/presence/객체종류
+원인을 진단하는 것이 다음 단계다. 이번 검토로 Stage2를 시작하거나 gate를 완화하지 않는다.
+
 ## 2026-10-04 Planner 문제의식과 LPWM 연구 가설 재정리 — 설계 제안
 
 사용자 요청: LPWM을 선택한 원래 연구 질문과 downstream planner의 문제의식을 연결하고,

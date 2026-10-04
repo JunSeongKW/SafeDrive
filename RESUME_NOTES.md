@@ -1749,3 +1749,11 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - DriveSuprim/DrivoR/DiffusionDriveV2/VAD 원문과 가장 가까운 SafeDrive/WorldDrive/ResWorld/World4Drive/EgoFSD/ForeDrive를 확인. WorldDrive의 미래latent preference ranking, EgoFSD 객체선택, CAPO의 control변화 기반 prediction weighting과 중복을 기록. 논문 요약을 성능 재현으로 해석하지 않음.
 - `docs/lpwm_planning_experiment.md` 첫 절에 선택형 기준planner, fixed candidate oracle와 ranking regret, current/persistence/future, frozen/joint, encoder intent, utility weighted causal future 감독, 이후 동일 실제예산 선택 비교를 제안. Particle-GT association/metric geometry/GT target SG/주변차량 반응 counterfactual의 경계 명시.
 - CAPO 착안 utility는 객체×시간 미래를 persistence로 교체했을 때 선택한 후보를 원래 관측미래로 재채점한 손실. Offline proxy부터 검증하며 신규 novelty나 실제학습으로 주장하지 않음. Stage1 box gate실패 진단이 실행의 선행조건, 등록runtime/config/queue/결과 모두불변. 문서만 수정/구문·공백·diff 범위 검토.
+
+## 2026-10-04 13:20 KST — Stage1 완료 검증결과 재확인
+
+- 사용자 요청으로 원본 summary/adaptation gate/transition gate와 공개·적응 metrics를 직접 검토. 각7,745고유token/누락·추가·중복0,평가metadata hash가training과일치,공유summary와gate내용일치/transition의원본SHA일치. `validation_review_20261004.json`에검토결과보존. 최종gate들은12:17KST생성.
+- 원래16항목중15통과/현재top16boxIoU.1 recall비열등성1실패.6,926유효clip/40recording paired차이−3.267pp,CI[−4.152,−2.364]pp,등록하한≥−2pp미충족. 추가8장면causal/비붕괴/coverage통과.Stage2미시작유지.
+- 미래MSE .020829 vs유지.036617(43.12%감소),LPIPS.382994 vs.399487(4.13%감소),객체ROI .029812 vs.042921(30.54%감소). IoU.3와4초미래box는개선되어전체객체표현악화로단정불가. 현pointcoverage/presence합감소원인미확정.
+- 등록직진126개LPIPS악화CI양수,회전1289개개선,겹침5958개우월성CI0포함. Overlap우선scenario정의/위험계층10%비열등성제한명시. 저장horizon평균은0.5초LPIPS악화/2·4초개선이며새시간별CI없음.
+- 기존문서에표/해석추가,HANDOFF갱신. 학습·추론재실행/임계값완화/소스변경없음. 원본결과/모델보존. 이전설계commit aa44380의원격push는기존VSCode credential socket/GitHub인증오류로실패했다.

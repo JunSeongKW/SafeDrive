@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 13:04 KST (Codex)
+마지막 갱신: 2026-10-04 13:22 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 13:20 KST: 사용자요청 Stage1 최종결과 재확인 완료. 저장된 공개/적응 각7,745고유clip 누락·중복0 및 checkpoint metadata/gate SHA 일치 확인. 원래15/16통과·객체box gate실패로 Stage2차단 유지. 재학습·GPU평가·기준변경 없음.
 
 - 2026-10-04 13:00 KST: 사용자요청 planner 문제의식/방법론 재정리. 원문 문헌과 현재 코드/등록설계 비교 후 `docs/lpwm_planning_experiment.md` 첫 절에 제안 저장. 후보 선택 오류를 기준으로 미래 표현 효용을 검증하는 방향이며 runtime/config/queue 변경·새학습 없음. Stage1 실패 gate에 의한 Stage2 차단 유지.
 
@@ -358,6 +360,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 최종검증 재확인 `results/lpwm_navsim_full_posttraining_v2/validation_review_20261004.json`: causal forecast LPIPS .382994 vs persistence .399487, 객체ROI MSE .029812 vs .042921. 현재box IoU.1 recall은32.20→28.93%이나 IoU.3은13.01→17.77%,4초미래IoU.1은19.39→26.74%. 모든객체표현악화로일반화하지않음.
+- Scenario LPIPS: 등록직진126개는 .40014 vs 유지.37988로악화(CI양수),회전1289개는 .40524 vs .47328로개선,overlap5958개는 .37575 vs .38354이나차이CI가0포함. Overlap우선배정이므로직진전체의대표분석아님. 위험별gate통과는비열등성이지전계층우월성아님.
 
 - 문헌 추가: WorldDrive는 미래latent 증류+preference ranking, ResWorld는 ego정렬 temporal residual+미래BEV refinement, CAPO는 prediction 교체에 따른 control 변화로 중요도 학습. SafeDrive/EgoFSD/ForeDrive까지 고려하면 particle/intent/future ranking/encoder joint만으로 novelty 확보 불가.
 - 제안 중심질문: 같은 후보·관측·예산에서 어떤 객체/시간의 미래 정보가 경로 선택 손실을 줄이는가. DriveSuprim 계열 선택형 planner를 통제된 기준으로, fixed-bank oracle와 ranking regret로 후보/표현 병목을 분리. Future/frozen-joint/intent/utility-weighted 감독 비교는 새 제안이고 실행결과가 아님.
@@ -634,10 +639,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 기존 LPWM 설계문서 첫 절에 planner 연구 질문·선행연구 역할·최소 선택형 baseline·gradient·후보/표현 병목 진단·utility 감독 확장 가설·반증 가능한 대조를 추가.
-- DriveSuprim/DrivoR/DiffusionDriveV2/VAD 및 SafeDrive/WorldDrive/ResWorld/World4Drive/EgoFSD/ForeDrive/CAPO 원문 대조. 중요도 가중 및 미래 ranking의 선행 중복, selective prediction 계산비용·counterfactual 주장 경계 기록. README/HANDOFF/RESUME 갱신. Runtime/config/queue/결과 수치 불변.
+- 완료 Stage1 summary/gate와 공개·적응 원시평가의7,745token coverage 및 checkpoint metadata를 재검토. 재확인 JSON과 기존 LPWM문서에 전체/장면/시간별 결과와 단일실패기준의 정확한 해석을 기록.
+- IoU.1 감소와 IoU.3/미래대응 개선 공존, 직진LPIPS악화/회전개선/겹침우월성미확정, gate비열등성과우월성의차이명시. HANDOFF/RESUME 갱신. 원본결과·runtime·config·queue·checkpoint불변.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- Stage1 보고는 `docs/lpwm_planning_experiment.md` 첫 절 및 validation_review JSON 기준. Scale/presence/top16선택/객체종류로 box proxy 실패원인을 분해하고, 직진 및0.5초LPIPS 악화를 별도로 진단할 필요가 있다. 이번에 실행한 것은 저장결과 검토이며 원인 진단·추가학습 완료로 보고하지 않음.
 
 - 최신 연구 제안은 `docs/lpwm_planning_experiment.md`의 2026-10-04 첫 절을 우선 읽는다. Stage1 실패원인 진단 → 기존 candidate teacher로 oracle coverage/위험 분포 확인 → 동일후보 current/persistence/future·frozen/joint 비교 → 객체×시간 utility 감독 → 근거가 있을 때 실제 selective rollout 예산 순서. 이 설계는 기존 queue의 자동 실행 변경을 의미하지 않는다.
 - 기존 3조건 설계의 refiner 확대보다 원래 표현 가설의 식별이 우선이라는 권고다. 후속 실행은 gate 해결 및 명시적 config/source 재등록을 거쳐야 하며, 실패한 queue를 자동 재기동하지 않는다.
@@ -759,6 +766,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- Stage1 개발검증완료시각12:17KST,단일seed/40recording bootstrap CI이며독립test·seed불확실성아님. 고정gate의객체box대응실패는유효하지만미래box/IoU.3는개선되어실패원인은미확정. Stage2 PDMS결과없음. 이번사용자요청은결과확인으로처리.
 
 - 이번 요청은 planner의 문제의식/방법론 검토다. DriveSuprim 계열 선택형 planner 추천은 공식 DriveSuprim 재현/최종 방법 확정/학습결과가 아니다. 기존 사용자 승인 LPWM low-LR+planner full training은 유지하며 frozen LPWM은 원인 구분용 대조 제안.
 - 새로운 중심 가설과 novelty는 미검증. CAPO형 utility는 로그/scorer/후보에 의존하는 정보 손실 proxy이며 reactive causal ground truth가 아니다. 손실 가중과 예측 후 token선택을 실제 rollout 연산절감으로 부르지 않음. 현재3조건 queue에 새 ablation이 이미 추가됐다고 보고하지 않는다.
