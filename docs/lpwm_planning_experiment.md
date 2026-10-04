@@ -1,5 +1,69 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 21:32–21:44 KST Stage2 중간점검
+
+첫 조건 `metric_plus_world`(직접 객체 GT 보조 loss 없음)가 진행 중이다. 21:37시점1,744/
+94,140update,0.3705epoch,처리27,904장면이며첫epoch정기평가는아직없다. Queue heartbeat/
+체크포인트가정상이며본학습중failure·stopped·OOM로그없음. 시작전batch4 profile OOM이력과구분한다.
+등록된training source14개/config hash불변. 아래초기진전은최종성능이나표현가설성공을의미하지않는다.
+
+### Loss와 실제 가중치 갱신
+
+각256update구간의16개기록평균이다. 매16update의mini-batch관측이며전체샘플평균/동일배치대조가아니다.
+
+| 항목 | Update16–256 | Update1504–1744 |
+|---|---:|---:|
+| Total loss | 9.6775 | 7.0208 |
+| Planning loss | 9.3122 | 6.6506 |
+| Candidate imitation | 5.9555 | 4.5907 |
+| Metric BCE | 3.3568 | 2.0600 |
+| Raw SSL world objective | 18.2615 | 18.5083 |
+
+전기록loss유한/update단조증가,128update마다측정된모든모듈gradient는양수·유한이다.
+첫update의큰gradient와후속clipping전gradient변동이있으며clip5가적용된다. 최근값을발산으로
+판정할근거는없다. SSL훈련loss의유사한규모만으로영상복원/미래예측성능유지를통과했다고하지않는다.
+
+안전한hardlink로update1,536의저장체크포인트inode를고정하고동일seed초기모델과CPU대조했다.
+Optimizer746개state가모두step1,536이며다섯모듈모두실제weight변경을확인했다.
+상대L2변화는image encoder0.0509%/context0.0644%/dynamics0.0677%/RGBdecoder0.0714%/
+planner·command16.80%이다. 원래checkpoint와학습중인모델은수정하지않았다.
+
+### 고정128개개발장면의간이평가
+
+기존epoch-monitor hash순서의첫128개(31recording)를예측전고정했다. Stage1은같은checkpoint,
+초기planner는seed47로재구성했다. 비교checkpoint는1,536update이며현재진행률보다뒤의저장본이다.
+선택한고정후보의기존공식PDM teacher cache를읽었으며128개모두유효했다.
+
+| 지표 | Stage2학습전 planner | Update1,536 |
+|---|---:|---:|
+| ADE(m) | 8.4098 | 1.5844 |
+| FDE(m) | 17.6252 | 3.7796 |
+| PDMS(0–100) | 1.9397 | 78.5124 |
+| Metric BCE | 4.3600 | 2.0785 |
+
+Recording단위paired bootstrap2,000회의차이95%CI: ADE[−7.402,−6.245]m,
+PDMS[+70.17,+81.40]point. **학습전무작위초기화planner대비초기학습진전**이다. 강한기존planner보다
+우수하거나LPWM미세조정/미래표현의추가효과를분리했다는결과가아니다. 전체개발27,076장면평가,
+world유지검증,객체GT on/off비교,독립test는이진단에서완료하지않았다. 결과로checkpoint/학습량을
+선택하거나학습config/queue를변경하지않았다.
+
+### 리소스와다음확인
+
+GPU0·1본학습util99–100%,전체VRAM약35.2–35.3decimalGB. 진단은GPU0에서batch1/4GiB
+allocator상한/전체44GB중단선/10분제한으로실행했고287.9초/peakallocated0.661GiB,
+관측한GPU0전체최대36.489GB였다. 사용자46GB제한이내이며본학습은그대로진행했다.
+훈련process-tree RSS약18.5GB는공유mapping중복을포함한보수적합계이며CPU46GB제한은없다.
+
+진단전최근구간은checkpoint등을포함약7.75초/update,입력준비약0.085초로I/O비중이작다.
+첫epoch의512장면ADE/FDE정기검사는10월5일04시전후,첫조건본학습종료는약8.3일후로
+단순외삽된다. 미래검증시간과공유GPU점유변화는포함하지않은예상이다.
+객체GT on조건은첫조건학습·검증후이어지며채택여부는아직미정이다.
+
+근거: `results/lpwm_object_future_planning_v3/health_check_20261004_2132/`의protocol/summary/
+weight_audit/training_log_review/post_diagnostic_training_status JSON.
+실제학습곡선: [training_health.png](../results/lpwm_object_future_planning_v3/health_check_20261004_2132/training_health.png).
+독립진단진입점 `scripts/check_lpwm_stage2_training_health.py`; 현재학습source의등록hash는변경하지않았다.
+
 ## 2026-10-04 Stage2 시작: 객체 GT 보조 감독 채택 여부의 통제 비교
 
 사용자는 GPU0·1에서 Stage2 학습을 승인했으며 **객체 정답을 넣는 것은 아직 확정이 아니므로

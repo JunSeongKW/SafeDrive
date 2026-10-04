@@ -1,0 +1,63 @@
+{
+  "checkpoint_update": 1536,
+  "weight_changes": {
+    "image_encoder": {
+      "parameter_scalars": 6035191,
+      "changed_scalars": 6034895,
+      "changed_tensors": 218,
+      "parameter_tensors": 218,
+      "maximum_absolute_change": 0.00018762052059173584,
+      "relative_l2_change": 0.0005087356619516405
+    },
+    "context": {
+      "parameter_scalars": 39389417,
+      "changed_scalars": 39383275,
+      "changed_tensors": 154,
+      "parameter_tensors": 154,
+      "maximum_absolute_change": 0.00041300198063254356,
+      "relative_l2_change": 0.000643743571627475
+    },
+    "dynamics": {
+      "parameter_scalars": 59869416,
+      "changed_scalars": 59862183,
+      "changed_tensors": 224,
+      "parameter_tensors": 224,
+      "maximum_absolute_change": 0.0004798024892807007,
+      "relative_l2_change": 0.0006767761127176081
+    },
+    "rgb_decoder": {
+      "parameter_scalars": 4251239,
+      "changed_scalars": 4251096,
+      "changed_tensors": 92,
+      "parameter_tensors": 92,
+      "maximum_absolute_change": 0.00027269497513771057,
+      "relative_l2_change": 0.0007141827686382323
+    },
+    "planner_and_command": {
+      "parameter_scalars": 2211975,
+      "changed_scalars": 2211974,
+      "changed_tensors": 58,
+      "parameter_tensors": 58,
+      "maximum_absolute_change": 0.1917964369058609,
+      "relative_l2_change": 0.1680213629238845
+    }
+  },
+  "optimizer_state_count": 746,
+  "optimizer_step": 1536,
+  "source_hashes_unchanged": {
+    "scripts/queue_lpwm_validated_training.py": true,
+    "scripts/train_lpwm_full_planning.py": true,
+    "scripts/evaluate_lpwm_full_planning.py": true,
+    "scripts/prepare_lpwm_candidate_teacher.py": true,
+    "scripts/validate_lpwm_stage_transition.py": true,
+    "scripts/audit_lpwm_planning_finetuning.py": true,
+    "scripts/lpwm_refinement_oracle.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py": true,
+    "scripts/lpwm_stage2_admission.py": true,
+    "scripts/prepare_lpwm_stage2_object_targets.py": true,
+    "scripts/summarize_lpwm_object_auxiliary_ablation.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_object_supervision.py": true,
+    "results/lpwm_object_future_planning_v3/stage1_admission_amendment.json": true
+  }
+}

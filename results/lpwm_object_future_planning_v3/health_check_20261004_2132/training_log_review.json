@@ -1,0 +1,91 @@
+{
+  "observed_unix": 1791117465.0478568,
+  "latest": {
+    "update": 1744,
+    "total_updates": 94140,
+    "epoch_fraction": 0.3705120033991927,
+    "elapsed_seconds": 13545.253629343992,
+    "lpwm_lr": 9.998355696259757e-07,
+    "planner_lr": 0.0002999506708877927,
+    "sampled_clips_including_padding": 27904,
+    "peak_allocated_gib": 11.873277187347412
+  },
+  "log_rows": 110,
+  "first_window": {
+    "updates": [
+      16,
+      256
+    ],
+    "means": {
+      "loss": 9.677461117506027,
+      "planning_loss": 9.312230814248323,
+      "imitation_loss": 5.955465812236071,
+      "metric_distillation_loss": 3.356765003874898,
+      "world_objective": 18.261514611542225,
+      "update_seconds": 7.644849825119309,
+      "input_preparation_seconds": 0.08736268600841868
+    }
+  },
+  "recent_window": {
+    "updates": [
+      1504,
+      1744
+    ],
+    "means": {
+      "loss": 7.020791210234165,
+      "planning_loss": 6.650626003742218,
+      "imitation_loss": 4.5906641241163015,
+      "metric_distillation_loss": 2.0599618777632713,
+      "world_objective": 18.508260935544968,
+      "update_seconds": 7.651552064115094,
+      "input_preparation_seconds": 0.08469055368914269
+    }
+  },
+  "all_logged_losses_finite": true,
+  "logged_updates_monotonically_increase": true,
+  "gradient_checks": {
+    "image_encoder": {
+      "all_positive_finite": true,
+      "minimum": 2.6290054321289062,
+      "maximum_after_first": 579.3628540039062,
+      "last": 42.98897933959961,
+      "last_measured_update": 1664
+    },
+    "context": {
+      "all_positive_finite": true,
+      "minimum": 0.968880295753479,
+      "maximum_after_first": 302.18865966796875,
+      "last": 22.54880142211914,
+      "last_measured_update": 1664
+    },
+    "dynamics": {
+      "all_positive_finite": true,
+      "minimum": 3.7981412410736084,
+      "maximum_after_first": 282.8186950683594,
+      "last": 76.90929412841797,
+      "last_measured_update": 1664
+    },
+    "rgb_decoder": {
+      "all_positive_finite": true,
+      "minimum": 0.21084921061992645,
+      "maximum_after_first": 0.411501944065094,
+      "last": 0.3789103329181671,
+      "last_measured_update": 1664
+    },
+    "planner_and_command": {
+      "all_positive_finite": true,
+      "minimum": 4.487948894500732,
+      "maximum_after_first": 26.275766372680664,
+      "last": 14.719328880310059,
+      "last_measured_update": 1664
+    }
+  },
+  "eta": {
+    "seconds_per_update_including_between_logged_work": 7.750819051274933,
+    "first_epoch_hours_remaining": 6.3793546802576735,
+    "first_condition_days_remaining": 8.2887115400648,
+    "first_epoch_estimated_local_time": "2026-10-05T04:00:30.725409",
+    "condition_training_estimated_local_time": "2026-10-13T04:33:29.725641",
+    "excludes_future_validation_time": true
+  }
+}

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 18:00 KST (Codex)
+마지막 갱신: 2026-10-04 21:47 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- **2026-10-04 21:32–21:44 중간점검:** 기존queue1131167/torchrun1135635의첫조건본학습계속,1,744update시점0.3705epoch/94,140. Failure/stopped없음·source14개/config불변. 별도고정128dev/31recording 진단은완료됐고GPU반환,학습은중단·재시작하지않음. 최신시점은 `results/lpwm_object_future_planning_v3/health_check_20261004_2132/post_diagnostic_training_status.json`.
 
 - **2026-10-04 최신: Stage2 본학습 시작, queue1131167 / GPU0·1 / `kjs-lpwm-stage2`.** `object_future_joint_v3.json`, `outputs/lpwm_object_future_planning_v3/queue_state.json`; `metric_plus_world` update16/94,140 본학습확인. 이어 검증→`metric_object_future_plus_world`→검증·paired어블레이션. GT채택은미확정. Batch2/GPU×누적4×2GPU=16,20epoch/75,297train. LPWM1e-6/planner3e-4/SSL0.02. 사용자46GB제한은**각GPU전체VRAM**(다른사용자포함),CPU RAM제한아님. 과거실패v2queue재개금지/현재queue중복기동금지/source수정금지.
 
@@ -376,6 +378,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 중간점검: 초기16–256vs최근1504–1744로그평균total9.6775→7.0208/imitation5.9555→4.5907/metric3.3568→2.0600/world18.2615→18.5083. 128update단위gradient모든모듈유한/양수;첫update큰gradient와clip5유지. Saved1,536의746optimizerstate와실제모든모듈weight변경확인(LPWM상대L2약.05–.07%,planner16.8%).
+- 같은저장본1,536의고정128dev/31recording 간이평가: 미학습planner→학습후ADE8.4098→1.5844m/FDE17.6252→3.7796m/PDMS1.9397→78.5124. 초기무작위planner대비진전이며강한baseline/LPWM표현/GTaux효용증거아님. 전체dev/world유지검증미완료. 본학습VRAM각35.2GB,진단중최대36.489GB<46GB,진단287.9초/.661GiB완료. 최근7.75秒/update,첫epoch정기ADE/FDE예상10/5 04시전후.
 
 - Stage2진입은새명시적 `results/lpwm_object_future_planning_v3/stage1_admission_amendment.json`. 원래top16박스proxy실패는보존,나머지15기준과causal/noncollapse통과 및readout부분개선/사용자승인에근거한통제실험진입이다. 완전적응·미래객체이해·PDMS개선의입증아님.
 - CPU14검사통과. 미래objectloss단독gradient encoder.2705/context.0666/dynamics1.1311/planner·aux.4065/RGBdecoder0. 미래GT교란trajectory/logit차이0/명령particle차이>0. GT보조head는loss전용;추론GT입력없음. 전체target102,373record/1,216,641현재객체관측;기존판독3,223객체와현재box차이0/상태최대3.82e-6.
@@ -677,12 +682,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자Stage2시작승인/GT on-off어블레이션요구/46GB는VRAM이라는정정을반영. Stage1실패로그를수정하지않고근거hash를고정한새amendment와v3config를등록했다.
-- Loss전용particle상태head/SG다대다ROIassociation/현재·causal미래상태및classloss,전체navtrain target준비,GT on/off학습·개발·world유지·paired판정queue를구현했다. 후보planner본체/GT입력차단/SSL유지/전체LPWM lowLR. 이전refiner재학습은이번비교에서제외.
-- CPU14검사,GTcache3,223객체일치,GPU계획/GT단독gradient·미래누출검사통과. Batch4 allocatorcap OOM보존후batch2누적4로5update검사통과. Queue1131167에서실제첫조건본학습시작확인;등록sourcehash불변검사와완료/시점별JSON공유.
-- GPU마다전체VRAM46decimalGB감시/최소6GiB여유/PyTorchreserved20GiB·allocated19.5GiB상한. CPU RAM에46GB상한없음. Runtime오류는중단,성능가설미충족은보존후나머지어블레이션진행. 노출navtest자동평가없음. 문서/README/AGENTS/HANDOFF최신실행반영.
+- 사용자중간점검요청으로진행/로그/gradient/메모리/체크포인트/sourcehash를읽기검토했다. 실행중source/config/queue/모델은수정하지않음.
+- 독립read-only `check_lpwm_stage2_training_health.py`추가,update1,536checkpoint를hardlink로고정해optimizer/실제parameter변경검증. 기존epoch-monitor hash첫128개dev를예측전등록해초기planner와paired평가. GPU0진단4GiB상한·전체44GB중단선·10분제한내287.9초완료,전체최대36.489GB. 본학습계속확인.
+- 공유JSON에protocol/weightaudit/초기·학습후예측/pairedsummary/로그통계/진단후상태저장. 실제training curvePNG생성·시각확인. 기존연구문서/HANDOFF/RESUME에중간개선과작은개발집합·미학습planner비교의한계기록. 성능결과로학습량·checkpoint선택변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 완료중간진단을반복하지말고health_check_20261004_2132/summary.json을읽는다. 첫epoch4707update의512dev ADE/FDE정기평가가다음확인시점(초기예상10/5 04시). 최종전체dev/PDM/world유지및GTaux on/off는등록queue에서계속. Update1,536의78.51PDMS를전체개발·최종·독립test성능으로인용하지않는다.
 
 - **현재queue유지:** `outputs/lpwm_object_future_planning_v3/queue_state.json`, `metric_plus_world/progress.json`, `queue_failed.json`유무를확인한다. 시작후source/config변경금지. Source14개hash는queue_registration에고정,GT추가조건검증까지자동연결. 진행중작업을과거gate차단상태로오해해중복재실행하지않는다.
 - 학습후각27,076dev의초기/학습후/미래persistence비교·공식후보PDM/7,745world유지검증. 두조건후 `ablation_summary.json`에paired PDMS와world비교. GT채택은개발증거에근거한잠정판정이며독립futureprobe/native mask/planner객체개입은아직후속. 실제PDMS결과를이전prototype와혼동하지않는다.
@@ -827,6 +833,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 이번요청은실행중학습중간점검이다. 기존training을보존하며로그/가중치/고정128dev의초기진전을확인했다. LPWM표현미세조정효용·객체GT채택·영상/미래성능유지·최종PDMS는여전히미정. 신규진단은완료/기존queue계속,본학습재시작없음. 직전1eb9471의원격push는기존Git인증오류로실패한상태.
 
 - **최신 사용자 결정:** Stage2실행승인,객체GT보조감독채택은미확정이며없음/있음어블레이션후결정. Stage1SSL유지. GPU0·1각전체VRAM46GB이하/CPU RAM46GB제한아님. 본학습source/config고정. 같은후보teacher를쓰므로‘GT없음’은직접객체보조loss없음이지privileged metric-supervision까지없는조건은아님.
 - 새진입amendment는top16 proxy만보조지표로재분류,원래실패수치/기준/source보존. 성능향상판정실패시반대조건의실험은계속하며실행정합성/누출/메모리실패는중단한다. 조건당20epoch고정. 기존3조건(refiner/imitation-only)계획은현재2조건비교에의해보류. Navtest는노출이력이있어독립검증으로자동진행하지않는다.

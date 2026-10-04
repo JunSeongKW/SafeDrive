@@ -1820,3 +1820,13 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - GPU마다전체46,000,000,000byte상한감시(타사용자포함),우리reserved20GiB/allocated19.5GiB/최소6GiB여유. 실제각35.9GB,CPUprocess-tree RSS8.7GB(공유mapping중복포함). CPU46GB제한은사용자정정후제거. 메모리문제시우리child만checkpoint정지,타인process불변.
 - 각조건27,076dev초기/학습후/persistent미래+공식후보PDM,7,745clip world유지평가자동연결. Runtime/누출/불완전학습실패는중단;성능가설실패는보존하고나머지어블레이션진행. 노출navtest를독립test로자동사용하지않음. 실제미래객체독립probe/native mask/객체planning개입은후속. active_pipeline을v3queue로갱신하여이전launcher도중복기동없이현재queue에join.
 - README/AGENTS/연구문서/HANDOFF및공유launch_verification·audits·targetmetadata갱신. 직전2131e24원격push는기존VSCode credential socket/GitHub인증오류로실패한상태다.
+
+## 2026-10-04 21:44 KST — Stage2 중간점검과 고정 개발 장면 진단
+
+- 첫 조건 `metric_plus_world` 본학습은 1,792/94,140 update(0.3807 epoch)까지 진행. Queue1131167/torchrun1135635 유지, failure/stopped 없음, 등록 source14개/config hash 불변. 본학습을 중단하거나 설정을 변경하지 않았다.
+- 초기16–256과 최근1504–1744 update의 각16개 로그 평균: total loss9.6775→7.0208, imitation5.9555→4.5907, metric BCE3.3568→2.0600. Raw SSL18.2615→18.5083은 비슷한 규모이나 world 성능 유지 검증을 대신하지 않는다. Loss/측정 gradient 유한, update 단조 증가 확인.
+- 저장 update1536 checkpoint를 hardlink로 고정해 동일 seed 초기 모델과 CPU 비교했다. Optimizer746개 state 모두 step1536, 모든 모듈의 parameter tensor 변경 확인. 상대 L2 변화 encoder0.0509%/context0.0644%/dynamics0.0677%/decoder0.0714%/planner·command16.80%. Weight decay 효과도 포함하므로 모든 scalar의 task gradient를 입증하는 검사는 아니다.
+- 독립 진단 `scripts/check_lpwm_stage2_training_health.py` 추가. 예측 전 기존 epoch-monitor 순서의 첫128개 development 장면/31recording을 고정하고 초기 무작위 planner와 update1536을 비교. ADE8.4098→1.5844m, FDE17.6252→3.7796m, 기존 공식 후보 PDM cache의 선택 점수1.9397→78.5124/100. Paired recording bootstrap2000회 PDMS 차이 CI[+70.17,+81.40]점. 강한 baseline 대비 이득/LPWM 미세조정의 별도 이득/전체 개발셋 또는 독립 test 결과가 아니다.
+- 진단은 GPU0 batch1/allocator4GiB/전체44GB 중단선/10분 제한으로 287.9초 완료. Peak allocated0.661GiB, 관측 GPU0 전체 최대36.489GB. 종료 후 본학습 GPU0/1 전체35.266/35.219GB로 사용자46decimalGB 제한 이내. 본학습 process-tree RSS18.66GB는 공유 mapping 중복을 포함하며 CPU46GB 제한은 없다.
+- 프로토콜/checkpoint hash/예측/weight audit/로그 검토/최신 상태 JSON과 학습 곡선 PNG를 `results/lpwm_object_future_planning_v3/health_check_20261004_2132/`에 보존. PNG 직접 확인, 문서/HANDOFF 갱신. 진단 결과로 checkpoint/epoch/config를 선택하지 않았다.
+- 약7.75초/update 기준 첫 epoch512장면 ADE/FDE 모니터는 10월5일04시 전후, 첫 조건 본학습 종료는 약8.3일 후 예상(향후 검증/공유 부하 제외). 객체 GT auxiliary on 조건은 첫 조건 학습·검증 후 자동 실행하며 채택 여부 미정. 전체 world retention/전체 개발 PDMS는 아직 미완료다. 직전1eb9471 push는 기존 Git 인증 오류로 실패한 상태다.
