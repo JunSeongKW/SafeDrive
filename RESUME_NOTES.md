@@ -1905,3 +1905,8 @@ CPU loading0/2/4/8worker를각2회측정:0.746/1.946/1.699/1.582ms/update. GPU�
 현재trainer는DataLoader미사용으로workers설정숫자만바꿔도효과없음. LoRA/Adapter/full의기존safe batch profile대기열유지. Runtime34source/10config hash불변. 새GPU작업/학습중단/재시작없음.
 Partial1232update;1024monitorPDMS76.6794%,ADE1.40314m. Pmon8회에서타작업과연산공유관측,카드GPUutil을우리전용util로해석하지않음.
 첫CPUbench sandbox IPC소켓권한거절로진단만종료후호스트재실행완료. 결과results/lpwm_throughput_review_20261005/,script benchmark_lpwm_stage2_input_loading.py.
+
+
+## 2026-10-05T00:20:56.240475+09:00 — 48GB VRAM 상한 질문
+
+48GB 상한 검토: batch8 중심 추정47.07–47.20GB는 수치상 들어가지만 상한 여유0.80–0.93GB뿐이며, 추가 workspace1GiB를 포함하면48.14–48.28GB다. 예상 free3.45–3.58GiB로 현재6GiB guard도 충족하지 못한다.6GiB는 우리가 정한 보수적 운용 여유이며 물리적 불가능을 뜻하지 않는다. 현재코드 GB는10진(48GB=44.70GiB). 질문에대한계산검토만수행했고 실제batch8/제한변경없음.

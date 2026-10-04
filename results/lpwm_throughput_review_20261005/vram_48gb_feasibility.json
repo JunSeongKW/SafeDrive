@@ -1,0 +1,38 @@
+{
+  "checked_at_kst": "2026-10-05T00:20:56.240475+09:00",
+  "question": "Would raising the per-card total VRAM cap to48decimalGB allow batch8?",
+  "proposed_cap_bytes": 48000000000,
+  "proposed_cap_gib": 44.70348358154297,
+  "snapshot_memory_mib": {
+    "0": {
+      "total": 49140,
+      "used": 34756,
+      "free": 13795
+    },
+    "1": {
+      "total": 49140,
+      "used": 34629,
+      "free": 13923
+    }
+  },
+  "estimated_batch8_total_gb": {
+    "0": 47.2016128,
+    "1": 47.068443648
+  },
+  "headroom_to_proposed_cap_gb": {
+    "0": 0.7983872000000005,
+    "1": 0.9315563520000012
+  },
+  "estimated_total_with_1gib_workspace_gb": {
+    "0": 48.275354624,
+    "1": 48.142185472
+  },
+  "estimated_free_gib": {
+    "0": 3.453158378601074,
+    "1": 3.578158378601074
+  },
+  "current_minimum_free_gib": 6,
+  "current_allocated_cap_gib": 21.5,
+  "estimated_batch8_allocated_gib": 22.09135627746582,
+  "conclusion": "Central estimate fits48decimalGB, but1GiB workspace scenario exceeds it; unchanged6GiB-free and21.5GiB-allocated guards still reject. Feasibility is unverified, not physically impossible. No cap change or batch8 trial performed in response to this conditional question."
+}

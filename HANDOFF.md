@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 00:15 KST (Codex)
+마지막 갱신: 2026-10-05 00:20 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신48GB 가능성 질문은 계산/상태조회만 수행. Partial1312update 확인, 기존 두 queue와46GB상한은 유지.
 
 최신10/5 00:14KST: 두 queue와partial 학습 계속 실행,1232/4707update. 이번 워커/배치 검토는 CPU 입력 비교와 읽기 전용GPU조회이며 현재 학습/queue/config는 변경하지 않았다.
 
@@ -398,6 +400,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+48GB 상한 검토: batch8 중심 추정47.07–47.20GB는 수치상 들어가지만 상한 여유0.80–0.93GB뿐이며, 추가 workspace1GiB를 포함하면48.14–48.28GB다. 예상 free3.45–3.58GiB로 현재6GiB guard도 충족하지 못한다.6GiB는 우리가 정한 보수적 운용 여유이며 물리적 불가능을 뜻하지 않는다. 현재코드 GB는10진(48GB=44.70GiB). 질문에대한계산검토만수행했고 실제batch8/제한변경없음.
 
 최신워커 실측0/2/4/8: CPU 로딩0.746/1.946/1.699/1.582ms/update(2회평균, GPU전송/연산 제외). 실제입력 준비0.01408/전체3.742초=0.376%. Batch8 추정22.091GiB allocated, 현재카드총47.20/47.07GB로46GB/6GiB reserve조건초과. 현재batch4/accum2/worker0 유지.1024monitor PDMS76.6794%, ADE1.40314m. 상세results/lpwm_throughput_review_20261005/ 및연구문서 최신절.
 
@@ -728,12 +732,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 Stage2의 CPU입력 worker0/2/4/8을 실제 NAVSIM RGB캐시로 각2회 비교하고, 새 CPU전용 재현 script와보고서를 저장했다.
-- 기존batch2/4 속도·peak메모리와현재타작업VRAM을대조해 batch8 여유를계산했다. 현재batch4/accum2/worker0 유지판정이며runtime/source/config불변.
-- 프로세스별GPU사용률과현재학습로그를점검했다. 데이터준비는전체약0.38%, 현재학습1232update·1024PDMS76.68로계속진행. 연구문서/HANDOFF/RESUME갱신.
+- GPU 실제용량/현재점유를재확인하고48decimalGB상한과batch8중심추정/추가workspace/운용guard를분리계산해기록했다.
+- 현재학습1312update확인. Runtime/source/config/VRAM제한변경이나새GPUprofile은없다.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+48GB로상한만바꿔도현재free6GiB/allocated21.5GiB guard는통과하지못함. 가능성질문을실제guard변경·학습재시작승인으로해석하지않았다.
 
 현재학습을계속하고 기존후속방법별batch profile 선택결과를 확인한다. 입력worker 증설/현재batch8 실행/activation checkpointing 해제를 자동적용하지 않는다. 추가GPU프로파일은현재partial와겹쳐기동하지않는다.
 
@@ -909,6 +914,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+48GB검토는추정이며batch8실행성공/실패결과가아니다. 상한과물리free여유,GB/GiB를구분한다. 기존원격인증오류는미해결.
 
 최신속도검토: CPU loader 비교는 end-to-end 훈련속도 측정이아니다. 현재설정의 전역최적이나 새speedup은 미입증. 두batch점메모리외삽은추정이며, GPU전체사용률은우리프로세스사용률과구분한다. 현재 runtime34source/10config불변.
 

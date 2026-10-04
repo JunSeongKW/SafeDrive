@@ -1,5 +1,11 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: VRAM 상한48GB 가능성
+
+48GB 상한 검토: batch8 중심 추정47.07–47.20GB는 수치상 들어가지만 상한 여유0.80–0.93GB뿐이며, 추가 workspace1GiB를 포함하면48.14–48.28GB다. 예상 free3.45–3.58GiB로 현재6GiB guard도 충족하지 못한다.6GiB는 우리가 정한 보수적 운용 여유이며 물리적 불가능을 뜻하지 않는다. 현재코드 GB는10진(48GB=44.70GiB). 질문에대한계산검토만수행했고 실제batch8/제한변경없음.
+
+근거 `results/lpwm_throughput_review_20261005/vram_48gb_feasibility.json`.
+
 ## 2026-10-05: 워커·배치로 전체 시간을 줄일 수 있는지 실측 검토
 
 **결론: 현재 partial은 worker0 / GPU당microbatch4 / accumulation2를 유지한다.**
