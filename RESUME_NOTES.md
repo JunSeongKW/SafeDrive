@@ -1986,3 +1986,43 @@ ADE1.8676/1.4031/1.5267m,FDE4.2098/3.2788/3.5224m. 최근PDMS는상승했지만A
 Partial학습완료예상10/5 03:10–03:40KST(공유GPU변동/중간검증·시각화여유, 종료후검증시간제외).
 후속LoRA→Adapter→full재개대기; 각방법학습후검증연결유지.
 근거 `results/lpwm_48gb_planning_v1/health_review_20261005_0045.json`.
+
+## 2026-10-05: LPWM 적응과 planner 학습 효과를 구분하는 대조 설계(제안)
+
+사용자는 현재 PDMS 상승에서 LPWM 미세조정과 planner 학습의 효과를 어떻게 구분하는지 질문했다.
+현재 initial 대비 trained 평가는 LPWM과 미학습planner가 함께 변하므로 두효과를분리하지못한다.
+기존 네방법queue에는 별도학습 frozen-LPWM대조군이 없다. 이번에는 설명과설계기록만수행하며
+GPU추가실행/queue변경/새실험등록은하지않았다.
+
+코드상 command_feature_modulation(FiLM)은 optimizer의planner_and_command_input 그룹에속하지만
+LPWM image encoder의particle 속성CNN에개입하며SSL과planning gradient를받는다. 따라서 native
+LPWM가중치만고정하고FiLM을학습하는조건을엄밀한고정표현/순수planner학습으로부르면안된다.
+
+| 제안 조건 | 원래LPWM가중치 | ego-intent FiLM | planner |
+|---|---|---|---|
+| A: 고정표현대조 | Stage1상태고정 | 초기identity상태고정 | 새로학습 |
+| B: native LPWM고정대조 | Stage1상태고정 | 학습 | 새로학습 |
+| C: 현재부분적응 | 지정native출력계층학습 | 학습 | 새로학습 |
+
+B-A는고정native LPWM에서명령조건화학습을허용한효과, C-B는명령조건화와planner학습에더해
+native LPWM적응을허용한추가효과다. 동일Stage1/동일planner초기화/동일학습목적·학습률·데이터순서·
+update수·유효배치·평가장면으로비교한다. 현재partial은1576까지batch4/그후8이므로정확대조는그
+실행일정도맞추거나별도matched재실행으로해야한다. FiLM을학습하는B에서는SSL도FiLM으로gradient가
+흐르므로SSL항을임의제거하면C-B가미세조정유무단독대조가되지않는다. FrozenLPWM은
+requires_grad=False로고정해도FiLM까지의연산graph는유지해야한다.
+
+연구의planning-aware목적을검증하려면추가D조건도유용하다: C와동일한LPWM학습계층+FiLM을
+SSL로만갱신하고, planningbranch의particle표현에서stop-gradient하여planner만planningloss로학습.
+C-D는같은SSL후속학습에planninggradient를표현까지전달하는것의추가효과를검증한다.
+각차이는해당조건에서의시스템효과이며모듈기여를보편적인가산비율로분해하는것은아니다.
+
+평가는동일장면의paired PDMS/ADE/충돌·도로이탈subscore와recording단위bootstrap CI,가능하면3seed,
+고정개발패널및최종독립평가로확인한다. Frozen대조군대비PDMS차이의CI가0을포함하면우월성미확정.
+원래/적응표현을각각고정하고같은용량·초기화·예산의새readout/planner를따로학습하는추가진단은
+특정공동학습planner와의호환성너머표현의읽기쉬움/유용성을검사할수있다. readout학습예산이동일해도
+표현을얻기위한전체학습비용이동일한것은아니므로별도로보고한다.
+
+이미학습된planner에Stage1 LPWM만끼워넣어성능이떨어지는것은표현분포/particle의미불일치때문일수
+있으므로미세조정표현의품질개선증거로충분하지않다. Gradient가흐르거나가중치가변했다는사실도
+PDMS기여를보장하지않는다. 기존persistent_future평가는학습된planner가미래입력에의존하는지의
+보조개입이며LPWM미세조정대조를대체하지않는다.

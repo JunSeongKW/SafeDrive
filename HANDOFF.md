@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 00:48 KST (Codex)
+마지막 갱신: 2026-10-05 00:52 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신추가질문은LPWM대planner효과분리방법설명. 기존4방법queue/source/config를변경하지않았고새대조군학습미실행. 마지막상태점검은아래00:47KST기록.
 
 최신10/5 00:47KST 읽기전용점검: Partial1712/4707(36.4%), 기존queue1902774/torchrun1978684 정상. Batch8본학습계속/후속LoRA·Adapter·full대기. Runtime설정변경없음. 근거 `results/lpwm_48gb_planning_v1/health_review_20261005_0045.json`.
 
@@ -406,6 +408,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+효과분리설계: optimizer의planner그룹에는particle생성에영향주는ego-FiLM도포함됨. A(world+FiLM고정,planner학습),B(world고정,FiLM+planner학습),C현재부분학습을구분. C-B가native LPWM적응의조건부추가효과. C와동일한학습계층을SSL만으로갱신하는D와비교해야planning gradient자체의효용검증가능. 모두제안이며실험결과없음.
 
 최신1536dev128/유효PDM127: PDMS79.1126(1024의76.6794대비상승), ADE1.5267m/FDE3.5224m(직전1.4031/3.2788대비악화). 최신monitor는batch변경1576이전, 변경후첫검증2048대기.1664실제gradient유한·양수/frozenRGB0. 평균trainloss8.7177→6.9469, world학습loss안정이나held-out보존검증전.
 
@@ -742,13 +746,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자중간점검요청에따라기존로그/process/GPU/등록hash를읽기전용검사.1712update까지진행확인.
-- 고정dev PDMS상승과ADE/FDE악화를함께보고하고, 최신검증은배치변경전결과임을명시했다.
-- 실제gradient측정1664와후속로그의재사용값을구분. NaN/OOM없음/source38/config20일치.
-- 중간보고JSON과HANDOFF/RESUME갱신. 학습·queue·등록source/config변경없음.
+- 사용자질문에따라LPWM/ego-FiLM/planner학습범위를코드로확인하고효과분리A/B/C및SSL-only D대조를제안으로기록.
+- FiLM이planner optimizer그룹에있어도particle표현을바꾼다는점을명시. 미학습planner비교/LPWM교체/gradient만으로는효과식별불가.
+- 공정한batch일정·SSL·seed·평가/paired CI와표현readout진단범위를정리. 새GPU실험/queue/config변경없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+효과분리대조는연구문서최신절에제안으로기록. 현재4방법queue에자동추가하지않았다. 추가시native고정+FiLM학습B를우선비교하고batch4→8일정/seed/SSL/학습량을맞춘다.
 
 최신점검후계속실행: 다음2048monitor에서batch8전환후개발지표확인. 현재partial학습완료10/5 03:10–03:40KST예상(종료후1024planning/256world검증시간별도). 현재queue중복기동/추가설정변경없음.
 
@@ -930,6 +935,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재미학습planner초기값대비상승은LPWM미세조정단독효과를식별하지못한다. 학습된planner에Stage1 LPWM을교체하는것도표현분포불일치때문에단독증거로부족. Frozen대조및SSL-only대조는아직제안단계.
 
 최신중간판단: 정상실행과개발PDMS상승은확인되지만ADE/FDE는직전보다악화. LPWM적응단독planning이득과개발world성능유지는아직미확정.8batch실행후PDMS검증은2048에서처음수행된다. Source38/config20해시일치/전체VRAM45.6GB/OOM0.
 
