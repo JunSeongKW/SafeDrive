@@ -1896,3 +1896,12 @@ LoRA1.343M/Adapter0.705M nativefrozen, full109.545M trainable, planner공통2.21
 LoRA/Adapter/full GPUprofile/학습/최종검증은 아직 대기. 문서 docs/lpwm_planning_experiment.md 최신절 및 results/lpwm_four_method_queue_v1/ 참조.
 
 원격 공유: c4cc73e에 코드·설정·보고서를 로컬 commit했다. 이번 git push mine은 기존 VSCode credential socket ECONNREFUSED/GitHub 인증 실패로 끝났다. 원격 반영은 미완료이며 실행 중 학습과 두 queue에는 영향이 없다.
+
+
+## 2026-10-05 00:14KST — Stage2 워커·배치 단축 가능성 검토
+
+CPU loading0/2/4/8worker를각2회측정:0.746/1.946/1.699/1.582ms/update. GPU전송/연산제외. 실제logged입력0.01408/전체3.742초=0.376%, 현재남은학습에입력부분제거시약49초상당.
+기존batch2→4profile6.678→3.755초로개선이미적용. 두peak점으로batch8 allocated22.091GiB/카드전체47.20GB추정,46GB/6GiBreserve불충족. 현재batch4/accum2/worker0/checkpoint유지.
+현재trainer는DataLoader미사용으로workers설정숫자만바꿔도효과없음. LoRA/Adapter/full의기존safe batch profile대기열유지. Runtime34source/10config hash불변. 새GPU작업/학습중단/재시작없음.
+Partial1232update;1024monitorPDMS76.6794%,ADE1.40314m. Pmon8회에서타작업과연산공유관측,카드GPUutil을우리전용util로해석하지않음.
+첫CPUbench sandbox IPC소켓권한거절로진단만종료후호스트재실행완료. 결과results/lpwm_throughput_review_20261005/,script benchmark_lpwm_stage2_input_loading.py.

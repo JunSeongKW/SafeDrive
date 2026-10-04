@@ -1,0 +1,50 @@
+First sample (from initial tool response):
+0 1602652 C 59 30 14550
+0 1603444 C 35 20 20168
+1 1602653 C 36 19 14422
+1 1603445 C 58 32 20168
+Subsequent samples (raw nvidia-smi pmon; SM percentages are sampled, not an additive allocation guarantee):
+    0       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    0    1602652     C     59     32      -      -      -      -  14550      0    python         
+    0    1603444     C     34     20      -      -      -      -  20168      0    python         
+    1       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    1    1602653     C     79     46      -      -      -      -  14422      0    python         
+    1    1603445     C     16      7      -      -      -      -  20168      0    python         
+    0       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    0    1602652     C     63     33      -      -      -      -  14550      0    python         
+    0    1603444     C     33     19      -      -      -      -  20168      0    python         
+    1       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    1    1602653     C     27     14      -      -      -      -  14422      0    python         
+    1    1603445     C     62     33      -      -      -      -  20168      0    python         
+    0       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    0    1602652     C     66     36      -      -      -      -  14550      0    python         
+    0    1603444     C     29     14      -      -      -      -  20168      0    python         
+    1       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    1    1602653     C     84     43      -      -      -      -  14422      0    python         
+    1    1603445     C     11      5      -      -      -      -  20168      0    python         
+    0       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    0    1602652     C     31     14      -      -      -      -  14550      0    python         
+    0    1603444     C     41     19      -      -      -      -  20168      0    python         
+    1       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    1    1602653     C      -      -      -      -      -      -  14422      0    python         
+    1    1603445     C     42     19      -      -      -      -  20168      0    python         
+    0       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    0    1602652     C     13      5      -      -      -      -  14550      0    python         
+    0    1603444     C     44     17      -      -      -      -  20168      0    python         
+    1       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    1    1602653     C     63     31      -      -      -      -  14422      0    python         
+    1    1603445     C     32     20      -      -      -      -  20168      0    python         
+    0       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    0    1602652     C     58     28      -      -      -      -  14550      0    python         
+    0    1603444     C     35     17      -      -      -      -  20168      0    python         
+    1       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    1    1602653     C     39     14      -      -      -      -  14422      0    python         
+    1    1603445     C     56     25      -      -      -      -  20168      0    python         
+    0       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    0    1602652     C     68     36      -      -      -      -  14550      0    python         
+# gpu         pid   type     sm    mem    enc    dec    jpg    ofa     fb   ccpm    command 
+# Idx           #    C/G      %      %      %      %      %      %     MB     MB    name 
+    0    1603444     C     27     13      -      -      -      -  20168      0    python         
+    1       2989     G      -      -      -      -      -      -      4      0    Xorg           
+    1    1602653     C     95     54      -      -      -      -  14422      0    python         
+    1    1603445     C      -      -      -      -      -      -  20168      0    python

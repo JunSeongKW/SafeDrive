@@ -1,0 +1,183 @@
+{
+  "checked_at_kst": "2026-10-05T00:13:47.983529+09:00",
+  "partial_update": 1232,
+  "total_updates": 4707,
+  "recent_logged_rows": 32,
+  "recent_update_seconds": 3.7417609455933416,
+  "recent_input_preparation_seconds": 0.01407758406639914,
+  "input_fraction": 0.0037622884708811396,
+  "eliminating_measured_input_portion_saves_remaining_seconds": 48.91960463073701,
+  "input_benchmark": {
+    "checked_at_kst": "2026-10-05T00:11:53.462002+09:00",
+    "cpu_only": true,
+    "training_interrupted": false,
+    "gpu_work_executed": false,
+    "observed_batch": 4,
+    "world_batch": 2,
+    "microbatches_per_update": 2,
+    "warmup_microbatches": 32,
+    "measured_microbatches": 128,
+    "records": [
+      {
+        "repetition": 1,
+        "workers": 0,
+        "warmup_seconds": 0.03766871301922947,
+        "mean_microbatch_load_seconds": 0.00037724342018918833,
+        "median_microbatch_load_seconds": 0.00037090902333147824,
+        "p95_microbatch_load_seconds": 0.00044967102585360405,
+        "equivalent_mean_per_update_seconds": 0.0007544868403783767,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 0.11413966701366007
+      },
+      {
+        "repetition": 1,
+        "workers": 2,
+        "warmup_seconds": 1.73922596196644,
+        "mean_microbatch_load_seconds": 0.0008873773144841834,
+        "median_microbatch_load_seconds": 0.0008716884767636657,
+        "p95_microbatch_load_seconds": 0.0016142234206199643,
+        "equivalent_mean_per_update_seconds": 0.0017747546289683669,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 2.1301937949610874
+      },
+      {
+        "repetition": 1,
+        "workers": 4,
+        "warmup_seconds": 1.7550370990065858,
+        "mean_microbatch_load_seconds": 0.0008470873681289959,
+        "median_microbatch_load_seconds": 0.0007887819956522435,
+        "p95_microbatch_load_seconds": 0.0016244002792518582,
+        "equivalent_mean_per_update_seconds": 0.0016941747362579918,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 2.2238245079643093
+      },
+      {
+        "repetition": 1,
+        "workers": 8,
+        "warmup_seconds": 1.8182203309843317,
+        "mean_microbatch_load_seconds": 0.0008232359136854939,
+        "median_microbatch_load_seconds": 0.0008460799872409552,
+        "p95_microbatch_load_seconds": 0.0013271535863168527,
+        "equivalent_mean_per_update_seconds": 0.0016464718273709877,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 2.420155058032833
+      },
+      {
+        "repetition": 2,
+        "workers": 8,
+        "warmup_seconds": 2.0693038419703953,
+        "mean_microbatch_load_seconds": 0.0007586101692140801,
+        "median_microbatch_load_seconds": 0.0007231384806800634,
+        "p95_microbatch_load_seconds": 0.0013485881267115475,
+        "equivalent_mean_per_update_seconds": 0.0015172203384281602,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 2.6191837459919043
+      },
+      {
+        "repetition": 2,
+        "workers": 4,
+        "warmup_seconds": 1.848157586005982,
+        "mean_microbatch_load_seconds": 0.0008520690234945505,
+        "median_microbatch_load_seconds": 0.0008090249903034419,
+        "p95_microbatch_load_seconds": 0.0014120729843853036,
+        "equivalent_mean_per_update_seconds": 0.001704138046989101,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 2.348078566021286
+      },
+      {
+        "repetition": 2,
+        "workers": 2,
+        "warmup_seconds": 1.688433562987484,
+        "mean_microbatch_load_seconds": 0.0010587899200800166,
+        "median_microbatch_load_seconds": 0.0009819559927564114,
+        "p95_microbatch_load_seconds": 0.002357944313553162,
+        "equivalent_mean_per_update_seconds": 0.002117579840160033,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 2.22892918396974
+      },
+      {
+        "repetition": 2,
+        "workers": 0,
+        "warmup_seconds": 0.018547976040281355,
+        "mean_microbatch_load_seconds": 0.0003692129371302144,
+        "median_microbatch_load_seconds": 0.0003676684864331037,
+        "p95_microbatch_load_seconds": 0.00041168689494952554,
+        "equivalent_mean_per_update_seconds": 0.0007384258742604288,
+        "input_fingerprint": 40705,
+        "wall_seconds_including_startup_shutdown": 0.0859886160469614
+      }
+    ],
+    "means_by_workers": {
+      "0": 0.0007464563573194027,
+      "2": 0.0019461672345642,
+      "4": 0.0016991563916235464,
+      "8": 0.001581846082899574
+    },
+    "scope": "One rank, input producer only. Same real cached RGB batches; no H2D, pinning, GPU computation or pacing. Not an end-to-end training speed measurement.",
+    "limitations": [
+      "Sequential repetitions can have cache/order effects",
+      "Production has two ranks",
+      "A paced GPU consumer could hide some IPC wait; existing logged input preparation is the practical savings bound"
+    ]
+  },
+  "prior_batch_profiles": {
+    "batch2_accumulation4_last3_seconds": 6.677819818025455,
+    "batch4_accumulation2_last3_seconds": 3.7552990060066804,
+    "time_reduction_fraction": 0.4376459520710647,
+    "scope": "Previously measured short profiles under potentially different shared-GPU loads; not a simultaneous controlled speedup estimate."
+  },
+  "batch8_memory_estimate": {
+    "method": "Affine model fit to two observed batch2/batch4 allocated peaks; estimate, not actual batch8 execution",
+    "batch2_peak_gib": 7.04376745223999,
+    "batch4_peak_gib": 12.059630393981934,
+    "fixed_gib": 2.027904510498047,
+    "per_sample_gib": 2.5079314708709717,
+    "batch8_peak_gib": 22.09135627746582,
+    "with_workspace_margin_gib": 23.09135627746582,
+    "registered_allocated_cap_gib": 21.5,
+    "projected_card_total_gb": {
+      "0": 47.2016128,
+      "1": 47.068443648
+    },
+    "projected_remaining_free_gib": {
+      "0": 3.453158378601074,
+      "1": 3.578158378601074
+    },
+    "user_total_cap_gb": 46,
+    "minimum_free_gib": 6,
+    "current_more_conservative_queue_estimate_gib": 25.14566993713379,
+    "batch8_not_executed": true
+  },
+  "checkpointing_disabled_profile": {
+    "stopped": {
+      "error": "RuntimeError('Stage2 GPU allocated-memory cap exceeded')",
+      "completed_updates": 1
+    }
+  },
+  "runtime_source_checks": {
+    "lpwm_adaptation_method_comparison_v1": {
+      "source_count": 26,
+      "all_sources_match": true,
+      "all_configs_match": true
+    },
+    "lpwm_four_method_queue_v1": {
+      "source_count": 34,
+      "all_sources_match": true,
+      "all_configs_match": true
+    }
+  },
+  "decision": {
+    "current_partial": "Keep worker0, microbatch4, accumulation2, effectivebatch16, checkpointing enabled. No current training restart or configuration mutation.",
+    "queued_profiles": "Existing LoRA4/8, Adapter2/4/8, full2/4 profiles remain active; larger batch only if prior safe memory estimate passes; pick fastest valid profile.",
+    "additional_speedup_measured_this_review": false,
+    "known_saved_work": "Full condition resumes2095 prior updates, adding2612 to reach4707; already registered before this review."
+  },
+  "limitations": [
+    "CPU producer benchmark excludes H2D/pinning/GPU pacing and uses one rank",
+    "Logged input timer does not isolate every asynchronous GPU preprocessing operation",
+    "Card and process utilization are sampled observations, not exact attribution of step time",
+    "Batch8 memory extrapolation may be nonlinear; both affine and conservative forecasts exceed guard",
+    "No extra GPU benchmark was launched during current training"
+  ],
+  "benchmark_environment_issue": "Initial sandbox run could not open multiprocessing resource-sharing sockets; diagnostic was stopped, then successfully rerun on host. Training was unaffected."
+}

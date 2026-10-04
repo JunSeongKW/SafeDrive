@@ -1,0 +1,113 @@
+{
+  "checked_at_kst": "2026-10-05T00:11:53.462002+09:00",
+  "cpu_only": true,
+  "training_interrupted": false,
+  "gpu_work_executed": false,
+  "observed_batch": 4,
+  "world_batch": 2,
+  "microbatches_per_update": 2,
+  "warmup_microbatches": 32,
+  "measured_microbatches": 128,
+  "records": [
+    {
+      "repetition": 1,
+      "workers": 0,
+      "warmup_seconds": 0.03766871301922947,
+      "mean_microbatch_load_seconds": 0.00037724342018918833,
+      "median_microbatch_load_seconds": 0.00037090902333147824,
+      "p95_microbatch_load_seconds": 0.00044967102585360405,
+      "equivalent_mean_per_update_seconds": 0.0007544868403783767,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 0.11413966701366007
+    },
+    {
+      "repetition": 1,
+      "workers": 2,
+      "warmup_seconds": 1.73922596196644,
+      "mean_microbatch_load_seconds": 0.0008873773144841834,
+      "median_microbatch_load_seconds": 0.0008716884767636657,
+      "p95_microbatch_load_seconds": 0.0016142234206199643,
+      "equivalent_mean_per_update_seconds": 0.0017747546289683669,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 2.1301937949610874
+    },
+    {
+      "repetition": 1,
+      "workers": 4,
+      "warmup_seconds": 1.7550370990065858,
+      "mean_microbatch_load_seconds": 0.0008470873681289959,
+      "median_microbatch_load_seconds": 0.0007887819956522435,
+      "p95_microbatch_load_seconds": 0.0016244002792518582,
+      "equivalent_mean_per_update_seconds": 0.0016941747362579918,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 2.2238245079643093
+    },
+    {
+      "repetition": 1,
+      "workers": 8,
+      "warmup_seconds": 1.8182203309843317,
+      "mean_microbatch_load_seconds": 0.0008232359136854939,
+      "median_microbatch_load_seconds": 0.0008460799872409552,
+      "p95_microbatch_load_seconds": 0.0013271535863168527,
+      "equivalent_mean_per_update_seconds": 0.0016464718273709877,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 2.420155058032833
+    },
+    {
+      "repetition": 2,
+      "workers": 8,
+      "warmup_seconds": 2.0693038419703953,
+      "mean_microbatch_load_seconds": 0.0007586101692140801,
+      "median_microbatch_load_seconds": 0.0007231384806800634,
+      "p95_microbatch_load_seconds": 0.0013485881267115475,
+      "equivalent_mean_per_update_seconds": 0.0015172203384281602,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 2.6191837459919043
+    },
+    {
+      "repetition": 2,
+      "workers": 4,
+      "warmup_seconds": 1.848157586005982,
+      "mean_microbatch_load_seconds": 0.0008520690234945505,
+      "median_microbatch_load_seconds": 0.0008090249903034419,
+      "p95_microbatch_load_seconds": 0.0014120729843853036,
+      "equivalent_mean_per_update_seconds": 0.001704138046989101,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 2.348078566021286
+    },
+    {
+      "repetition": 2,
+      "workers": 2,
+      "warmup_seconds": 1.688433562987484,
+      "mean_microbatch_load_seconds": 0.0010587899200800166,
+      "median_microbatch_load_seconds": 0.0009819559927564114,
+      "p95_microbatch_load_seconds": 0.002357944313553162,
+      "equivalent_mean_per_update_seconds": 0.002117579840160033,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 2.22892918396974
+    },
+    {
+      "repetition": 2,
+      "workers": 0,
+      "warmup_seconds": 0.018547976040281355,
+      "mean_microbatch_load_seconds": 0.0003692129371302144,
+      "median_microbatch_load_seconds": 0.0003676684864331037,
+      "p95_microbatch_load_seconds": 0.00041168689494952554,
+      "equivalent_mean_per_update_seconds": 0.0007384258742604288,
+      "input_fingerprint": 40705,
+      "wall_seconds_including_startup_shutdown": 0.0859886160469614
+    }
+  ],
+  "means_by_workers": {
+    "0": 0.0007464563573194027,
+    "2": 0.0019461672345642,
+    "4": 0.0016991563916235464,
+    "8": 0.001581846082899574
+  },
+  "scope": "One rank, input producer only. Same real cached RGB batches; no H2D, pinning, GPU computation or pacing. Not an end-to-end training speed measurement.",
+  "limitations": [
+    "Sequential repetitions can have cache/order effects",
+    "Production has two ranks",
+    "A paced GPU consumer could hide some IPC wait; existing logged input preparation is the practical savings bound"
+  ]
+}

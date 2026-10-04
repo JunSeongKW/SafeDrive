@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 23:57 KST (Codex)
+마지막 갱신: 2026-10-05 00:15 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신10/5 00:14KST: 두 queue와partial 학습 계속 실행,1232/4707update. 이번 워커/배치 검토는 CPU 입력 비교와 읽기 전용GPU조회이며 현재 학습/queue/config는 변경하지 않았다.
 
 **최신 2026-10-04 23:56 KST**: Partial torchrun1602577를 재시작 없이 queue1675463이 인계했다.
 GT ON 자동 실행은 제거됐고 partial→검증→LoRA→검증→paired비교가 실행된다.
@@ -396,6 +398,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신워커 실측0/2/4/8: CPU 로딩0.746/1.946/1.699/1.582ms/update(2회평균, GPU전송/연산 제외). 실제입력 준비0.01408/전체3.742초=0.376%. Batch8 추정22.091GiB allocated, 현재카드총47.20/47.07GB로46GB/6GiB reserve조건초과. 현재batch4/accum2/worker0 유지.1024monitor PDMS76.6794%, ADE1.40314m. 상세results/lpwm_throughput_review_20261005/ 및연구문서 최신절.
 
 최신: partial512update 고정128dev 모니터PDMS70.8503%, ADE1.86759m, FDE4.20983m(유효PDM127).
 초기random planner2.41294%/8.45013m 대비 학습 진전이며 LPWM 적응만의 이득은 미분리.
@@ -724,14 +728,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 객체 GT를 후순위로 옮기고 기존 partial GPU학습을 보존한 채 CPUqueue를 교체, LoRA 학습/검증을 추가했다.
-- 사용자 후속 지시에 따라 Adapter와 전체low-LR 후속queue를 등록했다. 전체는 보존된2095 model+AdamW에서4707까지 재개한다.
-- LoRA/Adapter/full 모델·trainer/evaluator wrappers·CPU감사·profile안전선택·paired보고서를 추가했다. 원래 실행source/config는 변경하지 않았다.
-- 현재partial 정확한 모듈별 학습 범위와 Identity to_logvar를 기록하고 최신 학습/gradient/VRAM/중간PDMS를 점검했다.
-- CPU 모델감사/실제746optimizer 복원 및7개unit test 통과. GPU본학습은partial만 실행 중, 후속비교성능은 아직 미완료다.
+- 현재 Stage2의 CPU입력 worker0/2/4/8을 실제 NAVSIM RGB캐시로 각2회 비교하고, 새 CPU전용 재현 script와보고서를 저장했다.
+- 기존batch2/4 속도·peak메모리와현재타작업VRAM을대조해 batch8 여유를계산했다. 현재batch4/accum2/worker0 유지판정이며runtime/source/config불변.
+- 프로세스별GPU사용률과현재학습로그를점검했다. 데이터준비는전체약0.38%, 현재학습1232update·1024PDMS76.68로계속진행. 연구문서/HANDOFF/RESUME갱신.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재학습을계속하고 기존후속방법별batch profile 선택결과를 확인한다. 입력worker 증설/현재batch8 실행/activation checkpointing 해제를 자동적용하지 않는다. 추가GPU프로파일은현재partial와겹쳐기동하지않는다.
 
 현재 두 queue 상태를 읽고 완료될 때마다 고정 평가 결과와 비용을 확인한다.
 `outputs/lpwm_adaptation_method_comparison_v1/queue_state.json`과 `outputs/lpwm_four_method_queue_v1/queue_state.json`이 최신이다.
@@ -905,6 +909,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신속도검토: CPU loader 비교는 end-to-end 훈련속도 측정이아니다. 현재설정의 전역최적이나 새speedup은 미입증. 두batch점메모리외삽은추정이며, GPU전체사용률은우리프로세스사용률과구분한다. 현재 runtime34source/10config불변.
 
 원격 공유: c4cc73e에 코드·설정·보고서를 로컬 commit했다. 이번 git push mine은 기존 VSCode credential socket ECONNREFUSED/GitHub 인증 실패로 끝났다. 원격 반영은 미완료이며 실행 중 학습과 두 queue에는 영향이 없다.
 

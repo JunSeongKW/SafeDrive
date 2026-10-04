@@ -1,5 +1,71 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 워커·배치로 전체 시간을 줄일 수 있는지 실측 검토
+
+**결론: 현재 partial은 worker0 / GPU당microbatch4 / accumulation2를 유지한다.**
+입력 로딩 병목은 작고, 현재 공유 VRAM 예산에서 batch8은 안전 조건을 넘는다.
+이번에는 현재 학습을 중단하거나 재시작하지 않고 CPU 비교와 GPU 사용률 조회만 수행했다.
+현재 설정이 가능한 모든 실행 방식 중 최적이라는 뜻은 아니다.
+
+### 워커0/2/4/8 직접 비교
+
+실제 NAVSIM RGB mmap에서 관측4clip×4frame + SSL2clip×12frame을 microbatch 단위로 읽었다.
+32microbatch warmup +128microbatch 측정을 순서0→2→4→8, 이어8→4→2→0으로 두 번 수행했다.
+1GPU rank 분량의2microbatch를1update로 환산한 CPU 로딩 평균은 다음과 같다.
+
+| CPU 로딩 worker | update 분량 로딩 시간 |
+|---|---:|
+| 0 | 0.746ms |
+| 2 | 1.946ms |
+| 4 | 1.699ms |
+| 8 | 1.582ms |
+
+이미 JPEG decoding이 끝난 메모리 맵 캐시이므로 CPU 다중처리/IPC 비용을 추가할 이득이 관측되지 않았다.
+이 결과는 H2D/pin-memory/GPU 연산·소비 속도를 제외한 CPU producer 검사이며 실제 훈련시간 비율이 아니다.
+두 rank 동시 로딩이나 장기간 cold-cache 상태를 재현한 것도 아니다.
+현재 Stage2 trainer는 DataLoader를 호출하지 않고 cache를 직접 읽는다. 따라서 config의 workers 숫자만 변경해도 효과가 없다.
+
+별도로 실제 학습 로그의 최근32기록에서 평균3.742초/update 중 입력 준비는0.01408초(0.376%)였다.
+로그에 잡힌 입력 준비 부분을 모두 제거하는 가정에서도 현재 남은3475update의 절감량은약49초다.
+이 timer가 모든 비동기 GPU 전처리를 분리하는 것은 아니며, GPU 전체 시간을 DataLoader 비용으로 해석하지 않는다.
+일반적인 비동기 loading 원리는 [PyTorch 성능 가이드](https://docs.pytorch.org/tutorials/recipes/recipes/tuning_guide.html#enable-asynchronous-data-loading-and-augmentation)에 따르되, 우리 cache에서의 실측으로 판단했다.
+
+### 배치 확대의 이득과 한계
+
+보존된 profile에서 batch2×accum4의 마지막3update 평균6.678초, batch4×accum2는3.755초다.
+실측상 시간은약43.8% 감소했고 현재 본학습에 batch4가 적용돼 있다. 측정 당시 공유GPU 부하가 같음을 보장하지는 않는다.
+두 설정 모두 effective planning batch16, SSL8clip/update이다.
+
+Batch2 peak allocated7.044GiB와 batch4의12.060GiB에 고정비+배치당 메모리 직선을 맞추면 batch8은22.091GiB다.
+여기에 workspace1GiB를 더하면23.091GiB로 registered allocated cap21.5GiB를 넘는다.
+실제 현재 카드 사용량과 peak 차이를 합산하면 GPU0/1 전체약47.20/47.07decimalGB, free약3.45/3.58GiB로 추정된다.
+사용자 상한46GB와6GiB reserve를 모두 만족하지 못하므로 현재 batch8 실험은 실행하지 않았다.
+이는 두 점 기반 추정이며 allocator/연산 모양의 비선형성을 포함한 실측 batch8 결과가 아니다.
+기존 queue는 더 보수적인 batch4peak×2+1GiB=25.146GiB 추정을 사용한다. 두 방식 모두 현재 증설을 지지하지 않는다.
+
+Checkpointing 해제는 이전 batch4 profile에서1update 후 memory cap을 초과한 기록이 있어 반복하지 않는다.
+유효 batch 자체를 늘리면 optimizer update수와 학습 거동이 달라지므로 단순 실행 최적화와 구분한다.
+현재 전체train1epoch/유효batch16/모델·loss·학습범위·정밀도·검증 조건을 보존했다.
+
+### 공유 GPU와 후속 조치
+
+NVIDIA pmon8회 sample에서 우리 GPU worker의 SM 사용과 다른 작업의 SM 사용이 함께 관측됐다.
+카드 전체99%를 우리 프로세스만의99%로 해석하지 않는다. 타 작업의 메모리 점유는GPU당20,168MiB였다.
+타 작업을 변경하지 않았고 현재 두GPU 학습 위에 추가GPU benchmark를 겹쳐 실행하지 않았다.
+
+기존 대기열의 LoRA4/8, Adapter2/4/8, full2/4 profile 선택은 그대로 유효하다.
+각 방법은 작은 배치부터 실측하고, 메모리 예측이 guard를 통과할 때만 큰 배치를 실행한다.
+마지막3/5update 평균 시간이 가장 빠른 안전 설정을 본학습에 적용한다. 결과 성능으로 배치를 선택하지 않는다.
+전체 조건의 이전2095update 재사용도 그대로 유지해 추가2612update만 수행한다.
+이번 검토로 새 GPU speedup이 실증되거나 runtime 설정이 변경되었다고 보고하지 않는다.
+
+측정 중에도 partial은1008→1232update로 계속 진행했다.1024update monitor PDMS76.6794%, ADE1.40314m.
+등록34source/10config hash 불변, CPU benchmark 완료 후 worker 종료. 첫 sandbox 시도의IPC socket 권한 오류는
+진단 프로세스만 중단하고 호스트에서 재측정했으며 본학습 오류가 아니다.
+
+근거: `results/lpwm_throughput_review_20261005/throughput_assessment.json`, `input_loading_comparison.json`,
+`gpu_process_samples.txt`. 재현: `scripts/benchmark_lpwm_stage2_input_loading.py --output <보고서 경로>`.
+
 ## 2026-10-04: 네 가지 미세조정 비교와 기존 전체 학습 재개
 
 최신 사용자 지시에 따라 **일부 계층 → LoRA → Adapter → 낮은 학습률 전체 미세조정** 순서로 실행한다.
