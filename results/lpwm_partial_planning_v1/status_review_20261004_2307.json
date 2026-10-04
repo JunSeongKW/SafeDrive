@@ -1,0 +1,108 @@
+{
+  "checked_at": "2026-10-04T23:07:22.259520+09:00",
+  "configuration": {
+    "epochs": 1,
+    "microbatch_size_per_gpu": 4,
+    "gradient_accumulation": 2,
+    "workers_per_rank": 0,
+    "conditions": [
+      "metric_plus_world",
+      "metric_object_future_plus_world"
+    ],
+    "lpwm_learning_rate": 1e-05,
+    "planner_learning_rate": 0.0003,
+    "world_objective_weight": 0.02
+  },
+  "latest": {
+    "update": 192,
+    "total_updates": 4707,
+    "epoch_fraction": 0.04079031230082855,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 3072,
+    "planning_loss": 7.181954264640808,
+    "world_objective": 17.887728691101074,
+    "loss": 7.539708852767944,
+    "imitation_loss": 4.6667643785476685,
+    "metric_distillation_loss": 2.5151898860931396,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 36.858497619628906,
+      "context": 6.899243354797363,
+      "dynamics": 52.385948181152344,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 16.368701934814453
+    },
+    "lpwm_lr": 9.97881178809257e-06,
+    "planner_lr": 0.00029936435364277705,
+    "peak_allocated_gib": 12.072834968566895,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.011136757035274059,
+    "update_seconds": 4.281672466022428,
+    "elapsed_seconds": 756.7956779290107
+  },
+  "rolling_timing": [
+    {
+      "logged_intervals": 4,
+      "updates": 64,
+      "seconds_per_update_wall": 3.8422212327814123,
+      "mean_logged_update_seconds": 4.201033281744458
+    },
+    {
+      "logged_intervals": 8,
+      "updates": 128,
+      "seconds_per_update_wall": 3.843396943952939,
+      "mean_logged_update_seconds": 3.9108904438689933
+    }
+  ],
+  "validation": [
+    {
+      "epoch": 0,
+      "update": 0,
+      "clips": 128,
+      "ade_meters": 8.450129672884941,
+      "fde_meters": 17.812133342027664,
+      "cached_official_pdms_percent": 2.4129434833376426,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    }
+  ],
+  "gradient_audit_complete": true,
+  "queue_failure": false,
+  "training_stopped": false,
+  "progress_age_seconds": 10.120922803878784,
+  "all_sources_unchanged": true,
+  "configuration_unchanged": true,
+  "next_monitor_update": 512,
+  "next_monitor_estimate": "2026-10-04T23:27:51.770314+09:00",
+  "condition1_compute_only_eta": "2026-10-05T03:56:29.888386+09:00",
+  "both_conditions_compute_only_eta": "2026-10-05T08:57:55.223729+09:00",
+  "eta_limits": "Sparse recent wall timings, assumes condition2 same speed; evaluations, later monitoring, checkpoint IO, GPU admission waits and changing shared load need additional allowance",
+  "host_gpu_snapshot": {
+    "used_bytes": {
+      "0": 36444307456,
+      "1": 36311138304
+    },
+    "utilization_percent": {
+      "0": 83,
+      "1": 84
+    },
+    "maximum_total_vram_bytes_per_gpu": 46000000000
+  },
+  "reported_eta_kst": {
+    "first_monitor": "2026-10-04 23:30 approximately",
+    "first_condition_training": "2026-10-05 04:00\u201304:30",
+    "all_training_and_validation": "2026-10-05 10:00\u201311:00",
+    "assumptions": "Recent speed remains similar; object-auxiliary condition throughput and full-panel evaluation duration have not yet been measured. Shared GPU admission waits may delay completion."
+  }
+}

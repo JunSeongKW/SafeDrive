@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 23:00 KST (Codex)
+마지막 갱신: 2026-10-04 23:09 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- **2026-10-04 23:07 KST 상태점검:** 부분미세조정queue1601034/torchrun1602577 유지, 첫조건metric_plus_world192/4707update(4.08%) 진행. 새학습/추론/설정변경없이기존로그·프로세스·GPU·등록hash를확인했다. 최신근거 `results/lpwm_partial_planning_v1/status_review_20261004_2307.json`.
 
 - **2026-10-04 22:54 KST 최신: 사용자 승인 Stage2 부분 미세조정 별도queue1601034 시작.** 설정 `partial_output_layers_v1.json`, 상태 `outputs/lpwm_partial_planning_v1/queue_state.json`. 첫 조건gradient/freeze/causal감사 통과, torchrun1602577에서 본학습48/4707update확인(22:58KST). LPWM출력계층5.56M+planner2.21M, 전체75,297navtrain/조건당1epoch/4,707update, GPU0·1 batch4×accum2=16, 객체GT보조loss off→검증→on→검증 순서. 기존 full2095update와pause/source/config는 보존하며 이전실행을재개한것이아니다. 최신사용자승인은새부분실험에만적용된다.
 
@@ -384,6 +386,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 23:07점검: 최근128update의wall평균3.843초/update, 초반loss11.309→최근7.540(서로다른train batch의로그). Update128기준encoder/context/dynamics/planner gradient유한·양수, RGBdecoder0. Failure/stopped없음/등록source20개·config불변. GPU전체36.444/36.311GB/사용률83·84%,우리peakallocated12.073GiB. 첫학습후개발모니터는아직미실행(초기0만완료)이므로PDMS개선판정없음.
 
 - 본학습48update/유효768scene입력확인. 초기128dev 모니터완료(PDMS2.41294, 유효127/128; 무작위planner기준). 기록된정상update평균3.496초, peakallocated12.073GiB, GPU전체36.444/36.311GB<46GB. NaN/OOM/중단marker없음/source20개불변. 첫512update모니터예상23:25–23:30KST, 조건당학습약4.6시간+검증/공유부하여유. 근거 `results/lpwm_partial_planning_v1/launch_verification_20261004.json`.
 
@@ -700,11 +704,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 최신사용자요청에따라LPWM native출력계층만미세조정/새planner전체학습을별도구현했다. 기존fullrun2095update/14개등록source/config/pause는불변. FiLM을attribute CNN출력으로이동하고trainable검사·gradient/freeze/causal감사를추가했다. LoRA/전체LPWM재학습아님.
-- 3개batch/checkpoint profile과실패기록보존후batch4×accum2/checkpoint유지를선택했다. 전체navtrain조건당1epoch/GT보조off-on/고정개발panel/초기·512update모니터/전중후particle시각화·학습검증자동queue를등록하고GPU0·1에서실행했다.
-- CPU2검사/4planning2world실행검증/첫gradient감사통과. Shared설정·profile·기존checkpoint보존검증과문서를추가했다. 새본학습시작상태와해석한계·후속확인경로를HANDOFF/RESUME/README/AGENTS/연구문서에기록했다.
+- 사용자요청현재학습요약·ETA를위해기존queue/progress/validation/sourcehash와호스트GPU·프로세스를읽어확인했다. 본학습을중단·재시작하거나runtime/config를변경하지않았다.
+- 첫조건192/4707update,최근128update평균3.843초, GPU별전체VRAM36.44/36.31GB를근거JSON에보존하고HANDOFF1–5절/RESUME를갱신했다. 첫조건학습10/5 04:00–04:30,전체두조건+검증10/5 10:00–11:00예상이며GT ON속도·검증시간·공유부하불확실성을명시했다.
+- 직전8294fc3은로컬커밋완료/원격push GitHub인증실패였고학습은영향없이진행중이다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 최신ETA(23:07KST): 첫512update개발모니터10/4 23:30경, 첫조건학습10/5 04:00–04:30, 두조건학습+검증10/5 10:00–11:00. 최근3.843초/update 기준학습만의합산은09:00경이며검증등여유를포함했다. GT ON조건속도/전체panel검증시간은미실측이므로다음로그로갱신한다.
 
 - **최우선은새부분학습queue1601034확인이다.** `outputs/lpwm_partial_planning_v1/queue_state.json`, 조건별progress/validation_log/visualization, `queue_failed.json`을읽는다. 실행중source/config20개hash를바꾸거나중복기동하지않는다. 아래기존fullrun재개절차는이번승인범위가아니다.
 - 초기/512update마다128dev의실제후보PDMS·ADE/FDE, final4707update후고정1024planning/256world검증. 첫조건검증→GT보조ON감사/학습/검증→paired report자동연결. GT효용미확인이면선택사항유지. 런타임오류/누출/메모리위반은queue중단; 과학적개선미확인은기록하고대조조건진행.
@@ -866,6 +872,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 이번턴은상태확인·요약·ETA보고다. 초기무작위planner평가만있고학습후PDMS개선미확인. 두조건GT OFF/ON각1epoch와SSL유지/부분갱신설정그대로이며새대조조건/추가epoch를등록하지않았다. 기존fullrun2095updatepause유지. 직전8294fc3원격push는인증오류로실패했다.
 
 - 후속질문에LPWM원문§5.2/A.5의frozen world+mappingL1, Drive-JEPA encoder1e-5/planner1e-4, V-JEPA2-AC frozenencoder, UniAD Stage2고정backbone/BEV와task공동학습, OpenVLA LoRA경로를확인해설명했다. 현재12개출력모듈선택은우리의계산예산설정이다. 표현수정독립효용에는frozen-LPWM+trained-planner대조가후속으로필요하며현재GT두조건queue는변경하지않았다.
 

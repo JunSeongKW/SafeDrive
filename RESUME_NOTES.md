@@ -1862,3 +1862,11 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 22:58KST본학습48/4707update,정상로그평균3.496초/peakallocated12.073GiB,GPU전체36.444/36.311GB,source20개불변/failure없음. 초기128dev(유효127)의randomplanner PDMS2.41294 확인. 첫512모니터예상23:25–23:30,조건당학습약4.6시간+검증여유/공유부하,두조건약10–12시간계획. 진전은후속평가필요.
 - 사용자후속질문에원문/공식코드조사: LPWM은frozen LPWM+2층mappingL1, V-JEPA2-AC는frozenencoder+actionconditionedpredictor, Drive-JEPA는encoder1e-5/planner1e-4공동학습, UniAD는perception선행후task공동학습하되공개Stage2 image/BEVencoder고정, OpenVLA는LoRA/전체FT경로제공. 현재출력계층5.07%는우리의빠른실험설정이며일반적최적/논문직접재현주장없음.
 - Sharedconfiguration/engineering_review/evaluation_protocol/gradient_audit/launch_verification와문서갱신. 이전3673974까지원격push는GitHub인증오류이력;이번push결과는별도확인한다.
+
+
+## 2026-10-04 23:07 KST — 부분 Stage2 학습 요약 및 ETA 점검
+
+- 사용자요청으로실행중queue1601034/torchrun1602577와첫조건metric_plus_world로그를읽어확인.192/4707update(4.079%),전체train75,297/조건당1epoch/두조건GT보조OFF·ON그대로. LPWM5.56M부분학습+planner2.21M전체/기존SSL유지, GPU0·1 batch4×accum2=16/worker0. Runtime/config변경·추가GPU진단·재시작없음.
+- 최근128update경과시간기준3.843초/update(최근64도3.842),loss초기11.309→최근7.540,update128에서측정한모듈gradient유한/양수·decoder0. 등록20source/config불변,queue/training실패marker없음. GPU0·1사용률83/84%,전체VRAM36.444/36.311GB<46decimalGB,peakallocated12.073GiB.
+- 학습후dev모니터는아직없고초기128dev만완료. 첫512update평가23:30경예상. 최근속도기준학습계산만첫조건10/5 03:56/두조건08:58,모니터·저장·각조건검증을고려해사용자에게첫조건04:00–04:30/전체10:00–11:00KST로보고. GT ON속도/전체panel평가소요미실측·공유부하/입장대기로변동가능명시.
+- 근거 `results/lpwm_partial_planning_v1/status_review_20261004_2307.json` 보존,HANDOFF1–5/RESUME갱신. 직전8294fc3push는GitHub인증실패였으며학습영향없음.
