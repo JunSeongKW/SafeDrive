@@ -1,9 +1,11 @@
 # Planning-Aware Future Prediction
 
-**진행 중(2026-10-04 14:20 KST): 승인된 객체 정보 보존 검증.** 공개/적응 LPWM을 고정하여
-전체 train23,126/dev7,745 clip의 관측 표현 추출 → CPU linear readout 학습·평가를 자동 실행 중이다.
+**완료(2026-10-04): 객체 정보 보존 검증의 첫 단계인 frozen current-state readout.** 공개/적응
+LPWM의 전체 train23,126/dev7,745 clip 표현 추출과 CPU linear readout 학습·평가를 완료했다.
+종류 판독 점수는 개선됐으나 위치·속도 결과는 혼재하며 GT-ROI geometry 대조보다 약하다.
+결과 `results/lpwm_object_readout_validation_v1/summary.json`; 미래상태/mask/planning 개입 검사는 후속이다.
 설정 `configs/lpwm_navsim_adaptation/object_readout_validation_v1.json`, 상태
-`outputs/lpwm_object_readout_validation_v1/queue_state.json`. 모델 재학습/Stage2 실행은 아니다.
+`outputs/lpwm_object_readout_validation_v1/queue_state.json`은 complete. LPWM 재학습/Stage2 실행은 아니다.
 [수정된 학습 원칙·검증 범위](docs/lpwm_planning_experiment.md): **Stage1은 객체 GT 없는 SSL로 유지한다.**
 GT 객체/미래 보조 loss는 Stage2 planning+world 공동학습에 한정하며 라벨 의존성과 정보 유지도 비교한다.
 이 Stage2 보조 loss는 설계 단계이며 아직 구현/기동하지 않았다.

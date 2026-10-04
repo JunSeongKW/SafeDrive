@@ -1,5 +1,38 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 현재 판독 검증의 범위와 객체 주석
+
+현재 queue는 제안한 검증 중 **현재 객체 정보의 frozen readout**이다. 공개/적응 LPWM 각각에
+관측4장을 넣고, observed GT box/track으로 위치를 알려준 조건에서 particle 정보를 모은다.
+별도 linear ridge head로 종류·현재ego x/y·속도 x/y·camera depth를 읽는다. LPWM update0이며
+판독기만 train에서 적합한다. Train23,126clip/122recording(내부98fit/24validation), dev7,745clip/
+40recording. Geometry/appearance/background/GT-ROI/shuffle 대조로 feature 기여를 구분한다.
+미래 상태 판독·native instance-mask·학습된 planner 개입은 별도 후속 검사이며, 현재 결과를
+자동 detection/tracking 정확도로 해석하지 않는다.
+
+이번 검증은 vehicle/pedestrian/bicycle 3종을 선택했다. 실제 원본 한 log
+`2021.06.09.18.23.43_veh-35_03967_05057.pkl`에는 이3종 외에
+traffic_cone/barrier/czone_sign/generic_object도 확인된다. 전체 데이터셋 빈도를 조사한 결과는 아니다.
+
+- `gt_boxes`: 객체별7값(x,y,z,length,width,height,heading)의3D oriented box.
+  `navsim/common/enums.py:53`의 schema와 대조했다.
+- `gt_names`: 종류, `gt_velocity_3d`:3차원 속도, `instance_tokens`/`track_tokens`:객체 식별자.
+- 현재2D ROI는3D box를 camera calibration으로 투영한 것이다. 수동2D box나 pixel instance
+  mask가 아니므로 가림·배경 포함·작은 객체의 투영 한계를 고려한다.
+- Traffic-light/지도 정보는 객체 box와 별도이며 이번3종 판독에는 포함하지 않았다.
+
+시각별 진행과 주석 범위는 `results/lpwm_object_readout_validation_v1/status_and_annotation_scope_20261004.json`.
+이 설명 작업에서 실행 중 runtime/source/config/queue/가중치는 변경하지 않았다.
+
+**설명 중 첫 검증 완료 확인:** queue complete, 두모델각30,871clip/312,611객체관측, LPWM update0.
+표현추출 공개1,502.9초/적응1,490.0초. 로컬/공유summary 동일, 재확인근거는
+`results/lpwm_object_readout_validation_v1/completion_review_20261004.json`.
+Appearance-only macro-F1은0.32018→0.38669, geometry+appearance는0.38453→0.41766로상승했다.
+분류는CI없는점추정이다. GT-ROI-only는0.55473으로더높아독립적인의미이해성공으로일반화하지않는다.
+Combined state MAE차이(적응−공개)는ego x−0.180m(CI[-0.459,+0.106]),y+0.044m([+0.006,+0.085]),
+vx−0.053m/s([-0.078,-0.024]),vy−0.00011m/s([-0.00038,+0.00015]),depth−0.180m([-0.459,+0.104]).
+현재상태의판독개선은항목별로다르며미래예측/planning개선결과가아니다. 기존gate와Stage2미시작유지.
+
 ## 2026-10-04 수정된 학습 원칙: Stage1 SSL 유지, GT 보조 감독은 Stage2
 
 사용자는 GT 감독 때문에 particle이 주석된 객체에 편중되고 라벨의 종류·개수·품질에 의존할 수

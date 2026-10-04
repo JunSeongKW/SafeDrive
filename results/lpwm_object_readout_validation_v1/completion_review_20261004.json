@@ -1,0 +1,106 @@
+{
+  "checked_at": "2026-10-04T14:46:34.013388+09:00",
+  "queue": {
+    "status": "complete",
+    "stage2_started": false
+  },
+  "shared_summary_matches": true,
+  "completed_extractions": {
+    "published": {
+      "clips": 30871,
+      "total_clips": 30871,
+      "seconds": 1502.9195791140082,
+      "peak_allocated_gib": 2.6892900466918945,
+      "free_gib": 42.13873291015625,
+      "model": "published",
+      "lpwm_optimizer_updates": 0,
+      "observed_frames_only": true,
+      "objects": 312611,
+      "checkpoint_sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+      "feature_sha256": "724d91f2acd1428ff3969bec7c0d0b754af486c2416c9c11a877222e3d2898c8",
+      "smoke_only": false
+    },
+    "posttrained": {
+      "clips": 30871,
+      "total_clips": 30871,
+      "seconds": 1490.014881384006,
+      "peak_allocated_gib": 2.6892900466918945,
+      "free_gib": 22.963134765625,
+      "model": "posttrained",
+      "lpwm_optimizer_updates": 0,
+      "observed_frames_only": true,
+      "objects": 312611,
+      "checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+      "feature_sha256": "105c235d6ca72bc50febe7877228f02b91d5ac7261e141f7aff7fbecb82561ec",
+      "smoke_only": false
+    }
+  },
+  "macro_f1": {
+    "published": {
+      "particle_appearance": 0.320179812419262,
+      "particle_combined": 0.38453049367881625,
+      "roi_geometry": 0.5547287329240081
+    },
+    "posttrained": {
+      "particle_appearance": 0.38668613283945524,
+      "particle_combined": 0.41765730746702445,
+      "roi_geometry": 0.5547287329240081
+    }
+  },
+  "paired_combined_state_errors": {
+    "ego_x_m": {
+      "difference": -0.18035956049269505,
+      "confidence_interval_95": [
+        -0.4591398077324927,
+        0.10558110957128271
+      ],
+      "recordings": 40,
+      "objects": 89965
+    },
+    "ego_y_m": {
+      "difference": 0.04407114519590447,
+      "confidence_interval_95": [
+        0.0056056215799519735,
+        0.08483214906024025
+      ],
+      "recordings": 40,
+      "objects": 89965
+    },
+    "ego_vx_mps": {
+      "difference": -0.05326789962707812,
+      "confidence_interval_95": [
+        -0.07841925478435709,
+        -0.023681359602127704
+      ],
+      "recordings": 40,
+      "objects": 89965
+    },
+    "ego_vy_mps": {
+      "difference": -0.00011314111495225932,
+      "confidence_interval_95": [
+        -0.0003794556875349315,
+        0.00015150040634536732
+      ],
+      "recordings": 40,
+      "objects": 89965
+    },
+    "camera_depth_m": {
+      "difference": -0.18047105016071532,
+      "confidence_interval_95": [
+        -0.45922604778463794,
+        0.10431171259557381
+      ],
+      "recordings": 40,
+      "objects": 89965
+    }
+  },
+  "limitations": [
+    "GT-localized current-state readout; no autonomous detection claim",
+    "Full64 diagnostic decoding rather than native30 reconstruction masks",
+    "Classification point estimates have no bootstrap significance claim",
+    "Position and velocity changes are mixed; GT-ROI-only readout remains stronger",
+    "Future-state readouts, native mask audit and planner interventions remain pending"
+  ],
+  "stage1_gt_supervision": false,
+  "stage2_started": false
+}

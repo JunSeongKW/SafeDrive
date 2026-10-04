@@ -1788,3 +1788,15 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - GT fine-tuning이 SSL의 이득을 반드시 모두 없애지는 않지만, Stage2에서도 의존성/forgetting은 남는다고 명시. GT 중심/일대일particle/개수/presence 강제 없음, 미주석=unknown, 전체 영상 SSL loss 유지, state/future 보조 head와planning gradient, GT target/association SG를 권고했다. 직접boxloss가 없어도 learned crop 경로로 위치가 바뀔 수 있음.
 - 동일SSLcheckpoint의 Stage2 planning+world vs +GTauxiliary, label subset/특정auxiliary종류제외 대조를 설계 제안으로 기록. 라벨제외 객체도 RGB/planning에 노출될 수 있어 unseen-category 일반화로 과장하지 않음. 라벨량 sweep를 신규 실행하지 않았다.
 - Frozen readout 확인: 공개18,692/적응19,076 of30,871, 각각약973/977초, queue_failed없음/LPWMupdate0. 기존진단은GT로평가head만학습하므로최신원칙과일치. Source/config/학습/gate/queue/Stage2기동변경없음. 문서4개만갱신. dffe9f5 원격push는기존Git인증오류로실패했다.
+
+## 2026-10-04 14:41 KST — 검증 절차 요약과 실제 객체 주석 확인
+
+- 사용자 질문에 따라 현재queue가관측4장/GT-localized현재상태의frozenreadout임을정리. 종류·ego위치/속도·camera depth,train98fit/24validation/dev40recording,7대조이며미래판독/nativeinstance/PDMS개입은후속. LPWMupdate0.
+- 원본sample log의gt_names에서vehicle/pedestrian/bicycle외traffic_cone/barrier/czone_sign/generic_object확인. anns는3Dbbox/class/3Dvelocity/instance/track,BoundingBoxIndex와xyz/length/width/height/heading순서대조. 검증2D ROI는3D투영이며pixelmaskGT가아님. sample클래스빈도를전체분포로일반화하지않음.
+- 공개29,828/적응30,340 of30,871clip,queue_failed없음. `status_and_annotation_scope_20261004.json`에시각별상태/주석범위보존. Runtime/config/source/queue/가중치변경없음. 기존문서/HANDOFF/RESUME만설명갱신. e501352 push는기존Git인증실패.
+
+### 같은 턴 후속 — frozen current-state readout 자동 완료 확인
+
+- Queue complete/공개·적응각30,871clip/312,611객체관측/LPWMupdate0,추출1,502.9/1,490.0초. CPU판독과집계도완료했고shared summary와로컬summary동일. `completion_review_20261004.json`에시각별근거보존. Stage2미시작/완료queue재실행없음.
+- Appearance macro-F1 .32018→.38669,combined .38453→.41766,GT-ROI-only .55473. 분류CI없는점추정이며GT위치조건부검사. Combined state오차는y+0.044m(CI[+.006,+.085]),vx−.053m/s(CI[-.078,-.024]);x/depth/vy는CI0포함. 전체객체이해/미래/PDMS개선으로일반화하지않음.
+- 자동생성summary보존,문서/README/HANDOFF완료상태반영. 현재probe의full64재합성과native30alpha차이amendment유지. 학습/runtime/gate변경없음.

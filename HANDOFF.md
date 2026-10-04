@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 14:36 KST (Codex)
+마지막 갱신: 2026-10-04 14:47 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04: 설명 중 frozen current-state readout queue complete 확인. 두모델각30,871clip/312,611객체관측 추출 및CPU판독완료,LPWMupdate0/Stage2미시작. 새자동학습없음. `completion_review_20261004.json` 및shared summary확인; 완료queue재실행금지.
+
+- 2026-10-04 14:41 KST: 검증절차/주석범위확인. 공개29,828/적응30,340 of30,871clip,오류없음/LPWMupdate0. 상태근거 `results/lpwm_object_readout_validation_v1/status_and_annotation_scope_20261004.json`. Runtime/queue변경없음.
 
 - 2026-10-04 14:33 KST: 최신 사용자 방향은 Stage1 SSL 유지, GT 객체 감독은 Stage2 planning+world 보조 loss에 한정. 직전 Stage1 GT 보정 제안 철회. 기존 frozen readout queue 계속 실행(공개18,692/적응19,076 of30,871, 오류없음/LPWMupdate0), runtime/config 변경 없음.
 
@@ -368,6 +372,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- Frozen readout완료: appearance macro-F1 .32018→.38669,geometry+appearance .38453→.41766(분류CI없음),GT-ROI-only .55473로더강함. Combined y MAE+0.044m(CI양수),vx−0.053m/s(CI음수),x/depth/vy차이CI0포함. 조건부현재정보의일부개선이며native객체분리·미래·PDMS개선아님. 로컬/공유summary동일/전체추출완료를확인.
+
+- 현재probe는 vehicle/pedestrian/bicycle 3종. 원본sample log에는traffic_cone/barrier/czone_sign/generic_object도확인. 주석은3D oriented bbox(x,y,z,length,width,height,heading),class,3Dvelocity,instance/trackID. 2D ROI는카메라투영이며pixelmask아님. 전체클래스빈도조사결과로일반화하지않음.
 
 - Stage1 객체 GT 감독을 추가하면 label taxonomy/누락/수에 편중될 위험이 있다는 사용자 지적을 반영했다. SSL 사전학습의 장점이 GT fine-tuning으로 반드시 전부 사라지는 것은 아니지만, Stage2에서도 의존성과 forgetting 위험은 남는다. World SSL 유지·unannotated unknown·직접box/개수/presence강제 없음·GT auxiliary 유무/라벨량 대조를 새 원칙으로 문서화했다.
 
@@ -659,10 +667,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 수정에 따라 Stage1은 SSL 유지, GT 보조 감독은 Stage2에만 적용하는 방향으로 연구 문서/README/인수인계를 갱신했다. 직전 Stage1 GT 보정 제안은 이력으로 표시하고 현재 권고에서 철회했다.
-- GT 중심/일대일/particle개수/presence 강제를 피하고 미주석 영역 unknown·전체world objective 유지·보조loss 유무/라벨량 대조를 명시했다. 기존 frozen readout은 그대로 진행하며 학습/평가 runtime·source/config·gate는 변경하지 않았다.
+- 현재 검증의 관측4장/고정 LPWM/GT-localized 선형판독/recording 분할/7대조와 진행 상태를 확인했다.
+- 실제 원본 log와 NAVSIM schema에서3D bbox/종류/속도/track 및추가4종을확인하고 문서·상태JSON·인수인계에기록. 학습/검증runtime/queue변경없음.
+- 점검도중자동queue완료를확인하고summary/완료metadata를대조했다. README/문서현재상태갱신,appearance/combined판독점수개선과GT-ROI대조/상태항목혼재한계를기록. 원본결과/기준/학습코드변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- Frozen current-state readout은완료됐다. Sharedsummary/completion_review를읽고완료추출·판독을반복하지않는다. 미래상태판독/native mask/planner개입은후속이며GT-ROI판독성공과자율객체발견을구분한다. Stage1SSL유지/GT보조감독Stage2원칙유지.
+
+- 현재3종의조건부판독과원본주석7종확인,2D투영ROI와native3Dbox를구분해설명한다. 차량/보행자만주석된데이터라고하지않는다. 미래판독·instance mask·PDMS개입은현재queue의후속이다.
 
 - 최우선 학습 원칙: Stage1 SSL 유지. Frozen probe가 약하다고 Stage1에 GT loss를 자동 추가하지 않는다. 해상도/가림/판독기/SSL 목적을 진단한다. GT state/future 보조감독은 Stage2에만 구현하고 planning+world 대조와 비교한다. 아래 Stage1 GT 보정을 제안한 문장은 철회된 이력이다.
 
@@ -797,6 +810,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 이번요청은검증요약/객체라벨범위설명. GT는평가head감독/association에만쓰고Stage1SSL표현은고정이다. 원본3Dbox를camera로투영하며pixelmaskGT는현재검증cache에없음.
 
 - 최신 사용자 방향 확정: Stage1에는 객체 GT 입력/loss를 넣지 않고 Stage2에서만 GT auxiliary+planning+SSL 유지. 감독 없는 요소도 표현해야 하며 전체 pipeline을label-free로부르지 않는다. Stage2로감독을옮기는것만으로label편중해결을보장하지않음. 이번수정은문서원칙이며진행중frozen진단과기존runtime는불변.
 

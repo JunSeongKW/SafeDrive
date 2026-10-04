@@ -1,0 +1,58 @@
+{
+  "checked_at": "2026-10-04T14:41:24.455977+09:00",
+  "queue": {
+    "status": "extracting_frozen_representations",
+    "child_pids": [
+      504614,
+      504615
+    ],
+    "stage2_started": false
+  },
+  "progress": {
+    "published": {
+      "clips": 29828,
+      "total_clips": 30871,
+      "seconds": 1462.9255327389983,
+      "peak_allocated_gib": 2.6892900466918945,
+      "free_gib": 24.225341796875,
+      "model": "published",
+      "lpwm_optimizer_updates": 0,
+      "observed_frames_only": true
+    },
+    "posttrained": {
+      "clips": 30340,
+      "total_clips": 30871,
+      "seconds": 1468.9294726549997,
+      "peak_allocated_gib": 2.6892900466918945,
+      "free_gib": 24.224853515625,
+      "model": "posttrained",
+      "lpwm_optimizer_updates": 0,
+      "observed_frames_only": true
+    }
+  },
+  "queue_failure_present": false,
+  "probe_categories": [
+    "vehicle",
+    "pedestrian",
+    "bicycle"
+  ],
+  "observed_raw_log_categories": [
+    "vehicle",
+    "pedestrian",
+    "bicycle",
+    "traffic_cone",
+    "barrier",
+    "czone_sign",
+    "generic_object"
+  ],
+  "raw_category_audit_scope": "One existing raw log, not a census or frequency estimate of the entire dataset",
+  "raw_annotations": [
+    "gt_boxes: x,y,z,length,width,height,heading",
+    "gt_names",
+    "gt_velocity_3d",
+    "instance_tokens",
+    "track_tokens"
+  ],
+  "image_box_source": "Camera projection of the annotated 3D box, not a manually segmented visible instance",
+  "current_queue_scope": "Frozen four-observed-frame GT-localized current-state readouts; LPWM updates zero; future-state/instance-mask/planner intervention evaluations separate"
+}
