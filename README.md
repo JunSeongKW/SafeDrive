@@ -1,5 +1,14 @@
 # Planning-Aware Future Prediction
 
+**최신 사용자 승인(2026-10-04 22:51 KST): Stage2 일부 계층 미세조정으로 빠른 경향 확인.**
+`partial_output_layers_v1.json`: LPWM native 출력계층5.56M와 planner2.21M 학습,
+전체75,297개 navtrain/조건별1epoch/4,707update, 객체GT 보조loss off/on 비교.
+GPU0·1 batch4×accum2=유효16, SSL유지, LoRA없음. 초기/512update마다128dev모니터,
+조건후1,024planning+256world dev검증, 전·중·후particle시각화 자동연결.
+아래 full run의2095update/pause는 그대로 보존하며 새 실험만 승인됐다.
+실행상태 `outputs/lpwm_partial_planning_v1/queue_state.json`,
+[구성·속도·검증 범위](docs/lpwm_planning_experiment.md#2026-10-04-stage2-native-출력-계층-부분-미세조정).
+
 **현재 상태(2026-10-04 22:23 KST): 사용자 요청으로 Stage2 일시중단. 자동 재개 금지.**
 첫 조건 `metric_plus_world`의 **2,095 update / 0.4451 epoch**에서 정상 signal checkpoint를 저장했다.
 모델과 optimizer746개 state의 step2,095 일치, source/config hash 일치, GPU0·1 worker 종료를 확인했다.

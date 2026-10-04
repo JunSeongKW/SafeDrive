@@ -1,0 +1,101 @@
+{
+  "scope": "Engineering throughput and execution checks only, not learned planning performance",
+  "selected_profile": "batch4_checkpoint",
+  "tests": {
+    "protocol_cpu": "2 passed",
+    "evaluation_integration": "4 planning scenes + 2 world clips completed using discarded profile weights"
+  },
+  "initialization_issue": {
+    "error": "Attribute depth_head is None in the official checkpoint; no optimizer updates occurred",
+    "resolution": "Removed nonexistent attribute depth_head from the explicit unfreeze list; native interaction/dynamics depth prediction remains trainable through their output decoders",
+    "old_run_unchanged": true
+  },
+  "profiles": {
+    "output_layers_batch2": {
+      "training_summary": {
+        "condition": "metric_plus_world",
+        "completed_updates": 4,
+        "epochs": 0.0008497981729339282,
+        "train_clips": 75297,
+        "effective_batch_size": 16,
+        "world_size": 2,
+        "seconds": 40.49269900500076,
+        "peak_allocated_gib": 7.04376745223999,
+        "module_gradients": {
+          "image_encoder": 23.271507263183594,
+          "context": 1.1903107166290283,
+          "dynamics": 3.0707991123199463,
+          "rgb_decoder": 0.0,
+          "planner_and_command": 6.374870300292969
+        },
+        "trainable_parameters": 7770364,
+        "checkpoint_sha256": "416bbdae7a72d85ff11078bdd42f16156479cfa2ff4447f960e7cd0ff09fb270",
+        "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+        "configuration_sha256": "0bccd550276d1f45c3b4c6407191bedc0773e2dc68cc909022c2121a902a357e",
+        "profile_only": true
+      },
+      "update_seconds": [
+        18.796909975004382,
+        7.070102849043906,
+        6.600426811026409,
+        6.36292979400605
+      ]
+    },
+    "batch4_direct": {
+      "stopped": {
+        "error": "RuntimeError('Stage2 GPU allocated-memory cap exceeded')",
+        "completed_updates": 1
+      }
+    },
+    "batch4_checkpoint": {
+      "training_summary": {
+        "condition": "metric_plus_world",
+        "completed_updates": 5,
+        "epochs": 0.0010622477161674102,
+        "train_clips": 75297,
+        "effective_batch_size": 16,
+        "world_size": 2,
+        "seconds": 31.4502953219926,
+        "peak_allocated_gib": 12.059630393981934,
+        "module_gradients": {
+          "image_encoder": 7.845967769622803,
+          "context": 0.29838669300079346,
+          "dynamics": 3.4132862091064453,
+          "rgb_decoder": 0.0,
+          "planner_and_command": 3.0275328159332275
+        },
+        "trainable_parameters": 7770364,
+        "checkpoint_sha256": "b26cc7d5e597d1724249d0187be56ed91e84298d24dcb7e6bb5d0bed3050c4b2",
+        "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+        "configuration_sha256": "529c3fdec87d1eca29e49e52fcc20e49c7a6e198acadff88529ba5a3d0e443ba",
+        "profile_only": true
+      },
+      "update_seconds": [
+        13.239952402014751,
+        5.35405606002314,
+        3.6267567329923622,
+        3.8315705920103937,
+        3.8075696930172853
+      ],
+      "last_three_mean_update_seconds": 3.7552990060066804
+    }
+  },
+  "old_source_checks": {
+    "scripts/queue_lpwm_validated_training.py": true,
+    "scripts/train_lpwm_full_planning.py": true,
+    "scripts/evaluate_lpwm_full_planning.py": true,
+    "scripts/prepare_lpwm_candidate_teacher.py": true,
+    "scripts/validate_lpwm_stage_transition.py": true,
+    "scripts/audit_lpwm_planning_finetuning.py": true,
+    "scripts/lpwm_refinement_oracle.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py": true,
+    "scripts/lpwm_stage2_admission.py": true,
+    "scripts/prepare_lpwm_stage2_object_targets.py": true,
+    "scripts/summarize_lpwm_object_auxiliary_ablation.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_object_supervision.py": true,
+    "results/lpwm_object_future_planning_v3/stage1_admission_amendment.json": true
+  },
+  "old_pause_preserved": true,
+  "old_checkpoint_sha256": "aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac"
+}

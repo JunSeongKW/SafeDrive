@@ -1848,3 +1848,17 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - `user_pause_20261004/checkpoint_update002095.pt` hardlink보존,이전queue/progress/registration와요청/queue_failed/검증을별도저장. 공유결과 `results/lpwm_object_future_planning_v3/user_pause_20261004.json`,현재상태 `outputs/lpwm_object_future_planning_v3/user_pause_status.json`. 마지막로그2080보다checkpoint가최신이다.
 - 호스트ps로queue1131167/torchrun1135635/worker1135737·1135738모두없음확인,nvidia-smi GPU0·1은기존다른사용자process만남음. 우리GPU메모리반환확인. Queue의 `RuntimeError('Queue paused by marker')` 원문은보존하며수치학습실패로해석하지않음. Training stopped/완료sentinel없음.
 - README/AGENTS/HANDOFF/연구문서에사용자pause우선/자동재개금지및재개절차명시. 명시적요청후pause/failure를이력보존하고같은queue를실행하면본학습 --resume으로2096부터계속. LR/데이터순서/난수는update/config로재구성. GPU재개시험이나학습방법변경은없음. 기존ETA는pause로무효. 직전92509d9push는기존Git인증오류로실패했다.
+
+
+## 2026-10-04 22:54–22:59 KST — 사용자 승인 Stage2 부분 미세조정 시작
+
+- 사용자 요청: LoRA 또는 일부 계층만 학습해 빠른 효과/경향을 먼저 확인. 별도 `partial_output_layers_v1.json`을 등록하고 전체navtrain75,297개/조건당1epoch4,707update를 실행했다. 기존20epoch fullrun2,095update checkpoint SHA aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac와14개source/config/pause를 그대로 보존했다.
+- Native LPWM출력모듈12개만선택학습, Transformerblocks/RGBdecoder등고정. LPWM5,558,389/109,545,263개, planner·command2,211,975개 전체학습, 총7,770,364/111,757,238개(6.95%). LPWM1e-5/planner3e-4. 명령FiLM을attribute CNN conv_in에서conv_out뒤로이동해고정prefix backward를줄였다. LoRA없음/원본전체구조와동일budget비교아님.
+- 처음depth_head=None으로초기화실패(0optimizerupdate) 후실제존재하는계층만선택하도록수정. Batch2누적4 4update통과/peak7.04GiB/정상6.36–7.07초. Batch4future checkpoint해제는1update후21.5GiB allocatedguard초과로정지·기록보존. Batch4누적2/checkpoint유지는5update통과/peak12.0596GiB/마지막3회평균3.7553초로선택. Profile가중치는본학습초기화에쓰지않는다.
+- CPU개발panel격리·recording균형·순서불변·GT teacher결측paired처리2검사통과. Profilecheckpoint4planning/2world평가실행완료, engineering_only로분리. 이소수점수를성능으로보고하지않는다. 첫조건GPU감사에서planninggradient가encoder/context/dynamics/planner로전달, frozen모든weight SHA불변/grad없음/optimizer중복없음. 미래GT교란prediction/logit0, commandparticle변화6.98e-5 확인.
+- Queue1601034/torchrun1602577, GPU0·1에서본학습시작. GPU당batch4×accum2/유효16, SSL8clip/update, worker0/RGBmmap. FP32encoder·SSL/BF16planningdyn, checkpointing유지,46decimalGB/GPU전체(타인포함),6GiB여유/allocator22GiB/allocated21.5GiB상한. User요청은VRAM이며CPURAM46GB제한없음.
+- 첫조건metric_plus_world학습→고정dev평가→metric_object_future_plus_world감사·학습→평가→paired결과자동연결. 두조건각같은Stage1/같은초기planner/seed47로독립시작,loss는softcandidateimitation+6PDM BCE+.02SSL에객체현재·미래상태/종류보조감독만OFF/ON. 최신질문에두조건이LoRA대partial비교가아님을설명했다. GT채택미정유지.
+- 예측전에고정planning1024/world256각40devrecording panel등록,초기및매512update의128dev실제캐시PDMS/ADE/FDE모니터,particle0/2353/4707시각화. 최종world LPIPS/persistence개입/recordingbootstrap2000회paired비교. 작은dev경향/1seed1epoch이며전체dev/test/표현독립효용입증아님. Frozen-LPWM+trained-planner대조는후속설계,현재자동queue에추가하지않음.
+- 22:58KST본학습48/4707update,정상로그평균3.496초/peakallocated12.073GiB,GPU전체36.444/36.311GB,source20개불변/failure없음. 초기128dev(유효127)의randomplanner PDMS2.41294 확인. 첫512모니터예상23:25–23:30,조건당학습약4.6시간+검증여유/공유부하,두조건약10–12시간계획. 진전은후속평가필요.
+- 사용자후속질문에원문/공식코드조사: LPWM은frozen LPWM+2층mappingL1, V-JEPA2-AC는frozenencoder+actionconditionedpredictor, Drive-JEPA는encoder1e-5/planner1e-4공동학습, UniAD는perception선행후task공동학습하되공개Stage2 image/BEVencoder고정, OpenVLA는LoRA/전체FT경로제공. 현재출력계층5.07%는우리의빠른실험설정이며일반적최적/논문직접재현주장없음.
+- Sharedconfiguration/engineering_review/evaluation_protocol/gradient_audit/launch_verification와문서갱신. 이전3673974까지원격push는GitHub인증오류이력;이번push결과는별도확인한다.

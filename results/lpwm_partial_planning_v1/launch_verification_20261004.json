@@ -1,0 +1,102 @@
+{
+  "checked_at": "2026-10-04T22:58:46.348996+09:00",
+  "queue": {
+    "queue_pid": 1601034,
+    "status": "running",
+    "current_stage": "metric_plus_world_training",
+    "nodes": {
+      "metric_plus_world_gradient_audit": {
+        "status": "complete",
+        "pid": 1601187,
+        "started_unix": 1791122009.8975167,
+        "returncode": 0,
+        "finished_unix": 1791122053.6249664
+      },
+      "metric_plus_world_training": {
+        "status": "running",
+        "pid": 1602577,
+        "started_unix": 1791122054.7306325
+      }
+    },
+    "configuration_sha256": "4046f8bbb245f7ba77ee29bc51a9118ed96608549b9181b97cc86f43a5bd1bbc",
+    "created_unix": 1791122008.5298424,
+    "heartbeat_unix": 1791122322.5405576,
+    "resources": {
+      "0": {
+        "used_bytes": 36444307456,
+        "free_gib": 13.4716796875
+      },
+      "1": {
+        "used_bytes": 36311138304,
+        "free_gib": 13.5966796875
+      }
+    }
+  },
+  "progress": {
+    "update": 48,
+    "total_updates": 4707,
+    "epoch_fraction": 0.010197578075207138,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 768,
+    "planning_loss": 9.489834547042847,
+    "world_objective": 19.086360454559326,
+    "loss": 9.871561527252197,
+    "imitation_loss": 6.110456705093384,
+    "metric_distillation_loss": 3.379377841949463,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 1658474.75,
+      "context": 697646.25,
+      "dynamics": 1314524.125,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 8811.4736328125
+    },
+    "lpwm_lr": 1e-05,
+    "planner_lr": 0.0003,
+    "peak_allocated_gib": 12.072834968566895,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.00889363995520398,
+    "update_seconds": 3.6866528060054407,
+    "elapsed_seconds": 202.7674077640404
+  },
+  "registered_sources_unchanged": {
+    "scripts/queue_lpwm_validated_training.py": true,
+    "scripts/train_lpwm_full_planning.py": true,
+    "scripts/evaluate_lpwm_full_planning.py": true,
+    "scripts/prepare_lpwm_candidate_teacher.py": true,
+    "scripts/validate_lpwm_stage_transition.py": true,
+    "scripts/audit_lpwm_planning_finetuning.py": true,
+    "scripts/lpwm_refinement_oracle.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_candidate_planner.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py": true,
+    "scripts/lpwm_stage2_admission.py": true,
+    "scripts/prepare_lpwm_stage2_object_targets.py": true,
+    "scripts/summarize_lpwm_object_auxiliary_ablation.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_object_supervision.py": true,
+    "results/lpwm_object_future_planning_v3/stage1_admission_amendment.json": true,
+    "scripts/train_lpwm_partial_planning.py": true,
+    "scripts/evaluate_lpwm_partial_planning.py": true,
+    "scripts/audit_lpwm_partial_finetuning.py": true,
+    "scripts/lpwm_partial_protocol.py": true,
+    "scripts/queue_lpwm_partial_planning.py": true,
+    "src/planning_aware_future_prediction/object_centric/lpwm_partial_finetuning.py": true
+  },
+  "registered_source_count": 20,
+  "failure_marker_exists": false,
+  "training_stopped_marker_exists": false,
+  "mean_logged_update_seconds_excluding_startup": 3.495507142021476,
+  "estimated_remaining_training_hours_condition1": 4.52376882629946,
+  "eta_limitations": "Sparse early timings; monitor/checkpoint/evaluation/shared-load overhead not included",
+  "old_full_run_remains_paused": true
+}

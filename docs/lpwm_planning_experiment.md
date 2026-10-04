@@ -1,5 +1,115 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 후속 질문: 두 단계 학습과 Stage2 갱신 범위의 선행 사례
+
+2단계 학습은 표현/세계모델을 먼저학습한뒤행동학습으로전달하는실제선행사례가있다.
+다만단계수만같아도감독과고정범위는다르므로Stage2라는명칭만으로전체미세조정/LoRA를추정하지않는다.
+
+| 연구 | 먼저 학습하는 것 | 후속 학습에서의 갱신 범위 |
+|---|---|---|
+| LPWM | 영상으로encoder/context/dynamics/decoder 공동SSL | LPWM을고정하고per-particle latent action→실제행동의2층attention-pooling mapping network만L1학습 |
+| V-JEPA2-AC | action없는영상의표현학습 | 영상encoder고정, action/proprioception조건autoregressive predictor학습; 이후MPC제어 |
+| Drive-JEPA | 주행영상JEPA사전학습 | planner LR1e-4와ViT encoder LR1e-5로공동학습 |
+| UniAD | track/map의감독perception학습 | track/map/motion/occupancy/planning taskmodule공동학습. 공개v2.0 config는img backbone/neck/BN/BEV encoder고정 |
+| OpenVLA | 범용vision-language-action사전학습 | 로봇별적응에LoRA와전체미세조정경로를제공. 계산량제한시LoRA사용을안내하며자율주행전용근거는아님 |
+
+원문확인: [LPWM §5.2/A.5](https://arxiv.org/html/2603.04553v1#S5.SS2),
+[V-JEPA2 §3](https://arxiv.org/html/2506.09985v1#S3),
+[Drive-JEPA §4.2](https://arxiv.org/html/2601.22032v2#S4.SS2),
+[UniAD 공식단계설명](https://github.com/OpenDriveLab/UniAD#results-and-pre-trained-models) 및
+[공개Stage2 config](https://github.com/OpenDriveLab/UniAD/blob/v2.0/projects/configs/stage2_e2e/base_e2e.py),
+[OpenVLA 공식fine-tuning](https://github.com/openvla/openvla#fine-tuning-openvla-via-lora).
+
+**우리실험의위치:** Stage1 SSL은LPWM계열의표현학습, Stage2는planning gradient를LPWM일부까지
+전달하는선택적미세조정이다. LPWM원논문의frozen policy mapping보다표현수정을허용한다.
+현재12개출력모듈/LPWM5.07%라는정확한선택은시간예산에맞춘우리설정이며선행논문에서
+NAVSIM최적이라고입증한설정이아니다. RGBdecoder고정+SSL유지는표현이과도하게변하는지
+확인하기위한설계다. 완전동결은task gradient로particle을바꾸는연구가설을직접시험할수없다.
+
+표현수정의효용을분리하려면동일planner/데이터/학습량/평가장면의**frozen LPWM+trained planner**
+대조가필요하다. 현재등록된두조건은객체GT보조OFF/ON이며이대조는후속설계다.
+현재학습설정/대기열을후속설명만으로변경하지않았다. '2단계'는보편적최적성이나novelty의근거가아니다.
+
+## 2026-10-04 Stage2 native 출력 계층 부분 미세조정
+
+**목적:** planning에 맞게 LPWM 표현을 일부 수정하면서 새 planner를 학습할 때, 전체 navtrain
+한 번의 학습으로 초기 planning 진전을 얻는지와 객체 GT 보조 감독의 추가 경향을 확인한다.
+최신 사용자는 LoRA 또는 일부 계층 미세조정으로 빠르게 확인하는 실행을 승인했다.
+기존 full run2,095update와 pause/source/config는 그대로 보존하고 별도 디렉터리에서 시작한다.
+설정 `configs/lpwm_planning/partial_output_layers_v1.json`, 대기열
+`scripts/queue_lpwm_partial_planning.py`, 산출물 `outputs/lpwm_partial_planning_v1/`.
+
+### 학습하는 부분과 gradient
+
+이번에는 LoRA 대신 **기존 출력 계층을 직접 미세조정**한다. Frozen block 안에 adapter를 넣어도
+encoder까지 연결된 gradient 계산이 자동으로 사라지는 것은 아니다. Native 출력 계층 방식은
+현재 코드에서 고정 영상 CNN의 앞부분에 대한 backward를 줄이기 쉬우며 별도 layer 호환 작업이 없다.
+LoRA 대비 우월성을 비교한 결과는 아니며 이번에는 부분학습 한 방식만 실행한다.
+
+| 구성 | 가중치 갱신 | 실제 범위 |
+|---|---|---|
+| 영상 particle encoder | 일부 | attribute CNN conv_out, xy/scale/presence heads, feature mu/logvar, interaction particle decoder |
+| context | 일부 | PTE head와 posterior/prior decoder |
+| dynamics | 일부 | particle transformer head와 particle decoder |
+| LPWM 나머지 CNN/Transformer blocks | 고정 | 입력으로 전달되는 gradient까지 일괄 detach하지 않음 |
+| RGB decoder | 고정 | SSL gradient는 decoder 연산을 통해 particle 입력으로 전달 |
+| 명령 FiLM·particle projection·후보 planner | 전체 | 새 planner와 command conditioning 모두 학습 |
+| 객체 보조 head | ON 조건만 전체 | 학습 loss 전용; 추론에 GT 입력 없음 |
+
+OFF 조건 전체111,757,238개 중7,770,364개(6.95%)를 학습한다. 이 중LPWM5,558,389개는
+원래LPWM109,545,263개의5.07%, planner·command는2,211,975개다. ON은 작은 객체head가 추가된다.
+기존 conv_in의 명령 FiLM을 **attribute CNN conv_out 이후**로 옮겼다. Zero initialization과
+±0.1 bounded modulation을 유지하며 particle 생성 head의 입력을 명령에 따라 바꾼다.
+따라서 이전 full run과는 FiLM 위치도 다르다. 동일 구조의 동등 학습량 비교로 해석하지 않는다.
+
+Loss는 기존 **soft candidate imitation + 6개 공식 PDM subscore BCE + 0.02×공식 SSL ELBO**다.
+두 번째 조건에만 current state0.2/future state0.2/category0.02 보조 항을 추가한다.
+현재/미래 GT와 Gaussian ROI association은 loss 쪽에만 존재한다. SSL은 별도 train12장
+posterior 복원과11전이 KL이며, 과거4장으로 미래8장 RGB를 자율 예측하는 loss와 구분한다.
+Planner는 관측4장+현재ego→causal 미래8step→512개 고정 후보 채점 구조다. 새 refiner는 없다.
+
+### 실행 예산과 실측
+
+- 두 조건 모두 같은 Stage1 checkpoint/seed47에서 새 planner로 시작한다. 기존2095update는 사용하지 않는다.
+- 모든 navtrain75,297개/122recording, 조건당1epoch=4,707update. Global16의 끝15개 padding은 기록한다.
+- GPU0·1, GPU당 실제batch4×누적2, planning16/SSL8clip per update, worker0/mmap.
+- LPWM 출력계층LR1e-5, planner3e-4, AdamW,47update warmup/cosine decay, gradient clip5.
+- FP32영상encoder·SSL/BF16 planning dynamics, 미래와SSL activation checkpointing 모두 유지.
+- GPU별 다른사용자포함46decimalGB 제한, 최소6GiB여유, allocator22GiB/allocated21.5GiB상한.
+- 프로세스 `kjs-lpwm-stage2`, 실패/메모리초과/사용자pause 시 우리작업만 checkpoint 후 중단.
+
+| 짧은 profile | 유효 planning/SSL batch | 정상 구간 update 시간 | Peak allocated | 판정 |
+|---|---:|---:|---:|---|
+| 기존 full run 참고 | 16/8 | 약7.75초 | 약11.87GiB | 이전 시점 실측 |
+| partial batch2×accum4 | 16/8 | 6.36–7.07초 | 7.04GiB | 통과 |
+| partial batch4, rollout checkpoint 해제 | 16/8 | 1update 후 중단 | 21.5GiB guard 초과 | 미채택/실패 보존 |
+| partial batch4×accum2, checkpoint 유지 | 16/8 | 마지막3회3.63–3.83초 | 12.06GiB | 채택 |
+
+선택 profile은5update, 마지막3회 평균3.755초다. 공유 부하와 짧은 측정의 영향이 있으므로
+약2배속은 초기 비용 추정이다. 조건당 학습 약4.9시간+모니터/저장/평가, 두 조건 약10–12시간+
+평가 여유를 예상하되 본학습으로 갱신한다. 20→1epoch 예산 단축 효과와 per-update 가속을 구별한다.
+첫 구현의depth_head=None 초기화오류와 checkpoint해제 메모리guard 실패도 profile 디렉터리에 보존했다.
+
+### 검증과 자동 연결
+
+1. 조건별 시작 전 planning/미래객체loss gradient, 미래GT입력교란 불변, 명령particle반응을 검사한다.
+   Optimizer1회 후 frozen parameter SHA동일·grad없음·optimizer중복/고정파라미터없음도 확인한다.
+2. 결과를 보기 전에 token hash+recording round-robin으로 고정한 development panel을 사용한다.
+   Training은전체75,297개지만 최종평가는 **planning1,024/world256, 각각40recording**의 경향 검사다.
+   Train선택/장면순서/teacher유효성검사의 CPU검사2개와 profilecheckpoint의4planning/2world 실행검사를 완료했다.
+   작은 실행검사의 점수는 성능결과로 채택하지 않는다.
+3. 초기 및512update마다128장면 ADE/FDE와 **선택한 후보의 실제 캐시 공식 PDMS**를 기록한다.
+   모니터로checkpoint를 선택하지 않는다. Particle 시각화는update0/2353/4707에 저장한다.
+4. 학습 후같은1,024장면에서 초기planner/학습planner/미래persistence 개입을 비교한다.
+   256개 world clip에서Stage1대비복원·미래LPIPS와상황별분해,recording bootstrap2000회CI를 기록한다.
+   조건후검증이 끝난 뒤에만 다음 조건을 학습하며, 둘 다 끝나면GT ON−OFF paired PDMS를 보고한다.
+5. 과학적 개선 미확인은 그대로 기록하고 반대 조건 비교는 계속한다. 실행오류/누출/불완전학습/
+   메모리문제는 대기열을 차단한다. 추가 navtest/epoch 확대는 자동으로 하지 않는다.
+
+**해석 한계:** 1epoch/1seed이며 초기 무작위planner 대비 개선만으로 LPWM 미세조정의 독립효용을
+입증하지 못한다. 동일예산 frozen-LPWM+trained-planner 대조와 수렴/복수seed가 후속에 필요하다.
+GT 보조감독은 채택 미정이다. 전체개발/독립test/객체이해·선택적미래효용의 검증 완료로 보고하지 않는다.
+
 ## 2026-10-04 22:23 KST 사용자 요청에 따른 Stage2 일시중단
 
 학습 시간을 검토하기 위해 사용자가 잠시 중단을 요청했다. `pause.requested`를 생성해 기존

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 22:26 KST (Codex)
+마지막 갱신: 2026-10-04 23:00 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- **2026-10-04 22:54 KST 최신: 사용자 승인 Stage2 부분 미세조정 별도queue1601034 시작.** 설정 `partial_output_layers_v1.json`, 상태 `outputs/lpwm_partial_planning_v1/queue_state.json`. 첫 조건gradient/freeze/causal감사 통과, torchrun1602577에서 본학습48/4707update확인(22:58KST). LPWM출력계층5.56M+planner2.21M, 전체75,297navtrain/조건당1epoch/4,707update, GPU0·1 batch4×accum2=16, 객체GT보조loss off→검증→on→검증 순서. 기존 full2095update와pause/source/config는 보존하며 이전실행을재개한것이아니다. 최신사용자승인은새부분실험에만적용된다.
 
 - **2026-10-04 22:23 KST 사용자 요청으로 Stage2 일시중단. 자동 재개 금지.** `metric_plus_world`2,095/94,140 update(0.4451epoch), model+optimizer 저장 완료. Queue1131167/torchrun1135635/worker1135737·1135738 모두 host ps에서 종료 확인, GPU compute 목록에서 우리 worker 없음. `outputs/lpwm_object_future_planning_v3/user_pause_status.json`이 현재 상태다. 아래 진행 중 문구는 중단 전 이력이며 사용자 재개 요청 전 신규 GPU 작업/후속 조건/queue를 시작하지 않는다.
 
@@ -382,6 +384,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 본학습48update/유효768scene입력확인. 초기128dev 모니터완료(PDMS2.41294, 유효127/128; 무작위planner기준). 기록된정상update평균3.496초, peakallocated12.073GiB, GPU전체36.444/36.311GB<46GB. NaN/OOM/중단marker없음/source20개불변. 첫512update모니터예상23:25–23:30KST, 조건당학습약4.6시간+검증/공유부하여유. 근거 `results/lpwm_partial_planning_v1/launch_verification_20261004.json`.
+
+- 부분학습OFF총학습7,770,364/111,757,238개(6.95%), LPWM5,558,389/109,545,263개(5.07%). Nativeattribute/feature/interaction/context/dynamics출력head만갱신; RGBdecoder와Transformerblocks고정. FiLM을attribute CNN conv_out뒤로이동해고정CNN앞부분backward를줄였다. LoRA없음. LPWMLR1e-5/planner3e-4, SSL0.02유지.
+- 동일유효batch16/SSL8 profile: batch2누적4 6.36–7.07초/peak7.04GiB; batch4checkpoint해제는1update후allocated21.5GiBguard초과로중단보존; batch4누적2/checkpoint유지선택은5update완료·마지막3회평균3.755초·peak12.06GiB. 이전full7.75초와시점이다른짧은비용비교다. 초기화depth_head=None오류(0update)도보존. 근거 `results/lpwm_partial_planning_v1/engineering_review.json`.
+- CPU개발panel격리/균형/순서불변·teacher결측paired처리2검사통과. Profile가중치로4planning/2world평가경로실행완료(성능결과아님). 새queue첫감사: planninggradient encoder1.26456/context.09443/dynamics2.67883/planner19.17081/decoder0, futureGT교란prediction/logit차이0, 명령particle변화6.98e-5. 1진단optimizer후모든frozenparameter SHA동일/grad없음/optimizer중복없음확인. 진단weight는미저장·본학습미사용.
+- 이전등록source14개와pausedcheckpoint SHA aef7ab37…4b9bac 불변확인. 새학습전config/source20개 및개발planning1024/world256각40recording패널등록. 본학습실제결과와GT효용은아직미확정. 이전full결과/조건과새부분실험결과를합치지않는다.
 
 - 일시중단 체크포인트는22:22:56 atomic 저장, reason=`signal`, update2,095, optimizer746개 state 전부step2,095, source14개/config hash 일치. SHA `aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac`,1,342,277,703bytes. 학습 elapsed16,275.53초. `latest.pt`와 `user_pause_20261004/checkpoint_update002095.pt` hardlink 보존, 원본Stage1/기존결과불변. 마지막 progress 로그2,080보다 signal checkpoint가 최신이다.
 - Pause marker를 queue가 확인해 정상 signal 저장을 요청했다. `queue_failed.json`의 `RuntimeError('Queue paused by marker')`는 이 구현의 의도된 중단 기록이며 수치/OOM 실패가 아니다. Training stopped marker와 완료 sentinel은 없다. 자동 후속 작업 차단, 실제 GPU 재개 시험은 실행하지 않음. CPU에서 checkpoint 로드/optimizer 일치 검증 완료.
@@ -691,11 +700,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자의 잠시 중단 요청에 따라 pause.requested를 생성해 기존 queue의 정상 중단 경로를 실행했다. 다음 작업 자동 시작을 차단하고2,095 update에서 signal checkpoint를 저장한 뒤 queue/torchrun/두GPU worker 종료를 확인했다.
-- CPU에서 model+optimizer state와746개 optimizer step 일치, source/config hash, checkpoint SHA를 검증했다. 원래 latest.pt를 별도 중단 디렉터리에 hardlink 보존하고 pause 요청/이전상태/queue 예외/검증 JSON을 보존했다. 모델 구조·학습 source/config/실험 조건은 변경하지 않았다.
-- README/AGENTS/HANDOFF/연구문서/RESUME에 사용자 pause 우선 규칙과 명시적 요청 후 재개 절차를 기록했다. GPU 재개 시험/새 학습·추론은 하지 않았다.
+- 최신사용자요청에따라LPWM native출력계층만미세조정/새planner전체학습을별도구현했다. 기존fullrun2095update/14개등록source/config/pause는불변. FiLM을attribute CNN출력으로이동하고trainable검사·gradient/freeze/causal감사를추가했다. LoRA/전체LPWM재학습아님.
+- 3개batch/checkpoint profile과실패기록보존후batch4×accum2/checkpoint유지를선택했다. 전체navtrain조건당1epoch/GT보조off-on/고정개발panel/초기·512update모니터/전중후particle시각화·학습검증자동queue를등록하고GPU0·1에서실행했다.
+- CPU2검사/4planning2world실행검증/첫gradient감사통과. Shared설정·profile·기존checkpoint보존검증과문서를추가했다. 새본학습시작상태와해석한계·후속확인경로를HANDOFF/RESUME/README/AGENTS/연구문서에기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- **최우선은새부분학습queue1601034확인이다.** `outputs/lpwm_partial_planning_v1/queue_state.json`, 조건별progress/validation_log/visualization, `queue_failed.json`을읽는다. 실행중source/config20개hash를바꾸거나중복기동하지않는다. 아래기존fullrun재개절차는이번승인범위가아니다.
+- 초기/512update마다128dev의실제후보PDMS·ADE/FDE, final4707update후고정1024planning/256world검증. 첫조건검증→GT보조ON감사/학습/검증→paired report자동연결. GT효용미확인이면선택사항유지. 런타임오류/누출/메모리위반은queue중단; 과학적개선미확인은기록하고대조조건진행.
+- 새queuepause는 `outputs/lpwm_partial_planning_v1/pause.requested`로요청한다. 기존fullpause를건드리지않는다. 조건당약5–6시간은짧은profile추정이며본학습속도로갱신한다. 최종성능·독립표현효용은아직없다. 완료작업자동반복/추가epoch·navtest금지.
 
 - **최우선: 사용자 재개 요청을 기다린다.** 아래 queue 유지/검증 예정은 중단 이전 계획이다. 자동 재개·pause marker 제거 금지. 현재 task는 일시중단 및 재개 가능성 확인까지 완료했다.
 - **명시적 재개 요청을 받은 뒤의 절차:** (1) host 프로세스/queue lock/GPU0·1 점유 확인, (2) checkpoint SHA·update2,095·optimizer/config/source hash 확인, (3) `queue_failed.json`이 정확히 사용자 pause 예외인지 확인하고 `pause.requested`/`queue_failed.json`/`user_pause_status.json`을 날짜별 이력 디렉터리로 이동 보존, (4) 같은 config로 아래 queue를 `--detach` 실행, (5)2,096 이후 진행/메모리/다음작업차단해제 확인. 완전학습 sentinel은 없으므로 queue는 기존 준비·감사/profile 완료를 재사용하고 본학습에 `--resume`을 전달한다. 기존 failure를 삭제하거나 gate를 변경할 필요가 없다.
@@ -853,6 +866,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 후속질문에LPWM원문§5.2/A.5의frozen world+mappingL1, Drive-JEPA encoder1e-5/planner1e-4, V-JEPA2-AC frozenencoder, UniAD Stage2고정backbone/BEV와task공동학습, OpenVLA LoRA경로를확인해설명했다. 현재12개출력모듈선택은우리의계산예산설정이다. 표현수정독립효용에는frozen-LPWM+trained-planner대조가후속으로필요하며현재GT두조건queue는변경하지않았다.
+
+- **최신사용자는부분학습으로빠른경향확인을승인했다.** 두조건은미세조정방법2개가아니라객체GT보조OFF/ON이다. 사용자의후속질문에동일Stage1+동일초기planner에서각각1epoch,순차학습검증한다고설명했다. GT채택미정/Stage1SSL/GPU0·1전체46GB제한유지. 기존fullpause는유지하고새실험만시작했다.
+- 이번비교는1epoch/1seed/고정소규모dev패널이다. 초기planner대비개선만으로LPWM부분미세조정독립효용을입증하지않는다. Frozen-LPWM+trained-planner 동일예산대조/수렴/다중seed는후속. Fullrun과학습량·LR·FiLM위치·평가패널도달라단순수치순위비교금지. GT입력없는OFF도정답경로/privileged metric감독을사용한다.
 
 - **최신 확정 상태는 사용자 pause다.**2,095 update까지 보존/재개가능성 CPU검증/우리GPU메모리반환확인. 명시적 요청 전 재개하지 않는다. LoRA/부분학습 전환은 이번에 요청·적용되지 않았다. 기존 first-epoch ETA와 종료 ETA는 중단으로 무효이며 재개 시 다시 계산한다. 직전92509d9 원격push는기존인증오류로실패했다.
 

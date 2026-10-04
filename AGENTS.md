@@ -75,6 +75,15 @@ CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하�
 
 ## 세션 시작 루틴
 
+**2026-10-04 22:51 KST 최신 사용자 승인: 빠른 Stage2 부분 미세조정 별도 실험.**
+사용자가 LoRA 또는 일부 계층 학습으로 경향을 먼저 보도록 요청했다. 신규 실행은
+`configs/lpwm_planning/partial_output_layers_v1.json` / `scripts/queue_lpwm_partial_planning.py`다.
+LPWM native 출력 계층5.56M만 갱신, planner2.21M 전체학습; LoRA는 사용하지 않는다.
+전체 navtrain75,297개를 조건별1epoch, 객체GT 보조loss off/on 비교하고 각조건후 고정dev panel검증.
+GPU0·1, batch4×accum2×2=16, checkpointing유지, 각GPU전체VRAM46decimalGB/6GiBreserve.
+이 승인은 새 부분학습에만 적용한다. 이전 full run2095update와pause marker/source/config는 보존하며
+`lpwm_object_future_planning_v3`나 WA를 재개하지 않는다. 신규queue source/config도 등록후변경금지.
+
 **2026-10-04 22:23 KST 최신 사용자 요청: Stage2 일시중단.**
 `outputs/lpwm_object_future_planning_v3/pause.requested`와 `user_pause_status.json`을 따른다.
 첫 조건2,095 update의 model+optimizer checkpoint를 보존했고 queue/torchrun/GPU worker는 종료했다.
