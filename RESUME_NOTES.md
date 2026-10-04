@@ -1742,3 +1742,10 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - SafeDrive Phase3 TwDAC reference detach=True이나 motion/plan query는FRNet에연결돼BCE가SWNetdecoder를학습. 우리refined_score_decoder는coarsefeature를읽으므로고유refinementdecoder가안전BCE를직접받지않는차이확인. Safety score calibration/직접collision좌표loss를구별.
 - 공식kernel AST에서등록/reduction decorator만제거한 CPU검사: VADcollision1.3→1.26875/grad.790569, boundary.363616→.302604/grad1.104161. UniADloss2.85는requires_grad=False이나수치x미분2.00009; tensor재생성에의한공개함수gradient단절. Full planner재현/논문전체오류주장아님.
 - 기존문서에8방법비교/직접감독·안전pseudoGT·공유latent·추론후처리의차이와추천ablation기록. 신규학습/GPU/PDMS/runtime변경없음. Stage1gate실패에따른Stage2차단유지.
+
+## 2026-10-04 13:00 KST — LPWM과 planner를 연결하는 연구 문제·방법론 제안
+
+- 사용자 요청에 따라 downstream planner의 목적을 재검토. 현재 구현은 후보512 metric scorer+선택적refiner이며 하나의 연구질문을 식별하는 통제실험이 부족하므로, 같은 후보/관측/예산에서 미래 정보가 선택 regret를 줄이는가를 중심질문으로 제안.
+- DriveSuprim/DrivoR/DiffusionDriveV2/VAD 원문과 가장 가까운 SafeDrive/WorldDrive/ResWorld/World4Drive/EgoFSD/ForeDrive를 확인. WorldDrive의 미래latent preference ranking, EgoFSD 객체선택, CAPO의 control변화 기반 prediction weighting과 중복을 기록. 논문 요약을 성능 재현으로 해석하지 않음.
+- `docs/lpwm_planning_experiment.md` 첫 절에 선택형 기준planner, fixed candidate oracle와 ranking regret, current/persistence/future, frozen/joint, encoder intent, utility weighted causal future 감독, 이후 동일 실제예산 선택 비교를 제안. Particle-GT association/metric geometry/GT target SG/주변차량 반응 counterfactual의 경계 명시.
+- CAPO 착안 utility는 객체×시간 미래를 persistence로 교체했을 때 선택한 후보를 원래 관측미래로 재채점한 손실. Offline proxy부터 검증하며 신규 novelty나 실제학습으로 주장하지 않음. Stage1 box gate실패 진단이 실행의 선행조건, 등록runtime/config/queue/결과 모두불변. 문서만 수정/구문·공백·diff 범위 검토.

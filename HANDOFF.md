@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 12:47 KST (Codex)
+마지막 갱신: 2026-10-04 13:04 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 13:00 KST: 사용자요청 planner 문제의식/방법론 재정리. 원문 문헌과 현재 코드/등록설계 비교 후 `docs/lpwm_planning_experiment.md` 첫 절에 제안 저장. 후보 선택 오류를 기준으로 미래 표현 효용을 검증하는 방향이며 runtime/config/queue 변경·새학습 없음. Stage1 실패 gate에 의한 Stage2 차단 유지.
 
 - 2026-10-04 12:42 KST: 사용자요청 E2E 안전/refinement 선행연구 감사 완료. 공식 소스 pin+VAD/UniAD 핵심loss CPU검사만 수행. Stage2 gate 차단 유지, LPWM runtime/학습/queue 변경 없음.
 
@@ -356,6 +358,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 문헌 추가: WorldDrive는 미래latent 증류+preference ranking, ResWorld는 ego정렬 temporal residual+미래BEV refinement, CAPO는 prediction 교체에 따른 control 변화로 중요도 학습. SafeDrive/EgoFSD/ForeDrive까지 고려하면 particle/intent/future ranking/encoder joint만으로 novelty 확보 불가.
+- 제안 중심질문: 같은 후보·관측·예산에서 어떤 객체/시간의 미래 정보가 경로 선택 손실을 줄이는가. DriveSuprim 계열 선택형 planner를 통제된 기준으로, fixed-bank oracle와 ranking regret로 후보/표현 병목을 분리. Future/frozen-joint/intent/utility-weighted 감독 비교는 새 제안이고 실행결과가 아님.
 
 - SafeDrive 공식 Phase3는 TwDAC 좌표 reference를 detach하지만 shared motion/plan query는 FRNet에 연결돼 safety BCE가 SWNet decoder를 학습함. 우리 scorer는 coarse feature를 읽으므로 고유 future_refinement_decoder에 이 경로가 없는 차이를 확인. 직접 회피 좌표비용과 구분.
 - VAD 공식 kernel CPU검사: collision grad norm0.790569/loss1.3→1.26875, boundary1.104161/.363616→.302604. UniAD공개532fc33 CollisionLoss는 torch.tensor(bbox[:2])로끊겨 loss2.85의requires_grad=False/수치미분2.00009. 해당공개함수의문제이며논문전체재현아님. `results/e2e_planner_safety_audit_20261004/` 참조.
@@ -629,10 +634,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- VAD/UniAD/SafeDrive/DiffusionDrive 공식코드·설정 pin, 기존 DrivoR/DriveSuprim코드와 Hydra-MDP/Drive-JEPA 논문을 비교. 기존연구문서에 안전BCE 공유feature·직접좌표비용·안전pseudo경로·추론최적화 경계를 기록.
-- 공식loss를 추출한 재현가능 CPU gradient검사와 source manifest 추가. VAD의 직접gradient 확인, UniAD 특정공개버전의 좌표autograd단절 확인. SafeDrive가 공유SWNet을 safety BCE로 학습하는데 우리 고유refiner는 그렇지 않은 차이를 명확화. LPWM실행코드/학습/queue 불변.
+- 기존 LPWM 설계문서 첫 절에 planner 연구 질문·선행연구 역할·최소 선택형 baseline·gradient·후보/표현 병목 진단·utility 감독 확장 가설·반증 가능한 대조를 추가.
+- DriveSuprim/DrivoR/DiffusionDriveV2/VAD 및 SafeDrive/WorldDrive/ResWorld/World4Drive/EgoFSD/ForeDrive/CAPO 원문 대조. 중요도 가중 및 미래 ranking의 선행 중복, selective prediction 계산비용·counterfactual 주장 경계 기록. README/HANDOFF/RESUME 갱신. Runtime/config/queue/결과 수치 불변.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 최신 연구 제안은 `docs/lpwm_planning_experiment.md`의 2026-10-04 첫 절을 우선 읽는다. Stage1 실패원인 진단 → 기존 candidate teacher로 oracle coverage/위험 분포 확인 → 동일후보 current/persistence/future·frozen/joint 비교 → 객체×시간 utility 감독 → 근거가 있을 때 실제 selective rollout 예산 순서. 이 설계는 기존 queue의 자동 실행 변경을 의미하지 않는다.
+- 기존 3조건 설계의 refiner 확대보다 원래 표현 가설의 식별이 우선이라는 권고다. 후속 실행은 gate 해결 및 명시적 config/source 재등록을 거쳐야 하며, 실패한 queue를 자동 재기동하지 않는다.
 
 - 선행연구 감사 후 후속비교안은 shared refined-feature safety 감독, 안전 다중pseudo-target 회귀, footprint/road 직접비용을 분리하는 것. 현재는 설계 제안이며 등록runtime에 적용되지 않았음. Stage1 실패원인 진단/gate가 우선한다.
 
@@ -751,6 +759,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 이번 요청은 planner의 문제의식/방법론 검토다. DriveSuprim 계열 선택형 planner 추천은 공식 DriveSuprim 재현/최종 방법 확정/학습결과가 아니다. 기존 사용자 승인 LPWM low-LR+planner full training은 유지하며 frozen LPWM은 원인 구분용 대조 제안.
+- 새로운 중심 가설과 novelty는 미검증. CAPO형 utility는 로그/scorer/후보에 의존하는 정보 손실 proxy이며 reactive causal ground truth가 아니다. 손실 가중과 예측 후 token선택을 실제 rollout 연산절감으로 부르지 않음. 현재3조건 queue에 새 ablation이 이미 추가됐다고 보고하지 않는다.
 
 - 안전BCE가 공유decoder를 학습하는 것과 좌표를 안전방향으로 직접 미분하는 것을 구별한다. SafeDrive와 우리refiner를 같은gradient설계로부르지않음. UniAD공개kernel검사결과를논문저자실험전체에일반화하지않음. 이번8연구 비교는 문헌/코드와 작은CPU검사이며PDMS우월성검증없음.
 
