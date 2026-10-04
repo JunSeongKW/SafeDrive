@@ -1716,3 +1716,9 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 
 - draw_particles/capture_particle_snapshot 및공식decode_objects와실제straight PNG를대조.64중심점, learned-scale/presence상위16box,HSV색particle index,점면적7+16presence/alpha.25+.75presence확인.
 - Box는지역glimpse배치범위이며object detector GT box/분산아님; 내부alpha/depth가실제합성을결정. Presence sum은객체수가아니고top16은시각화만. GIF는동일장면의checkpoint변화. 기존문서에범례추가/실행코드와출력불변.
+
+## 2026-10-04 11:53 KST — 배경 중심 particle과 Stage2 planning 적응 가능성 설명
+
+- 실제particle_attributes에position/scale/presence/features경로가detach없이연결, LPWMfull-low-LR/egoFiLM/worldELBO.02확인. 객체중심배치직접loss없고현재6개metrics에정지선준수독립항없음.
+- RGB목적·화면면적·질감·patch기원·128해상도로배경표현을학습할가능성은있으나시각화만으로원인확정불가. Geometry이동과feature/future/활용변화는분리해검증필요.
+- 현재queue는worldretention/futurepersistence검사까지만포함. Stage2semantic재배치/면적보정/particle개입/frozenLPWM대조는후속진단설계이며미구현. 문서갱신만수행/학습·평가·queue불변.

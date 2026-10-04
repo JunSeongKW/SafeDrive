@@ -123,6 +123,48 @@ Presence 역시 정답 객체 존재에 대해 보정된 검출 확률이나 pla
 열/update와 GIF는 **같은 장면에서 학습 전후 가중치 변화**를 보여준다. 실제 시간이 흐르며 같은 객체를
 추적하는 영상으로 해석하지 않는다. 가운데줄은 현재 복원, 아래줄은 과거4장만 사용한+4초 예측 RGB다.
 
+### 배경 중심 particle과 Stage2에서의 재배치 가설
+
+검증할 하위 질문: **planning 감독이 시각 복원에 유리한 particle 표현을, 해당 주행 판단에
+필요한 객체·도로 구조 및 그 미래 정보를 보존하는 표현으로 바꾸는가?**
+
+도로·나무·건물 쪽에 많은 particle이 보이는 것은 전역 RGB MSE/LPIPS, 화면 면적과 무늬,
+patch 기원 proposal,128×128에서 작은 객체의 정보 손실로 설명 가능한 가설이다.
+Stage1에는 차량/보행자/정지선의 중요도를 직접 높이는 supervision이 없다. 그러나 고정8장면의
+점 분포만으로 reconstruction이 원인이라고 확정할 수는 없다. 도로와 배경도 주행 가능 영역,
+자차 움직임, 도로 형태 추론에 유용할 수 있다. 대상 영역 면적과 장면 구성을 보정해 비교해야 한다.
+
+현재 Stage2는 `particle_attributes`에 위치·sigmoid(scale)·presence·depth·외형·배경을
+detach 없이 연결하고, 관측/예측 particle memory에서 planner loss를 역전파한다.
+LPWM LR1e-6/새planner·command LR3e-4, 목적은 planning loss +0.02 world ELBO다.
+따라서 위치·scale/활성도·특징을 바꿀 수 있는 구조지만, **중요 객체 쪽으로 중심이 이동하는 것을
+직접 요구하는 loss는 없다**. Encoder의 aggregate planning gradient와 command에 따른
+attribute 변화는 CPU 연결검사에서 확인했으나, 위치/scale/appearance별 실제 gradient 기여와
+객체를 향한 의미 있는 이동까지 확인한 검사는 아니다.
+
+- 차량/보행자: NC/TTC 및 경로 imitation을 통해 간접적으로 관련 정보를 학습할 수 있다.
+- 도로/차선: DAC 등은 도로 영역과 주행 경로에 대한 간접 신호이며 차선 paint segmentation이 아니다.
+- 정지선: 현재6개 candidate metric에 독립 정지선/신호등 준수 항은 없다. Human trajectory의
+  간접 신호만으로 정지선에 particle이 모인다고 보장하지 않는다.
+- Ego command FiLM은 같은 영상의 particle attribute를 바꿀 수 있지만, command별 올바른
+  중요 대상 선택이 학습됐다는 증거는 별도로 필요하다.
+
+중심 이동, scale/presence 변화, 외형·예측 특징 변화, planner의 기존 token 활용 변화는
+서로 다른 결과다. 위치 이동만으로 성공/실패를 판단하지 않는다. 큰planner가고정표현만활용하거나
+world loss/낮은LPWM LR 때문에 위치변화가 작을 수도 있으며, 이는 현재 미확정 가설이다.
+
+이를 검증하려면 같은clip·같은command의 Stage1/Stage2 checkpoint를 비교하고,
+객체/지도 투영 영역별 presence 및 중심·박스 coverage(면적/객체크기 보정), 외형/future probe,
+matched control을 둔 particle 교체·제거 시 planner/PDMS 변화와 frozen-LPWM 대조를 함께 본다.
+Attention이나 gradient 그림만으로 causal importance를 입증하지 않는다. 중요한 대상을
+같은 class 전체로 묶지 않고 ego 경로/intent와 관련된 대상별로 나눠야 한다.
+차선·정지선 투영을 쓰려면 지도-카메라 좌표·crop/resize·가시성을 먼저 검증해야 한다.
+
+현재 자동 queue에는 world-retention 및 learned-future/persistence 비교가 있다.
+**Stage2 객체 종류별 particle 재배치 시각화, 면적보정 점수, particle 개입, frozen-LPWM 대조는
+아직 구현·등록되지 않은 추가 진단**이다. 기존 Stage1 gallery나 aggregate gradient 검사를
+그 진단의 완료 증거로 사용하지 않는다. 이 해석을 이유로 실행 중 objective/source를 바꾸지 않았다.
+
 ### 현재 관측 결과와 검증 수준
 
 | 고정 개발512개 clip | 학습 전 | 1epoch/update1446 |

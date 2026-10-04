@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 11:46 KST (Codex)
+마지막 갱신: 2026-10-04 11:53 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 11:53 KST: 배경particle/Stage2재배치가능성에대해현재소스와손실을읽기검토. 실행중학습·평가·queue·시각화코드변경없음.
 
 - 2026-10-04 11:46 KST: 사용자 particle/사각형 의미 질문은 저장시각화와코드읽기로답변. 실행중평가/queue/source변경없음. 아래진행률은해당시점의기록이다.
 
@@ -348,6 +350,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- Stage2의14D particle attribute(position/scale/presence/depth/features/bg)는detach없이planner에연결됨. LPWMLR1e-6/planner3e-4/worldELBO.02. 위치재배치는가능하나명시적객체중심배치loss/정지선감독없음. 기존aggregate gradient/command차이검사는위치별gradient나의미있는이동증거아님.
 
 - 시각화확인:64개중심점, presence상위16개 learned-scale 사각형,색은particle index,점크기/alpha는presence. GT/검출box/불확실성/위험도표시아님. Presence sum은객체수아님,16개선택은시각화만.
 
@@ -611,10 +615,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자질문에따라실제시각화코드/저장PNG/공식RGBA decoder를대조하고점·사각형·색·presence·GIF의의미를기존연구문서에명시.
-- 런타임/이미지/평가결과변경없이문서와인수인계만갱신.
+- 배경중심particle의가능원인과Stage2위치/속성gradient경로를현재구현으로확인해기존연구문서에추가.
+- 의미있는재배치와단순위치변화/feature변화/attention변화를구분하고현재queue에없는추가진단범위를명시. 런타임변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- Stage2재배치가설확인은같은scene/command의geometry·presence·feature/future·planning개입을분리한다. 객체/지도coverage의면적·visibility보정과frozenLPWM대조는추가진단설계이며현재queue에등록됐다고보고하지않는다.
 
 - 시각화해석시점/박스/색/presence설명은 `docs/lpwm_planning_experiment.md`의시각화범례절참조. 기존학습·평가queue를이설명작업때문에수정/재시작하지않는다.
 
@@ -725,6 +731,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 배경집중의원인을reconstruction하나로단정하지않음. RGB면적/무늬/patch기원/해상도도가능원인. 정지선준수독립metric없음,위치이동은planning표현개선의필요·충분조건아님.
 
 - Particle 중심/scale는지역표현의기하이며검출객체정답경계/영속적tracking을보장하지않는다. GIF는동일장면의학습checkpoint변화이지실제시간객체이동영상이아니다.
 
