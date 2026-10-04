@@ -1894,3 +1894,5 @@ LoRA1.343M/Adapter0.705M nativefrozen, full109.545M trainable, planner공통2.21
 현재partial 학습범위 image2.377M/context0.803M/dynamics2.378M/RGB0; feature to_logvar Identity.
 새후속34source/10config hash 등록. Full command conv_in+20epoch LR schedule 차이,1seed/노출dev/no frozencontrol 한계 기록.
 LoRA/Adapter/full GPUprofile/학습/최종검증은 아직 대기. 문서 docs/lpwm_planning_experiment.md 최신절 및 results/lpwm_four_method_queue_v1/ 참조.
+
+원격 공유: c4cc73e에 코드·설정·보고서를 로컬 commit했다. 이번 git push mine은 기존 VSCode credential socket ECONNREFUSED/GitHub 인증 실패로 끝났다. 원격 반영은 미완료이며 실행 중 학습과 두 queue에는 영향이 없다.
