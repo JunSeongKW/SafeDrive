@@ -1969,3 +1969,20 @@ Dropout 및 개별 SSL clip의 RNG는 달라질 수 있으므로 bitwise 동일�
 새 실행 source38개/config20개를 hash등록했다. 실행 중 해당 source/config를 바꾸지 않는다.
 본학습 중 카드 통계는2초마다 감시하며48GB 또는free3GiB guard가 걸리면 우리 작업만 중단한다.
 공유GPU의 외부 메모리 급증이나 순간 할당까지 막는 하드웨어 격리 보장은 아니다.
+
+### 2026-10-05 00:47 KST — Stage2 배치8 중간점검
+
+현재 부분계층 미세조정1712/4707update(36.4%), queue1902774/torchrun1978684/worker1979560·1979561 정상.
+배치8/누적1/2GPU/유효16/worker0/객체GT OFF. 재개 후 기록된step평균2.747s, wall평균2.883s/update.
+전체GPU0/1 약45.592/45.570GB, free4.952/4.974GiB로48GB/3GiB guard 이내. OOM/NaN/오류 marker 없음.
+Source38/config20 hash 모두일치. 현재학습/queue/설정변경·추가GPU진단 없이 저장로그와process를조회했다.
+초반16개로그평균total loss8.7177→최근16개6.9469, planning8.3387→6.5685, SSL18.9490→18.9191.
+서로다른training batch의진단평균이며held-out world보존을의미하지않는다. 실제최근gradient검사는1664update,
+encoder23.798/context4.631/dynamics27.539/planner+command21.005,모두유한·양수; frozenRGB0. 전역norm5 clipping 전값이다.
+고정dev128장면(유효PDMS127)의512/1024/1536 update PDMS70.8503/76.6794/79.1126,
+ADE1.8676/1.4031/1.5267m,FDE4.2098/3.2788/3.5224m. 최근PDMS는상승했지만ADE/FDE는악화해모든지표개선주장불가.
+최신dev1536은batch변경1576 이전 결과다. 변경후첫monitor는2048, 최종1024planning/256world검증은학습후대기.
+학습전미학습planner대비진전이지LPWM미세조정단독효과는아직분리되지않았다. Frozen-LPWM학습대조군/독립test결과없음.
+Partial학습완료예상10/5 03:10–03:40KST(공유GPU변동/중간검증·시각화여유, 종료후검증시간제외).
+후속LoRA→Adapter→full재개대기; 각방법학습후검증연결유지.
+근거 `results/lpwm_48gb_planning_v1/health_review_20261005_0045.json`.

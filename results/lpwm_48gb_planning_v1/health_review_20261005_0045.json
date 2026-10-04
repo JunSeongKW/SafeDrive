@@ -1,0 +1,265 @@
+{
+  "checked_at_kst": "2026-10-05T00:45:59.548110+09:00",
+  "queue_state": {
+    "queue_pid": 1902774,
+    "status": "running",
+    "current_stage": "partial_output_layers_training",
+    "nodes": {
+      "partial_output_layers_profile_batch4": {
+        "status": "complete",
+        "pid": 1916614,
+        "started_unix": 1791128157.5653605,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 35664166912,
+        "minimum_free_gib": 14.1982421875,
+        "minimum_cap_headroom_gib": 11.488639831542969,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791128237.906642
+      },
+      "partial_output_layers_profile_batch8": {
+        "status": "complete",
+        "pid": 1943223,
+        "started_unix": 1791128239.8300183,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 45592084480,
+        "minimum_free_gib": 4.9521484375,
+        "minimum_cap_headroom_gib": 2.2425460815429688,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791128311.2519376
+      },
+      "partial_output_layers_evaluation_engineering": {
+        "status": "complete",
+        "pid": 1965704,
+        "started_unix": 1791128313.1030695,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 23276290048,
+        "minimum_free_gib": 25.7353515625,
+        "minimum_cap_headroom_gib": 23.02574920654297,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791128345.835436
+      },
+      "partial_output_layers_training": {
+        "status": "running",
+        "pid": 1978684,
+        "started_unix": 1791128349.4348655
+      }
+    },
+    "method_order": [
+      "partial_output_layers",
+      "attention_lora",
+      "residual_adapter",
+      "full_low_learning_rate"
+    ],
+    "created_unix": 1791128146.744798,
+    "heartbeat_unix": 1791128750.698875,
+    "resources": {
+      "0": {
+        "used_bytes": 45592084480,
+        "free_gib": 4.9521484375
+      },
+      "1": {
+        "used_bytes": 45570064384,
+        "free_gib": 4.9736328125
+      }
+    }
+  },
+  "latest_progress": {
+    "update": 1696,
+    "total_updates": 4707,
+    "epoch_fraction": 0.36031442532398555,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 27136,
+    "planning_loss": 6.368535757064819,
+    "world_objective": 19.520292282104492,
+    "loss": 6.758941650390625,
+    "imitation_loss": 4.573860168457031,
+    "metric_distillation_loss": 1.7946755290031433,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 23.79791259765625,
+      "context": 4.630871772766113,
+      "dynamics": 27.538982391357422,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 21.005456924438477
+    },
+    "lpwm_lr": 7.496871889881458e-06,
+    "planner_lr": 0.00022490615669644372,
+    "peak_allocated_gib": 22.077826499938965,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.0038624590379185975,
+    "update_seconds": 2.7510753109818324,
+    "elapsed_seconds": 6441.560630640073
+  },
+  "progress_age_seconds": 18.845343828201294,
+  "completed_percent": 36.03144253239856,
+  "loss_windows": {
+    "first16_logged_updates": {
+      "count": 16,
+      "first_update": 1,
+      "last_update": 240,
+      "planning_loss": 8.338691465556622,
+      "world_objective": 18.94904364645481,
+      "loss": 8.717672303318977,
+      "imitation_loss": 5.395525753498077,
+      "metric_distillation_loss": 2.9431656934320927,
+      "update_seconds": 4.230535506692831,
+      "input_preparation_seconds": 0.013253852805064525
+    },
+    "last16_logged_updates": {
+      "count": 16,
+      "first_update": 1456,
+      "last_update": 1696,
+      "planning_loss": 6.568543680012226,
+      "world_objective": 18.919146686792374,
+      "loss": 6.946926601231098,
+      "imitation_loss": 4.544350177049637,
+      "metric_distillation_loss": 2.0241934712976217,
+      "update_seconds": 3.240501417865744,
+      "input_preparation_seconds": 0.011406740002712468
+    },
+    "post_resume_logged_updates": {
+      "count": 8,
+      "first_update": 1584,
+      "last_update": 1696,
+      "planning_loss": 6.584900110960007,
+      "world_objective": 18.74573802947998,
+      "loss": 6.9598148465156555,
+      "imitation_loss": 4.566821873188019,
+      "metric_distillation_loss": 2.0180782079696655,
+      "update_seconds": 2.7469946708733914,
+      "input_preparation_seconds": 0.006230067250726279
+    }
+  },
+  "nonfinite_entries": [],
+  "last_gradient_check": {
+    "computed_at_update": 1664,
+    "module_gradients": {
+      "image_encoder": 23.79791259765625,
+      "context": 4.630871772766113,
+      "dynamics": 27.538982391357422,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 21.005456924438477
+    },
+    "meaning": "Pre-clipping norms; trainer clips global norm at5. Later log rows reuse this diagnostic until the next128-update check."
+  },
+  "validation": [
+    {
+      "epoch": 0,
+      "update": 0,
+      "clips": 128,
+      "ade_meters": 8.450129672884941,
+      "fde_meters": 17.812133342027664,
+      "cached_official_pdms_percent": 2.4129434833376426,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.1087741661355428,
+      "update": 512,
+      "clips": 128,
+      "ade_meters": 1.8675856590270996,
+      "fde_meters": 4.209834940731525,
+      "cached_official_pdms_percent": 70.85029642412982,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.2175483322710856,
+      "update": 1024,
+      "clips": 128,
+      "ade_meters": 1.4031447153538465,
+      "fde_meters": 3.2788087632507086,
+      "cached_official_pdms_percent": 76.67943670993715,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.3263224984066284,
+      "update": 1536,
+      "clips": 128,
+      "ade_meters": 1.5267064664512873,
+      "fde_meters": 3.5223619379103184,
+      "cached_official_pdms_percent": 79.1126098219804,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    }
+  ],
+  "checkpoints": {
+    "latest_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/latest.pt",
+    "latest_age_seconds": 412.52753710746765,
+    "latest_size_bytes": 509823709,
+    "checkpoint_interval_updates": 256,
+    "next_periodic_checkpoint": 1792
+  },
+  "source_checks": {
+    "source_sha256": {
+      "count": 38,
+      "all_match": true
+    },
+    "configuration_sha256": {
+      "count": 20,
+      "all_match": true
+    }
+  },
+  "failure_or_pause_markers": [],
+  "world_heldout_evaluation_completed": false,
+  "recent_wall_seconds_per_update": 2.8825416200535465,
+  "training_remaining_hours_without_future_validation_overhead": 2.4109257827725634,
+  "estimated_finish_kst_without_future_validation_overhead": "2026-10-05T03:10:38.865409+09:00",
+  "second_observation": {
+    "checked_at_kst": "2026-10-05T00:47:04.242892+09:00",
+    "update": 1712,
+    "progress_advanced": true
+  },
+  "interpretation": {
+    "execution": "Running; finite logged losses/gradients, no failure markers or observed memory breach.",
+    "planning": "Fixed dev128/127valid PDMS rises from76.6794 to79.1126 at1024->1536, but ADE1.4031->1.5267 and FDE3.2788->3.5224 worsen.",
+    "world": "Training SSLobjective is stable near18.9; held-out reconstruction/forecast retention is not yet evaluated.",
+    "attribution": "Does not isolate LPWM adaptation benefit from learning the planner. No trained frozen-LPWM control or independent-test result.",
+    "batch8_quality": "Latest monitor1536 predates batch change1576; batch8 planning quality will first be checked at2048.",
+    "next_validation_update": 2048,
+    "planned_final_validation": {
+      "planning_scenes": 1024,
+      "world_clips": 256
+    },
+    "training_finish_window_kst": "03:10-03:40 on2026-10-05, based on current speed and allowing monitor/visualization overhead; excludes post-training final validation."
+  },
+  "host_process_check": {
+    "queue_pid": 1902774,
+    "torchrun_pid": 1978684,
+    "worker_pids": [
+      1979560,
+      1979561
+    ],
+    "all_alive": true,
+    "gpu_snapshot": {
+      "0": {
+        "used_mib": 43480,
+        "free_mib": 5071,
+        "gpu_utilization_percent": 80,
+        "our_process_used_mib": 23914
+      },
+      "1": {
+        "used_mib": 43459,
+        "free_mib": 5093,
+        "gpu_utilization_percent": 75,
+        "our_process_used_mib": 23914
+      }
+    },
+    "scope": "Card utilization includes other users; our process memory is separate from total card memory."
+  }
+}

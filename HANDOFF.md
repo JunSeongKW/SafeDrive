@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 00:42 KST (Codex)
+마지막 갱신: 2026-10-05 00:48 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신10/5 00:47KST 읽기전용점검: Partial1712/4707(36.4%), 기존queue1902774/torchrun1978684 정상. Batch8본학습계속/후속LoRA·Adapter·full대기. Runtime설정변경없음. 근거 `results/lpwm_48gb_planning_v1/health_review_20261005_0045.json`.
 
 재개 후 확인: 1616/4707update, loss유한/OOM0, 최근새로그평균2.749s/update. `results/lpwm_48gb_planning_v1/post_resume_status.json`.
 
@@ -404,6 +406,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신1536dev128/유효PDM127: PDMS79.1126(1024의76.6794대비상승), ADE1.5267m/FDE3.5224m(직전1.4031/3.2788대비악화). 최신monitor는batch변경1576이전, 변경후첫검증2048대기.1664실제gradient유한·양수/frozenRGB0. 평균trainloss8.7177→6.9469, world학습loss안정이나held-out보존검증전.
 
 최신48GB 실측: 동일저장상태에서batch4/8 각8update, 뒤6회평균4.4078→2.9921s(32.12%시간감소). Batch8 카드전체최대관측45.5921GB/물리free최소4.9521GiB/tensorpeak22.0778GiB,OOM0. Worker0유지(기존0/2/4/8CPU비교에서증설이득없음). Checkpoint/AdamW보존CPU검사3개및4planning/2world engineering평가통과. `results/lpwm_48gb_planning_v1/execution_review.json`참조.
 
@@ -738,14 +742,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자48GB/배치증설요청을 실행 amendment로등록. 기존source/config보존, GPU guard를새wrapper에서적용.
-- Partial1576 model+AdamW125state를정상저장·복사하고4/8실측후빠르고안전한batch8선택.1577부터본학습재개.
-- 배치4→8/누적2→1로유효16유지.4.4078→2.9921s/update,전체VRAM최대관측45.5921GB/OOM0.
-- 기존CPUqueue2개를새4방법자동queue1902774로대체. LoRA/Adapter/full각profile·감사·학습·검증연결.
-- 체크포인트재개/설정불변/메모리선택CPU검사3개와engineering평가통과. 보고서·실측·전달문서갱신.
+- 사용자중간점검요청에따라기존로그/process/GPU/등록hash를읽기전용검사.1712update까지진행확인.
+- 고정dev PDMS상승과ADE/FDE악화를함께보고하고, 최신검증은배치변경전결과임을명시했다.
+- 실제gradient측정1664와후속로그의재사용값을구분. NaN/OOM없음/source38/config20일치.
+- 중간보고JSON과HANDOFF/RESUME갱신. 학습·queue·등록source/config변경없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신점검후계속실행: 다음2048monitor에서batch8전환후개발지표확인. 현재partial학습완료10/5 03:10–03:40KST예상(종료후1024planning/256world검증시간별도). 현재queue중복기동/추가설정변경없음.
 
 최신: 새queue1902774만 관찰하며 partial→검증→LoRA→검증→Adapter→검증→full2095이어받기→검증 순서를 유지. 각방법실측으로안전·속도선택하고최종 `results/lpwm_48gb_planning_v1/queue/four_method_summary.json`확인. `configs/lpwm_planning/execution_48gb_v1/queue.json`이현재진입점. 새queue root의pause.requested로전체중단. 기존queue/source/config를수정·재기동하지않는다. 아래48GB조회만했다는기록은후속실행승인으로대체됐다.
 
@@ -925,6 +930,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신중간판단: 정상실행과개발PDMS상승은확인되지만ADE/FDE는직전보다악화. LPWM적응단독planning이득과개발world성능유지는아직미확정.8batch실행후PDMS검증은2048에서처음수행된다. Source38/config20해시일치/전체VRAM45.6GB/OOM0.
 
 최신: GPU0·1카드전체48decimalGB/물리free3GiB/allocator23.2GiB/allocated22.75GiB. 유효planning16/SSL8/worker0/GT OFF/navtrain1epoch4707유지. 원본1576와full2095상태보존. Batch변경에따른dropout·개별SSL추출RNG변경은가능하며bitwise동일재개가아니다.8update실측은장기속도보장이나PDMS개선증거가아니다. 본학습및후속방법성능은검증대기. SharedGPU급증까지절대OOM방지를보장하지않으며상한감시로우리process만중단한다.
 
