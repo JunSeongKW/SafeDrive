@@ -1781,3 +1781,10 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - CPU5검사통과. 초기pytest는PYTHONPATH 누락으로collection실패했고명시한후정상. GPU0 4clip실행검사2.95초/peak2.69GiB/LPWMupdate0; 정확도검사는아님. nohupqueue504595, 공개GPU0worker504614/적응GPU1worker504615 기동. 14:20적응4356/30871/223초;free22.34GiB/peak2.69GiB. `kjs-lpwm-object-validation` 실행별칭추가,원환경이동없음. 추출→CPU판독→sharedsummary 자동연결.
 - Source/config/checkpoint hash는registration.json에보존. 추출도중공식decoder가64중variance기준30개선택임을추가확인. 이번판독의filter_key=None은full64재합성에의한pooling이며native30복원기여와다름을probe결과확인전 `decoding_scope_amendment.json`으로명시했다. Runtime변경은없으며nativeinstance검사는별도로30선택ID를고려해야함.
 - 원본Stage1/Stage2 source·gate·checkpoint·실패로그보존. 새학습loss미구현,Stage2미시작. 수동mask검수/causal future판독/학습된planner개입은후속. 직전0a8fd30 원격push는기존VSCode credential socket/GitHub인증오류로실패했다.
+
+## 2026-10-04 14:33 KST — Stage1 SSL 유지, GT 감독은 Stage2로 한정
+
+- 사용자는 GT 감독으로 particle이 주석 객체에 편중되고 taxonomy/개수/라벨 품질에 의존할 수 있음을 지적하며 Stage1 SSL 유지+Stage2 GT 결합을 제안했다. 해당 방향을 채택하고 직전 Stage1 GT 추가 적응 권고를 현재 경로에서 철회했다. 이전 실험 수치/로그는 보존하고 설계 이력에 superseded 표시했다.
+- GT fine-tuning이 SSL의 이득을 반드시 모두 없애지는 않지만, Stage2에서도 의존성/forgetting은 남는다고 명시. GT 중심/일대일particle/개수/presence 강제 없음, 미주석=unknown, 전체 영상 SSL loss 유지, state/future 보조 head와planning gradient, GT target/association SG를 권고했다. 직접boxloss가 없어도 learned crop 경로로 위치가 바뀔 수 있음.
+- 동일SSLcheckpoint의 Stage2 planning+world vs +GTauxiliary, label subset/특정auxiliary종류제외 대조를 설계 제안으로 기록. 라벨제외 객체도 RGB/planning에 노출될 수 있어 unseen-category 일반화로 과장하지 않음. 라벨량 sweep를 신규 실행하지 않았다.
+- Frozen readout 확인: 공개18,692/적응19,076 of30,871, 각각약973/977초, queue_failed없음/LPWMupdate0. 기존진단은GT로평가head만학습하므로최신원칙과일치. Source/config/학습/gate/queue/Stage2기동변경없음. 문서4개만갱신. dffe9f5 원격push는기존Git인증오류로실패했다.

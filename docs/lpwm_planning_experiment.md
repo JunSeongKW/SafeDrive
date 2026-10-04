@@ -1,6 +1,73 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 수정된 학습 원칙: Stage1 SSL 유지, GT 보조 감독은 Stage2
+
+사용자는 GT 감독 때문에 particle이 주석된 객체에 편중되고 라벨의 종류·개수·품질에 의존할 수
+있음을 지적했다. **Stage1은 원래 LPWM의 SSL 적응으로 유지하고, Stage2에서 planning과 GT 보조
+감독을 결합한다는 방향을 채택한다.** 직전의 ‘현재 객체 판독이 약하면 Stage1에 GT loss 추가’
+권고는 현재 실행 경로에서 철회한다. 아래 해당 절은 당시 제안 이력으로 읽는다.
+
+### SSL의 장점과 남는 한계
+
+LPWM의 영상만으로 장면을 분해하는 사전학습은 라벨이 없는 영상과 명시하지 않은 종류의 장면
+요소도 학습 대상으로 삼을 수 있다. 이것이 모든 의미 객체나 planning 중요도를 자동으로
+발견한다는 보장은 아니다. RGB 면적/텍스처/해상도에 따른 편향도 기존 검증에서 계속 조사한다.
+
+GT fine-tuning을 추가했다고 이미 학습한 SSL 정보가 반드시 모두 사라지는 것은 아니다. 다만
+라벨 taxonomy/누락/불균형에 맞춰 표현이 좁아지거나 기존 능력이 손상될 가능성이 있다.
+특히 particle 중심을 GT box 안으로 강제하고, 주석 없는 particle의 presence를 낮추거나,
+particle 수를 GT 객체 수에 맞추면 해당 의존성을 직접 설계에 넣게 된다. 이를 사용하지 않는다.
+Stage2에 적용해도 이 위험은 남으므로 단계 분리와 정보 유지 검사를 함께 사용한다.
+
+| 단계 | 목적과 감독 | 갱신 범위 |
+|---|---|---|
+| Stage1 | 영상 복원·공식 temporal ELBO를 통한 SSL 도메인 적응. 객체 GT 입력/loss 없음 | 공식 encoder/context/dynamics/decoder |
+| Stage1 검증 | Frozen 표현의 객체 상태 판독, 공간·시간 분해와 미래 예측 검사. GT는 평가 target/association | 평가용 판독기만 갱신, LPWM 고정 |
+| Stage2 | Planning loss + 유지하는 SSL world loss + 객체 상태/미래의 GT 보조 loss | LPWM 전체 low LR, planner 전체 학습. GT target는 SG |
+
+Stage1의 현 구현은12장 posterior 복원과11개 transition KL이다. 과거4장→미래8장 causal RGB
+rollout loss를 이미 학습하고 있다고 바꿔 설명하지 않는다. Stage2의 추가 causal object-future
+감독은 새 loss로 구현/검증해야 한다. 최종 방법은 **SSL 사전학습 후 감독을 포함한 planning 적응**이며,
+전체 학습 과정이 label-free라는 주장은 하지 않는다.
+
+### Stage2에서 라벨 편중을 제한하는 설계
+
+1. GT는 target/학습용 association에만 사용한다. 온라인 encoder·planner 입력은 관측 영상/ego/command다.
+2. 객체 하나와 particle 하나를 강제로 맞추지 않는다. 여러 particle의 feature에서 객체 상태를
+   읽는 작은 보조 head를 우선한다. GT 중심/박스 크기로 particle을 직접 끌어오는 loss는 넣지 않는다.
+3. 주석이 없는 particle/영역은 auxiliary loss에서 unknown으로 남긴다. 이들을 no-object/배경
+   정답으로 간주하거나 presence를0으로 감독하지 않는다. 라벨 수로 particle 예산을 정하지 않는다.
+4. 전체 영상의 SSL loss를 유지한다. 객체가 주석된 영역만으로 world loss를 계산하지 않는다.
+   거리·속도·미래 움직임의 보존을 우선하고 semantic class CE는 분리 가능한 보조 항으로 둔다.
+5. GT target/비미분 association은 SG로 두고 feature→encoder 및 causal future→context/dynamics
+   gradient는 유지한다. 직접 박스 정렬 loss가 없어도 learned feature/crop 경로로 위치가 달라질 수
+   있으며 ‘particle이 GT 쪽으로 이동하지 않는다’고 보장하지 않는다.
+6. Object auxiliary 가중치는 train gradient 기여와 내부 validation으로 정하고 고정한다.
+   Loss 숫자의 크기만으로 중요도를 판단하지 않는다. World와 planning 성능이 함께 유지되는지 검사한다.
+
+### 필요한 비교와 해석
+
+- 같은 SSL checkpoint/후보/데이터/학습량의 Stage2 `planning+world`와
+  `planning+world+GT auxiliary`를 우선 비교한다. Frozen LPWM+planner는 fine-tuning 효과의 기준이다.
+- 라벨 일부만 auxiliary supervision에 쓰는 대조를 설계한다. 영상·planning/world 샘플과 업데이트 수는
+  같게 유지한다. 예를 들어25%/100%는 후속 후보이며 이번에 새 sweep를 실행 등록한 것은 아니다.
+- 특정 종류의 auxiliary label을 제외하는 검사도 가능하다. 해당 객체는 영상/SSL/planning에서
+  여전히 관측될 수 있으므로 ‘처음 보는 종류에 대한 일반화’로 과장하지 않는다.
+- 검수 mask/객체 feature 판독/causal future/PDMS와 함께, 전체 및 비주석 영역의 영상·미래 오차도
+  측정한다. 투영 박스 밖은 ‘객체가 없는 배경 GT’가 아니다. 수동 검수 없이는 비주석 영역 proxy로만 보고한다.
+- Stage1 판독이 약해도 GT 감독으로 자동 전환하지 않는다. 해상도·가림·판독기 한계·SSL objective와
+  실제 미래 예측을 진단하고, 추가 Stage1 적응이 필요하면 객체 GT 없는 범위에서 수정한다.
+
+현재 실행 중인 frozen readout queue는 이 원칙과 일치한다. GT로 평가용 판독기를 학습하지만
+LPWM은 update0이며, Stage1 가중치·기존 gate·Stage2 실행 상태를 변경하지 않는다.
+이 절은 학습 원칙 수정이며 GT 보조 loss가 Stage2 runtime에 이미 구현/실행됐다는 뜻은 아니다.
+원문 근거: [LPWM](https://arxiv.org/html/2603.04553v1)은 영상 기반 자기지도 장면 분해를 제안한다.
+위 라벨 의존성 통제와 Stage2 loss 구성은 우리의 연구 설계다.
+
 ## 2026-10-04 GT 객체 감독의 위치와 Stage2 방향 판단
+
+**이력 주의:** 아래 Stage1 GT 추가 적응 제안은 위 최신 결정으로 철회됐다. Stage1은 SSL 유지,
+GT auxiliary fine-tuning은 Stage2에 한정한다. 구현·검증 실행 기록과 기존 수치는 그대로 보존한다.
 
 사용자가 GT box를 Stage1 입력/loss에 사용하는 안과 Stage2 공동학습으로 개선하는 안의 판단을
 요청했고, 앞 절에서 제안한 객체 표현 검증 방법의 적용에 동의했다.

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 14:23 KST (Codex)
+마지막 갱신: 2026-10-04 14:36 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 14:33 KST: 최신 사용자 방향은 Stage1 SSL 유지, GT 객체 감독은 Stage2 planning+world 보조 loss에 한정. 직전 Stage1 GT 보정 제안 철회. 기존 frozen readout queue 계속 실행(공개18,692/적응19,076 of30,871, 오류없음/LPWMupdate0), runtime/config 변경 없음.
 
 - 2026-10-04 14:20 KST: 사용자 검증 방법 승인에 따라 전체 frozen object readout 진단 실행 중. Queue504595 / 공개GPU0 worker504614 / 적응GPU1 worker504615, `kjs-lpwm-object-validation`. 30,871clip/312,611객체 관측; 추출 후 CPU 판독·paired report 자동 실행. 현재적응4,356clip/223초/peak2.69GiB, LPWM update0. Stage2는 계속 미시작. 등록 source/config를 실행 도중 변경하지 않는다.
 
@@ -366,6 +368,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- Stage1 객체 GT 감독을 추가하면 label taxonomy/누락/수에 편중될 위험이 있다는 사용자 지적을 반영했다. SSL 사전학습의 장점이 GT fine-tuning으로 반드시 전부 사라지는 것은 아니지만, Stage2에서도 의존성과 forgetting 위험은 남는다. World SSL 유지·unannotated unknown·직접box/개수/presence강제 없음·GT auxiliary 유무/라벨량 대조를 새 원칙으로 문서화했다.
 
 - GT box를 encoder 필수입력으로 사용하는 안보다 train-only 객체/미래 감독으로 사용하는 안을 권고했다. 현재정보가 유지되면 Stage2 planning+world+object/future 보조감독 비교, 현재정보가 부족하면 Stage1 추가적응 우선. 아직 이 학습 변경은 제안이며 실행되지 않았다. VAD§3.4의 중간감독+planning 공동학습을 원문 대조했다.
 - 신규 검증: 23,126train/7,745dev clip, 객체 관측train222,646/dev89,965. Train recording98fit/24validation, dev40. 선형ridge 7입력대조, state5항목/class3, 정규화강도train내선택/이후전체train적합, 상태오차recording CI. CPU5검사와GPU4clip실행검사통과. 최종probe점수는 아직 없음.
@@ -655,14 +659,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- GT는 train-only 감독으로 활용하고 현재 표현을 검증한 뒤 Stage2 공동학습+보조감독 또는 Stage1 보정을 결정하는 방향을 문헌/코드와 대조했다.
-- 승인된 검증의 첫 단계로 전체 frozen LPWM 관측표현 추출·선형판독·paired 비교 코드/설정/queue를 구현하고 실행했다. CPU5검사·GPU 메모리검사 통과. 기존 Stage1/Stage2 runtime/gate/가중치/결과는 보존하며 새 진단의 source hash와 full64 decoder 해석 amendment를 공유한다.
+- 사용자 수정에 따라 Stage1은 SSL 유지, GT 보조 감독은 Stage2에만 적용하는 방향으로 연구 문서/README/인수인계를 갱신했다. 직전 Stage1 GT 보정 제안은 이력으로 표시하고 현재 권고에서 철회했다.
+- GT 중심/일대일/particle개수/presence 강제를 피하고 미주석 영역 unknown·전체world objective 유지·보조loss 유무/라벨량 대조를 명시했다. 기존 frozen readout은 그대로 진행하며 학습/평가 runtime·source/config·gate는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
 
+- 최우선 학습 원칙: Stage1 SSL 유지. Frozen probe가 약하다고 Stage1에 GT loss를 자동 추가하지 않는다. 해상도/가림/판독기/SSL 목적을 진단한다. GT state/future 보조감독은 Stage2에만 구현하고 planning+world 대조와 비교한다. 아래 Stage1 GT 보정을 제안한 문장은 철회된 이력이다.
+
 - 최우선: `outputs/lpwm_object_readout_validation_v1/queue_state.json`, 각모델progress, 완료 후 `results/lpwm_object_readout_validation_v1/summary.json` 확인. 신규queue를 중복실행하지 않는다. Source 변경/worker 실패 시 queue_failed 기록 후 의존 작업 차단. 원본 Stage1 실패queue 자동재개 없음.
 - Readout 결과는 GT observed ROI/track으로 위치를 알려준 조건부 정보검사다. GT-ROI/geometry/background 대조와 support/종류별 표본을 함께 보고 native detection/tracking으로 확대해석하지 않는다. Native30 alpha 검사·검수mask·causal future readout·학습된 planner 개입은 여전히 후속 작업이다.
-- 검증 결과에 따라 GT object/future 보조감독 위치를 결정하고 새 학습config/source/gate amendment를 명시한다. 현재정보부터 약할 때만 Stage1 보정을 우선하며, 미래만약하면 dynamics/causal future objective를 조사한다. 객체loss훈련head를 그대로 독립probe로 평가하지 않는다.
+- 검증 결과를 확인하고 Stage2 GT object/future 보조감독의 새 학습config/source/gate amendment를 명시한다. 현재정보/미래정보의 병목은 분리하되 Stage1 추가적응은 SSL 범위로 유지한다. 객체loss훈련head를 그대로 독립probe로 평가하지 않는다.
 
 - 최신 제안은 `docs/lpwm_planning_experiment.md`의 ‘객체 구분·정보 보존의 검증 설계’ 절. 공개/적응 checkpoint frozen probe + full64 alpha 진단 우선, mask/temporal/future 진단 후 학습된 planner 개입 순서다. 판독기는 각 표현에 동일 예산으로 따로 학습하고 geometry/background/GT-ROI 대조를 둔다. 새 평가 코드·cache는 아직 없음.
 - 기존 box proxy는 보조 지표로 해석한다. 새로운 필수 gate를 만든다면 결과를 보기 전에 목적·비교군·허용 열화량을 등록하고 기준 수정 근거와 기존 실패를 보존한다. Stage2 유용성을 Stage1 진입 조건으로 요구하는 순환 검증은 피한다.
@@ -791,6 +797,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 최신 사용자 방향 확정: Stage1에는 객체 GT 입력/loss를 넣지 않고 Stage2에서만 GT auxiliary+planning+SSL 유지. 감독 없는 요소도 표현해야 하며 전체 pipeline을label-free로부르지 않는다. Stage2로감독을옮기는것만으로label편중해결을보장하지않음. 이번수정은문서원칙이며진행중frozen진단과기존runtime는불변.
 
 - 최신 사용자는 검증 방법 적용을 승인했다. 이에 frozen readout 진단을 실제 시작했지만 GT보조loss Stage1/Stage2 학습은 아직 제안 단계다. No GT-box deployment input, LPWM update0, GPU0·1만 사용/6GiB reserve/8GiBallocated cap. Shared 원본 데이터 read-only.
 - 현재 판독은 full64 decoding alpha를 사용하는 평가 구성이다. Native decoder는variance선택30개이며 native instance mask와 혼동하지 않는다. Pixel mask의수동검수/미래상태판독/학습된planner개입은 이queue가 완료해주지 않는다. 과거4장 GTassociation을 사용하므로 자동tracking 결과도 아니다.
