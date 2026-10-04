@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 11:21 KST (Codex)
+마지막 갱신: 2026-10-04 11:42 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-04 11:42 KST 진행/ETA 점검:** Stage1 전체개발평가 공개/적응 각3248/3208/7,745clip. GPU0 PID3569927/GPU1 PID3569928 정상, 기존supervisor919150/queue1481082 유지. 학습20epoch는완료, Stage2는gate대기.
 
 **2026-10-04 11:21 KST 최신:** Stage1 20epoch/28,920update 완료, training_summary.json 및 최종checkpoint 확인. 기존supervisor가 공개GPU0/적응GPU1 전체7,745개 개발평가를자동시작했다. Stage2는적응gate대기. CPUteacher준비완료. 이전학습중상태는당시기록.
 
@@ -344,6 +346,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-04 11:42 KST:** 11:21의각242clip 기록과현재카운트로평가처리율/ETA계산. 공개2.381clip/s,적응2.350clip/s. 각GPU48/51%,VRAM2.6/2.9GiB는추론측정. `results/lpwm_navsim_full_posttraining_v2/evaluation_progress_20261004_1142.json`에기준시각/완료예정시각보존.
 
 **Stage1 최종 학습결과:** dev512 loss19.696784,PSNR21.076768,dynKL4221.361,contextKL697.720. 고정8장면미래MSE .0210534로epoch15 .0230964에서추가개선; persistence .0403294. 앞선10→15정체가최종20epoch까지지속된것은아님. `results/lpwm_navsim_full_posttraining_v2/training_completion_check_20261004.json`; 전체적응성공판정전.
 
@@ -603,10 +607,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 점검중Stage1 20epoch/28920update완료확인. 최종dev512/고정8장면미래예측/weight변화와전체개발평가자동전환근거JSON보존.
-- README/AGENTS/HANDOFF/RESUME_NOTES를학습완료·전체검증진행으로갱신. 학습/source/queue변경없음.
+- 현재공개/적응LPWM 전체개발평가진행률과프로세스/GPU를점검하고실측처리율기반ETA JSON보존.
+- Stage1학습완료/현재검증진행/Stage2 gate대기와각예상시간범위를구분해인수인계갱신. 런타임변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 최신ETA는전체개발평가추론에한정한다. 이후통계집계/Stage1추가검사/teacher gate/GPUprofile가이어진다. Stage2조건별94,140update×3의전체완료시각은실제GPUthroughput측정전확정하지않는다.
 
 - 최우선: 이미완료한Stage1을재학습하지않고 공개/적응전체개발평가와gate를확인한다. 기존supervisor/새queue유지. 과거pipeline_stopped(10/03 21:34)는현재실패로오해하지않는다.
 
@@ -713,6 +719,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 평가진행률/ETA는부분개발결과의성능판정이아니다. 전체Stage1gate/Stage2시작미완료이며GPU소량사용은현재추론단계때문이다. 처리율변동/후속집계시간은ETA에불확실성을준다.
 
 - Stage1학습완료와적응검증완료를구분한다. 개발dynamicsKL후반상승은남아있지만최종8장면자율미래MSE는epoch15대비추가개선. 전체7,745평가/CI/위험별결과로판정한다. 이번원격push도기존Git인증문제로실패(b7a42d3); 로컬기록보존.
 

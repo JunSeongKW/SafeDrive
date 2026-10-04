@@ -1705,3 +1705,9 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 전체28920update/20epoch 완료, checkpoint SHA71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f. 네모듈parameter sample변화/gradient정상. Dev512 loss19.696784/PSNR21.076768,dynKL4221.361.
 - 최종고정8장면미래MSE0.0210534로epoch15보다추가개선. 직전기록의epoch10→15정체가끝까지지속됐다고해석하지않는다. 전체개발gate는미완료.
 - 공개/적응full evaluation자동기동로그확인. `results/lpwm_navsim_full_posttraining_v2/training_completion_check_20261004.json` 및각evaluation records/log를다음확인. b7a42d3 push기존인증실패,학습에는영향없음.
+
+## 2026-10-04 11:42 KST — 현재 작업 및 완료예정시간 점검
+
+- published: 3248/7745 (41.94%), 11:21이후2.381clip/s, ETA2026-10-04T12:13:30.870112+09:00.
+- posttrained: 3208/7745 (41.42%), 11:21이후2.350clip/s, ETA2026-10-04T12:14:13.359031+09:00.
+- Supervisor/queue/평가2process정상,등록sourcehash불변. Stage2는Stage1gate후GPUprofile전이며전체완료시각미측정. `results/lpwm_navsim_full_posttraining_v2/evaluation_progress_20261004_1142.json`. 학습/queue변경없음.

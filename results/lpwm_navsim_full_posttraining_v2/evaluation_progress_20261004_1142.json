@@ -1,0 +1,54 @@
+{
+  "recorded_at": "2026-10-04T11:42:02.553668+09:00",
+  "current_work": "Published and NAVSIM-posttrained LPWM full development evaluation on GPU0 and GPU1 respectively.",
+  "stage1_training_complete": true,
+  "stage1_optimizer_updates": 28920,
+  "stage1_epochs": 20,
+  "evaluation": [
+    {
+      "model": "published",
+      "completed_clips": 3248,
+      "total_clips": 7745,
+      "percent": 41.936733376371855,
+      "since_1121_clips_per_second": 2.381486436623485,
+      "recent_clips_per_second": 2.189923763489553,
+      "eta_from_long_rate": "2026-10-04T12:13:30.870112+09:00",
+      "eta_from_recent_rate": "2026-10-04T12:16:16.049810+09:00",
+      "records_modified_at": "2026-10-04T11:42:02.472672+09:00"
+    },
+    {
+      "model": "posttrained",
+      "completed_clips": 3208,
+      "total_clips": 7745,
+      "percent": 41.42027114267269,
+      "since_1121_clips_per_second": 2.349796663681057,
+      "recent_clips_per_second": 2.133771872118026,
+      "eta_from_long_rate": "2026-10-04T12:14:13.359031+09:00",
+      "eta_from_recent_rate": "2026-10-04T12:17:28.835329+09:00",
+      "records_modified_at": "2026-10-04T11:42:00.940666+09:00"
+    }
+  ],
+  "gpu_observation": {
+    "published": {
+      "gpu": 0,
+      "pid": 3569927,
+      "utilization_percent": 48,
+      "used_mib": 2693
+    },
+    "posttrained": {
+      "gpu": 1,
+      "pid": 3569928,
+      "utilization_percent": 51,
+      "used_mib": 2959
+    }
+  },
+  "queue_stage": "waiting_for_stage1_full_training_and_validation",
+  "queue_failed": false,
+  "registered_runtime_sources_match": true,
+  "candidate_teacher_preparation_complete": true,
+  "stage2_status": "Not started; contingent on Stage1 and teacher gates, followed by actual GPU gradient/memory/throughput profiling.",
+  "stage2_planned_updates_per_condition": 94140,
+  "stage2_conditions": 3,
+  "eta_scope": "Stage1 full-development inference only. Report aggregation and stage gates follow. Full Stage2 finish time is not measured yet.",
+  "actions": "Read-only inspection; no runtime source/config/process changes."
+}
