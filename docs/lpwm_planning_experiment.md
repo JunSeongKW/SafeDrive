@@ -1,5 +1,131 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 객체 구분·정보 보존의 검증 설계 — 제안, 미실행
+
+**답하려는 하위 질문:** LPWM이 현재 장면의 개별 객체와 움직임을 표현하고, planning에 필요한
+그 객체의 미래 정보를 보존하는가? 객체 종류를 분류하는 능력, 서로 다른 instance를 분리하는 능력,
+동일 객체를 시간에 걸쳐 대응하는 능력, 그 정보를 planning에서 이용하는 능력을 따로 측정한다.
+이 절은 후속 평가 설계이며 새 probe 학습·feature 추출·mask 주석·Stage2 실행 결과가 아니다.
+
+LPWM 원문은 비지도 keypoint/box/mask 발견을 제안한다. 따라서 semantic detection head가 없다는
+사실이 객체 분해를 평가할 수 없다는 뜻은 아니다. 다만 NAVSIM에서도 객체 단위 분해가 성립하는지,
+여러 particle에 걸친 정보가 작은 판독기로 읽히는지는 검증이 필요하다.
+
+### 1. 가장 먼저: 고정 표현에서 객체 상태를 읽는 검사
+
+- 공개 checkpoint와 Stage1 마지막 checkpoint를 각각 freeze/eval한다. 과거 관측4장으로 전체64개
+  particle의 appearance/position/scale/presence/depth 및 background 표현을 추출한다.
+  LPWM 자체는 갱신하지 않고, 별도의 작은 linear/ridge 판독기만 NAVSIM train 주석으로 학습한다.
+  작은 MLP는 선형 판독 실패가 단지 비선형 encoding 때문인지 보는 보조 비교로 제한한다.
+- **GT 위치를 알려준 조건에서의 판독**을 먼저 수행한다. 현재 객체 GT 투영 box와 실제 합성 alpha
+  기여를 이용해 여러 particle의 feature를 모은다. 상위16개 제한이나 particle=객체 일대일 가정을
+  두지 않는다. GT box는 평가용 association이며, 모델이 객체를 스스로 발견했다는 증거로 쓰지 않는다.
+  Box가 겹치거나 배경을 포함하는 불확실성과 association 유효율을 별도로 보고한다.
+- 판독 대상: vehicle/pedestrian/bicycle 종류, 현재 상대 위치·거리, 관측 구간의 속도/이동 여부.
+  분류는 macro-F1/종류별 recall, 상태는 m 및 m/s 오차로 보고한다. LPWM의 compositing depth를
+  미터 단위 depth로 간주하지 않고, 실제 상태 주석으로 판독기 출력을 감독한다.
+- 동일 구조·학습 데이터·예산의 판독기를 각 checkpoint에 따로 학습한다. 서로 다른 latent 좌표계에
+  같은 학습된 판독기 가중치를 그대로 적용하여 적응 전후를 비교하지 않는다.
+- Geometry only / appearance only / 둘의 결합, background only / particle+background를 비교한다.
+  GT ROI 좌표·크기만의 대조와 feature 대응을 섞은 대조도 둔다. GT 위치를 이용한 pooling에는
+  위치 정보가 내재하므로, GT 좌표를 직접 주지 않아도 위치·크기 shortcut 가능성이 남는다.
+  단순 2D 위치 판독 성공을 의미 정보의 증거로 삼지 않는다.
+- 객체와 대응하지 못한 표본을 조용히 제외하지 않는다. Support 없음 비율과 전체 객체 기준 결과,
+  유효 association만의 조건부 결과를 함께 보고한다. Label imbalance와 유효 velocity 주석 수도 기록한다.
+
+이 검사는 **해당 조건에서 정보가 읽힌다**는 증거다. 낮은 점수만으로 정보가 완전히 없다고
+단정할 수 없고, 높은 점수도 비지도 instance 발견이나 planner 활용을 증명하지 않는다.
+큰 검출기를 새로 학습한 결과를 encoder 자체의 객체 이해로 해석하는 문제를 피하기 위한 설계다.
+
+### 2. 공간적으로 서로 다른 객체가 분리되는지 검사
+
+Top16 사각형 대신 전체64개 particle의 실제 decoder alpha contribution을 확인한다.
+각 객체가 여러 particle로 분해되는 정도와, 하나의 particle이 서로 다른 객체/배경에 걸치는 정도를
+분리해 보고한다. 차량 앞부분·뒷부분이 별개 particle인 경우도 시각화에 그대로 남긴다.
+
+현재 확인한 cache에는 projected 3D box/category/track ID가 있으며 pixel instance mask GT는 없다.
+따라서 box overlap은 계속 보조 진단이다. 정확한 분리 평가에는 recording과 객체 크기·종류·회전을
+나눈 약200프레임 규모의 작은 **수동 검수 instance mask 평가셋**을 제안한다. 표본 수는 실행 전
+종류별 확보량을 확인해 등록한다. GT projected box를 pixel mask 정답으로 대체하지 않는다.
+자동 segmentation은 주석 초안에 쓸 수 있지만 검수하지 않은 출력을 독립 정답으로 취급하지 않는다.
+
+- Native particle mask의 foreground ARI 및 best-overlap, 객체별 coverage/purity, split/merge를 보고한다.
+  ARI와 단일 mask best-overlap은 한 객체가 여러 부분으로 나뉜 표현을 불리하게 평가하므로
+  strict instance 분리의 진단으로만 해석하고 LPWM 전체 적응의 필수 gate로 삼지 않는다.
+- 여러 particle를 묶는 평가는 native 결과와 구분한다. GT를 보고 최적의 union을 고른 결과는
+  oracle upper bound다. 같은 수의 고정 grid도 이 방식으로 높은 coverage를 만들 수 있으므로,
+  particle 수/영역 예산별 grid 대조와 함께 보고한다.
+- 실제 grouping을 도입한다면 train에서 정한 feature/alpha/시간 연속성 규칙을 고정하고 평가한다.
+  Test GT로 grouping 규칙을 조정하지 않으며, 새 grouping의 효과를 LPWM 원래 출력과 구분한다.
+
+### 3. 시간에 따른 동일 객체와 움직임의 유지
+
+LPWM은 explicit particle tracking을 제거한 설계이므로 particle index를 GT track ID로 간주하지 않는다.
+먼저 GT로 위치를 알려준 객체 feature가 다음 프레임에서 같은 객체와 유사한지 retrieval로 검사한다.
+같은 종류의 다른 객체를 후보로 포함하고, 위치/크기만으로 대응하는 대조를 둔다. 이 결과는
+GT-localized feature consistency이며 자동 tracking 성능으로 부르지 않는다.
+
+자동 대응을 평가하려면 현재·과거 정보만 사용하는 동일 matcher를 두 모델에 적용한다.
+미래 GT로 매 프레임 연결을 정정하면 identity 유지 검사가 아니므로 금지한다. 객체 단위 출력이
+정의된 뒤에만 ID switch/IDF1을 적용한다. 가림 전후 재등장과 화면 밖 이탈은 구분하고,
+projected box 겹침만으로 실제 가림 여부를 확정하지 않는다. Ego motion과 객체 motion을 나누는
+상태 오차에서는 좌표계/ego 입력을 명시하고 모든 비교군에 동일하게 적용한다.
+
+### 4. 그 객체의 미래 정보가 보존되는지 검사
+
+현재 상태 판독에 이어 과거4장만으로 미래8장을 rollout하고 0.5/1/2/4초를 따로 평가한다.
+공개 모델 / 적응 모델 / 마지막 상태 유지 / 동일 관측에서 추정한 등속 이동을 비교한다.
+기존 객체ROI RGB 오차에 더해, 검수 mask 내부의 미래 복원과 미래 latent 상태 판독을 제안한다.
+
+- 상태 판독기는 각 모델의 관측 frame 표현으로 학습한 뒤 고정하여 해당 모델의 미래 particle에
+  적용한다. 미래 GT 영상으로 encode한 표현은 별도 privileged reference로만 사용한다.
+  Forecast와 이 reference 간 차이는 dynamics/분포 이동 진단이며 encoder 오류와 동일시하지 않는다.
+- 객체별 미래 판독은 현재 GT association에서 시작하는 조건부 검사와 자동 association 검사를
+  구분한다. 미래 GT box로 particle를 다시 선택하여 미래 위치를 예측하면 답의 위치가 입력에
+  섞이므로 허용하지 않는다. Predicted feature/alpha에 대한 causal matcher만 사용하고 GT는 채점한다.
+- 처음에는 예측 시점 camera/ego 기준 상대 상태로 오차를 정의한다. 현재 ego 기준의 미래 metric
+  위치를 추가할 때는 ego motion 예측/입력 조건을 별도 명시한다. GT 미래 ego pose를 모델 입력으로
+  넣어 좌표 변환한 결과를 과거 관측만의 예측으로 보고하지 않는다.
+- Sampling 수와 seed를 고정하고 평균·불확실성을 보고한다. Best-of-many만으로 persistence를
+  비교하지 않는다. 작은/먼 객체와 장시간 예측은 별도 분해한다.
+
+### 5. Stage2 이후: 객체 정보가 실제 경로 판단에 쓰이는지
+
+같은 관측/command/후보 집합/학습된 planner를 유지하고, 특정 객체에 대응하는 **particle 집합**의
+정보를 교체한다. 현재와 미래 정보 교체는 별도 수행하며, 미래만 교체할 때 현재 memory를 유지한다.
+대상 객체의 판독 오차와 후보 순위/선택 regret/공식 PDMS가 함께 어떻게 바뀌는지 본다.
+
+단순 zero-out은 분포 밖 입력이나 alpha 정규화 변화를 만들 수 있으므로 민감도 진단으로 한정한다.
+가능하면 유사 geometry/presence 조건의 feature 교체와 배경·무작위 집합 대조를 사용한다.
+교체 particle 수뿐 아니라 alpha 영역/기여량도 맞추고, 여러 개입 방식에서 결론이 유지되는지 확인한다.
+경로가 바뀌었다는 사실만으로 도움을 증명하지 않는다. 관련 객체 정보 교체에서 안전/선택 성능이
+대응 대조보다 악화되는지 함께 확인한다. 이는 모델 내부 정보 사용의 근거이며 실제 교통의 반응적
+인과 효과와 같지 않다. 학습되지 않은 planner로 이 검사를 수행해 유용성을 결론 내리지 않는다.
+
+### 실행 우선순위와 판정 범위
+
+1. 현재 공개/적응 checkpoint의 frozen state probe + 전체64 alpha 시각화를 우선 구현한다.
+   관측/미래 누출, GT association 조건, class별 표본 수, 지원되지 않은 객체 비율을 먼저 감사한다.
+2. 작은 mask 평가셋으로 instance 분리/부분 표현을 확인하고 temporal/causal future 검사를 이어간다.
+3. Stage2에서 frozen-LPWM 대조와 full low-LR LPWM을 같은 planner 조건으로 비교하고 개입 평가한다.
+   Stage2 결과를 Stage1 진입 전 필수 요건으로 요구하는 순환 gate를 만들지 않는다.
+
+Probe 학습은 기존 train recording에서만 하고 hyperparameter는 그 안의 recording 분할로 선택한다.
+기존 dev40 recording은 이미 연구 판단에 사용된 개발셋이며 독립 test로 바꿔 부르지 않는다.
+전체/객체 종류/크기·거리/직진·회전/검증 가능한 가림 조건을 보고하고, CI는 recording 단위 paired
+bootstrap을 사용한다. Probe seed 반복과 LPWM 적응 seed 반복의 불확실성을 구분한다.
+단일 자의적 threshold로 ‘완벽 적응’을 판정하지 않는다. 후속 gate를 만든다면 검사 목적·비교군·
+허용 열화량을 실행 전에 별도 등록하고 기존 실패 로그와 수정 근거를 함께 보존한다.
+
+기존 full dev 저장파일에는 이 probe에 필요한 전체 particle feature/alpha가 없어 새 추출이 필요하다.
+현재 이 절은 설계 기록이며 feature cache/판독기/새 gate는 아직 구현·실행되지 않았다.
+
+근거: [LPWM 원문](https://arxiv.org/html/2603.04553v1)은 비지도 분해와 explicit tracking 제거를
+설명한다. [Dittadi et al., ICML 2022](https://proceedings.mlr.press/v162/dittadi22a.html)는 segmentation과
+downstream object-property prediction을 별도로 평가하며,
+[공식 평가 코드](https://github.com/addtt/object-centric-library)는 linear/MLP 판독을 제공한다.
+위 NAVSIM 상태·미래·planning 개입 프로토콜은 이를 참고한 우리의 제안이며 해당 논문의 주행 검증 결과가 아니다.
+
 ## 2026-10-04 정정: 실패한 지표는 자체 particle–GT 박스 기하 대응 proxy
 
 사용자가 "LPWM에는 객체 detection/segmentation 단계가 없는데 객체 표현 검증은 무엇인가"를 지적했다.

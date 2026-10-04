@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 13:32 KST (Codex)
+마지막 갱신: 2026-10-04 13:48 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04: 사용자 요청 객체 구분 검증 설계 완료. Frozen state probe / 실제 alpha 기반 instance 분리 / temporal association / causal future / 학습된 planner 개입의 다섯 검사를 기존 연구 문서 첫 절에 제안. 새 학습·feature 추출·mask 주석·gate 변경 없음. Stage2 미시작 유지.
 
 - 2026-10-04 13:30 KST: 사용자지적에 따라 객체검증의정의를확인/정정. LPWM detection/semantic segmentation 단계는없고,실패는자체top16 particle–GT박스기하proxy. 등록값/실패상태보존하되필수gate타당성미확립을문서에명시. 분해작업은저장NPZ/GT구조와GPU여유조회까지;추가추론/학습/Stage2없음.
 
@@ -362,6 +364,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- LPWM 원문은 비지도 keypoint/box/mask 발견을 제안하며 explicit tracking을 제거한다. 따라서 semantic head 부재를 객체 분해 불가능으로 해석하지 않고, particle index를 track ID로 해석하지 않는다. Dittadi ICML2022의 segmentation/object-property prediction 분리 평가와 공식 linear/MLP probe를 참고했다.
+- 후속 검사는 GT-localized 정보 판독과 자동 instance 발견을 분리한다. 전체64 feature/alpha 신규 추출이 필요하며, 현재 확인한 cache의 projected box는 pixel instance mask GT가 아니다. 수동 검수 mask 평가셋은 제안 단계다. Probe/새 객체 통계/PDMS 결과 없음.
 
 - 공식decoder RGBA/alpha합성 확인: mask는복원기여이지semantic/GTinstance segmentation보장아님. 평가box는particle position/scale로만든glimpse영역;presence상위16→GTvehicle/pedestrian/bicycle 투영box와class-agnostic Hungarian IoU≥.1. Category는모델출력이아닌GT평가분류.
 - Top16절단/presence선택/객체부분표현/일대일matching때문에proxy하락만으로객체정보손실·도메인적응실패를입증하지못함. 이지표의필수gate사용근거부족을인정하고현재상태해석정정. 원인분해미완료.
@@ -644,10 +649,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자지적에따라‘객체표현검증실패’를자체particle–GT박스기하proxy실패로정정. 공식alpha합성과평가GT출처/일대일matching/상위16제약을코드로확인하고필수gate타당성미확립명시.
-- 기존LPWM문서/README/HANDOFF/RESUME설명갱신. 실제gate·과거결과·등록runtime는보존. 추가GPU추론/학습/분해통계실행없음.
+- 사용자 질문에 따라 객체 구분을 상태 판독·공간 분리·시간 대응·미래 보존·planning 사용으로 나눈 검증 프로토콜을 기존 LPWM 연구 문서에 제안했다.
+- GT association과 자동 발견, oracle union과 실제 grouping, 미래 GT 누출, 분포 밖 particle 개입, recording 분할/CI의 해석 범위를 명시했다. 기존 문서/HANDOFF/RESUME만 갱신했으며 runtime·gate·실험 수치·학습 상태는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 최신 제안은 `docs/lpwm_planning_experiment.md`의 ‘객체 구분·정보 보존의 검증 설계’ 절. 공개/적응 checkpoint frozen probe + full64 alpha 진단 우선, mask/temporal/future 진단 후 학습된 planner 개입 순서다. 판독기는 각 표현에 동일 예산으로 따로 학습하고 geometry/background/GT-ROI 대조를 둔다. 새 평가 코드·cache는 아직 없음.
+- 기존 box proxy는 보조 지표로 해석한다. 새로운 필수 gate를 만든다면 결과를 보기 전에 목적·비교군·허용 열화량을 등록하고 기준 수정 근거와 기존 실패를 보존한다. Stage2 유용성을 Stage1 진입 조건으로 요구하는 순환 검증은 피한다.
 
 - 최우선해석정정: box proxy의하락을객체이해실패로간주하지않음. 후속분해는full64/top16·presence순위·scale/center·alpha support·GT객체종류와표현정보보존을구별해metric적합성부터검토. 기존gate결과는보존하고후속판정기준은명시적amendment로구분해야함. 현재진행된원인분해결과는아직없음.
 
@@ -773,6 +781,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- 이번 요청은 ‘객체 구분을 어떻게 검증할지’에 대한 방법론 제안이다. 작은 판독기는 평가용이고 LPWM을 갱신하지 않는다. 성공해도 자동 검출/planning 활용을 증명하지 않으며, 실패만으로 모든 객체 정보 손실을 입증하지 않는다. 새 학습/전체 feature 추출/수동 mask/Stage2 실행은 이번 턴에 수행하지 않았다.
 
 - LPWM에새detection/semantic segmentation모듈을붙인것이아님. 복원alpha mask와latent 객체/부분분해가능성을‘객체구분불가능’으로일반화하지않으며,particle–instance일대일대응/semanticlabel은보장되지않음. Box gate미통과와LPWM도메인적응실패를동일시하지않음. Proxy만으로Stage2중단을정당화할과학적근거는미확립이나현재runtime차단을임의우회하지않음.
 

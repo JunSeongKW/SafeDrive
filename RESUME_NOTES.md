@@ -1764,3 +1764,11 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 공식modules.py:5332–5397은RGBAglimpse와alpha/presence/depth합성;semantic/GTinstance head아님. Stage1객체GT입력/loss없음. 평가용NAVSIMvehicle/pedestrian/bicycle GT투영box와상위16particle의position/scale사각형을Hungarian일대일매칭한IoU≥.1 recall임.
 - ‘객체표현검증실패’는지나치게넓은해석으로정정. Top16/presence/객체부분표현/복원box와instance경계차이때문에proxy감소가정보손실을입증하지않음. 필수Stage1gate로쓰는타당성미확립인정,원래실패수치/threshold/source보존. README/기존연구문서/HANDOFF에정정추가;gate자동완화나Stage2기동없음.
 - 원인분해결과·featureprobe·PDMS는미실행. 0726071 원격push도기존VSCode credential socket ECONNREFUSED/GitHub인증오류로실패했다.
+
+## 2026-10-04 13:47 KST — 객체 구분·정보 보존의 검증 방법 제안
+
+- 사용자 질문에 따라 LPWM 원문과 Dittadi ICML2022/공식 object-centric-library를 확인했다. Semantic detector가 없더라도 비지도 객체 분해는 검증 대상이며, native particle ID의 영속적 tracking이나 객체당 하나의 particle을 보장하지 않는다는 점을 명시했다.
+- 기존 `docs/lpwm_planning_experiment.md` 첫 절에 5개 검사 제안: frozen linear/ridge 상태 판독, full64 실제 alpha 기반 instance 분리, temporal correspondence, causal future 상태/객체 영역 예측, 학습된 planner의 객체 정보 개입. 현재 공개/적응 모델의 동일 예산 probe를 최우선으로 권고했다.
+- GT-localized probe는 자동 발견과 다름. Geometry/background/GT-ROI 대조, 미대응 객체 coverage, parts 분해와 merge 분리, GT oracle union의 한계, 미래 GT association/ego pose 누출 방지, zero-out의 OOD 혼란을 기록했다. Recording 단위 분할·paired CI, probe seed와 encoder seed 불확실성도 구분했다.
+- 현재 cache는 projected box/category/track 주석이며 검수된 pixel instance mask는 확인되지 않았다. 전체 feature/alpha 신규 추출과 약200프레임 mask audit는 제안으로 남겼다. 기존 full-dev 저장 metrics만으로 probe를 이미 실행했다고 보고하지 않는다.
+- 문서/HANDOFF/RESUME만 변경. 새 학습·추론·GPU 실행·gate 변경·Stage2 기동 없음. 원본 결과/실패 로그 보존. 직전 6e20108의 원격 공유는 기존 credential socket/GitHub 인증 오류로 실패한 상태다.
