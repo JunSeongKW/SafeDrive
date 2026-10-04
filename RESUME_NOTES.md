@@ -1800,3 +1800,11 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - Queue complete/공개·적응각30,871clip/312,611객체관측/LPWMupdate0,추출1,502.9/1,490.0초. CPU판독과집계도완료했고shared summary와로컬summary동일. `completion_review_20261004.json`에시각별근거보존. Stage2미시작/완료queue재실행없음.
 - Appearance macro-F1 .32018→.38669,combined .38453→.41766,GT-ROI-only .55473. 분류CI없는점추정이며GT위치조건부검사. Combined state오차는y+0.044m(CI[+.006,+.085]),vx−.053m/s(CI[-.078,-.024]);x/depth/vy는CI0포함. 전체객체이해/미래/PDMS개선으로일반화하지않음.
 - 자동생성summary보존,문서/README/HANDOFF완료상태반영. 현재probe의full64재합성과native30alpha차이amendment유지. 학습/runtime/gate변경없음.
+
+## 2026-10-04 14:55 KST — 완료된 객체 판독 결과 상세 보고
+
+- 사용자의 결과 요청에 따라 저장된 summary를7대조/전체클래스confusion/상태CI/크기·거리·scenario별로 분석했다. 새 추출·판독학습·GPU·gate변경 없음. Appearance macro-F1 32.02→38.67/combined38.45→41.77/GT-ROI-only55.47(×100);분류CI없는점추정이다.
+- Combined 클래스 F1 차량67.13→73.26/보행자47.08→50.72/자전거1.15→1.32. 자전거정답133/359이나예측19,807로오탐다수. Class-balanced ridge·불균형·용량과encoder원인을분리해야하며정보전무로단정하지않는다. 단일클래스strata는타클래스오탐을제거하므로전체confusion의클래스F1과다름.
+- Combined 위치x11.094→10.914m(CI0포함),y4.097→4.141m(차이CI양수),vx1.751→1.698m/s(CI음수),vy/depth개선불확정. Appearance-only 위치/vx는개선CI가0제외하나절대오차크다. GT-localized linear정보검사이고자동검출성능이아님.
+- 작은box33.64→36.18/40m이상32.97→34.77 F1. 직진313/회전1783/겹침87333객체관측이며겹침우선scenario분류는전체직진·회전을대표하지않음. 회전분류상승에도위치x12.321→12.858/y5.080→5.364m악화. 그룹별CI없음/투영겹침은가림GT아님.
+- 연구문서에평가조건/수치표/제한/판단추가,HANDOFF1–5갱신. Stage1 SSL유지/GT보조감독Stage2원칙유지,causal future/native mask/planner개입·PDMS미완료. 원본결과·모델보존. bb3a6be원격push는기존인증오류로실패한상태다.
