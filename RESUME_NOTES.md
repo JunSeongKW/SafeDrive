@@ -1729,3 +1729,9 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - LPWM/planner는 연속 역전파. 좌표→score embedding 및 CPU oracle에 detach, top-k/argmax/argmin index는 비미분. Gather된 coarse feature와 WTA pose는 gradient 유지. Refined score BCE가 고유 refiner로 직접 전달되지 않지만 공유 LPWM/coarse feature는 갱신하므로 완전 독립은 아님.
 - DrivoR§3.4는 생성 latent를 채점기에 주지 않지만 현재코드는 `score_queries+candidate_features`; 원형 재현으로 보고하지 않는다. Hydra-MDP의 vocabulary/privileged metric distillation, DriveSuprim coarse/fine scoring, Drive-JEPA MTD 범위도 원문 재확인. Temporal safety는 보조감독이며 최종순위 직접항 없음.
 - 기존연구문서/HANDOFF만 수정. 추가학습·GPU진단·runtime변경 없음. Queue `waiting_for_stage1_full_training_and_validation`, Stage2 본학습은 적응gate 후. 기존 CPU 연결검사는 합산 planning loss 수준이며 loss별 autograd 실측을 새로 했다고 주장하지 않음.
+
+## 2026-10-04 12:29 KST — 충돌회피 loss 의미 설명 및 Stage1 gate 실패 확인
+
+- 사용자 BCE/SG 질문에 따라 unsafe정답0을 정확히 예측하는 BCE와 안전좌표를 생성하는 목적을 구분. Detach만 제거하면 안전확률을 낮추는 gradient가 좌표로 전달될 수 있어 해결책이 아님. 기하학적미분가능clearance/Drive-JEPA식 안전pseudo경로회귀를 보완설계로 설명했으며 runtime 미구현/실행변경 없음.
+- 확인 중 전체7745clip 평가 종료 및 queue_failed.json 발견. 유일한 원래gate 실패는 object_box_recall_noninferiority: top16 recall@IoU0.1 0.3219947→0.2893251, paired CI[-0.0415200,-0.0236445], 등록하한기준-0.02. 추가causal/noncollapse/coverage는전부통과. Stage2 진입차단 유지.
+- 자동생성 `results/lpwm_navsim_full_posttraining_v2/summary.json`을 그대로보존하고 README/AGENTS/HANDOFF현재상태갱신. 학습/queue/source/threshold 변경없음. 다음은box대응proxy실패원인진단. 이번 설명을 직접안전loss구현이나실험완료로해석하지않음.

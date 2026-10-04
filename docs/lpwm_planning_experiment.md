@@ -385,6 +385,46 @@ Particle에 객체 종류별 정답 위치나 object ID를 직접 주는 손실�
 loss별 gradient 기여·충돌이나 particle별 개입 효과를 측정한 결과가 아니다.
 이 절은 코드/논문 설명 보강이며 등록 runtime/config와 실행 중인 평가·queue는 변경하지 않았다.
 
+#### 안전 점수 감독과 충돌 회피 좌표 감독의 차이
+
+사용자의 후속 질문 기준으로 목적을 구분한다. 충돌 후보의 `safe_label=0`에 대한 BCE는
+안전 확률을0으로 예측하면 작아진다. 따라서 위험 경로를 정확히 낮게 평가해 선택에서 제외하도록
+학습하지만, 경로가 실제 안전하게 바뀌어야만 loss가 작아지는 목적은 아니다.
+SG를 제거해도 정답이0인 BCE는 예측 안전 확률을 낮추도록 미분되므로 안전 좌표 최적화로 바뀌지 않는다.
+공유 feature에 의한 간접 변화와 refiner 고유 parameter의 직접 안전 감독을 구분해야 한다.
+
+후보에서 안전한 것을 선택하는 목적에는 현재 scorer 방식이 성립한다. 사용자가 요구한
+충돌 후보 자체의 안전한 보정에는 별도의 좌표 목적이 필요하며 현재 구현에는 그 직접 항이 없다.
+DrivoR§3.4도 채점/생성 gradient를 분리하지만, 그것이 우리 연구에서 직접 안전 감독을 제외해야
+한다는 근거는 아니다.
+
+보완 설계 후보(미구현):
+- 학습용 미래 GT 객체의 ego 좌표계 footprint와 예측 ego footprint 사이의 미분 가능한
+  signed clearance를 정의하고 `relu(safety_margin - clearance)^2`를 최소화한다.
+  GT 객체는 고정 정답이며 예측 경로에는 SG를 두지 않는다. 좌표에서 refiner→LPWM까지 역전파한다.
+  차체 크기·heading·동일 시각·중간 시점·정적 장애물/도로 경계를 다뤄야 한다.
+  Particle의 영상 좌표/합성 depth를 실제 미터 단위 장애물 위치로 바로 사용하지 않는다.
+- 도로 준수·주행 명령·진행·comfort와 함께 학습해 감속/정지/회피를 허용한다.
+  거리 항 단독으로 도로 이탈이나 무조건 정지를 유도하지 않도록 비교한다.
+- 공식 simulator로 검증된 다양한 안전 경로를 회귀 pseudo-target으로 추가하는 것도 가능하다.
+  이는 Drive-JEPA§3.4 MTD에서 직접 참고할 수 있으며 binary 충돌 label보다 방향 정보를 준다.
+- Learned scorer를 통한 안전 확률 최대화는 BCE label fitting과 별도 목적이다. Scorer parameter를
+  고정해도 경로 입력 gradient는 유지할 수 있으나 scorer 오차를 이용한 허위 고득점 검증이 필요하다.
+
+이번 턴은 의미 설명이며 새로운 loss/학습 조건을 구현하거나 실행하지 않았다.
+
+#### 2026-10-04 12:29 KST 실행 상태 갱신
+
+전체 개발7,745clip 평가와 추가 causal/noncollapse/coverage 검사가 완료됐다.
+등록 Stage1 적응 gate의 `object_box_recall_noninferiority`가 실패해 Stage2 진입이 차단됐다.
+관측 top16 box recall@IoU0.1은 공개0.3219947→적응0.2893251, paired 차이-0.0326696,
+95% CI[-0.0415200,-0.0236445]; 등록 CI 하한 기준은-0.02다.
+복원/미래 LPIPS·객체 ROI 및 나머지 위험·추가 causal 검사는 통과했다.
+이는 해당 particle-box 대응 proxy의 실패이며 모든 적응 효과가 없다는 결론은 아니다.
+`results/lpwm_navsim_full_posttraining_v2/summary.json`,
+`outputs/lpwm_metric_planning_v2/queue_failed.json`에 원시 판정이 보존됐다.
+기준 완화·Stage2 강제 실행·새 재학습은 수행하지 않았다.
+
 ### 학습·검증·자동 대기열
 
 - Stage1: train23,126/122recording, dev7,745/40recording, 공식109.55M 전체,20epoch/28,920update.
