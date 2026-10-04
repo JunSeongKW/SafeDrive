@@ -2,6 +2,8 @@
 
 **현재 상태(2026-10-04 12:29 KST): Stage1 학습·전체 개발7,745clip 평가 완료. 객체 박스 대응 비열등성 gate 실패로 Stage2 진입 차단.**
 복원·미래예측 등 나머지 gate는 통과했지만 top16 box recall@IoU0.1의 paired CI 하한이 등록 기준에 미달했다.
+**해석 정정(13:30 KST):** 이 항목은 자체 particle–GT 박스 기하 proxy이며 LPWM의 detection/segmentation
+성능이 아니다. 단독 필수 gate로 쓸 타당성은 미확립이다. [지표 정의와 한계](docs/lpwm_planning_experiment.md).
 결과 `results/lpwm_navsim_full_posttraining_v2/summary.json`; 기준 완화나 추가 학습 없이 원인 진단이 다음 단계다.
 **Planner 연구 설계 제안(2026-10-04):** [문제의식·선행연구·비교 방법](docs/lpwm_planning_experiment.md).
 같은 후보 집합에서 객체·시간별 미래 정보가 경로 선택에 주는 이득을 검증하는 안이며, 아직 runtime/queue에 적용하지 않았다.

@@ -1,5 +1,38 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-04 정정: 실패한 지표는 자체 particle–GT 박스 기하 대응 proxy
+
+사용자가 "LPWM에는 객체 detection/segmentation 단계가 없는데 객체 표현 검증은 무엇인가"를 지적했다.
+**앞선 ‘객체 표현 검증 실패’라는 요약은 검사한 범위보다 넓었다. 정확한 실패 항목은 우리가 추가한
+presence 상위16개 particle 사각형과 GT 투영 객체 박스의 기하 대응률 비열등성이다.**
+
+- LPWM은 위치·scale·appearance·presence 등을 가진 latent particle을 학습한다. 차량/보행자/bicycle
+  class를 출력하는 detection head나 semantic segmentation head를 Stage1에 붙이지 않았다.
+- 공식 `modules/modules.py:5332–5397`에는 particle별 RGBA glimpse를 영상에 배치하고
+  alpha/presence/depth로 합성하는 decoder가 있다. Alpha mask는 복원 기여를 나타내는 latent 분해이며
+  semantic class mask나 GT instance segmentation을 보장하지 않는다. 객체 일부가 분리 표현될 수는
+  있지만 particle 하나=실제 객체 하나 또는 클래스별 구분을 보장하지 않는다.
+- 평가용 객체는 NAVSIM 주석에서 가져온다. `prepare_lpwm_navsim_clips.py:20`이 vehicle/pedestrian/
+  bicycle의 GT 3D box를 전방 영상에 투영하고 최소변3pixel 조건을 적용한다. 모델 검출 결과가 아니다.
+  객체 종류별 분해도 GT category로 평가를 나누는 것이며 모델이 그 종류를 예측한다는 뜻이 아니다.
+- `lpwm_bridge.py:52`가 전체64개 중 presence 상위16개를 택하고 position/scale로 사각형을 만든다.
+  `evaluate_lpwm_navsim_adaptation.py:22`가 GT와 class-agnostic Hungarian 일대일 IoU matching을 한 뒤
+  IoU≥0.1 대응 개수/GT 객체 개수를 계산한다. 이 정답 주석은 Stage1 입력·loss가 아닌 평가에만 사용된다.
+
+이 proxy의 한계는 top16 절단, presence를 선택 기준으로 쓰는 가정, glimpse 사각형과 객체 경계의 차이,
+여러 particle이 하나의 객체를 나눠 표현하는 경우의 일대일 제약이다. **Presence는 검출 confidence나
+planning 중요도와 같지 않다.** 따라서 recall 감소가 latent에 객체 정보가 덜 보존됐다는 것을
+입증하지 않으며, 증가도 객체 이해/planning 활용을 입증하지 않는다.
+
+등록된 수치32.20→28.93%와 gate 실패 기록은 사실로 보존한다. 다만 **이 proxy를 Stage1 적응 성공의
+필수 조건으로 사용한 타당성은 충분히 입증하지 못했다.** Runtime의 gate를 사후 삭제하여 기존 실행을
+성공으로 재분류하지 않는다. 후속 판단은 기존 실패 기록과 구분하여 metric 적합성 재검토를 명시하고,
+full64/top16·alpha support·geometry/scale/presence와 feature 정보 보존을 분리해 검사해야 한다.
+Planning 유용성은 frozen probe/미래 정보 개입/대응 planner 비교가 별도로 필요하다.
+
+이번 요청에서는 지표의 정의와 해석을 정정했다. 앞선 분해 작업은 저장NPZ/주석 구조와 GPU여유
+확인까지 수행했으며, 추가추론·재학습·Stage2 기동·새로운 객체별 분해 결과는 아직 없다.
+
 ## 2026-10-04 Stage1 최종 검증 결과 재확인
 
 원본 `results/lpwm_navsim_full_posttraining_v2/summary.json`과 adaptation/transition gate,

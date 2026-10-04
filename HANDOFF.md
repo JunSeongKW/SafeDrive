@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-04 13:22 KST (Codex)
+마지막 갱신: 2026-10-04 13:32 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+- 2026-10-04 13:30 KST: 사용자지적에 따라 객체검증의정의를확인/정정. LPWM detection/semantic segmentation 단계는없고,실패는자체top16 particle–GT박스기하proxy. 등록값/실패상태보존하되필수gate타당성미확립을문서에명시. 분해작업은저장NPZ/GT구조와GPU여유조회까지;추가추론/학습/Stage2없음.
 
 - 2026-10-04 13:20 KST: 사용자요청 Stage1 최종결과 재확인 완료. 저장된 공개/적응 각7,745고유clip 누락·중복0 및 checkpoint metadata/gate SHA 일치 확인. 원래15/16통과·객체box gate실패로 Stage2차단 유지. 재학습·GPU평가·기준변경 없음.
 
@@ -360,6 +362,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+- 공식decoder RGBA/alpha합성 확인: mask는복원기여이지semantic/GTinstance segmentation보장아님. 평가box는particle position/scale로만든glimpse영역;presence상위16→GTvehicle/pedestrian/bicycle 투영box와class-agnostic Hungarian IoU≥.1. Category는모델출력이아닌GT평가분류.
+- Top16절단/presence선택/객체부분표현/일대일matching때문에proxy하락만으로객체정보손실·도메인적응실패를입증하지못함. 이지표의필수gate사용근거부족을인정하고현재상태해석정정. 원인분해미완료.
 
 - 최종검증 재확인 `results/lpwm_navsim_full_posttraining_v2/validation_review_20261004.json`: causal forecast LPIPS .382994 vs persistence .399487, 객체ROI MSE .029812 vs .042921. 현재box IoU.1 recall은32.20→28.93%이나 IoU.3은13.01→17.77%,4초미래IoU.1은19.39→26.74%. 모든객체표현악화로일반화하지않음.
 - Scenario LPIPS: 등록직진126개는 .40014 vs 유지.37988로악화(CI양수),회전1289개는 .40524 vs .47328로개선,overlap5958개는 .37575 vs .38354이나차이CI가0포함. Overlap우선배정이므로직진전체의대표분석아님. 위험별gate통과는비열등성이지전계층우월성아님.
@@ -639,10 +644,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 완료 Stage1 summary/gate와 공개·적응 원시평가의7,745token coverage 및 checkpoint metadata를 재검토. 재확인 JSON과 기존 LPWM문서에 전체/장면/시간별 결과와 단일실패기준의 정확한 해석을 기록.
-- IoU.1 감소와 IoU.3/미래대응 개선 공존, 직진LPIPS악화/회전개선/겹침우월성미확정, gate비열등성과우월성의차이명시. HANDOFF/RESUME 갱신. 원본결과·runtime·config·queue·checkpoint불변.
+- 사용자지적에따라‘객체표현검증실패’를자체particle–GT박스기하proxy실패로정정. 공식alpha합성과평가GT출처/일대일matching/상위16제약을코드로확인하고필수gate타당성미확립명시.
+- 기존LPWM문서/README/HANDOFF/RESUME설명갱신. 실제gate·과거결과·등록runtime는보존. 추가GPU추론/학습/분해통계실행없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+- 최우선해석정정: box proxy의하락을객체이해실패로간주하지않음. 후속분해는full64/top16·presence순위·scale/center·alpha support·GT객체종류와표현정보보존을구별해metric적합성부터검토. 기존gate결과는보존하고후속판정기준은명시적amendment로구분해야함. 현재진행된원인분해결과는아직없음.
 
 - Stage1 보고는 `docs/lpwm_planning_experiment.md` 첫 절 및 validation_review JSON 기준. Scale/presence/top16선택/객체종류로 box proxy 실패원인을 분해하고, 직진 및0.5초LPIPS 악화를 별도로 진단할 필요가 있다. 이번에 실행한 것은 저장결과 검토이며 원인 진단·추가학습 완료로 보고하지 않음.
 
@@ -766,6 +773,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+- LPWM에새detection/semantic segmentation모듈을붙인것이아님. 복원alpha mask와latent 객체/부분분해가능성을‘객체구분불가능’으로일반화하지않으며,particle–instance일대일대응/semanticlabel은보장되지않음. Box gate미통과와LPWM도메인적응실패를동일시하지않음. Proxy만으로Stage2중단을정당화할과학적근거는미확립이나현재runtime차단을임의우회하지않음.
 
 - Stage1 개발검증완료시각12:17KST,단일seed/40recording bootstrap CI이며독립test·seed불확실성아님. 고정gate의객체box대응실패는유효하지만미래box/IoU.3는개선되어실패원인은미확정. Stage2 PDMS결과없음. 이번사용자요청은결과확인으로처리.
 

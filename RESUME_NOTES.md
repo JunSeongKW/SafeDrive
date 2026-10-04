@@ -1757,3 +1757,10 @@ Stage2GPU/DDP및PDMS미실행. 본학습성능향상주장없음.
 - 미래MSE .020829 vs유지.036617(43.12%감소),LPIPS.382994 vs.399487(4.13%감소),객체ROI .029812 vs.042921(30.54%감소). IoU.3와4초미래box는개선되어전체객체표현악화로단정불가. 현pointcoverage/presence합감소원인미확정.
 - 등록직진126개LPIPS악화CI양수,회전1289개개선,겹침5958개우월성CI0포함. Overlap우선scenario정의/위험계층10%비열등성제한명시. 저장horizon평균은0.5초LPIPS악화/2·4초개선이며새시간별CI없음.
 - 기존문서에표/해석추가,HANDOFF갱신. 학습·추론재실행/임계값완화/소스변경없음. 원본결과/모델보존. 이전설계commit aa44380의원격push는기존VSCode credential socket/GitHub인증오류로실패했다.
+
+## 2026-10-04 13:30 KST — 객체 검증 명칭·타당성 정정
+
+- 분해요청후원시metrics/manifest/riskmetadata/시각화NPZ구조확인. 전체64particle저장은고정8시각화장면뿐이고나머지7745평가에는집계치만있음. GPU0·1조회시각여유각약28GiB/타인사용20GiB확인;추론프로세스기동없음. 이후사용자가LPWM에detection/segmentation없는데객체검증이무엇인지질문하여정의·타당성검토를수행.
+- 공식modules.py:5332–5397은RGBAglimpse와alpha/presence/depth합성;semantic/GTinstance head아님. Stage1객체GT입력/loss없음. 평가용NAVSIMvehicle/pedestrian/bicycle GT투영box와상위16particle의position/scale사각형을Hungarian일대일매칭한IoU≥.1 recall임.
+- ‘객체표현검증실패’는지나치게넓은해석으로정정. Top16/presence/객체부분표현/복원box와instance경계차이때문에proxy감소가정보손실을입증하지않음. 필수Stage1gate로쓰는타당성미확립인정,원래실패수치/threshold/source보존. README/기존연구문서/HANDOFF에정정추가;gate자동완화나Stage2기동없음.
+- 원인분해결과·featureprobe·PDMS는미실행. 0726071 원격push도기존VSCode credential socket ECONNREFUSED/GitHub인증오류로실패했다.
