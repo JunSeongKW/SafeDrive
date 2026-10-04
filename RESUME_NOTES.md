@@ -2037,3 +2037,20 @@ Partial3184/4707update(67.64%), queue1902774/torchrun1978684/두rank 정상. 기
 GPU0/1총45.592/45.570GB,각free4.95GiB이상.2353update중간particle시각화저장확인.
 최종1024planning/256world평가와LoRA→Adapter→full학습검증대기. Frozen대조군은제안만있고미실행.
 기존GPU학습이나queue/source/config변경없음. 근거 `results/lpwm_48gb_planning_v1/status_20261005_0159.json`.
+
+### 2026-10-05 — NAVSIM PDMS 최고 보고치 원문 확인
+
+사용자SOTA질문에공식문서·논문·저자저장소를조회했다. 이번조사에서확인한NAVSIM-v1 navtest
+논문최고보고치는 **DrivoR+SimScale+Traffic-Element Awareness95.1**이다.
+[원문Table2](https://arxiv.org/html/2608.18035v1#S5.T2):DrivoR93.1/TE추가94.4/SimScale추가94.6/둘다95.1.
+합성학습데이터와외부detector로만든교통요소pseudo감독이포함되고추론에는예측TE표현을사용한다.
+[iDriveVLA](https://arxiv.org/abs/2609.30818)는94.95와공개리더보드1위를저자보고(2026-09-25).
+[실험설정](https://arxiv.org/html/2609.30818v1#S4.SS1)은103k실데이터+134kSimScale와DrivoR/InternVL3-2B.
+[TOAD저자repo](https://github.com/valeoai/TOAD)는94.9,
+[ChainFlow-VLA](https://arxiv.org/abs/2605.23270)는94.85(trainval103k),
+[DriveSuprim](https://arxiv.org/abs/2506.06659)은93.5를보고한다.
+공식HF리더보드는앱shell만읽혀실시간순위직접검증불가. 따라서95.1은이번조사에서확인한논문최고치이며
+공식실시간1위로단정하지않는다. NAVSIM-v2 EPDMS와v1 PDMS구분,
+우리81.85는고정dev128(유효127)중간점수여서전체navtest SOTA와직접순위비교불가.
+근거 `results/lpwm_48gb_planning_v1/navsim_pdms_literature_review_20261005.json`.
+학습/queue/config/방법론변경없음.

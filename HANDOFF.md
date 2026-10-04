@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 02:00 KST (Codex)
+마지막 갱신: 2026-10-05 02:05 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신질문은PDMS SOTA문헌조회. 이번턴학습상태재점검/추가GPU작업/queue변경없음. 기존4방법학습대기열유지.
 
 최신10/5 01:59KST: Partial3184/4707(67.64%)까지정상진행. Queue1902774/torchrun1978684/worker1979560·1979561유지. 읽기전용상태조회이며runtime변경없음. `results/lpwm_48gb_planning_v1/status_20261005_0159.json`.
 
@@ -410,6 +412,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+NAVSIM-v1 논문최고확인치95.1: DrivoR+SimScale+Traffic-Element Awareness(arXiv2608.18035Table2). iDriveVLA는94.95/공개리더보드1위를저자보고(2609.30818). TOAD94.9/ChainFlow94.85/DriveSuprim93.5도원문확인. Live HF순위행은접근확인불가로논문보고치와실시간순위구분.
 
 최신3072monitor PDMS81.8502/ADE1.28197m/FDE2.97124m;2560의82.3708/1.39076/3.28219대비PDMS0.52점하락·ADE/FDE개선. 고정dev128/유효PDM127.2353중간시각화저장. Loss/gradient유한/OOM0/해시38source20config일치/VRAM총45.6GB.
 
@@ -750,12 +754,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자진행상황질문에기존로그/process/GPU/등록hash조회. Partial3184update(67.64%)확인.
-- 최신3072dev PDMS81.8502/ADE1.28197m,직전PDMS0.52점하락·ADE/FDE개선과2353시각화저장보고.
-- 현재속도와메모리기록및학습완료ETA03:15–03:30KST갱신. Runtime/source/config변경이나새GPU작업없음.
+- NAVSIM-v1 PDMS SOTA질문에최근논문원문과저자repo확인. TE+DrivoR+SimScale95.1과iDriveVLA94.95의출처/조건기록.
+- 논문보고치와미검증실시간리더보드순위,우리dev128과전체navtest를구분했다.
+- 문헌근거JSON/HANDOFF/RESUME갱신. 학습·queue·source/config변경없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+SOTA비교시전체navtest/입력센서/학습데이터/SimScale·외부감독유무를맞춘다. 현재dev128 PDMS를최고보고95.1과직접순위비교하지않는다. 이번질문으로새논문방법이나추가학습을자동적용하지않았다.
 
 최신ETA: 현재partial학습10/5 03:15–03:30KST예상(현재wall2.913s/update,공유부하변동·종료후검증별도). 다음3584monitor와종료후1024planning/256world평가확인. 기존LoRA→Adapter→full대기열유지.
 
@@ -941,6 +947,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최고치95.1은2026-10-05조사에서확인한NAVSIM-v1논문보고치. 공식실시간리더보드1위는미검증. TE/SimScale조건의효과를우리LPWM의효과로전이해단정하지않는다.
 
 최신개발PDMS는79–82주변변동이며단조상승아님. 이번배치8본학습은정상. 최종world보존/독립test/미세조정단독효과는미확정이고frozen대조군은제안단계. 현재학습이나실험등록변경없음.
 

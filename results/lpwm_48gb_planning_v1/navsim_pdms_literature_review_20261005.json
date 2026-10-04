@@ -1,0 +1,57 @@
+{
+  "checked_date_kst": "2026-10-05",
+  "scope": "NAVSIM v1 navtest PDMS, public primary-source results found in this review; not a verified live leaderboard ranking",
+  "highest_paper_report_found": {
+    "method": "DrivoR + SimScale + traffic-element awareness",
+    "pdms": 95.1,
+    "paper": "Plug-and-Play Traffic Element Awareness for End-to-End Autonomous Driving",
+    "arxiv_date": "2026-08-18",
+    "primary_source": "https://arxiv.org/html/2608.18035v1#S5.T2",
+    "conditions": [
+      "SimScale synthetic co-training",
+      "Traffic-element pseudo supervision from OpenLaneV2-trained detector and depth estimation",
+      "Predicted traffic-element representation supplied to planner; NAVSIM has no topology branch"
+    ],
+    "matched_comparisons_in_paper": {
+      "drivor": 93.1,
+      "drivor_te": 94.4,
+      "drivor_simscale": 94.6,
+      "drivor_simscale_te": 95.1
+    }
+  },
+  "other_primary_reports": [
+    {
+      "method": "iDriveVLA",
+      "pdms": 94.95,
+      "source": "https://arxiv.org/abs/2609.30818",
+      "full_text": "https://arxiv.org/html/2609.30818v1",
+      "date": "2026-09-25",
+      "scope": "Authors report first place on public leaderboard; Table1 displays94.9",
+      "conditions": "103k real training samples +134k SimScale; DrivoR planner and frozen InternVL3-2B semantic evaluator"
+    },
+    {
+      "method": "TOAD",
+      "pdms": 94.9,
+      "source": "https://github.com/valeoai/TOAD",
+      "scope": "Author repository headline; test-time CEM refinement of94.6 frozen checkpoint"
+    },
+    {
+      "method": "ChainFlow-VLA",
+      "pdms": 94.85,
+      "source": "https://arxiv.org/abs/2605.23270",
+      "configuration_source": "https://github.com/AFARI-Research/ChainFlow-VLA",
+      "conditions": "Trainval103k checkpoint; table rounded94.8"
+    },
+    {
+      "method": "DriveSuprim",
+      "pdms": 93.5,
+      "source": "https://arxiv.org/abs/2506.06659",
+      "scope": "Authors report without extra data"
+    }
+  ],
+  "official_metric_definition": "https://github.com/autonomousvision/navsim/blob/main/docs/metrics.md",
+  "official_leaderboard": "https://huggingface.co/spaces/AGC2024-P/e2e-driving-navtest",
+  "live_leaderboard_limitation": "Official app shell accessible but ranking rows unavailable through web text extraction; no claim of independent verification of live first place.",
+  "our_comparison": "Our latestreported81.85 is a128-scene development monitor(127valid scores); it cannot be directly ranked against full navtest results.",
+  "actions": "Literature lookup and documentation only; no training, config, queue or methodology changes."
+}
