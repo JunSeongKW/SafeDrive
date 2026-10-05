@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "completed_updates": 0,
+  "checkpoint_sha256": null,
+  "scene_count": 96,
+  "change_from_initial": null,
+  "seconds": 288.7000935077667,
+  "not_full_navtest": true,
+  "not_independent_planning_validation": true,
+  "counterfactual_commands_have_no_alternative_gt": true,
+  "interventions_can_cause_distribution_shift": true,
+  "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "max_diagnostic_reserved_bytes": 654311424
+}

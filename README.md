@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**2026-10-06 학습 중 표현 진단·공정 비교 점검:**
+[검증 방법과 비교 한계](docs/lpwm_drivor_representation_and_fair_comparison.md).
+기존 LoRA 본 학습은 유지하고, 별도 읽기 전용 monitor가 고정96장면의 분포·정보 readout·의도 경로·planning 개입을 기록한다.
+갤러리 `outputs/lpwm_drivor_representation_monitor_v1/index.html`; 학습 분포 진단이며 독립 navtest 성능이 아니다.
+
+
 **최신 실행(2026-10-06): 공개 LPWM 원래 가중치 고정 + DrivoR 방식 Q/V LoRA.**
 Native full run은 35 update에서 보존·중단했고 공개 LPWM으로 새 LoRA 학습을 시작했다.
 LoRA rank32/scale1/42 Q·V projection, planner 전체 학습. 상세 [LoRA·ego 입력·실행 실측](docs/lpwm_drivor_lora_training.md).

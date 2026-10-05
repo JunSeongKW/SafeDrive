@@ -1,5 +1,11 @@
 # LPWM + DrivoR: LoRA 공동 학습과 ego 입력 점검
 
+**2026-10-06 후속 점검:** [학습 중 표현 검증·공정 비교](lpwm_drivor_representation_and_fair_comparison.md).
+Rank32가 같아도 적응 파라미터는 DrivoR589,824 대 LPWM1,343,488로 다르다.
+정밀도(FP16/BF16), drop_last, planner 초기화 순서 차이도 추가 확인했다.
+아래 동일 protocol 설명은 공식 split·epoch·유효batch·기본 optimizer 수준이며 완전한 DrivoR 재현을 뜻하지 않는다.
+
+
 ## 사용자 요청과 연구 질문
 
 2026-10-06 사용자가 DrivoR의 perception 적응처럼 LoRA로 변경하도록 요청했다.

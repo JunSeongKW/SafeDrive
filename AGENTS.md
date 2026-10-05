@@ -1,5 +1,16 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 최신 사용자 요청: 학습 중 particle의 driving 유용성 및 DrivoR 공정 비교 검토.**
+기존 LoRA train2994997/queue2994998을 유지하고 읽기 전용 checkpoint monitor3351138을 추가했다.
+진입점 `scripts/monitor_lpwm_drivor_representations.py --watch`, root `outputs/lpwm_drivor_representation_monitor_v1`.
+고정96 trainval장면/24recording의 전후 분포·readout·의도 경로 분해·particle/미래 개입을 기록한다.
+Monitor registration sealed; source/config/panel hash 변경 금지. GPU0/allocator4GiB 상한/카드40GB 미만 진입,46.5GB 중단.
+현재0/100update 진단 완료; 이후500/1000/2000간격·epoch·final 저장 checkpoint를 감시한다.
+이 panel은 본학습 분포이고 도로는 평면지도 proxy다. 점의 이동·궤적 명령 반응만으로 이해·미래 효용을 주장하지 않는다.
+공정비교 차이 및 별도 통제실험 설계는 `docs/lpwm_drivor_representation_and_fair_comparison.md`.
+이번 검토로 DrivoR baseline/추가 학습을 새로 큐에 넣지 않았다. 기존 본학습과 평가 후속 순서는 유지한다.
+
+
 **2026-10-06 최신 사용자 요청: DrivoR 방식 LoRA 및 여유 VRAM 활용.**
 공개 LPWM native109.55M 고정, Q/V LoRA32·scale1·42projection1.343M와 새FiLM/projection/공식planner를학습한다.
 기존 native-full35update와 pause는보존하고새LoRA는public-init. LoRA1update를저장후배치증설하여이어간다.

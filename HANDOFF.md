@@ -1,5 +1,10 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 01:25 KST: 기존 LoRA 학습 유지 + 표현 진단 monitor 추가.**
+Monitor3351138, `outputs/lpwm_drivor_representation_monitor_v1/watch_status.json` 확인.
+고정96장면 학습 전 및 update100 진단 완료, 이후500부터 자동 추적. 보고서 `docs/lpwm_drivor_representation_and_fair_comparison.md`.
+학습 분포 진단이며 공식 성능/독립 검증이 아니다. 순수 Register–Particle 인과 비교에는 통제 차이가 남았다.
+
 **최신 실행(2026-10-06): 공개 LPWM 원래 가중치 고정 + DrivoR 방식 Q/V LoRA.**
 Native full run은 35 update에서 보존·중단했고 공개 LPWM으로 새 LoRA 학습을 시작했다.
 LoRA rank32/scale1/42 Q·V projection, planner 전체 학습. 상세 [LoRA·ego 입력·실행 실측](docs/lpwm_drivor_lora_training.md).
@@ -16,7 +21,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 00:50 KST (Codex)
+마지막 갱신: 2026-10-06 01:32 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -183,6 +188,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+읽기 전용 representation monitor3351138이 본학습 checkpoint를 자동 진단한다. 본학습/queue는 유지한다.
+고정96장면의 초기0/100update 완료(288.7/257.0초, peak reserved0.654GB), 다음500update 대기.
+GPU0/별도 allocator4GiB 상한/카드40GB 미만 진입·46.5GB 중단. Main training 중단 요청도 존중한다.
+별도monitor root의 registration은 sealed이며 변경금지. 학습source/config는 이번 턴 수정하지 않았다.
+
 
 2026-10-06 최신: LoRA본학습 parent2994997,후속queue2994998. Root `outputs/lpwm_drivor_lora_v1`.
 현재baseconfig는기존batch8이지만 `active_execution.json`/`execution_batch16_loader2_oracle4.json`이우선이다.
@@ -571,6 +582,19 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+새 진단96장면/24recording, straight42/left30/right24, object-camera views2974.
+100update: 현재중심 평균0.00305px/최대0.05446px 이동, 분포 거의 동일. Encoder-only 명령변경 궤적0→0.2834m.
+전체14D 객체readout F1 .3799→.3778, 미래2s L2 3.8933→3.9021m/4s8.0206→8.0322m. 아직 개선 미확인.
+실제 명령 경로는 작동하나 적합성/미래정보/기여는 별개; 초기0.25%warmup만으로 실패로 판정하지 않는다.
+Readout fit18recording/2286views, eval6recording/688views; 양쪽 모두 upstream trainval에 속한다.
+공개 초기값: encoder-only 명령변화0, planner-only 평균궤적변화0.3523m; zero-init FiLM으로 예상된 기준선이다.
+초기2s/4s 미래 readout의 current 대비 차이는 CI0 포함. 아직 학습된 미래정보 유용성을 입증하지 않았다.
+4개 CPU 기하/연결검사 및 96scene 실제 planner replay/고정후보 score 동일성 통과, main native SHA 보존.
+Fairness audit: DrivoR LoRA589824 vsLPWM1343488, defaultFP16 vsBF16+encoderFP32,
+drop_lastTrue/False 및 backend 생성순서 차이 추가확인. 공식recipe 유도v1 updates40325 vs현40350;
+v2 13290 vs13300. 저자 실제로그 숫자가 아닌 source/standard sampler 기준 계산이다.
+
 
 LoRA초기출력/native출력bitwise동일,초기planner동일,실제optimizer2update후원래LPWM가중치+buffer SHA불변.
 LoRA각영역/FiLM/plannergradient양수및실제변경,DDP검사통과. Native109,545,263고정,LoRA1,343,488/전체trainable18,413,566.
@@ -1052,13 +1076,20 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자의DrivoR방식LoRA요청에따라native35update를보존중단하고public LPWM+Q/VLoRA32+공식planner새학습으로교체했다.
-- 초기출력/동일planner/nativefreeze/gradient/DDP검사,ego11D공식FeatureBuilder16scene동일성검사를추가했다.
-- 사용자VRAM활용요청으로batch8/16/24,loader2/4/8및oracle4/8실측. effective64를유지한batch16/accum2로1update상태부터재개했다.
-- 새실행override trainer/queue/해시등록을추가하고v1평가→v2학습/평가를연결했다. 기존registeredsource/config/결과는보존했다.
-- LoRA구조/encoder명령FiLM차이/실측선택/미검증성능과비교한계를문서와인수인계에기록했다.
+- 본학습을 바꾸지 않고 고정96장면·24recording의 읽기 전용 checkpoint 진단을 추가하고 자동 monitor를 기동했다.
+- 전체 particle 분포, GT 투영/도로 proxy, 분리 recording readout, encoder/planner 명령 경로, fixed-candidate 개입을 구현했다.
+- 학습 전96scene 진단과4개 CPU 검사를 완료하고 초기 기준선·실행 provenance를 보존했다.
+- DrivoR 비교의 해상도/사전학습/의도 입력/적응 파라미터/precision/drop_last/초기화 차이를 코드로 감사했다.
+- 시스템 비교와 표현 인과 비교를 구분한 후속 대조 설계를 기록했다. 추가 baseline 학습은 큐에 넣지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+새monitor 중복기동금지. watch_status/monitor.log/각update complete+summary/readouts/intent/interventions를 확인한다.
+0→100→500→1000→이후2000간격·epoch·final 비교. 현재v1만 감시하며 후속v2 감시는 별도등록 필요.
+점의 이동뿐 아니라 readout·관련particle 대 matched-control 개입·고정후보 regret를 함께 판단한다.
+모든 probe는 train-distribution 진단이며 독립 성능은 기존 navtest/EPDMS 큐에서 확인한다.
+본학습 loss를 중간 변경하거나 결과를 보고 panel을 바꾸지 않는다. DrivoR 통제군은 문서 설계만 있고 미실행.
+
 
 현재 LoRA parallel 실행/queue를중복기동하지않는다. 진행/VRAM/registered hash/완료coverage를점검한다.
 현재기동은`train_lpwm_drivor_lora_parallel.py --config configs/lpwm_drivor_lora/navsim_v1.json --execution configs/lpwm_drivor_lora/execution_batch16_loader2_oracle4.json`.
@@ -1362,6 +1393,14 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+사용자 요청 두 검토는 진행 중 학습의 진단/비교감사다. 학습 및 평가 기존 queue는 유지했다.
+분포는 차량/보행자/자전거 GT 투영 및 평면 지도 도로 proxy이며 semantic mask/가림 정답이 아니다.
+교차명령에는 대안GT가 없으므로 encoder-only 민감도로 의도 반응을 측정하지만 적합성을 단정하지 않는다.
+의미적 미래예측 loss 없이 latent8step을 쓰므로 실제0.5초 미래 상태 의미가 유지되는지 readout으로 확인해야 한다.
+Baseline register도 planning loss로 학습된다. 일반 feature=planning과 무관한 feature라고 주장하지 않는다.
+전체 시스템 비교는 가능하나 순수 particle 구조/미래 보존 우월성은 common-backend/정보·예산/intent/future 통제 재학습이 필요하다.
+
 
 최신: perception은native FT에서Q/VLoRA32로바뀌었다. CNN/xy/scale/presencehead고정,현재geometry는추가FiLM입력변화로달라질수있다.
 공식planner ego11D경로만동일하며encoder FiLM은추가. 해상도·backbone·pretraining·명령조건화차이로순수RegistervsParticle효과미확립.

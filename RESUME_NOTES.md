@@ -2549,3 +2549,32 @@ Batch24(4loader/8oracle)19.35초/43.00GB, batch16(4loader/8oracle)19.93초/29.59
 후속v1전체navtest→독립publicv2navtrain10epoch→warmup/navhardEPDMS동일override자동연결.
 기존등록source/config불변,새parallelism_registry까지hash재검사통과. 공식PDMS/EPDMS아직없음.
 새보고서 docs/lpwm_drivor_lora_training.md, 실행증거 results/lpwm_drivor_lora_v1/.
+
+
+## 2026-10-06 01:30 KST — 학습 중 particle 유용성 진단 및 DrivoR 비교 감사
+
+사용자 요청: 학습하면서 particle의 driving/intent 유용성과 Register–Particle 공정 비교를 함께 검토.
+기존 LoRA 본학습2994997/queue2994998 및 등록 source/config는 변경하지 않았다.
+별도 읽기 전용 monitor3351138이 저장 checkpoint를 진단한다. Root outputs/lpwm_drivor_representation_monitor_v1.
+GPU0/allocator4GiB상한/카드40GB미만 진입·46.5GB중단, main pause 존중. 추가 학습/DrivoR baseline 큐 없음.
+
+- Panel: 모델 결과를 보지 않고 고정한24recording×4=96trainval장면(직진42/좌30/우24), 객체-camera관측2974.
+- 모든64particle/camera의 GT투영 분포·presence·면적정규화, 평면지도 도로proxy3높이, 학습전후좌표/feature 변화.
+- Readout fit18/eval6recording; 둘 다 upstream train분포. 차량/보행자/자전거 종류,2s/4s GT track displacement.
+- 동일12장면 encoder-only/planner-only/both command변경, 미래반복/시간반전/관련particle/카메라·presence·크기대조개입.
+- Native memory복원→proposal/고정후보score bitwise동일성, 원본native SHA동일성 확인. CPU검사4개통과.
+- 초기0update 96scene288.7초/100update257.0초, peakreserved0.654GB. 초기원본등록파일을 run별보존 후watch등록sealed.
+- 100update 중심 평균0.00305px/최대0.05446px이동, 차량/보행자/도로분포 거의같음.
+- Encoder-only 명령변경 궤적0→0.2834m: 의도 경로는작동. 대안GT없으므로 적합성/정확성을뜻하지않음.
+- 전체14D 클래스F1 .3799→.3778, 미래2s/4s readout3.8933→3.9021m/8.0206→8.0322m;정보보존개선미확인.
+- 미래-minus-current readout CI와미래순서/반복planning개입 CI는0포함. 관련particle개입은5scene뿐,성공증거로채택하지않음.
+- 전체40,350update중100은0.25%warmup이므로실패판정금지. 500/1000/2000간격·epoch부근·final자동추적.
+
+공식DrivoR fc6e5aa 코드/논문AppendixD 대조. 동일planner/loss/split/epoch/effective64이나 순수 표현비교는아님.
+해상도672×1148vs128², DINO사전학습vsSketchy, GridMask/정규화,encoder명령FiLM유무,미래추가연산차이.
+실제Q/VLoRA rank32 파라미터589824vs1343488 확인. Default FP16 vsBF16+encoderFP32,
+drop_last True/False 및backend생성순서RNG 차이도추가발견. 표준DDP/공식4GPUrecipe유도updates40325vs40350(v1),13290vs13300(v2).
+기존 '동일protocol' 표현은split/epoch/기본optimizer수준으로한정. 시스템benchmark/엄격통제재학습/LPWM intent×future ablation 분리설계.
+DrivoR register도planning으로학습되는표현이며일반압축=planning무관이라고가정하지않음.
+문서 docs/lpwm_drivor_representation_and_fair_comparison.md, 공유수치 results/lpwm_drivor_representation_monitor_v1/.
+학습분포진단과독립navtest/EPDMS 구분, 도로proxy/투영bbox/가림proxy의한계명시. 기존공식평가큐유지.

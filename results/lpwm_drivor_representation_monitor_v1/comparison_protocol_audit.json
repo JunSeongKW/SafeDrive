@@ -1,0 +1,90 @@
+{
+  "verdict": "Shared official planning backend and benchmark splits; not yet a controlled demonstration of particle-versus-register or intent-conditioned future information benefit.",
+  "official_source_commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+  "matched": {
+    "planner_forward": "Imported DrivoRModel.forward",
+    "loss": "Imported DrivoRLoss",
+    "observation": "Four current cameras F0/B0/L0/R0, one frame per camera, current ego11D",
+    "planner_memory_shape": [
+      64,
+      256
+    ],
+    "proposals": 64,
+    "generator_layers": 4,
+    "scorer_layers": 4,
+    "trajectory_poses": 8,
+    "nominal_effective_batch": 64,
+    "optimizer": "AdamW, base LR2e-4, weight decay0.01, official warmup/cosine convention",
+    "lora_parameterization": "Q/V rank32, scale1, pretrained weights frozen",
+    "v1_training": "Official train+val membership, 25epochs, longer target+2poses",
+    "v2_training": "Independent public init, official train membership, 10epochs, no longer target",
+    "oracle_supervision": "Original generated-proposal scoring labels, no direct object auxiliary loss"
+  },
+  "differences": {
+    "image_resolution_hw": {
+      "drivor": [
+        672,
+        1148
+      ],
+      "lpwm": [
+        128,
+        128
+      ]
+    },
+    "pretraining": {
+      "drivor": "DINOv2 LVD-142M",
+      "lpwm": "Public LPWM Sketchy"
+    },
+    "encoder_intent": {
+      "drivor": "No direct ego conditioning of DINO/register extraction",
+      "lpwm": "Command4D FiLM at particle CNN conv_in"
+    },
+    "image_augmentation": {
+      "drivor": "ImageNet normalization and GridMask probability0.7",
+      "lpwm": "LPWM public normalization, no GridMask"
+    },
+    "numeric_precision": {
+      "drivor_default": "16-mixed",
+      "lpwm": "BF16 with FP32 particle encoder"
+    },
+    "distributed_partition": {
+      "drivor_readme": "4 GPUs, batch16, accumulation1",
+      "lpwm": "2 GPUs, batch16, accumulation2; first update used batch8 accumulation4"
+    },
+    "drop_last": {
+      "drivor": true,
+      "lpwm": false
+    },
+    "trainable_lora_parameters": {
+      "drivor": 589824,
+      "lpwm": 1343488
+    },
+    "compression": {
+      "drivor": "16 learned camera registers per camera",
+      "lpwm": "64 native particles/camera, concatenate current+8predicted states, project and fixed mean groups of4"
+    },
+    "future_computation": {
+      "drivor": "No explicit particle future rollout",
+      "lpwm": "8 prior steps; semantic time alignment remains unverified"
+    },
+    "backend_initialization": "Current LPWM planner constructed before the replacement backbone; a native DrivoR construction consumes RNG in a different order. Controlled runs must share an explicit backend initial state."
+  },
+  "update_count_implications": {
+    "v1": {
+      "official_readme_assuming_standard_distributed_sampler_per_epoch": 1613,
+      "current_per_epoch": 1614,
+      "official_total": 40325,
+      "current_total": 40350,
+      "status": "Derived from repository drop_last and published4GPU recipe; not measured from an original author training log."
+    },
+    "v2": {
+      "official_readme_assuming_standard_distributed_sampler_per_epoch": 1329,
+      "current_per_epoch": 1330,
+      "official_total": 13290,
+      "current_total": 13300,
+      "status": "Derived from repository drop_last and published4GPU recipe; not measured from an original author training log."
+    }
+  },
+  "evaluation_version_requirement": "Run both checkpoints through the same sealed NAVSIM commit, scorer config, full token set and v2 human-error filtering; paper number alone is not a paired baseline.",
+  "new_training_queued": false
+}
