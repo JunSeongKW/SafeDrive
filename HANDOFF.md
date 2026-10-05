@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 15:00 KST (Codex)
+마지막 갱신: 2026-10-05 15:23 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 15:22 KST: 마지막 full_low_learning_rate 본학습 실행 중. 15:12:12KST 시작, 원본2095 model+AdamW746state 재개, 최신2192/4707. Batch8 profile은할당예산OOM,4×누적2×GPU2=유효16선택. Adapter학습·검증완료. Runtime변경없음.
 
 2026-10-05 14:58 KST: Adapter 본학습4707/4707 완료, v4 queue421603은residual_adapter_evaluation 진행. 배치 확대 점검 도중 pjh-wamvla-v2가 GPU0·1에복귀(PID290180/290181,각19522MiB). GPU속도profile미실행·runtime변경없음.
 
@@ -458,6 +460,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-05 15:22 KST: full 재개검사·gradient·engineering 통과, 본학습loss유한. LPWM1e-6/planner3e-4 기본LR,전모듈학습+SSL유지/직접객체GT없음. GPU전체각43.45GB. 상세results/lpwm_card_budget_measured_v4/full_resume_status_20261005_1522.json.
 
 2026-10-05 배치 확대 검토: 현재기준GPU당8×누적1×2=유효16이며12/16증설은유효24/32로바뀐다. Adapter 완료 직전약2.1s/update,입력준비수ms. 여유GPU1실측용script를준비했으나sandbox NVML조회실패후host조회에서pjh복귀를확인해추가GPU실행하지않음. 근거results/lpwm_available_vram_throughput_20261005/capacity_review.json.
 
@@ -846,10 +850,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공유 GPU 여유에 따른 배치 확대를 점검했으나 pjh 재등장으로 추가GPU profile을 실행하지 않았다. Adapter4707 완료·검증전환 및 등록source/config 불변을 확인.
-- GPU1 유휴 검증시간의 단일GPU 처리량·재계산 진단 script2개를 준비하고 구문검사; 실행실패 원인과미검증범위를결과JSON에명시. 기존queue/학습조건불변.
+- 현재 full low-LR 본학습과 원본2095 model+AdamW 복구, batch8 profile예산OOM→batch4누적2선택을읽기전용확인.
+- Adapter학습·검증완료 및새자동생성결과를보존하고상태JSON/인수인계갱신. Runtime/source/config변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재 full2095→4707 본학습 완료 후 동일1024planning/256world개발검증과네방법집계자동실행. 새로운batch실험·학습연장·공식navtest추가없음.
 
 2026-10-05 최신: v4 Adapter검증→기존full batch8우선profile·메모리초과시4/2fallback→2095checkpoint재개→검증유지. 준비한추가실측script는자동대기열에등록하지않음. 공유점유가다시사라질때는GPU상태와유효배치변경여부를재확인한다.
 
@@ -1083,6 +1089,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Full조건은native LPWM전체+planner학습이며LoRA/Adapter고정방식이아니다. 기존full의conv_in명령입력/20epochLR스케줄을유지하여다른세방법과의순수기법단독비교가아님. Batch8 profile실패와현재batch4정상본학습을구분한다.
 
 2026-10-05 배치확대·재계산감소속도향상은실측전이며미확정. pjh재등장으로각GPU약20.47GB사용,우리예산은48GB에서해당점유와context를뺀범위다. 새진단script는구문검사만통과했고GPU/gradient동일성미검증.
 

@@ -1,0 +1,53 @@
+[
+  {
+    "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/card_budget_measured_v4/full_low_learning_rate_batch8.json",
+    "microbatch_size_per_gpu": 8,
+    "passed": false,
+    "returncode": 1,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 47520415744,
+    "minimum_free_gib": 3.1572265625,
+    "minimum_cap_headroom_gib": 0.44664764404296875,
+    "queue_configuration_sha256": "888e2b3c328d689b81e678e1519936b3ae1de0f4f7959a295ae1fb8b8d176ec4",
+    "finished_unix": 1791180559.0920358
+  },
+  {
+    "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/card_budget_measured_v4/full_low_learning_rate_batch4.json",
+    "microbatch_size_per_gpu": 4,
+    "passed": true,
+    "returncode": 0,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 43451940864,
+    "minimum_free_gib": 6.9462890625,
+    "minimum_cap_headroom_gib": 4.235710144042969,
+    "queue_configuration_sha256": "888e2b3c328d689b81e678e1519936b3ae1de0f4f7959a295ae1fb8b8d176ec4",
+    "finished_unix": 1791180650.1282308,
+    "training_summary": {
+      "condition": "metric_plus_world",
+      "completed_updates": 8,
+      "epochs": 0.0016995963458678563,
+      "train_clips": 75297,
+      "effective_batch_size": 16,
+      "world_size": 2,
+      "starting_completed_updates": 0,
+      "additional_updates_this_execution": 8,
+      "original_scheduler_total_updates": 94140,
+      "resumed_from_prior_full": false,
+      "seconds": 56.38285386998905,
+      "peak_allocated_gib": 20.73507308959961,
+      "module_gradients": {
+        "image_encoder": 451.66412353515625,
+        "context": 175.8316650390625,
+        "dynamics": 323.9689636230469,
+        "rgb_decoder": 0.31210607290267944,
+        "planner_and_command": 12.06967830657959
+      },
+      "trainable_parameters": 111757238,
+      "checkpoint_sha256": "fc0b86f51214d32d9483e460acea8969ab45e2565e6b45744a42e543d9d1e826",
+      "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+      "configuration_sha256": "87fa7ccef5b7aa841abc4db7ddc89de892321d3b82f506caadb25e16d0b2a6d6",
+      "profile_only": true
+    },
+    "steady_update_seconds": 5.56582966815525
+  }
+]

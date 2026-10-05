@@ -2337,3 +2337,8 @@ https://github.com/taldatech/lpwm/blob/main/configs/bair64.json .
 사용자가GPU0·1여유활용을요청했다. 시작시Adapter4512/4707,배치8/누적1/GPU2=유효16,각24.74GB·100%사용이었다. 완료임박한학습은유지하고검증중빈GPU1에서full2095원본을복사해배치8/12/16및checkpoint재계산비교용스크립트를준비했다. 프로파일controller는sandbox NVML조회exit9에서실패했으며GPUchild는기동하지않았다. 호스트읽기전용재조회14:58에서pjh-wamvla-v2 PID290180/290181가GPU0·1각19522MiB로복귀한것을확인해실측을재시도하지않았다. 두스크립트는자동대기열에등록하지않았고Python구문검사만완료,속도/gradient동일성은미검증이다.
 
 Adapter는4707/4707정상완료·기존queue가전체개발검증으로전환했다. 등록source42개및config전체hash보존. 기존full8우선profile/48GB감시/필요시4·2fallback/원본2095재개를유지한다. 유효배치16에서12·16perGPU로변경하면24·32가되므로학습조건변경임을사용자에게설명했으며실제로변경하지않았다. 근거results/lpwm_available_vram_throughput_20261005/capacity_review.json.
+
+
+## 2026-10-05 15:22 KST — 현재 full low-LR 재개 학습 확인
+
+사용자현재학습질문으로queue/progress/config/복구기록읽기전용조회. Adapter4707학습·전체개발검증이완료됐다. 다음full은15:12:12에기동,원본2095체크포인트의model과AdamW746state를보존재개해2192/4707진행. GPU당batch8profile이공유점유하에서24.96GiB allocator제한OOM으로실패했고프로파일가중치는폐기,정상통과한batch4×누적2×GPU2=유효16/SSL8을선택했다. LPWM전모듈1e-6와planner3e-4기본LR,기존planning+0.02SSL/GT보조OFF. 현재GPU전체각43.45GB,학습loss유한. 새학습이나실행조건변경없음. 근거results/lpwm_card_budget_measured_v4/full_resume_status_20261005_1522.json.

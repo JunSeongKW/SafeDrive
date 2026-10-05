@@ -1,0 +1,79 @@
+{
+  "checked_at": "2026-10-05T15:22:51.854351+09:00",
+  "queue_pid": 421603,
+  "queue_heartbeat_age_seconds": 0.18424773216247559,
+  "current_stage": "full_low_learning_rate_training",
+  "training_process_pid": 322520,
+  "training_started_at": "2026-10-05T15:12:12.813923+09:00",
+  "progress": {
+    "update": 2192,
+    "total_updates": 4707,
+    "epoch_fraction": 0.46568939876779264,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 35072,
+    "planning_loss": 7.02754807472229,
+    "world_objective": 17.848307847976685,
+    "loss": 7.384514212608337,
+    "imitation_loss": 4.551193952560425,
+    "metric_distillation_loss": 2.4763541221618652,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 74.97740173339844,
+      "context": 18.618499755859375,
+      "dynamics": 52.10980224609375,
+      "rgb_decoder": 0.2709624171257019,
+      "planner_and_command": 9.061405181884766
+    },
+    "lpwm_lr": 9.996005931310818e-07,
+    "planner_lr": 0.00029988017793932455,
+    "peak_allocated_gib": 20.735073566436768,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.03951673296978697,
+    "update_seconds": 5.806662886985578,
+    "elapsed_seconds": 16856.22790066502
+  },
+  "restored_checkpoint": {
+    "completed_updates": 2095,
+    "elapsed_seconds": 16275.529901586997,
+    "optimizer_states_restored": 746,
+    "checkpoint_sha256": "aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "source_configuration_sha256": "72e50a14438e7358414bdcd6e87fd4bab60749c01df5f1f1086d84e987494f5f",
+    "next_update": 2096,
+    "new_optimizer_created_from_scratch": false,
+    "original_run_modified": false
+  },
+  "execution": {
+    "microbatch_size_per_gpu": 4,
+    "gradient_accumulation": 2,
+    "world_size": 2,
+    "world_auxiliary_clips_per_gpu_microbatch": 2,
+    "workers_per_rank": 0,
+    "lpwm_learning_rate": 1e-06,
+    "planner_learning_rate": 0.0003
+  },
+  "batch8_profile_failed_reason": "CUDA allocation budget OOM under shared pjh occupancy; failed profile weights discarded. Batch4 with accumulation2 selected; effective planning16/world8 unchanged.",
+  "gpu_resources": {
+    "0": {
+      "used_bytes": 43452989440,
+      "free_gib": 6.9443359375
+    },
+    "1": {
+      "used_bytes": 43454038016,
+      "free_gib": 6.9443359375
+    }
+  },
+  "adapter_training_and_evaluation_complete": true,
+  "runtime_changed": false
+}
