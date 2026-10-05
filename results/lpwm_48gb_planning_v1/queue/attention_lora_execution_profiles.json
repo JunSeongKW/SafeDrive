@@ -1,0 +1,49 @@
+[
+  {
+    "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+    "microbatch_size_per_gpu": 4,
+    "passed": true,
+    "returncode": 0,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 35527852032,
+    "minimum_free_gib": 14.3251953125,
+    "minimum_cap_headroom_gib": 11.615592956542969,
+    "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+    "finished_unix": 1791139028.765456,
+    "training_summary": {
+      "condition": "metric_plus_world",
+      "completed_updates": 8,
+      "epochs": 0.0016995963458678563,
+      "train_clips": 75297,
+      "effective_batch_size": 16,
+      "world_size": 2,
+      "seconds": 59.677420789026655,
+      "peak_allocated_gib": 13.04333209991455,
+      "module_gradients": {
+        "image_encoder": 0.10514547675848007,
+        "context": 0.06532993912696838,
+        "dynamics": 0.046395156532526016,
+        "rgb_decoder": 0.0,
+        "planner_and_command": 7.370907783508301
+      },
+      "trainable_parameters": 3555463,
+      "checkpoint_sha256": "bbde5c54d9e1e3ead0b9c3b51b362beb5db9befca791c3e1f7dea36f2f18c299",
+      "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+      "configuration_sha256": "d10ff483220ac2fec1c10377611fbbaffa4b3eb0604a390651ec80f4c3e34387",
+      "profile_only": true
+    },
+    "steady_update_seconds": 5.402016335166991
+  },
+  {
+    "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch8.json",
+    "microbatch_size_per_gpu": 8,
+    "passed": false,
+    "returncode": 1,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 45934968832,
+    "minimum_free_gib": 4.6337890625,
+    "minimum_cap_headroom_gib": 1.9232101440429688,
+    "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+    "finished_unix": 1791139076.3009722
+  }
+]

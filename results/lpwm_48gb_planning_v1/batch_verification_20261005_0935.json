@@ -1,0 +1,156 @@
+{
+  "checked_at": "2026-10-05T09:36:54.508062+09:00",
+  "request": "Verify batch8 is maintained after observed VRAM reduction",
+  "current_method": "attention_lora",
+  "microbatch_size_per_gpu": 4,
+  "gradient_accumulation": 2,
+  "world_size": 2,
+  "effective_planning_batch_size": 16,
+  "progress": {
+    "update": 4352,
+    "total_updates": 4707,
+    "epoch_fraction": 0.9245804121521138,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 69632,
+    "planning_loss": 6.200226187705994,
+    "world_objective": 18.574240684509277,
+    "loss": 6.57171106338501,
+    "imitation_loss": 4.529610991477966,
+    "metric_distillation_loss": 1.6706151962280273,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 0.25923946499824524,
+      "context": 0.3657293915748596,
+      "dynamics": 0.22207053005695343,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 4.19495153427124
+    },
+    "lpwm_lr": 1.1289807164418796e-06,
+    "planner_lr": 3.3869421493256385e-05,
+    "peak_allocated_gib": 13.054288864135742,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.009122193965595216,
+    "update_seconds": 4.7379100760445,
+    "elapsed_seconds": 21355.779799766955
+  },
+  "queue_state": "running",
+  "queue_stage": null,
+  "queue_pid": 1902774,
+  "torchrun_pid": 3292771,
+  "training_worker_pids": [
+    3293934,
+    3293935
+  ],
+  "gpu_snapshot_at_approximately": "2026-10-05T09:35:00+09:00",
+  "gpu_total_used_mib": [
+    34658,
+    34663
+  ],
+  "training_process_used_mib": [
+    14452,
+    14456
+  ],
+  "gpu_utilization_percent": [
+    100,
+    84
+  ],
+  "execution_selection": {
+    "selected_configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+    "profiles": [
+      {
+        "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+        "microbatch_size_per_gpu": 4,
+        "passed": true,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 35527852032,
+        "minimum_free_gib": 14.3251953125,
+        "minimum_cap_headroom_gib": 11.615592956542969,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791139028.765456,
+        "training_summary": {
+          "condition": "metric_plus_world",
+          "completed_updates": 8,
+          "epochs": 0.0016995963458678563,
+          "train_clips": 75297,
+          "effective_batch_size": 16,
+          "world_size": 2,
+          "seconds": 59.677420789026655,
+          "peak_allocated_gib": 13.04333209991455,
+          "module_gradients": {
+            "image_encoder": 0.10514547675848007,
+            "context": 0.06532993912696838,
+            "dynamics": 0.046395156532526016,
+            "rgb_decoder": 0.0,
+            "planner_and_command": 7.370907783508301
+          },
+          "trainable_parameters": 3555463,
+          "checkpoint_sha256": "bbde5c54d9e1e3ead0b9c3b51b362beb5db9befca791c3e1f7dea36f2f18c299",
+          "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+          "configuration_sha256": "d10ff483220ac2fec1c10377611fbbaffa4b3eb0604a390651ec80f4c3e34387",
+          "profile_only": true
+        },
+        "steady_update_seconds": 5.402016335166991
+      },
+      {
+        "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch8.json",
+        "microbatch_size_per_gpu": 8,
+        "passed": false,
+        "returncode": 1,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 45934968832,
+        "minimum_free_gib": 4.6337890625,
+        "minimum_cap_headroom_gib": 1.9232101440429688,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791139076.3009722
+      }
+    ],
+    "selection_basis": "Eight updates, discard first2 and choose fastest remaining mean with >=0.5GiB measured headroom below48decimalGB and >=3GiB free. Controlled allocator-limit failures reject larger batch; no development-based selection."
+  },
+  "batch8_failure_reason": "torch.OutOfMemoryError during backward/recomputed dynamics attention: 20MiB allocation rejected at PyTorch allocator allowance23.20GiB; allocated22.75GiB, reserved unallocated452.72MiB; physical free4.63GiB. Not exhaustion of the physical card or breach of48decimalGB total guard.",
+  "batch8_failure_log": "outputs/lpwm_48gb_planning_v1/queue/attention_lora_profile_batch8.log",
+  "partial_final_evaluation": {
+    "planning_scenes": 1024,
+    "means": {
+      "initial": {
+        "ade_meters": 8.758671466639498,
+        "fde_meters": 18.37304986140225,
+        "pdms": 0.03429580160966699,
+        "metric_bce": 4.311505196727338
+      },
+      "trained": {
+        "ade_meters": 1.2825015851958597,
+        "fde_meters": 3.0433276962321543,
+        "pdms": 0.8163412038919158,
+        "metric_bce": 1.8395633372048557
+      },
+      "persistent_future": {
+        "ade_meters": 1.308417946456757,
+        "fde_meters": 3.201777802268225,
+        "pdms": 0.7623609905582683,
+        "metric_bce": 2.1169012323182432
+      }
+    },
+    "checks": {
+      "complete_registered_epoch": true,
+      "planning_loss_learned": true,
+      "pdms_improved_over_random_planner": true,
+      "reconstruction_lpips": true,
+      "forecast_lpips": false
+    },
+    "scope": "Previously exposed development panels for fast trends, not full development or independent test"
+  },
+  "runtime_changes_this_review": false,
+  "interpretation": "Partial used batch8 successfully and completed. Independently profiled LoRA fell back to batch4; accumulation preserves effective batch16 but does not preserve wall-clock throughput."
+}

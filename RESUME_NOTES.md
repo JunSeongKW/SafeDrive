@@ -2054,3 +2054,10 @@ GPU0/1총45.592/45.570GB,각free4.95GiB이상.2353update중간particle시각화�
 우리81.85는고정dev128(유효127)중간점수여서전체navtest SOTA와직접순위비교불가.
 근거 `results/lpwm_48gb_planning_v1/navsim_pdms_literature_review_20261005.json`.
 학습/queue/config/방법론변경없음.
+
+
+## 2026-10-05 09:36 KST — VRAM 감소와 현재 배치 확인
+
+현재 LoRA 4352/4707, GPU당batch4/누적2/GPU2/유효16. Partial8은 완료됐고, LoRA8은03:37:55 backward중23.20GiB allocator allowance에서20MiB 할당을거부해profile탈락. 당시물리free4.63GiB/카드45.935decimalGB이므로물리메모리전량사용에따른OOM으로설명하지않는다. 현재GPU0/1우리process14452/14456MiB,카드34658/34663MiB,util100/84%. 최근update4304→4320→4336으로증가했고읽기전용점검중계속학습.
+
+Partial 최종dev1024/유효PDMS1021/40recording PDMS81.6341/ADE1.28250m; world256 reconstruction 유지통과/forecast LPIPS 실패. 이는 전체검증통과가 아니며 사전등록 독립방법비교 계속 규칙으로 LoRA 새초기화학습진행. 이번턴실행설정·source·queue·cap변경없음. 근거 `results/lpwm_48gb_planning_v1/batch_verification_20261005_0935.json`.

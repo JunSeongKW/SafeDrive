@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 02:05 KST (Codex)
+마지막 갱신: 2026-10-05 09:37 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신 2026-10-05 09:36 KST: LoRA GPU당 batch4×누적2×2GPU=유효16, 4352/4707 update. Queue1902774/torchrun3292771/worker3293934·3293935 정상. Partial batch8 학습·최종검증 완료 후 방법별 profile에서 LoRA batch8이 allocator OOM으로 탈락하여 batch4 자동선택. 현재도 batch8이라는 해석은 틀림. 이번에는 읽기전용 실행점검 및 문서기록만 수행, runtime 변경 없음. 근거 `results/lpwm_48gb_planning_v1/batch_verification_20261005_0935.json`.
 
 최신질문은PDMS SOTA문헌조회. 이번턴학습상태재점검/추가GPU작업/queue변경없음. 기존4방법학습대기열유지.
 
@@ -412,6 +414,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신 2026-10-05 09:35 KST: LoRA8 profile은 물리free4.63GiB/카드전체45.935decimalGB 상태에서 프로세스별23.20GiB allocator allowance에 도달하여20MiB allocation 실패. 카드전체48GB 초과나 물리메모리 고갈이 아님. LoRA4 본학습은 우리process GPU당14452/14456MiB, 카드전체34658/34663MiB, GPUutil100/84%. Partial 최종1024dev(유효PDMS1021)/256world 검증은 PDMS81.6341, ADE1.28250m; reconstruction 유지통과/forecast LPIPS 유지실패. 전체검증통과로 보고하지 않는다. Queue는 사전등록된 독립 방법비교 지속 설정에 따라 LoRA로 진행했으며 Partial checkpoint를 LoRA에 이어받지 않는다.
 
 NAVSIM-v1 논문최고확인치95.1: DrivoR+SimScale+Traffic-Element Awareness(arXiv2608.18035Table2). iDriveVLA는94.95/공개리더보드1위를저자보고(2609.30818). TOAD94.9/ChainFlow94.85/DriveSuprim93.5도원문확인. Live HF순위행은접근확인불가로논문보고치와실시간순위구분.
 
@@ -754,12 +758,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- NAVSIM-v1 PDMS SOTA질문에최근논문원문과저자repo확인. TE+DrivoR+SimScale95.1과iDriveVLA94.95의출처/조건기록.
-- 논문보고치와미검증실시간리더보드순위,우리dev128과전체navtest를구분했다.
-- 문헌근거JSON/HANDOFF/RESUME갱신. 학습·queue·source/config변경없음.
+- 현재 LoRA batch4와 유효batch16을 실행명령·선택결과·증가하는 학습로그로 확인했다.
+- LoRA batch8의 allocator OOM과 물리 VRAM 부족을 구분하고 메모리감소 원인을 기록했다.
+- 자동생성된 partial 최종검증/LoRA profile 결과와 상태JSON/HANDOFF/RESUME를 보존. 학습·queue·source/config 변경 없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신: 현재 LoRA batch4 학습을 유지하고4707 완료 후1024planning/256world 검증→Adapter profile/학습/검증→원래full2095 재개/검증 순서를 관찰한다. LoRA8 확대는 기존 allocator 제한에 걸렸으므로 카드여유만으로 가능하다고 단정하지 않는다. 이번 배치확인 요청으로 메모리guard/source/config를 수정하거나 학습을 재시작하지 않았다.
 
 SOTA비교시전체navtest/입력센서/학습데이터/SimScale·외부감독유무를맞춘다. 현재dev128 PDMS를최고보고95.1과직접순위비교하지않는다. 이번질문으로새논문방법이나추가학습을자동적용하지않았다.
 
@@ -947,6 +953,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신: 메모리 감소 원인은 Partial8에서 LoRA4로 방법·microbatch가 바뀐 것. 유효batch16 유지와 처리속도 동일은 별개다. Batch8의 실패는 명시적 프로세스 allocator guard에 의한 OOM이며 물리48GB 용량만의 한계로 단정할 수 없다. Partial forecast LPIPS 유지gate 실패는 보존하며, LPWM 미세조정 단독효과/최종독립test는 여전히 미확정. LoRA 최종결과 대기.
 
 최고치95.1은2026-10-05조사에서확인한NAVSIM-v1논문보고치. 공식실시간리더보드1위는미검증. TE/SimScale조건의효과를우리LPWM의효과로전이해단정하지않는다.
 
