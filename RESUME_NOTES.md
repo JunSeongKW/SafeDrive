@@ -2360,3 +2360,11 @@ NativeLPWM고정·adapter704960+planner명령2211975학습. 기록시간약4h10m
 Stage1의nativeLPWM전체가중치/buffer·encoder명령FiLM4480개고정/eval/no_grad,planner2207495개만학습한다. Ego명령은planner에유지. Seed47/동일초기planner·vocabulary·teacher·loss·LR3e-4·1epoch스케줄·유효planning16/world8·worker0·객체GT OFF. SSL0.02는detach된모니터라어떤가중치도갱신하지않는다. Adapter/LoRA와의대조는LPWM적응+FiLM+train/eval차이를포함하며full의conv_in/20epoch스케줄차이도남는것을등록했다.
 
 실제체크포인트CPU감사에서초기planner및4종출력최대차이0,optimizer2step후LPWM·FiLM전체state와particle표현불변,world各gradient0/planner6.94398,SSL無gradient·미래입력독립성·planner명령반응통과. CPU첫검사비연속영상view오류는새고정모델SSL입력contiguous정리로해결후통과했다. 진단weights폐기. 프로토콜음성검사7개통과. 새등록source49/config33 hash확인,기존42/29도불변. 설정configs/lpwm_planning/frozen_control_v1/queue.json,검사results/lpwm_frozen_control_v1/queue/cpu_audit.json,기동근거registration_status.json. GPU검사/처리량은미측정이며선행작업종료후자동수행한다.
+
+## 2026-10-05 16:25 KST — 현재 전체 미세조정 종료 예상
+
+2026-10-05 16:25 KST: full low-LR 학습 2864/4707 (60.85%), 남은 1843 update. 최근 128/256/512 update의 경과시간 기준 약 5.61–5.63s/update; 학습 종료 19:15–19:40, 최종 개발 검증 종료 19:30–20:10 KST 예상.
+
+최근 log의 elapsed_seconds 차분을 사용해 중간 검증·저장 시간을 포함했다. 이전 개발 평가 실측은 partial 19.9분, LoRA 28.4분, Adapter 11.8분이다. 추정 범위는 공유 GPU 부하 변동을 고려한 계획값이며 보장/통계적 신뢰구간이 아니다. Main queue는 학습 중, frozen 대조군 queue는 선행 학습·검증·집계 완료를 기다린다. 대조군 완료 ETA는 GPU profile 후 계산한다.
+
+근거: `results/lpwm_card_budget_measured_v4/full_training_eta_20261005_1624.json`. 학습·queue·source/config 변경 없이 CPU 로그 확인과 기록만 수행했다.

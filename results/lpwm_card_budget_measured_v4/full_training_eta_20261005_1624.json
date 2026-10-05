@@ -1,0 +1,70 @@
+{
+  "observed_at_kst": "2026-10-05T16:25:33.287202+09:00",
+  "training": "full_low_learning_rate",
+  "training_log": "outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/training_log.jsonl",
+  "latest_update": 2864,
+  "total_updates": 4707,
+  "progress_percent": 60.845549182069256,
+  "remaining_updates": 1843,
+  "last_loss": 7.026347756385803,
+  "latest_log_mtime_kst": "2026-10-05T16:24:43.849486+09:00",
+  "recent_elapsed_time_estimates": [
+    {
+      "updates": 128,
+      "seconds_per_update": 5.607228288890838,
+      "remaining_seconds": 10334.121736425814,
+      "finish_kst": "2026-10-05T19:17:47.408938+09:00"
+    },
+    {
+      "updates": 256,
+      "seconds_per_update": 5.632921530281237,
+      "remaining_seconds": 10381.47438030832,
+      "finish_kst": "2026-10-05T19:18:34.761582+09:00"
+    },
+    {
+      "updates": 512,
+      "seconds_per_update": 5.612456538660126,
+      "remaining_seconds": 10343.757400750612,
+      "finish_kst": "2026-10-05T19:17:57.044603+09:00"
+    }
+  ],
+  "training_finish_planning_range_kst": [
+    "2026-10-05T19:15:00+09:00",
+    "2026-10-05T19:40:00+09:00"
+  ],
+  "validation_finish_planning_range_kst": [
+    "2026-10-05T19:30:00+09:00",
+    "2026-10-05T20:10:00+09:00"
+  ],
+  "range_interpretation": "Practical estimate allowing shared GPU and checkpoint variation; not a statistical confidence interval or guarantee.",
+  "previous_evaluation_seconds": {
+    "partial": 1194.4066837810096,
+    "lora": 1705.1967076099827,
+    "adapter": 708.1984033620101
+  },
+  "evaluation_timing_source": "results/lpwm_card_budget_measured_v4/completed_adapter_review_20261005/summary.json",
+  "batch_per_gpu": 4,
+  "gradient_accumulation_steps": 2,
+  "gpu_ids": [
+    0,
+    1
+  ],
+  "effective_planning_batch": 16,
+  "queues": [
+    {
+      "path": "outputs/lpwm_card_budget_measured_v4/queue/queue_state.json",
+      "status": "running",
+      "stage": "full_low_learning_rate_training",
+      "heartbeat_age_seconds": 10.219818592071533
+    },
+    {
+      "path": "outputs/lpwm_frozen_control_v1/queue/queue_state.json",
+      "status": "waiting",
+      "stage": "waiting_for_full_training_and_validation",
+      "heartbeat_age_seconds": 7.660244941711426
+    }
+  ],
+  "frozen_control_finish_estimate": null,
+  "frozen_control_note": "Automatically follows predecessor training, validation and aggregation with its own GPU audit and profile. Throughput not measured yet.",
+  "execution_changes": []
+}

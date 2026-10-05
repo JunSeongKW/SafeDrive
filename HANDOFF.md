@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 16:17 KST (Codex)
+마지막 갱신: 2026-10-05 16:25 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 16:25 KST: full low-LR 학습 2864/4707 (60.85%), 남은 1843 update. 최근 128/256/512 update의 경과시간 기준 약 5.61–5.63s/update; 학습 종료 19:15–19:40, 최종 개발 검증 종료 19:30–20:10 KST 예상. Main queue는 full_low_learning_rate_training, frozen 대조군 queue는 waiting_for_full_training_and_validation이며 양쪽 heartbeat 정상.
 
 2026-10-05 16:17 KST: 사용자승인 frozen-LPWM planner대조군 후속CPUqueue871940 기동, waiting_for_full_training_and_validation/heartbeat정상/GPU자식0. 기존v4queue421603은full_low_learning_rate_training 유지. 새진입점configs/lpwm_planning/frozen_control_v1/queue.json.
 
@@ -464,6 +466,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+ETA 근거: results/lpwm_card_budget_measured_v4/full_training_eta_20261005_1624.json. 최근 경과시간 차분으로 중간 저장·검증 시간을 포함해 추정했고, 이전 최종 평가 실측은 11.8–28.4분이다. 현재 loss는 유한하며 GPU0·1 점유 각 약43.45GB, batch4×누적2×2=유효16 유지.
 
 실제Stage1 CPU감사통과: Adapter와초기planner/출력차이0,optimizer2step후world·encoder-FiLM가중치/buffer/hash·particle표현불변,world모듈gradient0/planner6.94398,planner명령반응/미래보조입력독립성통과. 실행조건음성검사7개통과. 근거results/lpwm_frozen_control_v1/queue/cpu_audit.json및registration_status.json.
 
@@ -858,12 +862,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자승인 frozen-LPWM 동일planner대조군 구현·config3배치/queue등록 및 CPU후속대기열871940기동. 기존학습·v4queue보존.
-- 실제Stage1의초기동일성/optimizer후freeze·buffer·particle불변/causal·gradient감사와7개실행조건검사통과.
-- GPU0·1/총48GB·8우선/유효16·동일개발평가/자동paired보고연결. GPU감사·속도실측은선행완료후수행.
-- README/AGENTS/연구문서·HANDOFF/일지갱신;새source/config hash와정상대기heartbeat확인.
+- 현재 full low-LR 진행률과 최근 128/256/512 update의 경과시간으로 종료 ETA를 계산·기록했다.
+- 기존 최종 평가 소요시간과 후속 frozen 대조군 대기 상태를 확인했다.
+- HANDOFF/RESUME_NOTES와 소형 JSON 보고서만 갱신했다. 실행 중 학습·대기열·설정은 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재 full 학습 종료와 최종 개발 검증·네 방법 집계 후, 등록된 frozen 대조군 GPU 감사/profile/학습/검증을 자동 실행한다. 대조군 전체 종료 시각은 자체 속도 실측 뒤 갱신한다.
 
 v4네방법학습·검증·four_method_summary완료marker→새queue GPU감사→8우선profile(메모리실패4/2)→engineering→고정LPWM+동일planner75297장면/1epoch4707→개발1024planning/256world→adaptation_vs_frozen_summary 자동실행. 초기Stage1+seed47planner사용,profile가중치폐기. 추가seed/epoch/GT/navtest자동실행없음.
 
@@ -1103,6 +1108,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번 종료 예상은 공유 GPU 부하가 현재 수준으로 유지된다는 조건의 실측 기반 추정이며 보장/통계적 신뢰구간이 아니다. Frozen 대조군 속도는 미실측이다. 이번 턴은 로그 조회·ETA 기록이며 학습 source/config/queue는 변경하지 않았다.
 
 고정대조군은encoder FiLM4480개까지고정/eval/no_grad하여표현변화를차단한다. Planner2207495개학습·ego명령입력유지. Adapter/LoRA와의차이는표현적응+FiLM학습+world train/eval모드를함께포함하고full스케줄차이도남는다. GPU감사·실측속도·학습효과는아직미확인. 새source49/config33등록불변유지;중단은outputs/lpwm_frozen_control_v1/queue/pause.requested또는선행v4pause를사용.
 
