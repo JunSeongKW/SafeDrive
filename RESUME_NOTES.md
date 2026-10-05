@@ -2155,3 +2155,13 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 - 2026-10-05 10:39 KST: Adapter는 아직미시작. 현재queue attention_lora_evaluation, LoRA학습완료후 world_retention 97/256검증중. Adapter node/실행선택파일없음. Heartbeat정상갱신. 근거results/lpwm_card_budget_measured_v4/adapter_start_check_20261005.json.
 - LoRA의planning/미래표현개입 결과파일은생성됐으며world유지검증과최종집계가남았다. 검증후기존대기열이Adapter8우선profile→학습으로이어진다.
 - 추가GPU작업/학습재기동/대기열/source/config변경없음.
+
+## 2026-10-05 10:52 KST — Adapter 본학습 시작 및 적용 구조 확인
+
+- 2026-10-05 10:52 KST: Adapter본학습10:46:36KST시작,update80/4707. GPU당batch8/accum1×2=16,전체VRAM각45.89GB. Queue421603/torchrun866051. LoRA검증10:43:53완료후profile/gradient/engineering검사통과해자동진입. 이번턴runtime변경없음.
+- Native LPWM109.55M고정. 11개Transformer block출력뒤64차원bottleneck nonlinear residual을추가. 위치는particle interaction1/context4/dynamics6.
+- Adapter704960/planner+FiLM2211975/총2916935학습. FiLM은attributeCNN conv_out에유지되며최대LR각1e-5/3e-4,planning+metric+0.02SSL공동loss. 직접객체GT OFF.
+- Stage1동일checkpoint+동일planner초기화의독립조건. 이전LoRA학습을이어가는것아님. 초기출력차0,진단frozen해시보존,planning/SSL gradient검사통과. Decoder는고정이지만SSL입력gradient유지.
+- 진행log의초기대형gradient는clip전값이며gradient_clip5/error_if_nonfinite=True를적용한다. 로그의image_encoder gradient그룹은interaction도포함;CNN native가학습된다는뜻아님.
+- LoRA검증완료와모든과학적gate통과는별개이며본기록JSON에trend_checks와checks원문을보존했다.
+- 근거 results/lpwm_card_budget_measured_v4/adapter_training_and_architecture_20261005.json. 학습/queue/source/config변경없음.

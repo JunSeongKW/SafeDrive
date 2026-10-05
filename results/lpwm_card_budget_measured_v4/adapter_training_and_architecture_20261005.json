@@ -1,0 +1,102 @@
+{
+  "checked_at": "2026-10-05T10:52:35.364391+09:00",
+  "queue_current_stage": "residual_adapter_training",
+  "training_started_kst": "2026-10-05T10:46:36.741098+09:00",
+  "progress": {
+    "update": 80,
+    "total_updates": 4707,
+    "epoch_fraction": 0.016995963458678563,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 1280,
+    "planning_loss": 8.288895606994629,
+    "world_objective": 19.035027503967285,
+    "loss": 8.669596195220947,
+    "imitation_loss": 5.533501148223877,
+    "metric_distillation_loss": 2.755394458770752,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 15514.1044921875,
+      "context": 41112.828125,
+      "dynamics": 212856.15625,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 6024.41796875
+    },
+    "lpwm_lr": 9.998952887019723e-06,
+    "planner_lr": 0.00029996858661059166,
+    "peak_allocated_gib": 22.305545806884766,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.007297169999219477,
+    "update_seconds": 2.9959772240254097,
+    "elapsed_seconds": 315.23239728598855
+  },
+  "current_total_gpu_memory": {
+    "0": {
+      "used_bytes": 45889880064,
+      "free_gib": 4.6748046875
+    },
+    "1": {
+      "used_bytes": 45890928640,
+      "free_gib": 4.6748046875
+    }
+  },
+  "selected_microbatch_size_per_gpu": 8,
+  "gradient_accumulation": 1,
+  "world_size": 2,
+  "adapter_region_counts": {
+    "encoder_module.particle_inter_enc.pte": 1,
+    "encoder_module.ctx_enc.pte": 4,
+    "dyn_module.particle_transformer": 6
+  },
+  "adapter_configuration": {
+    "bottleneck_dimension": 64,
+    "regions": [
+      "encoder_module.particle_inter_enc.pte",
+      "encoder_module.ctx_enc.pte",
+      "dyn_module.particle_transformer"
+    ],
+    "placement": "One residual LayerNorm -> Linear -> GELU -> zero-initialized Linear after each complete Transformer block. Native weights frozen.",
+    "source": "https://arxiv.org/abs/1902.00751",
+    "source_scope": "Residual bottleneck adapter principle, adapted placement for LPWM; not an exact Houlsby implementation."
+  },
+  "trainable_adapter_parameters": 704960,
+  "trainable_planner_and_command_parameters": 2211975,
+  "total_trainable_parameters": 2916935,
+  "original_lpwm_parameters_frozen": true,
+  "independent_stage1_initialization": true,
+  "uses_lora_trained_checkpoint": false,
+  "peak_learning_rates": {
+    "adapters": 1e-05,
+    "planner_and_command": 0.0003
+  },
+  "loss": "candidate imitation + six-subscore metric BCE +0.02 original LPWM temporal ELBO",
+  "direct_object_gt_auxiliary_loss": false,
+  "gradient_flow": "Planning and SSL backpropagate through native LPWM operations to trainable adapters and intent FiLM; native parameters are frozen rather than detaching intermediate features. RGB decoder is frozen but SSL gradient flows to its particle inputs.",
+  "initial_max_prediction_differences": {
+    "metric_logits": 0.0,
+    "observed_particle_attributes": 0.0,
+    "predicted_particle_attributes": 0.0
+  },
+  "engineering_audit_passed": true,
+  "frozen_parameters_unchanged_in_diagnostic_update": true,
+  "lora_evaluation_completed": true,
+  "lora_trend_checks_passed": true,
+  "lora_checks": {
+    "complete_registered_epoch": true,
+    "planning_loss_learned": true,
+    "pdms_improved_over_random_planner": true,
+    "reconstruction_lpips": true,
+    "forecast_lpips": true
+  },
+  "runtime_changes": false
+}

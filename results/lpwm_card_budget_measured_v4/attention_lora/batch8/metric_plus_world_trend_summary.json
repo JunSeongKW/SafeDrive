@@ -1,0 +1,256 @@
+{
+  "condition": "metric_plus_world",
+  "configuration_sha256": "1a666286478a23f86075bd579f880565c24f30dc2b01d6712814a23e507929c5",
+  "checkpoint_sha256": "54b893143b62e5dc35cc5552109c1622a68c11c55ed617ad77436025ab9c98c6",
+  "engineering_only": false,
+  "planning_scenes": 1024,
+  "world_clips": 256,
+  "planning_recordings": 40,
+  "means": {
+    "initial": {
+      "ade_meters": 8.766061301023,
+      "fde_meters": 18.383750129141845,
+      "pdms": 0.03429580160966699,
+      "metric_bce": 4.31148401577022
+    },
+    "trained": {
+      "ade_meters": 1.1822045381086355,
+      "fde_meters": 2.840568473483472,
+      "pdms": 0.8191406225947979,
+      "metric_bce": 1.7871872044800545
+    },
+    "persistent_future": {
+      "ade_meters": 1.211516237588512,
+      "fde_meters": 2.9477764695848236,
+      "pdms": 0.7925090262343437,
+      "metric_bce": 1.8976969160540915
+    }
+  },
+  "trained_minus_initial": {
+    "pdms": {
+      "mean_difference": 0.7848448209851309,
+      "ci95": [
+        0.7466371138577317,
+        0.8188819734587417
+      ],
+      "clips": 1021,
+      "recordings": 40
+    },
+    "ade_meters": {
+      "mean_difference": -7.583856762914365,
+      "ci95": [
+        -7.991951515987156,
+        -7.206555891022132
+      ],
+      "clips": 1024,
+      "recordings": 40
+    },
+    "metric_bce": {
+      "mean_difference": -2.5242968112901654,
+      "ci95": [
+        -2.59261954434809,
+        -2.455010865346996
+      ],
+      "clips": 1021,
+      "recordings": 40
+    }
+  },
+  "predicted_minus_persistent_future": {
+    "pdms": {
+      "mean_difference": 0.02663159636045413,
+      "ci95": [
+        0.013160348954097909,
+        0.040355058044747365
+      ],
+      "clips": 1021,
+      "recordings": 40
+    },
+    "ade_meters": {
+      "mean_difference": -0.029311699479876552,
+      "ci95": [
+        -0.07444441681907618,
+        0.013696156134601312
+      ],
+      "clips": 1024,
+      "recordings": 40
+    }
+  },
+  "world_vs_stage1": {
+    "reconstruction_lpips": {
+      "mean_difference": 3.8533471524715424e-07,
+      "ci95": [
+        -8.667935216894066e-05,
+        9.247599296780466e-05
+      ],
+      "clips": 256,
+      "recordings": 40
+    },
+    "forecast_lpips": {
+      "mean_difference": -0.00040262017864733934,
+      "ci95": [
+        -0.0008247013139386054,
+        3.187827527753168e-05
+      ],
+      "clips": 256,
+      "recordings": 40
+    }
+  },
+  "checks": {
+    "complete_registered_epoch": true,
+    "planning_loss_learned": true,
+    "pdms_improved_over_random_planner": true,
+    "reconstruction_lpips": true,
+    "forecast_lpips": true
+  },
+  "trend_checks_passed": true,
+  "world_risk_breakdown": {
+    "far_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": -2.822329365246669e-05,
+        "ci95": [
+          -0.0001317294826766372,
+          7.459031350345105e-05
+        ],
+        "clips": 211,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.00048401471562860136,
+        "ci95": [
+          -0.0009131253883242606,
+          -4.112754862202505e-05
+        ],
+        "clips": 211,
+        "recordings": 40
+      }
+    },
+    "high_ego_speed": {
+      "reconstruction_lpips": {
+        "mean_difference": -0.0001949451623424407,
+        "ci95": [
+          -0.00042005118892145,
+          1.5444782335087985e-05
+        ],
+        "clips": 31,
+        "recordings": 17
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.00098411210121647,
+        "ci95": [
+          -0.002328523304313421,
+          -6.563483196235234e-05
+        ],
+        "clips": 31,
+        "recordings": 17
+      }
+    },
+    "high_interframe_flow": {
+      "reconstruction_lpips": {
+        "mean_difference": 0.00013511627912521362,
+        "ci95": [
+          2.4452630832086433e-05,
+          0.0002456718481976222
+        ],
+        "clips": 114,
+        "recordings": 36
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.00020686210247508266,
+        "ci95": [
+          -0.0009395745511278195,
+          0.0005467439557220954
+        ],
+        "clips": 114,
+        "recordings": 36
+      }
+    },
+    "large_ego_turn": {
+      "reconstruction_lpips": {
+        "mean_difference": 0.00010800566159042657,
+        "ci95": [
+          -2.9624153350122317e-05,
+          0.00023963823204948778
+        ],
+        "clips": 102,
+        "recordings": 36
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.00013737292850718777,
+        "ci95": [
+          -0.000872018481505678,
+          0.0006372538141228931
+        ],
+        "clips": 102,
+        "recordings": 36
+      }
+    },
+    "projected_overlap": {
+      "reconstruction_lpips": {
+        "mean_difference": -2.4219454847616592e-05,
+        "ci95": [
+          -0.00012234745527430355,
+          7.885477028680004e-05
+        ],
+        "clips": 197,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.0003355782346677054,
+        "ci95": [
+          -0.0007826912064311957,
+          0.00012118266509459892
+        ],
+        "clips": 197,
+        "recordings": 40
+      }
+    },
+    "projected_track_disappearance": {
+      "reconstruction_lpips": {
+        "mean_difference": 9.64760204444185e-06,
+        "ci95": [
+          -8.774638840453149e-05,
+          0.00010938768645520064
+        ],
+        "clips": 207,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.0002514613423370509,
+        "ci95": [
+          -0.0006741179963282857,
+          0.00023048094248977186
+        ],
+        "clips": 207,
+        "recordings": 40
+      }
+    },
+    "small_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": 4.890199485683042e-06,
+        "ci95": [
+          -8.783315565176461e-05,
+          0.00010235089747893894
+        ],
+        "clips": 239,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.0004225459308305046,
+        "ci95": [
+          -0.0008261044198983867,
+          1.4859093792099509e-05
+        ],
+        "clips": 239,
+        "recordings": 40
+      }
+    }
+  },
+  "seconds": 1705.1967076099827,
+  "scope": "Previously exposed development panels for fast trends, not full development or independent test",
+  "limitations": [
+    "One epoch and one seed, not convergence",
+    "Initial reference is an untrained planner",
+    "Partial tuning benefit is not isolated from planner learning without a separately trained frozen-LPWM control",
+    "Small development panels; whole-dev and independent test are not completed"
+  ]
+}

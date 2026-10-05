@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 10:39 KST (Codex)
+마지막 갱신: 2026-10-05 10:52 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 10:52 KST: Adapter본학습10:46:36KST시작,update80/4707. GPU당batch8/accum1×2=16,전체VRAM각45.89GB. Queue421603/torchrun866051. LoRA검증10:43:53완료후profile/gradient/engineering검사통과해자동진입. 이번턴runtime변경없음.
 
 2026-10-05 10:39 KST: Adapter는 아직미시작. 현재queue attention_lora_evaluation, LoRA학습완료후 world_retention 97/256검증중. Adapter node/실행선택파일없음. Heartbeat정상갱신. 근거results/lpwm_card_budget_measured_v4/adapter_start_check_20261005.json.
 
@@ -434,6 +436,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Adapter는Stage1에서독립초기화,LoRA완료가중치사용안함. Particle interaction1/context4/dynamics6 총11block 뒤 LN→Linear(64)→GELU→zero-init Linear 잔차추가. NativeLPWM전체고정/Adapter704960+planner·command2211975=2916935학습. 초기particle/metric출력차0,진단update후frozen해시동일,planning·SSL gradient검증통과. 근거 results/lpwm_card_budget_measured_v4/adapter_training_and_architecture_20261005.json.
 
 LoRA검증의initial/trained/persistent_future JSON은생성됐고world/최종summary는아직없다. Queue실패marker없음. 이번턴은상태확인만수행했다.
 
@@ -798,11 +802,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Adapter 시작 여부를 queue·LoRA 검증 진행 파일로 확인했다.
-- 상태 확인 JSON/HANDOFF/RESUME 갱신. Runtime·학습·queue 변경 없음.
+- Adapter 실제 본학습 시작과 배치·메모리·진행을 확인했다.
+- 11개Adapter 배치,고정/학습가중치,loss·gradient 경로와 초기동일성검사를 코드/실행audit로 확인했다.
+- 확인JSON/HANDOFF/RESUME 및 queue 자동생성LoRA검증·Adapter검사결과 기록. Runtime/source/config 변경 없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Adapter4707update/1epoch까지학습→같은개발1024planning/256world검증→보존full2095재개순서. 현재LoRA검증은완료됐고별도summary생성됨. 원래명령대로batch8우선/전체48GB감시유지. 추가학습·소스변경없음.
 
 LoRA world 유지검증·최종집계 완료→기존queue의Adapter batch8우선메모리profile·학습·검증→full재개순서. 학습/queue/source/config를이번상태질문으로변경하지않았다.
 
@@ -1012,6 +1019,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Adapter초기학습진행은확인했지만planning효과는미검증. NativeCNN·출력head·RGBdecoder가중치는고정이며중간표현에SG를넣은것이아님. 기존학습가능intentFiLM은attributeCNN conv_out에유지된다. Inventory의planner수는FiLM도포함. Context가dynamics와공유되어region별총parameter단순합산금지.
 
 Adapter실행중이라는해석은현재시점에틀림. LoRA학습은완료됐지만검증은진행중이며Adapter profile도아직시작하지않았다. 모든후속방법batch8우선/각GPU전체48GB기존정책유지.
 
