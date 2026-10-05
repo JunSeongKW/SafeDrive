@@ -1,5 +1,31 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 충분한 학습 여부 — 저장 곡선의 수렴 진단
+
+연구 하위 질문: 현재 학습 예산으로 planning 목적의 LPWM 적응 효과를 판단할 수 있는가?
+Stage1 고정512개발clip의temporal SSL 검증loss는epoch10/15/20에서20.35810/19.88686/19.69678.
+15→20은0.956%추가감소,PSNR21.05743→21.07677dB로후반개선폭이작다.
+20epoch까지적응은관측되지만최적학습량을입증한것은아니다. 이monitor는full영상temporal목적함수이며
+epoch별past-only미래예측곡선이나planning유용성곡선이아니므로그수렴을대신판정할수없다.
+
+LoRA 동일128개발monitor(유효PDMS127)의update3072/4096/4707은PDMS81.4273/84.5584/83.6380,
+ADE1.12896/1.11915/1.14796m다. 전체적으로학습됐지만후반에는지표가오르내려지속개선·완전수렴을모두단정못한다.
+학습loss의기록minibatch평균은updates3073–4096에서6.58144,4097–4707에서6.53389로소폭감소.
+정확한전체epoch평균이아니며학습loss감소자체는PDMS개선증거가아니다.
+기존1024최종평가PDMS81.9141과이128monitor를혼합해하락추세로판정하지않는다.
+
+권고: Stage1은현20epoch를고정하고우선유망Stage2조건+frozen-LPWM대조를총3→5epoch로확장해
+매epoch동일1024개발planning/256world 및시나리오별안전지표를검증한다. 숫자는제안이며등록실행아니다.
+이후필요시더확장하고핵심결과를복수seed로반복한다. Stage1추가학습의효과는별도대응planner실험으로분리한다.
+LoRA현재1epoch cosine끝LR은LPWM1e-6/planner3e-5로초기최대의10%다.
+연장시모델·optimizer를보존하되학습률스케줄과비교예산을사전명시해야하며epoch설정만바꾸는것으로취급하지않는다.
+
+문헌도추가학습효과가일률적이지않다: [DrivoR §4.2.4](https://arxiv.org/html/2601.05083v2)는v1에서는25epoch까지
+개선후plateau, v2에서는학습연장시EPDMS악화를보고한다. 이결과는우리모델의추가개선을보장하지않는다.
+새CPU script `scripts/report_lpwm_training_convergence.py`,원자료hash/집계/PNG/PDF는
+`results/lpwm_card_budget_measured_v4/convergence_review_20261005/`에저장했다.
+활성학습·queue·등록source/config변경이나새GPU평가는없다.
+
 ## 2026-10-05: 1 seed·1 epoch의 의미와 결과 해석
 
 현재 Stage2 방법별 실행은 seed47 한 번이며, 75,297개 학습 장면을 1epoch 순회해

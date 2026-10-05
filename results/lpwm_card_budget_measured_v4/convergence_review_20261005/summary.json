@@ -1,0 +1,472 @@
+{
+  "checked_at": "2026-10-05T11:18:04.847959+09:00",
+  "scope": "Saved development monitors; no new inference or training; not official navtest.",
+  "research_question": "Is the current optimization budget sufficient to assess planning-aware LPWM adaptation?",
+  "sources": {
+    "stage1_validation": {
+      "path": "outputs/lpwm_navsim_full_posttraining_v2/stage1/validation_log.jsonl",
+      "sha256": "9f97ca4568eb7b0362bc7bcf1879e8aa8af15f085285a39d54bf6e8fc5089551"
+    },
+    "stage1_training": {
+      "path": "outputs/lpwm_navsim_full_posttraining_v2/stage1/training_log.jsonl",
+      "sha256": "81c7e1e205474ebc055ea9734c6b27ba6dfe5e55436f94f0bb423a127fa6b3de"
+    },
+    "lora_validation": {
+      "path": "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/validation_log.jsonl",
+      "sha256": "3f833dc4875cb34321079750f9050c38306befc4dcee02ec30701f23ffe89209"
+    },
+    "lora_training": {
+      "path": "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/training_log.jsonl",
+      "sha256": "50b49dccfb00e28cd3a98f0131bae7d1534b08c71a81771c7f53c47eed6e9f80"
+    }
+  },
+  "stage1_validation": [
+    {
+      "epoch": 1,
+      "optimizer_update": 1446,
+      "validation_clips": 512,
+      "kl_dyn": 4004.8474044799805,
+      "loss": 23.399082094430923,
+      "loss_kl_context": 784.6606607437134,
+      "loss_rec": 26949.302932739258,
+      "obj_on_l1": 36.12716454267502,
+      "psnr": 20.461119547486305
+    },
+    {
+      "epoch": 2,
+      "optimizer_update": 2892,
+      "validation_clips": 512,
+      "kl_dyn": 3951.308568954468,
+      "loss": 22.33469144999981,
+      "loss_kl_context": 745.704948425293,
+      "loss_rec": 25698.031982421875,
+      "obj_on_l1": 35.11758403480053,
+      "psnr": 20.59924452006817
+    },
+    {
+      "epoch": 3,
+      "optimizer_update": 4338,
+      "validation_clips": 512,
+      "kl_dyn": 3948.3817615509033,
+      "loss": 21.85966293513775,
+      "loss_kl_context": 752.7707557678223,
+      "loss_rec": 25125.794631958008,
+      "obj_on_l1": 35.323994576931,
+      "psnr": 20.65707005560398
+    },
+    {
+      "epoch": 4,
+      "optimizer_update": 5784,
+      "validation_clips": 512,
+      "kl_dyn": 3925.6736068725586,
+      "loss": 21.477465987205505,
+      "loss_kl_context": 726.4293756484985,
+      "loss_rec": 24684.75715637207,
+      "obj_on_l1": 34.31344746053219,
+      "psnr": 20.766813278198242
+    },
+    {
+      "epoch": 5,
+      "optimizer_update": 7230,
+      "validation_clips": 512,
+      "kl_dyn": 3840.4396476745605,
+      "loss": 21.132789626717567,
+      "loss_kl_context": 710.3514742851257,
+      "loss_rec": 24302.591278076172,
+      "obj_on_l1": 32.72509354352951,
+      "psnr": 20.834908202290535
+    },
+    {
+      "epoch": 6,
+      "optimizer_update": 8676,
+      "validation_clips": 512,
+      "kl_dyn": 3866.80108833313,
+      "loss": 20.934655249118805,
+      "loss_kl_context": 699.6057877540588,
+      "loss_rec": 24058.36622619629,
+      "obj_on_l1": 33.08173502981663,
+      "psnr": 20.86817567050457
+    },
+    {
+      "epoch": 7,
+      "optimizer_update": 10122,
+      "validation_clips": 512,
+      "kl_dyn": 3863.504274368286,
+      "loss": 20.790220364928246,
+      "loss_kl_context": 705.790135383606,
+      "loss_rec": 23887.202423095703,
+      "obj_on_l1": 32.65065515041351,
+      "psnr": 20.844473481178284
+    },
+    {
+      "epoch": 8,
+      "optimizer_update": 11568,
+      "validation_clips": 512,
+      "kl_dyn": 3769.2658290863037,
+      "loss": 20.591791227459908,
+      "loss_kl_context": 692.7780094146729,
+      "loss_rec": 23676.048263549805,
+      "obj_on_l1": 31.402555748820305,
+      "psnr": 20.901588052511215
+    },
+    {
+      "epoch": 9,
+      "optimizer_update": 13014,
+      "validation_clips": 512,
+      "kl_dyn": 3934.2300357818604,
+      "loss": 20.48767927289009,
+      "loss_kl_context": 692.4905135631561,
+      "loss_rec": 23510.176559448242,
+      "obj_on_l1": 32.844468519091606,
+      "psnr": 20.949064031243324
+    },
+    {
+      "epoch": 10,
+      "optimizer_update": 14460,
+      "validation_clips": 512,
+      "kl_dyn": 3886.3703746795654,
+      "loss": 20.358095660805702,
+      "loss_kl_context": 689.2564804553986,
+      "loss_rec": 23372.19319152832,
+      "obj_on_l1": 31.793668910861015,
+      "psnr": 20.945034846663475
+    },
+    {
+      "epoch": 11,
+      "optimizer_update": 15906,
+      "validation_clips": 512,
+      "kl_dyn": 3987.295581817627,
+      "loss": 20.257865726947784,
+      "loss_kl_context": 705.2345247268677,
+      "loss_rec": 23221.4833984375,
+      "obj_on_l1": 32.49196572601795,
+      "psnr": 20.96661189198494
+    },
+    {
+      "epoch": 12,
+      "optimizer_update": 17352,
+      "validation_clips": 512,
+      "kl_dyn": 3911.3997440338135,
+      "loss": 20.13857811689377,
+      "loss_kl_context": 715.937511920929,
+      "loss_rec": 23095.354598999023,
+      "obj_on_l1": 32.09759570658207,
+      "psnr": 21.02820174396038
+    },
+    {
+      "epoch": 13,
+      "optimizer_update": 18798,
+      "validation_clips": 512,
+      "kl_dyn": 3982.4241733551025,
+      "loss": 20.077662408351898,
+      "loss_kl_context": 696.9000220298767,
+      "loss_rec": 23013.731674194336,
+      "obj_on_l1": 31.68709234893322,
+      "psnr": 21.03543494641781
+    },
+    {
+      "epoch": 14,
+      "optimizer_update": 20244,
+      "validation_clips": 512,
+      "kl_dyn": 3993.4980697631836,
+      "loss": 20.026523038744926,
+      "loss_kl_context": 686.1702184677124,
+      "loss_rec": 22954.558227539062,
+      "obj_on_l1": 31.14085590839386,
+      "psnr": 21.047117456793785
+    },
+    {
+      "epoch": 15,
+      "optimizer_update": 21690,
+      "validation_clips": 512,
+      "kl_dyn": 4015.5797367095947,
+      "loss": 19.88685917854309,
+      "loss_kl_context": 697.3519015312195,
+      "loss_rec": 22779.026107788086,
+      "obj_on_l1": 31.56049770116806,
+      "psnr": 21.05742645263672
+    },
+    {
+      "epoch": 16,
+      "optimizer_update": 23136,
+      "validation_clips": 512,
+      "kl_dyn": 4124.077930450439,
+      "loss": 19.891482681035995,
+      "loss_kl_context": 706.4858818054199,
+      "loss_rec": 22756.750900268555,
+      "obj_on_l1": 32.02454386651516,
+      "psnr": 21.059770196676254
+    },
+    {
+      "epoch": 17,
+      "optimizer_update": 24582,
+      "validation_clips": 512,
+      "kl_dyn": 4126.544038772583,
+      "loss": 19.83746801316738,
+      "loss_kl_context": 710.4837212562561,
+      "loss_rec": 22697.35466003418,
+      "obj_on_l1": 31.130948916077614,
+      "psnr": 21.04479968547821
+    },
+    {
+      "epoch": 18,
+      "optimizer_update": 26028,
+      "validation_clips": 512,
+      "kl_dyn": 4205.54151725769,
+      "loss": 19.740950599312782,
+      "loss_kl_context": 715.6275148391724,
+      "loss_rec": 22561.67218017578,
+      "obj_on_l1": 31.38573256134987,
+      "psnr": 21.112609282135963
+    },
+    {
+      "epoch": 19,
+      "optimizer_update": 27474,
+      "validation_clips": 512,
+      "kl_dyn": 4209.575937271118,
+      "loss": 19.692796662449837,
+      "loss_kl_context": 708.526782989502,
+      "loss_rec": 22507.456329345703,
+      "obj_on_l1": 31.161721661686897,
+      "psnr": 21.100132554769516
+    },
+    {
+      "epoch": 20,
+      "optimizer_update": 28920,
+      "validation_clips": 512,
+      "kl_dyn": 4221.361480712891,
+      "loss": 19.69678394496441,
+      "loss_kl_context": 697.7197823524475,
+      "loss_rec": 22514.686965942383,
+      "obj_on_l1": 30.619263276457787,
+      "psnr": 21.076768085360527
+    }
+  ],
+  "stage1_loss_change_15_to_20_percent": -0.9557830719883809,
+  "stage1_loss_change_10_to_20_percent": -3.2483967403418745,
+  "stage1_sampled_training_loss_by_epoch": [
+    {
+      "epoch": 1,
+      "mean_logged_loss": 25.763225943177613
+    },
+    {
+      "epoch": 2,
+      "mean_logged_loss": 22.763214609358045
+    },
+    {
+      "epoch": 3,
+      "mean_logged_loss": 21.860566846616976
+    },
+    {
+      "epoch": 4,
+      "mean_logged_loss": 21.41157602204217
+    },
+    {
+      "epoch": 5,
+      "mean_logged_loss": 21.11189390818278
+    },
+    {
+      "epoch": 6,
+      "mean_logged_loss": 20.608584168193104
+    },
+    {
+      "epoch": 7,
+      "mean_logged_loss": 20.433400938245985
+    },
+    {
+      "epoch": 8,
+      "mean_logged_loss": 20.22189824659746
+    },
+    {
+      "epoch": 9,
+      "mean_logged_loss": 20.002670696046618
+    },
+    {
+      "epoch": 10,
+      "mean_logged_loss": 19.97777376704746
+    },
+    {
+      "epoch": 11,
+      "mean_logged_loss": 19.828132220676967
+    },
+    {
+      "epoch": 12,
+      "mean_logged_loss": 19.489329126146103
+    },
+    {
+      "epoch": 13,
+      "mean_logged_loss": 19.23579688337114
+    },
+    {
+      "epoch": 14,
+      "mean_logged_loss": 19.251243627988377
+    },
+    {
+      "epoch": 15,
+      "mean_logged_loss": 19.155182984140183
+    },
+    {
+      "epoch": 16,
+      "mean_logged_loss": 19.06308000428336
+    },
+    {
+      "epoch": 17,
+      "mean_logged_loss": 18.883949648009406
+    },
+    {
+      "epoch": 18,
+      "mean_logged_loss": 18.83135346306695
+    },
+    {
+      "epoch": 19,
+      "mean_logged_loss": 18.72096449464232
+    },
+    {
+      "epoch": 20,
+      "mean_logged_loss": 18.543183305761318
+    }
+  ],
+  "lora_validation": [
+    {
+      "epoch": 0.1087741661355428,
+      "update": 512,
+      "clips": 128,
+      "ade_meters": 1.5369249116629362,
+      "fde_meters": 3.573730356991291,
+      "cached_official_pdms_percent": 76.128855089503,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.2175483322710856,
+      "update": 1024,
+      "clips": 128,
+      "ade_meters": 1.4591351579874754,
+      "fde_meters": 3.380638163536787,
+      "cached_official_pdms_percent": 80.3185963255214,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.3263224984066284,
+      "update": 1536,
+      "clips": 128,
+      "ade_meters": 1.4033972322940826,
+      "fde_meters": 3.2361937891691923,
+      "cached_official_pdms_percent": 80.58974526998566,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.4350966645421712,
+      "update": 2048,
+      "clips": 128,
+      "ade_meters": 1.3441463951021433,
+      "fde_meters": 3.2397515438497066,
+      "cached_official_pdms_percent": 84.39273158396323,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.543870830677714,
+      "update": 2560,
+      "clips": 128,
+      "ade_meters": 1.295656219124794,
+      "fde_meters": 3.0609729550778866,
+      "cached_official_pdms_percent": 81.29662941759966,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.6526449968132568,
+      "update": 3072,
+      "clips": 128,
+      "ade_meters": 1.1289606895297766,
+      "fde_meters": 2.655896507203579,
+      "cached_official_pdms_percent": 81.42730269845076,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.7614191629487996,
+      "update": 3584,
+      "clips": 128,
+      "ade_meters": 1.1778129590675235,
+      "fde_meters": 2.8299608770757914,
+      "cached_official_pdms_percent": 83.94229318213276,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.8701933290843424,
+      "update": 4096,
+      "clips": 128,
+      "ade_meters": 1.119146192446351,
+      "fde_meters": 2.699168812483549,
+      "cached_official_pdms_percent": 84.55837223473496,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 0.9789674952198852,
+      "update": 4608,
+      "clips": 128,
+      "ade_meters": 1.1880829259753227,
+      "fde_meters": 2.7779063433408737,
+      "cached_official_pdms_percent": 84.13349737332562,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    },
+    {
+      "epoch": 1,
+      "update": 4707,
+      "clips": 128,
+      "ade_meters": 1.1479625701904297,
+      "fde_meters": 2.7226737663149834,
+      "cached_official_pdms_percent": 83.63804141367514,
+      "scored_clips": 127,
+      "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+    }
+  ],
+  "lora_sampled_training_loss_by_update_window": [
+    {
+      "first_update": 1,
+      "last_update": 1024,
+      "mean_logged_loss": 7.415586810845595
+    },
+    {
+      "first_update": 1025,
+      "last_update": 2048,
+      "mean_logged_loss": 6.824184788390994
+    },
+    {
+      "first_update": 2049,
+      "last_update": 3072,
+      "mean_logged_loss": 6.718711946159601
+    },
+    {
+      "first_update": 3073,
+      "last_update": 4096,
+      "mean_logged_loss": 6.581442141905427
+    },
+    {
+      "first_update": 4097,
+      "last_update": 4707,
+      "mean_logged_loss": 6.533886151436048
+    }
+  ],
+  "lora_final_learning_rates": {
+    "lpwm_lr": 1.000001022610891e-06,
+    "planner_lr": 3.0000030678326728e-05
+  },
+  "limitations": [
+    "Stage1 monitor is the official temporal SSL objective, not a per-epoch past-only forecast evaluation.",
+    "Stage1 improvements become small; twenty epochs do not establish optimal planning representations.",
+    "LoRA monitor uses 128 scenes, 127 with valid cached official PDM scores; final 1024-scene scores are a different panel.",
+    "LoRA late training losses still fall while development planning metrics fluctuate; neither convergence nor additional PDMS gains are established.",
+    "Training loss averages summarize sparsely logged minibatches, not exact epoch averages.",
+    "One training seed; no confidence interval for extrapolation beyond the observed epoch.",
+    "LoRA learning rates decay to one tenth over one epoch; an extension requires a declared continuation schedule."
+  ],
+  "runtime_changed": false
+}

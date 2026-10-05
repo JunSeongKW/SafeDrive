@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 11:14 KST (Codex)
+마지막 갱신: 2026-10-05 11:20 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 11:19 KST: 학습충분성질문에따라완료Stage1/LoRA 저장곡선CPU집계·시각화. GPU/queue변경및현재Adapter진행률재조회없음.
 
 2026-10-05 11:14 KST: Stage1/2 모두1epoch인지에대한후속질문. 저장완료summary재확인만실시했고학습·queue변경없음.
 
@@ -442,6 +444,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Stage1 devSSL loss epoch15→20:19.88686→19.69678(-0.956%),후반둔화. LoRA128monitor는3072/4096/4707 PDMS81.4273/84.5584/83.6380,ADE1.12896/1.11915/1.14796. 후반학습loss소폭감소·개발변동으로추가학습효과/수렴미확정. 근거convergence_review_20261005/summary.json.
 
 재확인: Stage1 epochs20/completed_updates28920/seen_train_clips23126. 완료Stage2 LoRA epochs1/completed_updates4707/train_clips75297. 두단계모두1epoch라는해석은틀림.
 
@@ -814,10 +818,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 완료summary에서Stage1 20epoch와Stage2 LoRA1epoch를재확인했다.
-- 단계별학습량질문을HANDOFF/RESUME에기록했으며실행설정변경없음.
+- Stage1/LoRA 저장검증곡선과학습loss·학습률을CPU로분석했다.
+- 재현script와hash포함JSON/곡선PNG·PDF를생성하고시각확인했다.
+- Stage1후반둔화·Stage2수렴미확정·연장비교권고를기록했다. 활성학습/queue/등록source/config변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+학습연장권고만기록:Stage1 20epoch고정후유망Stage2+frozen대조를총3→5epoch,동일1024/256개발검증·LR스케줄명시. 이번질문으로자동등록하지않았고기존Adapter/fullqueue유지.
 
 현재대기열유지. 이번질문은단계별학습량확인이며추가epoch·seed학습을등록하지않았다.
 
@@ -1035,6 +1042,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Epoch횟수는수렴증거가아님. Stage1 512clip temporal목적함수와past-only미래예측수렴은별개. Stage2 128monitor와1024최종점수혼용금지. 추가epoch성능향상·최적예산미확정.
 
 Stage1 20epoch완료와Stage2 방법별1epoch비교를구분한다. Epoch완료만으로수렴·최적성은판정하지않는다.
 
