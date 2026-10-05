@@ -2380,3 +2380,9 @@ Stage1의nativeLPWM전체가중치/buffer·encoder명령FiLM4480개고정/eval/n
 DrivoR §3.2–3.5/§4.2.1 및 공식 fc6e5aa의 register/ego 경로, LPWM A.3–A.4와 현재 planner 코드를 확인했다. Register도 planning에 필요한 영역으로 특화되므로 객체/중요정보 이해 불가로 설명하지 않는다. LPWM의 구조화된 속성·명시적 미래 전이·SSL과 명령 FiLM 차이를 정리했다. Particle는 patch identity이고 depth는 합성 순서이며 객체 추적/물리3D 보장이 없다. 현재 memory768 대 DrivoR기본64, 전방저해상도 대4카메라, 고정512후보 대연속생성 차이로 동일조건 단순교체 비교가 아니다. Fixed64/future8 전부를 예측하므로 원래 상황별 예측 예산 선택 목표는 아직 미구현이다.
 
 자료와 상세: `docs/lpwm_planning_experiment.md` 최신절. 기존 full 학습과 후속 frozen 대조군 유지. 추가 register 비교나 미래/명령 ablation은 제안만 기록하고 자동 등록하지 않았다.
+
+## 2026-10-05 16:55 KST — 표현 비교의 공통 planner 통제 원칙 정정
+
+사용자가 DrivoR과 같은 planner를 두어야 표현 비교가 성립한다고 지적했다. 공통 planner 구조/초기값/학습 규칙을 두고 각 조건을 별도 학습하는 기준을 연구 문서에 반영했다. Planner 가중치 freeze와 구분했으며, 입력 센서/해상도/관측 이력/token예산/학습목표/gradient/평가까지 통제하도록 했다. 공식 코드의 trajectory/scoring decoder·detach 경로를 확인했다. DrivoR vs LPWM은 backbone과 사전학습 차이가 남으므로 시스템 비교이며, particle 구조 단독효과는 같은 기반의 일반 latent dynamics 비교가 필요하다. 미래·encoder intent 조건도 별도 ablation으로 분리한다.
+
+상세: `docs/lpwm_planning_experiment.md` 최신절. 기존 full/frozen은 LPWM 내부 적응 비교로 해석하며 register 우월성 비교로 사용하지 않는다. 공통 DrivoR 구현/새 학습은 시작하지 않았고 기존 full→검증→frozen 대기열과 source/config를 유지했다.

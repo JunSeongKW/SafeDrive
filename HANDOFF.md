@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 16:47 KST (Codex)
+마지막 갱신: 2026-10-05 16:55 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 16:55 KST: 사용자 지적에 따라 register/particle 후속 비교의 공통 DrivoR planner 설계 원칙을 기록했다. 기존 full 학습 3184/4707, frozen 대조군 대기 유지. 공통 DrivoR 구현·새 학습은 미실행이다.
 
 2026-10-05 16:47 KST: DrivoR register와 LPWM particle의 논문·공식/현재 코드 비교를 완료했다. Full 학습은 3104/4707 진행, frozen 대조군 대기 유지. 이번 턴은 조사·설명이며 GPU 실행 변경 없음.
 
@@ -470,6 +472,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+표현 비교의 planner 고정은 구조·초기값·학습 규칙을 맞추고 조건별로 planner를 학습한다는 뜻이다. 센서·해상도·관측 이력·memory 길이/차원·loss/gradient까지 맞춰야 한다. DrivoR backbone vs LPWM은 사전학습 차이가 남으므로 particle 속성의 단독 효과와 구분한다. 연구 문서 최신절에 비교별 해석 범위를 정정했다.
 
 DrivoR register도 planning loss로 중요 영역에 특화된다. LPWM의 차이는 위치/크기/외형 속성 구조·명시적 future rollout·SSL 목표다. Native particle ID는 patch ID이며 객체 ID 아님. 현재 명령 FiLM은 particle attribute encoder에 적용하고64×12=768memory를 쓴다. 상세 docs/lpwm_planning_experiment.md 최신절.
 
@@ -870,11 +874,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- DrivoR 원문·공식 register/ego 입력 코드와 LPWM 원문·현재 particle memory 코드를 비교했다.
-- 표현 구조·미래 예측·intent·학습목표와 현재 비교의 한계를 연구 문서에 기록했다.
-- HANDOFF와 일지만 갱신하고 기존 GPU 학습·대기열·등록 source/config는 유지했다.
+- 사용자 지적에 따라 표현 비교에서 planner 구조·초기값·학습 규칙을 통제하도록 연구 설계를 정정했다.
+- 공통 DrivoR planner 기준과 입력/memory/목표 통제, frontend 비교와 particle 속성 인과 비교의 차이를 기록했다.
+- 현재 full/frozen 실험의 해석 범위를 제한했고 기존 학습·대기열은 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존 full→개발검증→frozen 대조군은 계속한다. 후속 표현 비교는 공통 DrivoR trajectory/scoring planner와 동일 학습 규칙을 기준으로 설계하고, 미래/encoder명령/속성구조의 효과를 분리한다. 현재 공통planner 구현·실행 설정은 미등록이다.
 
 기존 full→검증→frozen 대조군 순서를 유지한다. Register/particle 공정 비교 및 미래/명령 ablation은 이번 설명의 연구 제안이며 새 실행으로 등록하지 않았다.
 
@@ -1120,6 +1126,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+공통 planner만으로 backbone·사전학습·SSL·memory예산 차이가 제거되지는 않는다. 두 frontend의 시스템 비교와 구조화 particle 속성의 인과 비교를 구분한다. 이번 사용자 질문을 기존 작업 취소나 즉시 planner 교체 명령으로 해석하지 않았고 실행 중 hash를 유지했다.
 
 현재 구현은 DrivoR register만 particle로 교체한 통제실험이 아니다. 입력 카메라·해상도·시계열·memory개수·planner 후보생성이 다르다. 미래64particle×8step은 고정이며 상황별 예측 대상/예산 선택은 미구현이다. Planning-aware 표현 자체를 신규 기여로 단정하지 않는다.
 

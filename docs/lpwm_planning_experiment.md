@@ -1,5 +1,49 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 표현 비교에서는 공통 DrivoR planner를 사용한다는 설계 원칙
+
+사용자가 register 대비 particle 미래 표현의 효용을 확인하려면 뒷단 planner를 같게 고정해야 한다고 지적했다.
+이 원칙을 후속 표현 비교의 설계 기준으로 반영한다. 동일 planner는 인과 해석의 필요 조건이며,
+DrivoR이어야만 하는 것은 아니지만 DrivoR register를 비교 대상으로 삼을 때 공식 trajectory/scoring
+구조를 공통으로 쓰는 것이 직접적이다. 현재512고정후보 planner와 공식 DrivoR의 결과를 비교해
+particle 자체의 우월성으로 해석해서는 안 된다.
+
+### 고정할 것과 학습할 것
+
+- 고정은 planner **구조·초기값·학습 규칙을 조건 사이에 동일하게 유지**한다는 뜻이다.
+  각 조건의 planner 가중치는 같은 초기값에서 별도로 학습한다. 한 표현으로 학습한 planner를
+  얼린 채 다른 표현을 넣는 검사는 분포/좌표계 불일치에 민감한 별도 전이 진단이다.
+- 공통 planner는 trajectory query/ego 입력, trajectory decoder와 연속 궤적 head,
+  별도 scoring decoder와 subscore head, 후보 수·horizon·inference 선택 규칙을 공유한다.
+- 같은 trajectory WTA와 oracle metric loss 및 가중치를 사용하고, scorer 입력의 trajectory
+  detach와 scene encoder로의 gradient 경로도 같은 규칙을 쓴다. 공식 repo에는 여러 옵션과
+  보조 head가 있으므로 실행 전에 고정할 NAVSIM-v1 설정의 활성 경로를 검사해야 한다.
+  객체 GT auxiliary는 사용자 후순위 결정을 유지하며 자동 도입하지 않는다.
+- 두 표현을 같은 hidden dimension의 scene memory 인터페이스로 연결한다. Planner 입력 token 수와
+  projection/readout 용량도 통제한다. Register64 대 particle768을 그대로 비교하는 것은
+  planner가 처리하는 정보량과 attention 비용까지 함께 바꾸는 비교다.
+- 입력 카메라·해상도·관측 프레임·ego 입력, train/dev/test 분할, update/유효batch, optimizer·schedule,
+  checkpoint 선정, seed별 공통 초기화/순서를 맞춘다. 추론 비용은 별도 실측·보고한다.
+  원형 DrivoR의 센서/이력을 바꾼 조건은 공식 재현과 구분해 명명한다.
+
+### 연구 질문별 비교
+
+| 비교 | 공통 planner를 유지하며 확인할 내용 | 해석 범위 |
+|---|---|---|
+| Register frontend vs LPWM frontend | 고정된 입력/정보 예산에서 perception·world-model 묶음의 실용적 효용 | backbone·사전학습 차이가 남으므로 particle 속성만의 효과는 아님 |
+| Particle 미래 OFF vs ON | 같은 LPWM 기반에서 명시적 미래 표현의 추가 효과 | Memory 예산을 유지하고 조건마다 재학습; 추론 시 반복 개입과 구분 |
+| Encoder 명령 조건 OFF vs ON | Planner 명령 입력은 모두 유지하고 표현 단계 명령 조건의 추가 효과 | 미래 조건·나머지 구조/목표 동일 |
+| 구조화 속성 vs 일반 latent dynamics | 같은 기반·학습 데이터/목표/용량에서 위치·크기 등 속성 분해의 추가 효과 | LPWM의 particle 자체 구조를 주장하려면 필요한 통제 |
+
+LPWM 자체도 같은 파라미터 예산과 dynamics를 둔 일반 patch-latent DVAE 비교를 제시하므로,
+마지막 비교는 [LPWM §5.1 / Appendix A.8](https://arxiv.org/html/2603.04553v1)을 참고할 수 있다.
+후속 인과 비교에서 reconstruction/SSL 목표 유무와 사전학습 예산도 별도로 명시해야 한다.
+
+현재 진행 중인 full fine-tuning과 frozen-LPWM 대조군은 기존 LPWM/512후보 planner 내부의 적응 효과를
+검토하는 작업이다. Register 대비 particle의 효용을 입증하는 실험으로 취급하지 않는다.
+이번 턴은 실험 설계 원칙을 정정·기록한 것이며 공통 DrivoR planner의 구현/학습은 아직 진행하지 않았다.
+기존 실행 중 source/config와 full→검증→frozen 대조군 대기열을 변경하지 않았다.
+
 ## 2026-10-05: DrivoR register와 현재 LPWM particle의 차이
 
 연구 하위 질문: planning에 유용한 압축 표현에 명시적 particle 속성과 미래 전이를 부여하면 추가 이득이 있는가?
