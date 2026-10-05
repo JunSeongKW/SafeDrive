@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-10-05T22:54:09.000432+09:00",
+  "queue_stage": "public_control_evaluation",
+  "queue_status": "running",
+  "heartbeat_age_seconds": 0.019942045211791992,
+  "completed_updates": 4707,
+  "total_updates": 4707,
+  "training_summary_exists": true,
+  "training_node": {
+    "status": "complete",
+    "pid": 1876912,
+    "started_unix": 1791203388.367335,
+    "returncode": 0,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 36187406336,
+    "queue_configuration_sha256": "c88320ddbc3b296edf0e8171e687c9f2716f5fb0e6a004154a4e35314bf708c2",
+    "finished_unix": 1791208417.0415964
+  },
+  "evaluation_node": {
+    "status": "running",
+    "pid": 2514642,
+    "started_unix": 1791208418.1475306
+  },
+  "prior_matched_evaluation_seconds": 634.8230793476105,
+  "estimated_results_completion_kst": "2026-10-05 23:05–23:15",
+  "estimate_basis": "4707 optimizer updates finished; previous same-scope evaluation took 634.8 seconds; allow saving, checks, process startup and shared-resource variation."
+}

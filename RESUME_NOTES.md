@@ -2505,3 +2505,10 @@ AdapterPDMS82.4852/frozen82.5238,차이−.03859점CI[−1.16421,+1.00706],ADE�
 최종v1 navtrain+navval25epoch/v2 navtrain10epoch, README batch16×4·AdamW2e-4와 warmup/cosine 코드를 확인했다. run_training_full non-cache 경로가 train+val을 합치고 cache-only는 train만 쓰는 차이도 기록했다. Register와 particle/미래world model의 차이 때문에 DrivoR 결과로 LPWM Stage1/SSL 불필요를 단정하지 않는다. 상세 docs/lpwm_planning_experiment.md 최상단.
 
 현재 공개 LPWM 고정 학습은22:44에4192/4707·queue1869615 heartbeat정상이었다. 이번에는 문서만 갱신했고 활성 source/config/GPU조건/queue를 바꾸거나 DrivoR/새학습을 실행하지 않았다.
+
+
+## 2026-10-05 22:54 KST — 공개 고정 대조군 완료 예상 재확인
+
+사용자 ETA 질문에 queue/progress/최종monitor를 읽었다. 22:52에는4704였고22:53에는4707/4707 optimizer update 및128scene monitor완료, queue heartbeat정상이었다. 최종저장·검사·process종료와후속개발평가는별도확인해야한다. 직전동일평가634.823초를근거로1024planning/256world평가와Stage1효과paired비교까지23:05–23:15KST예상으로갱신했다. 정확snapshot results/lpwm_stage1_effect_v1/training_eta_20261005_2253.json. 실행설정/GPU/queue는변경하지않았다.
+
+같은턴22:54추가확인:학습은22:53:37 returncode0로종료했고training_summary가저장됐다. 22:53:38 public_control_evaluation(PID2514642)이자동시작됐다. 현재최종검증단계이며예상완료23:05–23:15KST를유지한다.
