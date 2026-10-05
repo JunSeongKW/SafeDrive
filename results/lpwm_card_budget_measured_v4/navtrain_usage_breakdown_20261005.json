@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-10-05T10:35:55.464709+09:00",
+  "official_navtrain_scenes": 103288,
+  "stage2": {
+    "scene_counts": {
+      "train": 75297,
+      "development": 27076
+    },
+    "recording_counts": {
+      "train": 122,
+      "development": 40
+    },
+    "percentage_of_official_navtrain": {
+      "train": 72.90004647200062,
+      "development": 26.214081016187745
+    },
+    "discarded_irregular_timestamp_scenes": 915,
+    "discarded_percentage": 0.8858725118116336,
+    "timestamp_rule": "12-frame sequence adjacent differences approximately0.5s; numpy.allclose atol0.1",
+    "training_development_scene_overlap": 0,
+    "training_development_recording_overlap": 0
+  },
+  "stage1": {
+    "clip_counts": {
+      "train": 23126,
+      "development": 7745
+    },
+    "recording_counts": {
+      "train": 122,
+      "development": 40
+    },
+    "required_frames": 12,
+    "observed_frames": 4,
+    "future_frames": 8,
+    "exclusion_counts": {
+      "train/missing_sequence_RGB": 52749,
+      "development/missing_sequence_RGB": 19484,
+      "train/irregular_timestamps": 148,
+      "development/irregular_timestamps": 36
+    },
+    "training_development_recording_overlap": 0,
+    "training_tokens_are_subset_of_stage2_training": true,
+    "development_tokens_are_subset_of_stage2_development": true
+  },
+  "split_assignment": {
+    "unit": "native capture timestamp plus vehicle; segment suffixes collapsed",
+    "policy": "all_navtrain_except_existing_development_recordings",
+    "source_manifest": "results/pilot_foundation_decision/navtrain_three_way_manifest.json",
+    "prior_heldout_recordings_included_in_current_training": true,
+    "same_recording_assignment_across_stages": true
+  },
+  "current_stage2_evaluation": {
+    "monitor_scenes": 128,
+    "planning_scenes": 1024,
+    "world_clips": 256,
+    "planning_recordings": 40,
+    "world_recordings": 40,
+    "planning_tokens_in_development": true,
+    "world_tokens_in_development": true,
+    "selection": "fixed token hash ordering within each recording, round-robin across recordings; no predictions used",
+    "all27076_development_scenes_evaluated_in_current_method_queue": false,
+    "official_navtest_or_navhard": false
+  },
+  "runtime_changes": false
+}

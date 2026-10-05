@@ -2141,3 +2141,11 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 - 마지막monitor는128개/유효127개로 최종1024점수나navtest성능이아님.
 - GPU0·1전체점유조회는각21966/20201MiB,util28/26%;학습종료후검증중인상태.
 - 근거 results/lpwm_card_budget_measured_v4/lora_training_completion_20261005.json;활성queue변경이나추가학습없음.
+
+## 2026-10-05 10:35 KST — 현재 navtrain 학습·개발 사용량 확인
+
+- Stage2는공식103288장면중train75297/dev27076,프레임시간간격부적합915제외. 비율72.900/26.214/0.886%.
+- 같은원본주행기록을묶어122개recording학습/40개개발로고정;token·recording중복0. 기존개발40개보존,나머지학습정책이며예전heldout40개도현재학습에포함.
+- Stage1은동일recording분할에서12RGB완전가용train23126/dev7745 clip. 각token은Stage2동일split부분집합임을검사했다.
+- 현재Stage2는개발27076전체가아닌고정128monitor/1024planning/256world평가. 40recording을고르게선정하며모델예측무관. 공식navtest/navhard미사용.
+- 근거results/lpwm_card_budget_measured_v4/navtrain_usage_breakdown_20261005.json. 학습·queue·source/config변경및새GPU작업없음.
