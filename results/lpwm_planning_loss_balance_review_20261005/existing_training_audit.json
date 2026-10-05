@@ -1,0 +1,57 @@
+{
+  "scope": "Read-only existing logs, no new training or backward passes",
+  "current_objective": "candidate_imitation + PDM_subscore_BCE + 0.02 * original_SSL",
+  "global_gradient_clip_norm": 5.0,
+  "methods": {
+    "partial": {
+      "training_log": "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/training_log.jsonl",
+      "recorded_gradient_measurements": 37,
+      "recorded_measurements_exceeding_clip_threshold": 37,
+      "preclip_norm_median": 87.95701763223525,
+      "preclip_norm_min": 22.87810354219456,
+      "preclip_norm_max": 2228295.335856812,
+      "final_logged_losses": {
+        "planning": 6.029578447341919,
+        "weighted_ssl": 0.3455155181884766
+      },
+      "last_actual_gradient_measurement_update": 4608,
+      "last_measured_total_preclip_norm": 989.6895756309675,
+      "last_measured_nominal_clip_multiplier": 0.005052089183431376
+    },
+    "adapter": {
+      "training_log": "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/training_log.jsonl",
+      "recorded_gradient_measurements": 37,
+      "recorded_measurements_exceeding_clip_threshold": 31,
+      "preclip_norm_median": 7.716847855396523,
+      "preclip_norm_min": 4.408708288714369,
+      "preclip_norm_max": 217428.12361793706,
+      "final_logged_losses": {
+        "planning": 5.904723882675171,
+        "weighted_ssl": 0.33966211318969725
+      },
+      "last_actual_gradient_measurement_update": 4608,
+      "last_measured_total_preclip_norm": 19.8768001994985,
+      "last_measured_nominal_clip_multiplier": 0.25154954267368207
+    },
+    "full": {
+      "training_log": "outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/training_log.jsonl",
+      "recorded_gradient_measurements": 20,
+      "recorded_measurements_exceeding_clip_threshold": 20,
+      "preclip_norm_median": 72.42884452031106,
+      "preclip_norm_min": 20.214429798674033,
+      "preclip_norm_max": 766.7751985491601,
+      "final_logged_losses": {
+        "planning": 6.142304301261902,
+        "weighted_ssl": 0.3865927982330322
+      },
+      "last_actual_gradient_measurement_update": 4608,
+      "last_measured_total_preclip_norm": 64.83203460558681,
+      "last_measured_nominal_clip_multiplier": 0.07712236752121199
+    }
+  },
+  "limitations": [
+    "Stored module gradients are combined planning+SSL and only refreshed at update1 and every128updates; repeated snapshots are excluded.",
+    "Logged gradient norm is before clipping; threshold crossing is measured only for recorded updates.",
+    "Scalar loss magnitude does not measure gradient influence; no planning-versus-SSL dominance claim."
+  ]
+}

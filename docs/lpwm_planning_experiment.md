@@ -1,5 +1,52 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: planning 신호 강화에 대한 검토 — 제안 단계
+
+사용자는 복원 중심의 사전학습 때문에 배경에 많은 particle이 남아 있는지, planning 신호를 강화하면
+달라지는지 질문했다. **검증할 가치가 있는 가설이나 현재 시각화만으로 원인을 확정하지 않는다.**
+현재 구현은 전체영상 복원만이 아니라 미래 예측·KL 등을 포함한 원래 SSL objective를 유지한다.
+건물·나무 영역의 particle이 모두 불필요한지도 위치만으로 판단하지 않는다.
+
+현재 손실은 `L_plan + 0.02 * L_SSL`, `L_plan = 후보 imitation + PDM subscore BCE`다.
+읽기 전용 로그 감사 `results/lpwm_planning_loss_balance_review_20261005/existing_training_audit.json`에서
+최종 partial의 scalar loss는 planning6.0296/가중SSL0.3455였다. **Loss 값의 크기를 gradient 기여도로 해석하지 않는다.**
+실제 trainer는 LPWM·planner 전체 parameter에 합산 gradient의 global norm clip5를 적용한 뒤 AdamW를 갱신한다.
+Gradient를 새로 측정한 update1/128배수 기록만 추려보면 partial37개중37개, Adapter37개중31개,
+full재개구간20개중20개가 clip5를 넘었다. Partial의 측정 norm 중앙값은87.96이다.
+나머지 로그는 마지막 gradient 측정을 재사용하므로 별도 관측으로 세지 않았다.
+이는 clipping의 실제 작동 증거이며 SSL이 지배한다는 증거는 아니다. Planning 계수10배를
+parameter update10배로 해석할 수 없고, clipping을 없애는 것은 이번 제안에 포함하지 않는다.
+
+### 권장 비교
+
+1. 같은 checkpoint와 고정 training minibatch에서 planning/가중SSL을 따로 backward한다.
+   위치·크기·presence head, feature/context/dynamics, 명령FiLM별 norm과 두 gradient의 cosine,
+   clipping 계수와 실제 parameter update norm을 측정한다. 별도손실의 서로다른모델시점 norm을 나누지 않는다.
+2. 위치 head가 열린 **동일 partial 구조**를 고정하고 아래 상대 가중치를 비교한다.
+
+| 조건 | Planning 계수 | SSL 계수 | 기존 대비 planning:SSL 계수 비율 |
+|---|---:|---:|---:|
+| 동일 추가학습 대조군 | 1 | 0.02 | 1배 |
+| 상대 planning 강화 | 1 | 0.02/3 ≈ 0.00667 | 3배 |
+| 상대 planning 강화 | 1 | 0.002 | 10배 |
+
+이 비교는 **계수 비율**을 조절하며 실제 gradient norm 비율이나 update 크기를 보장하지 않는다.
+SSL 전체를0으로 만드는 조건은 우선 제외한다. Geometryhead학습해제·LPWM학습률상향·loss비율변경을
+동시에 실시하지 않고, native geometry가 이미 열린 partial을 사용해 loss비율만 비교한다.
+
+후속 빠른 적응효과를 보려면 완료된 partial의 동일 `latest.pt`(4707update model+AdamW)에서 세 갈래로
+분기하고 모두 같은 추가navtrain1epoch(4707update),seed/샘플순서/SSLclip순서/배치8×2/유효16/공통LRschedule를
+적용하는 안을 권한다. 새공통schedule의구체값과checkpoint SHA는 실행전 고정한다.
+기존partial최종점수를 추가학습 대조군으로 대신 쓰지 않는다. 이 설계는 기존partial표현에서의후속적응효과이며,
+Stage1부터의독립학습 전체효과나freeze대비이득을단독으로입증하지않는다. Freeze대비학습효과를새학습량에서
+다시주장하려면 같은추가학습량의frozen표현대조군도필요하다.
+
+평가는 동일 개발1024 planning/256 world, recording paired비교, 동일장면 전중후 particle와feature/미래속성 변화,
+표현개입에따른planning변화,복원·미래품질·presence/분산유지를포함한다. 점이차량쪽으로이동했다는것만을
+성공으로정하지않고, 중요정보보존·실제PDMS추가효용을함께판정한다.
+직접객체GT학습은추가하지않으며 현재공개고정조건은독립적으로계속한다.
+**이번 턴은 기존로그감사와후속설계검토만 수행했다. 새 backward/재학습/대기열등록은 아직 없다.**
+
 ## 2026-10-05: 일부 계층·전체 미세조정의 particle 배치와 실제 head 갱신
 
 **하위 질문:** 위치 생성 계층을 학습한 두 조건에서 현재 particle 배치가 실제로 바뀌었는가?

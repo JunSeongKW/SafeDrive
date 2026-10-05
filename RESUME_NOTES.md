@@ -2488,3 +2488,11 @@ AdapterPDMS82.4852/frozen82.5238,차이−.03859점CI[−1.16421,+1.00706],ADE�
 최종512particle중심이동 partial평균0.550627/중앙값0.524997/p951.019065/최대1.713751px,full평균0.460710/중앙값0.330322/p951.219635/최대2.529015px. 1px이상이동 partial5.46875%/full10.15625%,크기평균절대차1.205988/1.576844px,presence평균절대차.014118/.021439다. 이전Adapter중심평균.084663보다크지만방법별학습률·스케줄·FiLM·배치이력차이도있다.
 
 결과 `results/lpwm_geometry_finetuning_visualization_20261005/`: PNG13/PDF4/독립확대HTML/summaryJSON. 고정기준공통16box인덱스/전체64점,학습전중후·8장면전부·실제크기위치겹침을제공한다. Python·JS구문과대표비교PNG육안검사완료. Planning+0.02SSL·정규화의합산변화로planning단독원인/주요객체재배치/추가PDMS이득은입증하지않는다. 현재공개고정본학습2784/4707·heartbeat정상이며GPU/등록source/config변경없음.
+
+## 2026-10-05 22:30 KST — planning 신호 강화 제안과 기존 clipping 감사
+
+사용자가복원사전학습으로배경particle이많은것같으니planningloss신호강화를테스트하면어떨지질문했다. 현재L_plan+.02SSL과globalclip5→AdamW코드를확인하고기존로그만읽었다. 마지막gradient값을재사용하는로그를제외하고update1/128배수실측기록만집계했다. Partial37/37(중앙norm87.96),Adapter31/37,full재개20/20이clip5를넘었다. `results/lpwm_planning_loss_balance_review_20261005/existing_training_audit.json`에기록했다. Loss값은planning약6/가중SSL약.35이나gradient기여를뜻하지않고SSL지배/충돌도미확정이다.
+
+후속설계:같은모델상태·trainingminibatch에서planning/가중SSL의geometryhead별norm/cosine/clip/실제update분리진단후,geometryhead가열린partial구조고정으로planning1·SSL.02/.02÷3/.002(상대계수1/3/10배)을비교한다. LPWMLR/학습가능계층은함께바꾸지않는다. 완료partial4707+AdamW에서동일분기해모두같은추가navtrain1epoch/배치8×2/seed/샘플순서/공통schedule로비교하는후속적응안을제안했다. Baseline도같은추가학습을해야하며기존완료점수로대신하지않는다. 공통schedule구체값·분기SHA는실행전등록사항으로남겼다. Freeze대비새학습량효과를주장하려면대응frozen추가학습도필요하다.
+
+동일개발평가/particle·feature·미래변화/개입효용/world유지를검증하도록제안했다. 배경이무조건불필요하거나particle이동량자체가성공기준이라고보지않는다. 이번에는새backward/재학습/queue등록을하지않았고기존공개고정3184/4707·heartbeat정상확인후유지했다.

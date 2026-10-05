@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 22:21 KST (Codex)
+마지막 갱신: 2026-10-05 22:30 KST (Codex)
 
 **최신 실행(2026-10-05): 공개 LPWM 고정 + 동일 planner 학습으로 Stage1 효과 검증.**
 사용자 정정: 완료된 적응 고정군82.5238을 재사용하고 새 조건 하나만 학습한다.
@@ -161,6 +161,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 22:27 KST: 공개고정본학습3184/4707·queueheartbeat정상확인. 사용자 planning신호강화제안은
+기존로그감사/설계검토만진행했으며새backward/학습/대기열등록/현재설정변경없음.
 
 2026-10-05 22:19 KST: 공개고정 queue1869615 public_control_training2784/4707,heartbeat정상.
 사용자요청 일부계층/전체particle시각화는 기존snapshot/체크포인트만 CPU로 읽어 완료했다. 본학습/GPU조건변경없음.
@@ -521,6 +524,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Loss-balance로그감사:현재L_plan+.02SSL/globalclip5. Gradient실측기록만집계해partial37/37,Adapter31/37,
+full재개20/20에서합산norm>5. Partial실측norm중앙87.96. Loss크기와gradient기여는구분하며SSL지배는미확정.
+근거results/lpwm_planning_loss_balance_review_20261005/existing_training_audit.json. Loss10배가실제update10배라는보장없음.
 
 일부계층·전체에서 위치/크기/presence head가 trainable로등록되고 Stage1대비 실제weight변경도 확인됐다.
 동일8장면512particle최종중심이동 partial평균.55063/최대1.71375px,full평균.46071/최대2.52902px.
@@ -972,12 +979,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 일부계층/전체미세조정의particle전중후·고정비교 CPU시각화와 8장면확대갤러리를추가했다.
-- 세geometryhead trainable등록/실제checkpoint변경을확인하고8장면최종이동량과72개snapshot출처를저장했다.
-- Partial평균.55063px/full.46071px이동,planning+SSL공동학습및full원본2095재개/비교차이를문서화했다.
-- 현재공개고정학습·기존가중치·등록source/config는변경하지않았다.
+- 기존partial/Adapter/full로그의중복gradient기록을제외하고globalclip5작동빈도·손실값을읽기전용감사했다.
+- Planning상대신호1/3/10배를SSL계수.02/.00667/.002로비교하는후속설계와동일추가학습대조군필요성을기록했다.
+- 위치head가열린partial구조고정/동일상태loss별gradient진단을권고했다. 새실험기동/queue등록/현재설정변경은없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Planning신호강화는제안단계:같은checkpoint·trainingbatch의loss별gradient분리후partial구조고정으로SSL계수.02/.02÷3/.002비교.
+후속학습시같은partial4707+AdamW에서분기하고동일추가1epoch대조군도실행해야한다. 원래완료partial점수를대신쓰지않는다.
+현재학습은유지하며새학습/대기열은등록하지않았다. 실행시공통LRschedule·source/config/분기SHA를별도고정한다.
 
 일부계층/전체particle비교이미지와전중후갤러리를사용자에게제공한다. 해당head가학습됐고실제위치가변했음을설명한다.
 Planning단독원인·객체중요도개선은미분리로남기고현재공개고정학습→평가→Stage1비교를유지한다.
@@ -1257,6 +1267,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+배경particle이복원때문에불필요하게유지된다는것은가설이다. 기존loss는미래예측/KL포함SSL이고나무·건물무용도미검증.
+Globalclip작동은확인했지만planning대SSLgradient기여/충돌은아직분리실측하지않았다. 계수비율3/10배는update배율이아니다.
+후속3조건은설계제안이며실행승인요청/새queue없이문서화만했다. 현재공개고정Stage1효과실험은별도로유지한다.
 
 Partial/full head의실제갱신과입력상particle이동을확인했으나loss별기여율은미분리다. SSL/weightdecay도동시적용됐다.
 Full update0은v3원본이고2353/4707은2095재개실행이다. 같은초기geometry가확인됐지만LR/schedule/FiLM위치/배치이력차이는남는다.
