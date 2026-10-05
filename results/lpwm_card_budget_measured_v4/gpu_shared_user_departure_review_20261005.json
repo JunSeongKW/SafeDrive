@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-10-05T14:37:12.055785+09:00",
+  "scope": "Read-only GPU process and saved resource snapshot audit; no process or queue changes.",
+  "first_current_memory_snapshot_kst": "2026-10-05T14:34:23+09:00",
+  "gpu_total_used_mib": {
+    "0": 23591,
+    "1": 23591
+  },
+  "gpu_processes": [
+    {
+      "gpu": 0,
+      "gpu_uuid": "GPU-95f20c84-b58c-104f-de61-2cd8d43f1ff5",
+      "pid": 866456,
+      "owner": "junseong",
+      "name": "kjs-lpwm-stage2",
+      "used_mib": 23558
+    },
+    {
+      "gpu": 1,
+      "gpu_uuid": "GPU-a987cdb2-c031-bedd-f0de-6e140472be25",
+      "pid": 866457,
+      "owner": "junseong",
+      "name": "kjs-lpwm-stage2",
+      "used_mib": 23558
+    }
+  ],
+  "gpu_accounting_mode": {
+    "0": "Disabled",
+    "1": "Disabled"
+  },
+  "latest_saved_shared_usage_snapshot": {
+    "path": "results/lpwm_card_budget_measured_v4/adapter_training_and_architecture_20261005.json",
+    "checked_at": "2026-10-05T10:52:35.364391+09:00",
+    "gpu_used_bytes": {
+      "0": 45889880064,
+      "1": 45890928640
+    },
+    "owner_identity_in_this_snapshot": false
+  },
+  "current_user_requested_owner_present": false,
+  "exact_departure_time_known": false,
+  "resource_log_limitation": "Queue saves latest GPU resources by overwriting queue_state.json; no per-process departure history.",
+  "interpretation": "Additional shared GPU occupancy disappeared between saved10:52snapshot and current14:34check. Historical snapshot does not independently identify the departing owner. Exact elapsed absence cannot be established.",
+  "adapter_progress_snapshot": {
+    "checked_at": "2026-10-05T14:35:32.852674+09:00",
+    "update": 4176,
+    "total_updates": 4707
+  },
+  "runtime_changed": false
+}

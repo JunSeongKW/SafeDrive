@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 14:31 KST (Codex)
+마지막 갱신: 2026-10-05 14:37 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 14:37 KST: 사용자junheok GPU0·1이탈시간질문으로호스트GPU/소유자/accounting조회. 현재866456/866457 junseong kjs-lpwm-stage2만GPU0·1사용. Adapter4176/4707(14:35:32 snapshot). 실행변경없음.
 
 2026-10-05 14:31 KST: 공개LPWM 해상도가능범위질문. 공식modelzoo·64/128config·해상도의존head코드재확인. 활성학습/queue변경없음.
 
@@ -452,6 +454,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+14:34카드각23591MiB,현재compute각23558MiB우리계정만. 저장10:52공동점유각45.89decimalGB 대비감소. GPUaccountingDisabled/queue최신resource덮어쓰기로정확종료시간미확인. 과거snapshot에소유자정보없어특정인의종료시각으로단정금지.
 
 공식64와128config존재;확인한modelzoo공개weights는모두128. 현재Sketchy무수정경로128. 256은가중치이식+적응검증대상,직사각형은정사각형가정수정추가. 이번턴고해상도실행검증없음.
 
@@ -834,11 +838,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공개LPWM 설정해상도64/128과현재modelzoo의128checkpoint를구분했다.
-- 256/직사각형확장은가중치이식·적응검증대상임을문서화했다.
-- 활성학습·queue·등록source/config변경없음.
+- GPU0·1현점유프로세스와소유자,accounting설정을호스트읽기전용확인했다.
+- 저장공동점유와현재우리프로세스만있는상태를대조했으나정확개인별종료시각은기록부재임을명시했다.
+- 감사JSON/HANDOFF/RESUME기록만추가했고실행변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존Adapter→검증→fullqueue유지. 점유감소질문으로배치/allocator/source/config변경이나새GPU작업없음.
 
 기존queue유지. 고해상도확장은별도구현·호환·VRAM·적응검증을거치는후속방향이며이번질문으로자동시작하지않았다.
 
@@ -1066,6 +1072,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Junheok현재GPU0·1프로세스없음확인. 몇시간전에종료했는지는기록부재로미확정. 추가공동점유감소관측구간은10:52~14:34이며개인별종료기록이아님.
 
 64설정존재와공개64weight존재를구분. 256dataset링크는256checkpoint증거아님. 고해상도LPWM재사용범위/성능미검증.
 

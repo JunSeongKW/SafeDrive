@@ -2320,3 +2320,8 @@ Sketchy/SketchyAction/BAIR/LanguageTable/Bridge 공개checkpoint표는모두128�
 출처: https://github.com/taldatech/lpwm#model-zoo---pretrained-models 및
 https://github.com/taldatech/lpwm/blob/main/configs/bair64.json .
 이번사용자질문은가능범위설명이며신규학습/해상도확장구현/활성queue변경없음.
+
+
+## 2026-10-05 14:37 KST — GPU0·1 공동 사용자 종료 시각 확인
+
+14:34:23 카드점유각23591MiB,호스트compute조회와ps대조에서GPU0·1은우리866456/866457 junseong kjs-lpwm-stage2만사용한다. GPUaccounting은양쪽Disabled. 최신저장공동점유snapshot10:52:35는각45.89GB이나소유자별내역없음. Queue는resource최신값만덮어쓰므로junheok의정확종료시각/지속부재시간은확정할수없다. 추가공동점유가10:52~14:34사이에사라진관측과개인별종료시점을구분한다. Adapter14:35:32 progress4176/4707,학습·queue·source/config변경없음. 근거results/lpwm_card_budget_measured_v4/gpu_shared_user_departure_review_20261005.json.
