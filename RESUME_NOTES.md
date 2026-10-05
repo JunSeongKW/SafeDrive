@@ -2392,3 +2392,9 @@ DrivoR §3.2–3.5/§4.2.1 및 공식 fc6e5aa의 register/ego 경로, LPWM A.3�
 사용자는 현재 “같은 LPWM 기반에서 표현까지 planning에 맞춰 수정하면 추가 이득이 있는가” 실험을 먼저 마무리하도록 했다. 현재 full 학습·검증과 이미 승인된 frozen LPWM/encoder FiLM+동일 planner 대조군 학습·검증·비교는 이어간다. 후속 DrivoR 대조실험의 목적은 “주행 의도에 맞춰 구조화된 particle의 미래 정보를 보존하는 것이 일반적인 압축 feature보다 planning에 도움이 되는가”다. 공통 DrivoR planner 통제 원칙을 유지한다.
 
 **명시적 지시: DrivoR 비교는 지금 대기열에 등록하지 말고 후속 과제로 기억한다.** 현재 작업 완료를 trigger로 새 DrivoR profile/학습/평가를 자동 기동하지 않는다. 기존 main queue 학습/frozen queue 대기 heartbeat 정상 확인, source/config/queue 변경 없음. 연구 문서 및 HANDOFF에 우선순위와 실행 제한을 기록했다.
+
+## 2026-10-05 18:35 KST — frozen-LPWM planner 대조군 자동 연결 재확인
+
+사용자가 현재 학습 완료 후 LPWM 완전 고정·planner만 학습하는 실험이 이어지는지 확인했다. 실제 main queue full_low_learning_rate_training/frozen queue waiting_for_full_training_and_validation, 양쪽 heartbeat 약7초 이내 정상이다. 등록 sequence는 현재 학습/최종검증/집계 완료 후 GPU freeze 감사와 batch profile/평가구동확인을 거쳐 planner 학습/검증/paired 보고로 연결된다.
+
+대조군은 Stage1 완료 LPWM에서 시작하고 encoder 명령 FiLM까지 eval/no_grad 및 parameters/buffers 불변으로 고정한다. Planner는 같은 seed47 초기값으로 새로 학습하며 현재 Stage2 최종 가중치를 대조군에 넘기지 않는다. 기존 source/config/queue 변경 없음. DrivoR은 후속 과제로만 보관하고 대기열 미등록을 유지한다.

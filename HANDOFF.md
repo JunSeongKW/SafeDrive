@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 17:03 KST (Codex)
+마지막 갱신: 2026-10-05 18:35 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 18:35 KST: 사용자에게 frozen 대조군 자동 연결을 재확인했다. Main queue는 full_low_learning_rate_training, frozen queue는 waiting_for_full_training_and_validation이며 양쪽 heartbeat 정상. 기존 대기열 유지.
 
 2026-10-05 17:02 KST: 사용자 지시로 현재 LPWM 내부 미세조정 vs frozen 대조군 학습·검증·비교까지 완료한다. Main full 학습 3280/4707, frozen CPU queue 대기 정상. DrivoR 비교는 후속 과제로 보관하며 대기열에 넣지 않는다.
 
@@ -474,6 +476,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+등록 sequence는 현재 학습→최종개발검증/네방법집계→freeze GPU 감사/배치실측/평가구동확인→frozen-LPWM 동일planner 학습→검증/paired비교다. 대조군은 Stage1 LPWM 체크포인트와 seed47의 초기 planner로 시작하고 world/encoder FiLM 전체를 eval/no_grad로 고정한다.
 
 사용자 확정 연구 순서: (1) 같은 LPWM에서 planning 표현 적응의 추가 효과 검증 완료, (2) 공통 DrivoR planner 아래 구조화된 particle 미래 표현 vs 일반 압축 feature 비교. 두 번째는 목적과 통제 원칙만 기록했고 실행을 등록하지 않았다.
 
@@ -878,11 +882,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 LPWM 미세조정/frozen 대조군을 먼저 완료하고 DrivoR 비교는 후속 과제로 기억하라는 사용자 지시를 기록했다.
-- DrivoR 비교를 지금 대기열에 등록하거나 현재 작업 종료 후 자동 기동하지 않는 제약을 명시했다.
-- 기존 두 queue의 정상 학습/대기를 확인했으며 실행 설정·학습 source는 변경하지 않았다.
+- 현재 full 학습 뒤 frozen-LPWM planner 대조군이 자동 연결된 queue 상태/sequence를 다시 확인했다.
+- Stage1 체크포인트 초기화, encoder FiLM 포함 전체 표현 고정, planner 새 학습을 인수인계에 명시했다.
+- 기존 GPU 작업·등록 source/config·대기열은 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재 학습과 검증/집계 완료를 기다리는 frozen CPU queue가 자동으로 후속 검사를 거쳐 planner 학습을 기동한다. Stage1 표현과 가중치/buffer 불변 검사를 유지하며 새 DrivoR 대기열은 추가하지 않는다.
 
 우선 기존 full 학습→개발검증/집계→frozen LPWM·encoder FiLM 고정 대조군 학습→검증/미세조정 대비 결과 보고를 완료한다. 이후 DrivoR 비교는 해야 할 후속 과제로 기억한다. **현재 완료를 계기로 DrivoR 작업을 자동 실행하거나 대기열에 추가하지 않는다: 사용자의 명시적 지시다.**
 
@@ -1132,6 +1138,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Frozen 대조군의 초기 LPWM은 Stage1 완료 가중치다. 현재 Stage2 미세조정 완료 가중치를 가져와 고정하는 실험으로 바꾸지 않는다. Planner는 같은 초기값에서 새로 학습한다. 후속 실행 전 검증과 freeze/memory 검사가 있으므로 학습 마지막 update와 동시에 본학습이 시작되는 것은 아니다.
 
 사용자는 DrivoR 대조실험의 필요성과 목적을 확정했으나 지금 대기열 등록은 명시적으로 금지했다. 기존 frozen 대조군 실행 승인은 유지된다. DrivoR 구현·profile·학습·평가의 신규 자동 실행은 하지 않는다.
 
