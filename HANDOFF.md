@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 18:35 KST (Codex)
+마지막 갱신: 2026-10-05 20:27 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 20:27 KST: 네 가지 미세조정 학습·검증 완료. Full 학습19:06:33/검증19:16:44/집계19:16:48 완료. Frozen 대조군은19:18:08 자동 시작, 현재3616/4707 (76.8%) planner만 학습 중. Queue871940/frozen_control_training heartbeat 정상; main421603은complete다. DrivoR 미등록 유지.
 
 2026-10-05 18:35 KST: 사용자에게 frozen 대조군 자동 연결을 재확인했다. Main queue는 full_low_learning_rate_training, frozen queue는 waiting_for_full_training_and_validation이며 양쪽 heartbeat 정상. 기존 대기열 유지.
 
@@ -476,6 +478,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+완료 내부개발 PDMS: partial81.6341/LoRA81.9141/Adapter82.4852/full81.2282. Full의 등록5개검사 통과, partial은미래LPIPS유지기준미달. Frozen GPU감사/배치8/평가구동검사통과, LPWM trainable0/FiLM고정/planner2,207,495개; 로그LPWM각gradient0/planner양수. GPU0·1각총약26.4GB, allocated약3.91GiB. 근거 results/lpwm_frozen_control_v1/status_20261005_2025.json.
 
 등록 sequence는 현재 학습→최종개발검증/네방법집계→freeze GPU 감사/배치실측/평가구동확인→frozen-LPWM 동일planner 학습→검증/paired비교다. 대조군은 Stage1 LPWM 체크포인트와 seed47의 초기 planner로 시작하고 world/encoder FiLM 전체를 eval/no_grad로 고정한다.
 
@@ -882,11 +886,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 full 학습 뒤 frozen-LPWM planner 대조군이 자동 연결된 queue 상태/sequence를 다시 확인했다.
-- Stage1 체크포인트 초기화, encoder FiLM 포함 전체 표현 고정, planner 새 학습을 인수인계에 명시했다.
-- 기존 GPU 작업·등록 source/config·대기열은 변경하지 않았다.
+- 네 가지 미세조정 학습·검증 완료와 frozen 대조군의 실제 자동 시작/진행률을 확인했다.
+- 완료 full 개발결과와 frozen GPU 감사·배치선택·평가구동 산출물을 공유 기록에 포함했다.
+- 최근 속도로 frozen 학습/검증 ETA를 갱신했고 기존 학습·대기열은 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Frozen 본학습4707까지 완료→동일1024planning/256world검증→기존네방법과paired비교를 자동 실행한다. 최근약1s/update로학습20:45–20:55,검증·비교21:00–21:20KST예상. 결과수치와freeze hash확인을 함께 보고한다. 이후DrivoR자동실행없음.
 
 현재 학습과 검증/집계 완료를 기다리는 frozen CPU queue가 자동으로 후속 검사를 거쳐 planner 학습을 기동한다. Stage1 표현과 가중치/buffer 불변 검사를 유지하며 새 DrivoR 대기열은 추가하지 않는다.
 
@@ -1138,6 +1144,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+네미세조정완료는등록1epoch/1seed학습과내부개발검증완료이며수렴/독립navtest완료가아니다. Frozen 최종성능과미세조정추가효과는아직미확정이다. Frozen queue의predecessor_status/stage는대기때값이남아있을수있으므로main실제complete와현재frozen_control_training을우선한다. 메모리감소는고정모델no_grad경로에부합한다.
 
 Frozen 대조군의 초기 LPWM은 Stage1 완료 가중치다. 현재 Stage2 미세조정 완료 가중치를 가져와 고정하는 실험으로 바꾸지 않는다. Planner는 같은 초기값에서 새로 학습한다. 후속 실행 전 검증과 freeze/memory 검사가 있으므로 학습 마지막 update와 동시에 본학습이 시작되는 것은 아니다.
 

@@ -1,0 +1,147 @@
+{
+  "observed_at_kst": "2026-10-05T20:27:28.717830+09:00",
+  "four_adaptation_methods_complete": true,
+  "completed_stage_times_kst": {
+    "full_low_learning_rate_training": "2026-10-05T19:06:33.606822+09:00",
+    "full_low_learning_rate_evaluation": "2026-10-05T19:16:44.308504+09:00",
+    "four_method_summary": "2026-10-05T19:16:48.232340+09:00"
+  },
+  "completed_method_development_metrics": {
+    "partial_output_layers": {
+      "pdms_points": 81.63412038919158,
+      "ade_meters": 1.2825015851958597,
+      "checks": {
+        "complete_registered_epoch": true,
+        "planning_loss_learned": true,
+        "pdms_improved_over_random_planner": true,
+        "reconstruction_lpips": true,
+        "forecast_lpips": false
+      }
+    },
+    "attention_lora": {
+      "pdms_points": 81.91406225947979,
+      "ade_meters": 1.1822045381086355,
+      "checks": {
+        "complete_registered_epoch": true,
+        "planning_loss_learned": true,
+        "pdms_improved_over_random_planner": true,
+        "reconstruction_lpips": true,
+        "forecast_lpips": true
+      }
+    },
+    "residual_adapter": {
+      "pdms_points": 82.48519609653985,
+      "ade_meters": 1.1551310651302629,
+      "checks": {
+        "complete_registered_epoch": true,
+        "planning_loss_learned": true,
+        "pdms_improved_over_random_planner": true,
+        "reconstruction_lpips": true,
+        "forecast_lpips": true
+      }
+    },
+    "full_low_learning_rate": {
+      "pdms_points": 81.22818685710489,
+      "ade_meters": 1.2959562429496145,
+      "checks": {
+        "complete_registered_epoch": true,
+        "planning_loss_learned": true,
+        "pdms_improved_over_random_planner": true,
+        "reconstruction_lpips": true,
+        "forecast_lpips": true
+      }
+    }
+  },
+  "evaluation_scope": "1024 internal development planning scenes (1021 valid cached PDMS), 256 world clips; one seed/one epoch, not full navtest.",
+  "frozen_queue_status": "running",
+  "frozen_stage": "frozen_control_training",
+  "frozen_training_started_kst": "2026-10-05T19:18:08.746448+09:00",
+  "frozen_progress": {
+    "update": 3616,
+    "total_updates": 4707,
+    "epoch_fraction": 0.7682175483322711,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 57856,
+    "planning_loss": 6.218470335006714,
+    "world_objective": 18.873278617858887,
+    "loss": 6.595935821533203,
+    "imitation_loss": 4.5686750411987305,
+    "metric_distillation_loss": 1.649795413017273,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 0.0,
+      "context": 0.0,
+      "dynamics": 0.0,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 3.9076881408691406
+    },
+    "lpwm_lr": 0.0,
+    "planner_lr": 6.496013891521474e-05,
+    "peak_allocated_gib": 3.9062142372131348,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.013348890002816916,
+    "update_seconds": 0.9954416760010645,
+    "elapsed_seconds": 4126.797334996983
+  },
+  "frozen_progress_percent": 76.8217548332271,
+  "recent_elapsed_time_estimates": [
+    {
+      "window_updates": 128,
+      "seconds_per_update": 1.065673360859364,
+      "remaining_minutes": 19.377493944959436,
+      "estimated_finish_kst": "2026-10-05T20:46:51.367467+09:00"
+    },
+    {
+      "window_updates": 256,
+      "seconds_per_update": 1.0699492074140835,
+      "remaining_minutes": 19.455243088146084,
+      "estimated_finish_kst": "2026-10-05T20:46:56.032415+09:00"
+    },
+    {
+      "window_updates": 512,
+      "seconds_per_update": 0.930972765208935,
+      "remaining_minutes": 16.928188114049135,
+      "estimated_finish_kst": "2026-10-05T20:44:24.409117+09:00"
+    }
+  ],
+  "batch_per_gpu": 8,
+  "gradient_accumulation": 1,
+  "gpu_count": 2,
+  "trainable_lpwm_parameters": 0,
+  "trainable_planner_parameters": 2207495,
+  "encoder_film_frozen": true,
+  "gpu_audit_passed": true,
+  "maximum_total_vram_bytes_per_card": 48000000000,
+  "latest_gpu_resource_snapshot": {
+    "0": {
+      "used_bytes": 26405240832,
+      "free_gib": 22.8212890625
+    },
+    "1": {
+      "used_bytes": 26358054912,
+      "free_gib": 22.8662109375
+    }
+  },
+  "training_finish_planning_range_kst": [
+    "2026-10-05T20:45:00+09:00",
+    "2026-10-05T20:55:00+09:00"
+  ],
+  "final_evaluation_and_comparison_planning_range_kst": [
+    "2026-10-05T21:00:00+09:00",
+    "2026-10-05T21:20:00+09:00"
+  ],
+  "estimate_note": "Observed shared GPU throughput and earlier evaluation duration; practical range, not guaranteed.",
+  "drivor_queued": false,
+  "execution_changes": []
+}

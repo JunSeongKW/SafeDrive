@@ -2398,3 +2398,11 @@ DrivoR §3.2–3.5/§4.2.1 및 공식 fc6e5aa의 register/ego 경로, LPWM A.3�
 사용자가 현재 학습 완료 후 LPWM 완전 고정·planner만 학습하는 실험이 이어지는지 확인했다. 실제 main queue full_low_learning_rate_training/frozen queue waiting_for_full_training_and_validation, 양쪽 heartbeat 약7초 이내 정상이다. 등록 sequence는 현재 학습/최종검증/집계 완료 후 GPU freeze 감사와 batch profile/평가구동확인을 거쳐 planner 학습/검증/paired 보고로 연결된다.
 
 대조군은 Stage1 완료 LPWM에서 시작하고 encoder 명령 FiLM까지 eval/no_grad 및 parameters/buffers 불변으로 고정한다. Planner는 같은 seed47 초기값으로 새로 학습하며 현재 Stage2 최종 가중치를 대조군에 넘기지 않는다. 기존 source/config/queue 변경 없음. DrivoR은 후속 과제로만 보관하고 대기열 미등록을 유지한다.
+
+## 2026-10-05 20:27 KST — 네 미세조정 완료, frozen 대조군 학습 중
+
+2026-10-05 20:27 KST: 네 가지 미세조정 학습·검증 완료. Full 학습19:06:33/검증19:16:44/집계19:16:48 완료. Frozen 대조군은19:18:08 자동 시작, 현재3616/4707 (76.8%) planner만 학습 중.
+
+GPUfreeze감사·배치8profile·평가구동검사통과후GPU0·1에서batch8×누적1×2=유효16으로학습중이다. LPWM가중치와encoderFiLM고정,trainableworld0/planner2,207,495개이며주기적gradient검사LPWM0/planner양수다. Frozen 최종검증은미실행으로engineering결과를학습후성능으로보고하지않는다. 최근속도와기존평가시간으로학습20:45–20:55/최종검증·비교21:00–21:20KST예상이며공유부하에따라변동가능하다.
+
+네방법내부개발PDMS partial81.6341/LoRA81.9141/Adapter82.4852/full81.2282. Full의5개등록검사는통과,partial미래LPIPS유지기준미달은보존한다. 전체navtest/수렴결과가아니다. 기존main complete/frozen running을확인했고source/config/queue변경없음. DrivoR미등록유지. 상태근거 `results/lpwm_frozen_control_v1/status_20261005_2025.json`.

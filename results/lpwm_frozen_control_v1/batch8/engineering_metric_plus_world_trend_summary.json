@@ -1,0 +1,208 @@
+{
+  "condition": "metric_plus_world",
+  "configuration_sha256": "4e8afe39daf4a5023abf711f89117323341abf0edad359f1acfe82d7683c7c75",
+  "checkpoint_sha256": "e9fc9cb898426fc79d8b62224e4b93c06edd95ef52358c3d800d7ef69236f03d",
+  "engineering_only": true,
+  "planning_scenes": 4,
+  "world_clips": 2,
+  "planning_recordings": 4,
+  "means": {
+    "initial": {
+      "ade_meters": 7.204895496368408,
+      "fde_meters": 16.311447620391846,
+      "pdms": 0.0,
+      "metric_bce": 4.283241152763367
+    },
+    "trained": {
+      "ade_meters": 6.648185133934021,
+      "fde_meters": 10.870728492736816,
+      "pdms": 0.5497982501983643,
+      "metric_bce": 3.1645137071609497
+    },
+    "persistent_future": {
+      "ade_meters": 6.648185133934021,
+      "fde_meters": 10.870728492736816,
+      "pdms": 0.5497982501983643,
+      "metric_bce": 3.158505916595459
+    }
+  },
+  "trained_minus_initial": {
+    "pdms": {
+      "mean_difference": 0.5497982501983643,
+      "ci95": [
+        0.18196739256381989,
+        0.7414370030164719
+      ],
+      "clips": 4,
+      "recordings": 4
+    },
+    "ade_meters": {
+      "mean_difference": -0.5567103624343872,
+      "ci95": [
+        -2.039683222770691,
+        1.2753198146820068
+      ],
+      "clips": 4,
+      "recordings": 4
+    },
+    "metric_bce": {
+      "mean_difference": -1.118727445602417,
+      "ci95": [
+        -1.2897014021873474,
+        -0.9432830214500427
+      ],
+      "clips": 4,
+      "recordings": 4
+    }
+  },
+  "predicted_minus_persistent_future": {
+    "pdms": {
+      "mean_difference": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "clips": 4,
+      "recordings": 4
+    },
+    "ade_meters": {
+      "mean_difference": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "clips": 4,
+      "recordings": 4
+    }
+  },
+  "world_vs_stage1": {
+    "reconstruction_lpips": {
+      "mean_difference": -7.450580596923828e-08,
+      "ci95": [
+        -2.2351741790771484e-06,
+        2.086162567138672e-06
+      ],
+      "clips": 2,
+      "recordings": 2
+    },
+    "forecast_lpips": {
+      "mean_difference": -4.023313522338867e-06,
+      "ci95": [
+        -4.291534423828125e-06,
+        -3.7550926208496094e-06
+      ],
+      "clips": 2,
+      "recordings": 2
+    }
+  },
+  "checks": {
+    "complete_registered_epoch": false,
+    "planning_loss_learned": true,
+    "pdms_improved_over_random_planner": true,
+    "reconstruction_lpips": true,
+    "forecast_lpips": true
+  },
+  "trend_checks_passed": false,
+  "world_risk_breakdown": {
+    "far_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": -7.450580596923828e-08,
+        "ci95": [
+          -2.2351741790771484e-06,
+          2.086162567138672e-06
+        ],
+        "clips": 2,
+        "recordings": 2
+      },
+      "forecast_lpips": {
+        "mean_difference": -4.023313522338867e-06,
+        "ci95": [
+          -4.291534423828125e-06,
+          -3.7550926208496094e-06
+        ],
+        "clips": 2,
+        "recordings": 2
+      }
+    },
+    "projected_overlap": {
+      "reconstruction_lpips": {
+        "mean_difference": -7.450580596923828e-08,
+        "ci95": [
+          -2.2351741790771484e-06,
+          2.086162567138672e-06
+        ],
+        "clips": 2,
+        "recordings": 2
+      },
+      "forecast_lpips": {
+        "mean_difference": -4.023313522338867e-06,
+        "ci95": [
+          -4.291534423828125e-06,
+          -3.7550926208496094e-06
+        ],
+        "clips": 2,
+        "recordings": 2
+      }
+    },
+    "projected_track_disappearance": {
+      "reconstruction_lpips": {
+        "mean_difference": -2.2351741790771484e-06,
+        "ci95": [
+          -2.2351741790771484e-06,
+          -2.2351741790771484e-06
+        ],
+        "clips": 1,
+        "recordings": 1
+      },
+      "forecast_lpips": {
+        "mean_difference": -3.7550926208496094e-06,
+        "ci95": [
+          -3.7550926208496094e-06,
+          -3.7550926208496094e-06
+        ],
+        "clips": 1,
+        "recordings": 1
+      }
+    },
+    "small_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": -7.450580596923828e-08,
+        "ci95": [
+          -2.2351741790771484e-06,
+          2.086162567138672e-06
+        ],
+        "clips": 2,
+        "recordings": 2
+      },
+      "forecast_lpips": {
+        "mean_difference": -4.023313522338867e-06,
+        "ci95": [
+          -4.291534423828125e-06,
+          -3.7550926208496094e-06
+        ],
+        "clips": 2,
+        "recordings": 2
+      }
+    }
+  },
+  "seconds": 16.32057098398218,
+  "scope": "Engineering execution check only; profile weights, four planning scenes and two world clips",
+  "limitations": [
+    "One seed/epoch; previously exposed internal development, not independent test.",
+    "Compared with Adapter/LoRA, this control freezes both LPWM adaptation and encoder-command FiLM.",
+    "Frozen LPWM uses evaluation mode during training; adaptation runs use train mode.",
+    "World SSL is retained as a detached monitor; it cannot update the fixed representation or planner."
+  ],
+  "experiment_kind": "fixed_representation_planner_control",
+  "frozen_control": {
+    "reference_configuration": "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch8.json",
+    "reference_configuration_sha256": "7a1a47c81fb11e010c5ec309936e4a772ed20e35fa0aa7792a5e252b5dabe872",
+    "freeze_encoder_command_film": true,
+    "world_evaluation_mode": true,
+    "world_objective_stop_gradient": true,
+    "initialize_from_stage1_only": true,
+    "planner_initialization": "Same seed47 and original candidate-planner initialization as Adapter/LoRA, never a trained Stage2 planner.",
+    "scope": "Strict fixed representation: world parameters/buffers and encoder command FiLM frozen. The planner still receives ego intent.",
+    "interpretation": "Compares adaptation including encoder FiLM and train-mode regularization with a fixed representation; does not isolate individual adapter weights."
+  }
+}
