@@ -2165,3 +2165,15 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 - 진행log의초기대형gradient는clip전값이며gradient_clip5/error_if_nonfinite=True를적용한다. 로그의image_encoder gradient그룹은interaction도포함;CNN native가학습된다는뜻아님.
 - LoRA검증완료와모든과학적gate통과는별개이며본기록JSON에trend_checks와checks원문을보존했다.
 - 근거 results/lpwm_card_budget_measured_v4/adapter_training_and_architecture_20261005.json. 학습/queue/source/config변경없음.
+
+## 2026-10-05 11:01 KST — 완료 LoRA 결과 및 일부계층 비교
+
+- 동일1024개발/유효PDMS1021/40recording,world256. CPU로paired recording bootstrap2000회/seed20261003 집계.
+- LoRA PDMS81.9141 vsPartial81.6341;차+0.2799점95%CI[-0.7341,1.3308],우월성미확정. ADE1.18220vs1.28250(-0.10030m),FDE2.84057vs3.04333(-0.20276m)는pairedCI0미포함.
+- Stage1/Partial/LoRA 미래LPIPS .392249/.438393/.391846. LoRA는-0.103%수준유지,추가개선CI0포함. 복원.304335/.305230/.304335. LoRA등록경향gate전부통과.
+- Persistent미래교체시LoRA81.9141→79.2509,차2.6632점CI[1.3160,4.0355]. 추론교란이며LoRA학습효과의독립증거아님.
+- 학습가능총parameter7.770M→3.555M이나기록학습시간4h17m→6h19m. 공유부하·배치이력·adaptation위치차이로속도인과주장금지.
+- 추가감사초기후보62/1024불일치/최종567불일치. 동일Stage1·seed설정이지만저장초기출력동일성은성립하지않음;원인은미확정. 현재queue의four-method집계는초기동일성assert없이paired최종평가를비교한다.
+- scripts/report_lpwm_completed_lora.py 및 results/lpwm_card_budget_measured_v4/completed_lora_review_20261005/summary.json,comparison.png/pdf 생성. 그래프를직접열어축·수치·가독성확인.
+- 이전84.56은4096update/128monitor이며이번81.91은4707/1024최종개발. Frozen-LPWM학습planner대조·seed반복·공식navtest는여전히미완료.
+- 활성Adapter학습/queue/등록source/config변경및새GPU작업없음.

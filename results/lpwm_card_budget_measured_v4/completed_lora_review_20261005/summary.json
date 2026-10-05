@@ -1,0 +1,342 @@
+{
+  "created_at": "2026-10-05T10:58:35.559644+09:00",
+  "scope": "Same1024 internal-development planning scenes and256 video clips; not navtest",
+  "training": {
+    "scenes": 75297,
+    "epochs": 1,
+    "updates": 4707,
+    "seed": 47,
+    "object_gt_auxiliary": false
+  },
+  "planning_means": {
+    "partial_output_layers": {
+      "ade_meters": 1.2825015851958597,
+      "fde_meters": 3.0433276962321543,
+      "metric_bce": 1.8395633372048557,
+      "pdms": 0.8163412038919158
+    },
+    "attention_lora": {
+      "ade_meters": 1.1822045381086355,
+      "fde_meters": 2.840568473483472,
+      "metric_bce": 1.7871872044800545,
+      "pdms": 0.8191406225947979
+    }
+  },
+  "world_means": {
+    "stage1": {
+      "reconstruction_lpips": 0.3043351037777029,
+      "forecast_lpips": 0.39224855427164584
+    },
+    "partial_output_layers": {
+      "reconstruction_lpips": 0.3052304708980955,
+      "forecast_lpips": 0.4383926555747166
+    },
+    "attention_lora": {
+      "reconstruction_lpips": 0.30433548911241814,
+      "forecast_lpips": 0.3918459340929985
+    }
+  },
+  "world_relative_change_percent_vs_stage1": {
+    "partial_output_layers": {
+      "reconstruction_lpips": 0.2942043521363402,
+      "forecast_lpips": 11.763995252641358
+    },
+    "attention_lora": {
+      "reconstruction_lpips": 0.0001266152706236312,
+      "forecast_lpips": -0.10264414597905835
+    }
+  },
+  "lora_minus_partial_planning": {
+    "pdms": {
+      "mean_difference": 0.002799418702882137,
+      "ci95": [
+        -0.007340961128244508,
+        0.013308465234005674
+      ],
+      "clips": 1021,
+      "recordings": 40
+    },
+    "ade_meters": {
+      "mean_difference": -0.1002970470872242,
+      "ci95": [
+        -0.17094013652813897,
+        -0.02787364657031511
+      ],
+      "clips": 1024,
+      "recordings": 40
+    },
+    "fde_meters": {
+      "mean_difference": -0.20275922274868208,
+      "ci95": [
+        -0.37365508400513586,
+        -0.027270713308550815
+      ],
+      "clips": 1024,
+      "recordings": 40
+    },
+    "metric_bce": {
+      "mean_difference": -0.05237613272480119,
+      "ci95": [
+        -0.06540594278522338,
+        -0.03831713280430795
+      ],
+      "clips": 1021,
+      "recordings": 40
+    }
+  },
+  "lora_minus_partial_world": {
+    "reconstruction_lpips": {
+      "mean_difference": -0.0008949817856773734,
+      "ci95": [
+        -0.0012277245178559512,
+        -0.0005564929421181665
+      ],
+      "clips": 256,
+      "recordings": 40
+    },
+    "forecast_lpips": {
+      "mean_difference": -0.04654672148171812,
+      "ci95": [
+        -0.051136111443047416,
+        -0.041528832740234396
+      ],
+      "clips": 256,
+      "recordings": 40
+    }
+  },
+  "interval_method": "2000 paired recording-cluster bootstrap resamples, seed20261003; sample-weighted means",
+  "lora_predicted_minus_persistent_future": {
+    "pdms": {
+      "mean_difference": 0.02663159636045413,
+      "ci95": [
+        0.013160348954097909,
+        0.040355058044747365
+      ],
+      "clips": 1021,
+      "recordings": 40
+    },
+    "ade_meters": {
+      "mean_difference": -0.029311699479876552,
+      "ci95": [
+        -0.07444441681907618,
+        0.013696156134601312
+      ],
+      "clips": 1024,
+      "recordings": 40
+    }
+  },
+  "lora_checks": {
+    "complete_registered_epoch": true,
+    "planning_loss_learned": true,
+    "pdms_improved_over_random_planner": true,
+    "reconstruction_lpips": true,
+    "forecast_lpips": true
+  },
+  "partial_checks": {
+    "complete_registered_epoch": true,
+    "planning_loss_learned": true,
+    "pdms_improved_over_random_planner": true,
+    "reconstruction_lpips": true,
+    "forecast_lpips": false
+  },
+  "lora_risk_groups": {
+    "far_future_objects": {
+      "clips": 211,
+      "forecast_change_vs_stage1": {
+        "mean_difference": -0.00048401471562860136,
+        "ci95": [
+          -0.0009131253883242606,
+          -4.112754862202505e-05
+        ],
+        "clips": 211,
+        "recordings": 40
+      },
+      "scope": "Exploratory whole-image metric in flagged scenes, not object-specific information retention"
+    },
+    "high_ego_speed": {
+      "clips": 31,
+      "forecast_change_vs_stage1": {
+        "mean_difference": -0.00098411210121647,
+        "ci95": [
+          -0.002328523304313421,
+          -6.563483196235234e-05
+        ],
+        "clips": 31,
+        "recordings": 17
+      },
+      "scope": "Exploratory whole-image metric in flagged scenes, not object-specific information retention"
+    },
+    "high_interframe_flow": {
+      "clips": 114,
+      "forecast_change_vs_stage1": {
+        "mean_difference": -0.00020686210247508266,
+        "ci95": [
+          -0.0009395745511278195,
+          0.0005467439557220954
+        ],
+        "clips": 114,
+        "recordings": 36
+      },
+      "scope": "Exploratory whole-image metric in flagged scenes, not object-specific information retention"
+    },
+    "large_ego_turn": {
+      "clips": 102,
+      "forecast_change_vs_stage1": {
+        "mean_difference": -0.00013737292850718777,
+        "ci95": [
+          -0.000872018481505678,
+          0.0006372538141228931
+        ],
+        "clips": 102,
+        "recordings": 36
+      },
+      "scope": "Exploratory whole-image metric in flagged scenes, not object-specific information retention"
+    },
+    "projected_overlap": {
+      "clips": 197,
+      "forecast_change_vs_stage1": {
+        "mean_difference": -0.0003355782346677054,
+        "ci95": [
+          -0.0007826912064311957,
+          0.00012118266509459892
+        ],
+        "clips": 197,
+        "recordings": 40
+      },
+      "scope": "Exploratory whole-image metric in flagged scenes, not object-specific information retention"
+    },
+    "projected_track_disappearance": {
+      "clips": 207,
+      "forecast_change_vs_stage1": {
+        "mean_difference": -0.0002514613423370509,
+        "ci95": [
+          -0.0006741179963282857,
+          0.00023048094248977186
+        ],
+        "clips": 207,
+        "recordings": 40
+      },
+      "scope": "Exploratory whole-image metric in flagged scenes, not object-specific information retention"
+    },
+    "small_future_objects": {
+      "clips": 239,
+      "forecast_change_vs_stage1": {
+        "mean_difference": -0.0004225459308305046,
+        "ci95": [
+          -0.0008261044198983867,
+          1.4859093792099509e-05
+        ],
+        "clips": 239,
+        "recordings": 40
+      },
+      "scope": "Exploratory whole-image metric in flagged scenes, not object-specific information retention"
+    }
+  },
+  "measured_costs": {
+    "partial_output_layers": {
+      "seconds": 15434.8590424211,
+      "peak_allocated_gib": 22.077826976776123,
+      "completed_updates": 4707,
+      "trainable_parameters": 7770364,
+      "trainable_world_parameters": 5558389,
+      "trainable_planner_parameters": 2211975,
+      "evaluation_seconds": 1194.4066837810096
+    },
+    "attention_lora": {
+      "seconds": 22773.770691462967,
+      "peak_allocated_gib": 23.835232734680176,
+      "completed_updates": 4707,
+      "trainable_parameters": 3555463,
+      "trainable_world_parameters": 1343488,
+      "trainable_planner_parameters": 2211975,
+      "evaluation_seconds": 1705.1967076099827
+    }
+  },
+  "initial_candidate_mismatch_count": 62,
+  "initial_candidate_mismatch_tokens": [
+    "625e743792325941",
+    "9c87d888cc085ff0",
+    "6f516c7ad0275d69",
+    "edec6a1e2f3b5312",
+    "80d9cc64fe9f54a2",
+    "0a7d7aef157c5bc6",
+    "10feeb7156105168",
+    "9772e7b1571c5974",
+    "c18f8cfc41385d8c",
+    "d5dfa722a6e05f35",
+    "da6c063bd62b5375",
+    "4abc07eb32ad5fd7",
+    "04a78de224be52d9",
+    "39140240dba35ecf",
+    "0dd3bea68674571a",
+    "af5b7abddcf75aed",
+    "32ad287b99f75b5e",
+    "88ec41d58cd855ca",
+    "4f8b4e232b815339",
+    "cc8f2a0c920750ad",
+    "7ecd333b7bde51d5",
+    "6fda6bb8b1855c5d",
+    "4c562617ad765135",
+    "25a73fcb7a915c3e",
+    "f50207f1ad435b55",
+    "9caea7e93ecc52f2",
+    "956de9a933815886",
+    "d087301fcc56589a",
+    "2d5439eb1e83573e",
+    "6e5c8db0048b5b02",
+    "6f6d6f2e71015ef9",
+    "44103c994a335b54",
+    "5af110e9fac4585b",
+    "28f1a0ad648d505c",
+    "9ced79364f18500a",
+    "36e0f53313a95e26",
+    "09bdb2eba08a5475",
+    "42cd7a53daba5e78",
+    "8e163e489e86534d",
+    "2eaf758421aa5190",
+    "956a3f9e2a1d527b",
+    "8e62d65c451855a7",
+    "9bbdf96591265339",
+    "2fa2e15e5e9f5959",
+    "f7253b0dcc2d5962",
+    "0d0f7ee4535f524f",
+    "c7ec29a4f3b35e2c",
+    "eb91454218ee595d",
+    "07c981c18fa950a6",
+    "60a4b4ec02375dfb",
+    "8aff926598645556",
+    "e75dcfbc6f4455bc",
+    "a36047a95fbd5577",
+    "9caaec5be14a5a36",
+    "f5b946ef4e165d68",
+    "4dcdc9c79c925174",
+    "c489e5546c5b53b6",
+    "3e6b713b44dd5e7b",
+    "2991b6c6ca595856",
+    "1347ef7d3ab35744",
+    "4f1a1471060c5aad",
+    "1a1e018446c257d2"
+  ],
+  "initial_comparison_note": "Same configured Stage1/seed, but stored initial selections differ; cause not established in this read-only report.",
+  "trained_candidate_changes_between_methods": 567,
+  "source_sha256": {
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/trained.json": "f6bc1eee159712ed61d87acde4b7b3394563bd879e792a960a914bb91fc43792",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/world.json": "504d839c57db21ad164b5b2c56c0d9f40236f84e2bcc26753ff41044b475e380",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/initial.json": "f050903bf255665294eb7c1f77bbebee6189d21dc9636ae1923583af50f45974",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/summary.json": "3b51089f25437c0b08a27d184f605eae274ac1b10b7552d84b9ee60fd9a3d544",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/trained.json": "81bc75fb7a2cb4dab9bf2d869c80b1f5de9aea9f9437160b5cf8837f30b63795",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/world.json": "cff91abd1dc9e8e096aa8b899b6c543adc5c1f2e45371c7029ca543f71eb6ce6",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/initial.json": "c75a99bcb6125385ab99846fcfd53da278e9e310c05edd1b6f842083de3ab1d2",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/summary.json": "08c20d0cf90f7f295551bd7f7b1a4d7298741541e993a88abff74a6430c24f2d"
+  },
+  "limitations": [
+    "One seed/epoch; intervals measure scene/recording variability, not training-seed variability.",
+    "No separately trained frozen-LPWM control; initial reference is an untrained planner.",
+    "Adaptation locations, capacity and historical microbatch schedules differ.",
+    "Stored initial candidate selections are not identical; do not claim exact initial output equivalence across full panels.",
+    "Persistent-future replacement changes inference inputs; it does not isolate the causal benefit of LPWM fine-tuning.",
+    "World LPIPS retention is not proof of object-state preservation or planning-aware particle specialization.",
+    "Training wall times include different shared GPU loads and execution histories; no isolated speed claim."
+  ],
+  "runtime_changes": false
+}
