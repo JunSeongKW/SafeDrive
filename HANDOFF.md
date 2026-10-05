@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 16:32 KST (Codex)
+마지막 갱신: 2026-10-05 16:47 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 16:47 KST: DrivoR register와 LPWM particle의 논문·공식/현재 코드 비교를 완료했다. Full 학습은 3104/4707 진행, frozen 대조군 대기 유지. 이번 턴은 조사·설명이며 GPU 실행 변경 없음.
 
 2026-10-05 16:31 KST: full_low_learning_rate_training 유지, 최신 2928/4707. 현재 조건은 LPWM native 전체와 planner/command 입력을 함께 학습하는 full fine-tuning이다. 후속 frozen 대조군은 대기 중이다.
 
@@ -468,6 +470,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+DrivoR register도 planning loss로 중요 영역에 특화된다. LPWM의 차이는 위치/크기/외형 속성 구조·명시적 future rollout·SSL 목표다. Native particle ID는 patch ID이며 객체 ID 아님. 현재 명령 FiLM은 particle attribute encoder에 적용하고64×12=768memory를 쓴다. 상세 docs/lpwm_planning_experiment.md 최신절.
 
 전체 111,757,238개 = 학습 가능 111,757,238개. LPWM109,545,263 / planner+command2,211,975. 128 update마다 측정하는 gradient 검사에서 encoder/context/dynamics/RGB decoder/planner 모두 양수. 기본LR1e-6/3e-4, loss=imitation+metric BCE+0.02SSL. RGB decoder는 SSL 경로에서 갱신된다. 근거 results/lpwm_card_budget_measured_v4/full_parameter_scope_20261005.json.
 
@@ -866,11 +870,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 실행 중인 full 조건의 실제 parameter inventory, loss/backward/optimizer 코드와 module gradient 로그를 대조했다.
-- LPWM 전체 학습 가능 상태와 RGB decoder의 SSL 전용 gradient 경로를 구분해 기록했다.
-- CPU 조회와 기록만 수행했고 학습 source/config/queue는 변경하지 않았다.
+- DrivoR 원문·공식 register/ego 입력 코드와 LPWM 원문·현재 particle memory 코드를 비교했다.
+- 표현 구조·미래 예측·intent·학습목표와 현재 비교의 한계를 연구 문서에 기록했다.
+- HANDOFF와 일지만 갱신하고 기존 GPU 학습·대기열·등록 source/config는 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존 full→검증→frozen 대조군 순서를 유지한다. Register/particle 공정 비교 및 미래/명령 ablation은 이번 설명의 연구 제안이며 새 실행으로 등록하지 않았다.
 
 Full native LPWM+planner 학습과 검증을 유지한 뒤, 기존 등록 순서대로 LPWM 전체 및 encoder command FiLM을 고정한 동일 planner 대조군을 자동 실행한다. 이번 확인으로 학습 범위를 변경하지 않았다.
 
@@ -1114,6 +1120,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재 구현은 DrivoR register만 particle로 교체한 통제실험이 아니다. 입력 카메라·해상도·시계열·memory개수·planner 후보생성이 다르다. 미래64particle×8step은 고정이며 상황별 예측 대상/예산 선택은 미구현이다. Planning-aware 표현 자체를 신규 기여로 단정하지 않는다.
 
 모든 파라미터가 학습 가능하다는 것과 모든 scalar가 매 step 변경되거나 모든 모듈이 planning gradient를 직접 받는다는 것은 다르다. RGB decoder는 planning 그래프 밖이며 SSL로 학습한다. 모듈별 양수 gradient는 확인했으나 이번 턴에 각 scalar 업데이트 차분을 새로 측정하지 않았다.
 

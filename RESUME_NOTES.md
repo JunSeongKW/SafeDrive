@@ -2374,3 +2374,9 @@ Stage1의nativeLPWM전체가중치/buffer·encoder명령FiLM4480개고정/eval/n
 사용자가 현재 모든 LPWM 가중치를 end-to-end 갱신하는지 질문했다. Full condition의 실제 inventory에서 전체/학습 가능 파라미터가 모두111,757,238개이며 LPWM109,545,263개와 planner+command2,211,975개다. Native LPWM 전체 requires_grad=True 및 optimizer 포함을 코드에서 확인했고, 최근 주기적 모듈별 gradient 검사(128 update마다 측정, 중간 log에는 직전 측정값 유지)도 모두 양수였다. Planning loss는 particle memory를 통해 encoder/context/dynamics로 전달되고 RGB decoder는 SSL reconstruction 경로에서 갱신된다. 기본LR LPWM1e-6/planner3e-4, imitation+metric BCE+0.02SSL, 객체GT보조OFF 유지. 모든 scalar의 매 step 변화 여부까지 새로 검증한 것은 아니다.
 
 근거: `results/lpwm_card_budget_measured_v4/full_parameter_scope_20261005.json`. 학습·대기열 변경 없이 기존 full 완료/검증 후 frozen 대조군 자동 실행을 유지한다.
+
+## 2026-10-05 16:47 KST — DrivoR register와 LPWM particle 비교
+
+DrivoR §3.2–3.5/§4.2.1 및 공식 fc6e5aa의 register/ego 경로, LPWM A.3–A.4와 현재 planner 코드를 확인했다. Register도 planning에 필요한 영역으로 특화되므로 객체/중요정보 이해 불가로 설명하지 않는다. LPWM의 구조화된 속성·명시적 미래 전이·SSL과 명령 FiLM 차이를 정리했다. Particle는 patch identity이고 depth는 합성 순서이며 객체 추적/물리3D 보장이 없다. 현재 memory768 대 DrivoR기본64, 전방저해상도 대4카메라, 고정512후보 대연속생성 차이로 동일조건 단순교체 비교가 아니다. Fixed64/future8 전부를 예측하므로 원래 상황별 예측 예산 선택 목표는 아직 미구현이다.
+
+자료와 상세: `docs/lpwm_planning_experiment.md` 최신절. 기존 full 학습과 후속 frozen 대조군 유지. 추가 register 비교나 미래/명령 ablation은 제안만 기록하고 자동 등록하지 않았다.

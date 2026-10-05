@@ -1,5 +1,46 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: DrivoR register와 현재 LPWM particle의 차이
+
+연구 하위 질문: planning에 유용한 압축 표현에 명시적 particle 속성과 미래 전이를 부여하면 추가 이득이 있는가?
+
+[DrivoR §3.2–3.5, §4.2.1](https://arxiv.org/html/2601.05083v2)은 카메라별 학습 register를
+ViT patch token과 함께 처리하고 출력 register를 planner의 scene memory로 사용한다.
+기본 4카메라×16=64 token이며 궤적 생성과 지표 채점 loss가 encoder/register를 적응시킨다.
+Register의 위치·크기·존재·시간 대응은 명시적으로 규정되지 않지만, 전방 register가 차량·신호등·도로 가장자리로
+특화되는 attention 사례를 보고한다. 따라서 ‘register는 객체를 못 보고 particle만 중요한 것을 배운다’는 구분은 틀리다.
+공식 코드 fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a의 `drivor_model.py:135`에서 register 생성 입력은
+영상과 camera scene embedding이다. Ego status/command는 trajectory query 및 scorer 쪽으로 들어간다.
+같은 영상에서 명령만 바꾸는 경우 register 추출 자체에 명령을 조건으로 넣는 구조는 아니다.
+
+[LPWM §3, Appendix A.3–A.4](https://arxiv.org/html/2603.04553v1)은 위치·크기·투명도·합성 순서·외형을
+분해하고, latent context와 dynamics로 이후 particle 상태를 예측한다. 위치는 영상 좌표이며 depth는
+물리 거리 보장이 없는 합성 순서다. Particle ID는 원래 patch ID이고 객체 ID가 아니다. 객체 이동에 따라
+정보가 주변 particle로 전달될 수 있어, 한 particle의 장기 추적을 한 객체의 추적으로 해석하면 안 된다.
+
+| 항목 | DrivoR 원형 | 현재 우리 구현 |
+|---|---|---|
+| 표현 | 학습된 camera register feature | 구조화된 particle 속성+외형/background feature |
+| 미래 정보 | 명시적 scene-particle rollout 없음; planning에 필요한 미래 단서는 암묵적으로 담을 수 있음 | 관측4프레임에서 future particle8step을 causal prior로 예측 |
+| 적응 목적 | 궤적 WTA+지표 BCE | Stage1 SSL 후 Stage2 후보 imitation+지표 BCE+0.02SSL |
+| Ego intent | planner query/scorer 입력 | planner 입력과 particle attribute encoder FiLM 입력 |
+| Planner memory | 기본64 scene token | 64particles×(관측4+예측8)=768token,14D→256D |
+| 후보 생성 | 학습 query로 연속 궤적 생성, 별도 scorer | 고정512후보를 동일 decoder로 imitation/metric 채점; 현재 refiner OFF |
+
+현재 코드 근거: `lpwm_planning_finetuning.py:12`(속성), `:29`(FiLM), `:83`(관측·미래),
+`:98`(memory), `lpwm_candidate_planner.py:48`(고정 후보 채점).
+DrivoR의 입력은 기본4카메라이고 우리는128² 전방 영상이므로 token 수만으로 전체 실행 비용이나
+표현 효율을 비교할 수 없다. 현 구현은 DrivoR 공식 planner를 그대로 재현하고 register만 교체한 실험도 아니다.
+
+우리의 후보 차별점은 ‘planning-aware token’ 자체보다 **의도에 따라 구조화된 미래 정보를 보존하고
+그 변화가 실제 planning에 유용한지 검증하는 것**이다. 현재 fixed64/fixed8step 전체 rollout으로,
+상황별 미래 예측 대상·개수·horizon을 선택하는 기능은 구현되지 않았다. FiLM으로 표현이 달라질 수 있다는
+구조적 사실과 필요한 객체 정보가 더 잘 보존된다는 성능 주장을 구분한다.
+
+현재 frozen 대조군은 표현 적응의 추가 효용을 검사한다. Particle 구조의 효용은 이후 같은 입력·planner·학습량·
+계산 예산에서 일반 latent/register와 비교하고, 미래 rollout/명령 조건 제거 비교로 분리해야 한다.
+이는 후속 실험 제안이며 이번 질문으로 새 GPU 작업이나 대기열 변경을 등록하지 않았다.
+
 ## 2026-10-05: 고정 LPWM과 동일 planner 대조군 후속 실행 등록
 
 연구 하위 질문: Stage1 표현에 planner만 학습했을 때보다 LPWM의 planning 적응이 추가 이득을 주는가?
