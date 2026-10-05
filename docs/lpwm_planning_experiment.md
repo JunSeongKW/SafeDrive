@@ -1,5 +1,38 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: particle 이동이 작으면 planning 미세조정이 무효인가?
+
+**현재 판정은 이번 설정에서 추가 planning 이득이 확인되지 않았다는 것이다.** Adapter PDMS82.4852,
+고정군82.5238, 차이−0.03859점/recording paired95% CI[−1.16421,+1.00706]다.
+ADE 차이−0.00834m의 CI도[−0.04080,+0.02423]으로0을 포함한다. 내부개발1024장면 중 PDMS유효1021,
+40recording/seed47/1epoch 결과이므로 방법 전체의 무효나 두 방법의 동등성을 입증하지는 않는다.
+
+시각화의 중심·박스와 실제 학습 대상 사이에 차이가 있다. Adapter 조건은 native particle CNN·좌표/크기/presence
+head의 가중치를 고정한다. 학습하는 것은 interaction1/context4/dynamics6 block 뒤 residual adapter와 명령 FiLM,
+planner다. 공식 `modules/modules.py`의 DLPEncoder에서 interaction 출력은 feature·depth 등을 갱신하며
+현재 위치 `z`나 크기 `z_scale`을 덮어쓰지 않는다. 현재 구성은 interaction_obj_on=False다.
+따라서 현재 중심·크기·presence의 변화는 명령 FiLM을 통한 상류 입력 변화 경로에 주로 의존하며,
+후단 Adapter가 학습됐다는 사실 자체가 현재 중심 재배치를 의미하지 않는다.
+Planner는 위치뿐 아니라 깊이·foreground/background feature와 관측4/예측8프레임의 particle 속성을 읽는다.
+
+`outputs/lpwm_card_budget_measured_v4/queue/residual_adapter_gpu_audit.json`의 분리된 planning backward에서
+interaction을 포함하는 encoder그룹0.030906/context0.020353/dynamics0.225220의 nonzero gradient를 확인했다.
+여기서 encoder그룹 양수는 원래 particle CNN/좌표head 가중치까지 갱신됐다는 뜻이 아니다.
+실제 손실은 후보 imitation + 6개 PDM subscore BCE + 0.02 SSL이며, 고정512개 후보를 채점한다.
+특정 현재 particle을 특정 객체 방향으로 이동시키는 직접 목표는 없다. 연결·갱신 확인과 일반화 성능 개선을 구분한다.
+
+다음 진단의 우선순위 제안(아직 추가 실행/대기열 등록하지 않음):
+1. 같은 checkpoint·장면·precision에서 현재/미래 속성을 위치·크기·presence·depth·feature별로 비교한다.
+2. 같은 모델 상태에서 planning과 가중치0.02가 적용된 SSL의 module별 gradient 크기·방향을 분리한다.
+   기존 감사의 planning/SSL norm은 다른 실행 시점과 모드의 별도 backward이므로 우세 비율로 직접 나누지 않는다.
+3. 학습 완료된 동일 Adapter planner에 Adapter 출력/명령 FiLM을 각각 제거 또는 교체하는 개입을 한다.
+   이는 해당 planner의 의존성 진단이며 입력 분포 변화가 있으므로 독립 고정군 비교와 함께 해석한다.
+4. 공간 재배치 자체를 검증하려면 같은 planner와 학습량에서 Adapter-only 대비 geometry head 추가 해제를 통제한다.
+   이미 완료한 partial은 feature/context/dynamics 출력층도 함께 바꾸므로 geometry-only 비교를 대신하지 않는다.
+
+현재 공개고정 대조군 학습은 Stage1의 가치라는 별도 질문을 검증한다. 그 학습을 유지하며, 정보 변화/활용이
+관측되지 않은 상태에서 단순 epoch 증가만으로 개선을 기대하거나 미세조정 성공을 전제하지 않는다.
+
 ## 2026-10-05: Adapter와 고정 LPWM의 동일 장면 particle 시각화
 
 **하위 질문:** planning과 함께 표현을 미세조정한 조건에서 현재 particle의 공간 배치가 실제로 달라졌는가?

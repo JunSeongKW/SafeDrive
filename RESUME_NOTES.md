@@ -2464,3 +2464,17 @@ Snapshot은관측4프레임만의FP32단일장면진단이며 BF16배치평가/�
 
 Python·HTML내JavaScript구문 검사와 대표비교/변화량 PNG 육안확인을 완료했다. 원본snapshot의 SHA48개를 남겼다.
 현재public_control_training은1584/4707,heartbeat정상으로 계속되고 등록source/config/모델/대기열은변경하지않았다.
+
+## 2026-10-05 22:06 KST — planning 미세조정 효과 해석 재검토
+
+사용자가 particle이 거의 이동하지 않으니 planning loss 미세조정이 무효인지 질문했다. 코드·감사·paired평가를 읽어 확인했다.
+Adapter는 native CNN/geometryhead고정, interaction1/context4/dynamics6 residualadapter+명령FiLM+planner학습이다.
+공식encoder의interaction출력은feature/depth를바꾸며현재위치/크기를덮어쓰지않고interaction_obj_on=False다.
+따라서현재geometry변화는주로FiLM경로이며후단표현학습을현재점이동만으로검증할수없다.
+Planning-only기존감사gradient는encoder그룹(interaction포함).030906/context.020353/dynamics.225220으로연결확인.
+이는nativeCNN/좌표head가학습됐거나일반화성능이개선됐다는뜻은아니다.
+AdapterPDMS82.4852/frozen82.5238,차이−.03859점CI[−1.16421,+1.00706],ADE차이−.00834mCI[−.04080,+.02423].
+이번1seed1epoch개발비교에서추가이득미확인으로판정하며일반적무효/동등성은주장하지않는다.
+후속은현재·미래속성별변화/동일상태planning대가중SSLgradient/Adapter·FiLM개입/geometryhead해제통제제안이다.
+기존planning과SSL감사norm은시점·모드가달라그비율로SSL지배를확정하지않는다. 추가GPU진단/학습/대기열등록은없다.
+현재공개고정queue1869615 public_control_training update1904/heartbeat정상확인,등록source/config유지.
