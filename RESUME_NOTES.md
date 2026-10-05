@@ -2412,3 +2412,9 @@ GPUfreeze감사·배치8profile·평가구동검사통과후GPU0·1에서batch8�
 사용자요청에저장1024planning/256world원자료를CPU재집계,scene/recording일치·checkpoint provenance·4707완료를확인하고6쌍paired CI의기존집계와정확동일성을검사했다. Adapter평균planning최상/LoRA미래영상유지최상이나PDMS6쌍모두CI에0포함한다. Partial미래LPIPS+11.764%로유지기준미달,LoRA-0.103/Adapter+0.385/full+0.802%다. Full복원성능최상이나planning최상은아니다. Full20epoch스케줄유지로종료plannerLR2.989e-4 대나머지3e-5차이를확인해단독방법인과결론을제한했다.
 
 Scenario별world9직진/36회전/197투영겹침/14other와위험분해를보존했다. 학습비용은partial4h17/LoRA6h19/Adapter4h09/full누적8h25이며공유부하비교한계를명시했다. `scripts/report_lpwm_four_adaptation_results.py`, `results/lpwm_card_budget_measured_v4/completed_four_method_review_20261005/`의JSON/PNG/PDF와연구문서를작성했다. 최초그림확인후legend겹침을해결했다. Frozen학습은진행중이며DrivoR미등록유지,새GPU작업없음.
+
+## 2026-10-05 20:46 KST — Frozen 대조군 메모리 감소 확인 및 학습 완료
+
+사용자가낮은VRAM사용량을관찰했다. LPWM전체/encoderFiLM고정및no_grad추론,planner2,207,495개만역전파함을확인했다. 학습peakallocated3.906GiB로full20.735GiB보다작고배치8×GPU2×누적1=16,75297장면/4707update/1epoch를유지했다. 전체GPU점유와PyTorch할당메모리,타사용자포함GPU연산사용률은구분한다.
+
+확인중20:45:37학습정상종료(returncode0),최종training_summary frozen_state_unchanged=true와checkpointSHA9a62eb85d4ff41874cb5baac8127ba929391a57dc189235b936d3c1d37bb72ee확인. 누적5226.38초약1시간27분,검증PID1766544자동시작. 최종1024/256평가는진행중이며128monitor83.389PDMS를최종결과로보고하지않는다. 공유summary: `results/lpwm_frozen_control_v1/batch8/metric_plus_world_training_summary.json`. 새학습/배치변경/DrivoR기동없음.
