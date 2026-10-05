@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 11:10 KST (Codex)
+마지막 갱신: 2026-10-05 11:14 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 11:14 KST: Stage1/2 모두1epoch인지에대한후속질문. 저장완료summary재확인만실시했고학습·queue변경없음.
 
 2026-10-05 11:09 KST: 사용자1seed/1epoch질문에대해저장summary/config와DiffusionDrive·DrivoR원문을확인했다. Stage2 seed47/1epoch75297장면4707update,Stage1 20epoch28920update를구분했다. 활성학습/queue변경및진척재조회없음.
 
@@ -440,6 +442,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+재확인: Stage1 epochs20/completed_updates28920/seen_train_clips23126. 완료Stage2 LoRA epochs1/completed_updates4707/train_clips75297. 두단계모두1epoch라는해석은틀림.
 
 1seed는독립학습1회이며1epoch는현재학습분할1회순회다. 현재Stage2는초기방법선별,최종수렴증거아님. DiffusionDrive100epoch/DrivoR v1 25·v2 10epoch확인;반복seed수미확인. 기존LoRA CI는recording변동이며학습seed변동미포함.
 
@@ -810,11 +814,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재Stage2 1seed/1epoch와이미완료된Stage1 20epoch의의미를문서화했다.
-- DiffusionDrive/DrivoR학습epoch를원문확인하고초기방법선별·수렴·seed불확실성을구분했다.
-- 다seed/충분학습은권고로기록했으며활성학습/queue/등록source/config는변경하지않았다.
+- 완료summary에서Stage1 20epoch와Stage2 LoRA1epoch를재확인했다.
+- 단계별학습량질문을HANDOFF/RESUME에기록했으며실행설정변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재대기열유지. 이번질문은단계별학습량확인이며추가epoch·seed학습을등록하지않았다.
 
 이번권고:현재방법선별후유망조건+frozen-LPWM학습planner대조를수렴까지비교하고핵심조건3seed평균·편차확인. 추가epoch/seed는이번개념질문으로자동등록하지않았고기존Adapter→검증→full재개queue유지.
 
@@ -1030,6 +1035,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Stage1 20epoch완료와Stage2 방법별1epoch비교를구분한다. Epoch완료만으로수렴·최적성은판정하지않는다.
 
 2026-10-05 11:09 KST: 1epoch에서방법우열·충분학습여부확정불가. 다seed실험·frozen-LPWM대조·공식navtest는미실행. 문헌epoch예시는검증했으나해당논문반복seed수는확인못함. 현재queue변경없음.
 

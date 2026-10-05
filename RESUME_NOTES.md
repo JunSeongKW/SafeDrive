@@ -2196,3 +2196,8 @@ DrivoR는v1개발성능이25epoch에서plateau하며v2는장기학습시악화�
 권고는현재방법선별후유망한1–2조건과동일planner의frozen-LPWM대조를수렴까지비교하고,
 핵심조건은예컨대3개seed로반복해평균·편차를보고하는것이다. 학습량은개발곡선으로선정한다.
 이는이번질문에대한권고이며활성queue/epoch/seed/source/config변경이나새학습은없다.
+
+
+## 2026-10-05 11:14 KST — Stage1/2 epoch 재확인
+
+Stage1완료summary는20epoch/28920update/23126clip,완료Stage2 LoRA는1epoch/4707update/75297장면이다. 1epoch제한은현재Stage2방법비교의학습량이며Stage1에적용되지않는다. 읽기전용확인과인수인계기록만수행,활성학습·queue·source/config변경없음.
