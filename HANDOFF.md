@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 20:27 KST (Codex)
+마지막 갱신: 2026-10-05 20:40 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 20:39 KST: 사용자 요청한 네방법 결과비교의 CPU재집계·원집계동일성·그래프·보고서완료. Frozen queue는frozen_control_training, 최신4368/4707. GPU새실행/설정변경없음.
 
 2026-10-05 20:27 KST: 네 가지 미세조정 학습·검증 완료. Full 학습19:06:33/검증19:16:44/집계19:16:48 완료. Frozen 대조군은19:18:08 자동 시작, 현재3616/4707 (76.8%) planner만 학습 중. Queue871940/frozen_control_training heartbeat 정상; main421603은complete다. DrivoR 미등록 유지.
 
@@ -478,6 +480,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Adapter평균PDMS82.4852/ADE1.15513/FDE2.75672최상,LoRA81.9141/1.18220/2.84057;partial81.6341/1.28250/3.04333;full81.2282/1.29596/3.01611. 여섯PDMS쌍CI모두0포함. 미래LPIPS변화partial+11.764%기준실패/LoRA-0.103%/Adapter+0.385%/full+0.802%. 근거completed_four_method_review_20261005/summary.json.
 
 완료 내부개발 PDMS: partial81.6341/LoRA81.9141/Adapter82.4852/full81.2282. Full의 등록5개검사 통과, partial은미래LPIPS유지기준미달. Frozen GPU감사/배치8/평가구동검사통과, LPWM trainable0/FiLM고정/planner2,207,495개; 로그LPWM각gradient0/planner양수. GPU0·1각총약26.4GB, allocated약3.91GiB. 근거 results/lpwm_frozen_control_v1/status_20261005_2025.json.
 
@@ -886,11 +890,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 네 가지 미세조정 학습·검증 완료와 frozen 대조군의 실제 자동 시작/진행률을 확인했다.
-- 완료 full 개발결과와 frozen GPU 감사·배치선택·평가구동 산출물을 공유 기록에 포함했다.
-- 최근 속도로 frozen 학습/검증 ETA를 갱신했고 기존 학습·대기열은 변경하지 않았다.
+- 완료 네방법의 저장장면별 지표를 재집계하고 전체paired CI가 등록 집계와 일치함을 확인했다.
+- Planning/world retention/학습비용/상황별world진단과학습률차이를보고서·PNG/PDF/JSON에기록했다.
+- 신규CPU보고script와문서를추가했고기존학습·등록source/config·대기열은변경하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Frozen 대조군의4707학습·최종검증·paired비교를마친뒤표현적응추가효과를판정한다. 현시점Adapter/LoRA가후속검토후보이나PDMS우열·수렴미확정이다. 추가seed/epoch/DrivoR을자동등록하지않는다.
 
 Frozen 본학습4707까지 완료→동일1024planning/256world검증→기존네방법과paired비교를 자동 실행한다. 최근약1s/update로학습20:45–20:55,검증·비교21:00–21:20KST예상. 결과수치와freeze hash확인을 함께 보고한다. 이후DrivoR자동실행없음.
 
@@ -1144,6 +1150,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Four-method결과는1seed/1epoch/내부개발1024장면이다. Full종료planner LR2.989e-4 대나머지3e-5,명령위치/LR스케줄다름. 따라서full방식열등성이나Adapter확정우승주장불가. 직진world9/회전36/투영겹침197은영상오차진단이지객체보존·상황별PDMS가아니다.
 
 네미세조정완료는등록1epoch/1seed학습과내부개발검증완료이며수렴/독립navtest완료가아니다. Frozen 최종성능과미세조정추가효과는아직미확정이다. Frozen queue의predecessor_status/stage는대기때값이남아있을수있으므로main실제complete와현재frozen_control_training을우선한다. 메모리감소는고정모델no_grad경로에부합한다.
 

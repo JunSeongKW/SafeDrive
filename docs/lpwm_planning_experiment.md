@@ -1,5 +1,65 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 완료된 네 미세조정 방법의 최종 개발 결과 비교
+
+학습은 동일 navtrain 내부 학습분할75,297장면/seed47/누적1epoch4707update이며 직접 객체GT보조OFF다.
+평가는 동일1024개발장면(40recording), PDMS유효1021/공통3개teacher미유효, world256clip이다.
+이는 이미 노출된 내부개발평가이며 전체navtest/독립test 또는 학습수렴 결과가 아니다.
+저장된 장면별 결과를 CPU로 재집계하고 여섯 방법쌍의 paired CI가 기존 집계와 모두 일치함을 확인했다.
+
+| 방법 | PDMS↑ | ADE↓ m | FDE↓ m | 미래 LPIPS | Stage1 대비 미래 오차 변화 | 학습 LPWM 파라미터 | 누적 학습 시간 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 일부 계층 | 81.6341 | 1.282502 | 3.043328 | 0.438393 | +11.764% | 5,558,389 | 4h 17m |
+| LoRA | 81.9141 | 1.182205 | 2.840568 | 0.391846 | -0.103% | 1,343,488 | 6h 19m |
+| Adapter | 82.4852 | 1.155131 | 2.756717 | 0.393758 | +0.385% | 704,960 | 4h 9m |
+| 전체 low-LR | 81.2282 | 1.295956 | 3.016108 | 0.395395 | +0.802% | 109,545,263 | 8h 25m |
+
+모든 조건에 planner/명령입력2,211,975개 학습이 추가된다. Stage1 기준 미래LPIPS는0.392248554,
+복원LPIPS는0.304335104다. 실행시간은 재개 전 active time을 포함한 누적값이며 공유GPU부하와
+과거microbatch설정이 달라 방법 자체의 속도 비교로 해석하지 않는다. Full 재개 후 추가실행은약3시간54분이다.
+
+### 결과 해석
+
+- Adapter는 평균PDMS/ADE/FDE가 가장 좋고 학습LPWM파라미터도 가장 적다. 우선 검토 후보이며 확정 우승은 아니다.
+- LoRA는 두 번째 planning 평균과 가장 낮은 미래LPIPS를 보인다. Stage1 대비 -0.103% 변화의 CI는0을 포함하므로 미래 성능이 향상됐다고 확정하지 않고 유지로 해석한다.
+- 일부계층은 미래LPIPS +11.764%로등록10%유지기준을충족하지못했다. 영상 미래예측 보존 문제이며 객체정보 전체 손실이나 적응 전체 실패로 확대하지 않는다.
+- Full은복원LPIPS0.303382로네방법중가장좋지만PDMS/ADE는가장낮은순위다. 영상복원향상이planning향상을보장하지않는다.
+  미래오차+0.802%로유지기준은통과했다. 원인을full fine-tuning자체로단정하지않는다.
+
+### 차이의 불확실성
+
+40recording 단위 paired bootstrap2000회/고정seed20261003이다. 훈련seed불확실성을 포함하지 않으며 다중비교 보정 전 탐색구간이다.
+Adapter의 PDMS 차이는 LoRA대비+0.5711점,95%CI[-0.3703,1.5020]; partial대비+0.8511점[-0.3869,2.2565];
+full대비+1.2570점[-0.7368,3.4922]다. **여섯방법쌍의PDMS구간모두0포함**, 우월성미확정이다.
+ADE는Adapter대partial -0.12737m[-0.19585,-0.06298], full대비 -0.14083m[-0.19784,-0.08287]로 감소했다.
+Adapter대LoRA ADE -0.02707m[-0.06434,0.00633]는0을포함한다.
+
+### 상황별 미래 영상 오차
+
+| 장면 | clip 수 | 일부계층 LPIPS | LoRA | Adapter | Full |
+|---|---:|---:|---:|---:|---:|
+| 직진 | 9 | 0.4041 | 0.3658 | 0.3696 | 0.3691 |
+| 회전 | 36 | 0.4531 | 0.4043 | 0.4039 | 0.4109 |
+| 투영객체겹침 | 197 | 0.4373 | 0.3905 | 0.3927 | 0.3934 |
+
+나머지14clip은other다. 직진표본은매우작으며 투영겹침은가림proxy다. 위값은전체영상LPIPS이고
+상황별planning이나객체상태판독성능이아니다. 일부계층의미래오차증가는위세상황모두관측되지만
+한seed/좁은panel로일반화하지않는다. 위험별분해와전체평가쌍은JSON에보존했다.
+
+### 조건 차이와 남은 질문
+
+Full은보존된2095checkpoint를재개해원래conv_in명령입력/LPWM1e-6/20epoch warmup-cosine스케줄을유지했다.
+다른세조건은conv_out명령입력/LPWM1e-5/1epoch스케줄이다. 종료시planner LR은full2.98914e-4,
+나머지3.00000e-5로약10배차이다. 같은1epoch라도최적화단계가다르므로조건묶음비교다.
+초기후보는LoRA/Adapter동일,Adapter대partial62/full55장면차이도있다.
+Frozen 대조군결과가완료되기전에는미세조정의추가효용을판정하지않는다. DrivoR비교미등록유지.
+
+재현script: `scripts/report_lpwm_four_adaptation_results.py`.
+산출물: [비교 PNG](../results/lpwm_card_budget_measured_v4/completed_four_method_review_20261005/comparison.png),
+[PDF](../results/lpwm_card_budget_measured_v4/completed_four_method_review_20261005/comparison.pdf),
+[수치·CI·위험별 결과·source hash](../results/lpwm_card_budget_measured_v4/completed_four_method_review_20261005/summary.json).
+GPU새추론/학습/실행source/config변경없이저장결과만집계했다.
+
 ## 2026-10-05: 사용자 확정 순서 — LPWM 내부 비교 완료 후 DrivoR 비교는 후속 과제로 보관
 
 1. **현재 실행 범위:** LPWM 미세조정 조건의 학습·검증과, 이미 등록된 LPWM/encoder 명령 FiLM 고정·동일 planner 학습 대조군의 학습·검증 및 결과 비교를 완료한다.

@@ -2406,3 +2406,9 @@ DrivoR §3.2–3.5/§4.2.1 및 공식 fc6e5aa의 register/ego 경로, LPWM A.3�
 GPUfreeze감사·배치8profile·평가구동검사통과후GPU0·1에서batch8×누적1×2=유효16으로학습중이다. LPWM가중치와encoderFiLM고정,trainableworld0/planner2,207,495개이며주기적gradient검사LPWM0/planner양수다. Frozen 최종검증은미실행으로engineering결과를학습후성능으로보고하지않는다. 최근속도와기존평가시간으로학습20:45–20:55/최종검증·비교21:00–21:20KST예상이며공유부하에따라변동가능하다.
 
 네방법내부개발PDMS partial81.6341/LoRA81.9141/Adapter82.4852/full81.2282. Full의5개등록검사는통과,partial미래LPIPS유지기준미달은보존한다. 전체navtest/수렴결과가아니다. 기존main complete/frozen running을확인했고source/config/queue변경없음. DrivoR미등록유지. 상태근거 `results/lpwm_frozen_control_v1/status_20261005_2025.json`.
+
+## 2026-10-05 20:39 KST — 네 미세조정 결과 비교 완료
+
+사용자요청에저장1024planning/256world원자료를CPU재집계,scene/recording일치·checkpoint provenance·4707완료를확인하고6쌍paired CI의기존집계와정확동일성을검사했다. Adapter평균planning최상/LoRA미래영상유지최상이나PDMS6쌍모두CI에0포함한다. Partial미래LPIPS+11.764%로유지기준미달,LoRA-0.103/Adapter+0.385/full+0.802%다. Full복원성능최상이나planning최상은아니다. Full20epoch스케줄유지로종료plannerLR2.989e-4 대나머지3e-5차이를확인해단독방법인과결론을제한했다.
+
+Scenario별world9직진/36회전/197투영겹침/14other와위험분해를보존했다. 학습비용은partial4h17/LoRA6h19/Adapter4h09/full누적8h25이며공유부하비교한계를명시했다. `scripts/report_lpwm_four_adaptation_results.py`, `results/lpwm_card_budget_measured_v4/completed_four_method_review_20261005/`의JSON/PNG/PDF와연구문서를작성했다. 최초그림확인후legend겹침을해결했다. Frozen학습은진행중이며DrivoR미등록유지,새GPU작업없음.
