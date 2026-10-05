@@ -1,0 +1,243 @@
+{
+  "condition": "metric_plus_world",
+  "configuration_sha256": "ec91471d8c28b6caec1b3871d89173f6c6b9a6c236011638ae511f04dc18ff19",
+  "checkpoint_sha256": "5f11ade8ed2c13fe846b66dabd653d35390da5180c731d43a200549ce15fe2f0",
+  "engineering_only": true,
+  "planning_scenes": 4,
+  "world_clips": 2,
+  "planning_recordings": 4,
+  "means": {
+    "initial": {
+      "ade_meters": 5.2863383293151855,
+      "fde_meters": 13.183080911636353,
+      "pdms": 0.0,
+      "metric_bce": 4.264370799064636
+    },
+    "trained": {
+      "ade_meters": 6.648185133934021,
+      "fde_meters": 10.870728492736816,
+      "pdms": 0.5497982501983643,
+      "metric_bce": 3.168734848499298
+    },
+    "persistent_future": {
+      "ade_meters": 6.648185133934021,
+      "fde_meters": 10.870728492736816,
+      "pdms": 0.5497982501983643,
+      "metric_bce": 3.1722204089164734
+    }
+  },
+  "trained_minus_initial": {
+    "pdms": {
+      "mean_difference": 0.5497982501983643,
+      "ci95": [
+        0.18196739256381989,
+        0.7414370030164719
+      ],
+      "clips": 4,
+      "recordings": 4
+    },
+    "ade_meters": {
+      "mean_difference": 1.3618468046188354,
+      "ci95": [
+        0.9143490791320801,
+        1.8242586851119995
+      ],
+      "clips": 4,
+      "recordings": 4
+    },
+    "metric_bce": {
+      "mean_difference": -1.0956359505653381,
+      "ci95": [
+        -1.2556298971176147,
+        -0.9003506302833557
+      ],
+      "clips": 4,
+      "recordings": 4
+    }
+  },
+  "predicted_minus_persistent_future": {
+    "pdms": {
+      "mean_difference": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "clips": 4,
+      "recordings": 4
+    },
+    "ade_meters": {
+      "mean_difference": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "clips": 4,
+      "recordings": 4
+    }
+  },
+  "world_vs_stage1": {
+    "reconstruction_lpips": {
+      "mean_difference": 0.49564260244369507,
+      "ci95": [
+        0.47362926602363586,
+        0.5176559388637543
+      ],
+      "clips": 2,
+      "recordings": 2
+    },
+    "forecast_lpips": {
+      "mean_difference": 0.4437033534049988,
+      "ci95": [
+        0.404331773519516,
+        0.48307493329048157
+      ],
+      "clips": 2,
+      "recordings": 2
+    }
+  },
+  "checks": {
+    "complete_registered_epoch": false,
+    "planning_loss_learned": true,
+    "pdms_improved_over_random_planner": true,
+    "reconstruction_lpips": true,
+    "forecast_lpips": true
+  },
+  "trend_checks_passed": false,
+  "world_risk_breakdown": {
+    "far_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": 0.49564260244369507,
+        "ci95": [
+          0.47362926602363586,
+          0.5176559388637543
+        ],
+        "clips": 2,
+        "recordings": 2
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.4437033534049988,
+        "ci95": [
+          0.404331773519516,
+          0.48307493329048157
+        ],
+        "clips": 2,
+        "recordings": 2
+      }
+    },
+    "projected_overlap": {
+      "reconstruction_lpips": {
+        "mean_difference": 0.49564260244369507,
+        "ci95": [
+          0.47362926602363586,
+          0.5176559388637543
+        ],
+        "clips": 2,
+        "recordings": 2
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.4437033534049988,
+        "ci95": [
+          0.404331773519516,
+          0.48307493329048157
+        ],
+        "clips": 2,
+        "recordings": 2
+      }
+    },
+    "projected_track_disappearance": {
+      "reconstruction_lpips": {
+        "mean_difference": 0.47362926602363586,
+        "ci95": [
+          0.47362926602363586,
+          0.47362926602363586
+        ],
+        "clips": 1,
+        "recordings": 1
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.404331773519516,
+        "ci95": [
+          0.404331773519516,
+          0.404331773519516
+        ],
+        "clips": 1,
+        "recordings": 1
+      }
+    },
+    "small_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": 0.49564260244369507,
+        "ci95": [
+          0.47362926602363586,
+          0.5176559388637543
+        ],
+        "clips": 2,
+        "recordings": 2
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.4437033534049988,
+        "ci95": [
+          0.404331773519516,
+          0.48307493329048157
+        ],
+        "clips": 2,
+        "recordings": 2
+      }
+    }
+  },
+  "seconds": 24.530599054007325,
+  "scope": "Engineering execution check only; profile weights, four planning scenes and two world clips",
+  "limitations": [
+    "One seed/epoch and previously exposed development panels; not navtest or convergence.",
+    "LPWM including buffers and encoder-command FiLM remains frozen in eval mode; only the fresh same-seed planner trains.",
+    "The public condition reuses NAVSIM caches/preprocessing only and never loads NAVSIM-adapted LPWM weights.",
+    "The completed frozen Stage1 planner is reused as the comparison; GPU batch8/effective16 and the same training recipe are retained.",
+    "Cached official PDM scores evaluate selected unchanged vocabulary candidates.",
+    "Whole-image LPIPS and inference future replacement do not establish semantic object preservation."
+  ],
+  "experiment_kind": "public_frozen_lpwm_stage1_effect",
+  "stage1_effect": {
+    "representation_condition": "public_pretrained",
+    "reference_configuration": "configs/lpwm_planning/frozen_control_v1/batch8.json",
+    "reference_configuration_sha256": "4e8afe39daf4a5023abf711f89117323341abf0edad359f1acfe82d7683c7c75",
+    "reference_result_directory": "outputs/lpwm_frozen_control_v1/batch8/metric_plus_world",
+    "initial_lpwm_checkpoint": "outputs/lpwm_navsim_adaptation_v1/pretrained/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_best_lpips.pth",
+    "initial_lpwm_checkpoint_sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+    "public_checkpoint": "outputs/lpwm_navsim_adaptation_v1/pretrained/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_best_lpips.pth",
+    "public_checkpoint_sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+    "adapted_checkpoint": "outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+    "adapted_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "official_hyperparameters": "outputs/lpwm_navsim_adaptation_v1/pretrained/hparams.json",
+    "official_hyperparameters_sha256": "70f413905ed6295dc7e1f47f30ac52dcffee416b1311e7e97f85e9bc41514c44",
+    "initial_world_evaluation": "outputs/lpwm_navsim_full_posttraining_v2/evaluation/published/metrics.json",
+    "freeze_all_lpwm_weights_and_buffers": true,
+    "freeze_encoder_command_film": true,
+    "fresh_matched_planner_initialization": true,
+    "apply_navsim_adaptation_gate": false,
+    "scope": "Public Sketchy pretrained LPWM receives no NAVSIM updates; same cached NAVSIM RGB/status, teacher and split; same fresh seed47 planner training as the completed frozen Stage1 reference.",
+    "user_correction": "Run only this new condition; reuse completed82.5238 reference. Keep GPU batch8/effective16 for a matched comparison."
+  },
+  "navsim_stage1_performed": false,
+  "world_vs_initial_representation": {
+    "reconstruction_lpips": {
+      "mean_difference": -4.5299530029296875e-06,
+      "ci95": [
+        -4.887580871582031e-06,
+        -4.172325134277344e-06
+      ],
+      "clips": 2,
+      "recordings": 2
+    },
+    "forecast_lpips": {
+      "mean_difference": 0.0,
+      "ci95": [
+        -8.940696716308594e-07,
+        8.940696716308594e-07
+      ],
+      "clips": 2,
+      "recordings": 2
+    }
+  },
+  "initial_world_reference_sha256": "1fd5c42e3dfa8aa9c111c9050055c3615acb9bb8dd99c915f0e197e943fd2be4",
+  "world_risk_reference": "world_risk_breakdown and world_vs_stage1 compare with NAVSIM-adapted Stage1; retention checks use each condition's initial checkpoint baseline."
+}

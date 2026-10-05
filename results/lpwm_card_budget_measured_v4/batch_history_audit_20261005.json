@@ -1,0 +1,205 @@
+{
+  "created_at_kst": "2026-10-05T21:26:13.627164",
+  "scope": "Five completed Stage2 runs; actual summaries, logs and saved resume provenance; no learning rerun.",
+  "runs": {
+    "partial_output_layers": {
+      "segments": [
+        {
+          "first_update": 1,
+          "last_update": 1576,
+          "microbatch_per_gpu": 4,
+          "gradient_accumulation": 2,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        },
+        {
+          "first_update": 1577,
+          "last_update": 4707,
+          "microbatch_per_gpu": 8,
+          "gradient_accumulation": 1,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        }
+      ],
+      "completed_updates": 4707,
+      "epochs": 1.0,
+      "train_scenes": 75297,
+      "logged_global_batch_values": [
+        16
+      ],
+      "logged_rows": 296,
+      "configuration": "configs/lpwm_planning/execution_48gb_v1/partial_output_layers_batch8.json",
+      "resume_provenance": {
+        "source_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/queue/partial_resume_source.pt",
+        "source_checkpoint_sha256": "b3d06344cb3fe3c67cdc7708d6f30a36539f98f2d5bece64502f69968b5a3337",
+        "source_configuration_sha256": "4046f8bbb245f7ba77ee29bc51a9118ed96608549b9181b97cc86f43a5bd1bbc",
+        "source_completed_updates": 1576,
+        "optimizer_states": 125,
+        "profile_only": false,
+        "model_and_optimizer_unchanged": true,
+        "profile_updates_are_discarded": true
+      }
+    },
+    "attention_lora": {
+      "segments": [
+        {
+          "first_update": 1,
+          "last_update": 4422,
+          "microbatch_per_gpu": 4,
+          "gradient_accumulation": 2,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        },
+        {
+          "first_update": 4423,
+          "last_update": 4707,
+          "microbatch_per_gpu": 8,
+          "gradient_accumulation": 1,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        }
+      ],
+      "completed_updates": 4707,
+      "epochs": 1.0,
+      "train_scenes": 75297,
+      "logged_global_batch_values": [
+        16
+      ],
+      "logged_rows": 296,
+      "configuration": "configs/lpwm_planning/card_budget_measured_v4/attention_lora_batch8.json",
+      "resume_provenance": {
+        "source_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_planning_v2/queue/lora_resume_source.pt",
+        "source_checkpoint_sha256": "04efad377910390cb4ba947eb5b410f5972438d10199eb2b071b1bac7e104f61",
+        "source_configuration_sha256": "d10ff483220ac2fec1c10377611fbbaffa4b3eb0604a390651ec80f4c3e34387",
+        "source_completed_updates": 4422,
+        "optimizer_states": 226,
+        "profile_only": false,
+        "model_and_optimizer_unchanged": true,
+        "profile_updates_are_discarded": true
+      }
+    },
+    "residual_adapter": {
+      "segments": [
+        {
+          "first_update": 1,
+          "last_update": 4707,
+          "microbatch_per_gpu": 8,
+          "gradient_accumulation": 1,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        }
+      ],
+      "completed_updates": 4707,
+      "epochs": 1.0,
+      "train_scenes": 75297,
+      "logged_global_batch_values": [
+        16
+      ],
+      "logged_rows": 296,
+      "configuration": "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch8.json",
+      "resume_provenance": null
+    },
+    "full_low_learning_rate": {
+      "segments": [
+        {
+          "first_update": 1,
+          "last_update": 2095,
+          "microbatch_per_gpu": 2,
+          "gradient_accumulation": 4,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        },
+        {
+          "first_update": 2096,
+          "last_update": 4707,
+          "microbatch_per_gpu": 4,
+          "gradient_accumulation": 2,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        }
+      ],
+      "completed_updates": 4707,
+      "epochs": 1.0,
+      "train_scenes": 75297,
+      "logged_global_batch_values": [
+        16
+      ],
+      "logged_rows": 165,
+      "configuration": "configs/lpwm_planning/card_budget_measured_v4/full_low_learning_rate_batch4.json",
+      "resume_provenance": {
+        "checkpoint": "outputs/lpwm_object_future_planning_v3/user_pause_20261004/checkpoint_update002095.pt",
+        "checkpoint_sha256": "aef7ab37bfdfcf3a7c032774b0aaf4f4bbd76e8f84849a24a5b5fac2664b9bac",
+        "source_configuration": "configs/lpwm_planning/object_future_joint_v3.json",
+        "completed_updates": 2095,
+        "scheduler_epochs": 20,
+        "target_total_updates": 4707,
+        "reason": "User requested reusing the earlier paused full-finetuning checkpoint. Resume model and AdamW state; preserve old scheduler and conv_in command conditioning; stop at first-epoch trend checkpoint. Original paused run remains unchanged."
+      }
+    },
+    "frozen_lpwm_planner_control": {
+      "segments": [
+        {
+          "first_update": 1,
+          "last_update": 4707,
+          "microbatch_per_gpu": 8,
+          "gradient_accumulation": 1,
+          "gpus": 2,
+          "effective_planning_batch": 16,
+          "effective_world_batch": 8
+        }
+      ],
+      "completed_updates": 4707,
+      "epochs": 1.0,
+      "train_scenes": 75297,
+      "logged_global_batch_values": [
+        16
+      ],
+      "logged_rows": 296,
+      "configuration": "configs/lpwm_planning/frozen_control_v1/batch8.json",
+      "resume_provenance": null
+    }
+  },
+  "source_sha256": {
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/training_summary.json": "bd85b48282b2a2f61d2e7406a7a1be175f0d595c9dd8c58b31ff68cb25e802d3",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/training_log.jsonl": "af2ef433877ef0fbbda553c602d2378d51ceb3bf330cea4f2b89504882a4d496",
+    "configs/lpwm_planning/execution_48gb_v1/partial_output_layers_batch8.json": "fa90b04f2c953a06cd0000f01d8a74688e6ad78641c415e5a57844fe90f67464",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/execution_checkpoint_parent.json": "187906d83b4a36512ca6af771133474b807532cc80997d021f987139b3bed390",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/training_summary.json": "41bb7acab6778405c25d4c51a7b69c9a180a2aa6d51347b598408a1767091077",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/training_log.jsonl": "50b49dccfb00e28cd3a98f0131bae7d1534b08c71a81771c7f53c47eed6e9f80",
+    "configs/lpwm_planning/card_budget_measured_v4/attention_lora_batch8.json": "1a666286478a23f86075bd579f880565c24f30dc2b01d6712814a23e507929c5",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/execution_checkpoint_parent.json": "9b8e822cbfb41dfa027ac0ed5f6e5d993d6db7b9269b5eaadb1d9331b5bfefaa",
+    "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/training_summary.json": "0c2fe96a86f8a7a59073ed1239a4c75bab84353be29f88ff40cec40f42194d1b",
+    "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/training_log.jsonl": "9e3a65967b1dbc0f9ce9dbd657d7dcc5e97cd490ac31e757a538c60b13b26a72",
+    "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch8.json": "7a1a47c81fb11e010c5ec309936e4a772ed20e35fa0aa7792a5e252b5dabe872",
+    "outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/training_summary.json": "d9dd197492443e08af4b376f602279d783241137536c4e61c84a4f6e29534646",
+    "outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/training_log.jsonl": "d352acd83f30434ca3bf8c27603ab4aec5ab56b678b0f9273fc844a1fc95c60e",
+    "configs/lpwm_planning/card_budget_measured_v4/full_low_learning_rate_batch4.json": "87fa7ccef5b7aa841abc4db7ddc89de892321d3b82f506caadb25e16d0b2a6d6",
+    "outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/training_summary.json": "fb30c9fceb5cb899d27a6b33439c6604b3a1704ef049fc77f1a160e1e440e42c",
+    "outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/training_log.jsonl": "7e57c30c306cca462783bae2840a9edae0040d72bf7e64ba2ba64123823bbd09",
+    "configs/lpwm_planning/frozen_control_v1/batch8.json": "4e8afe39daf4a5023abf711f89117323341abf0edad359f1acfe82d7683c7c75",
+    "configs/lpwm_planning/partial_output_layers_v1.json": "4046f8bbb245f7ba77ee29bc51a9118ed96608549b9181b97cc86f43a5bd1bbc",
+    "configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json": "d10ff483220ac2fec1c10377611fbbaffa4b3eb0604a390651ec80f4c3e34387",
+    "configs/lpwm_planning/object_future_joint_v3.json": "72e50a14438e7358414bdcd6e87fd4bab60749c01df5f1f1086d84e987494f5f",
+    "outputs/lpwm_48gb_planning_v1/queue/execution_handoff.json": "ef09ec76510c99db73a9d43b531a4b4ad9683af7690532328e14aca49003a3f7",
+    "outputs/lpwm_card_budget_measured_v4/queue/execution_handoff.json": "2a67bac863989c91138cfc9e7a5c07a546cff4eea58d001dc1c763a7bdf8ded9"
+  },
+  "conclusions": [
+    "Effective planning batch16, auxiliary world8 and4707optimizer updates were retained; physical-batch changes do not invalidate all results.",
+    "Microbatch regrouping changes dropout random draws, sampled SSL clips and floating-point reduction; not bitwise equivalent.",
+    "Full preserves conv_in intent and original20epoch LR schedule; previous comparison is practical/exploratory, not an isolated tuning-method effect.",
+    "Adapter and the completed frozen control both used physical batch8,accumulation1,GPU2 throughout. New public-frozen control uses this exact recipe."
+  ],
+  "gradient_accumulation_code": {
+    "source": "scripts/train_lpwm_partial_planning.py",
+    "loss_scaled_before_backward": "(objective / accumulation).backward()",
+    "gradient_clipping": "Once after the accumulation loop, before optimizer.step()",
+    "global_batch_size": "microbatch_size * accumulation * world_size"
+  }
+}

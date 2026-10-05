@@ -2428,3 +2428,19 @@ Frozen PDMS82.5238/ADE1.163467/FDE2.782463. Partial/LoRA/Adapter/full minus froz
 Frozen에서도예측미래→마지막관측반복교체시PDMS82.5238→79.7709,차이+2.7529[1.7547,3.8131]점. 기존미래표현활용진단이며표현미세조정효과/객체보존/재학습no-future비교와구분. Frozen이미지LPIPS는Stage1과평균약1e-7차이. 평가1024장면/40recording/world256정확일치,PDMS공통teacher무효3개제외1021,1epoch4707/75297train/seed47. PDMS는변형없는고정후보의cache된공식PDM이며전체navtest아님. Frozen모드/FiLM,full명령위치/20epoch스케줄및microbatch이력차이를명시했다.
 
 새 CPU script `scripts/report_lpwm_adaptation_vs_frozen.py`에서 원자료/공통누락/hash/provenance를확인하고평균·4pairedCI원집계와정확일치검사통과. `results/lpwm_frozen_control_v1/completed_comparison_20261005/{summary.json,comparison.png,comparison.pdf}` 생성/이미지확인,직진9/회전36/투영겹침197/other14 영상오차분해포함. 최종자동집계와trend summary공유보존,연구문서최상단/HANDOFF1–5갱신. 등록source/config/학습조건변경없음. DrivoR추가실행/seed·epoch/navtest자동등록없음.
+
+## 2026-10-05 21:36 KST — 공개 LPWM 고정 조건 시작 및 배치 변경 이력 감사
+
+사용자가Stage1없이공개LPWM을고정해planner만학습하는조건을요청했다. 배치확대제안에두조건재학습을제안했으나사용자가82.52완료대조군재사용/같은조건하나만실행으로정정했다. 실제로새공개조건하나만GPU당8×누적1×2=유효16,75,297장면/seed47/1epoch4707update로등록했다. 초기공개weight SHA6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731,Stage1cache는동일입력준비용이며NAVSIM적응weight는로드하지않는다.
+
+실제CPU2step검사/GPU검사에서공개weights/buffers완전동일,Stage1고정조건과초기planner정확일치,optimizer후LPWM/FiLM/particle불변,plannergradient만양수/명령반응/미래보조입력독립을확인했다. 7개조건변경음성검사통과. Tool sandbox detach자식이종료돼첫기동은본학습이없었으며권한승인후host queue1869615정상기동. GPU감사/배치8실측최대전체26.36GB/평가구동검사통과후본학습21:35현재304/4707,약0.93s/update. 최종평가와기존고정군대비paired비교/PNG/PDF자동연결,추가DrivoR/GT/navtest없음.
+
+사용자가과거배치변경때문에기존실험이무효인지질문했다. 최초config/resume parent/최종summary/전체training_log에서모두유효planning16/world8/4707update유지를확인했다. Partial4×2→8×1(update1576),LoRA4×2→8×1(4422),Full2×4→4×2(2095),Adapter/Frozen8×1전구간이며GPU2개다. Loss/누적횟수로backward하고누적뒤clip/optimizerstep하는코드도확인했다. 그러나dropout RNG/SSL보조clip추출/부동소수점누적차이와full20epoch LR/conv_in차이는남는다. 기존결과는경향비교로보존하되기법단독우월성·완전실행동일성으로주장하지않는다. `results/lpwm_card_budget_measured_v4/batch_history_audit_20261005.json`과연구문서에정정했다.
+
+사용자가남은VRAM을활용한가속가능성을추가질문하여큰배치의고정표현계산과detached SSL monitor 계산생략의gradient동일성·속도진단을준비했다. 본학습은유지하며읽기전용/optimizerupdate0/진단10GiB상한/카드48GB보호다. 결과확인전실행조건을바꾸지않는다.
+
+## 2026-10-05 21:44 KST — 고정 표현 가속 진단 완료 및 결과 ETA
+
+일반sandbox의CUDA접근차단후승인된host실행으로32scene/batch8·16·32의고정표현계산을확인했다. 동일seed반복시간3.199/2.942/2.785초로약8–13%단축이나batch8대비혼합particle최대차이1.464/1.216,같은batch반복에서는0이었다. 물리batch출력동일성이성립하지않으므로큰batchcache미채택. 이값은물리객체오차가아니며정확원인/PDMS영향은미분리. Detached worldmonitor생략의planninglogits는동일,gradient최대차이0.000488은동일조건반복에서도관측됐다. 단일batch속도2.292→0.925초이나공유GPU부하측정이며장기간동등실행미검증으로현재등록monitor를유지했다. 두진단결과모두보존하고추가GPU진단종료,본학습/source/config/optimizer는바꾸지않았다.
+
+현재본학습768/4707,최근128/256/512update1.127/1.069/1.054s,queueheartbeat정상. 사용자에게학습22:55–23:10,최종결과23:05–23:25KST예상이라고보고했다. 근거 `results/lpwm_stage1_effect_v1/frozen_batching_repeatability_benchmark.json`, `training_eta_20261005_2144.json`. 학습종료후동일1024/256평가및기존82.5238고정대조군대비Stage1효과자동비교가이어진다.

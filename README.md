@@ -1,5 +1,14 @@
 # Planning-Aware Future Prediction
 
+**최신(2026-10-05): NAVSIM Stage1 효과를 공개 LPWM 고정 대조군 하나로 검증한다.**
+완료된 Stage1-LPWM 고정+planner 결과82.5238을 재사용하고 공개 Sketchy LPWM+동일planner만 새로 학습한다.
+사용자 정정에 따라 batch8/GPU×2·누적1=유효16,seed47/75,297장면/1epoch4707update를 유지한다.
+두 조건 재학습·배치 확대 안은 실행하지 않았다. 기존 다섯 실험도 유효16/4707은 유지했으며
+microbatch/dropout/SSL sampling 및 full schedule 차이는 [배치 감사와 해석](docs/lpwm_planning_experiment.md)에 기록했다.
+진입점 `configs/lpwm_planning/stage1_effect_v1/queue.json`, `scripts/queue_lpwm_stage1_effect.py`.
+상태 `outputs/lpwm_stage1_effect_v1/queue/queue_state.json`. 현재 상태는 HANDOFF 최신절을 우선한다.
+아래 기존 네방법·frozen queue 실행중 문장은 완료 전 보존 이력이다.
+
 **최신(2026-10-05): 현재 네 방법 비교 뒤 frozen-LPWM planner 대조군 자동 실행을 추가했다.**
 기존 v4 queue421603/full 학습은 유지하며, 새 CPU queue871940이 전체 학습·검증·집계를 기다린다.
 진입점 `configs/lpwm_planning/frozen_control_v1/queue.json`, 상태 `outputs/lpwm_frozen_control_v1/queue/queue_state.json`.

@@ -1,0 +1,78 @@
+{
+  "measured_at_kst": "2026-10-05T21:45:51.494124+09:00",
+  "progress": {
+    "update": 880,
+    "total_updates": 4707,
+    "epoch_fraction": 0.1869555980454642,
+    "train_clips": 75297,
+    "global_batch_size": 16,
+    "sampled_clips_including_padding": 14080,
+    "planning_loss": 6.8094518184661865,
+    "world_objective": 63.26681137084961,
+    "loss": 8.074788093566895,
+    "imitation_loss": 4.4829535484313965,
+    "metric_distillation_loss": 2.32649827003479,
+    "teacher_coverage": 1.0,
+    "refinement_imitation": 0.0,
+    "refined_metric_loss": 0.0,
+    "temporal_safety_loss": 0.0,
+    "refinement_comfort_proxy": 0.0,
+    "object_current_state_loss": 0.0,
+    "object_future_state_loss": 0.0,
+    "object_category_loss": 0.0,
+    "object_association_fallback_fraction": 0.0,
+    "valid_current_object_targets": 0.0,
+    "valid_future_object_targets": 0.0,
+    "module_gradients": {
+      "image_encoder": 0.0,
+      "context": 0.0,
+      "dynamics": 0.0,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 14.093451499938965
+    },
+    "lpwm_lr": 0.0,
+    "planner_lr": 0.0002793146836798623,
+    "peak_allocated_gib": 3.9062142372131348,
+    "data_loader_workers_per_rank": 0,
+    "input_preparation_seconds": 0.00489378598285839,
+    "update_seconds": 0.9317074090358801,
+    "elapsed_seconds": 937.7473524810048
+  },
+  "recent_windows": {
+    "64": {
+      "seconds_per_update": 1.0028249571560082,
+      "remaining_training_seconds": 3837.8111110360433,
+      "training_eta_kst": "2026-10-05T22:49:49.305235+09:00"
+    },
+    "128": {
+      "seconds_per_update": 1.049310181578221,
+      "remaining_training_seconds": 4015.710064899852,
+      "training_eta_kst": "2026-10-05T22:52:47.204189+09:00"
+    },
+    "256": {
+      "seconds_per_update": 1.075540511054669,
+      "remaining_training_seconds": 4116.093535806218,
+      "training_eta_kst": "2026-10-05T22:54:27.587660+09:00"
+    },
+    "512": {
+      "seconds_per_update": 1.0655111636210677,
+      "remaining_training_seconds": 4077.711223177826,
+      "training_eta_kst": "2026-10-05T22:53:49.205347+09:00"
+    }
+  },
+  "estimated_evaluation_minutes": [
+    10,
+    15
+  ],
+  "reported_result_window_kst": [
+    "2026-10-05T23:05:00+09:00",
+    "2026-10-05T23:25:00+09:00"
+  ],
+  "assumptions": [
+    "No further batch/source/config changes.",
+    "Shared GPU workload comparable to recent measurements.",
+    "Saved monitoring/checkpoint overhead is included via elapsed-time differences.",
+    "Read-only throughput diagnostic has ended."
+  ],
+  "scope": "Operational estimate, not a guaranteed deadline or confidence interval."
+}

@@ -1,0 +1,45 @@
+{
+  "engineering_only": true,
+  "optimizer_updates": 0,
+  "active_training_changed": false,
+  "physical_inference_batch_benchmark": {
+    "8": {
+      "median_seconds_for32scenes": 3.219754675985314,
+      "max_attribute_difference_vs_batch8": 0.0,
+      "mean_attribute_difference_vs_batch8": 0.0,
+      "bitwise_attributes_equal": true,
+      "peak_allocated_gib": 2.3622050285339355
+    },
+    "16": {
+      "median_seconds_for32scenes": 2.9121321740094572,
+      "max_attribute_difference_vs_batch8": 1.4635593891143799,
+      "mean_attribute_difference_vs_batch8": 0.0022853275295346975,
+      "bitwise_attributes_equal": false,
+      "peak_allocated_gib": 4.201873779296875
+    },
+    "32": {
+      "median_seconds_for32scenes": 2.7340414689970203,
+      "max_attribute_difference_vs_batch8": 1.2163934707641602,
+      "mean_attribute_difference_vs_batch8": 0.002366212196648121,
+      "bitwise_attributes_equal": false,
+      "peak_allocated_gib": 7.8771820068359375
+    }
+  },
+  "detached_world_monitor_benchmark": {
+    "True": {
+      "median_seconds_for8scenes_forward_backward": 1.5600214260048233,
+      "all_planner_gradients_bitwise_equal": true,
+      "max_planner_gradient_difference": 0.0
+    },
+    "False": {
+      "median_seconds_for8scenes_forward_backward": 0.559505132958293,
+      "all_planner_gradients_bitwise_equal": false,
+      "max_planner_gradient_difference": 0.00048828125
+    }
+  },
+  "limitations": [
+    "Shared GPU has concurrent training; timings are diagnostic, not an isolated speed benchmark.",
+    "Any feature difference prevents claiming bitwise-equivalent cached training.",
+    "One batch gradient equivalence does not prove all future steps; an execution change requires a separate recorded amendment."
+  ]
+}

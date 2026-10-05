@@ -1,5 +1,87 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: Stage1 기여 검증과 과거 배치 변경 감사
+
+**새 하위 질문:** LPWM을 고정하고 동일 planner를 학습할 때, NAVSIM Stage1 SSL 적응 자체가 planning에 기여하는가?
+사용자는 공개 LPWM에 Stage1을 수행하지 않고 planner만 학습하는 조건을 요청했다.
+이후 배치 확대를 제안했지만, **완료된 82.5238점 대조군을 재사용하고 같은 조건으로 새 실험 하나만 수행**하도록 정정했다.
+따라서 공개 Sketchy checkpoint 전체와 encoder 명령 FiLM을 고정하고 GPU당8×누적1×GPU2=유효16,
+같은 seed47/75,297장면/1epoch/4,707 update/LR·schedule/후보 vocabulary/손실/개발 panel을 유지한다.
+Stage1 적응 대조군의 재학습이나 배치 확대한 두 조건 실행은 하지 않는다. 그 두 조건 안은 실행 전에 철회됐다.
+
+공개 가중치 SHA는 `6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731`이다.
+`stage1_config` 경로는 동일 영상 cache·분할·전처리와 detached SSL monitor 설정을 읽는 용도로만 쓴다.
+공개 조건의 모델은 NAVSIM Stage1 가중치를 읽지 않는다. 공식 checkpoint와 초기 weights/buffers 정확 일치,
+기존 Stage1 고정 대조군과 초기 planner 정확 일치, optimizer 2step 후 LPWM·FiLM/particle 불변,
+planner gradient만 양수, 미래 보조 입력 누출 없음의 실제 CPU 검사를 통과했다.
+배치·LR·고정 범위·공개 초기화·적응 gate 변경을 막는 7개 음성검사도 통과했다.
+
+진입점: `configs/lpwm_planning/stage1_effect_v1/queue.json`, `scripts/queue_lpwm_stage1_effect.py`.
+공개 고정 모델 GPU 검사→batch8 실측→평가 구동 검사→새 조건 하나 학습→동일1024planning/256world검증→
+기존 적응 고정군과 paired 비교·그림 생성 순서다. GPU0·1/카드 전체48decimalGB/worker0 유지.
+공개 조건은 의도적으로 NAVSIM 미적응 상태이므로 적응 품질 gate를 학습 진입 조건으로 요구하지 않는다.
+가중치·gradient·입력 독립성·수치 유효성·메모리·학습 완결성 검사는 유지한다.
+자동 보고의 차이는 **적응 모델 minus 공개 모델**로, 양의 PDMS 차이가 Stage1 이득을 뜻한다.
+표현 고정 모델의 `training_summary.stage1_checkpoint_sha256`는 재사용 trainer의 legacy 이름이다.
+새 `initial_lpwm_checkpoint_sha256`와 같은 공개 weight SHA이며 `navsim_stage1_performed=false`를 명시한다.
+학습 결과는 아직 없다. Stage1의 이득을 사전에 가정하지 않는다.
+
+### 과거 물리 배치 변경 때문에 기존 결과가 모두 무효인가?
+
+최초 설정, 재개 checkpoint provenance, 최종 training summary와 각 training log의 `global_batch_size`를 확인했다.
+기존 다섯 조건은 모두 유효 planning 배치16, world 보조8, 누적4,707 optimizer update를 유지했다.
+손실을 누적 횟수로 나눠 backward하고, 누적 완료 후 gradient clipping과 optimizer step을 한 번 수행한다.
+
+| 조건 | GPU당 물리 배치 × 누적 횟수의 실행 이력 | GPU 수 | 유효 planning 배치 | 누적 update |
+|---|---|---:|---:|---:|
+| 일부 계층 | 1–1576: 4×2 → 1577–4707: 8×1 | 2 | 16 유지 | 4,707 |
+| LoRA | 1–4422: 4×2 → 4423–4707: 8×1 | 2 | 16 유지 | 4,707 |
+| Adapter | 전 구간 8×1 | 2 | 16 | 4,707 |
+| 전체 미세조정 | 1–2095: 2×4 → 2096–4707: 4×2 | 2 | 16 유지 | 4,707 |
+| LPWM 고정 대조군 | 전 구간 8×1 | 2 | 16 | 4,707 |
+
+따라서 물리 배치를 늘리면서 업데이트당 장면 수가 늘거나 1epoch 업데이트 횟수가 줄어든 실험은 아니다.
+Profile은 별도 출력의 진단 가중치를 폐기하고, 본학습 model/AdamW/counter를 보존해 이어갔다.
+이 사실을 설명하지 않고 이번에 물리 배치 확대를 곧 유효 배치 확대처럼 설명한 것은 불충분했다.
+
+다만 **유효 배치 동일성이 완전한 실행 동일성을 보장하지는 않는다.** Microbatch를 묶는 방식에 따라
+dropout RNG 소비, 부동소수점 누적 순서가 달라진다. 현재 코드의 SSL 보조 clip 추출 seed에도 누적 횟수가
+들어가므로 추출된 영상 조합이 달라질 수 있다. 각 경우 world8이라는 개수는 유지하지만 동일 clip은 보장하지 않는다.
+Full은 별도로 이전 conv_in 명령 위치·LPWM LR·20epoch scheduler를 유지했고 종료 planner LR도 다른 세 조건보다 약10배 높다.
+그 영향의 크기를 분리한 실험은 없으므로 “배치 변경은 성능에 전혀 영향 없다” 또는
+“현재 순위는 미세조정 방법만의 효과”라고 주장하지 않는다.
+
+**기존 결과는 실제 학습 결과와 경향 비교로 보존한다.** 다섯 조건에서 표현 미세조정 추가 이득을 입증하지 못했다는
+기술은 유지하며, 엄밀한 최종 논문용 기법 비교에서는 물리 배치·누적·데이터 샘플링·schedule까지 고정해야 한다.
+Adapter와 고정 대조군은 처음부터 물리 배치도 같은 8×1이었다. 새 공개 고정 조건은 완료된 고정 대조군과 이 설정까지 맞춘다.
+배치 차이를 이유로 모든 기존 실험을 재학습하지 않는다.
+
+근거: [실행 배치 이력 감사](../results/lpwm_card_budget_measured_v4/batch_history_audit_20261005.json),
+[공개 초기화·고정·gradient CPU 검증](../results/lpwm_stage1_effect_v1/queue/cpu_audit.json).
+
+### 21:44 KST: 큰 배치 표현 계산 실측과 현재 종료 예상
+
+새 공개 고정 학습은 정상 실행 중이며 768/4707 update(16.3%)에서 확인했다.
+최근128/256/512update의저장elapsed시간차분속도는각1.127/1.069/1.054초/update다.
+공유GPU부하변동을포함해학습22:55–23:10,최종검증/paired결과23:05–23:25 KST로예상했다.
+운영추정이며보장시각이나통계적신뢰구간이아니다. 근거
+`results/lpwm_stage1_effect_v1/training_eta_20261005_2144.json`.
+
+현재학습을유지한읽기전용GPU진단에서32장면의고정표현계산을8/16/32단위로비교했다.
+동일seed반복의중앙시간은3.199/2.942/2.785초로큰배치에서약8–13%단축됐지만,
+배치8대비particle attribute 최대차이는batch16=1.464,batch32=1.216으로완전히같은표현이아니었다.
+각배치안에서같은조건을반복하면출력은정확히같았다. 이는혼합속성표현의최대차이이며
+미터단위객체오차나planning성능변화량이아니다. 차이의정확원인과성능영향은미분리다.
+따라서현재대조실험에는큰배치cache를도입하지않았다.
+
+Detached SSL monitor를생략한경우단일8장면forward/backward시간은2.292→0.925초였고
+planning logits는정확히같았다. Gradient최대차이0.000488은동일monitor설정반복에서도발생했다.
+해당SSL항은수학적으로planner gradient가0인상수이지만,이진단은짧은한배치이며
+장기간재개학습까지의실행동일성을확인한것이아니다. 현재등록monitor조건도유지했다.
+공유GPU에서본학습과동시에잰수치이므로전체학습의독립속도benchmark로사용하지않는다.
+진단optimizerupdate0,본학습checkpoint/source/config불변,진단종료후본학습만계속한다.
+근거: `results/lpwm_stage1_effect_v1/frozen_batching_repeatability_benchmark.json`.
+
 ## 2026-10-05 20:56 KST: Frozen 대조군 검증 완료 — 표현 미세조정의 추가 이득 미확인
 
 **하위 연구 질문:** 같은 LPWM 기반 모델에서 planner 학습에 더해 표현까지 planning에 맞춰 수정하면 추가 이득이 있는가?

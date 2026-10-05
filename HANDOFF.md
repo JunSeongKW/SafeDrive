@@ -1,6 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 21:05 KST (Codex)
+마지막 갱신: 2026-10-05 21:46 KST (Codex)
+
+**최신 실행(2026-10-05): 공개 LPWM 고정 + 동일 planner 학습으로 Stage1 효과 검증.**
+사용자 정정: 완료된 적응 고정군82.5238을 재사용하고 새 조건 하나만 학습한다.
+GPU당8×누적1×GPU2=유효16/75,297장면/seed47/1epoch4707update를 동일하게 유지한다.
+진입점 `configs/lpwm_planning/stage1_effect_v1/queue.json`, `scripts/queue_lpwm_stage1_effect.py`.
+Queue1869615, GPU/CPU고정·초기planner·gradient감사와batch8profile/평가구동검사통과,public_control_training실행중.
+DrivoR·객체GT·navtest자동실행금지유지. 등록source/config는변경하지않는다.
+아래 모든작업종료는 이전 다섯조건 완료시점이며 새 공개 고정 조건과 구분한다.
 
 **최신 완료:** 네 LPWM 미세조정 및 Frozen LPWM 동일 planner 대조군의 학습·검증·paired 비교 완료.
 Frozen PDMS82.5238, Adapter82.4852, LoRA81.9141, partial81.6341, full81.2282.
@@ -153,6 +161,17 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 21:44 KST: 공개고정본학습768/4707(16.3%),queue1869615 heartbeat정상.
+최근1.054–1.127s/update,학습22:55–23:10/검증결과23:05–23:25KST추정. 가속진단은종료했다.
+Batch8/effective16/기존monitor/source/config유지. 결과완료후자동Stage1효과비교예정.
+
+2026-10-05 21:35 KST: Stage1 효과용 공개 LPWM 고정 대조군 본학습304/4707,유효배치16,
+LPWM각gradient0/planner양수,최근약0.93s/update. Queue1869615=public_control_training.
+CPU실제학습2step감사60.45초/GPU감사26.15초,7음성검사통과. Profile전체카드최대26.36GB/48GB.
+일반도구sandbox의detach자식은종료돼본학습미실행,권한승인후host에서등록queue정상기동했다.
+추가읽기전용진단 `scripts/benchmark_lpwm_frozen_representation_batching.py`로표현계산batch8/16/32출력동일성·속도,
+고정world SSL monitor 생략시planner gradient동일성을확인중이다. 본학습/등록source/config는변경하지않았다.
 
 2026-10-05 20:56 KST: Frozen 검증20:56:12·네방법대비집계20:56:16 완료, queue_state/completion 모두 complete.
 Main421603/frozen871940 및 최종 평가1766544/학습1597075 종료 확인. 현재 등록 LPWM GPU 작업 없음.
@@ -493,6 +512,19 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+동일seed반복표현계산batch8/16/32의32scene시간3.199/2.942/2.785초. 큰배치출력이batch8과달라cache가속미채택.
+자체반복출력차이0,혼합particle최대차이16=1.464/32=1.216으로physicalobject오차와구분.
+Detached SSL monitor생략planninglogits동일,gradient최대차이0.000488은동일조건반복에서도발생.
+짧은공유GPU진단으로장기훈련동일성을주장하지않고현재monitor도유지. 진단optimizerupdate0/본학습변경없음.
+근거results/lpwm_stage1_effect_v1/frozen_batching_repeatability_benchmark.json및training_eta_20261005_2144.json.
+
+과거다섯조건의summary·global_batch_size로그·resume provenance감사:모두planning16/world8/4707update유지.
+Partial4×2→8×1(update1576경계),LoRA4×2→8×1(4422경계),Full2×4→4×2(2095경계),Adapter/Frozen전구간8×1;
+GPU모두2개다. 물리배치변경으로효과배치가커진실험은아니다. Dropout/SSL샘플링/반올림차이와full스케줄차이는남는다.
+근거 `results/lpwm_card_budget_measured_v4/batch_history_audit_20261005.json`.
+공개고정조건CPU/GPU실검사:initialplanner기존고정군과정확일치,공개checkpoint weights/buffers정확일치,
+2optimizerstep후world/FiLM/particle불변,미래보조입력독립,planner명령반응양수. 공개조건planning성능은아직없다.
 
 최종 Frozen PDMS82.5238/ADE1.163467/FDE2.782463. Partial/LoRA/Adapter/full 대비 차이는
 미세조정-minus-frozen 기준 -0.8897[-2.2018,+0.2507] / -0.6097[-1.4261,+0.1113] /
@@ -914,12 +946,20 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Frozen 최종검증/집계 완료와 가중치·buffer 완전 고정, 5조건 동일장면·누락·checkpoint provenance를 확인했다.
-- CPU 재집계 script와5조건비교PNG/PDF/JSON을 추가,4개 paired CI가 등록집계와 정확히 같음을 확인했다.
-- 추가 planning 이득 미확인 및 CI/미래표현활용/상황별 영상오차/설정차이를 연구문서에 기록했다.
-- 등록source/config·GPU작업·대기열변경없음. 기존작업모두완료,DrivoR자동기동금지유지.
+- 공개LPWM고정대조군1개를등록·기동,완료된Stage1고정82.5238참조와동일batch/seed/학습량/planner를유지했다.
+- CPU/GPU공개weight고정·초기planner·gradient/입력독립감사와7음성검사,실측profile/평가구동확인을완료했다.
+- 과거5조건배치변경이력·유효16/world8/4707update를재검증하고잔여교란요인을문서화했다.
+- 미래최종검증→Stage1 paired효과/그림 자동연결,현재고정모델표현계산가속읽기전용진단추가. DrivoR미등록유지.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+가속진단완료:큰배치cache/monitor생략을본학습에채택하지않았다. 기존동일설정으로4707→최종평가→비교유지.
+현재ETA23:05–23:25KST는공유부하에따른추정이다. 추가속도실험/변형재학습을자동으로확대하지않는다.
+
+현재public_control_training4707완료→동일1024planning/256world검증→적응고정군82.5238과paired Stage1기여집계.
+공개조건하나만실행한다. 배치확대한두조건재학습안은사용자정정으로실행하지않았다.
+큰배치표현계산·정기world monitor 등속도개선은gradient/출력/실측이득확인후판단하며,
+현재등록source/config를실행중에수정하지않는다. DrivoR/추가epoch/GT/navtest자동실행없음.
 
 현재 사용자 요청한 Frozen 대조군 검증과 네미세조정대비 결과 보고까지 완료했다.
 표현미세조정추가이득미확인을 기준으로 후속 연구를 결정하되, 고정 대조군을 이후 비교의 기준으로 유지한다.
@@ -1182,6 +1222,17 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Batch확대진단에서표현동일성이성립하지않아현재물리batch8을유지한다. 이전다섯실험의유효16보존은확인됐지만,
+물리배치이력의정확planning영향은미분리다. 본학습두조건은동일8×1×2이므로이요인을맞춘다.
+진단timing은동시GPU부하하의국소측정이며전체학습속도보장아님. ETA는최종평가10–15분을포함한다.
+
+최신사용자범위는공개checkpoint LPWM고정+freshplanner하나이며Stage1고정82.5238을재사용한다.
+배치증설로유효배치가커지면재사용비교가교란되므로현재8×1×2유지. 기존5조건은유효배치16유지였고완전히무효가아니다.
+단물리배치이력에따른dropout/SSL샘플링과full LR/명령위치차이로방법단독우월성은입증안됨.
+Public상태의legacy stage1_checkpoint_sha256 필드는공개초기checkpoint SHA alias; navsim_stage1_performed=false와
+initial_lpwm_checkpoint_sha256를함께읽는다. Cache용stage1_config경로를모델이적응가중치를읽었다고오해하지않는다.
+가속진단은실제결과/gradient보존확인전채택금지,profile가중치는본학습에사용하지않음.
 
 Frozen 최종 성능/고정검증/paired비교는 완료됐으며, 아래 '아직 미확정/진행중'은 과거 이력이다.
 네방법모두PDMS추가이득미확인이나1seed1epoch/내부개발panel로미세조정의일반적무효를단정하지않는다.

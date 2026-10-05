@@ -1,0 +1,27 @@
+{
+  "output_directory": "outputs/lpwm_stage1_effect_v1/queue",
+  "shared_results_directory": "results/lpwm_stage1_effect_v1/queue",
+  "predecessor_queue_directory": "outputs/lpwm_frozen_control_v1/queue",
+  "predecessor_configuration": "configs/lpwm_planning/frozen_control_v1/queue.json",
+  "profiles": [
+    "configs/lpwm_planning/stage1_effect_v1/public_pretrained_batch8.json"
+  ],
+  "maximum_gpu_used_bytes": 48000000000,
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "cuda_allocator_configuration": "expandable_segments:True",
+  "authorization": "User requested public LPWM without NAVSIM Stage1, kept frozen; latest correction reuses completed82.52 reference and runs only one new condition with unchanged batch/training settings.",
+  "sequence": [
+    "verify_completed_frozen_stage1_reference",
+    "public_freeze_gradient_gpu_audit",
+    "matched_batch8_profile",
+    "evaluation_engineering",
+    "public_only_train1epoch",
+    "evaluate_same1024planning256world",
+    "paired_stage1_effect_report"
+  ],
+  "scientific_gate_policy": "Do not require NAVSIM adaptation quality for the deliberately unadapted control. Require strict public loading, fixed initial planner, freeze/leakage/finite/resource checks, complete training and evaluation. Report all performance results.",
+  "automatic_object_gt_training": false,
+  "automatic_navtest": false,
+  "stop_after_registered_control": true
+}

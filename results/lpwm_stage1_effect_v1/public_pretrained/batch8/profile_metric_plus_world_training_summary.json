@@ -1,0 +1,28 @@
+{
+  "condition": "metric_plus_world",
+  "completed_updates": 8,
+  "epochs": 0.0016995963458678563,
+  "train_clips": 75297,
+  "effective_batch_size": 16,
+  "world_size": 2,
+  "frozen_representation_sha256": "17a7ad55dc30d3153e072eab83a2692ff119982566c83216c7eb8bda837b93bc",
+  "frozen_state_unchanged": true,
+  "seconds": 15.35893753200071,
+  "peak_allocated_gib": 3.9062137603759766,
+  "module_gradients": {
+    "image_encoder": 0.0,
+    "context": 0.0,
+    "dynamics": 0.0,
+    "rgb_decoder": 0.0,
+    "planner_and_command": 6.379974365234375
+  },
+  "trainable_parameters": 2207495,
+  "checkpoint_sha256": "5f11ade8ed2c13fe846b66dabd653d35390da5180c731d43a200549ce15fe2f0",
+  "stage1_checkpoint_sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+  "configuration_sha256": "ec91471d8c28b6caec1b3871d89173f6c6b9a6c236011638ae511f04dc18ff19",
+  "profile_only": true,
+  "representation_condition": "public_pretrained",
+  "initial_lpwm_checkpoint_sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+  "navsim_stage1_performed": false,
+  "legacy_stage1_checkpoint_field": "Alias for initial_lpwm_checkpoint_sha256; public condition never loads adapted LPWM weights."
+}
