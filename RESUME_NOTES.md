@@ -2086,3 +2086,12 @@ v2 기본allocator는47.449GB/23.38GiB allocated/583.93MiB reserved-unallocated�
 
 v4 profile8회통과/카드최대47.598010368GB/peak allocated23.835232GiB/last6평균3.483267s. Gradient audit+engineering통과후421603queue/427197torchrun이4423부터재개하여4448/4707확인,loss6.572179,update3.293407s. 본학습2GPU100%/카드각약47.60GB. Native model/AdamW226state복원원본SHA보존. 42source/29config불변,CPU9검사통과. 다음Adapter/full도8우선이며48GB초과/메모리실패시에만작은배치로진행한다.
 기록 `results/lpwm_card_budget_measured_v4/resumed_batch8_status_20261005.json`. v2/v3실패와중단로그는보존,완료Partial 재실행없음. 최종LoRA PDMS/전체후속방법성능은아직대기.
+
+
+## 2026-10-05 10:06 KST — LPWM 학습 중간결과 비교
+
+2026-10-05 10:06 KST 사용자 중간결과 요청: 저장로그·개발검증을 읽고 같은128monitor/동일4096update 비교 및곡선PNG 작성. Partial1epoch4707 최종1024개발 PDMS81.6341/ADE1.28250/FDE3.04333. LoRA4528/4707(10:04snapshot),최신공통4096 monitorPDMS partial80.6169/LoRA84.5584(+3.9415점),ADE1.23115/1.11915. Adapter미시작/full2095보존재개대기. Runtime/queue/source/config변경없음.
+
+Partial world256 같은장면 LPIPS 복원0.304335→0.305230(+0.294%,유지통과),미래0.392249→0.438393(+11.764%,등록10%유지gate실패). 회전/작은객체/박스겹침상황군에서도미래LPIPS악화. Partial미래particle을현재표현반복으로교체하면PDMS81.6341→76.2361,paired차이5.398점/95%CI4.139–6.680;추론입력분포교란검사이므로미래예측학습·LPWM미세조정의독립효과단정금지. Stage1전체7745의LPIPS는복원0.770675→0.300016/미래0.807938→0.382994,SSL영상적응확인이나객체/완전적응증거는별개. JSON/PNG `results/lpwm_card_budget_measured_v4/interim_review_20261005/`.
+
+128monitor(유효PDMS127)과1024최종개발(유효PDMS1021)을분리했으며대응token동일검사완료. 학습곡선은update0을가독성때문에생략,완료partial4707과현재LoRA4096최신monitor를표시. 이후실행은기존queue가수행한다. 학습·GPU·source설정수정/추가실험없이CPU집계·그림만생성.

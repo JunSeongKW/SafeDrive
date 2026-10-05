@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 09:59 KST (Codex)
+마지막 갱신: 2026-10-05 10:06 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 10:06 KST 사용자 중간결과 요청: 저장로그·개발검증을 읽고 같은128monitor/동일4096update 비교 및곡선PNG 작성. Partial1epoch4707 최종1024개발 PDMS81.6341/ADE1.28250/FDE3.04333. LoRA4528/4707(10:04snapshot),최신공통4096 monitorPDMS partial80.6169/LoRA84.5584(+3.9415점),ADE1.23115/1.11915. Adapter미시작/full2095보존재개대기. Runtime/queue/source/config변경없음.
 
 최신 2026-10-05 09:59 KST: v4 queue421603 / torchrun427197 / LoRA batch8×accum1×GPU2=16 본학습재개확인. 4422보존상태에서4448/4707까지진행,loss유한. 카드전체약47.60GB/각GPU100%,8profile·gradient audit·engineering평가통과. 근거 `results/lpwm_card_budget_measured_v4/resumed_batch8_status_20261005.json`. 아래v2/v3시험중표시는과거이력.
 
@@ -420,6 +422,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Partial world256 같은장면 LPIPS 복원0.304335→0.305230(+0.294%,유지통과),미래0.392249→0.438393(+11.764%,등록10%유지gate실패). 회전/작은객체/박스겹침상황군에서도미래LPIPS악화. Partial미래particle을현재표현반복으로교체하면PDMS81.6341→76.2361,paired차이5.398점/95%CI4.139–6.680;추론입력분포교란검사이므로미래예측학습·LPWM미세조정의독립효과단정금지. Stage1전체7745의LPIPS는복원0.770675→0.300016/미래0.807938→0.382994,SSL영상적응확인이나객체/완전적응증거는별개. JSON/PNG `results/lpwm_card_budget_measured_v4/interim_review_20261005/`.
 
 최종v4 batch8 profile8update통과,최대카드47,598,010,368bytes(<48GB),peak allocated23.8352GiB,마지막6회평균3.48327s. 본학습4448 update_seconds=3.293,loss=6.57218. Source42/config29 hash일치,CPU9검사통과,원본4422 model+AdamW226state보존. 현diagnostic module_gradients 빈dict는재개후다음128배수gradient진단전상태이며gradient0이아님;profile8의세world영역+planner norm모두유한양수.
 
@@ -770,13 +774,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 공통정책에 따라 모든 후속방법batch8 우선과 전체48GB 기반 동적allocator 예산 구현.
-- LoRA4422 model+AdamW226state 보존. v2/v3 실패자료를보존하고 실측여유·expandable allocator의 v4대기열421603으로인계. 원본source/config/결과불변.
-- 후속full에도batch8 profile 추가, Partial완료결과재사용 및 기존학습/검증/어블레이션순서유지.
-- CPU9검사통과·source42/config29불변. LoRA8profile최대47.60GB통과,본학습4422→4448재개확인 및 상태JSON기록.
+- 사용자 중간결과 요청에 현재LPWM stage1/partial/LoRA/대기조건 상태와같은4096update/128monitor 비교를집계했다.
+- Partial 최종PDMS81.63과world forecast LPIPS11.76%악화·보존gate실패를함께기록했다.
+- 같은장면학습곡선PNG/JSON 생성 및HANDOFF/RESUME갱신. 기존학습/대기열/설정변경없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재batch8 LoRA를끝낸뒤같은1024planning/256world최종검증으로partial과비교. 그후등록Adapter→full재개순서유지. 128monitor와1024최종개발점수를직접비교하지않는다. Frozen-LPWM+학습planner대조군은계속제안단계로현재queue자동추가없음.
 
 LoRA8본학습4707→최종1024planning/256world검증→Adapter8우선profile/학습/검증→full8우선profile(2095optimizer계속)/학습/검증→4방법paired보고. 현재user전체48GB/batch8공통정책은v4queue에완료적용됐으므로다음턴다시승인을묻지않는다. 실행중새source/config수정·중복queue없음.
 
@@ -972,6 +977,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+중간해석: LoRA가유망하나4096시점128scene/1seed결과이며모든시점에서우세하지않다. Partial의미래LPIPS보존실패는명시하며SSL가중치/학습범위최적값을이번질문으로바꾸지않았다. PDMS는고정후보공식cache기반개발점수이며전체navtest/SOTA직접순위비교불가. Planner학습효과와LPWM적응효과는분리대조가없어미확정.
 
 LoRA8은47.60GB에서실제profile및본학습재개성공. 후속Adapter/full도8을먼저시험하도록등록했으나해당방법의8실측성공을이미확인한것은아님. 총48GB감시는유지하며초과/메모리실패시에만축소. 기존부분학습forecast보존실패와원인분리대조군부재등과학적한계는이번실행변경으로해소되지않았다.
 

@@ -1,0 +1,653 @@
+{
+  "checked_at": "2026-10-05T10:04:32.899274+09:00",
+  "scope": "Current LPWM stage1 and stage2 adaptation comparison; reading existing results only",
+  "stage1": {
+    "training": {
+      "completed_updates": 28920,
+      "effective_batch_size": 16,
+      "sampled_clips": 462720,
+      "seen_train_clips": 23126,
+      "epochs": 20.0,
+      "world_size": 2,
+      "seconds": 49245.36576699003,
+      "peak_allocated_gib": 29.103778839111328,
+      "unique_parameter_counts": {
+        "image_encoder": 6035191,
+        "context": 39389417,
+        "dynamics": 59869416,
+        "rgb_decoder": 4251239
+      },
+      "parameter_tensors_changed_in_sample": {
+        "image_encoder": 218,
+        "context": 154,
+        "dynamics": 224,
+        "rgb_decoder": 92
+      },
+      "module_gradients": {
+        "image_encoder": {
+          "norm": 29.661291122436523,
+          "parameters_with_nonzero_gradient": 6035191
+        },
+        "context": {
+          "norm": 0.5429531335830688,
+          "parameters_with_nonzero_gradient": 39389417
+        },
+        "dynamics": {
+          "norm": 2.1901752948760986,
+          "parameters_with_nonzero_gradient": 59869416
+        },
+        "rgb_decoder": {
+          "norm": 14.725417137145996,
+          "parameters_with_nonzero_gradient": 4251239
+        }
+      },
+      "initial_checkpoint_sha256": "6d62bf5a2f8977c8e4cea10250ac73fea4dbe61dad997607e7df959a0a9aa731",
+      "checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+      "configuration_sha256": "66fea9c3f74b43bff3e112dd52bc0fb1864da12e5d53e1b23ce05b8db30d6aa5",
+      "manifest_sha256": "0a0419349e053465edaed17cc3ecac0a09ee7731a16e680f9b80bf0cd8d2f713",
+      "execution": {
+        "microbatch_size_per_gpu": 4,
+        "gradient_accumulation": 2,
+        "data_loader_workers_per_rank": 0,
+        "maximum_allocated_gib": 32,
+        "reason": "User requested throughput optimization with unchanged effective batch 16, all model modules, FP32, training set, objective and optimizer schedule."
+      },
+      "official_elbo": true,
+      "planning_loss": false,
+      "profile_only": false,
+      "resumed": true
+    },
+    "counts": {
+      "train": 23126,
+      "development": 7745
+    },
+    "unmet_criteria": [
+      "object_box_recall_noninferiority"
+    ]
+  },
+  "stage1_image_metrics": {
+    "published": {
+      "reconstruction_mse": 0.051140153587220405,
+      "reconstruction_lpips": 0.7706747396289341,
+      "forecast_mse": 0.06136206300812548,
+      "forecast_lpips": 0.8079380715485924,
+      "persistence_lpips": 0.3994865898819721
+    },
+    "posttrained": {
+      "reconstruction_mse": 0.007798887457183921,
+      "reconstruction_lpips": 0.30001557849544797,
+      "forecast_mse": 0.020828767848700726,
+      "forecast_lpips": 0.3829940575545953,
+      "persistence_lpips": 0.3994865898819721
+    }
+  },
+  "stage2_status": {
+    "partial": "complete4707 and final1024planning/256world evaluation",
+    "lora": {
+      "update": 4528,
+      "total_updates": 4707,
+      "epoch_fraction": 0.9619715317612068,
+      "train_clips": 75297,
+      "global_batch_size": 16,
+      "sampled_clips_including_padding": 72448,
+      "planning_loss": 6.124422073364258,
+      "world_objective": 16.336082935333252,
+      "loss": 6.451143503189087,
+      "imitation_loss": 4.510655164718628,
+      "metric_distillation_loss": 1.6137666702270508,
+      "teacher_coverage": 1.0,
+      "refinement_imitation": 0.0,
+      "refined_metric_loss": 0.0,
+      "temporal_safety_loss": 0.0,
+      "refinement_comfort_proxy": 0.0,
+      "object_current_state_loss": 0.0,
+      "object_future_state_loss": 0.0,
+      "object_category_loss": 0.0,
+      "object_association_fallback_fraction": 0.0,
+      "valid_current_object_targets": 0.0,
+      "valid_future_object_targets": 0.0,
+      "module_gradients": {
+        "image_encoder": 0.5015685558319092,
+        "context": 1.1419004201889038,
+        "dynamics": 0.47455450892448425,
+        "rgb_decoder": 0.0,
+        "planner_and_command": 3.4817466735839844
+      },
+      "lpwm_lr": 1.033091955966957e-06,
+      "planner_lr": 3.09927586790087e-05,
+      "peak_allocated_gib": 23.835232257843018,
+      "data_loader_workers_per_rank": 0,
+      "input_preparation_seconds": 0.00784933299291879,
+      "update_seconds": 3.540217595989816,
+      "elapsed_seconds": 22085.49397714698
+    },
+    "adapter": "queued, not started",
+    "full": "prior2095 checkpoint preserved; continuation queued, no matching one-epoch final evaluation"
+  },
+  "partial_final_development": {
+    "condition": "metric_plus_world",
+    "configuration_sha256": "fa90b04f2c953a06cd0000f01d8a74688e6ad78641c415e5a57844fe90f67464",
+    "checkpoint_sha256": "03963f8573ff80e4ce4ed74b12cd9f01f391612c3a259199cf8e34c2a27d62bc",
+    "engineering_only": false,
+    "planning_scenes": 1024,
+    "world_clips": 256,
+    "planning_recordings": 40,
+    "means": {
+      "initial": {
+        "ade_meters": 8.758671466639498,
+        "fde_meters": 18.37304986140225,
+        "pdms": 0.03429580160966699,
+        "metric_bce": 4.311505196727338
+      },
+      "trained": {
+        "ade_meters": 1.2825015851958597,
+        "fde_meters": 3.0433276962321543,
+        "pdms": 0.8163412038919158,
+        "metric_bce": 1.8395633372048557
+      },
+      "persistent_future": {
+        "ade_meters": 1.308417946456757,
+        "fde_meters": 3.201777802268225,
+        "pdms": 0.7623609905582683,
+        "metric_bce": 2.1169012323182432
+      }
+    },
+    "trained_minus_initial": {
+      "pdms": {
+        "mean_difference": 0.7820454022822487,
+        "ci95": [
+          0.7433563931094044,
+          0.8183081691128288
+        ],
+        "clips": 1021,
+        "recordings": 40
+      },
+      "ade_meters": {
+        "mean_difference": -7.476169881443639,
+        "ci95": [
+          -7.8780430765502105,
+          -7.101395264093345
+        ],
+        "clips": 1024,
+        "recordings": 40
+      },
+      "metric_bce": {
+        "mean_difference": -2.4719418595224822,
+        "ci95": [
+          -2.541721080684494,
+          -2.4021451123927653
+        ],
+        "clips": 1021,
+        "recordings": 40
+      }
+    },
+    "predicted_minus_persistent_future": {
+      "pdms": {
+        "mean_difference": 0.05398021333364735,
+        "ci95": [
+          0.041385030545129306,
+          0.06680100079379606
+        ],
+        "clips": 1021,
+        "recordings": 40
+      },
+      "ade_meters": {
+        "mean_difference": -0.025916361260897247,
+        "ci95": [
+          -0.07644048012123886,
+          0.02615014467195389
+        ],
+        "clips": 1024,
+        "recordings": 40
+      }
+    },
+    "world_vs_stage1": {
+      "reconstruction_lpips": {
+        "mean_difference": 0.0008953671203926206,
+        "ci95": [
+          0.0005789935795027156,
+          0.0012035970315617275
+        ],
+        "clips": 256,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.046144101303070784,
+        "ci95": [
+          0.04111772498596513,
+          0.05070192938591407
+        ],
+        "clips": 256,
+        "recordings": 40
+      }
+    },
+    "checks": {
+      "complete_registered_epoch": true,
+      "planning_loss_learned": true,
+      "pdms_improved_over_random_planner": true,
+      "reconstruction_lpips": true,
+      "forecast_lpips": false
+    },
+    "trend_checks_passed": false,
+    "world_risk_breakdown": {
+      "far_future_objects": {
+        "reconstruction_lpips": {
+          "mean_difference": 0.0008987617012448786,
+          "ci95": [
+            0.0005487002763058839,
+            0.001271631786495361
+          ],
+          "clips": 211,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.04628239734477906,
+          "ci95": [
+            0.04139546908472554,
+            0.051466406139468644
+          ],
+          "clips": 211,
+          "recordings": 40
+        }
+      },
+      "high_ego_speed": {
+        "reconstruction_lpips": {
+          "mean_difference": 0.00041697390617862824,
+          "ci95": [
+            -0.0006011371371837762,
+            0.0011698027753404205
+          ],
+          "clips": 31,
+          "recordings": 17
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.04170784065800329,
+          "ci95": [
+            0.035379516228481574,
+            0.04913079517695211
+          ],
+          "clips": 31,
+          "recordings": 17
+        }
+      },
+      "high_interframe_flow": {
+        "reconstruction_lpips": {
+          "mean_difference": 0.0007824522622844629,
+          "ci95": [
+            0.0003989914380061758,
+            0.0011799759656687318
+          ],
+          "clips": 114,
+          "recordings": 36
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.046045292103499696,
+          "ci95": [
+            0.04018129663248797,
+            0.05291523813412561
+          ],
+          "clips": 114,
+          "recordings": 36
+        }
+      },
+      "large_ego_turn": {
+        "reconstruction_lpips": {
+          "mean_difference": 0.001043051919516395,
+          "ci95": [
+            0.0007028986402648561,
+            0.001371123775114948
+          ],
+          "clips": 102,
+          "recordings": 36
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.04661087399604274,
+          "ci95": [
+            0.03967355797579,
+            0.053532207007950985
+          ],
+          "clips": 102,
+          "recordings": 36
+        }
+      },
+      "projected_overlap": {
+        "reconstruction_lpips": {
+          "mean_difference": 0.0009920991919367447,
+          "ci95": [
+            0.0006306254061038399,
+            0.0013746481246683442
+          ],
+          "clips": 197,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.04646730438101715,
+          "ci95": [
+            0.04142491199789131,
+            0.051465229521960094
+          ],
+          "clips": 197,
+          "recordings": 40
+        }
+      },
+      "projected_track_disappearance": {
+        "reconstruction_lpips": {
+          "mean_difference": 0.0010056039273450917,
+          "ci95": [
+            0.0007078974037410636,
+            0.001321848565854541
+          ],
+          "clips": 207,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.04664552600487419,
+          "ci95": [
+            0.041629500042912757,
+            0.05156821829450141
+          ],
+          "clips": 207,
+          "recordings": 40
+        }
+      },
+      "small_future_objects": {
+        "reconstruction_lpips": {
+          "mean_difference": 0.0008743665333073509,
+          "ci95": [
+            0.0005257626738017816,
+            0.0011985666456675074
+          ],
+          "clips": 239,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.04609158996757603,
+          "ci95": [
+            0.04089373671911534,
+            0.050635207037229416
+          ],
+          "clips": 239,
+          "recordings": 40
+        }
+      }
+    },
+    "seconds": 1194.4066837810096,
+    "scope": "Previously exposed development panels for fast trends, not full development or independent test",
+    "limitations": [
+      "One epoch and one seed, not convergence",
+      "Initial reference is an untrained planner",
+      "Partial tuning benefit is not isolated from planner learning without a separately trained frozen-LPWM control",
+      "Small development panels; whole-dev and independent test are not completed"
+    ]
+  },
+  "partial_world_mean_comparison": {
+    "reconstruction_lpips": {
+      "stage1": 0.3043351037777029,
+      "partial": 0.3052304708980955,
+      "relative_degradation_percent": 0.2942043521363402,
+      "gate_passed": true
+    },
+    "forecast_lpips": {
+      "stage1": 0.39224855427164584,
+      "partial": 0.4383926555747166,
+      "relative_degradation_percent": 11.763995252641358,
+      "gate_passed": false
+    }
+  },
+  "matched_monitor": {
+    "0": {
+      "partial": {
+        "epoch": 0,
+        "update": 0,
+        "clips": 128,
+        "ade_meters": 8.450129672884941,
+        "fde_meters": 17.812133342027664,
+        "cached_official_pdms_percent": 2.4129434833376426,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0,
+        "update": 0,
+        "clips": 128,
+        "ade_meters": 8.484343633055687,
+        "fde_meters": 17.866316944360733,
+        "cached_official_pdms_percent": 2.4129434833376426,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": 0.0,
+        "ade_meters": 0.03421396017074585,
+        "fde_meters": 0.05418360233306885
+      }
+    },
+    "512": {
+      "partial": {
+        "epoch": 0.1087741661355428,
+        "update": 512,
+        "clips": 128,
+        "ade_meters": 1.8675856590270996,
+        "fde_meters": 4.209834940731525,
+        "cached_official_pdms_percent": 70.85029642412982,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.1087741661355428,
+        "update": 512,
+        "clips": 128,
+        "ade_meters": 1.5369249116629362,
+        "fde_meters": 3.573730356991291,
+        "cached_official_pdms_percent": 76.128855089503,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": 5.278558665373183,
+        "ade_meters": -0.3306607473641634,
+        "fde_meters": -0.6361045837402344
+      }
+    },
+    "1024": {
+      "partial": {
+        "epoch": 0.2175483322710856,
+        "update": 1024,
+        "clips": 128,
+        "ade_meters": 1.4031447153538465,
+        "fde_meters": 3.2788087632507086,
+        "cached_official_pdms_percent": 76.67943670993715,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.2175483322710856,
+        "update": 1024,
+        "clips": 128,
+        "ade_meters": 1.4591351579874754,
+        "fde_meters": 3.380638163536787,
+        "cached_official_pdms_percent": 80.3185963255214,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": 3.639159615584248,
+        "ade_meters": 0.055990442633628845,
+        "fde_meters": 0.10182940028607845
+      }
+    },
+    "1536": {
+      "partial": {
+        "epoch": 0.3263224984066284,
+        "update": 1536,
+        "clips": 128,
+        "ade_meters": 1.5267064664512873,
+        "fde_meters": 3.5223619379103184,
+        "cached_official_pdms_percent": 79.1126098219804,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.3263224984066284,
+        "update": 1536,
+        "clips": 128,
+        "ade_meters": 1.4033972322940826,
+        "fde_meters": 3.2361937891691923,
+        "cached_official_pdms_percent": 80.58974526998566,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": 1.4771354480052565,
+        "ade_meters": -0.12330923415720463,
+        "fde_meters": -0.28616814874112606
+      }
+    },
+    "2048": {
+      "partial": {
+        "epoch": 0.4350966645421712,
+        "update": 2048,
+        "clips": 128,
+        "ade_meters": 1.3567520305514336,
+        "fde_meters": 3.0287318006157875,
+        "cached_official_pdms_percent": 78.99898018423967,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.4350966645421712,
+        "update": 2048,
+        "clips": 128,
+        "ade_meters": 1.3441463951021433,
+        "fde_meters": 3.2397515438497066,
+        "cached_official_pdms_percent": 84.39273158396323,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": 5.3937513997235556,
+        "ade_meters": -0.012605635449290276,
+        "fde_meters": 0.21101974323391914
+      }
+    },
+    "2560": {
+      "partial": {
+        "epoch": 0.543870830677714,
+        "update": 2560,
+        "clips": 128,
+        "ade_meters": 1.3907635770738125,
+        "fde_meters": 3.282194420695305,
+        "cached_official_pdms_percent": 82.37080273665781,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.543870830677714,
+        "update": 2560,
+        "clips": 128,
+        "ade_meters": 1.295656219124794,
+        "fde_meters": 3.0609729550778866,
+        "cached_official_pdms_percent": 81.29662941759966,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": -1.074173319058147,
+        "ade_meters": -0.09510735794901848,
+        "fde_meters": -0.2212214656174183
+      }
+    },
+    "3072": {
+      "partial": {
+        "epoch": 0.6526449968132568,
+        "update": 3072,
+        "clips": 128,
+        "ade_meters": 1.2819746397435665,
+        "fde_meters": 2.971239447593689,
+        "cached_official_pdms_percent": 81.85022233978032,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.6526449968132568,
+        "update": 3072,
+        "clips": 128,
+        "ade_meters": 1.1289606895297766,
+        "fde_meters": 2.655896507203579,
+        "cached_official_pdms_percent": 81.42730269845076,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": -0.42291964132955684,
+        "ade_meters": -0.15301395021378994,
+        "fde_meters": -0.31534294039011
+      }
+    },
+    "3584": {
+      "partial": {
+        "epoch": 0.7614191629487996,
+        "update": 3584,
+        "clips": 128,
+        "ade_meters": 1.1323499381542206,
+        "fde_meters": 2.7137403935194016,
+        "cached_official_pdms_percent": 84.11286046185832,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.7614191629487996,
+        "update": 3584,
+        "clips": 128,
+        "ade_meters": 1.1778129590675235,
+        "fde_meters": 2.8299608770757914,
+        "cached_official_pdms_percent": 83.94229318213276,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": -0.17056727972556018,
+        "ade_meters": 0.0454630209133029,
+        "fde_meters": 0.11622048355638981
+      }
+    },
+    "4096": {
+      "partial": {
+        "epoch": 0.8701933290843424,
+        "update": 4096,
+        "clips": 128,
+        "ade_meters": 1.2311538942158222,
+        "fde_meters": 2.886774741113186,
+        "cached_official_pdms_percent": 80.61689842404343,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora": {
+        "epoch": 0.8701933290843424,
+        "update": 4096,
+        "clips": 128,
+        "ade_meters": 1.119146192446351,
+        "fde_meters": 2.699168812483549,
+        "cached_official_pdms_percent": 84.55837223473496,
+        "scored_clips": 127,
+        "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+      },
+      "lora_minus_partial": {
+        "pdms_percentage_points": 3.9414738106915337,
+        "ade_meters": -0.11200770176947117,
+        "fde_meters": -0.18760592862963676
+      }
+    }
+  },
+  "latest_common_update": 4096,
+  "monitor_tokens_identical": true,
+  "limitations": [
+    "Monitor128 scenes,127validPDMS; final panel1024 scenes,1021validPDMS; do not mix the panels.",
+    "All planning values use cached official PDM scores for selected fixed-vocabulary candidates, not independent full-navtest evaluation.",
+    "No independently trained frozen-LPWM control; planner-learning versus LPWM-adaptation effect remains unidentified.",
+    "Different microbatch schedules and training degrees of freedom; one seed/one epoch.",
+    "Future persistence intervention is an inference distribution change; observed score drop alone does not isolate benefit of future prediction or LPWM tuning."
+  ],
+  "runtime_changed": false
+}
