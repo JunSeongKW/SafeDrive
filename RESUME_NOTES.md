@@ -2496,3 +2496,12 @@ AdapterPDMS82.4852/frozen82.5238,차이−.03859점CI[−1.16421,+1.00706],ADE�
 후속설계:같은모델상태·trainingminibatch에서planning/가중SSL의geometryhead별norm/cosine/clip/실제update분리진단후,geometryhead가열린partial구조고정으로planning1·SSL.02/.02÷3/.002(상대계수1/3/10배)을비교한다. LPWMLR/학습가능계층은함께바꾸지않는다. 완료partial4707+AdamW에서동일분기해모두같은추가navtrain1epoch/배치8×2/seed/샘플순서/공통schedule로비교하는후속적응안을제안했다. Baseline도같은추가학습을해야하며기존완료점수로대신하지않는다. 공통schedule구체값·분기SHA는실행전등록사항으로남겼다. Freeze대비새학습량효과를주장하려면대응frozen추가학습도필요하다.
 
 동일개발평가/particle·feature·미래변화/개입효용/world유지를검증하도록제안했다. 배경이무조건불필요하거나particle이동량자체가성공기준이라고보지않는다. 이번에는새backward/재학습/queue등록을하지않았고기존공개고정3184/4707·heartbeat정상확인후유지했다.
+
+
+## 2026-10-05 22:49 KST — DrivoR 학습 절차의 논문·코드 확인
+
+사용자 요청으로 Driving on Registers v2와 공식 fc6e5aa를 읽었다. 외부 DINOv2 사전학습 뒤 NAVSIM에서는 단일 공동 학습이며, 논문의 Stage1/2는 NAVSIM-v2 평가 단계다. 원래 ViT는 고정하고 Q/V LoRA32·새 카메라 register·trajectory decoder·scoring decoder를 같은 optimizer로 학습한다. WTA L1+6개 oracle BCE가 기본이며 별도 복원SSL/직접 객체loss는 없다. 후보 좌표→scorer의 detach와 두 loss→공유 perception 경로를 확인했다. 안전 BCE는 후보 좌표를 직접 교정하지 않는다.
+
+최종v1 navtrain+navval25epoch/v2 navtrain10epoch, README batch16×4·AdamW2e-4와 warmup/cosine 코드를 확인했다. run_training_full non-cache 경로가 train+val을 합치고 cache-only는 train만 쓰는 차이도 기록했다. Register와 particle/미래world model의 차이 때문에 DrivoR 결과로 LPWM Stage1/SSL 불필요를 단정하지 않는다. 상세 docs/lpwm_planning_experiment.md 최상단.
+
+현재 공개 LPWM 고정 학습은22:44에4192/4707·queue1869615 heartbeat정상이었다. 이번에는 문서만 갱신했고 활성 source/config/GPU조건/queue를 바꾸거나 DrivoR/새학습을 실행하지 않았다.

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 22:30 KST (Codex)
+마지막 갱신: 2026-10-05 22:50 KST (Codex)
 
 **최신 실행(2026-10-05): 공개 LPWM 고정 + 동일 planner 학습으로 Stage1 효과 검증.**
 사용자 정정: 완료된 적응 고정군82.5238을 재사용하고 새 조건 하나만 학습한다.
@@ -161,6 +161,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 22:44 KST: 공개고정본학습4192/4707, queue1869615 public_control_training·heartbeat정상.
+DrivoR 논문/공식source 학습방법 조사만 수행했고 GPU/현재 등록source/config/대기열은 변경하지 않았다.
 
 2026-10-05 22:27 KST: 공개고정본학습3184/4707·queueheartbeat정상확인. 사용자 planning신호강화제안은
 기존로그감사/설계검토만진행했으며새backward/학습/대기열등록/현재설정변경없음.
@@ -524,6 +527,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+DrivoR paper v2/공식fc6e5aa 확인: 외부DINOv2 pretrained→NAVSIM 단일공동학습.
+기본DINOv2고정/Q·V LoRA32+새camera register+두decoder학습; WTA L1+6BCE, 복원SSL/직접객체loss없음.
+후보→scorer는detach지만scoreloss→공유perception은연결된다. 논문Stage1/2는NAVSIM-v2평가단계다.
+최종v1 navtrain+navval25epoch/v2 navtrain10epoch, batch16×4/AdamW2e-4. 상세docs/lpwm_planning_experiment.md최상단.
 
 Loss-balance로그감사:현재L_plan+.02SSL/globalclip5. Gradient실측기록만집계해partial37/37,Adapter31/37,
 full재개20/20에서합산norm>5. Partial실측norm중앙87.96. Loss크기와gradient기여는구분하며SSL지배는미확정.
@@ -979,11 +987,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 기존partial/Adapter/full로그의중복gradient기록을제외하고globalclip5작동빈도·손실값을읽기전용감사했다.
-- Planning상대신호1/3/10배를SSL계수.02/.00667/.002로비교하는후속설계와동일추가학습대조군필요성을기록했다.
-- 위치head가열린partial구조고정/동일상태loss별gradient진단을권고했다. 새실험기동/queue등록/현재설정변경은없음.
+- DrivoR 논문v2와공식fc6e5aa의설정·학습loop·loss·LoRA·detach경계를읽어검증하고연구문서에기록했다.
+- NAVSIM단일공동학습과외부사전학습/벤치마크평가Stage1·2를구분하고우리LPWM절차와비교했다.
+- v1 non-cache train+val결합및cache-only분할차이, 기본설정대README LR override를확인했다. 실행코드변경/새GPU작업없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+DrivoR의joint driving학습/LoRA/score detach설명을사용자에게보고한다. 현재공개고정4707→검증→Stage1효과비교유지.
+DrivoR학습이나동일planner대조는이번조사만으로자동등록하지않는다.
 
 Planning신호강화는제안단계:같은checkpoint·trainingbatch의loss별gradient분리후partial구조고정으로SSL계수.02/.02÷3/.002비교.
 후속학습시같은partial4707+AdamW에서분기하고동일추가1epoch대조군도실행해야한다. 원래완료partial점수를대신쓰지않는다.
@@ -1267,6 +1278,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+DrivoR는논문과정적source를확인한것이며새학습재현결과가아니다. Register는LPWM particle과다르고명시적미래world model도없다.
+DrivoR의SSL없는task적응결과만으로LPWM Stage1/SSL이불필요하다고판단하지않는다. 직접객체loss없어도oracle은장면GT/지도를사용한다.
 
 배경particle이복원때문에불필요하게유지된다는것은가설이다. 기존loss는미래예측/KL포함SSL이고나무·건물무용도미검증.
 Globalclip작동은확인했지만planning대SSLgradient기여/충돌은아직분리실측하지않았다. 계수비율3/10배는update배율이아니다.

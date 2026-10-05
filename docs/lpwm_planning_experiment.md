@@ -1,5 +1,56 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: DrivoR 학습 절차를 논문·코드로 확인
+
+조사 질문: DrivoR도 NAVSIM 표현 사전학습과 planner 학습을 별도 단계로 나누는가?
+공식 [논문 v2](https://arxiv.org/html/2601.05083v2) §3/§4.2.4/Appendix B·D와
+공식 commit `fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a`를 확인했다.
+로컬 source는 `reference_repositories/DrivoR`다. 이번에는 정적 코드 조사만 했다.
+
+**공개 DINOv2 초기화 후 NAVSIM에서는 하나의 공동 학습을 한다.** 외부 DINOv2 사전학습은 있지만,
+우리처럼 NAVSIM 영상 복원·미래 예측으로 표현을 먼저 적응시키는 Stage1은 없다.
+DINOv2 ViT-S 원래 가중치는 고정, 모든 attention block Q/V의 rank32 LoRA는 학습한다.
+새 camera register(camera당16×4camera=64개), projection·ego embedding·trajectory query,
+trajectory decoder/head·scoring decoder/head를 같은 optimizer/step에서 함께 학습한다.
+논문 NAVSIM-v2의 Stage1/Stage2 및 `navhard_two_stage`는 평가 단계다. Metric caching은 oracle 계산 준비다.
+설정 [drivoR.yaml](https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/planning/script/config/common/agent/drivoR.yaml),
+freeze/LoRA [dinov2_lora.py](https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/agents/drivoR/layers/image_encoder/dinov2_lora.py#L138).
+
+기본 `L = L_traj + L_score`이며 직접 RGB 복원·미래 영상 SSL·객체 예측 loss는 없다.
+`L_traj`는64개 후보 중 GT에 가장 가까운 후보의 (x,y,heading) L1 WTA다. 기본 `prev_weight=0`으로
+마지막 decoder 출력의 WTA가 남고 `inter_weight=0`으로 diversity는 비활성이다.
+v1은 더 긴 human trajectory에서 만든 두 번째 target의 WTA도 더한다.
+`L_score`는 충돌·주행 가능 영역·주행 방향·TTC·progress·comfort oracle을 예측하는6개 BCE다.
+각 BCE와 두 주손실 가중치는1, 실제 code는 batch/candidate 평균과 TTC validity mask를 적용한다.
+추론 subscore 조합 가중치는 훈련 BCE 가중치와 다르다. Oracle 계산에는 정답 장면 상태·지도를 사용한다.
+
+실제 경계는 `self.pos_embed(proposals.reshape(B, N, -1).detach())`다.
+Trajectory loss→trajectory decoder와 공유 perception LoRA/register로 전달된다.
+Score loss→scoring decoder와 공유 perception LoRA/register로 전달되지만 후보 좌표를 거슬러
+trajectory decoder로 가는 경로는 끊긴다. Oracle 정답 계산도 detach/CPU 경로다.
+안전 BCE는 위험 후보 좌표를 직접 밀어내지 않고 후보 안전성을 구분해 선택하도록 학습한다.
+공유 perception 갱신으로 후보가 바뀔 수는 있다. 이 분리는 별도 학습 stage가 아니다.
+근거 [model](https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/agents/drivoR/drivor_model.py#L155),
+[loss](https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/agents/drivoR/layers/losses/drivor_loss.py#L152).
+
+논문 기본 ablation은 navtrain10epoch/navval검증, v1최종은 navtrain+navval25epoch,
+v2최종은 navtrain10epoch이다. 공개 명령은 batch16×4A100=global64, AdamW base LR2e-4다.
+단일 optimizer, global batch 제곱근으로 LR 보정, 설정상 계산한 전체 step의 첫10% warmup 후 cosine이다.
+Base YAML LR5e-4보다 README override2e-4가 우선한다. 우리1epoch 탐색과 학습량이 다르다.
+`run_training_full.py` non-cache 경로는 실제 `cfg.train_logs + cfg.val_logs`를 합친다.
+README의 `use_cache_without_dataset=false`가 이 경로를 선택한다. Cache-only 경로는 train_logs만
+사용하므로 flag만 바꾸고 같은 분할이라고 가정하면 안 된다. v1최종의 navval loader는 학습에
+포함되므로 독립 개발 평가가 아니다. 별도 SimScale30epoch 명령은 데이터 확장이지 순차2stage가 아니다.
+근거 [README](https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/README.md#L38),
+[optimizer](https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/agents/drivoR/drivor_agent.py),
+[train+val 구현](https://github.com/valeoai/DrivoR/blob/fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a/navsim/planning/script/run_training_full.py#L30).
+
+우리 연구 해석: DrivoR는 pretrained perception의 LoRA와 새 압축 표현을 driving loss로 공동 학습한다.
+Register에는 particle의 명시적 위치·크기·presence가 없다. Ego 명령은 decoder에 전달되며
+기본 image register 생성에 명령 FiLM을 넣는 구조가 아니다. 명시적 미래 world model도 없다.
+따라서 LPWM Stage1/SSL 제거가 유리하다는 근거가 되지는 않는다. 현재 공개 고정 대 적응 고정 비교로
+Stage1 효과를 판정하고 DrivoR 동일 planner 대조는 별도 설계로 유지한다. 새 학습/대기열 등록은 하지 않았다.
+
 ## 2026-10-05: planning 신호 강화에 대한 검토 — 제안 단계
 
 사용자는 복원 중심의 사전학습 때문에 배경에 많은 particle이 남아 있는지, planning 신호를 강화하면
