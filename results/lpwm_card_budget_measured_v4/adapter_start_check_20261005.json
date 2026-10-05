@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-05T10:39:36.826142+09:00",
+  "queue_status": "running",
+  "current_stage": "attention_lora_evaluation",
+  "queue_heartbeat_unix": 1791164374.8765678,
+  "lora_training_status": "complete",
+  "lora_evaluation_progress": {
+    "stage": "world_retention",
+    "completed": 97,
+    "total": 256
+  },
+  "adapter_nodes": {},
+  "adapter_execution_selection_exists": false,
+  "runtime_changes": false
+}

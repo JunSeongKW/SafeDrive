@@ -2149,3 +2149,9 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 - Stage1은동일recording분할에서12RGB완전가용train23126/dev7745 clip. 각token은Stage2동일split부분집합임을검사했다.
 - 현재Stage2는개발27076전체가아닌고정128monitor/1024planning/256world평가. 40recording을고르게선정하며모델예측무관. 공식navtest/navhard미사용.
 - 근거results/lpwm_card_budget_measured_v4/navtrain_usage_breakdown_20261005.json. 학습·queue·source/config변경및새GPU작업없음.
+
+## 2026-10-05 10:39 KST — Adapter 시작 여부 확인
+
+- 2026-10-05 10:39 KST: Adapter는 아직미시작. 현재queue attention_lora_evaluation, LoRA학습완료후 world_retention 97/256검증중. Adapter node/실행선택파일없음. Heartbeat정상갱신. 근거results/lpwm_card_budget_measured_v4/adapter_start_check_20261005.json.
+- LoRA의planning/미래표현개입 결과파일은생성됐으며world유지검증과최종집계가남았다. 검증후기존대기열이Adapter8우선profile→학습으로이어진다.
+- 추가GPU작업/학습재기동/대기열/source/config변경없음.

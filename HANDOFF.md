@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 10:36 KST (Codex)
+마지막 갱신: 2026-10-05 10:39 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 10:39 KST: Adapter는 아직미시작. 현재queue attention_lora_evaluation, LoRA학습완료후 world_retention 97/256검증중. Adapter node/실행선택파일없음. Heartbeat정상갱신. 근거results/lpwm_card_budget_measured_v4/adapter_start_check_20261005.json.
 
 2026-10-05 10:35 KST 사용자 분할 질문: 현재 Stage1/2 manifest와 평가 panel을 읽기전용 감사했다. 본턴 학습상태 재조회/학습·queue·config 변경 없음. 최신 실행 상태는 직전 LoRA 완료 기록 참고.
 
@@ -432,6 +434,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+LoRA검증의initial/trained/persistent_future JSON은생성됐고world/최종summary는아직없다. Queue실패marker없음. 이번턴은상태확인만수행했다.
 
 navtrain103288 중 Stage2 train75297(72.900%)/dev27076(26.214%)/timestamp제외915(0.886%). Recording122/40개,train/dev 중복0. Stage1 complete12RGB train23126/dev7745는각 Stage2동일분할의부분집합이며recording분할동일. 현재Stage2검증128monitor/1024planning/256world로dev전체27076을평가하는것아님. 근거 results/lpwm_card_budget_measured_v4/navtrain_usage_breakdown_20261005.json.
 
@@ -794,11 +798,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- navtrain 학습/개발/제외 수와 Stage1/2 분할 일치·겹침 여부를 실제manifest로 확인했다.
-- 분할 사용량 JSON/HANDOFF/RESUME 기록. Runtime·학습·queue 변경 없음.
+- Adapter 시작 여부를 queue·LoRA 검증 진행 파일로 확인했다.
+- 상태 확인 JSON/HANDOFF/RESUME 갱신. Runtime·학습·queue 변경 없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+LoRA world 유지검증·최종집계 완료→기존queue의Adapter batch8우선메모리profile·학습·검증→full재개순서. 학습/queue/source/config를이번상태질문으로변경하지않았다.
 
 현재 자체 개발분할과 공식 navval을 혼용하지 않는다. 단계별 장면/clip수와 실제 평가panel수를 구분해서 보고한다. 완료후 공식평가는 여전히별도이며이번설명으로데이터재분할/재학습을하지않았다.
 
@@ -1006,6 +1012,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Adapter실행중이라는해석은현재시점에틀림. LoRA학습은완료됐지만검증은진행중이며Adapter profile도아직시작하지않았다. 모든후속방법batch8우선/각GPU전체48GB기존정책유지.
 
 915개제외사유는 planning_manifest의 discarded_irregular_timestamp_tokens와코드상12frame간격0.5s/atol0.1검사로확인. Stage1수량차이는미래포함12RGB가용성과timestamp조건때문. 이전heldout40recording은현재학습122에포함됐으며현재navtrain에독립최종test가남았다고설명하지않는다.
 
