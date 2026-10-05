@@ -1,0 +1,268 @@
+{
+  "condition": "metric_plus_world",
+  "configuration_sha256": "4e8afe39daf4a5023abf711f89117323341abf0edad359f1acfe82d7683c7c75",
+  "checkpoint_sha256": "9a62eb85d4ff41874cb5baac8127ba929391a57dc189235b936d3c1d37bb72ee",
+  "engineering_only": false,
+  "planning_scenes": 1024,
+  "world_clips": 256,
+  "planning_recordings": 40,
+  "means": {
+    "initial": {
+      "ade_meters": 8.766061301023,
+      "fde_meters": 18.383750129141845,
+      "pdms": 0.03429580160966699,
+      "metric_bce": 4.31148401577022
+    },
+    "trained": {
+      "ade_meters": 1.1634665849487646,
+      "fde_meters": 2.782463422292494,
+      "pdms": 0.8252378477697625,
+      "metric_bce": 1.780777383971518
+    },
+    "persistent_future": {
+      "ade_meters": 1.1885058782027045,
+      "fde_meters": 2.8900059681946004,
+      "pdms": 0.7977090120957717,
+      "metric_bce": 1.8851668790318472
+    }
+  },
+  "trained_minus_initial": {
+    "pdms": {
+      "mean_difference": 0.7909420461600954,
+      "ci95": [
+        0.7549011062545432,
+        0.8227518297936313
+      ],
+      "clips": 1021,
+      "recordings": 40
+    },
+    "ade_meters": {
+      "mean_difference": -7.602594716074236,
+      "ci95": [
+        -8.012532962896659,
+        -7.214022184235905
+      ],
+      "clips": 1024,
+      "recordings": 40
+    },
+    "metric_bce": {
+      "mean_difference": -2.530706631798702,
+      "ci95": [
+        -2.598985846148577,
+        -2.4615517172792103
+      ],
+      "clips": 1021,
+      "recordings": 40
+    }
+  },
+  "predicted_minus_persistent_future": {
+    "pdms": {
+      "mean_difference": 0.027528835673990726,
+      "ci95": [
+        0.017546703228136853,
+        0.03813086129752468
+      ],
+      "clips": 1021,
+      "recordings": 40
+    },
+    "ade_meters": {
+      "mean_difference": -0.02503929325393983,
+      "ci95": [
+        -0.06774356760448585,
+        0.018022397049971692
+      ],
+      "clips": 1024,
+      "recordings": 40
+    }
+  },
+  "world_vs_stage1": {
+    "reconstruction_lpips": {
+      "mean_difference": -2.1996675059199333e-07,
+      "ci95": [
+        -4.573714840395808e-07,
+        2.498084985523678e-08
+      ],
+      "clips": 256,
+      "recordings": 40
+    },
+    "forecast_lpips": {
+      "mean_difference": -1.266016624867916e-07,
+      "ci95": [
+        -5.802230824479132e-07,
+        3.714967059780839e-07
+      ],
+      "clips": 256,
+      "recordings": 40
+    }
+  },
+  "checks": {
+    "complete_registered_epoch": true,
+    "planning_loss_learned": true,
+    "pdms_improved_over_random_planner": true,
+    "reconstruction_lpips": true,
+    "forecast_lpips": true
+  },
+  "trend_checks_passed": true,
+  "world_risk_breakdown": {
+    "far_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": -2.988000616643101e-07,
+        "ci95": [
+          -5.607851693090403e-07,
+          -4.688827764420319e-08
+        ],
+        "clips": 211,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -3.0346108838845203e-07,
+        "ci95": [
+          -7.739656749389838e-07,
+          1.757678051455682e-07
+        ],
+        "clips": 211,
+        "recordings": 40
+      }
+    },
+    "high_ego_speed": {
+      "reconstruction_lpips": {
+        "mean_difference": -1.220933852657195e-07,
+        "ci95": [
+          -8.811371336723196e-07,
+          5.3569148568546e-07
+        ],
+        "clips": 31,
+        "recordings": 17
+      },
+      "forecast_lpips": {
+        "mean_difference": -2.1150035242880545e-08,
+        "ci95": [
+          -1.4680855804019503e-06,
+          1.2288006340585102e-06
+        ],
+        "clips": 31,
+        "recordings": 17
+      }
+    },
+    "high_interframe_flow": {
+      "reconstruction_lpips": {
+        "mean_difference": -1.8417312387834515e-07,
+        "ci95": [
+          -6.553430550841875e-07,
+          2.8433129251988863e-07
+        ],
+        "clips": 114,
+        "recordings": 36
+      },
+      "forecast_lpips": {
+        "mean_difference": 8.104140298408374e-08,
+        "ci95": [
+          -8.123699865596913e-07,
+          9.301550440735867e-07
+        ],
+        "clips": 114,
+        "recordings": 36
+      }
+    },
+    "large_ego_turn": {
+      "reconstruction_lpips": {
+        "mean_difference": -1.7472341948864506e-07,
+        "ci95": [
+          -6.032426393142453e-07,
+          2.8381488103976187e-07
+        ],
+        "clips": 102,
+        "recordings": 36
+      },
+      "forecast_lpips": {
+        "mean_difference": 1.495959712009804e-07,
+        "ci95": [
+          -7.233148997687493e-07,
+          1.0402785841302403e-06
+        ],
+        "clips": 102,
+        "recordings": 36
+      }
+    },
+    "projected_overlap": {
+      "reconstruction_lpips": {
+        "mean_difference": -3.131513063072553e-07,
+        "ci95": [
+          -5.909300089479987e-07,
+          -5.583485285636851e-08
+        ],
+        "clips": 197,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -3.595188789561315e-07,
+        "ci95": [
+          -8.798968309921539e-07,
+          1.781543762936661e-07
+        ],
+        "clips": 197,
+        "recordings": 40
+      }
+    },
+    "projected_track_disappearance": {
+      "reconstruction_lpips": {
+        "mean_difference": -2.1624680302569256e-07,
+        "ci95": [
+          -4.660015255324292e-07,
+          3.733386887296691e-08
+        ],
+        "clips": 207,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -2.513761105744735e-07,
+        "ci95": [
+          -7.819884417921988e-07,
+          2.803502286675058e-07
+        ],
+        "clips": 207,
+        "recordings": 40
+      }
+    },
+    "small_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": -2.801293608533787e-07,
+        "ci95": [
+          -5.222475979205168e-07,
+          -4.1715590463531014e-08
+        ],
+        "clips": 239,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": -3.1180212188465327e-07,
+        "ci95": [
+          -7.618967571988047e-07,
+          1.430785007561111e-07
+        ],
+        "clips": 239,
+        "recordings": 40
+      }
+    }
+  },
+  "seconds": 628.5880531910225,
+  "scope": "Previously exposed development panels for fast trends, not full development or independent test",
+  "limitations": [
+    "One seed/epoch; previously exposed internal development, not independent test.",
+    "Compared with Adapter/LoRA, this control freezes both LPWM adaptation and encoder-command FiLM.",
+    "Frozen LPWM uses evaluation mode during training; adaptation runs use train mode.",
+    "World SSL is retained as a detached monitor; it cannot update the fixed representation or planner."
+  ],
+  "experiment_kind": "fixed_representation_planner_control",
+  "frozen_control": {
+    "reference_configuration": "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch8.json",
+    "reference_configuration_sha256": "7a1a47c81fb11e010c5ec309936e4a772ed20e35fa0aa7792a5e252b5dabe872",
+    "freeze_encoder_command_film": true,
+    "world_evaluation_mode": true,
+    "world_objective_stop_gradient": true,
+    "initialize_from_stage1_only": true,
+    "planner_initialization": "Same seed47 and original candidate-planner initialization as Adapter/LoRA, never a trained Stage2 planner.",
+    "scope": "Strict fixed representation: world parameters/buffers and encoder command FiLM frozen. The planner still receives ego intent.",
+    "interpretation": "Compares adaptation including encoder FiLM and train-mode regularization with a fixed representation; does not isolate individual adapter weights."
+  }
+}

@@ -1,6 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 20:46 KST (Codex)
+마지막 갱신: 2026-10-05 21:05 KST (Codex)
+
+**최신 완료:** 네 LPWM 미세조정 및 Frozen LPWM 동일 planner 대조군의 학습·검증·paired 비교 완료.
+Frozen PDMS82.5238, Adapter82.4852, LoRA81.9141, partial81.6341, full81.2282.
+네 미세조정-minus-frozen PDMS 신뢰구간 모두 0 포함: 이번 설정에서 표현 미세조정의 추가 이득 미확인.
+20:56:16 모든 등록 작업 종료. 상세 `docs/lpwm_planning_experiment.md` 최상단 및
+`results/lpwm_frozen_control_v1/completed_comparison_20261005/summary.json`.
+**DrivoR/추가 seed·epoch/navtest를 자동 실행하지 않는다.** 아래 과거 실행 중 문장은 이력이다.
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +153,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 20:56 KST: Frozen 검증20:56:12·네방법대비집계20:56:16 완료, queue_state/completion 모두 complete.
+Main421603/frozen871940 및 최종 평가1766544/학습1597075 종료 확인. 현재 등록 LPWM GPU 작업 없음.
+CPU 원자료 재집계·hash/장면/공통누락/CI 일치 확인과 비교 PNG/PDF/JSON 생성 완료. 아래는 이전 상태 기록이다.
 
 2026-10-05 20:46 KST: Frozen planner 대조군 학습4707/4707완료(20:45:37),현재frozen_control_evaluation. GPU0·1배치8/유효16/전체75297장면1epoch를마쳤고다음최종개발검증진행. DrivoR미등록유지.
 
@@ -482,6 +493,15 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최종 Frozen PDMS82.5238/ADE1.163467/FDE2.782463. Partial/LoRA/Adapter/full 대비 차이는
+미세조정-minus-frozen 기준 -0.8897[-2.2018,+0.2507] / -0.6097[-1.4261,+0.1113] /
+-0.0386[-1.1642,+1.0071] / -1.2956[-3.2034,+0.3145] PDMS점. 모두0포함하므로 추가이득미확인,
+동등성·무효 일반화·대조군 우월성의 입증도 아님. Adapter ADE -0.00834m[-0.04080,+0.02423]도 불확실.
+Frozen 최종artifact에서 LPWM·FiLM weights/buffers hash 불변 검증, world LPIPS는 Stage1과 약1e-7차이.
+Frozen 미래→관측반복 교체 PDMS82.5238→79.7709,차이+2.7529[1.7547,3.8131]점은 기존 미래표현 활용진단.
+Stage1 자체 우월성/객체정보보존/표현미세조정추가효과와 구분한다. 1024동일장면/유효PDMS1021/40recording,
+world256 동일성 확인. 근거 `results/lpwm_frozen_control_v1/completed_comparison_20261005/summary.json`.
 
 Frozen 최종학습summary:5226.38초(약1h27m),trainable2,207,495/LPWM0,peakallocated3.906GiB,LPWM·encoderFiLM가중치/buffer hash불변true. Full peakallocated20.735GiB대비감소는world전체no_grad로역전파activation/gradient/AdamWstate가필요없어진설정에부합한다. 같은GPU당batch8/유효16학습량유지. 근거results/lpwm_frozen_control_v1/batch8/metric_plus_world_training_summary.json.
 
@@ -894,11 +914,17 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 VRAM 관찰에 현재 동결 모델의 메모리·학습량·gradient 상태를 확인했다.
-- Frozen4707학습완료와전체고정hash불변,최종검증자동진입을확인하고training summary를공유보존했다.
-- 현재학습·평가·등록source/config·대기열변경없음.
+- Frozen 최종검증/집계 완료와 가중치·buffer 완전 고정, 5조건 동일장면·누락·checkpoint provenance를 확인했다.
+- CPU 재집계 script와5조건비교PNG/PDF/JSON을 추가,4개 paired CI가 등록집계와 정확히 같음을 확인했다.
+- 추가 planning 이득 미확인 및 CI/미래표현활용/상황별 영상오차/설정차이를 연구문서에 기록했다.
+- 등록source/config·GPU작업·대기열변경없음. 기존작업모두완료,DrivoR자동기동금지유지.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재 사용자 요청한 Frozen 대조군 검증과 네미세조정대비 결과 보고까지 완료했다.
+표현미세조정추가이득미확인을 기준으로 후속 연구를 결정하되, 고정 대조군을 이후 비교의 기준으로 유지한다.
+DrivoR 공통planner 비교는 기록된 후속과제이며 사용자 지시 없이 대기열 등록/자동실행하지 않는다.
+추가seed·epoch·객체GT·navtest도 자동시작하지 않는다. 아래 '완료 대기'는 과거 단계 기록이다.
 
 Frozen 최종1024planning/256world검증과paired비교완료를기다리고,초기frozenhash재검증·미세조정대비PDMS/경로오차/영상유지를보고한다. 학습종료되었으므로이번VRAM관찰로배치변경/재학습하지않는다. DrivoR추가기동없음.
 
@@ -1156,6 +1182,13 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Frozen 최종 성능/고정검증/paired비교는 완료됐으며, 아래 '아직 미확정/진행중'은 과거 이력이다.
+네방법모두PDMS추가이득미확인이나1seed1epoch/내부개발panel로미세조정의일반적무효를단정하지않는다.
+PDMS는변형없는512고정후보의cache된공식PDM점수,전체navtest/continuousrefiner평가아님.
+Frozen eval/FiLM고정 대 adaptation train/FiLM학습, full명령위치/20epoch LR스케줄 차이가 있다.
+Adapter작은ADE/FDE감소도CI0포함,Partial/Full은경로오차증가구간양수. LPIPS는객체상태보존검사아님.
+40recording bootstrap은훈련seed분산/다중비교보정을포함하지않는다. 추후공정비교/수렴/객체별인과검증은미결.
 
 3.906GiB는학습로그PyTorchpeakallocated이며nvidia-smi전체점유와다르다. 조회GPU전체연산사용률은타사용자도포함하므로우리작업단독활용도로해석하지않는다. Frozen본학습완료/최종검증진행을구분하며128장면마지막monitor PDMS83.389는최종1024결과가아니다.
 

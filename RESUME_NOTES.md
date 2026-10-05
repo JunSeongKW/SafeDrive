@@ -2418,3 +2418,13 @@ Scenario별world9직진/36회전/197투영겹침/14other와위험분해를보존
 사용자가낮은VRAM사용량을관찰했다. LPWM전체/encoderFiLM고정및no_grad추론,planner2,207,495개만역전파함을확인했다. 학습peakallocated3.906GiB로full20.735GiB보다작고배치8×GPU2×누적1=16,75297장면/4707update/1epoch를유지했다. 전체GPU점유와PyTorch할당메모리,타사용자포함GPU연산사용률은구분한다.
 
 확인중20:45:37학습정상종료(returncode0),최종training_summary frozen_state_unchanged=true와checkpointSHA9a62eb85d4ff41874cb5baac8127ba929391a57dc189235b936d3c1d37bb72ee확인. 누적5226.38초약1시간27분,검증PID1766544자동시작. 최종1024/256평가는진행중이며128monitor83.389PDMS를최종결과로보고하지않는다. 공유summary: `results/lpwm_frozen_control_v1/batch8/metric_plus_world_training_summary.json`. 새학습/배치변경/DrivoR기동없음.
+
+## 2026-10-05 21:04 KST — Frozen 최종검증과 네 미세조정 대비 비교 완료
+
+사용자 질문은 같은 LPWM 기반에서 planner 학습에 더해 표현까지 planning에 맞춰 수정하면 추가 이득이 있는지다. Frozen 검증20:56:12/집계20:56:16 정상완료,main/frozen queue 모두complete 및 해당학습·평가PID종료확인. 최종체크포인트의LPWM/encoderFiLM가중치와persistent buffer hash초기값일치검증통과.
+
+Frozen PDMS82.5238/ADE1.163467/FDE2.782463. Partial/LoRA/Adapter/full minus frozen PDMS점 차이 각각 -0.8897[-2.2018,+0.2507],-0.6097[-1.4261,+0.1113],-0.0386[-1.1642,+1.0071],-1.2956[-3.2034,+0.3145]. 모든95%CI가0포함하여이번설정의표현미세조정추가이득미확인. 대조군우월성/동등성/미세조정일반적무효도입증아님. Adapter ADE차이-0.00834m CI[-0.04080,+0.02423]도불확실. Partial/Full은ADE/FDE차이구간양수. Partial미래LPIPS+11.764%유지기준실패보존.
+
+Frozen에서도예측미래→마지막관측반복교체시PDMS82.5238→79.7709,차이+2.7529[1.7547,3.8131]점. 기존미래표현활용진단이며표현미세조정효과/객체보존/재학습no-future비교와구분. Frozen이미지LPIPS는Stage1과평균약1e-7차이. 평가1024장면/40recording/world256정확일치,PDMS공통teacher무효3개제외1021,1epoch4707/75297train/seed47. PDMS는변형없는고정후보의cache된공식PDM이며전체navtest아님. Frozen모드/FiLM,full명령위치/20epoch스케줄및microbatch이력차이를명시했다.
+
+새 CPU script `scripts/report_lpwm_adaptation_vs_frozen.py`에서 원자료/공통누락/hash/provenance를확인하고평균·4pairedCI원집계와정확일치검사통과. `results/lpwm_frozen_control_v1/completed_comparison_20261005/{summary.json,comparison.png,comparison.pdf}` 생성/이미지확인,직진9/회전36/투영겹침197/other14 영상오차분해포함. 최종자동집계와trend summary공유보존,연구문서최상단/HANDOFF1–5갱신. 등록source/config/학습조건변경없음. DrivoR추가실행/seed·epoch/navtest자동등록없음.
