@@ -2124,3 +2124,12 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 - 현재 LPWM은 navtrain 내부 개발 검증이고 공식 테스트는 미실행·현재 queue 미포함. 1epoch 결과는 빠른 경향 비교이다.
 - 권고안과 원문 링크를 docs/lpwm_planning_experiment.md에 기록했다. 고정표현 대조와 동일 조건 공식 navtest 전체 평가를 추천하되 신규 실행으로 등록하지 않았다.
 - 활성 학습/queue/등록 source/config 변경 없음. 이번 턴 현재 학습 진척 재조회 없음.
+
+## 2026-10-05 10:26 KST — navval 정의와 논문 공정 비교 권고
+
+- 사용자 요청은 개념 설명과 권고이며 신규 학습·평가 실행은 하지 않았다.
+- DrivoR fc6e5aa의 navtrain filter103288token/1192log segment를 확인. 기본 train978/val214 log segment로 중복0. Competition 학습은1192개이며 val도 포함한다.
+- run_training.py는 동일 filter에 train_logs/val_logs를 각각 적용하고, README v1 full 명령은 비캐시 run_training_full.py로 합집합을 학습한다. 앞선 navtrain+navval 설명이 별도 추가 원본 데이터셋을 뜻하는 것으로 오해되지 않도록 보충했다.
+- 권고는 개발 단계 Stage1/2 공통 split→설정 고정→동일 navtrain 전체 풀 최종 학습→전체 navtest/v1 공식 평가, navhard/v2 별도 확장이다. Frozen-LPWM 대조 및 센서/사전학습/감독/학습량을 함께 보고한다.
+- 공개 LPWM 사전학습을 쓰므로 전체 학습을 navtrain only라고 부르지 않는다. 기존 자체dev와 DrivoR 기본val은 서로 다른 구성이다.
+- 상세 근거/링크는 docs/lpwm_planning_experiment.md 최신절. 학습·queue·등록 source/config 변경 없음.

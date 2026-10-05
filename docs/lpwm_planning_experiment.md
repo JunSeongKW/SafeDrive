@@ -1,5 +1,35 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: navval의 코드상 정의와 공정한 비교 권고
+
+`navtrain`에는 공식 scene filter로 정한 전체 학습용 장면 풀이라는 뜻과, 그 안에서 개발 검증을
+제외한 학습 부분이라는 용법이 섞여 있다. 앞서 `navtrain + navval`만으로 설명한 것을 보충한다.
+DrivoR 공개 코드 `run_training.py`의 비캐시 경로는 같은 navtrain scene filter를 train_logs와
+val_logs로 나누며, `run_training_full.py`는 train_logs 또는 val_logs에 속한 장면을 모두 학습한다.
+README의 v1 최종 학습 명령은 이 full script를 `use_cache_without_dataset=false`로 호출한다.
+따라서 이 구현에서 navval은 학습용 풀 안의 개발 검증 부분이며 별도 원본 데이터셋이 아니다.
+
+로컬 DrivoR commit `fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a`의 설정 확인:
+navtrain filter 103,288 token/1,192 log segment; 기본 train_logs 교집합978개,
+val_logs 교집합214개, 중복0개, 합집합1,192개. Competition 설정은1,192개를 학습하며
+val_logs214개도 그 안에 포함된다. 이 숫자는 log segment 수이며 scene/recording 수가 아니다.
+최종 재학습에 검증 장면을 합쳤으면 해당 val 점수를 독립 검증으로 해석하지 않는다.
+
+권고 프로토콜: 개발 중에는 고정 log 분할을 Stage1/Stage2 모두에 적용해 방법·학습량을 선택한다.
+설정 확정 후에는 비교할 모델들을 같은 공식 navtrain 전체 장면 풀로 최종 학습하고,
+사전에 정한 epoch/checkpoint 규칙으로 navtest 전체를 NAVSIM v1 PDMS로 평가한다.
+추가 navhard_two_stage 평가는 v2 EPDMS 별도 표로 보고한다. 모든 데이터셋을 쓸 필요는 없다.
+모델 기여 비교는 동일 planner/입력/사전학습/감독/학습 예산의 frozen-LPWM 대조와 제안법으로 한다.
+문헌 비교에서는 센서·ego 입력·외부 사전학습·추가 데이터·teacher/GT 감독·추론 후보 수 차이를 표시한다.
+같은 epoch 수만으로 공정성이 보장되지 않으므로 update, batch, GPU 시간과 수렴 정도도 기록한다.
+공개 LPWM 사전학습을 이용하므로 전체 학습을 'navtrain only'라고 부르지 않고, 외부 pretrained
+LPWM을 navtrain에서 적응·planner 학습했다고 명시한다. Test 영상은 SSL 적응에도 사용하지 않는다.
+이번 질문은 권고안 설명이며 활성 학습/queue/source/config를 수정하거나 새 실험을 실행하지 않았다.
+
+근거: [DrivoR 개발 학습 코드](https://github.com/valeoai/DrivoR/blob/main/navsim/planning/script/run_training.py),
+[최종 학습 코드](https://github.com/valeoai/DrivoR/blob/main/navsim/planning/script/run_training_full.py),
+[NAVSIM 공식 분할 문서](https://github.com/autonomousvision/navsim/blob/main/docs/splits.md).
+
 ## 2026-10-05: E2E 논문의 학습·개발·벤치마크 분할 관행
 
 사용자 질문에 대한 문헌 확인이다. 현재 학습과 등록 queue를 변경하거나 공식 테스트를 실행하지 않았다.

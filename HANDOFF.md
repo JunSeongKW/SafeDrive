@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 10:18 KST (Codex)
+마지막 갱신: 2026-10-05 10:26 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신 질문: navval 정의와 논문 공정 비교 프로토콜. DrivoR 학습 코드/분할 설정을 읽고 권고안을 기록했다. 활성 학습·queue·source/config 변경 및 새 평가 실행 없음.
 
 최신 사용자 질문은 E2E 논문의 학습·평가 분할 관행 설명이다. DiffusionDrive/DrivoR/DriveSuprim/PARA-Drive 및 NAVSIM 공식 문헌을 확인했다. 활성 GPU 학습·queue·등록 source/config 변경이나 추가 평가 실행은 없다.
 
@@ -426,6 +428,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+DrivoR fc6e5aa: navtrain filter103288token/1192log segment. 기본 train_logs978/val_logs214개로 중복0; competition train1192개로 val214도 포함. 비캐시 full training은 같은 navtrain filter에서 train_logs|val_logs 합집합을 사용. navval은 여기서 학습용 풀 안의 개발 검증 부분이며 별도 데이터셋 아님.
 
 문헌 확인: DiffusionDrive navtrain100epoch→navtest; DrivoR navval 어블레이션 후 v1 competition split(navtrain+navval)25epoch→navtest. NuScenes planning은 공개 val 비교도 사용한다. NAVSIM v1 navtest/PDMS와 v2 navhard_two_stage/EPDMS를 구분한다. 상세와 원문 링크는 docs/lpwm_planning_experiment.md 최신절.
 
@@ -782,12 +786,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- E2E 논문의 실제 학습·개발·벤치마크 평가 관행을 1차 문헌으로 확인했다.
-- 연구 문서에 출처와 현재 내부 개발 평가의 범위, 공식 평가 권고안을 추가했다.
-- HANDOFF/RESUME 갱신. 실행 source/config·학습·queue·공용 데이터 변경 없음.
+- DrivoR 공개 코드와 실제 log 설정으로 navtrain/navval 관계를 확인했다.
+- 연구 문서에 용어 명확화와 Stage1/2 공통 분할·최종 학습·공식 평가 권고를 추가했다.
+- HANDOFF/RESUME 갱신. 학습·queue·source/config·데이터 변경 없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+권고: Stage1/2 공통 고정 개발 분할에서 설정 결정→동일 공식 navtrain 전체 풀로 최종 비교 모델 학습→고정 checkpoint로 v1 navtest 전체 평가. v2 navhard는 별도 확장 표. 외부 LPWM pretraining과 센서/감독/학습량 차이 명시. 아직 이 권고를 실행 queue에 등록하지 않았다.
 
 권고안: 내부 개발에서 방법·학습량을 정하고 frozen-LPWM 대조군과 제안 방법을 동일 조건으로 준비한 후 고정 checkpoint로 전체 navtest를 평가한다. 추가 navhard는 v2 프로토콜로 별도 검증. 이번 설명만으로 신규 학습·벤치마크 queue를 등록하지 않았다.
 
@@ -989,6 +995,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+navtrain이라는 이름은 전체 공식 filter 풀과 그 안의 실제 gradient 학습 부분을 혼용할 수 있으므로 token manifest 기준으로 표기. 최종 학습에 val을 합친 후 그 val은 독립 검증 아님. 우리 기존 자체dev는 DrivoR 기본val과 동일하지 않으며 분할 변경 시 Stage1 노출도 고려해야 한다.
 
 우리 내부 개발 분할은 DrivoR navval과 동일하지 않다. 현재 1epoch 결과는 경향 실험이며 논문 최종 성능 아님. 공식 테스트 단계와 수렴·표현 기여 대조군은 여전히 필요하다. 모든 논문이 val/test를 동일하게 사용한다거나 test를 반드시 한 번만 평가한다고 일반화하지 않는다.
 
