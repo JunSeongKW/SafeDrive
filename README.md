@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**최신 실행(2026-10-06): 공개 LPWM + 공식 DrivoR planner E2E 본 학습 시작.**
+사용자가 Stage1/2를 합친 joint planning 학습 및 DrivoR와 같은 공식 PDMS/EPDMS 조건을 새로 승인했다.
+GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179=103,288장면/25epoch40,350update.
+진입점 [설계·검증·비교 한계](docs/lpwm_drivor_joint_training.md), `configs/lpwm_drivor_joint/`.
+본 학습 PID2788260, 후속queue2839064. v1완료→full navtest→별도 v2 train-only10epoch→warmup/navhard EPDMS.
+Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
+아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
+
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
 동일seed47/planner1epoch4707/GPU당batch8×2/75,297train; 내부개발1024중1021유효PDM/40recording,navtest아님.

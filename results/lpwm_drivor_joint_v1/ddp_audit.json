@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "updates": 2,
+  "last_status": {
+    "configuration_sha256": "d86f7b82622fa913329a04353e1d0e29101c096b44ec9beaf45b4f00f3d2a25c",
+    "benchmark": "navsim_v1",
+    "training_scene_count": 128,
+    "updates_per_epoch": 2,
+    "total_updates": 50,
+    "completed_updates": 2,
+    "epoch": 1,
+    "update_in_epoch": 2,
+    "seconds_this_update": 38.01444673538208,
+    "elapsed_seconds": 90.57956504821777,
+    "card_used_bytes": 45258637312,
+    "peak_reserved_bytes": 23525851136,
+    "gradient_norms": {
+      "particle_xy_head": 4.88426710396757,
+      "particle_scale_head": 2.6042535048823043,
+      "particle_presence_head": 0.6737586856390116,
+      "image_encoder": 9.883079686957231,
+      "context_prior": 4.121532905139705,
+      "particle_dynamics": 23.080643824927037,
+      "encoder_command": 0.16605397791184798,
+      "trajectory_generator": 24.05839864054731,
+      "scorer": 20.315229686350136
+    },
+    "learning_rates": [
+      1.2060927152317883e-08,
+      1.2060927152317884e-07
+    ],
+    "loss": 18.396871089935303,
+    "trajectory_loss": 13.925023317337036,
+    "final_score_loss": 4.471847772598267,
+    "score": 0.33516792207956314,
+    "best_score": 0.5859375596046448,
+    "estimated_remaining_seconds": 2173.9172801971436
+  }
+}

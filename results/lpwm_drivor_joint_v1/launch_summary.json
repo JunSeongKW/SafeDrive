@@ -1,0 +1,24 @@
+{
+  "training_started": true,
+  "source_parent_commit": "843d1cff46d8b8e382292516043cd4e76a4356f4",
+  "trainval_scenes": 103288,
+  "navtrain_scenes": 85109,
+  "navval_scenes": 18179,
+  "v1_epochs": 25,
+  "v2_epochs": 10,
+  "gpus": [
+    0,
+    1
+  ],
+  "effective_batch": 64,
+  "microbatch": 8,
+  "gradient_accumulation": 4,
+  "pdms_result_available": false,
+  "epdms_model_result_available": false,
+  "official_v2_pipeline_smoke": {
+    "complete": true,
+    "count": 220,
+    "zero_trajectory_engineering_only": true
+  },
+  "resolution_and_finetuning_not_matched_to_drivor": true
+}

@@ -1,6 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 23:15 KST (Codex)
+**최신 실행(2026-10-06): 공개 LPWM + 공식 DrivoR planner E2E 본 학습 시작.**
+사용자가 Stage1/2를 합친 joint planning 학습 및 DrivoR와 같은 공식 PDMS/EPDMS 조건을 새로 승인했다.
+GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179=103,288장면/25epoch40,350update.
+진입점 [설계·검증·비교 한계](docs/lpwm_drivor_joint_training.md), `configs/lpwm_drivor_joint/`.
+본 학습 PID2788260, 후속queue2839064. v1완료→full navtest→별도 v2 train-only10epoch→warmup/navhard EPDMS.
+Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
+아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
+
+마지막 갱신: 2026-10-06 00:14 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -167,6 +175,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-06 00:13 KST: v1 joint 본 학습 24/40,350 updates, parent2788260, queue2839064 정상.
+GPU별총약45.26GB/batch8/acc4/effective64. 최근10update평균37.3초→v1잔여약17.4일(공유자원변동).
+`outputs/lpwm_drivor_joint_v1/navsim_v1/progress.json`와`queue_status.json`확인; 현재 stage=navsim_v1_training.
+Navtest12,146 및warmup220입력완료,navhard5,912입력CPU준비중(session47116);입력완료누락은queue가평가전재준비.
+Epoch별particle그림,100update마다resume checkpoint. 본학습첫100update까지latest.pt가아직없을수있다.
 
 2026-10-05 23:11 KST: 공개고정대조군학습·검증·paired비교모두정상완료(queue1869615 complete).
 검증23:11:21,비교23:11:28. 현재등록학습/평가없음. 아래실행중/ETA는이전조회이력이다.
@@ -542,6 +556,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+공개LPWM+공식DrivoR joint 연결검사통과: batch8단일GPU2update/2GPU누적2update,
+imitation/BCE각각native위치·scale·presence·영상encoder·prior·dynamicsgradient확인.
+BCE→generator좌표는공식DrivoR의detach로차단. GT/longer원본builder오차<3.1e-7,
+변환trainingcachevsfresh공식cache7subscore차이0(2장면),testTrue/False차이0.
+공식v2.2warmup220캐시·두단계score집계연결검사통과(0궤적engineering검사,LPWM성능아님).
+새LPWM모델PDMS/EPDMS아직없음. DrivoR는DINOv2공개pretrained+Q/VLoRA32,planner신규학습이다.
 
 Stage1없음PDMS78.9161/ADE1.37286/FDE3.34235,Stage1적용82.5238/1.16347/2.78246.
 Stage1PDMS+3.6077점CI[+1.5065,+5.8539],ADE−.20939m/FDE−.55988m. 복원LPIPS.76725→.30433/미래.80444→.39225.
@@ -1009,11 +1030,18 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Stage1공개고정대조군의최종검증/paired집계완료를확인하고PDMS+3.6077점의개발이득과범위를보고했다.
-- 원자료8SHA·장면정렬/동일누락/모든평균을독립재확인하고기존비교PNG를육안검사했다.
-- 자동생성결과JSON/PDF를보존하고README·연구문서·HANDOFF·RESUME에완료상태와한계를갱신했다. 신규GPU작업없음.
+- 공개 LPWM을 공식 DrivoR planner에 연결하고 위치·크기·presence/encoder/prior/dynamics까지 joint planning gradient를 검증했다.
+- 공식 navtrain/navval 전체 103,288개·현재4카메라 cache, 온라인 DrivoR oracle 및 GT/cache parity검사, 배치8 DDP검사를 구현했다.
+- GPU0·1 본 학습 및 v1평가→v2별도학습→EPDMS평가 대기열을 기동했다. 공식v2.2warmup220개 두단계집계 연결검사를 통과했다.
+- 전용환경 timm/piqa 설치, DrivoR paper/official NAVSIMv2 확보, 공용지도 쓰기방지를 위한 workspace사본을 준비했다.
+- 설계/미세조정·해상도차이/장시간ETA/현상과성능증거의구분을 새 연구문서 및 인수인계에 기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+실행중인등록joint학습을중복실행하지않는다. v1완료→fullnavtest검증→별도public-initv2학습→공식warmup/navhardEPDMS자동.
+수치/coverage/정상checkpoint완료후다음stage로이행;실패시queue중단. test결과로epoch선택하지않는다.
+초기업데이트는warmup중이며수렴/성능개선을단정하지않는다. 다음조회는progress/메모리/queue부터확인.
+순수register-vs-particle주장을위한DINObaseline동일해상도/적응예산통제는별도실험이며현재미실행.
 
 완료한Stage1유무결과를보고한다. 모든등록작업종료,추가학습/DrivoR/객체GT/navtest자동실행없음.
 후속planning신호강화·공통DrivoR planner비교는별도설계로남는다.
@@ -1306,6 +1334,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+확정: 공식DrivoRbackend/loss/연속64후보oracle,공개LPWM에서joint학습,동일공식split/epoch/effective64/seed2.
+차이: LPWM128×128vsDINO672×1148,활성원래weightsFTvsLoRA,perception증강/사전학습/연산량/LR다름.
+단순해상도·adaptationconfound없는representation우월성/의미적미래보존/particle이동효용은아직미확인.
+기존Stage1효과+3.6077은이전내부개발결과이며새공식benchmark와직접차이를내지않는다.
 
 Stage1이득은동일seed47/planner1epoch/내부개발1024(1021PDM)·40recording범위다. CI는recording bootstrap이며seed변동미포함.
 공개Sketchy사전학습대NAVSIM적응비교이지random초기화대SSL비교가아니다. 미래LPIPS개선과semantic객체보존을동일시하지않는다.

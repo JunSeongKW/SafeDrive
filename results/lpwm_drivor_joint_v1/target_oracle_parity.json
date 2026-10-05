@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "scenes": [
+    {
+      "token": "1aa44d46e4ab5bc7",
+      "trajectory_max_error": 1.3701109491393026e-07,
+      "trajectory_long_max_error": 2.7782609457460694e-07,
+      "converted_vs_fresh_subscores_max_error": 0.0,
+      "test_flag_subscores_max_error": 0.0
+    },
+    {
+      "token": "2570fbfdf1835706",
+      "trajectory_max_error": 3.09760029182371e-07,
+      "trajectory_long_max_error": 1.8541792901061172e-07,
+      "converted_vs_fresh_subscores_max_error": 0.0,
+      "test_flag_subscores_max_error": 0.0
+    }
+  ]
+}

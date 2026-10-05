@@ -1,5 +1,14 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 최신 사용자 승인: 공개 LPWM + DrivoR joint E2E 학습 및 공식 PDMS/EPDMS 평가.**
+과거 DrivoR/추가epoch/navtest 보류를 이번 명시적 요청 범위에서 갱신한다.
+진입점 `docs/lpwm_drivor_joint_training.md`, `configs/lpwm_drivor_joint/`.
+v1 trainval103,288/25epoch→fullnavtest, 별도 public-init v2 train85,109/10epoch→warmup/navhard EPDMS.
+GPU0·1, 카드전체48decimalGB, GPU당batch8×누적4×2=유효64를유지한다.
+`outputs/lpwm_drivor_joint_v1/registration.json` 및 `queue_registration.json`에등록된source/config수정금지.
+기존full/frozen/Stage1효과실험은완료보존; 새학습에그weights/개발분할을넘기지않는다.
+Root의pause.requested는사용자중단요청이며queue와trainer가존중한다. 타인process/공용원본은변경하지않는다.
+
 **2026-10-05 최신 사용자 승인: 현재 학습·검증 뒤 fixed-LPWM planner 대조군을 자동 실행한다.**
 기존queue421603은그대로두고후속CPUqueue871940이완료marker와네방법검증artifact를기다린다.
 `configs/lpwm_planning/frozen_control_v1/queue.json` / `scripts/queue_lpwm_frozen_control.py`가추가진입점이다.

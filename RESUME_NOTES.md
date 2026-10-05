@@ -2519,3 +2519,14 @@ AdapterPDMS82.4852/frozen82.5238,차이−.03859점CI[−1.16421,+1.00706],ADE�
 최종검증23:11:21,paired비교23:11:28 정상종료/queue complete를확인했다. 공개고정78.9160799→적응고정82.5237848 PDMS,+3.6077049점CI[+1.5064775,+5.8538573]. ADE1.3728555→1.1634666/FDE3.3423478→2.7824634,복원LPIPS.7672489→.3043349/미래.8044382→.3922484. 같은planner초기화·학습조건/seed47/planner1epoch4707/75,297train/batch8×2를유지했고기존82.52군재학습없다. 두조건LPWM/FiLM고정과공개최종LPWM의원본weight/buffer동일성검사통과.
 
 원자료8SHA·동일1024장면순서/40recording/동일3PDM누락/256world/평균재집계를독립확인하고비교PNG육안검사했다. 시나리오·7개risk별미래영상LPIPS도개선이나객체별정보보존/상황별PDMS증거는아니다. 내부개발1seed1epoch조건의Stage1이득이며navtest/seed불확실성/수렴은미검증. 기존Stage2표현미세조정추가이득미확인결론과구분한다. 결과results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json 및비교PDF/PNG. README/연구문서/인수인계갱신,모든등록작업종료,새GPU/후속queue없음.
+
+
+## 2026-10-06 00:13 KST — 공개 LPWM + DrivoR joint 본 학습 및 공식 평가 대기열
+
+사용자가 Stage1/2를 합쳐 planning 중심으로 학습하고 official DrivoR backend/data/loss를 활용하라고 새로 승인했다. 이 범위의 과거 DrivoR/추가epoch/navtest 금지를 갱신했다. 공개 Sketchy LPWM에서 native encoder/xy/scale/presence/context prior/dynamics를 LR2e-5로 갱신하며 새 official DrivoR planner/commandFiLM/projection은2e-4. SSL/RGBdecoder/직접객체aux없음;4현재카메라128square→현재+8prior→native64particles고정4개pool→64scene tokens. 공식 generator4/scorer4/64연속후보/8poses, 원본 WTA L1+6BCE 및proposaldetach유지. Source DrivoRfc6e5aa, LPWM4cf53c4, officialNAVSIMv2.2 359c7f7.
+
+v1공식train85,109+val18,179/25epoch40,350updates, seed2/effective64=8×4×2. 23:56본학습parent2788260,queue2839064는v1fullnavtest후v2별도public-inittrain85,109/10epoch13,300→warmup/navhardEPDMS. 검사단계단일batch8최대44.15GB,DDP/본학습약45.26GB,48decimalGB내. 조회24update완료;최근37.3초/update이면v1약17.4일잔여,완료시각확정아님. 등록source/config는불변이다.
+
+Gradientroute두loss모두geometry/representation도달,scorerBCE의coord/generatorgradient없음;GT/longer공식오차<3.1e-7,2장면cache변환vsfresh공식7score차이0. 2GPU/누적/체크포인트저장2update engineering가중치는본학습에미사용. 공식v1evalscorer실행확인,officialv2warmup220cache/두단계집계0누락검사완료(고정0trajectory,모델성능아님). Navtest12,146/current4camera입력완료,warmup220완료,navhard5,912입력준비중.
+
+샌드박스DNS로pip/GitHub최초실패했으나권한재시도로성공,timm1.0.15/piqa1.3.2전용venv설치. 샌드박스async파일저장대기는trainingcache atomic local I/O로대체(직렬화/computation동일),중단된불완전freshauditcache보존. 지도1.4GB workspace사본으로공용원본write방지. 사용자질문에DrivoR가DINOv2pretrained+Q/VLoRA32이고모든가중치scratch아님을코드로확인했다. LPWM은active nativeFT이므로미세조정/해상도/증강/초기분포까지동일하지않음을명시했다. 성능향상/정확한미래의미/순수register-vs-particle효과는아직미검증. 상세docs/lpwm_drivor_joint_training.md, 공유results/lpwm_drivor_joint_v1/.
