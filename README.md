@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**최신(2026-10-05): 현재 네 방법 비교 뒤 frozen-LPWM planner 대조군 자동 실행을 추가했다.**
+기존 v4 queue421603/full 학습은 유지하며, 새 CPU queue871940이 전체 학습·검증·집계를 기다린다.
+진입점 `configs/lpwm_planning/frozen_control_v1/queue.json`, 상태 `outputs/lpwm_frozen_control_v1/queue/queue_state.json`.
+Stage1 LPWM 전체 가중치·buffer·encoder 명령 FiLM 고정, 기존 planner만 seed47/75,297장면/1epoch 학습한다.
+GPU0·1/카드전체48GB, batch8우선·유효planning16/world8, 동일1024planning/256world검증.
+실제 체크포인트 CPU freeze/gradient/초기동일성검사와7개실행조건검사통과. GPU감사·profile은선행실행완료후자동수행한다.
+새source7개/config4개도hash등록됐으므로기동중수정금지. [설계와한계](docs/lpwm_planning_experiment.md).
+
 **최신(2026-10-05): 사용자 요청으로 모든 후속 학습에 batch8 우선 정책 적용.**
 LoRA8 실제profile최대47.60GB통과,4422→4448 본학습재개확인(약3.29s/update).
 현재 진입점은 `configs/lpwm_planning/card_budget_measured_v4/queue.json`과

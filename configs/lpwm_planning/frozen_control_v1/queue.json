@@ -1,0 +1,29 @@
+{
+  "output_directory": "outputs/lpwm_frozen_control_v1/queue",
+  "shared_results_directory": "results/lpwm_frozen_control_v1/queue",
+  "predecessor_queue_directory": "outputs/lpwm_card_budget_measured_v4/queue",
+  "predecessor_configuration": "configs/lpwm_planning/card_budget_measured_v4/queue.json",
+  "profiles": [
+    "configs/lpwm_planning/frozen_control_v1/batch8.json",
+    "configs/lpwm_planning/frozen_control_v1/batch4.json",
+    "configs/lpwm_planning/frozen_control_v1/batch2.json"
+  ],
+  "maximum_gpu_used_bytes": 48000000000,
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "cuda_allocator_configuration": "expandable_segments:True",
+  "authorization": "User requested automatic frozen-LPWM identical-planner control immediately after current training and validation.",
+  "sequence": [
+    "wait_for_current_four_method_training_and_validation",
+    "frozen_state_gradient_gpu_audit",
+    "batch8_profile_then_memory_fallback4_2",
+    "evaluation_engineering",
+    "train1epoch",
+    "evaluate_same1024planning256world",
+    "paired_adaptation_vs_frozen_report"
+  ],
+  "scientific_gate_policy": "Require completed epoch, valid artifacts, no execution/leakage/freeze/memory errors. Preserve and report performance gates even when failed; do not select a control based on development score.",
+  "automatic_object_gt_training": false,
+  "automatic_navtest": false,
+  "stop_after_registered_control": true
+}

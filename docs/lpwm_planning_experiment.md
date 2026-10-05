@@ -1,5 +1,58 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 고정 LPWM과 동일 planner 대조군 후속 실행 등록
+
+연구 하위 질문: Stage1 표현에 planner만 학습했을 때보다 LPWM의 planning 적응이 추가 이득을 주는가?
+사용자가 현재 학습 뒤 이 대조군을 즉시 실행하도록 요청했다.
+기존 v4 queue421603과 full low-LR 학습은 변경하지 않고, 후속 CPU queue871940을 추가했다.
+선행 네 방법의 학습·검증·집계 완료 후 GPU 감사→batch실측→대조군1epoch→동일개발검증→대응비교를 수행한다.
+
+### 무엇을 고정하고 학습하는가
+
+- 출발점은 동일 Stage1 SSL 체크포인트이며, 어느 Stage2 학습 결과도 초기화에 사용하지 않는다.
+- LPWM encoder·interaction·context·dynamics·RGB decoder의 모든 가중치와 persistent buffer를 고정한다.
+- Encoder의 명령 FiLM 4,480개도 초기 zero-output 상태로 고정한다. 이를 학습하면 LPWM의 native
+  가중치가 고정돼도 particle 표현 자체가 바뀌므로 strict fixed-representation 대조군이 아니게 된다.
+- 고정 LPWM은 `eval()`/`no_grad()`이며 particle 출력부터 gradient를 차단한다.
+- 동일 planner의 particle projection·시간/particle embedding·ego projection·후보 projection·
+  candidate decoder·imitation/metric head, 합계2,207,495개 parameter를 학습한다.
+- Ego 의도는 동일한 8D ego status를 통해 planner에 계속 입력된다.
+- 동일 후보모방+PDM subscore 증류 loss를 사용한다. 기존0.02 SSL scalar와world sampling도 유지하지만
+  이 항은 detached 모니터이므로 LPWM과planner 어느쪽에도 gradient를 주지 않는다.
+
+### 맞춘 조건과 비교의 범위
+
+Adapter/LoRA와같은seed47,planner초기화,전체75297navtrain학습장면,1epoch/4707update,
+plannerLR3e-4와1epochwarmup/cosine,512후보vocabulary,teacher,데이터순서,loss가중치,
+monitor128/512update,최종planning1024/world256/40recording을유지한다. 직접객체GT보조OFF다.
+GPU0·1에서총48decimalGB/card를감시하며batch8×누적1우선,메모리실패시에만4×2/2×4로전환한다.
+모든경우유효planning16/world8/worker0이며profile가중치는본학습에사용하지않는다.
+
+이대조군은LPWM적응과encoder-FiLM학습을함께끄므로Adapter가중치만의단독인과효과를분리하지는않는다.
+또한고정LPWM의eval모드와적응모델의train모드정규화차이가있다. 원래full조건의conv_in명령입력과
+20epochLR스케줄차이도남는다. 이차이들을최종paired보고에명시한다. 추가seed/epoch/navtest는자동등록하지않았다.
+
+### 실행 전 검사와 자동 연결
+
+실제Stage1/학습장면을사용한CPU검사에서Adapter와초기planner가중치·초기metric/imitation logits·
+관측/미래particle출력의최대차이는모두0이었다. 진단optimizer2step후planner만변경됐고,
+LPWM/encoder-FiLM전체state hash 및 particle표현은동일했다. World각모듈gradient0,
+planner gradient norm6.94398, SSLgradient차단·미래보조입력교란독립성·planner명령반응도통과했다.
+첫CPU실행에서공식LPWM의비연속영상tensor view조건을발견해고정모델의SSL입력을contiguous로정리한뒤재검사통과했다.
+진단가중치는폐기했다. 별도실행조건검사7개도통과했다.
+
+선행PID종료만으로시작하지않고`queue_completion.json`과네방법최종검증artifact를확인한다.
+기존성능가설gate실패는보존·보고하며대조군을생략하는근거로쓰지않는다. 실행오류·불완전epoch·
+freeze/gradient오류·메모리초과는의존작업을차단한다. GPU검사와본학습속도/완료시간은아직미측정이다.
+학습중checkpoint저장마다고정state hash를확인하고,최종저장checkpoint의고정부분도독립재검사한다.
+학습전·중·후기존particle시각화도같은절차로생성한다.
+
+설정: `configs/lpwm_planning/frozen_control_v1/queue.json` 및 `batch8.json`/`batch4.json`/`batch2.json`.
+상태: `outputs/lpwm_frozen_control_v1/queue/queue_state.json`.
+CPU검사: `results/lpwm_frozen_control_v1/queue/cpu_audit.json`.
+최종비교예정: `results/lpwm_frozen_control_v1/queue/adaptation_vs_frozen_summary.json`.
+일시중단은새queue root의`pause.requested`로전달하며,현재학습중인v4 root의중단요청도상속한다.
+
 ## 2026-10-05: Adapter 완료 결과 — 평균 planning 점수는 가장 높고, LoRA 대비 PDMS 우월성은 미확정
 
 연구 하위 질문: LPWM의 미래 표현을 유지하면서 planning에 유용하게 적응할 수 있는가?

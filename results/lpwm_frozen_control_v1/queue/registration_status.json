@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-10-05T16:17:05.564797+09:00",
+  "queue_pid": 871940,
+  "status": "waiting",
+  "current_stage": "waiting_for_full_training_and_validation",
+  "predecessor_queue_pid": 421603,
+  "predecessor_status": "running",
+  "predecessor_stage": "full_low_learning_rate_training",
+  "heartbeat_age_seconds": 0.06072878837585449,
+  "new_gpu_children_started": false,
+  "cpu_audit_passed": true,
+  "negative_protocol_tests_passed": 7,
+  "registered_source_files": 49,
+  "registered_configurations": 33,
+  "registered_hashes_verified": true,
+  "existing_training_interrupted": false,
+  "future_stages": [
+    "GPU freeze and gradient audit",
+    "batch8 profile with4/2 memory fallback",
+    "evaluation engineering",
+    "fresh planner1epoch training",
+    "same1024/256 development evaluation",
+    "paired adaptation-versus-frozen summary"
+  ],
+  "scope": "Strict frozen Stage1 weights/buffers and encoder command FiLM; planner only; no object GT auxiliary or navtest",
+  "gpu_audit_and_throughput_pending": true
+}

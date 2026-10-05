@@ -2351,3 +2351,12 @@ Adapter는4707/4707정상완료·기존queue가전체개발검증으로전환했
 미래LPIPS:Stage1.392249/partial.438393/LoRA.391846/Adapter.393758. AdapterStage1대비+0.385%로기존10%유지검사통과. 예측미래를관측반복으로바꾸면PDMS82.4852→79.6509,차이+2.8342[1.1428,4.5169]이나표현활용입력개입이며Adapter미세조정자체인과효과는아님. 기존scenario직진9/회전36/겹침197/기타14개world지표와대안큰회전flag등함께보고. 원거리객체flag211개에서전체영상미래오차+0.001943으로소폭악화,객체상태보존검사로해석하지않음.
 
 NativeLPWM고정·adapter704960+planner명령2211975학습. 기록시간약4h10m/평가11m48s,공유GPU부하차이로기법속도이득확정금지. LoRA/Adapter초기후보1024모두일치·최종325개차이. 1epoch1seed/frozen-LPWM학습planner대조부재/공식navtest미실행한계유지. 재현scripts/report_lpwm_completed_adapter.py,결과results/lpwm_card_budget_measured_v4/completed_adapter_review_20261005/summary.json및comparison.png/pdf. 그래프육안검사완료·원자료token정렬/체크포인트출처검사통과. 활성full학습/queue/source42/config29불변.
+
+
+## 2026-10-05 16:17 KST — 고정 LPWM과 동일 planner 대조군 자동 후속 등록
+
+연구하위질문:LPWM표현미세조정이동일planner학습만하는것보다추가planning이득을주는가? 사용자현재학습후자동실행지시로새CPUqueue871940을기동했다. 기존v4queue421603/full학습은중단·수정하지않았다. 새상태waiting_for_full_training_and_validation,heartbeat정상,nodes비어있음으로GPU작업미기동확인. 선행4방법학습·검증·집계완료→GPU감사→batch8우선/48GB범위실측→engineering→대조군75297장면/1epoch4707→동일개발1024/256→기법별paired recording CI자동보고다.
+
+Stage1의nativeLPWM전체가중치/buffer·encoder명령FiLM4480개고정/eval/no_grad,planner2207495개만학습한다. Ego명령은planner에유지. Seed47/동일초기planner·vocabulary·teacher·loss·LR3e-4·1epoch스케줄·유효planning16/world8·worker0·객체GT OFF. SSL0.02는detach된모니터라어떤가중치도갱신하지않는다. Adapter/LoRA와의대조는LPWM적응+FiLM+train/eval차이를포함하며full의conv_in/20epoch스케줄차이도남는것을등록했다.
+
+실제체크포인트CPU감사에서초기planner및4종출력최대차이0,optimizer2step후LPWM·FiLM전체state와particle표현불변,world各gradient0/planner6.94398,SSL無gradient·미래입력독립성·planner명령반응통과. CPU첫검사비연속영상view오류는새고정모델SSL입력contiguous정리로해결후통과했다. 진단weights폐기. 프로토콜음성검사7개통과. 새등록source49/config33 hash확인,기존42/29도불변. 설정configs/lpwm_planning/frozen_control_v1/queue.json,검사results/lpwm_frozen_control_v1/queue/cpu_audit.json,기동근거registration_status.json. GPU검사/처리량은미측정이며선행작업종료후자동수행한다.

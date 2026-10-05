@@ -1,5 +1,16 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-05 최신 사용자 승인: 현재 학습·검증 뒤 fixed-LPWM planner 대조군을 자동 실행한다.**
+기존queue421603은그대로두고후속CPUqueue871940이완료marker와네방법검증artifact를기다린다.
+`configs/lpwm_planning/frozen_control_v1/queue.json` / `scripts/queue_lpwm_frozen_control.py`가추가진입점이다.
+Stage1 LPWM의모든가중치·buffer와encoder command FiLM까지고정/eval/no_grad,동일planner만학습한다.
+Planner에는ego명령입력을유지하며seed47/75,297navtrain장면/1epoch4707update/동일평가panel을쓴다.
+SSL0.02항은detach된모니터이며어떤가중치도갱신하지않는다. 직접객체GT와navtest자동실행은없다.
+GPU0·1총48decimalGB/card/8우선후메모리실패때4·2/유효planning16/world8/worker0을유지한다.
+선행실행오류·불완전검증·freeze위반은차단하며,성능가설실패자체로대조군을선택적으로생략하지않는다.
+새queue도source/config등록후수정금지. 전체일시중단시새root또는선행v4root의pause.requested를확인한다.
+기존원본full2095pause자산은과거보존이므로새queue의자동중단조건으로추가하지않는다.
+
 **최신(2026-10-05): 사용자 요청으로 모든 후속 학습에 batch8 우선 정책 적용.**
 LoRA8 실제profile최대47.60GB통과,4422→4448 본학습재개확인(약3.29s/update).
 현재 진입점은 `configs/lpwm_planning/card_budget_measured_v4/queue.json`과

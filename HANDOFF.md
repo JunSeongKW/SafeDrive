@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 15:29 KST (Codex)
+마지막 갱신: 2026-10-05 16:17 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 16:17 KST: 사용자승인 frozen-LPWM planner대조군 후속CPUqueue871940 기동, waiting_for_full_training_and_validation/heartbeat정상/GPU자식0. 기존v4queue421603은full_low_learning_rate_training 유지. 새진입점configs/lpwm_planning/frozen_control_v1/queue.json.
 
 2026-10-05 15:29 KST: 사용자 Adapter 결과보고에 저장된최종평가CPU집계·CI·시각화를완료. 현재queue는full_low_learning_rate_training;이번턴새GPU실행/학습·설정변경없음.
 
@@ -462,6 +464,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+실제Stage1 CPU감사통과: Adapter와초기planner/출력차이0,optimizer2step후world·encoder-FiLM가중치/buffer/hash·particle표현불변,world모듈gradient0/planner6.94398,planner명령반응/미래보조입력독립성통과. 실행조건음성검사7개통과. 근거results/lpwm_frozen_control_v1/queue/cpu_audit.json및registration_status.json.
 
 Adapter 최종 개발1024/유효PDMS1021·world256: PDMS82.4852/ADE1.15513/FDE2.75672. LoRA대비PDMS+0.5711점CI[-0.3703,1.5020]로우월성미확정. 미래LPIPS0.393758(Stage1+0.385%) 유지기준통과. 예측미래→관측반복시PDMS79.6509,차이+2.8342점[1.1428,4.5169]. 근거results/lpwm_card_budget_measured_v4/completed_adapter_review_20261005/summary.json.
 
@@ -854,11 +858,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Adapter/LoRA/부분계층 최종저장평가를CPU로대조하고paired recording CI·world유지·기존상황군을집계.
-- 재현script,결과JSON,비교PNG/PDF,연구문서·인수인계갱신. PDMS우월성미확정과추론개입/인과효과한계를명시.
-- 활성full학습·queue·등록source42/config29 hash불변확인.
+- 사용자승인 frozen-LPWM 동일planner대조군 구현·config3배치/queue등록 및 CPU후속대기열871940기동. 기존학습·v4queue보존.
+- 실제Stage1의초기동일성/optimizer후freeze·buffer·particle불변/causal·gradient감사와7개실행조건검사통과.
+- GPU0·1/총48GB·8우선/유효16·동일개발평가/자동paired보고연결. GPU감사·속도실측은선행완료후수행.
+- README/AGENTS/연구문서·HANDOFF/일지갱신;새source/config hash와정상대기heartbeat확인.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+v4네방법학습·검증·four_method_summary완료marker→새queue GPU감사→8우선profile(메모리실패4/2)→engineering→고정LPWM+동일planner75297장면/1epoch4707→개발1024planning/256world→adaptation_vs_frozen_summary 자동실행. 초기Stage1+seed47planner사용,profile가중치폐기. 추가seed/epoch/GT/navtest자동실행없음.
 
 기존 full low-LR4707학습→동일개발검증→네방법집계유지. Adapter는추가world0.705M로planning평균양호,LoRA는미래영상유지소폭우세. 최종선별은full결과함께검토하며추가seed/epoch/frozen대조는이번보고로등록하지않음.
 
@@ -1096,6 +1103,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+고정대조군은encoder FiLM4480개까지고정/eval/no_grad하여표현변화를차단한다. Planner2207495개학습·ego명령입력유지. Adapter/LoRA와의차이는표현적응+FiLM학습+world train/eval모드를함께포함하고full스케줄차이도남는다. GPU감사·실측속도·학습효과는아직미확인. 새source49/config33등록불변유지;중단은outputs/lpwm_frozen_control_v1/queue/pause.requested또는선행v4pause를사용.
 
 Adapter PDMS가평균최고이나LoRA/partial대비CI에0포함,1seed/1epoch라확정우열아님. 미래반복개입은표현활용진단이며미세조정효과분리/객체정보특화증거아님. 직진world9개로일반화불가,원거리미래객체flag의전체영상오차소폭악화. LoRA와초기후보일치/최종325개차이,partial과초기62개차이유지.
 
