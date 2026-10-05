@@ -1,0 +1,562 @@
+{
+  "created_at": "2026-10-05T15:27:12.140478+09:00",
+  "scope": "Same1024 navtrain internal-development scenes,1021 valid cached official PDM scores,40 recordings;256 world clips. Not official navtest.",
+  "training": {
+    "scenes": 75297,
+    "epochs": 1,
+    "updates": 4707,
+    "seed": 47,
+    "direct_object_gt_auxiliary": false
+  },
+  "planning_means": {
+    "partial_output_layers": {
+      "ade_meters": 1.2825015851958597,
+      "fde_meters": 3.0433276962321543,
+      "metric_bce": 1.8395633372048557,
+      "pdms": 0.8163412038919158
+    },
+    "attention_lora": {
+      "ade_meters": 1.1822045381086355,
+      "fde_meters": 2.840568473483472,
+      "metric_bce": 1.7871872044800545,
+      "pdms": 0.8191406225947979
+    },
+    "residual_adapter": {
+      "ade_meters": 1.1551310651302629,
+      "fde_meters": 2.7567169958829254,
+      "metric_bce": 1.7886489110467017,
+      "pdms": 0.8248519609653985
+    }
+  },
+  "world_means": {
+    "stage1": {
+      "reconstruction_lpips": 0.3043351037777029,
+      "forecast_lpips": 0.39224855427164584
+    },
+    "partial_output_layers": {
+      "reconstruction_lpips": 0.3052304708980955,
+      "forecast_lpips": 0.4383926555747166
+    },
+    "attention_lora": {
+      "reconstruction_lpips": 0.30433548911241814,
+      "forecast_lpips": 0.3918459340929985
+    },
+    "residual_adapter": {
+      "reconstruction_lpips": 0.30423653562320396,
+      "forecast_lpips": 0.39375844260212034
+    }
+  },
+  "world_relative_change_percent_vs_stage1": {
+    "partial_output_layers": {
+      "reconstruction_lpips": 0.2942043521363402,
+      "forecast_lpips": 11.763995252641358
+    },
+    "attention_lora": {
+      "reconstruction_lpips": 0.0001266152706236312,
+      "forecast_lpips": -0.10264414597905835
+    },
+    "residual_adapter": {
+      "reconstruction_lpips": -0.0323880332158244,
+      "forecast_lpips": 0.38493152212584203
+    }
+  },
+  "paired_comparisons": {
+    "adapter_minus_partial_output_layers": {
+      "planning": {
+        "pdms": {
+          "mean_difference": 0.008510757073482735,
+          "ci95": [
+            -0.003868790912978878,
+            0.02256538690690586
+          ],
+          "clips": 1021,
+          "recordings": 40
+        },
+        "ade_meters": {
+          "mean_difference": -0.1273705200655968,
+          "ci95": [
+            -0.19584561299894224,
+            -0.06298183240129755
+          ],
+          "clips": 1024,
+          "recordings": 40
+        },
+        "fde_meters": {
+          "mean_difference": -0.28661070034922886,
+          "ci95": [
+            -0.45187562220508093,
+            -0.1403413310652356
+          ],
+          "clips": 1024,
+          "recordings": 40
+        },
+        "metric_bce": {
+          "mean_difference": -0.050914426158154044,
+          "ci95": [
+            -0.06350267903916963,
+            -0.03733965972141164
+          ],
+          "clips": 1021,
+          "recordings": 40
+        }
+      },
+      "world": {
+        "reconstruction_lpips": {
+          "mean_difference": -0.0009939352748915553,
+          "ci95": [
+            -0.001324747251563294,
+            -0.0006791395830699705
+          ],
+          "clips": 256,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": -0.04463421297259629,
+          "ci95": [
+            -0.049021539310602845,
+            -0.03982983534380222
+          ],
+          "clips": 256,
+          "recordings": 40
+        }
+      },
+      "initial_candidate_mismatch_count": 62,
+      "trained_candidate_mismatch_count": 540
+    },
+    "adapter_minus_attention_lora": {
+      "planning": {
+        "pdms": {
+          "mean_difference": 0.005711338370600597,
+          "ci95": [
+            -0.0037025767459691913,
+            0.015020109246141698
+          ],
+          "clips": 1021,
+          "recordings": 40
+        },
+        "ade_meters": {
+          "mean_difference": -0.027073472978372592,
+          "ci95": [
+            -0.06434255481606241,
+            0.006328737572795642
+          ],
+          "clips": 1024,
+          "recordings": 40
+        },
+        "fde_meters": {
+          "mean_difference": -0.08385147760054679,
+          "ci95": [
+            -0.17458210006527394,
+            -0.005698253226548875
+          ],
+          "clips": 1024,
+          "recordings": 40
+        },
+        "metric_bce": {
+          "mean_difference": 0.0014617065666471475,
+          "ci95": [
+            -0.005998219634017676,
+            0.008294498282969583
+          ],
+          "clips": 1021,
+          "recordings": 40
+        }
+      },
+      "world": {
+        "reconstruction_lpips": {
+          "mean_difference": -9.89534892141819e-05,
+          "ci95": [
+            -0.000179244187370714,
+            -2.1765079609183445e-05
+          ],
+          "clips": 256,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.0019125085091218352,
+          "ci95": [
+            0.00031002770285799424,
+            0.0035055473523273126
+          ],
+          "clips": 256,
+          "recordings": 40
+        }
+      },
+      "initial_candidate_mismatch_count": 0,
+      "trained_candidate_mismatch_count": 325
+    }
+  },
+  "interval_method": "2000 paired recording-cluster bootstrap resamples, seed20261003; sample-weighted means; not training-seed uncertainty.",
+  "adapter_predicted_minus_persistent_future": {
+    "pdms": {
+      "mean_difference": 0.028342467563976622,
+      "ci95": [
+        0.01142831907766558,
+        0.04516858252753351
+      ],
+      "clips": 1021,
+      "recordings": 40
+    },
+    "ade_meters": {
+      "mean_difference": -0.057227402947319206,
+      "ci95": [
+        -0.09885780917655554,
+        -0.01847999061063626
+      ],
+      "clips": 1024,
+      "recordings": 40
+    }
+  },
+  "adapter_predicted_and_persistent_means": {
+    "trained": {
+      "ade_meters": 1.1551310651302629,
+      "fde_meters": 2.7567169958829254,
+      "pdms": 0.8248519609653985,
+      "metric_bce": 1.7886489110467017
+    },
+    "persistent_future": {
+      "ade_meters": 1.212358468077582,
+      "fde_meters": 2.93293564389478,
+      "pdms": 0.7965094934014219,
+      "metric_bce": 1.94404387074166
+    }
+  },
+  "checks_by_method": {
+    "partial_output_layers": {
+      "complete_registered_epoch": true,
+      "planning_loss_learned": true,
+      "pdms_improved_over_random_planner": true,
+      "reconstruction_lpips": true,
+      "forecast_lpips": false
+    },
+    "attention_lora": {
+      "complete_registered_epoch": true,
+      "planning_loss_learned": true,
+      "pdms_improved_over_random_planner": true,
+      "reconstruction_lpips": true,
+      "forecast_lpips": true
+    },
+    "residual_adapter": {
+      "complete_registered_epoch": true,
+      "planning_loss_learned": true,
+      "pdms_improved_over_random_planner": true,
+      "reconstruction_lpips": true,
+      "forecast_lpips": true
+    }
+  },
+  "adapter_world_vs_stage1": {
+    "reconstruction_lpips": {
+      "mean_difference": -9.856815449893475e-05,
+      "ci95": [
+        -0.00016894457267308647,
+        -2.4397582071655734e-05
+      ],
+      "clips": 256,
+      "recordings": 40
+    },
+    "forecast_lpips": {
+      "mean_difference": 0.0015098883304744959,
+      "ci95": [
+        -4.050979519204763e-06,
+        0.003047212451904318
+      ],
+      "clips": 256,
+      "recordings": 40
+    }
+  },
+  "adapter_world_risk_breakdown": {
+    "far_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": -0.00013777592453346433,
+        "ci95": [
+          -0.00020993532133093236,
+          -6.470873770190449e-05
+        ],
+        "clips": 211,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.001942838537749521,
+        "ci95": [
+          0.00012222574663167028,
+          0.0037759276022365945
+        ],
+        "clips": 211,
+        "recordings": 40
+      }
+    },
+    "high_ego_speed": {
+      "reconstruction_lpips": {
+        "mean_difference": -0.00037717482736033777,
+        "ci95": [
+          -0.0006589413111408551,
+          -0.0001730252830912514
+        ],
+        "clips": 31,
+        "recordings": 17
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.0029292462333556143,
+        "ci95": [
+          -0.002583296121364193,
+          0.008430008552272772
+        ],
+        "clips": 31,
+        "recordings": 17
+      }
+    },
+    "high_interframe_flow": {
+      "reconstruction_lpips": {
+        "mean_difference": -7.027073910361842e-06,
+        "ci95": [
+          -0.00011764030066241912,
+          9.966913133635131e-05
+        ],
+        "clips": 114,
+        "recordings": 36
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.00017334599243967156,
+        "ci95": [
+          -0.001964874002679179,
+          0.002085251771648854
+        ],
+        "clips": 114,
+        "recordings": 36
+      }
+    },
+    "large_ego_turn": {
+      "reconstruction_lpips": {
+        "mean_difference": 7.349778624141918e-06,
+        "ci95": [
+          -0.00010091889850996637,
+          0.00011306965927405421
+        ],
+        "clips": 102,
+        "recordings": 36
+      },
+      "forecast_lpips": {
+        "mean_difference": -0.0007567136895422842,
+        "ci95": [
+          -0.0027010572113967154,
+          0.0010232620810378859
+        ],
+        "clips": 102,
+        "recordings": 36
+      }
+    },
+    "projected_overlap": {
+      "reconstruction_lpips": {
+        "mean_difference": -0.00011304641133032474,
+        "ci95": [
+          -0.00019371847229448345,
+          -3.16116203267856e-05
+        ],
+        "clips": 197,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.0018334178452564375,
+        "ci95": [
+          -5.816884167156395e-05,
+          0.0036919617866051383
+        ],
+        "clips": 197,
+        "recordings": 40
+      }
+    },
+    "projected_track_disappearance": {
+      "reconstruction_lpips": {
+        "mean_difference": -5.139108153357022e-05,
+        "ci95": [
+          -0.0001323845547654367,
+          2.7757156915558962e-05
+        ],
+        "clips": 207,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.00170389911978717,
+        "ci95": [
+          -7.995453248754069e-06,
+          0.003495761725779744
+        ],
+        "clips": 207,
+        "recordings": 40
+      }
+    },
+    "small_future_objects": {
+      "reconstruction_lpips": {
+        "mean_difference": -0.00010793266436046137,
+        "ci95": [
+          -0.0001826001164071765,
+          -3.098956105285986e-05
+        ],
+        "clips": 239,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.001575109599524462,
+        "ci95": [
+          -4.2166155536037475e-05,
+          0.0031682520745506767
+        ],
+        "clips": 239,
+        "recordings": 40
+      }
+    }
+  },
+  "world_scenario_breakdown": {
+    "other": {
+      "clips": 14,
+      "adapter_forecast_lpips": 0.3977491706609726,
+      "stage1_forecast_lpips": 0.3968856526272638,
+      "adapter_minus_stage1": {
+        "mean_difference": 0.0008635180337088448,
+        "ci95": [
+          -0.007420816070267133,
+          0.00823552156628866
+        ],
+        "clips": 14,
+        "recordings": 9
+      },
+      "adapter_minus_lora": {
+        "mean_difference": 0.003041644181524004,
+        "ci95": [
+          -0.0040568741566357125,
+          0.010174102386967698
+        ],
+        "clips": 14,
+        "recordings": 9
+      }
+    },
+    "projected_overlap": {
+      "clips": 197,
+      "adapter_forecast_lpips": 0.3927158955390078,
+      "stage1_forecast_lpips": 0.3908824776937514,
+      "adapter_minus_stage1": {
+        "mean_difference": 0.0018334178452564375,
+        "ci95": [
+          -5.816884167156395e-05,
+          0.0036919617866051383
+        ],
+        "clips": 197,
+        "recordings": 40
+      },
+      "adapter_minus_lora": {
+        "mean_difference": 0.002168996079924143,
+        "ci95": [
+          0.0002805837927764959,
+          0.004128386914880588
+        ],
+        "clips": 197,
+        "recordings": 40
+      }
+    },
+    "straight": {
+      "clips": 9,
+      "adapter_forecast_lpips": 0.369607064459059,
+      "stage1_forecast_lpips": 0.3656716015603807,
+      "adapter_minus_stage1": {
+        "mean_difference": 0.00393546289867825,
+        "ci95": [
+          -0.0004023392995198567,
+          0.01045433059334755
+        ],
+        "clips": 9,
+        "recordings": 7
+      },
+      "adapter_minus_lora": {
+        "mean_difference": 0.0037650995784335667,
+        "ci95": [
+          -0.0006041675806045532,
+          0.010097085045916693
+        ],
+        "clips": 9,
+        "recordings": 7
+      }
+    },
+    "turn": {
+      "clips": 36,
+      "adapter_forecast_lpips": 0.4039493865436978,
+      "stage1_forecast_lpips": 0.40456495102908874,
+      "adapter_minus_stage1": {
+        "mean_difference": -0.0006155644853909811,
+        "ci95": [
+          -0.0035286660785927917,
+          0.002081595993525272
+        ],
+        "clips": 36,
+        "recordings": 20
+      },
+      "adapter_minus_lora": {
+        "mean_difference": -0.00039330455991956923,
+        "ci95": [
+          -0.0028781597355478686,
+          0.0019104860308439434
+        ],
+        "clips": 36,
+        "recordings": 20
+      }
+    }
+  },
+  "scenario_scope": "Previously registered Stage1 labels, whole-image LPIPS; projected overlap is an occlusion proxy, not confirmed occlusion or object-state accuracy. Exploratory intervals without multiple-comparison correction.",
+  "measured_costs": {
+    "partial_output_layers": {
+      "seconds": 15434.8590424211,
+      "peak_allocated_gib": 22.077826976776123,
+      "completed_updates": 4707,
+      "trainable_parameters": 7770364,
+      "trainable_world_parameters": 5558389,
+      "trainable_planner_parameters": 2211975,
+      "evaluation_seconds": 1194.4066837810096
+    },
+    "attention_lora": {
+      "seconds": 22773.770691462967,
+      "peak_allocated_gib": 23.835232734680176,
+      "completed_updates": 4707,
+      "trainable_parameters": 3555463,
+      "trainable_world_parameters": 1343488,
+      "trainable_planner_parameters": 2211975,
+      "evaluation_seconds": 1705.1967076099827
+    },
+    "residual_adapter": {
+      "seconds": 14974.399388300022,
+      "peak_allocated_gib": 22.305545806884766,
+      "completed_updates": 4707,
+      "trainable_parameters": 2916935,
+      "trainable_world_parameters": 704960,
+      "trainable_planner_parameters": 2211975,
+      "evaluation_seconds": 708.1984033620101
+    }
+  },
+  "missing_pdms_tokens": [
+    "289338b093215c65",
+    "3ed0712647875d2d",
+    "aae6d4e099dd565c"
+  ],
+  "missing_pdms_reason": "Three scenes lack fully finite cached candidate metric labels; same exclusions across compared methods, trajectory errors remain available.",
+  "source_sha256": {
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/trained.json": "f6bc1eee159712ed61d87acde4b7b3394563bd879e792a960a914bb91fc43792",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/world.json": "504d839c57db21ad164b5b2c56c0d9f40236f84e2bcc26753ff41044b475e380",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/initial.json": "f050903bf255665294eb7c1f77bbebee6189d21dc9636ae1923583af50f45974",
+    "outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/trend_evaluation/summary.json": "3b51089f25437c0b08a27d184f605eae274ac1b10b7552d84b9ee60fd9a3d544",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/trained.json": "81bc75fb7a2cb4dab9bf2d869c80b1f5de9aea9f9437160b5cf8837f30b63795",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/world.json": "cff91abd1dc9e8e096aa8b899b6c543adc5c1f2e45371c7029ca543f71eb6ce6",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/initial.json": "c75a99bcb6125385ab99846fcfd53da278e9e310c05edd1b6f842083de3ab1d2",
+    "outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/trend_evaluation/summary.json": "08c20d0cf90f7f295551bd7f7b1a4d7298741541e993a88abff74a6430c24f2d",
+    "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/trend_evaluation/trained.json": "e9ec17afeec4ffe6601b559c069a1a6bf5dc4aceb40fe913da83910830f21782",
+    "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/trend_evaluation/world.json": "49ce14201b6e5e2d4981671d7d80c392ee97725ce3d67a42b81031a6e9e248be",
+    "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/trend_evaluation/initial.json": "c75a99bcb6125385ab99846fcfd53da278e9e310c05edd1b6f842083de3ab1d2",
+    "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/trend_evaluation/summary.json": "113b87f549ee98cbe4e5f2f0595b5142ce58fb59dfbfd19a29100801ace15fcf"
+  },
+  "limitations": [
+    "One seed and one epoch; no convergence or independent-test claim.",
+    "No separately trained frozen-LPWM planner control; adaptation benefit is not isolated from planner learning.",
+    "Adaptation locations, capacity and historical microbatch schedules differ.",
+    "Persistent-future replacement is an inference intervention, not a separately trained no-future baseline.",
+    "World-video LPIPS does not directly validate object-state retention or planning-aware particle specialization.",
+    "Different shared GPU loads and batch histories preclude attributing elapsed-time differences to adaptation method alone."
+  ],
+  "runtime_changes": false
+}

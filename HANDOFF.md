@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 15:23 KST (Codex)
+마지막 갱신: 2026-10-05 15:29 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 15:29 KST: 사용자 Adapter 결과보고에 저장된최종평가CPU집계·CI·시각화를완료. 현재queue는full_low_learning_rate_training;이번턴새GPU실행/학습·설정변경없음.
 
 2026-10-05 15:22 KST: 마지막 full_low_learning_rate 본학습 실행 중. 15:12:12KST 시작, 원본2095 model+AdamW746state 재개, 최신2192/4707. Batch8 profile은할당예산OOM,4×누적2×GPU2=유효16선택. Adapter학습·검증완료. Runtime변경없음.
 
@@ -460,6 +462,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Adapter 최종 개발1024/유효PDMS1021·world256: PDMS82.4852/ADE1.15513/FDE2.75672. LoRA대비PDMS+0.5711점CI[-0.3703,1.5020]로우월성미확정. 미래LPIPS0.393758(Stage1+0.385%) 유지기준통과. 예측미래→관측반복시PDMS79.6509,차이+2.8342점[1.1428,4.5169]. 근거results/lpwm_card_budget_measured_v4/completed_adapter_review_20261005/summary.json.
 
 2026-10-05 15:22 KST: full 재개검사·gradient·engineering 통과, 본학습loss유한. LPWM1e-6/planner3e-4 기본LR,전모듈학습+SSL유지/직접객체GT없음. GPU전체각43.45GB. 상세results/lpwm_card_budget_measured_v4/full_resume_status_20261005_1522.json.
 
@@ -850,10 +854,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 full low-LR 본학습과 원본2095 model+AdamW 복구, batch8 profile예산OOM→batch4누적2선택을읽기전용확인.
-- Adapter학습·검증완료 및새자동생성결과를보존하고상태JSON/인수인계갱신. Runtime/source/config변경없음.
+- Adapter/LoRA/부분계층 최종저장평가를CPU로대조하고paired recording CI·world유지·기존상황군을집계.
+- 재현script,결과JSON,비교PNG/PDF,연구문서·인수인계갱신. PDMS우월성미확정과추론개입/인과효과한계를명시.
+- 활성full학습·queue·등록source42/config29 hash불변확인.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존 full low-LR4707학습→동일개발검증→네방법집계유지. Adapter는추가world0.705M로planning평균양호,LoRA는미래영상유지소폭우세. 최종선별은full결과함께검토하며추가seed/epoch/frozen대조는이번보고로등록하지않음.
 
 현재 full2095→4707 본학습 완료 후 동일1024planning/256world개발검증과네방법집계자동실행. 새로운batch실험·학습연장·공식navtest추가없음.
 
@@ -1089,6 +1096,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Adapter PDMS가평균최고이나LoRA/partial대비CI에0포함,1seed/1epoch라확정우열아님. 미래반복개입은표현활용진단이며미세조정효과분리/객체정보특화증거아님. 직진world9개로일반화불가,원거리미래객체flag의전체영상오차소폭악화. LoRA와초기후보일치/최종325개차이,partial과초기62개차이유지.
 
 Full조건은native LPWM전체+planner학습이며LoRA/Adapter고정방식이아니다. 기존full의conv_in명령입력/20epochLR스케줄을유지하여다른세방법과의순수기법단독비교가아님. Batch8 profile실패와현재batch4정상본학습을구분한다.
 

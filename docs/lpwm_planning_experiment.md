@@ -1,5 +1,76 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: Adapter 완료 결과 — 평균 planning 점수는 가장 높고, LoRA 대비 PDMS 우월성은 미확정
+
+연구 하위 질문: LPWM의 미래 표현을 유지하면서 planning에 유용하게 적응할 수 있는가?
+Adapter의 4,707 update 학습과 1,024개 planning / 256개 world 개발 검증이 완료됐다.
+navtrain 내부 개발 분할 40 recording이며, 유효한 cached PDM 지표가 있는 1,021개 장면에서 PDMS를 계산했다.
+나머지 3개는 후보 metric cache에 유한하지 않은 값이 있어 모든 방법에서 동일하게 제외했고,
+ADE/FDE는 1,024개 전체를 사용했다. 공식 navtest 또는 전체 개발 분할 결과가 아니다.
+세 방법 모두 학습 75,297개 장면, 1 epoch, seed47, 직접 객체 GT 보조 loss OFF다.
+
+| 지표 | 일부 출력 계층 | LoRA | Adapter |
+|---|---:|---:|---:|
+| PDMS, 100점 ↑ | 81.6341 | 81.9141 | 82.4852 |
+| ADE, m ↓ | 1.28250 | 1.18220 | 1.15513 |
+| FDE, m ↓ | 3.04333 | 2.84057 | 2.75672 |
+| 후보 PDM subscore BCE ↓ | 1.83956 | 1.78719 | 1.78865 |
+| 미래 영상 LPIPS ↓ | 0.438393 | 0.391846 | 0.393758 |
+| 학습 가능한 world parameter | 5.558M | 1.343M | 0.705M |
+
+대응 recording-cluster bootstrap 2,000회, seed20261003:
+
+| Adapter 차이 | 평균 | 95% CI |
+|---|---:|---:|
+| LoRA 대비 PDMS | +0.5711점 | [-0.3703, +1.5020] |
+| 일부 계층 대비 PDMS | +0.8511점 | [-0.3869, +2.2565] |
+| LoRA 대비 ADE | -0.02707m | [-0.06434, +0.00633] |
+| LoRA 대비 FDE | -0.08385m | [-0.17458, -0.00570] |
+
+Adapter의 평균 PDMS/ADE/FDE가 가장 좋지만, LoRA 대비 PDMS와 ADE 차이는 CI가 0을 포함한다.
+FDE는 이 표본에서 약8.4cm 감소했다. CI는 장면/recording 변동이며 학습 seed 변동은 포함하지 않는다.
+일부 계층보다 ADE/FDE 감소는 더 뚜렷하지만 PDMS 우월성은 아직 확정되지 않았다.
+
+### 미래 예측 유지 및 planning 활용
+
+Stage1의 같은256clip 복원/미래 LPIPS는0.304335/0.392249다.
+Adapter는0.304237/0.393758로, 미래오차는Stage1보다+0.385%다.
+기존 복원·미래 LPIPS의 10% 열화 허용 검사를 포함해 등록된5개 추세 검사를 통과했다.
+이는 random planner 대비 학습과 world 유지 검사이며, 다른 방법보다 성능이 높다는 검사는 아니다.
+LoRA보다 미래 LPIPS는+0.001913[+0.000310,+0.003506]로 조금 나쁘다.
+
+Adapter의 예측 미래 particle을 마지막 관측 particle 반복으로 교체하면
+PDMS82.4852→79.6509, ADE1.15513→1.21236으로 변한다.
+PDMS 차이는+2.8342점[+1.1428,+4.5169], ADE 차이는-0.05723m[-0.09886,-0.01848]다.
+이는 학습된 planner의 미래 표현 활용을 보여주는 추론 개입이다. 입력 분포가 바뀌는 검사이고,
+별도로 학습한 frozen-LPWM 또는 no-future planner 대조가 없어 Adapter 자체의 인과 효과는 분리하지 못했다.
+
+### 상황별 진단과 남은 한계
+
+기존 Stage1의 상호 배타적 scenario 분류로 미래 LPIPS를 분해하면,
+직진9개는0.365672→0.369607, 회전36개는0.404565→0.403949,
+영상상 박스 겹침197개는0.390882→0.392716이다. 모두 Stage1 대비 차이 CI에0이 포함된다.
+직진 표본이 매우 적고 겹침 분류가 다른 상황보다 우선되므로 일반적인 직진·회전 성능으로 확장하지 않는다.
+다른 정의인 큰자차회전 flag102개에서도 변화-0.000757의CI에0이 포함된다.
+원거리미래객체 flag211개에서는+0.001943[+0.000122,+0.003776]로 소폭 악화했다.
+이들은 해당 장면의 전체 영상 오차이고, 객체 영역·객체 상태 보존 지표가 아니다.
+겹침은 실제 가림 정답이 아니며, 하위집단 CI는 다중비교 보정 없는 탐색적 진단이다.
+
+Adapter는interaction1/context4/dynamics6개 Transformer block 뒤 bottleneck64를 학습했고,
+native LPWM은고정했다. 추가adapter704,960개와planner/명령FiLM2,211,975개가학습된다.
+기록상학습약4시간10분/평가약11분48초이지만공유GPU부하와배치이력이달라기법자체속도이득으로해석하지않는다.
+LoRA와Adapter의저장초기후보는1024개모두일치,최종선택은325개에서달랐다.
+일부계층과는초기62개후보가다르므로모든방법의초기출력완전동일성을주장하지않는다.
+
+현재 Adapter는 적은 추가 parameter로 양호한 planning/유지 결과를 보인 후보이고,
+LoRA는 미래 영상 예측 유지에서 조금 유리하다. 전체 low-LR 결과를 함께 본 뒤 후속 조건을 정한다.
+1seed/1epoch,적응위치·배치이력차이,frozen-LPWM 학습planner대조부재로최종우열과particle특화는미확정이다.
+이번 작업은 저장 결과의 CPU 집계/시각화이며 실행 중 full 학습·queue·등록source/config는 변경하지 않았다.
+
+재현: `scripts/report_lpwm_completed_adapter.py`.
+원자료hash·수치·CI: `results/lpwm_card_budget_measured_v4/completed_adapter_review_20261005/summary.json`.
+그래프: 같은디렉토리 `comparison.png` / `comparison.pdf`.
+
 ## 2026-10-05: 공개 LPWM의 다른 해상도 사용 가능 범위
 
 공식config들을확인하면64×64(bair64/balls/ogbench/shapes)와128×128(sketchy등)설정이존재한다.

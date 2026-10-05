@@ -2342,3 +2342,12 @@ Adapter는4707/4707정상완료·기존queue가전체개발검증으로전환했
 ## 2026-10-05 15:22 KST — 현재 full low-LR 재개 학습 확인
 
 사용자현재학습질문으로queue/progress/config/복구기록읽기전용조회. Adapter4707학습·전체개발검증이완료됐다. 다음full은15:12:12에기동,원본2095체크포인트의model과AdamW746state를보존재개해2192/4707진행. GPU당batch8profile이공유점유하에서24.96GiB allocator제한OOM으로실패했고프로파일가중치는폐기,정상통과한batch4×누적2×GPU2=유효16/SSL8을선택했다. LPWM전모듈1e-6와planner3e-4기본LR,기존planning+0.02SSL/GT보조OFF. 현재GPU전체각43.45GB,학습loss유한. 새학습이나실행조건변경없음. 근거results/lpwm_card_budget_measured_v4/full_resume_status_20261005_1522.json.
+
+
+## 2026-10-05 15:29 KST — Adapter 최종 검증 보고
+
+연구하위질문:미래표현을유지하면서planning에유용하게적응할수있는가? Adapter4707최종과LoRA/부분계층의동일1024개발장면(유효cachedPDMS1021/40recording),256worldclip을저장원자료로CPU집계했다. AdapterPDMS82.4852/ADE1.15513/FDE2.75672,LoRA대비PDMS+0.5711점95%CI[-0.3703,1.5020],부분계층대비+0.8511[-0.3869,2.2565]. PDMS우월성은미확정. LoRA대비FDE-0.08385mCI[-0.17458,-0.00570],ADE차이는CI에0포함.
+
+미래LPIPS:Stage1.392249/partial.438393/LoRA.391846/Adapter.393758. AdapterStage1대비+0.385%로기존10%유지검사통과. 예측미래를관측반복으로바꾸면PDMS82.4852→79.6509,차이+2.8342[1.1428,4.5169]이나표현활용입력개입이며Adapter미세조정자체인과효과는아님. 기존scenario직진9/회전36/겹침197/기타14개world지표와대안큰회전flag등함께보고. 원거리객체flag211개에서전체영상미래오차+0.001943으로소폭악화,객체상태보존검사로해석하지않음.
+
+NativeLPWM고정·adapter704960+planner명령2211975학습. 기록시간약4h10m/평가11m48s,공유GPU부하차이로기법속도이득확정금지. LoRA/Adapter초기후보1024모두일치·최종325개차이. 1epoch1seed/frozen-LPWM학습planner대조부재/공식navtest미실행한계유지. 재현scripts/report_lpwm_completed_adapter.py,결과results/lpwm_card_budget_measured_v4/completed_adapter_review_20261005/summary.json및comparison.png/pdf. 그래프육안검사완료·원자료token정렬/체크포인트출처검사통과. 활성full학습/queue/source42/config29불변.
