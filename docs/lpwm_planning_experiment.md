@@ -1,5 +1,25 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 현재 PDMS 평가 분할 명확화 — navtrain 내부 개발 검증
+
+사용자 지적에 따라 "전체 navtest 성능은 아니다"라는 설명을 명확히 한다. 현재 LPWM의81.63/84.56점은
+**navtest 일부의 점수도 아니며, navtrain에서 recording 단위로 분리한 내부 개발 장면의 점수**다.
+공식 navtrain103,288token filter에서 현재 유효planning manifest는 train75,297/dev27,076이고,
+train/dev token과recording 중복은각0이다. 고정최종개발panel1,024token을공식filter와대조한결과
+navtrain1,024/navtest0;중간monitor는이panel의첫128이다. 유효PDMS는각1,021/127이다.
+
+현재PDMS는모델이선택한고정후보의공식v1 PDM시뮬레이터cache점수를조회한다. 모델이예측한점수를
+실제평가점수로보고하는것은아니다. 다만공식평가split을사용하지않았으므로논문/리더보드와비교불가다.
+"최종 검증"은현재조건학습종료후내부개발검증이라는뜻이며공식benchmark완료가아니다.
+현재configs에는automatic_navtest=false이며네방법queue에도navtest/navhard실행단계가없다.
+최종벤치마크비교에는고정checkpoint/설정으로v1 navtest전체12,146token의공식평가가추가로필요하다.
+navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검증·문서정정만수행하고활성학습queue는보존했다.
+
+근거: `results/lpwm_card_budget_measured_v4/evaluation_split_clarification_20261005.json`,
+[공식분할](https://github.com/autonomousvision/navsim/blob/main/docs/splits.md),
+[공식지표](https://github.com/autonomousvision/navsim/blob/main/docs/metrics.md).
+
+
 ## 2026-10-05: LPWM 적응과 planner 학습 효과를 구분하는 대조 설계(제안)
 
 사용자는 현재 PDMS 상승에서 LPWM 미세조정과 planner 학습의 효과를 어떻게 구분하는지 질문했다.

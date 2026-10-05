@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 10:06 KST (Codex)
+마지막 갱신: 2026-10-05 10:12 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 사용자평가split질문: 읽기전용공식token·자체manifest대조및설명정정. 현재학습/queue변경없음. LPWM81.63/84.56는navtest일부가아닌navtrain내부개발평가다. 이번턴현재학습진행률재점검은하지않음.
 
 2026-10-05 10:06 KST 사용자 중간결과 요청: 저장로그·개발검증을 읽고 같은128monitor/동일4096update 비교 및곡선PNG 작성. Partial1epoch4707 최종1024개발 PDMS81.6341/ADE1.28250/FDE3.04333. LoRA4528/4707(10:04snapshot),최신공통4096 monitorPDMS partial80.6169/LoRA84.5584(+3.9415점),ADE1.23115/1.11915. Adapter미시작/full2095보존재개대기. Runtime/queue/source/config변경없음.
 
@@ -422,6 +424,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+공식navtrain103288/navtest12146token대조: 평가panel1024모두navtrain,navtest0. Stage2manifest train75297/dev27076,train/dev token·recording중복각0. Monitor128/최종개발1024 유효PDMS127/1021. Current automatic_navtest=false 및queue공식test단계없음확인. 근거results/lpwm_card_budget_measured_v4/evaluation_split_clarification_20261005.json.
 
 Partial world256 같은장면 LPIPS 복원0.304335→0.305230(+0.294%,유지통과),미래0.392249→0.438393(+11.764%,등록10%유지gate실패). 회전/작은객체/박스겹침상황군에서도미래LPIPS악화. Partial미래particle을현재표현반복으로교체하면PDMS81.6341→76.2361,paired차이5.398점/95%CI4.139–6.680;추론입력분포교란검사이므로미래예측학습·LPWM미세조정의독립효과단정금지. Stage1전체7745의LPIPS는복원0.770675→0.300016/미래0.807938→0.382994,SSL영상적응확인이나객체/완전적응증거는별개. JSON/PNG `results/lpwm_card_budget_measured_v4/interim_review_20261005/`.
 
@@ -774,12 +778,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 중간결과 요청에 현재LPWM stage1/partial/LoRA/대기조건 상태와같은4096update/128monitor 비교를집계했다.
-- Partial 최종PDMS81.63과world forecast LPIPS11.76%악화·보존gate실패를함께기록했다.
-- 같은장면학습곡선PNG/JSON 생성 및HANDOFF/RESUME갱신. 기존학습/대기열/설정변경없음.
+- 공식navtrain/navtest token과현재1024평가panel을대조해navtrain1024/navtest0을확인했다.
+- LPWM점수가navtrain내부개발검증이며공식test단계는현재queue에없음을명확히정정했다.
+- 공식NAVSIM분할/지표문서확인,근거JSON/연구문서/HANDOFF/RESUME갱신. 학습·queue·config변경없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+공식성능주장에는고정checkpoint로navtest전체12146및공식v1 scorer평가가추가로필요하다. navhard는v2/EPDMS별도프로토콜. 현재queue가공식test까지자동실행한다고설명하지않는다. 이번명확화질문에서는활성학습·등록queue를변경하지않았다.
 
 현재batch8 LoRA를끝낸뒤같은1024planning/256world최종검증으로partial과비교. 그후등록Adapter→full재개순서유지. 128monitor와1024최종개발점수를직접비교하지않는다. Frozen-LPWM+학습planner대조군은계속제안단계로현재queue자동추가없음.
 
@@ -977,6 +983,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+"전체navtest아님"은navtest일부를평가했다는뜻으로오해가능했으므로"navtrain내부개발검증"으로명시정정했다. 현재LPWM의공식navtest/navhard점수는없고내부PDMS를논문숫자와직접비교불가. 이전공식Drive-JEPA navtest완료자산과현재LPWM결과를구분한다.
 
 중간해석: LoRA가유망하나4096시점128scene/1seed결과이며모든시점에서우세하지않다. Partial의미래LPIPS보존실패는명시하며SSL가중치/학습범위최적값을이번질문으로바꾸지않았다. PDMS는고정후보공식cache기반개발점수이며전체navtest/SOTA직접순위비교불가. Planner학습효과와LPWM적응효과는분리대조가없어미확정.
 

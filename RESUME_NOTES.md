@@ -2095,3 +2095,24 @@ v4 profile8회통과/카드최대47.598010368GB/peak allocated23.835232GiB/last6
 Partial world256 같은장면 LPIPS 복원0.304335→0.305230(+0.294%,유지통과),미래0.392249→0.438393(+11.764%,등록10%유지gate실패). 회전/작은객체/박스겹침상황군에서도미래LPIPS악화. Partial미래particle을현재표현반복으로교체하면PDMS81.6341→76.2361,paired차이5.398점/95%CI4.139–6.680;추론입력분포교란검사이므로미래예측학습·LPWM미세조정의독립효과단정금지. Stage1전체7745의LPIPS는복원0.770675→0.300016/미래0.807938→0.382994,SSL영상적응확인이나객체/완전적응증거는별개. JSON/PNG `results/lpwm_card_budget_measured_v4/interim_review_20261005/`.
 
 128monitor(유효PDMS127)과1024최종개발(유효PDMS1021)을분리했으며대응token동일검사완료. 학습곡선은update0을가독성때문에생략,완료partial4707과현재LoRA4096최신monitor를표시. 이후실행은기존queue가수행한다. 학습·GPU·source설정수정/추가실험없이CPU집계·그림만생성.
+
+
+## 2026-10-05T10:12:20.347189+09:00 — 공식 평가 분할과 내부 개발 분할 명확화
+
+사용자 지적에 따라 "전체 navtest 성능은 아니다"라는 설명을 명확히 한다. 현재 LPWM의81.63/84.56점은
+**navtest 일부의 점수도 아니며, navtrain에서 recording 단위로 분리한 내부 개발 장면의 점수**다.
+공식 navtrain103,288token filter에서 현재 유효planning manifest는 train75,297/dev27,076이고,
+train/dev token과recording 중복은각0이다. 고정최종개발panel1,024token을공식filter와대조한결과
+navtrain1,024/navtest0;중간monitor는이panel의첫128이다. 유효PDMS는각1,021/127이다.
+
+현재PDMS는모델이선택한고정후보의공식v1 PDM시뮬레이터cache점수를조회한다. 모델이예측한점수를
+실제평가점수로보고하는것은아니다. 다만공식평가split을사용하지않았으므로논문/리더보드와비교불가다.
+"최종 검증"은현재조건학습종료후내부개발검증이라는뜻이며공식benchmark완료가아니다.
+현재configs에는automatic_navtest=false이며네방법queue에도navtest/navhard실행단계가없다.
+최종벤치마크비교에는고정checkpoint/설정으로v1 navtest전체12,146token의공식평가가추가로필요하다.
+navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검증·문서정정만수행하고활성학습queue는보존했다.
+
+근거: `results/lpwm_card_budget_measured_v4/evaluation_split_clarification_20261005.json`,
+[공식분할](https://github.com/autonomousvision/navsim/blob/main/docs/splits.md),
+[공식지표](https://github.com/autonomousvision/navsim/blob/main/docs/metrics.md).
+

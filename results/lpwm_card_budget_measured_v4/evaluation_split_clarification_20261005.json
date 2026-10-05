@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-10-05T10:12:20.347189+09:00",
+  "request": "Clarify whether reported LPWM PDMS uses official navtest/navhard",
+  "current_stage2_manifest": {
+    "source_split": "official NAVSIM-v1 navtrain filter over trainval logs",
+    "training_scenes": 75297,
+    "internal_development_scenes": 27076,
+    "training_development_token_overlap": 0,
+    "training_development_recording_overlap": 0
+  },
+  "official_filter_token_counts": {
+    "navtrain": 103288,
+    "navtest": 12146
+  },
+  "current_final_development_panel": {
+    "scenes": 1024,
+    "tokens_in_official_navtrain": 1024,
+    "tokens_in_official_navtest": 0,
+    "valid_cached_pdms_scenes": 1021
+  },
+  "current_monitor_panel": {
+    "scenes": 128,
+    "source": "first128 fixed internal-development panel",
+    "valid_cached_pdms_scenes": 127
+  },
+  "reported_values": {
+    "partial81_6341": "final-epoch checkpoint on1024 internal-development scenes, not official test",
+    "lora84_5584": "update4096 on128 internal-development scenes, not official test"
+  },
+  "scoring": "Model selects a fixed-vocabulary candidate; lookup that candidate's precomputed NAVSIM-v1 PDM simulator score. Not the model's predicted safety probability.",
+  "automatic_navtest_in_current_configuration": false,
+  "queue_includes_official_test_evaluation": false,
+  "correction": "Not full navtest was ambiguous: these LPWM results do not use any navtest scene. Final previously meant post-training internal development evaluation, not final benchmark.",
+  "official_references": [
+    "https://github.com/autonomousvision/navsim/blob/main/docs/splits.md",
+    "https://github.com/autonomousvision/navsim/blob/main/docs/metrics.md"
+  ],
+  "local_evidence": [
+    "configs/lpwm_navsim_adaptation/full_posttraining_v2.json",
+    "scripts/prepare_lpwm_navsim_posttraining.py",
+    "scripts/lpwm_partial_protocol.py",
+    "scripts/evaluate_lpwm_partial_planning.py",
+    "configs/lpwm_planning/card_budget_measured_v4/attention_lora_batch8.json"
+  ],
+  "runtime_changes": false,
+  "followup_required_for_benchmark_claim": "Freeze the compared checkpoints/configs and run official v1 scorer on the complete12146 navtest tokens; navhard requires a separate v2/EPDMS protocol."
+}
