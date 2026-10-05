@@ -2251,3 +2251,23 @@ Stage2에서별도고해상도원본경로를사용하지않는다.
 이번질문으로해상도·학습·queue·등록source/config를변경하지않았다.
 근거 `results/lpwm_card_budget_measured_v4/image_preprocessing_audit_20261005.json`;
 코드 `scripts/prepare_lpwm_navsim_posttraining.py:169`, `scripts/train_lpwm_partial_planning.py:67`.
+
+
+## 2026-10-05 14:16 KST — 해상도와 LPWM 구조 관계
+
+현재공개Sketchy checkpoint의image_size128을유지한것은모델구성/가중치호환을위한선택이다.
+LPWM개념이128만가능하다는뜻은아니다. 공식DLP는image_size를인자로받고기본구현은정사각형을가정한다.
+models.py:249에서패치수=(image_size//patch_size)^2,261에서객체glimpse크기를image_size로정한다.
+modules/modules.py:2760의attribute head Linear입력차원,2541이후background latent projection,
+4812의patch_centers buffer,decoder출력공간도구성크기에연결된다. 따라서공개가중치를그대로둔채
+입력resize만256으로바꾸는작업으로고해상도적응이완료되지않는다. 공유가능가중치이식과달라지는구성검증이필요하다.
+
+상하28px crop와가로세로비율을바꾸는resize는우리NAVSIM adapter의전처리선택이다.
+동일상하crop는로컬Drive-JEPA/TransFuser공식NAVSIM코드에도존재하지만LPWM자체요구조건은아니다.
+특정28값의독립효과나현재왜곡resize의최적성을검증한실험은없다.
+정사각형입력도비율유지padding등으로구성할수있으나128캔버스에서는유효영상영역이줄어들므로
+왜곡해소와작은객체해상도확보는별개로검증해야한다. 고해상도/직사각형입력확장은가능한연구방향이며미구현이다.
+
+공식근거: https://github.com/taldatech/lpwm/blob/main/models.py 및 configs/sketchy.json;
+사용중고정checkout의models.py/modules/modules.py와실제hparams를확인했다.
+이번질문은설명/코드감사이며활성학습·queue·등록source/config·해상도변경없음.
