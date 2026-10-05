@@ -1,0 +1,53 @@
+{
+  "checked_at": "2026-10-05 14:10 KST",
+  "scope": "Read-only source/config and actual RGB cache header audit; no new model inference.",
+  "source_camera": "CAM_F0",
+  "source_width_height": [
+    1920,
+    1080
+  ],
+  "crop_top_bottom_pixels": [
+    28,
+    28
+  ],
+  "cropped_width_height": [
+    1920,
+    1024
+  ],
+  "input_width_height": [
+    128,
+    128
+  ],
+  "interpolation": "cv2.INTER_AREA",
+  "aspect_ratio_preserved": false,
+  "cache_shape": [
+    152495,
+    128,
+    128,
+    3
+  ],
+  "cache_dtype": "uint8",
+  "model_rgb_range": [
+    0,
+    1
+  ],
+  "official_checkpoint_hparams": {
+    "image_size": 128,
+    "normalize_rgb": false,
+    "patch_size": 16,
+    "n_kp_per_patch": 1
+  },
+  "stage1_tensor_shape": "batch,12,3,128,128",
+  "stage2_planning_tensor_shape": "batch,4,3,128,128",
+  "stage2_world_auxiliary_tensor_shape": "batch,12,3,128,128",
+  "frame_interval_seconds": 0.5,
+  "planning_future_input": "Predicted particles only; future RGB is reserved for auxiliary supervision.",
+  "sources": {
+    "scripts/prepare_lpwm_navsim_posttraining.py": "750e3350723ab26ae3b45d3c412dd419c12562a48e8669a465d479c8e1d1acb3",
+    "scripts/run_lpwm_navsim_posttraining.py": "eabaea9d34d60d8b774b6314de04ba78d2065a1e4c31c5be09cbbde1bc80e584",
+    "scripts/train_lpwm_partial_planning.py": "760bc057b2b21a6f2a310c1d39216286b257e10ba7491929ea0d1daf37646713",
+    "outputs/lpwm_navsim_adaptation_v1/pretrained/hparams.json": "70f413905ed6295dc7e1f47f30ac52dcffee416b1311e7e97f85e9bc41514c44"
+  },
+  "runtime_changed": false,
+  "interpretation": "Loss of fine spatial detail is a plausible bottleneck, not a measured causal explanation of the current PDMS."
+}

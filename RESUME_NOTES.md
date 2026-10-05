@@ -2228,3 +2228,26 @@ LoRA현재1epoch cosine끝LR은LPWM1e-6/planner3e-5로초기최대의10%다.
 새CPU script `scripts/report_lpwm_training_convergence.py`,원자료hash/집계/PNG/PDF는
 `results/lpwm_card_budget_measured_v4/convergence_review_20261005/`에저장했다.
 활성학습·queue·등록source/config변경이나새GPU평가는없다.
+
+
+## 2026-10-05 14:10 KST — 입력 이미지 해상도 감사
+
+현재공개Sketchy checkpoint hparams는image_size128/normalize_rgb=false다.
+NAVSIM CAM_F0 전방단일카메라1920×1080 RGB에서위아래28px씩제거하여1920×1024로만든뒤,
+cv2.INTER_AREA로128×128에직접축소한다. 가로세로비율을유지하는letterbox가아니며,
+가로1/15·세로1/8배율로변환한다. 원본30px폭은입력에서약2px폭에해당한다.
+실제rgb_frames.npy헤더shape=(152495,128,128,3),dtype=uint8를읽기전용확인했다.
+
+Stage1은이캐시12프레임을(batch,12,3,128,128) float/[255]로전달한다.
+Stage2 planning은동일캐시관측4프레임(batch,4,3,128,128)과ego status를입력하며,
+별도world보조학습은12프레임을사용한다. 이미지값은[0,1],ImageNet평균/표준편차정규화없음.
+모든프레임간격0.5초;미래RGB는planning입력이아니며planning은예측particle을받는다.
+Stage2에서별도고해상도원본경로를사용하지않는다.
+
+128해상도는공개모델구성을유지한설정이며자율주행최적해상도라는검증결과가아니다.
+원거리작은객체/차선정보손실과종횡비왜곡은가능한제약이나현재PDMS원인으로확정못한다.
+해상도확장의효과를보려면원본에서캐시를다시생성하고모델/체크포인트/particle구조·메모리를검증해야한다.
+이미128로줄인캐시를확대하는것만으로원본세부정보를복구할수없다.
+이번질문으로해상도·학습·queue·등록source/config를변경하지않았다.
+근거 `results/lpwm_card_budget_measured_v4/image_preprocessing_audit_20261005.json`;
+코드 `scripts/prepare_lpwm_navsim_posttraining.py:169`, `scripts/train_lpwm_partial_planning.py:67`.
