@@ -1,5 +1,22 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 공개 LPWM의 다른 해상도 사용 가능 범위
+
+공식config들을확인하면64×64(bair64/balls/ogbench/shapes)와128×128(sketchy등)설정이존재한다.
+따라서LPWM아키텍처가128만가능한것은아니다. 다만오늘확인한공식README Model Zoo의
+Sketchy/SketchyAction/BAIR/LanguageTable/Bridge 공개checkpoint표는모두128×128이다.
+64config존재를64공개weight확인으로표현하지않고,256dataset링크를256모델weight로해석하지않는다.
+
+현재Sketchy checkpoint를구성변경없이재사용하는경로는128입력이다.
+256×256은기존weight를출발점으로해상도관련head/bg/decoder/patch좌표및particle구성을조정해
+적응학습하는확장방향이다. 실제256호환·학습성능검사는이번턴수행하지않았다.
+512×256등직사각형은기본정사각형가정수정이추가로필요하다.
+호환되는weight재사용이가능한범위를검증해야하며모든가중치를새로학습해야한다고단정하지않는다.
+
+출처: https://github.com/taldatech/lpwm#model-zoo---pretrained-models 및
+https://github.com/taldatech/lpwm/blob/main/configs/bair64.json .
+이번사용자질문은가능범위설명이며신규학습/해상도확장구현/활성queue변경없음.
+
 ## 2026-10-05: 다른 E2E의 입력 축소와 성능 해석
 
 연구 하위 질문: 작은 객체의 입력 정보를 유지하면서 planning에 필요한 entity 표현으로 압축할 수 있는가?

@@ -2302,3 +2302,21 @@ register압축64scene tokens는90.0이다. 이는입력이미지를극단적으�
 - https://openaccess.thecvf.com/content/ICCV2023/papers/Jiang_VAD_Vectorized_Scene_Representation_for_Efficient_Autonomous_Driving_ICCV_2023_paper.pdf
 - https://arxiv.org/html/2601.05083v2 (Table4/11)
 - 로컬Drive-JEPA: reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_features.py:49
+
+
+## 2026-10-05 14:31 KST — 공개 LPWM 해상도 지원 범위
+
+공식config들을확인하면64×64(bair64/balls/ogbench/shapes)와128×128(sketchy등)설정이존재한다.
+따라서LPWM아키텍처가128만가능한것은아니다. 다만오늘확인한공식README Model Zoo의
+Sketchy/SketchyAction/BAIR/LanguageTable/Bridge 공개checkpoint표는모두128×128이다.
+64config존재를64공개weight확인으로표현하지않고,256dataset링크를256모델weight로해석하지않는다.
+
+현재Sketchy checkpoint를구성변경없이재사용하는경로는128입력이다.
+256×256은기존weight를출발점으로해상도관련head/bg/decoder/patch좌표및particle구성을조정해
+적응학습하는확장방향이다. 실제256호환·학습성능검사는이번턴수행하지않았다.
+512×256등직사각형은기본정사각형가정수정이추가로필요하다.
+호환되는weight재사용이가능한범위를검증해야하며모든가중치를새로학습해야한다고단정하지않는다.
+
+출처: https://github.com/taldatech/lpwm#model-zoo---pretrained-models 및
+https://github.com/taldatech/lpwm/blob/main/configs/bair64.json .
+이번사용자질문은가능범위설명이며신규학습/해상도확장구현/활성queue변경없음.
