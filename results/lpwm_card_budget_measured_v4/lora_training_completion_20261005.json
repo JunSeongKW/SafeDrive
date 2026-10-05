@@ -1,0 +1,73 @@
+{
+  "checked_at": "2026-10-05T10:31:27.742342+09:00",
+  "training_status": {
+    "status": "complete",
+    "pid": 427197,
+    "started_unix": 1791161788.3329084,
+    "returncode": 0,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 47598010368,
+    "minimum_free_gib": 3.0849609375,
+    "minimum_cap_headroom_gib": 0.37438201904296875,
+    "queue_configuration_sha256": "888e2b3c328d689b81e678e1519936b3ae1de0f4f7959a295ae1fb8b8d176ec4",
+    "finished_unix": 1791162922.2737741
+  },
+  "training_finished_kst": "2026-10-05T10:15:22.273774+09:00",
+  "training_summary": {
+    "condition": "metric_plus_world",
+    "completed_updates": 4707,
+    "epochs": 1.0,
+    "train_clips": 75297,
+    "effective_batch_size": 16,
+    "world_size": 2,
+    "seconds": 22773.770691462967,
+    "peak_allocated_gib": 23.835232734680176,
+    "module_gradients": {
+      "image_encoder": 0.8127871155738831,
+      "context": 1.786760687828064,
+      "dynamics": 0.5976139903068542,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 3.8304576873779297
+    },
+    "trainable_parameters": 3555463,
+    "checkpoint_sha256": "54b893143b62e5dc35cc5552109c1622a68c11c55ed617ad77436025ab9c98c6",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "configuration_sha256": "1a666286478a23f86075bd579f880565c24f30dc2b01d6712814a23e507929c5",
+    "profile_only": false
+  },
+  "final_update": 4707,
+  "final_loss": 6.272992849349976,
+  "last_monitor": {
+    "epoch": 1,
+    "update": 4707,
+    "clips": 128,
+    "ade_meters": 1.1479625701904297,
+    "fde_meters": 2.7226737663149834,
+    "cached_official_pdms_percent": 83.63804141367514,
+    "scored_clips": 127,
+    "scope": "fixed development monitor; no checkpoint or hyperparameter selection"
+  },
+  "checkpoint_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/attention_lora/batch8/metric_plus_world/checkpoint.pt",
+  "checkpoint_bytes": 453050300,
+  "evaluation_progress": {
+    "stage": "persistent_future",
+    "completed": 132,
+    "total": 1024
+  },
+  "queue_current_stage": "attention_lora_evaluation",
+  "queue_heartbeat_kst": "2026-10-05T10:31:21.670135+09:00",
+  "host_process_check": {
+    "training_pid427197_present": false,
+    "queue421603_present": true,
+    "evaluation457092_present": true
+  },
+  "evaluation_scope": "navtrain internal development; 1024 planning and256 world clips; not official navtest",
+  "next_registered_methods": [
+    "residual_adapter",
+    "full_low_learning_rate"
+  ],
+  "runtime_changes": false,
+  "trained.json_exists": true,
+  "world.json_exists": false,
+  "summary.json_exists": false
+}

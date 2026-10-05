@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 10:26 KST (Codex)
+마지막 갱신: 2026-10-05 10:31 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 10:31 KST 확인: LoRA 본학습은10:15:22KST 4707/4707update,1epoch 정상종료(returncode0). checkpoint/latest/epoch01 보존. 마지막128개발monitor PDMS83.6380/ADE1.14796/FDE2.72267. Queue421603/evaluation457092 실행,학습427197 종료. 현재 검증 단계 {'stage': 'persistent_future', 'completed': 132, 'total': 1024}. Adapter/full은 이후 등록 대기. 읽기전용점검으로runtime변경없음.
 
 최신 질문: navval 정의와 논문 공정 비교 프로토콜. DrivoR 학습 코드/분할 설정을 읽고 권고안을 기록했다. 활성 학습·queue·source/config 변경 및 새 평가 실행 없음.
 
@@ -428,6 +430,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+LoRA completed_updates4707/epochs1/train75297/effectivebatch16. 최종checkpoint SHA54b893143b62e5dc35cc5552109c1622a68c11c55ed617ad77436025ab9c98c6. 최종loss6.27299 유한. 재개후본학습batch8, 카드최대47.598GB/guard없음. 최종개발검증 미완료이므로 monitor83.64를1024최종점수로해석하지않는다. 근거 results/lpwm_card_budget_measured_v4/lora_training_completion_20261005.json.
 
 DrivoR fc6e5aa: navtrain filter103288token/1192log segment. 기본 train_logs978/val_logs214개로 중복0; competition train1192개로 val214도 포함. 비캐시 full training은 같은 navtrain filter에서 train_logs|val_logs 합집합을 사용. navval은 여기서 학습용 풀 안의 개발 검증 부분이며 별도 데이터셋 아님.
 
@@ -786,12 +790,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- DrivoR 공개 코드와 실제 log 설정으로 navtrain/navval 관계를 확인했다.
-- 연구 문서에 용어 명확화와 Stage1/2 공통 분할·최종 학습·공식 평가 권고를 추가했다.
-- HANDOFF/RESUME 갱신. 학습·queue·source/config·데이터 변경 없음.
+- LoRA 학습 정상종료·checkpoint 저장·후속검증 실행을 로그와 호스트 프로세스로 확인했다.
+- 완료 확인 JSON/HANDOFF/RESUME 기록. 학습·queue·등록source/config 변경 없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+LoRA 후속1024planning/256world 및 미래표현개입 검증 완료 후 같은장면 Partial과 비교. 기존queue는 검증 후 Adapter→full재개 순서다. 새로운학습/대기열/공식test를이번상태질문으로추가하지않았다.
 
 권고: Stage1/2 공통 고정 개발 분할에서 설정 결정→동일 공식 navtrain 전체 풀로 최종 비교 모델 학습→고정 checkpoint로 v1 navtest 전체 평가. v2 navhard는 별도 확장 표. 외부 LPWM pretraining과 센서/감독/학습량 차이 명시. 아직 이 권고를 실행 queue에 등록하지 않았다.
 
@@ -995,6 +1000,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+LoRA 학습완료와 검증완료를 구분: 본학습 정상종료는확인했으나 현재최종검증은진행중. PDMS개선·world유지 최종결론은검증완료후확인. Monitor128 PDMS83.6380은navtrain내부개발이며공식navtest아님.
 
 navtrain이라는 이름은 전체 공식 filter 풀과 그 안의 실제 gradient 학습 부분을 혼용할 수 있으므로 token manifest 기준으로 표기. 최종 학습에 val을 합친 후 그 val은 독립 검증 아님. 우리 기존 자체dev는 DrivoR 기본val과 동일하지 않으며 분할 변경 시 Stage1 노출도 고려해야 한다.
 

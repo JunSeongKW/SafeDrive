@@ -2133,3 +2133,11 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 - 권고는 개발 단계 Stage1/2 공통 split→설정 고정→동일 navtrain 전체 풀 최종 학습→전체 navtest/v1 공식 평가, navhard/v2 별도 확장이다. Frozen-LPWM 대조 및 센서/사전학습/감독/학습량을 함께 보고한다.
 - 공개 LPWM 사전학습을 쓰므로 전체 학습을 navtrain only라고 부르지 않는다. 기존 자체dev와 DrivoR 기본val은 서로 다른 구성이다.
 - 상세 근거/링크는 docs/lpwm_planning_experiment.md 최신절. 학습·queue·등록 source/config 변경 없음.
+
+## 2026-10-05 10:31 KST — LoRA 학습 완료 확인
+
+- 2026-10-05 10:31 KST 확인: LoRA 본학습은10:15:22KST 4707/4707update,1epoch 정상종료(returncode0). checkpoint/latest/epoch01 보존. 마지막128개발monitor PDMS83.6380/ADE1.14796/FDE2.72267. Queue421603/evaluation457092 실행,학습427197 종료. 현재 검증 단계 {'stage': 'persistent_future', 'completed': 132, 'total': 1024}. Adapter/full은 이후 등록 대기. 읽기전용점검으로runtime변경없음.
+- 체크포인트453,050,300bytes, 저장10:15:14; latest와epoch01도존재. 완료summary의profile_only=false.
+- 마지막monitor는128개/유효127개로 최종1024점수나navtest성능이아님.
+- GPU0·1전체점유조회는각21966/20201MiB,util28/26%;학습종료후검증중인상태.
+- 근거 results/lpwm_card_budget_measured_v4/lora_training_completion_20261005.json;활성queue변경이나추가학습없음.
