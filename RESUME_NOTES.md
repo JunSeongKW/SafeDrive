@@ -2325,3 +2325,8 @@ https://github.com/taldatech/lpwm/blob/main/configs/bair64.json .
 ## 2026-10-05 14:37 KST — GPU0·1 공동 사용자 종료 시각 확인
 
 14:34:23 카드점유각23591MiB,호스트compute조회와ps대조에서GPU0·1은우리866456/866457 junseong kjs-lpwm-stage2만사용한다. GPUaccounting은양쪽Disabled. 최신저장공동점유snapshot10:52:35는각45.89GB이나소유자별내역없음. Queue는resource최신값만덮어쓰므로junheok의정확종료시각/지속부재시간은확정할수없다. 추가공동점유가10:52~14:34사이에사라진관측과개인별종료시점을구분한다. Adapter14:35:32 progress4176/4707,학습·queue·source/config변경없음. 근거results/lpwm_card_budget_measured_v4/gpu_shared_user_departure_review_20261005.json.
+
+
+## 2026-10-05 14:42 KST — pjh 프로세스 이력 확인
+
+사용자가 제공한 pjh- 이름으로 자체 세션의 과거 GPU 조회 원본을 대조했다. 09:35:49KST GPU0(UUID95f20c84...) PID290957, GPU1(UUIDa987cdb2...) PID290958의 실행파일은 /rhome/junhyeok/miniconda3/envs/pjh-wamvla-v2/bin/python, 각20168MiB였다. 09:45/09:49 저장 OOM조회에도 같은PID가 등장하나 로그조회시각을 실시간 생존 확인으로 사용하지 않는다. 14:42 신규GPU조회에서는 두GPU에 우리 kjs-lpwm-stage2 PID866456/866457 각23558MiB만 있다. 기존10:52공동점유~14:34감소관측은 유지하며 정확한 pjh 종료시각/부재경과시간은 미확정. 학습/queue/등록source/config 변경없음. 근거 results/lpwm_card_budget_measured_v4/pjh_process_history_review_20261005.json.

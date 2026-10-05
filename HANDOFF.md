@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 14:37 KST (Codex)
+마지막 갱신: 2026-10-05 14:43 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 14:42 KST: 사용자 pjh- 단서로 과거 자체 GPU 조회 원본을 재확인. 09:35:49 GPU0·1 pjh-wamvla-v2 PID290957/290958, 각20168MiB 확인. 14:42 현재는 우리866456/866457만 해당GPU사용. 실행변경없음.
 
 2026-10-05 14:37 KST: 사용자junheok GPU0·1이탈시간질문으로호스트GPU/소유자/accounting조회. 현재866456/866457 junseong kjs-lpwm-stage2만GPU0·1사용. Adapter4176/4707(14:35:32 snapshot). 실행변경없음.
 
@@ -454,6 +456,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-05 pjh 이력 확인: 실제 경로 /rhome/junhyeok/miniconda3/envs/pjh-wamvla-v2/bin/python. 09:35:49 GPU별 프로세스/UUID 대응 확인. 이후 OOM로그에도 같은PID가 있으나 로그조회시각을 생존시각으로 해석하지 않는다. 총점유10:52→14:34 감소는 기존근거이며 정확 종료/부재시간은 여전히미확정. 근거 results/lpwm_card_budget_measured_v4/pjh_process_history_review_20261005.json.
 
 14:34카드각23591MiB,현재compute각23558MiB우리계정만. 저장10:52공동점유각45.89decimalGB 대비감소. GPUaccountingDisabled/queue최신resource덮어쓰기로정확종료시간미확인. 과거snapshot에소유자정보없어특정인의종료시각으로단정금지.
 
@@ -838,11 +842,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- GPU0·1현점유프로세스와소유자,accounting설정을호스트읽기전용확인했다.
-- 저장공동점유와현재우리프로세스만있는상태를대조했으나정확개인별종료시각은기록부재임을명시했다.
-- 감사JSON/HANDOFF/RESUME기록만추가했고실행변경없음.
+- 사용자 pjh- 단서에 따라 자체 저장 GPU 조회에서 pjh-wamvla-v2의 GPU0·1 점유와 PID/메모리를 확인하고 별도 근거 JSON 저장.
+- 현재 부재와 정확 종료 시각 미확정을 구분; 학습·queue·source/config 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-05 pjh 확인 후: 기존 학습·검증 queue 유지. 정확한 타 사용자 종료 시각을 추정값으로 보고하지 않는다. 추가 GPU작업·설정변경 없음.
 
 기존Adapter→검증→fullqueue유지. 점유감소질문으로배치/allocator/source/config변경이나새GPU작업없음.
 
@@ -1072,6 +1077,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-05 추가 확인: 과거 pjh-wamvla-v2의 GPU0·1 점유는 원본 조회로 확정됐다. 프로세스 종료 이력이 없어 정확한 이탈시각/경과시간은 미확정이다.
 
 Junheok현재GPU0·1프로세스없음확인. 몇시간전에종료했는지는기록부재로미확정. 추가공동점유감소관측구간은10:52~14:34이며개인별종료기록이아님.
 

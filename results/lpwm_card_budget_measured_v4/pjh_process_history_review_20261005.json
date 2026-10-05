@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-10-05T14:43:21.449548+09:00",
+  "requested_process_prefix": "pjh-",
+  "identified_executable": "/rhome/junhyeok/miniconda3/envs/pjh-wamvla-v2/bin/python",
+  "historical_source": {
+    "path": "/rhome/junseong/.codex/sessions/2026/10/02/rollout-2026-10-02T22-37-14-01a0fcd5-551c-7d12-838b-466cd9c25aba.jsonl",
+    "line": 9835,
+    "tool_output_timestamp_utc": "2026-10-05T00:35:49.613Z",
+    "tool_output_timestamp_kst": "2026-10-05T09:35:49.613+09:00"
+  },
+  "historical_gpu_processes": [
+    {
+      "gpu": 0,
+      "gpu_uuid": "GPU-95f20c84-b58c-104f-de61-2cd8d43f1ff5",
+      "pid": 290957,
+      "used_memory_mib": 20168
+    },
+    {
+      "gpu": 1,
+      "gpu_uuid": "GPU-a987cdb2-c031-bedd-f0de-6e140472be25",
+      "pid": 290958,
+      "used_memory_mib": 20168
+    }
+  ],
+  "later_saved_output_mentions": {
+    "description": "09:45:50 and 09:49:05 KST tool outputs quote OOM logs containing the same PIDs. Log-reading times must not be treated as live process observations.",
+    "source_lines": [
+      9975,
+      10042
+    ]
+  },
+  "current_gpu_process_check_kst": "2026-10-05T14:42:26+09:00",
+  "current_gpu_0_1_processes": [
+    {
+      "gpu": 0,
+      "pid": 866456,
+      "environment": "kjs-lpwm-stage2",
+      "used_memory_mib": 23558
+    },
+    {
+      "gpu": 1,
+      "pid": 866457,
+      "environment": "kjs-lpwm-stage2",
+      "used_memory_mib": 23558
+    }
+  ],
+  "current_pjh_gpu_process_present": false,
+  "earlier_resource_review": "results/lpwm_card_budget_measured_v4/gpu_shared_user_departure_review_20261005.json",
+  "interpretation": "Historical GPU0/1 pjh-wamvla-v2 identity is confirmed. Exact exit time and elapsed absence remain unknown. Total card occupancy decreased between the saved10:52snapshot and14:34check, but the10:52snapshot does not identify each owner.",
+  "runtime_changed": false
+}
