@@ -1,0 +1,501 @@
+{
+  "comparison": "NAVSIM-adapted frozen LPWM versus completed residual Adapter condition",
+  "updates": [
+    0,
+    2353,
+    4707
+  ],
+  "scene_count": 8,
+  "particle_count_per_scene": 64,
+  "input_resolution": [
+    128,
+    128
+  ],
+  "aggregate": {
+    "center_shift_mean_pixels": 0.08466309309005737,
+    "center_shift_median_pixels": 0.07045796513557434,
+    "center_shift_p95_pixels": 0.20756332576274872,
+    "center_shift_max_pixels": 0.3476226329803467,
+    "fraction_centers_shifted_below_one_pixel": 1.0,
+    "size_absolute_change_mean_pixels": 0.27184492349624634,
+    "presence_signed_change_mean": 0.003995964769273996,
+    "presence_absolute_change_mean": 0.00492457440122962
+  },
+  "checks": {
+    "same_scene_manifest": true,
+    "all_rgb_exactly_equal": true,
+    "initial_geometry_exactly_equal": true,
+    "frozen_geometry_exactly_unchanged_at_all_three_updates": true,
+    "all_values_finite": true
+  },
+  "snapshot_protocol": "FP32 deterministic single-scene diagnostic; four observed frames only for current particles; no new inference",
+  "selection": "All eight preselected development scenes, two per category; representatives use first registered scene per category",
+  "box_selection": "Frozen initial presence top16, same particle indices across both methods and all updates",
+  "limits": [
+    "Particle indices are not tracked semantic objects; boxes are learned support, not detection GT",
+    "Presence is not planning importance; geometry alone does not measure latent/future information",
+    "Adapter condition includes trainable command FiLM and retained world SSL objective",
+    "Eight selected scenes are descriptive; projected_overlap is an occlusion proxy",
+    "Current public frozen control training is separate and untouched"
+  ],
+  "scenes": [
+    {
+      "current_frame_token": "399635380c935794",
+      "scenario": "straight",
+      "recording_group": "2021.08.17.18.54.02_veh-45",
+      "metrics": {
+        "center_shift_mean_pixels": 0.07167315483093262,
+        "center_shift_median_pixels": 0.06408540904521942,
+        "center_shift_p95_pixels": 0.16026856005191803,
+        "center_shift_max_pixels": 0.20948834717273712,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.3492060899734497,
+        "presence_signed_change_mean": 0.0028142675291746855,
+        "presence_absolute_change_mean": 0.003550764871761203
+      },
+      "fixed_box_particle_ids": [
+        20,
+        10,
+        23,
+        19,
+        18,
+        22,
+        9,
+        27,
+        58,
+        1,
+        28,
+        63,
+        54,
+        53,
+        26,
+        62
+      ]
+    },
+    {
+      "current_frame_token": "76e801d6c90b5f14",
+      "scenario": "straight",
+      "recording_group": "2021.10.11.07.12.18_veh-50",
+      "metrics": {
+        "center_shift_mean_pixels": 0.07326595485210419,
+        "center_shift_median_pixels": 0.06539979577064514,
+        "center_shift_p95_pixels": 0.14995445311069489,
+        "center_shift_max_pixels": 0.21825703978538513,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.2292788028717041,
+        "presence_signed_change_mean": 0.004891952965408564,
+        "presence_absolute_change_mean": 0.005539577919989824
+      },
+      "fixed_box_particle_ids": [
+        57,
+        1,
+        13,
+        20,
+        50,
+        4,
+        36,
+        18,
+        16,
+        38,
+        12,
+        0,
+        40,
+        35,
+        43,
+        61
+      ]
+    },
+    {
+      "current_frame_token": "e06eb0bd75c35409",
+      "scenario": "turn",
+      "recording_group": "2021.06.23.14.54.32_veh-16",
+      "metrics": {
+        "center_shift_mean_pixels": 0.1026858240365982,
+        "center_shift_median_pixels": 0.0951375812292099,
+        "center_shift_p95_pixels": 0.21430543065071106,
+        "center_shift_max_pixels": 0.27998700737953186,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.22826498746871948,
+        "presence_signed_change_mean": 0.004391595721244812,
+        "presence_absolute_change_mean": 0.005131367594003677
+      },
+      "fixed_box_particle_ids": [
+        31,
+        8,
+        28,
+        11,
+        16,
+        15,
+        19,
+        13,
+        52,
+        61,
+        53,
+        27,
+        45,
+        5,
+        29,
+        18
+      ]
+    },
+    {
+      "current_frame_token": "40c9bf1987b9570a",
+      "scenario": "turn",
+      "recording_group": "2021.06.23.14.54.32_veh-16",
+      "metrics": {
+        "center_shift_mean_pixels": 0.09722187370061874,
+        "center_shift_median_pixels": 0.07663079351186752,
+        "center_shift_p95_pixels": 0.24905619025230408,
+        "center_shift_max_pixels": 0.3476226329803467,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.25775712728500366,
+        "presence_signed_change_mean": 0.0035178600810468197,
+        "presence_absolute_change_mean": 0.00426787044852972
+      },
+      "fixed_box_particle_ids": [
+        10,
+        13,
+        12,
+        16,
+        11,
+        55,
+        0,
+        25,
+        5,
+        30,
+        38,
+        24,
+        47,
+        44,
+        6,
+        22
+      ]
+    },
+    {
+      "current_frame_token": "8bcacef2dab251e0",
+      "scenario": "projected_overlap",
+      "recording_group": "2021.07.16.01.22.41_veh-14",
+      "metrics": {
+        "center_shift_mean_pixels": 0.07821846008300781,
+        "center_shift_median_pixels": 0.0718410536646843,
+        "center_shift_p95_pixels": 0.1617979109287262,
+        "center_shift_max_pixels": 0.259610652923584,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.2897672653198242,
+        "presence_signed_change_mean": 0.0036526501644402742,
+        "presence_absolute_change_mean": 0.0049284035339951515
+      },
+      "fixed_box_particle_ids": [
+        57,
+        20,
+        23,
+        9,
+        13,
+        1,
+        29,
+        17,
+        2,
+        3,
+        28,
+        21,
+        50,
+        0,
+        22,
+        41
+      ]
+    },
+    {
+      "current_frame_token": "c4de723f8eb256b1",
+      "scenario": "projected_overlap",
+      "recording_group": "2021.07.09.20.26.06_veh-35",
+      "metrics": {
+        "center_shift_mean_pixels": 0.10073219239711761,
+        "center_shift_median_pixels": 0.07150349020957947,
+        "center_shift_p95_pixels": 0.2590312957763672,
+        "center_shift_max_pixels": 0.3359762132167816,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.20561888813972473,
+        "presence_signed_change_mean": 0.0032153341453522444,
+        "presence_absolute_change_mean": 0.004804258234798908
+      },
+      "fixed_box_particle_ids": [
+        7,
+        6,
+        14,
+        2,
+        22,
+        34,
+        10,
+        35,
+        0,
+        18,
+        32,
+        44,
+        27,
+        8,
+        40,
+        25
+      ]
+    },
+    {
+      "current_frame_token": "8a61b6f43a50544d",
+      "scenario": "other",
+      "recording_group": "2021.10.11.07.12.18_veh-50",
+      "metrics": {
+        "center_shift_mean_pixels": 0.08256815373897552,
+        "center_shift_median_pixels": 0.05943722277879715,
+        "center_shift_p95_pixels": 0.2103148102760315,
+        "center_shift_max_pixels": 0.31659919023513794,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.26148223876953125,
+        "presence_signed_change_mean": 0.00394036527723074,
+        "presence_absolute_change_mean": 0.004837097600102425
+      },
+      "fixed_box_particle_ids": [
+        42,
+        55,
+        46,
+        49,
+        56,
+        4,
+        22,
+        9,
+        10,
+        57,
+        6,
+        50,
+        39,
+        14,
+        33,
+        1
+      ]
+    },
+    {
+      "current_frame_token": "e0176c9b70e45873",
+      "scenario": "other",
+      "recording_group": "2021.10.11.07.12.18_veh-50",
+      "metrics": {
+        "center_shift_mean_pixels": 0.07093913853168488,
+        "center_shift_median_pixels": 0.06559044122695923,
+        "center_shift_p95_pixels": 0.16434870660305023,
+        "center_shift_max_pixels": 0.26519832015037537,
+        "fraction_centers_shifted_below_one_pixel": 1.0,
+        "size_absolute_change_mean_pixels": 0.3533841073513031,
+        "presence_signed_change_mean": 0.0055436925031244755,
+        "presence_absolute_change_mean": 0.00633725430816412
+      },
+      "fixed_box_particle_ids": [
+        47,
+        32,
+        24,
+        16,
+        5,
+        33,
+        18,
+        7,
+        40,
+        49,
+        62,
+        6,
+        23,
+        44,
+        1,
+        54
+      ]
+    }
+  ],
+  "source_snapshots": [
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/399635380c935794/update_000000.npz",
+      "sha256": "06c008b88a41cf6afb95834caeb054dd1519bf7051a76d2ef184c4e6fd1f244d"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/399635380c935794/update_002353.npz",
+      "sha256": "6871cbc30a62e782896c63990bcdff4a018d8710cf64b254ea497de83538ddd1"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/399635380c935794/update_004707.npz",
+      "sha256": "831e6d9f3f8cb38c2b51af6173a1e77ef276af53ad900b5750e564345b90ab32"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/399635380c935794/update_000000.npz",
+      "sha256": "06c008b88a41cf6afb95834caeb054dd1519bf7051a76d2ef184c4e6fd1f244d"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/399635380c935794/update_002353.npz",
+      "sha256": "aa9ca1bc9f3685895f4b24e543e7b4301970a07e994f3cf64a4a463214270ef3"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/399635380c935794/update_004707.npz",
+      "sha256": "f70cfa6058a7b2ffd53465e4c8bf544c42dcbf96eb4f5aaa70f85ba802c47179"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_000000.npz",
+      "sha256": "e2f84b3e22d7b46424b490e63c66b328c0ed30732c7f45a6c9c0e19e57408c26"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_002353.npz",
+      "sha256": "97cba271d87979994c4084c8f64889c9105ca67b7a3e2235a99cb6e543d17e78"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_004707.npz",
+      "sha256": "425be6d5821c8c38776d1385cee6d86f1424719a83ceb6bb5a6593eb18240a5c"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_000000.npz",
+      "sha256": "e2f84b3e22d7b46424b490e63c66b328c0ed30732c7f45a6c9c0e19e57408c26"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_002353.npz",
+      "sha256": "0f3710e9b4cc1b23800e03a4dab6915c420e90488b910f4d014fd104c830731d"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_004707.npz",
+      "sha256": "1b943f75dadbe258ed6fa5c57219e7145951b99b11a2771cf5309a658a1ae241"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_000000.npz",
+      "sha256": "314f145ef4768dbb3d96c0bf5828882af06f102765c628a2b91a219cdc6d3539"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_002353.npz",
+      "sha256": "a1760823eaba83c875d51a143a20a54562740bd38288d5d58efa682b0869da54"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_004707.npz",
+      "sha256": "8a46d40b2f0dd345f31b960b120821f038b3356a48e92e20556a8836f259cdf3"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_000000.npz",
+      "sha256": "314f145ef4768dbb3d96c0bf5828882af06f102765c628a2b91a219cdc6d3539"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_002353.npz",
+      "sha256": "df0cbb75eb87dc2e768408ebed52a4dcfab535db19b8ed253089b73f2e67fd35"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_004707.npz",
+      "sha256": "52067e07481dfd65990224f7a1337960e0400eec62f5f2ee50404aec905e480c"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_000000.npz",
+      "sha256": "7260668b01508f1a6b93dda8213d5e75ef1f5a2bb1df641978e813356000c01a"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_002353.npz",
+      "sha256": "2ada6b87710a4e93bcda36b0d3fe181e11cf4c1217e79f3e76c20f762426263c"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_004707.npz",
+      "sha256": "aab2d2e77d06123fab7f039145219d332968e3a0f48f6b553666d01f7b4f4ba5"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_000000.npz",
+      "sha256": "7260668b01508f1a6b93dda8213d5e75ef1f5a2bb1df641978e813356000c01a"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_002353.npz",
+      "sha256": "9f2f078a4a7aed81f9b83f06332cdcc8dc68d890614de1ef9b7517c439035792"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_004707.npz",
+      "sha256": "46d8a6b7d37b475f0b8c6368cf2522972e45bc1c29c0ae4b836aba3da06662f5"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_000000.npz",
+      "sha256": "622e653344196b8c1351b6365b040c521f2b033401c60c95c76486526a0ee7a6"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_002353.npz",
+      "sha256": "b473a54b222df6f6de393f33006029392cf59e7e03303dc8b8d3f7377fc02514"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_004707.npz",
+      "sha256": "e1c54148e90b33ef690e339208c3c0cffb1f06c7607f9d21a4664aa7d917f0ae"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_000000.npz",
+      "sha256": "622e653344196b8c1351b6365b040c521f2b033401c60c95c76486526a0ee7a6"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_002353.npz",
+      "sha256": "739b119bd4d98fe498a63f6f6682c5b7bae69d49d4fea12981725342b28e95a3"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_004707.npz",
+      "sha256": "626ebf13c23575e0ca8b1c3a8d39192ad035d0403725f7901b5835094938328f"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_000000.npz",
+      "sha256": "5f0f2160e5f68852fbdf91a92866fc2f532c5961760c6d584153c9409a18c6b7"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_002353.npz",
+      "sha256": "ab48f641164824d80520b8a0b5464fcacd6bbd260da02e4011ffdbd77610489b"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_004707.npz",
+      "sha256": "e4f1aff5452c2dbf2ba538c0d4b97ad41ce4b627af46b9e4e4cc6347f8e6410e"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_000000.npz",
+      "sha256": "5f0f2160e5f68852fbdf91a92866fc2f532c5961760c6d584153c9409a18c6b7"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_002353.npz",
+      "sha256": "7daee5fef1b44260141216e6f11d1cac7629b56dbbd7b239328795cdd6f426c7"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_004707.npz",
+      "sha256": "bcd6e9fdf875d4a01202211b5f0c1517d7befd9df5f8eaa9eaf6bc77e0bba7ea"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_000000.npz",
+      "sha256": "4c74124c913df9b0fde606540c12da2478bc891caff5d632b1e01923e1f05de5"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_002353.npz",
+      "sha256": "ab490f8bb2028220737011ba0a1e4208d11fb43f428e046ce08fdc0085d5a3d8"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_004707.npz",
+      "sha256": "7cebc92af8299c57daae7b180f80ae015eccaf89bd117164c693892c363b61da"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_000000.npz",
+      "sha256": "4c74124c913df9b0fde606540c12da2478bc891caff5d632b1e01923e1f05de5"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_002353.npz",
+      "sha256": "92c70ce151082951a66c6666b321e28b7cc4b2bff1a02c5fc1d6bf238466e0a8"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_004707.npz",
+      "sha256": "11acc4cdf65e41b6fa358edc8307e851cde1a9402b0203ea8575eb85df1f787f"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_000000.npz",
+      "sha256": "24bdf753ef5026ad43f305c0e6b4e6b697d0a7751848631aa956d0de906a50e3"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_002353.npz",
+      "sha256": "7159dd5a6d117fca05fda63ab72f5afc03d2227c9872355c997b271610b546ea"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_004707.npz",
+      "sha256": "b63b3c2430615d7018e57e1344278b7c551d6a90c6955add7977d1bc646b2944"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_000000.npz",
+      "sha256": "24bdf753ef5026ad43f305c0e6b4e6b697d0a7751848631aa956d0de906a50e3"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_002353.npz",
+      "sha256": "eb3e6dc95f370617957309de60d6bd7f77ed6ed63927ea1ead37e9487e38870c"
+    },
+    {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_004707.npz",
+      "sha256": "ad6021c7b224f1c327dcae02756d67834abcdac9b9e193d4af24224e790c0d19"
+    }
+  ]
+}

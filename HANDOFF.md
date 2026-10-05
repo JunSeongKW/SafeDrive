@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 21:46 KST (Codex)
+마지막 갱신: 2026-10-05 21:58 KST (Codex)
 
 **최신 실행(2026-10-05): 공개 LPWM 고정 + 동일 planner 학습으로 Stage1 효과 검증.**
 사용자 정정: 완료된 적응 고정군82.5238을 재사용하고 새 조건 하나만 학습한다.
@@ -161,6 +161,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 21:56 KST: 공개 LPWM 고정 대조군 queue1869615는 public_control_training 정상 진행 중.
+Adapter 대 고정군 particle 시각화는 완료된 두 조건의 48개 snapshot을 CPU로 처리했으며 GPU/학습설정은 변경하지 않았다.
 
 2026-10-05 21:44 KST: 공개고정본학습768/4707(16.3%),queue1869615 heartbeat정상.
 최근1.054–1.127s/update,학습22:55–23:10/검증결과23:05–23:25KST추정. 가속진단은종료했다.
@@ -512,6 +515,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Adapter 대 Stage1 적응 고정군의 동일 개발 8장면·512 particle 비교 완료: 최종 중심 이동 평균0.08466px,
+최대0.34762px(128×128기준),크기 평균절대차0.27184px,presence 평균절대차0.00492.
+입력RGB·초기geometry 정확일치,고정군 중심/크기/presence 0·2353·4707update 정확불변.
+대표PNG/전중후/변화량/PDF·8장면 확대 갤러리: results/lpwm_adapter_vs_frozen_particles_20261005/.
+뚜렷한 객체방향 재배치는 미관측. Feature/미래정보 변화는 이 geometry 시각화만으로 판정할 수 없다.
 
 동일seed반복표현계산batch8/16/32의32scene시간3.199/2.942/2.785초. 큰배치출력이batch8과달라cache가속미채택.
 자체반복출력차이0,혼합particle최대차이16=1.464/32=1.216으로physicalobject오차와구분.
@@ -946,12 +955,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공개LPWM고정대조군1개를등록·기동,완료된Stage1고정82.5238참조와동일batch/seed/학습량/planner를유지했다.
-- CPU/GPU공개weight고정·초기planner·gradient/입력독립감사와7음성검사,실측profile/평가구동확인을완료했다.
-- 과거5조건배치변경이력·유효16/world8/4707update를재검증하고잔여교란요인을문서화했다.
-- 미래최종검증→Stage1 paired효과/그림 자동연결,현재고정모델표현계산가속읽기전용진단추가. DrivoR미등록유지.
+- 완료된 Adapter와 NAVSIM 적응 고정군의 동일8장면·전중후48개 snapshot CPU 시각화 script를 추가했다.
+- 전체64개 중심/공통16개박스/실제위치차이/전중후 PNG·PDF와 확대·시점전환 HTML 갤러리를 생성했다.
+- RGB/초기geometry 동일성·고정군불변 확인,평균0.08466px/최대0.34762px의 작은 변화와 해석범위를 기록했다.
+- 현재 공개고정 대조군 학습·등록source/config/기존결과는 수정하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+사용자에게 Adapter 대 고정군 실제 비교 이미지·갤러리를 제공한다. 현재 공개고정 학습→검증→Stage1효과 비교는 유지한다.
+위치변화가 작다는 관측을 객체정보 손실/학습실패로 단정하지 않는다. 새 semantic probe·재학습을 자동 실행하지 않는다.
 
 가속진단완료:큰배치cache/monitor생략을본학습에채택하지않았다. 기존동일설정으로4707→최종평가→비교유지.
 현재ETA23:05–23:25KST는공유부하에따른추정이다. 추가속도실험/변형재학습을자동으로확대하지않는다.
@@ -1222,6 +1234,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번 시각화는 완료된 NAVSIM 적응 고정군과 Adapter군 비교이며 현재 공개고정 조건이 아니다.
+8장면 FP32 관측4프레임 snapshot은 BF16 배치평가/전체분포/미래particle진단과 구분한다.
+공통particle인덱스는 객체track이 아니며 presence는 planning중요도가 아니다. Adapter+명령FiLM+SSL 묶음 조건이다.
+공간배치 변화는 작지만 latent/context/dynamics 변화나 planning 개입효과를 여기서 검증하지 않았다.
 
 Batch확대진단에서표현동일성이성립하지않아현재물리batch8을유지한다. 이전다섯실험의유효16보존은확인됐지만,
 물리배치이력의정확planning영향은미분리다. 본학습두조건은동일8×1×2이므로이요인을맞춘다.

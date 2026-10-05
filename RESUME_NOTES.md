@@ -2444,3 +2444,23 @@ Frozen에서도예측미래→마지막관측반복교체시PDMS82.5238→79.770
 일반sandbox의CUDA접근차단후승인된host실행으로32scene/batch8·16·32의고정표현계산을확인했다. 동일seed반복시간3.199/2.942/2.785초로약8–13%단축이나batch8대비혼합particle최대차이1.464/1.216,같은batch반복에서는0이었다. 물리batch출력동일성이성립하지않으므로큰batchcache미채택. 이값은물리객체오차가아니며정확원인/PDMS영향은미분리. Detached worldmonitor생략의planninglogits는동일,gradient최대차이0.000488은동일조건반복에서도관측됐다. 단일batch속도2.292→0.925초이나공유GPU부하측정이며장기간동등실행미검증으로현재등록monitor를유지했다. 두진단결과모두보존하고추가GPU진단종료,본학습/source/config/optimizer는바꾸지않았다.
 
 현재본학습768/4707,최근128/256/512update1.127/1.069/1.054s,queueheartbeat정상. 사용자에게학습22:55–23:10,최종결과23:05–23:25KST예상이라고보고했다. 근거 `results/lpwm_stage1_effect_v1/frozen_batching_repeatability_benchmark.json`, `training_eta_20261005_2144.json`. 학습종료후동일1024/256평가및기존82.5238고정대조군대비Stage1효과자동비교가이어진다.
+
+## 2026-10-05 21:58 KST — Adapter 대 고정 LPWM particle 분포 시각화
+
+사용자 요청에 따라 완료된 NAVSIM Stage1 적응 고정군과 Adapter군의 동일 개발 8장면을 비교했다.
+현재 학습 중인 공개 LPWM 고정 조건과 구분한다. 기존 0·2353·4707 update의 48개 snapshot만 CPU로 읽고
+새 추론·학습 없이 `scripts/visualize_lpwm_adapter_vs_frozen_particles.py`로 PNG12개/PDF3개/HTML/JSON을 생성했다.
+저장 위치는 `results/lpwm_adapter_vs_frozen_particles_20261005/`이며 독립 HTML에서 8장면·학습시점 선택,
+박스/인덱스/presence 표시 전환, 이미지 클릭 후 동일 영역 확대와 실제 크기의 중심 겹침을 제공한다.
+
+입력 RGB·초기 중심/크기/presence 정확일치, 고정군 세 시점 geometry 정확불변, 모든 수치 유효성을 검사했다.
+전체64개 점과 고정군 초기 presence 상위16개 인덱스의 박스를 양쪽·세 시점에 동일 적용했다.
+8장면512particle 최종 중심 이동 평균0.084663/중앙값0.070458/p950.207563/최대0.347623px로 모두1px미만,
+크기 평균절대차0.271845px,presence 평균변화+0.003996/평균절대차0.004925다. 단위는128×128입력픽셀이다.
+뚜렷한 객체방향 재배치나 정보보존 개선은 이 그림에서 입증되지 않는다. Particle ID는 객체track이 아니며
+박스는 learned support,presence는 planning중요도가 아니다. Adapter조건에 명령FiLM·SSL유지도 포함되어
+planning loss 또는 adapter 단독 인과효과로 해석하지 않는다. Native 위치head고정/후단adapter구조도 기록했다.
+Snapshot은관측4프레임만의FP32단일장면진단이며 BF16배치평가/미래particle이동/latentfeature비교가 아니다.
+
+Python·HTML내JavaScript구문 검사와 대표비교/변화량 PNG 육안확인을 완료했다. 원본snapshot의 SHA48개를 남겼다.
+현재public_control_training은1584/4707,heartbeat정상으로 계속되고 등록source/config/모델/대기열은변경하지않았다.

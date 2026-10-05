@@ -1,5 +1,53 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: Adapter와 고정 LPWM의 동일 장면 particle 시각화
+
+**하위 질문:** planning과 함께 표현을 미세조정한 조건에서 현재 particle의 공간 배치가 실제로 달라졌는가?
+완료된 NAVSIM Stage1 적응 LPWM 고정군과 Adapter군의 사전 선정 개발 8장면을 비교했다.
+현재 실행 중인 공개 LPWM 고정군은 별도 실험이며 이 시각화에 포함하지 않는다.
+기존 update 0 / 2,353 / 4,707 snapshot 48개를 CPU로 읽었고 새 추론·학습은 하지 않았다.
+
+- [확대·시점 전환 갤러리](../results/lpwm_adapter_vs_frozen_particles_20261005/index.html)
+- [동일 장면 비교 PDF](../results/lpwm_adapter_vs_frozen_particles_20261005/particle_comparison.pdf)
+- [Adapter 학습 전·중·후 PDF](../results/lpwm_adapter_vs_frozen_particles_20261005/adapter_particle_evolution.pdf)
+- [위치 변화량 PDF](../results/lpwm_adapter_vs_frozen_particles_20261005/particle_change_diagnostics.pdf)
+- [측정값·48개 원본 snapshot 경로와 SHA](../results/lpwm_adapter_vs_frozen_particles_20261005/summary.json)
+
+8장면 모두 입력 RGB와 두 조건의 초기 중심·크기·presence가 정확히 일치했다.
+고정군의 세 속성은 세 시점 모두 정확히 같았다. 최종 동일 인덱스 512개 particle의 비교는 다음과 같다.
+
+| 측정값 | Adapter − 고정군의 변화 |
+|---|---:|
+| 중심 이동 거리 평균 / 중앙값 | 0.08466 / 0.07046 px |
+| 중심 이동 거리 95백분위 / 최대 | 0.20756 / 0.34762 px |
+| 중심 이동이 1px 미만인 비율 | 100% |
+| 너비·높이의 평균 절대 차이 | 0.27184 px |
+| presence 평균 변화 / 평균 절대 차이 | +0.00400 / 0.00492 |
+
+픽셀 단위는 **128×128 실제 모델 입력** 기준이다. 전체 64개 중심을 표시하고, 박스는 고정군 초기
+presence 상위 16개 인덱스를 양쪽과 모든 시점에 동일하게 적용했다. 각 모델에서 별도로 상위 16개를
+선택해 표시 대상 변경을 위치 이동으로 오해하는 문제를 피했다. 동일 색은 particle 인덱스이며 객체 ID가 아니다.
+박스는 학습된 중심·크기의 공간 범위이고 검출 GT 박스가 아니다. Presence도 planning 중요도가 아니다.
+직진·회전·투영 겹침의 대표 그림은 각 범주의 기존 등록 순서 첫 장면이며, 갤러리에는 8장면 전부를 제공한다.
+투영 겹침은 가림 대리 분류로 실제 가림을 보장하지 않는다.
+
+**관측된 결론은 공간 배치 변화가 작다는 것이다.** 차량·보행자 쪽으로 큰 재배치가 일어났거나 객체 정보가
+개선됐다고 해석할 수 없다. 위치가 비슷해도 particle feature·context·미래 dynamics는 달라질 수 있으며,
+이번 저장 snapshot은 해당 latent 정보를 직접 비교하지 않는다. Adapter 조건에는 trainable encoder command
+FiLM과 SSL 유지 손실도 있어 Adapter만 또는 planning loss만의 효과로 분리할 수 없다.
+실제 구현은 native LPWM을 고정하고 particle interaction/context/dynamics Transformer block 뒤 residual adapter와
+명령 FiLM을 학습한다. 위치·크기 native head 자체를 직접 미세조정하는 조건과 구분한다.
+
+Snapshot은 관측 4프레임만으로 현재 particle을 추출한 deterministic FP32 단일 장면 진단이다.
+현재 particle 계산에 미래 GT를 넣지 않았고, 이 그림은 미래 particle 이동 경로도 아니다.
+BF16 배치 최종 planning 평가와 구분하며 8장면 기술 통계를 전체 개발셋 성능으로 확장하지 않는다.
+기존 내부 개발 PDMS는 Adapter82.4852 / 고정82.5238로, paired 차이 신뢰구간은 0을 포함했다.
+이 시각화가 추가 planning 이득을 입증하는 결과는 아니다.
+
+재현: `runtime/environments/future_prediction_cpu/bin/python scripts/visualize_lpwm_adapter_vs_frozen_particles.py`.
+PNG 12개·PDF 3개·독립 HTML·JSON을 같은 결과 폴더에 생성한다. PNG는 로컬 출력, PDF/HTML/JSON은 공유한다.
+입력·초기 동일성/고정 불변/수치 유효성 검사와 Python·갤러리 JavaScript 구문 검사, 대표 PNG 육안 검사를 완료했다.
+
 ## 2026-10-05: Stage1 기여 검증과 과거 배치 변경 감사
 
 **새 하위 질문:** LPWM을 고정하고 동일 planner를 학습할 때, NAVSIM Stage1 SSL 적응 자체가 planning에 기여하는가?
