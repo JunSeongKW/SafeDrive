@@ -2578,3 +2578,13 @@ drop_last True/False 및backend생성순서RNG 차이도추가발견. 표준DDP/
 DrivoR register도planning으로학습되는표현이며일반압축=planning무관이라고가정하지않음.
 문서 docs/lpwm_drivor_representation_and_fair_comparison.md, 공유수치 results/lpwm_drivor_representation_monitor_v1/.
 학습분포진단과독립navtest/EPDMS 구분, 도로proxy/투영bbox/가림proxy의한계명시. 기존공식평가큐유지.
+
+
+## 2026-10-06 — Particle 위치를 집중 영역으로 해석할 수 있는가
+
+Native LPWM feature encoder의 position/scale 기반 RGB spatial_transform crop 및 interaction 경로를 읽었다.
+Particle 점은 지역 시각 표현의 중심이며 planner attention/주행 중요도 그 자체가 아니다.
+최신 monitor는 노란점=현재중심, 점크기=presence, 색box=평가용GT투영이다. Box를glimpse/detection으로해석하지않는다.
+Current+future attributes에는 공유background feature도 포함되며 projection후4particle씩평균하여planner에전달한다.
+하늘위점→하늘만사용, 보행자위점→정지판단기여 등의추론은성립하지않는다. Scale/readout/개입으로보완한다.
+설명과문서정정만수행;본학습·monitor·등록source/config·queue변경없음.

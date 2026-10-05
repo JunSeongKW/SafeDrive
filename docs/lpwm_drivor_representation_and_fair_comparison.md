@@ -54,6 +54,16 @@ full navtest PDMS로 보고하지 않는다. Probe만 recording 단위 fit18/eva
 
 ### A. 공간 분포: 위치·크기·presence를 함께 확인
 
+**시각화 해석:** particle 위치는 LPWM이 위치와 scale로 주변 RGB glimpse를 추출하는 중심이다
+(`reference_repositories/LPWM/modules/modules.py:3011`의 feature encoder). ‘그 부근에 시각 표현을 배치했다’는
+해석은 가능하지만, planner의 attention weight나 주행 중요도 자체를 나타내지는 않는다.
+Glimpse는 유한한 면적을 갖고 interaction/dynamics 및 공유 background feature가 정보를 섞는다.
+또한 현재 planner 입력은 current+future attributes를 투영한 뒤 particle4개씩 평균하므로 점과 planner token이1:1이 아니다.
+최신 monitor 그림의 노란 점은 현재 중심, 점 크기는presence, 색 사각형은 평가용GT투영박스다.
+색 사각형을 particle glimpse 범위나 예측 detection으로 읽지 않는다. Presence도 주행 중요도 확률은 아니다.
+하늘에 점이 있다고 하늘 정보만 쓴다고 단정할 수 없고, 보행자 위에 점이 있다고 정지 판단에 활용했다고 단정할 수도 없다.
+이를 구분하려면 위치·scale·feature와 해당 particle 개입 시 planning 변화를 함께 확인한다.
+
 - 현재 4카메라의 **64개 particle 전부**를 동일 장면에서 비교한다. Top16만 골라 성공/실패를 판단하지 않는다.
 - 차량/보행자/자전거 GT 투영 영역 안의 중심 비율과 presence 가중 비율을 측정한다.
 - 영역 면적 비율로 나눈 enrichment를 함께 기록해 큰 객체·큰 도로 영역이 유리한 효과를 분리한다.

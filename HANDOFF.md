@@ -21,7 +21,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 01:32 KST (Codex)
+마지막 갱신: 2026-10-06 01:40 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -188,6 +188,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+후속 시각화 의미 질문은 코드 읽기와 설명만 수행했다. 본학습·monitor·등록 source/config 변경 없음.
 
 읽기 전용 representation monitor3351138이 본학습 checkpoint를 자동 진단한다. 본학습/queue는 유지한다.
 고정96장면의 초기0/100update 완료(288.7/257.0초, peak reserved0.654GB), 다음500update 대기.
@@ -582,6 +584,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Particle 중심/scale은 appearance RGB glimpse 추출에 사용됨을 native feature encoder 코드로 확인했다.
+최신 monitor 노란점=현재중심,점크기=presence,색box=GT투영;planner중요도/attention그림이아니다.
+Current+future14D(background포함) projection→4particle평균→planner이므로 점과planner token은1:1이아니다.
 
 새 진단96장면/24recording, straight42/left30/right24, object-camera views2974.
 100update: 현재중심 평균0.00305px/최대0.05446px 이동, 분포 거의 동일. Encoder-only 명령변경 궤적0→0.2834m.
@@ -1076,13 +1082,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 본학습을 바꾸지 않고 고정96장면·24recording의 읽기 전용 checkpoint 진단을 추가하고 자동 monitor를 기동했다.
-- 전체 particle 분포, GT 투영/도로 proxy, 분리 recording readout, encoder/planner 명령 경로, fixed-candidate 개입을 구현했다.
-- 학습 전96scene 진단과4개 CPU 검사를 완료하고 초기 기준선·실행 provenance를 보존했다.
-- DrivoR 비교의 해상도/사전학습/의도 입력/적응 파라미터/precision/drop_last/초기화 차이를 코드로 감사했다.
-- 시스템 비교와 표현 인과 비교를 구분한 후속 대조 설계를 기록했다. 추가 baseline 학습은 큐에 넣지 않았다.
+- Particle 위치의 의미를 native glimpse 추출·planner pooling·실제 시각화 코드로 확인했다.
+- 중심/presence/GT박스와 planner 중요도를 구분하는 해석을 기존 검증 문서에 추가했다.
+- 본학습과 진단 monitor의 source/config/실행 조건은 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+시각화 해석은 위치·glimpse scale·presence와 planning 개입 결과를 구분하여 보고한다. 기존 자동 monitor 유지.
 
 새monitor 중복기동금지. watch_status/monitor.log/각update complete+summary/readouts/intent/interventions를 확인한다.
 0→100→500→1000→이후2000간격·epoch·final 비교. 현재v1만 감시하며 후속v2 감시는 별도등록 필요.
@@ -1393,6 +1399,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Particle 위치만으로 planner가 어디를 중요하게 보는지 확정할 수 없다. 동일좌표에서도 feature/미래/사용도가 달라질 수 있다.
 
 사용자 요청 두 검토는 진행 중 학습의 진단/비교감사다. 학습 및 평가 기존 queue는 유지했다.
 분포는 차량/보행자/자전거 GT 투영 및 평면 지도 도로 proxy이며 semantic mask/가림 정답이 아니다.
