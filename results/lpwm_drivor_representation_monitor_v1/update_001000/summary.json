@@ -1,0 +1,305 @@
+{
+  "distribution": {
+    "all": {
+      "scene_count": 96,
+      "vehicle": {
+        "center_fraction": 0.08939615885416667,
+        "presence_weighted_fraction": 0.09902768347471162,
+        "enrichment_ratio_of_sums": 1.2481135178034906
+      },
+      "pedestrian": {
+        "center_fraction": 0.0120849609375,
+        "presence_weighted_fraction": 0.014290964284062587,
+        "enrichment_ratio_of_sums": 1.228862763999006
+      },
+      "bicycle": {
+        "center_fraction": 0.0008138020833333334,
+        "presence_weighted_fraction": 0.0008580785785549475,
+        "enrichment_ratio_of_sums": 1.203961556985057
+      },
+      "road_proxy_low": {
+        "center_fraction": 0.1873766447368421,
+        "presence_weighted_fraction": 0.14581134296880152,
+        "enrichment_ratio_of_sums": 0.67105736334233
+      },
+      "road_proxy": {
+        "center_fraction": 0.1993421052631579,
+        "presence_weighted_fraction": 0.1544843123451995,
+        "enrichment_ratio_of_sums": 0.6461220662832763
+      },
+      "road_proxy_high": {
+        "center_fraction": 0.22680921052631578,
+        "presence_weighted_fraction": 0.17970456979840635,
+        "enrichment_ratio_of_sums": 0.6738565547991241
+      },
+      "upper_third_fraction_not_sky_label": 0.3616129557291667
+    },
+    "straight": {
+      "scene_count": 42,
+      "vehicle": {
+        "center_fraction": 0.11486235119047619,
+        "presence_weighted_fraction": 0.12639143283567614,
+        "enrichment_ratio_of_sums": 1.2386076923093639
+      },
+      "pedestrian": {
+        "center_fraction": 0.01404389880952381,
+        "presence_weighted_fraction": 0.016205800340858764,
+        "enrichment_ratio_of_sums": 1.146582868286496
+      },
+      "bicycle": {
+        "center_fraction": 0.0004650297619047619,
+        "presence_weighted_fraction": 0.0006758190685927513,
+        "enrichment_ratio_of_sums": 1.7532517399909247
+      },
+      "road_proxy_low": {
+        "center_fraction": 0.16520579268292682,
+        "presence_weighted_fraction": 0.12086872315451662,
+        "enrichment_ratio_of_sums": 0.6097721569153293
+      },
+      "road_proxy": {
+        "center_fraction": 0.1756859756097561,
+        "presence_weighted_fraction": 0.1259660742354044,
+        "enrichment_ratio_of_sums": 0.5761782020249865
+      },
+      "road_proxy_high": {
+        "center_fraction": 0.20388719512195122,
+        "presence_weighted_fraction": 0.1521233170021399,
+        "enrichment_ratio_of_sums": 0.6207305711383003
+      },
+      "upper_third_fraction_not_sky_label": 0.3606770833333333
+    },
+    "left_turn": {
+      "scene_count": 30,
+      "vehicle": {
+        "center_fraction": 0.06354166666666666,
+        "presence_weighted_fraction": 0.07247628561841944,
+        "enrichment_ratio_of_sums": 1.2816875399467706
+      },
+      "pedestrian": {
+        "center_fraction": 0.008203125,
+        "presence_weighted_fraction": 0.010590211713861208,
+        "enrichment_ratio_of_sums": 1.4886110993342565
+      },
+      "bicycle": {
+        "center_fraction": 0.0018229166666666667,
+        "presence_weighted_fraction": 0.0015717463878293831,
+        "enrichment_ratio_of_sums": 0.9180567849624461
+      },
+      "road_proxy_low": {
+        "center_fraction": 0.20690104166666667,
+        "presence_weighted_fraction": 0.16865862873382867,
+        "enrichment_ratio_of_sums": 0.7311050628501634
+      },
+      "road_proxy": {
+        "center_fraction": 0.22122395833333333,
+        "presence_weighted_fraction": 0.17849287889063514,
+        "enrichment_ratio_of_sums": 0.6996446850071273
+      },
+      "road_proxy_high": {
+        "center_fraction": 0.24244791666666668,
+        "presence_weighted_fraction": 0.1974097473698445,
+        "enrichment_ratio_of_sums": 0.6953833625234105
+      },
+      "upper_third_fraction_not_sky_label": 0.36354166666666665
+    },
+    "right_turn": {
+      "scene_count": 24,
+      "vehicle": {
+        "center_fraction": 0.0771484375,
+        "presence_weighted_fraction": 0.08433036941338894,
+        "enrichment_ratio_of_sums": 1.238193142125206
+      },
+      "pedestrian": {
+        "center_fraction": 0.013509114583333334,
+        "presence_weighted_fraction": 0.015565941897420998,
+        "enrichment_ratio_of_sums": 1.2075516466853358
+      },
+      "bicycle": {
+        "center_fraction": 0.00016276041666666666,
+        "presence_weighted_fraction": 0.0002849479593957464,
+        "enrichment_ratio_of_sums": 7.862883986088267
+      },
+      "road_proxy_low": {
+        "center_fraction": 0.20084635416666666,
+        "presence_weighted_fraction": 0.15986254461192098,
+        "enrichment_ratio_of_sums": 0.6858027688502437
+      },
+      "road_proxy": {
+        "center_fraction": 0.21240234375,
+        "presence_weighted_fraction": 0.17319226093430493,
+        "enrichment_ratio_of_sums": 0.6817645084809518
+      },
+      "road_proxy_high": {
+        "center_fraction": 0.24641927083333334,
+        "presence_weighted_fraction": 0.20469107136106382,
+        "enrichment_ratio_of_sums": 0.7256236175908086
+      },
+      "upper_third_fraction_not_sky_label": 0.36083984375
+    },
+    "projected_overlap": {
+      "scene_count": 93,
+      "vehicle": {
+        "center_fraction": 0.09211189516129033,
+        "presence_weighted_fraction": 0.1018733253456234,
+        "enrichment_ratio_of_sums": 1.2456389431392267
+      },
+      "pedestrian": {
+        "center_fraction": 0.012390793010752688,
+        "presence_weighted_fraction": 0.014607622628455408,
+        "enrichment_ratio_of_sums": 1.2226710735377204
+      },
+      "bicycle": {
+        "center_fraction": 0.0008400537634408602,
+        "presence_weighted_fraction": 0.0008857585327018814,
+        "enrichment_ratio_of_sums": 1.203961556985057
+      },
+      "road_proxy_low": {
+        "center_fraction": 0.18805197010869565,
+        "presence_weighted_fraction": 0.14723411144982296,
+        "enrichment_ratio_of_sums": 0.6753956036566197
+      },
+      "road_proxy": {
+        "center_fraction": 0.2003226902173913,
+        "presence_weighted_fraction": 0.15601118825707486,
+        "enrichment_ratio_of_sums": 0.6503845578580683
+      },
+      "road_proxy_high": {
+        "center_fraction": 0.22673233695652173,
+        "presence_weighted_fraction": 0.1808176327276867,
+        "enrichment_ratio_of_sums": 0.6775092769026859
+      },
+      "upper_third_fraction_not_sky_label": 0.36147513440860213
+    }
+  },
+  "paired_interventions": {
+    "future_repeat_current": {
+      "selected_trajectory_oracle_score_change": {
+        "difference": 0.02909282346566518,
+        "confidence_interval_95": [
+          -0.0027055085947116217,
+          0.08836770628889401
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "fixed_candidate_oracle_score_change": {
+        "difference": -0.0036401102940241494,
+        "confidence_interval_95": [
+          -0.010920330882072449,
+          0.0
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "ade_m_change": {
+        "difference": -0.020526796579360962,
+        "confidence_interval_95": [
+          -0.11392990052700043,
+          0.1219392068684098
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "mean_trajectory_change_m": 0.2136511399100224
+    },
+    "future_reverse_time": {
+      "selected_trajectory_oracle_score_change": {
+        "difference": -0.0018560737371444702,
+        "confidence_interval_95": [
+          -0.0030200903614362082,
+          -0.0007682281235853832
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "fixed_candidate_oracle_score_change": {
+        "difference": 0.0,
+        "confidence_interval_95": [
+          0.0,
+          0.0
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "ade_m_change": {
+        "difference": 0.05238832036654154,
+        "confidence_interval_95": [
+          0.008630756785472236,
+          0.09617543444037438
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "mean_trajectory_change_m": 0.11215779061118762
+    },
+    "matched_control_mean": {
+      "selected_trajectory_oracle_score_change": {
+        "difference": 0.0001671910285949707,
+        "confidence_interval_95": [
+          -7.152557373046875e-07,
+          0.00042171478271484374
+        ],
+        "recordings": 5,
+        "objects": 5
+      },
+      "fixed_candidate_oracle_score_change": {
+        "difference": 0.0,
+        "confidence_interval_95": [
+          0.0,
+          0.0
+        ],
+        "recordings": 5,
+        "objects": 5
+      },
+      "ade_m_change": {
+        "difference": 0.008122396469116212,
+        "confidence_interval_95": [
+          0.001572895050048828,
+          0.018114171028137206
+        ],
+        "recordings": 5,
+        "objects": 5
+      },
+      "mean_trajectory_change_m": 0.012741207238286733
+    },
+    "relevant_particle_mean": {
+      "selected_trajectory_oracle_score_change": {
+        "difference": 0.00027825832366943357,
+        "confidence_interval_95": [
+          1.1932849884033202e-05,
+          0.0005430436134338378
+        ],
+        "recordings": 5,
+        "objects": 5
+      },
+      "fixed_candidate_oracle_score_change": {
+        "difference": 0.0,
+        "confidence_interval_95": [
+          0.0,
+          0.0
+        ],
+        "recordings": 5,
+        "objects": 5
+      },
+      "ade_m_change": {
+        "difference": 0.004209446907043457,
+        "confidence_interval_95": [
+          -0.006916451454162598,
+          0.01504042565822601
+        ],
+        "recordings": 5,
+        "objects": 5
+      },
+      "mean_trajectory_change_m": 0.014290846884250641
+    }
+  },
+  "intent_sensitivity": {
+    "current_center_shift_mean_px": 0.08513565827161074,
+    "current_foreground_feature_rms_change": 0.07728161507596572,
+    "future_attribute_rms_change": 0.08334648686771591,
+    "encoder_only_trajectory_change_m": 0.07213382566502939,
+    "planner_only_trajectory_change_m": 0.9158681059877077,
+    "both_trajectory_change_m": 0.9338529904683431
+  },
+  "interpretation": "Location is a proxy; readouts measure accessible information; interventions measure model reliance and may be out of distribution. No automatic success gate."
+}

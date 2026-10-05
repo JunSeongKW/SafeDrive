@@ -2605,3 +2605,17 @@ LoRA OFF future xy 성분RMS.492px변화는의존성증거이며성능향상아�
 수정방향은xy_head/scale_xy_head/obj_on_head의Linear LoRA(출력차원에맞는rank),필요시CNN ConvLoRA.
 현재설정중간변경/추가학습은하지않았다. 기존실험은attention-onlyfeature/future적응조건으로보존한다.
 보고서docs/lpwm_drivor_lora_geometry_audit.md와기존LoRA/표현검증문서에한계를추가했다.
+
+
+## 2026-10-06 08:55 KST — LoRA 본학습 진행 및 ETA 점검
+
+요청: 현재학습진행과종료예상. 학습·설정·queue변경없이상태만읽었다.
+Host train2994997/queue2994998/monitor3351138생존. Sandbox ps로안보이는것은namespace이며host확인완료.
+진행1400/40350(3.47%),epoch1 86.74%,batch16×accum2×2=effective64,loader2/oracle4perrank.
+GPU0·1각29.59decimalGB/util82·100%조회. 최신1400checkpoint08:54:43저장. Active pause/error완료marker없음.
+양rank1400로그NaN/Inf0,모든gradient그룹양수. First100→last100 total28.0402→4.9325,trajectory24.3438→2.4956,scoreloss3.6963→2.4368.
+Recent100 20.0415sec/update,300 mean20.6659/wall20.7067. Wall기준v1 ETA10/15 16:57KST(약9.3일잔여),epoch1오늘10:09KST.
+공유부하에따라변동하며navtest평가·v2독립10epoch·EPDMS평가미포함. V2학습만같은속도약3.19일추가.
+표현96scene진단0/100/500/1000완료,다음1614부근자동. 1000중심mean.2508px/max3.1373px(FiLM),F1initial.3799→.3475.
+미래current대비readout CI0포함;loss감소와연구목표달성은별개. Geometry LoRA는아직미적용.
+Snapshot results/lpwm_drivor_lora_v1/status_20261006_0855.json 및500/1000monitor공유artifact보존. Main83/queue250/parallelism4소스hash불변.

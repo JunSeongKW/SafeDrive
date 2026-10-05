@@ -1,5 +1,11 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 08:55 KST 중간점검:** LoRA v1 1,400/40,350update(3.47%), epoch1의86.74% 완료.
+Train2994997/queue2994998/monitor3351138 host 생존·진행 정상. 최근300 wall속도20.707초/update,
+현재v1학습 ETA10월15일17시KST(부하변동가능),epoch1은오늘10:09쯤. V2학습·benchmark평가 시간은별도.
+표현monitor는1000까지완료, 다음1614부근. 객체readout F1 .3799→.3475로효용개선아직미확인.
+Snapshot `results/lpwm_drivor_lora_v1/status_20261006_0855.json`. 설정·학습·queue변경없음.
+
 **2026-10-06 최신 원인 검사:** [현재 좌표와 LoRA 경로 감사](docs/lpwm_drivor_lora_geometry_audit.md).
 실제100update LoRA를 꺼도 current xy는같고 FiLM을끄면초기좌표로돌아간다. LoRA84tensor는모두갱신됐다.
 좌표생성뒤의attention만LoRA여서 current위치 직접학습경로가빠져있다. Geometry LoRA 제안은미적용이며기존학습유지.
@@ -25,7 +31,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 01:52 KST (Codex)
+마지막 갱신: 2026-10-06 08:57 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -192,6 +198,11 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+08:55KST 확인: v1 1400/40350, 총약8시간8분경과. GPU0/1 각29.59decimalGB,조회util82/100%.
+Batch16×누적2×2=64/loader2·oracle4 유지. 최신1400checkpoint08:54:43저장,active pause/완료marker없음.
+최근300 wall20.7067초/update→현재v1종료10/15 16:57KST,epoch1 10/6 10:09KST 추정.
+후속v2 13300update는같은속도라면약3.19일추가;navtest/warmup/navhard평가시간별도라전체queue종료시간은미확정.
 
 위치 원인 진단은 optimizer0/3장면의별도실행으로완료했다. GPU reserved0.736GB/카드총30.683GB,본학습그대로진행.
 새진단script는 `scripts/audit_lpwm_drivor_lora_geometry.py`; 완료결과를덮어쓰거나재실행하지않는다.
@@ -591,6 +602,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+1400개동기화update 로그의loss/trajectory/score 값NaN·Inf0. 두rank모든학습영역gradient양수,1400LoRA .14196/.08853/.20810.
+두rank평균first100→last100: total28.0402→4.9325,trajectory24.3438→2.4956,scoreloss3.6963→2.4368.
+서로다른training배치평균이므로validation성능/PDMS개선으로해석하지않는다.
+표현1000: 96장면현재중심초기대비평균.2508px/최대3.1373px이동(FiLM경로),객체전체14D F1 .3475(initial.3799).
+미래2s/4s current대비readout오차차이CI는여전히0포함. 본학습진행정상과표현효용확인은구분한다.
+Main83/queue250/parallelism4sourcehash불변확인. 500/1000진단summary/readout/complete/등록사본을results에보존.
 
 실제100update LoRA84/84tensor변경. Main gradient interaction/context/dynamics .03895/.04668/.06041, 두rank동일.
 LoRA OFF current xy bitwise동일;FiLM OFF current xy initial과bitwise동일;둘OFF 전체attrs initial과동일.
@@ -1095,12 +1113,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 실제100update checkpoint에서 LoRA·FiLM OFF 개입 및 current xy autograd 연결성 진단을 구현·실행했다.
-- LoRA84tensor 갱신과 본학습 gradient를 확인하고, current 위치가 LoRA 이후가 아닌 앞에서 결정됨을 입증했다.
-- 현재 위치 적응 제한 및 geometry head/CNN LoRA 수정 방향을 문서화했다. 변경안은 본학습에 적용하지 않았다.
-- 본학습·monitor·queue·등록source/config 및 원래LPWM·checkpoint 가중치는 보존했다.
+- 1400update 진행·두rank loss/gradient·GPU메모리·host프로세스·queue/monitor 상태를 읽기 전용으로 점검했다.
+- 최근300update 실제 경과속도로 v1 ETA를10월15일17시KST로 다시 계산하고 후속v2/평가 시간을 분리했다.
+- 자동완료500/1000update 표현진단 요약을 공유results에 보존했다. 표현효용 개선은 아직 확인되지 않았다.
+- 학습/진단source·config·queue·배치·worker는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+다음epoch1(1614update) 완료와자동표현진단을확인한다. ETA는최근window로재계산하고fullv1학습과전체queue를구분한다.
+현재loss감소만으로유용한particle학습/PDMS개선을단정하지않는다. Geometry-LoRA제안은아직미적용이다.
 
 현재조건은attention feature/future LoRA 조건으로해석한다. 직접공간재배치수정은 xy_head/scale_xy_head/obj_on_head Linear LoRA,
 필요시attribute CNN ConvLoRA를포함하는별도설계가필요. 기존registered실행을중간변경하지않는다.
@@ -1417,6 +1438,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+08:55조회ETA10/15 17시KST는현재v1 25epoch만의추정이다. 장기간공유부하·epoch저장/진단비용으로변동가능.
+후속v2는독립public-init10epoch이며v1 fullnavtest후실행된다. 전체queue의확정완료시간은아직없음.
 
 ‘LoRA가학습됨’과‘현재particle재배치를직접학습함’은다르다. 이번Q/V적용범위는후자를충족하지않으며FiLM경로만있다.
 관측좌표에대한Q/VLoRA미분0은구조적문제여서attention rank나epoch증가만으로경로가생기지않는다.

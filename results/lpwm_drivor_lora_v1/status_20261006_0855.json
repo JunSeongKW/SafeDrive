@@ -1,0 +1,247 @@
+{
+  "checked_at_kst": "2026-10-06T08:54:52.724193+09:00",
+  "progress": {
+    "configuration_sha256": "f785b417ce3bc0da553980433ddb550b6237a1c77e49007422f7a02d9d9a3f2f",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 4
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 1400,
+    "epoch": 1,
+    "update_in_epoch": 1400,
+    "seconds_this_update": 22.305829763412476,
+    "elapsed_seconds": 29247.895283460617,
+    "card_used_bytes": 29589766144,
+    "peak_reserved_bytes": 29014097920,
+    "gradient_norms": {
+      "particle_interaction_lora": 0.1419639394181738,
+      "context_prior_lora": 0.08853383266906605,
+      "particle_dynamics_lora": 0.20809674142011705,
+      "encoder_command": 0.16737910888158392,
+      "scene_projection": 1.5406548191897906,
+      "trajectory_generator": 8.413639547930204,
+      "scorer": 2.7322711832769437
+    },
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0007145404815673828,
+      "forward": 4.970829248428345,
+      "oracle": 8.525302648544312,
+      "backward": 8.609318494796753
+    },
+    "learning_rates": [
+      8.428669006622486e-05,
+      8.428669006622486e-05
+    ],
+    "loss": 4.473257541656494,
+    "trajectory_loss": 1.9404825568199158,
+    "final_score_loss": 2.532775044441223,
+    "score": 0.7309067249298096,
+    "best_score": 0.9842225611209869,
+    "estimated_remaining_seconds": 814299.8798995294
+  },
+  "synchronized_log_updates": 1400,
+  "nonfinite_training_rows": 0,
+  "windows": {
+    "first100": {
+      "updates": [
+        1,
+        100
+      ],
+      "loss": 28.040167055130006,
+      "trajectory_loss": 24.34384682893753,
+      "final_score_loss": 3.6963202261924746,
+      "score": 0.370922253774479,
+      "best_score": 0.6742015680670739,
+      "mean_seconds_per_update": 22.970061354637146,
+      "eta_v1_kst": "2026-10-16T17:26:16.613956+09:00",
+      "remaining_v1_days": 10.355137612999037
+    },
+    "previous100": {
+      "updates": [
+        1201,
+        1300
+      ],
+      "loss": 5.587576102018357,
+      "trajectory_loss": 3.121798063367605,
+      "final_score_loss": 2.465778021514416,
+      "score": 0.6964647363126278,
+      "best_score": 0.9555639132857323,
+      "mean_seconds_per_update": 20.438229033946993,
+      "eta_v1_kst": "2026-10-15T14:02:41.745065+09:00",
+      "remaining_v1_days": 9.213761815650873
+    },
+    "last100": {
+      "updates": [
+        1301,
+        1400
+      ],
+      "loss": 4.932473500370979,
+      "trajectory_loss": 2.495630102455616,
+      "final_score_loss": 2.436843405663967,
+      "score": 0.7023127966374159,
+      "best_score": 0.9663510285317898,
+      "mean_seconds_per_update": 20.041529059410095,
+      "eta_v1_kst": "2026-10-15T09:45:10.281057+09:00",
+      "remaining_v1_days": 9.034925426666936
+    },
+    "last300": {
+      "updates": [
+        1101,
+        1400
+      ],
+      "loss": 5.520074709653854,
+      "trajectory_loss": 3.048806502620379,
+      "final_score_loss": 2.471268204152584,
+      "score": 0.6974313726772865,
+      "best_score": 0.9569059115151565,
+      "mean_seconds_per_update": 20.665886243979138,
+      "eta_v1_kst": "2026-10-15T16:30:28.993396+09:00",
+      "remaining_v1_days": 9.316392004664207
+    }
+  },
+  "wall_speed_last300_seconds": 20.70673201004664,
+  "eta_v1_wall_speed_kst": "2026-10-15T16:56:59.935984+09:00",
+  "first_epoch_remaining_seconds": 4431.240650149981,
+  "latest_gradient_rows": {
+    "0": {
+      "configuration_sha256": "f785b417ce3bc0da553980433ddb550b6237a1c77e49007422f7a02d9d9a3f2f",
+      "benchmark": "navsim_v1",
+      "execution_sha256": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc",
+      "execution_overrides": {
+        "microbatch_per_gpu": 16,
+        "loader_workers_per_rank": 2,
+        "oracle_workers_per_rank": 4
+      },
+      "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+      "training_scene_count": 103288,
+      "updates_per_epoch": 1614,
+      "total_updates": 40350,
+      "completed_updates": 1400,
+      "epoch": 1,
+      "update_in_epoch": 1400,
+      "seconds_this_update": 22.305829763412476,
+      "elapsed_seconds": 29247.895283460617,
+      "card_used_bytes": 29589766144,
+      "peak_reserved_bytes": 29014097920,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.1419639394181738,
+        "context_prior_lora": 0.08853383266906605,
+        "particle_dynamics_lora": 0.20809674142011705,
+        "encoder_command": 0.16737910888158392,
+        "scene_projection": 1.5406548191897906,
+        "trajectory_generator": 8.413639547930204,
+        "scorer": 2.7322711832769437
+      },
+      "timing_seconds": {
+        "between_updates_including_sync_and_data": 0.0007145404815673828,
+        "forward": 4.970829248428345,
+        "oracle": 8.525302648544312,
+        "backward": 8.609318494796753
+      },
+      "learning_rates": [
+        8.428669006622486e-05,
+        8.428669006622486e-05
+      ],
+      "loss": 4.473257541656494,
+      "trajectory_loss": 1.9404825568199158,
+      "final_score_loss": 2.532775044441223,
+      "score": 0.7309067249298096,
+      "best_score": 0.9842225611209869,
+      "estimated_remaining_seconds": 814299.8798995294
+    },
+    "1": {
+      "configuration_sha256": "f785b417ce3bc0da553980433ddb550b6237a1c77e49007422f7a02d9d9a3f2f",
+      "benchmark": "navsim_v1",
+      "execution_sha256": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc",
+      "execution_overrides": {
+        "microbatch_per_gpu": 16,
+        "loader_workers_per_rank": 2,
+        "oracle_workers_per_rank": 4
+      },
+      "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+      "training_scene_count": 103288,
+      "updates_per_epoch": 1614,
+      "total_updates": 40350,
+      "completed_updates": 1400,
+      "epoch": 1,
+      "update_in_epoch": 1400,
+      "seconds_this_update": 22.329108953475952,
+      "elapsed_seconds": 29247.916821718216,
+      "card_used_bytes": 29589766144,
+      "peak_reserved_bytes": 29014097920,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.1419639394181738,
+        "context_prior_lora": 0.08853383266906605,
+        "particle_dynamics_lora": 0.20809674142011705,
+        "encoder_command": 0.16737910888158392,
+        "scene_projection": 1.5406548191897906,
+        "trajectory_generator": 8.413639547930204,
+        "scorer": 2.7322711832769437
+      },
+      "timing_seconds": {
+        "between_updates_including_sync_and_data": 0.009064674377441406,
+        "forward": 4.30999493598938,
+        "oracle": 6.1432273387908936,
+        "backward": 11.63476300239563
+      },
+      "learning_rates": [
+        8.428669006622486e-05,
+        8.428669006622486e-05
+      ],
+      "loss": 4.749695062637329,
+      "trajectory_loss": 2.236935019493103,
+      "final_score_loss": 2.5127599239349365,
+      "score": 0.7739740312099457,
+      "best_score": 0.9781781435012817,
+      "estimated_remaining_seconds": 814300.4801569963
+    }
+  },
+  "max_observed_card_bytes_by_rank": {
+    "0": 30589059072,
+    "1": 29589766144
+  },
+  "verified_source_counts": {
+    "registration.json": 83,
+    "queue_registration.json": 250,
+    "parallelism_registration.json": 4
+  },
+  "process_check": {
+    "host_pid_alive": [
+      2994997,
+      2994998,
+      3351138
+    ],
+    "scope": "Host ps status checked; sandbox ps cannot see these PIDs"
+  },
+  "gpu_snapshot": {
+    "gpu0": {
+      "memory_used_mib": 28219,
+      "memory_used_decimal_gb": 29.589766144,
+      "utilization_percent": 82
+    },
+    "gpu1": {
+      "memory_used_mib": 28219,
+      "memory_used_decimal_gb": 29.589766144,
+      "utilization_percent": 100
+    }
+  },
+  "queue_status": {
+    "stage": "navsim_v1_training",
+    "adopted_pid": 2994997,
+    "updated_unix": 1791244606.7520945
+  },
+  "monitor_status": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 1405,
+    "last_evaluated_update": 1000,
+    "next_milestone": 1614
+  },
+  "eta_scope": "V1 training only. Same-speed v2 training adds about3.19days; benchmark evaluation time is extra and unmeasured here."
+}

@@ -1,0 +1,195 @@
+{
+  "object_view_samples": 2974,
+  "fit_samples": 2286,
+  "evaluation_samples": 688,
+  "empty_support_fraction": 0.0,
+  "scope": "Recording-disjoint readout fit/evaluation, both from upstream planning TRAIN distribution. GT association is privileged. No LPWM updates.",
+  "classification": {
+    "gt_roi_geometry_control": {
+      "macro_f1_present_classes": 0.414808390036129,
+      "balanced_accuracy_present_classes": 0.48120623249299727,
+      "per_class_recall": [
+        0.4235294117647059,
+        0.734375,
+        0.2857142857142857
+      ],
+      "per_class_f1": [
+        0.5834683954619124,
+        0.6372881355932203,
+        0.023668639053254437
+      ],
+      "class_counts": [
+        425,
+        256,
+        7
+      ],
+      "confusion": [
+        [
+          180,
+          141,
+          104
+        ],
+        [
+          12,
+          188,
+          56
+        ],
+        [
+          0,
+          5,
+          2
+        ]
+      ]
+    },
+    "particle_current_appearance": {
+      "macro_f1_present_classes": 0.2942931008952548,
+      "balanced_accuracy_present_classes": 0.340360644257703,
+      "per_class_recall": [
+        0.4541176470588235,
+        0.28125,
+        0.2857142857142857
+      ],
+      "per_class_f1": [
+        0.5181208053691275,
+        0.34615384615384615,
+        0.018604651162790697
+      ],
+      "class_counts": [
+        425,
+        256,
+        7
+      ],
+      "confusion": [
+        [
+          193,
+          87,
+          145
+        ],
+        [
+          123,
+          72,
+          61
+        ],
+        [
+          4,
+          1,
+          2
+        ]
+      ]
+    },
+    "particle_current_all": {
+      "macro_f1_present_classes": 0.347508575123809,
+      "balanced_accuracy_present_classes": 0.42849746148459383,
+      "per_class_recall": [
+        0.571764705882353,
+        0.28515625,
+        0.42857142857142855
+      ],
+      "per_class_f1": [
+        0.6523489932885906,
+        0.3640897755610973,
+        0.02608695652173913
+      ],
+      "class_counts": [
+        425,
+        256,
+        7
+      ],
+      "confusion": [
+        [
+          243,
+          72,
+          110
+        ],
+        [
+          73,
+          73,
+          110
+        ],
+        [
+          4,
+          0,
+          3
+        ]
+      ]
+    }
+  },
+  "future_displacement": {
+    "2": {
+      "valid_evaluation_samples": 622,
+      "methods": {
+        "zero_displacement": {
+          "mean_l2_m": 3.3339105936144846,
+          "valid_count": 622
+        },
+        "constant_velocity_gt_state_control": {
+          "mean_l2_m": 0.5825068205928345,
+          "valid_count": 622
+        },
+        "gt_roi_geometry_control": {
+          "mean_l2_m": 3.8719575662508268,
+          "valid_count": 622
+        },
+        "particle_current_appearance": {
+          "mean_l2_m": 3.9421891601159205,
+          "valid_count": 622
+        },
+        "particle_current_all": {
+          "mean_l2_m": 3.938435336114449,
+          "valid_count": 622
+        },
+        "predicted_2s_all": {
+          "mean_l2_m": 3.9001826240310074,
+          "valid_count": 622
+        }
+      },
+      "predicted_minus_current_error": {
+        "difference": -0.038252712083441526,
+        "confidence_interval_95": [
+          -0.12246750692478788,
+          0.08665334593430349
+        ],
+        "recordings": 6,
+        "objects": 622
+      }
+    },
+    "4": {
+      "valid_evaluation_samples": 554,
+      "methods": {
+        "zero_displacement": {
+          "mean_l2_m": 6.726962394343776,
+          "valid_count": 554
+        },
+        "constant_velocity_gt_state_control": {
+          "mean_l2_m": 1.8459262831979484,
+          "valid_count": 554
+        },
+        "gt_roi_geometry_control": {
+          "mean_l2_m": 7.941710784951201,
+          "valid_count": 554
+        },
+        "particle_current_appearance": {
+          "mean_l2_m": 8.218029320821326,
+          "valid_count": 554
+        },
+        "particle_current_all": {
+          "mean_l2_m": 8.160752209180664,
+          "valid_count": 554
+        },
+        "predicted_4s_all": {
+          "mean_l2_m": 8.025056601479832,
+          "valid_count": 554
+        }
+      },
+      "predicted_minus_current_error": {
+        "difference": -0.13569560770083303,
+        "confidence_interval_95": [
+          -0.3198718562363261,
+          0.1274198211485142
+        ],
+        "recordings": 6,
+        "objects": 554
+      }
+    }
+  }
+}
