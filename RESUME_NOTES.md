@@ -2271,3 +2271,34 @@ modules/modules.py:2760의attribute head Linear입력차원,2541이후background
 공식근거: https://github.com/taldatech/lpwm/blob/main/models.py 및 configs/sketchy.json;
 사용중고정checkout의models.py/modules/modules.py와실제hparams를확인했다.
 이번질문은설명/코드감사이며활성학습·queue·등록source/config·해상도변경없음.
+
+
+## 2026-10-05 14:24 KST — 타 E2E 해상도와 정보 보존 비교
+
+연구 하위 질문: 작은 객체의 입력 정보를 유지하면서 planning에 필요한 entity 표현으로 압축할 수 있는가?
+공식코드/논문을확인한예시(가로×세로): 현재LPWM전방1개128×128;
+Drive-JEPA PF공식코드의front_only분기512×256,3카메라결합분기1024×256;
+DiffusionDrive NAVSIM은좌/전/우crop을이어붙인전체1024×256;
+VAD nuScenes Tiny는카메라당640×360,Base1280×720(각32배수padding후640×384/1280×736);
+DrivoR논문Table11은카메라당1148×672/4카메라,공개config와PILresize순서도확인했다.
+카메라수·화각·센서구성·벤치마크가다르므로이미지면적비로성능차이를설명하지않는다.
+
+원본축소는비용절감을위해쓰이지만planning에필요한작은객체/차선세부정보가사라지면성능저하가능.
+같은1920폭영상의30px객체는128폭에서2px,512폭에서8px이다. 이는기하학적예시이며감지성능측정이아니다.
+모든축소가동일하게나쁘거나원본해상도가항상최적이라는근거는없다.
+VAD Tiny/Base는해상도외모듈깊이·BEV query수도달라성능차이를해상도단독효과로주장하지않는다.
+우리128설정의PDMS손실량은해상도통제실험전에는미확정이다.
+
+DrivoR Table4(b)의LoRA조건에서전체scene tokens약16k는navval PDMS90.2,
+register압축64scene tokens는90.0이다. 이는입력이미지를극단적으로축소한실험이아니라
+인코딩된표현을학습적으로압축한사례이며우리particle설계에참고할수있다.
+후속설계에서는영상해상도·종횡비처리·particle예산을분리하고원본재처리/체크포인트호환을검증한다.
+선별후학습량확장필요성은유지되나128입력정보가충분하다고가정하지않는다.
+이번문헌/코드조사로활성학습·queue·등록source/config변경이나새GPU실험없음.
+
+출처:
+- https://raw.githubusercontent.com/hustvl/DiffusionDrive/main/navsim/agents/diffusiondrive/transfuser_features.py
+- https://raw.githubusercontent.com/hustvl/VAD/main/projects/configs/VAD/VAD_tiny_e2e.py
+- https://openaccess.thecvf.com/content/ICCV2023/papers/Jiang_VAD_Vectorized_Scene_Representation_for_Efficient_Autonomous_Driving_ICCV_2023_paper.pdf
+- https://arxiv.org/html/2601.05083v2 (Table4/11)
+- 로컬Drive-JEPA: reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_features.py:49
