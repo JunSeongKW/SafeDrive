@@ -1,5 +1,19 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**최신(2026-10-05): 사용자 요청으로 모든 후속 학습에 batch8 우선 정책 적용.**
+LoRA8 실제profile최대47.60GB통과,4422→4448 본학습재개확인(약3.29s/update).
+현재 진입점은 `configs/lpwm_planning/card_budget_measured_v4/queue.json`과
+`scripts/queue_lpwm_measured_card_budget.py`(queue421603). GPU0·1 각각 전체48decimalGB(다른 사용자 포함)를 감시한다.
+이전 고정allocator23.2GiB/allocated22.75GiB/free3GiB는 이번 승인으로 대체됐다.
+현재 NVML점유에서 우리allocator를 제외한 사용량과 workspace192MiB/반올림64MiB를 뺀 잔여예산을 적용한다.
+LoRA·Adapter·full 모두batch8 먼저실측,48GB내통과하면8채택; 메모리실패시에만4/2fallback.
+LoRA4422 model+AdamW226state를 별도보존하고4423부터재개. Partial완료결과재사용,full원본2095재개유지.
+유효planning16/SSL8/worker0/기존loss·LR·데이터·4707목표유지. Profile학습결과는본학습에사용하지않는다.
+새queue등록후source/config변경금지, 이전queue1902774는superseded이며재기동금지.
+이전 48GB v1의 고정프로세스예산/배치선택 설명은 보존이력이다.
+CUDA expandable_segments를 사용한다. v2/v3 profile 실패와원본4422를보존; 이전시험queue408762/413191은종료됐다.
+
+
 Claude Code 는 `CLAUDE.md`(= `@AGENTS.md`)로, Codex 는 이 파일로 같은 내용을 읽는다.
 **현재 상태**는 `HANDOFF.md`, 상세 실험 기록은 `RESUME_NOTES.md`(시간순 실험 일지)와
 `EXPERIMENT_DESIGN.md`(실험 설계·근거) 에 있다. 이 파일에는 바뀌지 않는 규칙만 둔다.

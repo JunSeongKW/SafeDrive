@@ -1,0 +1,37 @@
+[
+  {
+    "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/card_budget_measured_v4/attention_lora_batch8.json",
+    "microbatch_size_per_gpu": 8,
+    "passed": true,
+    "returncode": 0,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 47598010368,
+    "minimum_free_gib": 3.0849609375,
+    "minimum_cap_headroom_gib": 0.37438201904296875,
+    "queue_configuration_sha256": "888e2b3c328d689b81e678e1519936b3ae1de0f4f7959a295ae1fb8b8d176ec4",
+    "finished_unix": 1791161692.9711297,
+    "training_summary": {
+      "condition": "metric_plus_world",
+      "completed_updates": 8,
+      "epochs": 0.0016995963458678563,
+      "train_clips": 75297,
+      "effective_batch_size": 16,
+      "world_size": 2,
+      "seconds": 52.90139098797226,
+      "peak_allocated_gib": 23.835232257843018,
+      "module_gradients": {
+        "image_encoder": 0.2858140766620636,
+        "context": 0.5365096926689148,
+        "dynamics": 0.43659964203834534,
+        "rgb_decoder": 0.0,
+        "planner_and_command": 3.9135029315948486
+      },
+      "trainable_parameters": 3555463,
+      "checkpoint_sha256": "5b390b2b18dd7028719fadd5454b692150def589fcdcb704f1098f83c8a16de8",
+      "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+      "configuration_sha256": "1a666286478a23f86075bd579f880565c24f30dc2b01d6712814a23e507929c5",
+      "profile_only": true
+    },
+    "steady_update_seconds": 3.483266992989229
+  }
+]

@@ -1,0 +1,224 @@
+{
+  "authorization": "User: batch8 for all queued work if each card remains below48GB",
+  "previous_state": {
+    "queue_pid": 1902774,
+    "status": "running",
+    "current_stage": "attention_lora_training",
+    "nodes": {
+      "partial_output_layers_profile_batch4": {
+        "status": "complete",
+        "pid": 1916614,
+        "started_unix": 1791128157.5653605,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 35664166912,
+        "minimum_free_gib": 14.1982421875,
+        "minimum_cap_headroom_gib": 11.488639831542969,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791128237.906642
+      },
+      "partial_output_layers_profile_batch8": {
+        "status": "complete",
+        "pid": 1943223,
+        "started_unix": 1791128239.8300183,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 45592084480,
+        "minimum_free_gib": 4.9521484375,
+        "minimum_cap_headroom_gib": 2.2425460815429688,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791128311.2519376
+      },
+      "partial_output_layers_evaluation_engineering": {
+        "status": "complete",
+        "pid": 1965704,
+        "started_unix": 1791128313.1030695,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 23276290048,
+        "minimum_free_gib": 25.7353515625,
+        "minimum_cap_headroom_gib": 23.02574920654297,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791128345.835436
+      },
+      "partial_output_layers_training": {
+        "status": "complete",
+        "pid": 1978684,
+        "started_unix": 1791128349.4348655,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 45592084480,
+        "minimum_free_gib": 4.9521484375,
+        "minimum_cap_headroom_gib": 2.2425460815429688,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791137740.8579106
+      },
+      "partial_output_layers_evaluation": {
+        "status": "complete",
+        "pid": 3072184,
+        "started_unix": 1791137741.8249044,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 23288872960,
+        "minimum_free_gib": 25.7236328125,
+        "minimum_cap_headroom_gib": 23.01403045654297,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791138943.2077098
+      },
+      "attention_lora_profile_batch4": {
+        "status": "complete",
+        "pid": 3220623,
+        "started_unix": 1791138944.1124144,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 35527852032,
+        "minimum_free_gib": 14.3251953125,
+        "minimum_cap_headroom_gib": 11.615592956542969,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791139028.765456
+      },
+      "attention_lora_profile_batch8": {
+        "status": "failed",
+        "pid": 3247191,
+        "started_unix": 1791139030.0995922,
+        "returncode": 1,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 45934968832,
+        "minimum_free_gib": 4.6337890625,
+        "minimum_cap_headroom_gib": 1.9232101440429688,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791139076.3009722
+      },
+      "attention_lora_gradient_audit": {
+        "status": "complete",
+        "pid": 3264016,
+        "started_unix": 1791139077.7171783,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 30526144512,
+        "minimum_free_gib": 18.9833984375,
+        "minimum_cap_headroom_gib": 16.27379608154297,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791139132.1805499
+      },
+      "attention_lora_evaluation_engineering": {
+        "status": "complete",
+        "pid": 3283046,
+        "started_unix": 1791139134.1008627,
+        "returncode": 0,
+        "memory_guard": null,
+        "maximum_sampled_gpu_used_bytes": 23280484352,
+        "minimum_free_gib": 25.7314453125,
+        "minimum_cap_headroom_gib": 23.02184295654297,
+        "queue_configuration_sha256": "98fdd686e2fb14f487b0994285b63d19b3cced3ae8df9deaf5daded2accff475",
+        "finished_unix": 1791139167.471488
+      },
+      "attention_lora_training": {
+        "status": "running",
+        "pid": 3292771,
+        "started_unix": 1791139169.3986263
+      }
+    },
+    "method_order": [
+      "partial_output_layers",
+      "attention_lora",
+      "residual_adapter",
+      "full_low_learning_rate"
+    ],
+    "created_unix": 1791128146.744798,
+    "heartbeat_unix": 1791160858.0799267,
+    "resources": {
+      "0": {
+        "used_bytes": 36341547008,
+        "free_gib": 13.5673828125
+      },
+      "1": {
+        "used_bytes": 36346789888,
+        "free_gib": 13.5634765625
+      }
+    }
+  },
+  "supervisor": {
+    "pid": 1902774,
+    "state": "S",
+    "parent_pid": 1,
+    "start_ticks": "29177408",
+    "uid": 1020,
+    "arguments": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+      "/rhome/junseong/PlanningAwareFuturePrediction/scripts/queue_lpwm_48gb_planning.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/queue.json"
+    ]
+  },
+  "training": {
+    "pid": 3292771,
+    "state": "S",
+    "parent_pid": 1902774,
+    "start_ticks": "30282956",
+    "uid": 1020,
+    "arguments": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nnodes=1",
+      "--nproc-per-node=2",
+      "scripts/run_lpwm_48gb_stage.py",
+      "--action",
+      "train",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+      "--condition",
+      "metric_plus_world",
+      "--resume"
+    ]
+  },
+  "workers": [
+    {
+      "pid": 3293934,
+      "state": "S",
+      "parent_pid": 3292771,
+      "start_ticks": "30283213",
+      "uid": 1020,
+      "arguments": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+        "-u",
+        "scripts/run_lpwm_48gb_stage.py",
+        "--action",
+        "train",
+        "--config",
+        "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+        "--condition",
+        "metric_plus_world",
+        "--resume"
+      ]
+    },
+    {
+      "pid": 3293935,
+      "state": "S",
+      "parent_pid": 3292771,
+      "start_ticks": "30283213",
+      "uid": 1020,
+      "arguments": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-stage2/bin/python",
+        "-u",
+        "scripts/run_lpwm_48gb_stage.py",
+        "--action",
+        "train",
+        "--config",
+        "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+        "--condition",
+        "metric_plus_world",
+        "--resume"
+      ]
+    }
+  ],
+  "started_unix": 1791160864.9538326,
+  "completed_updates": 4422,
+  "optimizer_states": 226,
+  "checkpoint_sha256": "04efad377910390cb4ba947eb5b410f5972438d10199eb2b071b1bac7e104f61",
+  "source_configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/execution_48gb_v1/attention_lora_batch4.json",
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_planning_v2/queue/lora_resume_source.pt",
+  "finished_unix": 1791160879.8902824
+}

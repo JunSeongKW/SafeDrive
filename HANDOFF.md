@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 09:37 KST (Codex)
+마지막 갱신: 2026-10-05 09:59 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신 2026-10-05 09:59 KST: v4 queue421603 / torchrun427197 / LoRA batch8×accum1×GPU2=16 본학습재개확인. 4422보존상태에서4448/4707까지진행,loss유한. 카드전체약47.60GB/각GPU100%,8profile·gradient audit·engineering평가통과. 근거 `results/lpwm_card_budget_measured_v4/resumed_batch8_status_20261005.json`. 아래v2/v3시험중표시는과거이력.
+
+최신: 실측workspace 여유192MiB+rounding64MiB/expandable_segments를 쓰는 v4 queue421603으로교체,진입점 `configs/lpwm_planning/card_budget_measured_v4/queue.json`. v2 queue408762/v3 queue413191은시험후종료. 두시험은47.449/47.456GB에서기존추가여유512+128MiB에걸렸으며reserved-unallocated584→252MiB. 현재v4에서8본학습가능여부시험중. LoRA4422 보존원본불변.
+
+최신 2026-10-05 09:45 KST: 사용자 모든 후속작업batch8/전체48GB 요청으로 새queue408762 시작. 진입점 `card_budget_batch8_v2/queue.json`, 상태 `outputs/lpwm_card_budget_planning_v2/queue/queue_state.json`. 이전queue1902774 CPU만종료, LoRA worker정상SIGINT 저장4422 완료. 현재새LoRA8profile→4423재개→검증→Adapter8우선→검증→full8우선(2095재개)→검증. 완료Partial결과재사용. 등록기존source38/config20불변.
 
 최신 2026-10-05 09:36 KST: LoRA GPU당 batch4×누적2×2GPU=유효16, 4352/4707 update. Queue1902774/torchrun3292771/worker3293934·3293935 정상. Partial batch8 학습·최종검증 완료 후 방법별 profile에서 LoRA batch8이 allocator OOM으로 탈락하여 batch4 자동선택. 현재도 batch8이라는 해석은 틀림. 이번에는 읽기전용 실행점검 및 문서기록만 수행, runtime 변경 없음. 근거 `results/lpwm_48gb_planning_v1/batch_verification_20261005_0935.json`.
 
@@ -414,6 +420,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최종v4 batch8 profile8update통과,최대카드47,598,010,368bytes(<48GB),peak allocated23.8352GiB,마지막6회평균3.48327s. 본학습4448 update_seconds=3.293,loss=6.57218. Source42/config29 hash일치,CPU9검사통과,원본4422 model+AdamW226state보존. 현diagnostic module_gradients 빈dict는재개후다음128배수gradient진단전상태이며gradient0이아님;profile8의세world영역+planner norm모두유한양수.
+
+두실측에서allocator를제외한추가CUDA사용량은약122MiB였으므로192MiB+64MiB로여유를측정기반조정. v4에서도물리48GB전체감시/같은scientific설정유지. 이전실패/중단로그보존하며v2/v3자동재기동금지.
+
+LoRA4422 checkpoint SHA04efad377910390cb4ba947eb5b410f5972438d10199eb2b071b1bac7e104f61, AdamW226state 모두step4422. 새card budget이 다른사용자와CUDAcontext를 고려해allocator예산을산출하며48decimalGB카드상한0.5초감시. 고정23.2GiB·22.75GiB·free3GiB삭제; 계산용workspace512MiB+rounding128MiB만유지. CPU6검사통과(예산,8우선,후속모든방법설정,기존optimizerfork동일update). 실제8profile/재개수치는다음상태기록확인.
 
 최신 2026-10-05 09:35 KST: LoRA8 profile은 물리free4.63GiB/카드전체45.935decimalGB 상태에서 프로세스별23.20GiB allocator allowance에 도달하여20MiB allocation 실패. 카드전체48GB 초과나 물리메모리 고갈이 아님. LoRA4 본학습은 우리process GPU당14452/14456MiB, 카드전체34658/34663MiB, GPUutil100/84%. Partial 최종1024dev(유효PDMS1021)/256world 검증은 PDMS81.6341, ADE1.28250m; reconstruction 유지통과/forecast LPIPS 유지실패. 전체검증통과로 보고하지 않는다. Queue는 사전등록된 독립 방법비교 지속 설정에 따라 LoRA로 진행했으며 Partial checkpoint를 LoRA에 이어받지 않는다.
 
@@ -758,12 +770,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 LoRA batch4와 유효batch16을 실행명령·선택결과·증가하는 학습로그로 확인했다.
-- LoRA batch8의 allocator OOM과 물리 VRAM 부족을 구분하고 메모리감소 원인을 기록했다.
-- 자동생성된 partial 최종검증/LoRA profile 결과와 상태JSON/HANDOFF/RESUME를 보존. 학습·queue·source/config 변경 없음.
+- 사용자 공통정책에 따라 모든 후속방법batch8 우선과 전체48GB 기반 동적allocator 예산 구현.
+- LoRA4422 model+AdamW226state 보존. v2/v3 실패자료를보존하고 실측여유·expandable allocator의 v4대기열421603으로인계. 원본source/config/결과불변.
+- 후속full에도batch8 profile 추가, Partial완료결과재사용 및 기존학습/검증/어블레이션순서유지.
+- CPU9검사통과·source42/config29불변. LoRA8profile최대47.60GB통과,본학습4422→4448재개확인 및 상태JSON기록.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+LoRA8본학습4707→최종1024planning/256world검증→Adapter8우선profile/학습/검증→full8우선profile(2095optimizer계속)/학습/검증→4방법paired보고. 현재user전체48GB/batch8공통정책은v4queue에완료적용됐으므로다음턴다시승인을묻지않는다. 실행중새source/config수정·중복queue없음.
+
+현재관찰대상은v4 queue421603이다. outputs/lpwm_card_budget_measured_v4/queue 의profile/selection/progress를본다. v2/v3루트pause는실행교체기록으로보존;원래사용자fullpause도보존.
+
+최신: 새queue408762만관찰. 모든미완료방법8profile을우선하고48GB내성공이면8본학습. 메모리실패시4/2로유효batch16유지; 다른오류는중단. LoRA재개checkpoint보존4422,full보존2095사용. 이전대기열/원본full20epoch재기동금지. 종료후같은1024planning/256world개발검증과4방법paired보고계속.
 
 최신: 현재 LoRA batch4 학습을 유지하고4707 완료 후1024planning/256world 검증→Adapter profile/학습/검증→원래full2095 재개/검증 순서를 관찰한다. LoRA8 확대는 기존 allocator 제한에 걸렸으므로 카드여유만으로 가능하다고 단정하지 않는다. 이번 배치확인 요청으로 메모리guard/source/config를 수정하거나 학습을 재시작하지 않았다.
 
@@ -953,6 +972,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+LoRA8은47.60GB에서실제profile및본학습재개성공. 후속Adapter/full도8을먼저시험하도록등록했으나해당방법의8실측성공을이미확인한것은아님. 총48GB감시는유지하며초과/메모리실패시에만축소. 기존부분학습forecast보존실패와원인분리대조군부재등과학적한계는이번실행변경으로해소되지않았다.
+
+현재v4는512MiB보다작은192MiB추가CUDA여유를실측근거로적용하며GPU카드전체48GB를완화하지않았다. nativeallocator상한은shared점유에따라달라진다. 모든후속방법8우선정책은v4에공통등록됐다.
+
+최신사용자승인은모든후속학습에batch8우선/각카드48decimalGB상한공통적용. 실행변경만허용하며loss/모델/학습량/GT사용변경없음. SharedGPU타인점유급증은사전보장불가; 동적allocator와0.5초감시로보호. 안전여유내실측으로8가능여부판정,실패를숨기거나작은배치를8이라고보고하지않는다.
 
 최신: 메모리 감소 원인은 Partial8에서 LoRA4로 방법·microbatch가 바뀐 것. 유효batch16 유지와 처리속도 동일은 별개다. Batch8의 실패는 명시적 프로세스 allocator guard에 의한 OOM이며 물리48GB 용량만의 한계로 단정할 수 없다. Partial forecast LPIPS 유지gate 실패는 보존하며, LPWM 미세조정 단독효과/최종독립test는 여전히 미확정. LoRA 최종결과 대기.
 

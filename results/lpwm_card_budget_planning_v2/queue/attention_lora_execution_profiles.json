@@ -1,0 +1,14 @@
+[
+  {
+    "configuration": "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_planning/card_budget_batch8_v2/attention_lora_batch8.json",
+    "microbatch_size_per_gpu": 8,
+    "passed": false,
+    "returncode": 1,
+    "memory_guard": null,
+    "maximum_sampled_gpu_used_bytes": 47449112576,
+    "minimum_free_gib": 3.2236328125,
+    "minimum_cap_headroom_gib": 0.5130538940429688,
+    "queue_configuration_sha256": "87d1ab2a51a1b7bb22da3fef9d411fc5aa609bfac4448eaf7edfbac934100aa3",
+    "finished_unix": 1791161153.0398824
+  }
+]

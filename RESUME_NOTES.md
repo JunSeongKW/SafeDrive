@@ -2061,3 +2061,28 @@ GPU0/1총45.592/45.570GB,각free4.95GiB이상.2353update중간particle시각화�
 현재 LoRA 4352/4707, GPU당batch4/누적2/GPU2/유효16. Partial8은 완료됐고, LoRA8은03:37:55 backward중23.20GiB allocator allowance에서20MiB 할당을거부해profile탈락. 당시물리free4.63GiB/카드45.935decimalGB이므로물리메모리전량사용에따른OOM으로설명하지않는다. 현재GPU0/1우리process14452/14456MiB,카드34658/34663MiB,util100/84%. 최근update4304→4320→4336으로증가했고읽기전용점검중계속학습.
 
 Partial 최종dev1024/유효PDMS1021/40recording PDMS81.6341/ADE1.28250m; world256 reconstruction 유지통과/forecast LPIPS 실패. 이는 전체검증통과가 아니며 사전등록 독립방법비교 계속 규칙으로 LoRA 새초기화학습진행. 이번턴실행설정·source·queue·cap변경없음. 근거 `results/lpwm_48gb_planning_v1/batch_verification_20261005_0935.json`.
+
+
+## 2026-10-05 09:45 KST — 모든 후속 학습 batch8 우선과48GB 카드예산
+
+**최신(2026-10-05): 사용자 요청으로 모든 후속 학습에 batch8 우선 정책 적용.**
+현재 진입점은 `configs/lpwm_planning/card_budget_batch8_v2/queue.json`과
+`scripts/queue_lpwm_card_budget.py`(queue408762). GPU0·1 각각 전체48decimalGB(다른 사용자 포함)를 감시한다.
+이전 고정allocator23.2GiB/allocated22.75GiB/free3GiB는 이번 승인으로 대체됐다.
+현재 NVML점유에서 우리allocator를 제외한 사용량과 workspace512MiB/반올림128MiB를 뺀 잔여예산을 적용한다.
+LoRA·Adapter·full 모두batch8 먼저실측,48GB내통과하면8채택; 메모리실패시에만4/2fallback.
+LoRA4422 model+AdamW226state를 별도보존하고4423부터재개. Partial완료결과재사용,full원본2095재개유지.
+유효planning16/SSL8/worker0/기존loss·LR·데이터·4707목표유지. Profile학습결과는본학습에사용하지않는다.
+새queue등록후source/config변경금지, 이전queue1902774는superseded이며재기동금지.
+이전 48GB v1의 고정프로세스예산/배치선택 설명은 보존이력이다.
+
+이전CPUqueue만종료후LoRA두rank에SIGINT,4422 update/226AdamWstate원자저장. Checkpoint SHA04efad377910390cb4ba947eb5b410f5972438d10199eb2b071b1bac7e104f61. 기존등록source38/config20불변,CPU6tests통과. 새profile은진짜forward/backward/optimizer8update이며discard;LoRA4423재개와full2095재개는보존source를쓴다.
+
+### 같은 요청의 메모리실측 후속 — v4
+
+v2 기본allocator는47.449GB/23.38GiB allocated/583.93MiB reserved-unallocated에서실패. v3 expandable은47.456GB/23.71GiB allocated/252.42MiB reserved-unallocated로단편화는감소했으나보수적23.956GiB allowance에걸림. 비allocator추가사용약122MiB측정에근거해v4는growth192MiB+rounding64MiB로조정,shared48GB상한유지. v2/v3 queue정상반환확인후v4 queue421603시작. 보존LoRA4422원본은모든시험동안불변.
+
+### 2026-10-05 09:59 KST — 배치8 본학습 재개 성공
+
+v4 profile8회통과/카드최대47.598010368GB/peak allocated23.835232GiB/last6평균3.483267s. Gradient audit+engineering통과후421603queue/427197torchrun이4423부터재개하여4448/4707확인,loss6.572179,update3.293407s. 본학습2GPU100%/카드각약47.60GB. Native model/AdamW226state복원원본SHA보존. 42source/29config불변,CPU9검사통과. 다음Adapter/full도8우선이며48GB초과/메모리실패시에만작은배치로진행한다.
+기록 `results/lpwm_card_budget_measured_v4/resumed_batch8_status_20261005.json`. v2/v3실패와중단로그는보존,완료Partial 재실행없음. 최종LoRA PDMS/전체후속방법성능은아직대기.

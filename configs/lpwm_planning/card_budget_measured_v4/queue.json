@@ -1,0 +1,61 @@
+{
+  "output_directory": "outputs/lpwm_card_budget_measured_v4/queue",
+  "shared_results_directory": "results/lpwm_card_budget_measured_v4/queue",
+  "methods": [
+    {
+      "method": "partial_output_layers",
+      "profiles": [],
+      "reuse_selection": "outputs/lpwm_48gb_planning_v1/queue/partial_output_layers_execution_selection.json"
+    },
+    {
+      "method": "attention_lora",
+      "profiles": [
+        "configs/lpwm_planning/card_budget_measured_v4/attention_lora_batch8.json",
+        "configs/lpwm_planning/card_budget_measured_v4/attention_lora_batch4.json"
+      ]
+    },
+    {
+      "method": "residual_adapter",
+      "profiles": [
+        "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch8.json",
+        "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch4.json",
+        "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch2.json"
+      ]
+    },
+    {
+      "method": "full_low_learning_rate",
+      "profiles": [
+        "configs/lpwm_planning/card_budget_measured_v4/full_low_learning_rate_batch8.json",
+        "configs/lpwm_planning/card_budget_measured_v4/full_low_learning_rate_batch4.json",
+        "configs/lpwm_planning/card_budget_measured_v4/full_low_learning_rate_batch2.json"
+      ]
+    }
+  ],
+  "method_order": [
+    "partial_output_layers",
+    "attention_lora",
+    "residual_adapter",
+    "full_low_learning_rate"
+  ],
+  "maximum_gpu_used_bytes": 48000000000,
+  "minimum_free_gib": 0,
+  "profile_selection_cap_headroom_gib": 0,
+  "minimum_training_admission_free_gib": 26,
+  "minimum_evaluation_admission_free_gib": 12,
+  "automatic_object_gt_training": false,
+  "limitations": [
+    "One epoch and one seed; trends rather than convergence",
+    "Different adaptation locations/capacity; full method also changes LPWM LR",
+    "Fixed previously exposed development panels, no independent test",
+    "No separately trained frozen-LPWM control",
+    "Shared GPU timing is load-dependent",
+    "Resumed full method retains conv_in command conditioning and original20epoch scheduler, while other methods use conv_out and1epoch scheduler. Not an isolated adaptation-method comparison.",
+    "Partial resumes a preserved checkpoint with a newly measured execution batch; microbatch RNG regrouping is not bitwise equivalent.",
+    "Timing under shared GPU load may vary; selection uses speed and memory only, never development performance.",
+    "LoRA resumes model+AdamW at4422 under a new microbatch schedule. Profiles use warmed saved optimizers and do not alter the resumed source.",
+    "First dynamic-budget batch8 profile with default allocator failed at47.449GB total, with583.93MiB reserved-unallocated; this queue tests expandable segments before accepting smaller batches.",
+    "Measured incremental non-allocator usage during first two profiles about122MiB; reserve192MiB plus64MiB rounding instead of conservative512+128. Total48GB watchdog retained."
+  ],
+  "profile_selection": "Try batch8 first for each queued method. Select8 when finite updates pass within48decimalGB/card. Fall back4/2 only after a memory-limited failure. Same effective planning16/world8. Profile weights discarded.",
+  "cuda_allocator_configuration": "expandable_segments:True"
+}
