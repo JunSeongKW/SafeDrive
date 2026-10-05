@@ -1,0 +1,74 @@
+{
+  "observed_at_kst": "2026-10-05T16:31:51.774360+09:00",
+  "active_stage": "full_low_learning_rate_training",
+  "latest_update": 2928,
+  "parameter_inventory": {
+    "total_parameters": 111757238,
+    "trainable_parameters": 111757238,
+    "trainable_world_parameters": 109545263,
+    "trainable_planner_parameters": 2211975,
+    "trainable_world_modules": [
+      "encoder_module",
+      "dyn_module",
+      "decoder_module"
+    ],
+    "adaptation_method": "full_low_learning_rate",
+    "native_lpwm_parameters_frozen": false,
+    "rgb_decoder_trainable_for_ssl": true,
+    "world_parameters_by_region": {
+      "image_encoder": {
+        "total": 3751249,
+        "trainable": 3751249
+      },
+      "particle_interaction": {
+        "total": 1535234,
+        "trainable": 1535234
+      },
+      "context": {
+        "total": 39389417,
+        "trainable": 39389417
+      },
+      "dynamics_including_shared_context": {
+        "total": 99258833,
+        "trainable": 99258833
+      },
+      "rgb_decoder": {
+        "total": 4251239,
+        "trainable": 4251239
+      }
+    },
+    "region_counts_note": "Dynamics includes a shared context instance; regional totals must not be summed."
+  },
+  "latest_logged_module_gradients": {
+    "image_encoder": 383.09234619140625,
+    "context": 182.411865234375,
+    "dynamics": 134.96929931640625,
+    "rgb_decoder": 0.4056425094604492,
+    "planner_and_command": 7.553493499755859
+  },
+  "actual_learning_rates": {
+    "lpwm_lr": 9.989920104140214e-07,
+    "planner_lr": 0.0002996976031242064
+  },
+  "learning_rate_bases": {
+    "lpwm": 1e-06,
+    "planner_and_command": 0.0003
+  },
+  "objective": "candidate_imitation + 1.0 * PDM_metric_BCE + 0.02 * original_LPWM_SSL_ELBO",
+  "gradient_scope": {
+    "planning": "Planner and command FiLM through observed and predicted particle memory into encoder/context/dynamics; RGB decoder not on this path.",
+    "world_ssl": "Official LPWM temporal ELBO on auxiliary training clips, including RGB reconstruction decoder."
+  },
+  "interpretation": "All model parameters are trainable and included in optimizer groups. Logged positive module norms verify gradient flow at module level, not that every scalar parameter changes on every step.",
+  "source_evidence": [
+    "src/planning_aware_future_prediction/object_centric/lpwm_adapter_full_finetuning.py:64",
+    "src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py:92",
+    "scripts/train_lpwm_resumed_full_planning.py:283"
+  ],
+  "inventory_path": "outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/parameter_inventory.json",
+  "progress_path": "outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/progress.json",
+  "object_gt_auxiliary_enabled": false,
+  "changes_to_training": false,
+  "module_gradient_measurement_note": "Trainer measures module norms every 128 updates and carries the latest measurement into intermediate progress rows; this is not a new measurement at every logged update.",
+  "latest_periodic_module_gradient_update": 2816
+}

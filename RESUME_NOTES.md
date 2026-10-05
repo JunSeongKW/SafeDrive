@@ -2368,3 +2368,9 @@ Stage1의nativeLPWM전체가중치/buffer·encoder명령FiLM4480개고정/eval/n
 최근 log의 elapsed_seconds 차분을 사용해 중간 검증·저장 시간을 포함했다. 이전 개발 평가 실측은 partial 19.9분, LoRA 28.4분, Adapter 11.8분이다. 추정 범위는 공유 GPU 부하 변동을 고려한 계획값이며 보장/통계적 신뢰구간이 아니다. Main queue는 학습 중, frozen 대조군 queue는 선행 학습·검증·집계 완료를 기다린다. 대조군 완료 ETA는 GPU profile 후 계산한다.
 
 근거: `results/lpwm_card_budget_measured_v4/full_training_eta_20261005_1624.json`. 학습·queue·source/config 변경 없이 CPU 로그 확인과 기록만 수행했다.
+
+## 2026-10-05 16:31 KST — 전체 LPWM end-to-end 학습 범위 확인
+
+사용자가 현재 모든 LPWM 가중치를 end-to-end 갱신하는지 질문했다. Full condition의 실제 inventory에서 전체/학습 가능 파라미터가 모두111,757,238개이며 LPWM109,545,263개와 planner+command2,211,975개다. Native LPWM 전체 requires_grad=True 및 optimizer 포함을 코드에서 확인했고, 최근 주기적 모듈별 gradient 검사(128 update마다 측정, 중간 log에는 직전 측정값 유지)도 모두 양수였다. Planning loss는 particle memory를 통해 encoder/context/dynamics로 전달되고 RGB decoder는 SSL reconstruction 경로에서 갱신된다. 기본LR LPWM1e-6/planner3e-4, imitation+metric BCE+0.02SSL, 객체GT보조OFF 유지. 모든 scalar의 매 step 변화 여부까지 새로 검증한 것은 아니다.
+
+근거: `results/lpwm_card_budget_measured_v4/full_parameter_scope_20261005.json`. 학습·대기열 변경 없이 기존 full 완료/검증 후 frozen 대조군 자동 실행을 유지한다.

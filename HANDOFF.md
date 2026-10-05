@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 16:25 KST (Codex)
+마지막 갱신: 2026-10-05 16:32 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 16:31 KST: full_low_learning_rate_training 유지, 최신 2928/4707. 현재 조건은 LPWM native 전체와 planner/command 입력을 함께 학습하는 full fine-tuning이다. 후속 frozen 대조군은 대기 중이다.
 
 2026-10-05 16:25 KST: full low-LR 학습 2864/4707 (60.85%), 남은 1843 update. 최근 128/256/512 update의 경과시간 기준 약 5.61–5.63s/update; 학습 종료 19:15–19:40, 최종 개발 검증 종료 19:30–20:10 KST 예상. Main queue는 full_low_learning_rate_training, frozen 대조군 queue는 waiting_for_full_training_and_validation이며 양쪽 heartbeat 정상.
 
@@ -466,6 +468,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+전체 111,757,238개 = 학습 가능 111,757,238개. LPWM109,545,263 / planner+command2,211,975. 128 update마다 측정하는 gradient 검사에서 encoder/context/dynamics/RGB decoder/planner 모두 양수. 기본LR1e-6/3e-4, loss=imitation+metric BCE+0.02SSL. RGB decoder는 SSL 경로에서 갱신된다. 근거 results/lpwm_card_budget_measured_v4/full_parameter_scope_20261005.json.
 
 ETA 근거: results/lpwm_card_budget_measured_v4/full_training_eta_20261005_1624.json. 최근 경과시간 차분으로 중간 저장·검증 시간을 포함해 추정했고, 이전 최종 평가 실측은 11.8–28.4분이다. 현재 loss는 유한하며 GPU0·1 점유 각 약43.45GB, batch4×누적2×2=유효16 유지.
 
@@ -862,11 +866,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 full low-LR 진행률과 최근 128/256/512 update의 경과시간으로 종료 ETA를 계산·기록했다.
-- 기존 최종 평가 소요시간과 후속 frozen 대조군 대기 상태를 확인했다.
-- HANDOFF/RESUME_NOTES와 소형 JSON 보고서만 갱신했다. 실행 중 학습·대기열·설정은 유지했다.
+- 실행 중인 full 조건의 실제 parameter inventory, loss/backward/optimizer 코드와 module gradient 로그를 대조했다.
+- LPWM 전체 학습 가능 상태와 RGB decoder의 SSL 전용 gradient 경로를 구분해 기록했다.
+- CPU 조회와 기록만 수행했고 학습 source/config/queue는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Full native LPWM+planner 학습과 검증을 유지한 뒤, 기존 등록 순서대로 LPWM 전체 및 encoder command FiLM을 고정한 동일 planner 대조군을 자동 실행한다. 이번 확인으로 학습 범위를 변경하지 않았다.
 
 현재 full 학습 종료와 최종 개발 검증·네 방법 집계 후, 등록된 frozen 대조군 GPU 감사/profile/학습/검증을 자동 실행한다. 대조군 전체 종료 시각은 자체 속도 실측 뒤 갱신한다.
 
@@ -1108,6 +1114,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+모든 파라미터가 학습 가능하다는 것과 모든 scalar가 매 step 변경되거나 모든 모듈이 planning gradient를 직접 받는다는 것은 다르다. RGB decoder는 planning 그래프 밖이며 SSL로 학습한다. 모듈별 양수 gradient는 확인했으나 이번 턴에 각 scalar 업데이트 차분을 새로 측정하지 않았다.
 
 이번 종료 예상은 공유 GPU 부하가 현재 수준으로 유지된다는 조건의 실측 기반 추정이며 보장/통계적 신뢰구간이 아니다. Frozen 대조군 속도는 미실측이다. 이번 턴은 로그 조회·ETA 기록이며 학습 source/config/queue는 변경하지 않았다.
 
