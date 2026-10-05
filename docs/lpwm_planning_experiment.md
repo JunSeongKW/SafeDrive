@@ -1,5 +1,18 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 사용자 확정 순서 — LPWM 내부 비교 완료 후 DrivoR 비교는 후속 과제로 보관
+
+1. **현재 실행 범위:** LPWM 미세조정 조건의 학습·검증과, 이미 등록된 LPWM/encoder 명령 FiLM 고정·동일 planner 학습 대조군의 학습·검증 및 결과 비교를 완료한다.
+   질문은 “같은 LPWM 기반 모델에서 표현까지 planning에 맞춰 수정하면 추가 이득이 있는가?”다.
+2. **그다음 연구 과제:** 공통 DrivoR planner를 사용해 register 등 일반 압축 feature와 LPWM particle 기반 표현을 비교한다.
+   목적은 “주행 의도에 맞춰 구조화된 particle의 미래 정보를 보존하는 것이, 일반적인 압축 feature를 사용하는 것보다 planning에 도움이 되는가?”다.
+3. **명시적 실행 제한:** 사용자는 DrivoR 비교를 지금 대기열에 추가하지 말고 해야 할 후속 과제로 기억하라고 지시했다.
+   따라서 현재 작업 완료를 trigger로 DrivoR 학습·profile·평가를 자동 기동하거나 새 대기열에 등록하지 않는다.
+   아래 공통 planner·입력·예산 통제 원칙은 후속 설계 기록이며 실행 등록이 아니다.
+
+기존 full→검증→frozen-LPWM planner 대조군→검증/비교 순서는 유지한다.
+이번 기록으로 현재 학습 조건이나 실행 중 source/config를 변경하지 않았다.
+
 ## 2026-10-05: 표현 비교에서는 공통 DrivoR planner를 사용한다는 설계 원칙
 
 사용자가 register 대비 particle 미래 표현의 효용을 확인하려면 뒷단 planner를 같게 고정해야 한다고 지적했다.

@@ -2386,3 +2386,9 @@ DrivoR §3.2–3.5/§4.2.1 및 공식 fc6e5aa의 register/ego 경로, LPWM A.3�
 사용자가 DrivoR과 같은 planner를 두어야 표현 비교가 성립한다고 지적했다. 공통 planner 구조/초기값/학습 규칙을 두고 각 조건을 별도 학습하는 기준을 연구 문서에 반영했다. Planner 가중치 freeze와 구분했으며, 입력 센서/해상도/관측 이력/token예산/학습목표/gradient/평가까지 통제하도록 했다. 공식 코드의 trajectory/scoring decoder·detach 경로를 확인했다. DrivoR vs LPWM은 backbone과 사전학습 차이가 남으므로 시스템 비교이며, particle 구조 단독효과는 같은 기반의 일반 latent dynamics 비교가 필요하다. 미래·encoder intent 조건도 별도 ablation으로 분리한다.
 
 상세: `docs/lpwm_planning_experiment.md` 최신절. 기존 full/frozen은 LPWM 내부 적응 비교로 해석하며 register 우월성 비교로 사용하지 않는다. 공통 DrivoR 구현/새 학습은 시작하지 않았고 기존 full→검증→frozen 대기열과 source/config를 유지했다.
+
+## 2026-10-05 17:02 KST — 현재 LPWM 비교 완료 우선, DrivoR 대조실험은 대기열 없이 보관
+
+사용자는 현재 “같은 LPWM 기반에서 표현까지 planning에 맞춰 수정하면 추가 이득이 있는가” 실험을 먼저 마무리하도록 했다. 현재 full 학습·검증과 이미 승인된 frozen LPWM/encoder FiLM+동일 planner 대조군 학습·검증·비교는 이어간다. 후속 DrivoR 대조실험의 목적은 “주행 의도에 맞춰 구조화된 particle의 미래 정보를 보존하는 것이 일반적인 압축 feature보다 planning에 도움이 되는가”다. 공통 DrivoR planner 통제 원칙을 유지한다.
+
+**명시적 지시: DrivoR 비교는 지금 대기열에 등록하지 말고 후속 과제로 기억한다.** 현재 작업 완료를 trigger로 새 DrivoR profile/학습/평가를 자동 기동하지 않는다. 기존 main queue 학습/frozen queue 대기 heartbeat 정상 확인, source/config/queue 변경 없음. 연구 문서 및 HANDOFF에 우선순위와 실행 제한을 기록했다.

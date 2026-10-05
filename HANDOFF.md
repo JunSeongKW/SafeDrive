@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 16:55 KST (Codex)
+마지막 갱신: 2026-10-05 17:03 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 17:02 KST: 사용자 지시로 현재 LPWM 내부 미세조정 vs frozen 대조군 학습·검증·비교까지 완료한다. Main full 학습 3280/4707, frozen CPU queue 대기 정상. DrivoR 비교는 후속 과제로 보관하며 대기열에 넣지 않는다.
 
 2026-10-05 16:55 KST: 사용자 지적에 따라 register/particle 후속 비교의 공통 DrivoR planner 설계 원칙을 기록했다. 기존 full 학습 3184/4707, frozen 대조군 대기 유지. 공통 DrivoR 구현·새 학습은 미실행이다.
 
@@ -472,6 +474,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+사용자 확정 연구 순서: (1) 같은 LPWM에서 planning 표현 적응의 추가 효과 검증 완료, (2) 공통 DrivoR planner 아래 구조화된 particle 미래 표현 vs 일반 압축 feature 비교. 두 번째는 목적과 통제 원칙만 기록했고 실행을 등록하지 않았다.
 
 표현 비교의 planner 고정은 구조·초기값·학습 규칙을 맞추고 조건별로 planner를 학습한다는 뜻이다. 센서·해상도·관측 이력·memory 길이/차원·loss/gradient까지 맞춰야 한다. DrivoR backbone vs LPWM은 사전학습 차이가 남으므로 particle 속성의 단독 효과와 구분한다. 연구 문서 최신절에 비교별 해석 범위를 정정했다.
 
@@ -874,11 +878,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 지적에 따라 표현 비교에서 planner 구조·초기값·학습 규칙을 통제하도록 연구 설계를 정정했다.
-- 공통 DrivoR planner 기준과 입력/memory/목표 통제, frontend 비교와 particle 속성 인과 비교의 차이를 기록했다.
-- 현재 full/frozen 실험의 해석 범위를 제한했고 기존 학습·대기열은 유지했다.
+- 현재 LPWM 미세조정/frozen 대조군을 먼저 완료하고 DrivoR 비교는 후속 과제로 기억하라는 사용자 지시를 기록했다.
+- DrivoR 비교를 지금 대기열에 등록하거나 현재 작업 종료 후 자동 기동하지 않는 제약을 명시했다.
+- 기존 두 queue의 정상 학습/대기를 확인했으며 실행 설정·학습 source는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+우선 기존 full 학습→개발검증/집계→frozen LPWM·encoder FiLM 고정 대조군 학습→검증/미세조정 대비 결과 보고를 완료한다. 이후 DrivoR 비교는 해야 할 후속 과제로 기억한다. **현재 완료를 계기로 DrivoR 작업을 자동 실행하거나 대기열에 추가하지 않는다: 사용자의 명시적 지시다.**
 
 기존 full→개발검증→frozen 대조군은 계속한다. 후속 표현 비교는 공통 DrivoR trajectory/scoring planner와 동일 학습 규칙을 기준으로 설계하고, 미래/encoder명령/속성구조의 효과를 분리한다. 현재 공통planner 구현·실행 설정은 미등록이다.
 
@@ -1126,6 +1132,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+사용자는 DrivoR 대조실험의 필요성과 목적을 확정했으나 지금 대기열 등록은 명시적으로 금지했다. 기존 frozen 대조군 실행 승인은 유지된다. DrivoR 구현·profile·학습·평가의 신규 자동 실행은 하지 않는다.
 
 공통 planner만으로 backbone·사전학습·SSL·memory예산 차이가 제거되지는 않는다. 두 frontend의 시스템 비교와 구조화 particle 속성의 인과 비교를 구분한다. 이번 사용자 질문을 기존 작업 취소나 즉시 planner 교체 명령으로 해석하지 않았고 실행 중 hash를 유지했다.
 
