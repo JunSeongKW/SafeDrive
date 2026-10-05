@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**최신 실행(2026-10-06): 공개 LPWM 원래 가중치 고정 + DrivoR 방식 Q/V LoRA.**
+Native full run은 35 update에서 보존·중단했고 공개 LPWM으로 새 LoRA 학습을 시작했다.
+LoRA rank32/scale1/42 Q·V projection, planner 전체 학습. 상세 [LoRA·ego 입력·실행 실측](docs/lpwm_drivor_lora_training.md).
+현재 `outputs/lpwm_drivor_lora_v1/`, train2994997/queue2994998. 배치16×누적2×GPU2=유효64,
+loader2/oracle4 per rank, 카드전체48decimalGB. Batch24 및 worker증설까지 실측 후 배치16을선택했다.
+공식planner ego11D 경로는동일, LPWM command4D FiLM은추가경로다. 아래 native-weight 실행은이전이력이다.
+
+
 **최신 실행(2026-10-06): 공개 LPWM + 공식 DrivoR planner E2E 본 학습 시작.**
 사용자가 Stage1/2를 합친 joint planning 학습 및 DrivoR와 같은 공식 PDMS/EPDMS 조건을 새로 승인했다.
 GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179=103,288장면/25epoch40,350update.

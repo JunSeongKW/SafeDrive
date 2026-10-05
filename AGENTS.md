@@ -1,5 +1,18 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 최신 사용자 요청: DrivoR 방식 LoRA 및 여유 VRAM 활용.**
+공개 LPWM native109.55M 고정, Q/V LoRA32·scale1·42projection1.343M와 새FiLM/projection/공식planner를학습한다.
+기존 native-full35update와 pause는보존하고새LoRA는public-init. LoRA1update를저장후배치증설하여이어간다.
+현재진입점 `configs/lpwm_drivor_lora/navsim_v1.json` + `execution_batch16_loader2_oracle4.json`,
+`scripts/train_lpwm_drivor_lora_parallel.py`, `scripts/queue_lpwm_drivor_lora_parallel.py`.
+기본설정은이력으로batch8이나실제execution override는batch16/accum2/GPU2/effective64,loader2/oracle4이다.
+Batch24와loader4/oracle8실측후속도상batch16선택. GPU0·1총48decimalGB. 효과비교시microbatch변경이력을밝힌다.
+`outputs/lpwm_drivor_lora_v1/`의 registration/queue_registration/parallelism_registration 소스·설정hash수정금지.
+공식planner ego11D 주입은동일하나encoder에명령4D FiLM 추가;완전히같은ego-conditioning이라고부르지않는다.
+후속v1fullnavtest→독립publicv2train→warmup/navhard평가를같은실행override로진행한다.
+아래native-weight실행및PID는이전이력이며중복실행하지않는다.
+
+
 **2026-10-06 최신 사용자 승인: 공개 LPWM + DrivoR joint E2E 학습 및 공식 PDMS/EPDMS 평가.**
 과거 DrivoR/추가epoch/navtest 보류를 이번 명시적 요청 범위에서 갱신한다.
 진입점 `docs/lpwm_drivor_joint_training.md`, `configs/lpwm_drivor_joint/`.

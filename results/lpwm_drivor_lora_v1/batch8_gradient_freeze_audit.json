@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "native_unchanged": true,
+  "initial_zero_lora_outputs_identical": true,
+  "initial_planner_identical": true,
+  "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "microbatch": 8,
+  "gradient_routes_checked": false,
+  "updates_discarded": true,
+  "history": [
+    {
+      "update": 1,
+      "loss": 16.22740936279297,
+      "seconds": 13.10381007194519,
+      "card_used_bytes": 15876489216,
+      "peak_allocated_bytes": 15270403072,
+      "peak_reserved_bytes": 15485370368,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.10596734482368037,
+        "context_prior_lora": 0.096990337645576,
+        "particle_dynamics_lora": 0.17168960944260744,
+        "encoder_command": 0.1739313403167005,
+        "scene_projection": 5.049699405626858,
+        "trajectory_generator": 25.837447561232576,
+        "scorer": 21.48545438831765
+      }
+    },
+    {
+      "update": 2,
+      "loss": 13.78166389465332,
+      "seconds": 8.2005136013031,
+      "card_used_bytes": 16023289856,
+      "peak_allocated_bytes": 15417722880,
+      "peak_reserved_bytes": 15632171008,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.10979924668546366,
+        "context_prior_lora": 0.13362974014970552,
+        "particle_dynamics_lora": 0.11500000084311802,
+        "encoder_command": 0.35830163334423526,
+        "scene_projection": 3.755306789932392,
+        "trajectory_generator": 23.52577563325786,
+        "scorer": 12.791168432760458
+      }
+    }
+  ],
+  "parameter_change_l2": {
+    "particle_interaction_lora": 0.04511440361204347,
+    "context_prior_lora": 0.17215647117591767,
+    "particle_dynamics_lora": 0.2271913581607548,
+    "encoder_command": 0.020092072831578087,
+    "scene_projection": 0.06072907071586099,
+    "trajectory_generator": 0.7171465550236356,
+    "scorer": 0.7999992609942312
+  }
+}

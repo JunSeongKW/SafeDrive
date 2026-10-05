@@ -1,0 +1,49 @@
+{
+  "benchmark": "navsim_v1",
+  "seed": 2,
+  "epochs": 25,
+  "training_splits": [
+    "navtrain",
+    "navval"
+  ],
+  "manifest": "outputs/lpwm_drivor_joint_v1/engineering_scene_cache/manifest.json",
+  "output_directory": "outputs/lpwm_drivor_lora_v1/navsim_v1",
+  "public_checkpoint": "outputs/lpwm_navsim_adaptation_v1/pretrained/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_best_lpips.pth",
+  "microbatch_per_gpu": 8,
+  "effective_batch": 64,
+  "loader_workers_per_rank": 2,
+  "oracle_workers_per_rank": 4,
+  "lpwm_lr": 0.0002,
+  "planner_lr": 0.0002,
+  "scheduler_dataset_size": 85000,
+  "checkpoint_every": 100,
+  "registration": "outputs/lpwm_drivor_lora_v1/registration.json",
+  "maximum_total_card_bytes": 48000000000,
+  "ssl_reconstruction_weight": 0,
+  "direct_object_gt_weight": 0,
+  "selection_policy": "fixed_final_epoch",
+  "drivor_commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+  "notes": [
+    "Official DrivoR downstream model, proposal stop-gradient, online oracle, and loss are imported unchanged.",
+    "Native LPWM 128x128 differs from official DrivoR 672x1148; resolution-controlled baseline remains required.",
+    "Exact official scheduler uses configured dataset_size=85000 even for trainval 103288; cosine rebound after scheduled horizon is retained.",
+    "Engineering audit weights never enter main training.",
+    "User replaces native-weight fine-tuning with DrivoR-style Q/V LoRA. Public initialization and fresh planner/AdamW/scheduler; previous full run checkpoint preserved separately.",
+    "LoRA and new planner use the same official base learning rate 0.0002. CNN/native geometry heads remain frozen; existing trainable command FiLM can alter their inputs."
+  ],
+  "lora": {
+    "rank": 32,
+    "alpha": 32,
+    "scaling": 1.0,
+    "projections": [
+      "query",
+      "value"
+    ],
+    "regions": [
+      "particle_interaction",
+      "context_prior",
+      "particle_dynamics"
+    ],
+    "pretrained_weights_frozen": true
+  }
+}

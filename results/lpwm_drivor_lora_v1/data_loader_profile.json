@@ -1,0 +1,29 @@
+{
+  "rows": [
+    {
+      "workers_per_rank": 2,
+      "batches": 24,
+      "cold_first_seconds": 0.4044486759812571,
+      "steady_mean_wait_seconds": 0.0583351485674148,
+      "steady_total_seconds": 1.3417084170505404
+    },
+    {
+      "workers_per_rank": 4,
+      "batches": 24,
+      "cold_first_seconds": 0.3810731270350516,
+      "steady_mean_wait_seconds": 0.0165099199992888,
+      "steady_total_seconds": 0.3797281599836424
+    },
+    {
+      "workers_per_rank": 8,
+      "batches": 24,
+      "cold_first_seconds": 0.43609548202948645,
+      "steady_mean_wait_seconds": 0.02480673695580386,
+      "steady_total_seconds": 0.5705549499834888
+    }
+  ],
+  "batch_size_per_rank": 32,
+  "scene_count": 768,
+  "pin_memory": false,
+  "limitation": "CPU isolated data-wait profile; cache warms across settings, not a randomized architecture speed comparison."
+}

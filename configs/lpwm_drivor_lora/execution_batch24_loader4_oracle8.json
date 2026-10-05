@@ -1,0 +1,15 @@
+{
+  "overrides": {
+    "microbatch_per_gpu": 24,
+    "loader_workers_per_rank": 4,
+    "oracle_workers_per_rank": 8
+  },
+  "effective_batch_unchanged": 64,
+  "registration": "outputs/lpwm_drivor_lora_v1/parallelism_registration.json",
+  "maximum_total_card_bytes": 48000000000,
+  "accumulation_partition_per_rank": [
+    24,
+    8
+  ],
+  "normalization": "Each microbatch loss weighted by its sample count / rank batch32; two GPU ranks = effective64."
+}

@@ -1,0 +1,88 @@
+{
+  "captured_kst": "2026-10-06T00:49:49.112806+09:00",
+  "progress": {
+    "configuration_sha256": "f785b417ce3bc0da553980433ddb550b6237a1c77e49007422f7a02d9d9a3f2f",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 4
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 6,
+    "epoch": 1,
+    "update_in_epoch": 6,
+    "seconds_this_update": 22.598276376724243,
+    "elapsed_seconds": 136.4334135055542,
+    "card_used_bytes": 29589766144,
+    "peak_reserved_bytes": 29014097920,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0009801387786865234,
+      "forward": 4.4011549949646,
+      "oracle": 6.998191595077515,
+      "backward": 10.974122047424316
+    },
+    "learning_rates": [
+      3.6142781456953663e-07,
+      3.6142781456953663e-07
+    ],
+    "loss": 32.74165630340576,
+    "trajectory_loss": 28.369977951049805,
+    "final_score_loss": 4.371678829193115,
+    "score": 0.34940724074840546,
+    "best_score": 0.6537863612174988,
+    "estimated_remaining_seconds": 1100856.564357376
+  },
+  "active_execution": {
+    "execution_configuration": "configs/lpwm_drivor_lora/execution_batch16_loader2_oracle4.json",
+    "execution_sha256": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc",
+    "overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 4
+    },
+    "effective_batch": 64,
+    "completed_updates_at_start": 1
+  },
+  "resume": {
+    "checkpoint_sha256": "8ee14aa91f8dabf192776d0e8ef331cadb7f44cc177a7fd6f126b868bd07b665",
+    "completed_updates": 1,
+    "next_update_in_epoch": 1,
+    "epoch": 0,
+    "optimizer_steps_min": 1,
+    "optimizer_steps_max": 1,
+    "optimizer_state_count": 334,
+    "scheduler_state_restored": true,
+    "rank_rng_restored_before_training": true,
+    "effective_batch": 64,
+    "execution_sha256": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc"
+  },
+  "queue": {
+    "stage": "navsim_v1_training",
+    "adopted_pid": 2994997,
+    "updated_unix": 1791215388.366412
+  },
+  "launch": {
+    "pid": 2994997,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nproc_per_node=2",
+      "scripts/train_lpwm_drivor_lora_parallel.py",
+      "--config",
+      "configs/lpwm_drivor_lora/navsim_v1.json",
+      "--execution",
+      "configs/lpwm_drivor_lora/execution_batch16_loader2_oracle4.json"
+    ],
+    "started_unix": 1791215208.1273627,
+    "resumed_completed_updates": 1,
+    "effective_batch": 64
+  }
+}

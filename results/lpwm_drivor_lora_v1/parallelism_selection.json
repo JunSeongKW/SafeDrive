@@ -1,0 +1,59 @@
+{
+  "execution_configuration": "configs/lpwm_drivor_lora/execution_batch16_loader2_oracle4.json",
+  "selected_microbatch_per_gpu": 16,
+  "accumulation_microbatches": 2,
+  "effective_batch": 64,
+  "data_loader_workers_per_rank": 2,
+  "oracle_workers_per_rank": 4,
+  "results": [
+    {
+      "setting": "batch8_loader2_oracle4",
+      "steady_step_seconds": [
+        31.56122589111328
+      ],
+      "steady_mean_seconds": 31.56122589111328,
+      "max_total_card_bytes": 16295919616,
+      "passed": true,
+      "effective_batch": 64
+    },
+    {
+      "setting": "batch16_loader2_oracle4",
+      "steady_step_seconds": [
+        18.291886806488037
+      ],
+      "steady_mean_seconds": 18.291886806488037,
+      "max_total_card_bytes": 29591863296,
+      "passed": true,
+      "effective_batch": 64
+    },
+    {
+      "setting": "batch24_loader4_oracle8",
+      "steady_step_seconds": [
+        19.353017807006836
+      ],
+      "steady_mean_seconds": 19.353017807006836,
+      "max_total_card_bytes": 42996858880,
+      "passed": true,
+      "effective_batch": 64
+    },
+    {
+      "setting": "batch16_loader4_oracle8",
+      "steady_step_seconds": [
+        20.754194736480713,
+        19.190309524536133,
+        19.834164142608643
+      ],
+      "steady_mean_seconds": 19.926222801208496,
+      "max_total_card_bytes": 29591863296,
+      "passed": true,
+      "effective_batch": 64
+    }
+  ],
+  "batch32_admission": "Not run: linear extrapolation from batch8/16 exceeds 48GB; no allocator OOM trial.",
+  "reason": "Batch16 loader2 oracle4 was fastest in measured steady updates. Batch24 used 43GB without speed improvement; additional workers did not improve measured end-to-end throughput.",
+  "limits": "Short sequential engineering profiles; shared resource and cache differences prevent global-optimality claims. Main-run speed remains to be checked.",
+  "resume_completed_updates": 1,
+  "base_configuration_unchanged": true,
+  "dropout_microbatch_partition_changes": true,
+  "created_unix": 1791215175.478456
+}

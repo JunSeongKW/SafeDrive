@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "scene_count": 16,
+  "full_history_status": false,
+  "ego_fields": [
+    "pose_x",
+    "pose_y",
+    "pose_heading",
+    "velocity_x",
+    "velocity_y",
+    "acceleration_x",
+    "acceleration_y",
+    "command_0",
+    "command_1",
+    "command_2",
+    "command_3"
+  ],
+  "planner_ego_injection": "Official DrivoRModel.forward, Linear(11,256); add to proposal tokens and post-attention scorer features",
+  "additional_lpwm_path": "Only command[7:11] -> trainable FiLM at particle attribute CNN conv_in; absent in official DrivoR",
+  "all_ego_injection_identical": false,
+  "rows": [
+    {
+      "token": "1aa44d46e4ab5bc7",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "ddbfb3b2a05c5918",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "d08431f590c8590f",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "f29cb70f7e34576e",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "98cb435b81215ef6",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "3d378c00e98b5163",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "f23b3b874df459f9",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "5b34777ea18a5d04",
+      "split": "navtrain",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "1bf6fef253f45586",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "4d3d09ff137e5411",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "d884d08d5e7f5ce7",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "b57a8c39e8fa5342",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "dadedafafd2e5c35",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "78622e73376d56d9",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "35faad49c1d95c60",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    },
+    {
+      "token": "7f74e72074485b12",
+      "split": "navval",
+      "pose_max_absolute_error": 0.0,
+      "velocity_acceleration_command_exact": true,
+      "max_absolute_error": 0.0
+    }
+  ]
+}

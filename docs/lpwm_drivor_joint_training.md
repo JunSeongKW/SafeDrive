@@ -1,5 +1,13 @@
 # Public LPWM + official DrivoR planner joint training
 
+## 2026-10-06 최신 변경: 원래 가중치 고정 + Q/V LoRA
+
+사용자의 후속 요청으로 아래 native-weight 학습은 update 35에서 정상 저장·중단했다.
+현재 조건은 [LoRA 학습 및 ego status 점검](lpwm_drivor_lora_training.md)이다.
+공개 LPWM에서 새로 시작했으며, 기존 native update 35는 이어받지 않는다.
+Planner ego status 경로는 공식 코드 그대로이고, 추가 encoder command FiLM은 유지한다.
+아래 native-weight 업데이트 표·PID·실행 상태는 변경 전 이력이다.
+
 ## 현재 상태와 승인
 
 2026-10-05 23:56 KST, GPU 0·1에서 NAVSIM v1 본 학습을 시작했다.

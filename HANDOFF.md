@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**최신 실행(2026-10-06): 공개 LPWM 원래 가중치 고정 + DrivoR 방식 Q/V LoRA.**
+Native full run은 35 update에서 보존·중단했고 공개 LPWM으로 새 LoRA 학습을 시작했다.
+LoRA rank32/scale1/42 Q·V projection, planner 전체 학습. 상세 [LoRA·ego 입력·실행 실측](docs/lpwm_drivor_lora_training.md).
+현재 `outputs/lpwm_drivor_lora_v1/`, train2994997/queue2994998. 배치16×누적2×GPU2=유효64,
+loader2/oracle4 per rank, 카드전체48decimalGB. Batch24 및 worker증설까지 실측 후 배치16을선택했다.
+공식planner ego11D 경로는동일, LPWM command4D FiLM은추가경로다. 아래 native-weight 실행은이전이력이다.
+
+
 **최신 실행(2026-10-06): 공개 LPWM + 공식 DrivoR planner E2E 본 학습 시작.**
 사용자가 Stage1/2를 합친 joint planning 학습 및 DrivoR와 같은 공식 PDMS/EPDMS 조건을 새로 승인했다.
 GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179=103,288장면/25epoch40,350update.
@@ -8,7 +16,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 00:14 KST (Codex)
+마지막 갱신: 2026-10-06 00:50 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -175,6 +183,13 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-06 최신: LoRA본학습 parent2994997,후속queue2994998. Root `outputs/lpwm_drivor_lora_v1`.
+현재baseconfig는기존batch8이지만 `active_execution.json`/`execution_batch16_loader2_oracle4.json`이우선이다.
+배치16/누적2/GPU2=유효64/loader2·oracle4 per rank/48decimalGB. 1update model+AdamW+schedule+RNG재개.
+원래full35update,첫LoRA1update사본과pause/launch는각oldroot와`before_parallelism_upgrade/`에보존.
+`training_parallel.log`, `progress.json`, `queue_status.json`에서실제진행확인. 진단weights는main미사용.
+아래2788260/2839064는종료·보존된full실행이다.
 
 2026-10-06 00:13 KST: v1 joint 본 학습 24/40,350 updates, parent2788260, queue2839064 정상.
 GPU별총약45.26GB/batch8/acc4/effective64. 최근10update평균37.3초→v1잔여약17.4일(공유자원변동).
@@ -556,6 +571,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+LoRA초기출력/native출력bitwise동일,초기planner동일,실제optimizer2update후원래LPWM가중치+buffer SHA불변.
+LoRA각영역/FiLM/plannergradient양수및실제변경,DDP검사통과. Native109,545,263고정,LoRA1,343,488/전체trainable18,413,566.
+Ego navtrain8+navval8장면을공식FeatureBuilder와비교:11차원오차0. 공식Linear11→256+generator/scorer더하기그대로.
+추가command4D FiLM은LPWM attribute CNN conv_in에적용;공식DINO에는없음. 비교시통제할차이.
+실측GPU8/16/24 각각16.30/29.59/43.00GB,steady31.56/18.29/19.35초. 16+loader4/oracle8평균19.93초.
+단기실측으로전체최적화나성능향상증거아님. 근거 `results/lpwm_drivor_lora_v1/`와새LoRA보고서.
 
 공개LPWM+공식DrivoR joint 연결검사통과: batch8단일GPU2update/2GPU누적2update,
 imitation/BCE각각native위치·scale·presence·영상encoder·prior·dynamicsgradient확인.
@@ -1030,13 +1052,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공개 LPWM을 공식 DrivoR planner에 연결하고 위치·크기·presence/encoder/prior/dynamics까지 joint planning gradient를 검증했다.
-- 공식 navtrain/navval 전체 103,288개·현재4카메라 cache, 온라인 DrivoR oracle 및 GT/cache parity검사, 배치8 DDP검사를 구현했다.
-- GPU0·1 본 학습 및 v1평가→v2별도학습→EPDMS평가 대기열을 기동했다. 공식v2.2warmup220개 두단계집계 연결검사를 통과했다.
-- 전용환경 timm/piqa 설치, DrivoR paper/official NAVSIMv2 확보, 공용지도 쓰기방지를 위한 workspace사본을 준비했다.
-- 설계/미세조정·해상도차이/장시간ETA/현상과성능증거의구분을 새 연구문서 및 인수인계에 기록했다.
+- 사용자의DrivoR방식LoRA요청에따라native35update를보존중단하고public LPWM+Q/VLoRA32+공식planner새학습으로교체했다.
+- 초기출력/동일planner/nativefreeze/gradient/DDP검사,ego11D공식FeatureBuilder16scene동일성검사를추가했다.
+- 사용자VRAM활용요청으로batch8/16/24,loader2/4/8및oracle4/8실측. effective64를유지한batch16/accum2로1update상태부터재개했다.
+- 새실행override trainer/queue/해시등록을추가하고v1평가→v2학습/평가를연결했다. 기존registeredsource/config/결과는보존했다.
+- LoRA구조/encoder명령FiLM차이/실측선택/미검증성능과비교한계를문서와인수인계에기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재 LoRA parallel 실행/queue를중복기동하지않는다. 진행/VRAM/registered hash/완료coverage를점검한다.
+현재기동은`train_lpwm_drivor_lora_parallel.py --config configs/lpwm_drivor_lora/navsim_v1.json --execution configs/lpwm_drivor_lora/execution_batch16_loader2_oracle4.json`.
+V1최종25epoch40,350update→fullnavtest→별도public-initv2 10epoch→warmup/navhard EPDMS순서를새queue가자동수행한다.
+재개시기본trainer로돌아가지않는다(기본batch8이적용됨). 이전native-fullpause는해제하지않는다.
+입력navhard미완성시queue가평가전재준비한다. 이사실을평가완료로보고하지않는다.
 
 실행중인등록joint학습을중복실행하지않는다. v1완료→fullnavtest검증→별도public-initv2학습→공식warmup/navhardEPDMS자동.
 수치/coverage/정상checkpoint완료후다음stage로이행;실패시queue중단. test결과로epoch선택하지않는다.
@@ -1334,6 +1362,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신: perception은native FT에서Q/VLoRA32로바뀌었다. CNN/xy/scale/presencehead고정,현재geometry는추가FiLM입력변화로달라질수있다.
+공식planner ego11D경로만동일하며encoder FiLM은추가. 해상도·backbone·pretraining·명령조건화차이로순수RegistervsParticle효과미확립.
+배치16증설에서도nominal effective64/학습량/모델/loss/LR는같지만dropout난수분할때문에batch8과bitwise동일학습은아니다.
+짧은순차profile의속도는공유자원·cache영향을포함한다. 큰배치/워커가더빠르다는가정은실측에서지지되지않음.
+공식PDMS/EPDMS·수렴·의미있는미래정보보존은아직미검증. 아래native-FTvsLoRA차이는이전조건의이력이다.
 
 확정: 공식DrivoRbackend/loss/연속64후보oracle,공개LPWM에서joint학습,동일공식split/epoch/effective64/seed2.
 차이: LPWM128×128vsDINO672×1148,활성원래weightsFTvsLoRA,perception증강/사전학습/연산량/LR다름.

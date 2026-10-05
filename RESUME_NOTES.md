@@ -2530,3 +2530,22 @@ v1공식train85,109+val18,179/25epoch40,350updates, seed2/effective64=8×4×2. 2
 Gradientroute두loss모두geometry/representation도달,scorerBCE의coord/generatorgradient없음;GT/longer공식오차<3.1e-7,2장면cache변환vsfresh공식7score차이0. 2GPU/누적/체크포인트저장2update engineering가중치는본학습에미사용. 공식v1evalscorer실행확인,officialv2warmup220cache/두단계집계0누락검사완료(고정0trajectory,모델성능아님). Navtest12,146/current4camera입력완료,warmup220완료,navhard5,912입력준비중.
 
 샌드박스DNS로pip/GitHub최초실패했으나권한재시도로성공,timm1.0.15/piqa1.3.2전용venv설치. 샌드박스async파일저장대기는trainingcache atomic local I/O로대체(직렬화/computation동일),중단된불완전freshauditcache보존. 지도1.4GB workspace사본으로공용원본write방지. 사용자질문에DrivoR가DINOv2pretrained+Q/VLoRA32이고모든가중치scratch아님을코드로확인했다. LPWM은active nativeFT이므로미세조정/해상도/증강/초기분포까지동일하지않음을명시했다. 성능향상/정확한미래의미/순수register-vs-particle효과는아직미검증. 상세docs/lpwm_drivor_joint_training.md, 공유results/lpwm_drivor_joint_v1/.
+
+
+## 2026-10-06 00:49 KST — DrivoR 방식 LPWM LoRA, ego 동일성 감사, batch16 재개
+
+사용자요청에따라 native joint35update checkpoint를보존중단하고 public Sketchy에서 Q/V rank32 LoRA로전환했다.
+기존 native109,545,263 parameter/buffer고정, LoRA1,343,488, 전체trainable18,413,566.
+초기출력/native출력및planner초기동일,2step후frozen digest보존, LoRA/FiLM/planner gradient·변경/DDP검사통과.
+공식 DrivoRFeatureBuilder와 navtrain8+navval8 ego11D 입력비교오차0;공식generator/scorer주입동일.
+추가LPWM command4D FiLM은공식DINO에없으며향후register통제비교에서분리해야하는차이로문서화.
+
+LoRA1update 후사용자VRAM활용요청으로 model+AdamW334state step1/scheduler/RNG보존하고 execution-only증설실측.
+Batch8 31.56초/16.30GB → batch16(2loader/4oracle)18.29초/29.59GB.
+Batch24(4loader/8oracle)19.35초/43.00GB, batch16(4loader/8oracle)19.93초/29.59GB.
+짧은공유자원진단이며본학습속도보장아님. 배치32는48GB초과예측으로실행하지않음.
+선택batch16+16/GPU2=effective64, 데이터/loss/LR/epoch불변;microbatch/dropout분할은변경됨.
+본학습2994997/queue2994998로재개,조회시update6/40350,loss유한/총VRAM29.59GB.
+후속v1전체navtest→독립publicv2navtrain10epoch→warmup/navhardEPDMS동일override자동연결.
+기존등록source/config불변,새parallelism_registry까지hash재검사통과. 공식PDMS/EPDMS아직없음.
+새보고서 docs/lpwm_drivor_lora_training.md, 실행증거 results/lpwm_drivor_lora_v1/.

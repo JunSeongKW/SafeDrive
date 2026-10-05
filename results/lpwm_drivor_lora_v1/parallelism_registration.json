@@ -1,0 +1,11 @@
+{
+  "sources": {
+    "scripts/train_lpwm_drivor_lora_parallel.py": "03ff7b27add8d6209c50607db72c157472ae21a5ebda470bc3220b8e4231f269",
+    "scripts/queue_lpwm_drivor_lora_parallel.py": "ecfdfe38ff026436cff1c04768cbb127e82f2eec983f3b3123fce47773f28399",
+    "configs/lpwm_drivor_lora/execution_batch16_loader2_oracle4.json": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc",
+    "outputs/lpwm_drivor_lora_v1/parallelism_selection.json": "31eeddd70c732f3f629b6739e446aeafa53504942c6e701c34d2080d0bc2282b"
+  },
+  "authorized": "User requests higher batch/workers within total48GB, while effective batch64 stays fixed.",
+  "base_registry": "outputs/lpwm_drivor_lora_v1/registration.json",
+  "preserved_update1_sha256": "8ee14aa91f8dabf192776d0e8ef331cadb7f44cc177a7fd6f126b868bd07b665"
+}
