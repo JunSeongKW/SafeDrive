@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 10:12 KST (Codex)
+마지막 갱신: 2026-10-05 10:18 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신 사용자 질문은 E2E 논문의 학습·평가 분할 관행 설명이다. DiffusionDrive/DrivoR/DriveSuprim/PARA-Drive 및 NAVSIM 공식 문헌을 확인했다. 활성 GPU 학습·queue·등록 source/config 변경이나 추가 평가 실행은 없다.
 
 2026-10-05 사용자평가split질문: 읽기전용공식token·자체manifest대조및설명정정. 현재학습/queue변경없음. LPWM81.63/84.56는navtest일부가아닌navtrain내부개발평가다. 이번턴현재학습진행률재점검은하지않음.
 
@@ -424,6 +426,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+문헌 확인: DiffusionDrive navtrain100epoch→navtest; DrivoR navval 어블레이션 후 v1 competition split(navtrain+navval)25epoch→navtest. NuScenes planning은 공개 val 비교도 사용한다. NAVSIM v1 navtest/PDMS와 v2 navhard_two_stage/EPDMS를 구분한다. 상세와 원문 링크는 docs/lpwm_planning_experiment.md 최신절.
 
 공식navtrain103288/navtest12146token대조: 평가panel1024모두navtrain,navtest0. Stage2manifest train75297/dev27076,train/dev token·recording중복각0. Monitor128/최종개발1024 유효PDMS127/1021. Current automatic_navtest=false 및queue공식test단계없음확인. 근거results/lpwm_card_budget_measured_v4/evaluation_split_clarification_20261005.json.
 
@@ -778,12 +782,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공식navtrain/navtest token과현재1024평가panel을대조해navtrain1024/navtest0을확인했다.
-- LPWM점수가navtrain내부개발검증이며공식test단계는현재queue에없음을명확히정정했다.
-- 공식NAVSIM분할/지표문서확인,근거JSON/연구문서/HANDOFF/RESUME갱신. 학습·queue·config변경없음.
+- E2E 논문의 실제 학습·개발·벤치마크 평가 관행을 1차 문헌으로 확인했다.
+- 연구 문서에 출처와 현재 내부 개발 평가의 범위, 공식 평가 권고안을 추가했다.
+- HANDOFF/RESUME 갱신. 실행 source/config·학습·queue·공용 데이터 변경 없음.
 
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+권고안: 내부 개발에서 방법·학습량을 정하고 frozen-LPWM 대조군과 제안 방법을 동일 조건으로 준비한 후 고정 checkpoint로 전체 navtest를 평가한다. 추가 navhard는 v2 프로토콜로 별도 검증. 이번 설명만으로 신규 학습·벤치마크 queue를 등록하지 않았다.
 
 공식성능주장에는고정checkpoint로navtest전체12146및공식v1 scorer평가가추가로필요하다. navhard는v2/EPDMS별도프로토콜. 현재queue가공식test까지자동실행한다고설명하지않는다. 이번명확화질문에서는활성학습·등록queue를변경하지않았다.
 
@@ -983,6 +989,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+우리 내부 개발 분할은 DrivoR navval과 동일하지 않다. 현재 1epoch 결과는 경향 실험이며 논문 최종 성능 아님. 공식 테스트 단계와 수렴·표현 기여 대조군은 여전히 필요하다. 모든 논문이 val/test를 동일하게 사용한다거나 test를 반드시 한 번만 평가한다고 일반화하지 않는다.
 
 "전체navtest아님"은navtest일부를평가했다는뜻으로오해가능했으므로"navtrain내부개발검증"으로명시정정했다. 현재LPWM의공식navtest/navhard점수는없고내부PDMS를논문숫자와직접비교불가. 이전공식Drive-JEPA navtest완료자산과현재LPWM결과를구분한다.
 

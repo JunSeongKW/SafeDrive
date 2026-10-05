@@ -1,5 +1,40 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: E2E 논문의 학습·개발·벤치마크 분할 관행
+
+사용자 질문에 대한 문헌 확인이다. 현재 학습과 등록 queue를 변경하거나 공식 테스트를 실행하지 않았다.
+연구 하위 질문은 LPWM 표현 적응의 planning 이득이 독립된 공식 평가 장면에서도 유지되는가이다.
+
+| 선행연구/벤치마크 | 확인된 학습과 평가 방식 |
+|---|---|
+| DiffusionDrive | navtrain에서 100 epoch 학습, navtest에서 4초 궤적 PDMS 평가. |
+| DrivoR | navtrain 학습과 navval 어블레이션으로 설정 검토; v1 최종 모델은 논문이 명시한 competition split(navtrain+navval)에서 25 epoch 학습 후 navtest 비교. |
+| nuScenes 기반 VAD/UniAD/PARA-Drive 비교 | 공개 val에서 planning L2/충돌률을 비교하는 관행. 서로 다른 지표 구현을 일치시켜야 하며 숨겨진 test만이 논문 평가라는 뜻은 아니다. |
+| DriveSuprim | NAVSIM 외에 Bench2Drive의 CARLA 220개 경로에서 closed-loop 평가. |
+
+NAVSIM 공식 문서는 v1 표준 테스트를 navtest, v2 표준 테스트를 navhard_two_stage로 정의한다.
+v1 PDMS와 v2 EPDMS/two-stage 집계는 다른 프로토콜이며 점수 크기를 직접 비교하지 않는다.
+개발 검증과 논문 최종 비교를 분리하는 것은 타당하지만 모든 논문이 동일한 val 구성이나
+test 사용 횟수를 따르는 것은 아니다. DrivoR의 navval과 우리의 자체 recording 개발 분할도 동일하다고 주장하지 않는다.
+
+현재 LPWM은 navtrain 유래 train75,297/dev27,076이며 내부128/1,024개 패널로 방법을 검토한다.
+공식 navtest/navhard 성능은 아직 없고 활성 queue에도 공식 테스트 실행 단계는 없다.
+현재 1 epoch 비교는 빠른 경향 검토이며 충분히 수렴한 논문 최종 성능으로 해석하지 않는다.
+
+**권고, 아직 신규 실행 등록 아님:** 내부 개발에서 학습량·방법을 정한 뒤 같은 학습 데이터/센서/
+사전학습 조건으로 frozen-LPWM 대조군과 제안 방법을 준비하고, 고정 checkpoint를 v1 navtest
+전체12,146개에서 평가한다. 누락·실패 수와 metric 코드 버전도 기록한다. v2 navhard는 별도 확장 평가로 둔다.
+최종 학습 데이터 확대 시 Stage1/Stage2 양쪽 분할과 epoch/checkpoint 선택 규칙을 먼저 명시한다.
+전체 PDMS와 안전·진행·편안함 subscore, 결과와 무관하게 정의한 직진·회전·가림 상황군,
+동일 장면 paired 비교 및 반복 seed를 함께 보고해 표현 적응의 이득을 구분하는 것을 추천한다.
+
+근거: [DiffusionDrive §4.2](https://arxiv.org/html/2411.15139v2),
+[DrivoR §4.2.4·Appendix D/G](https://arxiv.org/html/2601.05083v2),
+[PARA-Drive Table 1](https://xinshuoweng.github.io/paradrive/assets/camera_ready.pdf),
+[DriveSuprim §4·Appendix A](https://arxiv.org/html/2506.06659v3),
+[NAVSIM 분할](https://github.com/autonomousvision/navsim/blob/main/docs/splits.md),
+[NAVSIM 지표](https://github.com/autonomousvision/navsim/blob/main/docs/metrics.md).
+
 ## 2026-10-05: 현재 PDMS 평가 분할 명확화 — navtrain 내부 개발 검증
 
 사용자 지적에 따라 "전체 navtest 성능은 아니다"라는 설명을 명확히 한다. 현재 LPWM의81.63/84.56점은

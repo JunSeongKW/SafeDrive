@@ -2116,3 +2116,11 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 [공식분할](https://github.com/autonomousvision/navsim/blob/main/docs/splits.md),
 [공식지표](https://github.com/autonomousvision/navsim/blob/main/docs/metrics.md).
 
+## 2026-10-05 10:18 KST — E2E 논문의 학습·평가 데이터 관행 확인
+
+- 사용자 질문에 답하기 위해 DiffusionDrive/DrivoR/DriveSuprim/PARA-Drive와 NAVSIM 공식 분할·지표 문서를 확인했다.
+- DiffusionDrive는 navtrain100epoch/navtest, DrivoR는 navval에서 어블레이션 후 v1 competition split25epoch/navtest. NuScenes planning은 공개 val 비교도 쓰며 지표 구현 일치가 필요하다.
+- v1 navtest/PDMS와 v2 navhard_two_stage/EPDMS는 별도 프로토콜이다. 우리 개발 분할을 DrivoR navval로 부르지 않는다.
+- 현재 LPWM은 navtrain 내부 개발 검증이고 공식 테스트는 미실행·현재 queue 미포함. 1epoch 결과는 빠른 경향 비교이다.
+- 권고안과 원문 링크를 docs/lpwm_planning_experiment.md에 기록했다. 고정표현 대조와 동일 조건 공식 navtest 전체 평가를 추천하되 신규 실행으로 등록하지 않았다.
+- 활성 학습/queue/등록 source/config 변경 없음. 이번 턴 현재 학습 진척 재조회 없음.
