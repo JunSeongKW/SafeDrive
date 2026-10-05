@@ -1,0 +1,984 @@
+{
+  "scope": "Same eight preselected development scenes; current particles, not future-particle trajectories or semantic labels",
+  "updates": [
+    0,
+    2353,
+    4707
+  ],
+  "input_resolution": [
+    128,
+    128
+  ],
+  "aggregate": {
+    "frozen": {
+      "center_shift_mean_pixels": 0.0,
+      "center_shift_median_pixels": 0.0,
+      "center_shift_p95_pixels": 0.0,
+      "center_shift_max_pixels": 0.0,
+      "fraction_centers_shifted_below_one_pixel": 1.0,
+      "size_absolute_change_mean_pixels": 0.0,
+      "presence_signed_change_mean": 0.0,
+      "presence_absolute_change_mean": 0.0
+    },
+    "partial": {
+      "center_shift_mean_pixels": 0.5506273508071899,
+      "center_shift_median_pixels": 0.5249967575073242,
+      "center_shift_p95_pixels": 1.0190645456314087,
+      "center_shift_max_pixels": 1.713750958442688,
+      "fraction_centers_shifted_below_one_pixel": 0.9453125,
+      "size_absolute_change_mean_pixels": 1.2059881687164307,
+      "presence_signed_change_mean": 0.0025766536127775908,
+      "presence_absolute_change_mean": 0.014117812737822533
+    },
+    "full": {
+      "center_shift_mean_pixels": 0.4607098400592804,
+      "center_shift_median_pixels": 0.3303215503692627,
+      "center_shift_p95_pixels": 1.219634771347046,
+      "center_shift_max_pixels": 2.529015302658081,
+      "fraction_centers_shifted_below_one_pixel": 0.8984375,
+      "size_absolute_change_mean_pixels": 1.5768438577651978,
+      "presence_signed_change_mean": 0.0006514112465083599,
+      "presence_absolute_change_mean": 0.02143889106810093
+    }
+  },
+  "checks": {
+    "scene_manifests_match": true,
+    "input_rgb_exactly_equal": true,
+    "initial_geometry_exactly_equal": true,
+    "frozen_geometry_exactly_unchanged": true,
+    "all_values_finite": true
+  },
+  "geometry_weight_audit": {
+    "initial_checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+    "methods": {
+      "partial": {
+        "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/checkpoint.pt",
+        "heads": {
+          "xy_head": {
+            "all_parameters_registered_trainable": true,
+            "changed_elements": 525572,
+            "total_elements": 525572,
+            "max_absolute_weight_change": 0.003748103976249695
+          },
+          "scale_xy_head": {
+            "all_parameters_registered_trainable": true,
+            "changed_elements": 525570,
+            "total_elements": 525572,
+            "max_absolute_weight_change": 0.003560885787010193
+          },
+          "obj_on_head": {
+            "all_parameters_registered_trainable": true,
+            "changed_elements": 524798,
+            "total_elements": 524800,
+            "max_absolute_weight_change": 0.0021452195942401886
+          }
+        }
+      },
+      "full": {
+        "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/checkpoint.pt",
+        "heads": {
+          "xy_head": {
+            "all_parameters_registered_trainable": true,
+            "changed_elements": 525563,
+            "total_elements": 525572,
+            "max_absolute_weight_change": 0.0004769563674926758
+          },
+          "scale_xy_head": {
+            "all_parameters_registered_trainable": true,
+            "changed_elements": 525562,
+            "total_elements": 525572,
+            "max_absolute_weight_change": 0.0005649924278259277
+          },
+          "obj_on_head": {
+            "all_parameters_registered_trainable": true,
+            "changed_elements": 524787,
+            "total_elements": 524800,
+            "max_absolute_weight_change": 0.00030353490728884935
+          }
+        }
+      }
+    },
+    "interpretation": "Trainable heads and actual changes verified; joint planning + SSL + optimizer regularization changes, not planning-only attribution."
+  },
+  "full_initial_provenance": "Original full execution update0; final/mid snapshots from continuation of original update2095, not fresh full training",
+  "loss": "candidate imitation + six PDM subscore BCE + 0.02 original SSL; no direct object GT auxiliary",
+  "comparability_limits": "Full uses conv_in FiLM, world LR1e-6, original20epoch schedule; partial conv_out FiLM, world LR1e-5, one-epoch schedule; physical microbatch histories differ",
+  "interpretation": "Geometry changed; planning-only attribution, movement toward useful objects and performance gains not demonstrated",
+  "snapshot_protocol": "Saved deterministic FP32 snapshots from four observed images, same ego input; CPU-only rendering; fixed baseline top16 box indices",
+  "scenes": [
+    {
+      "current_frame_token": "399635380c935794",
+      "scenario": "straight",
+      "recording_group": "2021.08.17.18.54.02_veh-45",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.6333893537521362,
+          "center_shift_median_pixels": 0.6434482336044312,
+          "center_shift_p95_pixels": 0.926407516002655,
+          "center_shift_max_pixels": 1.0402404069900513,
+          "fraction_centers_shifted_below_one_pixel": 0.984375,
+          "size_absolute_change_mean_pixels": 1.396942138671875,
+          "presence_signed_change_mean": -0.012205377221107483,
+          "presence_absolute_change_mean": 0.018997374922037125
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.43248048424720764,
+          "center_shift_median_pixels": 0.31988847255706787,
+          "center_shift_p95_pixels": 1.0786162614822388,
+          "center_shift_max_pixels": 1.8386038541793823,
+          "fraction_centers_shifted_below_one_pixel": 0.90625,
+          "size_absolute_change_mean_pixels": 1.613757610321045,
+          "presence_signed_change_mean": 0.0033104452304542065,
+          "presence_absolute_change_mean": 0.020207952708005905
+        }
+      },
+      "box_particle_ids": [
+        20,
+        10,
+        23,
+        19,
+        18,
+        22,
+        9,
+        27,
+        58,
+        1,
+        28,
+        63,
+        54,
+        53,
+        26,
+        62
+      ]
+    },
+    {
+      "current_frame_token": "76e801d6c90b5f14",
+      "scenario": "straight",
+      "recording_group": "2021.10.11.07.12.18_veh-50",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.45446133613586426,
+          "center_shift_median_pixels": 0.4288436770439148,
+          "center_shift_p95_pixels": 0.9696820378303528,
+          "center_shift_max_pixels": 1.2207245826721191,
+          "fraction_centers_shifted_below_one_pixel": 0.96875,
+          "size_absolute_change_mean_pixels": 0.9153250455856323,
+          "presence_signed_change_mean": 0.009783047251403332,
+          "presence_absolute_change_mean": 0.01645909622311592
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.35623130202293396,
+          "center_shift_median_pixels": 0.2909531593322754,
+          "center_shift_p95_pixels": 0.8020646572113037,
+          "center_shift_max_pixels": 1.917217493057251,
+          "fraction_centers_shifted_below_one_pixel": 0.984375,
+          "size_absolute_change_mean_pixels": 1.2129260301589966,
+          "presence_signed_change_mean": 0.01700521819293499,
+          "presence_absolute_change_mean": 0.02615305781364441
+        }
+      },
+      "box_particle_ids": [
+        57,
+        1,
+        13,
+        20,
+        50,
+        4,
+        36,
+        18,
+        16,
+        38,
+        12,
+        0,
+        40,
+        35,
+        43,
+        61
+      ]
+    },
+    {
+      "current_frame_token": "e06eb0bd75c35409",
+      "scenario": "turn",
+      "recording_group": "2021.06.23.14.54.32_veh-16",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.5994700789451599,
+          "center_shift_median_pixels": 0.5801956057548523,
+          "center_shift_p95_pixels": 1.1757874488830566,
+          "center_shift_max_pixels": 1.713750958442688,
+          "fraction_centers_shifted_below_one_pixel": 0.90625,
+          "size_absolute_change_mean_pixels": 1.2547800540924072,
+          "presence_signed_change_mean": -0.007614134810864925,
+          "presence_absolute_change_mean": 0.01424233429133892
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.4970394968986511,
+          "center_shift_median_pixels": 0.36136770248413086,
+          "center_shift_p95_pixels": 1.2741522789001465,
+          "center_shift_max_pixels": 1.5278292894363403,
+          "fraction_centers_shifted_below_one_pixel": 0.859375,
+          "size_absolute_change_mean_pixels": 1.7075107097625732,
+          "presence_signed_change_mean": 0.0021171709522604942,
+          "presence_absolute_change_mean": 0.023439057171344757
+        }
+      },
+      "box_particle_ids": [
+        31,
+        8,
+        28,
+        11,
+        16,
+        15,
+        19,
+        13,
+        52,
+        61,
+        53,
+        27,
+        45,
+        5,
+        29,
+        18
+      ]
+    },
+    {
+      "current_frame_token": "40c9bf1987b9570a",
+      "scenario": "turn",
+      "recording_group": "2021.06.23.14.54.32_veh-16",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.5742043852806091,
+          "center_shift_median_pixels": 0.5586749315261841,
+          "center_shift_p95_pixels": 1.0803120136260986,
+          "center_shift_max_pixels": 1.5424433946609497,
+          "fraction_centers_shifted_below_one_pixel": 0.890625,
+          "size_absolute_change_mean_pixels": 1.2190372943878174,
+          "presence_signed_change_mean": 0.006570869125425816,
+          "presence_absolute_change_mean": 0.011468043550848961
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.5407814979553223,
+          "center_shift_median_pixels": 0.37737467885017395,
+          "center_shift_p95_pixels": 1.4675933122634888,
+          "center_shift_max_pixels": 2.3249526023864746,
+          "fraction_centers_shifted_below_one_pixel": 0.84375,
+          "size_absolute_change_mean_pixels": 2.2310068607330322,
+          "presence_signed_change_mean": -0.015573829412460327,
+          "presence_absolute_change_mean": 0.024805691093206406
+        }
+      },
+      "box_particle_ids": [
+        10,
+        13,
+        12,
+        16,
+        11,
+        55,
+        0,
+        25,
+        5,
+        30,
+        38,
+        24,
+        47,
+        44,
+        6,
+        22
+      ]
+    },
+    {
+      "current_frame_token": "8bcacef2dab251e0",
+      "scenario": "projected_overlap",
+      "recording_group": "2021.07.16.01.22.41_veh-14",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.5408058166503906,
+          "center_shift_median_pixels": 0.5245440602302551,
+          "center_shift_p95_pixels": 0.9292969107627869,
+          "center_shift_max_pixels": 1.174638032913208,
+          "fraction_centers_shifted_below_one_pixel": 0.96875,
+          "size_absolute_change_mean_pixels": 1.1867473125457764,
+          "presence_signed_change_mean": 0.007168709300458431,
+          "presence_absolute_change_mean": 0.014790341258049011
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.4777125120162964,
+          "center_shift_median_pixels": 0.33351215720176697,
+          "center_shift_p95_pixels": 1.5245630741119385,
+          "center_shift_max_pixels": 2.529015302658081,
+          "fraction_centers_shifted_below_one_pixel": 0.90625,
+          "size_absolute_change_mean_pixels": 1.7108222246170044,
+          "presence_signed_change_mean": -0.017650779336690903,
+          "presence_absolute_change_mean": 0.027126114815473557
+        }
+      },
+      "box_particle_ids": [
+        57,
+        20,
+        23,
+        9,
+        13,
+        1,
+        29,
+        17,
+        2,
+        3,
+        28,
+        21,
+        50,
+        0,
+        22,
+        41
+      ]
+    },
+    {
+      "current_frame_token": "c4de723f8eb256b1",
+      "scenario": "projected_overlap",
+      "recording_group": "2021.07.09.20.26.06_veh-35",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.6149453520774841,
+          "center_shift_median_pixels": 0.5452998876571655,
+          "center_shift_p95_pixels": 1.3019182682037354,
+          "center_shift_max_pixels": 1.4990873336791992,
+          "fraction_centers_shifted_below_one_pixel": 0.875,
+          "size_absolute_change_mean_pixels": 1.6738063097000122,
+          "presence_signed_change_mean": 0.0008437789510935545,
+          "presence_absolute_change_mean": 0.008008234202861786
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.6112751364707947,
+          "center_shift_median_pixels": 0.4580790102481842,
+          "center_shift_p95_pixels": 1.740260124206543,
+          "center_shift_max_pixels": 2.4224181175231934,
+          "fraction_centers_shifted_below_one_pixel": 0.796875,
+          "size_absolute_change_mean_pixels": 1.771589994430542,
+          "presence_signed_change_mean": 0.00951119139790535,
+          "presence_absolute_change_mean": 0.021060284227132797
+        }
+      },
+      "box_particle_ids": [
+        7,
+        6,
+        14,
+        2,
+        22,
+        34,
+        10,
+        35,
+        0,
+        18,
+        32,
+        44,
+        27,
+        8,
+        40,
+        25
+      ]
+    },
+    {
+      "current_frame_token": "8a61b6f43a50544d",
+      "scenario": "other",
+      "recording_group": "2021.10.11.07.12.18_veh-50",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.5006697773933411,
+          "center_shift_median_pixels": 0.4628174901008606,
+          "center_shift_p95_pixels": 0.9049898386001587,
+          "center_shift_max_pixels": 0.9574660062789917,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.9866583347320557,
+          "presence_signed_change_mean": 0.012165527790784836,
+          "presence_absolute_change_mean": 0.015808945521712303
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.45477840304374695,
+          "center_shift_median_pixels": 0.36400604248046875,
+          "center_shift_p95_pixels": 1.0959657430648804,
+          "center_shift_max_pixels": 1.2593915462493896,
+          "fraction_centers_shifted_below_one_pixel": 0.921875,
+          "size_absolute_change_mean_pixels": 1.3049286603927612,
+          "presence_signed_change_mean": 0.005281544756144285,
+          "presence_absolute_change_mean": 0.01725141331553459
+        }
+      },
+      "box_particle_ids": [
+        42,
+        55,
+        46,
+        49,
+        56,
+        4,
+        22,
+        9,
+        10,
+        57,
+        6,
+        50,
+        39,
+        14,
+        33,
+        1
+      ]
+    },
+    {
+      "current_frame_token": "e0176c9b70e45873",
+      "scenario": "other",
+      "recording_group": "2021.10.11.07.12.18_veh-50",
+      "metrics": {
+        "frozen": {
+          "center_shift_mean_pixels": 0.0,
+          "center_shift_median_pixels": 0.0,
+          "center_shift_p95_pixels": 0.0,
+          "center_shift_max_pixels": 0.0,
+          "fraction_centers_shifted_below_one_pixel": 1.0,
+          "size_absolute_change_mean_pixels": 0.0,
+          "presence_signed_change_mean": 0.0,
+          "presence_absolute_change_mean": 0.0
+        },
+        "partial": {
+          "center_shift_mean_pixels": 0.4870728850364685,
+          "center_shift_median_pixels": 0.45530760288238525,
+          "center_shift_p95_pixels": 0.8644542694091797,
+          "center_shift_max_pixels": 1.2536429166793823,
+          "fraction_centers_shifted_below_one_pixel": 0.96875,
+          "size_absolute_change_mean_pixels": 1.0146080255508423,
+          "presence_signed_change_mean": 0.00390080688521266,
+          "presence_absolute_change_mean": 0.013168137520551682
+        },
+        "full": {
+          "center_shift_mean_pixels": 0.31537991762161255,
+          "center_shift_median_pixels": 0.25529852509498596,
+          "center_shift_p95_pixels": 0.7304582595825195,
+          "center_shift_max_pixels": 1.0898863077163696,
+          "fraction_centers_shifted_below_one_pixel": 0.96875,
+          "size_absolute_change_mean_pixels": 1.062208890914917,
+          "presence_signed_change_mean": 0.0012103253975510597,
+          "presence_absolute_change_mean": 0.011467553675174713
+        }
+      },
+      "box_particle_ids": [
+        47,
+        32,
+        24,
+        16,
+        5,
+        33,
+        18,
+        7,
+        40,
+        49,
+        62,
+        6,
+        23,
+        44,
+        1,
+        54
+      ]
+    }
+  ],
+  "source_snapshots": [
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/399635380c935794/update_000000.npz",
+      "sha256": "06c008b88a41cf6afb95834caeb054dd1519bf7051a76d2ef184c4e6fd1f244d"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/399635380c935794/update_002353.npz",
+      "sha256": "aa9ca1bc9f3685895f4b24e543e7b4301970a07e994f3cf64a4a463214270ef3"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/399635380c935794/update_004707.npz",
+      "sha256": "f70cfa6058a7b2ffd53465e4c8bf544c42dcbf96eb4f5aaa70f85ba802c47179"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/399635380c935794/update_000000.npz",
+      "sha256": "3f9d09fe02e0e541ac001034ff4dc0a0594a65341483236d10179e6880da6c5e"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/399635380c935794/update_002353.npz",
+      "sha256": "04e7716b6b3386688afc513366ca2886700e8ab8aba83a743db42486efc4515c"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/399635380c935794/update_004707.npz",
+      "sha256": "5ce320cc96d2e23d4eb3bfb2ad00b3c7f85fb49e26ea7c39c4cc3c2fd6dd9bb6"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/399635380c935794/update_000000.npz",
+      "sha256": "e23746eeedddc771664786bd1c6326f2e89dffb23034638a416e3f7b63c8f7bb"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/399635380c935794/update_002353.npz",
+      "sha256": "db321f3d7db983061e29cff7f99b7cdc36e8ccfed1c05472158081a643c4d336"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/399635380c935794/update_004707.npz",
+      "sha256": "64fd7d5972143b5e1e5cebbd59707a674c77de1a1e98eb0270f516249176cada"
+    },
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_000000.npz",
+      "sha256": "e2f84b3e22d7b46424b490e63c66b328c0ed30732c7f45a6c9c0e19e57408c26"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_002353.npz",
+      "sha256": "0f3710e9b4cc1b23800e03a4dab6915c420e90488b910f4d014fd104c830731d"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_004707.npz",
+      "sha256": "1b943f75dadbe258ed6fa5c57219e7145951b99b11a2771cf5309a658a1ae241"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_000000.npz",
+      "sha256": "f3ea4f2df0de4eeee71e5c3e5db65142deb916640990a86f21159a217829d21a"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_002353.npz",
+      "sha256": "68a51f92a65473ef4628adf584fb03f0e0c2665309fc3fdfd195b57a7c9ce01f"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/76e801d6c90b5f14/update_004707.npz",
+      "sha256": "58a0293b577134ecfba3af59aa3ff8a6ea68bdb6b207ae99324e08c4c403b4c1"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/76e801d6c90b5f14/update_000000.npz",
+      "sha256": "fbc2f147fbf75cbe4f2ec72b113ad35e3dcbe9095139900284796ecef1179e2c"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/76e801d6c90b5f14/update_002353.npz",
+      "sha256": "fbbfd274dee7be338323b31e1a3eb10b06d2a1092299b8f6e0b9cef0c949a0b7"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/76e801d6c90b5f14/update_004707.npz",
+      "sha256": "18c608a5f5e6569ece45e7e751b3f4c23eba5b719c92e1ee68e4db785c3e6ca4"
+    },
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_000000.npz",
+      "sha256": "314f145ef4768dbb3d96c0bf5828882af06f102765c628a2b91a219cdc6d3539"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_002353.npz",
+      "sha256": "df0cbb75eb87dc2e768408ebed52a4dcfab535db19b8ed253089b73f2e67fd35"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_004707.npz",
+      "sha256": "52067e07481dfd65990224f7a1337960e0400eec62f5f2ee50404aec905e480c"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_000000.npz",
+      "sha256": "4d3ccbdd11f2d9500962f734b13f1e62723adff0ddd0abcc8d2ba43b783a4dfa"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_002353.npz",
+      "sha256": "7a5d40345828d72531b92b718df5a78c07bd9431fb0cdc6dbb184010ac64c417"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/e06eb0bd75c35409/update_004707.npz",
+      "sha256": "61ac3ff2561ef8f226e7938161f1076b4057f8c74a733308959766dc4e0ca522"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/e06eb0bd75c35409/update_000000.npz",
+      "sha256": "d8ca65bfaac1c91f3e1706b4a4a983ac1386d316560076628393942f610fe0c0"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/e06eb0bd75c35409/update_002353.npz",
+      "sha256": "7e3af63a0a1a0cd81996fb36c844f0ce0ae344c1e6e234dbfd82e8bcbac90b19"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/e06eb0bd75c35409/update_004707.npz",
+      "sha256": "8ff07d1e97ba9b237685be26257e1cb64349f50e2adbe967025f930ac9f101d1"
+    },
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_000000.npz",
+      "sha256": "7260668b01508f1a6b93dda8213d5e75ef1f5a2bb1df641978e813356000c01a"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_002353.npz",
+      "sha256": "9f2f078a4a7aed81f9b83f06332cdcc8dc68d890614de1ef9b7517c439035792"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_004707.npz",
+      "sha256": "46d8a6b7d37b475f0b8c6368cf2522972e45bc1c29c0ae4b836aba3da06662f5"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_000000.npz",
+      "sha256": "85b9361a468af08db305ab8b3e67c91559628a85969daef2414c3f07070d73a5"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_002353.npz",
+      "sha256": "2bdb4fa3fffa49ad5d39eeb0bc3e1ae7f66d5aab89e27b73483f8133291fa9e5"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/40c9bf1987b9570a/update_004707.npz",
+      "sha256": "a7c6d5a936e2dc32f5aea6aa81665195643ee1d0e805650080b8304f075d3f39"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/40c9bf1987b9570a/update_000000.npz",
+      "sha256": "bc5d97e664701208d8fe75af599aabbe54411b239f8913798f2f0702cfb8bff0"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/40c9bf1987b9570a/update_002353.npz",
+      "sha256": "a688e98587bb7a981c9920d0726da08aa9777fb2a23c30302729cc27400996de"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/40c9bf1987b9570a/update_004707.npz",
+      "sha256": "0f5838e3c88685fc3767e82c7fdfdb574159a977dfc6edd43a6880f552225018"
+    },
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_000000.npz",
+      "sha256": "622e653344196b8c1351b6365b040c521f2b033401c60c95c76486526a0ee7a6"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_002353.npz",
+      "sha256": "739b119bd4d98fe498a63f6f6682c5b7bae69d49d4fea12981725342b28e95a3"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_004707.npz",
+      "sha256": "626ebf13c23575e0ca8b1c3a8d39192ad035d0403725f7901b5835094938328f"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_000000.npz",
+      "sha256": "af4831889d1dac85b28332f2e635867b311a85743e76d8ede8ea7c7d61f24d87"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_002353.npz",
+      "sha256": "bf4f6b4b13e18b86681f4ad871d743e32d07b190535c4434a4140c0fff8aed35"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/8bcacef2dab251e0/update_004707.npz",
+      "sha256": "7b33a6c7c87ca29e87f36beddf1ad3f25b4d4835e8cb186f14d480a0c2d1bc50"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/8bcacef2dab251e0/update_000000.npz",
+      "sha256": "e329abdc47cd72c015f791da04895b490e0c4cea27942a434cfb2f64fa51006b"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/8bcacef2dab251e0/update_002353.npz",
+      "sha256": "4af6a39e1953d3541c61dc3518c662742e93d407570fbf36ee48dc9fe1453ff1"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/8bcacef2dab251e0/update_004707.npz",
+      "sha256": "1543a51ad4913ea5078a9aef973cb16e69623ecac7d15bd07cb9df9075f0f310"
+    },
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_000000.npz",
+      "sha256": "5f0f2160e5f68852fbdf91a92866fc2f532c5961760c6d584153c9409a18c6b7"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_002353.npz",
+      "sha256": "7daee5fef1b44260141216e6f11d1cac7629b56dbbd7b239328795cdd6f426c7"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_004707.npz",
+      "sha256": "bcd6e9fdf875d4a01202211b5f0c1517d7befd9df5f8eaa9eaf6bc77e0bba7ea"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_000000.npz",
+      "sha256": "d9a347f813633d6d2f49f87e7dd1da8b1f38a4acb858b57d1864ef0b88f1a335"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_002353.npz",
+      "sha256": "6f371889368c8d8be9a85b3d9c93a74931fe95816f7830fda84fddfce09a25a2"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/c4de723f8eb256b1/update_004707.npz",
+      "sha256": "cc8bd9f97bd62eb7e5c74526ad1182df7aef6deb1e28a17e92d8bd51e456ac81"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/c4de723f8eb256b1/update_000000.npz",
+      "sha256": "fb35e5d0d3994545026dcc9d6d2a3a0b6a335647148124cf766c20c1466dd228"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/c4de723f8eb256b1/update_002353.npz",
+      "sha256": "f4dc5ce18c51ac100d11759462fa4ef27b21a312c27ec1c2947abaf376bb1acc"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/c4de723f8eb256b1/update_004707.npz",
+      "sha256": "7ab17f6357543f531b67f593a54e3084605c945915625325e4ad0756e33467ab"
+    },
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_000000.npz",
+      "sha256": "4c74124c913df9b0fde606540c12da2478bc891caff5d632b1e01923e1f05de5"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_002353.npz",
+      "sha256": "92c70ce151082951a66c6666b321e28b7cc4b2bff1a02c5fc1d6bf238466e0a8"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_004707.npz",
+      "sha256": "11acc4cdf65e41b6fa358edc8307e851cde1a9402b0203ea8575eb85df1f787f"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_000000.npz",
+      "sha256": "ace21bec8b7320c263ff83bab056c13a6f4a91d8c4663e92cfc5f62b1c9f4632"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_002353.npz",
+      "sha256": "ed9696620bcb70ab59a9b8bc3aa82b69aab9446ff264ba6e04d1d340e603cb2a"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/8a61b6f43a50544d/update_004707.npz",
+      "sha256": "fd4b0321e7f3d6278efe79e84aa426b0065e47ab13cea795e274fbd75c7583c4"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/8a61b6f43a50544d/update_000000.npz",
+      "sha256": "b9feab2e798591b7fa9d1fc884622f91ebfbd7f1281c09f976d79de0b6caffce"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/8a61b6f43a50544d/update_002353.npz",
+      "sha256": "040ce1bc4e84c0d3a583cbb69b1cbaf2aa955e2c5dabc4cab314858f98bb6a4d"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/8a61b6f43a50544d/update_004707.npz",
+      "sha256": "17d63fe8f0a8ee064a7a0ea933d33c1b20e39abc53ace64e92d5fd6f28a526af"
+    },
+    {
+      "method": "frozen",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_000000.npz",
+      "sha256": "24bdf753ef5026ad43f305c0e6b4e6b697d0a7751848631aa956d0de906a50e3"
+    },
+    {
+      "method": "frozen",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_002353.npz",
+      "sha256": "eb3e6dc95f370617957309de60d6bd7f77ed6ed63927ea1ead37e9487e38870c"
+    },
+    {
+      "method": "frozen",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_frozen_control_v1/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_004707.npz",
+      "sha256": "ad6021c7b224f1c327dcae02756d67834abcdac9b9e193d4af24224e790c0d19"
+    },
+    {
+      "method": "partial",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_000000.npz",
+      "sha256": "b8c67006fd882fa737a26b17cf217c5db1f644acff2030aa321fb21fdcc70d6f"
+    },
+    {
+      "method": "partial",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_002353.npz",
+      "sha256": "64cebd7ce591c51e50dedc61d7c983c85e887f0680141c330c74b025a9ba4d0f"
+    },
+    {
+      "method": "partial",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_48gb_planning_v1/partial_output_layers/batch8/metric_plus_world/visualization/e0176c9b70e45873/update_004707.npz",
+      "sha256": "c3ae2b99e44b2276a5a5899fe0f675750f7b0712e916b9f48881bba3655eef38"
+    },
+    {
+      "method": "full",
+      "update": 0,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization/e0176c9b70e45873/update_000000.npz",
+      "sha256": "767625889ef84277354dba85aadf4dcc4cdf945bbf7df4829048edfec6769110"
+    },
+    {
+      "method": "full",
+      "update": 2353,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/e0176c9b70e45873/update_002353.npz",
+      "sha256": "d1cd3ec55f17f02d812abad471937eaccfb26391f19d9e5d9cec4731077190a4"
+    },
+    {
+      "method": "full",
+      "update": 4707,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/full_low_learning_rate/batch4/metric_plus_world/visualization/e0176c9b70e45873/update_004707.npz",
+      "sha256": "7fa9644c5078ff1920160642b4de37bd4d4ec201f6f2e71bab241898c97dab0c"
+    }
+  ]
+}

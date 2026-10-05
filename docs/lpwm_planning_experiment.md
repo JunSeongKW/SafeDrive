@@ -1,5 +1,49 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 일부 계층·전체 미세조정의 particle 배치와 실제 head 갱신
+
+**하위 질문:** 위치 생성 계층을 학습한 두 조건에서 현재 particle 배치가 실제로 바뀌었는가?
+기존 개발 8장면을 학습 전0/중2353/후4707 update에서 고정군과 비교했다. 원본 snapshot72개를 CPU로 읽었고
+새 GPU 추론이나 학습은 실행하지 않았다. Full update0은 보존된 원래 실행
+`outputs/lpwm_object_future_planning_v3/metric_plus_world/visualization`에서 읽었으며, 중간·최종은 원래2095update를
+이어받은 `lpwm_card_budget_measured_v4/full_low_learning_rate/batch4` 실행이다. 시작 시점이나 counter를 바꾸지 않았다.
+
+- [8장면 확대·시점 전환 갤러리](../results/lpwm_geometry_finetuning_visualization_20261005/index.html)
+- [고정군·일부 계층·전체 비교 PDF](../results/lpwm_geometry_finetuning_visualization_20261005/geometry_comparison.pdf)
+- [일부 계층 전·중·후 PDF](../results/lpwm_geometry_finetuning_visualization_20261005/partial_particle_evolution.pdf)
+- [전체 미세조정 전·중·후 PDF](../results/lpwm_geometry_finetuning_visualization_20261005/full_particle_evolution.pdf)
+- [측정값·head 가중치 검사·snapshot SHA](../results/lpwm_geometry_finetuning_visualization_20261005/summary.json)
+
+**두 조건 모두 particle 배치도 planning loss가 전달되는 학습 대상이었다.** Partial은 attribute CNN conv_out,
+xy_head/scale_xy_head/obj_on_head를 학습했고, full은 해당 계층을 포함한 LPWM 전체를 학습했다.
+Parameter inventory와 실제 최종 checkpoint를 Stage1 checkpoint와 비교해 세 head의 trainable 등록 및
+가중치 변경을 모두 확인했다. Head별 최대 절대 가중치 차이는 partial 위치0.003748/크기0.003561/presence0.002145,
+full 위치0.000477/크기0.000565/presence0.000304다. 기존 분리 planning backward 감사에서도 image encoder그룹
+gradient는 partial1.26456/full1.81744로 양수였다. 이는 그룹 단위 검사이며 head별 loss 기여율은 아니다.
+
+| 방법 | 평균 중심 이동 | 최대 중심 이동 | 1px 이상 이동 비율 | 크기 평균 절대 차이 | presence 평균 절대 차이 |
+|---|---:|---:|---:|---:|---:|
+| 고정 | 0 | 0 | 0% | 0 | 0 |
+| Adapter (이전 동일 장면 결과) | 0.08466px | 0.34762px | 0% | 0.27184px | 0.00492 |
+| 일부 계층 | 0.55063px | 1.71375px | 5.47% | 1.20599px | 0.01412 |
+| 전체 미세조정 | 0.46071px | 2.52902px | 10.16% | 1.57684px | 0.02144 |
+
+단위는 실제128×128 입력 기준이다. 세 조건 입력 RGB와 초기 geometry가 정확히 같았고, 고정군 geometry는
+세 시점 모두 정확 불변이었다. 기존과 같이 전체64개 중심, 고정군 초기presence 상위16개 인덱스의 박스를
+모든 조건·시점에 공통 적용했다. 대표그림은 직진/회전/투영겹침 각각 사전선정 첫장면이며 갤러리에8개전부있다.
+현재 particle 인덱스는 객체track이 아니며 박스는 learned support다. 저장영상은 관측4프레임만의 FP32진단이며
+미래 GT 입력이나 미래particle궤적의 시각화가 아니다.
+
+두 조건에서 실제 배치 변화가 확인됐지만 **planning 단독 효과로 분리할 수 없다.** 후보 imitation + PDM항목 BCE
++0.02 SSL을 함께 학습했고 optimizer의 정규화도 적용됐다. Native head 학습 여부와 실제 위치 변화는 확인됐으나,
+중요 객체 방향 재배치·객체정보 보존 개선·고정군 대비 PDMS 추가이득은 이 결과에서 입증되지 않았다.
+전체조건은 world LR1e-6/conv_in FiLM/기존20epoch schedule, partial은1e-5/conv_out/1epoch schedule로 다르며
+물리배치이력도 달라 이동량 크기를 방법의 우열로 해석하지 않는다.
+
+재현: `runtime/environments/future_prediction_cpu/bin/python scripts/visualize_lpwm_geometry_finetuning.py`.
+PNG13개/PDF4개/독립HTML/JSON을 생성한다. Python·HTML JavaScript 구문, 입력/초기 동일성·고정불변,
+실제head변경 검사를 통과했고 대표 비교 PNG를 육안 확인했다. 현재 공개고정 본학습은 변경하지 않았다.
+
 ## 2026-10-05: particle 이동이 작으면 planning 미세조정이 무효인가?
 
 **현재 판정은 이번 설정에서 추가 planning 이득이 확인되지 않았다는 것이다.** Adapter PDMS82.4852,

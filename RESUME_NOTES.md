@@ -2478,3 +2478,13 @@ AdapterPDMS82.4852/frozen82.5238,차이−.03859점CI[−1.16421,+1.00706],ADE�
 후속은현재·미래속성별변화/동일상태planning대가중SSLgradient/Adapter·FiLM개입/geometryhead해제통제제안이다.
 기존planning과SSL감사norm은시점·모드가달라그비율로SSL지배를확정하지않는다. 추가GPU진단/학습/대기열등록은없다.
 현재공개고정queue1869615 public_control_training update1904/heartbeat정상확인,등록source/config유지.
+
+## 2026-10-05 22:20 KST — 일부 계층·전체 미세조정의 particle 위치 시각화
+
+사용자 요청으로 두 조건의 particle 배치가 함께 planning fine-tuning됐는지 확인하고 같은8장면 학습전0/중2353/후4707을 CPU로 시각화했다. Full초기snapshot은원래v3실행에서읽고중후는2095checkpoint재개실행을사용했다. RGB/초기geometry정확일치와frozen3시점불변,72개snapshot 수치유효성/SHA를확인했다.
+
+새 script `scripts/visualize_lpwm_geometry_finetuning.py`는 기존그림helper를재사용하고실제Stage1·최종checkpoint를CPU mmap으로읽어xy_head/scale_xy_head/obj_on_head의trainable등록과가중치변화를검사한다. 두조건3head전부실제로바뀌었다. Planning-only기존감사의encoder그룹gradient도partial1.26456/full1.81744로양수다. Head별loss기여율을별도측정한것은아니다.
+
+최종512particle중심이동 partial평균0.550627/중앙값0.524997/p951.019065/최대1.713751px,full평균0.460710/중앙값0.330322/p951.219635/최대2.529015px. 1px이상이동 partial5.46875%/full10.15625%,크기평균절대차1.205988/1.576844px,presence평균절대차.014118/.021439다. 이전Adapter중심평균.084663보다크지만방법별학습률·스케줄·FiLM·배치이력차이도있다.
+
+결과 `results/lpwm_geometry_finetuning_visualization_20261005/`: PNG13/PDF4/독립확대HTML/summaryJSON. 고정기준공통16box인덱스/전체64점,학습전중후·8장면전부·실제크기위치겹침을제공한다. Python·JS구문과대표비교PNG육안검사완료. Planning+0.02SSL·정규화의합산변화로planning단독원인/주요객체재배치/추가PDMS이득은입증하지않는다. 현재공개고정본학습2784/4707·heartbeat정상이며GPU/등록source/config변경없음.

@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 22:05 KST (Codex)
+마지막 갱신: 2026-10-05 22:21 KST (Codex)
 
 **최신 실행(2026-10-05): 공개 LPWM 고정 + 동일 planner 학습으로 Stage1 효과 검증.**
 사용자 정정: 완료된 적응 고정군82.5238을 재사용하고 새 조건 하나만 학습한다.
@@ -161,6 +161,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 22:19 KST: 공개고정 queue1869615 public_control_training2784/4707,heartbeat정상.
+사용자요청 일부계층/전체particle시각화는 기존snapshot/체크포인트만 CPU로 읽어 완료했다. 본학습/GPU조건변경없음.
 
 2026-10-05 22:04 KST: 공개고정학습 queue1869615 public_control_training heartbeat정상(update1904확인).
 이번 사용자 질문은 Adapter 효과 해석이며 코드·기존 결과만 조사했다. 새 GPU진단/학습/queue변경 없음.
@@ -518,6 +521,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+일부계층·전체에서 위치/크기/presence head가 trainable로등록되고 Stage1대비 실제weight변경도 확인됐다.
+동일8장면512particle최종중심이동 partial평균.55063/최대1.71375px,full평균.46071/최대2.52902px.
+초기geometry/입력RGB정확일치,고정군3시점불변. 전중후/고정비교/확대갤러리/weight감사:
+results/lpwm_geometry_finetuning_visualization_20261005/. Full0은원래v3저장snapshot,중후는2095에서이어받은실행이다.
+Planning+SSL공동학습변화이며planning단독원인/유용객체재배치/PDMS추가이득으로해석하지않는다.
 
 Adapter현재좌표/크기/presence nativehead고정,interaction출력은현재좌표/크기를덮어쓰지않음(공식encoder확인).
 현재geometry변화는주로명령FiLM경로;interaction/context/dynamics adapter의변화를현재점이동만으로판정불가.
@@ -963,11 +972,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Adapter효과질문에대해공식encoder의geometry/interaction경로와planning-only gradient감사·pairedPDMS를재확인했다.
-- 현재geometry고정범위,후단feature/미래변화의구분,추가이득미확인과일반적무효의차이를연구문서에기록했다.
-- 속성분해/동일상태loss별gradient/adapter개입/geometry해제통제의후속진단을제안만했다. 현재학습은변경없음.
+- 일부계층/전체미세조정의particle전중후·고정비교 CPU시각화와 8장면확대갤러리를추가했다.
+- 세geometryhead trainable등록/실제checkpoint변경을확인하고8장면최종이동량과72개snapshot출처를저장했다.
+- Partial평균.55063px/full.46071px이동,planning+SSL공동학습및full원본2095재개/비교차이를문서화했다.
+- 현재공개고정학습·기존가중치·등록source/config는변경하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+일부계층/전체particle비교이미지와전중후갤러리를사용자에게제공한다. 해당head가학습됐고실제위치가변했음을설명한다.
+Planning단독원인·객체중요도개선은미분리로남기고현재공개고정학습→평가→Stage1비교를유지한다.
 
 현재실험의추가이득미확인을보고한다. 위치만이아닌현재/미래feature변화와동일모델개입/gradient경쟁을먼저진단하는안을제시했다.
 새진단/geometry학습해제/epoch증가는미실행이며현재공개고정학습→동일검증→Stage1효과집계를유지한다.
@@ -1244,6 +1257,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Partial/full head의실제갱신과입력상particle이동을확인했으나loss별기여율은미분리다. SSL/weightdecay도동시적용됐다.
+Full update0은v3원본이고2353/4707은2095재개실행이다. 같은초기geometry가확인됐지만LR/schedule/FiLM위치/배치이력차이는남는다.
+8장면전체64particle통계이지전체NAVSIM통계나semantic객체대응성능이아니다. 새학습/추가GPU진단은없었다.
 
 Planninggradient양수와PDMS추가이득은별개다. Adapter의encoder그룹gradient양수를native위치head갱신으로해석하지않는다.
 SSL0.02의실제gradient우세/충돌은같은checkpoint·batch에서미검증;기존별도감사norm을우세비율로직접비교하지않는다.
