@@ -1,5 +1,9 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 최신 원인 검사:** [현재 좌표와 LoRA 경로 감사](docs/lpwm_drivor_lora_geometry_audit.md).
+실제100update LoRA를 꺼도 current xy는같고 FiLM을끄면초기좌표로돌아간다. LoRA84tensor는모두갱신됐다.
+좌표생성뒤의attention만LoRA여서 current위치 직접학습경로가빠져있다. Geometry LoRA 제안은미적용이며기존학습유지.
+
 **2026-10-06 01:25 KST: 기존 LoRA 학습 유지 + 표현 진단 monitor 추가.**
 Monitor3351138, `outputs/lpwm_drivor_representation_monitor_v1/watch_status.json` 확인.
 고정96장면 학습 전 및 update100 진단 완료, 이후500부터 자동 추적. 보고서 `docs/lpwm_drivor_representation_and_fair_comparison.md`.
@@ -21,7 +25,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 01:40 KST (Codex)
+마지막 갱신: 2026-10-06 01:52 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -188,6 +192,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+위치 원인 진단은 optimizer0/3장면의별도실행으로완료했다. GPU reserved0.736GB/카드총30.683GB,본학습그대로진행.
+새진단script는 `scripts/audit_lpwm_drivor_lora_geometry.py`; 완료결과를덮어쓰거나재실행하지않는다.
 
 후속 시각화 의미 질문은 코드 읽기와 설명만 수행했다. 본학습·monitor·등록 source/config 변경 없음.
 
@@ -584,6 +591,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+실제100update LoRA84/84tensor변경. Main gradient interaction/context/dynamics .03895/.04668/.06041, 두rank동일.
+LoRA OFF current xy bitwise동일;FiLM OFF current xy initial과bitwise동일;둘OFF 전체attrs initial과동일.
+Current xy의84LoRA gradient는모두None,FiLM4개연결. 위치생성뒤LoRA는current xy를직접학습하지못함.
+LoRA OFF future xy RMS0.492px변화(3장면)는future 계산의존성이지정확도개선이아님.
+실제planningloss양수gradient와좌표projection autograd검사를혼동하지않는다. Native freeze 및checkpoint SHA보존.
 
 Particle 중심/scale은 appearance RGB glimpse 추출에 사용됨을 native feature encoder 코드로 확인했다.
 최신 monitor 노란점=현재중심,점크기=presence,색box=GT투영;planner중요도/attention그림이아니다.
@@ -1082,11 +1095,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Particle 위치의 의미를 native glimpse 추출·planner pooling·실제 시각화 코드로 확인했다.
-- 중심/presence/GT박스와 planner 중요도를 구분하는 해석을 기존 검증 문서에 추가했다.
-- 본학습과 진단 monitor의 source/config/실행 조건은 변경하지 않았다.
+- 실제100update checkpoint에서 LoRA·FiLM OFF 개입 및 current xy autograd 연결성 진단을 구현·실행했다.
+- LoRA84tensor 갱신과 본학습 gradient를 확인하고, current 위치가 LoRA 이후가 아닌 앞에서 결정됨을 입증했다.
+- 현재 위치 적응 제한 및 geometry head/CNN LoRA 수정 방향을 문서화했다. 변경안은 본학습에 적용하지 않았다.
+- 본학습·monitor·queue·등록source/config 및 원래LPWM·checkpoint 가중치는 보존했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재조건은attention feature/future LoRA 조건으로해석한다. 직접공간재배치수정은 xy_head/scale_xy_head/obj_on_head Linear LoRA,
+필요시attribute CNN ConvLoRA를포함하는별도설계가필요. 기존registered실행을중간변경하지않는다.
+좌표head의작은출력차원에맞는rank와공통planner/학습량비교를먼저정하고,gradient/위치반응확인뒤효용검증한다.
 
 시각화 해석은 위치·glimpse scale·presence와 planning 개입 결과를 구분하여 보고한다. 기존 자동 monitor 유지.
 
@@ -1399,6 +1417,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+‘LoRA가학습됨’과‘현재particle재배치를직접학습함’은다르다. 이번Q/V적용범위는후자를충족하지않으며FiLM경로만있다.
+관측좌표에대한Q/VLoRA미분0은구조적문제여서attention rank나epoch증가만으로경로가생기지않는다.
+Geometry LoRA는미구현/미학습. 재배치자체가유용성보장은아니며readout·개입·동일조건benchmark검증이필요.
 
 Particle 위치만으로 planner가 어디를 중요하게 보는지 확정할 수 없다. 동일좌표에서도 feature/미래/사용도가 달라질 수 있다.
 

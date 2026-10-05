@@ -1,5 +1,9 @@
 # LPWM + DrivoR: LoRA 공동 학습과 ego 입력 점검
 
+**현재 위치 적응의 제한:** [체크포인트·autograd 감사](lpwm_drivor_lora_geometry_audit.md).
+현재 Q/V LoRA는 좌표 생성 뒤에 있으며 관측 particle xy를 직접 바꾸지 않는다. 위치 변화는 새 command FiLM 경로다.
+LoRA84개 텐서 갱신 및 실제 planning gradient는 확인했지만, 이를 현재 particle 재배치 학습의 확인으로 해석하지 않는다.
+
 **2026-10-06 후속 점검:** [학습 중 표현 검증·공정 비교](lpwm_drivor_representation_and_fair_comparison.md).
 Rank32가 같아도 적응 파라미터는 DrivoR589,824 대 LPWM1,343,488로 다르다.
 정밀도(FP16/BF16), drop_last, planner 초기화 순서 차이도 추가 확인했다.

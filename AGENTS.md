@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 위치 변화 원인 감사:** `docs/lpwm_drivor_lora_geometry_audit.md`.
+100update main checkpoint의 LoRA84tensor 갱신/양수planning gradient 확인. Q/V LoRA OFF 시 current xy bitwise동일,
+FiLM OFF 시 initial xy bitwise복원, current xy→LoRA84개 autograd 연결없음/FiLM4개는연결됨.
+현재 LoRA는 좌표생성 이후 interaction/context/dynamics에 있다. 초기warmup만을 위치불변원인으로설명하지않는다.
+Geometry head/CNN LoRA는 수정제안이며 미적용. 이번요청은원인검사였고기존본학습·queue·등록source/config유지.
+
 **2026-10-06 최신 사용자 요청: 학습 중 particle의 driving 유용성 및 DrivoR 공정 비교 검토.**
 기존 LoRA train2994997/queue2994998을 유지하고 읽기 전용 checkpoint monitor3351138을 추가했다.
 진입점 `scripts/monitor_lpwm_drivor_representations.py --watch`, root `outputs/lpwm_drivor_representation_monitor_v1`.

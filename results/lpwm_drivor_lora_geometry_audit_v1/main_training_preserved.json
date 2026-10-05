@@ -1,0 +1,46 @@
+{
+  "checked_at_utc": "2026-10-05T16:51:36.150058+00:00",
+  "registered_sources_verified": {
+    "registration.json": 83,
+    "queue_registration.json": 250,
+    "parallelism_registration.json": 4
+  },
+  "main_training": {
+    "configuration_sha256": "f785b417ce3bc0da553980433ddb550b6237a1c77e49007422f7a02d9d9a3f2f",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "401b117900ce4a5dbe02841da51f3651a32b6160a3a5cb9d8d0301deb4fe36fc",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 4
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 172,
+    "epoch": 1,
+    "update_in_epoch": 172,
+    "seconds_this_update": 19.87202286720276,
+    "elapsed_seconds": 3847.142079591751,
+    "card_used_bytes": 29589766144,
+    "peak_reserved_bytes": 29014097920,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0007164478302001953,
+      "forward": 4.33492112159729,
+      "oracle": 6.380027770996094,
+      "backward": 8.920981407165527
+    },
+    "learning_rates": [
+      1.0355397350993387e-05,
+      1.0355397350993387e-05
+    ],
+    "loss": 18.550015926361084,
+    "trajectory_loss": 16.56043529510498,
+    "final_score_loss": 1.9895805716514587,
+    "score": 0.53016597032547,
+    "best_score": 0.7119689881801605,
+    "estimated_remaining_seconds": 903920.9627915153
+  }
+}

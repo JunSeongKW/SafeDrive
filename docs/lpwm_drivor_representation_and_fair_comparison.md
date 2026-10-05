@@ -11,6 +11,10 @@ Planner backend, 관측 시점·카메라, 공식 split 및 epoch 수는 맞췄�
 
 ## 최초 중간 결과: 공개 초기값 → 100 updates
 
+**후속 원인 확인:** [LoRA 위치 경로 감사](lpwm_drivor_lora_geometry_audit.md).
+실제100update 체크포인트에서 LoRA를 꺼도 현재 좌표는 bitwise 동일했고, FiLM을 끄면 공개 초기 좌표로 복귀했다.
+현재 attention LoRA는 좌표 생성 뒤에 있으므로, 공간 재배치가 작은 이유를 초기 warmup만으로 설명하면 안 된다.
+
 96장면 모두 진단했다. 100/40,350 updates로 전체 예정량의 약0.25%이며 아직 warmup이다.
 학습 전/후 같은 장면·동일 probe 규칙을 사용했다.
 
@@ -80,6 +84,7 @@ GT box는 3D cuboid의 pinhole 투영이다. Crop 없이 실제 full-image 128×
 
 **현재 LoRA에서는 원래 xy/scale/presence CNN/head가 고정**되어 있다. 명령 FiLM이 입력 feature를 바꾸어
 현재 배치를 바꿀 수 있지만, Q/V LoRA는 interaction/context/dynamics의 feature와 미래 상태를 주로 바꾼다.
+실제 autograd 검사에서 현재 xy는 이 Q/V LoRA 파라미터84개와 직접 연결되지 않았고, FiLM과는 연결됐다.
 따라서 점이 크게 움직이지 않았다는 사실만으로 LoRA 학습 실패를 결론 내리지 않는다.
 
 ### B. 실제 객체·미래 정보 접근성: readout

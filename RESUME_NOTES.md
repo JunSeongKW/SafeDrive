@@ -2588,3 +2588,20 @@ Particle 점은 지역 시각 표현의 중심이며 planner attention/주행 �
 Current+future attributes에는 공유background feature도 포함되며 projection후4particle씩평균하여planner에전달한다.
 하늘위점→하늘만사용, 보행자위점→정지판단기여 등의추론은성립하지않는다. Scale/readout/개입으로보완한다.
 설명과문서정정만수행;본학습·monitor·등록source/config·queue변경없음.
+
+
+## 2026-10-06 — LoRA 학습과 현재 particle 위치 경로 원인 확인
+
+사용자질문: planning LoRA인데왜현재particle위치가같고학습이정상인가.
+등록본학습/monitor/queue를유지하고100update snapshot(64e304f0...)을읽는독립진단을실행했다.
+새script audit_lpwm_drivor_lora_geometry.py, 결과results/lpwm_drivor_lora_geometry_audit_v1/report.json.
+직진/좌회전/우회전각1장면×4cam, optimizer0, peakreserved0.736GB/카드총30.683GB. 원본freeze/checkpoint SHA불변.
+LoRA84/84tensor갱신. 실제main100update gradient interaction/context/dynamics .03895/.04668/.06041,FiLM.14440,두rank동일.
+LoRA OFF current xy bitwise동일;FiLM OFF initial xy bitwise동일;둘OFF 전체attrs initial과동일.
+현재좌표projection autograd에서LoRA84개는모두None,FiLM4개연결(.80924). 이는planningloss와별개의연결성검사.
+LoRA OFF future xy 성분RMS.492px변화는의존성증거이며성능향상아님.
+원인: 현재Q/V LoRA는좌표생성뒤interaction/context/dynamics만대상. CNN/xyhead에는없어현재위치를직접바꾸지못함.
+새commandFiLM만현재geometry에연결돼작은변화가생김. 초기warmup만으로위치불변을설명했던해석보완.
+수정방향은xy_head/scale_xy_head/obj_on_head의Linear LoRA(출력차원에맞는rank),필요시CNN ConvLoRA.
+현재설정중간변경/추가학습은하지않았다. 기존실험은attention-onlyfeature/future적응조건으로보존한다.
+보고서docs/lpwm_drivor_lora_geometry_audit.md와기존LoRA/표현검증문서에한계를추가했다.

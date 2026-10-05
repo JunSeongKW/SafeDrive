@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "checkpoint_updates": 100,
+  "checkpoint_sha256": "64e304f04f8c0794ccb6033188bbc7e58557da13eb3fdfb355a501ec8ef5d22e",
+  "source_sha256": "036da902180da333985deb9d391a01571016b171c7340dbb036785edef70502a",
+  "optimizer_steps": 0,
+  "native_weights_unchanged": true,
+  "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "scene_tokens": [
+    "c94ee8ade05a5b12",
+    "409c959993075841",
+    "45ecf1d6d8b850af"
+  ],
+  "scope": "Three training-panel scenes for functional path diagnosis, not planning improvement or independent validation",
+  "parameter_changes": {
+    "particle_interaction_lora": {
+      "parameter_change_l2": 0.03806289098581249,
+      "changed_tensors": 4,
+      "total_tensors": 4
+    },
+    "context_prior_lora": {
+      "parameter_change_l2": 0.1524406809153532,
+      "changed_tensors": 32,
+      "total_tensors": 32
+    },
+    "particle_dynamics_lora": {
+      "parameter_change_l2": 0.2695187918249627,
+      "changed_tensors": 48,
+      "total_tensors": 48
+    },
+    "encoder_command": {
+      "parameter_change_l2": 0.00310976739709915,
+      "changed_tensors": 4,
+      "total_tensors": 4
+    },
+    "scene_projection": {
+      "parameter_change_l2": 0.03758033037494115,
+      "changed_tensors": 5,
+      "total_tensors": 5
+    },
+    "trajectory_generator": {
+      "parameter_change_l2": 0.4646204412438414,
+      "changed_tensors": 122,
+      "total_tensors": 130
+    },
+    "scorer": {
+      "parameter_change_l2": 0.42324967909280387,
+      "changed_tensors": 104,
+      "total_tensors": 104
+    }
+  },
+  "comparisons": {
+    "initial_to_trained": {
+      "current_xy_bitwise_equal": false,
+      "current_center_mean_shift_px": 0.002380686579272151,
+      "current_center_max_shift_px": 0.012318789027631283,
+      "current_appearance_rms_change": 0.0007206664886325598,
+      "future_attribute_rms_change": 0.03156920522451401,
+      "future_xy_rms_change_px": 0.5025140047073364
+    },
+    "trained_to_lora_disabled": {
+      "current_xy_bitwise_equal": true,
+      "current_center_mean_shift_px": 0.0,
+      "current_center_max_shift_px": 0.0,
+      "current_appearance_rms_change": 0.0004718591517303139,
+      "future_attribute_rms_change": 0.030590027570724487,
+      "future_xy_rms_change_px": 0.49198806285858154
+    },
+    "trained_to_film_disabled": {
+      "current_xy_bitwise_equal": false,
+      "current_center_mean_shift_px": 0.002380686579272151,
+      "current_center_max_shift_px": 0.012318789027631283,
+      "current_appearance_rms_change": 0.0005397857166826725,
+      "future_attribute_rms_change": 0.014194906689226627,
+      "future_xy_rms_change_px": 0.2138683944940567
+    },
+    "trained_to_both_disabled": {
+      "current_xy_bitwise_equal": false,
+      "current_center_mean_shift_px": 0.002380686579272151,
+      "current_center_max_shift_px": 0.012318789027631283,
+      "current_appearance_rms_change": 0.0007206664886325598,
+      "future_attribute_rms_change": 0.03156920522451401,
+      "future_xy_rms_change_px": 0.5025140047073364
+    },
+    "initial_to_film_disabled": {
+      "current_xy_bitwise_equal": true,
+      "current_center_mean_shift_px": 0.0,
+      "current_center_max_shift_px": 0.0,
+      "current_appearance_rms_change": 0.0004719105490949005,
+      "future_attribute_rms_change": 0.03208582475781441,
+      "future_xy_rms_change_px": 0.5088863372802734
+    },
+    "initial_to_both_disabled": {
+      "current_xy_bitwise_equal": true,
+      "current_center_mean_shift_px": 0.0,
+      "current_center_max_shift_px": 0.0,
+      "current_appearance_rms_change": 0.0,
+      "future_attribute_rms_change": 0.0,
+      "future_xy_rms_change_px": 0.0
+    }
+  },
+  "coordinate_parameter_connectivity": {
+    "particle_interaction_lora": {
+      "connected_tensors": 0,
+      "total_tensors": 4,
+      "gradient_l2": 0.0
+    },
+    "context_prior_lora": {
+      "connected_tensors": 0,
+      "total_tensors": 32,
+      "gradient_l2": 0.0
+    },
+    "particle_dynamics_lora": {
+      "connected_tensors": 0,
+      "total_tensors": 48,
+      "gradient_l2": 0.0
+    },
+    "encoder_command": {
+      "connected_tensors": 4,
+      "total_tensors": 4,
+      "gradient_l2": 0.8092382635087799
+    }
+  },
+  "actual_main_training_gradients": {
+    "0": {
+      "gradient_norms": {
+        "particle_interaction_lora": 0.03895205296968956,
+        "context_prior_lora": 0.0466820814634857,
+        "particle_dynamics_lora": 0.060414746546018396,
+        "encoder_command": 0.1443972348145248,
+        "scene_projection": 1.6252766110702366,
+        "trajectory_generator": 16.90740548833714,
+        "scorer": 4.78067443820929
+      },
+      "loss": 24.211082458496094,
+      "learning_rates": [
+        6.020663576158942e-06,
+        6.020663576158942e-06
+      ]
+    },
+    "1": {
+      "gradient_norms": {
+        "particle_interaction_lora": 0.03895205296968956,
+        "context_prior_lora": 0.0466820814634857,
+        "particle_dynamics_lora": 0.060414746546018396,
+        "encoder_command": 0.1443972348145248,
+        "scene_projection": 1.6252766110702366,
+        "trajectory_generator": 16.90740548833714,
+        "scorer": 4.78067443820929
+      },
+      "loss": 20.656197547912598,
+      "learning_rates": [
+        6.020663576158942e-06,
+        6.020663576158942e-06
+      ]
+    }
+  },
+  "peak_diagnostic_reserved_bytes": 736100352,
+  "total_card_used_bytes": 30683430912
+}

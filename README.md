@@ -1,5 +1,9 @@
 # Planning-Aware Future Prediction
 
+**현재 particle 위치와 LoRA:** [원인 감사 결과](docs/lpwm_drivor_lora_geometry_audit.md).
+Q/V LoRA는 학습되지만 현재 좌표 생성 뒤에 있다. 현재 위치 변화는 command FiLM에 의존하며,
+현재 좌표를 직접 적응시키는 geometry 경로 LoRA는 아직 적용하지 않았다.
+
 **2026-10-06 학습 중 표현 진단·공정 비교 점검:**
 [검증 방법과 비교 한계](docs/lpwm_drivor_representation_and_fair_comparison.md).
 기존 LoRA 본 학습은 유지하고, 별도 읽기 전용 monitor가 고정96장면의 분포·정보 readout·의도 경로·planning 개입을 기록한다.
