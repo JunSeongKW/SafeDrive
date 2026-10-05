@@ -1,8 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 22:54 KST (Codex)
+마지막 갱신: 2026-10-05 23:15 KST (Codex)
 
-**최신 실행(2026-10-05): 공개 LPWM 고정 + 동일 planner 학습으로 Stage1 효과 검증.**
+**최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
+공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
+동일seed47/planner1epoch4707/GPU당batch8×2/75,297train; 내부개발1024중1021유효PDM/40recording,navtest아님.
+최종평가·paired비교완료,등록작업모두종료. 상세 `docs/lpwm_planning_experiment.md` 최상단과
+`results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json`. 아래 실행중표시는과거이력이다.
+
+**이전 실행(2026-10-05): 공개 LPWM 고정 + 동일 planner 학습으로 Stage1 효과 검증.**
 사용자 정정: 완료된 적응 고정군82.5238을 재사용하고 새 조건 하나만 학습한다.
 GPU당8×누적1×GPU2=유효16/75,297장면/seed47/1epoch4707update를 동일하게 유지한다.
 진입점 `configs/lpwm_planning/stage1_effect_v1/queue.json`, `scripts/queue_lpwm_stage1_effect.py`.
@@ -161,6 +167,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 23:11 KST: 공개고정대조군학습·검증·paired비교모두정상완료(queue1869615 complete).
+검증23:11:21,비교23:11:28. 현재등록학습/평가없음. 아래실행중/ETA는이전조회이력이다.
 
 2026-10-05 22:54 KST: 학습22:53:37 returncode0/summary저장완료,22:53:38 최종개발검증자동시작(PID2514642).
 결과예상23:05–23:15KST, 아래22:53저장대기문장은직전조회이력이다.
@@ -533,6 +542,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Stage1없음PDMS78.9161/ADE1.37286/FDE3.34235,Stage1적용82.5238/1.16347/2.78246.
+Stage1PDMS+3.6077점CI[+1.5065,+5.8539],ADE−.20939m/FDE−.55988m. 복원LPIPS.76725→.30433/미래.80444→.39225.
+이번동일조건개발비교에서Stage1효과확인,Stage2미세조정추가효과미확인이라는이전결론은유지한다.
 
 Stage1효과공개고정조건 optimizer update는4707/4707완료. 직전동일범위frozen검증634.823초를기준으로
 최종1024planning/256world검증·paired비교완료23:05–23:15KST예상(공유부하·저장/검사에따라변동).
@@ -996,10 +1009,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공개 LPWM 고정 대조군의4707/4707 업데이트와최종monitor·queue heartbeat를읽기전용확인했다.
-- 직전동일개발평가634.8초를근거로완료예상23:05–23:15KST를기록했다. 활성source/config/GPU/queue변경없음.
+- Stage1공개고정대조군의최종검증/paired집계완료를확인하고PDMS+3.6077점의개발이득과범위를보고했다.
+- 원자료8SHA·장면정렬/동일누락/모든평균을독립재확인하고기존비교PNG를육안검사했다.
+- 자동생성결과JSON/PDF를보존하고README·연구문서·HANDOFF·RESUME에완료상태와한계를갱신했다. 신규GPU작업없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+완료한Stage1유무결과를보고한다. 모든등록작업종료,추가학습/DrivoR/객체GT/navtest자동실행없음.
+후속planning신호강화·공통DrivoR planner비교는별도설계로남는다.
 
 공개고정4707업데이트완료후최종저장·검사→동일개발평가→적응고정82.5238과Stage1효과paired비교를자동이어간다.
 현재예상결과완료23:05–23:15KST. 등록외실험을추가하지않는다.
@@ -1289,6 +1306,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Stage1이득은동일seed47/planner1epoch/내부개발1024(1021PDM)·40recording범위다. CI는recording bootstrap이며seed변동미포함.
+공개Sketchy사전학습대NAVSIM적응비교이지random초기화대SSL비교가아니다. 미래LPIPS개선과semantic객체보존을동일시하지않는다.
 
 4707optimizer update완료와training process정상종료/최종검증완료는구분한다. 22:53의마지막128scene monitor는
 최종1024scene평가결과가아니다. ETA는직전동일조건평가시간을활용한추정이며확정마감이아니다.

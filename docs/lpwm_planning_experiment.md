@@ -1,5 +1,56 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: Stage1 유무 대조군 최종 검증 완료
+
+**하위 질문:** LPWM을 고정하고 동일 planner만 학습할 때 NAVSIM Stage1 적응이 planning에 도움이 되는가?
+학습22:53:37, 최종검증23:11:21, paired비교23:11:28KST에 정상종료했다. 현재 등록 작업은 모두 종료됐다.
+공개 Sketchy LPWM 고정 조건을 새로 학습했고 완료된 NAVSIM 적응 고정군82.5238은 재학습 없이 재사용했다.
+두 조건 모두 LPWM 전체·buffer·encoder 명령 FiLM을 고정하고, 동일 초기화의 planner2,207,495개 parameter만 학습했다.
+Navtrain75,297장면/seed47/planner1epoch4707update/GPU당8×2=유효16/동일loss·LR·후보·개발panel을 사용했다.
+Stage1 자체의20epoch과 이번 planner1epoch을 구분한다. 공개 조건도 Sketchy에서 사전학습됐으며 random encoder가 아니다.
+
+| 지표 | Stage1 없음 | NAVSIM Stage1 적용 | 적용−미적용 | Paired95% CI |
+|---|---:|---:|---:|---|
+| PDMS ↑ | 78.9161 | 82.5238 | +3.6077 | [+1.5065, +5.8539] |
+| ADE(m) ↓ | 1.3729 | 1.1635 | -0.2094 | [-0.2699, -0.1466] |
+| FDE(m) ↓ | 3.3423 | 2.7825 | -0.5599 | [-0.7164, -0.4099] |
+| 복원 LPIPS ↓ | 0.7672 | 0.3043 | -0.4629 | [-0.4769, -0.4475] |
+| 미래 영상 LPIPS ↓ | 0.8044 | 0.3922 | -0.4122 | [-0.4280, -0.3954] |
+
+**이번 개발 조건에서 Stage1의 추가 planning 이득이 확인됐다.** PDMS +3.6077점의 paired95%CI는
+[+1.5065,+5.8539]로0을포함하지않는다. ADE/FDE와영상복원/미래LPIPS도개선됐다.
+40recording을단위로2000회paired bootstrap한구간이며학습seed변동성을포함하지않는다.
+Planning1024장면중동일3장면은양조건모두PDM cache가없어PDMS는1021개,world는256clip이다.
+이전에노출된내부개발panel이며전체navtest/독립test/다중seed/수렴결과가아니다.
+
+### 장면·위험별 영상 미래 예측
+
+| 기존 scenario 분류 | Clip 수 | Stage1 없음 LPIPS | Stage1 적용 LPIPS |
+|---|---:|---:|---:|
+| 직진 | 9 | 0.8060 | 0.3657 |
+| 회전 | 36 | 0.8052 | 0.4046 |
+| 투영 박스 겹침 | 197 | 0.8059 | 0.3909 |
+| 기타 | 14 | 0.7815 | 0.3969 |
+
+이 표는 미래 영상 품질이며 상황별 PDMS 표가 아니다. 투영 겹침은 가림의 proxy이고 실제 가림 GT가 아니다.
+직진표본9개로작다. 기존7개risk flag(고속/큰회전/큰프레임변화/투영겹침/투영track소실/작은·먼객체)에서도
+평균미래LPIPS와탐색적paired구간은모두개선방향이었다. Whole-image LPIPS이므로각객체상태보존의증거는아니다.
+
+### 검증·해석
+
+- 두조건4707update완료,LPWM고정상태유지,공개최종weight/buffer와공식checkpoint의정확일치는queue검사에서통과했다.
+- 이번보고전에원자료8파일SHA,동일장면순서/1024개고유token/40recording/동일3PDM누락/256world,
+  모든평균재계산·유한값을독립적으로확인했다. 새GPU추론/학습은하지않았다.
+- Stage1적응효과와Stage2에서LPWM을planning미세조정한효과를구분한다. 이전Adapter82.4852와고정82.5238비교는
+  추가미세조정이득미확인이었다. 이번결과는그결론을바꾸지않는다.
+- 두조건모두미래rollout을사용하므로이대조만으로particle구조/미래예측자체/객체의미보존의기여를분리할수없다.
+- 세계모델적응과이설정의planning개선이관측됐지만NAVSIM에완벽히적응했다거나논문수준최종성능이라는주장은하지않는다.
+
+[결과 JSON](../results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json),
+[비교 그림 PDF](../results/lpwm_stage1_effect_v1/queue/stage1_effect_comparison.pdf),
+[실제 비교 PNG](../results/lpwm_stage1_effect_v1/queue/stage1_effect_comparison.png).
+모든등록작업종료. DrivoR/객체GT/추가epoch·seed/navtest는자동기동하지않는다.
+
 ## 2026-10-05: DrivoR 학습 절차를 논문·코드로 확인
 
 조사 질문: DrivoR도 NAVSIM 표현 사전학습과 planner 학습을 별도 단계로 나누는가?

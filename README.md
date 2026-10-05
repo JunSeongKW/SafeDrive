@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
+공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
+동일seed47/planner1epoch4707/GPU당batch8×2/75,297train; 내부개발1024중1021유효PDM/40recording,navtest아님.
+최종평가·paired비교완료,등록작업모두종료. 상세 `docs/lpwm_planning_experiment.md` 최상단과
+`results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json`. 아래 실행중표시는과거이력이다.
+
 **최신(2026-10-05): NAVSIM Stage1 효과를 공개 LPWM 고정 대조군 하나로 검증한다.**
 완료된 Stage1-LPWM 고정+planner 결과82.5238을 재사용하고 공개 Sketchy LPWM+동일planner만 새로 학습한다.
 사용자 정정에 따라 batch8/GPU×2·누적1=유효16,seed47/75,297장면/1epoch4707update를 유지한다.

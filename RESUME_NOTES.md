@@ -2512,3 +2512,10 @@ AdapterPDMS82.4852/frozen82.5238,차이−.03859점CI[−1.16421,+1.00706],ADE�
 사용자 ETA 질문에 queue/progress/최종monitor를 읽었다. 22:52에는4704였고22:53에는4707/4707 optimizer update 및128scene monitor완료, queue heartbeat정상이었다. 최종저장·검사·process종료와후속개발평가는별도확인해야한다. 직전동일평가634.823초를근거로1024planning/256world평가와Stage1효과paired비교까지23:05–23:15KST예상으로갱신했다. 정확snapshot results/lpwm_stage1_effect_v1/training_eta_20261005_2253.json. 실행설정/GPU/queue는변경하지않았다.
 
 같은턴22:54추가확인:학습은22:53:37 returncode0로종료했고training_summary가저장됐다. 22:53:38 public_control_evaluation(PID2514642)이자동시작됐다. 현재최종검증단계이며예상완료23:05–23:15KST를유지한다.
+
+
+## 2026-10-05 23:15 KST — NAVSIM Stage1 효과 대조군 최종 검증 보고
+
+최종검증23:11:21,paired비교23:11:28 정상종료/queue complete를확인했다. 공개고정78.9160799→적응고정82.5237848 PDMS,+3.6077049점CI[+1.5064775,+5.8538573]. ADE1.3728555→1.1634666/FDE3.3423478→2.7824634,복원LPIPS.7672489→.3043349/미래.8044382→.3922484. 같은planner초기화·학습조건/seed47/planner1epoch4707/75,297train/batch8×2를유지했고기존82.52군재학습없다. 두조건LPWM/FiLM고정과공개최종LPWM의원본weight/buffer동일성검사통과.
+
+원자료8SHA·동일1024장면순서/40recording/동일3PDM누락/256world/평균재집계를독립확인하고비교PNG육안검사했다. 시나리오·7개risk별미래영상LPIPS도개선이나객체별정보보존/상황별PDMS증거는아니다. 내부개발1seed1epoch조건의Stage1이득이며navtest/seed불확실성/수렴은미검증. 기존Stage2표현미세조정추가이득미확인결론과구분한다. 결과results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json 및비교PDF/PNG. README/연구문서/인수인계갱신,모든등록작업종료,새GPU/후속queue없음.
