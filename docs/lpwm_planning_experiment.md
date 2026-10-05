@@ -1,5 +1,23 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-05: 1 seed·1 epoch의 의미와 결과 해석
+
+현재 Stage2 방법별 실행은 seed47 한 번이며, 75,297개 학습 장면을 1epoch 순회해
+유효batch16 기준4,707optimizer update를 수행했다. Seed는 초기화·shuffle·dropout 등의
+난수 설정이고, 독립seed 반복은 동일Stage1에서 새planner/적응모듈 학습을 다시 시작하는 실험이다.
+Stage1은별도로23,126clip을20epoch/28,920update 학습했으므로전체모델학습이1epoch라는뜻이아니다.
+현재Stage2는빠른방법선별이며수렴·최종순위를입증하지않는다. Recording bootstrap CI는학습seed변동을포함하지않는다.
+
+문헌확인: [DiffusionDrive §4.2](https://arxiv.org/html/2411.15139v2)는NAVSIM100epoch/totalbatch512,
+[DrivoR §4.2.4·Appendix D](https://arxiv.org/html/2601.05083v2)는v1최종25epoch/v2 10epoch를사용한다.
+DrivoR는v1개발성능이25epoch에서plateau하며v2는장기학습시악화됨을보고한다.
+데이터·batch·사전학습이달라epoch만으로계산량이나충분성을비교하지않는다.
+확인한본문에서반복seed수는명확히검증하지못했으므로두논문이1seed/3seed라고단정하지않는다.
+
+권고는현재방법선별후유망한1–2조건과동일planner의frozen-LPWM대조를수렴까지비교하고,
+핵심조건은예컨대3개seed로반복해평균·편차를보고하는것이다. 학습량은개발곡선으로선정한다.
+이는이번질문에대한권고이며활성queue/epoch/seed/source/config변경이나새학습은없다.
+
 ## 2026-10-05: LoRA 완료 결과 — PDMS 우월성 미확정, 궤적 오차·world 유지 양호
 
 연구 하위 질문: planning 학습 중 LPWM의 미래 표현을 유지하면서 주행 성능을 높일 수 있는가?

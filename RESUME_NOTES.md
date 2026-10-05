@@ -2177,3 +2177,22 @@ navhard는별도v2/EPDMS프로토콜을맞춘다. 이번질문에서는분할검
 - scripts/report_lpwm_completed_lora.py 및 results/lpwm_card_budget_measured_v4/completed_lora_review_20261005/summary.json,comparison.png/pdf 생성. 그래프를직접열어축·수치·가독성확인.
 - 이전84.56은4096update/128monitor이며이번81.91은4707/1024최종개발. Frozen-LPWM학습planner대조·seed반복·공식navtest는여전히미완료.
 - 활성Adapter학습/queue/등록source/config변경및새GPU작업없음.
+
+
+## 2026-10-05 11:09 KST — seed·epoch 개념과 문헌 학습량 비교
+
+현재 Stage2 방법별 실행은 seed47 한 번이며, 75,297개 학습 장면을 1epoch 순회해
+유효batch16 기준4,707optimizer update를 수행했다. Seed는 초기화·shuffle·dropout 등의
+난수 설정이고, 독립seed 반복은 동일Stage1에서 새planner/적응모듈 학습을 다시 시작하는 실험이다.
+Stage1은별도로23,126clip을20epoch/28,920update 학습했으므로전체모델학습이1epoch라는뜻이아니다.
+현재Stage2는빠른방법선별이며수렴·최종순위를입증하지않는다. Recording bootstrap CI는학습seed변동을포함하지않는다.
+
+문헌확인: [DiffusionDrive §4.2](https://arxiv.org/html/2411.15139v2)는NAVSIM100epoch/totalbatch512,
+[DrivoR §4.2.4·Appendix D](https://arxiv.org/html/2601.05083v2)는v1최종25epoch/v2 10epoch를사용한다.
+DrivoR는v1개발성능이25epoch에서plateau하며v2는장기학습시악화됨을보고한다.
+데이터·batch·사전학습이달라epoch만으로계산량이나충분성을비교하지않는다.
+확인한본문에서반복seed수는명확히검증하지못했으므로두논문이1seed/3seed라고단정하지않는다.
+
+권고는현재방법선별후유망한1–2조건과동일planner의frozen-LPWM대조를수렴까지비교하고,
+핵심조건은예컨대3개seed로반복해평균·편차를보고하는것이다. 학습량은개발곡선으로선정한다.
+이는이번질문에대한권고이며활성queue/epoch/seed/source/config변경이나새학습은없다.
