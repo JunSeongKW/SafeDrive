@@ -1,6 +1,6 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
-마지막 갱신: 2026-10-05 14:43 KST (Codex)
+마지막 갱신: 2026-10-05 15:00 KST (Codex)
 
 세션 시작: 이 파일 + `git log -10` + `AGENTS.md`.
 
@@ -146,6 +146,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-05 14:58 KST: Adapter 본학습4707/4707 완료, v4 queue421603은residual_adapter_evaluation 진행. 배치 확대 점검 도중 pjh-wamvla-v2가 GPU0·1에복귀(PID290180/290181,각19522MiB). GPU속도profile미실행·runtime변경없음.
 
 2026-10-05 14:42 KST: 사용자 pjh- 단서로 과거 자체 GPU 조회 원본을 재확인. 09:35:49 GPU0·1 pjh-wamvla-v2 PID290957/290958, 각20168MiB 확인. 14:42 현재는 우리866456/866457만 해당GPU사용. 실행변경없음.
 
@@ -456,6 +458,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-05 배치 확대 검토: 현재기준GPU당8×누적1×2=유효16이며12/16증설은유효24/32로바뀐다. Adapter 완료 직전약2.1s/update,입력준비수ms. 여유GPU1실측용script를준비했으나sandbox NVML조회실패후host조회에서pjh복귀를확인해추가GPU실행하지않음. 근거results/lpwm_available_vram_throughput_20261005/capacity_review.json.
 
 2026-10-05 pjh 이력 확인: 실제 경로 /rhome/junhyeok/miniconda3/envs/pjh-wamvla-v2/bin/python. 09:35:49 GPU별 프로세스/UUID 대응 확인. 이후 OOM로그에도 같은PID가 있으나 로그조회시각을 생존시각으로 해석하지 않는다. 총점유10:52→14:34 감소는 기존근거이며 정확 종료/부재시간은 여전히미확정. 근거 results/lpwm_card_budget_measured_v4/pjh_process_history_review_20261005.json.
 
@@ -842,10 +846,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 pjh- 단서에 따라 자체 저장 GPU 조회에서 pjh-wamvla-v2의 GPU0·1 점유와 PID/메모리를 확인하고 별도 근거 JSON 저장.
-- 현재 부재와 정확 종료 시각 미확정을 구분; 학습·queue·source/config 변경 없음.
+- 공유 GPU 여유에 따른 배치 확대를 점검했으나 pjh 재등장으로 추가GPU profile을 실행하지 않았다. Adapter4707 완료·검증전환 및 등록source/config 불변을 확인.
+- GPU1 유휴 검증시간의 단일GPU 처리량·재계산 진단 script2개를 준비하고 구문검사; 실행실패 원인과미검증범위를결과JSON에명시. 기존queue/학습조건불변.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-05 최신: v4 Adapter검증→기존full batch8우선profile·메모리초과시4/2fallback→2095checkpoint재개→검증유지. 준비한추가실측script는자동대기열에등록하지않음. 공유점유가다시사라질때는GPU상태와유효배치변경여부를재확인한다.
 
 2026-10-05 pjh 확인 후: 기존 학습·검증 queue 유지. 정확한 타 사용자 종료 시각을 추정값으로 보고하지 않는다. 추가 GPU작업·설정변경 없음.
 
@@ -1077,6 +1083,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-05 배치확대·재계산감소속도향상은실측전이며미확정. pjh재등장으로각GPU약20.47GB사용,우리예산은48GB에서해당점유와context를뺀범위다. 새진단script는구문검사만통과했고GPU/gradient동일성미검증.
 
 2026-10-05 추가 확인: 과거 pjh-wamvla-v2의 GPU0·1 점유는 원본 조회로 확정됐다. 프로세스 종료 이력이 없어 정확한 이탈시각/경과시간은 미확정이다.
 

@@ -1,0 +1,11 @@
+{
+  "started_unix": 1791179599.7706585,
+  "supervisor_pid": 2,
+  "status": "not_run",
+  "profiles": [],
+  "finished_unix": 1791180032.6893291,
+  "profile_count": 0,
+  "training_or_queue_changed": false,
+  "stop_reason": "Sandbox NVML query exited9 before launching a GPU profile. Escalated read-only inspection then found pjh processes had returned to GPU0/1; do not retry profiles under shared load.",
+  "gpu_profile_launched": false
+}

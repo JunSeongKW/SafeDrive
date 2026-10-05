@@ -1,0 +1,61 @@
+{
+  "checked_at": "2026-10-05T15:00:32.718539+09:00",
+  "request": "Assess larger batches after other user vacated GPU0/1, respecting total48decimalGB per card.",
+  "initial_observation": {
+    "adapter_update": 4512,
+    "total_updates": 4707,
+    "total_card_used_bytes_each": 24736956416,
+    "gpu_utilization_percent_each": 100,
+    "planning_microbatch_per_gpu": 8,
+    "gradient_accumulation": 1,
+    "effective_planning_batch": 16,
+    "effective_world_batch": 8
+  },
+  "subsequent_observation": {
+    "checked_at_kst": "2026-10-05T14:58:26+09:00",
+    "foreign_process_environment": "pjh-wamvla-v2",
+    "foreign_gpu_processes": [
+      {
+        "gpu": 0,
+        "pid": 290180,
+        "used_mib": 19522
+      },
+      {
+        "gpu": 1,
+        "pid": 290181,
+        "used_mib": 19522
+      }
+    ],
+    "foreign_used_bytes_each": 20470300672,
+    "maximum_total_card_bytes": 48000000000,
+    "remaining_budget_before_our_context_each": 27529699328
+  },
+  "adapter_training_completed_updates": 4707,
+  "adapter_training_effective_batch": 16,
+  "adapter_checkpoint_sha256": "dbb9a1aaa3ab079dafc84253b814e457c8ae6a4a957af5afc73ade867abb5ed1",
+  "recent_adapter_update_seconds_mean": 2.3024110577534884,
+  "recent_adapter_input_seconds_mean": 0.005578589004774888,
+  "queue_current_stage": "residual_adapter_evaluation",
+  "queue_resources": {
+    "0": {
+      "used_bytes": 22351446016,
+      "free_gib": 26.5966796875
+    },
+    "1": {
+      "used_bytes": 20504903680,
+      "free_gib": 28.31640625
+    }
+  },
+  "profile_gpu_runs": 0,
+  "throughput_improvement_measured": false,
+  "registered_source_files_checked": 42,
+  "registered_configuration_files_checked": 29,
+  "registered_source_and_configuration_unchanged": true,
+  "decision": "Keep finished Adapter results and existing evaluation/full-resume queue. No runtime change. Existing full batch8 profile and48GB guard remain active. No unattended new benchmark queue.",
+  "batch_semantics": "With2GPUs and accumulation1, per-GPU12/16 changes effective planning batch to24/32; no such change was made.",
+  "prepared_diagnostic_scripts": [
+    "scripts/profile_lpwm_available_vram.py",
+    "scripts/measure_lpwm_idle_gpu_throughput.py"
+  ],
+  "diagnostic_validation": "Python syntax checked only; GPU profiles and recomputation equivalence have not run."
+}

@@ -2330,3 +2330,10 @@ https://github.com/taldatech/lpwm/blob/main/configs/bair64.json .
 ## 2026-10-05 14:42 KST — pjh 프로세스 이력 확인
 
 사용자가 제공한 pjh- 이름으로 자체 세션의 과거 GPU 조회 원본을 대조했다. 09:35:49KST GPU0(UUID95f20c84...) PID290957, GPU1(UUIDa987cdb2...) PID290958의 실행파일은 /rhome/junhyeok/miniconda3/envs/pjh-wamvla-v2/bin/python, 각20168MiB였다. 09:45/09:49 저장 OOM조회에도 같은PID가 등장하나 로그조회시각을 실시간 생존 확인으로 사용하지 않는다. 14:42 신규GPU조회에서는 두GPU에 우리 kjs-lpwm-stage2 PID866456/866457 각23558MiB만 있다. 기존10:52공동점유~14:34감소관측은 유지하며 정확한 pjh 종료시각/부재경과시간은 미확정. 학습/queue/등록source/config 변경없음. 근거 results/lpwm_card_budget_measured_v4/pjh_process_history_review_20261005.json.
+
+
+## 2026-10-05 14:58 KST — 배치 확대 검토 중 공유 GPU 점유 복귀
+
+사용자가GPU0·1여유활용을요청했다. 시작시Adapter4512/4707,배치8/누적1/GPU2=유효16,각24.74GB·100%사용이었다. 완료임박한학습은유지하고검증중빈GPU1에서full2095원본을복사해배치8/12/16및checkpoint재계산비교용스크립트를준비했다. 프로파일controller는sandbox NVML조회exit9에서실패했으며GPUchild는기동하지않았다. 호스트읽기전용재조회14:58에서pjh-wamvla-v2 PID290180/290181가GPU0·1각19522MiB로복귀한것을확인해실측을재시도하지않았다. 두스크립트는자동대기열에등록하지않았고Python구문검사만완료,속도/gradient동일성은미검증이다.
+
+Adapter는4707/4707정상완료·기존queue가전체개발검증으로전환했다. 등록source42개및config전체hash보존. 기존full8우선profile/48GB감시/필요시4·2fallback/원본2095재개를유지한다. 유효배치16에서12·16perGPU로변경하면24·32가되므로학습조건변경임을사용자에게설명했으며실제로변경하지않았다. 근거results/lpwm_available_vram_throughput_20261005/capacity_review.json.
