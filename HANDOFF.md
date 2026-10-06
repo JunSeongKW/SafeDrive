@@ -63,7 +63,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 11:56 KST (Codex)
+마지막 갱신: 2026-10-06 12:29 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -230,6 +230,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+카메라공정비교확인턴: 기존세경로LoRA본학습·monitor·첫epoch비교예약유지. 신규DrivoR기동이나현재해상도변경없음.
 
 최신동일장면명령경로설명: 기존본학습/queue/표현monitor/첫epoch비교watcher유지,이번읽기확인시165update. 설정변경없음.
 
@@ -655,6 +657,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+공식DrivoR/현재LPWM은F0/B0/L0/R0현재1frame4camera동일. 해상도W×H1148×672대128×128로47.0859배pixel차이. 정규화·GridMask·사전학습·FiLM·미래연산·LoRA예산도다름. 근거camera_input_fairness_audit.json.
 
 동일영상에서도command4D→FiLM→attribute CNN→xy/scale/presence head 경로로현재geometry가달라질수있다.
 LoRA가명령별다른가중치를선택하는것은아니며동일LoRA가명령에따라달라진feature를처리한다.
@@ -1201,11 +1205,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 같은영상에서ego명령이FiLM을통해attribute CNN과현재geometry heads에들어가는코드경로를재확인했다.
-- 완료100update의12장면24명령교체진단에서위치반응평균0.002942px/최대0.026271px를기록했다. 초기명령반응은0이며현재변화도매우작다.
-- LoRA가중치는명령간공유됨,크기/presence의조건부경로와아직별도집계없는정량증거를구분했다. 학습·monitor·첫epoch비교예약유지.
+- 공식DrivoR source/온라인config와현LPWM cache/encoder를대조해4camera현재1frame은동일,1148×672대128²해상도는상이함을확인했다.
+- Pixel수47.0859배차이와종횡비·증강·정규화·사전학습·encoder FiLM·미래연산·현재LoRA예산차이를증거JSON과연구문서에명시했다.
+- 공식benchmark시스템비교와register/particle단독효과의통제비교를구분했다. 이전공정비교문서의1.343M수치는과거Q/V-only조건으로명시했다.
+- 현재본학습source/config와비교watcher유지. 해상도변경·추가DrivoR학습은기동하지않음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+DrivoR최종시스템benchmark와register–particle기전통제비교를구분한다. 후자는동일영상정보/해상도/종횡비/학습·planner조건및명령/미래연산효과통제필요. 단순128upsampling은해상도통제가아님. 이번턴대조실험자동추가없음.
 
 동일명령으로두조건의epoch1geometry비교와동일장면의명령교체검사를구분해해석한다. 기존intent_json은중심/feature/future민감도이며크기·presence별민감도집계는아직없다.
 
@@ -1548,6 +1555,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재조건은카메라수와planner를맞췄지만해상도와backbone등이달라strict register–particle통제비교가아님. 공식벤치마크시스템비교는설정공개하에가능하며particle구조단독효과주장불가. 현재128²LoRA적응검증은계속.
 
 명령조건부geometry가가능하고100update중심반응이실측됐지만평균0.00294px로작다. 유의미한객체재배치/주행효용이나크기민감도정량을이미확인했다고주장하지않는다.
 

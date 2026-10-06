@@ -1,0 +1,55 @@
+{
+  "drivor_commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+  "camera_ids_both": [
+    "CAM_F0",
+    "CAM_B0",
+    "CAM_L0",
+    "CAM_R0"
+  ],
+  "camera_count_both": 4,
+  "observed_frames_per_camera_both": 1,
+  "image_dimension_convention": "width,height",
+  "drivor_resolution": [
+    1148,
+    672
+  ],
+  "current_lpwm_resolution": [
+    128,
+    128
+  ],
+  "pixel_count_ratio_drivor_over_lpwm": 47.0859375,
+  "drivor_preprocessing": "full-image resize; ImageNet normalization; training GridMask",
+  "lpwm_preprocessing": "full-image BICUBIC resize to square128; RGB /255; native normalize_rgb=False; no GridMask",
+  "drivor_perception": "pretrained DINOv2 ViT-S/14 registers; Q/V LoRA rank32",
+  "current_lpwm_perception": "public Sketchy LPWM; geometry/appearance/future Linear229+Conv44 LoRA",
+  "current_lpwm_lora_parameters": 4683650,
+  "matched_elements": [
+    "camera identities",
+    "current observation time",
+    "official downstream planner and loss",
+    "64 memory tokens x256",
+    "v1 trainval25epochs and effective batch64"
+  ],
+  "remaining_confounders": [
+    "resolution and aspect ratio",
+    "backbone and pretraining",
+    "encoder command FiLM",
+    "latent future computation",
+    "augmentation",
+    "LoRA coverage and parameter budget",
+    "precision and exact update/last-batch conventions"
+  ],
+  "benchmark_system_comparison_possible_with_disclosure": true,
+  "isolated_register_vs_particle_causal_comparison": false,
+  "changed_running_training": false,
+  "new_baseline_training_started": false,
+  "sources": {
+    "reference_repositories/DrivoR/navsim/planning/script/config/common/agent/drivoR.yaml": "e8c82ed61465a30a898ac953be52778560dc37cb8668ed238e146bb25f9c3e81",
+    "reference_repositories/DrivoR/navsim/agents/drivoR/drivor_features.py": "82137a3b59fcb6fd614bd9073d2a5b31ef8b97efde2b675ac5010aee331ced7a",
+    "reference_repositories/DrivoR/navsim/agents/drivoR/layers/image_encoder/dinov2_lora.py": "a19495aa1113285743a96e1b13c5e3ca298c48f70f8dd3d702842f87388f5f4b",
+    "reference_repositories/DrivoR/README.md": "f2086a8f814784fdce44393a0e2d439c38d7bbc13e2930d1bddae1e50ad2742e",
+    "scripts/prepare_lpwm_drivor_joint_data.py": "f728e31abf1d2e67622c0e4d8ba3bcfd939884434f347b0cb8df32aadf92769f",
+    "src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py": "1c0f8e50e2a4a247ec2b36064bf7097371a497c24b286a1095d260be30dd2c9e",
+    "configs/lpwm_drivor_planning_path_lora/navsim_v1.json": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71"
+  }
+}
