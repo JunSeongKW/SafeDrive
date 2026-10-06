@@ -1,5 +1,14 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 15:05 KST 최신: 사용자 요청으로 매500update 표현 진단을 등록했다.**
+`scripts/monitor_lpwm_particle_trends_every500.py`, config `configs/lpwm_drivor_review/particle_trends_every500.json`.
+새 monitor568996이 기존 monitor3186135를 대체했다. 이전 monitor를 중복 실행하지 않는다.
+별도 root `outputs/lpwm_drivor_particle_trends_every500_v1/`의 registration/status/index 확인.
+기존 monitor의 watch.lock과 진단 output을 재사용해 exact1614 CPU 비교3317230과 호환한다.
+1000/1500/2000…500간격 + 기존epoch/final106시점. 정확checkpoint hardlink 보존, 미래update 대체 금지.
+학습3186133/queue3186134 및 기존279source/config·원래monitor registration은 불변이다.
+500진단 완료,582학습 진행 확인. 로컬보고/PNG 자동갱신이며 채팅push 기능은 연결되지 않았다.
+
 **2026-10-06 후속 요청: 첫 epoch에서 이전 LoRA 조건과 직접 시각화 비교를 예약했다.**
 별도CPU watcher3317230, `outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/status.json`.
 공통초기 / 이전Q·V LoRA1614 / 새세경로LoRA1614를 같은96장면·카메라·명령·particle번호로비교한다.

@@ -1,0 +1,40 @@
+{
+  "rows": [
+    {
+      "completed_updates": 0,
+      "previous_diagnostic_updates": 0,
+      "center_mean_from_initial_px": 0.0,
+      "center_max_from_initial_px": 0.0,
+      "size_mean_from_initial_percent": 0.0,
+      "presence_mean_from_initial": 0.0,
+      "center_mean_from_previous_px": 0.0,
+      "size_mean_from_previous_percent": 0.0,
+      "object_readout_macro_f1": 0.3798587565472067
+    },
+    {
+      "completed_updates": 100,
+      "previous_diagnostic_updates": 0,
+      "center_mean_from_initial_px": 0.009856763321817693,
+      "center_max_from_initial_px": 0.3113451600074768,
+      "size_mean_from_initial_percent": 0.08202107542696203,
+      "presence_mean_from_initial": 0.001728057114205835,
+      "center_mean_from_previous_px": 0.009856763321817693,
+      "size_mean_from_previous_percent": 0.08202107542696203,
+      "object_readout_macro_f1": 0.36894260958779257
+    },
+    {
+      "completed_updates": 500,
+      "previous_diagnostic_updates": 100,
+      "center_mean_from_initial_px": 0.07453045957275133,
+      "center_max_from_initial_px": 1.6037684679031372,
+      "size_mean_from_initial_percent": 0.559179355112365,
+      "presence_mean_from_initial": 0.015459665958803845,
+      "center_mean_from_previous_px": 0.0658506167473476,
+      "size_mean_from_previous_percent": 0.48173442009793943,
+      "object_readout_macro_f1": 0.3631571436965408
+    }
+  ],
+  "latest_updates": 500,
+  "scene_count": 96,
+  "not_independent_planning_validation": true
+}

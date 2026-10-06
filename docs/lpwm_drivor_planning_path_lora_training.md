@@ -267,3 +267,40 @@ geometry/feature/readout/개입추세를함께본다. 그때도geometry가필요
 
 실행스크립트: `scripts/audit_lpwm_lora_update_strength.py`.
 근거: `results/lpwm_drivor_planning_path_lora_v1/update300_lora_strength_audit.json`.
+
+## 2026-10-06 — 매500 update 변화 추세 자동 진단
+
+사용자 요청에 따라 별도 controller `scripts/monitor_lpwm_particle_trends_every500.py`와
+`configs/lpwm_drivor_review/particle_trends_every500.json`을 등록했다.
+새 PID568996이 이전 읽기 전용 monitor3186135를 대체한다. 본학습3186133, queue3186134,
+첫 epoch 조건 비교3317230 및 기존279개 source/config hash는 유지했다.
+
+- 일정: 500/1000/1500/2000… + 기존100/각epoch경계/최종40350, 중복 제거106시점.
+- atomic `latest.pt`의 정확한 update를 hard link로 보존한다. 진단이 메모리를 기다려도 checkpoint를 먼저 확보한다.
+  다음 update를 이전 시점으로 잘못 표기하지 않는다. Epoch checkpoint fallback은 쓰기가 끝난 뒤 사용한다.
+- 같은96장면×4카메라, 같은 초기particle 번호·top16박스로 초기 대비 및 직전 진단 대비 geometry를 비교한다.
+  카메라별/직진·좌·우회전별 분포, 표현 readout·미래·명령 반응·개입 진단은 기존 evaluator를 재사용한다.
+- output: `outputs/lpwm_drivor_particle_trends_every500_v1/index.html`, `trend.png`, `trend.csv`,
+  `latest_report.txt`, `reports/update_XXXXXX.json`. Gallery는60초새로고침; 자동채팅push는 연결되지 않았다.
+- 원래 output의 `update_001614/complete.json`을 그대로 사용하므로 첫epoch Q/V-only vs 세경로 비교와 호환된다.
+- GPU0 카드전체42GB미만 진입, allocator4GiB,46.5GB중단guard. 학습48decimalGB 상한 유지.
+  진단 실패는 status에 기록하고 학습은 건드리지 않는다. 현재 시점 소요약5분 + 로딩/시각화 여유.
+
+검증: CPU4개 검사 통과(atomic교체 후 원본 snapshot보존,이전checkpoint거절,미래checkpoint오표기거절,
+epoch/final일정유지). 기존0/100/500결과로보고서·이미지생성을확인했고새controller생존/다음1000대기확인.
+이번500결과는 교체 전 evaluator가 완료한 정확500진단을 재사용했으며 새 학습 결과로 다시 계산하지 않았다.
+
+| 초기 대비 변화 | 100 update | 300 update(현재 geometry만) | 500 update |
+|---|---:|---:|---:|
+| 중심 평균 이동,128²입력px | 0.00986 | 0.03150 | 0.07453 |
+| 크기 축 평균 절대변화율 | 0.0820% | 0.2369% | 0.5592% |
+| Presence 평균 절대변화 | 0.001728 | 0.005987 | 0.015460 |
+
+500의 최대 중심 이동은1.60377px. 차량/보행자 영역의 중심비율은초기와같고,
+도로proxy는20.0329→20.0164%로 뚜렷한재배치가없다. 전체현재particle정보readout F1은초기.379859→.363157,
+appearance-only는.292610→.304012로혼재한다. 같은장면의명령교체시중심평균변화는.018508px이다.
+결론: 변화 크기는증가했으나주행효용개선은아직확인되지않았다. 이panel은학습분포진단이며독립navtest가아니다.
+
+15:05KST학습582update,최근100속도26.49초/update. 다음1000도달18:09KST,보고는추가10~20분여유추정.
+500간격은현재속도로약3.68시간이다. 공유부하/진단메모리대기에따라변동한다.
+등록·상태·500보고/이미지공유본: `results/lpwm_drivor_planning_path_lora_v1/particle_trends_every500/`.

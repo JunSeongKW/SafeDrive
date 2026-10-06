@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**2026-10-06 15:05 KST — 500 update 간격 자동 표현 진단 실행 중.**
+[누적 이미지·보고서](outputs/lpwm_drivor_particle_trends_every500_v1/index.html), 새 monitor PID568996.
+기존 monitor3186135만 교체했으며 본학습3186133·queue3186134·첫 epoch 비교3317230은 유지한다.
+정확한500진단 완료: 중심 평균0.07453px, 크기 평균0.5592% 변화. 주행 효용 개선은 아직 미확인.
+이후1000/1500/2000… 및 기존 epoch 경계 진단. 자동 채팅 푸시는 연결되지 않았으며 로컬 결과가 갱신된다.
+
 **실제 입력 이미지:** [원본1920×1080 / 학습입력128×128 비교](outputs/lpwm_camera_input_visualization_v1/four_camera_original_vs_input.png) · [4카메라 원본 갤러리](outputs/lpwm_camera_input_visualization_v1/index.html).
 
 **2026-10-06 후속 요청: 첫 epoch에서 이전 LoRA 조건과 직접 시각화 비교를 예약했다.**

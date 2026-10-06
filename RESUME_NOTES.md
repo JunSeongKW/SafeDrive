@@ -2841,3 +2841,18 @@ Script:scripts/audit_lpwm_lora_update_strength.py;근거:results/lpwm_drivor_pla
 전체예상은대략26~28시간,10/7오후4~5시전후이며공유서버부하나메모리대기로변동가능.
 이는표현변화추세진단이며최종25epoch/공식benchmark완료예상이아니다.학습·대기열설정변경없음.
 근거:results/lpwm_drivor_planning_path_lora_v1/eta_update393_20261006_1341.json.
+
+## 2026-10-06 15:05 KST — 매500 update 자동 진단 등록·500결과 확인
+
+사용자요청으로scripts/monitor_lpwm_particle_trends_every500.py와별도config/registration추가.
+기존read-onlymonitor3186135만검증후종료하고새568996기동. Train3186133/queue3186134/epoch비교3317230은유지.
+원래279source/config·monitorregistration보존, 새controller는원래watch.lock/evaluator/output을재사용한다.
+매500+기존epoch/final106시점, exactatomiccheckpointhardlink보존;나중update대체금지.
+CPU4검사통과,0/100/500보고서/PNG/CSV/HTML생성확인. Gallery outputs/lpwm_drivor_particle_trends_every500_v1/index.html.
+채팅push도구미연결로자동메시지발송은설정하지못했음을사용자에게알렸다. 로컬결과자동갱신.
+
+교체전원래evaluator의정확500결과완료를재사용:중심평균.074530px/최대1.603768px,크기.5592%,presence.015460.
+300보다변화증가하지만차량/보행자중심비율동일,도로proxy미세감소. 전체currentreadoutF1 .379859→.363157,
+appearance-only .292610→.304012. 명령교체중심변화.018508px. 주행효용개선은미확인.
+582update/최근100속도26.49초,1000학습도달18:09KST+진단여유10~20분예상. 500간격약3.68시간.
+500시점보고서/PNG와새등록·상태근거를results/lpwm_drivor_planning_path_lora_v1/particle_trends_every500/에보존.

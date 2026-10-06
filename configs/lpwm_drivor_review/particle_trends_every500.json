@@ -1,0 +1,15 @@
+{
+  "training_directory": "outputs/lpwm_drivor_planning_path_lora_v1/navsim_v1",
+  "monitor_directory": "outputs/lpwm_drivor_planning_path_representation_monitor_v1",
+  "output_directory": "outputs/lpwm_drivor_particle_trends_every500_v1",
+  "update_interval": 500,
+  "total_updates": 40350,
+  "updates_per_epoch": 1614,
+  "poll_seconds": 10,
+  "diagnostic_gpu": 0,
+  "admission_total_card_bytes": 42000000000,
+  "preserve_existing_epoch_diagnostics": true,
+  "checkpoint_policy": "Preserve exact atomic latest.pt with a hard link; never substitute a later update",
+  "notification_delivery": "Local reports and gallery only; no chat push tool is connected",
+  "training_changes": false
+}

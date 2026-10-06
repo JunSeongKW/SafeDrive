@@ -1,0 +1,12 @@
+{
+  "pid": 3186135,
+  "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -u scripts/monitor_lpwm_drivor_planning_path_representations.py --watch ",
+  "last_status": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 578,
+    "last_evaluated_update": 500,
+    "next_milestone": 1000
+  },
+  "reason": "User requested exact diagnostics every 500 optimizer updates",
+  "unix": 1791266621.9243653
+}

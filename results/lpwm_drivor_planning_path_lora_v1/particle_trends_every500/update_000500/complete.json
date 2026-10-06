@@ -1,0 +1,18 @@
+{
+  "complete": true,
+  "completed_updates": 500,
+  "checkpoint_sha256": "22e12a95200cdf1126960178de495ecda8a49086f655d801b65ba8e330a6312a",
+  "scene_count": 96,
+  "change_from_initial": {
+    "current_center_mean_shift_px": 0.07453043013811111,
+    "current_center_max_shift_px": 1.6037683486938477,
+    "foreground_feature_rms_change": 0.17383208870887756
+  },
+  "seconds": 287.30236530303955,
+  "not_full_navtest": true,
+  "not_independent_planning_validation": true,
+  "counterfactual_commands_have_no_alternative_gt": true,
+  "interventions_can_cause_distribution_shift": true,
+  "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "max_diagnostic_reserved_bytes": 673185792
+}
