@@ -2831,3 +2831,13 @@ Warmup3322update=2.058epoch,300step LR1.80616e-5=peak9.03%,평균사용LR9.00079
 기존firstepoch진단및warmup후4000진단을함께볼것을권고. 현재등록본학습변경/GPU추가사용없음.
 Script:scripts/audit_lpwm_lora_update_strength.py;근거:results/lpwm_drivor_planning_path_lora_v1/update300_lora_strength_audit.json.
 공식LoRA원논문4.1의zero-B/additive W0+BA 설명확인:https://arxiv.org/html/2106.09685#S4.SS1.
+
+## 2026-10-06 13:41 KST — 4000 update 추세진단 ETA
+
+사용자질문에대해진행로그와이전진단시간을읽었다.393/4000,남은3607update.
+최근50/100/200wall속도25.572/26.500/27.364초,4000까지25.62/26.55/27.42시간.
+중앙예상10/7 16:14KST.첫epoch10/6 22:40,3322warmup완료10/7 11:15KST.
+기존96장면진단본체309.10/280.46초.모델로딩/시각화/상황변동을위해추가10~20분정도여유를본다.
+전체예상은대략26~28시간,10/7오후4~5시전후이며공유서버부하나메모리대기로변동가능.
+이는표현변화추세진단이며최종25epoch/공식benchmark완료예상이아니다.학습·대기열설정변경없음.
+근거:results/lpwm_drivor_planning_path_lora_v1/eta_update393_20261006_1341.json.

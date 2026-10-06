@@ -1,0 +1,80 @@
+{
+  "observed_kst": "2026-10-06T13:41:11.603590+09:00",
+  "completed_updates": 393,
+  "estimates": [
+    {
+      "window_updates": 50,
+      "wall_seconds_per_update": 25.572228869613337,
+      "milestones": {
+        "1614": {
+          "remaining_updates": 1221,
+          "remaining_hours": 8.673247624943857,
+          "eta_kst": "2026-10-06T22:21:35.295040+09:00"
+        },
+        "3322": {
+          "remaining_updates": 2929,
+          "remaining_hours": 20.805849544193737,
+          "eta_kst": "2026-10-07T10:29:32.661949+09:00"
+        },
+        "4000": {
+          "remaining_updates": 3607,
+          "remaining_hours": 25.621952647970918,
+          "eta_kst": "2026-10-07T15:18:30.633123+09:00"
+        }
+      }
+    },
+    {
+      "window_updates": 100,
+      "wall_seconds_per_update": 26.49981504257279,
+      "milestones": {
+        "1614": {
+          "remaining_updates": 1221,
+          "remaining_hours": 8.987853935272605,
+          "eta_kst": "2026-10-06T22:40:27.877757+09:00"
+        },
+        "3322": {
+          "remaining_updates": 2929,
+          "remaining_hours": 21.560543961026585,
+          "eta_kst": "2026-10-07T11:14:49.561850+09:00"
+        },
+        "4000": {
+          "remaining_updates": 3607,
+          "remaining_hours": 26.551342460711126,
+          "eta_kst": "2026-10-07T16:14:16.436449+09:00"
+        }
+      }
+    },
+    {
+      "window_updates": 200,
+      "wall_seconds_per_update": 27.36391097576774,
+      "milestones": {
+        "1614": {
+          "remaining_updates": 1221,
+          "remaining_hours": 9.28092647261456,
+          "eta_kst": "2026-10-06T22:58:02.938891+09:00"
+        },
+        "3322": {
+          "remaining_updates": 2929,
+          "remaining_hours": 22.26358201333992,
+          "eta_kst": "2026-10-07T11:57:00.498838+09:00"
+        },
+        "4000": {
+          "remaining_updates": 3607,
+          "remaining_hours": 27.417118580442846,
+          "eta_kst": "2026-10-07T17:06:13.230480+09:00"
+        }
+      }
+    }
+  ],
+  "previous_complete_diagnostic_seconds": [
+    309.09719467163086,
+    280.45825147628784
+  ],
+  "diagnostic_startup_and_rendering_extra_allowance_minutes": [
+    10,
+    20
+  ],
+  "allowance_is_estimate_not_measured_total": true,
+  "changes_training": false,
+  "scope": "ETA for 4000-update representation trend diagnosis, not final benchmark performance"
+}
