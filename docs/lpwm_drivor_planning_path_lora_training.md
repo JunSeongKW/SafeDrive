@@ -194,4 +194,3 @@ loss/update수·평가를맞춘조건,(3)동일pretrained visual features에서r
 본학습설정을중간에바꾸거나DrivoR대조학습을추가기동하지않았다. 사용자의25epoch후DrivoR비교지시는유지한다.
 근거: `results/lpwm_drivor_planning_path_lora_v1/camera_input_fairness_audit.json`.
 공식설정: <https://github.com/valeoai/DrivoR/blob/main/navsim/planning/script/config/common/agent/drivoR.yaml>.
-
