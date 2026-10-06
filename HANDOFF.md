@@ -1,5 +1,12 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 최신 요청: 중간 공식 PDMS 직접 평가 완료.**
+고정96패널 중 standard metric cache가 있는 동일95장면/24recording에서 초기/500/1000을채점했다.
+공식NAVSIM v1 PDMS:30.4299→63.4057→67.8315. 학습분포진단이며fullnavtest아님.
+500→1000+4.4258점,paired recording bootstrap95%CI[-2.8158,11.0167]. 우회전63.8250→54.6835저하.
+새script `scripts/evaluate_lpwm_intermediate_panel_pdms.py`, 결과 `results/lpwm_drivor_planning_path_lora_v1/intermediate_pdms_95_v1/`.
+학습·기존정기표현monitor유지. 이번95PDMS는완료된일회평가다.
+
 **2026-10-06 19:20 KST 최신 중간점검:** 본학습1090/40350, 첫epoch67.53%, 자동진단1000완료·다음1500대기.
 Train3186133/queue3186134/monitor568996/비교3317230 생존. GPU0·1전체약41.14GB, utilization95/100% 표본.
 1000의중심평균0.667px·크기평균변화5.831%; 18.71%가1px초과,52.27%가한축크기5%초과.
@@ -76,7 +83,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 19:23 KST (Codex)
+마지막 갱신: 2026-10-06 20:01 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -243,6 +250,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+중간PDMS평가2617416은285scene-checkpoint채점완료. 기존본학습/queue/500표현monitor/epoch비교계속.
+출력 `outputs/lpwm_drivor_intermediate_pdms_v1/evaluation_complete.json`. 학습source/config변경없음.
 
 2026-10-06 19:20KST: 학습1090/1614(첫epoch67.53%),25epoch총40350. 기존4개process생존확인.
 500간격monitor는exact1000완료/1500대기,epoch1비교는1614대기. 학습·진단설정변경없음.
@@ -689,6 +699,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+95동일학습장면공식PDMS 초기30.429935 /500:63.405664 /1000:67.831505. Zero score46/16/11장면.
+GT경로ADE9.55123/4.54123/3.17766m. 500→1000좌회전63.2932→74.3446,직진63.2425→70.7622,우회전63.8250→54.6835.
+500→1000PDMS차이+4.42584,24recordingpairedbootstrap5000회95%CI[-2.81579,11.01668];확정개선은아님.
+공식pdm_score의standardMetricCache/LQR40×.1s를사용. DrivoR trainingoracle의12장면점수와구분한다.
+정확한0/500/1000표현을planner로재생,기존12baseline×3=36ADE일치검사오차0/nativefreeze동일/평가GPU전체최대41.98GB.
+Metric cache없는20c5f1c678e7548a는모든시점에서동일제외. 95성공×3/채점실패0. Navtest일반화·LPWM단독효과미검증.
 
 1000진단: 위치평균0.66717px/최대6.91409px,크기평균절대변화5.83110%,presence절대변화.185218.
 Geometry18.71%가1px초과이동,52.27%가크기한축5%초과변화. 직진/좌/우평균위치.707/.630/.645px.
@@ -1268,12 +1285,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 1090update 진행상태와 정확1000update의geometry/readout/의도/개입/미래판독 결과를검토했다.
-- 500→1000에서geometry변화증가를확인했으나appearance-only판독저하·도로presence감소·미래추가이득미확인을함께기록했다.
-- 같은초기도로particle부분집합의presence를CPU분해하고추세/1000이미지/진단요약/ETA를결과폴더에보존했다.
-- 기존train/queue/monitor/epoch비교생존확인; 학습source/config·LR·loss·배치·대기열은변경하지않았다.
+- 사용자PDMS확인요청으로정확한초기/500/1000표현을재생해같은95학습장면의공식NAVSIM v1 PDMS를평가했다.
+- 독립평가script추가,원래36baseline재생일치와nativefreeze/메모리guard검사통과. 285건성공/실패0.
+- 30.43→63.41→67.83점,우회전저하및paired95%CI를함께보고서/CSV/그래프에보존했다.
+- 최초sandbox NVML조회실패뒤허용된host평가2617416으로완료. 학습·queue·정기표현진단source/config변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+PDMS95중간평가는완료. 이후정확한500경계PDMS가필요하면새output에동일script --updates <시점>으로실행할수있다.
+이번에는정기PDMSwatcher를추가하지않았다. 기존500간격표현진단은계속되며fullnavtest는25epoch완료후queue일정유지.
 
 19:20KST기준: 다음1500학습도달10/6 22:42~23:00,첫1614는23:38~10/7 00:01(진단처리별도)예상.
 4000은속도변동반영시10/7 19:08~21:16전후로이전ETA보다늦어졌다. 최근50/100/200wall속도29.42/31.84/32.07초.
@@ -1638,6 +1658,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+새중간PDMS는공식metric계산법의학습분포95장면값이다. 최종navtest벤치마크/논문비교점수와혼동하지않는다.
+LPWM+planner공동학습전체효과이며LPWM미세조정단독효과는분리되지않았다. +4.43점의CI가0포함/우회전저하도남음.
+공식cache없는한장면을결과를보기전동일제외했으며이유/token을등록했다. 성공한장면만사후선택한결과가아니다.
 
 최신판정: geometry경로planninggradient·출력변화는확인. LoRA/FiLM/planner단독효과분리및독립planning성능은미검증.
 1000은warmup3322중이고LRpeak30.10%;더학습하면주행객체집중/성능이반드시개선된다고보장하지않는다.

@@ -2872,3 +2872,19 @@ GPU0·1전체41.14GB내외/95·100%util표본. exact1000진단완료,1500대기.
 양rank100update평균loss28.0283→14.5374→7.7566,planner공동학습전체결과이며LPWM단독효과아님.
 1000LRpeak30.10%/warmup3322중. 첫epoch학습23:38~00:01,4000은10/7 19:08~21:16속도기반범위(진단여유별도).
 근거/시각화: results/lpwm_drivor_planning_path_lora_v1/intermediate_update1000_20261006/.
+
+## 2026-10-06 — 고정95장면 중간 공식 PDMS
+
+사용자PDMS확인요청으로scripts/evaluate_lpwm_intermediate_panel_pdms.py를추가하고평가완료.
+공통96패널중standardMetricCache없는20c5f1c678e7548a를모든시점에서동일제외,95장면/24recording.
+정확0/500/1000particleattributes를동일checkpointplanner로재생하고공식NAVSIM v1 pdm_score/LQR40×.1s로채점.
+DrivoRtrainingoracle로이미계산한12장면점수를정식평가로바꾸어부르지않았다.
+기존12baseline×3의ADE재생일치36개/최대오차0,원래nativehash보존,평가GPU전체최대41.98079GB.
+Sandbox NVML조회실패뒤host재시도2617416으로완료. 추가모델학습없음/기존source/config/queue/monitor변경없음.
+
+PDMS초기30.429935/500:63.405664/1000:67.831505,zero score46/16/11,expertADE9.55123/4.54123/3.17766m.
+500→1000좌회전63.29317→74.34462,직진63.24252→70.76221,우회전63.82499→54.68349.
+500→1000+4.42584점,24recordingpairedbootstrap5000회seed71의95%CI[-2.81579,11.01668].
+전체초기→1000+37.40157점CI[29.95645,45.10453]. 학습분포공동학습진단이며독립navtest/LPWM단독이득은아님.
+285scene-checkpoint채점성공/실패0. 결과/CSV/등록/replay검사/그래프 results/.../intermediate_pdms_95_v1/.
+이번PDMS는완료된일회평가이며기존500표현watcher에는source불변원칙에따라변경을넣지않았다.

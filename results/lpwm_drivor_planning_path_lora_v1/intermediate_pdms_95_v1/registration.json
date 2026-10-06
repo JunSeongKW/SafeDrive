@@ -1,0 +1,37 @@
+{
+  "source_sha256": "e085f40a1f646467967c49ca6357d88c5a2f432bdc4ad3c3a1817a7f5285f182",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "updates": [
+    0,
+    500,
+    1000
+  ],
+  "checkpoints": {
+    "0": {
+      "checkpoint": "public initialization + seed2 planner",
+      "checkpoint_sha256": null,
+      "attributes_sha256": "406679e8b7f345b151a33b76456a590dc889966e0dea38f667ce1b35eb221470"
+    },
+    "500": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_planning_path_representation_monitor_v1/checkpoint_snapshot.pt",
+      "checkpoint_sha256": "22e12a95200cdf1126960178de495ecda8a49086f655d801b65ba8e330a6312a",
+      "attributes_sha256": "778fed1fcc494f3a87930b4596ba252a05818f94a5a828919d92a7fa4c21ba82"
+    },
+    "1000": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_particle_trends_every500_v1/checkpoints/update_001000.pt",
+      "checkpoint_sha256": "33940c5d1ce3dab74b32d98d30b95a8a7bfcf27323dd1e121fe30b127ff2b2f4",
+      "attributes_sha256": "ecd25ad42cf7668a45fc1cba77be3351b056014d655f3587a1308b78788ed971"
+    }
+  },
+  "scene_count": 95,
+  "panel_count": 96,
+  "excluded_missing_official_cache": [
+    "20c5f1c678e7548a"
+  ],
+  "training_distribution": true,
+  "full_navtest": false,
+  "scoring": "Unmodified official NAVSIM v1 pdm_score with standard MetricCache, 40 x 0.1s simulator sampling",
+  "cached_representation_replay": true,
+  "model_updates": false,
+  "started_unix": 1791284212.2512972
+}

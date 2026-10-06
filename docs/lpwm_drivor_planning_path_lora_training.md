@@ -351,3 +351,38 @@ Presence는plannerattention이아니며도로proxy는semanticsegmentation이아�
 첫epoch1614는23:38~10/7 00:01,4000은10/7 19:08~21:16학습도달예상;진단처리10~20분여유별도.
 이는현재공유부하외삽이며보장/통계적예측구간이아니다.
 시각화/근거: `results/lpwm_drivor_planning_path_lora_v1/intermediate_update1000_20261006/`.
+
+## 2026-10-06 — 중간 공식 PDMS 평가
+
+사용자가PDMS도확인하도록요청해 `scripts/evaluate_lpwm_intermediate_panel_pdms.py`를추가했다.
+고정96패널중standardMetricCache가있는동일95장면/24recording을초기·500·1000에서비교했다.
+Metric cache없는token `20c5f1c678e7548a`는결과를보기전모든시점에서같이제외했다.
+공식NAVSIM v1 `pdm_score`와standardMetricCache,40×.1s simulator를사용한다.
+기존12장면의DrivoR trainingoracle값은progress정규화/scorer구현이다르므로이공식95점수와합치지않는다.
+
+| 시점 | PDMS | GT경로 ADE(m) | PDMS 0점 장면 |
+|---|---:|---:|---:|
+| 학습 전 | 30.4299 | 9.5512 | 46/95 |
+| 500 update | 63.4057 | 4.5412 | 16/95 |
+| 1000 update | 67.8315 | 3.1777 | 11/95 |
+
+| 상황 | 500 PDMS | 1000 PDMS | 장면수 |
+|---|---:|---:|---:|
+| 직진 | 63.2425 | 70.7622 | 41 |
+| 좌회전 | 63.2932 | 74.3446 | 30 |
+| 우회전 | 63.8250 | 54.6835 | 24 |
+
+500→1000+4.42584점,24recording pairedbootstrap5000회/seed71의95%CI[-2.81579,11.01668].
+평균은높아졌으나추가개선확정은아니다. 우회전은낮아졌고작은학습패널의장면구성에영향받는다.
+초기→1000+37.40157점CI[29.95645,45.10453]은무작위planner부터의공동학습효과이며LPWM단독효과분리는아니다.
+1000mean no-at-fault collision.96842/drivable compliance.90526/TTC.90526/comfort.98947/progress.45427.
+
+기존저장particle을모델planner로재생하므로영상encoder재추론을줄였다. 기존12baseline×3의GT ADE일치36검사
+최대오차0,정확checkpointSHA/nativefreezehash/원래monitor source등록검사를통과했다.
+GPU0진입42GB미만/allocator4GiB/46.5GBguard,실제전체최대41.98079GB. CPU2worker로285건채점성공/실패0.
+최초sandbox NVML실패후host에서실행했으며평가2617416은완료됐다. 본학습/queue/500표현monitor는유지한다.
+
+Output `outputs/lpwm_drivor_intermediate_pdms_v1/evaluation_complete.json`,공유결과
+`results/lpwm_drivor_planning_path_lora_v1/intermediate_pdms_95_v1/summary.json`,CSV,`pdms_progress.png`.
+이것은학습분포중간진단이며fullnavtest가아니다. 최종25epoch후fullnavtest평가일정은기존queue에있다.
+이번95PDMS는일회평가다. 이후확인시별도output에 `--updates 1500` 등으로실행할수있다.
