@@ -1,5 +1,53 @@
 # 학습 중 particle 유용성 검사와 DrivoR 공정 비교
 
+## 2026-10-06 제안 검토: 첫 epoch 진단 이후 1148×672 조건
+
+사용자는 현재 첫 epoch를 이전 조건과 비교해 개선이 보이면 DrivoR와 같은 전처리·1148×672로 본학습하는 방향을 제안했다.
+**권고: 해상도 차이를 줄이는 타당한 후속 방향이다. 다만 현재 코드의 resize 설정만 바꿀 수 없고, 고해상도 구조·가중치 호환성과 실제 GPU 비용을 먼저 검증해야 한다.**
+이번 턴은 코드 조사와 설계 검토이며 고해상도 구현·실측·학습·예약 변경은 수행하지 않았다.
+
+### 첫 epoch가 답할 수 있는 범위
+
+이전 Q/V-only와 새 세 경로 LoRA의 정확한 1614 update를 같은 장면·명령에서 비교한다.
+위치/크기/presence 변화와 collapse를 검사하고, 객체 상태 readout·미래 정보·명령 반응·particle 개입에 따른 planning 반응을 함께 본다.
+점이 차량이나 도로로 옮겨갔다는 사실만으로 planning 개선을 선언하지 않는다. 현재 96장면은 trainval 진단 분포다.
+최종 navtest를 해상도·설계 선택의 반복 튜닝에 사용하지 않으며, 독립 성능을 말하려면 별도 미학습 개발 평가 설계가 필요하다.
+첫 epoch 결과는 초기 학습 경향이며 25 epoch 성능이나 고해상도 효과의 증거가 아니다. 개선 미확인도 저해상도 정보 손실과 학습량의 영향을 배제하지 못한다.
+조회한 비교 watcher snapshot은 285/1614 update, waiting_for_exact_epoch1_representations였다.
+
+### 코드에서 확인한 변경 지점
+
+- 현재 ParticleSceneEncoder.forward는 (4,3,128,128)을 assert하며 cache도128²다.
+- LPWM models.py는 image_size를 정수·정사각형으로 사용하고 num_patches=(image_size//patch_size)^2로 계산한다.
+- modules/modules.py ImagePatcher는 H/W에 같은 image_size를 쓰고 patch 위치와 unfold shape를 정사각형에서 생성한다.
+- ParticleAttributeEncoder의 geometry Linear 입력 차원은 crop_size와 CNN 출력 공간 크기에 의존한다.
+- ParticleFeaturesEncoder, BgEncoder, ParticleInteractionEncoder에도 공간 크기에 의존하는 flatten/projection이 있다.
+- 실제 공개 hparams의 patch_size=16이며 1148은16의 배수가 아니다. 가장자리 padding/valid mask 및 원래 좌표 복원을 명시해야 한다.
+
+따라서 H/W 분리, patch 좌표 및 경계 처리, glimpse 좌표·크기 정의, feature projection을 함께 조정해야 한다.
+기존 CNN/heads를 재사용하는 후보는 고해상도 feature에서 고정 크기 glimpse 또는 pooling을 만드는 방법이다.
+그 과정에서 전체 영상이 다시128²로 축소돼 작은 객체 정보가 사라지는지 검사해야 한다. 이것은 후보 설계이며 호환성 검증 결과가 아니다.
+처음에는 현재64particle/카메라·16planner token/카메라를 유지해 particle 예산 변경 효과를 함께 섞지 않는 것을 권한다.
+Context/dynamics는 latent particle 인터페이스를 유지하면 재사용할 후보지만 전체 checkpoint strict 호환이 자동 보장되지는 않는다.
+
+### 전처리·실행·비교 권고
+
+같은4카메라·현재시점, 원본에서1148×672 resize, 보간 및 GridMask 정책을 맞춘다. 공식 DrivoR은 ImageNet mean/std를 쓴다.
+공개 LPWM은 RGB[0,1]을 사용하므로 동일 정규화값을 그대로 넣으면 입력분포가 달라진다.
+Backbone 경계의 고정 역정규화 또는 정규화 적응 여부를 따로 검증·명시해야 하며, 서로 다른 처리를 완전히 동일하다고 부르지 않는다.
+공식 코드: <https://github.com/valeoai/DrivoR/blob/main/navsim/agents/drivoR/drivor_features.py>.
+공식 설정: <https://github.com/valeoai/DrivoR/blob/main/navsim/planning/script/config/common/agent/drivoR.yaml>.
+
+입력 pixel은47.0859배지만 총VRAM·시간이같은배수라고 추정하지 않는다. 실제forward/backward·finite gradient·checkpoint 재사용·고정가중치 보존과 두 GPU 카드전체48GB 이하를 실측한다.
+작은 microbatch부터 프로파일하고 gradient accumulation으로 effective batch64를 유지한다. 현재batch16의 유지 가능성은 미확인이다.
+작은 실측은 실행 호환성 검사이며 최종 본학습은 동일한 전체 split·학습량·planner/loss로 수행하는 별도 조건을 권한다.
+
+공정 비교용 기본안은 공개 가중치에서 새 고해상도 run을 시작하는 것이다. 현재128²의1epoch를 이어받으면 추가 학습 이력이 생긴다.
+128² warmup→고해상도 전환은 별도 curriculum으로 기록하고 DrivoR에도 대응 학습량을 맞춰야 한다.
+고해상도용 구조 변경 후 같은 구조의128² 대조가 있어야 해상도 효과와 구조 변경 효과를 분리할 수 있다.
+해상도를 맞춰도 DINO/LPWM 사전학습, encoder 명령 FiLM, 미래 계산, LoRA 범위 차이는 남는다. 시스템 비교와 register–particle 단독 인과 비교를 구분한다.
+
+
 ## 2026-10-06 재확인: 카메라 입력과 현재 세 경로 LoRA의 비교 범위
 
 공식DrivoR NAVSIM recipe와현runtime을대조했다. 카메라는F0/B0/L0/R0의4개와현재1frame로같다.

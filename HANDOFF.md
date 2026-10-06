@@ -63,7 +63,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 12:52 KST (Codex)
+마지막 갱신: 2026-10-06 12:55 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -230,6 +230,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-06 후속 방향 검토: 1epoch 비교 후 1148×672 본학습 제안을 코드 기준으로 검토했다. 이번 턴은 조사·설계만 수행했으며 현재 학습·queue·등록 소스는 변경하지 않았다.
 
 2026-10-06 추가 조사: 공식 LPWM 공개 가중치의 해상도를 확인했다. 이번 턴에는 학습·설정·대기열을 변경하지 않았다.
 
@@ -661,6 +663,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+고해상도 전환은 resize만의 변경이 아니다. LPWM의 정사각 patch 좌표, geometry/feature head의 공간 의존 projection, 원본 RGB 정규화 차이를 확인했다. 첫epoch 이동량만으로 planning 개선을 판단하지 않는다. 상세 docs/lpwm_drivor_representation_and_fair_comparison.md 최신 절.
 
 2026-10-06 공개 체크포인트 조사: 공식 Model Zoo의 Sketchy LPWM/Action, BAIR LPWM, LanguageTable/Bridge Language 모델 5종 모두 128×128이다. 공식 목록에서 다른 해상도의 공개 가중치는 확인되지 않았다. 64×64 config와 256×256 데이터셋은 공개 가중치와 구분한다. 상세와 URL은 RESUME_NOTES 최신 절.
 
@@ -1216,11 +1220,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공식 LPWM Model Zoo와 Releases를 확인해 공개 목록의 5개 모델이 모두 128×128임을 기록했다.
-- 다른 해상도의 학습 설정·데이터셋과 사전학습 가중치를 구분하고 조사 범위의 한계를 명시했다.
-- 이번 변경은 조사 기록뿐이며 학습 코드·설정·대기열·가중치는 변경하지 않았다.
+- 1epoch 비교 후 DrivoR1148×672 본학습 제안의 타당성·검증 순서를 공정 비교 문서에 기록했다.
+- 정사각형/patch 경계/공간 의존 head/정규화 차이를 코드에서 확인하고 checkpoint·VRAM 실측이 필요한 범위를 명시했다.
+- Geometry 이동과 planning 효용, 해상도 효과와 구조 효과, 시스템 비교와 register–particle 인과 비교를 구분했다.
+- 고해상도 구현·학습이나 기존queue/등록source 변경은 수행하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+후속 제안: exact1epoch 표현 비교 → 직사각 LPWM 가중치/gradient/48GB 비용 호환성 검사 → 새 공개 초기화의1148×672 본학습. 이는 이번 턴의 권고이며 새 고해상도 학습이나 현재queue 대체를 등록하지 않았다.
 
 다른 해상도의 공개 가중치가 발견된 것으로 취급하지 않는다. 고해상도 활용을 검토할 경우 기존 가중치의 재사용 범위와 구조 호환성을 먼저 확인해야 한다. 현재 첫 epoch 비교 예약은 유지한다.
 
@@ -1569,6 +1576,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+1148×672 고해상도 LPWM의 실제 실행·성능은 미검증이다. 현재batch16 유지 가능성, 정규화/공간 projection 재사용 방식이 미정이다. 해상도 일치만으로 register–particle 단독효과가 분리되지는 않는다.
 
 공개 가중치 조사 범위는 공식 Model Zoo·Releases와 저자 공개 자료다. 모든 외부 배포처에서 가중치가 없음을 증명한 것은 아니며, 고해상도 가중치 다운로드·호환 실험·학습은 수행하지 않았다.
 

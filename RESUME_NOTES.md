@@ -2784,3 +2784,19 @@ loss/update수·평가를맞춘조건,(3)동일pretrained visual features에서r
 모든 외부 배포처에 없다고 단정하거나 LPWM 구조가 오직 128만 지원한다고 해석하지 않는다.
 고해상도 적용은 기존 가중치 재사용·구조 호환성·추가 적응 필요성을 따로 검토해야 한다.
 이번 턴에는 checkpoint 다운로드, 고해상도 실험, 현재 학습/queue/등록 source/config 변경을 하지 않았다.
+
+## 2026-10-06 — 첫 epoch 후 DrivoR 동일 해상도 본학습 제안 검토
+
+사용자 제안은 1epoch 비교에서 개선이 확인되면1148×672·DrivoR 전처리로 본학습하는 것이다.
+방향은 타당하지만 LPWM의 H/W·patch 좌표·공간 의존 Linear/glimpse·정규화 호환성 변경과 실측이 먼저 필요하다.
+현재 ParticleSceneEncoder에는4×3×128×128 assert가 있고 공식 LPWM에는 정사각 image_size 가정이 있다.
+공개 hparams patch16에서1148경계 처리가 필요하고 geometry head의 fc_in_dim은 crop 공간 크기에 의존한다.
+공식 DrivoR ImageNet정규화와 LPWM RGB[0,1] 입력 차이는 같은 resize만으로 해결되지 않는다.
+
+현재 firstepoch comparison watcher snapshot은285/1614, exact 표현을기다리는중이었다.
+1epoch에서 점 이동/크기 변화와 표현 readout/미래/명령 반응/개입 효과를 함께 보되 trainval 진단을 독립 성능으로 부르지 않는다.
+고해상도47.0859배 pixel을 VRAM/학습시간 배수로 해석하지 않는다.48GB/card 실측과 effective batch64 유지가 필요하다.
+공정 최종비교는 공개 가중치에서 별도 고해상도 학습을 시작하는 것을 권한다.128²1epoch warmup을이어받으면 별도curriculum/학습량을기록해야한다.
+같은구조의128²대조 없이 구조변경+해상도변경의 성능차를 해상도효과로만 주장하지 않는다.
+상세: docs/lpwm_drivor_representation_and_fair_comparison.md 최신 절.
+이번 턴은 제안 검토와 기록이며 구현·GPU실측·학습·queue/registered source/config 변경을 하지 않았다.
