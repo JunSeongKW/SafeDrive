@@ -2715,3 +2715,12 @@ Linear229/Conv44 LoRA4,683,650/전체학습21,753,728개; DDP카드최대40,161,
 
 
 CPU검사결과 `results/lpwm_drivor_epoch1_lora_scope_comparison_v1/preflight.json`. 계층별Conv/Linear합계273및각역할은`docs/lpwm_drivor_planning_path_lora_training.md`마지막절.
+
+
+## 2026-10-06 11:56 KST — 명령조건부 current geometry 확인
+
+동일영상에서도command4D→FiLM→attribute CNN→xy/scale/presence head 경로로현재geometry가달라질수있다.
+LoRA가명령별다른가중치를선택하는것은아니며동일LoRA가명령에따라달라진feature를처리한다.
+완료100update진단12장면/24명령교체에서현재중심이동평균0.002942px,최대0.026271px(128²입력)로반응확인이나매우작음.
+초기0update명령교체위치변화는0이었다. 크기/presence도구조적으로영향경로가있지만기존intent JSON에는별도변화량집계없음.
+실제좌회전에유용한객체배치·정보보존개선은미확정. 이번턴GPU추가실험/학습설정변경없음.

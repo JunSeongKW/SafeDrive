@@ -1,0 +1,12 @@
+{
+  "checkpoint_updates": 100,
+  "scene_count": 12,
+  "changed_command_pairs": 24,
+  "source": "outputs/lpwm_drivor_planning_path_representation_monitor_v1/update_000100/intent_sensitivity.json",
+  "current_center_shift_mean_input_px": 0.0029421682993415743,
+  "current_center_shift_max_input_px": 0.026270758360624313,
+  "sizes_have_command_gradient_path_but_not_quantified_in_existing_intent_json": true,
+  "command_enters_attribute_cnn_through_film": true,
+  "lora_weights_shared_between_commands": true,
+  "not_evidence_of_planning_improvement": true
+}
