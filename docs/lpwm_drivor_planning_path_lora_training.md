@@ -194,3 +194,11 @@ loss/update수·평가를맞춘조건,(3)동일pretrained visual features에서r
 본학습설정을중간에바꾸거나DrivoR대조학습을추가기동하지않았다. 사용자의25epoch후DrivoR비교지시는유지한다.
 근거: `results/lpwm_drivor_planning_path_lora_v1/camera_input_fairness_audit.json`.
 공식설정: <https://github.com/valeoai/DrivoR/blob/main/navsim/planning/script/config/common/agent/drivoR.yaml>.
+
+
+## 실제 camera 입력 시각화
+
+현재학습입력시각화완료: `outputs/lpwm_camera_input_visualization_v1/four_camera_original_vs_input.png`.
+전/후/좌/우원본1920×1080·실제cache128×128·3배최근접확대를함께표시. 장면c94ee8ade05a5b12/navtrain.
+원본4개는바이트그대로복사,입력4개는실제cache에서읽고공식현재BICUBIC전처리와pixel완전일치확인.
+각원본/128PNG와`index.html`,`manifest.json`도같은폴더에있음. CPU작업만수행,학습/279source등록불변.

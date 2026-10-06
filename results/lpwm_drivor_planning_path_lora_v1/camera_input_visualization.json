@@ -1,0 +1,21 @@
+{
+  "scene_token": "c94ee8ade05a5b12",
+  "split": "navtrain",
+  "camera_count": 4,
+  "original_resolution_width_height": [
+    1920,
+    1080
+  ],
+  "processed_resolution_width_height": [
+    128,
+    128
+  ],
+  "cached_pixels_match_all_four": true,
+  "original_copies_byte_identical": true,
+  "comparison_image": "outputs/lpwm_camera_input_visualization_v1/four_camera_original_vs_input.png",
+  "gallery": "outputs/lpwm_camera_input_visualization_v1/index.html",
+  "manifest": "outputs/lpwm_camera_input_visualization_v1/manifest.json",
+  "figure_sha256": "db046f670b730f0992d9394f816211fcc69efafe4b2ee600dcb90f5ef197d338",
+  "cpu_only": true,
+  "training_changed": false
+}

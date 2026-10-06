@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**실제 입력 이미지:** [원본1920×1080 / 학습입력128×128 비교](outputs/lpwm_camera_input_visualization_v1/four_camera_original_vs_input.png) · [4카메라 원본 갤러리](outputs/lpwm_camera_input_visualization_v1/index.html).
+
 **2026-10-06 후속 요청: 첫 epoch에서 이전 LoRA 조건과 직접 시각화 비교를 예약했다.**
 별도CPU watcher3317230, `outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/status.json`.
 공통초기 / 이전Q·V LoRA1614 / 새세경로LoRA1614를 같은96장면·카메라·명령·particle번호로비교한다.
