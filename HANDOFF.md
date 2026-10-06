@@ -1,5 +1,11 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 19:20 KST 최신 중간점검:** 본학습1090/40350, 첫epoch67.53%, 자동진단1000완료·다음1500대기.
+Train3186133/queue3186134/monitor568996/비교3317230 생존. GPU0·1전체약41.14GB, utilization95/100% 표본.
+1000의중심평균0.667px·크기평균변화5.831%; 18.71%가1px초과,52.27%가한축크기5%초과.
+전체particle readout F1 .3799→.4007이나appearance-only .2926→.2478,도로proxy presence감소.
+Geometry적응은확인되지만주행유용성·미래표현추가이득은미확인. 상세 results/.../intermediate_update1000_20261006/report.json.
+
 **2026-10-06 15:05 KST 최신: 500 update 간격 자동 표현 진단 실행 중.**
 새 monitor568996 → `outputs/lpwm_drivor_particle_trends_every500_v1/status.json`과 `index.html`.
 기존 monitor3186135만 종료·대체했다. Train3186133/queue3186134/epoch비교3317230 생존 확인.
@@ -70,7 +76,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 15:07 KST (Codex)
+마지막 갱신: 2026-10-06 19:23 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -237,6 +243,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-06 19:20KST: 학습1090/1614(첫epoch67.53%),25epoch총40350. 기존4개process생존확인.
+500간격monitor는exact1000완료/1500대기,epoch1비교는1614대기. 학습·진단설정변경없음.
 
 2026-10-06 15:05KST: 학습582/40350, 새500간격 monitor568996은500완료 후1000대기.
 Train3186133/queue3186134/첫epoch비교3317230 유지. 이전monitor3186135는정상종료·대체됐으며재기동금지.
@@ -680,6 +689,15 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+1000진단: 위치평균0.66717px/최대6.91409px,크기평균절대변화5.83110%,presence절대변화.185218.
+Geometry18.71%가1px초과이동,52.27%가크기한축5%초과변화. 직진/좌/우평균위치.707/.630/.645px.
+전체currentreadout F1 .379859→.400721,appearance-only .292610→.247818로혼재한다.
+차량중심영역8.88265→8.93148%,보행자1.20036→1.20036%,도로proxy20.03289→19.75329%.
+Presence가중도로비중18.40762→8.18433%;초기도로subset평균presence .593817→.195958. 선택적으로유용해졌다는증거는아님.
+2초current/predicted readout오차3.8203/3.8403m,4초7.8223/7.8584m;미래추가이득미확인,CI모두0포함.
+양rank100update평균trainingloss 1~100:28.0283→401~500:14.5374→901~1000:7.7566,held-out PDMS아님.
+근거 results/lpwm_drivor_planning_path_lora_v1/intermediate_update1000_20261006/ 및 docs/lpwm_drivor_planning_path_lora_training.md 최신절.
 
 정확500진단: 중심 평균0.074530px/최대1.603768px, 크기 축 평균절대변화율0.5592%,presence절대변화평균0.015460.
 차량·보행자 중심비율은초기와같고 도로proxy20.0329→20.0164%;뚜렷한주행객체재배치아직없음.
@@ -1250,13 +1268,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청으로 500 update마다 정확checkpoint를 보존하고 기존96장면 진단을 실행하는 독립controller/config를 추가했다.
-- CPU검사4개통과, 기존0/100/500 결과로 누적 보고서·그래프·HTML 생성확인. 500결과·PNG를공유결과에보존했다.
-- 기존읽기전용monitor3186135를새568996으로교체하고기동확인. 학습3186133/queue3186134/첫epoch비교3317230은유지했다.
-- 기존등록279source/config와oldmonitor등록불변;새controller별도등록. 원래checkpoint/milestone결과보존.
-- 로컬결과자동갱신만가능하며채팅push미연결임을고지했다. 500현재변화와1000ETA를기록했다.
+- 1090update 진행상태와 정확1000update의geometry/readout/의도/개입/미래판독 결과를검토했다.
+- 500→1000에서geometry변화증가를확인했으나appearance-only판독저하·도로presence감소·미래추가이득미확인을함께기록했다.
+- 같은초기도로particle부분집합의presence를CPU분해하고추세/1000이미지/진단요약/ETA를결과폴더에보존했다.
+- 기존train/queue/monitor/epoch비교생존확인; 학습source/config·LR·loss·배치·대기열은변경하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+19:20KST기준: 다음1500학습도달10/6 22:42~23:00,첫1614는23:38~10/7 00:01(진단처리별도)예상.
+4000은속도변동반영시10/7 19:08~21:16전후로이전ETA보다늦어졌다. 최근50/100/200wall속도29.42/31.84/32.07초.
+기존일정대로1500/1614/2000/…검사. geometry변화량뿐아니라도로presence감소/appearance판독저하/미래추가효용을같이추적한다.
 
 최신: 매500update + 기존epoch/final진단을확인한다. Newroot status/diagnostics.log/index.html에진행·오류·결과누적.
 1000예상10/6 18:10KST전후,진단보고추가여유. 1614첫epoch조건비교는기존CPUwatcher가계속대기한다.
@@ -1617,6 +1638,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신판정: geometry경로planninggradient·출력변화는확인. LoRA/FiLM/planner단독효과분리및독립planning성능은미검증.
+1000은warmup3322중이고LRpeak30.10%;더학습하면주행객체집중/성능이반드시개선된다고보장하지않는다.
+전체readout소폭상승은appearance개선과동의어가아니며GT ROIgeometry control F1 .4148보다낮다.
+도로proxy는semantic도로label이아님. Presence감소는particle삭제/plannerattention감소와동일하지않고보존features는여전히planner에들어간다.
 
 이번승인범위는매500update중간추세확인이다. 진단controller만교체했으며학습조건·새실험·DrivoR비교큐는변경없음.
 500에서geometry변화는증가했지만절대크기는작고객체판독/개입결과도혼재한다. 효용개선·적응실패를단정하지않는다.

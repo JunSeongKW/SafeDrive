@@ -1,0 +1,33 @@
+{
+  "scope": "Same 96 scenes, 4 cameras and 64 particle indices. Road subset fixed by initial centers and available planar-map road proxy, not semantic segmentation. Other includes any unavailable road views. No model rerun or updates.",
+  "initial_road_particle_count": 4872,
+  "rows": [
+    {
+      "update": 0,
+      "presence_mean": 0.6322105526924133,
+      "fraction_presence_above_0_5": 0.6407877604166666,
+      "fraction_presence_below_0_1": 0.1971435546875,
+      "presence_mean_fixed_initial_road_centers": 0.5938174724578857,
+      "presence_mean_other_initial_centers": 0.6417036056518555,
+      "size_signed_mean_change_px": 0.0
+    },
+    {
+      "update": 500,
+      "presence_mean": 0.6186830401420593,
+      "fraction_presence_above_0_5": 0.6263834635416666,
+      "fraction_presence_below_0_1": 0.20939127604166666,
+      "presence_mean_fixed_initial_road_centers": 0.5618458986282349,
+      "presence_mean_other_initial_centers": 0.6327365636825562,
+      "size_signed_mean_change_px": -0.12038916349411011
+    },
+    {
+      "update": 1000,
+      "presence_mean": 0.4748058617115021,
+      "fraction_presence_above_0_5": 0.4708658854166667,
+      "fraction_presence_below_0_1": 0.3788655598958333,
+      "presence_mean_fixed_initial_road_centers": 0.1959580034017563,
+      "presence_mean_other_initial_centers": 0.5437536835670471,
+      "size_signed_mean_change_px": -1.4922994375228882
+    }
+  ]
+}

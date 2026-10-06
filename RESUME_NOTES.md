@@ -2856,3 +2856,19 @@ CPU4검사통과,0/100/500보고서/PNG/CSV/HTML생성확인. Gallery outputs/lp
 appearance-only .292610→.304012. 명령교체중심변화.018508px. 주행효용개선은미확인.
 582update/최근100속도26.49초,1000학습도달18:09KST+진단여유10~20분예상. 500간격약3.68시간.
 500시점보고서/PNG와새등록·상태근거를results/lpwm_drivor_planning_path_lora_v1/particle_trends_every500/에보존.
+
+## 2026-10-06 19:20 KST — 1000 update 중간 결과
+
+현재1090/40350(첫epoch67.53%),본학습3186133/queue3186134/monitor568996/epoch비교3317230생존확인.
+GPU0·1전체41.14GB내외/95·100%util표본. exact1000진단완료,1500대기. source/config/학습조건무변경.
+500→1000: 중심평균.07453→.66717px,크기평균변화.55918→5.83110%,presence변화.01546→.18522.
+18.71%particle1px초과/52.27%particle한축크기5%초과. Current xy/scale/presence gradient양수,원래native digest불변.
+전체current판독F1 초기.37986→1000.40072,appearance-only .29261→.24782. 정보향상은혼재하며GT ROIcontrol .41481미만.
+차량중심8.883→8.931%,보행자1.200→1.200%,도로proxy20.033→19.753%로뚜렷한재배치는아직없다.
+초기도로중심particle고정부분집합presence평균.59382→.19596;도로presence가중비중18.408→8.184%.
+전체presence평균.63221→.47481,lowpresence<.1비중19.71→37.89%. 별도semantic/dropout/유용성판정아님.
+2초readout현재3.8203/미래3.8403m,4초현재7.8223/미래7.8584m,현재대비차이CI0포함. 미래모듈추가효용미입증.
+미래를현재로반복하는개입은ADE .0852m감소/scoreCI0포함;작은12scene교란검사이며독립PDMS아님.
+양rank100update평균loss28.0283→14.5374→7.7566,planner공동학습전체결과이며LPWM단독효과아님.
+1000LRpeak30.10%/warmup3322중. 첫epoch학습23:38~00:01,4000은10/7 19:08~21:16속도기반범위(진단여유별도).
+근거/시각화: results/lpwm_drivor_planning_path_lora_v1/intermediate_update1000_20261006/.
