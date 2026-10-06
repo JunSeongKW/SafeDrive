@@ -1,0 +1,11 @@
+{
+  "pid": 2949030,
+  "command": [
+    "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+    "-u",
+    "scripts/queue_lpwm_drivor_epoch_review.py",
+    "--config",
+    "configs/lpwm_drivor_review/epoch1.json"
+  ],
+  "started_unix": 1791247204.0007923
+}

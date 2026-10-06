@@ -1,5 +1,14 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 최신: 첫 epoch 검증·DrivoR 비교 후 나머지24epoch 검토 제어 등록.**
+진입점 `docs/lpwm_drivor_epoch1_review.md`, `configs/lpwm_drivor_review/epoch1.json`, 제어PID2949030.
+1614update의정확한model/AdamW/scheduler/RNG를먼저보존하고기존pause신호로본학습·후속queue·monitor를대기시킨다.
+Root `outputs/lpwm_drivor_epoch1_review_v1`의status/resume_state/training_held확인. 등록source/config변경금지.
+경계외1update가진행됐으면별도보존;재개기준은epoch_01_resume.pt(1614)이며실중단latest를그대로쓰지않는다.
+25epoch LR스케줄유지/epochs1변경금지. GeometryLoRA미적용. DrivoR동일1epoch vs공개최종참고비교선택을사용자에게요청중.
+Navval도본학습포함이므로독립검증이라고부르지않고navtest를자동튜닝용으로전환하지않는다.
+검토전24epoch자동재개/새DrivoR학습자동실행금지. 사용자요청의중간검토완료후문서의재개순서를따른다.
+
 **2026-10-06 위치 변화 원인 감사:** `docs/lpwm_drivor_lora_geometry_audit.md`.
 100update main checkpoint의 LoRA84tensor 갱신/양수planning gradient 확인. Q/V LoRA OFF 시 current xy bitwise동일,
 FiLM OFF 시 initial xy bitwise복원, current xy→LoRA84개 autograd 연결없음/FiLM4개는연결됨.

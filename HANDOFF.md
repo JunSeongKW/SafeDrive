@@ -1,5 +1,12 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 09:40 KST 최신: 첫epoch 검토를 위한 대기 제어 등록.**
+사용자제안에따라제어PID2949030이1614update/epoch1 정확한재개상태를보존한뒤기존본학습·queue·monitor를pause한다.
+현재1541update/73남음,예상10:04KST. 아직pause는아니며학습진행중. 이후96scene진단을실행하고DrivoR비교·검토대기.
+상세 `docs/lpwm_drivor_epoch1_review.md`, root `outputs/lpwm_drivor_epoch1_review_v1/status.json`.
+사용자에게DrivoR동일1epoch학습 vs공개최종모델참고비교를선택요청중. 새DrivoR학습은미실행.
+나머지24epoch의자동진행은이검토를위해보류된다. 아래10월15일ETA는중간검토대기시간미포함이전추정.
+
 **2026-10-06 08:55 KST 중간점검:** LoRA v1 1,400/40,350update(3.47%), epoch1의86.74% 완료.
 Train2994997/queue2994998/monitor3351138 host 생존·진행 정상. 최근300 wall속도20.707초/update,
 현재v1학습 ETA10월15일17시KST(부하변동가능),epoch1은오늘10:09쯤. V2학습·benchmark평가 시간은별도.
@@ -31,7 +38,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 08:57 KST (Codex)
+마지막 갱신: 2026-10-06 09:43 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -198,6 +205,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+09:40KST: 본학습1541update,새review제어2949030 waiting_for_epoch_boundary. target1614/첫epoch 예상10:04.
+기존trainer source/config무변경. Epoch fullresume checkpoint확보후localpause를써trainer·oldqueue·watcher종료대기,
+이후1614checkpoint로96scene표현진단을수행한다. 끝나면held_for_drivor_comparison_and_review이며24epoch자동재개안함.
 
 08:55KST 확인: v1 1400/40350, 총약8시간8분경과. GPU0/1 각29.59decimalGB,조회util82/100%.
 Batch16×누적2×2=64/loader2·oracle4 유지. 최신1400checkpoint08:54:43저장,active pause/완료marker없음.
@@ -602,6 +613,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Epoch대기제어CPU검사3개통과: latestatomic교체시열린inode보존,기존사용자pause보호,epoch불일치resume거부.
+1614state에model/AdamW/scheduler/rankRNG2개/다음epoch위치모두있어나머지24epoch재개가능.
+25epoch schedule warmup3322update여서첫epoch은아직warmup. Epochs1로바꾸면동일스케줄비교가아님.
+현재navval도학습포함이므로진단96scene/DrivoRtraining분포비교를독립validation으로보고하면안됨.
 
 1400개동기화update 로그의loss/trajectory/score 값NaN·Inf0. 두rank모든학습영역gradient양수,1400LoRA .14196/.08853/.20810.
 두rank평균first100→last100: total28.0402→4.9325,trajectory24.3438→2.4956,scoreloss3.6963→2.4368.
@@ -1113,12 +1129,18 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 1400update 진행·두rank loss/gradient·GPU메모리·host프로세스·queue/monitor 상태를 읽기 전용으로 점검했다.
-- 최근300update 실제 경과속도로 v1 ETA를10월15일17시KST로 다시 계산하고 후속v2/평가 시간을 분리했다.
-- 자동완료500/1000update 표현진단 요약을 공유results에 보존했다. 표현효용 개선은 아직 확인되지 않았다.
-- 학습/진단source·config·queue·배치·worker는 변경하지 않았다.
+- 첫epoch검토제안을받아1614의전체재개상태를보존하고학습을대기시키는외부제어를등록·기동했다.
+- Atomic checkpoint교체경쟁·기존pause보호·정확한epoch검사의CPU검사3개를통과했다.
+- 기존25epoch LR/optimizer/RNG와등록source/config를보존하는재개절차를문서화했다.
+- DrivoR동일1epoch 대공개최종참고비교선택을요청했으며새DrivoR학습은아직실행하지않았다.
+- 현재navval학습포함·1epochwarmup·test튜닝위험을명시하고geometry변경없이검토대기를준비했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+가장먼저review root status확인. 첫epoch를기다리는중이면제어/학습중복기동금지.
+DrivoR비교방식사용자응답을확인하고해당비교를준비한다. 동일1epoch이면25epoch scheduler/backend초기state/data/effectivebatch를맞춘다.
+1614경계검토완료전원래25epochqueue를자동재개하지않는다. Epoch1체크포인트검토후재개시epoch_01_resume.pt를복원한다.
+실중단시1615까지갔으면overshoot state를보존하고재개로그에서중복시도와정식학습경로를구분한다.
 
 다음epoch1(1614update) 완료와자동표현진단을확인한다. ETA는최근window로재계산하고fullv1학습과전체queue를구분한다.
 현재loss감소만으로유용한particle학습/PDMS개선을단정하지않는다. Geometry-LoRA제안은아직미적용이다.
@@ -1438,6 +1460,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재사용자요청은1epoch검토후나머지24epoch진행제안이다. 이를위한reversible hold를등록했고비교방식응답은대기중.
+비교결과없이무조건24epoch이어가기금지. 모델구조변경도아직없다. 독립검증셋부재와공정비교confound는해결되지않음.
+Control이의도적으로pause하면oldqueue의stopped표시는학습실패와구분한다. Resume모델뿐아닌optimizer/scheduler/RNG보존필수.
 
 08:55조회ETA10/15 17시KST는현재v1 25epoch만의추정이다. 장기간공유부하·epoch저장/진단비용으로변동가능.
 후속v2는독립public-init10epoch이며v1 fullnavtest후실행된다. 전체queue의확정완료시간은아직없음.

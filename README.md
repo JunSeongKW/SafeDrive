@@ -1,5 +1,8 @@
 # Planning-Aware Future Prediction
 
+**첫 epoch 중간 검토 준비:** [검토·정확한 재개 계획](docs/lpwm_drivor_epoch1_review.md).
+1614update 상태를 보존하고 학습을 대기시키는 제어를 등록했다. DrivoR 비교 방식 선택 후 검토를 진행한다.
+
 **현재 particle 위치와 LoRA:** [원인 감사 결과](docs/lpwm_drivor_lora_geometry_audit.md).
 Q/V LoRA는 학습되지만 현재 좌표 생성 뒤에 있다. 현재 위치 변화는 command FiLM에 의존하며,
 현재 좌표를 직접 적응시키는 geometry 경로 LoRA는 아직 적용하지 않았다.

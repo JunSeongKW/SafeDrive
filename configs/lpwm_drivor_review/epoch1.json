@@ -1,0 +1,22 @@
+{
+  "output_directory": "outputs/lpwm_drivor_epoch1_review_v1",
+  "training_directory": "outputs/lpwm_drivor_lora_v1/navsim_v1",
+  "training_pid": 2994997,
+  "queue_pid": 2994998,
+  "monitor_pid": 3351138,
+  "target_epoch": 1,
+  "target_update": 1614,
+  "planned_total_epochs_preserved": 25,
+  "effective_batch_preserved": 64,
+  "maximum_total_card_bytes": 48000000000,
+  "navtest_used_for_epoch_selection": false,
+  "comparison_preference": "pending_user_choice",
+  "notes": [
+    "Preserve model, AdamW,25epoch scheduler and both rank RNG states at epoch1.",
+    "Original trainer sources/configurations remain unchanged.",
+    "One next-epoch update may already be in flight when the epoch artifact appears; preserve it separately and resume from the exact1614 checkpoint.",
+    "The existing96scene monitor uses the training distribution; it is not independent validation.",
+    "DrivoR equal-epoch training and public final-checkpoint reference comparison are distinct options.",
+    "Do not silently start another training condition or resume24epochs before completing the requested review."
+  ]
+}

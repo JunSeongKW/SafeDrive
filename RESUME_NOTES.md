@@ -2619,3 +2619,20 @@ Recent100 20.0415sec/update,300 mean20.6659/wall20.7067. Wall기준v1 ETA10/15 1
 표현96scene진단0/100/500/1000완료,다음1614부근자동. 1000중심mean.2508px/max3.1373px(FiLM),F1initial.3799→.3475.
 미래current대비readout CI0포함;loss감소와연구목표달성은별개. Geometry LoRA는아직미적용.
 Snapshot results/lpwm_drivor_lora_v1/status_20261006_0855.json 및500/1000monitor공유artifact보존. Main83/queue250/parallelism4소스hash불변.
+
+
+## 2026-10-06 09:40 KST — 첫epoch 검토 후24epoch 재개 제어 등록
+
+사용자제안:1epoch후검증·DrivoR비교후나머지24epoch가능한가. Reversible중간검토제어를준비·기동했다.
+새PID2949030/scripts/queue_lpwm_drivor_epoch_review.py/configs/lpwm_drivor_review/epoch1.json.
+Root outputs/lpwm_drivor_epoch1_review_v1, target1614/epoch1,현재1541로대기중. 최근속도19.21s→10:04KST경계예상.
+원래등록trainer/model/config/25epochLR는변경하지않고epoch_01.pt marker후latest fullstate를열린inode로확보·복사한다.
+그후기존pause신호로본학습/oldqueue/watch종료대기,다음epoch1update진행시별도보존하고exact1614 checkpoint를검토/재개에쓴다.
+Fullresume에는model/AdamW/scheduler/양rankRNG/epoch1,next0가있어추가24epoch38736update재개가능.
+CPU검사3개(atomicreplace경쟁/pause덮어쓰기방지/mismatchedepoch거부)통과,259개sourcehash등록.
+중단후같은96scene표현진단자동실행→DrivoR비교·해석대기,24epoch자동재개안함.
+사용자에게동일DrivoR1epoch새학습(추천) vs공개최종모델참고비교선택을async요청했으며아직응답없음.
+공식README/release확인. 현재첫epoch는25epoch warmup3322중1614이므로1epoch완결scheduler와비교금지.
+현재navtrain+navval모두학습하므로navval독립검증주장금지;기존96scene도training분포. Navtest자동튜닝/새DrivoR학습은하지않음.
+상세docs/lpwm_drivor_epoch1_review.md;검토후resume시실중단latest가아닌epoch_01_resume.pt복원,oldlaunch/pause보존후동일execution재개.
+기존10/15 ETA는새검토대기시간미포함으로갱신필요. GeometryLoRA는여전히미적용.
