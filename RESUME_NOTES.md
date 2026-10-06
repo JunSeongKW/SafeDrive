@@ -2704,3 +2704,14 @@ Linear229/Conv44 LoRA4,683,650/전체학습21,753,728개; DDP카드최대40,161,
 이는연결·실행검증이지객체이해/주행성능향상결과가아니다. 본학습공식PDMS/EPDMS아직없음.
 
 상세: `docs/lpwm_drivor_planning_path_lora_training.md`. 본학습첫update검증, finalscore미확인.
+
+
+## 2026-10-06 10:45 KST — 이전/새 LoRA 첫 epoch 직접 비교 예약 및 계층 역할
+
+**2026-10-06 후속 요청: 첫 epoch에서 이전 LoRA 조건과 직접 시각화 비교를 예약했다.**
+별도CPU watcher3317230, `outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/status.json`.
+공통초기 / 이전Q·V LoRA1614 / 새세경로LoRA1614를 같은96장면·카메라·명령·particle번호로비교한다.
+현재새epoch1을기다리는중이며최종비교PNG는아직없다. 기존25epoch학습과monitor는지속한다.
+
+
+CPU검사결과 `results/lpwm_drivor_epoch1_lora_scope_comparison_v1/preflight.json`. 계층별Conv/Linear합계273및각역할은`docs/lpwm_drivor_planning_path_lora_training.md`마지막절.

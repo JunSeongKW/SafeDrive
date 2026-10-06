@@ -1,0 +1,20 @@
+{
+  "created_unix": 1791250882.9145615,
+  "configuration_sha256": "c070dafffbeeb2898fcd0c326a383a8409f8120dd952075c3e8d85e85718be15",
+  "sources": {
+    "scripts/compare_lpwm_lora_scope_epoch1.py": "829aebe633c9c2a52c27b4a63ba1fe1bcf26f31029f0adf357008200658d42dc",
+    "scripts/visualize_lpwm_epoch_particle_geometry.py": "e7c87d7d48825b8be8449d088586c2bcc5f68e66e761a8f31c858ce2bfe32385",
+    "src/planning_aware_future_prediction/object_centric/particle_planning_diagnostics.py": "222abb49f3261a4677a20dd1e8a28a06a53c8d1d8505aa916559d17de19d13c9"
+  },
+  "old_evidence": {
+    "outputs/lpwm_drivor_representation_monitor_v1/panel.json": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+    "outputs/lpwm_drivor_representation_monitor_v1/update_000000/complete.json": "e07cdac555ddd5594d44a75704b879f6c0db1417c8f07ffe66fdc928a37f77ea",
+    "outputs/lpwm_drivor_representation_monitor_v1/update_000000/particle_attributes.npy": "406679e8b7f345b151a33b76456a590dc889966e0dea38f667ce1b35eb221470",
+    "outputs/lpwm_drivor_representation_monitor_v1/update_001614/complete.json": "4ed59297961c7eaca9569ed0b3414f25f1c5df6da74d9efc2961cf2b74129d89",
+    "outputs/lpwm_drivor_representation_monitor_v1/update_001614/particle_attributes.npy": "90a9b79dea2019620fda6a247c3be65557332b1de6983b1def7db8890bfb24b5"
+  },
+  "old_epoch1_checkpoint_sha256": "3c4a60918e32a7c92d10099b51998ad27b5b74cc0e83ccc1aa0c535450662440",
+  "new_training_registration_sha256": "8192bbf773eb1cad6bf73da303dc29adeb6ac46d75e223b373c200eb079f29fb",
+  "selection_before_new_epoch1": true,
+  "output_images_not_available_until_new_epoch1": true
+}

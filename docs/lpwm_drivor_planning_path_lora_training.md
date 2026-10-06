@@ -115,3 +115,45 @@ particle pooling,이번에 확대한 LoRA 범위·parameter budget은 DINO regis
 Monitor 동시 실행 시 GPU0 카드전체 약41.18GB/GPU1 약40.16GB.
 증거: `results/lpwm_drivor_planning_path_lora_v1/main_training_start.json`.
 학습 중 loss의 몇 step 변화로 planning 개선을 판단하지 않으며 최종 성능은 아직 없다.
+
+
+## 첫 epoch에서 이전 LoRA 조건과 직접 시각화 비교
+
+사용자 후속 요청에 따라 별도 CPU watcher **3317230**을 추가했다. 본학습·기존 monitor279개 등록 source는 변경하지 않았다.
+이전 attention Q/V LoRA의 **정확한1epoch/1614update** 표현과 새 세경로LoRA의 **정확한1epoch/1614update** 표현을 비교한다.
+실제process중단시의1615update나나중checkpoint로대체하지않는다.
+두조건의공통학습전96×4×64 current particle attributes가 **bitwise 동일**함을 사전검사했다.
+
+- 입력·주행명령·장면·카메라·native particle 번호를고정한다. 같은번호는같은객체identity를보장하지않는다.
+- 대표그림: 원영상 / 공통초기 / 이전1epoch / 새1epoch. 별도겹침그림에서 cyan=이전,orange=새모델.
+- 점=전체64particle중심, 사각형=초기presence상위16개의고정ID glimpse크기, 점반지름=presence.
+- 위치변화는128×128입력pixel단위, 크기는축별절대·상대변화, presence는절대변화량으로집계한다.
+- 전체96장면·4카메라·직진/좌회전/우회전/투영박스겹침proxy별통계를저장한다.
+- 그림선택은새epoch1결과를보기전에고정: 상황별대표와가림proxy, 상세12장면×4카메라.
+  모든96장면·64particle의초기/이전/새조건좌표·크기·presence는CSV에보존한다.
+- 이동량이커졌다는사실만으로주행정보보존/PDMS개선을주장하지않는다.
+
+설정: `configs/lpwm_drivor_review/epoch1_lora_scope_comparison.json`.
+진입점: `scripts/compare_lpwm_lora_scope_epoch1.py --config configs/lpwm_drivor_review/epoch1_lora_scope_comparison.json --watch`.
+상태: `outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/status.json`.
+생성예정: 같은폴더의 `index.html`, `epoch1_comparison.png`, `epoch1_overlays.png`, `summary.json`, `particle_geometry.csv`.
+새모델첫epoch가아직끝나지않아최종비교그림은현재없다. 완료된engineeringrenderer이미지는보존하거나실제학습결과로제공하지않았다.
+초기동일성·기존평균이동0.3023136787px재현·동일입력비교0·4열렌더링검사통과.
+증거: `results/lpwm_drivor_epoch1_lora_scope_comparison_v1/preflight.json`.
+
+## 적용 계층 수와 역할 요약
+
+| 모듈 | LoRA 수 | 역할 |
+|---|---:|---|
+| prior CNN | Conv7 | 영상patch에서particle의초기기준위치를제안 |
+| attribute CNN | Conv7 | 기준위치주변영상으로현재geometry head의입력feature생성;command FiLM적용 |
+| xy/scale/presence heads | Linear6 | 현재위치offset·glimpse크기·활성정도출력 |
+| foreground appearance CNN/feature head | Conv7+Linear2 | 현재glimpse의외관feature보존 |
+| background appearance CNN/head | Conv11+Linear2 | 장면의배경·전역외관정보보존 |
+| particle interaction | Conv12+Linear29 | 전역영상context와particle간관계를반영해feature·깊이관련latent등수정 |
+| context prior | Linear75 | particle상태·관계에서미래예측에쓰는context분포생성 |
+| dynamics projection/attention/FFN | Linear103 | context와현재상태를조건으로미래particle상태를계산하는내부변환 |
+| 미래particle 출력heads | Linear12 | 미래위치·크기·presence·깊이관련latent·foreground/background feature출력 |
+
+합계Conv44+Linear229=273adapter,4,683,650학습parameter다. Native CNN/Linear/normalization/embedding/RGBdecoder원래값은고정.
+새commandFiLM·temporalprojection·cameraembedding·planner는LoRA가아닌추가모듈전체학습이다.

@@ -1,0 +1,26 @@
+{
+  "training_sources_unchanged": true,
+  "registered_training_sources": 279,
+  "launch": {
+    "pid": 3317230,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-u",
+      "scripts/compare_lpwm_lora_scope_epoch1.py",
+      "--config",
+      "configs/lpwm_drivor_review/epoch1_lora_scope_comparison.json",
+      "--watch"
+    ],
+    "started_unix": 1791251004.62087,
+    "cpu_only": true
+  },
+  "status": {
+    "stage": "waiting_for_exact_epoch1_representations",
+    "target_updates": 1614,
+    "completed_training_updates": 21,
+    "missing": [
+      "outputs/lpwm_drivor_planning_path_representation_monitor_v1/update_001614/complete.json"
+    ],
+    "updated_unix": 1791251125.0348346
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "initial_attributes_bitwise_identical_across_conditions": true,
+  "old_epoch1_geometry_reproduced": true,
+  "identity_comparison_zero": true,
+  "four_column_renderer_passed": true,
+  "renderer_used_old_result_in_both_epoch_columns_for_engineering_only": true,
+  "new_epoch1_results_not_yet_available": true,
+  "old_epoch1_center_shift_mean_input_px": 0.3023136786550206,
+  "old_epoch1_size_mean_absolute_relative_percent": 2.0202505814220966
+}

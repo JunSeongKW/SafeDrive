@@ -1,5 +1,10 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 후속 요청: 첫 epoch에서 이전 LoRA 조건과 직접 시각화 비교를 예약했다.**
+별도CPU watcher3317230, `outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/status.json`.
+공통초기 / 이전Q·V LoRA1614 / 새세경로LoRA1614를 같은96장면·카메라·명령·particle번호로비교한다.
+현재새epoch1을기다리는중이며최종비교PNG는아직없다. 기존25epoch학습과monitor는지속한다.
+
 **2026-10-06 최신 사용자 승인: geometry·appearance·future 세 경로 LoRA 본학습 시작.**
 사용자가 대상 계층을 선택하고 실행을 요청했으므로, 이전 계층 선택 대기는 이 새 조건에 한해 해제됐다.
 [설계·gradient 검사·실행 설정](docs/lpwm_drivor_planning_path_lora_training.md).
@@ -58,7 +63,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 10:36 KST (Codex)
+마지막 갱신: 2026-10-06 10:45 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -225,6 +230,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신추가: CPU시각화비교watcher3317230이새exact1614표현을대기한다. 본학습3186133/queue3186134/monitor3186135는유지. Root `outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/`.
 
 최신: geometry·appearance·future LoRA 본학습3186133/queue3186134/monitor3186135 실행 중.
 `outputs/lpwm_drivor_planning_path_lora_v1/navsim_v1/progress.json` 첫3update 양rank에서103,288scene/40,350목표와
@@ -646,6 +653,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신추가: 이전/새초기currentattributes96×4×64 bitwise동일,이전1614geometry평균0.3023136787px재현,identity변화0,4열렌더링검사통과. 새epoch1아직미완료이므로두학습모델의차이는미확인.
 
 최신: `results/lpwm_drivor_planning_path_lora_v1/`에 실제 loss2update와DDP2update 증거를보존했다.
 273adapter모두 output-gradient>0/unused0,head3개와prior·attributeCNN에서currentgeometry연결확인.
@@ -1184,14 +1193,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 선택에 따라 current geometry·appearance/interaction·context/dynamics/future 세 경로의 Linear/Conv LoRA 조건을 별도 구현했다.
-- Conv-LoRA 커널 업데이트, FiLM hook 합성 위치, 공유 context 중복 방지, native digest를 검증했다. 273adapter planning gradient 모두 양수.
-- 공개 LPWM/동일 seed2 planner 초기 출력 동일성·native parameter/buffer 불변·geometry adapter 직접효과·DDP batch16/유효64 실제검사 통과.
-- 새 설정/source279개 hash등록, full103,288scene25epoch 본학습3186133와 최종평가queue3186134 및96장면monitor3186135 시작.
-- 전후 location/size/presence 시각화, exact epoch checkpoint 우선진단, 이후 fullnavtest→별도v2→EPDMS 자동연결을 유지했다.
-- 기존 attention-only1614/1615·geometry-only준비조건과hold는보존. LoRA범위확대와공정비교한계/성능미확정을 연구문서에기록.
+- 사용자 요청으로 이전 attention Q/V LoRA와 새 geometry/appearance/future LoRA의 exact1epoch1614 표현을 비교하는 CPU watcher3317230을 등록했다.
+- 공통초기 / 이전1epoch / 새1epoch 이미지 및 겹쳐보기,12장면4카메라상세,전체96장면·상황별·카메라별geometry통계와particle CSV를자동생성한다.
+- 이미지대상은새결과전사전고정했고같은입력·명령·nativeindex로비교한다. 초기bitwise동일성·기존정량재현·동일조건변화0·렌더링검사통과.
+- 새epoch1그림은아직미생성으로명시,기존본학습과등록279소스불변. 현재LoRA계층수·역할을설계문서에추가했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신추가: 새1epoch표현완료후CPUwatcher가이전1epoch와comparison/overlay/detailPNG및전체96통계/CSV를자동생성한다. 완료후`index.html`,`epoch1_comparison.png`,`epoch1_overlays.png`를사용자에게보여준다. 학습중단요청은없으며25epoch계속.
 
 최신: 현재세경로LoRA25epoch를지속하고read-only고정96panel진단을확인한다. 새DrivoR1epoch학습없음.
 첫epoch정확한epoch_01.pt의geometry크기·presence시각화와readout/개입검사를보고한다.
@@ -1530,6 +1539,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신추가: 이번비교는두조건모두exact1614/currentgeometry를사용한다. 같은nativeindex는semantic객체추적이아니다. 초기고정top16박스와전체64중심표시,모든96장면수치보존. 이동량증가와planning유용성을분리해해석한다.
 
 최신: 사용자가세경로LoRA를명시선택하여새본학습승인. LPWM native및buffer고정/LoRA만적응,
 공식DrivoRplanner전체학습. 직접objectGTaux/RGBreconstruction0,onlineoracle는지도·객체GT활용.

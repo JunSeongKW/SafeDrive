@@ -1,0 +1,34 @@
+{
+  "old_monitor": "outputs/lpwm_drivor_representation_monitor_v1",
+  "new_monitor": "outputs/lpwm_drivor_planning_path_representation_monitor_v1",
+  "training_root": "outputs/lpwm_drivor_planning_path_lora_v1",
+  "output": "outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1",
+  "target_updates_each": 1614,
+  "scene_count": 96,
+  "overview_scene_indices": [
+    2,
+    0,
+    3,
+    1
+  ],
+  "gallery_scene_indices": [
+    2,
+    4,
+    7,
+    0,
+    1,
+    5,
+    3,
+    6,
+    8,
+    9,
+    10,
+    11
+  ],
+  "selection": "First scene per existing scenario; extra projected-overlap proxy. Gallery first3 per scenario +first3 other overlap scenes; fixed before new epoch1 results.",
+  "changes_training": false,
+  "uses_gpu": false,
+  "training_continues_after_epoch1": true,
+  "old_condition": "rank32 Q/V attention LoRA + command FiLM",
+  "new_condition": "geometry+appearance+future Linear/Conv LoRA + command FiLM"
+}
