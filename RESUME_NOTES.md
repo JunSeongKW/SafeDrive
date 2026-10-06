@@ -2819,3 +2819,15 @@ GPU0전체표본최대41,137,733,632bytes,진단reserved637,534,208bytes,추론�
 첫epoch완료시비교이미지는기존watcher가생성한다.현재연결도구에이대화의예약알림도구는없어push알림을등록하지못했다.
 OpenAI Docs공식예약작업문서를확인했으나현재도구가능성과구분한다:https://learn.chatgpt.com/docs/automations?surface=app.
 자동채팅알림이설정됐다고주장하지않는다.
+
+## 2026-10-06 13:38 KST — geometry 변화가 작은 이유 진단
+
+300update 시각화가거의동일하다는질문에대해scheduler/main log와실제snapshot을CPU검사했다.
+Warmup3322update=2.058epoch,300step LR1.80616e-5=peak9.03%,평균사용LR9.00079e-6=peak4.50%.
+첫epoch1614도warmup중(peak48.59%)이므로1epoch를LoRA수렴/실패판정시점으로쓰지않는다.
+양수geometrygradient확인,273adapter모두유효DeltaW비영;||DeltaW||F/||W0||F 중앙0.054164%.
+최종xy/scale/presence Linear각0.002749/0.011352/0.001668%,단matrix비율은output기여가아니다.
+현재RGBreconstruction0으로복원loss경쟁은없다. planner/feature경로에서도loss를줄일수있어geometry이동은보장되지않는다.
+기존firstepoch진단및warmup후4000진단을함께볼것을권고. 현재등록본학습변경/GPU추가사용없음.
+Script:scripts/audit_lpwm_lora_update_strength.py;근거:results/lpwm_drivor_planning_path_lora_v1/update300_lora_strength_audit.json.
+공식LoRA원논문4.1의zero-B/additive W0+BA 설명확인:https://arxiv.org/html/2106.09685#S4.SS1.

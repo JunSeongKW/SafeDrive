@@ -63,7 +63,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 13:06 KST (Codex)
+마지막 갱신: 2026-10-06 13:38 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -230,6 +230,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-06 추가진단: 300snapshot의LoRA보정량과warmup을CPU검사. 본학습·LR·loss·queue유지,현재25epoch설정의warmup은3322update(2.058epoch).
 
 2026-10-06 300update 중간시각화 완료. 학습은 지속; 정확한firstepoch1614의비교watcher유지. 자동채팅push는설정되지않았으므로완료알림예약이라고주장하지않는다.
 
@@ -665,6 +667,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+300update273adapter모두DeltaW비영. 원본대비DeltaW Frobenius비율중앙0.054164%;현재geometry최종xy0.002749/scale0.011352/presence0.001668%. 300LR peak9.03%,첫epoch종료48.59%. 작은geometry변화의원인확정아님. 근거update300_lora_strength_audit.json.
 
 새세경로LoRA300update(0.186epoch):96장면×4카메라중심평균0.03150px/최대0.74734px,크기축평균변화0.2369%. 위치/크기는고정이아니지만아직육안재배치작음. 이미지outputs/lpwm_drivor_intermediate_geometry_update300_v1/before_after_overview.png.
 
@@ -1224,12 +1228,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 정확한300update snapshot의현재particle을초기와비교하는읽기전용시각화스크립트와96장면수치를추가했다.
-- 직진/좌회전/우회전overview,각장면4카메라,겹쳐보기,CSV/갤러리를생성하고실제이미지를확인했다.
-- 위치평균0.03150px/크기평균0.2369%로작은변화를보고;변화자체를planning효과로해석하지않는다.
-- 초기/실제경로표현일치,279소스불변,nativefreeze,GPU41.138GB확인. 본학습·queue유지,ETA와알림도구한계를기록했다.
+- 300update checkpoint의LoRA 유효보정행렬273개와warmup을검사하는CPU감사스크립트/결과를추가했다.
+- 첫epoch에도warmup중이라는판정한계와geometry/feature/planner의대체학습경로를설명했다.
+- LoRA가실제갱신되지만보정량이작다는수치를기록하고weight norm을기능기여율로해석하지않도록명시했다.
+- 현재학습·LR·loss·설정·queue는변경하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+첫epoch를표현변화중간점검으로해석하고warmup이끝난뒤기존4000update진단과함께판단할것을권고했다. 현재학습설정/대기열변경없음;짧은warmup/차등LR등의새학습조건은미실행.
 
 사용자에게300update중간이미지·수치와경로를보고한다. 현재exact1epoch1614비교예약유지;학습전후분포변화와planning유용성은구분한다. 고해상도전환은아직설계검토단계다.
 
@@ -1582,6 +1588,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+LoRA작은DeltaW와양수gradient는실제적응증거이며planning효용증거가아니다. 원본가중치비율은activation기여율아님. RGBreconstruction0이므로현재복원loss가planningloss를누르는상황으로설명하지않는다.
 
 300update진단은학습분포현재particle geometry이며PDMS/미래표현개선이나독립평가가아니다. 체크포인트복사·추론만수행했으며279등록source/config/nativefreeze불변.
 

@@ -231,3 +231,39 @@ loss/update수·평가를맞춘조건,(3)동일pretrained visual features에서r
 279등록source/config전후동일. 현재표현추론96장면약61초, GPU0최대표본전체41.138GB,진단reserved0.638GB.
 최대3GiB진단allocator/진입42GB미만/46.5GB중단guard로48GB카드상한을보호했다.
 본학습firstepoch1614자동시각화와이전조건비교watcher는유지한다. 자동채팅push는사용가능한예약도구가없어설정되지않았다.
+
+## 2026-10-06 — 작은 geometry 변화의 원인: warmup과 LoRA 실제 보정량
+
+사용자 질문: 사전학습 가중치가 강해서 LoRA가 힘을 못 쓰는가, 학습량 부족인가?
+확인된 사실은 **아직 warmup 초기이며, LoRA는 실제로 업데이트되지만 geometry 보정이 작다**는 것이다.
+원인별 인과 기여를 분리한 실험이 아니므로 학습량 부족을 확정하거나 더 학습하면 재배치/성능이 반드시 좋아진다고 주장하지 않는다.
+
+- 공식 convention을 따르는 25epoch recipe의 scheduler horizon은33,225, warmup은3,322update(실제2.058epoch)다.
+- 시각화한300update의 다음step LR은1.80616e-5, peak2e-4의9.03%다. 첫300step에 실제사용한LR평균은9.00079e-6(peak4.50%)이다.
+- 첫epoch1614 종료시에도LR은peak48.59%로 warmup중이다. 첫epoch는학습경향·연결검사이며LoRA수렴/실패의최종판정시점이아니다.
+- 첫epoch설계설명에warmup이2epoch이상지속한다는점을충분히연결하지못했다. 이후판정에서는이조건을명시한다.
+- 300update main log의xy/scale/presence LoRA gradient norm은각0.0698354/0.0158284/0.0008330로양수다.
+  그룹별parameter수와parameterization이다르므로planner norm과단순비율로영향력/신호부족을판정하지않는다.
+
+별도GPU없이300checkpoint를CPU에서검사했다. shared alias를storage로중복제거한273adapter모두유효DeltaW=B@A가0이아니다.
+alpha/rank=1, B=0초기화이므로현재값은실제학습으로생긴보정이다.
+전체adapter의100*||DeltaW||F/||W0||F 중앙값0.054164%,범위0.001655~0.467947%.
+현재geometry최종Linear의비율: xy0.002749%, scale0.011352%,presence0.001668%.
+이는**행렬크기비율**이고activation/output기여비율이아니다. 특히xy/scale최종4행에는mean뿐아니라logvar도들어가며
+현재deterministic경로에서logvar행의B는0이다. 작은비율만으로LoRA기능효과가없다고결론내리지않는다.
+
+현재RGBreconstruction loss=0,직접objectGT보조loss=0이다. 복원gradient와planninggradient의경쟁은현재학습의원인이아니다.
+사전학습의초기표현/고정base가남아있으며LoRA가그위에보정을배운다. LoRA는rank를제한하지만보정크기를원래가중치의작은비율로강제하지않는다.
+참고: LoRA원논문4.1 <https://arxiv.org/html/2106.09685#S4.SS1>.
+
+Planning loss는planner/feature/future를바꾸어도줄어들수있으며particle을특정객체로이동시키는직접목표는아니다.
+따라서동일위치에서정보만개선되는가능성과geometry개선이부족한가능성을함께검사해야한다.
+LoRA geometry 최종head는출력4에rank4, presence출력1에rank1이어서그출력층에더큰rank를주는해결책은없다.
+앞단hidden Linear/CNN과전체경로의rank/최적화효과는별도문제다.
+
+권고: 기존첫epoch진단은유지하고,작은변화만으로실패판정하지않는다. warmup후기존4,000update(2.48epoch)진단까지
+geometry/feature/readout/개입추세를함께본다. 그때도geometry가필요한정보를놓치면짧은warmup또는geometry경로LR등을
+독립조건으로검토한다. 위치를많이움직이는것자체를최적화하지않는다. 이번조사는학습·LR·loss·queue를변경하지않았다.
+
+실행스크립트: `scripts/audit_lpwm_lora_update_strength.py`.
+근거: `results/lpwm_drivor_planning_path_lora_v1/update300_lora_strength_audit.json`.
