@@ -1,5 +1,10 @@
 # Planning-Aware Future Prediction
 
+**2026-10-06 23:29 KST — 첫 epoch 완료·이전 조건 비교 및 중간 PDMS 완료.**
+현재1682update/epoch2, 첫epoch checkpoint23:00저장. [동일1614update particle 비교](outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/epoch1_comparison.png).
+95학습장면 PDMS:1000=67.83 /1500=63.52 /1614=67.99. 최신보고 `results/lpwm_drivor_planning_path_lora_v1/epoch1_intermediate_report_v1/report.json`.
+새geometry평균이동1.236px/크기7.714%,old Q/V는.302px/2.020%. Nativefreeze유지,본학습과정기진단계속.
+
 **2026-10-06 15:05 KST — 500 update 간격 자동 표현 진단 실행 중.**
 [누적 이미지·보고서](outputs/lpwm_drivor_particle_trends_every500_v1/index.html), 새 monitor PID568996.
 기존 monitor3186135만 교체했으며 본학습3186133·queue3186134·첫 epoch 비교3317230은 유지한다.

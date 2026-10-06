@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 23:29 KST 최신: 첫epoch 완료·중간보고.**
+Epoch1 checkpoint23:00저장/현재1682update·epoch2. 정확1614의old Q/V vs 새세경로비교완료.
+95학습장면PDMS1500=63.5197/1614=67.9864,1000=67.8315와거의같음. 1000→1614CI[-7.1454,7.1646].
+평균geometry old .302px/2.020% vs new1.236px/7.714%;전체readout F1 old .3730/new .4205.
+미래변위readout이현재보다2초.0700m/4초.1831m낮음(패널CI0미포함),그러나0변위baseline보다높은오차.
+도로준수.9053→.8421,좌회전74.34→63.80;planning개선안정성미확인. 기존학습/정기표현monitor계속.
+보고서 `results/lpwm_drivor_planning_path_lora_v1/epoch1_intermediate_report_v1/report.json`.
+
 **2026-10-06 최신 요청: 중간 공식 PDMS 직접 평가 완료.**
 고정96패널 중 standard metric cache가 있는 동일95장면/24recording에서 초기/500/1000을채점했다.
 공식NAVSIM v1 PDMS:30.4299→63.4057→67.8315. 학습분포진단이며fullnavtest아님.
@@ -83,7 +91,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 20:01 KST (Codex)
+마지막 갱신: 2026-10-06 23:33 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -250,6 +258,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+23:29KST학습1682/40350·epoch2,정기표현monitor1614완료→2000대기. Epoch1조건비교는완료됐다.
+추가95PDMS평가3487344는1500/1614각95성공후종료. GPU전체최대41.73GB/재생ADE검사24개오차0.
+학습source/config/queue무변경. 위치·크기변화가있으므로사용자의'변화없을경우중단'조건에는해당하지않는다.
 
 중간PDMS평가2617416은285scene-checkpoint채점완료. 기존본학습/queue/500표현monitor/epoch비교계속.
 출력 `outputs/lpwm_drivor_intermediate_pdms_v1/evaluation_complete.json`. 학습source/config변경없음.
@@ -699,6 +711,14 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+첫epochexact1614비교:old Q/V geometry .302314px/2.02025%/presence.046125 vs 새1.236072px/7.71424%/.222527.
+새particle42.12%는1px초과이동,67.43%는한축크기5%초과. 같은장면명령교체중심반응.255803px.
+전체readout F1초기.379859→.420517(old.372994),appearance초기.292610→.266910(old.310808)로혼재.
+미래readout오차2초현재3.9049/미래3.8349m,4초현재8.0169/미래7.8337m;차이95%CI[-.09651,-.03744]/[-.34250,-.05745].
+공식PDMS95:1000 67.8315→1500 63.5197→1614 67.9864.1000→1614+0.15491/CI[-7.14543,7.16457].
+도로준수1000 .90526→1614 .84211, zero score11→17.직진70.76→74.56, 좌74.34→63.80, 우54.68→62.00.
+모든scope는학습패널이며최종navtest/LPWM단독인과효과아님. 근거 epoch1_intermediate_report_v1/.
 
 95동일학습장면공식PDMS 초기30.429935 /500:63.405664 /1000:67.831505. Zero score46/16/11장면.
 GT경로ADE9.55123/4.54123/3.17766m. 500→1000좌회전63.2932→74.3446,직진63.2425→70.7622,우회전63.8250→54.6835.
@@ -1285,12 +1305,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자PDMS확인요청으로정확한초기/500/1000표현을재생해같은95학습장면의공식NAVSIM v1 PDMS를평가했다.
-- 독립평가script추가,원래36baseline재생일치와nativefreeze/메모리guard검사통과. 285건성공/실패0.
-- 30.43→63.41→67.83점,우회전저하및paired95%CI를함께보고서/CSV/그래프에보존했다.
-- 최초sandbox NVML조회실패뒤허용된host평가2617416으로완료. 학습·queue·정기표현진단source/config변경없음.
+- 첫epoch완료·old/new정확1614조건비교·1500/1614표현검사를검토하고사용자중간보고를준비했다.
+- 동일95장면의1500/1614공식PDMS를평가해63.52/67.99점확인,재생24검사오차0/실패0/최대카드41.73GB.
+- PDMS정체·도로준수저하와미래판독의예비이득을함께기록하고누적그래프·CSV·firstepoch비교결과를보존했다.
+- 현재1682update/epoch2·다음2000진단ETA기록. 기존학습/등록source/config/queue/monitor무변경.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+23:29기준2000학습도달10/7 01:41전후+진단여유,3322warmup10:49전후,4000 15:30전후예상.
+CPUfirstepoch비교watcher완료.기존학습/500진단계속하며도로준수/좌회전저하와미래판독이득의지속성을추적한다.
+최종DrivoR비교는25epoch후.이번95PDMS는일회후속평가로완료됐고표현monitor소스를수정하지않았다.
 
 PDMS95중간평가는완료. 이후정확한500경계PDMS가필요하면새output에동일script --updates <시점>으로실행할수있다.
 이번에는정기PDMSwatcher를추가하지않았다. 기존500간격표현진단은계속되며fullnavtest는25epoch완료후queue일정유지.
@@ -1658,6 +1682,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+첫epoch후새LoRA에서particlegeometry변화가확인됐다.큰 변화가더좋은planning표현을뜻하지는않는다.
+PDMS는1000대비첫epoch+0.15점으로거의같고, 도로준수/좌회전점수가하락했다.학습중개선이비단조다.
+미래판독은6recording패널에서현재보다소폭좋은예비신호가있으나0변위baseline보다나쁘고외부일반화미검증.
+첫epoch도warmup3322중, 25epoch계획유지.고해상도전환/새loss/대조학습은이번보고로등록하지않았다.
 
 새중간PDMS는공식metric계산법의학습분포95장면값이다. 최종navtest벤치마크/논문비교점수와혼동하지않는다.
 LPWM+planner공동학습전체효과이며LPWM미세조정단독효과는분리되지않았다. +4.43점의CI가0포함/우회전저하도남음.

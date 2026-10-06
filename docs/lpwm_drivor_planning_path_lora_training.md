@@ -386,3 +386,44 @@ Output `outputs/lpwm_drivor_intermediate_pdms_v1/evaluation_complete.json`,공�
 `results/lpwm_drivor_planning_path_lora_v1/intermediate_pdms_95_v1/summary.json`,CSV,`pdms_progress.png`.
 이것은학습분포중간진단이며fullnavtest가아니다. 최종25epoch후fullnavtest평가일정은기존queue에있다.
 이번95PDMS는일회평가다. 이후확인시별도output에 `--updates 1500` 등으로실행할수있다.
+
+## 2026-10-06 23:29 KST — 첫epoch완료 중간결과
+
+첫epoch의exact1614 checkpoint가23:00에저장됐고현재1682update/epoch2다.
+CPU예약비교가완료돼old Q/V-only와새geometry·appearance·future LoRA를같은96장면/1614update에서비교했다.
+
+| 초기 대비 변화 | 이전 Q/V LoRA | 새 세경로 LoRA |
+|---|---:|---:|
+| 평균 중심 이동(px) | 0.3023 | 1.2361 |
+| 평균 크기축 절대변화율(%) | 2.0203 | 7.7142 |
+| Presence 평균 절대변화 | 0.04613 | 0.22253 |
+
+새particle의42.12%는1px넘게이동했고67.43%는한축이상크기가5%넘게변했다.
+Native original digest는같다.전체current판독F1은초기.37986→.42052, old.37299보다높으나
+appearance-only는초기.29261/old.31081보다낮은.26691이다.Geometry변화량으로효용을판정하지않는다.
+같은장면명령교체중심평균변화.25580px, 도로presence가중비중은초기18.4076→7.2731%다.
+
+미래변위readout은2초현재3.90490/미래3.83489m, 4초현재8.01687/미래7.83373m.
+현재대비미래오차차이95%CI가2초[-.09651,-.03744], 4초[-.34250,-.05745]로0을포함하지않는다.
+6recording/622·554object-view평가에서의예비신호이며navtest가아니다.0변위baseline3.33391/6.72696m보다오차가높다.
+미래표현의추가정보가일부읽히기시작했지만실제planning기여/충분한미래예측성능은아직미검증이다.
+
+새체크포인트의공식PDMS도동일95장면/24recording에서추가평가했다.
+
+| Update | PDMS | Expert ADE(m) | Zero score장면 |
+|---|---:|---:|---:|
+| 500 | 63.4057 | 4.5412 | 16 |
+| 1000 | 67.8315 | 3.1777 | 11 |
+| 1500 | 63.5197 | 2.0007 | 24 |
+| 1614(epoch1) | 67.9864 | 2.1082 | 17 |
+
+1000→1614의차이는+0.15491점, recordingpairedbootstrap5000회/seed71 CI[-7.14543,7.16457]로거의같은수준이다.
+도로준수는.90526→.84211, 좌회전PDMS74.3446→63.7964로낮아졌다.
+직진70.7622→74.5582, 우회전54.6835→61.9971은높아졌다.Planning개선은상황별/시점별로비단조다.
+PDMS는학습분포진단이며LPWM+planner전체효과, LPWM단독효과분리/최종navtest결과가아니다.
+
+실행 `outputs/lpwm_drivor_intermediate_pdms_epoch1_v1/`, 190건성공/실패0, 원래12baseline×2재생ADE24검사오차0.
+평가GPU전체최대41.72913GB, 등록source/config/nativefreeze불변.기존학습/queue/정기monitor유지.
+2000은10/7 01:41전후, 3322warmup은10:49전후, 4000은15:31전후도달예상/진단여유별도.
+첫epoch도warmup중이므로기존계획대로추세를본다.고해상도/새loss/DrivoR대조실험은추가등록하지않았다.
+결과 `results/lpwm_drivor_planning_path_lora_v1/epoch1_intermediate_report_v1/report.json`, PDMS그래프, 동일epoch비교PNG.

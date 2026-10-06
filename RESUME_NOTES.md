@@ -2888,3 +2888,21 @@ PDMS초기30.429935/500:63.405664/1000:67.831505,zero score46/16/11,expertADE9.5
 전체초기→1000+37.40157점CI[29.95645,45.10453]. 학습분포공동학습진단이며독립navtest/LPWM단독이득은아님.
 285scene-checkpoint채점성공/실패0. 결과/CSV/등록/replay검사/그래프 results/.../intermediate_pdms_95_v1/.
 이번PDMS는완료된일회평가이며기존500표현watcher에는source불변원칙에따라변경을넣지않았다.
+
+## 2026-10-06 23:29 KST — 첫epoch완료·1500/1614 중간결과
+
+Epoch_01.pt23:00:28저장,현재1682update/epoch2.정확1614old Q/V vs 새세경로비교watcher완료.
+평균geometry old .302314px/크기2.02025% vs new1.236072px/7.71424%.42.12%가1px초과/67.43%가한축크기5%초과.
+Whole currentreadout 초기.379859→.420517(old.372994),appearance초기.292610→.266910(old.310808).
+Same scene명령변경중심평균.255803px, 도로presence가중비중초기18.4076→7.2731%로낮음.
+미래readout2초현재3.90490/미래3.83489m, 4초현재8.01687/미래7.83373m.
+current대비차이95%CI2초[-.09651,-.03744], 4초[-.34250,-.05745].6recording의예비신호며baseline0변위보다오차높음.
+
+동일95장면공식PDMS재평가3487344완료: 1500=63.519656, 1614=67.986416.
+1000=67.831505대비첫epoch+0.15491점, 24recording pairedbootstrap5000/seed71 CI[-7.14543,7.16457].
+도로준수.90526→.84211, zero score11→17, expertADE3.17766→2.10819m.
+직진70.7622→74.5582, 좌회전74.3446→63.7964, 우회전54.6835→61.9971.
+190채점성공/실패0, 기존baseline24ADE재생검사오차0, GPU전체최대41.72913GB, nativefreeze/source보존.
+학습분포진단이며navtest/LPWM단독효과아님.본학습/queue/정기표현monitor변경없음.
+최근100 wall24.90초, 2000은10/7 01:41, warmup3322는10:49, 4000은15:31학습도달예상/진단시간별도.
+결과/누적PDMS/비교PNG: results/lpwm_drivor_planning_path_lora_v1/epoch1_intermediate_report_v1/.

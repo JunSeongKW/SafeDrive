@@ -1,0 +1,10 @@
+{
+  "complete": true,
+  "completed_unix": 1791295478.0933232,
+  "completed_updates_each": 1614,
+  "summary_sha256": "ab1198b18894ffa77b40d15238687f781a2427511db2b054a050a31e33b2731a",
+  "old_checkpoint_sha256": "3c4a60918e32a7c92d10099b51998ad27b5b74cc0e83ccc1aa0c535450662440",
+  "new_checkpoint_sha256": "282bf13bd123a2461c4c84a3c2d1f96879f7e69ace9f63a41c09d8e4c2fbc746",
+  "scene_count": 96,
+  "no_gpu_or_training_changes": true
+}

@@ -1,0 +1,31 @@
+{
+  "source_sha256": "e085f40a1f646467967c49ca6357d88c5a2f432bdc4ad3c3a1817a7f5285f182",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "updates": [
+    1500,
+    1614
+  ],
+  "checkpoints": {
+    "1500": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_particle_trends_every500_v1/checkpoints/update_001500.pt",
+      "checkpoint_sha256": "0d360c2ab8d6f0ea57a0fd363621d8b13c823bd8477bb6afa13811650a003143",
+      "attributes_sha256": "ead122170dad6351ce3c15844d4c84ffd946d7d1f379558a3d3e19a19cf7ff71"
+    },
+    "1614": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_particle_trends_every500_v1/checkpoints/update_001614.pt",
+      "checkpoint_sha256": "282bf13bd123a2461c4c84a3c2d1f96879f7e69ace9f63a41c09d8e4c2fbc746",
+      "attributes_sha256": "5e5150189b0cab70b2f5aaf0607e20205b019cb1dc17a71f14ed0dfc636c3084"
+    }
+  },
+  "scene_count": 95,
+  "panel_count": 96,
+  "excluded_missing_official_cache": [
+    "20c5f1c678e7548a"
+  ],
+  "training_distribution": true,
+  "full_navtest": false,
+  "scoring": "Unmodified official NAVSIM v1 pdm_score with standard MetricCache, 40 x 0.1s simulator sampling",
+  "cached_representation_replay": true,
+  "model_updates": false,
+  "started_unix": 1791296811.4528723
+}

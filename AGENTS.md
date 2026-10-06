@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 23:29 KST 최신: 첫epoch조건비교완료, 본학습epoch2진행.**
+본학습1682update, epoch_01.pt23:00저장. CPU비교3317230은완료됐으므로다시watch를기동하지않는다.
+`outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/complete.json`과비교PNG를확인한다.
+Geometry평균old .302px/2.020% vs new1.236px/7.714%. 위치불변중단조건에해당하지않아기존25epoch실행유지.
+95장면PDMS1000:67.83→1500:63.52→첫epoch67.99. Fullnavtest아님;정기표현monitor다음2000대기.
+현재결과근거 `results/lpwm_drivor_planning_path_lora_v1/epoch1_intermediate_report_v1/`.
+
 **2026-10-06 15:05 KST 최신: 사용자 요청으로 매500update 표현 진단을 등록했다.**
 `scripts/monitor_lpwm_particle_trends_every500.py`, config `configs/lpwm_drivor_review/particle_trends_every500.json`.
 새 monitor568996이 기존 monitor3186135를 대체했다. 이전 monitor를 중복 실행하지 않는다.

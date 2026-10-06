@@ -1,0 +1,1100 @@
+{
+  "completed_updates_each": 1614,
+  "scene_count": 96,
+  "camera_count": 4,
+  "input_resolution": [
+    128,
+    128
+  ],
+  "initial_attributes_max_abs_difference": 0.0,
+  "old_checkpoint_sha256": "3c4a60918e32a7c92d10099b51998ad27b5b74cc0e83ccc1aa0c535450662440",
+  "new_checkpoint_sha256": "282bf13bd123a2461c4c84a3c2d1f96879f7e69ace9f63a41c09d8e4c2fbc746",
+  "selected_scenes_before_new_results": [
+    2,
+    4,
+    7,
+    0,
+    1,
+    5,
+    3,
+    6,
+    8,
+    9,
+    10,
+    11
+  ],
+  "same_native_particle_indices_not_semantic_object_matches": true,
+  "sizes_are_glimpses_not_detection_boxes": true,
+  "training_distribution_diagnostic_not_pdms": true,
+  "larger_geometry_change_is_not_necessarily_better": true,
+  "comparisons": {
+    "initial_to_old": {
+      "all_particles": {
+        "particle_count": 24576,
+        "centers_bitwise_identical": false,
+        "sizes_bitwise_identical": false,
+        "center_shift_input_pixels": {
+          "mean": 0.3023136786550206,
+          "median": 0.2076982483267784,
+          "p90": 0.6589911878108978,
+          "p99": 1.5316606760025024,
+          "maximum": 3.975736141204834
+        },
+        "size_axis_absolute_change_input_pixels": {
+          "mean": 0.726757999684196,
+          "median": 0.47620582580566406,
+          "p90": 1.599041366577149,
+          "p99": 4.209560928344726,
+          "maximum": 20.755558013916016
+        },
+        "size_axis_relative_change_percent": {
+          "mean": 2.0202505814220966,
+          "median": 1.3506675958633423,
+          "p90": 4.419755887985231,
+          "p99": 11.102078199386575,
+          "maximum": 86.85211181640625
+        },
+        "presence_absolute_change": {
+          "mean": 0.046125252999530776,
+          "median": 0.009860835503786802,
+          "p90": 0.13533617556095123,
+          "p99": 0.44572389125823975,
+          "maximum": 0.9204897284507751
+        },
+        "fraction_center_shift_over_one_input_pixel": 0.036376953125,
+        "fraction_particles_any_size_axis_change_over_five_percent": 0.11588541666666667
+      },
+      "by_scene_group": {
+        "all": {
+          "particle_count": 24576,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.3023136786550206,
+            "median": 0.2076982483267784,
+            "p90": 0.6589911878108978,
+            "p99": 1.5316606760025024,
+            "maximum": 3.975736141204834
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.726757999684196,
+            "median": 0.47620582580566406,
+            "p90": 1.599041366577149,
+            "p99": 4.209560928344726,
+            "maximum": 20.755558013916016
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 2.0202505814220966,
+            "median": 1.3506675958633423,
+            "p90": 4.419755887985231,
+            "p99": 11.102078199386575,
+            "maximum": 86.85211181640625
+          },
+          "presence_absolute_change": {
+            "mean": 0.046125252999530776,
+            "median": 0.009860835503786802,
+            "p90": 0.13533617556095123,
+            "p99": 0.44572389125823975,
+            "maximum": 0.9204897284507751
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.036376953125,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.11588541666666667
+        },
+        "straight": {
+          "particle_count": 10752,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.300412476936615,
+            "median": 0.21012456715106964,
+            "p90": 0.6503748595714568,
+            "p99": 1.4586387550830822,
+            "maximum": 3.975736141204834
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.7841204125877648,
+            "median": 0.5358867645263672,
+            "p90": 1.6778194427490236,
+            "p99": 4.415850181579594,
+            "maximum": 14.38223648071289
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 2.1823612260682834,
+            "median": 1.5273985862731934,
+            "p90": 4.657659196853639,
+            "p99": 11.587808570861824,
+            "maximum": 40.630332946777344
+          },
+          "presence_absolute_change": {
+            "mean": 0.04520210655694764,
+            "median": 0.009851396083831787,
+            "p90": 0.13346428275108332,
+            "p99": 0.4147983127832412,
+            "maximum": 0.9204897284507751
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.033203125,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.12648809523809523
+        },
+        "left_turn": {
+          "particle_count": 7680,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.35985863113566363,
+            "median": 0.2560255825519562,
+            "p90": 0.7668945610523226,
+            "p99": 1.813017807006836,
+            "maximum": 3.8444700241088867
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.8374898421267668,
+            "median": 0.5644254684448242,
+            "p90": 1.8247375488281254,
+            "p99": 4.513097801208496,
+            "maximum": 20.755558013916016
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 2.333043974300451,
+            "median": 1.6169444918632507,
+            "p90": 5.048051214218141,
+            "p99": 11.770533285140987,
+            "maximum": 86.85211181640625
+          },
+          "presence_absolute_change": {
+            "mean": 0.05758586060155058,
+            "median": 0.013312987983226776,
+            "p90": 0.1721925377845764,
+            "p99": 0.5451239001750947,
+            "maximum": 0.8677802681922913
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.053385416666666664,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.14986979166666667
+        },
+        "right_turn": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.23370959106142664,
+            "median": 0.1512550488114357,
+            "p90": 0.5347354471683502,
+            "p99": 1.2269677376747123,
+            "maximum": 2.8895931243896484
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.48795897404973704,
+            "median": 0.2957477569580078,
+            "p90": 1.1192441940307618,
+            "p99": 3.0729324340820208,
+            "maximum": 10.898784637451172
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 1.3455652121933273,
+            "median": 0.8526405096054077,
+            "p90": 3.0669907808303836,
+            "p99": 8.001542730331417,
+            "maximum": 24.741788864135742
+          },
+          "presence_absolute_change": {
+            "mean": 0.03341499977152651,
+            "median": 0.007134610787034035,
+            "p90": 0.09695957303047179,
+            "p99": 0.3055489334464071,
+            "maximum": 0.7341921925544739
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.020670572916666668,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.054850260416666664
+        },
+        "projected_box_overlap_proxy": {
+          "particle_count": 23808,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.3013056628439249,
+            "median": 0.20705823600292206,
+            "p90": 0.6556868195533752,
+            "p99": 1.5289319586753853,
+            "maximum": 3.975736141204834
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.7269038196092331,
+            "median": 0.47768688201904297,
+            "p90": 1.5952644348144531,
+            "p99": 4.190180206298825,
+            "maximum": 20.755558013916016
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 2.0211324887171207,
+            "median": 1.3551748394966125,
+            "p90": 4.415492534637451,
+            "p99": 11.095182132720929,
+            "maximum": 86.85211181640625
+          },
+          "presence_absolute_change": {
+            "mean": 0.04617436835869461,
+            "median": 0.00986817479133606,
+            "p90": 0.13536954224109643,
+            "p99": 0.44621415615081805,
+            "maximum": 0.9204897284507751
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.036038306451612906,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.1157174059139785
+        }
+      },
+      "by_camera": {
+        "front": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.28330285941348166,
+            "median": 0.19002560526132584,
+            "p90": 0.6260949313640595,
+            "p99": 1.5031141221523234,
+            "maximum": 3.8444700241088867
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.7180185726222893,
+            "median": 0.4691333770751953,
+            "p90": 1.602028274536133,
+            "p99": 4.1924270248412965,
+            "maximum": 12.170337677001953
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 1.9954457532903678,
+            "median": 1.3111432194709778,
+            "p90": 4.436044502258304,
+            "p99": 10.971633672714225,
+            "maximum": 24.431711196899414
+          },
+          "presence_absolute_change": {
+            "mean": 0.04600564420183062,
+            "median": 0.00950634479522705,
+            "p90": 0.1321585714817047,
+            "p99": 0.4759319642186165,
+            "maximum": 0.8677802681922913
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.030924479166666668,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.11783854166666667
+        },
+        "back": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.3091335291690598,
+            "median": 0.20573733747005463,
+            "p90": 0.6934705674648283,
+            "p99": 1.6852406251430503,
+            "maximum": 3.319009304046631
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.7381670568138361,
+            "median": 0.4569272994995117,
+            "p90": 1.6513381958007827,
+            "p99": 4.540235671997055,
+            "maximum": 17.505599975585938
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 2.0197830596574113,
+            "median": 1.298076570034027,
+            "p90": 4.480235719680788,
+            "p99": 12.359426136016841,
+            "maximum": 49.025474548339844
+          },
+          "presence_absolute_change": {
+            "mean": 0.047289329187208885,
+            "median": 0.010280538350343704,
+            "p90": 0.14314745366573328,
+            "p99": 0.4398208263516421,
+            "maximum": 0.7216572165489197
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.043619791666666664,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.11962890625
+        },
+        "left": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.3163881003821227,
+            "median": 0.22122012823820114,
+            "p90": 0.6846630096435545,
+            "p99": 1.4811032712459564,
+            "maximum": 3.120732545852661
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.7223383022937924,
+            "median": 0.49283409118652344,
+            "p90": 1.6102615356445313,
+            "p99": 3.8017776870727493,
+            "maximum": 13.274482727050781
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 2.020580726695241,
+            "median": 1.402160108089447,
+            "p90": 4.456819725036622,
+            "p99": 10.40629714965819,
+            "maximum": 31.360509872436523
+          },
+          "presence_absolute_change": {
+            "mean": 0.04767708676869731,
+            "median": 0.009787876158952713,
+            "p90": 0.14090432226657867,
+            "p99": 0.45115309894084915,
+            "maximum": 0.778722882270813
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.038736979166666664,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.11637369791666667
+        },
+        "right": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 0.3004302256554183,
+            "median": 0.21321091055870056,
+            "p90": 0.6372239589691161,
+            "p99": 1.4531505119800558,
+            "maximum": 3.975736141204834
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 0.7285080670068661,
+            "median": 0.4867887496948242,
+            "p90": 1.5391019821167005,
+            "p99": 4.214898796081538,
+            "maximum": 20.755558013916016
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 2.045192786045367,
+            "median": 1.3966915011405945,
+            "p90": 4.324856233596803,
+            "p99": 10.742434453964218,
+            "maximum": 86.85211181640625
+          },
+          "presence_absolute_change": {
+            "mean": 0.0435289518403863,
+            "median": 0.009813901036977768,
+            "p90": 0.12589721530675888,
+            "p99": 0.403307611644267,
+            "maximum": 0.9204897284507751
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.0322265625,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.10970052083333333
+        }
+      }
+    },
+    "initial_to_new": {
+      "all_particles": {
+        "particle_count": 24576,
+        "centers_bitwise_identical": false,
+        "sizes_bitwise_identical": false,
+        "center_shift_input_pixels": {
+          "mean": 1.2360723921603285,
+          "median": 0.8461337089538574,
+          "p90": 2.5583473443984985,
+          "p99": 6.676140785217285,
+          "maximum": 23.090740203857422
+        },
+        "size_axis_absolute_change_input_pixels": {
+          "mean": 2.7775063698451654,
+          "median": 1.7858600616455078,
+          "p90": 6.610480308532716,
+          "p99": 13.853798255920385,
+          "maximum": 23.487173080444336
+        },
+        "size_axis_relative_change_percent": {
+          "mean": 7.714239762943932,
+          "median": 5.047957181930542,
+          "p90": 18.515079498291023,
+          "p99": 36.031230583190904,
+          "maximum": 54.545867919921875
+        },
+        "presence_absolute_change": {
+          "mean": 0.22252702359949006,
+          "median": 0.05970799922943115,
+          "p90": 0.8019877970218658,
+          "p99": 0.9911523312330246,
+          "maximum": 0.9985644221305847
+        },
+        "fraction_center_shift_over_one_input_pixel": 0.4211832682291667,
+        "fraction_particles_any_size_axis_change_over_five_percent": 0.67431640625
+      },
+      "by_scene_group": {
+        "all": {
+          "particle_count": 24576,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2360723921603285,
+            "median": 0.8461337089538574,
+            "p90": 2.5583473443984985,
+            "p99": 6.676140785217285,
+            "maximum": 23.090740203857422
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.7775063698451654,
+            "median": 1.7858600616455078,
+            "p90": 6.610480308532716,
+            "p99": 13.853798255920385,
+            "maximum": 23.487173080444336
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.714239762943932,
+            "median": 5.047957181930542,
+            "p90": 18.515079498291023,
+            "p99": 36.031230583190904,
+            "maximum": 54.545867919921875
+          },
+          "presence_absolute_change": {
+            "mean": 0.22252702359949006,
+            "median": 0.05970799922943115,
+            "p90": 0.8019877970218658,
+            "p99": 0.9911523312330246,
+            "maximum": 0.9985644221305847
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4211832682291667,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.67431640625
+        },
+        "straight": {
+          "particle_count": 10752,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2494905294085281,
+            "median": 0.855582594871521,
+            "p90": 2.5904668331146232,
+            "p99": 6.726239576339719,
+            "maximum": 21.26435089111328
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.920756957449374,
+            "median": 1.8655319213867188,
+            "p90": 7.104265022277832,
+            "p99": 14.217971439361625,
+            "maximum": 20.44428253173828
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 8.106331862791203,
+            "median": 5.249593496322632,
+            "p90": 19.595010566711426,
+            "p99": 37.20425125122074,
+            "maximum": 54.545867919921875
+          },
+          "presence_absolute_change": {
+            "mean": 0.2222214615740781,
+            "median": 0.05900624394416809,
+            "p90": 0.7957412600517272,
+            "p99": 0.9890501111745834,
+            "maximum": 0.9985644221305847
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4265252976190476,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6878720238095238
+        },
+        "left_turn": {
+          "particle_count": 7680,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.1876032192156647,
+            "median": 0.8172355890274048,
+            "p90": 2.486796569824219,
+            "p99": 6.301119832992554,
+            "maximum": 16.29637908935547
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.6114307519048454,
+            "median": 1.6771488189697266,
+            "p90": 6.135633087158204,
+            "p99": 13.594550075531005,
+            "maximum": 23.487173080444336
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.275466916587354,
+            "median": 4.797531843185425,
+            "p90": 17.341380119323734,
+            "p99": 34.97024158477783,
+            "maximum": 52.45759582519531
+          },
+          "presence_absolute_change": {
+            "mean": 0.22520594610866926,
+            "median": 0.06022868864238262,
+            "p90": 0.8171463787555697,
+            "p99": 0.992175645828247,
+            "maximum": 0.9972181916236877
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.40286458333333336,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.65859375
+        },
+        "right_turn": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2731771181568092,
+            "median": 0.8657140731811523,
+            "p90": 2.581208276748657,
+            "p99": 6.991454277038565,
+            "maximum": 23.090740203857422
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.7344123639632016,
+            "median": 1.7806015014648438,
+            "p90": 6.452102851867679,
+            "p99": 13.091601791381816,
+            "maximum": 20.365171432495117
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.576544646156929,
+            "median": 5.034517049789429,
+            "p90": 18.112702941894547,
+            "p99": 34.597345352172816,
+            "maximum": 49.12473678588867
+          },
+          "presence_absolute_change": {
+            "mean": 0.21971310400748698,
+            "median": 0.059477776288986206,
+            "p90": 0.7976996421813963,
+            "p99": 0.9902338880300522,
+            "maximum": 0.9971781373023987
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4347330729166667,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6702473958333334
+        },
+        "projected_box_overlap_proxy": {
+          "particle_count": 23808,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.233356780667833,
+            "median": 0.8454335033893585,
+            "p90": 2.55003113746643,
+            "p99": 6.611227970123293,
+            "maximum": 23.090740203857422
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.783610553751069,
+            "median": 1.7902393341064453,
+            "p90": 6.629297256469727,
+            "p99": 13.833632564544638,
+            "maximum": 23.487173080444336
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.731216943538617,
+            "median": 5.0590410232543945,
+            "p90": 18.559557914733887,
+            "p99": 36.040537834167466,
+            "maximum": 54.545867919921875
+          },
+          "presence_absolute_change": {
+            "mean": 0.2238616854095712,
+            "median": 0.060362620279192924,
+            "p90": 0.8041813433170317,
+            "p99": 0.991201456785202,
+            "maximum": 0.9985644221305847
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.42082493279569894,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6751092069892473
+        }
+      },
+      "by_camera": {
+        "front": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2730717218777652,
+            "median": 0.8869587779045105,
+            "p90": 2.6322030067443842,
+            "p99": 6.596436939239501,
+            "maximum": 23.090740203857422
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 3.0515122298772135,
+            "median": 1.9676265716552734,
+            "p90": 7.40577735900879,
+            "p99": 14.637611083984355,
+            "maximum": 20.123430252075195
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 8.392142289864287,
+            "median": 5.5781731605529785,
+            "p90": 20.209395408630375,
+            "p99": 37.56967792510986,
+            "maximum": 50.718719482421875
+          },
+          "presence_absolute_change": {
+            "mean": 0.25986348183041486,
+            "median": 0.07795114815235138,
+            "p90": 0.8825417697429657,
+            "p99": 0.99322136759758,
+            "maximum": 0.9977449774742126
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4417317708333333,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.69921875
+        },
+        "back": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2422365697385278,
+            "median": 0.8342494964599609,
+            "p90": 2.593843817710876,
+            "p99": 6.770802783966062,
+            "maximum": 20.632097244262695
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.812029408213372,
+            "median": 1.7366809844970703,
+            "p90": 6.953638076782236,
+            "p99": 14.601472110748285,
+            "maximum": 21.042667388916016
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.742865802382227,
+            "median": 4.88608717918396,
+            "p90": 19.11739177703858,
+            "p99": 37.910854187011665,
+            "maximum": 52.45759582519531
+          },
+          "presence_absolute_change": {
+            "mean": 0.2315973026658004,
+            "median": 0.06013176590204239,
+            "p90": 0.8417466700077056,
+            "p99": 0.991975707411766,
+            "maximum": 0.9985644221305847
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4173177083333333,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6552734375
+        },
+        "left": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2418965370079984,
+            "median": 0.8418460786342621,
+            "p90": 2.590796446800232,
+            "p99": 6.991454277038565,
+            "maximum": 19.33207893371582
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.6743777935237936,
+            "median": 1.7167720794677734,
+            "p90": 6.329279708862306,
+            "p99": 13.61206933975217,
+            "maximum": 20.415058135986328
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.46122567145395,
+            "median": 4.8518078327178955,
+            "p90": 17.919008827209474,
+            "p99": 35.301139259338335,
+            "maximum": 51.47676467895508
+          },
+          "presence_absolute_change": {
+            "mean": 0.20534177130331224,
+            "median": 0.05387348309159279,
+            "p90": 0.7437951266765593,
+            "p99": 0.9874140524864197,
+            "maximum": 0.9982664585113525
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4182942708333333,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6663411458333334
+        },
+        "right": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.187084740017023,
+            "median": 0.82236048579216,
+            "p90": 2.400191068649292,
+            "p99": 6.3634551239013675,
+            "maximum": 21.402462005615234
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.572106047766283,
+            "median": 1.7475566864013672,
+            "p90": 5.950711059570314,
+            "p99": 11.705733356475827,
+            "maximum": 23.487173080444336
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.260725288075264,
+            "median": 4.969543695449829,
+            "p90": 16.997951698303247,
+            "p99": 31.119055137634266,
+            "maximum": 54.545867919921875
+          },
+          "presence_absolute_change": {
+            "mean": 0.19330553859843272,
+            "median": 0.052008483558893204,
+            "p90": 0.6861049115657807,
+            "p99": 0.9869756054878235,
+            "maximum": 0.9972181916236877
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4073893229166667,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6764322916666666
+        }
+      }
+    },
+    "old_to_new": {
+      "all_particles": {
+        "particle_count": 24576,
+        "centers_bitwise_identical": false,
+        "sizes_bitwise_identical": false,
+        "center_shift_input_pixels": {
+          "mean": 1.1884505922226936,
+          "median": 0.794382780790329,
+          "p90": 2.4875564575195312,
+          "p99": 6.6589109897613525,
+          "maximum": 23.446617126464844
+        },
+        "size_axis_absolute_change_input_pixels": {
+          "mean": 2.3798369268964357,
+          "median": 1.5154438018798828,
+          "p90": 5.693476295471192,
+          "p99": 11.73779987335204,
+          "maximum": 23.350584030151367
+        },
+        "size_axis_relative_change_percent": {
+          "mean": 6.711350970908896,
+          "median": 4.318913698196411,
+          "p90": 16.187580680847173,
+          "p99": 31.812764148712112,
+          "maximum": 53.919063568115234
+        },
+        "presence_absolute_change": {
+          "mean": 0.2001644561926501,
+          "median": 0.04926852695643902,
+          "p90": 0.7460419535636902,
+          "p99": 0.9865603446960449,
+          "maximum": 0.998020350933075
+        },
+        "fraction_center_shift_over_one_input_pixel": 0.3941243489583333,
+        "fraction_particles_any_size_axis_change_over_five_percent": 0.6180419921875
+      },
+      "by_scene_group": {
+        "all": {
+          "particle_count": 24576,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.1884505922226936,
+            "median": 0.794382780790329,
+            "p90": 2.4875564575195312,
+            "p99": 6.6589109897613525,
+            "maximum": 23.446617126464844
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.3798369268964357,
+            "median": 1.5154438018798828,
+            "p90": 5.693476295471192,
+            "p99": 11.73779987335204,
+            "maximum": 23.350584030151367
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 6.711350970908896,
+            "median": 4.318913698196411,
+            "p90": 16.187580680847173,
+            "p99": 31.812764148712112,
+            "maximum": 53.919063568115234
+          },
+          "presence_absolute_change": {
+            "mean": 0.2001644561926501,
+            "median": 0.04926852695643902,
+            "p90": 0.7460419535636902,
+            "p99": 0.9865603446960449,
+            "maximum": 0.998020350933075
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.3941243489583333,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6180419921875
+        },
+        "straight": {
+          "particle_count": 10752,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2066890373328403,
+            "median": 0.808211624622345,
+            "p90": 2.541835880279541,
+            "p99": 6.786705341339107,
+            "maximum": 21.687822341918945
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.4773328575261293,
+            "median": 1.5874147415161133,
+            "p90": 5.955255889892581,
+            "p99": 11.939241580963175,
+            "maximum": 17.528562545776367
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.007897353307747,
+            "median": 4.549401044845581,
+            "p90": 16.879146766662597,
+            "p99": 32.249280433654796,
+            "maximum": 53.919063568115234
+          },
+          "presence_absolute_change": {
+            "mean": 0.20092278912699818,
+            "median": 0.04957842826843262,
+            "p90": 0.7398746371269226,
+            "p99": 0.9832601964473724,
+            "maximum": 0.998020350933075
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.40187872023809523,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6389508928571429
+        },
+        "left_turn": {
+          "particle_count": 7680,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.1403567197100226,
+            "median": 0.7672345638275146,
+            "p90": 2.3766901731491092,
+            "p99": 6.4098681640625,
+            "maximum": 17.277894973754883
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.15615736109515,
+            "median": 1.3714103698730469,
+            "p90": 5.098470497131349,
+            "p99": 11.0317534828186,
+            "maximum": 23.350584030151367
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 6.118327981265302,
+            "median": 3.9034653902053833,
+            "p90": 14.620619583129884,
+            "p99": 29.936257209777832,
+            "maximum": 49.53662872314453
+          },
+          "presence_absolute_change": {
+            "mean": 0.19323668152598827,
+            "median": 0.04596901312470436,
+            "p90": 0.7218721926212311,
+            "p99": 0.9837490034103393,
+            "maximum": 0.9968574643135071
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.37747395833333336,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.5841145833333333
+        },
+        "right_turn": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2166506539207755,
+            "median": 0.8037704527378082,
+            "p90": 2.538964128494261,
+            "p99": 6.892355027198786,
+            "maximum": 23.446617126464844
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.488818505546078,
+            "median": 1.5819377899169922,
+            "p90": 5.9622455596923825,
+            "p99": 12.237564888000476,
+            "maximum": 19.903268814086914
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 6.933673538765397,
+            "median": 4.453304767608643,
+            "p90": 16.775007629394537,
+            "p99": 32.484136314391925,
+            "maximum": 47.884483337402344
+          },
+          "presence_absolute_change": {
+            "mean": 0.2074970918908683,
+            "median": 0.05262432619929314,
+            "p90": 0.7791936993598935,
+            "p99": 0.9905907964706421,
+            "maximum": 0.9973153471946716
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.4013671875,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6238606770833334
+        },
+        "projected_box_overlap_proxy": {
+          "particle_count": 23808,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.1860335564564477,
+            "median": 0.7941826581954956,
+            "p90": 2.4774377584457397,
+            "p99": 6.651041693687441,
+            "maximum": 23.446617126464844
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.382962975510827,
+            "median": 1.5172481536865234,
+            "p90": 5.700909614562988,
+            "p99": 11.70024108886718,
+            "maximum": 23.350584030151367
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 6.721668399332019,
+            "median": 4.323961019515991,
+            "p90": 16.201024055480957,
+            "p99": 31.74126062393188,
+            "maximum": 53.919063568115234
+          },
+          "presence_absolute_change": {
+            "mean": 0.2012477630958012,
+            "median": 0.049885571002960205,
+            "p90": 0.7491947293281555,
+            "p99": 0.9869181901216507,
+            "maximum": 0.998020350933075
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.3936911962365591,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.6192456317204301
+        }
+      },
+      "by_camera": {
+        "front": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.2296802392409063,
+            "median": 0.8373416364192963,
+            "p90": 2.6054608106613157,
+            "p99": 6.508850936889634,
+            "maximum": 23.446617126464844
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.612623295901964,
+            "median": 1.6666460037231445,
+            "p90": 6.291618728637702,
+            "p99": 12.378272972106908,
+            "maximum": 17.528562545776367
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 7.323255341471548,
+            "median": 4.749148607254028,
+            "p90": 17.584577369689946,
+            "p99": 33.066646842956544,
+            "maximum": 46.083980560302734
+          },
+          "presence_absolute_change": {
+            "mean": 0.23495390719627451,
+            "median": 0.06349464133381844,
+            "p90": 0.8330665171146391,
+            "p99": 0.9900995236635207,
+            "maximum": 0.9973153471946716
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.41748046875,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.65087890625
+        },
+        "back": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.1862374900921395,
+            "median": 0.7871952950954437,
+            "p90": 2.449300265312194,
+            "p99": 6.7829253101348845,
+            "maximum": 20.372846603393555
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.4237607319373637,
+            "median": 1.4808216094970703,
+            "p90": 5.9950641632080135,
+            "p99": 12.542596282958979,
+            "maximum": 18.18239402770996
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 6.784117536761812,
+            "median": 4.189624547958374,
+            "p90": 16.81255817413331,
+            "p99": 33.69052143096908,
+            "maximum": 53.919063568115234
+          },
+          "presence_absolute_change": {
+            "mean": 0.20866641004946226,
+            "median": 0.047577232122421265,
+            "p90": 0.7826962828636168,
+            "p99": 0.9888462233543396,
+            "maximum": 0.9979681372642517
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.3909505208333333,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.59716796875
+        },
+        "left": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.1920072665795185,
+            "median": 0.7742599844932556,
+            "p90": 2.5022347927093507,
+            "p99": 7.0595420026779125,
+            "maximum": 19.26551628112793
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.2859700873183706,
+            "median": 1.4770450592041016,
+            "p90": 5.449238967895508,
+            "p99": 11.476772232055659,
+            "maximum": 19.903268814086914
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 6.479737997588425,
+            "median": 4.196084022521973,
+            "p90": 15.656968212127685,
+            "p99": 31.037016239166245,
+            "maximum": 49.53662872314453
+          },
+          "presence_absolute_change": {
+            "mean": 0.18304181231699226,
+            "median": 0.04557943530380726,
+            "p90": 0.6543163061141967,
+            "p99": 0.9828019177913666,
+            "maximum": 0.998020350933075
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.3849283854166667,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.60888671875
+        },
+        "right": {
+          "particle_count": 6144,
+          "centers_bitwise_identical": false,
+          "sizes_bitwise_identical": false,
+          "center_shift_input_pixels": {
+            "mean": 1.14587737297821,
+            "median": 0.7792394459247589,
+            "p90": 2.3808743715286247,
+            "p99": 6.34762115955351,
+            "maximum": 21.565065383911133
+          },
+          "size_axis_absolute_change_input_pixels": {
+            "mean": 2.1969935924280435,
+            "median": 1.4683599472045898,
+            "p90": 5.1229230880737315,
+            "p99": 10.019787559509252,
+            "maximum": 23.350584030151367
+          },
+          "size_axis_relative_change_percent": {
+            "mean": 6.258293007813798,
+            "median": 4.188549518585205,
+            "p90": 14.826447486877456,
+            "p99": 27.68012075424194,
+            "maximum": 49.085750579833984
+          },
+          "presence_absolute_change": {
+            "mean": 0.1739956952078714,
+            "median": 0.04351339675486088,
+            "p90": 0.627784901857376,
+            "p99": 0.9744673401117324,
+            "maximum": 0.9962853789329529
+          },
+          "fraction_center_shift_over_one_input_pixel": 0.3831380208333333,
+          "fraction_particles_any_size_axis_change_over_five_percent": 0.615234375
+        }
+      }
+    }
+  }
+}
