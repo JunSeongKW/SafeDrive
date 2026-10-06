@@ -1,0 +1,14 @@
+{
+  "checked_at_kst": "2026-10-06T13:06:34.326642+09:00",
+  "completed_updates": 313,
+  "updates_per_epoch": 1614,
+  "total_updates": 40350,
+  "recent100_seconds_per_update": 28.56388882916383,
+  "first_epoch_remaining_hours": 10.32267204631726,
+  "first_epoch_eta_kst": "2026-10-06T23:25:55.946009+09:00",
+  "unchanged_25epoch_remaining_days": 13.236254827005002,
+  "unchanged_25epoch_eta_kst": "2026-10-19T18:46:46.743695+09:00",
+  "benchmark_and_representation_diagnostic_time_excluded": true,
+  "automatic_comparison_watcher_previously_verified_alive": 3317230,
+  "chat_push_notification_not_configured": true
+}

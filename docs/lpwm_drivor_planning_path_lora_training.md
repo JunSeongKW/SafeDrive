@@ -202,3 +202,32 @@ loss/update수·평가를맞춘조건,(3)동일pretrained visual features에서r
 전/후/좌/우원본1920×1080·실제cache128×128·3배최근접확대를함께표시. 장면c94ee8ade05a5b12/navtrain.
 원본4개는바이트그대로복사,입력4개는실제cache에서읽고공식현재BICUBIC전처리와pixel완전일치확인.
 각원본/128PNG와`index.html`,`manifest.json`도같은폴더에있음. CPU작업만수행,학습/279source등록불변.
+
+## 2026-10-06 — 첫 epoch 전 300 update의 현재 particle 시각화
+
+사용자 요청으로 latest.pt의 정확한300 update를 별도 snapshot으로 복사해 고정96장면·4카메라에서 현재 particle을 추론했다.
+본학습은 계속 진행하며, 이 진단은 optimizer/학습조건/queue를 변경하지 않는다.
+
+| 초기 대비 변화 | 100 update | 300 update |
+|---|---:|---:|
+| 중심 평균 이동 (128² 입력 pixel) | 0.00986 | 0.03150 |
+| 중심 최대 이동 (pixel) | 0.31135 | 0.74734 |
+| 가로·세로 축 크기 절대 변화율 평균 | 0.0820% | 0.2369% |
+| Presence 절대 변화 평균 | 0.00173 | 0.00599 |
+
+총24,576particle 중 중심이1pixel 이상 이동한 비율은0, 어느 크기 축이5% 이상 바뀐 비율도0이다.
+현재geometry는bitwise고정이 아니지만, 아직 육안으로 뚜렷한 재배치라고 보기 어렵다. Planning 성능 개선의 증거로 해석하지 않는다.
+직진·좌회전·우회전 각기존첫장면(index2/0/3)을 사용해 결과크기에따른장면선택을피했다.
+시각화 열은 입력/초기/300update/겹쳐보기이며, 초기presence상위16개의같은번호박스와전체64중심을표시한다.
+사각형은glimpse범위이고GT/detection bbox가아니다. 같은번호는semantic tracking이아니다.128입력3배표시,이동과장없음.
+
+- 이미지: `outputs/lpwm_drivor_intermediate_geometry_update300_v1/before_after_overview.png`.
+- 갤러리/각장면4카메라/전체particle CSV: 같은폴더의`index.html` 및 `particle_geometry_changes.csv`.
+- 공유수치: `results/lpwm_drivor_planning_path_lora_v1/intermediate_geometry_update300/geometry_report.json`.
+- 새읽기전용스크립트: `scripts/visualize_lpwm_intermediate_particle_geometry.py`.
+- Checkpoint SHA256: `4c3f082092a9c22d0ec7e4500b3885b8b3831902e981178cde85bb700fee50d6`.
+
+검증: 초기저장표현재현maxerror0, full모델경로와현재encoder추출표현maxerror0, nativefreeze digest동일,
+279등록source/config전후동일. 현재표현추론96장면약61초, GPU0최대표본전체41.138GB,진단reserved0.638GB.
+최대3GiB진단allocator/진입42GB미만/46.5GB중단guard로48GB카드상한을보호했다.
+본학습firstepoch1614자동시각화와이전조건비교watcher는유지한다. 자동채팅push는사용가능한예약도구가없어설정되지않았다.

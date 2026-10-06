@@ -2800,3 +2800,22 @@ loss/update수·평가를맞춘조건,(3)동일pretrained visual features에서r
 같은구조의128²대조 없이 구조변경+해상도변경의 성능차를 해상도효과로만 주장하지 않는다.
 상세: docs/lpwm_drivor_representation_and_fair_comparison.md 최신 절.
 이번 턴은 제안 검토와 기록이며 구현·GPU실측·학습·queue/registered source/config 변경을 하지 않았다.
+
+## 2026-10-06 13:06 KST — 첫 epoch 전 실제 particle 시각화
+
+사용자의1epoch종료전시각화요청으로300update의현재표현을고정96장면×4카메라에서읽기전용으로추론했다.
+공통초기재현/실제forward현재표현대조오차0, native원본digest동일,등록279source/config전후불변.
+새스크립트scripts/visualize_lpwm_intermediate_particle_geometry.py;현재/미래의분리중현재geometry만진단했다.
+위치평균0.0314985px/중앙0.0240560px/최대0.747336px,크기축평균절대변화율0.236948%,presence평균절대변화0.0059874.
+중심1px초과0%,크기축5%초과0%. 고정되지않았지만뚜렷한육안재배치/주행효용은아직주장할수없다.
+초기고정top16presence박스+전체64중심,사전고정첫직진/좌회전/우회전장면.같은ID는객체tracking아님.
+PNG: outputs/lpwm_drivor_intermediate_geometry_update300_v1/before_after_overview.png.
+각장면4카메라PNG/index.html/CSV/복사한checkpoint와현재attributes도같은폴더.공유결과는results/.../intermediate_geometry_update300/.
+GPU0전체표본최대41,137,733,632bytes,진단reserved637,534,208bytes,추론약61초.본학습변경없음.
+
+직전사용자의ETA/완료알림요청도확인했다. host에서train3186133/queue3186134/monitor3186135/comparison3317230생존확인.
+최신313/1614,최근100update 28.564s/update,첫epoch예상2026-10-06T23:25:55.946009+09:00,남은10.32시간.
+현재128²설정25epoch지속시예상2026-10-19T18:46:46.743695+09:00,남은13.24일;후속진단/benchmark/고해상도학습미포함.
+첫epoch완료시비교이미지는기존watcher가생성한다.현재연결도구에이대화의예약알림도구는없어push알림을등록하지못했다.
+OpenAI Docs공식예약작업문서를확인했으나현재도구가능성과구분한다:https://learn.chatgpt.com/docs/automations?surface=app.
+자동채팅알림이설정됐다고주장하지않는다.
