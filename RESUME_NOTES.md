@@ -2636,3 +2636,19 @@ CPU검사3개(atomicreplace경쟁/pause덮어쓰기방지/mismatchedepoch거부)
 현재navtrain+navval모두학습하므로navval독립검증주장금지;기존96scene도training분포. Navtest자동튜닝/새DrivoR학습은하지않음.
 상세docs/lpwm_drivor_epoch1_review.md;검토후resume시실중단latest가아닌epoch_01_resume.pt복원,oldlaunch/pause보존후동일execution재개.
 기존10/15 ETA는새검토대기시간미포함으로갱신필요. GeometryLoRA는여전히미적용.
+
+
+## 2026-10-06 — 첫 epoch 검증의 타당성과 선행연구 설정 확인
+
+사용자 질문:1epoch만 학습 후 비교·검증해도 되는지, 다른 연구에서도 사용하는지.
+공식 공개 코드/문서에서 DrivoR v1/v2 25/10epoch, check_val_every_n_epoch=1 및 trainer.fit(val_dataloaders) 연결 확인.
+validation_run=false는 학습 중 검증을 끄는 것이 아니라 검증 전용 분기 대신 fit을 선택한다.
+DiffusionDrive 공식 train_eval recipe는100epoch. VAD base stage1/2는48/12epoch이며 매epoch checkpoint 저장,
+기본 evaluation.interval=total_epochs로 각 단계 마지막 평가다. 저장 주기와 평가 주기를 혼동하지 않는다.
+첫epoch검증은 정상작동·초기표현변화 확인에 적합하며 동일예산비교는 그 시점의 성능만 보여준다.
+현재1614update는warmup3322중이므로 낮은 점수로최종실패를단정하지않고25epoch스케줄을유지한다.
+Geometry LoRA경로부재는초기에판단가능한구조문제이며더많은epoch만으로해결되지않는다.
+DrivoR1epoch추가학습은초기비교선택지이지현재연결성진단의필수선행단계는아니다.
+docs/lpwm_drivor_epoch1_review.md에 공식6개출처와해석추가. 독립검증부재/navtest반복튜닝금지한계유지.
+Review status조회1561/1614 waiting_for_epoch_boundary. 기존train/hold/queue/source/config무변경,추가GPU작업없음.
+이번질문은비교방식선택응답이나24epoch자동재개요청으로간주하지않았다.

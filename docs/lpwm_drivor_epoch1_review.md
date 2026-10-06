@@ -43,6 +43,36 @@ Epoch 끝에서 trainer가 `latest.pt`에 model/AdamW/scheduler/두rank RNG/다�
 
 ## 검증 범위와 데이터 문제
 
+### 첫 epoch 점검의 타당성과 선행연구 근거 (2026-10-06)
+
+첫 epoch의 checkpoint를 평가하는 것은 학습 연결·안정성·초기 변화 확인에 적합하다.
+같은 학습량의 두 모델을 비교해도 알 수 있는 것은 그 예산에서의 성능이며, 최종 수렴 후 순위를 보장하지 않는다.
+논문 저자들이 모두 첫 epoch 점수로 나머지 학습의 진행 여부를 결정한다고 주장할 근거는 없다.
+
+공식 공개 설정을 확인한 결과는 다음과 같다.
+
+| 연구 | 공개된 학습·검증 설정 | 해석 |
+|---|---|---|
+| DrivoR | NAVSIM v1 25 epoch / v2 10 epoch; 기본 `check_val_every_n_epoch=1`, `val_check_interval=1.0`; `trainer.fit`에 validation loader 전달 | 매 epoch 검증 경로가 있으나, 1 epoch를 최종 성능으로 보고하는 설정은 아님 |
+| DiffusionDrive | NAVSIM 학습 명령 `trainer.params.max_epochs=100` | 공식 최종 학습 예산은 100 epoch; 이 문서만으로 중간 검증 빈도는 단정하지 않음 |
+| VAD base | Stage 1 48 epoch / Stage 2 12 epoch; 두 설정 모두 checkpoint 매 epoch 저장, `evaluation.interval=total_epochs` | 저장 주기와 평가 주기는 다르며, 기본 평가는 각 단계 마지막 |
+
+근거: [DrivoR README](https://github.com/valeoai/DrivoR),
+[DrivoR 기본 설정](https://github.com/valeoai/DrivoR/blob/main/navsim/planning/script/config/training/default_training.yaml),
+[DrivoR training 진입점](https://github.com/valeoai/DrivoR/blob/main/navsim/planning/script/run_training_full.py),
+[DiffusionDrive 학습 문서](https://github.com/hustvl/DiffusionDrive/blob/main/docs/train_eval.md),
+[VAD Stage 1](https://github.com/hustvl/VAD/blob/main/projects/configs/VAD/VAD_base_stage_1.py),
+[VAD Stage 2](https://github.com/hustvl/VAD/blob/main/projects/configs/VAD/VAD_base_stage_2.py).
+
+DrivoR의 `validation_run=false`는 검증 전용 실행 대신 `trainer.fit`을 선택한다는 뜻이며,
+학습 중 validation loader를 비활성화한다는 뜻이 아니다. 단, v1 full recipe의 train/val 중복은 아래처럼 별개 문제다.
+
+현재 첫 epoch는 1614 update이고 warmup은 3322 update다. 낮은 첫 epoch 점수만으로 LPWM 가설을 탈락시키지 않는다.
+진단에서는 gradient·실제 parameter 변화·readout·particle/미래 개입을 먼저 확인한다.
+현재 geometry head에 직접 LoRA가 없는 구조는 학습량과 별도로 판단할 수 있다. Epoch를 더 늘려도 그 경로가 새로 생기지는 않는다.
+DrivoR 동일 1 epoch 비교는 초기 학습 속도를 비교하는 선택지이며, 이 진단의 선행 필수 조건은 아니다.
+이후 성능 추세는 warmup 이후 미리 정한 checkpoint에서도 비교하는 것이 적절하다. 이번 설명으로 학습 예산·hold·queue를 변경하지 않았다.
+
 현재v1은navtrain85109+navval18179=103288장면 모두 학습한다. 따라서 **navval은 독립 검증셋이 아니다**.
 기존96장면monitor도 training-distribution 진단이며 여기서 나온oracle score를navtest PDMS로 부르지 않는다.
 

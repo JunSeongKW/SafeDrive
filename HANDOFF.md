@@ -38,7 +38,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 09:43 KST (Codex)
+마지막 갱신: 2026-10-06 09:47 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -205,6 +205,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+첫 epoch 검증의 타당성 질문에 공식 코드로 답변했다. 이번 설명에서 학습·hold·queue 설정을 변경하지 않았다.
+Review status 최신 조회: training_update=1561, waiting_for_epoch_boundary, target=1614.
 
 09:40KST: 본학습1541update,새review제어2949030 waiting_for_epoch_boundary. target1614/첫epoch 예상10:04.
 기존trainer source/config무변경. Epoch fullresume checkpoint확보후localpause를써trainer·oldqueue·watcher종료대기,
@@ -613,6 +616,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+공식 DrivoR는 매 epoch validation 설정과 fit의 val loader 연결이 있으며, 최종 v1/v2 예산은25/10epoch다.
+DiffusionDrive 공개 recipe100epoch, VAD base48+12epoch/매epoch저장/각단계끝평가 확인.
+1epoch는 초기 진단·제한 예산 비교에 유효하나 최종 방법 순위·수렴 판단 근거는 아니다. 상세 epoch1 review 문서에 출처 추가.
 
 Epoch대기제어CPU검사3개통과: latestatomic교체시열린inode보존,기존사용자pause보호,epoch불일치resume거부.
 1614state에model/AdamW/scheduler/rankRNG2개/다음epoch위치모두있어나머지24epoch재개가능.
@@ -1129,13 +1136,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 첫epoch검토제안을받아1614의전체재개상태를보존하고학습을대기시키는외부제어를등록·기동했다.
-- Atomic checkpoint교체경쟁·기존pause보호·정확한epoch검사의CPU검사3개를통과했다.
-- 기존25epoch LR/optimizer/RNG와등록source/config를보존하는재개절차를문서화했다.
-- DrivoR동일1epoch 대공개최종참고비교선택을요청했으며새DrivoR학습은아직실행하지않았다.
-- 현재navval학습포함·1epochwarmup·test튜닝위험을명시하고geometry변경없이검토대기를준비했다.
+- 첫 epoch 중간 검증의 타당성과 최종 성능 판단의 한계를 공식 DrivoR·DiffusionDrive·VAD 설정으로 확인했다.
+- Epoch1 review 문서에 출처와 저장/검증 주기 차이, warmup 중 순위의 한계를 추가했다.
+- 동일1epoch DrivoR 비교는 초기 학습 비교이며 진단의 선행 필수 조건은 아니라는 점을 명시했다.
+- 학습·등록 source/config·hold·queue를 변경하지 않았으며 새 GPU 작업은 실행하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+첫 epoch review에서는 학습 연결과 표현 사용 여부를 우선 판단하고, 낮은 점수만으로 연구 가설을 탈락시키지 않는다.
+Warmup 이후 고정 checkpoint 비교는 권고이며 아직 새 실행 계획으로 등록하지 않았다.
 
 가장먼저review root status확인. 첫epoch를기다리는중이면제어/학습중복기동금지.
 DrivoR비교방식사용자응답을확인하고해당비교를준비한다. 동일1epoch이면25epoch scheduler/backend초기state/data/effectivebatch를맞춘다.
@@ -1460,6 +1469,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신 질문은1epoch검증의방법론에관한설명요청이며, DrivoR비교방식선택이나24epoch자동재개승인으로해석하지않았다.
+공식코드의중간validation지원과저자들의실제1epoch후진행여부결정관행은구분한다. 후자의빈도는확인되지않음.
 
 현재사용자요청은1epoch검토후나머지24epoch진행제안이다. 이를위한reversible hold를등록했고비교방식응답은대기중.
 비교결과없이무조건24epoch이어가기금지. 모델구조변경도아직없다. 독립검증셋부재와공정비교confound는해결되지않음.
