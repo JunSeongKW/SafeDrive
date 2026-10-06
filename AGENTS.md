@@ -1,5 +1,14 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-06 최신 사용자 지시: LoRA 적용 계층 설명 후 사용자가 선택한다. 새 학습 금지.**
+`docs/lpwm_lora_layer_catalog.md`에 모든 Linear234/Conv2d70개와 역할별 후보를 정리했다.
+기존 Q/V LoRA는 epoch1/1614 정확한 checkpoint 보존·중단; 실제 process의1615는 별도 보존된 in-flight update다.
+96scene 진단과 시각화 완료: `results/lpwm_drivor_epoch1_particle_review_v1/`.
+Geometry head LoRA 후보 코드와 실제loss2update/DDP2update 검사는 준비했지만 본학습·새queue·새monitor는 미기동이다.
+`outputs/lpwm_drivor_geometry_lora_v1/pause.requested`와 `pending_user_layer_selection.json`을 존중한다.
+사용자 선택 전 prepared config를 실행하지 않는다. DrivoR 비교는25epoch 이후로 미룬다는 지시는 확정됐다.
+아래 첫epoch DrivoR비교선택대기/geometry미구현/학습진행중 문장은 이전 이력이다.
+
 **2026-10-06 최신: 첫 epoch 검증·DrivoR 비교 후 나머지24epoch 검토 제어 등록.**
 진입점 `docs/lpwm_drivor_epoch1_review.md`, `configs/lpwm_drivor_review/epoch1.json`, 제어PID2949030.
 1614update의정확한model/AdamW/scheduler/RNG를먼저보존하고기존pause신호로본학습·후속queue·monitor를대기시킨다.

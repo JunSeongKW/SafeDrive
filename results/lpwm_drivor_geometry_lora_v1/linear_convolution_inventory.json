@@ -1,0 +1,3007 @@
+{
+  "public_configuration": {
+    "ds": "sketchy",
+    "root": "/home/ubuntu/pathaklab/data/sketchy/data",
+    "device": "cuda:0",
+    "batch_size": 6,
+    "lr": 8e-05,
+    "use_scheduler": false,
+    "scheduler_gamma": 0.98,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_eps": 1e-06,
+    "weight_decay": 0.0,
+    "load_model": false,
+    "pretrained_path": "./290825_011024_sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_sched0.98/saves/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_sched0.98_best.pth",
+    "start_epoch": 0,
+    "num_epochs": 150,
+    "eval_epoch_freq": 1,
+    "warmup_epoch": 1,
+    "patch_size": 16,
+    "n_kp_per_patch": 1,
+    "n_kp_enc": 30,
+    "n_kp_prior": 64,
+    "topk": 10,
+    "anchor_s": 0.25,
+    "scale_std": 0.3,
+    "offset_std": 0.2,
+    "obj_on_alpha": 0.01,
+    "obj_on_beta": 0.01,
+    "recon_loss_type": "vgg",
+    "normalize_rgb": false,
+    "beta_kl": 0.08,
+    "beta_rec": 1.0,
+    "beta_obj": 0.08,
+    "kl_balance": 0.01,
+    "image_size": 128,
+    "ch": 3,
+    "features_dist": "gauss",
+    "learned_feature_dim": 4,
+    "learned_bg_feature_dim": 4,
+    "n_fg_categories": 8,
+    "n_fg_classes": 4,
+    "n_bg_categories": 4,
+    "n_bg_classes": 4,
+    "context_dist": "gauss",
+    "context_dim": 7,
+    "n_ctx_categories": 8,
+    "n_ctx_classes": 4,
+    "ctx_pool_mode": "none",
+    "action_condition": false,
+    "action_dim": 7,
+    "random_action_condition": false,
+    "random_action_dim": 7,
+    "null_action_embed": false,
+    "obj_res_from_fc": 8,
+    "obj_ch_mult_prior": [
+      1,
+      4,
+      8
+    ],
+    "obj_ch_mult": [
+      1,
+      4,
+      8
+    ],
+    "obj_base_ch": 32,
+    "obj_final_cnn_ch": 32,
+    "bg_res_from_fc": 8,
+    "bg_ch_mult": [
+      1,
+      1,
+      1,
+      2,
+      4
+    ],
+    "bg_base_ch": 32,
+    "bg_final_cnn_ch": 32,
+    "pad_mode": "zeros",
+    "num_res_blocks": 1,
+    "cnn_mid_blocks": false,
+    "use_resblock": false,
+    "mlp_hidden_dim": 256,
+    "timestep_horizon": 20,
+    "num_static_frames": 1,
+    "predict_delta": false,
+    "use_ep_done_mask": false,
+    "beta_dyn": 0.2,
+    "beta_dyn_rec": 1.0,
+    "dropout": 0.1,
+    "pint_enc_layers": 1,
+    "pint_enc_heads": 1,
+    "pint_ctx_layers": 4,
+    "pint_ctx_heads": 8,
+    "pint_dyn_layers": 6,
+    "pint_dyn_heads": 8,
+    "pint_dim": 512,
+    "run_prefix": "_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed",
+    "animation_horizon": 60,
+    "cond_steps": 10,
+    "eval_im_metrics": true,
+    "ctx_for_eval": true,
+    "animation_fps": 12.0,
+    "iou_thresh": 0.2
+  },
+  "modules": [
+    {
+      "path": "encoder_module.particle_enc.prior_encoder.enc.conv_in",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "parameters": 896
+    },
+    {
+      "path": "encoder_module.particle_enc.prior_encoder.enc.down.0.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_enc.prior_encoder.enc.down.0.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_enc.prior_encoder.enc.down.1.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        32,
+        3,
+        3
+      ],
+      "parameters": 36992
+    },
+    {
+      "path": "encoder_module.particle_enc.prior_encoder.enc.down.1.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "encoder_module.particle_enc.prior_encoder.enc.down.2.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        256,
+        128,
+        3,
+        3
+      ],
+      "parameters": 295168
+    },
+    {
+      "path": "encoder_module.particle_enc.prior_encoder.enc.conv_out",
+      "kind": "Conv2d",
+      "weight_shape": [
+        1,
+        256,
+        3,
+        3
+      ],
+      "parameters": 2305
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_in",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "parameters": 896
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        32,
+        3,
+        3
+      ],
+      "parameters": 36992
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.2.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        256,
+        128,
+        3,
+        3
+      ],
+      "parameters": 295168
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_out",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        256,
+        3,
+        3
+      ],
+      "parameters": 73760
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.xy_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        2048
+      ],
+      "parameters": 524544
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.xy_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        4,
+        256
+      ],
+      "parameters": 1028
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.scale_xy_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        2048
+      ],
+      "parameters": 524544
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.scale_xy_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        4,
+        256
+      ],
+      "parameters": 1028
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.obj_on_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        2048
+      ],
+      "parameters": 524544
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_attribute_enc.obj_on_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        1,
+        256
+      ],
+      "parameters": 256
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.cnn.conv_in",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "parameters": 896
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.cnn.down.0.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.cnn.down.0.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.cnn.down.1.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        32,
+        3,
+        3
+      ],
+      "parameters": 36992
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.cnn.down.1.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.cnn.down.2.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        256,
+        128,
+        3,
+        3
+      ],
+      "parameters": 295168
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.cnn.conv_out",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        256,
+        3,
+        3
+      ],
+      "parameters": 73760
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.to_mu.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        2048
+      ],
+      "parameters": 524544
+    },
+    {
+      "path": "encoder_module.particle_enc.particle_features_enc.to_mu.2",
+      "kind": "Linear",
+      "weight_shape": [
+        4,
+        256
+      ],
+      "parameters": 1028
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.conv_in",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "parameters": 896
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.0.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.0.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.1.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.1.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.2.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.2.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.3.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        64,
+        32,
+        3,
+        3
+      ],
+      "parameters": 18496
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.3.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "parameters": 36928
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.down.4.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        64,
+        3,
+        3
+      ],
+      "parameters": 73856
+    },
+    {
+      "path": "encoder_module.bg_encoder.bg_cnn_enc.conv_out",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        128,
+        3,
+        3
+      ],
+      "parameters": 36896
+    },
+    {
+      "path": "encoder_module.bg_encoder.to_mu.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        2048
+      ],
+      "parameters": 524544
+    },
+    {
+      "path": "encoder_module.bg_encoder.to_mu.2",
+      "kind": "Linear",
+      "weight_shape": [
+        4,
+        256
+      ],
+      "parameters": 1028
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_in",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "parameters": 896
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        64,
+        32,
+        3,
+        3
+      ],
+      "parameters": 18496
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.downsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "parameters": 36928
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.4.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        64,
+        3,
+        3
+      ],
+      "parameters": 73856
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_out",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        128,
+        3,
+        3
+      ],
+      "parameters": 36896
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.to_latent",
+      "kind": "Conv2d",
+      "weight_shape": [
+        4,
+        32,
+        1,
+        1
+      ],
+      "parameters": 132
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        2
+      ],
+      "parameters": 768
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        256
+      ],
+      "parameters": 8224
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        2
+      ],
+      "parameters": 768
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        256
+      ],
+      "parameters": 8224
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        1
+      ],
+      "parameters": 512
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        256
+      ],
+      "parameters": 8224
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        4
+      ],
+      "parameters": 1280
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        256
+      ],
+      "parameters": 8224
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        1
+      ],
+      "parameters": 512
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        256
+      ],
+      "parameters": 8224
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        4
+      ],
+      "parameters": 1280
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65792
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        4
+      ],
+      "parameters": 1280
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        256
+      ],
+      "parameters": 8224
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        192
+      ],
+      "parameters": 49408
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65792
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.pte.blocks.0.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65536
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.pte.blocks.0.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65536
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.pte.blocks.0.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65536
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.pte.blocks.0.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65536
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.pte.blocks.0.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        1024,
+        256
+      ],
+      "parameters": 263168
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.pte.blocks.0.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        1024
+      ],
+      "parameters": 262400
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.pte.head",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65536
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.particle_decoder.depth_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65792
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.particle_decoder.depth_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        2,
+        256
+      ],
+      "parameters": 514
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.particle_decoder.features_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65792
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.particle_decoder.features_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        8,
+        256
+      ],
+      "parameters": 2056
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.particle_decoder.bg_backbone.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        256
+      ],
+      "parameters": 65792
+    },
+    {
+      "path": "encoder_module.particle_inter_enc.particle_decoder.bg_features_head",
+      "kind": "Linear",
+      "weight_shape": [
+        8,
+        256
+      ],
+      "parameters": 2056
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.xy_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2
+      ],
+      "parameters": 1536
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.xy_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.scale_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2
+      ],
+      "parameters": 1536
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.scale_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        1
+      ],
+      "parameters": 1024
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.depth_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        1
+      ],
+      "parameters": 1024
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.depth_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.features_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        4
+      ],
+      "parameters": 2560
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.features_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.bg_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        4
+      ],
+      "parameters": 2560
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.bg_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.origin_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        4
+      ],
+      "parameters": 2560
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.origin_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.particle_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        192
+      ],
+      "parameters": 98816
+    },
+    {
+      "path": "encoder_module.ctx_enc.basic_particle_proj.particle_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.0.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.1.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.2.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.blocks.3.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.head.head",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "encoder_module.ctx_enc.pte.head.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        1024,
+        512
+      ],
+      "parameters": 525312
+    },
+    {
+      "path": "encoder_module.ctx_enc.posterior_decoder.context_head.1",
+      "kind": "Linear",
+      "weight_shape": [
+        14,
+        512
+      ],
+      "parameters": 7182
+    },
+    {
+      "path": "encoder_module.ctx_enc.prior_decoder.context_head.1",
+      "kind": "Linear",
+      "weight_shape": [
+        14,
+        512
+      ],
+      "parameters": 7182
+    },
+    {
+      "path": "decoder_module.particle_dec.from_latent_lin.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        4
+      ],
+      "parameters": 1280
+    },
+    {
+      "path": "decoder_module.particle_dec.from_latent_lin.2",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        256
+      ],
+      "parameters": 526336
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.conv_in",
+      "kind": "Conv2d",
+      "weight_shape": [
+        256,
+        32,
+        3,
+        3
+      ],
+      "parameters": 73984
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.0.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        128,
+        3,
+        3
+      ],
+      "parameters": 36896
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.0.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.1.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        256,
+        3,
+        3
+      ],
+      "parameters": 295040
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.1.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.1.upsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.2.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "parameters": 590080
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.2.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "parameters": 590080
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.up.2.upsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "parameters": 590080
+    },
+    {
+      "path": "decoder_module.particle_dec.cnn.conv_out",
+      "kind": "Conv2d",
+      "weight_shape": [
+        4,
+        32,
+        3,
+        3
+      ],
+      "parameters": 1156
+    },
+    {
+      "path": "decoder_module.bg_dec.latent_to_feat_map.from_latent_lin.0",
+      "kind": "Linear",
+      "weight_shape": [
+        256,
+        4
+      ],
+      "parameters": 1280
+    },
+    {
+      "path": "decoder_module.bg_dec.latent_to_feat_map.from_latent_lin.2",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        256
+      ],
+      "parameters": 526336
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.conv_in",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        32,
+        3,
+        3
+      ],
+      "parameters": 36992
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.0.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.0.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.1.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.1.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.1.upsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.2.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        64,
+        3,
+        3
+      ],
+      "parameters": 18464
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.2.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.2.upsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        32,
+        32,
+        3,
+        3
+      ],
+      "parameters": 9248
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.3.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        64,
+        128,
+        3,
+        3
+      ],
+      "parameters": 73792
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.3.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "parameters": 36928
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.3.upsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "parameters": 36928
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.4.block.0.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.4.block.1.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.up.4.upsample.conv",
+      "kind": "Conv2d",
+      "weight_shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "parameters": 147584
+    },
+    {
+      "path": "decoder_module.bg_dec.cnn.conv_out",
+      "kind": "Conv2d",
+      "weight_shape": [
+        3,
+        32,
+        3,
+        3
+      ],
+      "parameters": 867
+    },
+    {
+      "path": "dyn_module.particle_projection.xy_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2
+      ],
+      "parameters": 1536
+    },
+    {
+      "path": "dyn_module.particle_projection.xy_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "dyn_module.particle_projection.scale_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2
+      ],
+      "parameters": 1536
+    },
+    {
+      "path": "dyn_module.particle_projection.scale_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "dyn_module.particle_projection.obj_on_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        1
+      ],
+      "parameters": 1024
+    },
+    {
+      "path": "dyn_module.particle_projection.obj_on_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "dyn_module.particle_projection.depth_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        1
+      ],
+      "parameters": 1024
+    },
+    {
+      "path": "dyn_module.particle_projection.depth_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "dyn_module.particle_projection.features_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        4
+      ],
+      "parameters": 2560
+    },
+    {
+      "path": "dyn_module.particle_projection.features_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "dyn_module.particle_projection.origin_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        4
+      ],
+      "parameters": 2560
+    },
+    {
+      "path": "dyn_module.particle_projection.origin_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        32,
+        512
+      ],
+      "parameters": 16416
+    },
+    {
+      "path": "dyn_module.particle_projection.particle_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        192
+      ],
+      "parameters": 98816
+    },
+    {
+      "path": "dyn_module.particle_projection.particle_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_projection.bg_features_projection.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        4
+      ],
+      "parameters": 2560
+    },
+    {
+      "path": "dyn_module.particle_projection.bg_features_projection.3",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.context_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        7
+      ],
+      "parameters": 4096
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.0.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.1.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.2.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.3.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.4.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.spatio_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.spatio_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.spatio_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.spatio_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.spatio_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.temp_block.attn.key",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.temp_block.attn.query.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.temp_block.attn.value.pretrained_linear",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.temp_block.attn.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262144
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.temp_block.mlp.fc_1",
+      "kind": "Linear",
+      "weight_shape": [
+        2048,
+        512
+      ],
+      "parameters": 1050624
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.temp_block.mlp.proj",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        2048
+      ],
+      "parameters": 1049088
+    },
+    {
+      "path": "dyn_module.particle_transformer.blocks.5.temp_block.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        3072,
+        512
+      ],
+      "parameters": 1575936
+    },
+    {
+      "path": "dyn_module.particle_transformer.head.head",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_transformer.head.c_proj",
+      "kind": "Linear",
+      "weight_shape": [
+        1024,
+        512
+      ],
+      "parameters": 525312
+    },
+    {
+      "path": "dyn_module.particle_decoder.offset_xy_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_decoder.offset_xy_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        4,
+        512
+      ],
+      "parameters": 2052
+    },
+    {
+      "path": "dyn_module.particle_decoder.scale_xy_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_decoder.scale_xy_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        4,
+        512
+      ],
+      "parameters": 2052
+    },
+    {
+      "path": "dyn_module.particle_decoder.obj_on_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_decoder.obj_on_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        1,
+        512
+      ],
+      "parameters": 513
+    },
+    {
+      "path": "dyn_module.particle_decoder.depth_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_decoder.depth_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        2,
+        512
+      ],
+      "parameters": 1026
+    },
+    {
+      "path": "dyn_module.particle_decoder.features_head.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_decoder.features_head.2",
+      "kind": "Linear",
+      "weight_shape": [
+        8,
+        512
+      ],
+      "parameters": 4104
+    },
+    {
+      "path": "dyn_module.particle_decoder.bg_backbone.0",
+      "kind": "Linear",
+      "weight_shape": [
+        512,
+        512
+      ],
+      "parameters": 262656
+    },
+    {
+      "path": "dyn_module.particle_decoder.bg_features_head",
+      "kind": "Linear",
+      "weight_shape": [
+        8,
+        512
+      ],
+      "parameters": 4104
+    }
+  ],
+  "top_level_children": [
+    [
+      "encoder_module",
+      "DLPEncoder"
+    ],
+    [
+      "prior_module",
+      "DLPPrior"
+    ],
+    [
+      "decoder_module",
+      "DLPDecoder"
+    ],
+    [
+      "ctx_module",
+      "DLPContext"
+    ],
+    [
+      "dyn_module",
+      "DLPDynamics"
+    ]
+  ]
+}

@@ -1,0 +1,614 @@
+[
+  {
+    "token": "409c959993075841",
+    "command_index": 0,
+    "actual_command": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "409c959993075841",
+    "command_index": 1,
+    "actual_command": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.15062949061393738,
+    "current_center_shift_max_px": 0.6103805899620056,
+    "current_foreground_feature_rms_change": 0.11952581256628036,
+    "future_attribute_rms_change": 0.08180630207061768,
+    "encoder_only_trajectory_change_m": 0.0111083984375,
+    "planner_only_trajectory_change_m": 1.260857105255127,
+    "both_trajectory_change_m": 1.2642641067504883
+  },
+  {
+    "token": "409c959993075841",
+    "command_index": 2,
+    "actual_command": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.19629371166229248,
+    "current_center_shift_max_px": 1.2905505895614624,
+    "current_foreground_feature_rms_change": 0.12927106022834778,
+    "future_attribute_rms_change": 0.1042703315615654,
+    "encoder_only_trajectory_change_m": 0.05370630323886871,
+    "planner_only_trajectory_change_m": 1.1778004169464111,
+    "both_trajectory_change_m": 1.1649423837661743
+  },
+  {
+    "token": "4cd5bb8cf4fd52fa",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.2701614797115326,
+    "current_center_shift_max_px": 1.3914779424667358,
+    "current_foreground_feature_rms_change": 0.12830665707588196,
+    "future_attribute_rms_change": 0.12615081667900085,
+    "encoder_only_trajectory_change_m": 0.018891572952270508,
+    "planner_only_trajectory_change_m": 0.9676053524017334,
+    "both_trajectory_change_m": 0.9873193502426147
+  },
+  {
+    "token": "4cd5bb8cf4fd52fa",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.2073756456375122,
+    "current_center_shift_max_px": 1.282772421836853,
+    "current_foreground_feature_rms_change": 0.10702773183584213,
+    "future_attribute_rms_change": 0.1212649717926979,
+    "encoder_only_trajectory_change_m": 0.06535579264163971,
+    "planner_only_trajectory_change_m": 0.8998293876647949,
+    "both_trajectory_change_m": 0.8384596705436707
+  },
+  {
+    "token": "4cd5bb8cf4fd52fa",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "c51a60c854c951cf",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.17156898975372314,
+    "current_center_shift_max_px": 0.6700822114944458,
+    "current_foreground_feature_rms_change": 0.09784268587827682,
+    "future_attribute_rms_change": 0.08315736800432205,
+    "encoder_only_trajectory_change_m": 0.0239468552172184,
+    "planner_only_trajectory_change_m": 0.5967166423797607,
+    "both_trajectory_change_m": 0.6062468886375427
+  },
+  {
+    "token": "c51a60c854c951cf",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "c51a60c854c951cf",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.18345831334590912,
+    "current_center_shift_max_px": 0.6719067096710205,
+    "current_foreground_feature_rms_change": 0.11369165778160095,
+    "future_attribute_rms_change": 0.13261710107326508,
+    "encoder_only_trajectory_change_m": 0.03980250656604767,
+    "planner_only_trajectory_change_m": 0.24076451361179352,
+    "both_trajectory_change_m": 0.21176934242248535
+  },
+  {
+    "token": "d44dd618a0435337",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.1105780303478241,
+    "current_center_shift_max_px": 0.5296512246131897,
+    "current_foreground_feature_rms_change": 0.05841074883937836,
+    "future_attribute_rms_change": 0.09402631223201752,
+    "encoder_only_trajectory_change_m": 0.0017547607421875,
+    "planner_only_trajectory_change_m": 0.8919202089309692,
+    "both_trajectory_change_m": 0.8772209882736206
+  },
+  {
+    "token": "d44dd618a0435337",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "d44dd618a0435337",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.13421490788459778,
+    "current_center_shift_max_px": 0.7649549245834351,
+    "current_foreground_feature_rms_change": 0.07817041873931885,
+    "future_attribute_rms_change": 0.0640956461429596,
+    "encoder_only_trajectory_change_m": 0.016998054459691048,
+    "planner_only_trajectory_change_m": 0.27310630679130554,
+    "both_trajectory_change_m": 0.27160611748695374
+  },
+  {
+    "token": "6c08df07d2e35e8d",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.27536463737487793,
+    "current_center_shift_max_px": 2.6275389194488525,
+    "current_foreground_feature_rms_change": 0.14552614092826843,
+    "future_attribute_rms_change": 0.17292071878910065,
+    "encoder_only_trajectory_change_m": 0.12211219221353531,
+    "planner_only_trajectory_change_m": 0.5236627459526062,
+    "both_trajectory_change_m": 0.6798093318939209
+  },
+  {
+    "token": "6c08df07d2e35e8d",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.22400203347206116,
+    "current_center_shift_max_px": 2.106104612350464,
+    "current_foreground_feature_rms_change": 0.1071392148733139,
+    "future_attribute_rms_change": 0.12387724965810776,
+    "encoder_only_trajectory_change_m": 0.13972610235214233,
+    "planner_only_trajectory_change_m": 0.717530369758606,
+    "both_trajectory_change_m": 0.6077133417129517
+  },
+  {
+    "token": "6c08df07d2e35e8d",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "fc01494fa43653b8",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.40874290466308594,
+    "current_center_shift_max_px": 1.6990712881088257,
+    "current_foreground_feature_rms_change": 0.17106157541275024,
+    "future_attribute_rms_change": 0.1559879183769226,
+    "encoder_only_trajectory_change_m": 0.04257839918136597,
+    "planner_only_trajectory_change_m": 1.4259483814239502,
+    "both_trajectory_change_m": 1.503259301185608
+  },
+  {
+    "token": "fc01494fa43653b8",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.3064045310020447,
+    "current_center_shift_max_px": 1.606300950050354,
+    "current_foreground_feature_rms_change": 0.17410312592983246,
+    "future_attribute_rms_change": 0.12967970967292786,
+    "encoder_only_trajectory_change_m": 0.025947775691747665,
+    "planner_only_trajectory_change_m": 0.3339758515357971,
+    "both_trajectory_change_m": 0.36406391859054565
+  },
+  {
+    "token": "fc01494fa43653b8",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "706395b464525f9d",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.34870797395706177,
+    "current_center_shift_max_px": 1.7861084938049316,
+    "current_foreground_feature_rms_change": 0.19750896096229553,
+    "future_attribute_rms_change": 0.12897594273090363,
+    "encoder_only_trajectory_change_m": 0.011098833754658699,
+    "planner_only_trajectory_change_m": 1.2691751718521118,
+    "both_trajectory_change_m": 1.270338773727417
+  },
+  {
+    "token": "706395b464525f9d",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "706395b464525f9d",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.3213953673839569,
+    "current_center_shift_max_px": 1.2431658506393433,
+    "current_foreground_feature_rms_change": 0.17601236701011658,
+    "future_attribute_rms_change": 0.1253977119922638,
+    "encoder_only_trajectory_change_m": 0.0022125244140625,
+    "planner_only_trajectory_change_m": 0.9163429141044617,
+    "both_trajectory_change_m": 0.9084852933883667
+  },
+  {
+    "token": "8d709e8b74095ad8",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.2160225212574005,
+    "current_center_shift_max_px": 0.911292552947998,
+    "current_foreground_feature_rms_change": 0.10942313075065613,
+    "future_attribute_rms_change": 0.17357590794563293,
+    "encoder_only_trajectory_change_m": 0.06714875996112823,
+    "planner_only_trajectory_change_m": 0.9415625333786011,
+    "both_trajectory_change_m": 0.9844692945480347
+  },
+  {
+    "token": "8d709e8b74095ad8",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.17798161506652832,
+    "current_center_shift_max_px": 0.8639017939567566,
+    "current_foreground_feature_rms_change": 0.11682813614606857,
+    "future_attribute_rms_change": 0.16763271391391754,
+    "encoder_only_trajectory_change_m": 0.037562333047389984,
+    "planner_only_trajectory_change_m": 0.2798472046852112,
+    "both_trajectory_change_m": 0.3008239269256592
+  },
+  {
+    "token": "8d709e8b74095ad8",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "0154b4928cde52bb",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.1456678956747055,
+    "current_center_shift_max_px": 0.7815582752227783,
+    "current_foreground_feature_rms_change": 0.10362652689218521,
+    "future_attribute_rms_change": 0.07206880301237106,
+    "encoder_only_trajectory_change_m": 0.017152713611721992,
+    "planner_only_trajectory_change_m": 1.19545578956604,
+    "both_trajectory_change_m": 1.1928026676177979
+  },
+  {
+    "token": "0154b4928cde52bb",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "0154b4928cde52bb",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.16618481278419495,
+    "current_center_shift_max_px": 1.541067123413086,
+    "current_foreground_feature_rms_change": 0.15167342126369476,
+    "future_attribute_rms_change": 0.1766192764043808,
+    "encoder_only_trajectory_change_m": 0.0072479248046875,
+    "planner_only_trajectory_change_m": 0.5049588680267334,
+    "both_trajectory_change_m": 0.49712830781936646
+  },
+  {
+    "token": "487e3708e7905cde",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.16755318641662598,
+    "current_center_shift_max_px": 0.8581481575965881,
+    "current_foreground_feature_rms_change": 0.09148678183555603,
+    "future_attribute_rms_change": 0.11203393340110779,
+    "encoder_only_trajectory_change_m": 0.10174531489610672,
+    "planner_only_trajectory_change_m": 0.6706196069717407,
+    "both_trajectory_change_m": 0.6789019703865051
+  },
+  {
+    "token": "487e3708e7905cde",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "487e3708e7905cde",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.17930227518081665,
+    "current_center_shift_max_px": 0.9910935759544373,
+    "current_foreground_feature_rms_change": 0.10171965509653091,
+    "future_attribute_rms_change": 0.08366838842630386,
+    "encoder_only_trajectory_change_m": 0.12214699387550354,
+    "planner_only_trajectory_change_m": 3.4155685901641846,
+    "both_trajectory_change_m": 3.509291172027588
+  },
+  {
+    "token": "2754ab87df25534c",
+    "command_index": 0,
+    "actual_command": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  },
+  {
+    "token": "2754ab87df25534c",
+    "command_index": 1,
+    "actual_command": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.19041180610656738,
+    "current_center_shift_max_px": 0.9062048196792603,
+    "current_foreground_feature_rms_change": 0.1267952024936676,
+    "future_attribute_rms_change": 0.08840689808130264,
+    "encoder_only_trajectory_change_m": 0.018757812678813934,
+    "planner_only_trajectory_change_m": 2.6418519020080566,
+    "both_trajectory_change_m": 2.6747982501983643
+  },
+  {
+    "token": "2754ab87df25534c",
+    "command_index": 2,
+    "actual_command": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "current_center_shift_mean_px": 0.23282527923583984,
+    "current_center_shift_max_px": 1.053709626197815,
+    "current_foreground_feature_rms_change": 0.126002237200737,
+    "future_attribute_rms_change": 0.08877772837877274,
+    "encoder_only_trajectory_change_m": 0.008918732404708862,
+    "planner_only_trajectory_change_m": 1.2297923564910889,
+    "both_trajectory_change_m": 1.247910976409912
+  },
+  {
+    "token": "e909cae9ee81593c",
+    "command_index": 0,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.26837125420570374,
+    "current_center_shift_max_px": 1.8390499353408813,
+    "current_foreground_feature_rms_change": 0.11971469223499298,
+    "future_attribute_rms_change": 0.11799510568380356,
+    "encoder_only_trajectory_change_m": 0.0357905812561512,
+    "planner_only_trajectory_change_m": 1.254394292831421,
+    "both_trajectory_change_m": 0.9436858892440796
+  },
+  {
+    "token": "e909cae9ee81593c",
+    "command_index": 1,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.21615374088287354,
+    "current_center_shift_max_px": 1.1357406377792358,
+    "current_foreground_feature_rms_change": 0.08092048019170761,
+    "future_attribute_rms_change": 0.07303177565336227,
+    "encoder_only_trajectory_change_m": 0.013918970711529255,
+    "planner_only_trajectory_change_m": 0.9290345907211304,
+    "both_trajectory_change_m": 1.066749930381775
+  },
+  {
+    "token": "e909cae9ee81593c",
+    "command_index": 2,
+    "actual_command": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "current_center_shift_mean_px": 0.0,
+    "current_center_shift_max_px": 0.0,
+    "current_foreground_feature_rms_change": 0.0,
+    "future_attribute_rms_change": 0.0,
+    "encoder_only_trajectory_change_m": 0.0,
+    "planner_only_trajectory_change_m": 0.0,
+    "both_trajectory_change_m": 0.0
+  }
+]

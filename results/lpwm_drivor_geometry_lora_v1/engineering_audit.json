@@ -1,0 +1,255 @@
+{
+  "passed": true,
+  "engineering_updates_discarded": true,
+  "optimizer_steps": 2,
+  "initial_zero_lora_outputs_identical": true,
+  "initial_planner_identical": true,
+  "native_weights_and_buffers_unchanged": true,
+  "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "coordinate_routes": {
+    "xy_head": {
+      "connected_tensors": 4,
+      "gradient_l2": 2.650587452729227
+    },
+    "scale_xy_head": {
+      "connected_tensors": 4,
+      "gradient_l2": 3.782489111484492
+    },
+    "obj_on_head": {
+      "connected_tensors": 4,
+      "gradient_l2": 0.8445060820238858
+    }
+  },
+  "history": [
+    {
+      "engineering_update": 1,
+      "loss": 11.620376586914062,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.2199081051319187,
+        "context_prior_lora": 0.19607568047968169,
+        "particle_dynamics_lora": 0.2647401817274279,
+        "particle_xy_head_lora": 0.9299034445098373,
+        "particle_scale_xy_head_lora": 0.12569250199296994,
+        "particle_obj_on_head_lora": 0.0466017122860806,
+        "encoder_command": 0.2890908874847059,
+        "scene_projection": 7.337068364548675,
+        "trajectory_generator": 33.22595929067754,
+        "scorer": 25.301230963859116
+      }
+    },
+    {
+      "engineering_update": 2,
+      "loss": 8.699607849121094,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.08787045980591712,
+        "context_prior_lora": 0.05938998130408971,
+        "particle_dynamics_lora": 0.07576342254050857,
+        "particle_xy_head_lora": 0.3943742578018432,
+        "particle_scale_xy_head_lora": 0.06645585806610127,
+        "particle_obj_on_head_lora": 0.012724897212726188,
+        "encoder_command": 0.3235889954804259,
+        "scene_projection": 4.778484873531617,
+        "trajectory_generator": 32.77619715106924,
+        "scorer": 17.994758043170563
+      }
+    }
+  ],
+  "geometry_adapter_only_effect": {
+    "particle_count": 512,
+    "centers_bitwise_identical": false,
+    "sizes_bitwise_identical": false,
+    "center_shift_input_pixels": {
+      "mean": 0.006511484893167108,
+      "median": 0.006324700079858303,
+      "p90": 0.010776331182569267,
+      "p99": 0.014420218961313359,
+      "maximum": 0.015822703018784523
+    },
+    "size_axis_absolute_change_input_pixels": {
+      "mean": 0.005200058221817017,
+      "median": 0.0046977996826171875,
+      "p90": 0.010083770751953125,
+      "p99": 0.013471221923828124,
+      "maximum": 0.015995025634765625
+    },
+    "size_axis_relative_change_percent": {
+      "mean": 0.014108548512272279,
+      "median": 0.014040607493370771,
+      "p90": 0.025240167230367663,
+      "p99": 0.03409152157604694,
+      "maximum": 0.04037284478545189
+    },
+    "presence_absolute_change": {
+      "mean": 0.0003093928071393748,
+      "median": 0.00010399520397186279,
+      "p90": 0.0008533716201782228,
+      "p99": 0.002090164422988891,
+      "maximum": 0.002452075481414795
+    },
+    "fraction_center_shift_over_one_input_pixel": 0.0,
+    "fraction_particles_any_size_axis_change_over_five_percent": 0.0
+  },
+  "initial_to_engineering_updated_geometry": {
+    "particle_count": 512,
+    "centers_bitwise_identical": false,
+    "sizes_bitwise_identical": false,
+    "center_shift_input_pixels": {
+      "mean": 0.03227228308719532,
+      "median": 0.02838838193565607,
+      "p90": 0.05813841857016087,
+      "p99": 0.12080478645861147,
+      "maximum": 0.15125314891338348
+    },
+    "size_axis_absolute_change_input_pixels": {
+      "mean": 0.05563390627503395,
+      "median": 0.03724193572998047,
+      "p90": 0.1359935760498047,
+      "p99": 0.26749710083007805,
+      "maximum": 0.4547691345214844
+    },
+    "size_axis_relative_change_percent": {
+      "mean": 0.16406890272593166,
+      "median": 0.10751407593488693,
+      "p90": 0.39125010073184985,
+      "p99": 0.7999691796302792,
+      "maximum": 1.2011092901229858
+    },
+    "presence_absolute_change": {
+      "mean": 0.004901781538137584,
+      "median": 0.0012083947658538818,
+      "p90": 0.013096132874488834,
+      "p99": 0.054810818731784804,
+      "maximum": 0.1099855899810791
+    },
+    "fraction_center_shift_over_one_input_pixel": 0.0,
+    "fraction_particles_any_size_axis_change_over_five_percent": 0.0
+  },
+  "parameter_inventory": {
+    "scaling": 1.0,
+    "region_counts": {
+      "particle_interaction": 2,
+      "context_prior": 16,
+      "particle_dynamics": 24,
+      "particle_xy_head": 2,
+      "particle_scale_xy_head": 2,
+      "particle_obj_on_head": 2
+    },
+    "targets": [
+      "particle_interaction.pte.blocks.0.attn.query",
+      "particle_interaction.pte.blocks.0.attn.value",
+      "context_prior.pte.blocks.0.spatio_block.attn.query",
+      "context_prior.pte.blocks.0.spatio_block.attn.value",
+      "context_prior.pte.blocks.0.temp_block.attn.query",
+      "context_prior.pte.blocks.0.temp_block.attn.value",
+      "context_prior.pte.blocks.1.spatio_block.attn.query",
+      "context_prior.pte.blocks.1.spatio_block.attn.value",
+      "context_prior.pte.blocks.1.temp_block.attn.query",
+      "context_prior.pte.blocks.1.temp_block.attn.value",
+      "context_prior.pte.blocks.2.spatio_block.attn.query",
+      "context_prior.pte.blocks.2.spatio_block.attn.value",
+      "context_prior.pte.blocks.2.temp_block.attn.query",
+      "context_prior.pte.blocks.2.temp_block.attn.value",
+      "context_prior.pte.blocks.3.spatio_block.attn.query",
+      "context_prior.pte.blocks.3.spatio_block.attn.value",
+      "context_prior.pte.blocks.3.temp_block.attn.query",
+      "context_prior.pte.blocks.3.temp_block.attn.value",
+      "particle_dynamics.blocks.0.spatio_block.attn.query",
+      "particle_dynamics.blocks.0.spatio_block.attn.value",
+      "particle_dynamics.blocks.0.temp_block.attn.query",
+      "particle_dynamics.blocks.0.temp_block.attn.value",
+      "particle_dynamics.blocks.1.spatio_block.attn.query",
+      "particle_dynamics.blocks.1.spatio_block.attn.value",
+      "particle_dynamics.blocks.1.temp_block.attn.query",
+      "particle_dynamics.blocks.1.temp_block.attn.value",
+      "particle_dynamics.blocks.2.spatio_block.attn.query",
+      "particle_dynamics.blocks.2.spatio_block.attn.value",
+      "particle_dynamics.blocks.2.temp_block.attn.query",
+      "particle_dynamics.blocks.2.temp_block.attn.value",
+      "particle_dynamics.blocks.3.spatio_block.attn.query",
+      "particle_dynamics.blocks.3.spatio_block.attn.value",
+      "particle_dynamics.blocks.3.temp_block.attn.query",
+      "particle_dynamics.blocks.3.temp_block.attn.value",
+      "particle_dynamics.blocks.4.spatio_block.attn.query",
+      "particle_dynamics.blocks.4.spatio_block.attn.value",
+      "particle_dynamics.blocks.4.temp_block.attn.query",
+      "particle_dynamics.blocks.4.temp_block.attn.value",
+      "particle_dynamics.blocks.5.spatio_block.attn.query",
+      "particle_dynamics.blocks.5.spatio_block.attn.value",
+      "particle_dynamics.blocks.5.temp_block.attn.query",
+      "particle_dynamics.blocks.5.temp_block.attn.value",
+      "particle_geometry.xy_head.0",
+      "particle_geometry.xy_head.2",
+      "particle_geometry.scale_xy_head.0",
+      "particle_geometry.scale_xy_head.2",
+      "particle_geometry.obj_on_head.0",
+      "particle_geometry.obj_on_head.2"
+    ],
+    "trainable_lora_parameters": 1401121,
+    "frozen_lpwm_parameters": 109545263,
+    "all_trainable_parameters": 18471199,
+    "native_backbone_weights_frozen": true,
+    "new_command_film_trainable": true,
+    "native_xy_scale_presence_heads_frozen": true,
+    "attention_rank": 32,
+    "attention_projections": [
+      "query",
+      "value"
+    ],
+    "geometry_lora_targets": [
+      {
+        "target": "particle_geometry.xy_head.0",
+        "rank": 8,
+        "in_features": 2048,
+        "out_features": 256,
+        "alpha": 8,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.xy_head.2",
+        "rank": 4,
+        "in_features": 256,
+        "out_features": 4,
+        "alpha": 4,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.scale_xy_head.0",
+        "rank": 8,
+        "in_features": 2048,
+        "out_features": 256,
+        "alpha": 8,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.scale_xy_head.2",
+        "rank": 4,
+        "in_features": 256,
+        "out_features": 4,
+        "alpha": 4,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.obj_on_head.0",
+        "rank": 8,
+        "in_features": 2048,
+        "out_features": 256,
+        "alpha": 8,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.obj_on_head.2",
+        "rank": 1,
+        "in_features": 256,
+        "out_features": 1,
+        "alpha": 1,
+        "scaling": 1.0
+      }
+    ],
+    "geometry_lora_parameters": 57633,
+    "current_xy_scale_presence_head_adapters_trainable": true,
+    "image_cnn_conv_lora": false
+  },
+  "maximum_reserved_bytes": 5546967040,
+  "card_used_bytes": 35496394752,
+  "not_evidence_of_planning_improvement": true
+}

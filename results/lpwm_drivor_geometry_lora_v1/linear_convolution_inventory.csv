@@ -1,0 +1,305 @@
+path,kind,weight_shape,parameters
+encoder_module.particle_enc.prior_encoder.enc.conv_in,Conv2d,"[32, 3, 3, 3]",896
+encoder_module.particle_enc.prior_encoder.enc.down.0.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_enc.prior_encoder.enc.down.0.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_enc.prior_encoder.enc.down.1.block.0.conv,Conv2d,"[128, 32, 3, 3]",36992
+encoder_module.particle_enc.prior_encoder.enc.down.1.downsample.conv,Conv2d,"[128, 128, 3, 3]",147584
+encoder_module.particle_enc.prior_encoder.enc.down.2.block.0.conv,Conv2d,"[256, 128, 3, 3]",295168
+encoder_module.particle_enc.prior_encoder.enc.conv_out,Conv2d,"[1, 256, 3, 3]",2305
+encoder_module.particle_enc.particle_attribute_enc.cnn.conv_in,Conv2d,"[32, 3, 3, 3]",896
+encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.block.0.conv,Conv2d,"[128, 32, 3, 3]",36992
+encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.downsample.conv,Conv2d,"[128, 128, 3, 3]",147584
+encoder_module.particle_enc.particle_attribute_enc.cnn.down.2.block.0.conv,Conv2d,"[256, 128, 3, 3]",295168
+encoder_module.particle_enc.particle_attribute_enc.cnn.conv_out,Conv2d,"[32, 256, 3, 3]",73760
+encoder_module.particle_enc.particle_attribute_enc.xy_head.0,Linear,"[256, 2048]",524544
+encoder_module.particle_enc.particle_attribute_enc.xy_head.2,Linear,"[4, 256]",1028
+encoder_module.particle_enc.particle_attribute_enc.scale_xy_head.0,Linear,"[256, 2048]",524544
+encoder_module.particle_enc.particle_attribute_enc.scale_xy_head.2,Linear,"[4, 256]",1028
+encoder_module.particle_enc.particle_attribute_enc.obj_on_head.0,Linear,"[256, 2048]",524544
+encoder_module.particle_enc.particle_attribute_enc.obj_on_head.2,Linear,"[1, 256]",256
+encoder_module.particle_enc.particle_features_enc.cnn.conv_in,Conv2d,"[32, 3, 3, 3]",896
+encoder_module.particle_enc.particle_features_enc.cnn.down.0.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_enc.particle_features_enc.cnn.down.0.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_enc.particle_features_enc.cnn.down.1.block.0.conv,Conv2d,"[128, 32, 3, 3]",36992
+encoder_module.particle_enc.particle_features_enc.cnn.down.1.downsample.conv,Conv2d,"[128, 128, 3, 3]",147584
+encoder_module.particle_enc.particle_features_enc.cnn.down.2.block.0.conv,Conv2d,"[256, 128, 3, 3]",295168
+encoder_module.particle_enc.particle_features_enc.cnn.conv_out,Conv2d,"[32, 256, 3, 3]",73760
+encoder_module.particle_enc.particle_features_enc.to_mu.0,Linear,"[256, 2048]",524544
+encoder_module.particle_enc.particle_features_enc.to_mu.2,Linear,"[4, 256]",1028
+encoder_module.bg_encoder.bg_cnn_enc.conv_in,Conv2d,"[32, 3, 3, 3]",896
+encoder_module.bg_encoder.bg_cnn_enc.down.0.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.bg_encoder.bg_cnn_enc.down.0.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.bg_encoder.bg_cnn_enc.down.1.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.bg_encoder.bg_cnn_enc.down.1.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.bg_encoder.bg_cnn_enc.down.2.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.bg_encoder.bg_cnn_enc.down.2.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.bg_encoder.bg_cnn_enc.down.3.block.0.conv,Conv2d,"[64, 32, 3, 3]",18496
+encoder_module.bg_encoder.bg_cnn_enc.down.3.downsample.conv,Conv2d,"[64, 64, 3, 3]",36928
+encoder_module.bg_encoder.bg_cnn_enc.down.4.block.0.conv,Conv2d,"[128, 64, 3, 3]",73856
+encoder_module.bg_encoder.bg_cnn_enc.conv_out,Conv2d,"[32, 128, 3, 3]",36896
+encoder_module.bg_encoder.to_mu.0,Linear,"[256, 2048]",524544
+encoder_module.bg_encoder.to_mu.2,Linear,"[4, 256]",1028
+encoder_module.particle_inter_enc.ctx_cnn_enc.conv_in,Conv2d,"[32, 3, 3, 3]",896
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.downsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.block.0.conv,Conv2d,"[64, 32, 3, 3]",18496
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.downsample.conv,Conv2d,"[64, 64, 3, 3]",36928
+encoder_module.particle_inter_enc.ctx_cnn_enc.down.4.block.0.conv,Conv2d,"[128, 64, 3, 3]",73856
+encoder_module.particle_inter_enc.ctx_cnn_enc.conv_out,Conv2d,"[32, 128, 3, 3]",36896
+encoder_module.particle_inter_enc.to_latent,Conv2d,"[4, 32, 1, 1]",132
+encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.0,Linear,"[256, 2]",768
+encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.3,Linear,"[32, 256]",8224
+encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.0,Linear,"[256, 2]",768
+encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.3,Linear,"[32, 256]",8224
+encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.0,Linear,"[256, 1]",512
+encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.3,Linear,"[32, 256]",8224
+encoder_module.particle_inter_enc.basic_particle_proj.features_projection.0,Linear,"[256, 4]",1280
+encoder_module.particle_inter_enc.basic_particle_proj.features_projection.3,Linear,"[32, 256]",8224
+encoder_module.particle_inter_enc.basic_particle_proj.score_projection.0,Linear,"[256, 1]",512
+encoder_module.particle_inter_enc.basic_particle_proj.score_projection.3,Linear,"[32, 256]",8224
+encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.0,Linear,"[256, 4]",1280
+encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.3,Linear,"[256, 256]",65792
+encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.0,Linear,"[256, 4]",1280
+encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.3,Linear,"[32, 256]",8224
+encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.0,Linear,"[256, 192]",49408
+encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.3,Linear,"[256, 256]",65792
+encoder_module.particle_inter_enc.pte.blocks.0.attn.key,Linear,"[256, 256]",65536
+encoder_module.particle_inter_enc.pte.blocks.0.attn.query.pretrained_linear,Linear,"[256, 256]",65536
+encoder_module.particle_inter_enc.pte.blocks.0.attn.value.pretrained_linear,Linear,"[256, 256]",65536
+encoder_module.particle_inter_enc.pte.blocks.0.attn.proj,Linear,"[256, 256]",65536
+encoder_module.particle_inter_enc.pte.blocks.0.mlp.fc_1,Linear,"[1024, 256]",263168
+encoder_module.particle_inter_enc.pte.blocks.0.mlp.proj,Linear,"[256, 1024]",262400
+encoder_module.particle_inter_enc.pte.head,Linear,"[256, 256]",65536
+encoder_module.particle_inter_enc.particle_decoder.depth_head.0,Linear,"[256, 256]",65792
+encoder_module.particle_inter_enc.particle_decoder.depth_head.2,Linear,"[2, 256]",514
+encoder_module.particle_inter_enc.particle_decoder.features_head.0,Linear,"[256, 256]",65792
+encoder_module.particle_inter_enc.particle_decoder.features_head.2,Linear,"[8, 256]",2056
+encoder_module.particle_inter_enc.particle_decoder.bg_backbone.0,Linear,"[256, 256]",65792
+encoder_module.particle_inter_enc.particle_decoder.bg_features_head,Linear,"[8, 256]",2056
+encoder_module.ctx_enc.basic_particle_proj.xy_projection.0,Linear,"[512, 2]",1536
+encoder_module.ctx_enc.basic_particle_proj.xy_projection.3,Linear,"[32, 512]",16416
+encoder_module.ctx_enc.basic_particle_proj.scale_projection.0,Linear,"[512, 2]",1536
+encoder_module.ctx_enc.basic_particle_proj.scale_projection.3,Linear,"[32, 512]",16416
+encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.0,Linear,"[512, 1]",1024
+encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.3,Linear,"[32, 512]",16416
+encoder_module.ctx_enc.basic_particle_proj.depth_projection.0,Linear,"[512, 1]",1024
+encoder_module.ctx_enc.basic_particle_proj.depth_projection.3,Linear,"[32, 512]",16416
+encoder_module.ctx_enc.basic_particle_proj.features_projection.0,Linear,"[512, 4]",2560
+encoder_module.ctx_enc.basic_particle_proj.features_projection.3,Linear,"[32, 512]",16416
+encoder_module.ctx_enc.basic_particle_proj.bg_projection.0,Linear,"[512, 4]",2560
+encoder_module.ctx_enc.basic_particle_proj.bg_projection.3,Linear,"[512, 512]",262656
+encoder_module.ctx_enc.basic_particle_proj.origin_projection.0,Linear,"[512, 4]",2560
+encoder_module.ctx_enc.basic_particle_proj.origin_projection.3,Linear,"[32, 512]",16416
+encoder_module.ctx_enc.basic_particle_proj.particle_projection.0,Linear,"[512, 192]",98816
+encoder_module.ctx_enc.basic_particle_proj.particle_projection.3,Linear,"[512, 512]",262656
+encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.0.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.0.temp_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.1.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.1.temp_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.2.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.2.temp_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.3.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.key,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.proj,Linear,"[512, 512]",262144
+encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+encoder_module.ctx_enc.pte.blocks.3.temp_block.c_proj,Linear,"[3072, 512]",1575936
+encoder_module.ctx_enc.pte.head.head,Linear,"[512, 512]",262656
+encoder_module.ctx_enc.pte.head.c_proj,Linear,"[1024, 512]",525312
+encoder_module.ctx_enc.posterior_decoder.context_head.1,Linear,"[14, 512]",7182
+encoder_module.ctx_enc.prior_decoder.context_head.1,Linear,"[14, 512]",7182
+decoder_module.particle_dec.from_latent_lin.0,Linear,"[256, 4]",1280
+decoder_module.particle_dec.from_latent_lin.2,Linear,"[2048, 256]",526336
+decoder_module.particle_dec.cnn.conv_in,Conv2d,"[256, 32, 3, 3]",73984
+decoder_module.particle_dec.cnn.up.0.block.0.conv,Conv2d,"[32, 128, 3, 3]",36896
+decoder_module.particle_dec.cnn.up.0.block.1.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.particle_dec.cnn.up.1.block.0.conv,Conv2d,"[128, 256, 3, 3]",295040
+decoder_module.particle_dec.cnn.up.1.block.1.conv,Conv2d,"[128, 128, 3, 3]",147584
+decoder_module.particle_dec.cnn.up.1.upsample.conv,Conv2d,"[128, 128, 3, 3]",147584
+decoder_module.particle_dec.cnn.up.2.block.0.conv,Conv2d,"[256, 256, 3, 3]",590080
+decoder_module.particle_dec.cnn.up.2.block.1.conv,Conv2d,"[256, 256, 3, 3]",590080
+decoder_module.particle_dec.cnn.up.2.upsample.conv,Conv2d,"[256, 256, 3, 3]",590080
+decoder_module.particle_dec.cnn.conv_out,Conv2d,"[4, 32, 3, 3]",1156
+decoder_module.bg_dec.latent_to_feat_map.from_latent_lin.0,Linear,"[256, 4]",1280
+decoder_module.bg_dec.latent_to_feat_map.from_latent_lin.2,Linear,"[2048, 256]",526336
+decoder_module.bg_dec.cnn.conv_in,Conv2d,"[128, 32, 3, 3]",36992
+decoder_module.bg_dec.cnn.up.0.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.bg_dec.cnn.up.0.block.1.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.bg_dec.cnn.up.1.block.0.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.bg_dec.cnn.up.1.block.1.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.bg_dec.cnn.up.1.upsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.bg_dec.cnn.up.2.block.0.conv,Conv2d,"[32, 64, 3, 3]",18464
+decoder_module.bg_dec.cnn.up.2.block.1.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.bg_dec.cnn.up.2.upsample.conv,Conv2d,"[32, 32, 3, 3]",9248
+decoder_module.bg_dec.cnn.up.3.block.0.conv,Conv2d,"[64, 128, 3, 3]",73792
+decoder_module.bg_dec.cnn.up.3.block.1.conv,Conv2d,"[64, 64, 3, 3]",36928
+decoder_module.bg_dec.cnn.up.3.upsample.conv,Conv2d,"[64, 64, 3, 3]",36928
+decoder_module.bg_dec.cnn.up.4.block.0.conv,Conv2d,"[128, 128, 3, 3]",147584
+decoder_module.bg_dec.cnn.up.4.block.1.conv,Conv2d,"[128, 128, 3, 3]",147584
+decoder_module.bg_dec.cnn.up.4.upsample.conv,Conv2d,"[128, 128, 3, 3]",147584
+decoder_module.bg_dec.cnn.conv_out,Conv2d,"[3, 32, 3, 3]",867
+dyn_module.particle_projection.xy_projection.0,Linear,"[512, 2]",1536
+dyn_module.particle_projection.xy_projection.3,Linear,"[32, 512]",16416
+dyn_module.particle_projection.scale_projection.0,Linear,"[512, 2]",1536
+dyn_module.particle_projection.scale_projection.3,Linear,"[32, 512]",16416
+dyn_module.particle_projection.obj_on_projection.0,Linear,"[512, 1]",1024
+dyn_module.particle_projection.obj_on_projection.3,Linear,"[32, 512]",16416
+dyn_module.particle_projection.depth_projection.0,Linear,"[512, 1]",1024
+dyn_module.particle_projection.depth_projection.3,Linear,"[32, 512]",16416
+dyn_module.particle_projection.features_projection.0,Linear,"[512, 4]",2560
+dyn_module.particle_projection.features_projection.3,Linear,"[32, 512]",16416
+dyn_module.particle_projection.origin_projection.0,Linear,"[512, 4]",2560
+dyn_module.particle_projection.origin_projection.3,Linear,"[32, 512]",16416
+dyn_module.particle_projection.particle_projection.0,Linear,"[512, 192]",98816
+dyn_module.particle_projection.particle_projection.3,Linear,"[512, 512]",262656
+dyn_module.particle_projection.bg_features_projection.0,Linear,"[512, 4]",2560
+dyn_module.particle_projection.bg_features_projection.3,Linear,"[512, 512]",262656
+dyn_module.context_proj,Linear,"[512, 7]",4096
+dyn_module.particle_transformer.blocks.0.spatio_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.spatio_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.0.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.0.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.0.temp_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.temp_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.0.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.0.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.0.temp_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.1.spatio_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.spatio_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.1.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.1.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.1.temp_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.temp_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.1.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.1.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.1.temp_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.2.spatio_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.spatio_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.2.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.2.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.2.temp_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.temp_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.2.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.2.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.2.temp_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.3.spatio_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.spatio_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.3.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.3.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.3.temp_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.temp_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.3.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.3.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.3.temp_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.4.spatio_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.spatio_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.4.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.4.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.4.temp_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.temp_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.4.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.4.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.4.temp_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.5.spatio_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.spatio_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.spatio_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.spatio_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.spatio_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.5.spatio_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.5.spatio_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.blocks.5.temp_block.attn.key,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.temp_block.attn.query.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.temp_block.attn.value.pretrained_linear,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.temp_block.attn.proj,Linear,"[512, 512]",262144
+dyn_module.particle_transformer.blocks.5.temp_block.mlp.fc_1,Linear,"[2048, 512]",1050624
+dyn_module.particle_transformer.blocks.5.temp_block.mlp.proj,Linear,"[512, 2048]",1049088
+dyn_module.particle_transformer.blocks.5.temp_block.c_proj,Linear,"[3072, 512]",1575936
+dyn_module.particle_transformer.head.head,Linear,"[512, 512]",262656
+dyn_module.particle_transformer.head.c_proj,Linear,"[1024, 512]",525312
+dyn_module.particle_decoder.offset_xy_head.0,Linear,"[512, 512]",262656
+dyn_module.particle_decoder.offset_xy_head.2,Linear,"[4, 512]",2052
+dyn_module.particle_decoder.scale_xy_head.0,Linear,"[512, 512]",262656
+dyn_module.particle_decoder.scale_xy_head.2,Linear,"[4, 512]",2052
+dyn_module.particle_decoder.obj_on_head.0,Linear,"[512, 512]",262656
+dyn_module.particle_decoder.obj_on_head.2,Linear,"[1, 512]",513
+dyn_module.particle_decoder.depth_head.0,Linear,"[512, 512]",262656
+dyn_module.particle_decoder.depth_head.2,Linear,"[2, 512]",1026
+dyn_module.particle_decoder.features_head.0,Linear,"[512, 512]",262656
+dyn_module.particle_decoder.features_head.2,Linear,"[8, 512]",4104
+dyn_module.particle_decoder.bg_backbone.0,Linear,"[512, 512]",262656
+dyn_module.particle_decoder.bg_features_head,Linear,"[8, 512]",4104

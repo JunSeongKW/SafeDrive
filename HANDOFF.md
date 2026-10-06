@@ -1,5 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-06 최신: 사용자가 LoRA 적용 계층을 선택할 때까지 새 본학습 보류.**
+첫epoch1614checkpoint 보존·96scene진단·직진/좌회전/우회전 시각화 완료. 기존run은1615에서정상중단됐고
+추가1update는별도보존됐다. 위치평균0.302px/96.36%가1px이내,크기평균변화2.020%.
+새headLoRA코드/실제loss2update/DDP2update검사는준비했지만본학습·새queue·새monitor미실행.
+진입점 `docs/lpwm_lora_layer_catalog.md`, 후보설정 `configs/lpwm_drivor_geometry_lora/`.
+새root `outputs/lpwm_drivor_geometry_lora_v1/pause.requested`와`pending_user_layer_selection.json`유지.
+사용자가계층설명을보고직접대상을정하겠다고명시했다. 기존run재개/새조건시작금지.
+DrivoR비교는25epoch완료후로미룸. 아래실행중/첫epoch비교선택대기는이전이력이다.
+
 **2026-10-06 09:40 KST 최신: 첫epoch 검토를 위한 대기 제어 등록.**
 사용자제안에따라제어PID2949030이1614update/epoch1 정확한재개상태를보존한뒤기존본학습·queue·monitor를pause한다.
 현재1541update/73남음,예상10:04KST. 아직pause는아니며학습진행중. 이후96scene진단을실행하고DrivoR비교·검토대기.
@@ -38,7 +47,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 09:47 KST (Codex)
+마지막 갱신: 2026-10-06 10:17 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -205,6 +214,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+현재 본학습 없음. Old train2994997/queue2994998/monitor3351138은 정상 종료했고 review2949030도진단완료.
+새geometry조건은단일GPU2update와GPU0·1 DDP2update검사만완료,검사용가중치본학습사용금지.
+새본학습/새queue/새monitor는아직기동하지않았다. 명시적인사용자계층선택을기다린다.
 
 첫 epoch 검증의 타당성 질문에 공식 코드로 답변했다. 이번 설명에서 학습·hold·queue 설정을 변경하지 않았다.
 Review status 최신 조회: training_update=1561, waiting_for_epoch_boundary, target=1614.
@@ -616,6 +629,17 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Epoch1 96scene×4cam×64particle: 중심이동평균.302314px/중앙값.207698/p90 .658991/max3.975736,
+1px초과3.6377%;크기축평균변화2.02025%/중앙값1.35067%;presence절대변화평균.046125.
+Bitwise동일하지않지만대다수geometry시각적변화작음. Roadproxy presence18.4076→17.1646%,차량9.4928→9.6553%.
+Readout전체F1 .379859→.372994;appearance F1 .292610→.310808. 미래2/4s current대비CI0포함.
+12scene미래반복/순서역전개입은선택궤적oracle score를낮추는초기결과;학습분포/OOD개입/작은표본이며전체실패판정금지.
+자료 `results/lpwm_drivor_epoch1_particle_review_v1/`: 실제전후PNG2개,geometry/readout/summary/개입결과.
+Geometry adapter 후보는head당2Linear/rank8→4·4·1/57,633추가param,LPWM총LoRA1,401,121.
+실제공식loss에서세headgradient양수/현재출력직접연결/원본SHA보존/zero-init동일/원래planner초기동일검사통과.
+GPU0·1batch16×accum2×2 DDP2update통과,카드실측최대30.6163GB/29.6149GB. 본학습아님.
+모델객체순회Linear234/Conv2d70개전체경로CSV/JSON을 `results/lpwm_drivor_geometry_lora_v1/`에보존.
 
 공식 DrivoR는 매 epoch validation 설정과 fit의 val loader 연결이 있으며, 최종 v1/v2 예산은25/10epoch다.
 DiffusionDrive 공개 recipe100epoch, VAD base48+12epoch/매epoch저장/각단계끝평가 확인.
@@ -1136,12 +1160,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 첫 epoch 중간 검증의 타당성과 최종 성능 판단의 한계를 공식 DrivoR·DiffusionDrive·VAD 설정으로 확인했다.
-- Epoch1 review 문서에 출처와 저장/검증 주기 차이, warmup 중 순위의 한계를 추가했다.
-- 동일1epoch DrivoR 비교는 초기 학습 비교이며 진단의 선행 필수 조건은 아니라는 점을 명시했다.
-- 학습·등록 source/config·hold·queue를 변경하지 않았으며 새 GPU 작업은 실행하지 않았다.
+- 첫epoch1614상태·96scene진단완료를확인하고동일particle의위치/크기/presence전후PNG와정량보고서를추가했다.
+- 사용자조건부요청에따라geometryheadLoRA후보를별도모델/학습/추론/queue/monitor진입점과설정으로준비했다.
+- 실제영상·공식planningloss2update검사및GPU0·1batch16/effective64 DDP2update검사를통과했다. 검사 가중치는 본학습에 사용하지 않는다.
+- 이후사용자가적용계층을직접선택하겠다고명시하여새본학습기동없이중단대기를기록했다. 새root pause 유지.
+- LPWM원래Linear234/Conv2d70개목록과역할·현재planning연결·LoRA후보설명을문서화했다.
+- 기존registered소스267개검사/원본checkpoint보존. 새geometry후보등록은존재하지만최신사용자hold가실행권한에우선한다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**최우선: 사용자에게계층설명후적용대상선택을기다린다.** 아래자동재개안보다이명시적지시가우선한다.
+선택이오면기존후보와차이를반영한새config/registration을만들고필요한gradient/메모리검사후본학습한다.
+선택전geometry config/queue/monitor나old24epoch를실행하지않는다. 기존pause를제거하지않는다.
+DrivoR비교는25epoch후진행한다. 첫epoch DrivoR추가학습선택질문은최신지시로대체됐다.
 
 첫 epoch review에서는 학습 연결과 표현 사용 여부를 우선 판단하고, 낮은 점수만으로 연구 가설을 탈락시키지 않는다.
 Warmup 이후 고정 checkpoint 비교는 권고이며 아직 새 실행 계획으로 등록하지 않았다.
@@ -1469,6 +1500,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신명시적hold:사용자가LoRA대상을정하기전새학습금지. Prepared geometry head조건은최종선택이아니다.
+기존첫epoch결과에는작은위치/크기변화가있어'완전동일'이라고부르지않는다. 추가geometry의주행효과는미검증.
+Conv-LoRA는설명대상후보이며미구현/미학습. 기존Q/V와geometryhead후보를혼동하지않는다.
+Native context는encoder.ctx_enc/ctx_module/dyn.context_decoder 공유;중복삽입주의. RGBdecoder와posteriorhead는현재planning경로미사용.
 
 최신 질문은1epoch검증의방법론에관한설명요청이며, DrivoR비교방식선택이나24epoch자동재개승인으로해석하지않았다.
 공식코드의중간validation지원과저자들의실제1epoch후진행여부결정관행은구분한다. 후자의빈도는확인되지않음.

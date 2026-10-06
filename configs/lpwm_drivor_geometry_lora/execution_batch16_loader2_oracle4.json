@@ -1,0 +1,10 @@
+{
+  "overrides": {
+    "microbatch_per_gpu": 16,
+    "loader_workers_per_rank": 2,
+    "oracle_workers_per_rank": 4
+  },
+  "effective_batch_unchanged": 64,
+  "registration": "outputs/lpwm_drivor_geometry_lora_v1/parallelism_registration.json",
+  "maximum_total_card_bytes": 48000000000
+}

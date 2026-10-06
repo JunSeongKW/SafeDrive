@@ -2652,3 +2652,32 @@ DrivoR1epoch추가학습은초기비교선택지이지현재연결성진단의�
 docs/lpwm_drivor_epoch1_review.md에 공식6개출처와해석추가. 독립검증부재/navtest반복튜닝금지한계유지.
 Review status조회1561/1614 waiting_for_epoch_boundary. 기존train/hold/queue/source/config무변경,추가GPU작업없음.
 이번질문은비교방식선택응답이나24epoch자동재개요청으로간주하지않았다.
+
+
+## 2026-10-06 — 첫epoch particle 시각화·head LoRA 후보 검사·사용자 계층 선택 대기
+
+사용자처음지시:DrivoR비교25epoch후,첫epoch시각화후geometry변화없으면headLoRA추가재학습.
+기존제어가정확1614/fullmodel+optimizer+scheduler+rankRNG를보존했다. 실제process는1615중단,추가1update별도보존.
+96scene진단완료checkpointSHA3c4a60918e32a7c92d10099b51998ad27b5b74cc0e83ccc1aa0c535450662440.
+직진/좌회전/우회전첫고정scene의before/afterPNG와겹침PNG작성. 64center전부,사각형은initialpresence상위16ID고정/실제glimpse크기.
+96×4×64=24576전체통계위치mean.302314px/median.207698/p90.658991/max3.975736,1px초과3.6377%.
+크기축mean2.02025%/median1.35067%,presence평균절대변화.046125. 완전동일아님,대다수시각적재배치작음.
+F1전체.379859→.372994,appearance.292610→.310808. 미래2/4s추가readoutCI0포함.
+12scene미래반복/순서역전개입시oracle점수감소초기신호도있어기존방식전체실패로판정하지않음.
+
+별도geometryhead후보모델/학습/추론/queue/monitor/config준비. 원본소스변경없음.
+xy/scale/presence두Linear에rank8→4/4/1,alpha=rank,57633param추가. 기존QV포함LPWM LoRA1401121/native109545263고정.
+실제이미지2장면/공식onlineoracle planningloss2update검사:세headgradient양수,현재출력→adapter직접연결,
+adapter만OFF하면좌표·크기·presence차이,원본SHA/zero-init출력/이전planner초기state동일성통과.
+첫검사JSON직렬화np.int64오류를inventory Pythonint로수정하고전체재검사통과. 검사weights폐기.
+GPU0·1batch16/effective64/DDP2update통과,최대카드30.6163/29.6149GB,두rankheadgradient일치.
+267source/config해시등록을준비했으며본학습기동은하지않음.
+
+진행중사용자가두차례계층설명을요청했고마지막에는"본학습전에보고서내가적용계층을알려주겠다"고명시.
+즉시새본학습보류: outputs/lpwm_drivor_geometry_lora_v1/pause.requested 및pending_user_layer_selection.json작성.
+새본학습/queue/monitor PID없음. 기존epoch1hold유지. 계층선택전어떤본학습도재개하지않음.
+현재객체순회원래Linear234/Conv2d70개CSV/JSON저장. ctx/prior공유alias중복제외.
+docs/lpwm_lora_layer_catalog.md에현재head,영상CNN5종,interaction/context/dynamics의projection/attention/FFN/조건변환/출력,
+RGBdecoder,미사용posterior/선택옵션/비행렬튜닝구분과현재planninggradient한계설명.
+결과 results/lpwm_drivor_epoch1_particle_review_v1/, results/lpwm_drivor_geometry_lora_v1/.
+DrivoR비교25epoch이후는확정,다음LoRA대상은사용자선택대기. Conv-LoRA는미구현.

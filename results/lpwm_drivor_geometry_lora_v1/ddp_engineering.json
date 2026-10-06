@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "updates": 2,
+  "last_status": {
+    "configuration_sha256": "49148695f8f7fd192a067fc231565fa5a8ef551adfd2a8697566465436ac8baf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "9f8344db9ecd28922e326597fbca3d157a2251725278da16f6c502c09d9698d8",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 4
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 128,
+    "updates_per_epoch": 2,
+    "total_updates": 50,
+    "completed_updates": 2,
+    "epoch": 1,
+    "update_in_epoch": 2,
+    "seconds_this_update": 22.877991199493408,
+    "elapsed_seconds": 54.18877577781677,
+    "card_used_bytes": 30616322048,
+    "peak_reserved_bytes": 29039263744,
+    "gradient_norms": {
+      "particle_interaction_lora": 0.0918717883959362,
+      "context_prior_lora": 0.11154295520263655,
+      "particle_dynamics_lora": 0.1254685232892365,
+      "particle_xy_head_lora": 0.41609757051753415,
+      "particle_scale_xy_head_lora": 0.17263560102179482,
+      "particle_obj_on_head_lora": 0.011322386818001606,
+      "encoder_command": 0.08173919954091735,
+      "scene_projection": 3.666427153778311,
+      "trajectory_generator": 22.264982921254887,
+      "scorer": 18.78965384502171
+    },
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0009140968322753906,
+      "forward": 4.799384593963623,
+      "oracle": 4.877135753631592,
+      "backward": 12.884122848510742
+    },
+    "learning_rates": [
+      1.2060927152317884e-07,
+      1.2060927152317884e-07
+    ],
+    "loss": 34.01006317138672,
+    "trajectory_loss": 29.55504608154297,
+    "final_score_loss": 4.455016374588013,
+    "score": 0.2062467485666275,
+    "best_score": 0.5721117258071899,
+    "estimated_remaining_seconds": 1300.5398540496826
+  }
+}

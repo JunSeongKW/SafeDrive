@@ -1,5 +1,11 @@
 # 첫 epoch 검토 후 나머지24epoch 재개
 
+**최신 지시 및 결과:** 첫epoch1614상태와96scene진단이완료됐다. 실제process는1615에서정상중단됐고
+경계외1update를별도보존했다. DrivoR비교는25epoch후로미룬다.
+현재사용자는 [LoRA계층목록](lpwm_lora_layer_catalog.md)을보고대상을직접정하기로했다.
+따라서old24epoch재개와새geometry조건본학습모두보류다. 아래DrivoR1epoch비교선택은이전계획이다.
+시각화와수치: `results/lpwm_drivor_epoch1_particle_review_v1/`.
+
 ## 현재 결정과 실행 상태
 
 사용자가 제안한 중간 검토를 위해, 첫 epoch의 정확한 재개 상태를 보존한 뒤 본학습을 대기시키는 CPU 제어를 등록했다.
