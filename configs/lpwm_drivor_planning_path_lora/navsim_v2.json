@@ -1,0 +1,70 @@
+{
+  "benchmark": "navsim_v2",
+  "seed": 2,
+  "epochs": 10,
+  "training_splits": [
+    "navtrain"
+  ],
+  "manifest": "outputs/lpwm_drivor_joint_v1/scene_cache/manifest.json",
+  "output_directory": "outputs/lpwm_drivor_planning_path_lora_v1/navsim_v2",
+  "public_checkpoint": "outputs/lpwm_navsim_adaptation_v1/pretrained/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_best_lpips.pth",
+  "microbatch_per_gpu": 16,
+  "effective_batch": 64,
+  "loader_workers_per_rank": 2,
+  "oracle_workers_per_rank": 4,
+  "lpwm_lr": 0.0002,
+  "planner_lr": 0.0002,
+  "scheduler_dataset_size": 85000,
+  "checkpoint_every": 100,
+  "registration": "outputs/lpwm_drivor_planning_path_lora_v1/registration.json",
+  "maximum_total_card_bytes": 48000000000,
+  "ssl_reconstruction_weight": 0,
+  "direct_object_gt_weight": 0,
+  "selection_policy": "fixed_final_epoch",
+  "drivor_commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+  "notes": [
+    "Official DrivoR downstream model, proposal stop-gradient, online oracle, and loss are imported unchanged.",
+    "Native LPWM 128x128 differs from official DrivoR 672x1148; resolution-controlled baseline remains required.",
+    "Exact official scheduler uses configured dataset_size=85000 even for trainval 103288; cosine rebound after scheduled horizon is retained.",
+    "Engineering audit weights never enter main training.",
+    "Fresh public LPWM and same planner seed2; geometry, appearance and future pathways adapted by LoRA under current user authorization.",
+    "Full DrivoR comparison deferred until 25 epochs. Position movement alone is not driving utility."
+  ],
+  "lora": {
+    "rank": 32,
+    "alpha": 32,
+    "scaling": 1.0,
+    "projections": [
+      "query",
+      "value"
+    ],
+    "regions": [
+      "particle_interaction",
+      "context_prior",
+      "particle_dynamics"
+    ],
+    "pretrained_weights_frozen": true,
+    "geometry_heads": [
+      "xy_head",
+      "scale_xy_head",
+      "obj_on_head"
+    ],
+    "geometry_rank_policy": "min(8, in_features, out_features), alpha=rank",
+    "geometry_initialization": "zero output projection; seed13004 isolated from planner and attention RNG",
+    "image_cnn_conv_lora": true,
+    "additional_linear_rank": 8,
+    "additional_attention_rank": 32,
+    "convolution_rank": 8,
+    "all_scalings": 1.0,
+    "extra_initialization_seed": 13005,
+    "scopes": [
+      "current_geometry_heads_attribute_and_prior_cnn",
+      "appearance_cnn_feature_heads_interaction",
+      "context_prior_dynamics_future_heads"
+    ],
+    "exclude": [
+      "rgb_decoder",
+      "unused_context_posterior"
+    ]
+  }
+}

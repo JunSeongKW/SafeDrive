@@ -1,0 +1,2753 @@
+{
+  "passed": true,
+  "engineering_updates_discarded": true,
+  "optimizer_steps": 2,
+  "initial_zero_lora_outputs_identical": true,
+  "initial_planner_identical": true,
+  "native_weights_and_buffers_unchanged": true,
+  "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "coordinate_routes": {
+    "xy_head": {
+      "connected_tensors": 4,
+      "gradient_l2": 2.650587452729227
+    },
+    "scale_xy_head": {
+      "connected_tensors": 4,
+      "gradient_l2": 3.782489111484492
+    },
+    "obj_on_head": {
+      "connected_tensors": 4,
+      "gradient_l2": 0.8445060820238858
+    },
+    "current_prior_cnn": {
+      "connected_tensors": 14,
+      "gradient_l2": 3.319398072498333
+    },
+    "current_attribute_cnn": {
+      "connected_tensors": 14,
+      "gradient_l2": 2.682487866446933
+    }
+  },
+  "history": [
+    {
+      "engineering_update": 1,
+      "loss": 11.527610778808594,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.3499540903308227,
+        "context_prior_lora": 0.30489645071855026,
+        "particle_dynamics_lora": 0.26944381978237214,
+        "particle_xy_head_lora": 1.6787111143490165,
+        "particle_scale_xy_head_lora": 0.5460636356055129,
+        "particle_obj_on_head_lora": 0.017088524892928975,
+        "current_prior_cnn_lora": 1.8358493772208728,
+        "current_attribute_cnn_lora": 1.6317831379433023,
+        "appearance_encoder_lora": 1.310524677334924,
+        "background_appearance_lora": 1.0847529417873358,
+        "interaction_visual_and_output_lora": 1.2075622317782817,
+        "context_prior_projection_and_output_lora": 0.6371577869527173,
+        "dynamics_projection_and_ffn_lora": 1.069359204983741,
+        "future_particle_heads_lora": 2.6861071075619667,
+        "encoder_command": 0.4208480723448584,
+        "scene_projection": 8.284888501809435,
+        "trajectory_generator": 33.50310597987754,
+        "scorer": 26.445531220584375
+      }
+    },
+    {
+      "engineering_update": 2,
+      "loss": 8.54932689666748,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.07253814147682475,
+        "context_prior_lora": 0.07014654629196629,
+        "particle_dynamics_lora": 0.07173120693881173,
+        "particle_xy_head_lora": 0.3008802340969411,
+        "particle_scale_xy_head_lora": 0.08139323079441284,
+        "particle_obj_on_head_lora": 0.0136485121080561,
+        "current_prior_cnn_lora": 0.35408589322870015,
+        "current_attribute_cnn_lora": 0.48452074014871294,
+        "appearance_encoder_lora": 0.32461637614880634,
+        "background_appearance_lora": 0.22106736756494955,
+        "interaction_visual_and_output_lora": 0.31679143674838023,
+        "context_prior_projection_and_output_lora": 0.170462939118407,
+        "dynamics_projection_and_ffn_lora": 0.28443977737772347,
+        "future_particle_heads_lora": 0.6246058182065416,
+        "encoder_command": 0.1526776382266506,
+        "scene_projection": 5.421430959851697,
+        "trajectory_generator": 35.248803699534484,
+        "scorer": 17.00768691501833
+      }
+    }
+  ],
+  "geometry_adapter_only_effect": {
+    "particle_count": 512,
+    "centers_bitwise_identical": false,
+    "sizes_bitwise_identical": false,
+    "center_shift_input_pixels": {
+      "mean": 0.05566861783671584,
+      "median": 0.03499921038746834,
+      "p90": 0.12202764898538615,
+      "p99": 0.30985806763172113,
+      "maximum": 0.6196721792221069
+    },
+    "size_axis_absolute_change_input_pixels": {
+      "mean": 0.0914989709854126,
+      "median": 0.06468772888183594,
+      "p90": 0.20190811157226568,
+      "p99": 0.4510922241210936,
+      "maximum": 0.7930316925048828
+    },
+    "size_axis_relative_change_percent": {
+      "mean": 0.2662145222100776,
+      "median": 0.18285223841667175,
+      "p90": 0.5911775946617128,
+      "p99": 1.2777120828628536,
+      "maximum": 2.6848835945129395
+    },
+    "presence_absolute_change": {
+      "mean": 0.006451752469274652,
+      "median": 0.0016885101795196533,
+      "p90": 0.020339888334274296,
+      "p99": 0.05089742243289944,
+      "maximum": 0.07100492715835571
+    },
+    "fraction_center_shift_over_one_input_pixel": 0.0,
+    "fraction_particles_any_size_axis_change_over_five_percent": 0.0
+  },
+  "initial_to_engineering_updated_geometry": {
+    "particle_count": 512,
+    "centers_bitwise_identical": false,
+    "sizes_bitwise_identical": false,
+    "center_shift_input_pixels": {
+      "mean": 0.06909151355978338,
+      "median": 0.047986168414354324,
+      "p90": 0.14618490189313899,
+      "p99": 0.338582562208175,
+      "maximum": 0.6820341944694519
+    },
+    "size_axis_absolute_change_input_pixels": {
+      "mean": 0.12958705611526966,
+      "median": 0.09335708618164062,
+      "p90": 0.28897972106933595,
+      "p99": 0.578705139160156,
+      "maximum": 0.9028644561767578
+    },
+    "size_axis_relative_change_percent": {
+      "mean": 0.3779969030466077,
+      "median": 0.2667311429977417,
+      "p90": 0.8353662729263311,
+      "p99": 1.7253831601142882,
+      "maximum": 3.0681416988372803
+    },
+    "presence_absolute_change": {
+      "mean": 0.009222928020790278,
+      "median": 0.0023833811283111572,
+      "p90": 0.027877819538116466,
+      "p99": 0.08138239085674283,
+      "maximum": 0.14496541023254395
+    },
+    "fraction_center_shift_over_one_input_pixel": 0.0,
+    "fraction_particles_any_size_axis_change_over_five_percent": 0.0
+  },
+  "parameter_inventory": {
+    "scaling": 1.0,
+    "region_counts": {
+      "particle_interaction": 2,
+      "context_prior": 16,
+      "particle_dynamics": 24,
+      "particle_xy_head": 2,
+      "particle_scale_xy_head": 2,
+      "particle_obj_on_head": 2,
+      "current_prior_cnn": 7,
+      "current_attribute_cnn": 7,
+      "appearance_encoder": 9,
+      "background_appearance": 13,
+      "interaction_visual_and_output": 39,
+      "context_prior_projection_and_output": 59,
+      "dynamics_projection_and_ffn": 79,
+      "future_particle_heads": 12
+    },
+    "targets": [
+      "particle_interaction.pte.blocks.0.attn.query",
+      "particle_interaction.pte.blocks.0.attn.value",
+      "context_prior.pte.blocks.0.spatio_block.attn.query",
+      "context_prior.pte.blocks.0.spatio_block.attn.value",
+      "context_prior.pte.blocks.0.temp_block.attn.query",
+      "context_prior.pte.blocks.0.temp_block.attn.value",
+      "context_prior.pte.blocks.1.spatio_block.attn.query",
+      "context_prior.pte.blocks.1.spatio_block.attn.value",
+      "context_prior.pte.blocks.1.temp_block.attn.query",
+      "context_prior.pte.blocks.1.temp_block.attn.value",
+      "context_prior.pte.blocks.2.spatio_block.attn.query",
+      "context_prior.pte.blocks.2.spatio_block.attn.value",
+      "context_prior.pte.blocks.2.temp_block.attn.query",
+      "context_prior.pte.blocks.2.temp_block.attn.value",
+      "context_prior.pte.blocks.3.spatio_block.attn.query",
+      "context_prior.pte.blocks.3.spatio_block.attn.value",
+      "context_prior.pte.blocks.3.temp_block.attn.query",
+      "context_prior.pte.blocks.3.temp_block.attn.value",
+      "particle_dynamics.blocks.0.spatio_block.attn.query",
+      "particle_dynamics.blocks.0.spatio_block.attn.value",
+      "particle_dynamics.blocks.0.temp_block.attn.query",
+      "particle_dynamics.blocks.0.temp_block.attn.value",
+      "particle_dynamics.blocks.1.spatio_block.attn.query",
+      "particle_dynamics.blocks.1.spatio_block.attn.value",
+      "particle_dynamics.blocks.1.temp_block.attn.query",
+      "particle_dynamics.blocks.1.temp_block.attn.value",
+      "particle_dynamics.blocks.2.spatio_block.attn.query",
+      "particle_dynamics.blocks.2.spatio_block.attn.value",
+      "particle_dynamics.blocks.2.temp_block.attn.query",
+      "particle_dynamics.blocks.2.temp_block.attn.value",
+      "particle_dynamics.blocks.3.spatio_block.attn.query",
+      "particle_dynamics.blocks.3.spatio_block.attn.value",
+      "particle_dynamics.blocks.3.temp_block.attn.query",
+      "particle_dynamics.blocks.3.temp_block.attn.value",
+      "particle_dynamics.blocks.4.spatio_block.attn.query",
+      "particle_dynamics.blocks.4.spatio_block.attn.value",
+      "particle_dynamics.blocks.4.temp_block.attn.query",
+      "particle_dynamics.blocks.4.temp_block.attn.value",
+      "particle_dynamics.blocks.5.spatio_block.attn.query",
+      "particle_dynamics.blocks.5.spatio_block.attn.value",
+      "particle_dynamics.blocks.5.temp_block.attn.query",
+      "particle_dynamics.blocks.5.temp_block.attn.value",
+      "particle_geometry.xy_head.0",
+      "particle_geometry.xy_head.2",
+      "particle_geometry.scale_xy_head.0",
+      "particle_geometry.scale_xy_head.2",
+      "particle_geometry.obj_on_head.0",
+      "particle_geometry.obj_on_head.2",
+      "encoder_module.particle_enc.prior_encoder.enc.conv_in",
+      "encoder_module.particle_enc.prior_encoder.enc.down.0.block.0.conv",
+      "encoder_module.particle_enc.prior_encoder.enc.down.0.downsample.conv",
+      "encoder_module.particle_enc.prior_encoder.enc.down.1.block.0.conv",
+      "encoder_module.particle_enc.prior_encoder.enc.down.1.downsample.conv",
+      "encoder_module.particle_enc.prior_encoder.enc.down.2.block.0.conv",
+      "encoder_module.particle_enc.prior_encoder.enc.conv_out",
+      "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_in",
+      "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.block.0.conv",
+      "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.downsample.conv",
+      "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.block.0.conv",
+      "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.downsample.conv",
+      "encoder_module.particle_enc.particle_attribute_enc.cnn.down.2.block.0.conv",
+      "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_out",
+      "encoder_module.particle_enc.particle_features_enc.cnn.conv_in",
+      "encoder_module.particle_enc.particle_features_enc.cnn.down.0.block.0.conv",
+      "encoder_module.particle_enc.particle_features_enc.cnn.down.0.downsample.conv",
+      "encoder_module.particle_enc.particle_features_enc.cnn.down.1.block.0.conv",
+      "encoder_module.particle_enc.particle_features_enc.cnn.down.1.downsample.conv",
+      "encoder_module.particle_enc.particle_features_enc.cnn.down.2.block.0.conv",
+      "encoder_module.particle_enc.particle_features_enc.cnn.conv_out",
+      "encoder_module.particle_enc.particle_features_enc.to_mu.0",
+      "encoder_module.particle_enc.particle_features_enc.to_mu.2",
+      "encoder_module.bg_encoder.bg_cnn_enc.conv_in",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.0.block.0.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.0.downsample.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.1.block.0.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.1.downsample.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.2.block.0.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.2.downsample.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.3.block.0.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.3.downsample.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.down.4.block.0.conv",
+      "encoder_module.bg_encoder.bg_cnn_enc.conv_out",
+      "encoder_module.bg_encoder.to_mu.0",
+      "encoder_module.bg_encoder.to_mu.2",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_in",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.block.0.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.downsample.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.block.0.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.downsample.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.block.0.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.downsample.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.block.0.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.downsample.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.down.4.block.0.conv",
+      "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_out",
+      "encoder_module.particle_inter_enc.to_latent",
+      "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.3",
+      "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.3",
+      "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.3",
+      "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.3",
+      "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.3",
+      "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.3",
+      "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.3",
+      "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.0",
+      "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.3",
+      "encoder_module.particle_inter_enc.pte.blocks.0.attn.key",
+      "encoder_module.particle_inter_enc.pte.blocks.0.attn.proj",
+      "encoder_module.particle_inter_enc.pte.blocks.0.mlp.fc_1",
+      "encoder_module.particle_inter_enc.pte.blocks.0.mlp.proj",
+      "encoder_module.particle_inter_enc.pte.head",
+      "encoder_module.particle_inter_enc.particle_decoder.depth_head.0",
+      "encoder_module.particle_inter_enc.particle_decoder.depth_head.2",
+      "encoder_module.particle_inter_enc.particle_decoder.features_head.0",
+      "encoder_module.particle_inter_enc.particle_decoder.features_head.2",
+      "encoder_module.particle_inter_enc.particle_decoder.bg_backbone.0",
+      "encoder_module.particle_inter_enc.particle_decoder.bg_features_head",
+      "encoder_module.ctx_enc.basic_particle_proj.xy_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.xy_projection.3",
+      "encoder_module.ctx_enc.basic_particle_proj.scale_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.scale_projection.3",
+      "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.3",
+      "encoder_module.ctx_enc.basic_particle_proj.depth_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.depth_projection.3",
+      "encoder_module.ctx_enc.basic_particle_proj.features_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.features_projection.3",
+      "encoder_module.ctx_enc.basic_particle_proj.bg_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.bg_projection.3",
+      "encoder_module.ctx_enc.basic_particle_proj.origin_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.origin_projection.3",
+      "encoder_module.ctx_enc.basic_particle_proj.particle_projection.0",
+      "encoder_module.ctx_enc.basic_particle_proj.particle_projection.3",
+      "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.0.spatio_block.c_proj",
+      "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.0.temp_block.c_proj",
+      "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.1.spatio_block.c_proj",
+      "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.1.temp_block.c_proj",
+      "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.2.spatio_block.c_proj",
+      "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.2.temp_block.c_proj",
+      "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.3.spatio_block.c_proj",
+      "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.key",
+      "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.proj",
+      "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.fc_1",
+      "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.proj",
+      "encoder_module.ctx_enc.pte.blocks.3.temp_block.c_proj",
+      "encoder_module.ctx_enc.pte.head.head",
+      "encoder_module.ctx_enc.pte.head.c_proj",
+      "encoder_module.ctx_enc.prior_decoder.context_head.1",
+      "dyn_module.particle_projection.xy_projection.0",
+      "dyn_module.particle_projection.xy_projection.3",
+      "dyn_module.particle_projection.scale_projection.0",
+      "dyn_module.particle_projection.scale_projection.3",
+      "dyn_module.particle_projection.obj_on_projection.0",
+      "dyn_module.particle_projection.obj_on_projection.3",
+      "dyn_module.particle_projection.depth_projection.0",
+      "dyn_module.particle_projection.depth_projection.3",
+      "dyn_module.particle_projection.features_projection.0",
+      "dyn_module.particle_projection.features_projection.3",
+      "dyn_module.particle_projection.origin_projection.0",
+      "dyn_module.particle_projection.origin_projection.3",
+      "dyn_module.particle_projection.particle_projection.0",
+      "dyn_module.particle_projection.particle_projection.3",
+      "dyn_module.particle_projection.bg_features_projection.0",
+      "dyn_module.particle_projection.bg_features_projection.3",
+      "dyn_module.context_proj",
+      "dyn_module.particle_transformer.blocks.0.spatio_block.attn.key",
+      "dyn_module.particle_transformer.blocks.0.spatio_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.0.spatio_block.c_proj",
+      "dyn_module.particle_transformer.blocks.0.temp_block.attn.key",
+      "dyn_module.particle_transformer.blocks.0.temp_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.0.temp_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.0.temp_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.0.temp_block.c_proj",
+      "dyn_module.particle_transformer.blocks.1.spatio_block.attn.key",
+      "dyn_module.particle_transformer.blocks.1.spatio_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.1.spatio_block.c_proj",
+      "dyn_module.particle_transformer.blocks.1.temp_block.attn.key",
+      "dyn_module.particle_transformer.blocks.1.temp_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.1.temp_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.1.temp_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.1.temp_block.c_proj",
+      "dyn_module.particle_transformer.blocks.2.spatio_block.attn.key",
+      "dyn_module.particle_transformer.blocks.2.spatio_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.2.spatio_block.c_proj",
+      "dyn_module.particle_transformer.blocks.2.temp_block.attn.key",
+      "dyn_module.particle_transformer.blocks.2.temp_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.2.temp_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.2.temp_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.2.temp_block.c_proj",
+      "dyn_module.particle_transformer.blocks.3.spatio_block.attn.key",
+      "dyn_module.particle_transformer.blocks.3.spatio_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.3.spatio_block.c_proj",
+      "dyn_module.particle_transformer.blocks.3.temp_block.attn.key",
+      "dyn_module.particle_transformer.blocks.3.temp_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.3.temp_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.3.temp_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.3.temp_block.c_proj",
+      "dyn_module.particle_transformer.blocks.4.spatio_block.attn.key",
+      "dyn_module.particle_transformer.blocks.4.spatio_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.4.spatio_block.c_proj",
+      "dyn_module.particle_transformer.blocks.4.temp_block.attn.key",
+      "dyn_module.particle_transformer.blocks.4.temp_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.4.temp_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.4.temp_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.4.temp_block.c_proj",
+      "dyn_module.particle_transformer.blocks.5.spatio_block.attn.key",
+      "dyn_module.particle_transformer.blocks.5.spatio_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.5.spatio_block.c_proj",
+      "dyn_module.particle_transformer.blocks.5.temp_block.attn.key",
+      "dyn_module.particle_transformer.blocks.5.temp_block.attn.proj",
+      "dyn_module.particle_transformer.blocks.5.temp_block.mlp.fc_1",
+      "dyn_module.particle_transformer.blocks.5.temp_block.mlp.proj",
+      "dyn_module.particle_transformer.blocks.5.temp_block.c_proj",
+      "dyn_module.particle_transformer.head.head",
+      "dyn_module.particle_transformer.head.c_proj",
+      "dyn_module.particle_decoder.offset_xy_head.0",
+      "dyn_module.particle_decoder.offset_xy_head.2",
+      "dyn_module.particle_decoder.scale_xy_head.0",
+      "dyn_module.particle_decoder.scale_xy_head.2",
+      "dyn_module.particle_decoder.obj_on_head.0",
+      "dyn_module.particle_decoder.obj_on_head.2",
+      "dyn_module.particle_decoder.depth_head.0",
+      "dyn_module.particle_decoder.depth_head.2",
+      "dyn_module.particle_decoder.features_head.0",
+      "dyn_module.particle_decoder.features_head.2",
+      "dyn_module.particle_decoder.bg_backbone.0",
+      "dyn_module.particle_decoder.bg_features_head"
+    ],
+    "trainable_lora_parameters": 4683650,
+    "frozen_lpwm_parameters": 109545263,
+    "all_trainable_parameters": 21753728,
+    "native_backbone_weights_frozen": true,
+    "new_command_film_trainable": true,
+    "native_xy_scale_presence_heads_frozen": true,
+    "attention_rank": 32,
+    "attention_projections": [
+      "query",
+      "value"
+    ],
+    "geometry_lora_targets": [
+      {
+        "target": "particle_geometry.xy_head.0",
+        "rank": 8,
+        "in_features": 2048,
+        "out_features": 256,
+        "alpha": 8,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.xy_head.2",
+        "rank": 4,
+        "in_features": 256,
+        "out_features": 4,
+        "alpha": 4,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.scale_xy_head.0",
+        "rank": 8,
+        "in_features": 2048,
+        "out_features": 256,
+        "alpha": 8,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.scale_xy_head.2",
+        "rank": 4,
+        "in_features": 256,
+        "out_features": 4,
+        "alpha": 4,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.obj_on_head.0",
+        "rank": 8,
+        "in_features": 2048,
+        "out_features": 256,
+        "alpha": 8,
+        "scaling": 1.0
+      },
+      {
+        "target": "particle_geometry.obj_on_head.2",
+        "rank": 1,
+        "in_features": 256,
+        "out_features": 1,
+        "alpha": 1,
+        "scaling": 1.0
+      }
+    ],
+    "geometry_lora_parameters": 57633,
+    "current_xy_scale_presence_head_adapters_trainable": true,
+    "image_cnn_conv_lora": true,
+    "condition": "geometry_appearance_future_planning_path_lora",
+    "planning_path_targets": [
+      {
+        "target": "encoder_module.particle_enc.prior_encoder.enc.conv_in",
+        "region": "current_prior_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          3,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.prior_encoder.enc.down.0.block.0.conv",
+        "region": "current_prior_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.prior_encoder.enc.down.0.downsample.conv",
+        "region": "current_prior_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.prior_encoder.enc.down.1.block.0.conv",
+        "region": "current_prior_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.prior_encoder.enc.down.1.downsample.conv",
+        "region": "current_prior_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.prior_encoder.enc.down.2.block.0.conv",
+        "region": "current_prior_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          256,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.prior_encoder.enc.conv_out",
+        "region": "current_prior_cnn",
+        "type": "Conv2d",
+        "rank": 1,
+        "scaling": 1.0,
+        "kernel_shape": [
+          1,
+          256,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_in",
+        "region": "current_attribute_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          3,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.block.0.conv",
+        "region": "current_attribute_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.downsample.conv",
+        "region": "current_attribute_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.block.0.conv",
+        "region": "current_attribute_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.downsample.conv",
+        "region": "current_attribute_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_attribute_enc.cnn.down.2.block.0.conv",
+        "region": "current_attribute_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          256,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_out",
+        "region": "current_attribute_cnn",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          256,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.cnn.conv_in",
+        "region": "appearance_encoder",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          3,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.cnn.down.0.block.0.conv",
+        "region": "appearance_encoder",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.cnn.down.0.downsample.conv",
+        "region": "appearance_encoder",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.cnn.down.1.block.0.conv",
+        "region": "appearance_encoder",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.cnn.down.1.downsample.conv",
+        "region": "appearance_encoder",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.cnn.down.2.block.0.conv",
+        "region": "appearance_encoder",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          256,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.cnn.conv_out",
+        "region": "appearance_encoder",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          256,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.to_mu.0",
+        "region": "appearance_encoder",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_enc.particle_features_enc.to_mu.2",
+        "region": "appearance_encoder",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 4
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.conv_in",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          3,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.0.block.0.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.0.downsample.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.1.block.0.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.1.downsample.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.2.block.0.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.2.downsample.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.3.block.0.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          64,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.3.downsample.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          64,
+          64,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.down.4.block.0.conv",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          64,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.bg_cnn_enc.conv_out",
+        "region": "background_appearance",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.bg_encoder.to_mu.0",
+        "region": "background_appearance",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.bg_encoder.to_mu.2",
+        "region": "background_appearance",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 4
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_in",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          3,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.block.0.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.downsample.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.block.0.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.downsample.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.block.0.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.downsample.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.block.0.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          64,
+          32,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.downsample.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          64,
+          64,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.down.4.block.0.conv",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          128,
+          64,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_out",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 8,
+        "scaling": 1.0,
+        "kernel_shape": [
+          32,
+          128,
+          3,
+          3
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.to_latent",
+        "region": "interaction_visual_and_output",
+        "type": "Conv2d",
+        "rank": 4,
+        "scaling": 1.0,
+        "kernel_shape": [
+          4,
+          32,
+          1,
+          1
+        ]
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 2,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 2,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 1,
+        "scaling": 1.0,
+        "in_features": 1,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 1,
+        "scaling": 1.0,
+        "in_features": 1,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 192,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.3",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.pte.blocks.0.attn.key",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.pte.blocks.0.attn.proj",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.pte.blocks.0.mlp.fc_1",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 1024
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.pte.blocks.0.mlp.proj",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 1024,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.pte.head",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.particle_decoder.depth_head.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.particle_decoder.depth_head.2",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 2
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.particle_decoder.features_head.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.particle_decoder.features_head.2",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 8
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.particle_decoder.bg_backbone.0",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 256
+      },
+      {
+        "target": "encoder_module.particle_inter_enc.particle_decoder.bg_features_head",
+        "region": "interaction_visual_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 256,
+        "out_features": 8
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.xy_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 2,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.xy_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.scale_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 2,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.scale_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 1,
+        "scaling": 1.0,
+        "in_features": 1,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.depth_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 1,
+        "scaling": 1.0,
+        "in_features": 1,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.depth_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.features_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.features_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.bg_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.bg_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.origin_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.origin_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.particle_projection.0",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 192,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.basic_particle_proj.particle_projection.3",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.spatio_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.0.temp_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.spatio_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.1.temp_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.spatio_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.2.temp_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.spatio_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.key",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.fc_1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.blocks.3.temp_block.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.head.head",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "encoder_module.ctx_enc.pte.head.c_proj",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 1024
+      },
+      {
+        "target": "encoder_module.ctx_enc.prior_decoder.context_head.1",
+        "region": "context_prior_projection_and_output",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 14
+      },
+      {
+        "target": "dyn_module.particle_projection.xy_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 2,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.xy_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "dyn_module.particle_projection.scale_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 2,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.scale_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "dyn_module.particle_projection.obj_on_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 1,
+        "scaling": 1.0,
+        "in_features": 1,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.obj_on_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "dyn_module.particle_projection.depth_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 1,
+        "scaling": 1.0,
+        "in_features": 1,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.depth_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "dyn_module.particle_projection.features_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.features_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "dyn_module.particle_projection.origin_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.origin_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 32
+      },
+      {
+        "target": "dyn_module.particle_projection.particle_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 192,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.particle_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.bg_features_projection.0",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 4,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_projection.bg_features_projection.3",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.context_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 7,
+        "scaling": 1.0,
+        "in_features": 7,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.spatio_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.spatio_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.spatio_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.temp_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.temp_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.temp_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.temp_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.0.temp_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.spatio_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.spatio_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.spatio_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.temp_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.temp_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.temp_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.temp_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.1.temp_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.spatio_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.spatio_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.spatio_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.temp_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.temp_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.temp_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.temp_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.2.temp_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.spatio_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.spatio_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.spatio_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.temp_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.temp_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.temp_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.temp_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.3.temp_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.spatio_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.spatio_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.spatio_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.temp_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.temp_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.temp_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.temp_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.4.temp_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.spatio_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.spatio_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.spatio_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.temp_block.attn.key",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.temp_block.attn.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 32,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.temp_block.mlp.fc_1",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2048
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.temp_block.mlp.proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 2048,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.blocks.5.temp_block.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 3072
+      },
+      {
+        "target": "dyn_module.particle_transformer.head.head",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_transformer.head.c_proj",
+        "region": "dynamics_projection_and_ffn",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 1024
+      },
+      {
+        "target": "dyn_module.particle_decoder.offset_xy_head.0",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_decoder.offset_xy_head.2",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 4
+      },
+      {
+        "target": "dyn_module.particle_decoder.scale_xy_head.0",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_decoder.scale_xy_head.2",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 4,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 4
+      },
+      {
+        "target": "dyn_module.particle_decoder.obj_on_head.0",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_decoder.obj_on_head.2",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 1,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 1
+      },
+      {
+        "target": "dyn_module.particle_decoder.depth_head.0",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_decoder.depth_head.2",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 2,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 2
+      },
+      {
+        "target": "dyn_module.particle_decoder.features_head.0",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_decoder.features_head.2",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 8
+      },
+      {
+        "target": "dyn_module.particle_decoder.bg_backbone.0",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 512
+      },
+      {
+        "target": "dyn_module.particle_decoder.bg_features_head",
+        "region": "future_particle_heads",
+        "type": "Linear",
+        "rank": 8,
+        "scaling": 1.0,
+        "in_features": 512,
+        "out_features": 8
+      }
+    ],
+    "excluded_planning_targets": [
+      "encoder_module.ctx_enc.posterior_decoder.context_head.1",
+      "decoder_module.particle_dec.from_latent_lin.0",
+      "decoder_module.particle_dec.from_latent_lin.2",
+      "decoder_module.particle_dec.cnn.conv_in",
+      "decoder_module.particle_dec.cnn.up.0.block.0.conv",
+      "decoder_module.particle_dec.cnn.up.0.block.1.conv",
+      "decoder_module.particle_dec.cnn.up.1.block.0.conv",
+      "decoder_module.particle_dec.cnn.up.1.block.1.conv",
+      "decoder_module.particle_dec.cnn.up.1.upsample.conv",
+      "decoder_module.particle_dec.cnn.up.2.block.0.conv",
+      "decoder_module.particle_dec.cnn.up.2.block.1.conv",
+      "decoder_module.particle_dec.cnn.up.2.upsample.conv",
+      "decoder_module.particle_dec.cnn.conv_out",
+      "decoder_module.bg_dec.latent_to_feat_map.from_latent_lin.0",
+      "decoder_module.bg_dec.latent_to_feat_map.from_latent_lin.2",
+      "decoder_module.bg_dec.cnn.conv_in",
+      "decoder_module.bg_dec.cnn.up.0.block.0.conv",
+      "decoder_module.bg_dec.cnn.up.0.block.1.conv",
+      "decoder_module.bg_dec.cnn.up.1.block.0.conv",
+      "decoder_module.bg_dec.cnn.up.1.block.1.conv",
+      "decoder_module.bg_dec.cnn.up.1.upsample.conv",
+      "decoder_module.bg_dec.cnn.up.2.block.0.conv",
+      "decoder_module.bg_dec.cnn.up.2.block.1.conv",
+      "decoder_module.bg_dec.cnn.up.2.upsample.conv",
+      "decoder_module.bg_dec.cnn.up.3.block.0.conv",
+      "decoder_module.bg_dec.cnn.up.3.block.1.conv",
+      "decoder_module.bg_dec.cnn.up.3.upsample.conv",
+      "decoder_module.bg_dec.cnn.up.4.block.0.conv",
+      "decoder_module.bg_dec.cnn.up.4.block.1.conv",
+      "decoder_module.bg_dec.cnn.up.4.upsample.conv",
+      "decoder_module.bg_dec.cnn.conv_out"
+    ],
+    "linear_adapter_count": 229,
+    "convolution_adapter_count": 44,
+    "rgb_decoder_frozen_and_unused": true,
+    "context_posterior_excluded": true
+  },
+  "maximum_reserved_bytes": 7134511104,
+  "card_used_bytes": 7525629952,
+  "not_evidence_of_planning_improvement": true
+}

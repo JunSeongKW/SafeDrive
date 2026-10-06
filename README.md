@@ -1,5 +1,16 @@
 # Planning-Aware Future Prediction
 
+**2026-10-06 최신 사용자 승인: geometry·appearance·future 세 경로 LoRA 본학습 시작.**
+사용자가 대상 계층을 선택하고 실행을 요청했으므로, 이전 계층 선택 대기는 이 새 조건에 한해 해제됐다.
+[설계·gradient 검사·실행 설정](docs/lpwm_drivor_planning_path_lora_training.md).
+Linear229 + Conv44 / LPWM LoRA4,683,650개, native109,545,263개·buffer고정, 공식 DrivoR planner 전체학습.
+새 공개 초기화 / navtrain+navval103,288 /25epoch40,350update / GPU0·1 /batch16×누적2×2=유효64.
+Loader2·oracle4/rank, 총48decimalGB 상한. 실제DDP2update 최대40.16GB·모든273adapter planning gradient 검사통과.
+본학습3186133 /후속queue3186134 /monitor3186135. Root `outputs/lpwm_drivor_planning_path_lora_v1/`.
+고정96장면 전·중·후 geometry/readout/intent/개입검사; DrivoR 비교는25epoch 이후.
+새source/config279개 등록불변. 이전attention1614/1615와geometry-only hold는 보존하고 재개하지 않는다.
+아래 새학습보류/과거실행중 문장은 이전 이력이다.
+
 **최신: 첫 epoch 진단 완료·학습 대기.** [LoRA 적용 후보 전체 설명](docs/lpwm_lora_layer_catalog.md).
 사용자가 적용 계층을 선택할 때까지 새 본학습을 시작하지 않는다. 기존1614update 상태와 학습 전후 시각화를 보존했다.
 Head LoRA는 코드·연결·DDP 검사만 준비됐으며 본학습 미실행이다. DrivoR 비교는25epoch 후로 미룬다.

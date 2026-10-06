@@ -1,0 +1,1094 @@
+{
+  "encoder_module.particle_enc.prior_encoder.enc.conv_in": {
+    "connected": true,
+    "output_gradient_l2": 0.3371211290359497
+  },
+  "encoder_module.particle_enc.prior_encoder.enc.down.0.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.04190431907773018
+  },
+  "encoder_module.particle_enc.prior_encoder.enc.down.0.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.05475067347288132
+  },
+  "encoder_module.particle_enc.prior_encoder.enc.down.1.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.07378294318914413
+  },
+  "encoder_module.particle_enc.prior_encoder.enc.down.1.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.024255752563476562
+  },
+  "encoder_module.particle_enc.prior_encoder.enc.down.2.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.02860186994075775
+  },
+  "encoder_module.particle_enc.prior_encoder.enc.conv_out": {
+    "connected": true,
+    "output_gradient_l2": 0.010856437496840954
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_in": {
+    "connected": true,
+    "output_gradient_l2": 0.4649377167224884
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.05279236659407616
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.cnn.down.0.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.07324323058128357
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.08976200968027115
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.cnn.down.1.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.020061954855918884
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.cnn.down.2.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.02338264137506485
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.cnn.conv_out": {
+    "connected": true,
+    "output_gradient_l2": 0.037798624485731125
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.xy_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.01495154108852148
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.xy_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.3005044162273407
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.scale_xy_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.007574399467557669
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.scale_xy_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.08103815466165543
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.obj_on_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.006114778108894825
+  },
+  "encoder_module.particle_enc.particle_attribute_enc.obj_on_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.012192180380225182
+  },
+  "encoder_module.particle_enc.particle_features_enc.cnn.conv_in": {
+    "connected": true,
+    "output_gradient_l2": 0.2849094271659851
+  },
+  "encoder_module.particle_enc.particle_features_enc.cnn.down.0.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.03061649575829506
+  },
+  "encoder_module.particle_enc.particle_features_enc.cnn.down.0.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.03883511945605278
+  },
+  "encoder_module.particle_enc.particle_features_enc.cnn.down.1.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.03923896700143814
+  },
+  "encoder_module.particle_enc.particle_features_enc.cnn.down.1.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.01709597557783127
+  },
+  "encoder_module.particle_enc.particle_features_enc.cnn.down.2.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.02022527903318405
+  },
+  "encoder_module.particle_enc.particle_features_enc.cnn.conv_out": {
+    "connected": true,
+    "output_gradient_l2": 0.026625078171491623
+  },
+  "encoder_module.particle_enc.particle_features_enc.to_mu.0": {
+    "connected": true,
+    "output_gradient_l2": 0.017517806962132454
+  },
+  "encoder_module.particle_enc.particle_features_enc.to_mu.2": {
+    "connected": true,
+    "output_gradient_l2": 0.13600055873394012
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.conv_in": {
+    "connected": true,
+    "output_gradient_l2": 0.16547654569149017
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.0.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.02495567873120308
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.0.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.03474074602127075
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.1.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.041222650557756424
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.1.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.03440708667039871
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.2.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.048541612923145294
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.2.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.044298186898231506
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.3.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.05031847581267357
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.3.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.02814934402704239
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.down.4.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.039284247905015945
+  },
+  "encoder_module.bg_encoder.bg_cnn_enc.conv_out": {
+    "connected": true,
+    "output_gradient_l2": 0.04675387963652611
+  },
+  "encoder_module.bg_encoder.to_mu.0": {
+    "connected": true,
+    "output_gradient_l2": 0.01902543567121029
+  },
+  "encoder_module.bg_encoder.to_mu.2": {
+    "connected": true,
+    "output_gradient_l2": 0.07095921039581299
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_in": {
+    "connected": true,
+    "output_gradient_l2": 0.007774715311825275
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.0020104041323065758
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.0.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.0011075412621721625
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.003243002574890852
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.1.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.0013296690303832293
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.003197025740519166
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.2.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.0028999047353863716
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.006140869576483965
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.3.downsample.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.005302485544234514
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.down.4.block.0.conv": {
+    "connected": true,
+    "output_gradient_l2": 0.006227145437151194
+  },
+  "encoder_module.particle_inter_enc.ctx_cnn_enc.conv_out": {
+    "connected": true,
+    "output_gradient_l2": 0.0027275963220745325
+  },
+  "encoder_module.particle_inter_enc.to_latent": {
+    "connected": true,
+    "output_gradient_l2": 0.02407795935869217
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.007229516748338938
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.xy_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.004534099716693163
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.025722770020365715
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.scale_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.004126939456909895
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.018412794917821884
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.obj_on_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.0035453825257718563
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.04404160752892494
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.features_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.02043226547539234
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.23266416788101196
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.score_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.020061016082763672
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.06830590218305588
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.bg_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.02911270223557949
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.012027338147163391
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.origin_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.004046207293868065
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.044092223048210144
+  },
+  "encoder_module.particle_inter_enc.basic_particle_proj.particle_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.044821031391620636
+  },
+  "encoder_module.particle_inter_enc.pte.blocks.0.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.02741490863263607
+  },
+  "encoder_module.particle_inter_enc.pte.blocks.0.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.029210790991783142
+  },
+  "encoder_module.particle_inter_enc.pte.blocks.0.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.06637530028820038
+  },
+  "encoder_module.particle_inter_enc.pte.blocks.0.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.06973785907030106
+  },
+  "encoder_module.particle_inter_enc.pte.blocks.0.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.06117360293865204
+  },
+  "encoder_module.particle_inter_enc.pte.blocks.0.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.017623385414481163
+  },
+  "encoder_module.particle_inter_enc.pte.head": {
+    "connected": true,
+    "output_gradient_l2": 0.042300425469875336
+  },
+  "encoder_module.particle_inter_enc.particle_decoder.depth_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.012604466639459133
+  },
+  "encoder_module.particle_inter_enc.particle_decoder.depth_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.011529079638421535
+  },
+  "encoder_module.particle_inter_enc.particle_decoder.features_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.026606908068060875
+  },
+  "encoder_module.particle_inter_enc.particle_decoder.features_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.10510613024234772
+  },
+  "encoder_module.particle_inter_enc.particle_decoder.bg_backbone.0": {
+    "connected": true,
+    "output_gradient_l2": 0.02760605327785015
+  },
+  "encoder_module.particle_inter_enc.particle_decoder.bg_features_head": {
+    "connected": true,
+    "output_gradient_l2": 0.08756139129400253
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.xy_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.0038046534173190594
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.xy_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.002717792522162199
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.scale_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.015291095711290836
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.scale_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.004708664957433939
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.0028472698759287596
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.obj_on_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.005388363264501095
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.depth_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.004881539382040501
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.depth_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.007008545566350222
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.features_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.02370922453701496
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.features_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.010684782639145851
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.bg_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.008363758213818073
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.bg_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.002910830546170473
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.origin_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.03746037557721138
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.origin_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.007699721958488226
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.particle_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.07035920768976212
+  },
+  "encoder_module.ctx_enc.basic_particle_proj.particle_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.036463845521211624
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.006592234130948782
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.006587161682546139
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.018346376717090607
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0272333025932312
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.01754947006702423
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.010551641695201397
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.009177868254482746
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.0007896192837506533
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0009075252455659211
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.017687110230326653
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.01960892230272293
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.021919438615441322
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.008178901858627796
+  },
+  "encoder_module.ctx_enc.pte.blocks.0.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.010409570299088955
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.010053880512714386
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.009524841792881489
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.022719837725162506
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.02677638828754425
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.03182594105601311
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.009635879658162594
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.008702798746526241
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.0008080905536189675
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0009151361300610006
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.013781731948256493
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.01411409117281437
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.02251949906349182
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0089589087292552
+  },
+  "encoder_module.ctx_enc.pte.blocks.1.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.007847906090319157
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.01627003401517868
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.013954711146652699
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.036397166550159454
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.028537839651107788
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.033027518540620804
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.010277271270751953
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.008660929277539253
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.0012822934659197927
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0015532039105892181
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.017841847613453865
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.017077689990401268
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.02770455740392208
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.00608360068872571
+  },
+  "encoder_module.ctx_enc.pte.blocks.2.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.005827410612255335
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.02301538549363613
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.024459978565573692
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.03070446103811264
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.023584440350532532
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.03847739100456238
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0050261435098946095
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.00812118873000145
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.00027891434729099274
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0002464861318003386
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.0065904343500733376
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0077059632167220116
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.015335245057940483
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.002217348897829652
+  },
+  "encoder_module.ctx_enc.pte.blocks.3.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.004258943255990744
+  },
+  "encoder_module.ctx_enc.pte.head.head": {
+    "connected": true,
+    "output_gradient_l2": 0.01515495777130127
+  },
+  "encoder_module.ctx_enc.pte.head.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.008119233883917332
+  },
+  "encoder_module.ctx_enc.prior_decoder.context_head.1": {
+    "connected": true,
+    "output_gradient_l2": 0.09069452434778214
+  },
+  "dyn_module.particle_projection.xy_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.002412654459476471
+  },
+  "dyn_module.particle_projection.xy_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.002662372775375843
+  },
+  "dyn_module.particle_projection.scale_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.04448641091585159
+  },
+  "dyn_module.particle_projection.scale_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.010350937023758888
+  },
+  "dyn_module.particle_projection.obj_on_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.013322302140295506
+  },
+  "dyn_module.particle_projection.obj_on_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.002094012452289462
+  },
+  "dyn_module.particle_projection.depth_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.0010001902701333165
+  },
+  "dyn_module.particle_projection.depth_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.003052219981327653
+  },
+  "dyn_module.particle_projection.features_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.026176273822784424
+  },
+  "dyn_module.particle_projection.features_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.018564151600003242
+  },
+  "dyn_module.particle_projection.origin_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.07526928931474686
+  },
+  "dyn_module.particle_projection.origin_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.016656406223773956
+  },
+  "dyn_module.particle_projection.particle_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.05183251574635506
+  },
+  "dyn_module.particle_projection.particle_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.027605652809143066
+  },
+  "dyn_module.particle_projection.bg_features_projection.0": {
+    "connected": true,
+    "output_gradient_l2": 0.1320069581270218
+  },
+  "dyn_module.particle_projection.bg_features_projection.3": {
+    "connected": true,
+    "output_gradient_l2": 0.08326321095228195
+  },
+  "dyn_module.context_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.06407894939184189
+  },
+  "dyn_module.particle_transformer.blocks.0.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.005589126609265804
+  },
+  "dyn_module.particle_transformer.blocks.0.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.005149938631802797
+  },
+  "dyn_module.particle_transformer.blocks.0.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.021438773721456528
+  },
+  "dyn_module.particle_transformer.blocks.0.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.02047181874513626
+  },
+  "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.012353495694696903
+  },
+  "dyn_module.particle_transformer.blocks.0.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006238989997655153
+  },
+  "dyn_module.particle_transformer.blocks.0.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.007527425419539213
+  },
+  "dyn_module.particle_transformer.blocks.0.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.00410872558131814
+  },
+  "dyn_module.particle_transformer.blocks.0.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.004328282084316015
+  },
+  "dyn_module.particle_transformer.blocks.0.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.009147008880972862
+  },
+  "dyn_module.particle_transformer.blocks.0.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.009548403322696686
+  },
+  "dyn_module.particle_transformer.blocks.0.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.01151609793305397
+  },
+  "dyn_module.particle_transformer.blocks.0.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.005795271601527929
+  },
+  "dyn_module.particle_transformer.blocks.0.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006744859274476767
+  },
+  "dyn_module.particle_transformer.blocks.1.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.011217485181987286
+  },
+  "dyn_module.particle_transformer.blocks.1.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.009660979732871056
+  },
+  "dyn_module.particle_transformer.blocks.1.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.02322365902364254
+  },
+  "dyn_module.particle_transformer.blocks.1.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.022417614236474037
+  },
+  "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.014744674786925316
+  },
+  "dyn_module.particle_transformer.blocks.1.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006748034618794918
+  },
+  "dyn_module.particle_transformer.blocks.1.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.007545283995568752
+  },
+  "dyn_module.particle_transformer.blocks.1.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.00044067620183341205
+  },
+  "dyn_module.particle_transformer.blocks.1.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0004138584772590548
+  },
+  "dyn_module.particle_transformer.blocks.1.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.01125163584947586
+  },
+  "dyn_module.particle_transformer.blocks.1.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.012808400206267834
+  },
+  "dyn_module.particle_transformer.blocks.1.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.017232224345207214
+  },
+  "dyn_module.particle_transformer.blocks.1.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0072988225147128105
+  },
+  "dyn_module.particle_transformer.blocks.1.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.007559482008218765
+  },
+  "dyn_module.particle_transformer.blocks.2.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.01146693341434002
+  },
+  "dyn_module.particle_transformer.blocks.2.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.01270507276058197
+  },
+  "dyn_module.particle_transformer.blocks.2.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.028218988329172134
+  },
+  "dyn_module.particle_transformer.blocks.2.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.02484232746064663
+  },
+  "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.016972465440630913
+  },
+  "dyn_module.particle_transformer.blocks.2.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.007295170333236456
+  },
+  "dyn_module.particle_transformer.blocks.2.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0069115059450268745
+  },
+  "dyn_module.particle_transformer.blocks.2.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.0006333757773973048
+  },
+  "dyn_module.particle_transformer.blocks.2.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0006468705832958221
+  },
+  "dyn_module.particle_transformer.blocks.2.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.01073706615716219
+  },
+  "dyn_module.particle_transformer.blocks.2.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.01005727332085371
+  },
+  "dyn_module.particle_transformer.blocks.2.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.01850062422454357
+  },
+  "dyn_module.particle_transformer.blocks.2.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006701220758259296
+  },
+  "dyn_module.particle_transformer.blocks.2.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0047425380907952785
+  },
+  "dyn_module.particle_transformer.blocks.3.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.013196890242397785
+  },
+  "dyn_module.particle_transformer.blocks.3.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0122136902064085
+  },
+  "dyn_module.particle_transformer.blocks.3.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.030247416347265244
+  },
+  "dyn_module.particle_transformer.blocks.3.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.01811528205871582
+  },
+  "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.023850586265325546
+  },
+  "dyn_module.particle_transformer.blocks.3.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.007493383251130581
+  },
+  "dyn_module.particle_transformer.blocks.3.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.004964361898601055
+  },
+  "dyn_module.particle_transformer.blocks.3.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.0007387335645034909
+  },
+  "dyn_module.particle_transformer.blocks.3.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.000802531314548105
+  },
+  "dyn_module.particle_transformer.blocks.3.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.01024787686765194
+  },
+  "dyn_module.particle_transformer.blocks.3.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.008241914212703705
+  },
+  "dyn_module.particle_transformer.blocks.3.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.021256525069475174
+  },
+  "dyn_module.particle_transformer.blocks.3.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.007431499194353819
+  },
+  "dyn_module.particle_transformer.blocks.3.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.004754062741994858
+  },
+  "dyn_module.particle_transformer.blocks.4.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.010989274829626083
+  },
+  "dyn_module.particle_transformer.blocks.4.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.012080357410013676
+  },
+  "dyn_module.particle_transformer.blocks.4.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.022147860378026962
+  },
+  "dyn_module.particle_transformer.blocks.4.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.021135158836841583
+  },
+  "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.02019626460969448
+  },
+  "dyn_module.particle_transformer.blocks.4.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006816031876951456
+  },
+  "dyn_module.particle_transformer.blocks.4.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006121666170656681
+  },
+  "dyn_module.particle_transformer.blocks.4.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.0008695801952853799
+  },
+  "dyn_module.particle_transformer.blocks.4.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.0008248560479842126
+  },
+  "dyn_module.particle_transformer.blocks.4.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.009981231763958931
+  },
+  "dyn_module.particle_transformer.blocks.4.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.009023013524711132
+  },
+  "dyn_module.particle_transformer.blocks.4.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.022824106737971306
+  },
+  "dyn_module.particle_transformer.blocks.4.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006411157548427582
+  },
+  "dyn_module.particle_transformer.blocks.4.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.004550259560346603
+  },
+  "dyn_module.particle_transformer.blocks.5.spatio_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.012528063729405403
+  },
+  "dyn_module.particle_transformer.blocks.5.spatio_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.01277613453567028
+  },
+  "dyn_module.particle_transformer.blocks.5.spatio_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.02304881066083908
+  },
+  "dyn_module.particle_transformer.blocks.5.spatio_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.015852324664592743
+  },
+  "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.02906719036400318
+  },
+  "dyn_module.particle_transformer.blocks.5.spatio_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.0078153470531106
+  },
+  "dyn_module.particle_transformer.blocks.5.spatio_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006437717936933041
+  },
+  "dyn_module.particle_transformer.blocks.5.temp_block.attn.key": {
+    "connected": true,
+    "output_gradient_l2": 0.0008007880533114076
+  },
+  "dyn_module.particle_transformer.blocks.5.temp_block.attn.query": {
+    "connected": true,
+    "output_gradient_l2": 0.000666408974211663
+  },
+  "dyn_module.particle_transformer.blocks.5.temp_block.attn.value": {
+    "connected": true,
+    "output_gradient_l2": 0.01052672229707241
+  },
+  "dyn_module.particle_transformer.blocks.5.temp_block.attn.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.008003663271665573
+  },
+  "dyn_module.particle_transformer.blocks.5.temp_block.mlp.fc_1": {
+    "connected": true,
+    "output_gradient_l2": 0.03150748834013939
+  },
+  "dyn_module.particle_transformer.blocks.5.temp_block.mlp.proj": {
+    "connected": true,
+    "output_gradient_l2": 0.006451960653066635
+  },
+  "dyn_module.particle_transformer.blocks.5.temp_block.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.005699142813682556
+  },
+  "dyn_module.particle_transformer.head.head": {
+    "connected": true,
+    "output_gradient_l2": 0.16500571370124817
+  },
+  "dyn_module.particle_transformer.head.c_proj": {
+    "connected": true,
+    "output_gradient_l2": 0.04692960903048515
+  },
+  "dyn_module.particle_decoder.offset_xy_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.022399624809622765
+  },
+  "dyn_module.particle_decoder.offset_xy_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.18282794952392578
+  },
+  "dyn_module.particle_decoder.scale_xy_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.00949610210955143
+  },
+  "dyn_module.particle_decoder.scale_xy_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.023248277604579926
+  },
+  "dyn_module.particle_decoder.obj_on_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.007226583082228899
+  },
+  "dyn_module.particle_decoder.obj_on_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.00494384765625
+  },
+  "dyn_module.particle_decoder.depth_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.0031580328941345215
+  },
+  "dyn_module.particle_decoder.depth_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.007301777135580778
+  },
+  "dyn_module.particle_decoder.features_head.0": {
+    "connected": true,
+    "output_gradient_l2": 0.019853973761200905
+  },
+  "dyn_module.particle_decoder.features_head.2": {
+    "connected": true,
+    "output_gradient_l2": 0.07439452409744263
+  },
+  "dyn_module.particle_decoder.bg_backbone.0": {
+    "connected": true,
+    "output_gradient_l2": 0.06374143809080124
+  },
+  "dyn_module.particle_decoder.bg_features_head": {
+    "connected": true,
+    "output_gradient_l2": 0.5877159833908081
+  }
+}

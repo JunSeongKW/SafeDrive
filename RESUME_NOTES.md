@@ -2681,3 +2681,26 @@ docs/lpwm_lora_layer_catalog.md에현재head,영상CNN5종,interaction/context/d
 RGBdecoder,미사용posterior/선택옵션/비행렬튜닝구분과현재planninggradient한계설명.
 결과 results/lpwm_drivor_epoch1_particle_review_v1/, results/lpwm_drivor_geometry_lora_v1/.
 DrivoR비교25epoch이후는확정,다음LoRA대상은사용자선택대기. Conv-LoRA는미구현.
+
+
+## 2026-10-06 10:35 KST — 세 경로 LoRA 승인 및 본학습 시작
+
+**2026-10-06 최신 사용자 승인: geometry·appearance·future 세 경로 LoRA 본학습 시작.**
+사용자가 대상 계층을 선택하고 실행을 요청했으므로, 이전 계층 선택 대기는 이 새 조건에 한해 해제됐다.
+[설계·gradient 검사·실행 설정](docs/lpwm_drivor_planning_path_lora_training.md).
+Linear229 + Conv44 / LPWM LoRA4,683,650개, native109,545,263개·buffer고정, 공식 DrivoR planner 전체학습.
+새 공개 초기화 / navtrain+navval103,288 /25epoch40,350update / GPU0·1 /batch16×누적2×2=유효64.
+Loader2·oracle4/rank, 총48decimalGB 상한. 실제DDP2update 최대40.16GB·모든273adapter planning gradient 검사통과.
+본학습3186133 /후속queue3186134 /monitor3186135. Root `outputs/lpwm_drivor_planning_path_lora_v1/`.
+고정96장면 전·중·후 geometry/readout/intent/개입검사; DrivoR 비교는25epoch 이후.
+새source/config279개 등록불변. 이전attention1614/1615와geometry-only hold는 보존하고 재개하지 않는다.
+아래 새학습보류/과거실행중 문장은 이전 이력이다.
+
+
+최신: `results/lpwm_drivor_planning_path_lora_v1/`에 실제 loss2update와DDP2update 증거를보존했다.
+273adapter모두 output-gradient>0/unused0,head3개와prior·attributeCNN에서currentgeometry연결확인.
+초기 native 출력/초기planner동일, 원래가중치·buffer digest a5dd2345…5d 유지.
+Linear229/Conv44 LoRA4,683,650/전체학습21,753,728개; DDP카드최대40,161,509,376bytes.
+이는연결·실행검증이지객체이해/주행성능향상결과가아니다. 본학습공식PDMS/EPDMS아직없음.
+
+상세: `docs/lpwm_drivor_planning_path_lora_training.md`. 본학습첫update검증, finalscore미확인.

@@ -1,5 +1,13 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 2026-10-06: 세 경로 planning LoRA 본학습
+
+사용자가 선택한 geometry·appearance·future LoRA 조건을 시작했다.
+Linear229/Conv44, LPWM native·buffer 고정, 공식 DrivoR planner 전체 학습.
+실제273adapter gradient와DDP batch16/유효64/40.16GB 검사 통과.
+[설계·증거·검증 범위](lpwm_drivor_planning_path_lora_training.md).
+최종 planning 개선은 아직 미확인. 아래는 이전 이력이다.
+
 **완료: LPWM의 NAVSIM 객체 표현 적응 실험.**
 공식 main `4cf53c4`와 49쪽 논문을 조사하고 Sketchy checkpoint를 strict loading했다.
 원영상·회전 보정 × 3 seed × 300 update, 90 train/30 development clip의 학습·평가를 완료했다.
