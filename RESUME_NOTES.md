@@ -2760,3 +2760,27 @@ loss/update수·평가를맞춘조건,(3)동일pretrained visual features에서r
 전/후/좌/우원본1920×1080·실제cache128×128·3배최근접확대를함께표시. 장면c94ee8ade05a5b12/navtrain.
 원본4개는바이트그대로복사,입력4개는실제cache에서읽고공식현재BICUBIC전처리와pixel완전일치확인.
 각원본/128PNG와`index.html`,`manifest.json`도같은폴더에있음. CPU작업만수행,학습/279source등록불변.
+
+## 2026-10-06 — LPWM 공개 사전학습 가중치의 해상도 확인
+
+사용자 질문: 다른 해상도로 공개된 LPWM 사전학습 가중치가 있는가?
+공식 Model Zoo를 웹에서 다시 확인했다. 공개 목록은 아래 5종이며 모두 128×128이다.
+
+| 모델 | 학습 데이터셋 | 공개 목록의 해상도 |
+|---|---|---|
+| LPWM | Sketchy | 128×128 |
+| LPWM-Action | Sketchy | 128×128 |
+| LPWM | BAIR | 128×128 |
+| LPWM-Language | LanguageTable | 128×128 |
+| LPWM-Language | Bridge | 128×128 |
+
+출처: <https://github.com/taldatech/lpwm#model-zoo---pretrained-models>.
+공식 Releases 페이지에는 별도 release가 없다: <https://github.com/taldatech/lpwm/releases>.
+로컬 공식 configs에는 bair64/balls/balls_occlusion/ogbench/shapes의 image_size=64 설정이 있다.
+그러나 설정 파일의 존재는 해당 사전학습 가중치 배포의 증거가 아니다.
+공식 README가 연결하는 bair_256/bridge_256은 Hugging Face 데이터셋이며 모델 가중치가 아니다.
+
+결론은 '공식 공개 목록에서 다른 해상도의 가중치를 확인하지 못했다'로 한정한다.
+모든 외부 배포처에 없다고 단정하거나 LPWM 구조가 오직 128만 지원한다고 해석하지 않는다.
+고해상도 적용은 기존 가중치 재사용·구조 호환성·추가 적응 필요성을 따로 검토해야 한다.
+이번 턴에는 checkpoint 다운로드, 고해상도 실험, 현재 학습/queue/등록 source/config 변경을 하지 않았다.
