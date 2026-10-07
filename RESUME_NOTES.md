@@ -3238,3 +3238,19 @@ Manifest train/missing_sequence_RGB52749개 제외. 20epoch는 가용 전방12�
 근거 results/lpwm_navsim_full_posttraining_v2/stage1_training_speed_explanation_20261007.json을 새로 보존했다.
 HANDOFF1–5 및 기존 실험문서에 설명 추가. 새 GPU 작업·과거결과수정·실행 source/config/학습량/queue 변경 없음.
 기존25epoch·매500/epoch 진단·후속평가를 유지하며 이번 질문으로 Stage1 확대/재학습/중단을 자동 실행하지 않는다.
+
+## 2026-10-07 18:50 KST — 이전 방식과 현재 방식의 선택 판단
+
+사용자가 이전의 짧은 학습/높은PDMS를 근거로 이전 방식이 더 나은지 질문했다. 상태 변경 요청이 아닌 방법 판단 요청으로 처리했다.
+README/AGENTS/HANDOFF와 완료 네방법·frozen·Stage1 효과 대조 및 현재4000 report/실제config를 읽었다.
+82.49는1021내부개발장면/40recording,75.83은95학습장면/24recording이고 planner·입력·초기화·학습량/시드가 다르다.
+이전은512고정후보 모방/subscore BCE,현재는공식DrivoR generator/scorer. 원시PDMS의 차이로방법우열을 판정하지 않는다.
+동일이전planner/개발조건 public-frozen78.916080→Stage1-frozen82.523785,차이+3.607705점 CI[+1.506478,+5.853857].
+Stage1 Adapter82.485196−Stage1-frozen82.523785=−.038589점 CI[−1.164209,+1.007058]. Adapter PDMS 추가이득미확인/동등성미입증.
+Stage2 frozen기록5226.381초=1h27m6s,Adapter14974.399초=4h9m34s. 공통Stage1 약13h41m와 준비·최종평가가 별도다.
+Stage1+frozen-planner를 유용한 실용기준선으로 권고. Frozen은planninggradient로particle을 수정하는 연구가설의 증거가 아니다.
+현재joint의 추가비용에따른성능이득미확인이고추가학습으로해결될것이라보장하지 않는다.
+후속은공통DrivoR planner/입력/학습예산 아래 Stage1 초기화와planning적응을분리. FiLM조건명시,SSL유지는별도요인검증.
+동일토큰/상황별지표·pairedCI/표현검사·최종고정checkpoint 독립navtest가필요. 현재학습navval/95패널은독립validation아님.
+이번조회에서저장progress4450/40350 epoch3확인. 새GPU학습·평가·중단·교체·queue등록·source/config변경없음.
+HANDOFF1–5와실험문서에판단근거를추가했으며기존25epoch/매500·epoch진단/후속평가를유지한다.

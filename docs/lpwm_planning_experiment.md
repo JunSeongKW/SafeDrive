@@ -3256,3 +3256,41 @@ Encoder6,035,191/context39,389,417/dynamics59,869,416/decoder4,251,239개가 모
 `reference_repositories/LPWM/models.py`, `reference_repositories/LPWM/modules/modules.py`,
 `src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py`, `scripts/train_lpwm_drivor_lora_parallel.py`.
 이번 요청은 설명·감사이며 새 GPU 작업이나 기존 학습·source/config·queue 변경은 없다.
+
+## 2026-10-07 18:50 KST — 이전 단계 분리 방식으로 돌아가는 것이 나은가?
+
+하위 연구 질문은 **SSL 도메인 적응의 이득과 planning 목적 표현 수정의 추가 이득을 구분할 수 있는가?**다.
+이전82.49는1021개발장면/40recording, 현재75.83은95학습장면/24recording이라 두 수치의 차이가 방법 차이를 나타내지 않는다.
+Planner도 이전512고정후보 모방·subscore BCE 구조와 현재 공식 DrivoR 후보 generator/scorer가 다르다.
+현재 모델은 공개 LPWM에서 planning-only로 시작했고, 이전 모델은 Stage1 SSL을 거쳐 Stage2에 진입했다.
+Input/유효batch/학습량/시드/LR schedule도 달라 단순히 Adapter vs LoRA 또는 단계 분리 vs joint의 효과로 해석하지 않는다.
+
+이전 planner/데이터/1epoch·seed47 조건에서 완료된 대조는 다음과 같다.
+
+| Stage2 조건 | PDMS | ADE(m) | Stage2 기록시간 |
+|---|---:|---:|---:|
+| 공개 LPWM 고정 + planner | 78.9161 | 1.3729 | — |
+| Stage1 적응 LPWM 고정 + planner | 82.5238 | 1.1635 | 1시간27분6초 |
+| Stage1 적응 LPWM + Adapter + planner | 82.4852 | 1.1551 | 4시간9분34초 |
+
+Stage1-frozen − public-frozen은 +3.6077점, recording cluster bootstrap95%CI[+1.5065,+5.8539]였다.
+이는 해당 개발조건에서 NAVSIM SSL post-training의 유용성을 뒷받침한다. 무작위 초기화 대비 사전학습 효과나 particle 구조의 우월성을 분리한 결과는 아니다.
+Adapter − Stage1-frozen은 −.0386점, CI[−1.1642,+1.0071]였다. 이 조건에서 Adapter의 PDMS 추가 이득은 확인되지 않았다.
+CI가0을 포함한다고 두 방식의 동등성이 입증되는 것은 아니다. 시드1개/epoch1개, 과거 노출 개발패널의 한계가 있다.
+위 두 Stage1 조건에는 공통13시간40분45초의 SSL 학습 시간이 추가되며 cache/teacher 준비·upstream pretraining·최종평가가 별도다.
+공유 서버부하와 실행이 달랐으므로 기록시간은 실용 비용 참고이며 엄격한 속도 실험이 아니다.
+
+**권고:** 빠른 경향 확인을 위한 유용한 기준선으로 이전 Stage1+frozen-planner를 유지한다.
+이전 Adapter의 높은 점수만으로 planning gradient가 particle을 더 유용하게 만들었다고 주장하지 않는다.
+현재 joint 방식의 추가 계산 비용이 성능 이득으로 이어지는지도 아직 확인되지 않았다. 추가학습으로 해결된다는 보장은 없다.
+
+연구목적상 후속 비교는 동일 DrivoR planner/입력/학습예산/시드/평가 아래 Stage1 초기화 유무와 LPWM planning 적응 유무를 분리한다.
+Encoder FiLM 학습·동결 조건도 명시해 LoRA 효과와 명령조건부 표현 효과를 혼동하지 않는다.
+World-model SSL 보조목표 유지 유무는 초기화 비교와 동시에 바꾸지 않고 별도 요인으로 검증한다.
+동일 토큰의 상황별PDMS/ADE/안전·진행 지표, paired recording CI, particle/future readout·개입을 함께 확인한다.
+추가적인 독립성 주장은 최종 고정 checkpoint의 공식navtest 평가가 필요하며 현재 학습에 쓰인 navval/개발패널을 독립 validation으로 부르지 않는다.
+이 비교들은 후속 검토안이고 이번 요청으로 새 학습·평가·queue에 등록하지 않았다. 기존25epoch 및 정기진단/후속평가를 유지한다.
+
+근거: [이전 frozen 대조](../results/lpwm_frozen_control_v1/completed_comparison_20261005/summary.json),
+[Stage1 효과 대조](../results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json),
+[현재4,000-update 진단](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/report.json).

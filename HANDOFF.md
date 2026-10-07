@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 18:50 KST — 이전 단계 분리 방식과 현재 joint 방식의 선택 근거 정리.**
+82.49는 이전1021개발장면,75.83은 현재95학습장면이라 두 점수의 차이로 방법 우열을 판정하지 않는다.
+같은 이전 planner/개발패널에서 public-frozen78.9161 → Stage1-frozen82.5238, 차이+3.6077점 CI[+1.5065,+5.8539].
+Stage1 Adapter82.4852 vs Stage1-frozen82.5238, 차이−.0386점 CI[−1.1642,+1.0071]. Adapter의 PDMS 추가 이득 미확인.
+이전 Stage1+frozen-planner를 유용한 실용 기준선으로 권고한다. 현재 joint의 추가 계산 비용에 따른 성능 이득도 아직 미확인이다.
+계획목적 표현 수정 효과는 동일 DrivoR planner/입력/학습예산 아래 post-training 초기화와 planning 적응을 분리해 후속 검증해야 한다.
+이번 요청은 판단·설명이며 기존25epoch 학습·queue·monitor 유지, 새 실험/중단/교체 없음. 조회한 저장progress4,450 확인.
+
 **2026-10-07 18:15 KST — Stage1의 20 epoch 실행 시간과 계산량 확인.**
 Stage1은 전방 128×128 영상의 완전한 12프레임 클립 23,126개, 유효 batch16, epoch당1,446 / 총28,920 update였다.
 기록49,245.37초(13시간40분45초), update 로그 중앙값1.5705초, 검증·저장 포함 평균1.7028초 / epoch 약41분.
@@ -191,7 +199,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 18:16 KST (Codex)
+마지막 갱신: 2026-10-07 18:52 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -358,6 +366,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+이번 조회에서 저장progress joint-DrivoR4,450/40,350 epoch3 확인. 현재 학습 조건·queue·정기진단을 변경하지 않았다.
+이전 방식을 선택하는 것이 나은지 묻는 요청이며, 이번 턴 GPU 작업이나 새로운 대조 학습을 실행하지 않았다.
 
 18:12 조회 joint-DrivoR 학습4,354/40,350. 이번 요청은 과거 Stage1 속도 설명이며 새 GPU 작업이나 학습·queue 변경 없음.
 기존25epoch / 매500·epoch 진단 / 후속 평가 순서를 유지한다.
@@ -885,6 +896,14 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+같은 이전 개발패널의 Stage1 효과: public-frozen78.916080 → posttrained-frozen82.523785, +3.607705점 / recording CI[1.506478,5.853857].
+Adapter82.485196 − frozen82.523785 =−.038589점 / CI[−1.164209,1.007058]. PDMS 추가 이득 미확인 / 동일성 증명은 아님.
+모두 Stage2 seed47/1epoch/75297장면, PDMS1021개발장면/40recording. 과거 노출 개발패널이며 독립navtest 아님.
+Frozen planner 기록시간5226.381초(1h27m6s), Adapter14974.399초(4h9m34s), Stage1 공통49245.366초(13h40m45s).
+캐시·teacher 준비/공개 upstream pretraining/최종평가는 별도이며 공유 서버부하 차이가 남아 통제 속도 benchmark가 아니다.
+현재 planner는 공식 DrivoR 후보 생성·scoring, 이전은512고정후보 모방/공식subscore BCE 방식. Input/학습량/초기화/목표/eval이 다르다.
+현재95학습장면75.83과 이전 개발1021장면82.49의 원시점수 비교로 어느 방식이 낫다고 결론 내리지 않는다.
 
 Stage1의 실제 실행 시간은13.6793시간 /20epoch다. 23,126개 완전한 전방 12프레임 클립에 유효batch16을 적용해 epoch당1,446update였다.
 총28,920update × 검증·시각화·저장 포함 평균1.7028초 =49,245.37초. 로그 update 중앙값1.5705초, 비유한loss0.
@@ -1622,12 +1641,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Stage1 20epoch의 빠른 실행 이유를 실제 manifest·summary·로그·trainer·LPWM forward와 현재 joint 학습 코드로 확인했다.
-- 23,126 전방 영상 클립 / 유효batch16 /28,920update /13.6793시간과 전체시퀀스 SSL 계산을 기록했다.
-- 현재4카메라·순차8단계 미래 rollout·backward 재계산·planner/oracle의 계산 차이, 가용12프레임 제한과 RGB 픽셀 cache를 명시했다.
-- 근거 JSON과 실험문서/HANDOFF 1–5/RESUME_NOTES를 추가했다. 실행 모델·source/config·학습량·queue와 과거 결과는 변경하지 않았다.
+- 이전82.49와 현재75.83의 평가·planner·학습 조건을 재확인해 방법 선택의 판단 근거를 정리했다.
+- 기존 matched 개발 비교에서 Stage1-frozen의 public-frozen 대비+3.6077점과 Adapter의 frozen 대비−.0386점/각 CI를 확인했다.
+- Stage1+frozen-planner를 유용한 기준선으로 권고하고 연구목적상 planning 표현 적응 효과와 분리했다.
+- 실험문서/HANDOFF1–5/RESUME_NOTES에 근거를 추가했다. 현재25epoch 학습·queue·monitor·source/config 변경/새 실험은 없다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+사용자에게 이전 Stage1+frozen-planner의 비용 대비 실용성과 현재 raw PDMS 비비교성을 함께 설명한다.
+기존25epoch와 DrivoR 최종비교 일정 유지. 같은 planner/입력/학습예산의 초기화·표현적응 대조는 후속 검토안이며 새 queue에 넣지 않는다.
+효용의 질문은 SSL 도메인 적응 이득과 intent/planning gradient 표현 수정의 추가 이득을 구분한다. 빠른 이전 방법 채택만으로 연구가설을 입증하지 않는다.
 
 Stage1의 한 epoch가 현재의 한 epoch와 같은 데이터·계산량이 아님을 설명한다. 20epoch는 완전한 전방12프레임 클립 기준이다.
 기존 joint-DrivoR25epoch 및 검증 유지. 이번 설명 요청으로 Stage1 재학습·확대·중단·새 대조군을 자동 실행하지 않는다.
@@ -2077,6 +2100,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+실용 기준선 권고와 방법 우월성의 증거는 다르다. 이전 Stage1 유용성은 해당 planner/개발조건에 한정되며 현재 구조로의 이식효과는 미확인이다.
+Adapter−frozen CI0포함은 두 방식의 동등성을 입증하지 않는다. Stage1 frozen은 planning gradient로 LPWM particle을 수정하는 조건이 아니다.
+현재 joint가 추가학습으로 이전 방법을 능가하거나, raw PDMS 차이가 joint의 성능 퇴보를 뜻한다고 단정하지 않는다.
+현재25epoch 유지 지시와 DrivoR 비교를25epoch 이후에 한다는 지시가 계속 유효하다. 이번 질문은 중단·교체·새 학습 승인으로 해석하지 않는다.
 
 Stage1은 실제109.545M native parameter를 학습했지만 가용 전방12프레임 클립의 post-training이다. 완전한4카메라 NAVSIM 적응을 뜻하지 않는다.
 Stage1/현재 속도는 서로 다른 시기·부하에서 관측한 값이며 통제 profiling 비교가 아니다. LoRA parameter 수만으로 계산량·속도를 판단하지 않는다.
