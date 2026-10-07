@@ -1,0 +1,8 @@
+{
+  "effective_planning_batch": 16,
+  "effective_world_batch": 8,
+  "loss_absolute_difference": 0.0,
+  "gradient_max_absolute_difference": 4.440892098500626e-16,
+  "passed": true,
+  "scope": "Weighted objective/gradient equivalence for equal per-sample losses, not bitwise LPWM training equivalence across regrouped dropout and sampled SSL inputs."
+}

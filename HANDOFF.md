@@ -1,5 +1,26 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 23:17 KST — 이전 Adapter 추가 학습 실제 진행 확인.**
+GPU0 단독 Adapter 4,707→4,716 update(추가9회), queue326218/train400195; 기존 GPU0·1 본학습5,043 계속.
+저장4,712의 AdamW124state·학습 tensor124개 갱신, native weight/buffer 불변 확인. Shared context alias48개는 중복 state key다.
+현재 GPU0 약45.78GB, 병행 관측 최대46.90GB. Batch1×누적16=유효planning16/world8, 마지막LR 약1e-6/3e-5 유지.
+초기 실측 wall62.84초/update → 추가1epoch 약82시간/추가2epoch 약164시간(평가·정기진단양보 별도, 초기 외삽).
+Epoch2/9,414 → 같은1024planning/256world평가 → epoch3/14,121 → 동일평가 자동연결. 추가PDMS는아직없음.
+[실행·체크포인트 검사](results/lpwm_adapter_epoch_extension_single_gpu_v2/runtime_started_report.json).
+아래23:06의대기상태는시작전이력이며현재는학습중이다. 두GPU시도시의메모리초과·본학습복구기록은보존한다.
+
+**2026-10-07 23:06 KST — 이전 Adapter Stage2 추가2epoch 대기열 등록, GPU0 단독 병행.**
+기준은 Stage1+Adapter1epoch PDMS82.4852(기존1,024dev/1,021유효점수), 전체navtest 아님.
+새 root `outputs/lpwm_adapter_epoch_extension_single_gpu_v2/`, config `configs/lpwm_planning/adapter_epoch_extension_single_gpu_v2.json`.
+Queue326218은 기존5,000 정기진단 완료와120초 자원안정을 기다린 뒤 epoch2→검증→epoch3→검증을 진행한다.
+GPU0 batch1×누적16=유효planning16/world8, 원래 model·AdamW124state/4,707update에서 이어받고 마지막LR(약1e-6/3e-5)유지.
+새 source310개 불변. 원래 두GPU v1은 외부GPU1프로세스 진입으로 중단된 이력이며 재기동하지 않는다.
+당시GPU1 50.8475GB에서 Adapter는 추가update0/OOM, 본학습은4,988에정상저장·보호중단. 원래본학습/queue/monitor를240919/240920/240921로복구했다.
+복구검사796AdamW/scheduler4988/양rankRNG/native1070SHA정상,5,000후본학습·정기진단 진행확인. Overlay2507743유지.
+새대기열은GPU0외부process/47.2GB압력시자기child group만중단하고마지막온전한checkpoint에서재개한다.8update저장.
+[설정·실패·복구근거](results/lpwm_adapter_epoch_extension_single_gpu_v2/setup_report.json). 추가epoch PDMS는아직없다.
+
+
 **2026-10-07 22:08 KST — epoch3 공식95장면PDMS80.3450, 학습4,898/40,350 계속.**
 Exact4,842 checkpoint 평가95성공/실패0,첫epoch67.9864→epoch2 74.5770→epoch3 80.3450.
 4,500대비+.4573점 CI[−3.4353,+4.9538],직진87.6751/좌77.9405/우70.8283·ADE1.6212m. 직진은91.0099에서하락.
@@ -259,7 +280,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 22:11 KST (Codex)
+마지막 갱신: 2026-10-07 23:19 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -426,6 +447,14 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+23:17 확인: Adapter 추가9update/4,716, GPU0 단독 train400195·queue326218 정상 실행. 기존본학습5,043 계속,5000진단완료→5500대기.
+4,712 fullstate의124AdamW step일치/학습대상124tensor갱신/native불변감사완료. Runtime report 참조.
+
+새Adapter GPU0 단독queue326218 실행. Root lpwm_adapter_epoch_extension_single_gpu_v2, epoch2/3 추가학습·매epoch평가.
+현재상태는 root/queue_state.json과progress.json을읽는다. root/pause.requested는이새작업중단,기존본학습/타인작업은중단하지않는다.
+기존본학습 새PID240919/queue240920/monitor240921로4,988에서fullstate재개완료. 이전3437947/3437948/3437949는종료됐고다시기동하지않는다.
+두GPU Adapter v1queue193517/torchrun198149는중단·종료,해당root pause와실패이력을보존한다. 단독v2만현재추가실험이다.
 
 2026-10-07 22:08 KST 현재4,898/40,350,epoch4(update56). Epoch3/4,842 표현검사와추가PDMS95장면평가완료·평가GPU해제.
 Train3437947/queue3437948/monitor3437949/publisher2507743 유지,monitor다음5,000대기. 본학습/연구조건변경없음.
@@ -982,6 +1011,19 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+추가학습9회 모두finite, 첫preclipnorm16983(clip5적용), 후속최대31.605. 새학습의성능개선은아직미검증이다.
+최근8update wall62.84초, epoch2추정10/11오전·epoch3추정10/14저녁(진단양보·평가제외). 매우초기외삽이며완료시각보장아님.
+NativeSHA18e5ac96…유지, canonical학습tensor124개전부변화. Shared context alias48개를동일storage로확인했으며freeze위반없음.
+310/291/283/279등록sourcehash불변. GPU0병행최대46.90GB, GPU1본학습40.16GB 관측.
+
+이전Adapter 기준82.4851961점/ADE1.155131/FDE2.756717,1epoch/4,707update/seed47. 기존candidate metric planner이며현재DrivoR95training패널점수와직접비교하지않는다.
+Adapter원본fullstate SHA01f6d28a0d374ae28cb229ca8092a9a9210a2e274689ca36ccfac9a3868a01e4,AdamW124state모두step4707.
+GPU1와GPU0각16scene 재생에서기존candidate와ADE정확일치. LPIPS2frame chunk/checkpoint의CPUloss차1.49e-8/inputgradient차0.
+DDPbatch2는5.5GiB상한실패;batch1×acc8×2/SSL세계8은4update성공·45.654GB최대/native불변. Profileweights폐기.
+실제두GPU기동직후타인GPU1 PID202240(약5.49GiB)진입으로50.8475GB,secondaryOOM및primary4988저장중단발생.
+본학습796optimizer/scheduler4988/양rankRNG/nativehash복원후재개. 다른사용자프로세스를수정하지않았다.
+현재새실험은GPU0만사용하고acc16으로유효batch유지. Native Adapter110M고정,추가adapter704,960+planner/command2,211,975학습.
 
 Exact4842 PDMS80.3450018,epoch1대비+12.3585853 CI[+6.3251604,+18.5155639],epoch2대비+5.7680475 CI[+.0731959,+11.9065914].
 4500대비+.4573232 CI[−3.4352546,+4.9538021],4000대비+4.5147074 CI[−.5885301,+9.3744147]. 24recording paired bootstrap5000/seed71,반복중간검사.
@@ -1771,14 +1813,24 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자중간결과요청에exactepoch3/4842를동일95학습장면의공식PDMS로추가평가했다. 80.3450/95성공·실패0/재생ADE차이0/최대카드41.2594GB.
-- 첫epoch/epoch2/3500/4000/4500대비paired recording CI를계산했다. 4500대비+.4573점은CI0포함,좌우회전상승/직진하락을모두보존했다.
-- 완료96scene particle geometry/readout/의도개입/미래대체를집계했다. 미래대체ADE+.5028m이나객체판독·도로집중의일관향상은미확인이다.
-- 원래279/283/새291등록source·nativehash/양rankloss·18gradient그룹을확인하고4,898본학습진행·ETA를기록했다.
-- epoch3 결과CSV/JSON/PDMSPNG·PDF/particle전후·겹침및재생성script를공유results에보존했다. README/HANDOFF1–5/학습문서/RESUME_NOTES갱신.
-- 기존25epoch·유효64·GPU0/1·48GB·optimized execution/queue/매500진단유지,새학습이나baseline/연구조건변경없음.
+- GPU0단독실제추가9update와4,712fullstate를감사했다. 학습대상124tensor갱신/native불변/124optimizer상태일치, 초기속도약63초/update와epoch별평가ETA를보고한다.
+- 이전Adapter1epoch(82.4852) 원본model/AdamW124state를확인하고추가2epoch/총3epoch→매epoch검증실험을구성했다.
+- LPIPSframe checkpoint로동일loss/gradient를유지하며batch1누적의메모리profile을통과했다. GPU0/1각16scene의기존평가재생이정확일치했다.
+- 두GPU기동후외부GPU1작업진입으로secondaryOOM/primary4988보호중단을경험했다. 사고이력을보존하고본학습model/optimizer/scheduler/RNG/nativehash검사후동일조건으로복구했다.
+- 새실험을GPU0단독batch1×acc16/유효planning16/world8로좁히고310개source/config등록·외부작업감지/자기child만선점중단/정기진단양보/epoch검증대기열을추가했다.
+- 원래Adapter/native/Stage1/checkpoint와현재본학습등록source는모두유지했다. 학습률은완료1epoch의마지막낮은값을유지하며새cosine으로재해석하지않는다.
+- 실패·복구·profile·baseline재생·새실행근거를results에보존하고연구문서/README/AGENTS/HANDOFF1–5/RESUME_NOTES를갱신한다. 새추가epoch의PDMS는아직없다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+새Adapter는실제학습이시작됐다. epoch2완료·평가파일을기다리고본학습500간격진단과의양보/재개동작을확인한다.
+진행률·메모리·속도는새root의실시간progress/queue_state를읽는다. 초반9update만으로PDMS효과나수렴을판정하지않는다.
+
+기존25epoch본학습과새Adapter추가2epoch 대기열을함께유지한다. Adapter는기존정기500/epoch진단에GPU0를양보하고검사후재개한다.
+새Adapter의epoch2(9414)평가완료후같은패널의epoch1(4707)/epoch3(14121) PDMS·ADE/FDE·미래LPIPS/개입검사를비교한다.
+Source310개가등록돼있으므로새trainer/evaluator/queue/helper/config수정금지. 필요한변경은별도실행등록으로보존한다.
+새v2재개는single_gpu queue entrypoint를사용한다. 중단된두GPU v1이나완료profile/recovery script를재실행하지않는다.
+Primarymemory압력복구script는완료됐다. 4988보존checkpoint는사고증거이며향후재개에는현재latest를쓴다.
 
 기존25epoch및후속queue를유지하며다음5,000 표현검사(현재속도10/7 22:47KST 경계)를확인한다.
 Epoch3 4842 PDMS평가는완료했으므로재실행하지않는다. 이후사용자요청의PDMS는exact완료진단checkpoint로같은패널평가한다.
@@ -2261,6 +2313,15 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+동시실행은가능하지만단독실행보다느리며,현재제약에서는Adapter추가1epoch약3.4일을소요한다는초기실측을사용자에게알린다.
+기준82.4852는기존내부dev1021유효점수다. 새epoch평가와대응차이/상황별값/미래유지검사전에는상승폭을주장하지않는다.
+
+사용자는기존Adapter의추가epoch를GPU0·1범위에서가능하면병행하도록승인했다. 기본추가량2epoch/총3epoch를설정하고각epoch검증한다.
+GPU1외부진입관측후새실험을GPU0로좁혔다. 기존본학습유효64·micro16·loss·LoRA계층·25epoch는유지한다.
+추가학습은마지막LR상수유지이며새3epochcosine학습과다르다. GPU수/microbatch변경은RNG/SSL묶음을바꾸므로bitwise동일연장으로부르지않는다.
+기존82.49는노출된내부development패널이다. epoch개선이Adapter단독이득인지분리하는대조군은이번에추가하지않았다.
+48GB제한감시는독립적인타인GPU할당을예약차단하지못한다. 실제한차례초과·OOM·기존본학습보호중단이있었고전부보존·복구했다.
 
 이번사용자요청은현재까지결과보고다. 완료epoch3의95장면공식PDMS를추가평가하고이미완료된96scene표현검사를읽었다.
 훈련/LoRA계층/loss/입력/epoch/queue/sourceconfig를바꾸지않았다. 새baseline이나학습중단gate는없다.

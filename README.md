@@ -1,5 +1,26 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 23:17 KST — 이전 Adapter 추가 학습 실제 진행 확인.**
+GPU0 단독 Adapter 4,707→4,716 update(추가9회), queue326218/train400195; 기존 GPU0·1 본학습5,043 계속.
+저장4,712의 AdamW124state·학습 tensor124개 갱신, native weight/buffer 불변 확인. Shared context alias48개는 중복 state key다.
+현재 GPU0 약45.78GB, 병행 관측 최대46.90GB. Batch1×누적16=유효planning16/world8, 마지막LR 약1e-6/3e-5 유지.
+초기 실측 wall62.84초/update → 추가1epoch 약82시간/추가2epoch 약164시간(평가·정기진단양보 별도, 초기 외삽).
+Epoch2/9,414 → 같은1024planning/256world평가 → epoch3/14,121 → 동일평가 자동연결. 추가PDMS는아직없음.
+[실행·체크포인트 검사](results/lpwm_adapter_epoch_extension_single_gpu_v2/runtime_started_report.json).
+아래23:06의대기상태는시작전이력이며현재는학습중이다. 두GPU시도시의메모리초과·본학습복구기록은보존한다.
+
+**2026-10-07 23:06 KST — 이전 Adapter Stage2 추가2epoch 대기열 등록, GPU0 단독 병행.**
+기준은 Stage1+Adapter1epoch PDMS82.4852(기존1,024dev/1,021유효점수), 전체navtest 아님.
+새 root `outputs/lpwm_adapter_epoch_extension_single_gpu_v2/`, config `configs/lpwm_planning/adapter_epoch_extension_single_gpu_v2.json`.
+Queue326218은 기존5,000 정기진단 완료와120초 자원안정을 기다린 뒤 epoch2→검증→epoch3→검증을 진행한다.
+GPU0 batch1×누적16=유효planning16/world8, 원래 model·AdamW124state/4,707update에서 이어받고 마지막LR(약1e-6/3e-5)유지.
+새 source310개 불변. 원래 두GPU v1은 외부GPU1프로세스 진입으로 중단된 이력이며 재기동하지 않는다.
+당시GPU1 50.8475GB에서 Adapter는 추가update0/OOM, 본학습은4,988에정상저장·보호중단. 원래본학습/queue/monitor를240919/240920/240921로복구했다.
+복구검사796AdamW/scheduler4988/양rankRNG/native1070SHA정상,5,000후본학습·정기진단 진행확인. Overlay2507743유지.
+새대기열은GPU0외부process/47.2GB압력시자기child group만중단하고마지막온전한checkpoint에서재개한다.8update저장.
+[설정·실패·복구근거](results/lpwm_adapter_epoch_extension_single_gpu_v2/setup_report.json). 추가epoch PDMS는아직없다.
+
+
 **2026-10-07 22:08 KST — epoch3 중간평가 PDMS80.35.**
 동일95학습장면의epoch1 67.99→epoch2 74.58→epoch3 80.35,직전4500 79.89대비+.46(95%CI[−3.44,+4.95]).
 직진87.68/좌77.94/우70.83,ADE1.621m. 전체navtest·독립validation아님. 본학습4,898/40,350 계속.

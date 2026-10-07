@@ -1,0 +1,246 @@
+{
+  "checked_at": "2026-10-07T23:00:21.480534+09:00",
+  "request": "Continue historical Adapter Stage2 for additional epochs concurrently if feasible on GPUs0/1",
+  "reference": {
+    "pdms": 82.48519609653985,
+    "planning_scenes": 1024,
+    "valid_pdms_scenes": 1021,
+    "world_clips": 256,
+    "recordings": 40,
+    "training_scenes": 75297,
+    "seed": 47,
+    "epochs": 1,
+    "completed_updates": 4707,
+    "scope": "Previously exposed internal development panel, not navtest"
+  },
+  "configuration": {
+    "research_question": "Does additional Stage2 training improve the previously completed Stage1 plus residual-Adapter planner on the same development panel?",
+    "base_configuration": "configs/lpwm_planning/card_budget_measured_v4/residual_adapter_batch8.json",
+    "source_checkpoint": "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/latest.pt",
+    "source_evaluation": "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/trend_evaluation",
+    "output_directory": "outputs/lpwm_adapter_epoch_extension_single_gpu_v2",
+    "shared_results_directory": "results/lpwm_adapter_epoch_extension_single_gpu_v2",
+    "source_completed_updates": 4707,
+    "updates_per_epoch": 4707,
+    "target_epochs": [
+      2,
+      3
+    ],
+    "microbatch_per_gpu": 1,
+    "gradient_accumulation": 16,
+    "world_size": 1,
+    "effective_planning_batch": 16,
+    "effective_world_batch": 8,
+    "ssl_execution": "One world clip on every second planning microbatch, twice per-microbatch SSL weight,16 accumulation steps on GPU0; effective planning16/world8.",
+    "learning_rate_extension": "Preserve the completed optimizer learning rates (LPWM approximately1e-6, planner approximately3e-5) as constants; do not restart warmup or silently recompute a longer cosine schedule.",
+    "lpips_frames_per_chunk": 2,
+    "maximum_allocator_gib_per_gpu": 5.5,
+    "maximum_card_used_bytes": 48000000000,
+    "secondary_stop_card_bytes": 47200000000,
+    "secondary_admission_card_bytes": 40800000000,
+    "checkpoint_interval_updates": 8,
+    "planning_evaluation_microbatch": 4,
+    "world_evaluation_clips": 256,
+    "primary_training_directory": "outputs/lpwm_drivor_planning_path_lora_v1/navsim_v1",
+    "primary_monitor_directory": "outputs/lpwm_drivor_particle_trends_every500_v1",
+    "primary_diagnostic_priority": true,
+    "comparison_scope": "Same75297 training scenes,1024 planning development scenes/1021 valid scores and256 world clips. Stage1/native LPWM frozen; adapters/planner/command continue learning; no direct object GT. Not navtest.",
+    "execution_caveat": "Microbatch regrouping changes dropout and SSL sample grouping; effective batches and objectives are retained, but the continuation is not bitwise equivalent to the historical batch8 run.",
+    "stable_admission_seconds": 120,
+    "memory_profile_directory": "outputs/lpwm_adapter_epoch_extension_v1",
+    "execution_decision": "Use GPU0 only after external GPU1 allocation caused a guarded primary stop and secondary OOM; effective planning16/world8 preserved via16 microbatches. Primary was fully restored from4988."
+  },
+  "primary_restored": {
+    "training": {
+      "pid": 240919,
+      "command": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node=2",
+        "scripts/train_lpwm_drivor_optimized_execution.py",
+        "--config",
+        "configs/lpwm_drivor_planning_path_lora/navsim_v1.json",
+        "--execution",
+        "configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json"
+      ],
+      "started_unix": 1791381176.4043236
+    },
+    "queue": {
+      "pid": 240920,
+      "command": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+        "-u",
+        "scripts/queue_lpwm_drivor_optimized_execution.py",
+        "--execution",
+        "configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json"
+      ],
+      "started_unix": 1791381176.405976
+    },
+    "monitor": {
+      "pid": 240921,
+      "command": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+        "-u",
+        "scripts/monitor_lpwm_particle_trends_every500.py",
+        "--config",
+        "configs/lpwm_drivor_review/particle_trends_every500.json"
+      ],
+      "started_unix": 1791381176.407808
+    }
+  },
+  "primary_checkpoint_integrity": {
+    "completed_updates": 4988,
+    "optimizer_states": 796,
+    "scheduler_step": 4988,
+    "rank_rng_states": 2,
+    "native_entries": 1070,
+    "native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "checkpoint_sha256": "473772b7266a33b02c99b229cdda0a44dc422b52846b1b7fd6ff6d2adaf86f33",
+    "passed": true,
+    "reason": "Rank1 exceeded48decimalGB after an external process entered; rank0's paused.json memory flag is local and false"
+  },
+  "incident": {
+    "external_gpu1_process": {
+      "pid": 202240,
+      "path": "/rhome/uisung/miniconda3/envs/shelfocc/bin/python",
+      "sampled_gpu_memory_mib": 5626
+    },
+    "rank1_card_used_bytes": 50847547392,
+    "secondary_optimizer_updates_committed": 0,
+    "primary_saved_at": 4988,
+    "secondary_two_gpu_run_stopped": true,
+    "external_process_modified": false,
+    "source_checkpoint_preserved": true,
+    "primary_parameters_and_learning_settings_changed": false
+  },
+  "source_registration_checks": {
+    "outputs/lpwm_drivor_planning_path_lora_v1/registration.json": {
+      "count": 279,
+      "mismatches": []
+    },
+    "outputs/lpwm_drivor_planning_path_lora_v1/oracle8_execution_registration.json": {
+      "count": 283,
+      "mismatches": []
+    },
+    "outputs/lpwm_drivor_optimized_execution_v1/execution_registration.json": {
+      "count": 291,
+      "mismatches": []
+    },
+    "outputs/lpwm_adapter_epoch_extension_v1/registration.json": {
+      "count": 307,
+      "mismatches": []
+    },
+    "outputs/lpwm_adapter_epoch_extension_single_gpu_v2/registration.json": {
+      "count": 310,
+      "mismatches": []
+    }
+  },
+  "queue_state_at_setup": {
+    "queue_pid": 326218,
+    "started_unix": 1791381585.8290093,
+    "stage": "waiting_for_primary_or_memory",
+    "heartbeat_unix": 1791381618.366196,
+    "pending": "epoch02_training",
+    "card_used_bytes": {
+      "0": 41181773824,
+      "1": 40161509376
+    }
+  },
+  "baseline_replay": {
+    "passed": true,
+    "checks": [
+      {
+        "token": "ddbde9d6bfda5a6e",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "782e2832bd025494",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "df19480a94ec58ff",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "85f0514810285441",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "b6eff5d60d6f57cf",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "f46cdebeab965850",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "e4d2a56f36c45c20",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "2220c45f321a5678",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "aaaf92c0215c5d24",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "8ede26533fa65117",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "21b8ce99bb0256e0",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "48ec21e928cf58ed",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "b34ec84303d05eac",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "62e4bebafa89519b",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "cbcbd5a7b2165d48",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "311c28382e0351a0",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      }
+    ],
+    "maximum_ade_difference": 0.0,
+    "checkpoint_sha256": "01f6d28a0d374ae28cb229ca8092a9a9210a2e274689ca36ccfac9a3868a01e4",
+    "card_used_bytes": 42376101888
+  },
+  "scientific_caveats": [
+    "GPU0 only with microbatch1/accumulation16 versus historical two GPUs with microbatch8/accumulation1; equal global batches but different RNG grouping",
+    "Continue terminal learning rates; this is an extension of the completed cosine schedule, not a fresh three-epoch run",
+    "Extra epochs do not isolate adapter adaptation from additional planner learning",
+    "Resource checks cannot reserve a shared GPU against later independent allocations; new controller detects foreign GPU0 processes and preempts only its owned process group"
+  ],
+  "training_results_not_yet_available": true
+}

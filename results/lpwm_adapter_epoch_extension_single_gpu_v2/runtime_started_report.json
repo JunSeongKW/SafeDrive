@@ -1,0 +1,304 @@
+{
+  "checked_at": "2026-10-07T23:16:48.438524+09:00",
+  "reference_pdms": 82.48519609653985,
+  "reference_completed_updates": 4707,
+  "active_configuration": "configs/lpwm_planning/adapter_epoch_extension_single_gpu_v2.json",
+  "adapter_progress": {
+    "completed_updates": 4716,
+    "epoch_fraction": 1.0019120458891013,
+    "target_updates": 14121,
+    "planning_loss": 5.786929219961166,
+    "world_objective": 18.04104208946228,
+    "loss": 6.147750049829483,
+    "gradient_groups": {
+      "image_encoder": 0.4008043110370636,
+      "context": 5.217140197753906,
+      "dynamics": 1.4529248476028442,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 2.4065353870391846
+    },
+    "gradient_norm_before_clip": 5.939831733703613,
+    "gradient_clip": 5,
+    "learning_rates": [
+      1.000001022610891e-06,
+      3.0000030678326728e-05
+    ],
+    "seconds_this_update": 52.88117961306125,
+    "extension_elapsed_seconds": 569.9771642050473,
+    "card_used_bytes": 45780828160,
+    "peak_reserved_bytes": 5905580032,
+    "peak_allocated_bytes": 5208446976,
+    "updated_unix": 1791382596.213546
+  },
+  "adapter_queue": {
+    "queue_pid": 326218,
+    "started_unix": 1791381585.8290093,
+    "stage": "epoch02_training",
+    "heartbeat_unix": 1791382605.057341,
+    "pending": "epoch02_training",
+    "card_used_bytes": {
+      "0": 45789216768,
+      "1": 40161509376
+    },
+    "child_pid": 400195,
+    "maximum_sampled_card_bytes": {
+      "0": 46904901632,
+      "1": 40161509376
+    },
+    "yielding": false
+  },
+  "checkpoint_audit": {
+    "completed_updates": 4712,
+    "path": "outputs/lpwm_adapter_epoch_extension_single_gpu_v2/startup_audit_resume.pt",
+    "sha256": "d3db67f3645fbfe78682022e6fa17e37a154d0319a55ddc36e9b0e2bf5461197",
+    "optimizer_states": 124,
+    "optimizer_state_step": 4712,
+    "changed_trainable_tensor_count": 124,
+    "changed_state_entries_count": 172,
+    "shared_context_adapter_alias_count": 48,
+    "shared_context_adapter_aliases": {
+      "world_model.ctx_module.pte.blocks.0.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.0.weight",
+      "world_model.ctx_module.pte.blocks.0.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.0.bias",
+      "world_model.ctx_module.pte.blocks.0.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.1.weight",
+      "world_model.ctx_module.pte.blocks.0.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.1.bias",
+      "world_model.ctx_module.pte.blocks.0.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.3.weight",
+      "world_model.ctx_module.pte.blocks.0.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.3.bias",
+      "world_model.ctx_module.pte.blocks.1.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.0.weight",
+      "world_model.ctx_module.pte.blocks.1.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.0.bias",
+      "world_model.ctx_module.pte.blocks.1.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.1.weight",
+      "world_model.ctx_module.pte.blocks.1.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.1.bias",
+      "world_model.ctx_module.pte.blocks.1.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.3.weight",
+      "world_model.ctx_module.pte.blocks.1.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.3.bias",
+      "world_model.ctx_module.pte.blocks.2.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.0.weight",
+      "world_model.ctx_module.pte.blocks.2.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.0.bias",
+      "world_model.ctx_module.pte.blocks.2.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.1.weight",
+      "world_model.ctx_module.pte.blocks.2.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.1.bias",
+      "world_model.ctx_module.pte.blocks.2.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.3.weight",
+      "world_model.ctx_module.pte.blocks.2.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.3.bias",
+      "world_model.ctx_module.pte.blocks.3.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.0.weight",
+      "world_model.ctx_module.pte.blocks.3.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.0.bias",
+      "world_model.ctx_module.pte.blocks.3.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.1.weight",
+      "world_model.ctx_module.pte.blocks.3.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.1.bias",
+      "world_model.ctx_module.pte.blocks.3.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.3.weight",
+      "world_model.ctx_module.pte.blocks.3.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.3.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.0.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.0.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.0.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.0.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.0.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.1.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.0.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.1.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.0.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.3.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.0.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.0.residual_adapter.3.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.1.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.0.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.1.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.0.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.1.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.1.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.1.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.1.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.1.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.3.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.1.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.1.residual_adapter.3.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.2.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.0.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.2.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.0.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.2.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.1.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.2.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.1.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.2.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.3.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.2.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.2.residual_adapter.3.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.3.residual_adapter.0.weight": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.0.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.3.residual_adapter.0.bias": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.0.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.3.residual_adapter.1.weight": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.1.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.3.residual_adapter.1.bias": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.1.bias",
+      "world_model.dyn_module.context_decoder.pte.blocks.3.residual_adapter.3.weight": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.3.weight",
+      "world_model.dyn_module.context_decoder.pte.blocks.3.residual_adapter.3.bias": "world_model.encoder_module.ctx_enc.pte.blocks.3.residual_adapter.3.bias"
+    },
+    "unchanged_trainable_tensor_names": [],
+    "changed_frozen_tensor_names": [],
+    "native_sha256": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb",
+    "passed": true,
+    "audit_note": "An initial inventory-only comparison flagged48 shared context adapter state aliases. Identical storage pointers identify them as already-counted trainable parameters; no frozen state changed."
+  },
+  "observed_training": {
+    "updates": 9,
+    "all_loss_and_gradient_norms_finite": true,
+    "first_preclip_gradient_norm": 16983.099609375,
+    "gradient_clip": 5,
+    "subsequent_max_preclip_gradient_norm": 31.605026245117188,
+    "steady_mean_compute_seconds_per_update": 60.81588040612405,
+    "wall_seconds_per_update_after_first": 62.84045132994652,
+    "eta_hours_remaining_to_epoch2": 82.0067889855802,
+    "eta_hours_remaining_to_epoch3": 164.17067909948528,
+    "estimated_epoch2_training_boundary_kst": "2026-10-11T09:17:12.878872+09:00",
+    "estimated_epoch3_training_boundary_kst": "2026-10-14T19:27:02.883282+09:00",
+    "eta_scope": "Initial few updates only; excludes epoch evaluations and yielding to primary diagnostics; shared GPU load can change."
+  },
+  "primary_progress": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "cae1250442f00a6c5063932921c96750cb8e21f85c46e0df2568a8287f1d19b5",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 16
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 5043,
+    "epoch": 4,
+    "rank_scene_tokens_sha256": "d03eb2aae14f7eb0ea6ad873d0e51d0f29dab8f04383f91e973f352f20b7c883",
+    "update_in_epoch": 201,
+    "seconds_this_update": 24.151084184646606,
+    "elapsed_seconds": 1400.4010875225067,
+    "card_used_bytes": 46365933568,
+    "peak_reserved_bytes": 39583744000,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0010669231414794922,
+      "forward": 7.019367933273315,
+      "oracle": 1.8376507759094238,
+      "backward": 15.051152229309082
+    },
+    "learning_rates": [
+      0.00019836988400342035,
+      0.00019836988400342035
+    ],
+    "loss": 2.897843837738037,
+    "trajectory_loss": 0.961788684129715,
+    "final_score_loss": 1.9360551834106445,
+    "score": 0.8670410811901093,
+    "best_score": 0.9956289827823639,
+    "estimated_remaining_seconds": 898981.242310394
+  },
+  "primary_monitor": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 5043,
+    "last_evaluated_update": 5000,
+    "next_milestone": 5500,
+    "active_update": null,
+    "updated_unix": 1791382608.2869732,
+    "controller": "scripts/monitor_lpwm_particle_trends_every500.py",
+    "interval_updates": 500,
+    "chat_notification_sent": false
+  },
+  "source_registration_checks": {
+    "outputs/lpwm_drivor_planning_path_lora_v1/registration.json": {
+      "count": 279,
+      "mismatches": []
+    },
+    "outputs/lpwm_drivor_planning_path_lora_v1/oracle8_execution_registration.json": {
+      "count": 283,
+      "mismatches": []
+    },
+    "outputs/lpwm_drivor_optimized_execution_v1/execution_registration.json": {
+      "count": 291,
+      "mismatches": []
+    },
+    "outputs/lpwm_adapter_epoch_extension_v1/registration.json": {
+      "count": 307,
+      "mismatches": []
+    },
+    "outputs/lpwm_adapter_epoch_extension_single_gpu_v2/registration.json": {
+      "count": 310,
+      "mismatches": []
+    }
+  },
+  "baseline_replay": {
+    "passed": true,
+    "checks": [
+      {
+        "token": "ddbde9d6bfda5a6e",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "782e2832bd025494",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "df19480a94ec58ff",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "85f0514810285441",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "b6eff5d60d6f57cf",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "f46cdebeab965850",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "e4d2a56f36c45c20",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "2220c45f321a5678",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "aaaf92c0215c5d24",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "8ede26533fa65117",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "21b8ce99bb0256e0",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "48ec21e928cf58ed",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "b34ec84303d05eac",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "62e4bebafa89519b",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "cbcbd5a7b2165d48",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      },
+      {
+        "token": "311c28382e0351a0",
+        "candidate_matches": true,
+        "ade_difference": 0.0
+      }
+    ],
+    "maximum_ade_difference": 0.0,
+    "checkpoint_sha256": "01f6d28a0d374ae28cb229ca8092a9a9210a2e274689ca36ccfac9a3868a01e4",
+    "card_used_bytes": 42376101888
+  },
+  "effective_batch_weighting_check": {
+    "effective_planning_batch": 16,
+    "effective_world_batch": 8,
+    "loss_absolute_difference": 0.0,
+    "gradient_max_absolute_difference": 4.440892098500626e-16,
+    "passed": true,
+    "scope": "Weighted objective/gradient equivalence for equal per-sample losses, not bitwise LPWM training equivalence across regrouped dropout and sampled SSL inputs."
+  },
+  "planning_scores_after_extension_available": false,
+  "comparison_scope": "Same1024 internal dev scenes/1021 valid cached PDM scores and256world clips, not navtest. Additional Adapter plus planner learning, not isolated Adapter causal effect.",
+  "memory_caveat": "Earlier two-GPU attempt exceeded48GB following an external GPU1 allocation; incident and restored primary4988 are preserved in setup_report.json. This report describes replacement single-GPU continuation."
+}

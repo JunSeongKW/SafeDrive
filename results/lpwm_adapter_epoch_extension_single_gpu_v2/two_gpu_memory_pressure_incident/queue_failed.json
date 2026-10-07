@@ -1,0 +1,21 @@
+{
+  "error": "AssertionError('epoch02_training failed; see/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_adapter_epoch_extension_v1/epoch02_training.log')",
+  "state": {
+    "queue_pid": 193517,
+    "started_unix": 1791380447.0330882,
+    "stage": "epoch02_training",
+    "heartbeat_unix": 1791380669.6478279,
+    "pending": "epoch02_training",
+    "card_used_bytes": {
+      "0": 29360128,
+      "1": 4566548480
+    },
+    "child_pid": 198149,
+    "maximum_sampled_card_bytes": {
+      "0": 46152024064,
+      "1": 50847547392
+    },
+    "yielding": true
+  },
+  "time_unix": 1791380674.649472
+}

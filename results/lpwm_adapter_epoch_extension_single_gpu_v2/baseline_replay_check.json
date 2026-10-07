@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "token": "ddbde9d6bfda5a6e",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "782e2832bd025494",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "df19480a94ec58ff",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "85f0514810285441",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "b6eff5d60d6f57cf",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "f46cdebeab965850",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "e4d2a56f36c45c20",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "2220c45f321a5678",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "aaaf92c0215c5d24",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "8ede26533fa65117",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "21b8ce99bb0256e0",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "48ec21e928cf58ed",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "b34ec84303d05eac",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "62e4bebafa89519b",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "cbcbd5a7b2165d48",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    },
+    {
+      "token": "311c28382e0351a0",
+      "candidate_matches": true,
+      "ade_difference": 0.0
+    }
+  ],
+  "maximum_ade_difference": 0.0,
+  "checkpoint_sha256": "01f6d28a0d374ae28cb229ca8092a9a9210a2e274689ca36ccfac9a3868a01e4",
+  "card_used_bytes": 42376101888
+}

@@ -1,0 +1,83 @@
+{
+  "rank": 0,
+  "profile_only": true,
+  "updates_discarded": true,
+  "passed": true,
+  "source_sha256": "54be32b97e0f4c0c18a99652decf27a9e75c3af0dbdb50307a93d78642aceca3",
+  "lpips_frames_per_chunk": 2,
+  "card_used_before_model": 40829452288,
+  "allocator_allowance_bytes": 5905580032,
+  "restored_optimizer_states": 124,
+  "source_completed_updates": 4707,
+  "microbatch_per_gpu": 1,
+  "gradient_accumulation": 8,
+  "effective_planning_batch": 16,
+  "effective_world_batch": 8,
+  "updates": [
+    {
+      "update": 4708,
+      "seconds": 29.260017190943472,
+      "loss": 6.591346740722656,
+      "gradient_groups": {
+        "image_encoder": 1418.902587890625,
+        "context": 3079.32568359375,
+        "dynamics": 18811.962890625,
+        "rgb_decoder": 0.0,
+        "planner_and_command": 370.69036865234375
+      },
+      "card_used_bytes": 45652901888,
+      "peak_reserved_bytes": 5905580032,
+      "peak_allocated_bytes": 5208444928
+    },
+    {
+      "update": 4709,
+      "seconds": 24.46250995795708,
+      "loss": 6.498470187187195,
+      "gradient_groups": {
+        "image_encoder": 0.34107285737991333,
+        "context": 4.664688587188721,
+        "dynamics": 3.4781649112701416,
+        "rgb_decoder": 0.0,
+        "planner_and_command": 4.387576103210449
+      },
+      "card_used_bytes": 45652901888,
+      "peak_reserved_bytes": 5905580032,
+      "peak_allocated_bytes": 5208444928
+    },
+    {
+      "update": 4710,
+      "seconds": 30.704638786963187,
+      "loss": 6.815400183200836,
+      "gradient_groups": {
+        "image_encoder": 0.4017123579978943,
+        "context": 5.205153942108154,
+        "dynamics": 3.363750696182251,
+        "rgb_decoder": 0.0,
+        "planner_and_command": 4.7244181632995605
+      },
+      "card_used_bytes": 45650804736,
+      "peak_reserved_bytes": 5905580032,
+      "peak_allocated_bytes": 5208444928
+    },
+    {
+      "update": 4711,
+      "seconds": 25.87112219806295,
+      "loss": 6.733230113983154,
+      "gradient_groups": {
+        "image_encoder": 0.15370690822601318,
+        "context": 2.1677887439727783,
+        "dynamics": 2.1975760459899902,
+        "rgb_decoder": 0.0,
+        "planner_and_command": 5.201300621032715
+      },
+      "card_used_bytes": 45650804736,
+      "peak_reserved_bytes": 5905580032,
+      "peak_allocated_bytes": 5208444928
+    }
+  ],
+  "native_weights_and_buffers_unchanged": true,
+  "optimizer_steps": [
+    4711
+  ],
+  "seconds": 128.254667332978
+}

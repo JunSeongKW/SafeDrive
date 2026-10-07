@@ -1,5 +1,19 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-07 최신 사용자 요청: 이전 Stage1+Adapter의 Stage2 추가2epoch, GPU0 단독 병행.**
+새 config `configs/lpwm_planning/adapter_epoch_extension_single_gpu_v2.json`, queue `scripts/queue_lpwm_adapter_epoch_extension_single_gpu.py` /326218.
+Root `outputs/lpwm_adapter_epoch_extension_single_gpu_v2/`, registration310개 불변. GPU0 batch1×누적16=유효planning16/world8.
+기존Adapter4707 model+AdamW에서 epoch2→기존1024planning/256world검증→epoch3→동일검증. 마지막LR약1e-6/3e-5상수유지.
+본학습25epoch·모델·micro16/유효64는그대로며GPU0/1에서진행한다. 새작업은정기진단전에저장종료·GPU양보후재개한다.
+GPU0외부compute process/47.2GB압력시새queue는자기child group만선점중단,8update주기checkpoint복원. 타인작업수정금지.
+두GPU Adapter v1은타인GPU1프로세스진입후OOM/primary보호중단이난과거실행이며pause·실패기록보존,재기동금지.
+기존본학습은4988 fullstate복원후새train240919/queue240920/monitor240921로재개,overlay2507743유지. 이전3437947/48/49 재기동금지.
+복구script `resume_lpwm_primary_after_memory_pressure.py`는완료된일회작업이다. 다시실행하지않는다.
+새결과는기존82.4852와같은노출내부dev패널비교이며navtest아님. 추가epoch결과는아직없음. 상세실시간상태는HANDOFF와queue_state.
+23:17실제학습확인: GPU0 train400195/4,716,본학습5,043. 4,712fullstate124AdamW/학습tensor갱신/native불변검사통과.
+초기속도약63초/update로추가1epoch약82시간(진단·평가별도);과거4시간/epoch속도를현재병행ETA로재사용하지않는다.
+
+
 **2026-10-07 10:01 KST 시각화 해석 확인.**
 전후별그림은초기top16개만presence비례점크기(2+4×obj_on),나머지48개는고정크기다.
 겹침그림은64개모두고정반경으로전청록빈점/후주황실점을구분하며점크기에서presence를해석하지않는다.

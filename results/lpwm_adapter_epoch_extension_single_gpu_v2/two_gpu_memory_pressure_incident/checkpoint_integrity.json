@@ -1,0 +1,11 @@
+{
+  "completed_updates": 4988,
+  "optimizer_states": 796,
+  "scheduler_step": 4988,
+  "rank_rng_states": 2,
+  "native_entries": 1070,
+  "native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "checkpoint_sha256": "473772b7266a33b02c99b229cdda0a44dc422b52846b1b7fd6ff6d2adaf86f33",
+  "passed": true,
+  "reason": "Rank1 exceeded48decimalGB after an external process entered; rank0's paused.json memory flag is local and false"
+}

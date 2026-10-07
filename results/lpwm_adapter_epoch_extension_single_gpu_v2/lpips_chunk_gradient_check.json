@@ -1,0 +1,9 @@
+{
+  "forward_max_absolute_difference": 1.4901161193847656e-08,
+  "gradient_max_absolute_difference": 0.0,
+  "gradient_relative_l2_difference": 0.0,
+  "forward_close": true,
+  "gradient_close": true,
+  "frozen_loss_parameters": true,
+  "lpips_eval_mode": true
+}

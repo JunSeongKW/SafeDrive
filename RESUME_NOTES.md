@@ -3370,3 +3370,78 @@ Exact4842 PDMS80.3450018,epoch1대비+12.3585853 CI[+6.3251604,+18.5155639],epoc
 평가12ADE 재생차이0/nativehash유지/최대카드41.2594GB. 원래279/실행283/새291source 전부일치,학습양rank비유한loss0.
 
 Sandbox NVML조회exit9로GPU초기화전에실패한첫시도후같은평가를host승인으로재실행해완료했다. 평가완료후GPU반환,본학습무중단.
+
+
+## 2026-10-07 23:03 KST — 이전 Adapter Stage2 추가 epoch 실험 준비 및 병행 실행 구성
+
+사용자 요청은 과거 Adapter 모델을 이어서 더 학습하면 PDMS가 상승하는지 확인하는 것이다.
+해당 최종 기록은 81점이 아니라 **82.4852점**이다. Stage1 20epoch 이후 Stage2 1epoch/4,707update/seed47,
+75,297개 navtrain 학습 장면을 사용했다. 기존 1,024개 development 장면 중 공식 candidate score가 있는 1,021개,
+40개 recording의 PDMS이며 전체 navtest가 아니다.
+
+### 고정한 비교와 추가 학습
+
+- 기존 model과 AdamW 124개 state를 그대로 이어 받는다. 원본 `latest.pt` SHA는
+  `01f6d28a0d374ae28cb229ca8092a9a9210a2e274689ca36ccfac9a3868a01e4`이고, 평가된 `checkpoint.pt`와 모든 tensor가 일치했다.
+- 우선 **2epoch를 추가해 총 3epoch**까지 진행한다. 총 2epoch(9,414update) 학습→검증→총 3epoch(14,121update) 학습→검증 순서다.
+- 1epoch cosine schedule의 마지막 학습률인 LPWM 약1e-6, planner 약3e-5를 유지한다.
+  새 3epoch cosine으로 재계산하거나 warmup을 재시작하지 않는다. 처음부터 3epoch로 학습한 실험과 구분한다.
+- 기존 Adapter704,960개와 planner/command2,211,975개를 학습하며 native LPWM은 고정한다.
+  동일 candidate imitation + 6개 PDM subscore BCE +0.02 SSL을 유지하고 직접 객체 GT를 넣지 않는다.
+- 초기 두 GPU 구상은 batch1×누적8×GPU2였으나 아래 자원 충돌 이후 **GPU0 단독, batch1×누적16**으로 변경했다.
+  유효 planning16/world8을 유지한다. SSL은 두 번째 microbatch마다 1clip을 계산하고 그 microbatch의 SSL weight를2배로 해
+  전체 optimizer update에서 원래 global mean과 샘플 수를 유지한다.
+- 각 epoch에서 이전과 같은 planning1,024/world256 panel, 같은 inference batch4로 PDMS/ADE/FDE/metric calibration,
+  미래를 현재로 대체하는 개입 및 영상 복원·미래 LPIPS를 평가한다. 완료 검증 뒤 다음 epoch로 진행한다.
+- GPU1 및 GPU0의 각각16장면 원본 checkpoint 재생에서 candidate 선택이 모두 동일했고 ADE 차이가0이었다.
+  미세 배치·GPU 수 변경으로 dropout/SSL 샘플 묶음이 달라져 bitwise 동일한 학습 연장은 아니다.
+
+### 메모리 검사와 실제 충돌 이력
+
+당시 본학습은 각 카드40.33GB를 사용했다. 이전 Adapter batch8은 peak allocation22.31GiB라 병행하기 어려웠다.
+배치2/누적4를 프로세스당5.5GiB 제한으로 검사했으나 역전파에서 그 제한에 도달했다.
+먼저 LPIPS를 2프레임씩 계산하고 activation checkpoint를 적용했다. 실제 LPIPS CPU검사에서 loss 최대차1.49e-8,
+입력 gradient 차이0이었다. 영상 loss나 gradient 연결은 유지했다. 이 방식도 batch2의 미래 rollout 역전파에는 부족했다.
+배치1/누적8의 실제 DDP4update는 성공했고 최대 카드점유45.654GB, native 가중치·buffer 불변,
+image encoder/context/dynamics/planner gradient 유한·양수였다. 이 profile의 학습 가중치는 폐기했다.
+
+이후 두 GPU 병행 학습을 시작했지만 **다른 사용자의 GPU1 프로세스(PID202240)가 진입해 약5.49GiB를 추가 점유**했다.
+GPU1 전체 점유50.8475GB에서 새 Adapter rank1이 OOM을 만났고, 기존 본학습도 4,988update 경계에서 보호 중단했다.
+새 Adapter에서 완료·저장된 추가 update는0이다. 다른 사용자의 프로세스는 수정하지 않았다.
+우리 새 torchrun198149만 종료하고 원래 두 GPU 실험은 pause 상태로 보존했다.
+
+기존 본학습의4,988 model/AdamW796state/scheduler/양rank RNG를 보존하고 native1070항목 hash를 재검사했다.
+모두 정상이라 원래 micro16×누적2×GPU2=유효64/loader2/oracle16 설정으로 복구했다.
+새 본학습240919/후속queue240920/표현monitor240921이며4,990 이후 재개와5,000 정기검사 진입을 확인했다.
+`paused.json`의 memory_exceeded=false는 rank0의 국소 값이었다. 실제 rank1 로그는48GB 초과이므로 이력을 함께 보존했다.
+
+### 채택한 GPU0 대기열
+
+- 설정: `configs/lpwm_planning/adapter_epoch_extension_single_gpu_v2.json`.
+- 실행: `scripts/queue_lpwm_adapter_epoch_extension_single_gpu.py`, queue326218.
+- Root: `outputs/lpwm_adapter_epoch_extension_single_gpu_v2/`. 원래 두 GPU root v1은 중단된 이력이다.
+- 새 source310개를 등록했으므로 실행 중 해당 trainer/evaluator/queue/memory helper/config를 수정하지 않는다.
+- GPU0 점유가120초간 안정되고 기존 정기검사가 없을 때 실행한다. 기존500update/epoch 표현검사가 다가오면
+  새 Adapter가 update 경계에서 저장·종료해 GPU를 비우고 검사 완료 후 재개한다.
+- GPU0의 다른 compute process 또는47.2GB 이상 점유를 감지하면 **자신이 소유한 새 process group만** 즉시 중단한다.
+  마지막 온전한 checkpoint로 돌아가며 부분 update는 폐기한다. 다른 사용자 작업은 건드리지 않는다.
+- 새 학습은 첫 추가 update와 이후8update마다 model/optimizer를 저장한다. 각 저장에서 native hash·optimizer step을 검사한다.
+- 공유 GPU를 다른 작업의 미래 진입으로부터 예약하는 기능은 없다. 이 감시는 이후의 충돌 가능성을0으로 보장하지 않는다.
+
+설정·profile·실패·복구·baseline 재생 근거는
+[실험 준비 보고](../results/lpwm_adapter_epoch_extension_single_gpu_v2/setup_report.json)에 있다.
+추가 epoch의 PDMS 결과는 아직 없으며 기존82.49점을 새 결과로 보고하지 않는다.
+
+
+## 2026-10-07 23:17 KST — GPU0 Adapter 추가 학습 시작과 저장 상태 검증
+
+- GPU0 단독 Adapter queue326218/train400195로 원래4,707에서4,716까지 추가9update 진행했다. 기존 GPU0·1 본학습은5,043이며5000정기표현검사를마치고5500을기다린다.
+- 4,712 fullstate를 별도 hardlink `outputs/lpwm_adapter_epoch_extension_single_gpu_v2/startup_audit_resume.pt`로 보존하고 CPU 검사했다. SHA `d3db67f3645fbfe78682022e6fa17e37a154d0319a55ddc36e9b0e2bf5461197`, AdamW124상태모두step4712, 원본대비학습대상124tensor모두변화, frozen weight/buffer변화0이다.
+- 단순 state 이름 대 inventory 비교는 shared context Adapter alias48개를 별도 가중치로 오인했다. 동일 storage pointer/shape로 canonical학습tensor와동일함을확인해진단을정정했다. 학습가중치변경이나freeze수정은없다. Native SHA `18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb` 유지.
+- 추가9update loss/gradient norm은모두finite. 첫update preclipnorm16983.10에clip5를적용했고이후관측최대31.605다. 훈련손실만으로planning개선을판정하지않는다.
+- Batch1×누적16/GPU0단독=유효planning16/world8,원래마지막LR 약1e-6/3e-5를상수유지한다. LPIPSframe chunk의기존gradient검사와weighted global objective대응검사는통과했지만microbatch/RNG재구성이므로역사적batch8실행과bitwise동일하지않다.
+- 현재GPU0약45.78GB,병행관측최대46.90GB;GPU1본학습약40.16GB. 앞선두GPU시도의50.8475GB/OOM/primary4988저장중단·복구는별도실제사건으로보존하며이번단독실행메모리수치로덮지않는다.
+- 초기후속8update wall62.8405초/update. 추가epoch2완료까지약82시간(10/11오전),epoch3까지약164시간(10/14저녁)으로외삽된다. 정기진단GPU양보/epoch평가/공유부하시간이제외돼있으므로확정ETA가아니다.
+- Epoch2(9,414)→같은1024planning/256world평가→epoch3(14,121)→동일평가대기열유지. 기준82.4852와대응PDMS차이·상황별지표·미래유지검사를비교한다. 전체navtest아니며,추가epochPDMS는아직없다.
+- 기존279/283/291source와새307/310source등록hash전부불변확인. 실행중trainer/evaluator/queue/helper/config추가수정없음.
+- 공유근거: `results/lpwm_adapter_epoch_extension_single_gpu_v2/runtime_started_report.json`, `parameter_inventory.json`, `resume_check.json`, `effective_batch_weighting_check.json`.
