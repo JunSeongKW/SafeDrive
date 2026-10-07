@@ -3576,3 +3576,10 @@ Particle최신5000진단은평균중심2.277입력px/크기14.084%변화,F1.4389
 기존CPUscript `visualize_lpwm_vehicle_rich_particle_changes.py --updates 5000 --output results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update5000` 실행완료. 이전3,000과같은scene41/21/27,동일입력/64particle번호,학습전presence상위16박스고정. 원영상→실제128입력pixel일치·유한attributes·checkpoint완료검사통과.
 학습후checkpoint SHA971e8724f99f13b0ee024e28e9e3e19db8a820ea42ef8918144a188ba25ecef2. 차량장면앞카메라평균중심변화2.853/2.876/1.453입력px,크기변화13.138/12.625/9.466%. 전체96×4에서는2.277px/14.084%.
 실제표준4열/차량4열/차량겹침PNG를열어확인했다. 청록학습전/주황학습후/흰화살표동일번호학습전후차이,겹침점반경고정·박스glimpse로설명한다. 물리적이동/검출/attention/planning이득으로해석하지않는다. 새GPU작업/코드수정/학습조건변경없음.
+
+## 2026-10-08 — 변화량이 큰 particle 이미지 재시각화
+
+사용자가큰변화사례를명시적으로요청하여5,000update의96장면×4카메라384이미지를평균중심이동/평균가로·세로상대크기변화/개별최대중심이동으로순위화했다. 기준별1위는scene21/left(4.0416px),scene94/left(23.4248%),scene84/front(최대21.9107px,평균3.1408px)다.
+CPU전용 `scripts/visualize_lpwm_largest_particle_changes.py` 추가, `--updates 5000 --output results/lpwm_drivor_planning_path_lora_v1/largest_particle_changes_update5000` 실행완료. 과거출력/등록학습코드불변. 원본전체이미지BICUBIC128입력pixel일치·64×14attributes유한·완료checkpoint검사통과.
+각입력/학습전/5,000/겹침4열PNG3개및통합이미지,384이미지전체CSV,선택기준/체크포인트및속성SHA/표시particle별presence보고서를생성했다. PNG3장을직접열어가독성과화살표/박스를확인했다. 동일5,000SHA971e8724…사용,추가GPU추론없음.
+이그림에서는64점반경고정,각선택기준별변화상위8particle의박스만같은번호로표시한다. 이전초기presence상위16박스와다르므로명시한다. 특히최대이동particle들은낮은presence가포함된다. 큰geometry변화가주행중요도/유용성증거라는해석은하지않는다.

@@ -334,7 +334,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 08:19 KST (Codex)
+마지막 갱신: 2026-10-08 08:24 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -501,6 +501,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 후속 시각화: 사용자 요청으로 같은5,000update의384카메라 이미지를CPU에서geometry변화량으로순위화했다. 학습/queue/monitor는변경하지않았다.
 
 2026-10-08 08:20 KST: 사용자 요청으로 완료된5,000update particle 속성을 CPU에서 시각화했다. 조회시 본학습5,440/다음진단5,500이며 학습·queue·monitor는 변경하지 않았다.
 
@@ -1086,6 +1088,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+`results/lpwm_drivor_planning_path_lora_v1/largest_particle_changes_update5000/`: 평균위치변화최대scene21/left4.0416px,평균가로·세로상대크기변화최대scene94/left23.4248%,개별particle위치최대scene84/front21.9107px(장면평균3.1408px). 모두96×4이미지384개전체에서각기준argmax다. 새그림은64점고정반경/변화상위8박스로초기presence상위16선택과다르다. 저presenceparticle도포함하며대표평균/주행효용증거로부르지않는다.
 
 최신시각화 `results/lpwm_drivor_planning_path_lora_v1/particle_visualization_update5000/`에 직진/좌/우 전후+겹침, `vehicle_rich_particle_visualization_update5000/`에 기존고정scene41/21/27의전후+겹침/원영상/4카메라겹침생성. 5,000checkpoint SHA971e8724…동일. 차량장면앞카메라 평균중심변화2.853/2.876/1.453px,크기13.138/12.625/9.466%. 전체96×4카메라중심2.277px/크기14.084%. Geometry변화만으로driving집중/성능향상주장없음.
 
@@ -1911,11 +1915,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 완료된5,000update의표준전후+겹침그림을results에복사하고이전차량밀집scene41/21/27을동일particle번호로CPU시각화했다.
-- 실제생성PNG를열어정렬·색상·겹침을확인했고checkpoint/attributes SHA와장면별변화를기록했다. 기존3,000update그림과학습코드는보존했다.
-- 점64개와초기presence상위16개glimpse박스,겹침의고정점반경/실제이동화살표를설명한다. 새GPU추론/학습변경없이HANDOFF/RESUME_NOTES를갱신했다.
+- 사용자 요청에 geometry변화가 큰 이미지를 고르는 CPU시각화 script를 추가했다. 384이미지의 전체변화 CSV와 선택기준/particle별presence/SHA를 기록했다.
+- 평균위치·평균크기·개별최대이동의각1위이미지를 입력/전/후/겹침으로생성하고PNG3장을직접열어확인했다.
+- 박스는변화상위8개,점크기고정,저presence포함을명시했다. 학습코드/대기열변경없이HANDOFF/RESUME_NOTES를갱신했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+이번변화극값그림은사용자요청에따른선택사례다. 이후동일방법재현은 `visualize_lpwm_largest_particle_changes.py --updates ... --output ...`를완료진단에만적용하며출력덮어쓰기금지. 학습/5,500진단의기존일정유지.
 
 현재채팅에5,000update전후및겹침이미지를제공한다. 이후5,500정기진단은기존monitor/publisher가처리한다. 차량장면후속비교는동일scene41/21/27과새output을사용해과거산출물을보존한다.
 
@@ -2429,6 +2435,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+변화큰사례는384이미지내극값으로명시한다. 크기변화는가로·세로의절대상대변화평균이며면적변화율아님. 현재geometry의큰변화/낮은presence를실제중요객체선택이나plannerattention으로해석하지않는다.
 
 시각화는최근완료진단5,000update를사용했으며현재5,440의추론으로표시하지않는다. 겹침은동일이미지에서학습전후geometry차이로,물리적객체이동/attention/검출박스가아니다. 학습변화에따라장면을새로고르지않았다.
 

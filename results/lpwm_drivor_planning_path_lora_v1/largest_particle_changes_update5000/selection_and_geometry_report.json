@@ -1,0 +1,239 @@
+{
+  "completed_updates": 5000,
+  "checkpoint_sha256": "971e8724f99f13b0ee024e28e9e3e19db8a820ea42ef8918144a188ba25ecef2",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "initial_attributes_sha256": "406679e8b7f345b151a33b76456a590dc889966e0dea38f667ce1b35eb221470",
+  "trained_attributes_sha256": "f5c5f692158059dd15f6c9454e73087175dc329b79e3e63b278de2e6f5074a02",
+  "source_sha256": "57323a27eb7628c780d9ae4417b8170edd226b421d69be25147a5ac1dc62aeac",
+  "cpu_only": true,
+  "training_changes": false,
+  "candidate_images": 384,
+  "particles_per_image": 64,
+  "selection": "Argmax of mean center displacement, mean absolute width/height relative change, and maximum individual center displacement across all 384 camera images. Includes low-presence particles.",
+  "size_definition": "Mean over 64 particles and width/height axes of 100 * abs(after-before) / before; not box-area change.",
+  "center_definition": "Euclidean displacement in 128x128 model-input pixels for identical particle indices on the identical image.",
+  "global_center_mean_input_px": 2.2769558429718018,
+  "global_size_mean_absolute_percent": 14.083756446838379,
+  "box_selection": "Largest8 by the respective per-particle criterion, not initial-presence top16 used in previous figures.",
+  "displacement_magnification": 1.0,
+  "markers_encode_presence": false,
+  "selected_examples": [
+    {
+      "scene_index": 21,
+      "camera_index": 2,
+      "camera": "left",
+      "token": "2516f0fa67f9535f",
+      "scene_type": "straight",
+      "center_mean_input_px": 4.041565418243408,
+      "center_max_input_px": 13.790095329284668,
+      "size_mean_absolute_percent": 19.764558792114258,
+      "selection_metric": "center_mean_input_px",
+      "rank": 1,
+      "figure": "largest_mean_position_change.png",
+      "box_particle_statistics": [
+        {
+          "particle_index": 61,
+          "center_shift_input_px": 13.790095329284668,
+          "size_mean_absolute_percent": 42.31275177001953,
+          "initial_presence": 0.006494875531643629,
+          "trained_presence": 0.0014299608301371336
+        },
+        {
+          "particle_index": 51,
+          "center_shift_input_px": 11.230908393859863,
+          "size_mean_absolute_percent": 27.85447883605957,
+          "initial_presence": 0.027963565662503242,
+          "trained_presence": 7.460488996002823e-05
+        },
+        {
+          "particle_index": 12,
+          "center_shift_input_px": 10.204496383666992,
+          "size_mean_absolute_percent": 23.51615333557129,
+          "initial_presence": 0.01837247610092163,
+          "trained_presence": 0.00045214491547085345
+        },
+        {
+          "particle_index": 5,
+          "center_shift_input_px": 9.684885025024414,
+          "size_mean_absolute_percent": 42.41670227050781,
+          "initial_presence": 0.009262224659323692,
+          "trained_presence": 0.00016189480083994567
+        },
+        {
+          "particle_index": 33,
+          "center_shift_input_px": 7.234458923339844,
+          "size_mean_absolute_percent": 33.08415985107422,
+          "initial_presence": 0.00859114434570074,
+          "trained_presence": 0.001504533807747066
+        },
+        {
+          "particle_index": 59,
+          "center_shift_input_px": 7.039593696594238,
+          "size_mean_absolute_percent": 49.20782470703125,
+          "initial_presence": 0.37794190645217896,
+          "trained_presence": 3.244938125135377e-05
+        },
+        {
+          "particle_index": 53,
+          "center_shift_input_px": 6.99368143081665,
+          "size_mean_absolute_percent": 23.203079223632812,
+          "initial_presence": 0.5086157917976379,
+          "trained_presence": 1.878244074760005e-05
+        },
+        {
+          "particle_index": 14,
+          "center_shift_input_px": 6.843641757965088,
+          "size_mean_absolute_percent": 13.146594047546387,
+          "initial_presence": 0.9872241020202637,
+          "trained_presence": 0.0003541201294865459
+        }
+      ],
+      "original_camera_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.09.20.26.11_veh-35_00247_00529/CAM_L0/3961206d00675475.jpg"
+    },
+    {
+      "scene_index": 94,
+      "camera_index": 2,
+      "camera": "left",
+      "token": "5581c2f534ae5c69",
+      "scene_type": "right_turn",
+      "center_mean_input_px": 2.2686052322387695,
+      "center_max_input_px": 8.366327285766602,
+      "size_mean_absolute_percent": 23.424789428710938,
+      "selection_metric": "size_mean_absolute_percent",
+      "rank": 1,
+      "figure": "largest_mean_size_change.png",
+      "box_particle_statistics": [
+        {
+          "particle_index": 52,
+          "center_shift_input_px": 3.9324538707733154,
+          "size_mean_absolute_percent": 63.611534118652344,
+          "initial_presence": 0.032071713358163834,
+          "trained_presence": 0.015258707106113434
+        },
+        {
+          "particle_index": 15,
+          "center_shift_input_px": 2.294731855392456,
+          "size_mean_absolute_percent": 61.36792755126953,
+          "initial_presence": 0.5043944120407104,
+          "trained_presence": 0.08720814436674118
+        },
+        {
+          "particle_index": 48,
+          "center_shift_input_px": 3.9159812927246094,
+          "size_mean_absolute_percent": 53.42452621459961,
+          "initial_presence": 0.0867590606212616,
+          "trained_presence": 0.004337267018854618
+        },
+        {
+          "particle_index": 53,
+          "center_shift_input_px": 2.72729229927063,
+          "size_mean_absolute_percent": 48.011131286621094,
+          "initial_presence": 0.004364248365163803,
+          "trained_presence": 0.0003847833431791514
+        },
+        {
+          "particle_index": 21,
+          "center_shift_input_px": 3.5212714672088623,
+          "size_mean_absolute_percent": 46.721065521240234,
+          "initial_presence": 0.18346837162971497,
+          "trained_presence": 0.015456702560186386
+        },
+        {
+          "particle_index": 51,
+          "center_shift_input_px": 5.9200334548950195,
+          "size_mean_absolute_percent": 46.16305160522461,
+          "initial_presence": 0.056522779166698456,
+          "trained_presence": 0.002668214961886406
+        },
+        {
+          "particle_index": 57,
+          "center_shift_input_px": 3.4883217811584473,
+          "size_mean_absolute_percent": 46.092899322509766,
+          "initial_presence": 0.1034124493598938,
+          "trained_presence": 0.02302997000515461
+        },
+        {
+          "particle_index": 54,
+          "center_shift_input_px": 0.8320732116699219,
+          "size_mean_absolute_percent": 45.98566818237305,
+          "initial_presence": 0.9955679774284363,
+          "trained_presence": 0.3639908730983734
+        }
+      ],
+      "original_camera_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.11.07.47.13_veh-50_00736_00843/CAM_L0/25923aecf7725449.jpg"
+    },
+    {
+      "scene_index": 84,
+      "camera_index": 0,
+      "camera": "front",
+      "token": "4f7e4e373d59537d",
+      "scene_type": "right_turn",
+      "center_mean_input_px": 3.14084529876709,
+      "center_max_input_px": 21.910694122314453,
+      "size_mean_absolute_percent": 15.42872142791748,
+      "selection_metric": "center_max_input_px",
+      "rank": 1,
+      "figure": "largest_individual_position_change.png",
+      "box_particle_statistics": [
+        {
+          "particle_index": 49,
+          "center_shift_input_px": 21.910694122314453,
+          "size_mean_absolute_percent": 19.350845336914062,
+          "initial_presence": 0.0009416918619535863,
+          "trained_presence": 0.029954897239804268
+        },
+        {
+          "particle_index": 42,
+          "center_shift_input_px": 20.15212631225586,
+          "size_mean_absolute_percent": 24.43792724609375,
+          "initial_presence": 0.7149851322174072,
+          "trained_presence": 0.005835535004734993
+        },
+        {
+          "particle_index": 37,
+          "center_shift_input_px": 16.614286422729492,
+          "size_mean_absolute_percent": 30.43075180053711,
+          "initial_presence": 0.45960476994514465,
+          "trained_presence": 0.009197293780744076
+        },
+        {
+          "particle_index": 61,
+          "center_shift_input_px": 6.792973518371582,
+          "size_mean_absolute_percent": 13.550183296203613,
+          "initial_presence": 0.004778020549565554,
+          "trained_presence": 1.5550920579698868e-05
+        },
+        {
+          "particle_index": 28,
+          "center_shift_input_px": 6.771896839141846,
+          "size_mean_absolute_percent": 27.486190795898438,
+          "initial_presence": 0.0027911290526390076,
+          "trained_presence": 0.0004022972716484219
+        },
+        {
+          "particle_index": 53,
+          "center_shift_input_px": 6.516629695892334,
+          "size_mean_absolute_percent": 32.37184524536133,
+          "initial_presence": 0.011893789283931255,
+          "trained_presence": 1.6962019799393602e-05
+        },
+        {
+          "particle_index": 40,
+          "center_shift_input_px": 6.209564208984375,
+          "size_mean_absolute_percent": 17.215789794921875,
+          "initial_presence": 0.9997812509536743,
+          "trained_presence": 0.0003613328735809773
+        },
+        {
+          "particle_index": 47,
+          "center_shift_input_px": 6.188453197479248,
+          "size_mean_absolute_percent": 8.536829948425293,
+          "initial_presence": 0.7285339832305908,
+          "trained_presence": 0.7585694789886475
+        }
+      ],
+      "original_camera_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.06.18.52.07_veh-28_01072_01157/CAM_F0/3b8538b252195773.jpg"
+    }
+  ],
+  "scope": "User-requested extreme geometry examples, not representative or causal planning evidence."
+}
