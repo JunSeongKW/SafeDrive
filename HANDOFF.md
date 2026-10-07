@@ -1,5 +1,17 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 00:06 KST — Adapter 원래 batch8×GPU2로 재개, 본학습 micro4×누적8로 병행.**
+두 작업의 저장 모델·optimizer를 보존했다. 본학습5,084→5,090, Adapter4,733→4,811(00:03조회).
+본학습 GPU0·1 batch4×누적8=유효64, Adapter GPU0·1 batch8×누적1=유효16/SSL8.
+현재 전체GPU당37.05GB, 실제병행검사최대GPU0 37.0525GB/GPU1 43.4656GB, OOM없음.
+본학습 train875422/queue875423/monitor875424; Adapter queue918561/train921639, root `outputs/lpwm_adapter_original_batch_shared_v4/`.
+Primary315·Adapter319source등록불변. Adapterv2는4733저장중단,준비v3는profile만실행했고본학습queue를기동하지않았다.
+Adapter는원래fullLPIPS·4SSLclip/rank·rankseed공식을복원. 기존26개singleGPU추가update를되돌리지않았다. 마지막LR1e-6/3e-5상수연장유지.
+본학습batch축소는dropout난수/gradient를바꾼다: 동일checkpoint/장면 첫gradient cosine .6857,성능동등성검증아님.
+사용자에게동일PDMS를보장할수없다고명시했다. 엄밀히GPU별batch까지같게하려면교대실행이필요하며,교대전환은아직하지않았다.
+Adapter추가epoch2/3 및검증후본학습batch16복원CPUwatcher967796(316sources)대기. 기존fullnavtest→V2/EPDMS와500진단유지.
+[재개·메모리·조건차이근거](results/lpwm_adapter_original_batch_shared_v4/rebalance_and_resume_report.json).
+
 **2026-10-07 23:17 KST — 이전 Adapter 추가 학습 실제 진행 확인.**
 GPU0 단독 Adapter 4,707→4,716 update(추가9회), queue326218/train400195; 기존 GPU0·1 본학습5,043 계속.
 저장4,712의 AdamW124state·학습 tensor124개 갱신, native weight/buffer 불변 확인. Shared context alias48개는 중복 state key다.
@@ -280,7 +292,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 23:29 KST (Codex)
+마지막 갱신: 2026-10-08 00:07 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -447,6 +459,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+00:03조회본학습5,090/Adapter4,811. 본학습875422/875423/875424,Adapter918561/921639,원래batch복원watcher967796. 모두실제진행. 위최신header와active_execution우선.
+새Adapterroot lpwm_adapter_original_batch_shared_v4,source319. 본학습execution primary_batch4/source315. 기존v2 queue326218와train400195는4733중단됐으며재기동하지않는다.
 
 2026-10-07 23:29 KST: Adapter조건동일성질문에read-only감사. 현재4727update,등록310source일치;본학습/Adapter/queue설정변경없음.
 
@@ -1013,6 +1028,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+동일primary5084/2GPU/같은scene의batch16 vs4 실제gradient cosine.685716/relativeL2.76772. Dropout그룹변화로완전동등하지않으며최종PDMS비열등성미검증.
+CPU saved-tensor offload는loss첫update동일/gradientrelativeL2 2.043e-5이나메모리40.16GB로거의감소하지않아미채택. Profileweights전부폐기.
+Adapterbatch8단독24.74GB/GPU,본학습batch4단독12.345GB,병행peak37.0525/43.4656GB. 현재실행약37.05GB씩.
+Adapter원래4SSLclips/rank와fullLPIPS복원;current4733의124AdamW/모델그대로. Native불변,추가epochPDMS없음.
 
 Adapter연장은핵심모델/loss/유효batch/데이터동일하지만microbatch·GPU수·실제RNG/SSLclip·LR연장방식은다르다. 성능중립성미검증. condition_comparison_audit.json참조.
 
@@ -1817,12 +1837,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 기존Adapter와추가학습의코드/설정을대조하고유지조건과microbatch/RNG/SSLsampling/LR정책차이를별도보고서에기록했다.
-- 유효배치동일·국소gradient검사·재개전16scene추론재생이최종PDMS동일성을보장하지않음을명확히했다.
-- 낮은LR연장과처음부터3epochcosine학습을구분했다. 실행source310개는불변이며학습/queue/config수정없음.
-- HANDOFF1–5,연구문서와RESUME_NOTES에조건감사를추가했다.
+- 사용자요청에본학습5084와Adapter4733모델/AdamW를보존하고본학습scheduler/양rankRNG무결성을확인했다.
+- 본학습batch16/4및batch16 CPU saved-tensor offload를같은checkpoint에서실제DDP검사했다. Batch4의난수/gradient차이를공개하고성능동등성으로해석하지않았다. CPUoffload는메모리이득이없어배제했다.
+- Adapter를원래batch8×GPU2/SSL4clips/rank/fullLPIPS로복원,현재4733상태를그대로이어받았다. 마지막LR연장유지,이전26singleGPUupdate보존.
+- 본학습batch4×누적8=유효64와Adapterbatch8×GPU2=유효16 병행실측최대37.05/43.47GB통과후실제재개했다. 기존본학습queue·500진단과Adapterepoch2/3검증을유지했다.
+- Stable외부작업을21GB미만baseline에서허용하고신규외부PID/47GB압력때Adapter자기processgroup만중단·checkpoint재개하는별도queue를등록했다.
+- Adapter검증완료후본학습batch16을최신fullstate로복원하는CPUwatcher를추가했다. 기존315/319/복원316source불변.
+- 조건/복원/메모리/gradient비교근거와HANDOFF1–5,README,AGENTS,RESUME_NOTES,연구문서를갱신했다. 최종PDMS비열등성은아직미검증이다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재두학습의활성progress/queue_state확인. Adapterepoch2/3기존dev검증을기다리고500표현진단GPU양보를확인한다.
+두작업성능이같다고답하지않는다. 사용자재질문에본학습microbatch변경과dropout/gradient차이를설명했다. 엄밀한GPU별batch보존을택하면교대실행으로별도전환이필요하며현재는동시실행이다.
+Adapter완료후자동batch16복원watcher967796유지. source316과pause/외부자원안정조건확인. 과거recovery/script나profile를재실행하지않는다.
 
 추가epoch결과는마지막낮은LR의연장효과로보고한다. 유효배치동일을PDMS동일성보장으로설명하지않고,3epochcosine전체학습의효과/상한과구분한다.
 
@@ -2316,6 +2343,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재사용자최신질문은두작업의성능조건동일성확인이다. Adapter원래GPU별batch복원과본학습유효batch보존을구분해보고한다. 최종PDMS동등성은미검증이며보장하지않는다.
+초기배치축소승인에따라동시실행이진행중이다. GPU별기존batch유지/교대실행선호질문은제시했으나명시응답없음;교대실행으로자동변경하지않았다. 새학습목표/모듈/LR/scheduler/유효batch수정없음.
 
 최신요청은조건설명이며학습설정수정/중단요청아님. 엄밀하게실행차이를제거한epoch비교나원래microbatch연장대조는이번에기동하지않았다.
 

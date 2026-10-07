@@ -1,0 +1,10 @@
+{
+  "completed_updates": 4733,
+  "optimizer_states": 124,
+  "learning_rates": [
+    1.000001022610891e-06,
+    3.0000030678326728e-05
+  ],
+  "native_digest": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb",
+  "resume_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_adapter_original_batch_shared_v4/latest.pt"
+}

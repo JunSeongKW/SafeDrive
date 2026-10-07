@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "initial_updates": 4733,
+  "completed_updates": 4737,
+  "profile_updates": 4,
+  "profile_weights_discarded": true,
+  "frozen_native_sha256": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb"
+}

@@ -1,0 +1,24 @@
+{
+  "primary": {
+    "completed_updates": 5084,
+    "optimizer_states": 796,
+    "sha256": "9d8c7a3098576cbf568623be4b30487c4575458eb29f9f2e186f659968a38498",
+    "learning_rates": [
+      0.00019829151369935016,
+      0.00019829151369935016
+    ],
+    "rank_rng_states": 2,
+    "scheduler_step": 5084,
+    "native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+  },
+  "adapter": {
+    "completed_updates": 4733,
+    "optimizer_states": 124,
+    "sha256": "3b3d685c35142fa9b2dbff395a07eeea7acb0ad17d71e7262f22959fc4b92d1f",
+    "learning_rates": [
+      1.000001022610891e-06,
+      3.0000030678326728e-05
+    ],
+    "native_sha256": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb"
+  }
+}

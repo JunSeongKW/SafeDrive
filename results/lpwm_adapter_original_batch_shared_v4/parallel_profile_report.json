@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "maximum_card_used_bytes": {
+    "0": 37052481536,
+    "1": 43465572352
+  },
+  "returncode": 0,
+  "guard_stopped": false,
+  "profile_weights_discarded": true
+}

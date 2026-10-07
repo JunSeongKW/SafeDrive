@@ -1,5 +1,15 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-08 최신: Adapter 원래 batch8×GPU2를 복원하고 본학습 micro4×누적8로 병행한다.**
+사용자는 기존 본학습 배치 축소를 허용했지만 두 작업의 성능 보존을 요구했다. 모델·optimizer·scheduler·유효batch는보존했으나본학습dropout/gradient는달라짐을설명했다. 동일PDMS입증으로부르지않는다.
+Adapter현재root `outputs/lpwm_adapter_original_batch_shared_v4/`, config `configs/lpwm_adapter_original_batch_rebalance/adapter_batch8_shared.json`,queue918561/train921639.
+본학습 train875422/queue875423/monitor875424, execution `configs/lpwm_adapter_original_batch_rebalance/primary_batch4.json`, 유효64유지.
+현재primary315/Adapter319source/config등록불변. V2Adapter4733 pause와준비v3(profile only)는보존·재기동금지.
+Adapter4733/본학습5084 fullstate에서이어가며profileweights미사용. Adapter원래batch8/SSL4clips/rank/fullLPIPS복원,마지막낮은LR연장정책유지.
+CPUwatcher967796은Adapter epoch2/3학습·평가완료후본학습원래batch16을최신checkpoint에서복원한다.316source불변,사용자pause/다른실행변경을존중한다.
+Watcher `scripts/restore_lpwm_primary_batch_after_adapter.py`,root `outputs/lpwm_adapter_original_batch_rebalance_v1/restore_primary_after_adapter/`.
+동일GPU별batch를모두보존하는교대실행은대안이며아직미적용. 사용자의조건동일성재질문에모델/유효batch보존과성능동등성미검증을명확히구분한다.
+
 **2026-10-07 최신 사용자 요청: 이전 Stage1+Adapter의 Stage2 추가2epoch, GPU0 단독 병행.**
 새 config `configs/lpwm_planning/adapter_epoch_extension_single_gpu_v2.json`, queue `scripts/queue_lpwm_adapter_epoch_extension_single_gpu.py` /326218.
 Root `outputs/lpwm_adapter_epoch_extension_single_gpu_v2/`, registration310개 불변. GPU0 batch1×누적16=유효planning16/world8.

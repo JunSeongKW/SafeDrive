@@ -1,0 +1,8 @@
+{
+  "requested_unix": 1791383625.1100695,
+  "request": "User-authorized memory rebalance: restore historical Adapter batch8 on GPUs0/1; preserve checkpoints before changing primary microbatch.\n",
+  "pause_paths": [
+    "outputs/lpwm_adapter_epoch_extension_single_gpu_v2/pause.requested",
+    "outputs/lpwm_drivor_planning_path_lora_v1/pause.requested"
+  ]
+}

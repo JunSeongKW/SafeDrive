@@ -3429,3 +3429,32 @@ GPU1 전체 점유50.8475GB에서 새 Adapter rank1이 OOM을 만났고, 기존 
 - 현재실험은기존checkpoint의낮은LR연장효과로해석한다. 엄밀한epoch수만의통제효과나성능중립적실행변환으로표현하지않는다.
 - 조회4727update,추가epochPDMS아직없음. 이번요청은조건설명이며기존학습/queue/config/source변경없음. 등록310source모두일치.
 - 근거 `results/lpwm_adapter_epoch_extension_single_gpu_v2/condition_comparison_audit.json`.
+
+
+## 2026-10-08 00:06 KST — Adapter 원래 batch 복원과 병행 자원 재배치
+
+사용자 요청: 기존약40GB본학습의batch를줄여서라도Adapter를기존설정으로GPU0·1에서이어가되두작업의성능에영향을주지않는범위로재개. 후속질문에최종성능동등성은미검증이라고명시했다.
+
+### 보존과 실제 재개
+
+- 본학습5,084 model/AdamW796state/scheduler5084/양rankRNG를보존했다. SHA `9d8c7a3098576cbf568623be4b30487c4575458eb29f9f2e186f659968a38498`.
+- Adapter4,733 model/AdamW124state보존. SHA `3b3d685c35142fa9b2dbff395a07eeea7acb0ad17d71e7262f22959fc4b92d1f`. 이전4708–4733의singleGPU26update를되돌리지않았다.
+- 본학습micro16×acc2×GPU2에서micro4×acc8×GPU2로변경,유효64·학습률/scheduler·데이터·학습목표·25epoch·LoRA/FiLM/planner그대로다. Nativehash유지. PID875422/queue875423/monitor875424.
+- Adapter는micro8×acc1×GPU2,SSL4clip/rank/update,원래fullLPIPS,원래rank별seed공식으로복원했다. AdamW/LR1e-6/3e-5상수연장정책보존,profile가중치미사용. Queue918561/train921639,root `outputs/lpwm_adapter_original_batch_shared_v4/`.
+- 00:03조회본학습5,090,Adapter4,811까지실제진행. 추가PDMS는아직없다. 같은1024dev/1021유효PDM·256world에서epoch2→평가→epoch3→평가.
+
+### 검사와 해석 한계
+
+- 본학습batch16 vs4는같은checkpoint/scene/학습률이며첫loss차rank0 .05454/rank1 .06794,gradientcosine .685716/relativeL2 .76772. Dropout실제draw가달라져동일gradient검사가아니며최종PDMS비열등성입증도아니다.
+- 원래batch16 CPU saved-tensor offload는첫loss일치/gradientrelativeL2 2.043e-5이나메모리40.16GB로거의감소하지않아미채택. 원래batch16+Adapter8동시상주를48GB에서보장하는방안은확보하지못했다.
+- Adapterbatch8실제4updateprofile은단독약24.74GB/GPU,본학습batch4는12.345GB/GPU. 병행4update검사에서최대GPU0 37.0525GB/GPU1 43.4656GB(타인작업포함),OOM0. 모든profileweights폐기.
+- 현재본학습손실·gradient는유한하지만성능무영향으로확정하지않는다. 사용자에게엄밀하게양쪽GPU별batch까지보존하려면교대실행이필요하다고설명했다. 동시/교대선호질문을제시했으나명시응답이없어기존배치축소승인범위의동시실행으로재개했다.
+- Adapter첫profilepreclipnorm659448.625에기존clip5적용,이후22.18/8.64/6.96;초기재개gradient크기를누락하지않는다. 현재학습성능은epoch검증을기다린다.
+
+### 큐와 후속 복구
+
+- Adapterprimary315/새319sourcehash불변. 준비v3는profile만실행;production은shared_v4다. 이전v2singleGPU는4733pause보존.
+- baseline전체카드21GB미만의기존외부작업은안정30초후허용. 신규외부PID 또는47GB도달시Adapter자기child process group만중단하고8update주기의온전한checkpoint에서재개. 타인작업수정없음. 독립적인외부할당을예약차단할수는없다.
+- 본학습정기500/epoch진단은Adapter가checkpoint양보하고재개한다. 기존fullnavtest→freshV2→EPDMS후속유지.
+- CPUwatcher967796 `scripts/restore_lpwm_primary_batch_after_adapter.py`/316sources는Adapterepoch2/3학습·평가완료후본학습의최신model/AdamW/scheduler/RNG를저장하고원래batch16×acc2로복원한다. 사용자pause/다른실행변경을존중한다.
+- 공유근거 `results/lpwm_adapter_original_batch_shared_v4/rebalance_and_resume_report.json`,각profile로그/체크포인트무결성/gradient비교.

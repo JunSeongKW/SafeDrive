@@ -1,5 +1,17 @@
 # Planning-Aware Future Prediction
 
+**2026-10-08 00:06 KST — Adapter 원래 batch8×GPU2로 재개, 본학습 micro4×누적8로 병행.**
+두 작업의 저장 모델·optimizer를 보존했다. 본학습5,084→5,090, Adapter4,733→4,811(00:03조회).
+본학습 GPU0·1 batch4×누적8=유효64, Adapter GPU0·1 batch8×누적1=유효16/SSL8.
+현재 전체GPU당37.05GB, 실제병행검사최대GPU0 37.0525GB/GPU1 43.4656GB, OOM없음.
+본학습 train875422/queue875423/monitor875424; Adapter queue918561/train921639, root `outputs/lpwm_adapter_original_batch_shared_v4/`.
+Primary315·Adapter319source등록불변. Adapterv2는4733저장중단,준비v3는profile만실행했고본학습queue를기동하지않았다.
+Adapter는원래fullLPIPS·4SSLclip/rank·rankseed공식을복원. 기존26개singleGPU추가update를되돌리지않았다. 마지막LR1e-6/3e-5상수연장유지.
+본학습batch축소는dropout난수/gradient를바꾼다: 동일checkpoint/장면 첫gradient cosine .6857,성능동등성검증아님.
+사용자에게동일PDMS를보장할수없다고명시했다. 엄밀히GPU별batch까지같게하려면교대실행이필요하며,교대전환은아직하지않았다.
+Adapter추가epoch2/3 및검증후본학습batch16복원CPUwatcher967796(316sources)대기. 기존fullnavtest→V2/EPDMS와500진단유지.
+[재개·메모리·조건차이근거](results/lpwm_adapter_original_batch_shared_v4/rebalance_and_resume_report.json).
+
 **2026-10-07 23:17 KST — 이전 Adapter 추가 학습 실제 진행 확인.**
 GPU0 단독 Adapter 4,707→4,716 update(추가9회), queue326218/train400195; 기존 GPU0·1 본학습5,043 계속.
 저장4,712의 AdamW124state·학습 tensor124개 갱신, native weight/buffer 불변 확인. Shared context alias48개는 중복 state key다.

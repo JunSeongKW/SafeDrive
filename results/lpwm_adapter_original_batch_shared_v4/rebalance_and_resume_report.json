@@ -1,0 +1,261 @@
+{
+  "checked_at": "2026-10-07T23:58:28.205860+09:00",
+  "authorization": "User requested restoring Adapter historical batch8/2GPUs, allowing reduction of primary microbatch while protecting both effective batches and saved training progress.",
+  "primary_resume": {
+    "training": {
+      "pid": 875422,
+      "command": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node=2",
+        "scripts/train_lpwm_drivor_optimized_execution.py",
+        "--config",
+        "configs/lpwm_drivor_planning_path_lora/navsim_v1.json",
+        "--execution",
+        "configs/lpwm_adapter_original_batch_rebalance/primary_batch4.json"
+      ],
+      "started_unix": 1791384719.7548025
+    },
+    "queue": {
+      "pid": 875423,
+      "command": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+        "-u",
+        "scripts/queue_lpwm_drivor_optimized_execution.py",
+        "--execution",
+        "configs/lpwm_adapter_original_batch_rebalance/primary_batch4.json"
+      ],
+      "started_unix": 1791384719.7564723
+    },
+    "monitor": {
+      "pid": 875424,
+      "command": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+        "-u",
+        "scripts/monitor_lpwm_particle_trends_every500.py",
+        "--config",
+        "configs/lpwm_drivor_review/particle_trends_every500.json"
+      ],
+      "started_unix": 1791384719.7585104
+    },
+    "primary_resumed_at": 5084,
+    "microbatch_per_gpu": 4,
+    "accumulation": 8,
+    "effective_batch": 64
+  },
+  "preserved_checkpoints": {
+    "primary": {
+      "completed_updates": 5084,
+      "optimizer_states": 796,
+      "sha256": "9d8c7a3098576cbf568623be4b30487c4575458eb29f9f2e186f659968a38498",
+      "learning_rates": [
+        0.00019829151369935016,
+        0.00019829151369935016
+      ],
+      "rank_rng_states": 2,
+      "scheduler_step": 5084,
+      "native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+    },
+    "adapter": {
+      "completed_updates": 4733,
+      "optimizer_states": 124,
+      "sha256": "3b3d685c35142fa9b2dbff395a07eeea7acb0ad17d71e7262f22959fc4b92d1f",
+      "learning_rates": [
+        1.000001022610891e-06,
+        3.0000030678326728e-05
+      ],
+      "native_sha256": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb"
+    }
+  },
+  "adapter_resume_integrity": {
+    "completed_updates": 4733,
+    "optimizer_states": 124,
+    "all_model_tensors_equal": true,
+    "all_optimizer_state_values_equal": true,
+    "world_size_metadata_change_only": true,
+    "historic_single_gpu_updates_preserved": 26,
+    "prior_learning_rates": [
+      1.000001022610891e-06,
+      3.0000030678326728e-05
+    ]
+  },
+  "resource_tests": {
+    "passed": true,
+    "maximum_card_used_bytes": {
+      "0": 37052481536,
+      "1": 43465572352
+    },
+    "returncode": 0,
+    "guard_stopped": false,
+    "profile_weights_discarded": true
+  },
+  "primary_gradient_comparison": {
+    "rank_results": [
+      {
+        "rank": 0,
+        "gradient_cosine": 0.6857158624747831,
+        "gradient_relative_l2_difference": 0.7677202037407432,
+        "loss_batch16": 2.8386456966400146,
+        "loss_batch4": 2.893184870481491,
+        "loss_absolute_difference": 0.05453917384147644,
+        "scene_hash_matches": true,
+        "tensor_count": 796,
+        "learning_rates_match": true
+      },
+      {
+        "rank": 1,
+        "gradient_cosine": 0.6857158624747831,
+        "gradient_relative_l2_difference": 0.7677202037407432,
+        "loss_batch16": 3.0527788400650024,
+        "loss_batch4": 2.984843537211418,
+        "loss_absolute_difference": 0.06793530285358429,
+        "scene_hash_matches": true,
+        "tensor_count": 796,
+        "learning_rates_match": true
+      }
+    ],
+    "scope": "Actual training dropout retained. Same checkpoint and per-rank samples; microbatch regrouping changes stochastic draws, so this is not a gradient-equivalence pass or proof of unchanged PDMS.",
+    "profile_weights_discarded": true
+  },
+  "cpu_offload_rejected": {
+    "gradient_relative_l2_difference": 2.0429553330047563e-05,
+    "loss_first_update_identical": true,
+    "memory_reduction_insufficient_for_concurrency": true,
+    "selected": false
+  },
+  "current_primary_progress": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "14f6c593f9cb26f51f1d1794aa2220c7d5fed5803d4b1c4807118cbd18fe66ac",
+    "execution_overrides": {
+      "microbatch_per_gpu": 4,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 16
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 5090,
+    "epoch": 4,
+    "rank_scene_tokens_sha256": "a853dc4d8ec50932b2a73b2a8e46c7fc25a6b46a4c3716e7fa42539190561dca",
+    "update_in_epoch": 248,
+    "seconds_this_update": 88.21151447296143,
+    "elapsed_seconds": 560.7897081375122,
+    "card_used_bytes": 37052481536,
+    "peak_reserved_bytes": 11767119872,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0024368762969970703,
+      "forward": 26.238239765167236,
+      "oracle": 5.382820129394531,
+      "backward": 55.8326952457428
+    },
+    "learning_rates": [
+      0.0001982798918697809,
+      0.0001982798918697809
+    ],
+    "loss": 2.8187931776046753,
+    "trajectory_loss": 1.0252109691500664,
+    "final_score_loss": 1.793582245707512,
+    "score": 0.8586236461997032,
+    "best_score": 0.9955660179257393,
+    "estimated_remaining_seconds": 3295575.412190755
+  },
+  "current_adapter_queue": {
+    "queue_pid": 918561,
+    "started_unix": 1791384990.371881,
+    "stage": "epoch02_training",
+    "heartbeat_unix": 1791385377.9206557,
+    "pending": "epoch02_training",
+    "card_used_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "child_pid": 921639,
+    "admitted_external_processes": [],
+    "maximum_sampled_card_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "yielding": false
+  },
+  "source_registration_checks": {
+    "outputs/lpwm_drivor_planning_path_lora_v1/registration.json": {
+      "count": 279,
+      "mismatches": []
+    },
+    "outputs/lpwm_drivor_optimized_execution_v1/execution_registration.json": {
+      "count": 291,
+      "mismatches": []
+    },
+    "outputs/lpwm_adapter_original_batch_rebalance_v1/primary_execution_registration.json": {
+      "count": 315,
+      "mismatches": []
+    },
+    "outputs/lpwm_adapter_original_batch_shared_v4/registration.json": {
+      "count": 319,
+      "mismatches": []
+    }
+  },
+  "condition_preservation": {
+    "primary": "Same5084model/796AdamW/scheduler/both-rankRNG, effective64,25epochs/data/LR/loss/LoRA modules and attention mode. Micro16acc2x2 to micro4acc8x2; stochastic execution changes.",
+    "adapter": "Same4733model/124AdamW and terminalLR; restore originalmicro8acc1x2,4SSLclips/rank and fullLPIPS without new framechunking; effective16/world8. Prior26singleGPUupdates retained.",
+    "evaluation": "Same existing25epoch primary chain and500/epoch diagnostics; Adapterepoch2/3 same1024dev/1021validPDM/256world evaluation."
+  },
+  "performance_limit": "No downstream PDMS noninferiority measurement exists for microbatch regrouping. Actual training gradients differ with dropout; do not present0.6857cosine as equivalence. No changes to objective weighting, model capacity, total training samples, global batch or LR schedule.",
+  "profile_weights_discarded": true,
+  "new_pdms_available": false,
+  "current_adapter_progress": {
+    "completed_updates": 4811,
+    "epoch_fraction": 1.0220947524962822,
+    "target_updates": 14121,
+    "planning_loss": 5.966271162033081,
+    "world_objective": 17.04333782196045,
+    "loss": 6.307137727737427,
+    "gradient_groups": {
+      "image_encoder": 0.34281882643699646,
+      "context": 4.982936859130859,
+      "dynamics": 4.270807266235352,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 5.258332252502441
+    },
+    "gradient_norm_before_clip": 8.416474342346191,
+    "gradient_clip": 5,
+    "learning_rates": [
+      1.000001022610891e-06,
+      3.0000030678326728e-05
+    ],
+    "seconds_this_update": 3.6751349710393697,
+    "extension_elapsed_seconds": 1978.678647663095,
+    "card_used_bytes": 37052481536,
+    "peak_reserved_bytes": 24159191040,
+    "peak_allocated_bytes": 23950392832,
+    "updated_unix": 1791385380.5799124
+  },
+  "verified_live_at": "2026-10-08T00:03:00.970768+09:00",
+  "current_adapter_training": {
+    "logged_updates": 78,
+    "unique_updates": 78,
+    "all_losses_and_gradient_norms_finite": true,
+    "recent_mean_compute_seconds_per_update": 3.091312569659203,
+    "recent_wall_seconds_per_update": 4.168143134368093,
+    "eta_hours_to_epoch2_excluding_evaluation_and_resource_waits": 5.3294341243045364,
+    "saved_state": {
+      "reason": "periodic",
+      "completed_updates": 4808,
+      "checkpoint_sha256": "e2fa40954796f94e2250e430c8c7bf71957358e221eb75b37b31bff24ecb2eee",
+      "updated_unix": 1791385368.3080025
+    }
+  },
+  "automatic_primary_batch16_restoration": {
+    "stage": "waiting_for_adapter_training_and_evaluation",
+    "updated_unix": 1791385372.0780268
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "overrides": {
+    "microbatch_per_gpu": 4,
+    "loader_workers_per_rank": 2,
+    "oracle_workers_per_rank": 16
+  },
+  "effective_batch_unchanged": 64,
+  "registration": "outputs/lpwm_adapter_original_batch_rebalance_v1/primary_execution_registration.json",
+  "maximum_total_card_bytes": 48000000000,
+  "optimizations": {
+    "sdpa_training": false,
+    "batched_gradient_finite_check": true
+  },
+  "canonical_evaluation_attention_unchanged": true,
+  "authorization": "Reduce primary microbatch for historical Adapter batch8 concurrency; effective64 and saved learning state retained."
+}

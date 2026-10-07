@@ -1,0 +1,18 @@
+{
+  "queue_pid": 918561,
+  "started_unix": 1791384990.371881,
+  "stage": "epoch02_training",
+  "heartbeat_unix": 1791385377.9206557,
+  "pending": "epoch02_training",
+  "card_used_bytes": {
+    "0": 37052481536,
+    "1": 37053530112
+  },
+  "child_pid": 921639,
+  "admitted_external_processes": [],
+  "maximum_sampled_card_bytes": {
+    "0": 37052481536,
+    "1": 37053530112
+  },
+  "yielding": false
+}

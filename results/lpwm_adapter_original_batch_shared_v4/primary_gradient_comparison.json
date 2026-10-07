@@ -1,0 +1,28 @@
+{
+  "rank_results": [
+    {
+      "rank": 0,
+      "gradient_cosine": 0.6857158624747831,
+      "gradient_relative_l2_difference": 0.7677202037407432,
+      "loss_batch16": 2.8386456966400146,
+      "loss_batch4": 2.893184870481491,
+      "loss_absolute_difference": 0.05453917384147644,
+      "scene_hash_matches": true,
+      "tensor_count": 796,
+      "learning_rates_match": true
+    },
+    {
+      "rank": 1,
+      "gradient_cosine": 0.6857158624747831,
+      "gradient_relative_l2_difference": 0.7677202037407432,
+      "loss_batch16": 3.0527788400650024,
+      "loss_batch4": 2.984843537211418,
+      "loss_absolute_difference": 0.06793530285358429,
+      "scene_hash_matches": true,
+      "tensor_count": 796,
+      "learning_rates_match": true
+    }
+  ],
+  "scope": "Actual training dropout retained. Same checkpoint and per-rank samples; microbatch regrouping changes stochastic draws, so this is not a gradient-equivalence pass or proof of unchanged PDMS.",
+  "profile_weights_discarded": true
+}

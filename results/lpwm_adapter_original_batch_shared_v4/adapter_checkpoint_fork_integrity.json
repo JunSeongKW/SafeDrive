@@ -1,0 +1,12 @@
+{
+  "completed_updates": 4733,
+  "optimizer_states": 124,
+  "all_model_tensors_equal": true,
+  "all_optimizer_state_values_equal": true,
+  "world_size_metadata_change_only": true,
+  "historic_single_gpu_updates_preserved": 26,
+  "prior_learning_rates": [
+    1.000001022610891e-06,
+    3.0000030678326728e-05
+  ]
+}
