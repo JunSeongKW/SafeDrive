@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-10-07T23:29:02.104667+09:00",
+  "question": "Is historical Adapter continuation identical and performance-neutral apart from additional epochs?",
+  "answer": "Core model, objectives, data pool/order and effective batch preserved; complete execution equivalence and equal downstream PDMS are not established.",
+  "unchanged": [
+    "Historical epoch1 model and124AdamW states resumed",
+    "Same75,297navtrain scenes and planning global-order algorithm, seed47",
+    "Same Stage1 model,704,960Adapter and2,211,975planner/command trainable parameters; nativeLPWM frozen",
+    "Same preprocessing,512candidates,teacher labels,imitation + six PDM subscore BCE +0.02SSL; no direct object GT",
+    "Effective planning16/world8, AdamW weight_decay1e-4, gradient_clip5 and same mixed precision policy",
+    "Same1024planning development panel/1021valid scores,256world clips"
+  ],
+  "differences": {
+    "gpu_microbatch": {
+      "historical": "8 per GPU x1accumulation x2GPUs",
+      "continuation": "1 per GPU x16accumulation x1GPU",
+      "effect": "Equal mean sample weighting and optimizer frequency, but regrouped stochastic forward passes and floating-point accumulation."
+    },
+    "rng": {
+      "historical_planning_seed": "47+update_index*2+rank",
+      "continuation_planning_seed": "47+update_index",
+      "historical_ssl": "Two independently drawn groups of4clips per update",
+      "continuation_ssl": "Eight independently drawn single clips on alternate microsteps; per-micro SSL weight doubled before16-step averaging",
+      "effect": "Different actual dropout/latent samples and SSL clip choices despite the same named seed and training pool."
+    },
+    "learning_rate": {
+      "historical": "1percent warmup then cosine over4707updates: Adapter peak1e-5 to~1e-6, planner peak3e-4 to~3e-5",
+      "continuation_fixed": [
+        1.000001022610891e-06,
+        3.0000030678326728e-05
+      ],
+      "effect": "Terminal-learning-rate extension; different from training3epochs with a freshly defined3epoch cosine schedule."
+    },
+    "lpips_execution": {
+      "historical": "Full frame batches",
+      "continuation": "Two-frame chunks with checkpoint recomputation",
+      "checked": "CPU loss absolute difference1.490116e-8 and reconstructed-input gradient difference0; not a full-training PDMS equivalence test."
+    }
+  },
+  "existing_checks": {
+    "checkpoint_resume_and_native_freeze": "passed; see runtime_started_report.json",
+    "baseline_replay": "16 identical candidate choices andADE before extra updates",
+    "effective_batch_scalar_weighting": "loss difference0 and gradient difference4.44e-16 for equal supplied per-sample losses; not full LPWM model/dropout equivalence",
+    "source_registration_count": 310,
+    "source_mismatches": []
+  },
+  "current_completed_updates": 4727,
+  "new_pdms_available": false,
+  "interpretation": "Measures additional low-learning-rate training from the completed checkpoint under memory-bounded regrouped execution. Does not isolate pure epoch count under an otherwise identical trajectory of stochastic training, nor establish a3epoch training ceiling.",
+  "execution_changes_this_turn": false
+}

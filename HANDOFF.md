@@ -280,7 +280,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 23:19 KST (Codex)
+마지막 갱신: 2026-10-07 23:29 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -447,6 +447,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-07 23:29 KST: Adapter조건동일성질문에read-only감사. 현재4727update,등록310source일치;본학습/Adapter/queue설정변경없음.
 
 23:17 확인: Adapter 추가9update/4,716, GPU0 단독 train400195·queue326218 정상 실행. 기존본학습5,043 계속,5000진단완료→5500대기.
 4,712 fullstate의124AdamW step일치/학습대상124tensor갱신/native불변감사완료. Runtime report 참조.
@@ -1011,6 +1013,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Adapter연장은핵심모델/loss/유효batch/데이터동일하지만microbatch·GPU수·실제RNG/SSLclip·LR연장방식은다르다. 성능중립성미검증. condition_comparison_audit.json참조.
 
 추가학습9회 모두finite, 첫preclipnorm16983(clip5적용), 후속최대31.605. 새학습의성능개선은아직미검증이다.
 최근8update wall62.84초, epoch2추정10/11오전·epoch3추정10/14저녁(진단양보·평가제외). 매우초기외삽이며완료시각보장아님.
@@ -1813,15 +1817,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- GPU0단독실제추가9update와4,712fullstate를감사했다. 학습대상124tensor갱신/native불변/124optimizer상태일치, 초기속도약63초/update와epoch별평가ETA를보고한다.
-- 이전Adapter1epoch(82.4852) 원본model/AdamW124state를확인하고추가2epoch/총3epoch→매epoch검증실험을구성했다.
-- LPIPSframe checkpoint로동일loss/gradient를유지하며batch1누적의메모리profile을통과했다. GPU0/1각16scene의기존평가재생이정확일치했다.
-- 두GPU기동후외부GPU1작업진입으로secondaryOOM/primary4988보호중단을경험했다. 사고이력을보존하고본학습model/optimizer/scheduler/RNG/nativehash검사후동일조건으로복구했다.
-- 새실험을GPU0단독batch1×acc16/유효planning16/world8로좁히고310개source/config등록·외부작업감지/자기child만선점중단/정기진단양보/epoch검증대기열을추가했다.
-- 원래Adapter/native/Stage1/checkpoint와현재본학습등록source는모두유지했다. 학습률은완료1epoch의마지막낮은값을유지하며새cosine으로재해석하지않는다.
-- 실패·복구·profile·baseline재생·새실행근거를results에보존하고연구문서/README/AGENTS/HANDOFF1–5/RESUME_NOTES를갱신한다. 새추가epoch의PDMS는아직없다.
+- 기존Adapter와추가학습의코드/설정을대조하고유지조건과microbatch/RNG/SSLsampling/LR정책차이를별도보고서에기록했다.
+- 유효배치동일·국소gradient검사·재개전16scene추론재생이최종PDMS동일성을보장하지않음을명확히했다.
+- 낮은LR연장과처음부터3epochcosine학습을구분했다. 실행source310개는불변이며학습/queue/config수정없음.
+- HANDOFF1–5,연구문서와RESUME_NOTES에조건감사를추가했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+추가epoch결과는마지막낮은LR의연장효과로보고한다. 유효배치동일을PDMS동일성보장으로설명하지않고,3epochcosine전체학습의효과/상한과구분한다.
 
 새Adapter는실제학습이시작됐다. epoch2완료·평가파일을기다리고본학습500간격진단과의양보/재개동작을확인한다.
 진행률·메모리·속도는새root의실시간progress/queue_state를읽는다. 초반9update만으로PDMS효과나수렴을판정하지않는다.
@@ -2313,6 +2316,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신요청은조건설명이며학습설정수정/중단요청아님. 엄밀하게실행차이를제거한epoch비교나원래microbatch연장대조는이번에기동하지않았다.
 
 동시실행은가능하지만단독실행보다느리며,현재제약에서는Adapter추가1epoch약3.4일을소요한다는초기실측을사용자에게알린다.
 기준82.4852는기존내부dev1021유효점수다. 새epoch평가와대응차이/상황별값/미래유지검사전에는상승폭을주장하지않는다.

@@ -3445,3 +3445,15 @@ GPU1 전체 점유50.8475GB에서 새 Adapter rank1이 OOM을 만났고, 기존 
 - Epoch2(9,414)→같은1024planning/256world평가→epoch3(14,121)→동일평가대기열유지. 기준82.4852와대응PDMS차이·상황별지표·미래유지검사를비교한다. 전체navtest아니며,추가epochPDMS는아직없다.
 - 기존279/283/291source와새307/310source등록hash전부불변확인. 실행중trainer/evaluator/queue/helper/config추가수정없음.
 - 공유근거: `results/lpwm_adapter_epoch_extension_single_gpu_v2/runtime_started_report.json`, `parameter_inventory.json`, `resume_check.json`, `effective_batch_weighting_check.json`.
+
+
+## 2026-10-07 23:29 KST — Adapter 추가 학습 조건 동일성 설명
+
+사용자는 추가 학습이 기존과 동일하고 성능에 영향을 주는 변경이 없는지 물었다. 코드를 대조한 결과 모델·학습대상·75,297장면·planning 순서·loss항/가중치·유효planning16/world8·optimizer복원·precision·평가패널은 유지되지만 완전한 실행 동일성은 성립하지 않는다.
+
+- 기존8×누적1×GPU2에서1×누적16×GPU1로 바뀌었다. Seed47명칭은 같아도 실제 per-update seed공식이47+update×2+rank에서47+update로 달라지고 dropout·SSL latent/random clip 추출도 달라진다. 유효배치 동일성만으로 최종PDMS 동일성을 보장하지 않는다.
+- 기존1epoch의1%warmup/cosine은끝났다. 추가epoch는마지막Adapter약1e-6/planner약3e-5를상수유지한다. 처음부터3epoch용cosine을설계한학습과다르며,낮은LR로개선이없어도추가epoch의가능성이나모델상한을기각할수없다.
+- LPIPS2frame chunk/checkpoint는국소loss·입력gradient검사를통과했으나전체학습gradient나PDMS비열등성을검증한것은아니다. 기존16scene재생일치는재개전inference확인이다.
+- 현재실험은기존checkpoint의낮은LR연장효과로해석한다. 엄밀한epoch수만의통제효과나성능중립적실행변환으로표현하지않는다.
+- 조회4727update,추가epochPDMS아직없음. 이번요청은조건설명이며기존학습/queue/config/source변경없음. 등록310source모두일치.
+- 근거 `results/lpwm_adapter_epoch_extension_single_gpu_v2/condition_comparison_audit.json`.
