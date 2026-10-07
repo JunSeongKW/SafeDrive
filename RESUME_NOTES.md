@@ -3254,3 +3254,19 @@ Stage1+frozen-planner를 유용한 실용기준선으로 권고. Frozen은planni
 동일토큰/상황별지표·pairedCI/표현검사·최종고정checkpoint 독립navtest가필요. 현재학습navval/95패널은독립validation아님.
 이번조회에서저장progress4450/40350 epoch3확인. 새GPU학습·평가·중단·교체·queue등록·source/config변경없음.
 HANDOFF1–5와실험문서에판단근거를추가했으며기존25epoch/매500·epoch진단/후속평가를유지한다.
+
+## 2026-10-07 19:01 KST — 중간 결과 점검, 4,500 대기
+
+사용자 중간 결과 요청에 README/AGENTS/HANDOFF와 학습progress·queue·monitor·기존4000 report를 읽었다.
+19:00:43 기준4480/40350 epoch3,약2.776/25epoch/전체11.103%. 유효64(micro16×accum2×GPU2)/loader2/oracle8 유지.
+GPU0·1각38457MiB=40.325GB,util34/95% 단일시점표본. 전체48decimalGB 이내다.
+Sandbox ps에host PID가노출되지않아승인된읽기전용host ps로train3144180/queue3144181/monitor3144182/publisher2507743 생존확인.
+양rank4480 전체로그 비유한loss0,4400 최근18gradient그룹 모두유한·양수, nativehash 유지.
+19:01:19 원래279/현재oracle8실행283sourcehash 모두일치. 실행source/config변경없음.
+Monitor4000완료→4500대기이며 새PDMS/표현성능평가 없음. 마지막4000 PDMS75.8303/직진89.04·좌69.51·우61.16은95학습패널이다.
+Particle초기중심1.979px/크기14.098%,appearanceF1.4114/전체.4230,미래대체12scene ADE+.2444m CI[−.1981,+.8354]를기존근거로구분.
+최근50/100/200wall23.0486/22.9308/23.2408초,4500오늘19:08/4842오늘21:19–21:21 학습경계 예상(진단처리별도).
+V1끝10월17일07–11시외삽이며후속fullnavtest/V2/EPDMS시간미포함/공유부하변동가능.
+결과 results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1900.json에조회시각·progress·health·process·GPU·hash·ETA근거보존.
+README/HANDOFF1–5/학습문서/RESUME_NOTES 갱신. 새GPU작업·학습/queue/monitor/publisher/source/config변경없음.
+기존25epoch/매500·epoch진단/후속평가유지. 새상태로포화·미래정보이득·방법우열을판정하지 않는다.

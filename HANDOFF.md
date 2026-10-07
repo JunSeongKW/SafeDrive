@@ -1,5 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 19:01 KST — 중간 상태: 학습4,480 / 새 검증4,500 대기.**
+19:00:43 기준4,480/40,350, 약2.776/25epoch(11.103%). 양rank 전체로그 비유한loss0 /4400의18gradient그룹 유한·양수.
+원래279/실행283sourcehash 일치, nativehash 유지. Host train3144180/queue3144181/monitor3144182/publisher2507743 생존.
+GPU0·1각40.325GB, util34/95% 단일표본 / micro16×누적2×2=유효64/loader2/oracle8 유지.
+최근50/100/200wall23.0486/22.9308/23.2408초,4500오늘19:08 /4842오늘21:19–21:21 학습경계 예상(진단 처리 별도).
+새PDMS/표현진단은 없음. 마지막4000 PDMS75.8303/직진89.04·좌69.51·우61.16/중심1.979px·크기14.098%를 기존 결과로 구분한다.
+V1학습끝10월17일07–11시 외삽, 후속fullnavtest·V2 등은 별도. 기존25epoch·queue·매500/epoch진단 유지.
+근거 `results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1900.json`.
+
 **2026-10-07 18:50 KST — 이전 단계 분리 방식과 현재 joint 방식의 선택 근거 정리.**
 82.49는 이전1021개발장면,75.83은 현재95학습장면이라 두 점수의 차이로 방법 우열을 판정하지 않는다.
 같은 이전 planner/개발패널에서 public-frozen78.9161 → Stage1-frozen82.5238, 차이+3.6077점 CI[+1.5065,+5.8539].
@@ -199,7 +208,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 18:52 KST (Codex)
+마지막 갱신: 2026-10-07 19:03 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -366,6 +375,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+19:00:43 조회 joint-DrivoR4,480/40,350 epoch3. 기존 학습/queue/monitor/publisher host 생존, monitor4000완료→4500대기.
+Micro16×accum2×GPU2=유효64/loader2/oracle8, 각GPU40.325GB 유지. 새 GPU 평가/학습·source/config·queue 변경 없음.
 
 이번 조회에서 저장progress joint-DrivoR4,450/40,350 epoch3 확인. 현재 학습 조건·queue·정기진단을 변경하지 않았다.
 이전 방식을 선택하는 것이 나은지 묻는 요청이며, 이번 턴 GPU 작업이나 새로운 대조 학습을 실행하지 않았다.
@@ -896,6 +908,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+19:01 조회는 새 성능 평가가 아닌 상태 점검이다. 마지막 완료PDMS/표현진단은4000이며75.83/1.979px/14.098%다.
+양rank4480 전체로그 비유한loss0,4400의18gradient그룹 유한·양수,279·283등록hash 정상/nativehash 동일.
+최근50/100/200wall23.0486/22.9308/23.2408초,4500오늘19:08/epoch3오늘21:19–21:21/V1끝10월17일07–11시 외삽.
+4,480 진행상태를 새로운 성능 측정으로 보고하지 않는다. 미래정보이득·포화·planning에 따른 객체정보 보존에 대한 새 결론 없음.
 
 같은 이전 개발패널의 Stage1 효과: public-frozen78.916080 → posttrained-frozen82.523785, +3.607705점 / recording CI[1.506478,5.853857].
 Adapter82.485196 − frozen82.523785 =−.038589점 / CI[−1.164209,1.007058]. PDMS 추가 이득 미확인 / 동일성 증명은 아님.
@@ -1641,12 +1658,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 이전82.49와 현재75.83의 평가·planner·학습 조건을 재확인해 방법 선택의 판단 근거를 정리했다.
-- 기존 matched 개발 비교에서 Stage1-frozen의 public-frozen 대비+3.6077점과 Adapter의 frozen 대비−.0386점/각 CI를 확인했다.
-- Stage1+frozen-planner를 유용한 기준선으로 권고하고 연구목적상 planning 표현 적응 효과와 분리했다.
-- 실험문서/HANDOFF1–5/RESUME_NOTES에 근거를 추가했다. 현재25epoch 학습·queue·monitor·source/config 변경/새 실험은 없다.
+- 사용자 중간 결과 요청에19:00:43 기준4480/40350 학습·GPU·host 프로세스·양rank loss/gradient·등록sourcehash를 확인했다.
+- 4500 진단은 아직 대기 중이며 마지막4000 성능과 현재 진행률을 구분했다. 새PDMS/표현 성능을 만들어 보고하지 않았다.
+- 최근23초/update로4500오늘19:08/4842오늘21:19–21:21/V1끝10월17일07–11시 학습경계 외삽을 기록했다.
+- 상태 JSON과README/HANDOFF1–5/학습문서/RESUME_NOTES 갱신. 기존25epoch·queue·정기진단·source/config 변경/새GPU 작업 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+다음4500 학습경계 오늘19:08전후. 정기 표현진단 처리와 공식PDMS 평가 완료 시점을 경계 도달과 구분한다.
+4500 완료 후4000과 동일 장면별/상황별PDMS·readout·geometry·미래개입을 비교한다. 기존25epoch/queue/monitor/publisher 유지.
+V1학습 완료10월17일07–11시 외삽, 최종평가·V2/EPDMS 등 후속 작업시간은 별도이며 공유부하로 변동 가능.
 
 사용자에게 이전 Stage1+frozen-planner의 비용 대비 실용성과 현재 raw PDMS 비비교성을 함께 설명한다.
 기존25epoch와 DrivoR 최종비교 일정 유지. 같은 planner/입력/학습예산의 초기화·표현적응 대조는 후속 검토안이며 새 queue에 넣지 않는다.
@@ -2100,6 +2121,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+19:01에는4000 이후 새 성능 결과가 없다. 95학습패널점수를 독립validation/navtest나4480 성능으로 부르지 않는다.
+GPU utilization34/95%는 단일시점 조회이며 지속적인 사용률/속도 변화의 근거로 단정하지 않는다. 전체48decimalGB 제한 유지.
+새 상태 조회로 포화·방법우열·미래정보 유용성을 확정하지 않는다. 이전82.49와 직접 점수 비교하지 않는다.
 
 실용 기준선 권고와 방법 우월성의 증거는 다르다. 이전 Stage1 유용성은 해당 planner/개발조건에 한정되며 현재 구조로의 이식효과는 미확인이다.
 Adapter−frozen CI0포함은 두 방식의 동등성을 입증하지 않는다. Stage1 frozen은 planning gradient로 LPWM particle을 수정하는 조건이 아니다.

@@ -829,3 +829,22 @@ GPU0·1모두util100%,각40.325GB, micro16×accum2×2=유효64/loader2/oracle8 �
 V1학습종료10월17일16–20시외삽,fullnavtest/V2등후속시간은미포함이다. 부하에따라달라질수있다.
 이번조회에서는새GPU학습·평가/모델·loss·source/config·queue변경없음.
 근거: [18:00 상태JSON](../results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1800.json).
+
+## 2026-10-07 19:01 KST — 중간 상태, 새4,500 검증 대기
+
+19:00:43 기준4,480/40,350 update, 약2.776/25epoch(전체11.103%).
+기존 train3144180/queue3144181/monitor3144182/CPUoverlaypublisher2507743의 host 생존을 확인했다.
+양rank 전체로그 비유한loss0, 최근4400의18gradient그룹 모두 유한·양수이며 nativehash 유지.
+19:01:19 감사에서 원래279/현재oracle8 실행283개 sourcehash 모두 일치했다.
+GPU0·1각40.325GB, utilization34/95%는 단일시점 표본이다. Micro16×누적2×2=유효64/loader2/oracle8 유지.
+
+Monitor는4,000 완료 후4,500 대기 중이다. 이번 조회에서 새PDMS/표현 검증은 없었다.
+마지막4,000의 동일95학습장면PDMS75.8303(직진89.0445/좌69.5080/우61.1590)을 기존 결과로 구분한다.
+Particle 중심1.979px/크기14.098%, appearance readoutF1.4114/전체.4230과 미래대체ADE+.2444m CI[−.1981,+.8354]도 같은 기존 검증이다.
+진행률과 검증 시점을 분리하며 포화나 안정적인 미래정보 보존의 새로운 결론을 내리지 않는다.
+
+최근50/100/200update wall23.0486/22.9308/23.2408초,4,500 학습경계 오늘19:08전후,
+epoch3경계4,842 오늘21:19–21:21 예상이다. 정기진단 처리·공식평가 완료 시간은 별도다.
+V1학습 완료10월17일07–11시 외삽이며 후속fullnavtest/V2/EPDMS 시간은 별도이고 공유부하로 변동 가능하다.
+새GPU 작업이나 학습·모델·loss·source/config·queue 변경 없이 기존25epoch 및 정기진단/후속평가를 유지했다.
+근거: [19:00 상태JSON](../results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1900.json).

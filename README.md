@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 19:01 KST — 중간 상태: 4,480 update, 새 검증은4,500 대기.**
+19:00:43 조회4,480/40,350(약2.776/25epoch,11.103%). 양rank 비유한loss0/최근4400의18gradient그룹 유한·양수/279·283sourcehash 일치.
+GPU0·1각40.325GB, micro16×누적2×2=유효64/loader2/oracle8 유지. 학습·queue·monitor·CPUoverlaypublisher 생존.
+새 성능 검증은 아직 없고 마지막 정확한4,000의95학습장면PDMS75.83을 유지한다. 4,500 학습경계 오늘19:08 / epoch3 오늘21:19–21:21 예상, 진단처리 별도.
+기존25epoch 및 후속평가 유지. [조회 근거](results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1900.json).
+
 **2026-10-07 18:01 KST — 중간 상태: 학습 진행, 새 검증은4,500 대기.**
 18:00:55 기준4,324/40,350 update(약2.68/25epoch),GPU0·1각40.325GB/사용률100%,loss·gradient·등록sourcehash 정상.
 완료된 최신검증은4,000의95학습장면PDMS75.83이며새성능결과는아직없다. 기존25epoch/queue/매500진단계속.
