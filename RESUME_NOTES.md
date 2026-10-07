@@ -3583,3 +3583,11 @@ Particle최신5000진단은평균중심2.277입력px/크기14.084%변화,F1.4389
 CPU전용 `scripts/visualize_lpwm_largest_particle_changes.py` 추가, `--updates 5000 --output results/lpwm_drivor_planning_path_lora_v1/largest_particle_changes_update5000` 실행완료. 과거출력/등록학습코드불변. 원본전체이미지BICUBIC128입력pixel일치·64×14attributes유한·완료checkpoint검사통과.
 각입력/학습전/5,000/겹침4열PNG3개및통합이미지,384이미지전체CSV,선택기준/체크포인트및속성SHA/표시particle별presence보고서를생성했다. PNG3장을직접열어가독성과화살표/박스를확인했다. 동일5,000SHA971e8724…사용,추가GPU추론없음.
 이그림에서는64점반경고정,각선택기준별변화상위8particle의박스만같은번호로표시한다. 이전초기presence상위16박스와다르므로명시한다. 특히최대이동particle들은낮은presence가포함된다. 큰geometry변화가주행중요도/유용성증거라는해석은하지않는다.
+
+## 2026-10-08 — 더 많은 particle 시각화와 전체 분포 갤러리
+
+사용자는다른이미지를추가해전체경향을파악하고자했다. 동일5,000checkpoint/저장particle을CPU에서읽는 `scripts/build_lpwm_particle_comparison_gallery.py`를추가하고 `results/lpwm_drivor_planning_path_lora_v1/particle_gallery_update5000/`에전체96장면×4카메라384개의개별전후4열PNG와겹침PNG를생성했다. localindex.html은카메라/시나리오필터와위치·크기·presence변화정렬,24개씩페이지를지원한다.
+이전에제공한scene0/2/3/21/27/41/84/94를제외하고직진/좌/우각6전방이미지를평균위치변화rank10/25/40/60/75/90분위근처로선택했다. 총18장면/14recording이며IDs10,13,61,37,35,51/86,89,63,69,91,93/83,60,79,23,40,32. 18장overview PNG와시나리오별3장씩2페이지총6상세PNG를제공한다.
+이번갤러리는모든64점반경고정,초기presence상위16개박스번호고정으로원래전후그림과박스예산을맞췄다. 직전극값그림의변화상위8박스와구분한다. 미래GT/이미지편집/새추론없음,움직임과이미지를같은비율로확대했다.
+전체384의이미지별평균위치2.27696px(P10–P90:1.78201–2.81629),평균크기14.08376%(10.68341–17.78140),presence.63221→.46835. 상황별평균위치직2.26388/좌2.28705/우2.28723px;전/후/좌/우카메라2.17383/2.28042/2.35940/2.29417px. 각그룹의서로다른관측이미지기술통계이며같은장면명령변경효과가아니다.
+384개unique장면-카메라조합,768asset링크/PNG크기,18예시중복·이전예시제외검사를완료했다. overview/좌회전상세2/분포그래프PNG를직접확인했다. artifact_checks.json/전체CSV/gallery_report.json과PNG/PDF보존. 현재등록학습코드/설정/queue는변경하지않았다.
