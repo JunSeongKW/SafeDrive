@@ -1,0 +1,153 @@
+{
+  "complete": true,
+  "scope": "Intermediate comparison on a fixed1024-scene navtest subset. Not full navtest. Its exposure must be declared in later benchmark reporting.",
+  "planning_epochs": {
+    "primary": 3.345724907063197,
+    "adapter": 2
+  },
+  "systems": {
+    "primary": {
+      "checkpoint": {
+        "complete": true,
+        "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_shared_navtest_adapter2_primary5400_v1/checkpoints/primary_update5400.pt",
+        "checkpoint_sha256": "d7addc72362dbc07c0fc19071919a3304d32a5417d63ac2da4a3bc941576331e",
+        "completed_updates": 5400,
+        "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+        "scene_count": 1024,
+        "trajectory_sha256": "56afaf799929438956b448edcb617f164e1fd255cc78896b533cb5874b9261da",
+        "panel_sha256": "a8d5e2fb6ac3eb6f933536990c228216206bfc4fa7f9ee28b9dd2b3ad81053ee",
+        "maximum_card_bytes": 13514047488,
+        "peak_allocator_bytes": 822083584,
+        "inference_batch_size": 4,
+        "future_ground_truth_input": false
+      },
+      "scene_count": 1024,
+      "failed": 0,
+      "means": {
+        "no_at_fault_collisions": 0.9755859375,
+        "drivable_area_compliance": 0.9365234375,
+        "ego_progress": 0.7075893514390248,
+        "time_to_collision_within_bound": 0.9345703125,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.96533203125,
+        "score": 0.8160958469509882,
+        "ade_m": 2.3644349616079126,
+        "fde_m": 5.475958034250652,
+        "pdms": 81.60958469509882
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 76.28323607368092,
+          "ade_m": 2.690911659459376,
+          "fde_m": 6.537938505411148
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 69.94902062788603,
+          "ade_m": 2.4290953672594493,
+          "fde_m": 5.930846405029297
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 84.41314211747778,
+          "ade_m": 2.271547729227385,
+          "fde_m": 5.144106233570418
+        }
+      }
+    },
+    "adapter": {
+      "checkpoint": {
+        "complete": true,
+        "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_adapter_original_batch_shared_v4/epoch02_resume.pt",
+        "checkpoint_sha256": "9df6bd024921392eb070b8d8e83c2a53497a7df970cd65201255c45e773a48c5",
+        "completed_updates": 9414,
+        "frozen_native_sha256": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb",
+        "scene_count": 1024,
+        "trajectory_sha256": "bfb414d5c65da0f26955702077d6977a71f1e406a74c2d970668f0a1a59ed142",
+        "panel_sha256": "a8d5e2fb6ac3eb6f933536990c228216206bfc4fa7f9ee28b9dd2b3ad81053ee",
+        "maximum_card_bytes": 14187233280,
+        "peak_allocator_bytes": 1497366528,
+        "inference_batch_size": 4,
+        "future_ground_truth_input": false
+      },
+      "scene_count": 1024,
+      "failed": 0,
+      "means": {
+        "no_at_fault_collisions": 0.9658203125,
+        "drivable_area_compliance": 0.923828125,
+        "ego_progress": 0.760722506000345,
+        "time_to_collision_within_bound": 0.9052734375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.939453125,
+        "score": 0.8161409927915636,
+        "ade_m": 1.1631834862855612,
+        "fde_m": 2.736745002612224,
+        "pdms": 81.61409927915636
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 75.63995565218184,
+          "ade_m": 1.6142414243110104,
+          "fde_m": 3.934884476499545
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 73.82546827135118,
+          "ade_m": 2.027850619951884,
+          "fde_m": 4.990536662605074
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 84.11610536648233,
+          "ade_m": 0.9406811596069098,
+          "fde_m": 2.150939108064843
+        }
+      }
+    }
+  },
+  "primary_minus_adapter": {
+    "pdms": {
+      "difference": -0.00451458405753713,
+      "confidence_interval_95": [
+        -1.9980576686605673,
+        1.996791372687664
+      ],
+      "recordings": 44,
+      "scenes": 1024
+    },
+    "ade_m": {
+      "difference": 1.2012514753223513,
+      "confidence_interval_95": [
+        1.0390518728107083,
+        1.3661775910555127
+      ],
+      "recordings": 44,
+      "scenes": 1024
+    },
+    "fde_m": {
+      "difference": 2.739213031638428,
+      "confidence_interval_95": [
+        2.3623830119688694,
+        3.1281018479523603
+      ],
+      "recordings": 44,
+      "scenes": 1024
+    }
+  },
+  "scene_count": 1024,
+  "recording_count": 44,
+  "training_recording_overlap": 0,
+  "same_official_scorer": true,
+  "test_driven_model_selection": false,
+  "remaining_confounds": [
+    "Adapter: one front camera with four observed times; joint model: four cameras at the current time",
+    "Historical Adapter crops28pixels top and bottom and uses INTER_AREA; joint model uses full image BICUBIC; preserve each trained input convention",
+    "Different planner architectures, training splits, effective batches, optimizers, schedules, seeds, and learned parameter sets",
+    "Adapter includes20epochs of Stage1 SSL; joint model starts from public LPWM and uses planning only",
+    "Different planning epoch counts: Adapter2 versus primary5400/1614=3.346; scene exposure, optimizer steps and compute are also different",
+    "System comparison, not an isolated LoRA-versus-Adapter or particle-versus-register ablation"
+  ],
+  "finished_unix": 1791413049.1868825
+}

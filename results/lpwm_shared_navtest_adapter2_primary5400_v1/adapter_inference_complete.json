@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_adapter_original_batch_shared_v4/epoch02_resume.pt",
+  "checkpoint_sha256": "9df6bd024921392eb070b8d8e83c2a53497a7df970cd65201255c45e773a48c5",
+  "completed_updates": 9414,
+  "frozen_native_sha256": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb",
+  "scene_count": 1024,
+  "trajectory_sha256": "bfb414d5c65da0f26955702077d6977a71f1e406a74c2d970668f0a1a59ed142",
+  "panel_sha256": "a8d5e2fb6ac3eb6f933536990c228216206bfc4fa7f9ee28b9dd2b3ad81053ee",
+  "maximum_card_bytes": 14187233280,
+  "peak_allocator_bytes": 1497366528,
+  "inference_batch_size": 4,
+  "future_ground_truth_input": false
+}

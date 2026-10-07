@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-08 07:46 KST 최신: 공통 평가 완료, Adapter 원래 학습 재개.**
+`results/lpwm_shared_navtest_adapter2_primary5400_v1/evaluation_complete.json`: 공통 navtest 부분집합 1,024장면/44recording.
+사용자가 Adapter를 2epoch으로 지정하여 Adapter9414 vs 요청 시점 최신 저장 LoRA5400을 평가했다. 원래3epoch대3epoch 안은 미실행 준비 이력이다.
+PDMS Adapter81.6141/LoRA81.6096, 차이CI[−1.9981,+1.9968]. 전체navtest나 미세조정 방식 단독 효과로 부르지 않는다.
+공통 평가용323 source/config는 등록·완료 상태다. 완료 평가를 다시 실행하거나 이번 test 점수로 학습을 자동 변경하지 않는다.
+Adapter는11,699 fullstate에서 잠시 정상저장·대기했다가 같은v4 config로 재개했다. **현재 queue1208639/train1212507**, 이전918561/3842032 재기동 금지.
+본학습875422/queue875423/monitor875424와 batch16 복원 watcher967796은 유지한다. 최신 상세 상태는 HANDOFF와 각 progress/queue_state를 읽는다.
+
 **2026-10-08 최신: Adapter 원래 batch8×GPU2를 복원하고 본학습 micro4×누적8로 병행한다.**
 사용자는 기존 본학습 배치 축소를 허용했지만 두 작업의 성능 보존을 요구했다. 모델·optimizer·scheduler·유효batch는보존했으나본학습dropout/gradient는달라짐을설명했다. 동일PDMS입증으로부르지않는다.
 Adapter현재root `outputs/lpwm_adapter_original_batch_shared_v4/`, config `configs/lpwm_adapter_original_batch_rebalance/adapter_batch8_shared.json`,queue918561/train921639.

@@ -3513,3 +3513,28 @@ Adapter3epoch학습잔여약2.7시간,본학습5,500경계약2.5시간(최근200
 근거 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0708.json` 및 `results/lpwm_adapter_original_batch_shared_v4/epoch02_summary.json`.
 
 양rank loss와최근gradient유한성을확인했다. 본학습과Adapter의평가패널이달라직접비교하지않으며,world위험계층별값은원래epoch02_summary에보존했다. 실행중인등록source/config는읽기만했다.
+
+
+## 2026-10-08 07:30 KST — 공통navtest비교기동
+
+**2026-10-08 07:30 KST — 동일 장면 비교 실행 중: Adapter2epoch vs LoRA5,400update.**
+사용자는 같은 평가 장면을 요청했고, 이어 Adapter는2epoch으로 고정하라고 명시했다. 3epoch동일학습량 비교안은미실행준비이력이며현재조건이우선한다.
+Root `outputs/lpwm_shared_navtest_adapter2_primary5400_v1/`, config `configs/lpwm_shared_navtest_comparison/adapter_epoch2_vs_primary_update5400.json`.
+Navtest1,024scene/44recording을점수확인전고정,양쪽학습및Stage1과token/recording중복0. 입력은각학습전처리를보존한다. 전체navtest가아니다.
+Primary5400SHA d7addc72…/Adapter9414SHA9df6bd02…고정. 서로다른planner·카메라/시간입력·데이터·학습량의시스템비교이며LoRA/Adapter단독효과로해석하지않는다.
+323source/config등록불변. Queue966120,primaryeval970996. Adapter원래queue918561/train3842032는11,699fullstate저장후정상pause종료했다.
+Pause소유권은새comparisonqueue이며`adapter_yield_ready.json`에기록한다. GPU추론완료또는오류시기존v4queue를동일config로자동재개,CPU공식채점은재개와병행한다.
+본학습875422는계속실행. 평가중Adapterpause를임의삭제/별도재기동하지말고새queue상태를먼저확인한다. 원래batch복원watcher967796은일시대기한다.
+기존83.53/80.35는서로다른장면점수이며공통결과가나오기전직접비교하지않는다. 새root/evaluation_complete.json이완료근거다.
+
+
+## 2026-10-08 07:46 KST — 공통평가 완료 및 원래학습재개
+
+**2026-10-08 07:46 KST — 공통1,024 navtest장면 비교 완료: Adapter2epoch81.6141 vs LoRA5,400update81.6096.**
+두학습및Stage1과token/recording중복없는44recording/1,024scene,동일공식NAVSIMv1 scorer와8×.5s출력/40×.1s시뮬레이션. 양모델실패0.
+LoRA−Adapter PDMS−.004515점,대응recording95%CI[−1.9981,+1.9968]. 우열근거없음이며통계적동등성입증으로부르지않는다.
+ADE Adapter1.1632/LoRA2.3644m,FDE2.7367/5.4760m. LoRA무과실충돌·도로준수·TTC평균높음,Adapter진행률높음. 상황별PDMS 직진84.1161/84.4131,좌75.6400/76.2832,우73.8255/69.9490(Adapter/LoRA).
+전체navtest아닌고정부분집합이다. 이전83.5279(Adapterdev)·80.3450(LoRA학습장면)과구분한다. 카메라/과거입력·planner·데이터·학습량·Stage1차이남음,두시스템비교다.
+비교중Adapter11,699의124AdamW/마지막LR상태를완전저장해잠시GPU양보,추론완료후동일v4queue로자동재개했다. 현재queue1208639/train1212507,Adapter11,744;본학습875422는계속진행해5,419.
+평가queue966120와GPU추론970996/1176048·CPU채점1208640은완료. 새source323개불변검사통과. 기존batch복원watcher967796은Adapter3epoch/검증완료를기다린다.
+결과 `results/lpwm_shared_navtest_adapter2_primary5400_v1/evaluation_complete.json`,양모델CSV및resume검사동일폴더. 완료평가를재기동하지않는다.

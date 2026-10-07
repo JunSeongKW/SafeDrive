@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction
 
+**2026-10-08 07:46 KST — 동일 장면에서 Adapter 2 epoch과 LoRA 5,400 update 비교 완료.**
+학습에서 제외된 공통 navtest 부분집합 1,024장면·44주행 기록을 동일 공식 PDMS로 채점했다.
+Adapter **81.6141**, LoRA **81.6096**; LoRA−Adapter 차이의 95% 신뢰구간은 [−1.9981, +1.9968]점이다.
+ADE/FDE는 Adapter 1.1632/2.7367m, LoRA 2.3644/5.4760m. 전체 navtest 점수나 단독 미세조정 방식의 효과로 해석하지 않는다.
+Adapter는 11,699 update에서 잠시 저장·대기한 뒤 같은 설정으로 재개했다. 현재 queue1208639/train1212507; 본학습875422는 계속 실행한다.
+[공통 평가 결과](results/lpwm_shared_navtest_adapter2_primary5400_v1/evaluation_complete.json) · [학습 재개 확인](results/lpwm_shared_navtest_adapter2_primary5400_v1/completion_and_training_resume_check.json).
+
 **2026-10-08 00:06 KST — Adapter 원래 batch8×GPU2로 재개, 본학습 micro4×누적8로 병행.**
 두 작업의 저장 모델·optimizer를 보존했다. 본학습5,084→5,090, Adapter4,733→4,811(00:03조회).
 본학습 GPU0·1 batch4×누적8=유효64, Adapter GPU0·1 batch8×누적1=유효16/SSL8.

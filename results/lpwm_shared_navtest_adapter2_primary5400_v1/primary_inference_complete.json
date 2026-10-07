@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_shared_navtest_adapter2_primary5400_v1/checkpoints/primary_update5400.pt",
+  "checkpoint_sha256": "d7addc72362dbc07c0fc19071919a3304d32a5417d63ac2da4a3bc941576331e",
+  "completed_updates": 5400,
+  "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "scene_count": 1024,
+  "trajectory_sha256": "56afaf799929438956b448edcb617f164e1fd255cc78896b533cb5874b9261da",
+  "panel_sha256": "a8d5e2fb6ac3eb6f933536990c228216206bfc4fa7f9ee28b9dd2b3ad81053ee",
+  "maximum_card_bytes": 13514047488,
+  "peak_allocator_bytes": 822083584,
+  "inference_batch_size": 4,
+  "future_ground_truth_input": false
+}

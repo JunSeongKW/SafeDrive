@@ -3458,3 +3458,17 @@ GPU1 전체 점유50.8475GB에서 새 Adapter rank1이 OOM을 만났고, 기존 
 - 본학습정기500/epoch진단은Adapter가checkpoint양보하고재개한다. 기존fullnavtest→freshV2→EPDMS후속유지.
 - CPUwatcher967796 `scripts/restore_lpwm_primary_batch_after_adapter.py`/316sources는Adapterepoch2/3학습·평가완료후본학습의최신model/AdamW/scheduler/RNG를저장하고원래batch16×acc2로복원한다. 사용자pause/다른실행변경을존중한다.
 - 공유근거 `results/lpwm_adapter_original_batch_shared_v4/rebalance_and_resume_report.json`,각profile로그/체크포인트무결성/gradient비교.
+
+
+## 2026-10-08 07:46 KST — 같은장면에서 Adapter2epoch 대 현재LoRA 비교
+
+**2026-10-08 07:46 KST — 공통1,024 navtest장면 비교 완료: Adapter2epoch81.6141 vs LoRA5,400update81.6096.**
+두학습및Stage1과token/recording중복없는44recording/1,024scene,동일공식NAVSIMv1 scorer와8×.5s출력/40×.1s시뮬레이션. 양모델실패0.
+LoRA−Adapter PDMS−.004515점,대응recording95%CI[−1.9981,+1.9968]. 우열근거없음이며통계적동등성입증으로부르지않는다.
+ADE Adapter1.1632/LoRA2.3644m,FDE2.7367/5.4760m. LoRA무과실충돌·도로준수·TTC평균높음,Adapter진행률높음. 상황별PDMS 직진84.1161/84.4131,좌75.6400/76.2832,우73.8255/69.9490(Adapter/LoRA).
+전체navtest아닌고정부분집합이다. 이전83.5279(Adapterdev)·80.3450(LoRA학습장면)과구분한다. 카메라/과거입력·planner·데이터·학습량·Stage1차이남음,두시스템비교다.
+비교중Adapter11,699의124AdamW/마지막LR상태를완전저장해잠시GPU양보,추론완료후동일v4queue로자동재개했다. 현재queue1208639/train1212507,Adapter11,744;본학습875422는계속진행해5,419.
+평가queue966120와GPU추론970996/1176048·CPU채점1208640은완료. 새source323개불변검사통과. 기존batch복원watcher967796은Adapter3epoch/검증완료를기다린다.
+결과 `results/lpwm_shared_navtest_adapter2_primary5400_v1/evaluation_complete.json`,양모델CSV및resume검사동일폴더. 완료평가를재기동하지않는다.
+
+공통 분모는1,024장면이며 내부dev의무효teacher3장면제외규칙을가져오지않았다. 두 모델이출력한실제경로를공식시뮬레이터로각각채점했다. 입력Adapter는front4시점/crop28/INTER_AREA,LoRA는current4camera/full/BICUBIC이므로입력까지맞춘절제비교가아니다. 체크포인트는정확히사용자지정시점이며test점수로고르지않았다.

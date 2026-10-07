@@ -1,0 +1,13 @@
+{
+  "pause_content": "{\"created_unix\": 1791412038.460886, \"owner\": \"outputs/lpwm_shared_navtest_adapter2_primary5400_v1\", \"purpose\": \"User-requested same-scene Adapter epoch2 versus current LoRA comparison\", \"resume_after_gpu_inference\": true}\n",
+  "saved_state": {
+    "reason": "resource_or_user_pause",
+    "completed_updates": 11699,
+    "checkpoint_sha256": "46111c76c3e44bf45b4966dad7bdfbf552a48eb71df554ef61b5059013232796",
+    "updated_unix": 1791412044.5734622
+  },
+  "preserved_resume": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_shared_navtest_adapter2_primary5400_v1/adapter_resume_before_evaluation.pt",
+  "no_partial_update_discarded": true,
+  "previous_queue_pid": 918561,
+  "previous_child_pid": 3842032
+}

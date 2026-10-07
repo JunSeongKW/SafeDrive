@@ -1,5 +1,24 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 07:46 KST — 공통1,024 navtest장면 비교 완료: Adapter2epoch81.6141 vs LoRA5,400update81.6096.**
+두학습및Stage1과token/recording중복없는44recording/1,024scene,동일공식NAVSIMv1 scorer와8×.5s출력/40×.1s시뮬레이션. 양모델실패0.
+LoRA−Adapter PDMS−.004515점,대응recording95%CI[−1.9981,+1.9968]. 우열근거없음이며통계적동등성입증으로부르지않는다.
+ADE Adapter1.1632/LoRA2.3644m,FDE2.7367/5.4760m. LoRA무과실충돌·도로준수·TTC평균높음,Adapter진행률높음. 상황별PDMS 직진84.1161/84.4131,좌75.6400/76.2832,우73.8255/69.9490(Adapter/LoRA).
+전체navtest아닌고정부분집합이다. 이전83.5279(Adapterdev)·80.3450(LoRA학습장면)과구분한다. 카메라/과거입력·planner·데이터·학습량·Stage1차이남음,두시스템비교다.
+비교중Adapter11,699의124AdamW/마지막LR상태를완전저장해잠시GPU양보,추론완료후동일v4queue로자동재개했다. 현재queue1208639/train1212507,Adapter11,744;본학습875422는계속진행해5,419.
+평가queue966120와GPU추론970996/1176048·CPU채점1208640은완료. 새source323개불변검사통과. 기존batch복원watcher967796은Adapter3epoch/검증완료를기다린다.
+결과 `results/lpwm_shared_navtest_adapter2_primary5400_v1/evaluation_complete.json`,양모델CSV및resume검사동일폴더. 완료평가를재기동하지않는다.
+
+**2026-10-08 07:30 KST — 동일 장면 비교 실행 중: Adapter2epoch vs LoRA5,400update.**
+사용자는 같은 평가 장면을 요청했고, 이어 Adapter는2epoch으로 고정하라고 명시했다. 3epoch동일학습량 비교안은미실행준비이력이며현재조건이우선한다.
+Root `outputs/lpwm_shared_navtest_adapter2_primary5400_v1/`, config `configs/lpwm_shared_navtest_comparison/adapter_epoch2_vs_primary_update5400.json`.
+Navtest1,024scene/44recording을점수확인전고정,양쪽학습및Stage1과token/recording중복0. 입력은각학습전처리를보존한다. 전체navtest가아니다.
+Primary5400SHA d7addc72…/Adapter9414SHA9df6bd02…고정. 서로다른planner·카메라/시간입력·데이터·학습량의시스템비교이며LoRA/Adapter단독효과로해석하지않는다.
+323source/config등록불변. Queue966120,primaryeval970996. Adapter원래queue918561/train3842032는11,699fullstate저장후정상pause종료했다.
+Pause소유권은새comparisonqueue이며`adapter_yield_ready.json`에기록한다. GPU추론완료또는오류시기존v4queue를동일config로자동재개,CPU공식채점은재개와병행한다.
+본학습875422는계속실행. 평가중Adapterpause를임의삭제/별도재기동하지말고새queue상태를먼저확인한다. 원래batch복원watcher967796은일시대기한다.
+기존83.53/80.35는서로다른장면점수이며공통결과가나오기전직접비교하지않는다. 새root/evaluation_complete.json이완료근거다.
+
 **2026-10-08 07:08 KST — Adapter 2 epoch 검증 완료: PDMS 82.4852 → 83.5279.**
 동일 내부 개발1,024장면/유효1,021점수/40recording, +1.0427점(대응95%CI[+.1716,+2.0117]). ADE1.1551→1.1433m/FDE2.7567→2.7021m이며두오차차이CI는0포함.
 9,414 checkpoint 평가05:09완료 후현재Adapter 11,380/14,121,3번째epoch학습중. 미래현재반복80.4210 대비정상83.5279(+3.1068점);미래분기의존성검사이며재학습대조가아니다.
@@ -309,7 +328,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 07:08 KST (Codex)
+마지막 갱신: 2026-10-08 07:46 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -476,6 +495,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 07:46 KST: 공통비교완료,평가GPU종료. 본학습875422/5,419계속. Adapter는새queue1208639/train1212507로11,699 fullstate에서재개되어11,744. 이전queue918561은종료;재기동금지. 기존batch16복원watcher967796대기.
 
 2026-10-08 07:08 KST: 본학습5,393/40,350(train875422), Adapter11,380/14,121(queue918561/epoch3 child3842032). Adapterepoch2검증완료후epoch3자동진행,watcher967796은모두완료를대기한다.
 
@@ -1049,6 +1070,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+공통navtest1,024/44recording/모델별실패0에서 Adapter2epoch81.6141,LoRA5400(3.346epoch)81.6096. PDMS차이LoRA−Adapter−.004515,CI[−1.9981,+1.9968]. ADE/FDE는Adapter1.1632/2.7367 대 LoRA2.3644/5.4760m. LoRA안전관련평균높음/Adapter진행률높음. 평가지표동일/단독방법효과나전체navtest성능주장없음.
 
 Adapter2epoch PDMS83.5279/기존82.4852 대비+1.0427(CI[+.1716,+2.0117]); ADE1.1433/FDE2.7021. 고정dev패널토큰1,024개동일/후보선택341개변경. 미래반복80.4210/정상대비−3.1068점. 미래LPIPS1epoch대비+.0895%,Stage1대비소폭악화. 본학습95학습장면PDMS80.3450은기존평가이며새점수아님.
 
@@ -1862,12 +1885,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 자동 완료된 Adapter2epoch 평가를 확인하고 공유 summary를 보존했다. 동일1,024장면/유효1,021 PDMS와40recording 대응비교를 확인했다.
-- PDMS82.4852→83.5279(+1.0427,95%CI[+.1716,+2.0117]), ADE/FDE 및 미래분기 개입/영상예측 유지 지표를 구분해 보고했다.
-- 두 학습의 최신진행·양rank loss·본학습gradient·queue·다음경계ETA를 읽기 전용으로 점검하고 결과JSON/HANDOFF1–5/RESUME_NOTES에 기록했다.
-- 학습 source/config, 배치, LR, queue, 모듈, 평가 계획은 변경하지 않았다. 새 GPU 평가를 시작하지 않았다.
+- 사용자 요청에 Adapter2epoch/LoRA5400 체크포인트를 고정하고 공통navtest1,024장면·44recording을 점수 확인 전에 선정했다. 두 학습 및 Stage1과 token/recording 중복0을 검증했다.
+- 각 모델의 기존 입력 전처리를 보존하는 공통 입력 준비/추론/공식PDMS채점/대응bootstrap과 일시 GPU양보 후 자동학습재개 queue를 추가했다. 본학습/Adapter 기존등록source/config는 변경하지 않았다.
+- CPU 모델실행·공식cache채점검사, GPU전체추론·1,024장면씩공식평가를 완료했다. Adapter81.6141/LoRA81.6096,차이CI[−1.9981,+1.9968];ADE/FDE와상황별·안전/진행지표를함께기록했다.
+- Adapter11,699 fullstate를 보존한 뒤 잠시GPU를양보했고추론완료후동일config/AdamW124state/LR로자동재개했다. 본학습은계속실행했다. 평가종료와학습진행·323source불변을확인했다.
+- 결과JSON/CSV와HANDOFF1–5/RESUME_NOTES/실험문서에평가노출·남은아키텍처/학습조건차이를명시했다. 새학습·자동튜닝·중복평가를등록하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+완료한공통평가를반복하지않는다. 기존Adapter3epoch→동일dev검증→본학습batch16복원을유지한다. 공통navtest점수로checkpoint선택/학습설정/25epoch계획을자동변경하지않는다. 향후공식전체navtest보고시이번1,024장면노출을명시한다.
 
 Adapter14,121 epoch3→동일dev/영상유지평가의기존queue유지. 완료후watcher의본학습batch16복원을확인한다. 본학습다음5,500표현진단대기. 새추가학습·학습률재시작·본학습PDMS일회평가는이번상태조회에서시작하지않았다.
 
@@ -2369,6 +2395,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+사용자는동일장면비교후Adapter를2epoch기준으로고정하라고정정했다. 공통실행은Adapter9414 vs요청시최신저장LoRA5400이다. 원래3epoch동일비교안은입력준비만수행했고queue미기동이며새대기열에추가하지않았다. 본비교는시스템비교이고LoRA/Adapter의단독효과·훈련수렴·최종benchmark우열은미확정이다.
 
 최신요청은중간결과보고다. Adapter2epoch의상승은기존내부dev/1seed/마지막낮은LR연장조건의결과다. Planner와Adapter의개별기여및navtest일반화는아직분리검증되지않았다. 서로다른planner/평가패널의83.53과80.35를방법순위로비교하지않는다.
 

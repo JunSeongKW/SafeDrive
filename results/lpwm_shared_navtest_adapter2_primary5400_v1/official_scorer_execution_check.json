@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "token": "50d6986491d3510a",
+      "valid": true
+    },
+    {
+      "token": "8e2d1588daa3536f",
+      "valid": true
+    },
+    {
+      "token": "4826c59b43f6568a",
+      "valid": true
+    }
+  ],
+  "scope": "Environment and cache-format smoke check using stationary zero trajectories, not model performance"
+}

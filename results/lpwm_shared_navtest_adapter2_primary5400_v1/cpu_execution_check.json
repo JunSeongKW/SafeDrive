@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "checks": {
+    "primary": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_shared_navtest_adapter2_primary5400_v1/checkpoints/primary_update5400.pt",
+      "checkpoint_sha256": "d7addc72362dbc07c0fc19071919a3304d32a5417d63ac2da4a3bc941576331e",
+      "completed_updates": 5400,
+      "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+      "finite": true,
+      "trajectory_shape": [
+        8,
+        3
+      ],
+      "seconds": 19.815849422942847,
+      "no_training_updates": true,
+      "metric_computed": false
+    },
+    "adapter": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_adapter_original_batch_shared_v4/epoch02_resume.pt",
+      "checkpoint_sha256": "9df6bd024921392eb070b8d8e83c2a53497a7df970cd65201255c45e773a48c5",
+      "completed_updates": 9414,
+      "frozen_native_sha256": "18e5ac965f13c9be0a7930a64664639c291c75c32018adc9f16ae904b47c14cb",
+      "finite": true,
+      "trajectory_shape": [
+        8,
+        3
+      ],
+      "seconds": 7.2205453281058,
+      "no_training_updates": true,
+      "metric_computed": false
+    }
+  },
+  "scope": "CPU execution smoke check of the exact comparison checkpoints; no performance result"
+}

@@ -1,0 +1,22 @@
+{
+  "complete": true,
+  "configuration_sha256": "28d2549f25d3e4127d86fc75a3b88eebb04f4842aa17844c5bf2b2ca4183ae0d",
+  "panel_sha256": "a8d5e2fb6ac3eb6f933536990c228216206bfc4fa7f9ee28b9dd2b3ad81053ee",
+  "scene_count": 1024,
+  "recording_count": 44,
+  "training_token_overlap": 0,
+  "training_recording_overlap": 0,
+  "files_sha256": {
+    "inputs/primary_current_images.npy": "b31e19a387e1e42ec3de7e6bf1b04d549cb974452ba3c22fc9fc033544bded99",
+    "inputs/adapter_ego.npy": "f64c64348c28dd7ec92a6d98ef8a560271f473d46787516a6a339015e51269ff",
+    "inputs/primary_ego.npy": "3f1324c32cdae1ab7f4bf13446a29af794a40b930dc097435ebf10fff2e6f077",
+    "inputs/ground_truth_trajectory.npy": "4c63fd49160a597c5fb3ff0b8e5b70a6ba4465cb5e9ff126fad35b57a450f510",
+    "inputs/adapter_observed_images.npy": "94a8cbd7529ac86afbd3c2f37d884dac742c31077dcfc8bd1f230aadb7630589"
+  },
+  "metadata_sha256": "bf3b4715c3955ece10a353844c5cd98e5f41c6445b6236f5a77a0c7104e6d21f",
+  "preprocessing": {
+    "primary": "Four current cameras, full-image128x128 BICUBIC, original11Dego",
+    "adapter": "Four historical/current front frames, crop28top/bottom,128x128 INTER_AREA, original8Dego"
+  },
+  "prepared_inputs_reused_from": "outputs/lpwm_shared_navtest_comparison_epoch3_v1"
+}

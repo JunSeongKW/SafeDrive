@@ -1,0 +1,14 @@
+{
+  "launch": {
+    "queue_pid": 1208639,
+    "started_unix": 1791412943.5167177
+  },
+  "unchanged_configuration": "configs/lpwm_adapter_original_batch_rebalance/adapter_batch8_shared.json",
+  "resumed_from": {
+    "reason": "resource_or_user_pause",
+    "completed_updates": 11699,
+    "checkpoint_sha256": "46111c76c3e44bf45b4966dad7bdfbf552a48eb71df554ef61b5059013232796",
+    "updated_unix": 1791412044.5734622
+  },
+  "resumed_unix": 1791412943.5258193
+}
