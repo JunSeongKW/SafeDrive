@@ -328,7 +328,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 07:46 KST (Codex)
+마지막 갱신: 2026-10-08 08:02 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -495,6 +495,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 08:02 KST: 이번 요청은 본학습 입력 명세 확인이다. 학습·평가·queue 설정은 변경하지 않았다.
 
 2026-10-08 07:46 KST: 공통비교완료,평가GPU종료. 본학습875422/5,419계속. Adapter는새queue1208639/train1212507로11,699 fullstate에서재개되어11,744. 이전queue918561은종료;재기동금지. 기존batch16복원watcher967796대기.
 
@@ -1070,6 +1072,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 입력 코드/manifest 확인: 본학습 LPWM+DrivoR는 CAM_F0/B0/L0/R0 각 현재 RGB 1장, 전체 영상을 BICUBIC으로128×128 변환한다. 이미지 tensor는 [batch,4,3,128,128]이며 과거 영상 입력은 없다. Ego11=[현재좌표계pose3(0),velocity2,acceleration2,command4]; command는 encoder FiLM에도 주입한다. 미래8단계 particle은 현재 관측에서 생성한 prior 예측이다. 병행 Adapter는 전방1카메라의 과거3+현재1프레임(0.5초 간격), 각128×128로 시간 입력이 다르다.
 
 공통navtest1,024/44recording/모델별실패0에서 Adapter2epoch81.6141,LoRA5400(3.346epoch)81.6096. PDMS차이LoRA−Adapter−.004515,CI[−1.9981,+1.9968]. ADE/FDE는Adapter1.1632/2.7367 대 LoRA2.3644/5.4760m. LoRA안전관련평균높음/Adapter진행률높음. 평가지표동일/단독방법효과나전체navtest성능주장없음.
 
@@ -1885,13 +1889,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청에 Adapter2epoch/LoRA5400 체크포인트를 고정하고 공통navtest1,024장면·44recording을 점수 확인 전에 선정했다. 두 학습 및 Stage1과 token/recording 중복0을 검증했다.
-- 각 모델의 기존 입력 전처리를 보존하는 공통 입력 준비/추론/공식PDMS채점/대응bootstrap과 일시 GPU양보 후 자동학습재개 queue를 추가했다. 본학습/Adapter 기존등록source/config는 변경하지 않았다.
-- CPU 모델실행·공식cache채점검사, GPU전체추론·1,024장면씩공식평가를 완료했다. Adapter81.6141/LoRA81.6096,차이CI[−1.9981,+1.9968];ADE/FDE와상황별·안전/진행지표를함께기록했다.
-- Adapter11,699 fullstate를 보존한 뒤 잠시GPU를양보했고추론완료후동일config/AdamW124state/LR로자동재개했다. 본학습은계속실행했다. 평가종료와학습진행·323source불변을확인했다.
-- 결과JSON/CSV와HANDOFF1–5/RESUME_NOTES/실험문서에평가노출·남은아키텍처/학습조건차이를명시했다. 새학습·자동튜닝·중복평가를등록하지않았다.
+- 본학습의 실제 입력 코드와 scene cache manifest를 확인하고 4카메라·현재1프레임·128×128·ego11 입력 명세를 기록했다.
+- 생성한 미래 particle과 관측 영상 프레임을 구분하고, 병행 Adapter의 전방1카메라·과거3+현재1프레임 입력과 차이를 설명했다.
+- HANDOFF와 RESUME_NOTES만 갱신했다. 등록된 학습/평가 source·config·checkpoint는 수정하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+이번 입력 명세 설명에 따른 새 실험은 없다. 기존 학습과 검증 대기열을 유지한다.
 
 완료한공통평가를반복하지않는다. 기존Adapter3epoch→동일dev검증→본학습batch16복원을유지한다. 공통navtest점수로checkpoint선택/학습설정/25epoch계획을자동변경하지않는다. 향후공식전체navtest보고시이번1,024장면노출을명시한다.
 
@@ -2395,6 +2399,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재 요청 범위는 본학습 입력 설명이다. 카메라 수·시간축·해상도를 변경하지 않았으며, Drive-JEPA 입력에 대한 사용자 전제는 이번 조사 대상이 아니다.
 
 사용자는동일장면비교후Adapter를2epoch기준으로고정하라고정정했다. 공통실행은Adapter9414 vs요청시최신저장LoRA5400이다. 원래3epoch동일비교안은입력준비만수행했고queue미기동이며새대기열에추가하지않았다. 본비교는시스템비교이고LoRA/Adapter의단독효과·훈련수렴·최종benchmark우열은미확정이다.
 

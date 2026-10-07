@@ -3538,3 +3538,11 @@ ADE Adapter1.1632/LoRA2.3644m,FDE2.7367/5.4760m. LoRA무과실충돌·도로준�
 비교중Adapter11,699의124AdamW/마지막LR상태를완전저장해잠시GPU양보,추론완료후동일v4queue로자동재개했다. 현재queue1208639/train1212507,Adapter11,744;본학습875422는계속진행해5,419.
 평가queue966120와GPU추론970996/1176048·CPU채점1208640은완료. 새source323개불변검사통과. 기존batch복원watcher967796은Adapter3epoch/검증완료를기다린다.
 결과 `results/lpwm_shared_navtest_adapter2_primary5400_v1/evaluation_complete.json`,양모델CSV및resume검사동일폴더. 완료평가를재기동하지않는다.
+
+## 2026-10-08 08:02 KST — 본학습 입력 명세 확인
+
+사용자가 Drive-JEPA의 카메라/해상도/시간 프레임 표기처럼 현재 본학습 입력을 요청했다.
+`scripts/prepare_lpwm_drivor_joint_data.py:24,68,85,153` 및 scene cache manifest에서 CAM_F0/B0/L0/R0 현재 RGB 각1장, 전체 이미지 BICUBIC128×128, 과거/미래 영상 입력 없음 확인.
+`src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py:83,105,148`에서 이미지 [batch,4,3,128,128], encoder 단일 관측, dynamics prior 미래8단계 생성 및 command FiLM 경로 확인.
+Ego11은 현재 ego 좌표계 pose3(실제0), velocity2, acceleration2, command4다. 병행 Adapter는 전방1카메라의 과거3+현재1프레임(0.5초 간격), 각128×128이므로 두 종류의 4장 입력을 혼동하지 않는다.
+학습 코드/설정/대기열은 변경하지 않았다. 설명을 위해 학습·평가를 새로 실행하지 않았다.
