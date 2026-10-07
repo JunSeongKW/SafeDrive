@@ -1,0 +1,852 @@
+{
+  "metrics": {
+    "completed_updates": 3228,
+    "previous_diagnostic_updates": 3000,
+    "center_mean_from_initial_px": 1.675429056190713,
+    "center_max_from_initial_px": 22.500118255615234,
+    "size_mean_from_initial_percent": 15.032438640679828,
+    "presence_mean_from_initial": 0.2839015129484766,
+    "center_mean_from_previous_px": 1.0388638069757523,
+    "size_mean_from_previous_percent": 6.944177457602532,
+    "object_readout_macro_f1": 0.41825013419216317
+  },
+  "from_initial": {
+    "particle_count": 24576,
+    "centers_bitwise_identical": false,
+    "sizes_bitwise_identical": false,
+    "center_shift_input_pixels": {
+      "mean": 1.675429056190713,
+      "median": 1.3028809428215027,
+      "p90": 3.359307646751404,
+      "p99": 6.944477677345276,
+      "maximum": 22.500118255615234
+    },
+    "size_axis_absolute_change_input_pixels": {
+      "mean": 5.443742343690246,
+      "median": 4.073718070983887,
+      "p90": 12.305188941955567,
+      "p99": 21.190540351867668,
+      "maximum": 35.74671173095703
+    },
+    "size_axis_relative_change_percent": {
+      "mean": 15.032438640679828,
+      "median": 11.610161304473877,
+      "p90": 33.32064590454102,
+      "p99": 52.4499988555908,
+      "maximum": 70.81609344482422
+    },
+    "presence_absolute_change": {
+      "mean": 0.2839015129484766,
+      "median": 0.09848597645759583,
+      "p90": 0.9219962656497955,
+      "p99": 0.9962581694126129,
+      "maximum": 0.9993895888328552
+    },
+    "fraction_center_shift_over_one_input_pixel": 0.63330078125,
+    "fraction_particles_any_size_axis_change_over_five_percent": 0.9148763020833334
+  },
+  "from_previous_diagnostic": {
+    "particle_count": 24576,
+    "centers_bitwise_identical": false,
+    "sizes_bitwise_identical": false,
+    "center_shift_input_pixels": {
+      "mean": 1.0388638069757523,
+      "median": 0.69673752784729,
+      "p90": 2.2493669986724854,
+      "p99": 5.466073989868164,
+      "maximum": 19.496654510498047
+    },
+    "size_axis_absolute_change_input_pixels": {
+      "mean": 2.2905050626723096,
+      "median": 1.5941963195800781,
+      "p90": 5.436012649536137,
+      "p99": 9.169229183197018,
+      "maximum": 19.364648818969727
+    },
+    "size_axis_relative_change_percent": {
+      "mean": 6.944177457602532,
+      "median": 4.831953763961792,
+      "p90": 16.57249927520752,
+      "p99": 26.941836414337157,
+      "maximum": 82.11317443847656
+    },
+    "presence_absolute_change": {
+      "mean": 0.061026565510543085,
+      "median": 0.004244683776050806,
+      "p90": 0.1983625441789627,
+      "p99": 0.6695758402347565,
+      "maximum": 0.9851880669593811
+    },
+    "fraction_center_shift_over_one_input_pixel": 0.3539632161458333,
+    "fraction_particles_any_size_axis_change_over_five_percent": 0.643310546875
+  },
+  "by_camera": {
+    "front": {
+      "particle_count": 6144,
+      "centers_bitwise_identical": false,
+      "sizes_bitwise_identical": false,
+      "center_shift_input_pixels": {
+        "mean": 1.6938903594218573,
+        "median": 1.3247034549713135,
+        "p90": 3.4262582302093505,
+        "p99": 6.858226079940795,
+        "maximum": 22.500118255615234
+      },
+      "size_axis_absolute_change_input_pixels": {
+        "mean": 5.845167468069121,
+        "median": 4.372162818908691,
+        "p90": 13.384691238403331,
+        "p99": 21.538881416320795,
+        "maximum": 30.175758361816406
+      },
+      "size_axis_relative_change_percent": {
+        "mean": 16.004685049971158,
+        "median": 12.432047843933105,
+        "p90": 35.35250968933106,
+        "p99": 52.960912475585864,
+        "maximum": 65.64825439453125
+      },
+      "presence_absolute_change": {
+        "mean": 0.3140922483706608,
+        "median": 0.12419145926833153,
+        "p90": 0.9496742844581604,
+        "p99": 0.9966669118404389,
+        "maximum": 0.999242901802063
+      },
+      "fraction_center_shift_over_one_input_pixel": 0.63134765625,
+      "fraction_particles_any_size_axis_change_over_five_percent": 0.9205729166666666
+    },
+    "back": {
+      "particle_count": 6144,
+      "centers_bitwise_identical": false,
+      "sizes_bitwise_identical": false,
+      "center_shift_input_pixels": {
+        "mean": 1.7073992903982191,
+        "median": 1.2987138628959656,
+        "p90": 3.515645360946655,
+        "p99": 7.25639699935913,
+        "maximum": 20.784086227416992
+      },
+      "size_axis_absolute_change_input_pixels": {
+        "mean": 5.462598007172346,
+        "median": 3.884561538696289,
+        "p90": 12.900337409973146,
+        "p99": 21.772706756591795,
+        "maximum": 28.387393951416016
+      },
+      "size_axis_relative_change_percent": {
+        "mean": 14.913705424417836,
+        "median": 10.912240982055664,
+        "p90": 34.11753158569338,
+        "p99": 53.95925632476804,
+        "maximum": 64.63951110839844
+      },
+      "presence_absolute_change": {
+        "mean": 0.28975113086470766,
+        "median": 0.09726284816861153,
+        "p90": 0.9348555147647858,
+        "p99": 0.9964978343248367,
+        "maximum": 0.9990971684455872
+      },
+      "fraction_center_shift_over_one_input_pixel": 0.6302083333333334,
+      "fraction_particles_any_size_axis_change_over_five_percent": 0.9055989583333334
+    },
+    "left": {
+      "particle_count": 6144,
+      "centers_bitwise_identical": false,
+      "sizes_bitwise_identical": false,
+      "center_shift_input_pixels": {
+        "mean": 1.6831989857047727,
+        "median": 1.3187934160232544,
+        "p90": 3.3579807758331284,
+        "p99": 6.750397996902459,
+        "maximum": 15.196943283081055
+      },
+      "size_axis_absolute_change_input_pixels": {
+        "mean": 5.400372749116893,
+        "median": 4.159400939941406,
+        "p90": 11.97245082855226,
+        "p99": 20.823147544860838,
+        "maximum": 32.89851760864258
+      },
+      "size_axis_relative_change_percent": {
+        "mean": 14.96004944711823,
+        "median": 11.79414701461792,
+        "p90": 32.79736213684083,
+        "p99": 50.98598884582519,
+        "maximum": 67.01994323730469
+      },
+      "presence_absolute_change": {
+        "mean": 0.27235130654293965,
+        "median": 0.08986040204763412,
+        "p90": 0.9036482751369477,
+        "p99": 0.995804950594902,
+        "maximum": 0.99900221824646
+      },
+      "fraction_center_shift_over_one_input_pixel": 0.6451822916666666,
+      "fraction_particles_any_size_axis_change_over_five_percent": 0.9191080729166666
+    },
+    "right": {
+      "particle_count": 6144,
+      "centers_bitwise_identical": false,
+      "sizes_bitwise_identical": false,
+      "center_shift_input_pixels": {
+        "mean": 1.6172275892380032,
+        "median": 1.2774879932403564,
+        "p90": 3.1294577360153193,
+        "p99": 6.838720374107353,
+        "maximum": 21.561492919921875
+      },
+      "size_axis_absolute_change_input_pixels": {
+        "mean": 5.066831150402625,
+        "median": 3.9476890563964844,
+        "p90": 10.947433280944825,
+        "p99": 20.21867805480957,
+        "maximum": 35.74671173095703
+      },
+      "size_axis_relative_change_percent": {
+        "mean": 14.25131464121209,
+        "median": 11.20203685760498,
+        "p90": 31.0560178756714,
+        "p99": 49.87945163726806,
+        "maximum": 70.81609344482422
+      },
+      "presence_absolute_change": {
+        "mean": 0.25941136601559833,
+        "median": 0.08818161860108376,
+        "p90": 0.8666410326957702,
+        "p99": 0.994231269955635,
+        "maximum": 0.9993895888328552
+      },
+      "fraction_center_shift_over_one_input_pixel": 0.62646484375,
+      "fraction_particles_any_size_axis_change_over_five_percent": 0.9142252604166666
+    }
+  },
+  "by_scene_type": {
+    "straight": {
+      "particle_count": 10752,
+      "centers_bitwise_identical": false,
+      "sizes_bitwise_identical": false,
+      "center_shift_input_pixels": {
+        "mean": 1.6976508577533553,
+        "median": 1.3393915295600891,
+        "p90": 3.3468267440795896,
+        "p99": 6.970309629440307,
+        "maximum": 20.784086227416992
+      },
+      "size_axis_absolute_change_input_pixels": {
+        "mean": 5.554777971912353,
+        "median": 4.224710464477539,
+        "p90": 12.391732215881348,
+        "p99": 21.03430103302006,
+        "maximum": 35.74671173095703
+      },
+      "size_axis_relative_change_percent": {
+        "mean": 15.344087583345765,
+        "median": 12.019805431365967,
+        "p90": 33.455932998657225,
+        "p99": 52.51623085021975,
+        "maximum": 70.81609344482422
+      },
+      "presence_absolute_change": {
+        "mean": 0.284700892613856,
+        "median": 0.09860742092132568,
+        "p90": 0.9144063413143158,
+        "p99": 0.9957561814785003,
+        "maximum": 0.9991639256477356
+      },
+      "fraction_center_shift_over_one_input_pixel": 0.6458333333333334,
+      "fraction_particles_any_size_axis_change_over_five_percent": 0.9243861607142857
+    },
+    "left_turn": {
+      "particle_count": 7680,
+      "centers_bitwise_identical": false,
+      "sizes_bitwise_identical": false,
+      "center_shift_input_pixels": {
+        "mean": 1.6315095981185246,
+        "median": 1.2614600658416748,
+        "p90": 3.3044766426086434,
+        "p99": 6.78894627094269,
+        "maximum": 13.2134428024292
+      },
+      "size_axis_absolute_change_input_pixels": {
+        "mean": 5.228430226941904,
+        "median": 3.839776039123535,
+        "p90": 11.851691246032717,
+        "p99": 21.18421131134033,
+        "maximum": 32.89851760864258
+      },
+      "size_axis_relative_change_percent": {
+        "mean": 14.478932657856237,
+        "median": 11.026228904724121,
+        "p90": 32.39728202819825,
+        "p99": 52.26419063568115,
+        "maximum": 63.6861686706543
+      },
+      "presence_absolute_change": {
+        "mean": 0.2838106938742764,
+        "median": 0.10068228468298912,
+        "p90": 0.9281757891178132,
+        "p99": 0.9966185086965561,
+        "maximum": 0.999242901802063
+      },
+      "fraction_center_shift_over_one_input_pixel": 0.616796875,
+      "fraction_particles_any_size_axis_change_over_five_percent": 0.9046875
+    },
+    "right_turn": {
+      "particle_count": 6144,
+      "centers_bitwise_identical": false,
+      "sizes_bitwise_identical": false,
+      "center_shift_input_pixels": {
+        "mean": 1.6914402260463248,
+        "median": 1.3033865094184875,
+        "p90": 3.4229487419128413,
+        "p99": 7.0640361928939654,
+        "maximum": 22.500118255615234
+      },
+      "size_axis_absolute_change_input_pixels": {
+        "mean": 5.518570140236989,
+        "median": 4.100118637084961,
+        "p90": 12.630051040649416,
+        "p99": 21.263097496032714,
+        "maximum": 32.13831329345703
+      },
+      "size_axis_relative_change_percent": {
+        "mean": 15.17893546954393,
+        "median": 11.550322532653809,
+        "p90": 34.2394401550293,
+        "p99": 52.607335205078094,
+        "maximum": 66.6241455078125
+      },
+      "presence_absolute_change": {
+        "mean": 0.28261612237681294,
+        "median": 0.09657201543450356,
+        "p90": 0.9258081138134002,
+        "p99": 0.9964181834459305,
+        "maximum": 0.9993895888328552
+      },
+      "fraction_center_shift_over_one_input_pixel": 0.6319986979166666,
+      "fraction_particles_any_size_axis_change_over_five_percent": 0.9109700520833334
+    }
+  },
+  "representation_diagnostics": {
+    "distribution": {
+      "all": {
+        "scene_count": 96,
+        "vehicle": {
+          "center_fraction": 0.09073893229166667,
+          "presence_weighted_fraction": 0.12672192855315245,
+          "enrichment_ratio_of_sums": 1.5971630000787345
+        },
+        "pedestrian": {
+          "center_fraction": 0.012532552083333334,
+          "presence_weighted_fraction": 0.018042531255180922,
+          "enrichment_ratio_of_sums": 1.5514554782357317
+        },
+        "bicycle": {
+          "center_fraction": 0.0007731119791666666,
+          "presence_weighted_fraction": 0.0010373786972195376,
+          "enrichment_ratio_of_sums": 1.4555357780762808
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.18544407894736842,
+          "presence_weighted_fraction": 0.0457845360882055,
+          "enrichment_ratio_of_sums": 0.21071097380796225
+        },
+        "road_proxy": {
+          "center_fraction": 0.19847861842105263,
+          "presence_weighted_fraction": 0.049498648802459924,
+          "enrichment_ratio_of_sums": 0.20702535265205813
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.22635690789473684,
+          "presence_weighted_fraction": 0.0722845030546571,
+          "enrichment_ratio_of_sums": 0.2710525739463413
+        },
+        "upper_third_fraction_not_sky_label": 0.3581136067708333
+      },
+      "straight": {
+        "scene_count": 42,
+        "vehicle": {
+          "center_fraction": 0.1154203869047619,
+          "presence_weighted_fraction": 0.1570406773216313,
+          "enrichment_ratio_of_sums": 1.5389634136748302
+        },
+        "pedestrian": {
+          "center_fraction": 0.014973958333333334,
+          "presence_weighted_fraction": 0.021099189265355346,
+          "enrichment_ratio_of_sums": 1.492796926875431
+        },
+        "bicycle": {
+          "center_fraction": 0.0004650297619047619,
+          "presence_weighted_fraction": 0.0008604786597147939,
+          "enrichment_ratio_of_sums": 2.2323071033071504
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.16539634146341464,
+          "presence_weighted_fraction": 0.04159603626989082,
+          "enrichment_ratio_of_sums": 0.20984837179916707
+        },
+        "road_proxy": {
+          "center_fraction": 0.17520960365853658,
+          "presence_weighted_fraction": 0.04104912072247449,
+          "enrichment_ratio_of_sums": 0.1877617343887532
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.20445884146341464,
+          "presence_weighted_fraction": 0.06629356160227894,
+          "enrichment_ratio_of_sums": 0.27050711992820825
+        },
+        "upper_third_fraction_not_sky_label": 0.35695684523809523
+      },
+      "left_turn": {
+        "scene_count": 30,
+        "vehicle": {
+          "center_fraction": 0.06536458333333334,
+          "presence_weighted_fraction": 0.09510990177045642,
+          "enrichment_ratio_of_sums": 1.6819456872631835
+        },
+        "pedestrian": {
+          "center_fraction": 0.008203125,
+          "presence_weighted_fraction": 0.012835463448330605,
+          "enrichment_ratio_of_sums": 1.8042144831982438
+        },
+        "bicycle": {
+          "center_fraction": 0.0016927083333333334,
+          "presence_weighted_fraction": 0.0018419467533628145,
+          "enrichment_ratio_of_sums": 1.0758807703064655
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.20286458333333332,
+          "presence_weighted_fraction": 0.0459165944799679,
+          "enrichment_ratio_of_sums": 0.19904024445805973
+        },
+        "road_proxy": {
+          "center_fraction": 0.21901041666666668,
+          "presence_weighted_fraction": 0.05123311330571596,
+          "enrichment_ratio_of_sums": 0.20082019878605228
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.24088541666666666,
+          "presence_weighted_fraction": 0.06795172298679972,
+          "enrichment_ratio_of_sums": 0.23936253528197468
+        },
+        "upper_third_fraction_not_sky_label": 0.359765625
+      },
+      "right_turn": {
+        "scene_count": 24,
+        "vehicle": {
+          "center_fraction": 0.07926432291666667,
+          "presence_weighted_fraction": 0.11317915168668453,
+          "enrichment_ratio_of_sums": 1.661769661686694
+        },
+        "pedestrian": {
+          "center_fraction": 0.013671875,
+          "presence_weighted_fraction": 0.01920221449593858,
+          "enrichment_ratio_of_sums": 1.4896410308725
+        },
+        "bicycle": {
+          "center_fraction": 0.00016276041666666666,
+          "presence_weighted_fraction": 0.00034124369267374277,
+          "enrichment_ratio_of_sums": 9.41631437602796
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.19791666666666666,
+          "presence_weighted_fraction": 0.05277481695479006,
+          "enrichment_ratio_of_sums": 0.22640147309691255
+        },
+        "road_proxy": {
+          "center_fraction": 0.21256510416666666,
+          "presence_weighted_fraction": 0.06176517864336498,
+          "enrichment_ratio_of_sums": 0.2431361911431179
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.24560546875,
+          "presence_weighted_fraction": 0.08793500312062481,
+          "enrichment_ratio_of_sums": 0.3117269094981359
+        },
+        "upper_third_fraction_not_sky_label": 0.3580729166666667
+      },
+      "projected_overlap": {
+        "scene_count": 93,
+        "vehicle": {
+          "center_fraction": 0.0934559811827957,
+          "presence_weighted_fraction": 0.13006269534953782,
+          "enrichment_ratio_of_sums": 1.5903197213538067
+        },
+        "pedestrian": {
+          "center_fraction": 0.012810819892473119,
+          "presence_weighted_fraction": 0.01839226975770084,
+          "enrichment_ratio_of_sums": 1.53944942181336
+        },
+        "bicycle": {
+          "center_fraction": 0.0007980510752688173,
+          "presence_weighted_fraction": 0.0010708425261621033,
+          "enrichment_ratio_of_sums": 1.4555357780762808
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.18614130434782608,
+          "presence_weighted_fraction": 0.04552883330076626,
+          "enrichment_ratio_of_sums": 0.20885088073786595
+        },
+        "road_proxy": {
+          "center_fraction": 0.19938858695652173,
+          "presence_weighted_fraction": 0.0488808342419183,
+          "enrichment_ratio_of_sums": 0.20377602479238777
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.22647758152173914,
+          "presence_weighted_fraction": 0.07109924849861649,
+          "enrichment_ratio_of_sums": 0.2664032246853224
+        },
+        "upper_third_fraction_not_sky_label": 0.3580729166666667
+      }
+    },
+    "paired_interventions": {
+      "future_repeat_current": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": 0.060179208715756737,
+          "confidence_interval_95": [
+            -0.08930219362179438,
+            0.21563958016534643
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": -0.010933098693688711,
+          "confidence_interval_95": [
+            -0.10346635741492112,
+            0.10500898708899815
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "ade_m_change": {
+          "difference": 0.18193192780017853,
+          "confidence_interval_95": [
+            -0.042265507951378824,
+            0.46251504595081006
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "mean_trajectory_change_m": 0.8554109446704388
+      },
+      "future_reverse_time": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": 0.16806236654520035,
+          "confidence_interval_95": [
+            -0.0051343629757563255,
+            0.34475243526200455
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": 0.03421625246604284,
+          "confidence_interval_95": [
+            -0.006296088298161824,
+            0.11096323778231938
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "ade_m_change": {
+          "difference": 0.3707183947165807,
+          "confidence_interval_95": [
+            0.15011696567138036,
+            0.6570792254060506
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "mean_trajectory_change_m": 0.5295587250341972
+      },
+      "matched_control_mean": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": -0.001992332935333252,
+          "confidence_interval_95": [
+            -0.007221102714538574,
+            0.0013150691986083985
+          ],
+          "recordings": 5,
+          "objects": 5
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": -0.002711164951324463,
+          "confidence_interval_95": [
+            -0.008133494853973388,
+            0.0
+          ],
+          "recordings": 5,
+          "objects": 5
+        },
+        "ade_m_change": {
+          "difference": 0.19946818351745604,
+          "confidence_interval_95": [
+            -0.011202551126480102,
+            0.6084479570388794
+          ],
+          "recordings": 5,
+          "objects": 5
+        },
+        "mean_trajectory_change_m": 0.23267788514494897
+      },
+      "relevant_particle_mean": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": 0.09142215251922607,
+          "confidence_interval_95": [
+            0.0010860976576805115,
+            0.27027713060379027
+          ],
+          "recordings": 5,
+          "objects": 5
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": 0.08696314692497253,
+          "confidence_interval_95": [
+            -0.005422329902648926,
+            0.269022935628891
+          ],
+          "recordings": 5,
+          "objects": 5
+        },
+        "ade_m_change": {
+          "difference": 0.2542933702468872,
+          "confidence_interval_95": [
+            -0.04116311073303223,
+            0.8232614040374756
+          ],
+          "recordings": 5,
+          "objects": 5
+        },
+        "mean_trajectory_change_m": 0.31030636057257655
+      }
+    },
+    "intent_sensitivity": {
+      "current_center_shift_mean_px": 0.40303862902025384,
+      "current_foreground_feature_rms_change": 0.1422846925755342,
+      "future_attribute_rms_change": 0.09713631371657054,
+      "encoder_only_trajectory_change_m": 0.23395227159683904,
+      "planner_only_trajectory_change_m": 1.3503876738250256,
+      "both_trajectory_change_m": 1.3821357054015
+    },
+    "interpretation": "Location is a proxy; readouts measure accessible information; interventions measure model reliance and may be out of distribution. No automatic success gate."
+  },
+  "readouts": {
+    "object_view_samples": 2974,
+    "fit_samples": 2286,
+    "evaluation_samples": 688,
+    "empty_support_fraction": 0.0,
+    "scope": "Recording-disjoint readout fit/evaluation, both from upstream planning TRAIN distribution. GT association is privileged. No LPWM updates.",
+    "classification": {
+      "gt_roi_geometry_control": {
+        "macro_f1_present_classes": 0.414808390036129,
+        "balanced_accuracy_present_classes": 0.48120623249299727,
+        "per_class_recall": [
+          0.4235294117647059,
+          0.734375,
+          0.2857142857142857
+        ],
+        "per_class_f1": [
+          0.5834683954619124,
+          0.6372881355932203,
+          0.023668639053254437
+        ],
+        "class_counts": [
+          425,
+          256,
+          7
+        ],
+        "confusion": [
+          [
+            180,
+            141,
+            104
+          ],
+          [
+            12,
+            188,
+            56
+          ],
+          [
+            0,
+            5,
+            2
+          ]
+        ]
+      },
+      "particle_current_appearance": {
+        "macro_f1_present_classes": 0.36482231219073324,
+        "balanced_accuracy_present_classes": 0.3241850490196078,
+        "per_class_recall": [
+          0.5741176470588235,
+          0.3984375,
+          0.0
+        ],
+        "per_class_f1": [
+          0.6585695006747638,
+          0.4358974358974359,
+          0.0
+        ],
+        "class_counts": [
+          425,
+          256,
+          7
+        ],
+        "confusion": [
+          [
+            244,
+            108,
+            73
+          ],
+          [
+            67,
+            102,
+            87
+          ],
+          [
+            5,
+            2,
+            0
+          ]
+        ]
+      },
+      "particle_current_all": {
+        "macro_f1_present_classes": 0.41825013419216317,
+        "balanced_accuracy_present_classes": 0.4011672794117647,
+        "per_class_recall": [
+          0.4964705882352941,
+          0.70703125,
+          0.0
+        ],
+        "per_class_f1": [
+          0.6251851851851852,
+          0.6295652173913043,
+          0.0
+        ],
+        "class_counts": [
+          425,
+          256,
+          7
+        ],
+        "confusion": [
+          [
+            211,
+            136,
+            78
+          ],
+          [
+            34,
+            181,
+            41
+          ],
+          [
+            5,
+            2,
+            0
+          ]
+        ]
+      }
+    },
+    "future_displacement": {
+      "2": {
+        "valid_evaluation_samples": 622,
+        "methods": {
+          "zero_displacement": {
+            "mean_l2_m": 3.3339105936144846,
+            "valid_count": 622
+          },
+          "constant_velocity_gt_state_control": {
+            "mean_l2_m": 0.5825068205928345,
+            "valid_count": 622
+          },
+          "gt_roi_geometry_control": {
+            "mean_l2_m": 3.8719575662508268,
+            "valid_count": 622
+          },
+          "particle_current_appearance": {
+            "mean_l2_m": 3.900230222838418,
+            "valid_count": 622
+          },
+          "particle_current_all": {
+            "mean_l2_m": 3.9492063393963868,
+            "valid_count": 622
+          },
+          "predicted_2s_all": {
+            "mean_l2_m": 3.9756628976734865,
+            "valid_count": 622
+          }
+        },
+        "predicted_minus_current_error": {
+          "difference": 0.026456558277099525,
+          "confidence_interval_95": [
+            -0.05165975617564757,
+            0.08846312607432792
+          ],
+          "recordings": 6,
+          "objects": 622
+        }
+      },
+      "4": {
+        "valid_evaluation_samples": 554,
+        "methods": {
+          "zero_displacement": {
+            "mean_l2_m": 6.726962394343776,
+            "valid_count": 554
+          },
+          "constant_velocity_gt_state_control": {
+            "mean_l2_m": 1.8459262831979484,
+            "valid_count": 554
+          },
+          "gt_roi_geometry_control": {
+            "mean_l2_m": 7.941710784951201,
+            "valid_count": 554
+          },
+          "particle_current_appearance": {
+            "mean_l2_m": 8.074792810755097,
+            "valid_count": 554
+          },
+          "particle_current_all": {
+            "mean_l2_m": 8.149320538119673,
+            "valid_count": 554
+          },
+          "predicted_4s_all": {
+            "mean_l2_m": 8.266721454503003,
+            "valid_count": 554
+          }
+        },
+        "predicted_minus_current_error": {
+          "difference": 0.11740091638333153,
+          "confidence_interval_95": [
+            -0.1351184549824138,
+            0.28597547243927374
+          ],
+          "recordings": 6,
+          "objects": 554
+        }
+      }
+    }
+  },
+  "checkpoint": {
+    "complete": true,
+    "completed_updates": 3228,
+    "checkpoint_sha256": "dc4f4ed1228a87fbae82dff86c39406e14c2feb50f9e3eaa6356754214554ab3",
+    "scene_count": 96,
+    "change_from_initial": {
+      "current_center_mean_shift_px": 1.6754292249679565,
+      "current_center_max_shift_px": 22.500120162963867,
+      "foreground_feature_rms_change": 0.5040621161460876
+    },
+    "seconds": 229.9407660961151,
+    "not_full_navtest": true,
+    "not_independent_planning_validation": true,
+    "counterfactual_commands_have_no_alternative_gt": true,
+    "interventions_can_cause_distribution_shift": true,
+    "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "max_diagnostic_reserved_bytes": 673185792
+  },
+  "interpretation": "Fixed training-distribution panel. Geometry changes, projected-box association and model sensitivity do not establish planning improvement.",
+  "chat_notification_sent": false
+}

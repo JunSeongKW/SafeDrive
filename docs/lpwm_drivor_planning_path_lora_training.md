@@ -624,3 +624,65 @@ DataLoader/sampler의 같은 epoch·같은 next_update를 복원해 이전 장�
 GPU 역전파 시간이 함께 변했으므로 관측한 전체 개선량을 전부 worker 변경의 인과 효과로 간주하지 않는다.
 
 [학습 속도·재개·ETA 보고](../results/lpwm_drivor_planning_path_lora_v1/throughput_20261007/training_speed_comparison.json).
+
+## 2026-10-07 12:05 KST — 두 번째 epoch 중간 결과
+
+연구 하위 질문: planning으로 적응시킨 particle이 객체·미래 정보를 더 잘 보존하고,
+그 변화가 경로 계획에 도움이 되는가? 학습 진행과 이 가설의 검증을 구분한다.
+
+정확한 3,228-update / epoch2 checkpoint의 기존 96장면 표현 진단과,
+그중 공식 MetricCache가 있는 동일 95장면 / 24recording의 PDMS를 확인했다.
+누락된 1장면은 이전 평가와 동일하며, 평가 실패는 0이다.
+이 패널은 navtrain+navval 본학습 분포다. 독립 validation 또는 navtest 성능으로 해석하지 않는다.
+
+| 체크포인트 | 전체 PDMS | 직진 41장면 | 좌회전 30장면 | 우회전 24장면 |
+|---|---:|---:|---:|---:|
+| 첫 epoch /1,614 | 67.9864 | 74.5582 | 63.7964 | 61.9971 |
+| 3,000 | 74.9063 | 84.4096 | 68.2930 | 66.9380 |
+| 두 번째 epoch /3,228 | 74.5770 | 85.4551 | 71.8971 | 59.3433 |
+
+3,000→3,228 변화는 −0.3293점, recording 단위 paired bootstrap 95% CI [−5.4792,+4.9164]다.
+첫 epoch 대비 +6.5905점, CI [+0.4949,+13.2121]. 5,000반복 /seed71 /같은95token 대응.
+전체 평균은 비슷하고 좌회전·우회전의 방향이 다르다. 단일 구간을 포화나 안정적 개선으로 판정하지 않는다.
+Expert ADE는 2.3189→2.0057m이지만 PDMS 상승으로 이어지지는 않았다.
+충돌 관련 NC는 .9737→.9579, 도로 준수 .8842→.8842, TTC .9158→.9158이다.
+
+| 표현 진단 | 3,000 | 3,228 |
+|---|---:|---:|
+| 초기 대비 중심 평균 이동 /128² 입력 px | 1.8132 | 1.6754 |
+| 초기 대비 크기 축 상대 변화 평균 | 10.9566% | 15.0324% |
+| 전체 현재 attribute 객체 판독 macro F1 | .3936 | .4183 |
+| 현재 appearance만 사용한 판독 macro F1 | .3562 | .3648 |
+
+3,000과3,228 사이 particle별 실제 중심 이동 평균은1.0389px이다.
+초기 기준 이동량의 차이는 직전 checkpoint에서의 실제 이동량과 다르다.
+3,228에서는63.33%의 중심이 초기보다1px 초과 이동했고91.49%가 어느 크기 축에서5% 초과 변화했다.
+기하·외관 적응은 확인되지만, 차량 중심 비율8.80→9.07%, 도로 proxy 중심20.68→19.85%로
+주행 관련 영역에 체계적으로 집중했다고 결론 내릴 근거는 부족하다.
+도로 proxy presence 가중 비율은 초기18.41% /3,000의5.35% /3,228의4.95%다.
+이는 도로 segmentation 또는 calibrated planner 중요도 지표가 아니다.
+
+미래 변위 readout에서2초 current3.9492m/future3.9757m,
+4초 current8.1493m/future8.2667m이다. 미래−현재 오차차이 CI는
+각각[−.0517,+.0885]m와[−.1351,+.2860]m로0을 포함한다.
+두 representation의 오차는 zero-displacement 대조군3.3339m/6.7270m보다도 높다.
+첫 epoch에서 관측한 미래 readout의 유리한 방향은 유지되지 않았다.
+12장면 future-repeat-current 개입의 selected oracle score 변화 CI도0을 포함한다.
+주행 의도 변경시 encoder만 바꾼 궤적 평균 변화는 .2340m이나,
+동일 장면의 대체 의도 GT가 없으므로 올바른 의도별 판단을 증명하지 않는다.
+
+평가에는 저장된 particle attributes를 같은 checkpoint의 planner로 재생한 궤적을 사용했다.
+기존 full-model 진단12장면과 ADE 차이 모두0 /공식 NAVSIM v1 scorer 유지 /
+평가 중 카드전체 최대41.2615GB. 가중치 업데이트 없이 완료됐으며 본학습과 큐는 유지했다.
+
+12:04:51KST 본학습3,428/40,350, epoch3 /warmup3,322 완료.
+GPU당16×누적2×2GPU=유효64, loader2/oracle8/rank, 전체카드 약40.325GB.
+양rank 전체 로그 비유한 loss0 /최근 모든18개 gradient 그룹 유한·양수 /
+원래279개·oracle8 실행283개 등록source hash 모두 일치했다.
+최근50/100update wall23.1365/22.8105초로 V1 학습 종료는10월17일06–09시KST 부근의 외삽이다.
+다음3,500update는오늘12:32,4,000은15:42–15:45 예상이며 진단 처리시간·최종 평가·V2 학습은 별도다.
+현재25epoch 계획과 기존 source/config/학습·대기열·monitor는 변경하지 않았다.
+
+[수치·paired 비교·실행 검사](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/report.json),
+[PDMS 추세 및 상황별 그림](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/pdms_progress_and_scenarios.png),
+[particle 전후 및 겹침](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/particles_before_after_and_overlay_update3228.png).

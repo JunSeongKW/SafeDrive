@@ -3078,3 +3078,27 @@ Ego11D는planner별도,command4D는encoderFiLM. 큰hidden/variance/posterior/RGB
 이구조의압축/bottleneck가능성은서술하되실패원인/계획성능효과로확정하지않았다.
 학습문서와HANDOFF1–5/본일지에기록. 현재3278/40350 epoch3/3228검증완료/3500대기.
 새학습/평가/모델구조/실행config/등록source/queue/monitor/publisher변경없음.
+
+## 2026-10-07 12:05 KST — epoch2 중간 결과 및 공식 PDMS 평가
+
+사용자 중간 결과 요청에 따라 정확한3,228update /epoch2의 완료된 표현 진단을 읽고,
+기존 scripts/evaluate_lpwm_intermediate_panel_pdms.py로 동일95학습장면 /24recording을 공식 NAVSIM v1으로 채점했다.
+GPU0에서 저장attributes→같은checkpoint planner 재생, CPU scorer2workers 사용. 학습 업데이트 없음.
+12baseline장면ADE차이 전부0 /native digest유지 /평가전체카드최대41.261466GB /실패0.
+PDMS74.5769543,3000의74.9062726대비−.3293184점 CI[−5.4791674,+4.9163912].
+1614첫epoch67.9864165대비+6.5905378점 CI[+.4949005,+13.2121105].
+Paired 동일recording24개 /5000bootstrap /seed71. 직진85.455099/좌71.897053/우59.343334.
+우회전은3000의66.937989보다낮다. Expert ADE2.318900→2.005668m 감소에도PDMS는비슷하다.
+기하초기대비중심1.675429px/크기15.032439%,3000→3228실제중심변화1.038864px/크기6.944177%.
+전체현재판독F1.418250/appearance.364822. GT ROI를쓰는probe이며LPWM자체detection성능이아니다.
+2s current/future3.949206/3.975663m,4s8.149321/8.266721m. 차이CI둘다0포함/zero-displacement보다높은오차.
+첫epoch의미래readout이득방향이유지되지않음. Future개입에서도추가이득미확인,geometry변화만으로주행효용주장안함.
+차량중심9.0739%/도로proxy중심19.8479%/도로presence가중4.9499%;집중적주행영역재배치미확인.
+CPU reportscript 및 수치·pair·등록·전후겹침·상황별PDMS그림을 새results/intermediate_epoch2_20261007에보존했다.
+12:04:51본학습3428/40350 epoch3/warmup3322완료. 양rank각3428로그의비유한loss0/nativehash한개유지.
+최근18gradient그룹모두유한·양수,원래279/oracle8실행283개sourcehash모두일치.
+Oracle8동일실행최근50/100update23.13646/22.81048초,다음3500오늘12:32/4000오늘15:42–15:45.
+V1학습완료10월17일06–09시KST외삽이며최종평가·V2시간별도. 단일구간에서포화·조기중단판정안함.
+Train3144180/queue3144181/500monitor3144182/CPUoverlay2507743생존;batch16/accum2/GPU2/loader2/oracle8유지.
+본학습source/config/대기열/monitor/25epoch계획변경없음. 새 PDMS는완료했고GPU해제,새baseline은미기동.
+Sandbox NVML 실패는호스트query재시도에서정상응답했고실제GPU0·1각40.325GB. 드라이버장애로해석하지않음.

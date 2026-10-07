@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 12:05 KST — 두 번째 epoch 검증 완료.**
+정확3,228update의동일95학습장면 공식PDMS74.5770,3,000의74.9063과비슷함(CI[−5.4792,+4.9164]).
+직진85.4551/좌71.8971/우59.3433;우회전은직전66.9380보다낮아상황별추세를계속확인한다.
+Geometry초기대비1.675px/15.032%,appearance판독F1.3648;미래readout·개입의추가planning이득은미확인.
+12:04본학습3,428/40,350 epoch3/warmup완료,279/283sourcehash정상·양rank비유한loss0·카드40.325GB.
+최근속도22.81–23.14초/update,V1학습종료10월17일오전외삽.후속평가/V2학습시간별도.
+본학습·queue·매500표현monitor 유지. [수치 및 전후·겹침 이미지](results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/report.json).
+
 **2026-10-07 10:42 KST 중간점검 — 학습3,213/40,350, 새 검증은 아직3000까지.**
 Epoch2 종료까지15update, 약10:48KST 학습경계3228 도달/진단처리시간별도.
 Oracle8 재개후53steadyupdate wall23.350초, 최대40.162GB, 양rank전체로그NaNloss0/3200모든gradient그룹유한·양수.
