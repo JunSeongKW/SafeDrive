@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-07 09:18 KST 최신: 본학습 약 3,020 update / epoch 2, 계속 실행.**
+2,000/2,500/3,000 표현 진단 및 동일95장면 공식 PDMS 70.17/72.93/74.91 완료.
+추가 평가2301619 종료; 본학습3186133·queue3186134·monitor568996은 유지한다.
+현재 결과는 학습 분포 진단이다. 25 epoch 계획은 유지하며 saturation 자동 중단을 새로 설정하지 않았다.
+현재 navtrain+navval 모두 학습에 쓰므로 이95장면을 독립 validation으로 부르지 않는다.
+근거 `results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/`.
+
+
 **2026-10-06 23:29 KST 최신: 첫epoch조건비교완료, 본학습epoch2진행.**
 본학습1682update, epoch_01.pt23:00저장. CPU비교3317230은완료됐으므로다시watch를기동하지않는다.
 `outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/complete.json`과비교PNG를확인한다.

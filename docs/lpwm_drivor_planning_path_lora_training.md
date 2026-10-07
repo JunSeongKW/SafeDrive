@@ -427,3 +427,42 @@ PDMS는학습분포진단이며LPWM+planner전체효과, LPWM단독효과분리/
 2000은10/7 01:41전후, 3322warmup은10:49전후, 4000은15:31전후도달예상/진단여유별도.
 첫epoch도warmup중이므로기존계획대로추세를본다.고해상도/새loss/DrivoR대조실험은추가등록하지않았다.
 결과 `results/lpwm_drivor_planning_path_lora_v1/epoch1_intermediate_report_v1/report.json`, PDMS그래프, 동일epoch비교PNG.
+
+## 2026-10-07 09:18 KST — 3,000 update 중간 결과·25 epoch ETA·포화 판단
+
+본학습3,020/40,350update(7.4858%), 1.8711epoch. Train3186133/queue3186134/monitor568996 host생존.
+양rank3,020행 비유한loss0, native/실행digest각1개. Update3,000의14LoRA경로와plannergradient유한·양수.
+본학습batch16/누적2/effective64·loader2/oracle4·source/config/loss/LR/queue변경없음.
+추가평가2301619: exact2,000/2,500/3,000 × 동일95장면 공식NAVSIM v1 PDMS 완료.
+285성공/실패0, 기존baseline12×3 ADE재생검사36개최대오차0, GPU전체최대41.72913GB/nativefreeze유지.
+PDMS70.16709/72.92701/74.90627. 첫epoch대비3,000 +6.91986점CI[1.02676,12.38134].
+1000대비+7.07477 CI[-.78508,14.36931], 2500대비+1.97926 CI[-5.66113,9.02419]; 비교시점별차이숨기지않음.
+직진epoch1 74.5582→84.4096/좌63.7964→68.2930/우61.9971→66.9380. 도로준수.84211→.88421.
+공식채점방법이지만학습분포패널이고navtest아님; 공동학습효과이며LPWM단독미세조정이득분리아님.
+
+Geometry초기대비2,000 1.385px/10.879% →2,500 2.163px/13.527% →3,000 1.813px/10.957%.
+3,000의63.29%가1px초과이동,86.19%는한축크기5%초과. 명령교체중심.399664px.
+WholecurrentF1 .419269/.386249/.393593, appearance .273758/.352573/.356225. 초기whole.379859/appearance.292610.
+차량중심8.88265→8.79720%,보행자1.20036→1.21257%,roadproxy중심20.03289→20.68257%.
+Roadpresence가중비중18.40762→5.34835%지만presence는plannerattention이아니고feature는그대로입력된다.
+미래readout첫epoch의예비이득지속안됨:3,000 2초current3.97808/predicted4.01345m(차이+.03536,CI[.00270,.10121]),
+4초8.25388/8.21429m(차이-.03959,CI[-.26095,.23276]). 절대오차0변위baseline보다높음.
+Future를current반복으로교체시12장면trainingoracle선택점수+.007808CI[.002938,.014411]; 공식PDMS나인과효과로해석안함.
+
+사용자후속질문25epoch잔여와saturation방법답변:23.13epoch/약11.6–12.1일,10월19일전후학습종료(평가별도).
+최근50/100/200 wall27.93/27.32/26.90초. Epoch2경계10:51–10:55, warmup3,322 11:33–11:39,4,000 16:37–16:55예상.
+Warmup전이면서PDMS상승이므로현재포화근거없음. 독립개발/실질최소개선delta/3–5epoch patience/LR감소구간과안전·표현진단권고.
+현재navtrain+navval모두학습으로독립validation없음. 95훈련진단을일반화포화근거로쓰지않고navtest반복tuning도하지않음.
+자동조기중단/새학습조건미등록. DrivoR25epoch비교는같은학습예산유지;조기종료실험은동일budget/중단규칙필요.
+결과/생성스크립트/CSV/PDMS·future·particle PNG: results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/.
+
+### Saturation 판단 제안 — 현재 실행에는 적용하지 않음
+
+학습loss 감소의 정체만으로 중단하지 않는다. 미리 분리한 recording 개발집합에서 같은 evaluator로 epoch별평가한다.
+Warmup종료후 학습률감소구간을 포함해 관찰하고, 예를들어3–5epoch 동안 best대비실질개선delta=.5 PDMS점 미만이며
+paired recording CI도큰추가이득을지지하지않는지를검토한다. CI가0포함하는것은단지정밀도부족일수있다.
+엄밀한비열등성/포화판단에는추가이득CI상한이등록delta보다작은지확인하는등표본불확실성을반영해야한다.
+평균PDMS정체에도좌회전/가림/충돌/도로준수나미래정보보존이개선되면가설에대한추가정보가있을수있다.
+반대로전체PDMS상승은미래표현의실질기여를보장하지않는다. Frozen/current-only 등의동일planner통제가후속으로필요하다.
+현재모든navtrain+navval이학습됐으므로이run에독립개발검증이있다고주장하지않는다.
+25epochDrivoR비교는현재계획대로동일학습예산을유지하고, 중단규칙을바꾸려면별도통제조건으로등록한다.

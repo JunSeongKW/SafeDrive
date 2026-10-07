@@ -1,0 +1,17 @@
+{
+  "pid": 2301619,
+  "command": [
+    "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+    "-u",
+    "scripts/evaluate_lpwm_intermediate_panel_pdms.py",
+    "--output",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_intermediate_pdms_update3000_v1",
+    "--updates",
+    "2000",
+    "2500",
+    "3000"
+  ],
+  "started_unix": 1791332154.7386572,
+  "read_only_evaluation": true,
+  "training_changes": false
+}

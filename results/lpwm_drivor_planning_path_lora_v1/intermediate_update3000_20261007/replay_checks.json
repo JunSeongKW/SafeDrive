@@ -1,0 +1,187 @@
+{
+  "checks": [
+    {
+      "update": 2000,
+      "token": "409c959993075841",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "4cd5bb8cf4fd52fa",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "c51a60c854c951cf",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "d44dd618a0435337",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "6c08df07d2e35e8d",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "fc01494fa43653b8",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "706395b464525f9d",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "8d709e8b74095ad8",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "0154b4928cde52bb",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "487e3708e7905cde",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "2754ab87df25534c",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2000,
+      "token": "e909cae9ee81593c",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "409c959993075841",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "4cd5bb8cf4fd52fa",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "c51a60c854c951cf",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "d44dd618a0435337",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "6c08df07d2e35e8d",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "fc01494fa43653b8",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "706395b464525f9d",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "8d709e8b74095ad8",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "0154b4928cde52bb",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "487e3708e7905cde",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "2754ab87df25534c",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 2500,
+      "token": "e909cae9ee81593c",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "409c959993075841",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "4cd5bb8cf4fd52fa",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "c51a60c854c951cf",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "d44dd618a0435337",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "6c08df07d2e35e8d",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "fc01494fa43653b8",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "706395b464525f9d",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "8d709e8b74095ad8",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "0154b4928cde52bb",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "487e3708e7905cde",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "2754ab87df25534c",
+      "ade_difference": 0.0
+    },
+    {
+      "update": 3000,
+      "token": "e909cae9ee81593c",
+      "ade_difference": 0.0
+    }
+  ],
+  "maximum_ade_difference": 0.0,
+  "max_card_used_bytes": 41729130496,
+  "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+}

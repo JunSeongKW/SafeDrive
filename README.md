@@ -1,5 +1,15 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 09:18 KST — 3,000 update 중간 점검 완료.**
+본학습 3,020/40,350 update, epoch 2. 정확한 2,000·2,500·3,000 update 표현·공식 PDMS 진단 완료.
+동일 95학습장면 PDMS **70.17 → 72.93 → 74.91**; 첫 epoch 67.99 대비 +6.92점(CI[1.03,12.38]).
+Particle 중심 평균 이동 1.813px / 크기 변화 10.957%, current 전체 판독 F1 .3936 / appearance .3562.
+미래 정보 판독의 첫 epoch 이득은 유지되지 않았다. 독립 navtest / LPWM 단독 효과는 미검증.
+[누적 보고서·그래프](results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/report.json).
+25 epoch까지 약 23.13 epoch / 11.6–12.1일 남음, 10월 19일 전후 학습 종료 예상; 평가 시간 별도.
+기존 본학습·대기열·매500 표현 진단 유지. 아래 날짜가 이전인 문장은 실행 이력이다.
+
+
 **2026-10-06 23:29 KST — 첫 epoch 완료·이전 조건 비교 및 중간 PDMS 완료.**
 현재1682update/epoch2, 첫epoch checkpoint23:00저장. [동일1614update particle 비교](outputs/lpwm_drivor_epoch1_lora_scope_comparison_v1/epoch1_comparison.png).
 95학습장면 PDMS:1000=67.83 /1500=63.52 /1614=67.99. 최신보고 `results/lpwm_drivor_planning_path_lora_v1/epoch1_intermediate_report_v1/report.json`.

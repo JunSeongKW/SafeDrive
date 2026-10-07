@@ -1,0 +1,37 @@
+{
+  "source_sha256": "e085f40a1f646467967c49ca6357d88c5a2f432bdc4ad3c3a1817a7f5285f182",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "updates": [
+    2000,
+    2500,
+    3000
+  ],
+  "checkpoints": {
+    "2000": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_particle_trends_every500_v1/checkpoints/update_002000.pt",
+      "checkpoint_sha256": "595f28f2609bb63b8fe8a3b3366b5abf2d286bc8b7349e29ab9469dbd0989078",
+      "attributes_sha256": "965a53d37854846c891de7613af115951b26379f7dd29d8b415884dea68bd3ec"
+    },
+    "2500": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_particle_trends_every500_v1/checkpoints/update_002500.pt",
+      "checkpoint_sha256": "7562fd0e51bb0d6eb04f038bf98c3d377dfdcde054fb400e5b560de76d8182c4",
+      "attributes_sha256": "be5c45cdd93729ede29d6b0f3c6c3426db2012e4182121ddf2560dd3167231a3"
+    },
+    "3000": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_particle_trends_every500_v1/checkpoints/update_003000.pt",
+      "checkpoint_sha256": "965d644d050ab88806b55ed8b6b7eb6aaf6a7dca7e23cf3511cfad644f534c16",
+      "attributes_sha256": "ea91f95eb5a029606bf2c03f3656cf2c22a4b29dc8cc09f158cc425e22e7a453"
+    }
+  },
+  "scene_count": 95,
+  "panel_count": 96,
+  "excluded_missing_official_cache": [
+    "20c5f1c678e7548a"
+  ],
+  "training_distribution": true,
+  "full_navtest": false,
+  "scoring": "Unmodified official NAVSIM v1 pdm_score with standard MetricCache, 40 x 0.1s simulator sampling",
+  "cached_representation_replay": true,
+  "model_updates": false,
+  "started_unix": 1791332168.425431
+}

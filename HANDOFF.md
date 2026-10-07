@@ -1,5 +1,15 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 09:18 KST 최신 — 3,000 update 중간 결과와 25 epoch ETA.**
+현재 3,020/40,350 update / 1.871 epoch, 본학습·queue·monitor 생존. Native/실행 hash 유지·양 rank NaN loss 0.
+동일95장면 공식 PDMS 2,000=70.1671 /2,500=72.9270 /3,000=74.9063.
+첫epoch→3,000 +6.9199점, recording bootstrap CI[1.0268,12.3813]; training panel이며 navtest 아님.
+Geometry 1.813px/10.957%, whole F1 .3936 / appearance .3562; 미래 readout의 첫epoch 이득 지속되지 않음.
+25epoch 잔여 23.13epoch /11.6–12.1일, 학습 종료10/19전후; 후속평가시간 별도.
+포화판정의 독립개발/최소실질개선/patience 기준은 제안일 뿐, 기존25epoch 학습/queue/source/config 무변경.
+결과 `results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/`.
+
+
 **2026-10-06 23:29 KST 최신: 첫epoch 완료·중간보고.**
 Epoch1 checkpoint23:00저장/현재1682update·epoch2. 정확1614의old Q/V vs 새세경로비교완료.
 95학습장면PDMS1500=63.5197/1614=67.9864,1000=67.8315와거의같음. 1000→1614CI[-7.1454,7.1646].
@@ -91,7 +101,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-06 23:33 KST (Codex)
+마지막 갱신: 2026-10-07 09:20 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -258,6 +268,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-07 09:18 KST: 본학습3,020/40,350, epoch2 / 1.871epoch. Train3186133·queue3186134·monitor568996 생존 확인.
+정기 표현 진단3,000 완료, 다음epoch2경계3,228 및3,500 대기. 추가PDMS2301619는285건 성공 후 완료.
+Native/실행hash 각1개로 유지, 양rank3,020 로그에서 loss비유한0. 3,000의14LoRA경로군과planner gradient 유한·양수.
+실제batch16×누적2×2=유효64, loader2/oracle4 유지; 평가GPU전체최대41.729GB, 48GB상한 이내.
+
 
 23:29KST학습1682/40350·epoch2,정기표현monitor1614완료→2000대기. Epoch1조건비교는완료됐다.
 추가95PDMS평가3487344는1500/1614각95성공후종료. GPU전체최대41.73GB/재생ADE검사24개오차0.
@@ -711,6 +727,20 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-07: 공식95장면 PDMS 2,000=70.16709 /2,500=72.92701 /3,000=74.90627.
+첫epoch67.98642→3,000의차이 +6.91986점, 24recording pairedbootstrap5,000/seed71 CI[1.02676,12.38134].
+직진74.5582→84.4096 /좌63.7964→68.2930 /우61.9971→66.9380. 도로준수.84211→.88421.
+정확checkpoint/attributes 재생36검사 최대ADE오차0, 285채점실패0, nativehash 유지.
+Particle평균중심초기대비1.385/2.163/1.813px, 크기10.879/13.527/10.957%; 3,000은63.29%가1px초과.
+전체current판독F1 .41927/.38625/.39359, appearance .27376/.35257/.35623로 서로다른추세.
+차량중심8.8826→8.7972%, 보행자1.2004→1.2126%; 집중 재배치 근거 부족. 도로presence가중18.4076→5.3484%.
+같은장면명령교체 중심반응.25580→.39966px; counterfactual정답 없어 유용성 증명은 아님.
+3,000의미래판독2초 current3.97808/predicted4.01345m, 차이+.03536 CI[.00270,.10121]; 미래가더나쁨.
+4초8.25388/8.21429m, 차이-.03959 CI[-.26095,.23276]; 첫epoch 이득 지속되지않음.
+12장면future-repeat-current 개입에서 trainingoracle 선택점수 +.007808 CI[.002938,.014411]; 공식PDMS와 구분.
+모든scope는학습분포 진단, 최종navtest 일반화/LPWM 단독효과 미검증. report.json과CSV·이미지 보존.
+
 
 첫epochexact1614비교:old Q/V geometry .302314px/2.02025%/presence.046125 vs 새1.236072px/7.71424%/.222527.
 새particle42.12%는1px초과이동,67.43%는한축크기5%초과. 같은장면명령교체중심반응.255803px.
@@ -1305,12 +1335,21 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 첫epoch완료·old/new정확1614조건비교·1500/1614표현검사를검토하고사용자중간보고를준비했다.
-- 동일95장면의1500/1614공식PDMS를평가해63.52/67.99점확인,재생24검사오차0/실패0/최대카드41.73GB.
-- PDMS정체·도로준수저하와미래판독의예비이득을함께기록하고누적그래프·CSV·firstepoch비교결과를보존했다.
-- 현재1682update/epoch2·다음2000진단ETA기록. 기존학습/등록source/config/queue/monitor무변경.
+- 최신3,000까지 표현 진단과 본학습·queue·monitor 상태를 확인하고 양rank finite loss/native hash·gradient를 검사했다.
+- 동일95장면에서2,000/2,500/3,000 공식PDMS를추가채점해70.17/72.93/74.91점을확인했다. 재생36검사오차0/285성공.
+- 첫epoch 대비+6.92점CI와상황별분해, 표현판독의혼재/미래정보이득비지속을함께기록하고보고서·그래프를보존했다.
+- 남은25epoch예상11.6–12.1일/10월19일학습종료와포화판정방법을설명했다. 독립개발분할부재·공정25epoch비교조건기록.
+- 기존학습source/config/queue/monitor와배치/LR/loss를변경하지않았으며조기중단은등록하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+09:18 KST 기준 최근50/100/200 wall속도27.93/27.32/26.90초/update.
+2epoch경계3,228은10:51–10:55, warmup3,322는11:33–11:39, 3,500은12:53–13:02,
+4,000은16:37–16:55 도달예상/진단처리여유별도. 25epoch학습종료10/19 00–11시 외삽; 공유자원변동가능.
+기존25epoch+후속평가queue를계속한다. saturation정책은설명만했고자동중단/새validation/test학습을설정하지않았다.
+현재실험navtrain+navval전체학습으로독립validation없음. 새통제실험에는recording단위개발holdout을미리등록해야한다.
+navtest를반복earlystopping/tuning에사용하지않으며DrivoR최종25epoch동일학습량비교계획을유지한다.
+
 
 23:29기준2000학습도달10/7 01:41전후+진단여유,3322warmup10:49전후,4000 15:30전후예상.
 CPUfirstepoch비교watcher완료.기존학습/500진단계속하며도로준수/좌회전저하와미래판독이득의지속성을추적한다.
@@ -1682,6 +1721,14 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재3,000은warmup3,322 이전이며최근PDMS 상승: saturation/조기종료근거없음.
+권고중단기준은독립개발split, 사전정의한실질개선delta(예 .5점), warmup후LR감소구간, 3–5epoch patience,
+시나리오별안전·미래표현진단. CI가0포함한다는것만으로무효과/포화를판정하지않는다.
+95장면은학습분포이고navval도학습에사용했다. 현재독립validation없으므로일반화포화를확정할수없다.
+조기중단하려면DrivoR와같은중단규칙·학습량/compute조건으로통제해야하며25epoch동일비교와구분한다.
+공동planning점수상승에도미래표현기여는미확인/일부판독악화. 더학습한다고자동개선된다는주장없음.
+
 
 첫epoch후새LoRA에서particlegeometry변화가확인됐다.큰 변화가더좋은planning표현을뜻하지는않는다.
 PDMS는1000대비첫epoch+0.15점으로거의같고, 도로준수/좌회전점수가하락했다.학습중개선이비단조다.
