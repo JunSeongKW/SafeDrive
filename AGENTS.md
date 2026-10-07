@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-07 09:30 KST 사용자 시각화 요구: particle 전·후 비교 + 겹침 이미지를 함께 제공.**
+CPU 전용 `scripts/publish_lpwm_particle_geometry_overlays.py --watch` / publisher2507743.
+갤러리 `outputs/lpwm_drivor_particle_geometry_overlays_v1/index.html`에서 update별 기존비교·겹침·4열통합 링크를 제공한다.
+현재100/500/1000/1500/1614/2000/2500/3000 생성완료; 이후 매500/epoch 진단 완료에 따라 자동 추가.
+동일 scene/camera/particle 번호·고정 초기top16 박스. 이동 과장 없음; 겹침 그림 점 크기는 고정하며presence를 표시하지 않는다.
+이 publisher sourcehash는 실행 중 유지한다. 기존 학습/queue/표현 monitor 등록source/config는 변경하지 않았다.
+
+
 **2026-10-07 09:18 KST 최신: 본학습 약 3,020 update / epoch 2, 계속 실행.**
 2,000/2,500/3,000 표현 진단 및 동일95장면 공식 PDMS 70.17/72.93/74.91 완료.
 추가 평가2301619 종료; 본학습3186133·queue3186134·monitor568996은 유지한다.

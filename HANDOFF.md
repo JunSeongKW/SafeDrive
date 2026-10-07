@@ -101,7 +101,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 09:20 KST (Codex)
+마지막 갱신: 2026-10-07 09:30 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -268,6 +268,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+Particle CPU 겹침 publisher2507743를 추가했다. `scripts/publish_lpwm_particle_geometry_overlays.py --watch`.
+별도root `outputs/lpwm_drivor_particle_geometry_overlays_v1/`; 기존diagnostic 완료파일을 읽기만 한다.
+100/500/1000/1500/1614/2000/2500/3000 생성완료, 이후500/epoch 경계에 자동 추가. GPU사용/모델학습 없음.
+Final40,350 그림 완료 또는 자기root stop.requested일 때 종료. 기존train/queue/monitor 유지.
+
 
 2026-10-07 09:18 KST: 본학습3,020/40,350, epoch2 / 1.871epoch. Train3186133·queue3186134·monitor568996 생존 확인.
 정기 표현 진단3,000 완료, 다음epoch2경계3,228 및3,500 대기. 추가PDMS2301619는285건 성공 후 완료.
@@ -727,6 +733,15 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+사용자3,000그림과 같은 직진/좌회전/우회전 scene index2/0/3 및 front카메라로 겹침 이미지를 생성했다.
+모든64 중심: 학습전청록빈점/학습후주황점, 같은번호실제좌표를 흰화살표로연결. 초기presence상위16 glimpse박스는
+전청록점선/후주황실선. 이미지와geometry를같은배율로표시하며 이동을추가증폭하지않는다.
+겹침의dotradius는고정: 기존전후 그림의presence크기와구분한다. Same-index는객체추적동일성의증거가아니다.
+기존3열그림의각장면pixel은그대로복사한뒤4열겹침을추가했다. 새geometry/PNG에실제저장attributes를사용했다.
+결과추가 `results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/particles_overlay_before_vs_update3000.png`
+및 `particles_before_after_with_overlay_update3000.png`, overlay_report metadata/source/input hashes.
+
 
 2026-10-07: 공식95장면 PDMS 2,000=70.16709 /2,500=72.92701 /3,000=74.90627.
 첫epoch67.98642→3,000의차이 +6.91986점, 24recording pairedbootstrap5,000/seed71 CI[1.02676,12.38134].
@@ -1335,13 +1350,18 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 최신3,000까지 표현 진단과 본학습·queue·monitor 상태를 확인하고 양rank finite loss/native hash·gradient를 검사했다.
-- 동일95장면에서2,000/2,500/3,000 공식PDMS를추가채점해70.17/72.93/74.91점을확인했다. 재생36검사오차0/285성공.
-- 첫epoch 대비+6.92점CI와상황별분해, 표현판독의혼재/미래정보이득비지속을함께기록하고보고서·그래프를보존했다.
-- 남은25epoch예상11.6–12.1일/10월19일학습종료와포화판정방법을설명했다. 독립개발분할부재·공정25epoch비교조건기록.
-- 기존학습source/config/queue/monitor와배치/LR/loss를변경하지않았으며조기중단은등록하지않았다.
+- 사용자요청에따라학습전후particle의겹침·이동화살표시각화와기존비교+겹침4열이미지를추가했다.
+- 현재3,000뿐아니라완료된8시점에도생성했고,새CPU publisher2507743가향후진단완료를읽어자동출력한다.
+- 동일scene/camera/particle index·초기top16 selection, 실제pixel스케일·고정overlay반경과input/source hash를기록했다.
+- 사용자의향후보고형식요구를AGENTS/README/HANDOFF에기록하고이미지·metadata·launch를공유결과에추가했다.
+- 기존학습/queue/표현monitor소스와설정,이전결과수치와원본비교PNG는수정하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+앞으로particle시각화보고에는전·후이미지와겹침이미지링크를함께제공한다.
+새CPUpublisher의index.html/status.json/launch.json을확인하며새update의particle_geometry_overlay.png와
+particle_geometry_comparison_with_overlay.png를사용한다. 기존500표현monitor를중복기동/수정하지않는다.
+
 
 09:18 KST 기준 최근50/100/200 wall속도27.93/27.32/26.90초/update.
 2epoch경계3,228은10:51–10:55, warmup3,322는11:33–11:39, 3,500은12:53–13:02,
@@ -1721,6 +1741,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+겹침은위치·크기변화확인용이고학습효과/attention/객체검출시각화가아니다.
+CPUpublisher만추가, 본학습25epoch계획유지. Future보고에서겹침누락하지않는다.
+Sandbox detached출력시도는process가종료돼host재실행했다. sandbox PID5를host PID로해석하거나signal하지않았다.
+완료preview는별도root에보존하고실제host publisher2507743 /최종source hash b97ab198... 실행을공유한다.
+
 
 현재3,000은warmup3,322 이전이며최근PDMS 상승: saturation/조기종료근거없음.
 권고중단기준은독립개발split, 사전정의한실질개선delta(예 .5점), warmup후LR감소구간, 3–5epoch patience,

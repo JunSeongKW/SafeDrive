@@ -1,0 +1,135 @@
+{
+  "complete": true,
+  "completed_updates": 3000,
+  "checkpoint_sha256": "965d644d050ab88806b55ed8b6b7eb6aaf6a7dca7e23cf3511cfad644f534c16",
+  "source_sha256": "b97ab198b03057788f51108d77de94c6123dc75c4b67a2469d6047f405c57f85",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "initial_attributes_sha256": "406679e8b7f345b151a33b76456a590dc889966e0dea38f667ce1b35eb221470",
+  "trained_attributes_sha256": "ea91f95eb5a029606bf2c03f3656cf2c22a4b29dc8cc09f158cc425e22e7a453",
+  "coordinate_order": "native y,x converted to pixel x,y by existing particle_geometry",
+  "center_matching": "same particle index, not semantic object tracking",
+  "displacement_magnification": 1.0,
+  "centers_per_camera": 64,
+  "boxes_per_camera": 16,
+  "box_selection": "fixed highest16 initial-presence particles",
+  "overlay_dot_radius": "fixed; does not encode presence",
+  "selected_scenes": [
+    {
+      "scene_index": 2,
+      "token": "c94ee8ade05a5b12",
+      "scene_type": "straight",
+      "camera": "front",
+      "box_particle_indices": [
+        20,
+        0,
+        56,
+        33,
+        30,
+        18,
+        9,
+        43,
+        31,
+        42,
+        41,
+        19,
+        24,
+        39,
+        51,
+        7
+      ],
+      "mean_center_shift_input_px": 2.162871837615967,
+      "mean_size_axis_absolute_change_percent": 7.487100124359131
+    },
+    {
+      "scene_index": 0,
+      "token": "409c959993075841",
+      "scene_type": "left_turn",
+      "camera": "front",
+      "box_particle_indices": [
+        33,
+        16,
+        51,
+        44,
+        17,
+        24,
+        40,
+        52,
+        41,
+        55,
+        37,
+        36,
+        45,
+        14,
+        53,
+        63
+      ],
+      "mean_center_shift_input_px": 1.284006953239441,
+      "mean_size_axis_absolute_change_percent": 6.871805667877197
+    },
+    {
+      "scene_index": 3,
+      "token": "45ecf1d6d8b850af",
+      "scene_type": "right_turn",
+      "camera": "front",
+      "box_particle_indices": [
+        55,
+        24,
+        27,
+        38,
+        15,
+        51,
+        25,
+        18,
+        45,
+        54,
+        13,
+        50,
+        23,
+        49,
+        26,
+        19
+      ],
+      "mean_center_shift_input_px": 1.568791151046753,
+      "mean_size_axis_absolute_change_percent": 9.081281661987305
+    }
+  ],
+  "all_particles": {
+    "particle_count": 24576,
+    "centers_bitwise_identical": false,
+    "sizes_bitwise_identical": false,
+    "center_shift_input_pixels": {
+      "mean": 1.8131586540486069,
+      "median": 1.3281503319740295,
+      "p90": 3.6652777194976807,
+      "p99": 8.936965942382812,
+      "maximum": 23.695846557617188
+    },
+    "size_axis_absolute_change_input_pixels": {
+      "mean": 3.9188987806167765,
+      "median": 2.9040794372558594,
+      "p90": 8.639241600036621,
+      "p99": 17.09404180526733,
+      "maximum": 37.15898513793945
+    },
+    "size_axis_relative_change_percent": {
+      "mean": 10.956574442136178,
+      "median": 8.185182094573975,
+      "p90": 24.414720535278324,
+      "p99": 43.72771053314208,
+      "maximum": 89.5350570678711
+    },
+    "presence_absolute_change": {
+      "mean": 0.28227390315349027,
+      "median": 0.09808916598558426,
+      "p90": 0.9178964197635651,
+      "p99": 0.9958325326442719,
+      "maximum": 0.999356746673584
+    },
+    "fraction_center_shift_over_one_input_pixel": 0.6328531901041666,
+    "fraction_particles_any_size_axis_change_over_five_percent": 0.8618570963541666
+  },
+  "created_unix": 1791332922.6667042,
+  "cpu_only": true,
+  "training_changes": false,
+  "scientific_interpretation": "Geometry visualization; not attention, object detection, or evidence of planning benefit"
+}

@@ -1,0 +1,15 @@
+{
+  "latest_completed_update": 3000,
+  "published_updates": [
+    100,
+    500,
+    1000,
+    1500,
+    1614,
+    2000,
+    2500,
+    3000
+  ],
+  "updated_unix": 1791332922.6774724,
+  "cpu_only": true
+}

@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 09:30 KST — Particle 겹침 시각화 추가.**
+[학습 전·3,000 update 겹침](results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/particles_overlay_before_vs_update3000.png) ·
+[원본·전·후·겹침 4열](results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/particles_before_after_with_overlay_update3000.png).
+청록 점선/빈 점은 학습 전, 주황 실선/점은 학습 후, 흰 화살표는 같은 particle 번호의 실제 이동.
+[자동 갤러리](outputs/lpwm_drivor_particle_geometry_overlays_v1/index.html), CPU publisher2507743.
+앞으로 particle 이미지는 **기존 전·후 비교와 겹침 이미지를 함께** 제공한다.
+
+
 **2026-10-07 09:18 KST — 3,000 update 중간 점검 완료.**
 본학습 3,020/40,350 update, epoch 2. 정확한 2,000·2,500·3,000 update 표현·공식 PDMS 진단 완료.
 동일 95학습장면 PDMS **70.17 → 72.93 → 74.91**; 첫 epoch 67.99 대비 +6.92점(CI[1.03,12.38]).

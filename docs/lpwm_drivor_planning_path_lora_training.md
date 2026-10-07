@@ -466,3 +466,24 @@ paired recording CI도큰추가이득을지지하지않는지를검토한다. CI
 반대로전체PDMS상승은미래표현의실질기여를보장하지않는다. Frozen/current-only 등의동일planner통제가후속으로필요하다.
 현재모든navtrain+navval이학습됐으므로이run에독립개발검증이있다고주장하지않는다.
 25epochDrivoR비교는현재계획대로동일학습예산을유지하고, 중단규칙을바꾸려면별도통제조건으로등록한다.
+
+## 2026-10-07 09:30 KST — Particle 겹침·이동 화살표와 향후 자동 출력
+
+사용자가3,000 비교그림에학습전후particle을겹친그림도항상함께요청했다.
+새CPU전용 scripts/publish_lpwm_particle_geometry_overlays.py를추가했다. 기존학습/monitor/source/config는불변.
+입력은완료diagnostic의particle_attributes.npy/panel/images/geometry_report; 새학습·GPU모델추론없음.
+직진2/좌회전0/우회전3 front카메라에서현재64particle을같은번호로대응했다.
+청록빈점·점선박스가전,주황점·실선박스가후. 흰화살표의끝점은실제변경된중심이다.
+Glimpse박스는초기presence상위16개를고정. 겹침dot반경은고정하여위치변화를비교하며presence표시와구분.
+512tile또는384tile로영상·좌표를같이확대했으며displacement자체추가증폭1.0.
+기존3열PNG를복사하고4열겹침을추가해사용자가본기존그림과직접대응되도록했다.
+3,000처음PNG둘을시각적으로검사한후CPUwatchpublisher2507743 실행,100/500/1000/1500/1614/2000/2500/3000 자동생성확인.
+Sandboxbackground시도PID5는작업종료와함께끝났으므로host에서재실행했다. GlobalPID5를signal하지않음.
+초기preview/source도별도보존,실제publisher source SHA b97ab198b03057788f51108d77de94c6123dc75c4b67a2469d6047f405c57f85.
+향후매500/epoch기존diagnostic완료마다새시각화가자동추가된다. Watcher final40,350처리후종료/자체stop.requested지원.
+Root outputs/lpwm_drivor_particle_geometry_overlays_v1/의index.html에기존비교·겹침·4열링크.
+현재PNG/overlay metadata는results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/에추가했고
+launch/status는results/lpwm_drivor_planning_path_lora_v1/particle_geometry_overlay_visualization/에보존했다.
+Geometry변화는planningbenefit/attention이나semantic tracking의증거가아니다. 앞으로전후와겹침을함께보고한다.
+
+실제PNG검사: 통합그림의header아래기존3열pixel이원본과완전히일치. 8시점출력과CPUheartbeat, source/launch/metadata hash일치를확인했다.
