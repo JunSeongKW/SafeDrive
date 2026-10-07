@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 17:00 KST — Particle의 planning 이득 검증 방법 정리.**
+기존12scene 개입은 사용 의존성 진단이다. 재학습 A현재+미래/B현재만/C초기LoRA고정/Dencoder명령off로 미래·LoRA·의도를 분리하는 후속 설계를 추가했다.
+C는FiLM학습을A와같이유지해LoRA효과를분리한다. LPWM+FiLM완전고정 planner-only 대조와 구분한다.
+Foreground/background 분리, 고정후보 scorer regret/전체후보 generator 품질, 미래readout 및 독립benchmark 조합을 권고했다.
+코드상의4particle평균·context간접전달·12학습scene/OOD 한계를 확인. 방법 설명 요청이며 새 학습·큐 등록 없음.
+16:59조회학습4170/40350 epoch3,monitor4000완료→4500대기. 기존25epoch 및 후속queue 유지.
+상세 `docs/lpwm_drivor_representation_and_fair_comparison.md` 마지막17:00절.
+
 **2026-10-07 16:50 KST — 현재 포화 여부 확인: 최근 상승 둔화, 포화 확정 근거 부족.**
 16:49 조회 학습4,144/40,350, 약2.568/25epoch. Warmup3,322 이후822update(약0.509epoch), LR0.000199627/peak0.0002.
 최신 완료 성능은 정확한4,000 checkpoint다. 동일95학습장면 PDMS3,000=74.91/3,500=75.90/4,000=75.83.
@@ -159,7 +167,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 16:51 KST (Codex)
+마지막 갱신: 2026-10-07 17:02 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -326,6 +334,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+16:59 조회4,170/40,350, epoch3. 기존25epoch/후속queue/매500·epoch진단 계속, 마지막 완료4,000/다음4,500 대기.
+이번 검증 설계 요청으로 새 학습·GPU 평가·대조군 대기열을 시작하지 않았다. 실행source/config 불변.
 
 16:49 조회 학습4,144/40,350, epoch3/약2.568epoch. Monitor는4,000 진단 완료 후4,500 대기.
 Batch16×accum2×GPU2=유효64/loader2/oracle8, 전체카드 약40.325GB. 기존25epoch 및 후속 queue 계속.
@@ -840,6 +851,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Planning 이득은 정보 접근성(probe), 모델 의존성(개입), 동일학습 대조의 독립 성능으로 나눠 검증한다.
+코드 확인: 현재+미래foreground/background 입력,4particle 고정평균,12training scene 개입과고정후보재채점 구현.
+Generator 전체후보 품질/foreground-background 분리 및재학습A–D는후속설계다. Particle GT association은geometry proxy다.
+ROAR 원논문의 분포변화·재학습 대조 원칙을 설계에 참고했다. 기존 점 이동/12scene ADE 차이만으로 이득을 확정하지 않는다.
 
 포화 판단: 최근95장면 PDMS 상승은 둔화했지만 최종 수렴 여부는 미확정이다.
 현재 warmup 후 약0.509epoch, LR은 peak의99.81%로 감소 초기다. 유한 gradient/표현 변화는 추가 성능 개선의 증거가 아니다.
@@ -1552,12 +1568,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 포화 질문에 최신4,144-update 진행과 이미 완료된4,000 성능 추세를 확인했다.
-- 최근 PDMS 상승 둔화와 더 이상 개선 불가능하다는 결론을 구분했다. Warmup 후 약0.51epoch/LR감소 초기/학습패널 한계를 명시했다.
-- 평균 정체 안의 직진 개선·우회전 악화, 미래정보 기여의 미확정을 기록했다. 추가 학습으로 개선된다는 보장은 없다.
-- HANDOFF 1–5절/RESUME_NOTES/학습 문서에 판단 근거를 추가했다. 기존25epoch·대기열·500진단·학습 설정 변경 없음.
+- Particle 정보의 planning 이득 검증 방법 요청에 실제 입력/pooling/개입/고정후보 채점 코드와선행평가논문을 확인했다.
+- 동일학습A–B 미래효과/A–C LoRA효과/A–D encoder의도효과 대조 설계를기존검토문서에추가했다. C의FiLM은A와동일하게학습한다.
+- Foreground/background 분리·generator/scorer 분해·미래probe·독립benchmark 및공정통제/분포변화한계를 명시했다.
+- HANDOFF 1–5/RESUME_NOTES를갱신했다. 본학습25epoch·대기열·매500진단유지, 새학습·GPU작업·설정변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존25epoch완료 및정기검증을먼저유지한다. 이번A–D/foreground-background 대조는설명·후속설계로만기록됐고자동기동하지않는다.
+추후실행시동일공개초기화/planner state/배치·학습량/입력/evaluator를맞추고seed반복·상황별지표·recording CI를보고한다.
+현재95training패널과navval을독립planning검증으로부르지않는다. DrivoR최종비교의해상도·pretraining차이도분리한다.
 
 사용자의 포화 질문으로 학습을 중단하지 않는다. 기존4,500 및 epoch3(4,842) 진단을 계속하며 이후 여러 epoch의 추세를 확인한다.
 다음 한 checkpoint의 정체만으로도 포화를 확정하지 않는다. 독립 개발집합·실질 개선 폭·여러 epoch 관찰은 별도 설계 제안이다.
@@ -1993,6 +2013,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+사용 의존성/정보 접근성/독립planning 이득은 서로 다른 주장이다. 입력 대체의OOD나정보중복으로인한결과를단독확증으로취급하지않는다.
+A−B는추가future분기의효과이며물리미래예측효과를확정하려면미래probe와계산량대조가필요하다.
+C초기LoRA고정+FiLM학습은완전frozen-LPWM+FiLM조건과다르다. 전체표현적응효과와LoRA단독효과를구분한다.
+GT는진단/probe에만사용하는설계이며본학습객체감독추가확정이아니다. 이번방법제안으로새장기대조군을큐에넣지않는다.
 
 현재 결론은 최근 상승 둔화이며, 장기 포화/추가 개선 불가능은 미확정이다. 25epoch를 학습하면 반드시 개선된다는 결론도 없다.
 Warmup 이후 짧은 관찰, 넓은 성능 차이 CI, 학습분포 패널을 근거로 조기 종료를 적용하지 않는다.

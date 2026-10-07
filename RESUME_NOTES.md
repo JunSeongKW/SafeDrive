@@ -3174,3 +3174,22 @@ Warmup 이후 짧은 구간/LR 감소 초기이며 gradient·particle 변화가 
 미래정보 보존과 미래분기의 안정적인 planning 기여도 여전히 미확인이다. 단순 추가 학습으로 해결된다고 약속하지 않는다.
 기존25epoch/후속 queue/매500·epoch 진단 유지. 새 GPU 작업/모델·loss·source/config 변경/중단 gate 없음.
 HANDOFF 1–5절과 학습 문서에 근거를 추가했다. 다음4,500/4,842 이후 여러 epoch 추세를 확인하되 단일 진단으로 포화를 확정하지 않는다.
+
+## 2026-10-07 17:00 KST — Particle의 planning 이득 검증 설계
+
+사용자가 particle 정보가 planning에 주는 이득을 어떻게 확인할지 물었다. 방법 설명 요청이며새실험시작요청이아니다.
+실제lpwm_drivor_joint.py와monitor_lpwm_drivor_representations.py/particle_planning_diagnostics.py를읽어입력·pooling·개입을확인했다.
+Current/future foreground10D와background4D가함께전달되고4particle고정평균으로16token/camera를만든다.
+기존12training장면개입은future-repeat-current/reverse-time/GTcorridor연관particle평균대체/matched다른particle대체다.
+고정64후보 재채점으로scorer선택/regret을검사하는구현이있다. 모든개입의새후보전체품질비교와FG/BG분리확대는후속항목이다.
+ROAR NeurIPS2019 원문을읽어추론중정보제거의분포변화한계와재학습대조원칙을참고했다.
+제안 A현재+미래(현재본학습),B처음부터현재만반복,C초기LoRA고정,Dencoder명령off. Planner와projection은모두학습한다.
+C는FiLM을A처럼학습해LoRA만의효과를분리한다. 완전LPWM+FiLM고정planner-only대조와구분한다.
+Publicinit/planner초기state/token순서/유효64/학습량/LR/loss/입력/evaluator를맞춘다. Seed반복과recording CI를권고했다.
+B는token/channel budget을유지하나dynamics가빠져연산량·활성parameter차이가남는다. Future물리정보주장에는계산량대조/시간별readout을추가한다.
+GT연관은glimpse박스proxy,matched다른particle도무관하다고보장안됨. Background·다른particle에정보가중복될수있다.
+Probe정보접근성/개입사용의존성/독립벤치마크planning이득을구분하고안전·도로준수·진행·상황별지표를함께보고한다.
+GT라벨은진단/probe감독에만쓰는설계,본학습객체GT loss추가확정없음. 다른명령GT없는장면에원래GT로정답판정을하지않는다.
+현재navval도학습에포함돼독립development으로쓸수없다. 새로운개발split은처음부터제외해야한다. Navtest반복튜닝금지.
+설계는docs/lpwm_drivor_representation_and_fair_comparison.md 마지막절에기록했다. 새학습/평가/대조queue/source변경없음.
+16:59조회4170/40350 epoch3,monitor4000완료→4500대기. 기존25epoch·후속평가및매500/epoch진단유지.

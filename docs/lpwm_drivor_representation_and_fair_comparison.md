@@ -306,3 +306,85 @@ Backend ego 입력은 모두 유지한다. Intent 있는 LPWM만 원래 intent �
 Trainer가100update마다 저장하므로 epoch 기준 검사는 그 시점 이후 처음 확보한 저장본을 쓸 수 있다.
 실제로 검사한 update 번호와 checkpoint SHA를 항상 저장한다. 작은 진단은 GPU0 최대4GiB allocator,
 카드 전체48GB 제한 아래에서 실행하며 메모리가 부족하면 학습을 우선한다.
+
+## 2026-10-07 17:00 KST — Particle 정보의 planning 이득을 확인하는 검증 설계
+
+질문: 주행 맥락·ego 의도에 따라 보존한 entity 미래 정보가 같은 planner의 주행 성능을 높이는가?
+이번 사용자 요청은 검증 방법 설명이다. 아래는 후속 설계이며 새 학습·평가·대기열을 등록하지 않았다.
+기존25epoch 본학습, 매500/epoch 진단 및 승인된 최종 평가 순서를 유지한다.
+
+### 1. 같은 모델의 정보 사용 검사
+
+현재12학습장면 검사에는 future-repeat-current, future-reverse-time, 경로 근처 객체의 투영박스와 겹치는
+particle 평균 대체, camera/presence/glimpse 면적을 맞춘 다른 particle 대체가 구현돼 있다.
+실제 GT 객체와 particle의 연관은 glimpse 겹침 proxy이며 객체 검출·identity의 정답이 아니다.
+관련 객체와 대조 객체의 정의는 모델 성능을 보기 전에 고정해야 한다. 기존 matched control은 다른 particle이며,
+주행과 무관한 particle라고 보장하지 않는다. 모든 객체의 정보가 background/다른 particle에도 분산될 수 있다.
+
+후속 확대에서는 current foreground, future foreground, current/future background를 구분해 교체한다.
+원래 foreground를 유지하고 background만 바꾸는 조건과 그 반대 조건을 비교해 정보 우회 경로를 확인한다.
+대체 개수·camera·presence·glimpse 면적을 맞추고 여러 대체 방식 및 반복 표본에서 결과를 보고한다.
+점의 이동이나 경로가 달라진 사실만으로 이득을 판단하지 않는다. 선택 경로의 공식 PDMS/안전 지표가
+관련 정보 대체에서 대조군보다 일관되게 악화하는지를 확인한다. 작은 training oracle 점수는 보조 진단으로 표시한다.
+
+Generator는 개입 전후 후보 전체의 oracle 최고 점수와 안전한 후보 비율로 진단한다.
+Scorer는 원래 후보 좌표를 고정한 채 재채점해 선택 점수와 oracle 최고 후보 대비 regret을 확인한다.
+이렇게 후보 생성과 선택의 변화를 분리한다. 현재 코드는 고정 후보 재채점 경로를 이미 갖는다.
+새 후보 집합 전체의 품질 비교와 더 큰 독립 패널은 후속 구현 항목이다.
+
+입력 대체는 학습 분포를 벗어날 수 있어 단독으로 정보의 이득을 확정하지 않는다.
+ROAR 연구는 입력 제거 후 성능 하락에 분포 변화가 섞일 수 있음을 지적하고, 제거된 입력으로 재학습한
+대조군을 제안했다. 여기서는 그 원칙을 latent particle 검증에 적용하는 설계이며 ROAR 자체를 재현한 결과가 아니다.
+출처: [Hooker et al., NeurIPS 2019](https://proceedings.neurips.cc/paper_files/paper/2019/file/fe4b8556000d0f0cae99daa5c5c5a410-Paper.pdf).
+
+### 2. 학습 시작부터 맞춘 성능 대조군
+
+| 조건 | Planner 표현 | LPWM LoRA | Encoder command FiLM | 확인하는 효과 |
+|---|---|---|---|---|
+| A: 현재 본학습 | 현재 + 예측 미래 | 학습 | 학습 | 기준 |
+| B: 현재 정보만 사용 | 현재 속성을9시점으로 반복 | 활성 현재 경로 학습 | 학습 | A−B: 예측 미래 분기 추가 효과 |
+| C: LPWM LoRA 고정 | 현재 + 예측 미래 | 초기값으로 고정 | A와 동일하게 학습 | A−C: LPWM LoRA 적응 효과 |
+| D: Encoder 명령 미사용 | 현재 + 예측 미래 | 학습 | 사용하지 않음 | A−D: Encoder 의도 조건화 효과 |
+
+C는 LoRA 효과를 분리하기 위해 FiLM을 동일하게 학습한다. 따라서 LPWM 전체와 encoder FiLM까지 고정한
+planner-only 조건과 다르다. 후자는 encoder 적응 전체의 효과를 보는 별도 대조군으로 명명한다.
+Native LPWM parameter는 A–D 모두 고정한다. D도 planner의 공식 ego11D/주행명령 입력은 유지한다.
+
+모든 조건은 같은 공개 LPWM 초기화, 동일 planner 초기 state, 장면 및 minibatch token 순서, 유효배치64,
+LR·학습 update 수·loss·카메라·해상도·증강·평가 코드를 맞춘다. Planner projection과64 scene-token 예산도 유지한다.
+B는 처음부터 현재 반복 입력으로 학습하므로 완성된 A의 미래 입력만 갑자기 교체하는 검사와 구분된다.
+B에서는 dynamics가 활성 학습 경로에서 빠져 연산량·활성 parameter budget이 달라진다. A−B만으로
+실제 물리 미래의 효과와 추가 연산 효과를 모두 분리했다고 주장하지 않는다.
+강한 미래 정보 주장을 위해 현재 정보만으로 계산량/학습 parameter budget을 맞춘 latent mixer 대조와 미래 readout을 추가한다.
+Encoder intent와 future의 결합 효과를 주장하려면 B의 intent-off도 추가한2×2 조건으로 interaction을 확인한다.
+동일 recipe의 seed를 반복(예:3개)하고 recording 단위 paired CI 및 seed별 결과를 함께 보고한다.
+과거82.52 등 다른 planner/Stage1/학습량 실험의 점수를 이번 대조군에 재사용하지 않는다.
+
+### 3. 보존된 정보의 내용과 최종 일반화
+
+LPWM을 고정한 뒤 작은 동일 probe로 객체 종류·상대 위치·움직임·2s/4s 미래 변위를 읽는다.
+Probe 학습/평가는 recording으로 분리하고 같은 모델 용량·표본·정규화·GT 연관 규칙을 유지한다.
+GT 객체 라벨은 이 진단의 평가/probe 감독용이며 본학습에 객체 GT loss를 추가한다는 뜻이 아니다.
+GT ROI geometry-only, current-only, zero displacement 대조를 비교하고 ego motion/좌표계·valid mask를 맞춘다.
+GT 객체 속도를 쓰는 등속도 대조는 특권 정보의 sanity control로 표시하며 모델과동일입력의공정기준선으로부르지않는다.
+현재 probe가 upstream planning 학습 분포에 있다는 한계는 그대로 표시한다.
+Readout이 좋아졌다는 것은 정보 접근성이 향상됐다는 증거이며 planner가 실제 활용한다는 증거는 별도로 필요하다.
+
+현재 future latent는 planning loss만 받으므로8단계가 실제0.5초 간격 미래와 정렬됐다고 보장하지 않는다.
+시간별 미래 상태 readout이 현재 표현 대조보다 개선되고 시간 순서 검사가 이를 지지하는지 확인한다.
+Particle4개를 고정 번호순으로 평균해 planner token을 만들고 interaction/background로 정보가 섞이므로
+점이나 glimpse 하나를 특정 객체 정보의 전부라고 해석하지 않는다.
+
+최종 조건을 고정한 뒤 full navtest PDMS, V2는 별도 승인 recipe의 warmup/navhard EPDMS로 평가한다.
+NC/DAC/TTC/progress/comfort와 사전 정의한 직진·좌우회전·가림·작은 객체/교차 상호작용 상황을 함께 보고한다.
+현재navval은 본학습에 포함됐으므로 독립 개발집합으로 재명명할 수 없다. 중간 튜닝용 독립개발 평가가 필요하면
+새 조건에서 recording을 사전에 제외하고 처음부터 학습해야 한다. Navtest를 반복 튜닝에 사용하지 않는다.
+
+권장 우선순위: 기존 읽기 전용 진단 유지 →25epoch 후 A–B 미래 대조 →A–C LoRA 대조 →A–D 의도 대조.
+DrivoR register와 LPWM particle의 시스템 비교는 그 뒤 같은 backend와 평가로 진행하며 해상도·사전학습·연산량 차이를 표시한다.
+서로 다른 pretrained backbone의 성능 차이만으로 particle 구조 자체의 효과를 확정하지 않는다.
+DrivoR의 후보 생성/채점 역할은 [원 논문](https://arxiv.org/abs/2601.05083) 및 공식 코드를 참고한다.
+
+강한 결론의 예: 같은 planner·학습 예산에서 미래 정보를 쓰는 조건이 독립 주행 점수를 높이고,
+관련 객체 정보를 바꾸면 대조 particle보다 안전한 후보 생성/선택이 악화하며, 해당 객체의 미래 상태 정보도 더 잘 읽힌다.
+이는 제안한 성공 증거 조합이지 현재 확인된 결과가 아니다.
