@@ -3193,3 +3193,19 @@ GT라벨은진단/probe감독에만쓰는설계,본학습객체GT loss추가확�
 현재navval도학습에포함돼독립development으로쓸수없다. 새로운개발split은처음부터제외해야한다. Navtest반복튜닝금지.
 설계는docs/lpwm_drivor_representation_and_fair_comparison.md 마지막절에기록했다. 새학습/평가/대조queue/source변경없음.
 16:59조회4170/40350 epoch3,monitor4000완료→4500대기. 기존25epoch·후속평가및매500/epoch진단유지.
+
+## 2026-10-07 18:01 KST — 중간 상태 확인, 새 성능 검증 대기
+
+사용자 중간 결과 요청에README/AGENTS/HANDOFF와현재학습·monitor·queue상태를읽었다.
+18:00:55 기준4,324/40,350, epoch3/약2.679epoch/전체10.716%. Micro16×accum2×2=유효64/loader2/oracle8.
+GPU0·1query38457MiB각(40.325GB)/util100%. Host train3144180/queue3144181/monitor3144182/publisher2507743생존확인.
+Sandbox ps에host PID가없어승인된읽기전용host ps로재확인했다. 다른사용자프로세스변경없음.
+양rank4324전체로그비유한loss0/nativehash동일,4300최근18gradient그룹모두유한·양수.
+원래279/현재oracle8실행283sourcehash모두일치. Monitor4,000완료→4,500대기,새완료진단/공식PDMS없음.
+최신완료4,000의PDMS75.8303,직진89.0445/좌69.5080/우61.1590,95training패널이며navtest아님.
+Particle초기중심1.979px/크기14.098%,appearanceF1.4114/wholeF1.4230,미래대체12scene ADE+.2444m CI[−.1981,+.8354].
+기존수치를현재4324성능으로부르지않는다. 포화·안정적미래정보기여에대한새결론은없다.
+최근50/100/200update wall24.1770/23.8734/23.7642초,4500오늘19:11/4842오늘21:26–21:30경계예상.
+V1학습완료10월17일16–20시외삽,진단처리/fullnavtest/V2등후속시간별도. 공유부하로변동가능.
+결과 results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1800.json에조회시각·progress·rankhealth·sourceaudit·ETA·최신기존평가근거보존.
+README/HANDOFF1–5/학습문서/RESUME_NOTES갱신. 모델/loss/학습량/source/config/queue/monitor/publisher변경없음.

@@ -1,5 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 18:01 KST — 중간 상태 확인, 새 검증은 아직4,000 이후 없음.**
+18:00:55학습4,324/40,350(2.679/25epoch,10.716%). 다음4,500/epoch3(4,842) 학습경계 오늘19:11/21:26–21:30 예상.
+GPU0·1모두100%/각40.325GB, micro16×accum2×2=유효64/loader2/oracle8 유지. 양rank 비유한loss0/4300의18gradient그룹 유한·양수.
+기존279·실행283sourcehash 모두일치,train3144180/queue3144181/monitor3144182/publisher2507743 host생존.
+최신완료4,000 PDMS75.8303,직진89.04/좌69.51/우61.16;95학습scene이며navtest아님. 신규성능값으로표시하지않는다.
+Geometry1.979px/14.098%,미래대체ADE+.2444m CI[−.1981,+.8354]. 안정적인미래이득미확인.
+V1학습종료10월17일16–20시KST외삽,진단처리·최종평가·V2시간별도. 기존25epoch/queue/매500진단변경없음.
+근거 `results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1800.json`.
+
 **2026-10-07 17:00 KST — Particle의 planning 이득 검증 방법 정리.**
 기존12scene 개입은 사용 의존성 진단이다. 재학습 A현재+미래/B현재만/C초기LoRA고정/Dencoder명령off로 미래·LoRA·의도를 분리하는 후속 설계를 추가했다.
 C는FiLM학습을A와같이유지해LoRA효과를분리한다. LPWM+FiLM완전고정 planner-only 대조와 구분한다.
@@ -167,7 +176,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 17:02 KST (Codex)
+마지막 갱신: 2026-10-07 18:03 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -334,6 +343,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+18:00:55KST 학습4,324/40,350 epoch3/전체10.716%, 기존학습·queue·monitor·CPUoverlaypublisher 생존.
+GPU0·1모두사용률100%,각40.325GB. Batch16×accum2×2=유효64/loader2/oracle8, monitor4000완료→4500대기.
+새GPU평가나학습설정변경없이상태·기존결과만확인했다.
 
 16:59 조회4,170/40,350, epoch3. 기존25epoch/후속queue/매500·epoch진단 계속, 마지막 완료4,000/다음4,500 대기.
 이번 검증 설계 요청으로 새 학습·GPU 평가·대조군 대기열을 시작하지 않았다. 실행source/config 불변.
@@ -851,6 +864,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+18:01현재완료된마지막PDMS/표현진단은4,000이고새성능검증없음. 기존PDMS75.83/3,500의75.90으로최근평균정체.
+직진89.04/좌69.51/우61.16,중심초기대비1.979px/크기14.098%,appearanceF1.4114/wholeF1.4230.
+미래대체12scene ADE+.2444m CI[−.1981,+.8354]를최신근거로사용,3500의+.4807만으로안정적이득주장금지.
+양rank4,324로그비유한loss0/nativehash동일/4300최근18gradient그룹유한양수/279·283등록hash모두정상.
+최근50/100/200update wall24.1770/23.8734/23.7642초. 다음4500오늘19:11,4842오늘21:26–21:30(진단처리시간별도).
+V1본학습끝10월17일16–20시외삽,fullnavtest/V2등후속시간미포함. 상태JSON에정확조회시각/근거보존.
 
 Planning 이득은 정보 접근성(probe), 모델 의존성(개입), 동일학습 대조의 독립 성능으로 나눠 검증한다.
 코드 확인: 현재+미래foreground/background 입력,4particle 고정평균,12training scene 개입과고정후보재채점 구현.
@@ -1568,12 +1588,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Particle 정보의 planning 이득 검증 방법 요청에 실제 입력/pooling/개입/고정후보 채점 코드와선행평가논문을 확인했다.
-- 동일학습A–B 미래효과/A–C LoRA효과/A–D encoder의도효과 대조 설계를기존검토문서에추가했다. C의FiLM은A와동일하게학습한다.
-- Foreground/background 분리·generator/scorer 분해·미래probe·독립benchmark 및공정통제/분포변화한계를 명시했다.
-- HANDOFF 1–5/RESUME_NOTES를갱신했다. 본학습25epoch·대기열·매500진단유지, 새학습·GPU작업·설정변경없음.
+- 사용자중간보고요청에18:00:55기준4,324-update진행과GPU0·1사용/host프로세스·대기열을확인했다.
+- 양rank전체loss/최근4300gradient/원래279및현재실행283sourcehash를읽기전용검사했다. 이상없음.
+- 새검증이아직없어4,000완료PDMS/표현수치와현재학습진행을구분했다. 새GPU평가나설정변경없음.
+- 상태JSON/README/HANDOFF 1–5/RESUME_NOTES/학습문서를갱신하고다음4500·epoch3·V1학습종료ETA를기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+다음4,500학습경계는10월7일19:11전후,epoch3(4,842)는21:26–21:30전후. 정기진단완료시간은별도다.
+4500진단/이후동일95패널공식PDMS를확인해4,000과비교한다. 4,324학습상태를새성능측정으로부르지않는다.
+기존25epoch/정기monitor/publisher/후속평가queue지속. V1본학습종료10월17일16–20시외삽이며부하로변동한다.
 
 기존25epoch완료 및정기검증을먼저유지한다. 이번A–D/foreground-background 대조는설명·후속설계로만기록됐고자동기동하지않는다.
 추후실행시동일공개초기화/planner state/배치·학습량/입력/evaluator를맞추고seed반복·상황별지표·recording CI를보고한다.
@@ -2013,6 +2037,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번상태조회로4,000이후성능개선·악화·포화를새로판정하지않는다. 새검증은4500을기다리는중이다.
+정상gradient·VRAM사용은학습동작근거이며유용한미래표현학습의확증이아니다. 독립평가/LPWM단독기여미확인.
+GPU전체48decimalGB한도및GPU0·1만사용은유지하고기존등록source/config를변경하지않는다.
 
 사용 의존성/정보 접근성/독립planning 이득은 서로 다른 주장이다. 입력 대체의OOD나정보중복으로인한결과를단독확증으로취급하지않는다.
 A−B는추가future분기의효과이며물리미래예측효과를확정하려면미래probe와계산량대조가필요하다.

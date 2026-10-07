@@ -814,3 +814,18 @@ nativehash 동일/평가 카드전체 최대41.2615GB. 본학습과queue는중�
 [PDMS 추세](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/pdms_progress_and_scenarios.png),
 [미래 개입 추세](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/future_intervention_trend.png),
 [particle 전후·겹침](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/particles_before_after_and_overlay_update4000.png).
+
+## 2026-10-07 18:01 KST — 중간 상태, 새 검증 대기
+
+18:00:55 조회4,324/40,350 update, 약2.679/25epoch(전체10.716%).
+Host train3144180/queue3144181/monitor3144182/publisher2507743생존,monitor4,000완료/4,500대기.
+GPU0·1모두util100%,각40.325GB, micro16×accum2×2=유효64/loader2/oracle8 유지.
+양rank전체로그비유한loss0,4300의18gradient그룹유한·양수,원래279/실행283sourcehash일치/nativehash하나유지.
+
+새완료진단/PDMS는아직없다. 최신4,000결과는PDMS75.8303,직진89.04/좌69.51/우61.16이며95학습패널이다.
+중심초기대비1.979px/크기14.098%,appearanceF1.4114/wholeF1.4230,미래대체ADE+.2444m CI[−.1981,+.8354]를기존근거로표시한다.
+본학습진행과마지막완료평가를구분하며포화/미래정보이득을새로판정하지않는다.
+최근50/100/200 wall24.1770/23.8734/23.7642초,4500오늘19:11/4842오늘21:26–21:30경계예상,진단처리별도.
+V1학습종료10월17일16–20시외삽,fullnavtest/V2등후속시간은미포함이다. 부하에따라달라질수있다.
+이번조회에서는새GPU학습·평가/모델·loss·source/config·queue변경없음.
+근거: [18:00 상태JSON](../results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1800.json).
