@@ -1,0 +1,54 @@
+{
+  "measurements": [
+    {
+      "workers_per_rank": 8,
+      "startup_seconds": 8.400301271933131,
+      "paired_request_seconds": [
+        1.96219695196487,
+        1.4151956300484017,
+        2.0116001999704167,
+        1.7487493249354884
+      ],
+      "median_seconds": 1.8554731384501792,
+      "all_scores_bitwise_equal": true
+    },
+    {
+      "workers_per_rank": 12,
+      "startup_seconds": 7.853652841062285,
+      "paired_request_seconds": [
+        1.6378828999586403,
+        1.7971284870291129,
+        1.373547696042806,
+        1.6541970799444243
+      ],
+      "median_seconds": 1.6460399899515323,
+      "all_scores_bitwise_equal": true
+    },
+    {
+      "workers_per_rank": 16,
+      "startup_seconds": 9.177472135983407,
+      "paired_request_seconds": [
+        1.2880939820315689,
+        1.2716027689166367,
+        1.271321932086721,
+        1.1731508349766955
+      ],
+      "median_seconds": 1.2714623505016789,
+      "all_scores_bitwise_equal": true
+    },
+    {
+      "workers_per_rank": 8,
+      "startup_seconds": 8.086593137006275,
+      "paired_request_seconds": [
+        1.5770598870003596,
+        1.596515467041172,
+        2.0729694809997454,
+        1.6916628200560808
+      ],
+      "median_seconds": 1.6440891435486265,
+      "all_scores_bitwise_equal": true
+    }
+  ],
+  "fixed_requests_on_shared_cpus": true,
+  "full_training_speedup_not_measured": true
+}

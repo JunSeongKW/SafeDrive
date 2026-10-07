@@ -1,0 +1,15 @@
+{
+  "overrides": {
+    "microbatch_per_gpu": 16,
+    "loader_workers_per_rank": 2,
+    "oracle_workers_per_rank": 8
+  },
+  "effective_batch_unchanged": 64,
+  "registration": "outputs/lpwm_drivor_optimized_execution_v1/execution_registration.json",
+  "maximum_total_card_bytes": 48000000000,
+  "optimizations": {
+    "sdpa_training": false,
+    "batched_gradient_finite_check": false
+  },
+  "canonical_evaluation_attention_unchanged": true
+}

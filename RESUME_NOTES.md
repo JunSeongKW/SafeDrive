@@ -3324,3 +3324,25 @@ FP32 dropout-off 출력 최대차1.72e-5,15 LPWM/명령 gradient그룹 최대상
 
 진단전4455–4554의wall23.2677초/update. SDPA는본학습미적용이며동일batch16/DDP/officialloss의보존재개비교가다음gate다.
 선택적checkpoint/compile/oracle중첩/microbatch증설을후속우선순위로기록했다. 학습목표/gradient/horizon/데이터축소없음.
+
+
+## 2026-10-07 21:33 KST — 실행 최적화 적용 및 본학습 계속
+
+**2026-10-07 21:33 KST — 속도 최적화 적용, 4,633에서 본학습 재개 후 4,807 확인.**
+사용자 적용승인에같은fullstate/실제DrivoRloss/GPU2/micro16/유효64로44개DDP비교update(12+12+12+8)를실행했다.
+기존전후중앙값평균25.4215초 vs oracle16+일괄gradient유한성검사24.1568초,약4.98%단축. SDPA포함24.0000초는추가.65%라미채택.
+채택설정 `configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json`,새trainer `scripts/train_lpwm_drivor_optimized_execution.py`.
+4,633 model/AdamW796state/scheduler/양rankRNG보존·복원,비교weights폐기. 20:24부터train3437947/queue3437948/monitor3437949 실행.
+21:33확인174실제update추가,wall23.4624초/update·최대카드40.1615GB,원래279/실행283/새291source정상.
+LoRA전체경로·명령·4카메라·미래8단계·loss·25epoch동일. Native/evalattention/정기진단유지,다음4842대기.
+남은V1약9.65일(현재부하가정10/17 13:12KST),최종평가/V2별도. 새로운PDMS/성능향상검증은아니다.
+근거 `results/lpwm_drivor_planning_path_lora_v1/optimized_execution_20261007/report.json`.
+
+복원checkpoint SHA fafd39b3fd68f47577db7e4c0ef08abc505ead221a74e88bea352b0747b58cab.
+Oracle16+일괄유한성채택,SDPA는실배치추가.65%라미채택. 원본재검도후속loss수치차이가있어bitwise동일학습을주장하지않는다.
+새등록291source는실행중수정금지. 비교용44updateweights는폐기했고원본4,633부터재개했다.
+
+21:40 추가검사: 새실행4800체크포인트의AdamW796state step·scheduler step이모두4800,양rankRNG2개저장확인.
+실제state_dict의 `planner.image_backbone.world_model.` 아래native1070항목으로재계산한SHA가원본a5dd2345…와일치했다.
+`production_checkpoint_integrity.json`에보존. 첫수동검사에서property이름을stateprefix로쓴조회오류는실제저장prefix로정정했으며모델가중치변경이아니었다.
+21:40:56 본학습4827/40350계속,원래279/283·새291source불변확인.

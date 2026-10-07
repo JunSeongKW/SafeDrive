@@ -1,0 +1,258 @@
+{
+  "checked_at_kst": "2026-10-07T21:33:16.814727",
+  "selection": {
+    "selected": {
+      "condition": "oracle16",
+      "execution_configuration": "configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json",
+      "updates": 12,
+      "median_update_seconds": 24.1567804813385,
+      "mean_update_seconds": 24.27258080906338,
+      "wall_seconds_per_update": 24.27917308277554,
+      "maximum_card_bytes": 40161509376,
+      "rank_scene_hashes": [
+        [
+          "b9cf5889d87601cc0153aa8f3267c3bcdd6fc16860136ce5e7def25112948452",
+          "3166ce7ffd92ca253173720281e23858687f2896a712f1290c572d848340659c",
+          "8318352c03cf30975f5662855ce9615f1040ffa31aed5fb8b0983e533b8407e1",
+          "137c2c9e8134b86f69754a617dd523c149b069895645efb778dba809846e04bc",
+          "5301ea45318e78e07d938bb31c7e77882bb159c95f7fcbedf932abb9895755ea",
+          "82cc992f99fcc3bac156eb6c496ea8f886b7d12c500572504873992368d421ac",
+          "16d9a9d1a0298fb5b35e0f5d0aa6ff3ca09ab58d202ea0592fe7d23407009dc5",
+          "a902a2c4dc16ff8e7a89205c808950fb12929a69efb979d9f6c97750507b8ea0",
+          "b0f2ae2d168af302bf0707b01ae222cb705cee0983b7e3f16ef18084470cf431",
+          "528da50d6a348f1ba3524e35840a2214a487e93be5eb1b196b99ae7e747e0b82",
+          "bfc38d1e3dae37986badfeeeee7a12ff0be3af4f0e61c00b8cfe03b87acf3a68",
+          "b86aa26b124172c7b3ae1a2c81066e3f3dae907a67a5f3aeccae2abe5e87cee6"
+        ],
+        [
+          "b6470495306193f58d82fdd8d8ce58d180da1086822ee02526caea816a78c7f1",
+          "f41f9f8898af83b0cf09d8e6bd4e35f340eed3468c934c07f87edd566e9e9795",
+          "1b7f7f5de0c74dcfff04392f1d0702be1cd3c1683d1872afcda04feeff86a66e",
+          "4d3f26fda85e94b53f6ea355e75d7c7a3962f74af4862efaa3ace1dc4475f059",
+          "e02c45efcdb42632ba609897a2f8315cb4604a6745ad1f0f66dacd2f897b5356",
+          "b6d0758746dce4a4dc2ee5210237da43f321d7eb792c8b089449d2ce1623e623",
+          "fdface09fac901fbeae4945fa1c361fa948775c10cde0d12880d20a7d9b893e4",
+          "2d62081c016187540f3ad416f08ef3eeb57cc64b5d1363b123ffe9f3e1bbc000",
+          "97553588494d3f4079995d128e890c3756652a4a917b4264fcd4abdcc235e7ff",
+          "18d9c98cbaad2321322ce00cdcd2951560158e5877e7e2e8168e8e91e2d29d16",
+          "5f5d8a5edc4394cd009d3355548f1278b1b90bf3dd5ba5165bb1e2862a478981",
+          "d8b648515ea877e1686b8a32ec8a74a244dc05a78dc56f2176e166dd6e64b8bb"
+        ]
+      ],
+      "rank_losses": [
+        [
+          3.1446428298950195,
+          3.1390554904937744,
+          2.6312310695648193,
+          2.731406569480896,
+          3.391242742538452,
+          2.5850409269332886,
+          3.1948145627975464,
+          3.074912667274475,
+          3.3100091218948364,
+          2.7785696983337402,
+          2.7282320261001587,
+          2.796725630760193
+        ],
+        [
+          2.7774819135665894,
+          3.387380361557007,
+          2.686376690864563,
+          3.0278786420822144,
+          3.560015916824341,
+          2.8339505195617676,
+          2.5034615993499756,
+          2.808340311050415,
+          2.742561101913452,
+          2.3795626163482666,
+          2.943979263305664,
+          2.805415987968445
+        ]
+      ],
+      "all_gradient_groups_positive": true,
+      "native_hash_preserved": true,
+      "resume_updates": 4633,
+      "benchmark_weights_discarded": true
+    },
+    "baseline_median_average_seconds": 25.421509623527527,
+    "time_reduction_percent": 4.9750355542163565,
+    "benchmark_weights_discarded": true
+  },
+  "preserved_resume": {
+    "checkpoint_sha256": "fafd39b3fd68f47577db7e4c0ef08abc505ead221a74e88bea352b0747b58cab",
+    "completed_updates": 4633,
+    "epoch": 2,
+    "next_update_in_epoch": 1405,
+    "optimizer_state_count": 796,
+    "optimizer_steps_min": 4633,
+    "optimizer_steps_max": 4633,
+    "scheduler_state": {
+      "_milestones": [
+        3322
+      ],
+      "last_epoch": 4633,
+      "_last_lr": [
+        0.0001990529804542718,
+        0.0001990529804542718
+      ],
+      "_schedulers": [
+        {
+          "start_factor": 1e-06,
+          "end_factor": 1.0,
+          "total_iters": 3322,
+          "base_lrs": [
+            0.0002,
+            0.0002
+          ],
+          "last_epoch": 3321,
+          "_step_count": 3322,
+          "_is_initial": false,
+          "_get_lr_called_within_step": false,
+          "_last_lr": [
+            0.00019993979536423544,
+            0.00019993979536423544
+          ]
+        },
+        {
+          "T_max": 29903,
+          "eta_min": 0.0,
+          "base_lrs": [
+            0.0002,
+            0.0002
+          ],
+          "last_epoch": 1311,
+          "_step_count": 1313,
+          "_is_initial": false,
+          "_get_lr_called_within_step": false,
+          "_last_lr": [
+            0.0001990529804542718,
+            0.0001990529804542718
+          ]
+        }
+      ]
+    },
+    "both_rank_rng_states_preserved": true,
+    "native_hash": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+  },
+  "restored_resume": {
+    "checkpoint_sha256": "fafd39b3fd68f47577db7e4c0ef08abc505ead221a74e88bea352b0747b58cab",
+    "completed_updates": 4633,
+    "next_update_in_epoch": 1405,
+    "epoch": 2,
+    "optimizer_steps_min": 4633,
+    "optimizer_steps_max": 4633,
+    "optimizer_state_count": 796,
+    "scheduler_state_restored": true,
+    "rank_rng_restored_before_training": true,
+    "effective_batch": 64,
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "benchmark_updates_discarded": false,
+    "execution_sha256": "cae1250442f00a6c5063932921c96750cb8e21f85c46e0df2568a8287f1d19b5"
+  },
+  "observed_production_updates": 174,
+  "production_update_range": [
+    4634,
+    4807
+  ],
+  "production_steady_median_update_seconds": 23.44602108001709,
+  "production_steady_wall_seconds_per_update": 23.462397410855655,
+  "production_peak_card_bytes": 40161509376,
+  "gradient_groups_positive_by_rank": [
+    {
+      "particle_interaction_lora": 0.21767758503310278,
+      "context_prior_lora": 0.03459858900694002,
+      "particle_dynamics_lora": 0.21022724262492443,
+      "particle_xy_head_lora": 0.3494918503500648,
+      "particle_scale_xy_head_lora": 0.22946340096296763,
+      "particle_obj_on_head_lora": 0.026721091715683175,
+      "current_prior_cnn_lora": 0.35593717090253524,
+      "current_attribute_cnn_lora": 0.8000944837255634,
+      "appearance_encoder_lora": 0.5772202569561786,
+      "background_appearance_lora": 0.26271843205717754,
+      "interaction_visual_and_output_lora": 0.5040767700182756,
+      "context_prior_projection_and_output_lora": 0.09148109153560925,
+      "dynamics_projection_and_ffn_lora": 0.5453691459347334,
+      "future_particle_heads_lora": 0.46636873805973567,
+      "encoder_command": 0.3119498434131961,
+      "scene_projection": 1.1837392778915545,
+      "trajectory_generator": 7.031352356479076,
+      "scorer": 1.5832615870238362
+    },
+    {
+      "particle_interaction_lora": 0.21767758503310278,
+      "context_prior_lora": 0.03459858900694002,
+      "particle_dynamics_lora": 0.21022724262492443,
+      "particle_xy_head_lora": 0.3494918503500648,
+      "particle_scale_xy_head_lora": 0.22946340096296763,
+      "particle_obj_on_head_lora": 0.026721091715683175,
+      "current_prior_cnn_lora": 0.35593717090253524,
+      "current_attribute_cnn_lora": 0.8000944837255634,
+      "appearance_encoder_lora": 0.5772202569561786,
+      "background_appearance_lora": 0.26271843205717754,
+      "interaction_visual_and_output_lora": 0.5040767700182756,
+      "context_prior_projection_and_output_lora": 0.09148109153560925,
+      "dynamics_projection_and_ffn_lora": 0.5453691459347334,
+      "future_particle_heads_lora": 0.46636873805973567,
+      "encoder_command": 0.3119498434131961,
+      "scene_projection": 1.1837392778915545,
+      "trajectory_generator": 7.031352356479076,
+      "scorer": 1.5832615870238362
+    }
+  ],
+  "epoch_hours_at_current_speed": 10.518974839200284,
+  "remaining_v1_training_days": 9.651898045995862,
+  "estimated_v1_training_end_kst": "2026-10-17T13:12:00.805901",
+  "repeated_run_numeric_variation": {
+    "original_repeat": {
+      "first_loss_max_difference": 0.0,
+      "max_loss_difference_over_updates": 0.09621632099151611
+    },
+    "worker_and_finite_check": {
+      "first_loss_max_difference": 0.0,
+      "max_loss_difference_over_updates": 0.07068741321563721
+    }
+  },
+  "source_checks": [
+    {
+      "file": "outputs/lpwm_drivor_planning_path_lora_v1/registration.json",
+      "sources": 279,
+      "mismatches": []
+    },
+    {
+      "file": "outputs/lpwm_drivor_planning_path_lora_v1/oracle8_execution_registration.json",
+      "sources": 283,
+      "mismatches": []
+    },
+    {
+      "file": "outputs/lpwm_drivor_optimized_execution_v1/execution_registration.json",
+      "sources": 291,
+      "mismatches": []
+    }
+  ],
+  "queue": {
+    "stage": "navsim_v1_training",
+    "adopted_pid": 3437947,
+    "updated_unix": 1791376393.4421651
+  },
+  "monitor": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 4806,
+    "last_evaluated_update": 4500,
+    "next_milestone": 4842,
+    "active_update": null,
+    "updated_unix": 1791376388.4673455,
+    "controller": "scripts/monitor_lpwm_particle_trends_every500.py",
+    "interval_updates": 500,
+    "chat_notification_sent": false
+  },
+  "limitations": [
+    "Short matched-checkpoint throughput benchmarks and initial production observations on shared hardware.",
+    "SDPA retains dropout probability but changes random mask draws and floating-point ordering.",
+    "CPU fixed-proposal scores were bitwise equal; repeated GPU training is not bitwise identical.",
+    "No new PDMS or long-run convergence claim; regular representation and final evaluation queue retained.",
+    "ETA excludes final evaluation, subsequent v2 training and future pauses."
+  ]
+}

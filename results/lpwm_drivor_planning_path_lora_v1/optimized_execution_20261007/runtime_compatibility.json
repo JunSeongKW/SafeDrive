@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "initial_state_identical": true,
+  "parameter_keys_identical": true,
+  "initial_rng_identical": true,
+  "state_dict_entries": 2195,
+  "sdpa_modules": 21,
+  "eval_attention_canonical": true,
+  "finite_check_nan_inf_preserved": true,
+  "temporal_mask_guard_verified": true,
+  "native_hash": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+}

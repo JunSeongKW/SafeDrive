@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "benchmark_updates": 8,
+  "resume_updates": 4633,
+  "completed_updates": 4641,
+  "benchmark_weights_discarded": true,
+  "last_status": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "818eb9b83e422472fb81e54af29c8fc8c93645cb4097f8f928bec1989a183d0e",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": false
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 4641,
+    "epoch": 3,
+    "rank_scene_tokens_sha256": "a902a2c4dc16ff8e7a89205c808950fb12929a69efb979d9f6c97750507b8ea0",
+    "update_in_epoch": 1413,
+    "seconds_this_update": 24.856106281280518,
+    "elapsed_seconds": 258.5996673107147,
+    "card_used_bytes": 40161509376,
+    "peak_reserved_bytes": 39583744000,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0643618106842041,
+      "forward": 6.975916624069214,
+      "oracle": 2.740084648132324,
+      "backward": 14.901619911193848
+    },
+    "learning_rates": [
+      0.0001990414059191166,
+      0.0001990414059191166
+    ],
+    "loss": 3.007634997367859,
+    "trajectory_loss": 0.9868226647377014,
+    "final_score_loss": 2.0208123326301575,
+    "score": 0.7834768295288086,
+    "best_score": 0.9817988276481628,
+    "estimated_remaining_seconds": 1154293.1936405003
+  }
+}

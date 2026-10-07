@@ -1,0 +1,40 @@
+{
+  "training": {
+    "pid": 3437947,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nproc_per_node=2",
+      "scripts/train_lpwm_drivor_optimized_execution.py",
+      "--config",
+      "configs/lpwm_drivor_planning_path_lora/navsim_v1.json",
+      "--execution",
+      "configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json"
+    ],
+    "started_unix": 1791372242.609711
+  },
+  "queue": {
+    "pid": 3437948,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-u",
+      "scripts/queue_lpwm_drivor_optimized_execution.py",
+      "--execution",
+      "configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json"
+    ],
+    "started_unix": 1791372242.6176858
+  },
+  "monitor": {
+    "pid": 3437949,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-u",
+      "scripts/monitor_lpwm_particle_trends_every500.py",
+      "--config",
+      "configs/lpwm_drivor_review/particle_trends_every500.json"
+    ],
+    "started_unix": 1791372242.6241465
+  }
+}

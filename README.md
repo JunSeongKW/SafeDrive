@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 21:33 KST — 속도 최적화 적용 후 본학습 재개.**
+같은checkpoint·학습장면의GPU2 비교에서25.42→24.16초/update(약5%단축),oracle16+일괄gradient유한성검사채택.
+SDPA의추가속도이득.65%는작아미채택. 4,633의model/optimizer/scheduler/RNG에서재개해4,807까지174update정상진행.
+실학습wall23.46초/update·최대40.16GB/card,유효64/25epoch/정기진단/후속평가유지.
+[비교·복원·실행상태](results/lpwm_drivor_planning_path_lora_v1/optimized_execution_20261007/report.json).
+
+
 **2026-10-07 19:43 KST — 학습 속도 점검.**
 최근100update23.27초, 순전파26%·역전파61%·CPU채점12%. Loader 추가의효과는작다.
 별도1카메라 SDPA 검사에서5.6–9.6% 시간감소와FP32출력/gradient근접확인; 실제batch16 DDP속도는미검증.

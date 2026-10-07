@@ -1,5 +1,16 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 21:33 KST — 속도 최적화 적용, 4,633에서 본학습 재개 후 4,807 확인.**
+사용자 적용승인에같은fullstate/실제DrivoRloss/GPU2/micro16/유효64로44개DDP비교update(12+12+12+8)를실행했다.
+기존전후중앙값평균25.4215초 vs oracle16+일괄gradient유한성검사24.1568초,약4.98%단축. SDPA포함24.0000초는추가.65%라미채택.
+채택설정 `configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json`,새trainer `scripts/train_lpwm_drivor_optimized_execution.py`.
+4,633 model/AdamW796state/scheduler/양rankRNG보존·복원,비교weights폐기. 20:24부터train3437947/queue3437948/monitor3437949 실행.
+21:33확인174실제update추가,wall23.4624초/update·최대카드40.1615GB,원래279/실행283/새291source정상.
+LoRA전체경로·명령·4카메라·미래8단계·loss·25epoch동일. Native/evalattention/정기진단유지,다음4842대기.
+남은V1약9.65일(현재부하가정10/17 13:12KST),최종평가/V2별도. 새로운PDMS/성능향상검증은아니다.
+근거 `results/lpwm_drivor_planning_path_lora_v1/optimized_execution_20261007/report.json`.
+
+
 **2026-10-07 19:43 KST — LoRA 학습 속도 병목과 SDPA 후보 점검.**
 본학습 최근100update는23.268초/update, 순전파26.42%·역전파60.74%·CPU oracle11.85%·기타0.99%다.
 Loader 대기는 미미하고 GPU0·1 각40.325GB, micro16×누적2×2=유효64/loader2/oracle8 유지.
@@ -237,7 +248,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 19:46 KST (Codex)
+마지막 갱신: 2026-10-07 21:42 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -404,6 +415,16 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+21:40 추가검사: 새실행4800체크포인트의AdamW796state step·scheduler step이모두4800,양rankRNG2개저장확인.
+실제state_dict의 `planner.image_backbone.world_model.` 아래native1070항목으로재계산한SHA가원본a5dd2345…와일치했다.
+`production_checkpoint_integrity.json`에보존. 첫수동검사에서property이름을stateprefix로쓴조회오류는실제저장prefix로정정했으며모델가중치변경이아니었다.
+21:40:56 본학습4827/40350계속,원래279/283·새291source불변확인.
+
+최신채택실행: train3437947,queue3437948,monitor3437949,publisher2507743. 이전3144180/3144181/3144182는공학적checkpoint중단후종료.
+Controller `apply_lpwm_execution_optimizations.py`는선택·재개완료로종료했으며재실행하지않는다. 새학습은4,633부터4,807(21:33)까지174update계속됐다.
+실행config는 `configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json`이다. 원래25epoch/유효64,loader2/oracle16/GPU2·micro16×누적2,40.16GB/card.
+새291source registration `outputs/lpwm_drivor_optimized_execution_v1/execution_registration.json`도immutable이다. 새trainer/queue/module/config를실행중수정하지않는다.
 
 19:43 속도감사 종료, 본학습4590/40350와train3144180/queue3144181/monitor3144182/publisher2507743 유지.
 별도GPU검사는종료했고각카드40.325GB로반환됐다. 본학습source/config/model/optimizer 변경없음.
@@ -946,6 +967,12 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+동일4,633fullstate/동일scenehash의실제officialloss DDP비교: 원본25.1686초(12update),worker16+일괄유한성24.1568초(12),SDPA+worker16 24.0000초(12),원본재검25.6744초(8).
+Warmup3개를각각제외. 기준전후중앙값평균25.4215대비선택24.1568은4.975%단축. SDPA추가이득.649%로1.5%채택기준미달·배제.
+모든조건전체card48GB이내,18gradient그룹유한양수/nativehash유지. SDPA메모리38.59GB/선택40.16GB. 최종본학습sdpa_training=false.
+Oracle고정입력8/12/16/8비교의7subscore는모두bitwise일치. GPU재학습은수치비결정성있음: 첫loss차이0,후속최대차worker조건.07069/동일원본재검.09622. Bitwise학습동일성을주장하지않는다.
+174재개update에서wall23.4624초·median23.4460초,최대40.1615GB. 보고서results/optimized_execution_20261007/에44개DDP로그·source등록·복원기록보존.
 
 최근100update(4455–4554) wall23.2677초,순전파6.1333/역전파14.0996/oracle2.7507/기타.2295초.
 별도SDPA한카메라VJP는2.120/2.215→2.002초,최대gradient상대오차.0576%,출력1.72e-5/native유지.
@@ -1720,13 +1747,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 LoRA 학습 속도 요청에 양rank100update를분해:23.268초/update,순전파26.42%·역전파60.74%·oracle11.85%.
-- 별도한카메라·8미래단계VJP에서LPWM21attention SDPA 원본/변경/원본비교완료:2.120/2.215→2.002초,출력·gradient수치근접/native불변.
-- 진단전용4GiB allocator OOM2건과6GiB재검사성공(최대전체45.009GB)을기록했다. 본학습은중단·변경없고기존279/283source 정상.
-- 재사용가능한bounded프로파일script,수치·한계·실행당시source와최적화우선순위를보존했다. 작은VJP를실제DDP속도향상으로해석하지않는다.
-- README/HANDOFF1–5/기존학습문서/RESUME_NOTES갱신. GPU진단종료·본학습/queue/정기진단 유지.
+- 사용자승인에현재학습4,633을fullstate로보존하고동일checkpoint/동일학습장면/실제DrivoRloss의44개DDPupdate속도비교를완료했다.
+- 원본전후25.42초대worker16+일괄gradient유한성24.16초(약4.98%단축)를채택했다. SDPA24.00초의추가이득.65%는채택기준미달로배제했다.
+- 기존등록source를수정하지않고새runtime모델·trainer·queue·controller와설정을추가,기존279/283+새291source등록으로보존했다.
+- Model/AdamW796state/scheduler/양rankRNG복원·비교weights폐기,4,634부터새본학습재개. 21:33에4,807/174추가update·정상gradient·최대40.16GB를확인했다.
+- 고정oracle score동일성과GPU반복학습수치변동을함께기록했다. 상세benchmark/재개로그/설정등록·보고서및README/HANDOFF1–5/기존학습문서/RESUME_NOTES갱신.
+- 기존25epoch/4카메라/8미래/유효64/loss/LoRA범위를유지하고새queue·정기진단계속. 새PDMS평가·compile·selectivecheckpoint·microbatch증설은미실행.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+새채택실행을그대로유지한다. 정기표현monitor다음4842/5000을확인하고25epoch→fullnavtest→독립V2학습→warmup/navhard순서를새queue가계속관리한다.
+원본checkpoint4,633은 `outputs/lpwm_drivor_optimized_execution_v1/preserved_resume.pt`;기존latest는새실행checkpoint로이미진행했다. 비교weights를본학습에로드하지않는다.
+재개시새trainer+선택execution을사용하고원래279/283와새291source를검사한다. 원본train/queue자동재기동이나새controller중복실행을하지않는다.
+SDPA는실배치의추가속도이득이작아미채택. Selective checkpoint/compile/비동기oracle/더큰microbatch는현재미적용이며추가실측없이다음실행에서켜지않는다.
 
 속도 개선 적용 후보는 SDPA이며 본학습으로의 적용은 아직 안 했다. 적용 시 원래279/283source를수정하지말고새실행등록을만든다.
 같은fullstate/실제officialloss/GPU2/micro16/유효64/48GB에서원본-변경-원본30–50update를비교하고성공한변경만채택한다.
@@ -2199,6 +2232,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+사용자의이번최적화적용및학습재개요청은완료했다. 모델/목표/유효batch/epoch/LoRA계층변경없이CPUoracle16과gradient검사의host동기화최적화만채택했다.
+SDPA후보는메모리이득은있으나worker16대비추가시간이득.65%라채택하지않았다. 새benchmark를성능ablation/새PDMS/bitwise동일학습으로부르지않는다.
+짧은동일checkpointbenchmark약5%단축과재개174update의실제속도를구분한다. 서로다른시점/장면의과거23.27초와현재23.46초를인과비교하지않는다.
+새source291개등록유지. 본학습·queue·정기진단계속. GPU대규모재계산/compile최적화는실행하지않았다.
 
 이번 요청은 학습 시간 단축 방안 점검이다. 본학습 목표/LoRA계층/유효batch/epoch/queue 변경 없이 read-only로그감사와별도무optimizer GPU VJP를완료했다.
 SDPA는유망한실행후보이나fullbatch성능·정밀도·dropout경로·planning학습 검증과재개검증이남는다. 실제단축률·종료ETA개선은확정하지않았다.

@@ -949,3 +949,63 @@ Future gradient detach,trainable featurecache,카메라/미래step감축,LoRA계
 Prefix/KV재사용도역전파연결과autoregressive train dropout의상관구조가달라질수있어단순inference cache를가져오지않는다.
 19:43실행은기존본학습유지,SDPA후보본학습적용/새queue등록없음. 기존279/실행283sourcehash는모두일치했다.
 상세 [감사 JSON](../results/lpwm_drivor_planning_path_lora_v1/training_speed_audit_20261007/assessment.json).
+
+
+## 2026-10-07 21:33 KST — 검증한 실행 최적화 적용 및 본학습 재개
+
+사용자가 속도 개선 방법을 적용하고 이어서 학습하도록 승인했다. 연구 질문은 동일 명령·planning 적응 목적과
+geometry/appearance/future gradient를 유지한 채 실행 시간만 줄일 수 있는가이다.
+원본등록source279개/oracle8실행283개는수정하지않았으며새등록291개도고정했다.
+
+### 실행 비교
+
+먼저CPU의같은현재후보를8/12/16/8workers per rank로반복채점했다. 중앙값1.8555/1.6460/1.2715/1.6441초,
+7개subscore가모두bitwise동일했다. 공유CPU·고정입력검사이므로이값을학습전체단축률로사용하지않았다.
+
+19:59경본학습에update경계pause를요청했고4,633 model·796 AdamW state·scheduler·양rank RNG를hardlink로보존했다.
+보존SHA `fafd39b3fd68f47577db7e4c0ef08abc505ead221a74e88bea352b0747b58cab`.
+각조건은이체크포인트에서같은다음장면들을학습했고rank별scenehash동일성을검사했다.
+실제4카메라·128²·8future·micro16×accum2×GPU2=effective64와기존공식DrivoRloss/CPUoracle/DDP를그대로실행했다.
+
+| 실행 순서 | 실행 update 수 | warmup 3개 제외 update 중앙값 | 최대 전체 카드 점유 |
+|---|---:|---:|---:|
+| 원본, oracle8 | 12 | 25.1686초 | 40.1615GB |
+| oracle16 + 일괄 gradient 유한성 검사 | 12 | 24.1568초 | 40.1615GB |
+| 위 설정 + LPWM SDPA | 12 | 24.0000초 | 38.5907GB |
+| 원본 재검, oracle8 | 8 | 25.6744초 | 40.1615GB |
+
+선택은 **oracle16 + 일괄 gradient 유한성 검사**다. 원본전후중앙값평균25.4215초대비4.975%단축했다.
+SDPA는worker16조건대비추가.649%단축으로사전controller의1.5%추가채택기준에못미쳤다.
+SDPA의메모리절약은관측했지만이번본학습에는켜지않았다. 작은한카메라검사의5.6–9.6%를실배치추가이득으로간주하지않았다.
+
+새trainer의유한성검사는모든trainable gradient에대해기존과같이`isfinite().all()`을계산하고
+GPU의boolean들을묶어마지막에한번host조건으로읽는다. 각parameter마다host동기화하던비용을줄인것이며검사를제거하지않았다.
+기존모델과새실행모델의초기state_dict2,195항목·난수상태일치,strictcheckpoint호환,평가시원본attention,
+NaN/Inf검출및temporal mask조건을CPU검사했다. 네DDP조건모두18gradient그룹유한양수/최종nativehash불변/48GB내완료했다.
+
+고정후보oracle결과는동일하나전체GPU재학습은bitwise동일하지않았다. 첫loss는양rank에서동일했고,
+이후worker변경조건의최대loss차이.07069,동일원본재검의최대차이.09622를함께기록했다.
+이를worker증설의성능향상/악화로해석하지않으며,source·loss·입력/optimizer설정동일과bitwise실행동일을구분한다.
+
+### 채택 및 재개
+
+- 실행config: `configs/lpwm_drivor_optimized_execution/batched_checks_oracle16.json`.
+- 본학습: `scripts/train_lpwm_drivor_optimized_execution.py` (PID3437947의torchrun,worker명kjs-lpwm-opt).
+- 후속queue: `scripts/queue_lpwm_drivor_optimized_execution.py` (3437948). 최종navtest→freshV2학습→warmup/navhard순서를유지한다.
+- 정기표현monitor3437949와기존CPUoverlaypublisher2507743유지. 평가모델/그림의canonical attention을바꾸지않았다.
+- 신규등록: `outputs/lpwm_drivor_optimized_execution_v1/execution_registration.json`,291sources.
+- 새controller는비교후재개까지완료해종료했다. 과거training3144180/queue3144181/monitor3144182는재기동하지않는다.
+
+비교학습44update의weights는본학습에사용하지않았다. 20:24KST에원래4,633의optimizer796state·scheduler·rankRNG를복원하고4,634부터계속학습했다.
+21:33까지4,807(174실제update 추가),warmup3개제외wall23.4624초/update·median23.4460초·전체카드최대40.1615GB를확인했다.
+남은V1학습약9.65일,현재부하유지가정10월17일13:12KST예상이며추가평가·V2는별도다.
+다른시점의기존23.27초와현재23.46초를직접인과비교하지않고,동일상태benchmark약5%와실학습관측값을구분한다.
+
+모든연구조건(25epoch/103,288trainval/명령/4카메라/8미래/LoRA범위/loss/LR/유효64)은유지했다.
+Loader2/각GPUmicro16×누적2,oracle16만적용했다. Selectivecheckpoint·compile·비동기oracle·더큰microbatch는미적용이다.
+새PDMS나장기planning성능향상을주장하지않는다. 다음4842표현검사와기존최종평가가계속진행된다.
+[보고서와44개비교로그](../results/lpwm_drivor_planning_path_lora_v1/optimized_execution_20261007/report.json).
+
+21:40추가검사에서저장된4800체크포인트의AdamW796state/scheduler가4800,양rankRNG저장,
+원본LPWM1070개state항목의SHA재계산일치를확인했다. [체크포인트검사](../results/lpwm_drivor_planning_path_lora_v1/optimized_execution_20261007/production_checkpoint_integrity.json).
+21:40:56본학습4827계속.

@@ -1,0 +1,57 @@
+{
+  "condition": "original_after",
+  "execution_configuration": "configs/lpwm_drivor_optimized_execution/original_oracle8.json",
+  "updates": 8,
+  "median_update_seconds": 25.674431324005127,
+  "mean_update_seconds": 25.481215906143188,
+  "wall_seconds_per_update": 25.483215284347533,
+  "maximum_card_bytes": 40161509376,
+  "rank_scene_hashes": [
+    [
+      "b9cf5889d87601cc0153aa8f3267c3bcdd6fc16860136ce5e7def25112948452",
+      "3166ce7ffd92ca253173720281e23858687f2896a712f1290c572d848340659c",
+      "8318352c03cf30975f5662855ce9615f1040ffa31aed5fb8b0983e533b8407e1",
+      "137c2c9e8134b86f69754a617dd523c149b069895645efb778dba809846e04bc",
+      "5301ea45318e78e07d938bb31c7e77882bb159c95f7fcbedf932abb9895755ea",
+      "82cc992f99fcc3bac156eb6c496ea8f886b7d12c500572504873992368d421ac",
+      "16d9a9d1a0298fb5b35e0f5d0aa6ff3ca09ab58d202ea0592fe7d23407009dc5",
+      "a902a2c4dc16ff8e7a89205c808950fb12929a69efb979d9f6c97750507b8ea0"
+    ],
+    [
+      "b6470495306193f58d82fdd8d8ce58d180da1086822ee02526caea816a78c7f1",
+      "f41f9f8898af83b0cf09d8e6bd4e35f340eed3468c934c07f87edd566e9e9795",
+      "1b7f7f5de0c74dcfff04392f1d0702be1cd3c1683d1872afcda04feeff86a66e",
+      "4d3f26fda85e94b53f6ea355e75d7c7a3962f74af4862efaa3ace1dc4475f059",
+      "e02c45efcdb42632ba609897a2f8315cb4604a6745ad1f0f66dacd2f897b5356",
+      "b6d0758746dce4a4dc2ee5210237da43f321d7eb792c8b089449d2ce1623e623",
+      "fdface09fac901fbeae4945fa1c361fa948775c10cde0d12880d20a7d9b893e4",
+      "2d62081c016187540f3ad416f08ef3eeb57cc64b5d1363b123ffe9f3e1bbc000"
+    ]
+  ],
+  "rank_losses": [
+    [
+      3.1446428298950195,
+      3.137246012687683,
+      2.600590229034424,
+      2.749119758605957,
+      3.3779525756835938,
+      2.6210265159606934,
+      3.2053298950195312,
+      3.007634997367859
+    ],
+    [
+      2.7774819135665894,
+      3.387866973876953,
+      2.6972007751464844,
+      3.051300883293152,
+      3.607551693916321,
+      2.824109673500061,
+      2.5283091068267822,
+      2.8219906091690063
+    ]
+  ],
+  "all_gradient_groups_positive": true,
+  "native_hash_preserved": true,
+  "resume_updates": 4633,
+  "benchmark_weights_discarded": true
+}

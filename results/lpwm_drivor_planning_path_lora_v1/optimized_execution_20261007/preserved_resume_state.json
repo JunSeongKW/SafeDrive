@@ -1,0 +1,56 @@
+{
+  "checkpoint_sha256": "fafd39b3fd68f47577db7e4c0ef08abc505ead221a74e88bea352b0747b58cab",
+  "completed_updates": 4633,
+  "epoch": 2,
+  "next_update_in_epoch": 1405,
+  "optimizer_state_count": 796,
+  "optimizer_steps_min": 4633,
+  "optimizer_steps_max": 4633,
+  "scheduler_state": {
+    "_milestones": [
+      3322
+    ],
+    "last_epoch": 4633,
+    "_last_lr": [
+      0.0001990529804542718,
+      0.0001990529804542718
+    ],
+    "_schedulers": [
+      {
+        "start_factor": 1e-06,
+        "end_factor": 1.0,
+        "total_iters": 3322,
+        "base_lrs": [
+          0.0002,
+          0.0002
+        ],
+        "last_epoch": 3321,
+        "_step_count": 3322,
+        "_is_initial": false,
+        "_get_lr_called_within_step": false,
+        "_last_lr": [
+          0.00019993979536423544,
+          0.00019993979536423544
+        ]
+      },
+      {
+        "T_max": 29903,
+        "eta_min": 0.0,
+        "base_lrs": [
+          0.0002,
+          0.0002
+        ],
+        "last_epoch": 1311,
+        "_step_count": 1313,
+        "_is_initial": false,
+        "_get_lr_called_within_step": false,
+        "_last_lr": [
+          0.0001990529804542718,
+          0.0001990529804542718
+        ]
+      }
+    ]
+  },
+  "both_rank_rng_states_preserved": true,
+  "native_hash": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+}

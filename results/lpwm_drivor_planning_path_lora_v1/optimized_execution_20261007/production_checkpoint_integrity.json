@@ -1,0 +1,17 @@
+{
+  "checked_at_kst": "2026-10-07T21:40:24.526233",
+  "completed_updates": 4800,
+  "optimizer_state_count": 796,
+  "optimizer_steps_min": 4800,
+  "optimizer_steps_max": 4800,
+  "scheduler_step": 4800,
+  "two_rank_rng_states_saved": true,
+  "native_weight_buffer_digest_recomputed": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "state_dict_prefix": "planner.image_backbone.world_model.",
+  "native_state_entries": 1070,
+  "runtime_optimizations": {
+    "sdpa_training": false,
+    "batched_gradient_finite_check": true
+  },
+  "passed": true
+}
