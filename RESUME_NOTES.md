@@ -3569,3 +3569,10 @@ LoRA/Adapter 자체가 시간축을 강제하는 것은 아니다. 단일 관측
 새평가점수는없음. 공통navtest1,024scene/44recording에서는기존Adapter9414 PDMS81.6141/ADE1.1632/FDE2.7367,LoRA5400 PDMS81.6096/ADE2.3644/FDE5.4760. Adapter내부dev1epoch82.4852→2epoch83.5279는별도패널이다.
 최근50–200회벽시계속도본학습84.79–88.15초/Adapter3.63–3.69초. 5500경계09:42–09:46,Adapterepoch3학습10:11–10:13KST외삽이며진단양보·평가시간별도. 본학습의34일내부ETA는병행micro4속도를그대로외삽하므로예정batch16복원후ETA로사용하지않는다.
 Particle최신5000진단은평균중심2.277입력px/크기14.084%변화,F1.43893이며다음5500대기. 실행·설정변경없이 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0814.json`과인수인계에기록했다.
+
+## 2026-10-08 08:20 KST — 본학습 particle 변화 시각화 제공
+
+사용자는본학습의particle변화를그림으로요청했다. 현재학습5,440이나완료진단은5,000이므로정확히그시점으로표시했다. 기존publisher의직진/좌회전/우회전4열(입력/전/후/겹침)과겹침단독PNG를 `results/lpwm_drivor_planning_path_lora_v1/particle_visualization_update5000/`에동일바이트로복사했다.
+기존CPUscript `visualize_lpwm_vehicle_rich_particle_changes.py --updates 5000 --output results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update5000` 실행완료. 이전3,000과같은scene41/21/27,동일입력/64particle번호,학습전presence상위16박스고정. 원영상→실제128입력pixel일치·유한attributes·checkpoint완료검사통과.
+학습후checkpoint SHA971e8724f99f13b0ee024e28e9e3e19db8a820ea42ef8918144a188ba25ecef2. 차량장면앞카메라평균중심변화2.853/2.876/1.453입력px,크기변화13.138/12.625/9.466%. 전체96×4에서는2.277px/14.084%.
+실제표준4열/차량4열/차량겹침PNG를열어확인했다. 청록학습전/주황학습후/흰화살표동일번호학습전후차이,겹침점반경고정·박스glimpse로설명한다. 물리적이동/검출/attention/planning이득으로해석하지않는다. 새GPU작업/코드수정/학습조건변경없음.

@@ -334,7 +334,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 08:14 KST (Codex)
+마지막 갱신: 2026-10-08 08:19 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -501,6 +501,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 08:20 KST: 사용자 요청으로 완료된5,000update particle 속성을 CPU에서 시각화했다. 조회시 본학습5,440/다음진단5,500이며 학습·queue·monitor는 변경하지 않았다.
 
 08:13조회: 본학습875422/5,437, Adapter1212507/12,178(원래queue1208639), 본학습queue875423/monitor875424,복원watcher967796 모두호스트에서실행확인. Mainmicro4×acc8×GPU2/Adapterbatch8×GPU2 유지.
 
@@ -1084,6 +1086,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신시각화 `results/lpwm_drivor_planning_path_lora_v1/particle_visualization_update5000/`에 직진/좌/우 전후+겹침, `vehicle_rich_particle_visualization_update5000/`에 기존고정scene41/21/27의전후+겹침/원영상/4카메라겹침생성. 5,000checkpoint SHA971e8724…동일. 차량장면앞카메라 평균중심변화2.853/2.876/1.453px,크기13.138/12.625/9.466%. 전체96×4카메라중심2.277px/크기14.084%. Geometry변화만으로driving집중/성능향상주장없음.
 
 08:13: 새PDMS/표현진단없음. 공통navtest1,024장면 LoRA5400 PDMS81.6096/ADE2.3644/FDE5.4760,Adapter9414 PDMS81.6141/ADE1.1632/FDE2.7367. Particle최신5,000: 중심2.277px/크기14.084%변화,F1.43893. 학습진행/gradient정상과새성능향상은구분한다.
 
@@ -1907,11 +1911,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 두 학습의 실제 progress/양rank loss·gradient/호스트 process/GPU메모리/queue/복원watcher를 확인하고 중간보고 JSON을 보존했다.
-- 완료된 공통navtest부분집합 점수와Adapter내부dev 상승을 구분했다. 새checkpoint평가가 없음을 명시하고 최신particle진단/근접ETA를 기록했다.
-- 학습 코드·설정·배치·대기열은 변경하지 않았다. HANDOFF/RESUME_NOTES와 조회결과만 갱신했다.
+- 완료된5,000update의표준전후+겹침그림을results에복사하고이전차량밀집scene41/21/27을동일particle번호로CPU시각화했다.
+- 실제생성PNG를열어정렬·색상·겹침을확인했고checkpoint/attributes SHA와장면별변화를기록했다. 기존3,000update그림과학습코드는보존했다.
+- 점64개와초기presence상위16개glimpse박스,겹침의고정점반경/실제이동화살표를설명한다. 새GPU추론/학습변경없이HANDOFF/RESUME_NOTES를갱신했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+현재채팅에5,000update전후및겹침이미지를제공한다. 이후5,500정기진단은기존monitor/publisher가처리한다. 차량장면후속비교는동일scene41/21/27과새output을사용해과거산출물을보존한다.
 
 기존5,500표현진단과Adapter3epoch→dev검증→본학습batch16자동복원을 유지한다. 현재속도외삽:5,500은09:42–09:46/Adapter학습10:11–10:13KST,진단양보·평가는별도. 본학습 장기ETA는 예정batch복원을 반영해야 한다.
 
@@ -2423,6 +2429,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+시각화는최근완료진단5,000update를사용했으며현재5,440의추론으로표시하지않는다. 겹침은동일이미지에서학습전후geometry차이로,물리적객체이동/attention/검출박스가아니다. 학습변화에따라장면을새로고르지않았다.
 
 이번중간보고의실측시점08:13KST,새학습/평가/튜닝요청없음. 최신공통PDMS는본학습5400/Adapter9414저장본의점수이며현재5437/12178가중치점수로표시하지않는다. 동일평가장면이어도입력·planner·학습이력이다르다.
 
