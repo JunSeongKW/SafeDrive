@@ -3005,3 +3005,41 @@ scripts/publish_lpwm_particle_geometry_overlays.py:64(draw_geometry_overlay),
 reference_repositories/LPWM/modules/modules.py:3010(appearancecrop), :5344(alpha obj_on),
 src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py:108(전체particle projection/pooling).
 이번작업은코드확인·해석설명과문서기록이며학습/시각화source/config/실행중publisher변경없음.
+
+
+## 2026-10-07 10:25 KST — GPU0·1 현재 학습 속도 진단·CPU oracle 증설
+
+사용자 요청은 현재 학습의 단축 가능성 확인/기존48decimalGB 예산 활용이다.
+README/AGENTS/HANDOFF와 실제execution/phase timing/이전실측/host CPU·GPU를읽었다.
+3038–3137 rank0평균26.238s, forward6.491/oracle4.783/backward14.710s, loader대기.0676s, wholecard40.325GB.
+Host CPU32core/64thread, availableRAM298GiB;공용원본/타인프로세스변경없음.
+Loader는병목이아니고micro16이이미40.3GB여서단순batch32를48GB안전범위로가정하지않았다.
+
+새CPU-only benchmark scripts/benchmark_lpwm_drivor_oracle_parallelism.py를실행했다.
+두rank각16scene/실제후보고정/두서비스동시호출,4→8→6→4 각5회(초기화제외),평균2.620/1.669/2.103/2.851초.
+7subscore exact equality통과, CPU서비스시간약39%감소. 고정후보·warmcache·공유CPU범위임을기록했다.
+출력 outputs/lpwm_drivor_oracle_parallelism_20261007/;보고 results/.../throughput_20261007/.
+
+새execution_batch16_loader2_oracle8.json은micro16/누적2/effective64/loader2/모델/학습loss/LR/데이터/25epoch를유지하고oracle만4→8.
+새283source override등록/queue wrapper/안전checkpointresume controller 추가, 기존279연구source/config/registration 불변.
+준비controller첫filename검사가경로prefix때문에pause전에실패. 실패소스·registration·이유를oracle8_resume_20261007에보존,
+고친검사와이전등록hash/amendment를명시해oracle8_resume_checked_20261007에서재실행했다. 조용한기존연구seal갱신은없음.
+
+3159update정상경계저장후원래model/AdamW/scheduler/2rankRNG/full latest hardlink보존·복원.
+Optimizer796state step min=max3159, checkpoint611c9853...,nativea5dd2345... 동일.
+새train3144180/queue3144181/500monitor3144182로재개, 원래3186133/3186134/568996종료.
+Overlaypublisher2507743계속. 기존v1→fullnavtest→freshv2→EPDMS queue유지, v2도oracle8으로실행.
+실제부모launch.json/queue_launch.json/500launch.json은이전사본보존후새PID메타데이터로갱신.
+GPU입장/매update48GB전체카드guard유지. 새로운LPWM초기화/추가학습조건/DrivoR실험없음.
+DataLoader새iterator생성때문에state복원과bitwise동일한dropout흐름을구분했다.
+
+Resume첫3160은iterator건너뛰기53.22초+CUDA/oracle초기화36.24초로안정비교에서제외.
+3161–3170 각rank10개의실제학습으로wall26.3176→23.5018s,10.699%시간감소.
+Rank별update느린쪽평균26.2568→23.7326s, rank0oracle4.7832→3.2447s,최대wholecard40.1615GB.
+3170기준37180update잔여약10.113일/10월17일13:08외삽,이전속도대비29.081시간절약.
+짧은표본·서버부하·scene비용·GPU역전파시간변화때문에장기개선량이나worker단독인과효과를보장하지않음.
+후속평가시간/V2학습별도. 두rankfinite검사/old279·new283hash/queueheartbeat/next3228monitor상태통과.
+샌드박스NVIDIA조회1회실패는host조회로확인해정상GPU학습85/72% 표본을확인했다. 드라이버/다른작업변경없음.
+
+문서AGENTS/README/학습문서/HANDOFF1–5/본일지갱신, 결과3JSON과측정script를공유한다.
+이후100/300update속도추세·메모리·500/epoch진단상태확인. 기존25epoch과학습목표를유지한다.

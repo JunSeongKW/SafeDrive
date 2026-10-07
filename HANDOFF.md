@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 10:25 KST 최신 — oracle CPU 병렬성 증설·학습 속도 확인.**
+GPU0·1 batch16×accum2×2=effective64/loader2 유지, oracle4→8/rank만 변경.
+Update3159 fullstate hardlink 보존·796 AdamW steps/두rank RNG/scheduler 복원, 새PIDtrain3144180/queue3144181/500monitor3144182.
+겹침publisher2507743 유지. 새실행config `execution_batch16_loader2_oracle8.json`, 별도283source registration.
+기존279개 연구source/config/registration 불변, v1→navtest→freshv2→EPDMS 일정 및500/epoch진단 유지.
+실제3161–3170 안정10update: wall26.318→23.502초(-10.699%), 최대40.162GB. 짧은순차측정으로장기속도보장은아님.
+현재3170/40350, V1잔여약10.11일(10/17오후전후), 기존속도대비29.08시간단축외삽; 후속평가·v2별도.
+
 **2026-10-07 09:18 KST 최신 — 3,000 update 중간 결과와 25 epoch ETA.**
 현재 3,020/40,350 update / 1.871 epoch, 본학습·queue·monitor 생존. Native/실행 hash 유지·양 rank NaN loss 0.
 동일95장면 공식 PDMS 2,000=70.1671 /2,500=72.9270 /3,000=74.9063.
@@ -101,7 +109,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 10:01 KST (Codex)
+마지막 갱신: 2026-10-07 10:26 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -268,6 +276,14 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-07 oracle8 재개: train3144180/queue3144181/500monitor3144182, overlay2507743.
+Update3159에서정상저장후같은GPU0·1/모델/유효64/optimizer/LR/데이터/25epoch로재개.
+출력root같음,기존launch는 `oracle8_resume_checked_20261007/`에보존; active_execution 우선.
+실제override oracle8,loader2,micro16. 원래3159까지oracle4/PID3186133·3186134·568996는종료이력.
+CPUqueuewrapper `scripts/queue_lpwm_drivor_oracle8_execution.py`; 기존fullnavtest·v2·EPDMS 체이닝유지.
+새run이나초기화가아니며v2에도oracle8override적용. 500monitor 다음3228/3500/4000 유지.
+
 
 이번요청은시각화해석설명이다. 점/박스/obj_on/crop/전체planner입력코드를읽고문서화했다.
 새진단·학습·GPU작업없음, 기존train/queue/500monitor/CPUoverlaypublisher2507743의source/config는유지한다.
@@ -741,6 +757,22 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Oracle8 실제본학습3161–3170 각rank10개(재개첫3160제외) 비교완료.
+Before3038–3137/100개:wall26.3176초 vs after23.5018초, 시간10.699%감소.
+두rank느린update평균26.2568→23.7326초, rank0oracle4.7832→3.2447초, 최대40.1615GB.
+기존279/new283hash검사통과·양rankfinite loss/gradient검사정상·후속queue/500monitor fresh상태확인.
+현재3170기준remaining37180/약10.113일, 약29.081시간절약/10월17일13:08KST외삽(v1학습만).
+짧은공유서버순차측정/다른scene·GPUbackward시간변동때문에전체개선의단일인과주장이나보장은없음.
+보고 results/lpwm_drivor_planning_path_lora_v1/throughput_20261007/training_speed_comparison.json.
+
+
+2026-10-07 속도진단: 기존100update3038–3137 rank0평균26.238s, forward6.491/oracle4.783/backward14.710s.
+Loader대기평균.0676s라loader증설이주된속도개선책아님. 현재3경로LoRAmicro16wholecard40.33GB.
+CPU고정2rank×16scene/실제후보/4→8→6→4 각5요청: 평균2.620/1.669/2.103/2.851s, 모든7subscore exact동일.
+8worker서비스의시간약39%감소지만전체학습개선과구분. 보고 results/.../throughput_20261007/.
+Warmup/scene/공유자원영향은기록하고GPUbatch32는48GB예산여유만으로실행하지않음.
+
 
 시각화해석: 전후별그림초기top16개점만반경2+4×presence이며다른48개는반경2고정.
 겹침은전청록빈점반경4/후주황실점반경2로모두고정하므로dot크기차이에서활성도/중요도를읽지않는다.
@@ -1375,12 +1407,20 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자가물은점·박스위치와크기의의미를현재시각화및공식LPWM코드로확인했다.
-- 전후16개presence/나머지48개고정점과겹침64개고정반경의차이,초기top16고정선택을명확히기록했다.
-- Glimpse범위·obj_on활성도·전체planner입력·현재프레임대응의해석범위를설명했다.
-- AGENTS/학습문서/RESUME_NOTES/HANDOFF에해석을기록했고실행중source/config나과거이미지는수정하지않았다.
+- 실제학습phase/100update/GPUwholecard/CPU자원및이전parallelism실측을확인했다.
+- CPU-only oracle4/6/8 benchmark를새로구현·실행하고모든7subscore exact동일을확인했다.
+- 기존연구source/config불변상태에서oracle8override/283source등록/queuewrapper/안전checkpointresume controller를추가했다.
+- Update3159 full model/796AdamW/scheduler/2rankRNG를보존·복원, train·queue·500monitor만새PID로재개했다.
+- 준비controller경로검사실패는pause이전이며소스·등록·실패이유를별도보존하고수정amendment를기록했다.
+- 기존최종평가일정과overlaypublisher를유지했고새실행속도/메모리를비교하는보고를추가했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신oracle8본학습을지속하면서향후100/300updatewall속도와oracle시간/메모리를추적한다.
+GPUbatch16/accum2/effective64/loader2/48decimalGB유지;무근거batch증설이나원래등록source수정금지.
+매500·epoch표현진단/겹침시각화및25epoch후공식평가queue가계속동작하는지확인한다.
+아래oracle4이전PID/최근학습무변경문장은이전세션이력이며이번workerexecution변경이최신이다.
+
 
 향후particle보고에서점크기를그림별로구분해설명한다: 전후는초기top16presence/나머지fixed,겹침은모두fixed.
 초기top16박스고정과현재프레임표현임을밝힌다.공식native glimpsemodule/필요시readout/개입으로효용을분리해판단.
@@ -1775,6 +1815,13 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번변경은CPUoracle병렬실행이며모델/학습loss/유효배치/학습률/샘플/optimizerupdate를변경하지않았다.
+고정후보7subscore exact equality와전체상태복원통과. Dataloader재시작은bitwise동일RNG흐름보장과구분한다.
+본학습전후짧은순차speed측정은공유CPU/GPU부하·scene비용에민감하며장기속도보장이아님.
+메모리여유약7.8GB가microbatch32안전을보장하지않는다. 역전파/카메라checkpoint재계산이주요남은비용.
+실행원본279source/config불변,새실행283seal 유지. 원래oracle8준비컨트롤러실패소스는별도보존했고수정이유기록.
+
 
 점위치=학습된영상좌표,박스=glimpse표현범위,presence=활성도. 셋중어느것도단독으로planning중요도를확정하지않는다.
 박스/점이차량에겹치거나움직여도미래정보보존·planning이득은별도검증이필요하다.

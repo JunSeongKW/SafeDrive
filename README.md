@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 10:25 KST — 현재 학습 CPU oracle 병렬성 증설.**
+GPU0·1 microbatch16×누적2×2=유효64와 loader2 유지, oracle만 rank당4→8로 변경했다.
+3159 fullstate 저장·복원, 현재3170. 본학습 안정10update wall26.32→23.50초(-10.7%), 최대40.16GB.
+짧은 순차 측정이며 장기 속도 보장은 아니다. 남은 V1 학습 약10.1일/10월17–18일, 후속평가·V2별도.
+Train3144180/queue3144181/500monitor3144182, overlay2507743. 기존279 연구소스 불변, 새실행283source등록.
+[실측·재개 보고](results/lpwm_drivor_planning_path_lora_v1/throughput_20261007/training_speed_comparison.json).
+
 **2026-10-07 09:52 KST — 차량이 밀집한 장면의 particle 시각화 추가.**
 도심 교통·고가도로 아래·가까운 차량 대기 장면3개, 같은3,000update.
 [겹침·이동 화살표](results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/vehicle_rich_particle_overlays.png) ·

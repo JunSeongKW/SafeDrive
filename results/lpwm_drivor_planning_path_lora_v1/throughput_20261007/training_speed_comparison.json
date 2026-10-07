@@ -1,0 +1,80 @@
+{
+  "before": {
+    "updates": [
+      3038,
+      3137
+    ],
+    "samples_per_rank": 100,
+    "mean_rank_max_update_seconds": 26.256843202114105,
+    "wall_seconds_per_update": 26.31759949404784,
+    "timing_means_per_rank": [
+      {
+        "between_updates_including_sync_and_data": 0.06757310628890992,
+        "forward": 6.490610904693604,
+        "oracle": 4.783167543411255,
+        "backward": 14.709801411628723
+      },
+      {
+        "between_updates_including_sync_and_data": 0.05857749938964844,
+        "forward": 6.558263049125672,
+        "oracle": 4.928193967342377,
+        "backward": 14.500865244865418
+      }
+    ],
+    "maximum_whole_card_bytes": 40325087232
+  },
+  "after": {
+    "updates": [
+      3161,
+      3170
+    ],
+    "samples_per_rank": 10,
+    "mean_rank_max_update_seconds": 23.732611727714538,
+    "wall_seconds_per_update": 23.501783079571194,
+    "timing_means_per_rank": [
+      {
+        "between_updates_including_sync_and_data": 0.013624262809753419,
+        "forward": 6.490902137756348,
+        "oracle": 3.2446680784225466,
+        "backward": 13.741684293746948
+      },
+      {
+        "between_updates_including_sync_and_data": 0.021520519256591798,
+        "forward": 6.374012517929077,
+        "oracle": 2.9172765493392943,
+        "backward": 14.177494382858276
+      }
+    ],
+    "maximum_whole_card_bytes": 40161509376
+  },
+  "wall_duration_reduction_percent": 10.69936646430648,
+  "resume_state": {
+    "checkpoint_sha256": "611c985308ffabc259a0ded165f44256a09e2e66b9c6b2d6e03f8bc8262a65c3",
+    "completed_updates": 3159,
+    "next_update_in_epoch": 1545,
+    "epoch": 1,
+    "optimizer_steps_min": 3159,
+    "optimizer_steps_max": 3159,
+    "optimizer_state_count": 796,
+    "scheduler_state_restored": true,
+    "rank_rng_restored_before_training": true,
+    "effective_batch": 64,
+    "execution_sha256": "01bdb7c514e71388421073ea37d3811613d1a7cd9642b0a78210106172b1c597"
+  },
+  "only_setting_changed": "CPU oracle workers per rank4 -> 8",
+  "effective_batch": 64,
+  "microbatch_per_gpu": 16,
+  "accumulation": 2,
+  "loader_workers_per_rank": 2,
+  "latest_completed_updates": 3170,
+  "estimated_remaining_days_before": 11.325096634128457,
+  "estimated_remaining_days_after": 10.113383042806216,
+  "estimated_hours_saved_remaining_training": 29.081126191733798,
+  "estimated_training_end_kst": "2026-10-17T13:08:26",
+  "limitations": [
+    "Ten steady resumed updates; verify long-window timing in subsequent status checks.",
+    "Sequential measurements on shared hardware; other load and scene cost can vary.",
+    "Full model/optimizer/scheduler/RNG state restored; restarting a DataLoader is not a bitwise-identical continuation guarantee.",
+    "Time estimate is NAVSIMv1 training only; later evaluation and v2 training excluded."
+  ]
+}

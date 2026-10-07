@@ -217,6 +217,13 @@ Fixed/random sparse는 소수 scene만, 학습형 selector와 새 학습은 금�
 CPUqueue 교체는기존worker를adopt하며GPUworker를중단/중복기동하지않는다.
 모듈별비용진단의짧은단일model process는종료됐고공식dense평가는그대로실행중이다.
 
+**2026-10-07 최신 실행 최적화: CPU oracle4→8/rank, 배치·학습 조건 유지.**
+실제실행 `configs/lpwm_drivor_planning_path_lora/execution_batch16_loader2_oracle8.json`.
+Update3159 fullstate 보존·복원; train3144180/queue3144181/500monitor3144182, overlaypublisher2507743 유지.
+원래279source/config 불변; 새실행283source/override 별도 `oracle8_execution_registration.json` 등록.
+GPU0·1 wholecard48decimalGB, micro16×accum2×2=effective64/loader2 유지. v2도oracle8 실행.
+아래oracle4/이전PID는변경전이력이며active_execution.json을우선한다.
+
 ## 세션 시작 루틴
 
 **2026-10-05 최신 사용자 실행 승인: GPU별 전체 VRAM48decimalGB로 올리고 배치 증설 실측.**

@@ -1,0 +1,76 @@
+{
+  "cpu_only": true,
+  "training_interrupted": false,
+  "source_sha256": "1d7df81e15cac58ccbc6efb9ef36d067d2a23f0f498a34b6db472dab1f326715",
+  "scenes_per_rank_request": [
+    16,
+    16
+  ],
+  "proposals_per_scene": [
+    64,
+    64
+  ],
+  "measurements": [
+    {
+      "workers_per_rank": 4,
+      "startup_seconds": 9.659186198958196,
+      "paired_request_seconds": [
+        2.5400613530073315,
+        2.5506866510258988,
+        2.4633789639919996,
+        2.4205275920103304,
+        3.1244998569600284
+      ],
+      "median_seconds": 2.5400613530073315,
+      "mean_seconds": 2.6198308833991177,
+      "all_seven_subscores_exactly_equal": true
+    },
+    {
+      "workers_per_rank": 8,
+      "startup_seconds": 8.130638041999191,
+      "paired_request_seconds": [
+        1.6817283409764059,
+        1.7154799720156007,
+        1.7775735000032,
+        1.812204687972553,
+        1.3604764890042134
+      ],
+      "median_seconds": 1.7154799720156007,
+      "mean_seconds": 1.6694925979943946,
+      "all_seven_subscores_exactly_equal": true
+    },
+    {
+      "workers_per_rank": 6,
+      "startup_seconds": 7.640427945996635,
+      "paired_request_seconds": [
+        1.8579684090218507,
+        2.160821388999466,
+        2.27900864102412,
+        1.9087482339818962,
+        2.309649606992025
+      ],
+      "median_seconds": 2.160821388999466,
+      "mean_seconds": 2.1032392560038717,
+      "all_seven_subscores_exactly_equal": true
+    },
+    {
+      "workers_per_rank": 4,
+      "startup_seconds": 9.011943494027946,
+      "paired_request_seconds": [
+        3.0235559410066344,
+        2.2333525349968113,
+        2.9044903080211952,
+        2.9208863789681345,
+        3.173780817014631
+      ],
+      "median_seconds": 2.9208863789681345,
+      "mean_seconds": 2.8512131960014813,
+      "all_seven_subscores_exactly_equal": true
+    }
+  ],
+  "limitations": [
+    "Fixed current proposals from two ranks; warm metric caches.",
+    "Runs alongside active training on a shared CPU.",
+    "Pair wall time estimates CPU-only oracle speed, not full training throughput."
+  ]
+}

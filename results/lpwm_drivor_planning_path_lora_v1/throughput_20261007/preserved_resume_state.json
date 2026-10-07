@@ -1,0 +1,13 @@
+{
+  "completed_updates": 3159,
+  "epoch": 1,
+  "next_update_in_epoch": 1545,
+  "checkpoint_sha256": "611c985308ffabc259a0ded165f44256a09e2e66b9c6b2d6e03f8bc8262a65c3",
+  "optimizer_steps_min": 3159,
+  "optimizer_steps_max": 3159,
+  "scheduler_state_preserved": true,
+  "both_rank_rng_states_preserved": true,
+  "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "effective_batch": 64,
+  "microbatch_per_gpu": 16
+}

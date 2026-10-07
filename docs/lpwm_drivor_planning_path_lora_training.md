@@ -58,7 +58,7 @@ LPWM native parameter를 고정해도 activation gradient는 지나가며, 이 �
 | 학습량 | 25epoch, 1,614update/epoch, 총40,350update |
 | GPU | 0·1만, 다른 프로세스 포함 카드전체48decimalGB 이하 |
 | 배치 | GPU당16 × 누적2 × GPU2 =유효64 |
-| Worker | rank당 loader2 + online oracle4 |
+| Worker | rank당 loader2 + online oracle8; update3159까지 oracle4 |
 | Optimizer | AdamW, weight decay0.01 |
 | Peak LR | LPWM LoRA2e-4, planner/새 projection2e-4 |
 | Schedule | 기존 공식85,000/64×25 convention, warmup3,322update 후 cosine |
@@ -537,3 +537,50 @@ scripts/publish_lpwm_particle_geometry_overlays.py:64(draw_geometry_overlay),
 reference_repositories/LPWM/modules/modules.py:3010(appearancecrop), :5344(alpha obj_on),
 src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py:108(전체particle projection/pooling).
 이번작업은코드확인·해석설명과문서기록이며학습/시각화source/config/실행중publisher변경없음.
+
+
+## 2026-10-07 CPU oracle 병렬성 변경
+
+원래 모델·loss·config·279개 등록 소스는 유지하고 실행 override만 새로 등록했다.
+`configs/lpwm_drivor_planning_path_lora/execution_batch16_loader2_oracle8.json`은
+**GPU당 microbatch16 / 누적2 / 유효64 / loader2**를 유지하며 oracle만 rank당4→8로 변경한다.
+새 실행 source283개는 `outputs/lpwm_drivor_planning_path_lora_v1/oracle8_execution_registration.json`에 등록했다.
+
+CPU-only 측정은 현재 두 rank의 각16장면·실제 생성 후보를 고정하고 두 서비스를 동시에 실행했다.
+4→8→6→4 순서, 시작 요청 제외 각5회이며 모든7개 subscore가 exact equality를 통과했다.
+이는 고정 요청과 warm metric cache에서의 비교로 전체 학습 속도 측정을 대신하지 않는다.
+[Oracle 실측](../results/lpwm_drivor_planning_path_lora_v1/throughput_20261007/oracle_parallelism_report.json).
+
+3,159update 경계에서 full model/AdamW/scheduler/두 rank RNG를 저장하고 재개했다.
+796개 optimizer state의 step은 전부3,159이며 native digest는 기존과 동일하다.
+중단전 `latest.pt`의 inode는 별도 hard link로 보존했고 초기화나 학습 update를 되돌리지 않았다.
+재개 시각의 loader iterator 생성은 bitwise 동일한 dropout 난수열을 보장하지 않는다.
+DataLoader/sampler의 같은 epoch·같은 next_update를 복원해 이전 장면에서 optimizer update를 다시 하지 않는다.
+
+본학습PID3144180, 후속queue3144181, 매500update monitor3144182로 교체했다.
+겹침 publisher2507743은 그대로 유지한다. Queue는 기존 v1/fullnavtest/v2/EPDMS 순서이며 v2에도 oracle8 실행을 적용한다.
+모든 GPU 입장 예산과 매update의 카드전체48decimalGB 검사를 유지한다.
+
+준비 controller의 첫 경로표기 검사 오류는 pause 전에 발생해 기존 학습에 영향이 없었다.
+실패한 소스·registration·이유를 `outputs/lpwm_drivor_planning_path_lora_v1/oracle8_resume_20261007/`에 보존하고
+수정 이유와 이전hash를 실행 registration amendment에 기록한 후 별도checked 출력에서 재개했다.
+기존 실행중 연구 소스·설정·등록은 변경하지 않았다.
+
+### 실제 본학습 속도 확인
+
+| 측정 | 변경 전 oracle4 | 변경 후 oracle8 |
+|---|---:|---:|
+| Update 구간 / rank별 표본 | 3038–3137 /100개 | 3161–3170 /10개 |
+| Update 간 wall time | 26.318초 | 23.502초 |
+| 두 rank 중 느린 update 시간 평균 | 26.257초 | 23.733초 |
+| rank0 oracle 시간 평균 | 4.783초 | 3.245초 |
+| 카드 전체 최대 사용량 | 40.325GB | 40.162GB |
+
+첫 재개 update3160의 CUDA/oracle 초기화와 이전 loader 건너뛰기53초는 안정 속도 비교에서 제외했다.
+짧은 wall time 창에서 **10.699% 시간 감소**를 관찰했다. 같은 속도가 유지되면 update3170 이후
+잔여37,180update는 약10.11일, 변경 전 속도 대비29.08시간 단축으로 추정된다.
+이는 V1 학습만의 외삽이며 10월17일 오후 전후로 계산되지만 이후 검증·V2 학습을 포함하지 않는다.
+변경 후 표본10개와 공유 서버·장면 비용 차이 때문에 장기 속도 개선량을 확정하지 않는다.
+GPU 역전파 시간이 함께 변했으므로 관측한 전체 개선량을 전부 worker 변경의 인과 효과로 간주하지 않는다.
+
+[학습 속도·재개·ETA 보고](../results/lpwm_drivor_planning_path_lora_v1/throughput_20261007/training_speed_comparison.json).
