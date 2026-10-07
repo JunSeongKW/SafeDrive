@@ -1,0 +1,194 @@
+{
+  "checked_at_kst": "2026-10-07T19:43:01.984164",
+  "question": "Can we reduce LoRA adaptation runtime while preserving command-conditioned geometry, appearance and future planning gradients?",
+  "production_before_probes": [
+    {
+      "rank": 0,
+      "update_range": [
+        4455,
+        4554
+      ],
+      "mean_seconds": {
+        "between_updates_including_sync_and_data": 0.05041199207305908,
+        "forward": 6.285141046047211,
+        "oracle": 2.738535990715027,
+        "backward": 13.95988963842392,
+        "update": 23.219917528629303,
+        "other_update_work": 0.23635085344314533
+      },
+      "wall_seconds_per_update": 23.267929351691045
+    },
+    {
+      "rank": 1,
+      "update_range": [
+        4455,
+        4554
+      ],
+      "mean_seconds": {
+        "between_updates_including_sync_and_data": 0.0653797459602356,
+        "forward": 5.981386680603027,
+        "oracle": 2.762786283493042,
+        "backward": 14.239312117099763,
+        "update": 23.206100857257844,
+        "other_update_work": 0.222615776062014
+      },
+      "wall_seconds_per_update": 23.26756278673808
+    }
+  ],
+  "average_rank_phase_seconds": {
+    "between_updates_including_sync_and_data": 0.05789586901664734,
+    "forward": 6.133263863325119,
+    "oracle": 2.750661137104035,
+    "backward": 14.09960087776184,
+    "update": 23.213009192943574,
+    "other_update_work": 0.22948331475257966
+  },
+  "phase_fraction_percent": {
+    "forward": 26.42166645584901,
+    "oracle": 11.849653417361317,
+    "backward": 60.74008225546182,
+    "other_update_work": 0.9885978713278558
+  },
+  "production_wall_seconds_per_update": 23.26774606921456,
+  "production_epoch_hours": 10.431706154364528,
+  "current_training": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "01bdb7c514e71388421073ea37d3811613d1a7cd9642b0a78210106172b1c597",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 4590,
+    "epoch": 3,
+    "update_in_epoch": 1362,
+    "seconds_this_update": 21.574124813079834,
+    "elapsed_seconds": 33799.87221312523,
+    "card_used_bytes": 40325087232,
+    "peak_reserved_bytes": 39745224704,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0008420944213867188,
+      "forward": 5.944355010986328,
+      "oracle": 2.1363322734832764,
+      "backward": 13.27617859840393
+    },
+    "learning_rates": [
+      0.00019911399457969446,
+      0.00019911399457969446
+    ],
+    "loss": 2.989707589149475,
+    "trajectory_loss": 1.0124634504318237,
+    "final_score_loss": 1.9772441983222961,
+    "score": 0.814377635717392,
+    "best_score": 0.964030385017395,
+    "estimated_remaining_seconds": 844642.5132455566
+  },
+  "estimated_remaining_v1_days_at_preprobe_speed": 9.630261567536026,
+  "estimated_v1_training_end_kst": "2026-10-17T10:50:36.583599",
+  "sdpa_single_camera_probe": {
+    "summary": {
+      "original": {
+        "median_forward_backward_seconds": 2.1202863910002634,
+        "max_allocated_bytes": 4240096768
+      },
+      "sdpa": {
+        "median_forward_backward_seconds": 2.002224646974355,
+        "max_allocated_bytes": 4148013568
+      },
+      "original_repeat": {
+        "median_forward_backward_seconds": 2.2151217360515147,
+        "max_allocated_bytes": 4240096768
+      }
+    },
+    "time_reduction_percent_vs_two_baselines": [
+      5.568197981510026,
+      9.611078506983173
+    ],
+    "allocated_memory_reduction_percent": 2.1717240204268795,
+    "fp32_particle_max_absolute_difference": 1.71661376953125e-05,
+    "fp32_particle_relative_l2_error": 1.148951241702889e-06,
+    "maximum_fp32_gradient_group_relative_l2_error": 0.0005759774358011782,
+    "connected_lpwm_and_command_gradient_groups": 15,
+    "whole_card_peak_bytes": 45009076224,
+    "native_weights_unchanged": true,
+    "training_speedup_validated": false,
+    "optimizer_steps": 0,
+    "cosine_metric_note": "Raw probe cosine calculations use float32 reductions and can slightly exceed one; conclusions use relative L2 errors instead."
+  },
+  "failed_probes": [
+    {
+      "directory": "outputs/lpwm_drivor_planning_speed_audit_20261007",
+      "cameras": 4,
+      "allocator_budget_gib": 4,
+      "status": "Own allocator OOM on bf16 training VJP after successful FP32 check; no production interruption"
+    },
+    {
+      "directory": "outputs/lpwm_drivor_planning_speed_audit_20261007_single_camera",
+      "cameras": 1,
+      "allocator_budget_gib": 4,
+      "status": "Same own allocator limit; 20MiB allocation refused with 5.53GiB physical VRAM still free; no production interruption"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": 1,
+      "candidate": "LPWM SDPA preserving all 21 masks and dropout probabilities",
+      "evidence": "FP32 output/VJP agreement and exploratory 5.6–9.6% one-camera duration reduction",
+      "next_gate": "Actual official-loss DDP batch16/effective64 comparison, memory below48decimalGB, preserved model/optimizer/scheduler/RNG, separate execution registration"
+    },
+    {
+      "priority": 2,
+      "candidate": "Selective or finer-grained activation checkpointing",
+      "evidence": "Current whole-camera backward recomputes image encoder and eight-step rollout; backward is approximately61% of update time",
+      "next_gate": "Measure retained tensor memory and unchanged full planning gradients before changing checkpoint boundaries; allocator headroom about7.7decimalGB"
+    },
+    {
+      "priority": 3,
+      "candidate": "Compile repeated LPWM transformer and LoRA operations",
+      "evidence": "Eight autoregressive steps per camera and many repeated small operations; compilation speedup not measured",
+      "next_gate": "Profile graph breaks, dynamic time lengths, FiLM hooks, compilation cost and steady-state throughput"
+    },
+    {
+      "priority": 4,
+      "candidate": "Overlap CPU oracle with the next GPU microbatch",
+      "evidence": "Oracle approximately12% of update time, workers already8 per rank",
+      "next_gate": "Retain exact scores and gradient accumulation order; measure extra live graph memory; maximum isolated benefit about12%"
+    },
+    {
+      "priority": 5,
+      "candidate": "Larger GPU microbatch while retaining effective64",
+      "evidence": "Current16x2accumx2GPU and40.325GB/card; no new batch24/32 memory/speed measurement",
+      "next_gate": "After memory optimization, bounded DDP measurements; do not increase effective batch or assume speed scales linearly"
+    }
+  ],
+  "not_recommended_as_execution_optimization": [
+    "Caching trainable LPWM outputs across updates",
+    "Detaching future rollout gradients",
+    "Reducing four cameras or eight future steps",
+    "Changing LoRA layer scope, training data or epoch count"
+  ],
+  "active_training_modified": false,
+  "registered_source_checks": [
+    {
+      "registration": "registration.json",
+      "source_count": 279,
+      "mismatches": []
+    },
+    {
+      "registration": "oracle8_execution_registration.json",
+      "source_count": 283,
+      "mismatches": []
+    }
+  ],
+  "validation_scope": "Single scene, one camera, eight-step differentiable rollout, random particle VJP, not official loss, not PDMS; shared GPU timings are exploratory.",
+  "references": [
+    "https://docs.pytorch.org/docs/2.8/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "https://pytorch.org/blog/activation-checkpointing-techniques/"
+  ]
+}

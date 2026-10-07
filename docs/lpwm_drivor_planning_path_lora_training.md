@@ -883,3 +883,69 @@ ADE+.392341m CI[−.076664,+.985058]. Oracle score는학습candidate검사이며
 [PDMS추세·상황별비교](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/pdms_progress_and_scenarios.png),
 [particle전후·겹침](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/particles_before_after_and_overlay_update4500.png),
 [겹침그림](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/particles_overlay_update4500.png).
+
+
+## 2026-10-07 19:43 KST — 계산 속도 감사와 실행 최적화 후보
+
+연구 질문은 현재 geometry·appearance·미래 정보를 주행 명령과 planning gradient로 적응시키는 실험의 계산 비용을,
+동일 데이터·loss·유효 batch·LoRA 경로를 유지하면서 줄일 수 있는가이다. 본학습을 중단하거나 변경하지 않았다.
+
+### 실제 병목
+
+양 rank의 진단 전 4,455–4,554 update를 함께 읽었다. Wall 23.2677초/update, 약10.43시간/epoch다.
+
+| 구간 | rank 평균 초/update | update 내 비중 |
+|---|---:|---:|
+| 순전파 | 6.133 | 26.42% |
+| criterion·역전파·checkpoint 재계산·DDP 동기화 포함 | 14.100 | 60.74% |
+| 공식 CPU oracle | 2.751 | 11.85% |
+| optimizer·유한성검사·메모리조회 등 나머지 | 0.229 | 0.99% |
+
+Update 사이 데이터·barrier·저장 포함 대기는 rank 평균0.058초다. 순수 로딩 시간과 같은 값으로 부르지 않는다.
+LoRA는 학습 parameter 수를 줄이지만 native LPWM forward와 입력에 대한 backward 계산을 없애지 않는다.
+현재4카메라×8단계 prior rollout과 카메라 단위 activation checkpoint 때문에 매 역전파에서 encoder/rollout을 재계산한다.
+`dyn_module.sample`은 각 미래 단계에서 증가하는 이력도 다시 처리한다. Loader 증설이나 optimizer만의 최적화는 우선순위가 낮다.
+
+### 실제 수행한 SDPA 후보 검사
+
+`scripts/profile_lpwm_planning_execution.py`: exact4,500checkpoint, 고정1scene/전방1camera/미래8단계,
+particle 출력에 고정 벡터를 곱한 scalar의 backward만 실행. Optimizer step0, 공식 planner loss와 DDP는 포함하지 않는다.
+LPWM attention21개는 모두 `torch_attn=False`, positional bias 없음이었다. 후보는 기존 SDPA 분기를 켠 것이다.
+Temporal attention의 actual particle 차원이 항상1인지 실행마다 확인했다. 일반적인 particle-major 토큰에
+`is_causal=True`를 무조건 적용하면 시간 mask가 달라지므로, 이 조건을 벗어나면 사용하지 않는다.
+학습 dropout확률은0/0.1로 유지되지만 SDPA는 난수 mask와 부동소수 연산 순서를 바꿀 수 있다.
+[PyTorch2.8 SDPA 문서](https://docs.pytorch.org/docs/2.8/generated/torch.nn.functional.scaled_dot_product_attention.html) 참조.
+
+| 순서 | 학습 모드·BF16의 순전파+역전파 중앙값 | allocator 최대 allocated |
+|---|---:|---:|
+| 원본, warmup제외3회 | 2.1203초 | 4.2401GB |
+| SDPA, warmup제외3회 | 2.0022초 | 4.1480GB |
+| 원본 재검사, warmup제외3회 | 2.2151초 | 4.2401GB |
+
+시간5.57–9.61%/allocated2.17% 감소의 탐색적 결과다. 같은GPU에서본학습이함께실행되었으므로
+이를 실제batch16/GPU2/DDP단축률로 외삽하거나 확정된 장기 speedup으로 주장하지 않는다.
+FP32·dropout off에서 전체 current+future attribute 최대절대차1.72e-5/상대L2오차1.15e-6,
+LPWM14그룹+명령1그룹 gradient 최대상대L2오차5.76e-4(0.0576%)였다. Native weight/buffer hash 유지.
+원자료의 float32 cosine은누적roundoff로1을조금넘을수있어판정에는상대L2만사용했다.
+후속재사용script에서는cosine을double로계산하도록정정했고,실제로실행한source는결과폴더에그대로보존했다.
+
+첫4카메라,이후1카메라진단은독립allocator4GiB에걸려실패했다. 당시물리VRAM5.53GiB가남았고본학습은계속됐다.
+검사용allocator6GiB와총카드48GB입장검사로마지막비교를완료했다. 완료검사최대카드45.009GB,종료후40.325GB반환.
+4GiB실패기록도assessment에보존했으며본학습OOM이나학습중단으로해석하지않는다.
+
+### 권고 적용 순서와 남은 검증
+
+1. **SDPA**: 가장 작은 실행 변경 후보. 별도실행등록과동일fullstate에서실제loss/DDP/micro16/유효64의원본–변경–원본30–50update를먼저비교한다.
+   AdamW/scheduler/rankRNG보존,15representation+planner gradient·메모리·dropout 의미를검증한다. 단축률과품질검증전에는본학습에적용하지않는다.
+2. **선택적/세분화 activation checkpoint**: 현재 약7.7decimalGB여유를 활용해 계산비가 큰 중간값은 보존하고 재계산범위를 줄인다.
+   [PyTorch selective checkpoint 설명](https://pytorch.org/blog/activation-checkpointing-techniques/)처럼 저장량/재계산량을교환한다.
+   전체checkpoint를무조건해제하지않고,실제saved tensor와48GB내전체backward를측정한다. 효과미측정.
+3. **반복 transformer/LoRA 연산 compile**: 시간길이1–8,FiLM hook,checkpoint의graph break와준비비용을점검한다. 효과미측정.
+4. **CPU oracle와 다음 microbatch GPU계산 중첩**: 점수와누적gradient순서를그대로유지하고 추가graph메모리를측정한다.
+   현재oracle비중자체가11.85%이므로이구간을완전히숨겨도단독단축폭상한은그정도다.
+5. **microbatch 증설**: 메모리최적화후16→24/32를측정하되유효64를유지한다. 현재16보다빠르거나48GB에맞는다고확정하지않는다.
+
+Future gradient detach,trainable featurecache,카메라/미래step감축,LoRA계층/데이터/epoch변경은연구조건변경이므로속도최적화로몰래적용하지않는다.
+Prefix/KV재사용도역전파연결과autoregressive train dropout의상관구조가달라질수있어단순inference cache를가져오지않는다.
+19:43실행은기존본학습유지,SDPA후보본학습적용/새queue등록없음. 기존279/실행283sourcehash는모두일치했다.
+상세 [감사 JSON](../results/lpwm_drivor_planning_path_lora_v1/training_speed_audit_20261007/assessment.json).

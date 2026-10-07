@@ -1,5 +1,15 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 19:43 KST — LoRA 학습 속도 병목과 SDPA 후보 점검.**
+본학습 최근100update는23.268초/update, 순전파26.42%·역전파60.74%·CPU oracle11.85%·기타0.99%다.
+Loader 대기는 미미하고 GPU0·1 각40.325GB, micro16×누적2×2=유효64/loader2/oracle8 유지.
+별도4500checkpoint 한 장면·한 카메라·8단계 particle VJP 검사: attention21개 SDPA의2.002초 대 기존2.120/2.215초(탐색적5.6–9.6% 단축).
+FP32 dropout-off 출력 최대차1.72e-5,15 LPWM/명령 gradient그룹 최대상대L2오차0.0576%, native불변. 실제loss/DDP속도·PDMS 검증은 아니다.
+진단용4GiB allocator 두 번의OOM은본학습에영향없음;6GiB허용 재검사완료·최대카드45.009GB·GPU반환. 본학습 4590/40350 계속.
+원래279/실행283source 불변, 본학습설정·queue·monitor 변경없음. SDPA→선택적checkpoint→compile→oracle중첩의별도검증을권고.
+근거 `results/lpwm_drivor_planning_path_lora_v1/training_speed_audit_20261007/assessment.json`.
+
+
 **2026-10-07 19:20 KST — 4,500-update PDMS 새평가79.8877 완료.**
 사용자 최신PDMS 요청에보존된exact4500checkpoint로동일95학습장면/24recording 공식NAVSIMv1 평가.
 PDMS79.887679,4,000대비+4.057384 CI[−3.080520,+10.912947]. 첫epoch대비+11.901262 CI[+4.435338,+19.644069].
@@ -227,7 +237,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 19:23 KST (Codex)
+마지막 갱신: 2026-10-07 19:46 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -394,6 +404,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+19:43 속도감사 종료, 본학습4590/40350와train3144180/queue3144181/monitor3144182/publisher2507743 유지.
+별도GPU검사는종료했고각카드40.325GB로반환됐다. 본학습source/config/model/optimizer 변경없음.
 
 19:20확인joint-DrivoR4530/40350 epoch3본학습계속. Monitor4500완료→epoch3경계4842대기,후속queue유지.
 일회PDMS4500평가는95성공/실패0으로완료·GPU해제. 전체card48GB한도/기존학습source/config·loss·유효64·queue변경없음.
@@ -933,6 +946,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최근100update(4455–4554) wall23.2677초,순전파6.1333/역전파14.0996/oracle2.7507/기타.2295초.
+별도SDPA한카메라VJP는2.120/2.215→2.002초,최대gradient상대오차.0576%,출력1.72e-5/native유지.
+이는실제planningloss/batch16/DDP검증이아니다. 원본/SDPA/원본3반복과FP32무dropout검사,공유GPU변동한계.
+6GiB진단성공전4GiB한도OOM2건보존;카드48GB위반이나본학습OOM이아님. 결과assessment 및실행당시source보존.
 
 Exact4500 PDMS79.8876786,4000대비+4.0573841 CI[−3.0805198,+10.9129468]. 3500대비+3.9837429 CI[−.6487153,+8.6572802].
 첫epoch대비+11.9012621 CI[+4.4353382,+19.6440688],epoch2대비+5.3107243 CI[−.7217334,+12.4843968].
@@ -1702,13 +1720,18 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 최신PDMS 요청에정확4500checkpoint의저장particle표현을재생해동일95training장면 공식PDMS79.8877 평가완료.
-- 4000대비+4.0574점 CI[−3.0805,+10.9129]/직진91.01·좌74.95·우67.06/모든상황상승·ADE1.9578m을기록했다.
-- 재생동일성12ADE차이0/native불변/최대41.2594GB·95실패0/등록279·283source정상 확인. SandboxNVML9후host권한재실행완료.
-- 정확점수·pairedbootstrap·PDMS그림·particle전후겹침·표현진단을새results에보존하고README/HANDOFF1–5/학습문서/RESUME_NOTES갱신.
-- 본학습4530정상지속/기존25epoch·queue·monitor·source/config변경없음. 일회평가종료·GPU해제,95패널을독립navtest로부르지않음.
+- 현재 LoRA 학습 속도 요청에 양rank100update를분해:23.268초/update,순전파26.42%·역전파60.74%·oracle11.85%.
+- 별도한카메라·8미래단계VJP에서LPWM21attention SDPA 원본/변경/원본비교완료:2.120/2.215→2.002초,출력·gradient수치근접/native불변.
+- 진단전용4GiB allocator OOM2건과6GiB재검사성공(최대전체45.009GB)을기록했다. 본학습은중단·변경없고기존279/283source 정상.
+- 재사용가능한bounded프로파일script,수치·한계·실행당시source와최적화우선순위를보존했다. 작은VJP를실제DDP속도향상으로해석하지않는다.
+- README/HANDOFF1–5/기존학습문서/RESUME_NOTES갱신. GPU진단종료·본학습/queue/정기진단 유지.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+속도 개선 적용 후보는 SDPA이며 본학습으로의 적용은 아직 안 했다. 적용 시 원래279/283source를수정하지말고새실행등록을만든다.
+같은fullstate/실제officialloss/GPU2/micro16/유효64/48GB에서원본-변경-원본30–50update를비교하고성공한변경만채택한다.
+그다음선택적checkpoint·반복transformer compile·oracle중첩을검토한다. 미래분기detach/카메라·미래수축소/학습된feature cache는단순최적화로적용하지않는다.
+기존25epoch·매500표현진단·후속queue는지속한다. 작은VJP속도개선을실제DDP속도·PDMS개선으로보고하지않는다.
 
 사용자에게4500 PDMS79.89와4000대비+4.06,상황별값·동일95학습패널 범위 및최근차이CI0포함을보고한다.
 기존25epoch/매500·epoch진단/후속평가유지. 다음epoch3경계4842의geometry/readout/미래개입·PDMS추세확인.
@@ -2176,6 +2199,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번 요청은 학습 시간 단축 방안 점검이다. 본학습 목표/LoRA계층/유효batch/epoch/queue 변경 없이 read-only로그감사와별도무optimizer GPU VJP를완료했다.
+SDPA는유망한실행후보이나fullbatch성능·정밀도·dropout경로·planning학습 검증과재개검증이남는다. 실제단축률·종료ETA개선은확정하지않았다.
+진단전속도로V1남은약9.63일이며후속평가/V2제외. 원래정규화/gradient경로를유지하는조건으로최적화한다.
 
 4500결과는같은95학습장면이고독립validation/fullnavtest가아니다. 4000대비+4.06의pointestimate와CI0포함을함께보고한다.
 모든상황PDMS상승은해당패널에서의관측이며일반화·표현단독효과·포화미도달의증명이아니다. NC/comfort변화도보존.

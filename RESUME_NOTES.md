@@ -3309,3 +3309,18 @@ Particle초기중심2.170891px/크기15.947790%,직전4000→4500중심1.284820p
 Oracle개입은공식PDMS차이가아니며물리미래정확도·LPWM단독효과·독립이득미확인/OOD및반복검사한계유지.
 새results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/에정확score/summary/replay/registration/pairedCI/표현/전후겹침/PDMSplot/reportgenerator보존.
 PDMSplot시각검사완료. README/HANDOFF1–5/학습문서/RESUME_NOTES갱신,기존25epoch/유효64·loader2/oracle8/queue/monitor/source/config변경없음.
+
+
+## 2026-10-07 19:43 KST — LoRA planning 학습 속도 개선 가능성 점검
+
+**2026-10-07 19:43 KST — LoRA 학습 속도 병목과 SDPA 후보 점검.**
+본학습 최근100update는23.268초/update, 순전파26.42%·역전파60.74%·CPU oracle11.85%·기타0.99%다.
+Loader 대기는 미미하고 GPU0·1 각40.325GB, micro16×누적2×2=유효64/loader2/oracle8 유지.
+별도4500checkpoint 한 장면·한 카메라·8단계 particle VJP 검사: attention21개 SDPA의2.002초 대 기존2.120/2.215초(탐색적5.6–9.6% 단축).
+FP32 dropout-off 출력 최대차1.72e-5,15 LPWM/명령 gradient그룹 최대상대L2오차0.0576%, native불변. 실제loss/DDP속도·PDMS 검증은 아니다.
+진단용4GiB allocator 두 번의OOM은본학습에영향없음;6GiB허용 재검사완료·최대카드45.009GB·GPU반환. 본학습 4590/40350 계속.
+원래279/실행283source 불변, 본학습설정·queue·monitor 변경없음. SDPA→선택적checkpoint→compile→oracle중첩의별도검증을권고.
+근거 `results/lpwm_drivor_planning_path_lora_v1/training_speed_audit_20261007/assessment.json`.
+
+진단전4455–4554의wall23.2677초/update. SDPA는본학습미적용이며동일batch16/DDP/officialloss의보존재개비교가다음gate다.
+선택적checkpoint/compile/oracle중첩/microbatch증설을후속우선순위로기록했다. 학습목표/gradient/horizon/데이터축소없음.

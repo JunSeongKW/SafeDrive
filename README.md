@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 19:43 KST — 학습 속도 점검.**
+최근100update23.27초, 순전파26%·역전파61%·CPU채점12%. Loader 추가의효과는작다.
+별도1카메라 SDPA 검사에서5.6–9.6% 시간감소와FP32출력/gradient근접확인; 실제batch16 DDP속도는미검증.
+본학습/queue는그대로실행하며,향후SDPA·선택적재계산·compile을검증후적용한다. [측정과제약](results/lpwm_drivor_planning_path_lora_v1/training_speed_audit_20261007/assessment.json).
+
+
 **2026-10-07 19:20 KST — 4,500-update 공식95장면PDMS79.8877.**
 동일95학습장면/24recording에서4,000의75.8303대비+4.0574점, paired CI[−3.0805,+10.9129].
 직진91.0099/좌74.9456/우67.0648, expertADE1.9578m. 95성공/실패0, 재생12ADE차이0, 최대카드41.2594GB/nativehash 유지.
