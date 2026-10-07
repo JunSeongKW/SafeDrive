@@ -1,5 +1,12 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 18:07 KST — 이전Adapter82.49점은Stage2 1epoch, Stage1은20epoch.**
+실제완료summary에서Stage1 23,126clip/20epoch/28,920update,Stage2 75,297scene/1epoch/4,707update/seed47 확인.
+Stage2에상속된Stage1 SHA가20epoch최종체크포인트와일치한다. 4시간9분은Stage2기록시간14,974.40초로Stage1약13시간41분별도다.
+Adapter704,960개+planner/명령2,211,975개 학습,LPWM native고정. 내부개발1024/유효PDM1021 결과이며navtest아님.
+현재joint-DrivoR 95학습패널점수와직접비교하지않는다. 18:06현재학습4,338/40,350 epoch3 계속, 새학습/epoch/queue변경없음.
+상세 `docs/lpwm_planning_experiment.md` 마지막18:07절.
+
 **2026-10-07 18:01 KST — 중간 상태 확인, 새 검증은 아직4,000 이후 없음.**
 18:00:55학습4,324/40,350(2.679/25epoch,10.716%). 다음4,500/epoch3(4,842) 학습경계 오늘19:11/21:26–21:30 예상.
 GPU0·1모두100%/각40.325GB, micro16×accum2×2=유효64/loader2/oracle8 유지. 양rank 비유한loss0/4300의18gradient그룹 유한·양수.
@@ -176,7 +183,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 18:03 KST (Codex)
+마지막 갱신: 2026-10-07 18:08 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -343,6 +350,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+18:06조회현재joint-DrivoR 학습4,338/40,350 epoch3 계속. 이번질문은이전Adapter학습량확인이며현재학습/queue변경없음.
+과거Adapter1epoch 완료실험을재실행하거나추가epoch를자동등록하지않는다.
 
 18:00:55KST 학습4,324/40,350 epoch3/전체10.716%, 기존학습·queue·monitor·CPUoverlaypublisher 생존.
 GPU0·1모두사용률100%,각40.325GB. Batch16×accum2×2=유효64/loader2/oracle8, monitor4000완료→4500대기.
@@ -864,6 +874,11 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+이전Adapter82.4852/ADE1.155131/FDE2.756717는Stage2 1epoch/4707update/seed47 결과다.
+공개LPWM에Stage1 20epoch/28920update를먼저수행했으며Stage2 inheritedSHA와Stage1최종SHA일치확인.
+Stage2 기록14,974.40초(4h9m34s)/Stage1 기록49,245.37초(13h40m45s)로표의시간은Stage1미포함.
+Adapter704,960개와planner/command2,211,975개를학습. PDMS내부개발1021/40recording,현재95training패널과조건이다름.
 
 18:01현재완료된마지막PDMS/표현진단은4,000이고새성능검증없음. 기존PDMS75.83/3,500의75.90으로최근평균정체.
 직진89.04/좌69.51/우61.16,중심초기대비1.979px/크기14.098%,appearanceF1.4114/wholeF1.4230.
@@ -1588,12 +1603,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자중간보고요청에18:00:55기준4,324-update진행과GPU0·1사용/host프로세스·대기열을확인했다.
-- 양rank전체loss/최근4300gradient/원래279및현재실행283sourcehash를읽기전용검사했다. 이상없음.
-- 새검증이아직없어4,000완료PDMS/표현수치와현재학습진행을구분했다. 새GPU평가나설정변경없음.
-- 상태JSON/README/HANDOFF 1–5/RESUME_NOTES/학습문서를갱신하고다음4500·epoch3·V1학습종료ETA를기록했다.
+- 사용자가인용한Adapter82.49점의원래설정·완료summary·학습량과누적시간범위를재확인했다.
+- Stage2는1epoch/4707update이며Stage1은20epoch/28920update로두단계를구분했다. Stage1 checkpoint상속SHA도일치확인.
+- 4시간9분은Stage2기록시간,704,960개는LPWM Adapter분량이며planner/command2,211,975개도학습했음을명시했다.
+- 실험문서/HANDOFF 1–5/RESUME_NOTES에이력근거를추가했다. 현재25epoch학습·queue변경/과거실험추가학습없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Stage1 20epoch+Stage2 Adapter1epoch였음을답변하고수렴/최종성능과구분한다. 현재joint-DrivoR25epoch일정과기존검증계속.
+과거82.49와현재75.83은평가장면·planner·학습방식이달라방법우열의근거로직접비교하지않는다.
 
 다음4,500학습경계는10월7일19:11전후,epoch3(4,842)는21:26–21:30전후. 정기진단완료시간은별도다.
 4500진단/이후동일95패널공식PDMS를확인해4,000과비교한다. 4,324학습상태를새성능측정으로부르지않는다.
@@ -2037,6 +2055,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이전Adapter의1epoch는Stage2의학습량이며Stage1/공개사전학습에적용되지않는다. Stage2 1epoch/1seed로수렴이나최적예산을확정하지않는다.
+해당질문으로과거Stage2추가epoch를승인받았다고해석하지않는다. 기존실행과결과의원래수치·hash보존.
 
 이번상태조회로4,000이후성능개선·악화·포화를새로판정하지않는다. 새검증은4500을기다리는중이다.
 정상gradient·VRAM사용은학습동작근거이며유용한미래표현학습의확증이아니다. 독립평가/LPWM단독기여미확인.

@@ -3187,3 +3187,27 @@ Stage2 train75,297/dev27,076; GPU 실행은 적응 gate 후. 현재 성능 개�
 
 
 Stage2 진입점은 `scripts/launch_lpwm_full_planning.py`, 저LR full-LPWM+planner 두조건 설정은 `configs/lpwm_planning/full_joint_training_v1.json`이다. CPU planning-gradient/intent/미래교란 audit은 통과했다. Stage2 GPU/DDP 검증과 공식 PDM 실행은 Stage1 적응 gate 이후이며 아직 결과가 없다.
+
+## 2026-10-07 18:07 KST — Adapter 82.49점의 학습량 재확인
+
+사용자가 인용한PDMS82.49/ADE1.155m/FDE2.757m/미래오차+0.38%/LPWM704,960개/4시간9분은
+**Stage2 Adapter 조건을1epoch 학습한 최종 결과**다. 전체LPWM 학습이1epoch였다는뜻은아니다.
+
+| 단계 | 실제 학습량 | 입력 수 | Optimizer update |
+|---|---:|---:|---:|
+| Stage1: 공개 LPWM의 NAVSIM 영상 SSL post-training | 20epoch | 23,126clip | 28,920 |
+| Stage2: Adapter와planner/명령모듈 학습 | 1epoch, seed47 | 75,297장면 | 4,707 |
+
+실제training_summary.json끼리Stage2의stage1_checkpoint_sha256이Stage1최종SHA71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f와일치함을확인했다.
+Stage1실행시간49,245.37초(약13시간41분),Stage2실행시간14,974.40초(약4시간9분34초)다.
+표의4시간9분은Stage2의기록시간이며Stage1·공개사전학습·최종평가시간을포함한전체연구시간이아니다.
+LPWM native가중치는고정하고Adapter704,960개를학습했으며planner/명령모듈2,211,975개도학습했다.
+총학습parameter는2,916,935개이고planningloss와0.02공식SSL목적함수를함께사용했다.
+
+PDMS는내부개발1,024장면중유효1,021개/40recording의결과, ADE/FDE는1,024장면이고world진단은256clip이다.
+1seed/Stage2 1epoch의경향비교이며수렴·최종학습예산의최적성·공식navtest성능을뜻하지않는다.
+현재joint-DrivoR의95학습패널PDMS와는planner·학습방식·평가분포가달라단순점수비교하지않는다.
+근거: [완료된네방법summary](../results/lpwm_card_budget_measured_v4/completed_four_method_review_20261005/summary.json),
+`outputs/lpwm_navsim_full_posttraining_v2/stage1/training_summary.json`,
+`outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/training_summary.json`.
+이번요청은이력확인이며새학습·추가epoch·현재queue변경은없다.

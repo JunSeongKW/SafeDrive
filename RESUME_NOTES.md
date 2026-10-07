@@ -3209,3 +3209,16 @@ Particle초기중심1.979px/크기14.098%,appearanceF1.4114/wholeF1.4230,미래�
 V1학습완료10월17일16–20시외삽,진단처리/fullnavtest/V2등후속시간별도. 공유부하로변동가능.
 결과 results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1800.json에조회시각·progress·rankhealth·sourceaudit·ETA·최신기존평가근거보존.
 README/HANDOFF1–5/학습문서/RESUME_NOTES갱신. 모델/loss/학습량/source/config/queue/monitor/publisher변경없음.
+
+## 2026-10-07 18:07 KST — 이전 Adapter 82.49점의 epoch와시간범위 재확인
+
+사용자가Stage1/2분리후Adapter만추가한82.49/ADE1.155/FDE2.757/미래오차+.38%/LPWM70.5만/4h9m이1epoch인지질문했다.
+원래residual_adapter_batch8 config epochs1,완료training_summary epochs1/completed4707/train75297/seed47및review값을확인했다.
+Stage1 actualsummary는20epoch/28920update/23126clip,Stage2 inherited stage1 checkpoint SHA가Stage1최종SHA와일치.
+Stage1은공개SketchyLPWM의NAVSIM SSL posttraining,Stage2는Adapter704960+planner/command2211975학습/native고정.
+총2916935학습parameter. Stage2목표는planning+0.02공식temporalELBO,직접객체GT보조loss OFF.
+Stage2기록시간14974.3994초=4h9m34s,Stage1기록49245.3658초=13h40m45s. 표의4h9m은Stage1/공개pretraining/최종평가미포함.
+PDMS82.4852는내부개발1024중1021유효/40recording,ADE/FDE1024장면/world256clip진단. 공식navtest아님.
+Stage2 1epoch/1seed의경향비교이며수렴·최적예산으로해석하지않는다. 현재DrivoR joint95training패널과단순수치비교금지.
+docs/lpwm_planning_experiment.md 마지막절과HANDOFF1–5에재확인근거추가. 역사적결과/config/체크포인트변경없음.
+18:06조회현재학습4338/40350 epoch3계속. 새학습/추가epoch/queue변경없이과거이력만확인했다.
