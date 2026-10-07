@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 18:15 KST — Stage1의 20 epoch 실행 시간과 계산량 확인.**
+Stage1은 전방 128×128 영상의 완전한 12프레임 클립 23,126개, 유효 batch16, epoch당1,446 / 총28,920 update였다.
+기록49,245.37초(13시간40분45초), update 로그 중앙값1.5705초, 검증·저장 포함 평균1.7028초 / epoch 약41분.
+원래 LPWM 전체 시퀀스 SSL forward로 encoder·context·dynamics·decoder 모두 학습했다. 저장한 입력은 RGB 픽셀이며 feature cache가 아니다.
+현재는103,288장면·4카메라·8단계 순차 미래 rollout·activation checkpoint 재계산·DrivoR planner/oracle로 계산량이 다르다.
+18:12 조회4,354/40,350, 최근100update23.5139초. 기존 학습·검증·queue 변경 없이 과거 로그/코드만 감사했다.
+근거 `results/lpwm_navsim_full_posttraining_v2/stage1_training_speed_explanation_20261007.json` 및 실험문서 마지막절.
+
 **2026-10-07 18:07 KST — 이전Adapter82.49점은Stage2 1epoch, Stage1은20epoch.**
 실제완료summary에서Stage1 23,126clip/20epoch/28,920update,Stage2 75,297scene/1epoch/4,707update/seed47 확인.
 Stage2에상속된Stage1 SHA가20epoch최종체크포인트와일치한다. 4시간9분은Stage2기록시간14,974.40초로Stage1약13시간41분별도다.
@@ -183,7 +191,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 18:08 KST (Codex)
+마지막 갱신: 2026-10-07 18:16 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -350,6 +358,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+18:12 조회 joint-DrivoR 학습4,354/40,350. 이번 요청은 과거 Stage1 속도 설명이며 새 GPU 작업이나 학습·queue 변경 없음.
+기존25epoch / 매500·epoch 진단 / 후속 평가 순서를 유지한다.
 
 18:06조회현재joint-DrivoR 학습4,338/40,350 epoch3 계속. 이번질문은이전Adapter학습량확인이며현재학습/queue변경없음.
 과거Adapter1epoch 완료실험을재실행하거나추가epoch를자동등록하지않는다.
@@ -874,6 +885,14 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Stage1의 실제 실행 시간은13.6793시간 /20epoch다. 23,126개 완전한 전방 12프레임 클립에 유효batch16을 적용해 epoch당1,446update였다.
+총28,920update × 검증·시각화·저장 포함 평균1.7028초 =49,245.37초. 로그 update 중앙값1.5705초, 비유한loss0.
+원래 SSL 전체시퀀스 forward는 잠재 transition들을 한 호출로 계산한다. 현재4카메라 각각의8단계 순차 prior rollout과 동일한 계산 그래프가 아니다.
+Stage1 encoder6.035M/context39.389M/dynamics59.869M/decoder4.251M 모두 학습하며 각 모듈 parameter 변경 샘플을 확인했다.
+RGB 픽셀 전처리 cache 사용, feature cache/LoRA/frozen 학습 아님. 공개 Sketchy에서 NAVSIM post-training을 수행했다.
+12프레임 RGB가 모두 존재해야 하므로 범위가 제한됐으며 manifest의 train/missing_sequence_RGB 제외52,749개다. 현재103,288장면과 직접 합산하지 않는다.
+현재 최근100update23.5139초이며 forward5.9901/oracle2.1112/backward13.1293초 표본 확인. 원인별 속도 배수는 통제 실측하지 않았다.
 
 이전Adapter82.4852/ADE1.155131/FDE2.756717는Stage2 1epoch/4707update/seed47 결과다.
 공개LPWM에Stage1 20epoch/28920update를먼저수행했으며Stage2 inheritedSHA와Stage1최종SHA일치확인.
@@ -1603,12 +1622,15 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자가인용한Adapter82.49점의원래설정·완료summary·학습량과누적시간범위를재확인했다.
-- Stage2는1epoch/4707update이며Stage1은20epoch/28920update로두단계를구분했다. Stage1 checkpoint상속SHA도일치확인.
-- 4시간9분은Stage2기록시간,704,960개는LPWM Adapter분량이며planner/command2,211,975개도학습했음을명시했다.
-- 실험문서/HANDOFF 1–5/RESUME_NOTES에이력근거를추가했다. 현재25epoch학습·queue변경/과거실험추가학습없음.
+- Stage1 20epoch의 빠른 실행 이유를 실제 manifest·summary·로그·trainer·LPWM forward와 현재 joint 학습 코드로 확인했다.
+- 23,126 전방 영상 클립 / 유효batch16 /28,920update /13.6793시간과 전체시퀀스 SSL 계산을 기록했다.
+- 현재4카메라·순차8단계 미래 rollout·backward 재계산·planner/oracle의 계산 차이, 가용12프레임 제한과 RGB 픽셀 cache를 명시했다.
+- 근거 JSON과 실험문서/HANDOFF 1–5/RESUME_NOTES를 추가했다. 실행 모델·source/config·학습량·queue와 과거 결과는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Stage1의 한 epoch가 현재의 한 epoch와 같은 데이터·계산량이 아님을 설명한다. 20epoch는 완전한 전방12프레임 클립 기준이다.
+기존 joint-DrivoR25epoch 및 검증 유지. 이번 설명 요청으로 Stage1 재학습·확대·중단·새 대조군을 자동 실행하지 않는다.
 
 Stage1 20epoch+Stage2 Adapter1epoch였음을답변하고수렴/최종성능과구분한다. 현재joint-DrivoR25epoch일정과기존검증계속.
 과거82.49와현재75.83은평가장면·planner·학습방식이달라방법우열의근거로직접비교하지않는다.
@@ -2055,6 +2077,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Stage1은 실제109.545M native parameter를 학습했지만 가용 전방12프레임 클립의 post-training이다. 완전한4카메라 NAVSIM 적응을 뜻하지 않는다.
+Stage1/현재 속도는 서로 다른 시기·부하에서 관측한 값이며 통제 profiling 비교가 아니다. LoRA parameter 수만으로 계산량·속도를 판단하지 않는다.
+공개 가중치에서 시작한 점은 upstream pretraining이 포함되지 않음을 뜻하며 update 자체의 속도 향상 원인으로 설명하지 않는다.
 
 이전Adapter의1epoch는Stage2의학습량이며Stage1/공개사전학습에적용되지않는다. Stage2 1epoch/1seed로수렴이나최적예산을확정하지않는다.
 해당질문으로과거Stage2추가epoch를승인받았다고해석하지않는다. 기존실행과결과의원래수치·hash보존.

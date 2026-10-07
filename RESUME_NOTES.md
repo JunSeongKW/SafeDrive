@@ -3222,3 +3222,19 @@ PDMS82.4852는내부개발1024중1021유효/40recording,ADE/FDE1024장면/world2
 Stage2 1epoch/1seed의경향비교이며수렴·최적예산으로해석하지않는다. 현재DrivoR joint95training패널과단순수치비교금지.
 docs/lpwm_planning_experiment.md 마지막절과HANDOFF1–5에재확인근거추가. 역사적결과/config/체크포인트변경없음.
 18:06조회현재학습4338/40350 epoch3계속. 새학습/추가epoch/queue변경없이과거이력만확인했다.
+
+## 2026-10-07 18:15 KST — Stage1 20 epoch의 실행 속도 감사
+
+사용자가 Stage1 20epoch가 어떻게 빨리 끝났는지 질문했다. 실제 summary/manifest/log/trainer와 공식 LPWM forward 및 현재 joint 코드를 확인했다.
+Stage1은23,126개 완전한 전방12프레임128×128 RGB 클립 /122recording /유효batch16 /epoch당1446 /총28920update였다.
+기록49245.3658초=13시간40분45초, epoch 약41분. 로그 update 중앙값1.5705초, 검증·시각화·저장 포함 평균1.7028초.
+원래 공개 Sketchy 가중치에서 SSL post-training, 전체 시퀀스 latent transition을 dyn_module 한 호출로 계산했다.
+Encoder6035191/context39389417/dynamics59869416/decoder4251239 모두 학습 대상이고 각 모듈 parameter 변경 샘플218/154/224/92 확인.
+로그 비유한loss0. 입력 cache는 RGB 픽셀이지 고정 encoder feature가 아니다. Planner/online candidate oracle은 Stage1에 없었다.
+Manifest train/missing_sequence_RGB52749개 제외. 20epoch는 가용 전방12프레임 클립 기준이며 현재4카메라 trainval103288장면 기준이 아니다.
+현재4카메라 순차 encode·각8단계 contextprior/dynamics rollout·activation checkpoint backward 재계산·DrivoR candidate generator/scorer/oracle 수행.
+18:12:38조회4354/40350, 최근100update23.5139초(약10.54h/epoch). 마지막 phase forward5.9901/oracle2.1112/backward13.1293초.
+서로 다른 시점/부하 관측이므로 원인별 속도배수는 미확정. LoRA parameter 감소로 forward/backward activation 계산이 없어지는 것은 아니다.
+근거 results/lpwm_navsim_full_posttraining_v2/stage1_training_speed_explanation_20261007.json을 새로 보존했다.
+HANDOFF1–5 및 기존 실험문서에 설명 추가. 새 GPU 작업·과거결과수정·실행 source/config/학습량/queue 변경 없음.
+기존25epoch·매500/epoch 진단·후속평가를 유지하며 이번 질문으로 Stage1 확대/재학습/중단을 자동 실행하지 않는다.

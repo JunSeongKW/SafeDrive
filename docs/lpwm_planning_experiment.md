@@ -3211,3 +3211,48 @@ PDMS는내부개발1,024장면중유효1,021개/40recording의결과, ADE/FDE는
 `outputs/lpwm_navsim_full_posttraining_v2/stage1/training_summary.json`,
 `outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/training_summary.json`.
 이번요청은이력확인이며새학습·추가epoch·현재queue변경은없다.
+
+## 2026-10-07 18:15 KST — Stage1의 20 epoch가 약13.7시간이었던 이유
+
+실제 Stage1 summary와 로그, manifest, trainer, 공식 LPWM forward를 확인했다.
+한 epoch의 정의와 실행 계산량이 현재 joint-DrivoR 학습과 다르다.
+
+| 항목 | 완료된 Stage1 | 현재 joint-DrivoR |
+|---|---:|---:|
+| epoch당 입력 수 | 전방12프레임 클립23,126개 | 장면103,288개 |
+| 카메라 | 전방1개 | 4개 |
+| 카메라별 해상도 | 128×128 | 128×128 |
+| 유효 batch | 16 | 64 |
+| epoch당 optimizer update | 1,446 | 1,614 |
+| update 시간 | 로그 중앙값1.5705초 / 검증·저장 포함 평균1.7028초 | 최근100개23.5139초 |
+| epoch 시간 | 약41분 | 약10.54시간 외삽 |
+| 학습 계산 | 전체 영상의 복원·잠재 전이 SSL | 순차 미래 예측·후보 경로 생성·채점 |
+
+`ceil(23,126 /16) ×20 =28,920 update`이고, 기록49,245.3658초는 총13시간40분45초다.
+검증·시각화·checkpoint 저장·barrier를 포함한 training loop 기록이며 초기 cache 준비와 최종 별도 적응 평가는 포함하지 않는다.
+
+Stage1은 공개 Sketchy 가중치에서 NAVSIM post-training을 수행했다. 전방 영상12프레임을 모두 encode/decode하고
+원래 temporal ELBO를 사용한다. 공식 `DLP.forward`에서는 학습 시 전체 영상의 latent를 사용할 수 있어
+`dyn_module`에 시퀀스 transition을 한 번에 전달한다. 현재 planner의 causal8단계 순차 prior rollout과는 계산 그래프가 다르다.
+Stage1에는 경로 후보 planner나 온라인 candidate oracle이 없었다.
+
+현재 모델은4카메라를 순서대로 encode하고, 각 카메라의 context prior/dynamics를8단계 순차 호출한다.
+Activation checkpoint로 backward에서 해당 계산을 재실행하고 공식 DrivoR 후보 generator/scorer 및 CPU oracle을 수행한다.
+18:12 표본에서 forward5.9901초/oracle2.1112초/backward13.1293초였다. 전체 속도 차이를 oracle만의 영향으로 설명하지 않는다.
+LoRA로 학습 parameter를 줄여도 rollout과 gradient를 전달하는 activation 계산은 필요하다.
+다른 시점의 공유 서버 관측이므로 각 원인의 기여 배수는 별도 통제 profiling 없이는 확정하지 않는다.
+
+Stage1 입력 cache는 전처리된128×128 RGB 픽셀이다. Encoder feature를 고정해 재사용한 학습이 아니다.
+Encoder6,035,191/context39,389,417/dynamics59,869,416/decoder4,251,239개가 모두 학습 대상이었다.
+네 모듈의 parameter 변경 샘플218/154/224/92개와 유한 양수 gradient를 완료 summary에서 확인했고 로그 비유한loss는0이었다.
+
+**학습 범위의 제한:** 12프레임 RGB가 모두 확보된 클립만 사용했다. Manifest는 train/missing_sequence_RGB52,749개 제외를 기록한다.
+따라서20epoch는 이23,126개 전방 영상 클립 기준이며 현재의 전체103,288개4카메라 장면을20회 학습했다는 뜻이 아니다.
+선별 조건이 달라 제외 수와 현재 장면 수를 단순 합산하지 않는다. 가중치 갱신 확인도 완전한 도메인 적응을 보장하지 않는다.
+
+근거: [실행 속도·학습량 감사 JSON](../results/lpwm_navsim_full_posttraining_v2/stage1_training_speed_explanation_20261007.json),
+`outputs/lpwm_navsim_full_posttraining_v2/stage1/training_summary.json`,
+`scripts/train_lpwm_navtrain_distributed.py`, `scripts/run_lpwm_navsim_posttraining.py`,
+`reference_repositories/LPWM/models.py`, `reference_repositories/LPWM/modules/modules.py`,
+`src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py`, `scripts/train_lpwm_drivor_lora_parallel.py`.
+이번 요청은 설명·감사이며 새 GPU 작업이나 기존 학습·source/config·queue 변경은 없다.

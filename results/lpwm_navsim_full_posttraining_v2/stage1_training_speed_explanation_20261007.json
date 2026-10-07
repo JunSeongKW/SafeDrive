@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-10-07T18:12:38.243664+09:00",
+  "stage1": {
+    "training_clips": 23126,
+    "epochs": 20.0,
+    "updates_per_epoch": 1446,
+    "completed_updates": 28920,
+    "effective_batch": 16,
+    "cameras": 1,
+    "frames_per_clip": 12,
+    "resolution": [
+      128,
+      128
+    ],
+    "recorded_seconds": 49245.36576699003,
+    "recorded_hours": 13.679268268608341,
+    "mean_recorded_seconds_per_update_including_validation_snapshots_and_checkpoint_overhead": 1.7028134774201253,
+    "median_logged_update_seconds": 1.5704987510107458,
+    "median_last200_logged_update_seconds": 1.5522343324992107,
+    "nonfinite_loss_rows": 0,
+    "recorded_parameter_counts": {
+      "image_encoder": 6035191,
+      "context": 39389417,
+      "dynamics": 59869416,
+      "rgb_decoder": 4251239
+    },
+    "recorded_changed_parameter_tensor_samples": {
+      "image_encoder": 218,
+      "context": 154,
+      "dynamics": 224,
+      "rgb_decoder": 92
+    },
+    "manifest_preprocessing": "front camera 1920x1080, crop 28 top/bottom, resize 128x128, RGB uint8",
+    "manifest_selection_caveat": "Complete 12-frame RGB availability required for video post-training; projected overlap is an occlusion proxy only",
+    "manifest_rejected": {
+      "train/missing_sequence_RGB": 52749,
+      "development/missing_sequence_RGB": 19484,
+      "train/irregular_timestamps": 148,
+      "development/irregular_timestamps": 36
+    },
+    "input_cache": "Prepared 128-square uint8 RGB pixel frames, not cached particle features",
+    "training_logic": "Official LPWM full-sequence DLP.forward + calc_dyn_elbo; all four modules trainable. No trajectory planner or online candidate oracle in the training loop."
+  },
+  "current_joint_training": {
+    "completed_updates": 4354,
+    "training_scenes": 103288,
+    "updates_per_epoch": 1614,
+    "effective_batch": 64,
+    "cameras": 4,
+    "observed_frames_per_camera": 1,
+    "autoregressive_future_steps_per_camera": 8,
+    "last100_wall_seconds_per_update": 23.51394520521164,
+    "extrapolated_hours_per_epoch": 10.542085433669886,
+    "last_logged_phase_seconds": {
+      "between_updates_including_sync_and_data": 0.0008502006530761719,
+      "forward": 5.990124940872192,
+      "oracle": 2.1112122535705566,
+      "backward": 13.129326105117798
+    },
+    "recorded_loss": 2.709474802017212,
+    "model_graph": "Four sequential camera encodes; causal eight-step context/dynamics sample per camera; activation checkpoint recomputation during backward; official DrivoR candidate generation/scoring and CPU online oracle."
+  },
+  "stage1_hours_per_epoch_including_logged_loop_overhead": 0.6839634134304171,
+  "comparability_note": "Different input and objective workloads; rates are historical observations on a shared machine, not a matched profiling experiment. Stage1 clip count is not the complete current trainval scene count.",
+  "new_gpu_work_started": false,
+  "training_changed": false
+}
