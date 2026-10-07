@@ -328,7 +328,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 08:05 KST (Codex)
+마지막 갱신: 2026-10-08 08:10 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -495,6 +495,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 08:09 KST: Drive-JEPA의 사전학습/후속 planner 학습을 논문v2와 공식 로컬 코드로 조사했다. 현재 LPWM 두 학습과 대기열은 변경하지 않았다.
 
 2026-10-08 08:05 KST: 관측 프레임 차이의 설계 이유를 조사했다. 기존 학습과 대기열을 유지했고 입력 변경은 하지 않았다.
 
@@ -1074,6 +1076,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Drive-JEPA도 공개 V-JEPA2 초기화→주행 영상 SSL 적응→planner 학습 순서다. 논문2601.22032v2 §3.2/4.2: CoVLA/DrivingDojo/OpenScene trainval 약330h,8frame512×256/2Hz,50epoch latent JEPA 사전학습; 후속 full planner20epoch,ViT1e-5/planner1e-4. 공식 perception-based optimizer는 backbone_lr_mult=.1로 원래 encoder 전체를 갱신한다. Perception-free yaml의freeze_encoder:true 기본값만 보고 고정이라고 답하면 틀림: 실제 train script가false로 override하며40epoch/Adam전체1e-4다. 로컬repo548bb8215e3aae18e162a0f12f1ba83b4d3eb57e. 이전 LPWM Adapter는 native고정+Adapter/command/planner 및SSL유지로 다르다.
 
 관측 차이는 미세조정 기법의 제약이 아니라 두 실험의 설계 계보 차이다. Adapter는 Stage1의 전방 영상4장 관측/미래8장 체계를 이어받았다. 새 LPWM+DrivoR는 공식 DrivoR NAVSIM config의4카메라·현재1시점(cam_*:[3], cameras[-1])에 맞춰 구성했다. LPWM은 두 입력 방식 모두 코드 경로가 있으며, 과거 관측을 제거해도 성능이 보존된다는 ablation은 수행하지 않았다. 동일 평가 장면이어도 LoRA/Adapter 효과를 단독 분리할 수 없다.
 
@@ -1893,11 +1897,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공식 DrivoR sensor config/feature builder와 이전 Stage1/Adapter forward를 대조하여 관측 시간축이 달라진 설계 이유를 확인했다.
-- 본학습의 현재1시점은 DrivoR 입력 조건을 따른 선택이며 LoRA의 구조적 제약이 아님을 기록했다. 과거 제거 효과는 미검증이고 공통 평가도 미세조정 기법 단독 비교가 아님을 명시했다.
-- HANDOFF/RESUME_NOTES만 갱신했으며 학습 source/config와 실행 상태는 변경하지 않았다.
+- Drive-JEPA 논문v2와 공식 구현에서 주행 영상 SSL 사전학습 후 planner 학습 및 encoder 원래 가중치 공동 미세조정을 확인했다.
+- Perception-free 설정 기본값과 실제 실행 override를 구분하고, perception-based의encoder/planner 학습률1:10 및 우리 Adapter native고정과 차이를 기록했다.
+- HANDOFF/RESUME_NOTES만 변경했으며 현재 학습/평가 코드는 수정하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Drive-JEPA 학습 단계 설명은 참고 조사다. 현재 실행을 Drive-JEPA 방식으로 전환하거나 새 실험을 등록하지 않았다.
 
 관측 프레임 차이 설명에 따른 새 실험은 등록하지 않았다. 향후 시간 관측의 효용 비교는 카메라·planner·학습 조건을 고정한 별도 ablation으로 구분한다.
 
@@ -2405,6 +2411,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Drive-JEPA의2단계 전이는 확인되지만 우리 Adapter와 동일학습은 아니다. Native encoder 전체 fine-tuning과 Adapter 적응을 구분하며 Drive-JEPA YAML의freeze 기본값을 실제학습으로 오해하지 않는다.
 
 공식 DrivoR의 현재1프레임을 따른 것이 LPWM의 최적 입력이라는 증거는 없다. 사용자 최신 요청은 설계 이유 설명이며 입력 변경이나 새 시간축 ablation 실행 요청이 아니다.
 

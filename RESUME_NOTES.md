@@ -3553,3 +3553,11 @@ Ego11은 현재 ego 좌표계 pose3(실제0), velocity2, acceleration2, command4
 근거: `reference_repositories/DrivoR/navsim/planning/script/config/common/agent/drivoR.yaml:32`의cam_*:[3], `drivor_features.py:74`의cameras[-1], `configs/lpwm_navsim_adaptation/full_posttraining_v2.json`의observed_frames4, `lpwm_planning_finetuning.py:81`의4프레임 및 관측 context 기반 rollout.
 LoRA/Adapter 자체가 시간축을 강제하는 것은 아니다. 단일 관측 미래 prior는 가능하지만 관측 간 변화를 사용하지 못하며, 과거 제거에 대한 성능 동등성 검증은 없다. 두 시스템의 공통 평가 점수를 미세조정 방식 단독 효과로 해석하지 않는다.
 설명과 기록만 수행했으며 학습 입력/설정/대기열을 변경하지 않았다.
+
+## 2026-10-08 08:09 KST — Drive-JEPA 사전학습과 planner 학습 확인
+
+질문: Drive-JEPA도 이전 LPWM Adapter처럼 Stage1 사전학습 뒤 planner를 추가 학습하는가?
+논문 https://arxiv.org/html/2601.22032v2 §3.2/4.2와 로컬공식repo548bb8215e3aae18e162a0f12f1ba83b4d3eb57e를 확인했다. 공개 V-JEPA2로 초기화하고 CoVLA/DrivingDojo/OpenScene trainval의330h 주행 영상에 JEPA SSL 적응(8프레임512×256/2Hz,50epoch)을 한 뒤 NAVSIM planner를 학습한다.
+후속 학습에서는 encoder 원래 가중치도 갱신한다. Perception-based agent get_optimizers는 backbone_lr_mult .1×lr1e-4=1e-5와나머지1e-4;20epoch script다. Perception-free yaml 기본freeze_encoder:true를 실제train script가false로 override하며40epoch/Adam전체1e-4다. 논문perception-free MSE와공개코드 length-normalized L1 차이도 있어 loss를둘에서완전히동일하다고설명하지않는다.
+우리 Adapter는 공개LPWM→NAVSIM SSL20epoch→native고정/Adapter+command+planner갱신 및SSL보조유지다. 단계적전이는유사하지만 SSL목표(latent JEPA vsRGB복원/예측),가중치갱신범위,planner입력(encoderfeatures vs명시적particle rollout)이 다르다.
+웹논문은열람성공;개별GitHub웹blob은cache miss였으나같은파일을로컬공식clone에서직접확인했다. 학습/대기열/등록소스변경이나새평가없음.
