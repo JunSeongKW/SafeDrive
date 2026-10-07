@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 19:20 KST — 4,500-update 공식95장면PDMS79.8877.**
+동일95학습장면/24recording에서4,000의75.8303대비+4.0574점, paired CI[−3.0805,+10.9129].
+직진91.0099/좌74.9456/우67.0648, expertADE1.9578m. 95성공/실패0, 재생12ADE차이0, 최대카드41.2594GB/nativehash 유지.
+학습패널 진단이며navtest/독립일반화/LPWM단독효과 아님. 19:20본학습4,530/40,350 epoch3/양rank loss·gradient·279/283source 정상.
+기존25epoch·queue·정기진단 유지, 추가평가 종료·GPU해제. [결과 및 그림](results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/report.json).
+
 **2026-10-07 19:01 KST — 중간 상태: 4,480 update, 새 검증은4,500 대기.**
 19:00:43 조회4,480/40,350(약2.776/25epoch,11.103%). 양rank 비유한loss0/최근4400의18gradient그룹 유한·양수/279·283sourcehash 일치.
 GPU0·1각40.325GB, micro16×누적2×2=유효64/loader2/oracle8 유지. 학습·queue·monitor·CPUoverlaypublisher 생존.

@@ -3290,3 +3290,22 @@ Stage1epoch별PDMS확인은각checkpoint뒤동일planner동일예산학습필요
 Epoch20학습planner에encoder만교체하는검사는분포불일치가섞이므로각epoch최종planning성능으로부르지않는다.
 19:07 저장progress4498/40350 epoch3/monitor4000완료→4500대기확인. 이후상태는새로조회해야함.
 HANDOFF1–5/실험문서/RESUME_NOTES 갱신. 기존25epoch·source/config·학습/queue/monitor변경 및새GPU작업/epoch별planner재학습없음.
+
+## 2026-10-07 19:20 KST — 4,500-update 최신 PDMS 직접 평가
+
+사용자 최신업데이트기준PDMS 요청에README/AGENTS/HANDOFF·training/monitor·GPU를확인,4520본학습/4500표현진단완료/새PDMS없음확인.
+Preservedexact4500checkpointSHA9adeab74b561fa785927c9d86be6493582000b11b7da85d9d2d61832804613bd와attributes SHA검증.
+기존evaluate_lpwm_intermediate_panel_pdms.py --updates4500 --workers2로동일95training장면/24recording의공식NAVSIMv1 평가실행.
+Sandbox첫시도는NVMLexit9로GPU초기화전실패,require_escalated host권한동일명령으로완료. 본학습중단/설정변경없음.
+PDMS79.8876786,4000대비+4.0573841 CI[−3.0805198,+10.9129468]. 첫epoch대비+11.9012621 CI[+4.4353382,+19.6440688].
+Epoch2대비+5.3107243 CI[−.7217334,+12.4843968],3500대비+3.9837429 CI[−.6487153,+8.6572802].
+같은tokenpaired/5000recordingbootstrap/seed71. 95training패널이며navtest·독립validation·학습시드불확실성추정아님.
+직진91.009912/좌74.945567/우67.064835,expertADE1.957827m. 4000의89.044452/69.508018/61.158954/ADE2.031890m보다좋은pointestimate.
+NC.963158/DAC.936842/progress.685725/TTC.915789/comfort.989474. NC·comfort소폭감소도기록해평균개선만으로안전일괄개선주장안함.
+95성공/실패0/12재생ADE차이0/nativehash유지/최대card41.259368GB/등록279·283sourcehash모두일치. 일회평가종료·GPU해제.
+19:20학습4530/40350 epoch3,양rank비유한loss0/4500의18gradient그룹유한양수/nativehash불변. 새79.89는4500모델결과이며4530성능으로부르지않음.
+Particle초기중심2.170891px/크기15.947790%,직전4000→4500중심1.284820px/size7.618933%,wholeF1.420444(직전.422994).
+미래대체12scene selectedoracle−.377887 CI[−.557280,−.172739]/fixedoracle−.123822 CI[−.260985,−.010708]/ADE+.392341m CI[−.076664,+.985058].
+Oracle개입은공식PDMS차이가아니며물리미래정확도·LPWM단독효과·독립이득미확인/OOD및반복검사한계유지.
+새results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/에정확score/summary/replay/registration/pairedCI/표현/전후겹침/PDMSplot/reportgenerator보존.
+PDMSplot시각검사완료. README/HANDOFF1–5/학습문서/RESUME_NOTES갱신,기존25epoch/유효64·loader2/oracle8/queue/monitor/source/config변경없음.

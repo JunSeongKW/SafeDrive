@@ -1,0 +1,25 @@
+{
+  "source_sha256": "e085f40a1f646467967c49ca6357d88c5a2f432bdc4ad3c3a1817a7f5285f182",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "updates": [
+    4500
+  ],
+  "checkpoints": {
+    "4500": {
+      "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_particle_trends_every500_v1/checkpoints/update_004500.pt",
+      "checkpoint_sha256": "9adeab74b561fa785927c9d86be6493582000b11b7da85d9d2d61832804613bd",
+      "attributes_sha256": "83ae74d184c5dd1f0b8bf8b83e42c047c46b00640b160ab145ad5e2dfbb06aaf"
+    }
+  },
+  "scene_count": 95,
+  "panel_count": 96,
+  "excluded_missing_official_cache": [
+    "20c5f1c678e7548a"
+  ],
+  "training_distribution": true,
+  "full_navtest": false,
+  "scoring": "Unmodified official NAVSIM v1 pdm_score with standard MetricCache, 40 x 0.1s simulator sampling",
+  "cached_representation_replay": true,
+  "model_updates": false,
+  "started_unix": 1791368290.451532
+}

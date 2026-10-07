@@ -1,0 +1,663 @@
+{
+  "checked_at": "2026-10-07T19:20:04.941236+09:00",
+  "evaluated_updates": 4500,
+  "evaluated_epoch_equivalent": 2.7881040892193307,
+  "progress_at_report": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "01bdb7c514e71388421073ea37d3811613d1a7cd9642b0a78210106172b1c597",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 4530,
+    "epoch": 3,
+    "update_in_epoch": 1302,
+    "seconds_this_update": 21.63550305366516,
+    "elapsed_seconds": 32432.2160820961,
+    "card_used_bytes": 40325087232,
+    "peak_reserved_bytes": 39745224704,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0010151863098144531,
+      "forward": 6.005075931549072,
+      "oracle": 2.2030274868011475,
+      "backward": 13.221694707870483
+    },
+    "learning_rates": [
+      0.00019919574994221645,
+      0.00019919574994221645
+    ],
+    "loss": 3.2875369787216187,
+    "trajectory_loss": 1.1559873223304749,
+    "final_score_loss": 2.1315497159957886,
+    "score": 0.7948630750179291,
+    "best_score": 0.96649369597435,
+    "estimated_remaining_seconds": 847353.7486906281
+  },
+  "pdms_scope": "Official NAVSIM v1 PDMS on a fixed 95-scene subset of the planning training distribution; not navtest",
+  "pdms_rows": [
+    {
+      "completed_updates": 0,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 30.429934783442707,
+      "zero_score_count": 46,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.7578947368421053,
+        "drivable_area_compliance": 0.6631578947368421,
+        "ego_progress": 0.11441101924207074,
+        "time_to_collision_within_bound": 0.7263157894736842,
+        "comfort": 0.45263157894736844,
+        "driving_direction_compliance": 0.9473684210526315,
+        "score": 0.3042993478344271,
+        "expert_ade_m": 9.551230534754302
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 28.221900989433706
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 37.5177871114138
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 27.896582538295476
+        }
+      }
+    },
+    {
+      "completed_updates": 500,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 63.40566448528888,
+      "zero_score_count": 16,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9473684210526315,
+        "drivable_area_compliance": 0.8631578947368421,
+        "ego_progress": 0.4059464739627224,
+        "time_to_collision_within_bound": 0.9052631578947369,
+        "comfort": 0.9578947368421052,
+        "driving_direction_compliance": 0.9947368421052631,
+        "score": 0.6340566448528888,
+        "expert_ade_m": 4.541228575455515
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 63.29317235054129
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 63.82498609273627
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 63.24251925269595
+        }
+      }
+    },
+    {
+      "completed_updates": 1000,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 67.83150517350948,
+      "zero_score_count": 11,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.968421052631579,
+        "drivable_area_compliance": 0.9052631578947369,
+        "ego_progress": 0.45427191363791175,
+        "time_to_collision_within_bound": 0.9052631578947369,
+        "comfort": 0.9894736842105263,
+        "driving_direction_compliance": 0.9894736842105263,
+        "score": 0.6783150517350949,
+        "expert_ade_m": 3.177661751563612
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 74.34462424755304
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 54.68348740494169
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 70.76220893507828
+        }
+      }
+    },
+    {
+      "completed_updates": 1500,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 63.51965645981505,
+      "zero_score_count": 24,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9368421052631579,
+        "drivable_area_compliance": 0.7789473684210526,
+        "ego_progress": 0.5202612287197719,
+        "time_to_collision_within_bound": 0.8736842105263158,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9526315789473684,
+        "score": 0.6351965645981505,
+        "expert_ade_m": 2.000670161372737
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 62.54422820484875
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 58.24326686184552
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 67.32200275250426
+        }
+      }
+    },
+    {
+      "completed_updates": 1614,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 67.98641646933137,
+      "zero_score_count": 17,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9631578947368421,
+        "drivable_area_compliance": 0.8421052631578947,
+        "ego_progress": 0.5706213636850056,
+        "time_to_collision_within_bound": 0.8736842105263158,
+        "comfort": 0.9894736842105263,
+        "driving_direction_compliance": 0.9578947368421052,
+        "score": 0.6798641646933138,
+        "expert_ade_m": 2.108185484064253
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 63.796444871155735
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 61.99709194113409
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 74.55819541133147
+        }
+      }
+    },
+    {
+      "completed_updates": 2000,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 70.16709244111213,
+      "zero_score_count": 17,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9473684210526315,
+        "drivable_area_compliance": 0.8526315789473684,
+        "ego_progress": 0.5555891659551123,
+        "time_to_collision_within_bound": 0.9157894736842105,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9473684210526315,
+        "score": 0.7016709244111213,
+        "expert_ade_m": 1.9938621110037753
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 64.46656803206194
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 60.18482565167299
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 80.18148598301568
+        }
+      }
+    },
+    {
+      "completed_updates": 2500,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 72.92701236080623,
+      "zero_score_count": 11,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9473684210526315,
+        "drivable_area_compliance": 0.9263157894736842,
+        "ego_progress": 0.5755114545540864,
+        "time_to_collision_within_bound": 0.8736842105263158,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9894736842105263,
+        "score": 0.7292701236080623,
+        "expert_ade_m": 2.9171675126803547
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 67.7145655175227
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 68.81623102609012
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 79.14730888109142
+        }
+      }
+    },
+    {
+      "completed_updates": 3000,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 74.90627261087963,
+      "zero_score_count": 13,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9736842105263158,
+        "drivable_area_compliance": 0.8842105263157894,
+        "ego_progress": 0.6493294900295316,
+        "time_to_collision_within_bound": 0.9157894736842105,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9473684210526315,
+        "score": 0.7490627261087962,
+        "expert_ade_m": 2.3188999336016805
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 68.29303695543028
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 66.93798853507
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 84.40958693973107
+        }
+      }
+    },
+    {
+      "completed_updates": 3228,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 74.57695425511515,
+      "zero_score_count": 15,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9578947368421052,
+        "drivable_area_compliance": 0.8842105263157894,
+        "ego_progress": 0.6424784810701316,
+        "time_to_collision_within_bound": 0.9157894736842105,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9736842105263158,
+        "score": 0.7457695425511516,
+        "expert_ade_m": 2.0056683582694905
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 71.8970529413559
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 59.343333856198065
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 85.45509886454899
+        }
+      }
+    },
+    {
+      "completed_updates": 3500,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 75.90393562155289,
+      "zero_score_count": 13,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9526315789473684,
+        "drivable_area_compliance": 0.9052631578947369,
+        "ego_progress": 0.6416944549172688,
+        "time_to_collision_within_bound": 0.9368421052631579,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9736842105263158,
+        "score": 0.7590393562155289,
+        "expert_ade_m": 1.9652463812577097
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 69.88561414504292
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 67.73705938644228
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 85.08819596150295
+        }
+      }
+    },
+    {
+      "completed_updates": 4000,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 75.83029442259316,
+      "zero_score_count": 12,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9736842105263158,
+        "drivable_area_compliance": 0.8842105263157894,
+        "ego_progress": 0.6494007503527626,
+        "time_to_collision_within_bound": 0.9052631578947369,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9526315789473684,
+        "score": 0.7583029442259316,
+        "expert_ade_m": 2.031890193725887
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 69.50801820087969
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 61.15895403950638
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 89.04445188223923
+        }
+      }
+    },
+    {
+      "completed_updates": 4500,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 79.88767857112745,
+      "zero_score_count": 9,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9631578947368421,
+        "drivable_area_compliance": 0.9368421052631579,
+        "ego_progress": 0.6857253383386381,
+        "time_to_collision_within_bound": 0.9157894736842105,
+        "comfort": 0.9894736842105263,
+        "driving_direction_compliance": 0.9736842105263158,
+        "score": 0.7988767857112745,
+        "expert_ade_m": 1.9578265579123246
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 74.94556744683199
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 67.06483538699035
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 91.00991198937514
+        }
+      }
+    }
+  ],
+  "paired_pdms_changes": [
+    {
+      "before_update": 1614,
+      "after_update": 4500,
+      "pdms_change": 11.901262101796087,
+      "paired_recording_bootstrap_95_ci": [
+        4.4353382291632135,
+        19.644068790028093
+      ],
+      "recordings": 24,
+      "bootstrap_repeats": 5000,
+      "seed": 71
+    },
+    {
+      "before_update": 3228,
+      "after_update": 4500,
+      "pdms_change": 5.310724316012321,
+      "paired_recording_bootstrap_95_ci": [
+        -0.7217333614865199,
+        12.484396774323177
+      ],
+      "recordings": 24,
+      "bootstrap_repeats": 5000,
+      "seed": 71
+    },
+    {
+      "before_update": 3500,
+      "after_update": 4500,
+      "pdms_change": 3.9837429495745846,
+      "paired_recording_bootstrap_95_ci": [
+        -0.6487153467151344,
+        8.65728021079279
+      ],
+      "recordings": 24,
+      "bootstrap_repeats": 5000,
+      "seed": 71
+    },
+    {
+      "before_update": 4000,
+      "after_update": 4500,
+      "pdms_change": 4.057384148534281,
+      "paired_recording_bootstrap_95_ci": [
+        -3.0805198356432553,
+        10.912946796413323
+      ],
+      "recordings": 24,
+      "bootstrap_repeats": 5000,
+      "seed": 71
+    }
+  ],
+  "source_registration_checks": {
+    "registration.json": {
+      "source_count": 279,
+      "mismatches": []
+    },
+    "oracle8_execution_registration.json": {
+      "source_count": 283,
+      "mismatches": []
+    }
+  },
+  "training_health": {
+    "0": {
+      "last_logged_update": 4530,
+      "nonfinite_loss_rows": 0,
+      "native_digests": [
+        "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+      ],
+      "last_gradient_update": 4500,
+      "gradient_groups": {
+        "particle_interaction_lora": 0.2924801320183906,
+        "context_prior_lora": 0.20270328032038384,
+        "particle_dynamics_lora": 0.29026313849346225,
+        "particle_xy_head_lora": 0.5419881489749321,
+        "particle_scale_xy_head_lora": 0.33960617602078796,
+        "particle_obj_on_head_lora": 0.41784884047653026,
+        "current_prior_cnn_lora": 1.3441315196139625,
+        "current_attribute_cnn_lora": 0.8752163488905003,
+        "appearance_encoder_lora": 0.7583340061392256,
+        "background_appearance_lora": 0.4152172465019949,
+        "interaction_visual_and_output_lora": 0.8551552219705606,
+        "context_prior_projection_and_output_lora": 0.5036269342013033,
+        "dynamics_projection_and_ffn_lora": 0.8583846219693763,
+        "future_particle_heads_lora": 0.7883459280174381,
+        "encoder_command": 0.3690291649109825,
+        "scene_projection": 1.3137560282992775,
+        "trajectory_generator": 7.673651352225958,
+        "scorer": 1.965798416315097
+      }
+    },
+    "1": {
+      "last_logged_update": 4530,
+      "nonfinite_loss_rows": 0,
+      "native_digests": [
+        "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+      ],
+      "last_gradient_update": 4500,
+      "gradient_groups": {
+        "particle_interaction_lora": 0.2924801320183906,
+        "context_prior_lora": 0.20270328032038384,
+        "particle_dynamics_lora": 0.29026313849346225,
+        "particle_xy_head_lora": 0.5419881489749321,
+        "particle_scale_xy_head_lora": 0.33960617602078796,
+        "particle_obj_on_head_lora": 0.41784884047653026,
+        "current_prior_cnn_lora": 1.3441315196139625,
+        "current_attribute_cnn_lora": 0.8752163488905003,
+        "appearance_encoder_lora": 0.7583340061392256,
+        "background_appearance_lora": 0.4152172465019949,
+        "interaction_visual_and_output_lora": 0.8551552219705606,
+        "context_prior_projection_and_output_lora": 0.5036269342013033,
+        "dynamics_projection_and_ffn_lora": 0.8583846219693763,
+        "future_particle_heads_lora": 0.7883459280174381,
+        "encoder_command": 0.3690291649109825,
+        "scene_projection": 1.3137560282992775,
+        "trajectory_generator": 7.673651352225958,
+        "scorer": 1.965798416315097
+      }
+    }
+  },
+  "representation_metrics": {
+    "completed_updates": 4500,
+    "previous_diagnostic_updates": 4000,
+    "center_mean_from_initial_px": 2.1708906379957966,
+    "center_max_from_initial_px": 22.310739517211914,
+    "size_mean_from_initial_percent": 15.947789797122143,
+    "presence_mean_from_initial": 0.31953425112488726,
+    "center_mean_from_previous_px": 1.2848195401184437,
+    "size_mean_from_previous_percent": 7.618933090744164,
+    "object_readout_macro_f1": 0.4204435892457951
+  },
+  "future_repeat_current_intervention": {
+    "selected_trajectory_oracle_score_change": {
+      "difference": -0.377887025475502,
+      "confidence_interval_95": [
+        -0.5572800138344368,
+        -0.17273947596549993
+      ],
+      "recordings": 12,
+      "objects": 12
+    },
+    "fixed_candidate_oracle_score_change": {
+      "difference": -0.12382210542758305,
+      "confidence_interval_95": [
+        -0.26098489326735336,
+        -0.010707970087726915
+      ],
+      "recordings": 12,
+      "objects": 12
+    },
+    "ade_m_change": {
+      "difference": 0.39234093328317005,
+      "confidence_interval_95": [
+        -0.07666359469294547,
+        0.9850578470776478
+      ],
+      "recordings": 12,
+      "objects": 12
+    },
+    "mean_trajectory_change_m": 1.3996906521109242
+  },
+  "replay_checks": {
+    "checks": [
+      {
+        "update": 4500,
+        "token": "409c959993075841",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "4cd5bb8cf4fd52fa",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "c51a60c854c951cf",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "d44dd618a0435337",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "6c08df07d2e35e8d",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "fc01494fa43653b8",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "706395b464525f9d",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "8d709e8b74095ad8",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "0154b4928cde52bb",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "487e3708e7905cde",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "2754ab87df25534c",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 4500,
+        "token": "e909cae9ee81593c",
+        "ade_difference": 0.0
+      }
+    ],
+    "maximum_ade_difference": 0.0,
+    "max_card_used_bytes": 41259368448,
+    "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+  },
+  "monitor_status": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 4529,
+    "last_evaluated_update": 4500,
+    "next_milestone": 4842,
+    "active_update": null,
+    "updated_unix": 1791368395.0698965,
+    "controller": "scripts/monitor_lpwm_particle_trends_every500.py",
+    "interval_updates": 500,
+    "chat_notification_sent": false
+  },
+  "training_changed": false,
+  "interpretation": "Higher PDMS in all three scene types on the same 95 training scenes. The paired difference from4000 remains uncertain; its interval includes zero. This does not establish independent generalization, saturation, physical future accuracy or LPWM-only benefit.",
+  "bootstrap_definition": "5000 paired recording-cluster resamples, seed71; not training-seed uncertainty, exploratory repeated diagnostic comparisons.",
+  "source_sha256": {
+    "results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/generate_report.py": "71ee834ff8e650eda25fc03295461dbf494835c6479ae26015c8ba46e9d3921c",
+    "results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/generate_report.py": "677ae552f9fe66587bea0e15b29965c50531301d9d4f9d0d1eddec2713e8c24e"
+  },
+  "initial_sandbox_attempt": "Before GPU model initialization, NVML subprocess returned exit9. The same evaluation was rerun with host permission and completed."
+}

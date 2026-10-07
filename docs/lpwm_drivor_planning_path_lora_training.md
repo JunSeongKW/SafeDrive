@@ -848,3 +848,38 @@ epoch3경계4,842 오늘21:19–21:21 예상이다. 정기진단 처리·공식�
 V1학습 완료10월17일07–11시 외삽이며 후속fullnavtest/V2/EPDMS 시간은 별도이고 공유부하로 변동 가능하다.
 새GPU 작업이나 학습·모델·loss·source/config·queue 변경 없이 기존25epoch 및 정기진단/후속평가를 유지했다.
 근거: [19:00 상태JSON](../results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1900.json).
+
+## 2026-10-07 19:20 KST — 4,500-update 공식 PDMS 평가 완료
+
+사용자 최신PDMS 요청에정확한4,500 checkpoint와저장된particle attributes를재생해공식NAVSIMv1 PDMS를평가했다.
+동일95학습장면/24recording,1개공식metric cache미보유token제외를기존평가와유지했다. Fullnavtest/독립validation이아니다.
+초기sandbox실행은NVML subprocess exit9로GPU초기화전에실패했고,동일명령을host권한으로재실행해완료했다.
+
+| 지표 | 4,000 update | 4,500 update | 변화 |
+|---|---:|---:|---:|
+| PDMS | 75.8303 | 79.8877 | +4.0574 |
+| 직진PDMS(41) | 89.0445 | 91.0099 | +1.9655 |
+| 좌회전PDMS(30) | 69.5080 | 74.9456 | +5.4375 |
+| 우회전PDMS(24) | 61.1590 | 67.0648 | +5.9059 |
+| Expert ADE(m) | 2.0319 | 1.9578 | −.0741 |
+
+4,000→4,500 paired recording cluster bootstrap95%CI[−3.0805,+10.9129]점.
+첫epoch→4,500은+11.9013 CI[+4.4353,+19.6441],epoch2→4,500은+5.3107 CI[−.7217,+12.4844]점이다.
+같은token/5000resamples/seed71,학습시드불확실성은미포함이며여러checkpoint의탐색적반복비교다.
+점수와모든상황pointestimate상승은관측됐으나최근차이CI0포함이므로일반화개선·독립유의성·LPWM단독이득을확정하지않는다.
+NC.9632/DAC.9368/progress.6857/TTC.9158/comfort.9895,NC와comfort는4,000보다소폭낮다.
+
+95성공/실패0,동일12장면재생ADE차이0/nativehash불변/최대card41.2594GB,등록279/283sourcehash모두일치했다.
+일회평가는종료했고GPU를반환했다. 19:20본학습4,530/40,350 epoch3,양rank비유한loss0/4500의18gradient그룹유한·양수.
+기존유효64·loader2/oracle8·학습목표·source/config·25epoch·queue·정기진단은변경하지않았다.
+
+자동표현진단도4,500완료: 초기중심이동2.1709px/크기15.9478%,직전4000→4500중심1.2848px/크기7.6189%.
+Whole readoutF1.4204(4000 .4230),정보보존향상을이점수만으로확정하지않는다.
+Future-repeat-current 12장면selectedoracle−.377887 CI[−.557280,−.172739],fixedcandidateoracle−.123822 CI[−.260985,−.010708].
+ADE+.392341m CI[−.076664,+.985058]. Oracle score는학습candidate검사이며공식PDMS가아니다. OOD대체/12장면/반복검사한계유지.
+이로부터정확한물리미래보존이나독립planning이득을단정하지않는다.
+
+[전체보고서·실행근거](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/report.json),
+[PDMS추세·상황별비교](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/pdms_progress_and_scenarios.png),
+[particle전후·겹침](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/particles_before_after_and_overlay_update4500.png),
+[겹침그림](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4500_20261007/particles_overlay_update4500.png).
