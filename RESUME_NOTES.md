@@ -3486,3 +3486,16 @@ GPU1 전체 점유50.8475GB에서 새 Adapter rank1이 OOM을 만났고, 기존 
 - 본학습정기500/epoch진단은Adapter가checkpoint양보하고재개한다. 기존fullnavtest→freshV2→EPDMS후속유지.
 - CPUwatcher967796 `scripts/restore_lpwm_primary_batch_after_adapter.py`/316sources는Adapterepoch2/3학습·평가완료후본학습의최신model/AdamW/scheduler/RNG를저장하고원래batch16×acc2로복원한다. 사용자pause/다른실행변경을존중한다.
 - 공유근거 `results/lpwm_adapter_original_batch_shared_v4/rebalance_and_resume_report.json`,각profile로그/체크포인트무결성/gradient비교.
+
+
+## 2026-10-08 00:16 KST — 두 학습 중간 결과 조회
+
+**2026-10-08 00:16 KST — 두 학습 중간 결과 확인.**
+본학습 5,100/40,350 update(4번째 epoch), Adapter 5,014/14,121 update(2번째 epoch, 기존4,707 이후 +307회). 두 GPU에서 함께 진행 중이다.
+최근 완료 PDMS는 본학습 epoch3/4,842의80.3450(고정95학습장면); Adapter82.4852는기존1epoch 기준(내부dev1,021유효장면)이며추가epoch평가는아직없다. 서로직접순위비교하지않는다.
+5,000 표현진단: 초기대비중심2.277px/크기14.084%,readout F1 .37986→.43893. 미래반복개입ADE−.0201m CI[−.2825,+.2560]으로일관된미래이득은미확인.
+현재GPU당약37.05GB/48GB, 양rank재개후기록loss비유한0. Adapter최근wall약3.9초/update; epoch2학습잔여약4.8시간(진단대기·평가별도) 초기외삽.
+본학습 micro4/유효64,Adapter batch8/유효16과기존queue·복원watcher유지. 이번요청은조회이며설정·학습·평가작업을새로변경하지않았다.
+근거 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0016.json`.
+
+두 학습 양rank의 현재재개이후 loss 기록에서 비유한값0. 등록된다음검증을기다리며새평가를시작하지않았다. GPU별기존batch와동일성능은여전히보장하지않는다.

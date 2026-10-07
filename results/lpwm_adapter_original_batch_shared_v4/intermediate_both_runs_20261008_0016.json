@@ -1,0 +1,299 @@
+{
+  "checked_at": "2026-10-08T00:16:20.260957+09:00",
+  "primary_progress": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "14f6c593f9cb26f51f1d1794aa2220c7d5fed5803d4b1c4807118cbd18fe66ac",
+    "execution_overrides": {
+      "microbatch_per_gpu": 4,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 16
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 5100,
+    "epoch": 4,
+    "rank_scene_tokens_sha256": "1f066d4cde78229c6bc82a2359d10714660c29ecd9996146d97007b30469e285",
+    "update_in_epoch": 258,
+    "seconds_this_update": 80.14390516281128,
+    "elapsed_seconds": 1396.3213210105896,
+    "card_used_bytes": 37052481536,
+    "peak_reserved_bytes": 11767119872,
+    "gradient_norms": {
+      "particle_interaction_lora": 0.3145870593967872,
+      "context_prior_lora": 0.11802902380003621,
+      "particle_dynamics_lora": 0.232669606818666,
+      "particle_xy_head_lora": 0.5848834443386698,
+      "particle_scale_xy_head_lora": 0.3936641649701334,
+      "particle_obj_on_head_lora": 0.09610627655913084,
+      "current_prior_cnn_lora": 0.7967551401428213,
+      "current_attribute_cnn_lora": 1.4548695218725782,
+      "appearance_encoder_lora": 0.8490185764839207,
+      "background_appearance_lora": 0.6684200035195965,
+      "interaction_visual_and_output_lora": 0.7704155752546741,
+      "context_prior_projection_and_output_lora": 0.263029111224619,
+      "dynamics_projection_and_ffn_lora": 0.662270584594816,
+      "future_particle_heads_lora": 0.5306986597422834,
+      "encoder_command": 0.6084344444806012,
+      "scene_projection": 1.664202907508518,
+      "trajectory_generator": 6.174585793422558,
+      "scorer": 2.646654837100653
+    },
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.003989458084106445,
+      "forward": 23.842138528823853,
+      "oracle": 4.6622724533081055,
+      "backward": 50.16302752494812
+    },
+    "learning_rates": [
+      0.00019826043537507645,
+      0.00019826043537507645
+    ],
+    "loss": 3.3951720893383026,
+    "trajectory_loss": 1.0664682760834694,
+    "final_score_loss": 2.3287037760019302,
+    "score": 0.7960292771458626,
+    "best_score": 0.9325690940022469,
+    "estimated_remaining_seconds": 3076270.889919251
+  },
+  "adapter_progress": {
+    "completed_updates": 5014,
+    "epoch_fraction": 1.065222009772679,
+    "target_updates": 14121,
+    "planning_loss": 5.809288501739502,
+    "world_objective": 18.388710975646973,
+    "loss": 6.177062511444092,
+    "gradient_groups": {
+      "image_encoder": 0.15942944586277008,
+      "context": 1.7442950010299683,
+      "dynamics": 2.188688278198242,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 2.7887332439422607
+    },
+    "gradient_norm_before_clip": 3.9541587829589844,
+    "gradient_clip": 5,
+    "learning_rates": [
+      1.000001022610891e-06,
+      3.0000030678326728e-05
+    ],
+    "seconds_this_update": 3.034156274050474,
+    "extension_elapsed_seconds": 2777.231508961064,
+    "card_used_bytes": 37052481536,
+    "peak_reserved_bytes": 24159191040,
+    "peak_allocated_bytes": 23950392832,
+    "updated_unix": 1791386178.0166845
+  },
+  "health_since_current_resume": {
+    "primary": {
+      "0": {
+        "record_count": 16,
+        "first_update": 5085,
+        "last_update": 5100,
+        "nonfinite_loss_records": 0,
+        "recent_count": 16,
+        "recent_mean_loss": 2.9158789375796914,
+        "recent_mean_update_seconds": 86.68170399963856
+      },
+      "1": {
+        "record_count": 16,
+        "first_update": 5085,
+        "last_update": 5100,
+        "nonfinite_loss_records": 0,
+        "recent_count": 16,
+        "recent_mean_loss": 2.806548430584371,
+        "recent_mean_update_seconds": 86.69353753328323
+      }
+    },
+    "adapter": {
+      "0": {
+        "record_count": 281,
+        "first_update": 4734,
+        "last_update": 5014,
+        "nonfinite_loss_records": 0,
+        "recent_count": 50,
+        "recent_mean_loss": 6.466686086654663,
+        "recent_mean_update_seconds": 2.965887193644885,
+        "recent_wall_seconds_per_update": 3.886338924875065
+      },
+      "1": {
+        "record_count": 281,
+        "first_update": 4734,
+        "last_update": 5014,
+        "nonfinite_loss_records": 0,
+        "recent_count": 50,
+        "recent_mean_loss": 6.466686086654663,
+        "recent_mean_update_seconds": 2.9657112277066333,
+        "recent_wall_seconds_per_update": 3.886294345466458
+      }
+    }
+  },
+  "primary_latest_completed_pdms": {
+    "source": "results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/summary.json",
+    "evaluation": {
+      "completed_updates": 4842,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 80.34500178947197,
+      "zero_score_count": 8,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9842105263157894,
+        "drivable_area_compliance": 0.9263157894736842,
+        "ego_progress": 0.6882800429473265,
+        "time_to_collision_within_bound": 0.9368421052631579,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9578947368421052,
+        "score": 0.8034500178947196,
+        "expert_ade_m": 1.621153889518035
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 77.94052863170477
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 70.82828241535469
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 87.67513495317507
+        }
+      }
+    },
+    "scope": "95 fixed planning TRAIN scenes, 24 recordings; not independent planning validation or navtest"
+  },
+  "adapter_epoch1_reference": {
+    "source": "outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/trend_evaluation/summary.json",
+    "completed_updates": 4707,
+    "pdms_100": 82.48519609653985,
+    "ade_meters": 1.1551310651302629,
+    "fde_meters": 2.7567169958829254,
+    "planning_scenes": 1024,
+    "valid_pdms_scenes": 1021,
+    "scope": "Previously exposed internal development panel; not navtest"
+  },
+  "adapter_new_evaluations": {
+    "2": {
+      "summary_exists": false,
+      "target_updates": 9414
+    },
+    "3": {
+      "summary_exists": false,
+      "target_updates": 14121
+    }
+  },
+  "primary_update5000_representation": {
+    "source": "outputs/lpwm_drivor_particle_trends_every500_v1/reports/update_005000.json",
+    "metrics": {
+      "completed_updates": 5000,
+      "previous_diagnostic_updates": 4842,
+      "center_mean_from_initial_px": 2.276955782120581,
+      "center_max_from_initial_px": 21.910694122314453,
+      "size_mean_from_initial_percent": 14.083756028746372,
+      "presence_mean_from_initial": 0.3023834205509561,
+      "center_mean_from_previous_px": 0.9178436884523459,
+      "size_mean_from_previous_percent": 6.901747561057238,
+      "object_readout_macro_f1": 0.4389321141449438
+    },
+    "future_repeat_current": {
+      "selected_trajectory_oracle_score_change": {
+        "difference": 0.02847301463286082,
+        "confidence_interval_95": [
+          -0.11284676802655061,
+          0.19985521100461456
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "fixed_candidate_oracle_score_change": {
+        "difference": -0.11346849302450816,
+        "confidence_interval_95": [
+          -0.35991490023831524,
+          0.08991920389235014
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "ade_m_change": {
+        "difference": -0.020080789923667908,
+        "confidence_interval_95": [
+          -0.28253436864664155,
+          0.2560434323425091
+        ],
+        "recordings": 12,
+        "objects": 12
+      },
+      "mean_trajectory_change_m": 0.8254121765494347
+    },
+    "distribution": {
+      "scene_count": 96,
+      "vehicle": {
+        "center_fraction": 0.09183756510416667,
+        "presence_weighted_fraction": 0.12216644751980728,
+        "enrichment_ratio_of_sums": 1.5397471618170278
+      },
+      "pedestrian": {
+        "center_fraction": 0.013346354166666666,
+        "presence_weighted_fraction": 0.019051550874937817,
+        "enrichment_ratio_of_sums": 1.6382198570570043
+      },
+      "bicycle": {
+        "center_fraction": 0.0006917317708333334,
+        "presence_weighted_fraction": 0.0010852988392192249,
+        "enrichment_ratio_of_sums": 1.5227720548168662
+      },
+      "road_proxy_low": {
+        "center_fraction": 0.18421052631578946,
+        "presence_weighted_fraction": 0.038074735491085074,
+        "enrichment_ratio_of_sums": 0.17522869681044673
+      },
+      "road_proxy": {
+        "center_fraction": 0.1953125,
+        "presence_weighted_fraction": 0.042573721930176736,
+        "enrichment_ratio_of_sums": 0.17806223017278566
+      },
+      "road_proxy_high": {
+        "center_fraction": 0.22294407894736842,
+        "presence_weighted_fraction": 0.06544039508757839,
+        "enrichment_ratio_of_sums": 0.2453885242199342
+      },
+      "upper_third_fraction_not_sky_label": 0.3551025390625
+    }
+  },
+  "queue_state": {
+    "queue_pid": 918561,
+    "started_unix": 1791384990.371881,
+    "stage": "epoch02_training",
+    "heartbeat_unix": 1791386177.348612,
+    "pending": "epoch02_training",
+    "card_used_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "child_pid": 921639,
+    "admitted_external_processes": [],
+    "maximum_sampled_card_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "yielding": false
+  },
+  "restore_primary_status": {
+    "stage": "waiting_for_adapter_training_and_evaluation",
+    "updated_unix": 1791386152.1469324
+  },
+  "training_changed": false,
+  "interpretation": [
+    "Both training jobs are advancing with finite logged losses.",
+    "No new Adapter epoch PDMS is available; 82.4852 is the one-epoch reference.",
+    "The two PDMS values use different panels and planners and cannot establish a method ranking.",
+    "Particle geometry changes, but a consistent future-branch planning benefit is not established.",
+    "Primary microbatch remains 4 with accumulation 8: global batch is preserved but stochastic gradients and final quality are not proven equivalent."
+  ]
+}
