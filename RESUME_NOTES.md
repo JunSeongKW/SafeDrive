@@ -3591,3 +3591,10 @@ CPU전용 `scripts/visualize_lpwm_largest_particle_changes.py` 추가, `--update
 이번갤러리는모든64점반경고정,초기presence상위16개박스번호고정으로원래전후그림과박스예산을맞췄다. 직전극값그림의변화상위8박스와구분한다. 미래GT/이미지편집/새추론없음,움직임과이미지를같은비율로확대했다.
 전체384의이미지별평균위치2.27696px(P10–P90:1.78201–2.81629),평균크기14.08376%(10.68341–17.78140),presence.63221→.46835. 상황별평균위치직2.26388/좌2.28705/우2.28723px;전/후/좌/우카메라2.17383/2.28042/2.35940/2.29417px. 각그룹의서로다른관측이미지기술통계이며같은장면명령변경효과가아니다.
 384개unique장면-카메라조합,768asset링크/PNG크기,18예시중복·이전예시제외검사를완료했다. overview/좌회전상세2/분포그래프PNG를직접확인했다. artifact_checks.json/전체CSV/gallery_report.json과PNG/PDF보존. 현재등록학습코드/설정/queue는변경하지않았다.
+
+## 2026-10-08 08:53 KST — 현재까지의 중간 결과 확인
+
+본학습5,464/40,350(3.385epoch), Adapter12,828/14,121(2.725epoch). 양rank 기록에서 비유한 loss 없음; 최신 본학습5,400의18gradient그룹 유한·양수, Adapter encoder/context/dynamics/planner gradient 유한·양수. GPU0·1 최근200update 최대각37.05GB.
+공통navtest1,024장면 PDMS는 기존본학습5,400의81.6096/Adapter2epoch81.6141 그대로다. 새가중치 점수로 부르지 않는다. 최신 particle 진단5,000, 다음5,500 대기.
+최근50–200update 본학습85.78–90.69초, Adapter3.58–3.66초. 5,500 학습경계09:45–09:48, Adapter3epoch학습10:10–10:12KST 추정; 진단양보·평가시간 별도다. Adapter3epoch→dev평가→본학습batch16복원 대기열 유지.
+근거 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0853.json`. 이번 확인은 로그/진행 파일 기반이며 새 host PID조회는 하지 않았다. 실행코드·설정·대기열 변경 없음.
