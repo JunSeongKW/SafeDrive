@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 10:42 KST 중간점검 — 학습3,213/40,350, 새 검증은 아직3000까지.**
+Epoch2 종료까지15update, 약10:48KST 학습경계3228 도달/진단처리시간별도.
+Oracle8 재개후53steadyupdate wall23.350초, 최대40.162GB, 양rank전체로그NaNloss0/3200모든gradient그룹유한·양수.
+기존279/new283sourcehash불변·queue3144181/500monitor3144182 fresh상태. 학습/queue/monitor 변경없음.
+완료된최신95학습장면 PDMS3000=74.9063, geometry1.813px/10.957%, 미래표현추가효용미확인;현재3213성능값으로부르지않음.
+상태보고 results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1040.json.
+
 **2026-10-07 10:25 KST — 현재 학습 CPU oracle 병렬성 증설.**
 GPU0·1 microbatch16×누적2×2=유효64와 loader2 유지, oracle만 rank당4→8로 변경했다.
 3159 fullstate 저장·복원, 현재3170. 본학습 안정10update wall26.32→23.50초(-10.7%), 최대40.16GB.

@@ -1,5 +1,12 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 10:42 KST 중간점검 — 학습3213/40350, 새 검증은 아직3000까지.**
+Epoch2 종료까지15update, 약10:48KST 학습경계3228 도달/진단처리시간별도.
+Oracle8 재개후53steadyupdate wall23.350초, 최대40.162GB, 양rank전체로그NaNloss0/3200모든gradient그룹유한·양수.
+기존279/new283sourcehash불변·queue3144181/500monitor3144182 fresh상태. 학습/queue/monitor 변경없음.
+완료된최신95학습장면 PDMS3000=74.9063, geometry1.813px/10.957%, 미래표현추가효용미확인;현재3213성능값으로부르지않음.
+상태보고 results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1040.json.
+
 **2026-10-07 10:25 KST 최신 — oracle CPU 병렬성 증설·학습 속도 확인.**
 GPU0·1 batch16×accum2×2=effective64/loader2 유지, oracle4→8/rank만 변경.
 Update3159 fullstate hardlink 보존·796 AdamW steps/두rank RNG/scheduler 복원, 새PIDtrain3144180/queue3144181/500monitor3144182.
@@ -109,7 +116,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 10:26 KST (Codex)
+마지막 갱신: 2026-10-07 10:43 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -276,6 +283,12 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-07 10:42KST: 현재3213/40350(7.963%)/epoch2/1599of1614, train3144180 정상진행.
+Gpu0·1/micro16×accum2×2=effective64/loader2/oracle8 유지. 카드전체40.1615GB/48GB상한.
+Queue3144181/500monitor3144182/overlaypublisher2507743 유지, 최신표현완료3000, next3228대기.
+이번중간보고에서새학습/평가/시각화작업기동없음. 원래source/config/실행순서변경없음.
+
 
 2026-10-07 oracle8 재개: train3144180/queue3144181/500monitor3144182, overlay2507743.
 Update3159에서정상저장후같은GPU0·1/모델/유효64/optimizer/LR/데이터/25epoch로재개.
@@ -757,6 +770,14 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-07 10:42KST 현재상태확인: oracle8 steady53update wall23.3497초, 새로운성능검증은없음.
+PDMS의최신완료는3000/동일95학습장면=74.9063; epoch1=67.9864/2000=70.1671/2500=72.9270.
+첫epoch→3000+6.9199(CI[1.0268,12.3813]),직진84.4096/좌68.2930/우66.9380. navtest가아님.
+Geometry평균1.813px/10.957%, firstepoch1.236px/7.714%; 전체객체판독F1.4205→.3936,appearance.2669→.3562.
+차량/도로집중이나미래추가정보향상을확정할수없음;current/future2s L2는3.9781/4.0134m로future가낮지않음.
+Warmup3322이전이며25epoch지속. 새runtime상태와기존완료metrics를새report에분리해서보존.
+
 
 Oracle8 실제본학습3161–3170 각rank10개(재개첫3160제외) 비교완료.
 Before3038–3137/100개:wall26.3176초 vs after23.5018초, 시간10.699%감소.
@@ -1407,14 +1428,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 실제학습phase/100update/GPUwholecard/CPU자원및이전parallelism실측을확인했다.
-- CPU-only oracle4/6/8 benchmark를새로구현·실행하고모든7subscore exact동일을확인했다.
-- 기존연구source/config불변상태에서oracle8override/283source등록/queuewrapper/안전checkpointresume controller를추가했다.
-- Update3159 full model/796AdamW/scheduler/2rankRNG를보존·복원, train·queue·500monitor만새PID로재개했다.
-- 준비controller경로검사실패는pause이전이며소스·등록·실패이유를별도보존하고수정amendment를기록했다.
-- 기존최종평가일정과overlaypublisher를유지했고새실행속도/메모리를비교하는보고를추가했다.
+- 사용자중간결과요청으로실제progress/queue/500monitor/GPU및양rank로그를읽기점검했다.
+- Oracle8변경후53steadyupdate23.350초/40.162GB,양rankNaNloss0/3200gradient양수·유한/279·283hash불변을확인했다.
+- 현재3213학습상태와최신완료3000PDMS·particle·future진단을구분한상태JSON을추가했다.
+- 새검증값이아직없음을명시하고3228경계/3500/4000/최종학습ETA를갱신했다.
+- HANDOFF1–5/README/RESUME_NOTES갱신. 기존학습·source/config·queue·monitor·publisher를변경하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+10:42 기준3228도달약10:48KST, warmup3322약11:24,3500약12:34,4000약15:48(진단처리시간별도).
+자동3228/3500표현검증완료후currentgeometry/appearance/future/readout/개입추세를같이본다.
+사용자에게현재학습update의PDMS라고기존3000값을표시하지않는다. fullnavtest는25epoch후기존queue일정.
+Current속도외삽V1학습끝10월17일11:34KST전후,공유서버변동·후속평가/V2별도.
+
 
 최신oracle8본학습을지속하면서향후100/300updatewall속도와oracle시간/메모리를추적한다.
 GPUbatch16/accum2/effective64/loader2/48decimalGB유지;무근거batch증설이나원래등록source수정금지.
@@ -1815,6 +1841,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재gradient/학습안정/geometry변화는확인됐지만운전에유용한객체·미래정보보존추가이득은미확정.
+완료PDMS/particle는3000기준이고현재3213의새성능값은없음. 학습패널95/표현96,navtest아님.
+도로proxy는segmentation GT가아니고점재배치/readout/표현의개입결과를서로구분해보고한다.
+CPU속도비교53표본으로확장했지만순차공유자원측정이며단일원인의성능/속도보장과구분.
+
 
 이번변경은CPUoracle병렬실행이며모델/학습loss/유효배치/학습률/샘플/optimizerupdate를변경하지않았다.
 고정후보7subscore exact equality와전체상태복원통과. Dataloader재시작은bitwise동일RNG흐름보장과구분한다.

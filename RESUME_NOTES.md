@@ -3043,3 +3043,21 @@ Rank별update느린쪽평균26.2568→23.7326s, rank0oracle4.7832→3.2447s,최�
 
 문서AGENTS/README/학습문서/HANDOFF1–5/본일지갱신, 결과3JSON과측정script를공유한다.
 이후100/300update속도추세·메모리·500/epoch진단상태확인. 기존25epoch과학습목표를유지한다.
+
+
+## 2026-10-07 10:42 KST — 중간 결과 요청: 최신 학습상태와 완료된 검증 구분
+
+README/AGENTS/HANDOFF/실제progress/queue/500monitor/trend와완료3000보고를읽었다.
+현재3213/40350(7.963%)/epoch2의1599/1614, GPU0·1/micro16×accum2×2effective64/loader2/oracle8 유지.
+Oracle8 steady3161–3213/53표본 wall23.3497초, 최대40.1615GB; 전체양rank로그NaNloss0.
+3200의모든gradient그룹norm유한·양수, old279/new283sourcehash불변. Queue3144181/500monitor3144182fresh.
+NVIDIA표본memory38301MiB/GPU, util62/0은짧은CPUoracle구간표본이며그후업데이트지속확인.
+새평가/모델추론/학습조건변경없음. 최신완료표현·공식95장면PDMS는3000이고현재update성능값은아직없음.
+Epoch1/2000/2500/3000 PDMS67.9864/70.1671/72.9270/74.9063, 학습분포95장면24recording/navtest아님.
+Firstepoch→3000 +6.9199,CI[1.0268,12.3813];3000직진84.4096/좌회전68.2930/우회전66.9380.
+Particlegeometry평균1.813px/10.957%,wholeF1firstepoch.4205→.3936,appearance.2669→.3562.
+미래2s readout current3.9781/future4.0134m,도로presenceproxy하락. 움직임/학습은확인되지만driving객체·미래정보의추가가치확정불가.
+새status JSON results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1040.json에runtime와완료결과를구분보존.
+3228epoch경계도달약10:48, warmup3322약11:24,3500약12:34,4000약15:48;표현진단처리시간별도.
+현재속도V1최종ETA10월17일11:34전후,서버부하변동·후속평가/V2제외. 기존25epoch/자동진단/queue유지.
+HANDOFF1–5/README/본일지갱신,다음완료된3228/3500결과를보고하도록정리.
