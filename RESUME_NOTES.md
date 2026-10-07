@@ -3546,3 +3546,10 @@ ADE Adapter1.1632/LoRA2.3644m,FDE2.7367/5.4760m. LoRA무과실충돌·도로준�
 `src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py:83,105,148`에서 이미지 [batch,4,3,128,128], encoder 단일 관측, dynamics prior 미래8단계 생성 및 command FiLM 경로 확인.
 Ego11은 현재 ego 좌표계 pose3(실제0), velocity2, acceleration2, command4다. 병행 Adapter는 전방1카메라의 과거3+현재1프레임(0.5초 간격), 각128×128이므로 두 종류의 4장 입력을 혼동하지 않는다.
 학습 코드/설정/대기열은 변경하지 않았다. 설명을 위해 학습·평가를 새로 실행하지 않았다.
+
+## 2026-10-08 08:05 KST — Adapter와 본학습의 관측 프레임 차이 이유
+
+사용자는 두 실험의 시간 입력이 다른 이유를 물었다. 이전 Adapter는 NAVSIM Stage1의 전방 관측4장/미래8장 체계를 유지한 planner 적응이다. 새 LPWM+DrivoR는 사용자의 DrivoR 기반 비교 목적에 맞춰 공식 센서 입력의4카메라·현재1시점을 따랐다.
+근거: `reference_repositories/DrivoR/navsim/planning/script/config/common/agent/drivoR.yaml:32`의cam_*:[3], `drivor_features.py:74`의cameras[-1], `configs/lpwm_navsim_adaptation/full_posttraining_v2.json`의observed_frames4, `lpwm_planning_finetuning.py:81`의4프레임 및 관측 context 기반 rollout.
+LoRA/Adapter 자체가 시간축을 강제하는 것은 아니다. 단일 관측 미래 prior는 가능하지만 관측 간 변화를 사용하지 못하며, 과거 제거에 대한 성능 동등성 검증은 없다. 두 시스템의 공통 평가 점수를 미세조정 방식 단독 효과로 해석하지 않는다.
+설명과 기록만 수행했으며 학습 입력/설정/대기열을 변경하지 않았다.

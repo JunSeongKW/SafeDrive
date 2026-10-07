@@ -328,7 +328,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 08:02 KST (Codex)
+마지막 갱신: 2026-10-08 08:05 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -495,6 +495,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 08:05 KST: 관측 프레임 차이의 설계 이유를 조사했다. 기존 학습과 대기열을 유지했고 입력 변경은 하지 않았다.
 
 2026-10-08 08:02 KST: 이번 요청은 본학습 입력 명세 확인이다. 학습·평가·queue 설정은 변경하지 않았다.
 
@@ -1072,6 +1074,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+관측 차이는 미세조정 기법의 제약이 아니라 두 실험의 설계 계보 차이다. Adapter는 Stage1의 전방 영상4장 관측/미래8장 체계를 이어받았다. 새 LPWM+DrivoR는 공식 DrivoR NAVSIM config의4카메라·현재1시점(cam_*:[3], cameras[-1])에 맞춰 구성했다. LPWM은 두 입력 방식 모두 코드 경로가 있으며, 과거 관측을 제거해도 성능이 보존된다는 ablation은 수행하지 않았다. 동일 평가 장면이어도 LoRA/Adapter 효과를 단독 분리할 수 없다.
 
 2026-10-08 입력 코드/manifest 확인: 본학습 LPWM+DrivoR는 CAM_F0/B0/L0/R0 각 현재 RGB 1장, 전체 영상을 BICUBIC으로128×128 변환한다. 이미지 tensor는 [batch,4,3,128,128]이며 과거 영상 입력은 없다. Ego11=[현재좌표계pose3(0),velocity2,acceleration2,command4]; command는 encoder FiLM에도 주입한다. 미래8단계 particle은 현재 관측에서 생성한 prior 예측이다. 병행 Adapter는 전방1카메라의 과거3+현재1프레임(0.5초 간격), 각128×128로 시간 입력이 다르다.
 
@@ -1889,11 +1893,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 본학습의 실제 입력 코드와 scene cache manifest를 확인하고 4카메라·현재1프레임·128×128·ego11 입력 명세를 기록했다.
-- 생성한 미래 particle과 관측 영상 프레임을 구분하고, 병행 Adapter의 전방1카메라·과거3+현재1프레임 입력과 차이를 설명했다.
-- HANDOFF와 RESUME_NOTES만 갱신했다. 등록된 학습/평가 source·config·checkpoint는 수정하지 않았다.
+- 공식 DrivoR sensor config/feature builder와 이전 Stage1/Adapter forward를 대조하여 관측 시간축이 달라진 설계 이유를 확인했다.
+- 본학습의 현재1시점은 DrivoR 입력 조건을 따른 선택이며 LoRA의 구조적 제약이 아님을 기록했다. 과거 제거 효과는 미검증이고 공통 평가도 미세조정 기법 단독 비교가 아님을 명시했다.
+- HANDOFF/RESUME_NOTES만 갱신했으며 학습 source/config와 실행 상태는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+관측 프레임 차이 설명에 따른 새 실험은 등록하지 않았다. 향후 시간 관측의 효용 비교는 카메라·planner·학습 조건을 고정한 별도 ablation으로 구분한다.
 
 이번 입력 명세 설명에 따른 새 실험은 없다. 기존 학습과 검증 대기열을 유지한다.
 
@@ -2399,6 +2405,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+공식 DrivoR의 현재1프레임을 따른 것이 LPWM의 최적 입력이라는 증거는 없다. 사용자 최신 요청은 설계 이유 설명이며 입력 변경이나 새 시간축 ablation 실행 요청이 아니다.
 
 현재 요청 범위는 본학습 입력 설명이다. 카메라 수·시간축·해상도를 변경하지 않았으며, Drive-JEPA 입력에 대한 사용자 전제는 이번 조사 대상이 아니다.
 
