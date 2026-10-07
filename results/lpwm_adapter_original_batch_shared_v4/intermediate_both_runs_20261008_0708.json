@@ -1,0 +1,568 @@
+{
+  "checked_at": "2026-10-08T07:08:29.216168+09:00",
+  "primary_progress": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "14f6c593f9cb26f51f1d1794aa2220c7d5fed5803d4b1c4807118cbd18fe66ac",
+    "execution_overrides": {
+      "microbatch_per_gpu": 4,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 16
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 5393,
+    "epoch": 4,
+    "rank_scene_tokens_sha256": "fa2bdc214e76ea4721f537d0aec4aee3496000751aa89280330d4c409b874a47",
+    "update_in_epoch": 551,
+    "seconds_this_update": 82.62470841407776,
+    "elapsed_seconds": 26117.177528858185,
+    "card_used_bytes": 37052481536,
+    "peak_reserved_bytes": 11767119872,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.004133462905883789,
+      "forward": 22.762622356414795,
+      "oracle": 11.774176597595215,
+      "backward": 47.46749234199524
+    },
+    "learning_rates": [
+      0.00019764231136976552,
+      0.00019764231136976552
+    ],
+    "loss": 2.7753351777791977,
+    "trajectory_loss": 1.0118406563997269,
+    "final_score_loss": 1.7634945213794708,
+    "score": 0.806557834148407,
+    "best_score": 0.9613926485180855,
+    "estimated_remaining_seconds": 2954621.952488806
+  },
+  "adapter_progress": {
+    "completed_updates": 11380,
+    "epoch_fraction": 2.4176758019970257,
+    "target_updates": 14121,
+    "planning_loss": 5.729023694992065,
+    "world_objective": 18.764347076416016,
+    "loss": 6.104310512542725,
+    "gradient_groups": {
+      "image_encoder": 0.1805320382118225,
+      "context": 2.146672248840332,
+      "dynamics": 1.743574857711792,
+      "rgb_decoder": 0.0,
+      "planner_and_command": 5.903890132904053
+    },
+    "gradient_norm_before_clip": 6.522021293640137,
+    "gradient_clip": 5,
+    "learning_rates": [
+      1.000001022610891e-06,
+      3.0000030678326728e-05
+    ],
+    "seconds_this_update": 2.7968099060235545,
+    "extension_elapsed_seconds": 26844.413923982065,
+    "card_used_bytes": 37052481536,
+    "peak_reserved_bytes": 24159191040,
+    "peak_allocated_bytes": 23950392832,
+    "updated_unix": 1791410908.7451115
+  },
+  "health_since_current_resume": {
+    "primary": {
+      "0": {
+        "first_update": 5085,
+        "last_update": 5393,
+        "records": 309,
+        "nonfinite_loss_count": 0,
+        "recent_wall_seconds_per_update": 84.01277540077515,
+        "recent_mean_loss": 2.8730003087222578,
+        "last_gradient_snapshot": {
+          "update": 5300,
+          "groups": {
+            "particle_interaction_lora": 0.2275508477981807,
+            "context_prior_lora": 0.1080125576191429,
+            "particle_dynamics_lora": 0.19695971698803072,
+            "particle_xy_head_lora": 0.3652729891187967,
+            "particle_scale_xy_head_lora": 0.20098723808606384,
+            "particle_obj_on_head_lora": 0.06144384217452733,
+            "current_prior_cnn_lora": 0.5447371090668661,
+            "current_attribute_cnn_lora": 0.5031707647666245,
+            "appearance_encoder_lora": 0.6087432197423549,
+            "background_appearance_lora": 0.2902122646948855,
+            "interaction_visual_and_output_lora": 0.6079849822880211,
+            "context_prior_projection_and_output_lora": 0.29195329586084934,
+            "dynamics_projection_and_ffn_lora": 0.5597962337115048,
+            "future_particle_heads_lora": 0.48192888177265697,
+            "encoder_command": 0.1648240111205606,
+            "scene_projection": 1.1852917875968907,
+            "trajectory_generator": 6.405350214515381,
+            "scorer": 1.680041725351778
+          }
+        }
+      },
+      "1": {
+        "first_update": 5085,
+        "last_update": 5393,
+        "records": 309,
+        "nonfinite_loss_count": 0,
+        "recent_wall_seconds_per_update": 84.01240691467746,
+        "recent_mean_loss": 2.8633110212534665,
+        "last_gradient_snapshot": {
+          "update": 5300,
+          "groups": {
+            "particle_interaction_lora": 0.2275508477981807,
+            "context_prior_lora": 0.1080125576191429,
+            "particle_dynamics_lora": 0.19695971698803072,
+            "particle_xy_head_lora": 0.3652729891187967,
+            "particle_scale_xy_head_lora": 0.20098723808606384,
+            "particle_obj_on_head_lora": 0.06144384217452733,
+            "current_prior_cnn_lora": 0.5447371090668661,
+            "current_attribute_cnn_lora": 0.5031707647666245,
+            "appearance_encoder_lora": 0.6087432197423549,
+            "background_appearance_lora": 0.2902122646948855,
+            "interaction_visual_and_output_lora": 0.6079849822880211,
+            "context_prior_projection_and_output_lora": 0.29195329586084934,
+            "dynamics_projection_and_ffn_lora": 0.5597962337115048,
+            "future_particle_heads_lora": 0.48192888177265697,
+            "encoder_command": 0.1648240111205606,
+            "scene_projection": 1.1852917875968907,
+            "trajectory_generator": 6.405350214515381,
+            "scorer": 1.680041725351778
+          }
+        }
+      }
+    },
+    "adapter": {
+      "0": {
+        "first_update": 4734,
+        "last_update": 11380,
+        "records": 6647,
+        "nonfinite_loss_count": 0,
+        "recent_wall_seconds_per_update": 3.5147076539657824,
+        "recent_mean_loss": 6.461871062517166
+      },
+      "1": {
+        "first_update": 4734,
+        "last_update": 11380,
+        "records": 6647,
+        "nonfinite_loss_count": 0,
+        "recent_wall_seconds_per_update": 3.514704753406084,
+        "recent_mean_loss": 6.461871062517166
+      }
+    }
+  },
+  "adapter_epoch2_evaluation_source": "results/lpwm_adapter_original_batch_shared_v4/epoch02_summary.json",
+  "adapter_epoch2_result": {
+    "epoch": 2,
+    "completed_updates": 9414,
+    "checkpoint_sha256": "9df6bd024921392eb070b8d8e83c2a53497a7df970cd65201255c45e773a48c5",
+    "planning_scenes": 1024,
+    "valid_pdms_scenes": 1021,
+    "world_clips": 256,
+    "means": {
+      "trained": {
+        "ade_meters": 1.1433347182210127,
+        "fde_meters": 2.7021014553038185,
+        "pdms": 0.8352786307966558,
+        "metric_bce": 1.7431019656104743
+      },
+      "persistent_future": {
+        "ade_meters": 1.2064022409285826,
+        "fde_meters": 2.886066978634517,
+        "pdms": 0.8042104571006907,
+        "metric_bce": 1.8944207231106418
+      }
+    },
+    "epoch1_pdms": 0.8248519609653985,
+    "trained_minus_epoch1": {
+      "pdms": {
+        "mean_difference": 0.010426669831257259,
+        "ci95": [
+          0.001715525498275881,
+          0.020117356619998673
+        ],
+        "clips": 1021,
+        "recordings": 40
+      },
+      "ade_meters": {
+        "mean_difference": -0.011796346909250133,
+        "ci95": [
+          -0.038099440573646816,
+          0.014420026802936466
+        ],
+        "clips": 1024,
+        "recordings": 40
+      },
+      "fde_meters": {
+        "mean_difference": -0.05461554057910689,
+        "ci95": [
+          -0.11489568108756627,
+          0.00979017784135228
+        ],
+        "clips": 1024,
+        "recordings": 40
+      },
+      "metric_bce": {
+        "mean_difference": -0.04554694543622733,
+        "ci95": [
+          -0.052358097296227965,
+          -0.03831789565307443
+        ],
+        "clips": 1021,
+        "recordings": 40
+      }
+    },
+    "predicted_minus_persistent_future": {
+      "pdms": {
+        "mean_difference": 0.03106817369596498,
+        "ci95": [
+          0.015398866980997529,
+          0.04681529950567582
+        ],
+        "clips": 1021,
+        "recordings": 40
+      },
+      "ade_meters": {
+        "mean_difference": -0.06306752270756988,
+        "ci95": [
+          -0.11142969853844893,
+          -0.020109038830164103
+        ],
+        "clips": 1024,
+        "recordings": 40
+      }
+    },
+    "world_means": {
+      "reconstruction_lpips": 0.3042186379316263,
+      "forecast_lpips": 0.3941108585568145
+    },
+    "world_vs_epoch1": {
+      "reconstruction_lpips": {
+        "mean_difference": -1.789769157767296e-05,
+        "ci95": [
+          -4.028507802114375e-05,
+          2.1930799886021185e-06
+        ],
+        "clips": 256,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.0003524159546941519,
+        "ci95": [
+          -9.084833113014192e-05,
+          0.0007431617567709997
+        ],
+        "clips": 256,
+        "recordings": 40
+      }
+    },
+    "world_vs_stage1": {
+      "reconstruction_lpips": {
+        "mean_difference": -0.0001164658460766077,
+        "ci95": [
+          -0.00018555263467787315,
+          -4.151206912405534e-05
+        ],
+        "clips": 256,
+        "recordings": 40
+      },
+      "forecast_lpips": {
+        "mean_difference": 0.0018623042851686478,
+        "ci95": [
+          0.000363180246287109,
+          0.0034432125649362234
+        ],
+        "clips": 256,
+        "recordings": 40
+      }
+    },
+    "world_risk_breakdown": {
+      "far_future_objects": {
+        "reconstruction_lpips": {
+          "mean_difference": -0.00015097814148636225,
+          "ci95": [
+            -0.00022488384290521304,
+            -7.512199535985036e-05
+          ],
+          "clips": 211,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.002352286430331768,
+          "ci95": [
+            0.0004424698689176124,
+            0.004307663314400777
+          ],
+          "clips": 211,
+          "recordings": 40
+        }
+      },
+      "high_ego_speed": {
+        "reconstruction_lpips": {
+          "mean_difference": -0.00039658479152187225,
+          "ci95": [
+            -0.0006901100518611761,
+            -0.00018875771606205878
+          ],
+          "clips": 31,
+          "recordings": 17
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.0034273882066049883,
+          "ci95": [
+            -0.002576984076627663,
+            0.009165717210589333
+          ],
+          "clips": 31,
+          "recordings": 17
+        }
+      },
+      "high_interframe_flow": {
+        "reconstruction_lpips": {
+          "mean_difference": -1.9366542498270672e-05,
+          "ci95": [
+            -0.00012374346906488592,
+            8.292560175734134e-05
+          ],
+          "clips": 114,
+          "recordings": 36
+        },
+        "forecast_lpips": {
+          "mean_difference": -8.942265259592157e-05,
+          "ci95": [
+            -0.002147634891150272,
+            0.0018041568915400886
+          ],
+          "clips": 114,
+          "recordings": 36
+        }
+      },
+      "large_ego_turn": {
+        "reconstruction_lpips": {
+          "mean_difference": 7.633485046087526e-06,
+          "ci95": [
+            -9.635923755547356e-05,
+            0.00010459198061614593
+          ],
+          "clips": 102,
+          "recordings": 36
+        },
+        "forecast_lpips": {
+          "mean_difference": -0.0008516741149565753,
+          "ci95": [
+            -0.0027699423872680857,
+            0.0009153043447530299
+          ],
+          "clips": 102,
+          "recordings": 36
+        }
+      },
+      "projected_overlap": {
+        "reconstruction_lpips": {
+          "mean_difference": -0.00012916439983445377,
+          "ci95": [
+            -0.00021198534665626813,
+            -3.968685803633545e-05
+          ],
+          "clips": 197,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.002196505741419526,
+          "ci95": [
+            0.0002859653251682769,
+            0.004030925241630914
+          ],
+          "clips": 197,
+          "recordings": 40
+        }
+      },
+      "projected_track_disappearance": {
+        "reconstruction_lpips": {
+          "mean_difference": -6.790487950550761e-05,
+          "ci95": [
+            -0.00014765769434542224,
+            1.0751443370398239e-05
+          ],
+          "clips": 207,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.0023422982669682895,
+          "ci95": [
+            0.0006957203447818756,
+            0.004142729500301667
+          ],
+          "clips": 207,
+          "recordings": 40
+        }
+      },
+      "small_future_objects": {
+        "reconstruction_lpips": {
+          "mean_difference": -0.00012806207565084162,
+          "ci95": [
+            -0.0001993113950237819,
+            -5.238131713123661e-05
+          ],
+          "clips": 239,
+          "recordings": 40
+        },
+        "forecast_lpips": {
+          "mean_difference": 0.0018992440221698712,
+          "ci95": [
+            0.00028528536741550154,
+            0.0036053039621763414
+          ],
+          "clips": 239,
+          "recordings": 40
+        }
+      }
+    },
+    "scope": "Previously exposed development panels for fast trends, not full development or independent test",
+    "limitations": [
+      "One training seed, exposed internal development panel, not navtest",
+      "Additional epochs hold terminal learning rates constant and use regrouped microbatches",
+      "No independent frozen-planner continuation; Adapter-only benefit not isolated"
+    ]
+  },
+  "adapter_matched_panel_check": {
+    "tokens_identical": true,
+    "scenes": 1024,
+    "candidate_choices_changed": 341,
+    "future_lpips_relative_change_percent": 0.08950054565566301
+  },
+  "primary_latest_completed_pdms": {
+    "completed_updates": 4842,
+    "scene_count": 95,
+    "failed": 0,
+    "pdms": 80.34500178947197,
+    "zero_score_count": 8,
+    "mean_metrics": {
+      "no_at_fault_collisions": 0.9842105263157894,
+      "drivable_area_compliance": 0.9263157894736842,
+      "ego_progress": 0.6882800429473265,
+      "time_to_collision_within_bound": 0.9368421052631579,
+      "comfort": 1.0,
+      "driving_direction_compliance": 0.9578947368421052,
+      "score": 0.8034500178947196,
+      "expert_ade_m": 1.621153889518035
+    },
+    "by_scene_type": {
+      "left_turn": {
+        "count": 30,
+        "pdms": 77.94052863170477
+      },
+      "right_turn": {
+        "count": 24,
+        "pdms": 70.82828241535469
+      },
+      "straight": {
+        "count": 41,
+        "pdms": 87.67513495317507
+      }
+    }
+  },
+  "primary_pdms_scope": "95 fixed TRAIN scenes, not independent validation or navtest; cannot directly compare against Adapter internal development panel",
+  "monitor_status": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 5393,
+    "last_evaluated_update": 5000,
+    "next_milestone": 5500,
+    "active_update": null,
+    "updated_unix": 1791410900.091824,
+    "controller": "scripts/monitor_lpwm_particle_trends_every500.py",
+    "interval_updates": 500,
+    "chat_notification_sent": false
+  },
+  "queue_state": {
+    "queue_pid": 918561,
+    "started_unix": 1791384990.371881,
+    "stage": "epoch03_training",
+    "heartbeat_unix": 1791410906.0413184,
+    "pending": "epoch03_training",
+    "card_used_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "child_pid": 3842032,
+    "admitted_external_processes": [],
+    "maximum_sampled_card_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "yielding": false,
+    "completed_epoch": 2,
+    "evaluation_means": {
+      "trained": {
+        "ade_meters": 1.1433347182210127,
+        "fde_meters": 2.7021014553038185,
+        "pdms": 0.8352786307966558,
+        "metric_bce": 1.7431019656104743
+      },
+      "persistent_future": {
+        "ade_meters": 1.2064022409285826,
+        "fde_meters": 2.886066978634517,
+        "pdms": 0.8042104571006907,
+        "metric_bce": 1.8944207231106418
+      }
+    },
+    "delta_from_epoch1": {
+      "pdms": {
+        "mean_difference": 0.010426669831257259,
+        "ci95": [
+          0.001715525498275881,
+          0.020117356619998673
+        ],
+        "clips": 1021,
+        "recordings": 40
+      },
+      "ade_meters": {
+        "mean_difference": -0.011796346909250133,
+        "ci95": [
+          -0.038099440573646816,
+          0.014420026802936466
+        ],
+        "clips": 1024,
+        "recordings": 40
+      },
+      "fde_meters": {
+        "mean_difference": -0.05461554057910689,
+        "ci95": [
+          -0.11489568108756627,
+          0.00979017784135228
+        ],
+        "clips": 1024,
+        "recordings": 40
+      },
+      "metric_bce": {
+        "mean_difference": -0.04554694543622733,
+        "ci95": [
+          -0.052358097296227965,
+          -0.03831789565307443
+        ],
+        "clips": 1021,
+        "recordings": 40
+      }
+    }
+  },
+  "restore_primary_status": {
+    "stage": "waiting_for_adapter_training_and_evaluation",
+    "updated_unix": 1791410907.0579822
+  },
+  "eta": {
+    "primary_next_representation_training_boundary": "2026-10-08T09:38:18.583136+09:00",
+    "adapter_epoch3_training_boundary": "2026-10-08T09:49:03.029848+09:00",
+    "assumption": "Recent200-update wall rate; excludes future diagnostic yields, evaluations, or external workload changes"
+  },
+  "training_changed": false,
+  "interpretation": [
+    "Adapter extra epoch improved same internal-development PDMS by1.0427 points; paired recording bootstrap95%CI[0.1716,2.0117].",
+    "ADE/FDE point estimates improve but their paired confidence intervals include zero.",
+    "Future replacement intervention shows3.1068-point dependence on the predicted branch; not a retrained no-future control.",
+    "Single seed and exposed development data; separate Adapter and planner learning benefits are not isolated.",
+    "Additional epoch holds terminal learning rates constant and preserves earlier microbatch history; not a new3epoch cosine run."
+  ]
+}

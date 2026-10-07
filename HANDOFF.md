@@ -1,5 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 07:08 KST — Adapter 2 epoch 검증 완료: PDMS 82.4852 → 83.5279.**
+동일 내부 개발1,024장면/유효1,021점수/40recording, +1.0427점(대응95%CI[+.1716,+2.0117]). ADE1.1551→1.1433m/FDE2.7567→2.7021m이며두오차차이CI는0포함.
+9,414 checkpoint 평가05:09완료 후현재Adapter 11,380/14,121,3번째epoch학습중. 미래현재반복80.4210 대비정상83.5279(+3.1068점);미래분기의존성검사이며재학습대조가아니다.
+미래LPIPS는1epoch대비+.0003524(+.0895%,CI0포함),Stage1대비+.0018623(CI양수)로소폭악화. 기존모델전체/표현의단독기여가분리된결과는아니다.
+본학습 5,393/40,350,4번째epoch;최신PDMS는기존4,842의80.3450(95학습장면). 5,000표현진단이후새결과없고다음5,500대기.
+두학습양rank현재재개이후loss비유한0,본학습5,300의18gradient그룹유한양수. GPU0·1각37.05GB. 기존설정·queue·원래batch복원watcher유지.
+Adapter3epoch학습잔여약2.7시간,본학습5,500경계약2.5시간(최근200회속도외삽,진단양보·평가별도).
+근거 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0708.json` 및 `results/lpwm_adapter_original_batch_shared_v4/epoch02_summary.json`.
+
 **2026-10-08 00:16 KST — 두 학습 중간 결과 확인.**
 본학습 5,100/40,350 update(4번째 epoch), Adapter 5,014/14,121 update(2번째 epoch, 기존4,707 이후 +307회). 두 GPU에서 함께 진행 중이다.
 최근 완료 PDMS는 본학습 epoch3/4,842의80.3450(고정95학습장면); Adapter82.4852는기존1epoch 기준(내부dev1,021유효장면)이며추가epoch평가는아직없다. 서로직접순위비교하지않는다.
@@ -300,7 +309,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 00:16 KST (Codex)
+마지막 갱신: 2026-10-08 07:08 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -467,6 +476,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 07:08 KST: 본학습5,393/40,350(train875422), Adapter11,380/14,121(queue918561/epoch3 child3842032). Adapterepoch2검증완료후epoch3자동진행,watcher967796은모두완료를대기한다.
 
 2026-10-08 00:16 KST: 본학습5,100/40,350, Adapter5,014/14,121. 현재main875422/Adapter921639와queue918561 진행; 배치복원watcher967796 대기. 기존학습설정유지.
 
@@ -1038,6 +1049,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Adapter2epoch PDMS83.5279/기존82.4852 대비+1.0427(CI[+.1716,+2.0117]); ADE1.1433/FDE2.7021. 고정dev패널토큰1,024개동일/후보선택341개변경. 미래반복80.4210/정상대비−3.1068점. 미래LPIPS1epoch대비+.0895%,Stage1대비소폭악화. 본학습95학습장면PDMS80.3450은기존평가이며새점수아님.
 
 최신확인: 본학습 epoch1→2→3 PDMS67.9864→74.5770→80.3450(동일95학습장면). Adapter추가평가미완료,82.4852는이전1epoch기준. 5,000update미래대체ADE−.0201m CI[−.2825,+.2560]; 미래정보의일관된planning이득을주장하지않는다. 위치2.277px/크기14.084%변화와readout F1.43893을별도보고한다.
 
@@ -1849,12 +1862,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 두 활성 학습의 progress/양rank loss/queue와 완료된 평가 파일을 읽고 시간 명시 중간 보고를 저장했다.
-- 본학습 epoch3 PDMS80.3450 및 update5000 particle 진단을 확인했다. 최신 미래반복 개입에서는 일관된 ADE 이득이 입증되지 않음을 명시했다.
-- Adapter 추가 epoch 평가는 아직 없으며 82.4852는 과거1epoch 기준임을 구분했다. 두 실험의 평가패널·planner가 달라 직접 비교하지 않는다.
-- HANDOFF 1–5와 RESUME_NOTES를 갱신했다. 실행 중인 source/config, 학습 과정, queue를 변경하지 않았다.
+- 자동 완료된 Adapter2epoch 평가를 확인하고 공유 summary를 보존했다. 동일1,024장면/유효1,021 PDMS와40recording 대응비교를 확인했다.
+- PDMS82.4852→83.5279(+1.0427,95%CI[+.1716,+2.0117]), ADE/FDE 및 미래분기 개입/영상예측 유지 지표를 구분해 보고했다.
+- 두 학습의 최신진행·양rank loss·본학습gradient·queue·다음경계ETA를 읽기 전용으로 점검하고 결과JSON/HANDOFF1–5/RESUME_NOTES에 기록했다.
+- 학습 source/config, 배치, LR, queue, 모듈, 평가 계획은 변경하지 않았다. 새 GPU 평가를 시작하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Adapter14,121 epoch3→동일dev/영상유지평가의기존queue유지. 완료후watcher의본학습batch16복원을확인한다. 본학습다음5,500표현진단대기. 새추가학습·학습률재시작·본학습PDMS일회평가는이번상태조회에서시작하지않았다.
 
 현재대기열유지: Adapter9,414 epoch2완료후동일내부dev평가→14,121 epoch3→동일평가. 본학습다음표현진단5,500. 추가성능값이없을때이전평가를현재update점수로표시하지않는다.
 
@@ -2354,6 +2369,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신요청은중간결과보고다. Adapter2epoch의상승은기존내부dev/1seed/마지막낮은LR연장조건의결과다. Planner와Adapter의개별기여및navtest일반화는아직분리검증되지않았다. 서로다른planner/평가패널의83.53과80.35를방법순위로비교하지않는다.
 
 최신요청은두학습의중간결과보고다. 조회·결과기록만수행했고새학습/일회GPU평가/배치조정없음. 두방법점수는planner와평가장면이다르며직접비교불가. 기존본학습microbatch변경의성능동등성미검증도유지한다.
 

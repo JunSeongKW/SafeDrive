@@ -3499,3 +3499,17 @@ GPU1 전체 점유50.8475GB에서 새 Adapter rank1이 OOM을 만났고, 기존 
 근거 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0016.json`.
 
 두 학습 양rank의 현재재개이후 loss 기록에서 비유한값0. 등록된다음검증을기다리며새평가를시작하지않았다. GPU별기존batch와동일성능은여전히보장하지않는다.
+
+
+## 2026-10-08 07:08 KST — Adapter 추가1epoch 완료와 두 학습 중간 결과
+
+**2026-10-08 07:08 KST — Adapter 2 epoch 검증 완료: PDMS 82.4852 → 83.5279.**
+동일 내부 개발1,024장면/유효1,021점수/40recording, +1.0427점(대응95%CI[+.1716,+2.0117]). ADE1.1551→1.1433m/FDE2.7567→2.7021m이며두오차차이CI는0포함.
+9,414 checkpoint 평가05:09완료 후현재Adapter 11,380/14,121,3번째epoch학습중. 미래현재반복80.4210 대비정상83.5279(+3.1068점);미래분기의존성검사이며재학습대조가아니다.
+미래LPIPS는1epoch대비+.0003524(+.0895%,CI0포함),Stage1대비+.0018623(CI양수)로소폭악화. 기존모델전체/표현의단독기여가분리된결과는아니다.
+본학습 5,393/40,350,4번째epoch;최신PDMS는기존4,842의80.3450(95학습장면). 5,000표현진단이후새결과없고다음5,500대기.
+두학습양rank현재재개이후loss비유한0,본학습5,300의18gradient그룹유한양수. GPU0·1각37.05GB. 기존설정·queue·원래batch복원watcher유지.
+Adapter3epoch학습잔여약2.7시간,본학습5,500경계약2.5시간(최근200회속도외삽,진단양보·평가별도).
+근거 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0708.json` 및 `results/lpwm_adapter_original_batch_shared_v4/epoch02_summary.json`.
+
+양rank loss와최근gradient유한성을확인했다. 본학습과Adapter의평가패널이달라직접비교하지않으며,world위험계층별값은원래epoch02_summary에보존했다. 실행중인등록source/config는읽기만했다.
