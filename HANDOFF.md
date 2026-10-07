@@ -1,5 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 13:26 KST — 미래분기 개입의 실제 경로 시각화 완료.**
+같은3500모델/저장attributes로원래·현재반복조건12scene를재생,기존24ADE와차이전부0.
+정답GT궤적ADE1.5108→1.9914m,평균+.48065m/8악화·4개선. 두모델경로사이거리와구분한다.
+script `scripts/visualize_lpwm_future_branch_intervention.py`,설명도/실제우회전/3사례/12전체오차그림.
+결과 `results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/`.
+유형별첫scene8우/16직/0좌를결과방향무관선택(0은오차개선사례). 전방사진은참고,경로는ego좌표계BEV.
+한모델입력검사이며학습전후/실제미래영상/particle검출/물리미래정확도증거로부르지않는다.
+기존학습3635/40350 epoch3계속,일회GPU재생종료·최대41.251GB/native불변·모델update0.
+
 **2026-10-07 13:16 KST — 학습 유의미성 점검 /3,500 표현·공식95PDMS 완료.**
 본학습3,611/40,350 epoch3, warmup이후289update. 양rank비유한loss0/최근18gradient그룹유한·양수.
 PDMS75.9039,첫epoch대비+7.9175 CI[+.7954,+15.2071],3228대비+1.3270 CI[−4.0242,+7.1940].
@@ -134,7 +143,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 13:18 KST (Codex)
+마지막 갱신: 2026-10-07 13:28 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -301,6 +310,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+13:26KST 본학습3635/40350 epoch3,기존train/queue/매500monitor/publisher 유지.
+이번추가GPU12scene표현재생은완료·GPU해제. 새학습/모델/목표/queue/등록source변경없음.
+본학습과다음4000정기진단을중복기동하지않는다. 마지막성능평가는3500이다.
 
 13:16:31 본학습3611/40350 epoch3, warmup이후289update. Batch16×accum2×2=effective64/loader2/oracle8 유지.
 Train3144180/queue3144181/500monitor3144182/publisher2507743 기존실행지속, monitor3500완료→4000대기.
@@ -802,6 +815,13 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Future-repeat-current 설명용 경로를 재생했고, 24개 ADE가 저장 진단값과 모두 정확히 일치했다.
+12장면 GT 궤적 ADE는 원래 1.510779m /대체 1.991433m, 차이 +.480654m. 8장면 악화 /4장면 개선.
+예시 scene8 우회전 1.333256→2.067867m, scene16 직진 2.764775→2.955725m, scene0 좌회전 2.936415→2.586790m.
+유형별 최초 장면을 선택하고 12장면 전체 결과를 보존했다. 시점에 대응하는 8개 xy 거리의 평균을 설명한다.
+3,500 exact checkpoint/nativehash·표현파일·panelhash 보존, 정답 입력 없음. Encoder 재추론/optimizer/새 oracle 채점 없음.
+재생 카드 전체 최대 41.250980GB, 48GB 상한 이내. 0.5초~4초는 8개 계획/평가 시점이며 물리적 미래 정합은 직접 감독하지 않는다.
 
 Update3500 PDMS75.9039356,첫epoch대비+7.9175192 CI[+.7954176,+15.2071348],3000대비+.9976630 CI[−6.5494714,+8.4577382].
 3228대비+1.3269814 CI[−4.0241756,+7.1939998]. 동일95scene/24recording/5000bootstrap/seed71. 독립일반화검증아님.
@@ -1489,13 +1509,17 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자유의미성질문에맞춰최신3500표현진단·미래개입·rollingloss/gradient를확인했다.
-- 동일95학습장면공식PDMS3500=75.9039일회평가및paired bootstrap을완료했다.
-- 미래분기대체시12sceneoracle/ADE악화의초기신호와실제미래정확도·일반화·LPWM단독기여미확인을구분했다.
-- CPU assessment script/수치/등록/공식score를새결과폴더에보존했다. 양rankloss/nativehash/279·283source검사정상.
-- README/HANDOFF1–5/RESUME_NOTES/학습문서갱신. 본학습·loss·실행config·queue·monitor·publisher는변경없음.
+- 사용자의쉬운시각화요청에맞춰3500미래분기개입12scene의실제원래/대체trajectory를읽기전용재생했다.
+- 기존24ADE와오차0,GT경로오차1.5108→1.9914m/8악화4개선을검증하고두모델경로사이거리와구분했다.
+- 입력변경설명도/실제우회전/유형별3사례/12전체barplot과source·checkpoint등록근거를보존했다.
+- 새로운시각화script만추가했다. 기존등록source/config나모델·학습·queue·monitor·publisher는변경하지않았다.
+- README/HANDOFF1–5/RESUME_NOTES/학습문서에재생근거와쉽게읽는해석을기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+사용자에게 설명도와 실제 우회전 그림을 함께 보여주고 초록 GT/파랑 future/주황 current 반복 조건을 설명한다.
+0.48m는 12장면 GT 궤적 ADE 차이. 같은 모델의 입력 검사이며, 두 모델 경로 간 거리와 구분한다.
+기존 25epoch/매500 진단을 계속하고, 4000/epoch3에서 미래 분기 신호의 지속성을 확인한다. 시각화는 완료됐다.
 
 25epoch본학습/500·epoch진단계속. 다음4000/epoch3(4842)에서12scene미래개입의방향과readout추세가유지되는지확인.
 3500개입만으로successgate/automaticearlystop을추가하지않는다. 첫긍정신호를미래정확도향상으로부르지않는다.
@@ -1917,6 +1941,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+그림은 3500에서 같은 모델의 표현 입력을 바꾸는 검사다. 미래 attributes 14D/4camera/8step을 대체하고 현재 표현·영상·ego·가중치는 유지한다.
+예측 미래를 현재 반복으로 대체하면 OOD 입력이 될 수 있다. Future 사용 신호와 정확한 물리적 미래 이해·안전 이득을 구분한다.
+0.48m는 같은 시점 GT 위치 8개까지의 평균 거리 차이다. 충돌률/PDMS 변화 또는 두 계획 경로 간 평균 거리와 구분한다.
 
 현재학습은planning-only이며RGB복원/미래정합SSL직접목표가없다. Futurebranch활용과정확한물리미래예측은별개.
 3500의미래개입은12training scene/300bootstrap/OOD위험·반복검사,탐색적근거로취급. 안정적novelty증거아님.

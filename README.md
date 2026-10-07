@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**미래 분기 검사 쉽게 보기:** [입력에서 무엇을 바꿨는지](results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/future_branch_test_explained.png) ·
+[실제 우회전 장면의 경로 비교](results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/actual_right_turn_case.png) ·
+[12장면 전체 결과](results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/all12_ade_comparison.png).
+같은3,500-update모델의 미래attributes만현재값으로대체한검사이며,학습전후비교가아니다.
+정답궤적ADE 평균1.5108→1.9914m,8악화/4개선. 실제미래정확도·안전향상증명과구분한다.
+
 **2026-10-07 13:16 KST — 학습의 유의미성 점검 /3,500 진단·PDMS 완료.**
 본학습3,611/40,350 epoch3, 양rank 비유한loss0/18gradient그룹 양수/279·283등록source 유지.
 동일95학습장면PDMS75.9039,첫epoch67.9864대비+7.9175(CI[+.7954,+15.2071]);최근3228대비+1.3270은CI0포함.

@@ -722,3 +722,37 @@ Fixed candidate의 oracle score도 .04245 하락했다. 이 oracle 값의 차이
 기존모델·loss·source/config를 변경하거나 새중단gate를 추가하지 않았다.
 
 [학습 상태·판독·개입·공식PDMS의 통합 근거](../results/lpwm_drivor_planning_path_lora_v1/learning_meaningfulness_update3500_20261007/assessment.json).
+
+## 2026-10-07 13:26 KST — 미래분기 검사를 실제 경로로 시각화
+
+사용자에게 의미를 쉽게 설명하기 위해 정확한3,500checkpoint와 저장particle attributes에서,
+기존12개 intervention장면의 원래·현재반복 두 경로를 재생했다. 현재4카메라와ego입력·명령·가중치는같다.
+바꾸는 것은foreground/background를포함한14D attributes의8개future칸이며각칸을현재값으로덮어쓴다.
+현재encoder를재추론하거나학습하지않았고,정답경로는추론후오차계산/그림에만썼다.
+
+| 의미 | 원래 입력 | 검사 입력 |
+|---|---|---|
+| 현재 정보 | 현재particle표현 | 같은현재particle표현 |
+| 8개 미래 칸 | 모델이예측한표현 | 각각현재표현을복사 |
+| 모델·이미지·ego명령 | 동일 | 동일 |
+| 12장면 평균 정답경로오차 ADE | 1.5108m | 1.9914m |
+
+0.48065m는두모델의계획경로사이거리가아니다. 각조건에서0.5~4초의8개시점별GT위치와계획위치의xy거리를
+평균한뒤,장면별차이를12장면평균한값이다. 미래정보대체후8장면은악화,4장면은개선했다.
+원래진단의24개ADE와차이전부0,검사nativeSHA유지,maximumcard41.251GB/modelupdates0을확인했다.
+
+실제사례는패널순서상각유형의첫장면으로고른8우회전/16직진/0좌회전이다. 결과방향으로고르지않았다.
+8번우회전은1.3333→2.0679m,0번좌회전은2.9364→2.5868m로대체가오히려오차를줄인반례다.
+전방원본카메라는장면참고이며실제planner는4카메라를사용한다. 그림의경로는현재ego좌표계,
+가로−ego_y/세로ego_x,단위m. 초록GT/파랑원래/주황현재반복을겹쳐같은시점점을비교한다.
+이는학습전후particle배치시각화가아니며그림에실제미래영상을그린것도아니다.
+
+미래분기활용의탐색적근거라는해석을유지한다. 현재복사로입력분포가달라지는효과도있고,
+그분기가정확한물리미래·주행객체움직임을보존하는지는별도검증이필요하다. ADE변화는안전/PDMS변화와구분한다.
+학습·loss·설정·queue·등록monitor소스는변경하지않았다. 새script는완료된일회시각화다.
+
+[설명도](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/future_branch_test_explained.png),
+[실제우회전](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/actual_right_turn_case.png),
+[세유형](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/three_actual_cases.png),
+[12전체결과](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/all12_ade_comparison.png),
+[재생검사](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/replay_checks.json).

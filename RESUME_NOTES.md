@@ -3123,3 +3123,19 @@ Rank0 rolling100 loss4.238733(1601–1700)→3.144724(3401–3500)/3.184487(3501
 새source/config/목표/학습조건변경없음. 추가일회PDMS는종료·GPU해제,새baseline/실험조건미기동.
 통합 results/lpwm_drivor_planning_path_lora_v1/learning_meaningfulness_update3500_20261007/에 assessment script/수치/등록/officialscore 보존.
 학습의 정상 진행·planning 개선·미래분기 활용 신호는 보고하되 미래 정확도/LPWM 단독 기여/heldout 일반화 결론은 보류.
+
+## 2026-10-07 13:26 KST — 미래분기 개입 설명도와실제경로시각화
+
+사용자가 0.48m 증가의 의미를 이미지와 함께 쉽게 설명해 달라고 요청했다. scripts/visualize_lpwm_future_branch_intervention.py를 추가했다.
+정확한 3500 checkpoint/nativehash와 기존 panel·attributes·interventions SHA를 등록했다. 원래 미래/현재 반복 두 조건을 12장면에서 재생했다.
+현재 camera/ego/command/model은 같고, 미래 8step의 foreground/background 14D attributes만 현재값으로 대체했다.
+Encoder 재추론/optimizer/학습/새 oracle 채점은 없다. 저장된 24개 ADE와 차이 모두 0 /maxcard41.250980GB /nativehash 유지.
+12장면 GT 궤적 ADE는 1.510779→1.991433m /평균 +.480654m. 8악화·4개선. 두 모델의 계획 경로 사이 거리와 구분한다.
+0.5~4초 8개 시점에서 GTxy와 planxy 거리의 평균을 장면별 계산한 후 12장면 평균을 구했다. GT는 plot/평가에만 사용한다.
+한글 NotoSansCJK 폰트로 입력 변경 설명도/실제 우회전 사례/세 유형 사례/12장면 전체 barplot을 생성하고 육안 검사했다.
+유형별 첫 panel scene8 우회전/16 직진/0 좌회전을 선택했다. 결과 방향으로 고르지 않았고, scene0의 오차 감소 반례도 포함한다.
+초록 GT/파랑 future 사용/주황 current 반복. 평면도 horizontal−ego_y/verticalego_x(m). 전방 사진은 참고이며 4camera 입력을 유지한다.
+Source·checkpoint·24재생검사·trajectories.npz/visualization_report.json를 별도 results/future_branch_intervention_explained_update3500에 보존했다.
+기존 25epoch 학습/queue/500monitor/publisher/sourceconfig는 변경하지 않았다. 추가 GPU 일회 재생은 완료·GPU 해제, 본학습3635/40350 epoch3 계속.
+해석은 미래 분기에 대한 의존의 초기 증거다. 실제 물리적 미래 정확도·운전 객체 이해·안전 이득은 별도 검증이 필요하다.
+실제 참조 camera와 checkpoint 출력을 표준 plot으로 렌더했다.

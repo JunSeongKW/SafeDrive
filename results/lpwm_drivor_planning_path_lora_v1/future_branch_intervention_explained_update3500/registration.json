@@ -1,0 +1,14 @@
+{
+  "source_sha256": "fd92912879d52b6b53d7bf1f81ee287e8ae243e5e9dda4fc7435b89b93cfd3ef",
+  "checkpoint_sha256": "ffd2c445cb4b99a8ed4246bbcf774cf933bd2699ec3190a565555c3f1457c6b7",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "attributes_sha256": "07b14adcde9f1e5a6ebe156fe8729c8b9fbb05a74ee460fd3c3f4f48cd1c85f7",
+  "intervention_metrics_sha256": "f2891d6c2a0fed4ab0dabaec5f01ddaee3e71635683ccb3b5e925c3a29cfd211",
+  "started_unix": 1791347100.231799,
+  "completed_updates": 3500,
+  "model_updates": false,
+  "encoder_reinference": false,
+  "intervention": "Replace all 8 future states (foreground and broadcast background, all 4 cameras) with current state attributes; preserve current state, images, ego inputs, checkpoint, planner",
+  "case_selection": "First intervention scene of each scene_type in original panel order, independent of result direction",
+  "scope": "Existing fixed 12-scene training diagnostic; not navtest"
+}

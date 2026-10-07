@@ -1,0 +1,152 @@
+{
+  "checks": [
+    {
+      "token": "409c959993075841",
+      "variant": "baseline",
+      "ade_m": 2.9364147186279297,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "409c959993075841",
+      "variant": "future_repeat_current",
+      "ade_m": 2.586790084838867,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "4cd5bb8cf4fd52fa",
+      "variant": "baseline",
+      "ade_m": 1.3332557678222656,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "4cd5bb8cf4fd52fa",
+      "variant": "future_repeat_current",
+      "ade_m": 2.0678670406341553,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "c51a60c854c951cf",
+      "variant": "baseline",
+      "ade_m": 2.7647745609283447,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "c51a60c854c951cf",
+      "variant": "future_repeat_current",
+      "ade_m": 2.9557251930236816,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "d44dd618a0435337",
+      "variant": "baseline",
+      "ade_m": 1.8147969245910645,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "d44dd618a0435337",
+      "variant": "future_repeat_current",
+      "ade_m": 2.7926583290100098,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "6c08df07d2e35e8d",
+      "variant": "baseline",
+      "ade_m": 1.3276727199554443,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "6c08df07d2e35e8d",
+      "variant": "future_repeat_current",
+      "ade_m": 1.2413396835327148,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "fc01494fa43653b8",
+      "variant": "baseline",
+      "ade_m": 1.4967002868652344,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "fc01494fa43653b8",
+      "variant": "future_repeat_current",
+      "ade_m": 1.550529956817627,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "706395b464525f9d",
+      "variant": "baseline",
+      "ade_m": 1.9395439624786377,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "706395b464525f9d",
+      "variant": "future_repeat_current",
+      "ade_m": 1.8289875984191895,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "8d709e8b74095ad8",
+      "variant": "baseline",
+      "ade_m": 0.3953888714313507,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "8d709e8b74095ad8",
+      "variant": "future_repeat_current",
+      "ade_m": 1.0043927431106567,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "0154b4928cde52bb",
+      "variant": "baseline",
+      "ade_m": 1.123759388923645,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "0154b4928cde52bb",
+      "variant": "future_repeat_current",
+      "ade_m": 2.724602699279785,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "487e3708e7905cde",
+      "variant": "baseline",
+      "ade_m": 1.3157250881195068,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "487e3708e7905cde",
+      "variant": "future_repeat_current",
+      "ade_m": 3.069321870803833,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "2754ab87df25534c",
+      "variant": "baseline",
+      "ade_m": 0.6709616184234619,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "2754ab87df25534c",
+      "variant": "future_repeat_current",
+      "ade_m": 1.1115635633468628,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "e909cae9ee81593c",
+      "variant": "baseline",
+      "ade_m": 1.0103559494018555,
+      "saved_diagnostic_ade_difference": 0.0
+    },
+    {
+      "token": "e909cae9ee81593c",
+      "variant": "future_repeat_current",
+      "ade_m": 0.9634137749671936,
+      "saved_diagnostic_ade_difference": 0.0
+    }
+  ],
+  "maximum_saved_ade_difference": 0.0,
+  "maximum_card_used_bytes": 41250979840,
+  "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+  "model_updates": false
+}

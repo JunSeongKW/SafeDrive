@@ -1,0 +1,119 @@
+{
+  "completed_updates": 3500,
+  "scene_count": 12,
+  "mean_original_ade_m": 1.5107790231704712,
+  "mean_repeated_current_ade_m": 1.991432547569275,
+  "mean_ade_increase_m": 0.4806535542011261,
+  "worsened_scenes": 8,
+  "improved_scenes": 4,
+  "cases": [
+    {
+      "scene_index": 0,
+      "token": "409c959993075841",
+      "scene_type": "left_turn",
+      "original_ade_m": 2.9364147186279297,
+      "repeated_current_ade_m": 2.586790084838867,
+      "ade_change_m": -0.3496246337890625
+    },
+    {
+      "scene_index": 8,
+      "token": "4cd5bb8cf4fd52fa",
+      "scene_type": "right_turn",
+      "original_ade_m": 1.3332557678222656,
+      "repeated_current_ade_m": 2.0678670406341553,
+      "ade_change_m": 0.7346112728118896
+    },
+    {
+      "scene_index": 16,
+      "token": "c51a60c854c951cf",
+      "scene_type": "straight",
+      "original_ade_m": 2.7647745609283447,
+      "repeated_current_ade_m": 2.9557251930236816,
+      "ade_change_m": 0.19095063209533691
+    },
+    {
+      "scene_index": 24,
+      "token": "d44dd618a0435337",
+      "scene_type": "straight",
+      "original_ade_m": 1.8147969245910645,
+      "repeated_current_ade_m": 2.7926583290100098,
+      "ade_change_m": 0.9778614044189453
+    },
+    {
+      "scene_index": 32,
+      "token": "6c08df07d2e35e8d",
+      "scene_type": "right_turn",
+      "original_ade_m": 1.3276727199554443,
+      "repeated_current_ade_m": 1.2413396835327148,
+      "ade_change_m": -0.08633303642272949
+    },
+    {
+      "scene_index": 40,
+      "token": "fc01494fa43653b8",
+      "scene_type": "right_turn",
+      "original_ade_m": 1.4967002868652344,
+      "repeated_current_ade_m": 1.550529956817627,
+      "ade_change_m": 0.05382966995239258
+    },
+    {
+      "scene_index": 48,
+      "token": "706395b464525f9d",
+      "scene_type": "right_turn",
+      "original_ade_m": 1.9395439624786377,
+      "repeated_current_ade_m": 1.8289875984191895,
+      "ade_change_m": -0.11055636405944824
+    },
+    {
+      "scene_index": 56,
+      "token": "8d709e8b74095ad8",
+      "scene_type": "left_turn",
+      "original_ade_m": 0.3953888714313507,
+      "repeated_current_ade_m": 1.0043927431106567,
+      "ade_change_m": 0.6090039014816284
+    },
+    {
+      "scene_index": 64,
+      "token": "0154b4928cde52bb",
+      "scene_type": "straight",
+      "original_ade_m": 1.123759388923645,
+      "repeated_current_ade_m": 2.724602699279785,
+      "ade_change_m": 1.6008433103561401
+    },
+    {
+      "scene_index": 72,
+      "token": "487e3708e7905cde",
+      "scene_type": "left_turn",
+      "original_ade_m": 1.3157250881195068,
+      "repeated_current_ade_m": 3.069321870803833,
+      "ade_change_m": 1.7535967826843262
+    },
+    {
+      "scene_index": 80,
+      "token": "2754ab87df25534c",
+      "scene_type": "left_turn",
+      "original_ade_m": 0.6709616184234619,
+      "repeated_current_ade_m": 1.1115635633468628,
+      "ade_change_m": 0.4406019449234009
+    },
+    {
+      "scene_index": 88,
+      "token": "e909cae9ee81593c",
+      "scene_type": "right_turn",
+      "original_ade_m": 1.0103559494018555,
+      "repeated_current_ade_m": 0.9634137749671936,
+      "ade_change_m": -0.046942174434661865
+    }
+  ],
+  "illustrative_scene_indices": [
+    8,
+    16,
+    0
+  ],
+  "same_scene_same_weights": true,
+  "training_changes": false,
+  "trajectory_plot_coordinate_system": "Current ego frame; horizontal=-ego_y (screen right), vertical=ego_x (forward), meters",
+  "current_front_photo_is_reference_only": true,
+  "model_uses_all_four_cameras": true,
+  "error_definition": "Mean of 8 Euclidean XY distances to the expert trajectory at matching 0.5s-to-4s timestamps; not distance between the two model trajectories",
+  "interpretation": "Shows reliance on future-branch attributes, not necessarily accurate physical future prediction. Replacement can be out of distribution; fixed 12 training scenes."
+}
