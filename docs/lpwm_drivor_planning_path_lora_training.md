@@ -47,6 +47,46 @@ Score loss → scorer → 공유 scene memory → 같은 LoRA 경로.
 따라서 score loss가 candidate 좌표를 직접 안전 방향으로 미는 refiner를 새로 구현한 것은 아니다.
 LPWM native parameter를 고정해도 activation gradient는 지나가며, 이 경로에 `no_grad`를 추가하지 않는다.
 
+### Planner에 전달되는 foreground·background·context
+
+현재 실행의 `particle_attributes()`는 foreground 상태와 background feature를 아래처럼 합친다.
+
+| 입력 | 차원 / particle·시점 | Planner에 전달하는 방식 |
+|---|---:|---|
+| Foreground 위치 `z` | 2 | 영상 좌표로 전달; 미터 단위 3D 위치가 아님 |
+| Foreground 크기 `sigmoid(z_scale)` | 2 | 영상에 대한 glimpse 폭·높이 |
+| Foreground presence `obj_on` / `z_obj_on` | 1 | Soft activation; 중요도 순위나 클래스 확률이 아님 |
+| Foreground 깊이 `tanh(z_depth)` | 1 | 학습된 depth latent; 미터 단위 거리 보장 없음 |
+| Foreground 외관 `tanh(z_features)` | 4 | 학습된 feature; 차량·보행자 class label이 아님 |
+| Background `tanh(z_bg_features)` | 4 | 같은 카메라·같은 시점의 전역 background feature를64개 foreground particle 모두에 복제해 concatenate |
+
+따라서 particle별10D foreground 상태 +4D background =14D다.
+현재1시점과 LPWM이 예측한 미래8시점의 **foreground와 background 모두**를 사용한다.
+Background는 위치·박스를 가진 별도64개 점이 아니고 카메라·시점별 공통4D latent다.
+실제 완료3000출력은 `(96장면,4카메라,9시점,64particle,14속성)`이며 마지막4채널은 같은
+카메라·시점의64particle 사이에 최대차이0으로 동일하게 복제돼 있음을 읽기 확인했다.
+
+`z_context`는14D에 포함하지 않고 planner의 별도 context token으로도 전달하지 않는다.
+`dyn_module.sample(..., z_context=None)`는 현재 particle와 background에서 context **prior**를
+내부 생성해 미래 foreground/background 예측을 조건화한다. 이 예측 결과를 통해 context가 간접 전달된다.
+Encoder가 반환한 context tensor 자체를 이 rollout에 넘기지 않으며 posterior 미래 GT를 입력하지 않는다.
+Context prior·dynamics의 LoRA는 미래 출력 경로로 planning gradient를 받는다.
+
+14D×9시점=126D를 particle별 `Linear(126,256)→LayerNorm→GELU`로 변환한 뒤,
+고정 particle 번호순4개씩 평균해 카메라당16token을 만든다. Camera embedding을 더한
+4카메라 총64×256D scene memory를 공식 trajectory generator와 scorer가 공유한다.
+모든64foreground particle가 계산에 참여하지만 개별particle64개가 각자 planner token으로 유지되는 구조는 아니다.
+이 pooling은 spatial neighbor grouping·객체 tracking·학습된 중요도 선택이 아니다.
+
+별도로 전체 ego11D는 planner에, command4D는 영상 attribute CNN의 FiLM에 입력한다.
+LPWM의 CNN/Transformer 큰 hidden tensor, posterior/variance, RGB 복원 영상, context latent를 그대로
+planner에 넘기지 않는다. `z_score`는 LPWM 내부 rollout에 사용하지만14D planner 속성에는 없다.
+LPWM 용어의 foreground/background는 학습된 분해이며 foreground가 차량·보행자이고 background가 도로라고 보장하지 않는다.
+
+코드: `src/planning_aware_future_prediction/object_centric/lpwm_planning_finetuning.py:12`,
+`src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py:83`,
+`reference_repositories/LPWM/modules/modules.py:6417` (context prior 생성).
+
 결정적 mean 기반 경로이므로 각 Gaussian head의 logvar 출력 row 전체에 학습 신호가 있다고 주장하지 않는다.
 현재 confidence/score의 native detach도 유지한다. 검사에서 말하는 gradient 양수는 각 adapter의 출력 행렬 norm이다.
 

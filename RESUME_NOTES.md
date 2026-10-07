@@ -3061,3 +3061,20 @@ Particlegeometry평균1.813px/10.957%,wholeF1firstepoch.4205→.3936,appearance.
 3228epoch경계도달약10:48, warmup3322약11:24,3500약12:34,4000약15:48;표현진단처리시간별도.
 현재속도V1최종ETA10월17일11:34전후,서버부하변동·후속평가/V2제외. 기존25epoch/자동진단/queue유지.
 HANDOFF1–5/README/본일지갱신,다음완료된3228/3500결과를보고하도록정리.
+
+
+## 2026-10-07 11:07 KST — LPWM→planner foreground/background/context 인터페이스 확인
+
+사용자는현재LPWM의무슨정보가planner로넘어가는지질문했다. README/AGENTS/HANDOFF와실제encoder/helper/공식DrivoR forward/LPWM sample/hparams를읽었다.
+현재인터페이스FG10D=영상xy2/scale2/presence1/depthlatent1/appearance4 + BG4D=14D.
+BG는카메라·시점별공통4D를64foregroundparticle에붙이고현재1+미래8시점모두사용한다.
+Mmap읽기검사: update3000완료attributes96×4×9×64×14,마지막4채널64particle사이최대차이0.
+별도64개BG점/GTobjectclass/semantic도로·차량분해라는해석은틀리다. LPWM의FG도도로·나무를표현할수있다.
+Encoded context출력tensor를planner에직접전달하지않으며sample z_context=None으로내부contextprior생성→dynamics조건→미래FG/BG경유.
+None을contextoff라고해석하지않는다. Context LoRA는future출력경유planninggradient가있다.
+현재+미래9×14=126D→Linear256/LayerNorm/GELU→고정번호4개mean→16token/camera→카메라embedding→총64×256scene memory.
+공식trajectorygenerator/scorer가같은memory를사용. 64FG전부참여하지만개별particle토큰은그대로보존되지않는다;pooling은학습된selector/spatialneighbor/objecttracking이아님.
+Ego11D는planner별도,command4D는encoderFiLM. 큰hidden/variance/posterior/RGB는직접안넘김;z_score는내부rollout에만사용.
+이구조의압축/bottleneck가능성은서술하되실패원인/계획성능효과로확정하지않았다.
+학습문서와HANDOFF1–5/본일지에기록. 현재3278/40350 epoch3/3228검증완료/3500대기.
+새학습/평가/모델구조/실행config/등록source/queue/monitor/publisher변경없음.
