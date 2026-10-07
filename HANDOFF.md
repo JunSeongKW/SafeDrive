@@ -1,5 +1,16 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 22:08 KST — epoch3 공식95장면PDMS80.3450, 학습4,898/40,350 계속.**
+Exact4,842 checkpoint 평가95성공/실패0,첫epoch67.9864→epoch2 74.5770→epoch3 80.3450.
+4,500대비+.4573점 CI[−3.4353,+4.9538],직진87.6751/좌77.9405/우70.8283·ADE1.6212m. 직진은91.0099에서하락.
+동일95training scene/24recording,navtest나독립validation아님. 12scene미래반복개입ADE+.5028m CI[+.0642,+1.1667]이나인과기여/미래정확도미확정.
+96scene geometry초기대비2.1631px/크기17.8007%,whole판독F1.40909(4500 .42044),도로집중미확인.
+양rank비유한loss0/최근4800의18gradient그룹유한양수/nativehash·원래279/283/새291source불변. GPU평가최대41.2594GB·종료반환.
+본학습train3437947/queue3437948/monitor3437949/publisher2507743 유지,기존micro16×누적2×GPU2=유효64/loader2/oracle16.
+최근50–200update22.81–23.04초,V1남은약9.36–9.45일(10/17 07–09시KST외삽). 후속평가·V2시간별도.
+근거 `results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/report.json` 및전후·겹침/PDMS그림.
+
+
 **2026-10-07 21:33 KST — 속도 최적화 적용, 4,633에서 본학습 재개 후 4,807 확인.**
 사용자 적용승인에같은fullstate/실제DrivoRloss/GPU2/micro16/유효64로44개DDP비교update(12+12+12+8)를실행했다.
 기존전후중앙값평균25.4215초 vs oracle16+일괄gradient유한성검사24.1568초,약4.98%단축. SDPA포함24.0000초는추가.65%라미채택.
@@ -248,7 +259,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 21:42 KST (Codex)
+마지막 갱신: 2026-10-07 22:11 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -415,6 +426,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-07 22:08 KST 현재4,898/40,350,epoch4(update56). Epoch3/4,842 표현검사와추가PDMS95장면평가완료·평가GPU해제.
+Train3437947/queue3437948/monitor3437949/publisher2507743 유지,monitor다음5,000대기. 본학습/연구조건변경없음.
+Micro16×accum2×GPU2=유효64/loader2/oracle16·native고정·LoRA/FiLM/planner학습계속.
 
 21:40 추가검사: 새실행4800체크포인트의AdamW796state step·scheduler step이모두4800,양rankRNG2개저장확인.
 실제state_dict의 `planner.image_backbone.world_model.` 아래native1070항목으로재계산한SHA가원본a5dd2345…와일치했다.
@@ -967,6 +982,15 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Exact4842 PDMS80.3450018,epoch1대비+12.3585853 CI[+6.3251604,+18.5155639],epoch2대비+5.7680475 CI[+.0731959,+11.9065914].
+4500대비+.4573232 CI[−3.4352546,+4.9538021],4000대비+4.5147074 CI[−.5885301,+9.3744147]. 24recording paired bootstrap5000/seed71,반복중간검사.
+직진87.675135/좌77.940529/우70.828282,ADE1.621154m. NC.984211/DAC.926316/TTC.936842/comfort1.0. 4500대비직진/DAC는하락했다.
+12scene future-repeat-current ADE+.502778m CI[+.064170,+1.166741],selectedoracle−.119726 CI[−.255945,−.014017]. 의존성신호/대체OOD한계.
+96scene geometry중심2.163119px/크기17.800714%,의도변경중심.443236px. Whole readoutF1초기.379859→4500 .420444→4842 .409089.
+4s 미래변위readout오차 current8.242523→future7.943212m,차이−.299311 CI[−.583566,−.062750]이나zero-displacement6.726962m보다큼. 미래정확도성공으로부르지않는다.
+차량중심비율초기8.88265→9.11051%,보행자1.20036→1.29801%,도로proxy20.03289→19.43257%. 뚜렷한주행중요영역재배치미확인.
+평가12ADE 재생차이0/nativehash유지/최대카드41.2594GB. 원래279/실행283/새291source 전부일치,학습양rank비유한loss0.
 
 동일4,633fullstate/동일scenehash의실제officialloss DDP비교: 원본25.1686초(12update),worker16+일괄유한성24.1568초(12),SDPA+worker16 24.0000초(12),원본재검25.6744초(8).
 Warmup3개를각각제외. 기준전후중앙값평균25.4215대비선택24.1568은4.975%단축. SDPA추가이득.649%로1.5%채택기준미달·배제.
@@ -1747,14 +1771,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자승인에현재학습4,633을fullstate로보존하고동일checkpoint/동일학습장면/실제DrivoRloss의44개DDPupdate속도비교를완료했다.
-- 원본전후25.42초대worker16+일괄gradient유한성24.16초(약4.98%단축)를채택했다. SDPA24.00초의추가이득.65%는채택기준미달로배제했다.
-- 기존등록source를수정하지않고새runtime모델·trainer·queue·controller와설정을추가,기존279/283+새291source등록으로보존했다.
-- Model/AdamW796state/scheduler/양rankRNG복원·비교weights폐기,4,634부터새본학습재개. 21:33에4,807/174추가update·정상gradient·최대40.16GB를확인했다.
-- 고정oracle score동일성과GPU반복학습수치변동을함께기록했다. 상세benchmark/재개로그/설정등록·보고서및README/HANDOFF1–5/기존학습문서/RESUME_NOTES갱신.
-- 기존25epoch/4카메라/8미래/유효64/loss/LoRA범위를유지하고새queue·정기진단계속. 새PDMS평가·compile·selectivecheckpoint·microbatch증설은미실행.
+- 사용자중간결과요청에exactepoch3/4842를동일95학습장면의공식PDMS로추가평가했다. 80.3450/95성공·실패0/재생ADE차이0/최대카드41.2594GB.
+- 첫epoch/epoch2/3500/4000/4500대비paired recording CI를계산했다. 4500대비+.4573점은CI0포함,좌우회전상승/직진하락을모두보존했다.
+- 완료96scene particle geometry/readout/의도개입/미래대체를집계했다. 미래대체ADE+.5028m이나객체판독·도로집중의일관향상은미확인이다.
+- 원래279/283/새291등록source·nativehash/양rankloss·18gradient그룹을확인하고4,898본학습진행·ETA를기록했다.
+- epoch3 결과CSV/JSON/PDMSPNG·PDF/particle전후·겹침및재생성script를공유results에보존했다. README/HANDOFF1–5/학습문서/RESUME_NOTES갱신.
+- 기존25epoch·유효64·GPU0/1·48GB·optimized execution/queue/매500진단유지,새학습이나baseline/연구조건변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존25epoch및후속queue를유지하며다음5,000 표현검사(현재속도10/7 22:47KST 경계)를확인한다.
+Epoch3 4842 PDMS평가는완료했으므로재실행하지않는다. 이후사용자요청의PDMS는exact완료진단checkpoint로같은패널평가한다.
+80.3450은95training패널점수이고완료된3epoch수치이며학습중4,898/current의점수로표시하지않는다.
+최근4500대비+.46 CI0포함,초기보다전체planning향상과LPWM단독/독립일반화미입증을구분한다. DrivoR비교는25epoch뒤유지.
 
 새채택실행을그대로유지한다. 정기표현monitor다음4842/5000을확인하고25epoch→fullnavtest→독립V2학습→warmup/navhard순서를새queue가계속관리한다.
 원본checkpoint4,633은 `outputs/lpwm_drivor_optimized_execution_v1/preserved_resume.pt`;기존latest는새실행checkpoint로이미진행했다. 비교weights를본학습에로드하지않는다.
@@ -2232,6 +2261,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번사용자요청은현재까지결과보고다. 완료epoch3의95장면공식PDMS를추가평가하고이미완료된96scene표현검사를읽었다.
+훈련/LoRA계층/loss/입력/epoch/queue/sourceconfig를바꾸지않았다. 새baseline이나학습중단gate는없다.
+향상은고정training패널관측이고navtest아니다. 미래개입은작은학습분포/OOD검사이며물리미래정확도나표현만의기여를입증하지않는다.
+객체probe는recording-disjoint판독이지만상위모델에는훈련분포다. 도로proxy/상단1/3을도로GT/하늘segmentation으로부르지않는다.
 
 사용자의이번최적화적용및학습재개요청은완료했다. 모델/목표/유효batch/epoch/LoRA계층변경없이CPUoracle16과gradient검사의host동기화최적화만채택했다.
 SDPA후보는메모리이득은있으나worker16대비추가시간이득.65%라채택하지않았다. 새benchmark를성능ablation/새PDMS/bitwise동일학습으로부르지않는다.

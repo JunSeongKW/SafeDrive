@@ -3346,3 +3346,27 @@ Oracle16+일괄유한성채택,SDPA는실배치추가.65%라미채택. 원본재
 실제state_dict의 `planner.image_backbone.world_model.` 아래native1070항목으로재계산한SHA가원본a5dd2345…와일치했다.
 `production_checkpoint_integrity.json`에보존. 첫수동검사에서property이름을stateprefix로쓴조회오류는실제저장prefix로정정했으며모델가중치변경이아니었다.
 21:40:56 본학습4827/40350계속,원래279/283·새291source불변확인.
+
+
+## 2026-10-07 22:08 KST — epoch3 공식PDMS와표현검사중간보고
+
+**2026-10-07 22:08 KST — epoch3 공식95장면PDMS80.3450, 학습4,898/40,350 계속.**
+Exact4,842 checkpoint 평가95성공/실패0,첫epoch67.9864→epoch2 74.5770→epoch3 80.3450.
+4,500대비+.4573점 CI[−3.4353,+4.9538],직진87.6751/좌77.9405/우70.8283·ADE1.6212m. 직진은91.0099에서하락.
+동일95training scene/24recording,navtest나독립validation아님. 12scene미래반복개입ADE+.5028m CI[+.0642,+1.1667]이나인과기여/미래정확도미확정.
+96scene geometry초기대비2.1631px/크기17.8007%,whole판독F1.40909(4500 .42044),도로집중미확인.
+양rank비유한loss0/최근4800의18gradient그룹유한양수/nativehash·원래279/283/새291source불변. GPU평가최대41.2594GB·종료반환.
+본학습train3437947/queue3437948/monitor3437949/publisher2507743 유지,기존micro16×누적2×GPU2=유효64/loader2/oracle16.
+최근50–200update22.81–23.04초,V1남은약9.36–9.45일(10/17 07–09시KST외삽). 후속평가·V2시간별도.
+근거 `results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/report.json` 및전후·겹침/PDMS그림.
+
+Exact4842 PDMS80.3450018,epoch1대비+12.3585853 CI[+6.3251604,+18.5155639],epoch2대비+5.7680475 CI[+.0731959,+11.9065914].
+4500대비+.4573232 CI[−3.4352546,+4.9538021],4000대비+4.5147074 CI[−.5885301,+9.3744147]. 24recording paired bootstrap5000/seed71,반복중간검사.
+직진87.675135/좌77.940529/우70.828282,ADE1.621154m. NC.984211/DAC.926316/TTC.936842/comfort1.0. 4500대비직진/DAC는하락했다.
+12scene future-repeat-current ADE+.502778m CI[+.064170,+1.166741],selectedoracle−.119726 CI[−.255945,−.014017]. 의존성신호/대체OOD한계.
+96scene geometry중심2.163119px/크기17.800714%,의도변경중심.443236px. Whole readoutF1초기.379859→4500 .420444→4842 .409089.
+4s 미래변위readout오차 current8.242523→future7.943212m,차이−.299311 CI[−.583566,−.062750]이나zero-displacement6.726962m보다큼. 미래정확도성공으로부르지않는다.
+차량중심비율초기8.88265→9.11051%,보행자1.20036→1.29801%,도로proxy20.03289→19.43257%. 뚜렷한주행중요영역재배치미확인.
+평가12ADE 재생차이0/nativehash유지/최대카드41.2594GB. 원래279/실행283/새291source 전부일치,학습양rank비유한loss0.
+
+Sandbox NVML조회exit9로GPU초기화전에실패한첫시도후같은평가를host승인으로재실행해완료했다. 평가완료후GPU반환,본학습무중단.

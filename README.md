@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 22:08 KST — epoch3 중간평가 PDMS80.35.**
+동일95학습장면의epoch1 67.99→epoch2 74.58→epoch3 80.35,직전4500 79.89대비+.46(95%CI[−3.44,+4.95]).
+직진87.68/좌77.94/우70.83,ADE1.621m. 전체navtest·독립validation아님. 본학습4,898/40,350 계속.
+Particle위치2.163px/크기17.80%변화,미래대체12scene ADE+.503m. 도로집중·객체판독의일관된향상·LPWM단독효과는미확인.
+[수치·검사](results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/report.json) · [PDMS추세](results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/pdms_progress_and_scenarios.png) ·
+[Particle전후·겹침](results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/particles_before_after_and_overlay_update4842.png).
+
+
 **2026-10-07 21:33 KST — 속도 최적화 적용 후 본학습 재개.**
 같은checkpoint·학습장면의GPU2 비교에서25.42→24.16초/update(약5%단축),oracle16+일괄gradient유한성검사채택.
 SDPA의추가속도이득.65%는작아미채택. 4,633의model/optimizer/scheduler/RNG에서재개해4,807까지174update정상진행.

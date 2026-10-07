@@ -1009,3 +1009,45 @@ Loader2/각GPUmicro16×누적2,oracle16만적용했다. Selectivecheckpoint·com
 21:40추가검사에서저장된4800체크포인트의AdamW796state/scheduler가4800,양rankRNG저장,
 원본LPWM1070개state항목의SHA재계산일치를확인했다. [체크포인트검사](../results/lpwm_drivor_planning_path_lora_v1/optimized_execution_20261007/production_checkpoint_integrity.json).
 21:40:56본학습4827계속.
+
+
+## 2026-10-07 22:08 KST — epoch3의planning결과와particle표현중간검사
+
+검증 질문은 공동학습이 진행되면서 planning 성능과 의도에 반응하는 particle 표현이 함께 개선되는가이다.
+정확한4,842checkpoint와이미저장된96scene attributes를사용했다. 공식metric cache가있는95scene/24recording만PDMS계산,
+1scene cache부재는이전모든비교와동일하다. **모두planning훈련분포로전체navtest/독립validation이아니다.**
+
+| 체크포인트 | PDMS | 직진41장면 | 좌회전30장면 | 우회전24장면 |
+|---|---:|---:|---:|---:|
+| 1,614 | 67.9864 | 74.5582 | 63.7964 | 61.9971 |
+| 3,228 | 74.5770 | 85.4551 | 71.8971 | 59.3433 |
+| 4,000 | 75.8303 | 89.0445 | 69.5080 | 61.1590 |
+| 4,500 | 79.8877 | 91.0099 | 74.9456 | 67.0648 |
+| 4,842 | 80.3450 | 87.6751 | 77.9405 | 70.8283 |
+
+4,500대비+.4573점의recording단위paired bootstrap95%CI는[−3.4353,+4.9538]로작은최근개선은불확실하다.
+첫epoch대비+12.3586 [6.3252,18.5156],epoch2대비+5.7680 [.0732,11.9066]. 5,000resample/seed71이며반복진단·단일학습seed한계가있다.
+ADE1.957827→1.621154m,NC.963158→.984211,TTC.915789→.936842,comfort.989474→1.0.
+직진91.009912→87.675135,DAC.936842→.926316으로모든측면이함께좋아진것은아니다.
+
+### 표현이주행에맞게달라지고있는가
+
+- 96scene×4camera×64particle의초기대비중심평균2.1631inputpx,크기축상대변화17.8007%다. 직전4500대비중심1.1138px/크기14.1160%변화도있다.
+- 같은이미지에서encoder명령만바꿨을때중심평균.4432px/출력경로.3754m변화. 명령에반응하지만대체명령정답경로가없어정확성증거는아니다.
+- 차량영역중심비율8.8826→9.1105%,보행자1.2004→1.2980%,도로proxy20.0329→19.4326%,영상상단1/3 36.1572→35.7300%.
+  위치의주행중요영역집중은미약하다. 상단1/3은하늘라벨이아니고도로는평면지도proxy다. Presence가낮다고planner에서particle을삭제하지않는다.
+- 동일판독protocol의wholeattribute macroF1 .379859(initial)→.420444(4500)→.409089(4842);appearance .292610→.339171→.356412.
+  GT ROI geometry control .414808,차량425/보행자256/자전거7sample로소수class·ROI매칭한계가있다. 객체정보향상일반화로확정하지않는다.
+- 4초미래변위readout은현재8.2425m→예측미래7.9432m,차이−.2993 CI[−.5836,−.0627]. 하지만zero-displacement6.7270m보다나쁘다.
+  2초는3.9844→3.9314m,차이CI[−.1510,+.0503]로0포함. 실제물리미래를잘예측한다고말하기부족하다.
+- 고정12scene에서미래를현재반복으로바꾸면ADE+.50278m CI[+.06417,+1.16674],selectedoracle−.11973 CI[−.25595,−.01402].
+  미래분기사용신호이며OOD대체의영향이섞인다. 재학습current-only/frozen대조군의성능차이나fullPDMS변화와구분한다.
+
+### 실행상태와보존
+
+22:08학습4,898/40,350,epoch4진행. 양rank비유한loss0,최근4,800의18gradient그룹유한양수,원래279/283/새291sourcehash정상.
+평가12ADE재생차이0/nativehash불변,최대전체card41.2594GB. 일회평가종료후GPU반환·본학습과queue유지.
+Micro16×누적2×GPU2=유효64/loader2/oracle16,원래25epoch·loss·LoRA계층·카메라·미래·LR유지. 이번보고로새학습실험을추가하지않았다.
+최근50/100/200update22.8143/22.8909/23.0402초,남은V1약9.36–9.45일. 현재부하가정10/17 07–09시KST종료예상,후속평가/V2시간별도.
+[전체근거](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/report.json) · [PDMS그림](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/pdms_progress_and_scenarios.png) ·
+[Particle입력·전·후·겹침](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch3_20261007/particles_before_after_and_overlay_update4842.png).

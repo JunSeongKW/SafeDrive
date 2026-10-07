@@ -1,0 +1,31 @@
+{
+  "completed_updates": 4842,
+  "scene_count": 95,
+  "failed": 0,
+  "pdms": 80.34500178947197,
+  "zero_score_count": 8,
+  "mean_metrics": {
+    "no_at_fault_collisions": 0.9842105263157894,
+    "drivable_area_compliance": 0.9263157894736842,
+    "ego_progress": 0.6882800429473265,
+    "time_to_collision_within_bound": 0.9368421052631579,
+    "comfort": 1.0,
+    "driving_direction_compliance": 0.9578947368421052,
+    "score": 0.8034500178947196,
+    "expert_ade_m": 1.621153889518035
+  },
+  "by_scene_type": {
+    "left_turn": {
+      "count": 30,
+      "pdms": 77.94052863170477
+    },
+    "right_turn": {
+      "count": 24,
+      "pdms": 70.82828241535469
+    },
+    "straight": {
+      "count": 41,
+      "pdms": 87.67513495317507
+    }
+  }
+}
