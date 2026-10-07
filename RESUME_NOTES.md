@@ -3561,3 +3561,11 @@ LoRA/Adapter 자체가 시간축을 강제하는 것은 아니다. 단일 관측
 후속 학습에서는 encoder 원래 가중치도 갱신한다. Perception-based agent get_optimizers는 backbone_lr_mult .1×lr1e-4=1e-5와나머지1e-4;20epoch script다. Perception-free yaml 기본freeze_encoder:true를 실제train script가false로 override하며40epoch/Adam전체1e-4다. 논문perception-free MSE와공개코드 length-normalized L1 차이도 있어 loss를둘에서완전히동일하다고설명하지않는다.
 우리 Adapter는 공개LPWM→NAVSIM SSL20epoch→native고정/Adapter+command+planner갱신 및SSL보조유지다. 단계적전이는유사하지만 SSL목표(latent JEPA vsRGB복원/예측),가중치갱신범위,planner입력(encoderfeatures vs명시적particle rollout)이 다르다.
 웹논문은열람성공;개별GitHub웹blob은cache miss였으나같은파일을로컬공식clone에서직접확인했다. 학습/대기열/등록소스변경이나새평가없음.
+
+## 2026-10-08 08:13 KST — 두 학습 중간보고
+
+본학습5,437/40,350(3.369epoch),Adapter12,178/14,121(2.587epoch),GPU0·1 각각37.05GB. 재개후본학습353/Adapter479기록의양rank loss유한,본학습5,400의18gradient그룹유한양수,Adapterencoder/context/dynamics/planner gradient유한양수. RGBdecoder는원래고정이다.
+기존본학습875422/queue875423/monitor875424,Adapter1212507/queue1208639,복원watcher967796 호스트실행확인. 샌드박스ps에서는PID가보이지않아호스트읽기전용재확인했다.
+새평가점수는없음. 공통navtest1,024scene/44recording에서는기존Adapter9414 PDMS81.6141/ADE1.1632/FDE2.7367,LoRA5400 PDMS81.6096/ADE2.3644/FDE5.4760. Adapter내부dev1epoch82.4852→2epoch83.5279는별도패널이다.
+최근50–200회벽시계속도본학습84.79–88.15초/Adapter3.63–3.69초. 5500경계09:42–09:46,Adapterepoch3학습10:11–10:13KST외삽이며진단양보·평가시간별도. 본학습의34일내부ETA는병행micro4속도를그대로외삽하므로예정batch16복원후ETA로사용하지않는다.
+Particle최신5000진단은평균중심2.277입력px/크기14.084%변화,F1.43893이며다음5500대기. 실행·설정변경없이 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0814.json`과인수인계에기록했다.

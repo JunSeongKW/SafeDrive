@@ -1,0 +1,420 @@
+{
+  "checked_at_kst": "2026-10-08T08:13:14.097362+09:00",
+  "runs": {
+    "primary": {
+      "progress": {
+        "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+        "benchmark": "navsim_v1",
+        "execution_sha256": "14f6c593f9cb26f51f1d1794aa2220c7d5fed5803d4b1c4807118cbd18fe66ac",
+        "execution_overrides": {
+          "microbatch_per_gpu": 4,
+          "loader_workers_per_rank": 2,
+          "oracle_workers_per_rank": 16
+        },
+        "runtime_optimizations": {
+          "sdpa_training": false,
+          "batched_gradient_finite_check": true
+        },
+        "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+        "training_scene_count": 103288,
+        "updates_per_epoch": 1614,
+        "total_updates": 40350,
+        "completed_updates": 5437,
+        "epoch": 4,
+        "rank_scene_tokens_sha256": "a0ecc66d1b1347688a3c0001f7a82806e77f1bcff3366a6200496b310494778e",
+        "update_in_epoch": 595,
+        "seconds_this_update": 89.85798621177673,
+        "elapsed_seconds": 30004.859503507614,
+        "card_used_bytes": 37052481536,
+        "peak_reserved_bytes": 11767119872,
+        "gradient_norms": null,
+        "timing_seconds": {
+          "between_updates_including_sync_and_data": 0.0010807514190673828,
+          "forward": 26.1603364944458,
+          "oracle": 6.1689441204071045,
+          "backward": 55.66115713119507
+        },
+        "learning_rates": [
+          0.00019754148217571222,
+          0.00019754148217571222
+        ],
+        "loss": 2.720446765422821,
+        "trajectory_loss": 1.0426372662186623,
+        "final_score_loss": 1.6778095066547394,
+        "score": 0.8442089781165123,
+        "best_score": 0.994032509624958,
+        "estimated_remaining_seconds": 2967591.124163513
+      },
+      "progress_age_seconds": 53.36774039268494,
+      "epoch_fraction": 3.368649318463445,
+      "ranks": {
+        "0": {
+          "updates_recorded": 353,
+          "latest_update": 5437,
+          "nonfinite_loss_updates": [],
+          "recent_200_mean_loss": 2.8791508459299804,
+          "recent_200_max_card_gb": 37.052481536,
+          "last_50_wall_seconds_per_update": 88.14614297905747,
+          "last_100_wall_seconds_per_update": 86.18612912447766,
+          "last_200_wall_seconds_per_update": 84.78715602836417,
+          "latest_gradient_update": 5400,
+          "latest_gradients": {
+            "particle_interaction_lora": 0.3677708579567162,
+            "context_prior_lora": 0.08882420411170187,
+            "particle_dynamics_lora": 0.30516489528550317,
+            "particle_xy_head_lora": 0.31471498578582935,
+            "particle_scale_xy_head_lora": 0.1805310726410046,
+            "particle_obj_on_head_lora": 0.04126748256134989,
+            "current_prior_cnn_lora": 0.5360815442457361,
+            "current_attribute_cnn_lora": 0.514040947235576,
+            "appearance_encoder_lora": 0.4383053881898198,
+            "background_appearance_lora": 0.36981880301984815,
+            "interaction_visual_and_output_lora": 0.9816813582147071,
+            "context_prior_projection_and_output_lora": 0.21571321752409,
+            "dynamics_projection_and_ffn_lora": 0.5492635955728964,
+            "future_particle_heads_lora": 0.4463482473014111,
+            "encoder_command": 0.21462894470491842,
+            "scene_projection": 1.217280373715012,
+            "trajectory_generator": 6.178172321842947,
+            "scorer": 1.342790298548244
+          }
+        },
+        "1": {
+          "updates_recorded": 353,
+          "latest_update": 5437,
+          "nonfinite_loss_updates": [],
+          "recent_200_mean_loss": 2.851776647642255,
+          "recent_200_max_card_gb": 37.053530112,
+          "last_50_wall_seconds_per_update": 88.1460329999729,
+          "last_100_wall_seconds_per_update": 86.18606663954378,
+          "last_200_wall_seconds_per_update": 84.78711315615094,
+          "latest_gradient_update": 5400,
+          "latest_gradients": {
+            "particle_interaction_lora": 0.3677708579567162,
+            "context_prior_lora": 0.08882420411170187,
+            "particle_dynamics_lora": 0.30516489528550317,
+            "particle_xy_head_lora": 0.31471498578582935,
+            "particle_scale_xy_head_lora": 0.1805310726410046,
+            "particle_obj_on_head_lora": 0.04126748256134989,
+            "current_prior_cnn_lora": 0.5360815442457361,
+            "current_attribute_cnn_lora": 0.514040947235576,
+            "appearance_encoder_lora": 0.4383053881898198,
+            "background_appearance_lora": 0.36981880301984815,
+            "interaction_visual_and_output_lora": 0.9816813582147071,
+            "context_prior_projection_and_output_lora": 0.21571321752409,
+            "dynamics_projection_and_ffn_lora": 0.5492635955728964,
+            "future_particle_heads_lora": 0.4463482473014111,
+            "encoder_command": 0.21462894470491842,
+            "scene_projection": 1.217280373715012,
+            "trajectory_generator": 6.178172321842947,
+            "scorer": 1.342790298548244
+          }
+        }
+      },
+      "next_target": 5500,
+      "next_target_eta_kst_at_recent_speeds": [
+        "2026-10-08T09:45:47.304370+09:00",
+        "2026-10-08T09:43:43.823497+09:00",
+        "2026-10-08T09:42:15.688192+09:00"
+      ]
+    },
+    "adapter": {
+      "progress": {
+        "completed_updates": 12178,
+        "epoch_fraction": 2.587210537497344,
+        "target_updates": 14121,
+        "planning_loss": 6.362141370773315,
+        "world_objective": 18.571927070617676,
+        "loss": 6.733579874038696,
+        "gradient_groups": {
+          "image_encoder": 0.23199677467346191,
+          "context": 2.943190336227417,
+          "dynamics": 2.8186919689178467,
+          "rgb_decoder": 0.0,
+          "planner_and_command": 4.835963726043701
+        },
+        "gradient_norm_before_clip": 6.328330039978027,
+        "gradient_clip": 5,
+        "learning_rates": [
+          1.000001022610891e-06,
+          3.0000030678326728e-05
+        ],
+        "seconds_this_update": 2.816365326056257,
+        "extension_elapsed_seconds": 29772.972578078043,
+        "card_used_bytes": 37052481536,
+        "peak_reserved_bytes": 24159191040,
+        "peak_allocated_bytes": 23950392832,
+        "updated_unix": 1791414793.573044
+      },
+      "progress_age_seconds": 0.7073094844818115,
+      "epoch_fraction": 2.587210537497344,
+      "ranks": {
+        "0": {
+          "updates_recorded": 479,
+          "latest_update": 12178,
+          "nonfinite_loss_updates": [],
+          "recent_200_mean_loss": 6.438531106710434,
+          "recent_200_max_card_gb": 37.052481536,
+          "last_50_wall_seconds_per_update": 3.627542544384392,
+          "last_100_wall_seconds_per_update": 3.6886969720474396,
+          "last_200_wall_seconds_per_update": 3.6920959937512574,
+          "latest_gradient_update": 12178,
+          "latest_gradients": {
+            "image_encoder": 0.23199677467346191,
+            "context": 2.943190336227417,
+            "dynamics": 2.8186919689178467,
+            "rgb_decoder": 0.0,
+            "planner_and_command": 4.835963726043701
+          }
+        },
+        "1": {
+          "updates_recorded": 479,
+          "latest_update": 12178,
+          "nonfinite_loss_updates": [],
+          "recent_200_mean_loss": 6.438531106710434,
+          "recent_200_max_card_gb": 37.053530112,
+          "last_50_wall_seconds_per_update": 3.6275709648521577,
+          "last_100_wall_seconds_per_update": 3.6887246117447363,
+          "last_200_wall_seconds_per_update": 3.692132510132526,
+          "latest_gradient_update": 12178,
+          "latest_gradients": {
+            "image_encoder": 0.23199677467346191,
+            "context": 2.943190336227417,
+            "dynamics": 2.8186919689178467,
+            "rgb_decoder": 0.0,
+            "planner_and_command": 4.835963726043701
+          }
+        }
+      },
+      "next_target": 14121,
+      "next_target_eta_kst_at_recent_speeds": [
+        "2026-10-08T10:10:42.412526+09:00",
+        "2026-10-08T10:12:41.235579+09:00",
+        "2026-10-08T10:12:47.839878+09:00"
+      ]
+    }
+  },
+  "representation_monitor": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 5437,
+    "last_evaluated_update": 5000,
+    "next_milestone": 5500,
+    "active_update": null,
+    "updated_unix": 1791414785.8335912,
+    "controller": "scripts/monitor_lpwm_particle_trends_every500.py",
+    "interval_updates": 500,
+    "chat_notification_sent": false
+  },
+  "adapter_queue": {
+    "queue_pid": 1208639,
+    "started_unix": 1791412943.5995626,
+    "stage": "epoch03_training",
+    "heartbeat_unix": 1791414790.9707248,
+    "completed_epoch": 2,
+    "evaluation_means": {
+      "trained": {
+        "ade_meters": 1.1433347182210127,
+        "fde_meters": 2.7021014553038185,
+        "pdms": 0.8352786307966558,
+        "metric_bce": 1.7431019656104743
+      },
+      "persistent_future": {
+        "ade_meters": 1.2064022409285826,
+        "fde_meters": 2.886066978634517,
+        "pdms": 0.8042104571006907,
+        "metric_bce": 1.8944207231106418
+      }
+    },
+    "delta_from_epoch1": {
+      "pdms": {
+        "mean_difference": 0.010426669831257259,
+        "ci95": [
+          0.001715525498275881,
+          0.020117356619998673
+        ],
+        "clips": 1021,
+        "recordings": 40
+      },
+      "ade_meters": {
+        "mean_difference": -0.011796346909250133,
+        "ci95": [
+          -0.038099440573646816,
+          0.014420026802936466
+        ],
+        "clips": 1024,
+        "recordings": 40
+      },
+      "fde_meters": {
+        "mean_difference": -0.05461554057910689,
+        "ci95": [
+          -0.11489568108756627,
+          0.00979017784135228
+        ],
+        "clips": 1024,
+        "recordings": 40
+      },
+      "metric_bce": {
+        "mean_difference": -0.04554694543622733,
+        "ci95": [
+          -0.052358097296227965,
+          -0.03831789565307443
+        ],
+        "clips": 1021,
+        "recordings": 40
+      }
+    },
+    "pending": "epoch03_training",
+    "card_used_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "child_pid": 1212507,
+    "admitted_external_processes": [],
+    "maximum_sampled_card_bytes": {
+      "0": 37052481536,
+      "1": 37053530112
+    },
+    "yielding": false
+  },
+  "primary_batch_restore": {
+    "stage": "waiting_for_adapter_training_and_evaluation",
+    "updated_unix": 1791414777.6208904
+  },
+  "latest_common_evaluation_path": "results/lpwm_shared_navtest_adapter2_primary5400_v1/evaluation_complete.json",
+  "adapter_epoch2_evaluation_path": "results/lpwm_adapter_original_batch_shared_v4/epoch02_summary.json",
+  "limitations": [
+    "Current checkpoint performance has not been newly evaluated.",
+    "Training loss finiteness does not prove validation improvement.",
+    "ETAs extrapolate recent concurrent speed; diagnostics and evaluations add time.",
+    "Primary long-run ETA must account for scheduled batch16 restoration after Adapter evaluation."
+  ],
+  "latest_particle_diagnostic": {
+    "completed_updates": 5000,
+    "previous_diagnostic_updates": 4842,
+    "center_mean_from_initial_px": 2.276955782120581,
+    "center_max_from_initial_px": 21.910694122314453,
+    "size_mean_from_initial_percent": 14.083756028746372,
+    "presence_mean_from_initial": 0.3023834205509561,
+    "center_mean_from_previous_px": 0.9178436884523459,
+    "size_mean_from_previous_percent": 6.901747561057238,
+    "object_readout_macro_f1": 0.4389321141449438
+  },
+  "latest_common_evaluation": {
+    "scene_count": 1024,
+    "recording_count": 44,
+    "planning_epochs": {
+      "primary": 3.345724907063197,
+      "adapter": 2
+    },
+    "primary_minus_adapter": {
+      "pdms": {
+        "difference": -0.00451458405753713,
+        "confidence_interval_95": [
+          -1.9980576686605673,
+          1.996791372687664
+        ],
+        "recordings": 44,
+        "scenes": 1024
+      },
+      "ade_m": {
+        "difference": 1.2012514753223513,
+        "confidence_interval_95": [
+          1.0390518728107083,
+          1.3661775910555127
+        ],
+        "recordings": 44,
+        "scenes": 1024
+      },
+      "fde_m": {
+        "difference": 2.739213031638428,
+        "confidence_interval_95": [
+          2.3623830119688694,
+          3.1281018479523603
+        ],
+        "recordings": 44,
+        "scenes": 1024
+      }
+    },
+    "systems": {
+      "primary": {
+        "completed_updates": 5400,
+        "means": {
+          "no_at_fault_collisions": 0.9755859375,
+          "drivable_area_compliance": 0.9365234375,
+          "ego_progress": 0.7075893514390248,
+          "time_to_collision_within_bound": 0.9345703125,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.96533203125,
+          "score": 0.8160958469509882,
+          "ade_m": 2.3644349616079126,
+          "fde_m": 5.475958034250652,
+          "pdms": 81.60958469509882
+        },
+        "by_scene_type": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 76.28323607368092,
+            "ade_m": 2.690911659459376,
+            "fde_m": 6.537938505411148
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 69.94902062788603,
+            "ade_m": 2.4290953672594493,
+            "fde_m": 5.930846405029297
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 84.41314211747778,
+            "ade_m": 2.271547729227385,
+            "fde_m": 5.144106233570418
+          }
+        }
+      },
+      "adapter": {
+        "completed_updates": 9414,
+        "means": {
+          "no_at_fault_collisions": 0.9658203125,
+          "drivable_area_compliance": 0.923828125,
+          "ego_progress": 0.760722506000345,
+          "time_to_collision_within_bound": 0.9052734375,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.939453125,
+          "score": 0.8161409927915636,
+          "ade_m": 1.1631834862855612,
+          "fde_m": 2.736745002612224,
+          "pdms": 81.61409927915636
+        },
+        "by_scene_type": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 75.63995565218184,
+            "ade_m": 1.6142414243110104,
+            "fde_m": 3.934884476499545
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 73.82546827135118,
+            "ade_m": 2.027850619951884,
+            "fde_m": 4.990536662605074
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 84.11610536648233,
+            "ade_m": 0.9406811596069098,
+            "fde_m": 2.150939108064843
+          }
+        }
+      }
+    }
+  },
+  "host_process_check": {
+    "primary_trainer": 875422,
+    "primary_queue": 875423,
+    "particle_monitor": 875424,
+    "adapter_queue": 1208639,
+    "adapter_trainer": 1212507,
+    "primary_batch_restore_watcher": 967796,
+    "all_listed_processes_alive": true
+  }
+}

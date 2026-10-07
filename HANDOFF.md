@@ -1,5 +1,11 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 08:13 KST — 두 학습 진행 확인, 새 평가 점수 없음.**
+본학습5,437/40,350(3.369epoch), Adapter12,178/14,121(2.587epoch). GPU0·1 각37.05GB, 재개후 양rank 비유한loss0; 본학습5,400의18gradient그룹 유한양수, Adapter encoder/context/dynamics/planner gradient 정상.
+공통navtest1,024장면 최신 결과는 기존LoRA5,400의81.6096/Adapter2epoch81.6141이다. Adapter내부dev1→2epoch82.4852→83.5279와 구분한다.
+최근50–200update 실측 본학습84.79–88.15초/Adapter3.63–3.69초. 5,500진단 경계09:42–09:46,Adapter3epoch 학습10:11–10:13KST 외삽이며 진단양보·평가시간 별도.
+기존 trainer/queue/monitor와batch16복원watcher 정상. Snapshot `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0814.json`. 이번 조회에서 실행 변경 없음.
+
 **2026-10-08 07:46 KST — 공통1,024 navtest장면 비교 완료: Adapter2epoch81.6141 vs LoRA5,400update81.6096.**
 두학습및Stage1과token/recording중복없는44recording/1,024scene,동일공식NAVSIMv1 scorer와8×.5s출력/40×.1s시뮬레이션. 양모델실패0.
 LoRA−Adapter PDMS−.004515점,대응recording95%CI[−1.9981,+1.9968]. 우열근거없음이며통계적동등성입증으로부르지않는다.
@@ -328,7 +334,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 08:10 KST (Codex)
+마지막 갱신: 2026-10-08 08:14 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -495,6 +501,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+08:13조회: 본학습875422/5,437, Adapter1212507/12,178(원래queue1208639), 본학습queue875423/monitor875424,복원watcher967796 모두호스트에서실행확인. Mainmicro4×acc8×GPU2/Adapterbatch8×GPU2 유지.
 
 2026-10-08 08:09 KST: Drive-JEPA의 사전학습/후속 planner 학습을 논문v2와 공식 로컬 코드로 조사했다. 현재 LPWM 두 학습과 대기열은 변경하지 않았다.
 
@@ -1076,6 +1084,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+08:13: 새PDMS/표현진단없음. 공통navtest1,024장면 LoRA5400 PDMS81.6096/ADE2.3644/FDE5.4760,Adapter9414 PDMS81.6141/ADE1.1632/FDE2.7367. Particle최신5,000: 중심2.277px/크기14.084%변화,F1.43893. 학습진행/gradient정상과새성능향상은구분한다.
 
 Drive-JEPA도 공개 V-JEPA2 초기화→주행 영상 SSL 적응→planner 학습 순서다. 논문2601.22032v2 §3.2/4.2: CoVLA/DrivingDojo/OpenScene trainval 약330h,8frame512×256/2Hz,50epoch latent JEPA 사전학습; 후속 full planner20epoch,ViT1e-5/planner1e-4. 공식 perception-based optimizer는 backbone_lr_mult=.1로 원래 encoder 전체를 갱신한다. Perception-free yaml의freeze_encoder:true 기본값만 보고 고정이라고 답하면 틀림: 실제 train script가false로 override하며40epoch/Adam전체1e-4다. 로컬repo548bb8215e3aae18e162a0f12f1ba83b4d3eb57e. 이전 LPWM Adapter는 native고정+Adapter/command/planner 및SSL유지로 다르다.
 
@@ -1897,11 +1907,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Drive-JEPA 논문v2와 공식 구현에서 주행 영상 SSL 사전학습 후 planner 학습 및 encoder 원래 가중치 공동 미세조정을 확인했다.
-- Perception-free 설정 기본값과 실제 실행 override를 구분하고, perception-based의encoder/planner 학습률1:10 및 우리 Adapter native고정과 차이를 기록했다.
-- HANDOFF/RESUME_NOTES만 변경했으며 현재 학습/평가 코드는 수정하지 않았다.
+- 두 학습의 실제 progress/양rank loss·gradient/호스트 process/GPU메모리/queue/복원watcher를 확인하고 중간보고 JSON을 보존했다.
+- 완료된 공통navtest부분집합 점수와Adapter내부dev 상승을 구분했다. 새checkpoint평가가 없음을 명시하고 최신particle진단/근접ETA를 기록했다.
+- 학습 코드·설정·배치·대기열은 변경하지 않았다. HANDOFF/RESUME_NOTES와 조회결과만 갱신했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존5,500표현진단과Adapter3epoch→dev검증→본학습batch16자동복원을 유지한다. 현재속도외삽:5,500은09:42–09:46/Adapter학습10:11–10:13KST,진단양보·평가는별도. 본학습 장기ETA는 예정batch복원을 반영해야 한다.
 
 Drive-JEPA 학습 단계 설명은 참고 조사다. 현재 실행을 Drive-JEPA 방식으로 전환하거나 새 실험을 등록하지 않았다.
 
@@ -2411,6 +2423,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번중간보고의실측시점08:13KST,새학습/평가/튜닝요청없음. 최신공통PDMS는본학습5400/Adapter9414저장본의점수이며현재5437/12178가중치점수로표시하지않는다. 동일평가장면이어도입력·planner·학습이력이다르다.
 
 Drive-JEPA의2단계 전이는 확인되지만 우리 Adapter와 동일학습은 아니다. Native encoder 전체 fine-tuning과 Adapter 적응을 구분하며 Drive-JEPA YAML의freeze 기본값을 실제학습으로 오해하지 않는다.
 
