@@ -686,3 +686,39 @@ GPU당16×누적2×2GPU=유효64, loader2/oracle8/rank, 전체카드 약40.325GB
 [수치·paired 비교·실행 검사](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/report.json),
 [PDMS 추세 및 상황별 그림](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/pdms_progress_and_scenarios.png),
 [particle 전후 및 겹침](../results/lpwm_drivor_planning_path_lora_v1/intermediate_epoch2_20261007/particles_before_after_and_overlay_update3228.png).
+
+## 2026-10-07 13:16 KST — 학습이 유의미한가: 3,500-update 점검
+
+학습 건강과 실제 연구 가설을 구분해 판단했다. 3,611/40,350update /epoch3,
+warmup3,322 이후289update다. 양rank 전체로그의 비유한 loss0 /모든18gradient그룹 양수 /
+native weights 및 원래279·실행283 sourcehash를 유지했다. 고정100update 평균 loss는
+1601–1700의4.2387에서3401–3500의3.1447,3501–3600의3.1845다.
+서로 다른 배치·online oracle 목표이므로 고정 표본에서의 loss 개선 검사로 해석하지 않는다.
+
+같은95학습장면의 공식 PDMS는 첫epoch67.9864 /3,000의74.9063 /3,228의74.5770 /
+3,500의75.9039다. 첫epoch 대비+7.9175점,recording paired bootstrap95%CI[+.7954,+15.2071].
+3,228 대비+1.3270점,CI[−4.0242,+7.1940]로 최근의 작은 상승은 불확실하다.
+직진85.0882/좌69.8856/우67.7371. NC.9526/DAC.9053/TTC.9368,
+expertADE1.9652m. 공식평가 실패0 /재생12baseline ADE차이0 /카드최대41.2615GB.
+
+3,500에서 초기대비 중심1.8472px/크기18.0046%,appearance객체판독macroF1.3828.
+차량 중심비율9.16% /도로proxy19.09%로, 주행 대상에 집중적인 재배치를 확정하지 않는다.
+2초 미래 변위 readout current4.0642m/future4.0407m,4초 current8.3643m/future8.2165m이다.
+미래−현재 차이 CI는 각각[−.1501,+.0678]m/[−.5339,+.1815]m로0을 포함하며,
+zero-displacement control3.3339m/6.7270m보다 높다. 실제 미래정보 보존 개선은 여전히 미확인이다.
+
+이번에 새로 관측한 긍정적인 신호는 **미래 분기 개입**이다. 같은12장면에서 future attributes를
+현재attributes의 반복으로 대체했을 때, 원래 결과보다 selected trajectory의 학습용 oracle score가
+평균 .08464 하락(CI[−.19601,−.00279]),GT ADE는 .48065m 증가(CI[+.14065,+.83918])했다.
+Fixed candidate의 oracle score도 .04245 하락했다. 이 oracle 값의 차이를 공식 PDMS 점수 차이로 부르지 않는다.
+12recording/300bootstrap이며,12장면·분포 밖 대체·여러checkpoint와여러개입의 반복검사 한계가 있다.
+탐색적인 미래분기 활용 신호로 해석하며, 안정적 인과 효과나 정확한 물리적 미래 예측의 증거로 확정하지 않는다.
+
+현재 목적은 DrivoR와 같은 planning 중심의 공동학습이며,RGB복원·미래정합SSL을 직접 최적화하지 않는다.
+따라서 dynamics 출력이 planner에 유용한 표현으로 변할 수 있지만, 실제 미래 상태와 일치하도록 직접 제약되지 않는다.
+또한 planner와LPWM을 같이 학습하므로 PDMS 개선을 LPWM 미세조정만의 효과로 분리할 수 없다.
+**학습 진행과 training-panel planning 개선은 확인되며, 핵심 미래표현 가설은 아직 미확정**이라는 판단이다.
+기존25epoch본학습·정기검증·queue를 유지하고4,000update/epoch3경계에서 이 신호의 지속성을 확인한다.
+기존모델·loss·source/config를 변경하거나 새중단gate를 추가하지 않았다.
+
+[학습 상태·판독·개입·공식PDMS의 통합 근거](../results/lpwm_drivor_planning_path_lora_v1/learning_meaningfulness_update3500_20261007/assessment.json).

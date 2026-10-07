@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 13:16 KST — 학습의 유의미성 점검 /3,500 진단·PDMS 완료.**
+본학습3,611/40,350 epoch3, 양rank 비유한loss0/18gradient그룹 양수/279·283등록source 유지.
+동일95학습장면PDMS75.9039,첫epoch67.9864대비+7.9175(CI[+.7954,+15.2071]);최근3228대비+1.3270은CI0포함.
+직진85.0882/좌69.8856/우67.7371. 미래를현재attribute로대체하는12장면검사에서oracle score−.08464/ADE+.48065m.
+이는 미래분기 활용의 초기 신호이며 실제 미래정확도·LPWM단독기여·일반화의 증거와 구분한다.
+Geometry1.847px/18.005%,appearance판독F1.3828. Planning-only 목적이므로 물리적미래정합을직접감독하지않음.
+25epoch본학습·500/epoch진단·후속queue 유지. [수치·해석·학습 검사](results/lpwm_drivor_planning_path_lora_v1/learning_meaningfulness_update3500_20261007/assessment.json).
+
 **2026-10-07 12:05 KST — 두 번째 epoch 검증 완료.**
 정확3,228update의동일95학습장면 공식PDMS74.5770,3,000의74.9063과비슷함(CI[−5.4792,+4.9164]).
 직진85.4551/좌71.8971/우59.3433;우회전은직전66.9380보다낮아상황별추세를계속확인한다.

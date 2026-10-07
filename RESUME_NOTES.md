@@ -3102,3 +3102,24 @@ V1학습완료10월17일06–09시KST외삽이며최종평가·V2시간별도. �
 Train3144180/queue3144181/500monitor3144182/CPUoverlay2507743생존;batch16/accum2/GPU2/loader2/oracle8유지.
 본학습source/config/대기열/monitor/25epoch계획변경없음. 새 PDMS는완료했고GPU해제,새baseline은미기동.
 Sandbox NVML 실패는호스트query재시도에서정상응답했고실제GPU0·1각40.325GB. 드라이버장애로해석하지않음.
+
+## 2026-10-07 13:16 KST — 학습의 유의미성 검사 및3,500 PDMS
+
+사용자질문에맞춰최신3500표현진단·전체양rank로그·planning-only목적을확인했다.
+양rank3611로그비유한loss0/nativehash한개,최근18개gradient그룹모두유한·양수. Source279/283hash일치.
+GPU0에서저장된attributes의동일checkpoint planner재생/CPU2workers로공식95PDMS일회평가를완료했다.
+PDMS75.9039356,직진85.088196/좌69.885614/우67.737059,expertADE1.965246m/NC.952632/DAC.905263/TTC.936842.
+첫epoch대비+7.917519 CI[+.795418,+15.207135],3000대비+.997663 CI[−6.549471,+8.457738],3228대비+1.326981 CI[−4.024176,+7.194000].
+동일95training scene/24recording/5000bootstrap/seed71이며navtest/일반화검증아님. 실패0/재생12ADE차이0/카드최대41.261466GB.
+새3,500신호:12scene future-repeat-current selectedoracle score−.084639 CI[−.196006,−.002792],fixedcandidate−.042448 CI[−.119362,−.001258].
+ADE+.480654m CI[+.140652,+.839179]. 미래분기에대한의존/활용초기신호로해석하며물리적미래정확도증명과구분한다.
+이oracle변화를공식PDMS의8.46점하락으로부르지않음. 300bootstrap/OOD대체/12scene/반복검사한계명시.
+Geometry초기대비1.847200px/18.004615%,appearanceF1.382788/wholeF1.426689.
+차량중심9.1634%/도로proxy19.0872%.2s current/future4.064171/4.040740,4s8.364325/8.216459m.
+Readout차이CI0포함/zero-displacement보다높은오차. 정확한미래정보보존향상과planning효용의안정적이득미확정.
+현재 planning-only loss이므로 미래 상태 정합을 직접 감독하지 않음. Planner+LPWM 공동학습의 전체 PDMS 향상과 LPWM 단독 효과는 미분리.
+Rank0 rolling100 loss4.238733(1601–1700)→3.144724(3401–3500)/3.184487(3501–3600),상이한batch/online목표한계.
+13:16:31학습3611/40350 epoch3/약2.24epoch, warmup이후289update. 기존25epoch계획·queue·500진단유지.
+새source/config/목표/학습조건변경없음. 추가일회PDMS는종료·GPU해제,새baseline/실험조건미기동.
+통합 results/lpwm_drivor_planning_path_lora_v1/learning_meaningfulness_update3500_20261007/에 assessment script/수치/등록/officialscore 보존.
+학습의 정상 진행·planning 개선·미래분기 활용 신호는 보고하되 미래 정확도/LPWM 단독 기여/heldout 일반화 결론은 보류.

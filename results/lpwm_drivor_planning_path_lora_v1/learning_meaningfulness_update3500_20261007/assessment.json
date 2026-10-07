@@ -1,0 +1,1852 @@
+{
+  "checked_at": "2026-10-07T13:16:31.998585+09:00",
+  "progress": {
+    "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "01bdb7c514e71388421073ea37d3811613d1a7cd9642b0a78210106172b1c597",
+    "execution_overrides": {
+      "microbatch_per_gpu": 16,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+    "training_scene_count": 103288,
+    "updates_per_epoch": 1614,
+    "total_updates": 40350,
+    "completed_updates": 3611,
+    "epoch": 3,
+    "update_in_epoch": 383,
+    "seconds_this_update": 23.59018349647522,
+    "elapsed_seconds": 10619.352971315384,
+    "card_used_bytes": 40325087232,
+    "peak_reserved_bytes": 39745224704,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0006654262542724609,
+      "forward": 6.375843524932861,
+      "oracle": 2.686479330062866,
+      "backward": 14.254515409469604
+    },
+    "learning_rates": [
+      0.00019995391044128237,
+      0.00019995391044128237
+    ],
+    "loss": 3.2910808324813843,
+    "trajectory_loss": 1.1126288175582886,
+    "final_score_loss": 2.1784520149230957,
+    "score": 0.737543910741806,
+    "best_score": 0.9352731704711914,
+    "estimated_remaining_seconds": 863151.3748179897
+  },
+  "training_checks": {
+    "0": {
+      "last_logged_update": 3611,
+      "nonfinite_loss_rows": 0,
+      "native_digests": [
+        "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+      ]
+    },
+    "1": {
+      "last_logged_update": 3611,
+      "nonfinite_loss_rows": 0,
+      "native_digests": [
+        "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+      ]
+    }
+  },
+  "gradient_samples": {
+    "0": {
+      "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+      "benchmark": "navsim_v1",
+      "execution_sha256": "01bdb7c514e71388421073ea37d3811613d1a7cd9642b0a78210106172b1c597",
+      "execution_overrides": {
+        "microbatch_per_gpu": 16,
+        "loader_workers_per_rank": 2,
+        "oracle_workers_per_rank": 8
+      },
+      "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+      "training_scene_count": 103288,
+      "updates_per_epoch": 1614,
+      "total_updates": 40350,
+      "completed_updates": 3600,
+      "epoch": 3,
+      "update_in_epoch": 372,
+      "seconds_this_update": 22.47136902809143,
+      "elapsed_seconds": 10364.799711227417,
+      "card_used_bytes": 40325087232,
+      "peak_reserved_bytes": 39745224704,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.2054704569067602,
+        "context_prior_lora": 0.05951374325659952,
+        "particle_dynamics_lora": 0.182799679448635,
+        "particle_xy_head_lora": 0.4323649838496504,
+        "particle_scale_xy_head_lora": 0.1755982958528134,
+        "particle_obj_on_head_lora": 0.021285710025016773,
+        "current_prior_cnn_lora": 0.6301361030701229,
+        "current_attribute_cnn_lora": 0.5781167325463419,
+        "appearance_encoder_lora": 0.4501777900419339,
+        "background_appearance_lora": 0.4011730381442165,
+        "interaction_visual_and_output_lora": 0.6804591550669922,
+        "context_prior_projection_and_output_lora": 0.1723380544061389,
+        "dynamics_projection_and_ffn_lora": 0.5230309651280262,
+        "future_particle_heads_lora": 0.32654241451945226,
+        "encoder_command": 0.2100812767857,
+        "scene_projection": 1.8403378906824723,
+        "trajectory_generator": 11.332850722527155,
+        "scorer": 1.9492664281621404
+      },
+      "timing_seconds": {
+        "between_updates_including_sync_and_data": 0.0009093284606933594,
+        "forward": 6.3817853927612305,
+        "oracle": 2.451690196990967,
+        "backward": 13.367985963821411
+      },
+      "learning_rates": [
+        0.00019995735197267202,
+        0.00019995735197267202
+      ],
+      "loss": 3.809611201286316,
+      "trajectory_loss": 1.4062660336494446,
+      "final_score_loss": 2.4033451080322266,
+      "score": 0.7311096489429474,
+      "best_score": 0.9974490702152252,
+      "estimated_remaining_seconds": 863733.3360115688
+    },
+    "1": {
+      "configuration_sha256": "c80925c3f412f61727b371702d4e1e6bc752ac27c91be6e77549dee70ec1fd71",
+      "benchmark": "navsim_v1",
+      "execution_sha256": "01bdb7c514e71388421073ea37d3811613d1a7cd9642b0a78210106172b1c597",
+      "execution_overrides": {
+        "microbatch_per_gpu": 16,
+        "loader_workers_per_rank": 2,
+        "oracle_workers_per_rank": 8
+      },
+      "frozen_native_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+      "training_scene_count": 103288,
+      "updates_per_epoch": 1614,
+      "total_updates": 40350,
+      "completed_updates": 3600,
+      "epoch": 3,
+      "update_in_epoch": 372,
+      "seconds_this_update": 22.43204116821289,
+      "elapsed_seconds": 10364.75329375267,
+      "card_used_bytes": 40325087232,
+      "peak_reserved_bytes": 39745224704,
+      "gradient_norms": {
+        "particle_interaction_lora": 0.2054704569067602,
+        "context_prior_lora": 0.05951374325659952,
+        "particle_dynamics_lora": 0.182799679448635,
+        "particle_xy_head_lora": 0.4323649838496504,
+        "particle_scale_xy_head_lora": 0.1755982958528134,
+        "particle_obj_on_head_lora": 0.021285710025016773,
+        "current_prior_cnn_lora": 0.6301361030701229,
+        "current_attribute_cnn_lora": 0.5781167325463419,
+        "appearance_encoder_lora": 0.4501777900419339,
+        "background_appearance_lora": 0.4011730381442165,
+        "interaction_visual_and_output_lora": 0.6804591550669922,
+        "context_prior_projection_and_output_lora": 0.1723380544061389,
+        "dynamics_projection_and_ffn_lora": 0.5230309651280262,
+        "future_particle_heads_lora": 0.32654241451945226,
+        "encoder_command": 0.2100812767857,
+        "scene_projection": 1.8403378906824723,
+        "trajectory_generator": 11.332850722527155,
+        "scorer": 1.9492664281621404
+      },
+      "timing_seconds": {
+        "between_updates_including_sync_and_data": 0.021517276763916016,
+        "forward": 5.969754695892334,
+        "oracle": 2.377495288848877,
+        "backward": 13.851629734039307
+      },
+      "learning_rates": [
+        0.00019995735197267202,
+        0.00019995735197267202
+      ],
+      "loss": 3.223826766014099,
+      "trajectory_loss": 1.0719136595726013,
+      "final_score_loss": 2.151913106441498,
+      "score": 0.7020279467105865,
+      "best_score": 0.9337214231491089,
+      "estimated_remaining_seconds": 863729.4596632321
+    }
+  },
+  "source_registration_checks": {
+    "registration.json": {
+      "source_count": 279,
+      "mismatches": []
+    },
+    "oracle8_execution_registration.json": {
+      "source_count": 283,
+      "mismatches": []
+    }
+  },
+  "loss_windows": {
+    "0": {
+      "1601-1700": {
+        "loss": 4.238733282089234,
+        "trajectory_loss": 1.813054177548204,
+        "final_score_loss": 2.425679109011378
+      },
+      "2901-3000": {
+        "loss": 3.3313360834121704,
+        "trajectory_loss": 1.2047858002781868,
+        "final_score_loss": 2.126550275683403
+      },
+      "3401-3500": {
+        "loss": 3.1447242450714112,
+        "trajectory_loss": 1.0962809130549431,
+        "final_score_loss": 2.048443331122398
+      },
+      "3501-3600": {
+        "loss": 3.1844867885112764,
+        "trajectory_loss": 1.1052845513820648,
+        "final_score_loss": 2.0792022424936296
+      }
+    },
+    "1": {
+      "1601-1700": {
+        "loss": 4.245488887514386,
+        "trajectory_loss": 1.82006202259234,
+        "final_score_loss": 2.4254268687963485
+      },
+      "2901-3000": {
+        "loss": 3.3652064311504364,
+        "trajectory_loss": 1.2174116706848144,
+        "final_score_loss": 2.147794758677483
+      },
+      "3401-3500": {
+        "loss": 3.141924877166748,
+        "trajectory_loss": 1.102080951333046,
+        "final_score_loss": 2.0398439282178877
+      },
+      "3501-3600": {
+        "loss": 3.1133970016241075,
+        "trajectory_loss": 1.0755691206455231,
+        "final_score_loss": 2.037827889919281
+      }
+    }
+  },
+  "loss_comparison_limitation": "Different training batches and online oracle targets; not a fixed-sample optimization comparison",
+  "official_pdms": {
+    "complete": true,
+    "scope": "Official NAVSIM v1 PDMS on a fixed 95-scene subset of the planning training distribution; not navtest",
+    "scene_count": 95,
+    "recording_count": 24,
+    "excluded_missing_cache_tokens": [
+      "20c5f1c678e7548a"
+    ],
+    "rows": [
+      {
+        "completed_updates": 3500,
+        "scene_count": 95,
+        "failed": 0,
+        "pdms": 75.90393562155289,
+        "zero_score_count": 13,
+        "mean_metrics": {
+          "no_at_fault_collisions": 0.9526315789473684,
+          "drivable_area_compliance": 0.9052631578947369,
+          "ego_progress": 0.6416944549172688,
+          "time_to_collision_within_bound": 0.9368421052631579,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.9736842105263158,
+          "score": 0.7590393562155289,
+          "expert_ade_m": 1.9652463812577097
+        },
+        "by_scene_type": {
+          "left_turn": {
+            "count": 30,
+            "pdms": 69.88561414504292
+          },
+          "right_turn": {
+            "count": 24,
+            "pdms": 67.73705938644228
+          },
+          "straight": {
+            "count": 41,
+            "pdms": 85.08819596150295
+          }
+        }
+      }
+    ],
+    "finished_unix": 1791346538.5975587
+  },
+  "paired_pdms_changes": [
+    {
+      "before_update": 1614,
+      "after_update": 3500,
+      "pdms_change": 7.917519152221502,
+      "paired_recording_bootstrap_95_ci": [
+        0.7954176323033224,
+        15.207134776255531
+      ],
+      "recordings": 24,
+      "bootstrap_repeats": 5000,
+      "seed": 71
+    },
+    {
+      "before_update": 3000,
+      "after_update": 3500,
+      "pdms_change": 0.9976630106732698,
+      "paired_recording_bootstrap_95_ci": [
+        -6.549471430535989,
+        8.457738216104264
+      ],
+      "recordings": 24,
+      "bootstrap_repeats": 5000,
+      "seed": 71
+    },
+    {
+      "before_update": 3228,
+      "after_update": 3500,
+      "pdms_change": 1.3269813664377352,
+      "paired_recording_bootstrap_95_ci": [
+        -4.02417560942355,
+        7.193999829607913
+      ],
+      "recordings": 24,
+      "bootstrap_repeats": 5000,
+      "seed": 71
+    }
+  ],
+  "evaluation_replay_checks": {
+    "checks": [
+      {
+        "update": 3500,
+        "token": "409c959993075841",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "4cd5bb8cf4fd52fa",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "c51a60c854c951cf",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "d44dd618a0435337",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "6c08df07d2e35e8d",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "fc01494fa43653b8",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "706395b464525f9d",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "8d709e8b74095ad8",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "0154b4928cde52bb",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "487e3708e7905cde",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "2754ab87df25534c",
+        "ade_difference": 0.0
+      },
+      {
+        "update": 3500,
+        "token": "e909cae9ee81593c",
+        "ade_difference": 0.0
+      }
+    ],
+    "maximum_ade_difference": 0.0,
+    "max_card_used_bytes": 41261465600,
+    "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d"
+  },
+  "representations": [
+    {
+      "update": 0,
+      "metrics": {
+        "completed_updates": 0,
+        "previous_diagnostic_updates": 0,
+        "center_mean_from_initial_px": 0.0,
+        "center_max_from_initial_px": 0.0,
+        "size_mean_from_initial_percent": 0.0,
+        "presence_mean_from_initial": 0.0,
+        "center_mean_from_previous_px": 0.0,
+        "size_mean_from_previous_percent": 0.0,
+        "object_readout_macro_f1": 0.3798587565472067
+      },
+      "readouts": {
+        "object_view_samples": 2974,
+        "fit_samples": 2286,
+        "evaluation_samples": 688,
+        "empty_support_fraction": 0.0,
+        "scope": "Recording-disjoint readout fit/evaluation, both from upstream planning TRAIN distribution. GT association is privileged. No LPWM updates.",
+        "classification": {
+          "gt_roi_geometry_control": {
+            "macro_f1_present_classes": 0.414808390036129,
+            "balanced_accuracy_present_classes": 0.48120623249299727,
+            "per_class_recall": [
+              0.4235294117647059,
+              0.734375,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.5834683954619124,
+              0.6372881355932203,
+              0.023668639053254437
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                180,
+                141,
+                104
+              ],
+              [
+                12,
+                188,
+                56
+              ],
+              [
+                0,
+                5,
+                2
+              ]
+            ]
+          },
+          "particle_current_appearance": {
+            "macro_f1_present_classes": 0.2926103174389712,
+            "balanced_accuracy_present_classes": 0.3413195903361344,
+            "per_class_recall": [
+              0.3905882352941176,
+              0.34765625,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.47293447293447294,
+              0.38611713665943603,
+              0.018779342723004695
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                166,
+                116,
+                143
+              ],
+              [
+                106,
+                89,
+                61
+              ],
+              [
+                5,
+                0,
+                2
+              ]
+            ]
+          },
+          "particle_current_all": {
+            "macro_f1_present_classes": 0.3798587565472067,
+            "balanced_accuracy_present_classes": 0.419438462885154,
+            "per_class_recall": [
+              0.5858823529411765,
+              0.38671875,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.6747967479674797,
+              0.4439461883408072,
+              0.020833333333333332
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                249,
+                90,
+                86
+              ],
+              [
+                60,
+                99,
+                97
+              ],
+              [
+                4,
+                1,
+                2
+              ]
+            ]
+          }
+        },
+        "future_displacement": {
+          "2": {
+            "valid_evaluation_samples": 622,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 3.3339105936144846,
+                "valid_count": 622
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 0.5825068205928345,
+                "valid_count": 622
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 3.8719575662508268,
+                "valid_count": 622
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 3.9376482928091208,
+                "valid_count": 622
+              },
+              "particle_current_all": {
+                "mean_l2_m": 3.935946980230561,
+                "valid_count": 622
+              },
+              "predicted_2s_all": {
+                "mean_l2_m": 3.8933206800304156,
+                "valid_count": 622
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": -0.042626300200145156,
+              "confidence_interval_95": [
+                -0.1347775796126659,
+                0.0667180925961351
+              ],
+              "recordings": 6,
+              "objects": 622
+            }
+          },
+          "4": {
+            "valid_evaluation_samples": 554,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 6.726962394343776,
+                "valid_count": 554
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 1.8459262831979484,
+                "valid_count": 554
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 7.941710784951201,
+                "valid_count": 554
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 8.20283775397255,
+                "valid_count": 554
+              },
+              "particle_current_all": {
+                "mean_l2_m": 8.098582696484701,
+                "valid_count": 554
+              },
+              "predicted_4s_all": {
+                "mean_l2_m": 8.020600580563421,
+                "valid_count": 554
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": -0.07798211592127846,
+              "confidence_interval_95": [
+                -0.29336412407688445,
+                0.17958124873569986
+              ],
+              "recordings": 6,
+              "objects": 554
+            }
+          }
+        }
+      },
+      "distribution": {
+        "scene_count": 96,
+        "vehicle": {
+          "center_fraction": 0.08882649739583333,
+          "presence_weighted_fraction": 0.09492777303118298,
+          "enrichment_ratio_of_sums": 1.1964395467804427
+        },
+        "pedestrian": {
+          "center_fraction": 0.012003580729166666,
+          "presence_weighted_fraction": 0.013347140940671428,
+          "enrichment_ratio_of_sums": 1.1477045342649987
+        },
+        "bicycle": {
+          "center_fraction": 0.0008138020833333334,
+          "presence_weighted_fraction": 0.0007924187642250521,
+          "enrichment_ratio_of_sums": 1.111834921653945
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.18824013157894737,
+          "presence_weighted_fraction": 0.17426483212314595,
+          "enrichment_ratio_of_sums": 0.802006869883048
+        },
+        "road_proxy": {
+          "center_fraction": 0.20032894736842105,
+          "presence_weighted_fraction": 0.1840762173162052,
+          "enrichment_ratio_of_sums": 0.7698885671976241
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.22783717105263157,
+          "presence_weighted_fraction": 0.21040614321335804,
+          "enrichment_ratio_of_sums": 0.7889813761184715
+        },
+        "upper_third_fraction_not_sky_label": 0.361572265625
+      },
+      "future_repeat_current": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": 0.0586542934179306,
+          "confidence_interval_95": [
+            -8.492196599642434e-05,
+            0.17418059284488357
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": 0.14811252554257712,
+          "confidence_interval_95": [
+            0.04489412121474743,
+            0.28364728813370044
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "ade_m_change": {
+          "difference": -0.016761223475138348,
+          "confidence_interval_95": [
+            -0.07120568950970967,
+            0.023946026961008608
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "mean_trajectory_change_m": 0.2868518065661192
+      },
+      "checkpoint": {
+        "complete": true,
+        "completed_updates": 0,
+        "checkpoint_sha256": null,
+        "scene_count": 96,
+        "change_from_initial": null,
+        "seconds": 309.09719467163086,
+        "not_full_navtest": true,
+        "not_independent_planning_validation": true,
+        "counterfactual_commands_have_no_alternative_gt": true,
+        "interventions_can_cause_distribution_shift": true,
+        "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+        "max_diagnostic_reserved_bytes": 673185792
+      }
+    },
+    {
+      "update": 1614,
+      "metrics": {
+        "completed_updates": 1614,
+        "previous_diagnostic_updates": 1500,
+        "center_mean_from_initial_px": 1.2360723921603285,
+        "center_max_from_initial_px": 23.090740203857422,
+        "size_mean_from_initial_percent": 7.714239762943932,
+        "presence_mean_from_initial": 0.22252702359949006,
+        "center_mean_from_previous_px": 0.49932132537874924,
+        "size_mean_from_previous_percent": 2.237159413181333,
+        "object_readout_macro_f1": 0.420516964845237
+      },
+      "readouts": {
+        "object_view_samples": 2974,
+        "fit_samples": 2286,
+        "evaluation_samples": 688,
+        "empty_support_fraction": 0.0,
+        "scope": "Recording-disjoint readout fit/evaluation, both from upstream planning TRAIN distribution. GT association is privileged. No LPWM updates.",
+        "classification": {
+          "gt_roi_geometry_control": {
+            "macro_f1_present_classes": 0.414808390036129,
+            "balanced_accuracy_present_classes": 0.48120623249299727,
+            "per_class_recall": [
+              0.4235294117647059,
+              0.734375,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.5834683954619124,
+              0.6372881355932203,
+              0.023668639053254437
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                180,
+                141,
+                104
+              ],
+              [
+                12,
+                188,
+                56
+              ],
+              [
+                0,
+                5,
+                2
+              ]
+            ]
+          },
+          "particle_current_appearance": {
+            "macro_f1_present_classes": 0.26691021244675767,
+            "balanced_accuracy_present_classes": 0.321218487394958,
+            "per_class_recall": [
+              0.5529411764705883,
+              0.125,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.6010230179028133,
+              0.1833810888252149,
+              0.0163265306122449
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                235,
+                60,
+                130
+              ],
+              [
+                118,
+                32,
+                106
+              ],
+              [
+                4,
+                1,
+                2
+              ]
+            ]
+          },
+          "particle_current_all": {
+            "macro_f1_present_classes": 0.420516964845237,
+            "balanced_accuracy_present_classes": 0.4764176295518207,
+            "per_class_recall": [
+              0.5458823529411765,
+              0.59765625,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.6562942008486563,
+              0.576271186440678,
+              0.028985507246376812
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                232,
+                121,
+                72
+              ],
+              [
+                46,
+                153,
+                57
+              ],
+              [
+                4,
+                1,
+                2
+              ]
+            ]
+          }
+        },
+        "future_displacement": {
+          "2": {
+            "valid_evaluation_samples": 622,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 3.3339105936144846,
+                "valid_count": 622
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 0.5825068205928345,
+                "valid_count": 622
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 3.8719575662508268,
+                "valid_count": 622
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 3.8975529689414263,
+                "valid_count": 622
+              },
+              "particle_current_all": {
+                "mean_l2_m": 3.9049011643005223,
+                "valid_count": 622
+              },
+              "predicted_2s_all": {
+                "mean_l2_m": 3.834888368926795,
+                "valid_count": 622
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": -0.0700127953737267,
+              "confidence_interval_95": [
+                -0.09651274848957458,
+                -0.03744146780160203
+              ],
+              "recordings": 6,
+              "objects": 622
+            }
+          },
+          "4": {
+            "valid_evaluation_samples": 554,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 6.726962394343776,
+                "valid_count": 554
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 1.8459262831979484,
+                "valid_count": 554
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 7.941710784951201,
+                "valid_count": 554
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 8.10375619325668,
+                "valid_count": 554
+              },
+              "particle_current_all": {
+                "mean_l2_m": 8.016869035298622,
+                "valid_count": 554
+              },
+              "predicted_4s_all": {
+                "mean_l2_m": 7.833727843627116,
+                "valid_count": 554
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": -0.1831411916715058,
+              "confidence_interval_95": [
+                -0.3424982978228626,
+                -0.05745474743707806
+              ],
+              "recordings": 6,
+              "objects": 554
+            }
+          }
+        }
+      },
+      "distribution": {
+        "scene_count": 96,
+        "vehicle": {
+          "center_fraction": 0.08793131510416667,
+          "presence_weighted_fraction": 0.11764185958819932,
+          "enrichment_ratio_of_sums": 1.4827206904124681
+        },
+        "pedestrian": {
+          "center_fraction": 0.011800130208333334,
+          "presence_weighted_fraction": 0.016407349621767747,
+          "enrichment_ratio_of_sums": 1.4108481838827927
+        },
+        "bicycle": {
+          "center_fraction": 0.0007731119791666666,
+          "presence_weighted_fraction": 0.0009465236804165519,
+          "enrichment_ratio_of_sums": 1.328058003634879
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.18844572368421053,
+          "presence_weighted_fraction": 0.06541770380609753,
+          "enrichment_ratio_of_sums": 0.30106733082776804
+        },
+        "road_proxy": {
+          "center_fraction": 0.20279605263157896,
+          "presence_weighted_fraction": 0.07273088101036065,
+          "enrichment_ratio_of_sums": 0.30419287504099507
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.22861842105263158,
+          "presence_weighted_fraction": 0.09696039336963862,
+          "enrichment_ratio_of_sums": 0.3635822767408107
+        },
+        "upper_third_fraction_not_sky_label": 0.3623860677083333
+      },
+      "future_repeat_current": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": 0.005955030520757039,
+          "confidence_interval_95": [
+            0.002490883320569992,
+            0.010874283562103905
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": -0.0021227051814397178,
+          "confidence_interval_95": [
+            -0.006368115544319153,
+            0.0
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "ade_m_change": {
+          "difference": -0.11145869890848796,
+          "confidence_interval_95": [
+            -0.149681073675553,
+            -0.07142123269538089
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "mean_trajectory_change_m": 0.16493342816829681
+      },
+      "checkpoint": {
+        "complete": true,
+        "completed_updates": 1614,
+        "checkpoint_sha256": "282bf13bd123a2461c4c84a3c2d1f96879f7e69ace9f63a41c09d8e4c2fbc746",
+        "scene_count": 96,
+        "change_from_initial": {
+          "current_center_mean_shift_px": 1.2360724210739136,
+          "current_center_max_shift_px": 23.09073829650879,
+          "foreground_feature_rms_change": 0.38628309965133667
+        },
+        "seconds": 228.26138067245483,
+        "not_full_navtest": true,
+        "not_independent_planning_validation": true,
+        "counterfactual_commands_have_no_alternative_gt": true,
+        "interventions_can_cause_distribution_shift": true,
+        "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+        "max_diagnostic_reserved_bytes": 664797184
+      }
+    },
+    {
+      "update": 3000,
+      "metrics": {
+        "completed_updates": 3000,
+        "previous_diagnostic_updates": 2500,
+        "center_mean_from_initial_px": 1.8131586540486069,
+        "center_max_from_initial_px": 23.695846557617188,
+        "size_mean_from_initial_percent": 10.956574442136178,
+        "presence_mean_from_initial": 0.28227390315349027,
+        "center_mean_from_previous_px": 0.8339882561003927,
+        "size_mean_from_previous_percent": 6.425769556922499,
+        "object_readout_macro_f1": 0.3935927294223674
+      },
+      "readouts": {
+        "object_view_samples": 2974,
+        "fit_samples": 2286,
+        "evaluation_samples": 688,
+        "empty_support_fraction": 0.0,
+        "scope": "Recording-disjoint readout fit/evaluation, both from upstream planning TRAIN distribution. GT association is privileged. No LPWM updates.",
+        "classification": {
+          "gt_roi_geometry_control": {
+            "macro_f1_present_classes": 0.414808390036129,
+            "balanced_accuracy_present_classes": 0.48120623249299727,
+            "per_class_recall": [
+              0.4235294117647059,
+              0.734375,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.5834683954619124,
+              0.6372881355932203,
+              0.023668639053254437
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                180,
+                141,
+                104
+              ],
+              [
+                12,
+                188,
+                56
+              ],
+              [
+                0,
+                5,
+                2
+              ]
+            ]
+          },
+          "particle_current_appearance": {
+            "macro_f1_present_classes": 0.3562251772674865,
+            "balanced_accuracy_present_classes": 0.35876794467787115,
+            "per_class_recall": [
+              0.5623529411764706,
+              0.37109375,
+              0.14285714285714285
+            ],
+            "per_class_f1": [
+              0.6339522546419099,
+              0.42316258351893093,
+              0.011560693641618497
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                239,
+                97,
+                89
+              ],
+              [
+                85,
+                95,
+                76
+              ],
+              [
+                5,
+                1,
+                1
+              ]
+            ]
+          },
+          "particle_current_all": {
+            "macro_f1_present_classes": 0.3935927294223674,
+            "balanced_accuracy_present_classes": 0.4034799544817927,
+            "per_class_recall": [
+              0.5011764705882353,
+              0.56640625,
+              0.14285714285714285
+            ],
+            "per_class_f1": [
+              0.6283185840707964,
+              0.5400372439478585,
+              0.012422360248447204
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                213,
+                134,
+                78
+              ],
+              [
+                36,
+                145,
+                75
+              ],
+              [
+                4,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "future_displacement": {
+          "2": {
+            "valid_evaluation_samples": 622,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 3.3339105936144846,
+                "valid_count": 622
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 0.5825068205928345,
+                "valid_count": 622
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 3.8719575662508268,
+                "valid_count": 622
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 3.8660365953277536,
+                "valid_count": 622
+              },
+              "particle_current_all": {
+                "mean_l2_m": 3.9780847358030655,
+                "valid_count": 622
+              },
+              "predicted_2s_all": {
+                "mean_l2_m": 4.013449612517493,
+                "valid_count": 622
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": 0.03536487671442875,
+              "confidence_interval_95": [
+                0.0027001560943079677,
+                0.10121190170185104
+              ],
+              "recordings": 6,
+              "objects": 622
+            }
+          },
+          "4": {
+            "valid_evaluation_samples": 554,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 6.726962394343776,
+                "valid_count": 554
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 1.8459262831979484,
+                "valid_count": 554
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 7.941710784951201,
+                "valid_count": 554
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 8.008473243725634,
+                "valid_count": 554
+              },
+              "particle_current_all": {
+                "mean_l2_m": 8.253880338855765,
+                "valid_count": 554
+              },
+              "predicted_4s_all": {
+                "mean_l2_m": 8.214291268323665,
+                "valid_count": 554
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": -0.0395890705321017,
+              "confidence_interval_95": [
+                -0.26094554434121786,
+                0.23275685347456537
+              ],
+              "recordings": 6,
+              "objects": 554
+            }
+          }
+        }
+      },
+      "distribution": {
+        "scene_count": 96,
+        "vehicle": {
+          "center_fraction": 0.08797200520833333,
+          "presence_weighted_fraction": 0.12762875824713169,
+          "enrichment_ratio_of_sums": 1.6085923939581752
+        },
+        "pedestrian": {
+          "center_fraction": 0.012125651041666666,
+          "presence_weighted_fraction": 0.018183986353922894,
+          "enrichment_ratio_of_sums": 1.5636190313848826
+        },
+        "bicycle": {
+          "center_fraction": 0.0008544921875,
+          "presence_weighted_fraction": 0.0012017361462236902,
+          "enrichment_ratio_of_sums": 1.6861440873273668
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.19288651315789473,
+          "presence_weighted_fraction": 0.04844703485003648,
+          "enrichment_ratio_of_sums": 0.22296440596652076
+        },
+        "road_proxy": {
+          "center_fraction": 0.20682565789473684,
+          "presence_weighted_fraction": 0.05348352956257498,
+          "enrichment_ratio_of_sums": 0.22369189536783063
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.23392269736842106,
+          "presence_weighted_fraction": 0.07632725942768574,
+          "enrichment_ratio_of_sums": 0.28621210986953655
+        },
+        "upper_third_fraction_not_sky_label": 0.3607177734375
+      },
+      "future_repeat_current": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": 0.007808354993661244,
+          "confidence_interval_95": [
+            0.002938187370697657,
+            0.01441078999390204
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": 0.0043914516766866045,
+          "confidence_interval_95": [
+            0.0,
+            0.01087963581085205
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "ade_m_change": {
+          "difference": -0.13733989000320435,
+          "confidence_interval_95": [
+            -0.46404668763279916,
+            0.07954074516892432
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "mean_trajectory_change_m": 0.45146303561826545
+      },
+      "checkpoint": {
+        "complete": true,
+        "completed_updates": 3000,
+        "checkpoint_sha256": "965d644d050ab88806b55ed8b6b7eb6aaf6a7dca7e23cf3511cfad644f534c16",
+        "scene_count": 96,
+        "change_from_initial": {
+          "current_center_mean_shift_px": 1.813158631324768,
+          "current_center_max_shift_px": 23.695842742919922,
+          "foreground_feature_rms_change": 0.48655086755752563
+        },
+        "seconds": 249.56092882156372,
+        "not_full_navtest": true,
+        "not_independent_planning_validation": true,
+        "counterfactual_commands_have_no_alternative_gt": true,
+        "interventions_can_cause_distribution_shift": true,
+        "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+        "max_diagnostic_reserved_bytes": 664797184
+      }
+    },
+    {
+      "update": 3228,
+      "metrics": {
+        "completed_updates": 3228,
+        "previous_diagnostic_updates": 3000,
+        "center_mean_from_initial_px": 1.675429056190713,
+        "center_max_from_initial_px": 22.500118255615234,
+        "size_mean_from_initial_percent": 15.032438640679828,
+        "presence_mean_from_initial": 0.2839015129484766,
+        "center_mean_from_previous_px": 1.0388638069757523,
+        "size_mean_from_previous_percent": 6.944177457602532,
+        "object_readout_macro_f1": 0.41825013419216317
+      },
+      "readouts": {
+        "object_view_samples": 2974,
+        "fit_samples": 2286,
+        "evaluation_samples": 688,
+        "empty_support_fraction": 0.0,
+        "scope": "Recording-disjoint readout fit/evaluation, both from upstream planning TRAIN distribution. GT association is privileged. No LPWM updates.",
+        "classification": {
+          "gt_roi_geometry_control": {
+            "macro_f1_present_classes": 0.414808390036129,
+            "balanced_accuracy_present_classes": 0.48120623249299727,
+            "per_class_recall": [
+              0.4235294117647059,
+              0.734375,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.5834683954619124,
+              0.6372881355932203,
+              0.023668639053254437
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                180,
+                141,
+                104
+              ],
+              [
+                12,
+                188,
+                56
+              ],
+              [
+                0,
+                5,
+                2
+              ]
+            ]
+          },
+          "particle_current_appearance": {
+            "macro_f1_present_classes": 0.36482231219073324,
+            "balanced_accuracy_present_classes": 0.3241850490196078,
+            "per_class_recall": [
+              0.5741176470588235,
+              0.3984375,
+              0.0
+            ],
+            "per_class_f1": [
+              0.6585695006747638,
+              0.4358974358974359,
+              0.0
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                244,
+                108,
+                73
+              ],
+              [
+                67,
+                102,
+                87
+              ],
+              [
+                5,
+                2,
+                0
+              ]
+            ]
+          },
+          "particle_current_all": {
+            "macro_f1_present_classes": 0.41825013419216317,
+            "balanced_accuracy_present_classes": 0.4011672794117647,
+            "per_class_recall": [
+              0.4964705882352941,
+              0.70703125,
+              0.0
+            ],
+            "per_class_f1": [
+              0.6251851851851852,
+              0.6295652173913043,
+              0.0
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                211,
+                136,
+                78
+              ],
+              [
+                34,
+                181,
+                41
+              ],
+              [
+                5,
+                2,
+                0
+              ]
+            ]
+          }
+        },
+        "future_displacement": {
+          "2": {
+            "valid_evaluation_samples": 622,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 3.3339105936144846,
+                "valid_count": 622
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 0.5825068205928345,
+                "valid_count": 622
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 3.8719575662508268,
+                "valid_count": 622
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 3.900230222838418,
+                "valid_count": 622
+              },
+              "particle_current_all": {
+                "mean_l2_m": 3.9492063393963868,
+                "valid_count": 622
+              },
+              "predicted_2s_all": {
+                "mean_l2_m": 3.9756628976734865,
+                "valid_count": 622
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": 0.026456558277099525,
+              "confidence_interval_95": [
+                -0.05165975617564757,
+                0.08846312607432792
+              ],
+              "recordings": 6,
+              "objects": 622
+            }
+          },
+          "4": {
+            "valid_evaluation_samples": 554,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 6.726962394343776,
+                "valid_count": 554
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 1.8459262831979484,
+                "valid_count": 554
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 7.941710784951201,
+                "valid_count": 554
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 8.074792810755097,
+                "valid_count": 554
+              },
+              "particle_current_all": {
+                "mean_l2_m": 8.149320538119673,
+                "valid_count": 554
+              },
+              "predicted_4s_all": {
+                "mean_l2_m": 8.266721454503003,
+                "valid_count": 554
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": 0.11740091638333153,
+              "confidence_interval_95": [
+                -0.1351184549824138,
+                0.28597547243927374
+              ],
+              "recordings": 6,
+              "objects": 554
+            }
+          }
+        }
+      },
+      "distribution": {
+        "scene_count": 96,
+        "vehicle": {
+          "center_fraction": 0.09073893229166667,
+          "presence_weighted_fraction": 0.12672192855315245,
+          "enrichment_ratio_of_sums": 1.5971630000787345
+        },
+        "pedestrian": {
+          "center_fraction": 0.012532552083333334,
+          "presence_weighted_fraction": 0.018042531255180922,
+          "enrichment_ratio_of_sums": 1.5514554782357317
+        },
+        "bicycle": {
+          "center_fraction": 0.0007731119791666666,
+          "presence_weighted_fraction": 0.0010373786972195376,
+          "enrichment_ratio_of_sums": 1.4555357780762808
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.18544407894736842,
+          "presence_weighted_fraction": 0.0457845360882055,
+          "enrichment_ratio_of_sums": 0.21071097380796225
+        },
+        "road_proxy": {
+          "center_fraction": 0.19847861842105263,
+          "presence_weighted_fraction": 0.049498648802459924,
+          "enrichment_ratio_of_sums": 0.20702535265205813
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.22635690789473684,
+          "presence_weighted_fraction": 0.0722845030546571,
+          "enrichment_ratio_of_sums": 0.2710525739463413
+        },
+        "upper_third_fraction_not_sky_label": 0.3581136067708333
+      },
+      "future_repeat_current": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": 0.060179208715756737,
+          "confidence_interval_95": [
+            -0.08930219362179438,
+            0.21563958016534643
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": -0.010933098693688711,
+          "confidence_interval_95": [
+            -0.10346635741492112,
+            0.10500898708899815
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "ade_m_change": {
+          "difference": 0.18193192780017853,
+          "confidence_interval_95": [
+            -0.042265507951378824,
+            0.46251504595081006
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "mean_trajectory_change_m": 0.8554109446704388
+      },
+      "checkpoint": {
+        "complete": true,
+        "completed_updates": 3228,
+        "checkpoint_sha256": "dc4f4ed1228a87fbae82dff86c39406e14c2feb50f9e3eaa6356754214554ab3",
+        "scene_count": 96,
+        "change_from_initial": {
+          "current_center_mean_shift_px": 1.6754292249679565,
+          "current_center_max_shift_px": 22.500120162963867,
+          "foreground_feature_rms_change": 0.5040621161460876
+        },
+        "seconds": 229.9407660961151,
+        "not_full_navtest": true,
+        "not_independent_planning_validation": true,
+        "counterfactual_commands_have_no_alternative_gt": true,
+        "interventions_can_cause_distribution_shift": true,
+        "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+        "max_diagnostic_reserved_bytes": 673185792
+      }
+    },
+    {
+      "update": 3500,
+      "metrics": {
+        "completed_updates": 3500,
+        "previous_diagnostic_updates": 3228,
+        "center_mean_from_initial_px": 1.8471998013732975,
+        "center_max_from_initial_px": 15.11906623840332,
+        "size_mean_from_initial_percent": 18.004615106700147,
+        "presence_mean_from_initial": 0.2845929407693076,
+        "center_mean_from_previous_px": 1.2712235250980182,
+        "size_mean_from_previous_percent": 6.9022264913963935,
+        "object_readout_macro_f1": 0.42668883860721724
+      },
+      "readouts": {
+        "object_view_samples": 2974,
+        "fit_samples": 2286,
+        "evaluation_samples": 688,
+        "empty_support_fraction": 0.0,
+        "scope": "Recording-disjoint readout fit/evaluation, both from upstream planning TRAIN distribution. GT association is privileged. No LPWM updates.",
+        "classification": {
+          "gt_roi_geometry_control": {
+            "macro_f1_present_classes": 0.414808390036129,
+            "balanced_accuracy_present_classes": 0.48120623249299727,
+            "per_class_recall": [
+              0.4235294117647059,
+              0.734375,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.5834683954619124,
+              0.6372881355932203,
+              0.023668639053254437
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                180,
+                141,
+                104
+              ],
+              [
+                12,
+                188,
+                56
+              ],
+              [
+                0,
+                5,
+                2
+              ]
+            ]
+          },
+          "particle_current_appearance": {
+            "macro_f1_present_classes": 0.38278832685525294,
+            "balanced_accuracy_present_classes": 0.38063681722689074,
+            "per_class_recall": [
+              0.5576470588235294,
+              0.44140625,
+              0.14285714285714285
+            ],
+            "per_class_f1": [
+              0.6493150684931507,
+              0.48812095032397407,
+              0.01092896174863388
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                237,
+                93,
+                95
+              ],
+              [
+                63,
+                113,
+                80
+              ],
+              [
+                5,
+                1,
+                1
+              ]
+            ]
+          },
+          "particle_current_all": {
+            "macro_f1_present_classes": 0.42668883860721724,
+            "balanced_accuracy_present_classes": 0.4909304971988795,
+            "per_class_recall": [
+              0.49176470588235294,
+              0.6953125,
+              0.2857142857142857
+            ],
+            "per_class_f1": [
+              0.6138032305433186,
+              0.6368515205724508,
+              0.029411764705882353
+            ],
+            "class_counts": [
+              425,
+              256,
+              7
+            ],
+            "confusion": [
+              [
+                209,
+                124,
+                92
+              ],
+              [
+                43,
+                178,
+                35
+              ],
+              [
+                4,
+                1,
+                2
+              ]
+            ]
+          }
+        },
+        "future_displacement": {
+          "2": {
+            "valid_evaluation_samples": 622,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 3.3339105936144846,
+                "valid_count": 622
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 0.5825068205928345,
+                "valid_count": 622
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 3.8719575662508268,
+                "valid_count": 622
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 3.9018272022069502,
+                "valid_count": 622
+              },
+              "particle_current_all": {
+                "mean_l2_m": 4.064170887086943,
+                "valid_count": 622
+              },
+              "predicted_2s_all": {
+                "mean_l2_m": 4.040739958230016,
+                "valid_count": 622
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": -0.023430928856928334,
+              "confidence_interval_95": [
+                -0.15010094872223181,
+                0.06784032740188595
+              ],
+              "recordings": 6,
+              "objects": 622
+            }
+          },
+          "4": {
+            "valid_evaluation_samples": 554,
+            "methods": {
+              "zero_displacement": {
+                "mean_l2_m": 6.726962394343776,
+                "valid_count": 554
+              },
+              "constant_velocity_gt_state_control": {
+                "mean_l2_m": 1.8459262831979484,
+                "valid_count": 554
+              },
+              "gt_roi_geometry_control": {
+                "mean_l2_m": 7.941710784951201,
+                "valid_count": 554
+              },
+              "particle_current_appearance": {
+                "mean_l2_m": 8.06204409757119,
+                "valid_count": 554
+              },
+              "particle_current_all": {
+                "mean_l2_m": 8.36432524407974,
+                "valid_count": 554
+              },
+              "predicted_4s_all": {
+                "mean_l2_m": 8.216459426766717,
+                "valid_count": 554
+              }
+            },
+            "predicted_minus_current_error": {
+              "difference": -0.14786581731302512,
+              "confidence_interval_95": [
+                -0.5338541671754646,
+                0.18147952825955707
+              ],
+              "recordings": 6,
+              "objects": 554
+            }
+          }
+        }
+      },
+      "distribution": {
+        "scene_count": 96,
+        "vehicle": {
+          "center_fraction": 0.09163411458333333,
+          "presence_weighted_fraction": 0.12575827537978532,
+          "enrichment_ratio_of_sums": 1.585017421085554
+        },
+        "pedestrian": {
+          "center_fraction": 0.012858072916666666,
+          "presence_weighted_fraction": 0.01779233371811036,
+          "enrichment_ratio_of_sums": 1.5299412941093915
+        },
+        "bicycle": {
+          "center_fraction": 0.000732421875,
+          "presence_weighted_fraction": 0.0009120930891792037,
+          "enrichment_ratio_of_sums": 1.279748781997109
+        },
+        "road_proxy_low": {
+          "center_fraction": 0.17948190789473684,
+          "presence_weighted_fraction": 0.04624990849390901,
+          "enrichment_ratio_of_sums": 0.21285272473889288
+        },
+        "road_proxy": {
+          "center_fraction": 0.1908717105263158,
+          "presence_weighted_fraction": 0.05018462968617218,
+          "enrichment_ratio_of_sums": 0.20989442964302527
+        },
+        "road_proxy_high": {
+          "center_fraction": 0.2171875,
+          "presence_weighted_fraction": 0.07075369552510558,
+          "enrichment_ratio_of_sums": 0.26531234881416277
+        },
+        "upper_third_fraction_not_sky_label": 0.353759765625
+      },
+      "future_repeat_current": {
+        "selected_trajectory_oracle_score_change": {
+          "difference": -0.08463885635137558,
+          "confidence_interval_95": [
+            -0.19600635624180238,
+            -0.002791998907923722
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "fixed_candidate_oracle_score_change": {
+          "difference": -0.04244835674762726,
+          "confidence_interval_95": [
+            -0.11936185757319133,
+            -0.001258358359336853
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "ade_m_change": {
+          "difference": 0.480653556684653,
+          "confidence_interval_95": [
+            0.1406515914325913,
+            0.8391789239520826
+          ],
+          "recordings": 12,
+          "objects": 12
+        },
+        "mean_trajectory_change_m": 1.1923100588222344
+      },
+      "checkpoint": {
+        "complete": true,
+        "completed_updates": 3500,
+        "checkpoint_sha256": "ffd2c445cb4b99a8ed4246bbcf774cf933bd2699ec3190a565555c3f1457c6b7",
+        "scene_count": 96,
+        "change_from_initial": {
+          "current_center_mean_shift_px": 1.84719979763031,
+          "current_center_max_shift_px": 15.119064331054688,
+          "foreground_feature_rms_change": 0.5071511268615723
+        },
+        "seconds": 217.80964493751526,
+        "not_full_navtest": true,
+        "not_independent_planning_validation": true,
+        "counterfactual_commands_have_no_alternative_gt": true,
+        "interventions_can_cause_distribution_shift": true,
+        "original_weights_frozen_sha256": "a5dd234560e97c6033391d059088fab0fb56ed4a595e33d7f664e379ae8ccd5d",
+        "max_diagnostic_reserved_bytes": 673185792
+      }
+    }
+  ],
+  "monitor_status": {
+    "stage": "waiting_for_checkpoint",
+    "training_updates": 3610,
+    "last_evaluated_update": 3500,
+    "next_milestone": 4000,
+    "active_update": null,
+    "updated_unix": 1791346590.0885346,
+    "controller": "scripts/monitor_lpwm_particle_trends_every500.py",
+    "interval_updates": 500,
+    "chat_notification_sent": false
+  },
+  "interpretation": {
+    "training_health": "Finite losses and positive planning gradients; native weights and registered sources preserved",
+    "planning": "Same training-panel PDMS improves relative to epoch1; recent small changes remain uncertain and do not isolate LPWM adaptation",
+    "future_branch": "At update3500 replacing future attributes with current attributes worsens 12-scene oracle score and ADE; this is an exploratory branch-use signal, with possible distribution shift and repeated testing",
+    "future_accuracy": "Future displacement readouts do not establish improvement; errors exceed zero-displacement controls",
+    "objective": "Planning-only training does not directly require predicted particle states to match physical future states",
+    "scope": "Training distribution diagnostics, not held-out validation or navtest",
+    "decision": "Keep the authorized 25-epoch run and every500/epoch diagnostics; check persistence at update4000 and epoch3 without changing the registered experiment"
+  },
+  "training_changes": false
+}
