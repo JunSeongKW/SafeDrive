@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-07 10:01 KST 시각화 해석 확인.**
+전후별그림은초기top16개만presence비례점크기(2+4×obj_on),나머지48개는고정크기다.
+겹침그림은64개모두고정반경으로전청록빈점/후주황실점을구분하며점크기에서presence를해석하지않는다.
+박스는초기top16번호의glimpse범위,화살표는같은현재이미지의학습전후중심차이.미래/물리motion/attention으로부르지않는다.
+전체64particle은planner입력에포함되며낮은presence만으로삭제되지않는다.상세는training문서마지막해석절.
+
+
 **2026-10-07 09:52 KST 시각화 후속: 차량이 많은 장면도 제공.**
 `results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/`, scene41/21/27의front 및4카메라겹침.
 `scripts/visualize_lpwm_vehicle_rich_particle_changes.py`는저장된attributes만읽는CPU일회시각화.

@@ -2974,3 +2974,34 @@ Front평균중심이동scene41 2.212736px /21 2.484261 /27 1.126128;사례효용
 vehicle_rich_particle_overlays.png, vehicle_rich_before_after_with_overlay.png, vehicle_rich_original_camera_images.png,
 scene041/021/027_four_camera_overlays.png, selection_and_geometry_report.json(source/checkpoint/panel/attributes hash).
 출력PNG3개를육안검토했다. 향후같은3장면은 --updates와새 --output을주어재생성하고전후+겹침을함께제공한다.
+
+## 2026-10-07 10:01 KST — 현재 particle 시각화 해석
+
+이 그림은 같은 현재 이미지에서 학습 전후 모델이 추정한 particle의 2D 중심, glimpse 크기, 일부 presence를 보여준다.
+현재프레임만 표시하며 dynamics의 미래particle이나 실제차량의시간상움직임을그린것은아니다.
+
+| 표시 | 실제 코드의 의미 | 해석 범위 |
+|---|---|---|
+| 점 위치 | particle의학습된영상좌표 / glimpse중심 | 객체 중심정답이나semantic object ID로확정하지않음 |
+| 전후별그림의초기상위16개점크기 | 표시반경2+4×presence, presence는0–1 | obj_on활성도이며planner중요도/검출confidence아님 |
+| 전후별그림의나머지48개점크기 | 고정반경2px | presence가낮다는뜻아님 |
+| 겹침그림점크기 | 청록빈점반경4px /주황실점반경2px로고정 | 크기차이에서presence/중요도변화를읽지않음 |
+| 박스위치·폭·높이 | 중심±학습된scale/2의glimpse범위 | particle이외관정보를얻는영상crop범위; 객체GT/detection bbox아님 |
+| 박스개수16개 | 각scene/camera별초기presence상위16개번호고정 | 학습후새로운top16을선택한그림아님;나머지48개도내부scale존재 |
+| 색·점선·실선 | 청록/점선은학습전,주황/실선은학습후 | 객체종류/안전도/attention을표시하지않음 |
+| 흰화살표 | 같은particle번호의학습전후중심차이 | 실제좌표끝점/이동추가증폭없음.물체의물리적속도나미래궤적이아님 |
+
+Presence는LPWM의obj_on latent로원래foreground활성도/alpha compositing에관여한다.
+공식RGBdecoder는obj_on으로particle alpha를곱하고depth로혼합하며,appearanceencoder도obj_on을받으면CNNfeature를곱한다.
+현재planner입력은64particle의현재+미래14Dattributes전체를projection/pooling하므로작은점/낮은presence만으로삭제되지는않는다.
+같은차에여러particle이걸칠수있고한glimpse에차량·도로·배경이함께있을수있다.
+큰박스는더넓은범위,작은박스는더좁은범위를뜻할뿐정보량/중요도/정확도를보장하지않는다.
+Particleinteraction과context로다른particle정보가추가되므로박스가표현의유일한정보출처도아니다.
+차량쪽중심이동은기하학적변화의증거이며객체정보보존·미래예측·planning기여는readout/개입/PDMS로따로검증한다.
+위치·크기가비슷해도appearance/context/dynamics feature는달라질수있다. 현재이미지에서미래예측성능을판정하지않는다.
+
+확인코드: scripts/visualize_lpwm_planning_path_geometry.py:45(draw_particles),
+scripts/publish_lpwm_particle_geometry_overlays.py:64(draw_geometry_overlay),
+reference_repositories/LPWM/modules/modules.py:3010(appearancecrop), :5344(alpha obj_on),
+src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py:108(전체particle projection/pooling).
+이번작업은코드확인·해석설명과문서기록이며학습/시각화source/config/실행중publisher변경없음.
