@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 09:52 KST — 차량이 밀집한 장면의 particle 시각화 추가.**
+도심 교통·고가도로 아래·가까운 차량 대기 장면3개, 같은3,000update.
+[겹침·이동 화살표](results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/vehicle_rich_particle_overlays.png) ·
+[입력·학습 전·후·겹침](results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/vehicle_rich_before_after_with_overlay.png) ·
+[원본 카메라](results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/vehicle_rich_original_camera_images.png).
+차량 투영 GT 수와 육안 확인으로 장면41/21/27을 선택했으며, particle 변화나 PDMS를 선택 기준으로 사용하지 않았다.
+
+
 **2026-10-07 09:30 KST — Particle 겹침 시각화 추가.**
 [학습 전·3,000 update 겹침](results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/particles_overlay_before_vs_update3000.png) ·
 [원본·전·후·겹침 4열](results/lpwm_drivor_planning_path_lora_v1/intermediate_update3000_20261007/particles_before_after_with_overlay_update3000.png).

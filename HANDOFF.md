@@ -101,7 +101,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 09:30 KST (Codex)
+마지막 갱신: 2026-10-07 09:52 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -268,6 +268,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+차량밀집3장면 시각화는CPU에서완료됐다. 새학습·GPU추론·watcher추가없음.
+기존25epoch본학습/queue/500진단/CPU겹침publisher2507743는유지한다.
+
 
 Particle CPU 겹침 publisher2507743를 추가했다. `scripts/publish_lpwm_particle_geometry_overlays.py --watch`.
 별도root `outputs/lpwm_drivor_particle_geometry_overlays_v1/`; 기존diagnostic 완료파일을 읽기만 한다.
@@ -733,6 +737,15 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+사용자차량많은장면요청: scene41(도심교통)/21(고가도로아래)/27(근거리차량대기),서로다른3recording.
+96고정패널front차량투영GT밀도를screening하고실제영상으로혼잡장면확인;particle이동/PDMS결과로선택안함.
+동일exact3,000update와공개초기로비교,GT투영차량수31/15/13은완전가시차량수아님.
+원본1920×1080을RGB BICUBIC128²로변환한값과실제저장modelinput이3장면모두bitwise일치.
+Front중심평균변화2.212736/2.484261/1.126128input px.64중심/초기top16박스/실제이동화살표동일규칙.
+겹침·입력/전/후/겹침4열·원본카메라·장면별4카메라겹침을함께저장하고시각적으로확인했다.
+결과 `results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/`.
+
 
 사용자3,000그림과 같은 직진/좌회전/우회전 scene index2/0/3 및 front카메라로 겹침 이미지를 생성했다.
 모든64 중심: 학습전청록빈점/학습후주황점, 같은번호실제좌표를 흰화살표로연결. 초기presence상위16 glimpse박스는
@@ -1350,13 +1363,17 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자요청에따라학습전후particle의겹침·이동화살표시각화와기존비교+겹침4열이미지를추가했다.
-- 현재3,000뿐아니라완료된8시점에도생성했고,새CPU publisher2507743가향후진단완료를읽어자동출력한다.
-- 동일scene/camera/particle index·초기top16 selection, 실제pixel스케일·고정overlay반경과input/source hash를기록했다.
-- 사용자의향후보고형식요구를AGENTS/README/HANDOFF에기록하고이미지·metadata·launch를공유결과에추가했다.
-- 기존학습/queue/표현monitor소스와설정,이전결과수치와원본비교PNG는수정하지않았다.
+- 사용자요청에따라차량이많은3장면을GT투영밀도와실제영상으로선정하고3,000update전후를시각화했다.
+- 새CPU일회script로front겹침/4열비교/원본1920영상참조/모든4카메라겹침을생성했다.
+- 선택기준·scene/token·GT수의해석·실제모델input비트일치·동일particle대응·source/input hash를기록했다.
+- 현재학습/기존500표현monitor/겹침publishersource를수정하지않고보고형식과재사용법을문서에추가했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+차량밀집장면도시각화할때scene41/21/27을고정해학습진행비교한다. 새update저장진단완료후
+scripts/visualize_lpwm_vehicle_rich_particle_changes.py --updates <update> --output <새결과폴더> 실행.
+실행중인기존CPUpublisher2507743의sourcehash를바꾸지않는다. 사용자에게전후와겹침이미지를함께제공.
+
 
 앞으로particle시각화보고에는전·후이미지와겹침이미지링크를함께제공한다.
 새CPUpublisher의index.html/status.json/launch.json을확인하며새update의particle_geometry_overlay.png와
@@ -1741,6 +1758,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+차량밀집3장면은예시시각화이며전체장면의대표성/객체이해·planning효용개선의통계적증거가아니다.
+차량GT는시각화장면선정에만사용,model입력이나새loss로추가하지않았다.현재학습조건그대로.
+
 
 겹침은위치·크기변화확인용이고학습효과/attention/객체검출시각화가아니다.
 CPUpublisher만추가, 본학습25epoch계획유지. Future보고에서겹침누락하지않는다.

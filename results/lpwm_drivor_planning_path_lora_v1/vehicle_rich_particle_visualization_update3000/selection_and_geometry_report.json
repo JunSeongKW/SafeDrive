@@ -1,0 +1,228 @@
+{
+  "completed_updates": 3000,
+  "checkpoint_sha256": "965d644d050ab88806b55ed8b6b7eb6aaf6a7dca7e23cf3511cfad644f534c16",
+  "source_sha256": "27a757119bf41cf793362888c6d08a627e98846ab560ad128d9882a3da4b3712",
+  "panel_sha256": "76bf285a135db8fb16aac35acee9b5ab504b063c475220576dbfcc036b9dfaa0",
+  "initial_attributes_sha256": "406679e8b7f345b151a33b76456a590dc889966e0dea38f667ce1b35eb221470",
+  "trained_attributes_sha256": "ea91f95eb5a029606bf2c03f3656cf2c22a4b29dc8cc09f158cc425e22e7a453",
+  "selection": "Front-camera projected GT vehicle density screening followed by visual inspection for dense moving traffic, an overpass queue, and nearby queued vehicles; distinct recordings. No particle-change or planning-score criterion.",
+  "vehicle_count_interpretation": "Projected GT boxes, not a count of fully visible or detected vehicles; occlusion is not resolved",
+  "scene_indices": [
+    41,
+    21,
+    27
+  ],
+  "scenes": [
+    {
+      "scene_index": 41,
+      "token": "c3ba85bd489a5e47",
+      "recording_group": "2021.07.09.01.37.16_veh-26",
+      "scene_type": "straight",
+      "camera": "front",
+      "description": "Dense downtown traffic",
+      "original_camera_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.09.01.37.16_veh-26_03432_03503/CAM_F0/262ab7de382e5ace.jpg",
+      "original_camera_size": [
+        1920,
+        1080
+      ],
+      "gt_projected_vehicle_annotations": 31,
+      "gt_projected_vehicle_boxes_width_ge_4_height_ge_3": 31,
+      "gt_boxes_used_as_model_input_or_loss": false,
+      "box_particle_indices": [
+        31,
+        32,
+        39,
+        25,
+        24,
+        14,
+        16,
+        0,
+        22,
+        27,
+        8,
+        38,
+        41,
+        56,
+        58,
+        50
+      ],
+      "changes": {
+        "particle_count": 64,
+        "centers_bitwise_identical": false,
+        "sizes_bitwise_identical": false,
+        "center_shift_input_pixels": {
+          "mean": 2.2127359302248806,
+          "median": 2.11243212223053,
+          "p90": 3.8049116611480716,
+          "p99": 6.01728913784027,
+          "maximum": 6.2252116203308105
+        },
+        "size_axis_absolute_change_input_pixels": {
+          "mean": 5.091927230358124,
+          "median": 4.238264083862305,
+          "p90": 10.568751525878906,
+          "p99": 17.95699131011964,
+          "maximum": 19.84234619140625
+        },
+        "size_axis_relative_change_percent": {
+          "mean": 12.301175944274291,
+          "median": 11.198650360107422,
+          "p90": 24.942068672180174,
+          "p99": 34.736161651611326,
+          "maximum": 36.82712936401367
+        },
+        "presence_absolute_change": {
+          "mean": 0.27707742223174137,
+          "median": 0.1786584034562111,
+          "p90": 0.8282415568828584,
+          "p99": 0.9548724269866943,
+          "maximum": 0.9666599631309509
+        },
+        "fraction_center_shift_over_one_input_pixel": 0.796875,
+        "fraction_particles_any_size_axis_change_over_five_percent": 0.921875
+      }
+    },
+    {
+      "scene_index": 21,
+      "token": "2516f0fa67f9535f",
+      "recording_group": "2021.06.09.20.26.11_veh-35",
+      "scene_type": "straight",
+      "camera": "front",
+      "description": "Traffic under an overpass",
+      "original_camera_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.09.20.26.11_veh-35_00247_00529/CAM_F0/a7aeec41015c5942.jpg",
+      "original_camera_size": [
+        1920,
+        1080
+      ],
+      "gt_projected_vehicle_annotations": 15,
+      "gt_projected_vehicle_boxes_width_ge_4_height_ge_3": 14,
+      "gt_boxes_used_as_model_input_or_loss": false,
+      "box_particle_indices": [
+        47,
+        59,
+        24,
+        42,
+        29,
+        26,
+        56,
+        7,
+        11,
+        2,
+        48,
+        36,
+        51,
+        50,
+        19,
+        57
+      ],
+      "changes": {
+        "particle_count": 64,
+        "centers_bitwise_identical": false,
+        "sizes_bitwise_identical": false,
+        "center_shift_input_pixels": {
+          "mean": 2.484261484001763,
+          "median": 2.081407904624939,
+          "p90": 4.057058334350586,
+          "p99": 11.809740562438954,
+          "maximum": 14.728556632995605
+        },
+        "size_axis_absolute_change_input_pixels": {
+          "mean": 4.9605657905340195,
+          "median": 3.641842842102051,
+          "p90": 11.43155174255371,
+          "p99": 18.188644657135015,
+          "maximum": 23.959556579589844
+        },
+        "size_axis_relative_change_percent": {
+          "mean": 13.566596880089492,
+          "median": 9.91841459274292,
+          "p90": 31.88950710296631,
+          "p99": 48.061773300170906,
+          "maximum": 53.958274841308594
+        },
+        "presence_absolute_change": {
+          "mean": 0.275431579517317,
+          "median": 0.11652326583862305,
+          "p90": 0.8945885479450228,
+          "p99": 0.9838629788160324,
+          "maximum": 0.990200936794281
+        },
+        "fraction_center_shift_over_one_input_pixel": 0.75,
+        "fraction_particles_any_size_axis_change_over_five_percent": 0.921875
+      }
+    },
+    {
+      "scene_index": 27,
+      "token": "2b2c80d7c63e5ea4",
+      "recording_group": "2021.06.14.16.32.09_veh-35",
+      "scene_type": "straight",
+      "camera": "front",
+      "description": "Nearby queued vehicles",
+      "original_camera_path": "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.14.16.32.09_veh-35_02928_03118/CAM_F0/1349cdb9c3e45861.jpg",
+      "original_camera_size": [
+        1920,
+        1080
+      ],
+      "gt_projected_vehicle_annotations": 13,
+      "gt_projected_vehicle_boxes_width_ge_4_height_ge_3": 10,
+      "gt_boxes_used_as_model_input_or_loss": false,
+      "box_particle_indices": [
+        63,
+        42,
+        22,
+        52,
+        8,
+        25,
+        51,
+        40,
+        0,
+        32,
+        54,
+        27,
+        16,
+        28,
+        12,
+        45
+      ],
+      "changes": {
+        "particle_count": 64,
+        "centers_bitwise_identical": false,
+        "sizes_bitwise_identical": false,
+        "center_shift_input_pixels": {
+          "mean": 1.1261284353677183,
+          "median": 0.8956216275691986,
+          "p90": 2.3964991092681895,
+          "p99": 3.8474895644187916,
+          "maximum": 4.141641139984131
+        },
+        "size_axis_absolute_change_input_pixels": {
+          "mean": 2.8955033868551254,
+          "median": 2.078396797180176,
+          "p90": 6.47184772491455,
+          "p99": 12.681737403869631,
+          "maximum": 13.099306106567383
+        },
+        "size_axis_relative_change_percent": {
+          "mean": 8.639825668069534,
+          "median": 5.779674053192139,
+          "p90": 20.773940086364743,
+          "p99": 38.363476829528814,
+          "maximum": 40.45683670043945
+        },
+        "presence_absolute_change": {
+          "mean": 0.28467730848205974,
+          "median": 0.12335245311260223,
+          "p90": 0.8768241226673127,
+          "p99": 0.9534777987003327,
+          "maximum": 0.9543172121047974
+        },
+        "fraction_center_shift_over_one_input_pixel": 0.4375,
+        "fraction_particles_any_size_axis_change_over_five_percent": 0.8125
+      }
+    }
+  ],
+  "overlay_displacement_magnification": 1.0,
+  "scope": "Illustrative fixed training-panel cases; geometry changes do not establish planning benefit",
+  "training_changes": false,
+  "cpu_only": true
+}

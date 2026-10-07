@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-07 09:52 KST 시각화 후속: 차량이 많은 장면도 제공.**
+`results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/`, scene41/21/27의front 및4카메라겹침.
+`scripts/visualize_lpwm_vehicle_rich_particle_changes.py`는저장된attributes만읽는CPU일회시각화.
+향후같은차량밀집장면비교는같은scene-index를유지하고 --updates와새 --output으로실행한다.
+기존train/queue/매500monitor/CPUoverlaypublisher는변경하지않았다.
+
+
 **2026-10-07 09:30 KST 사용자 시각화 요구: particle 전·후 비교 + 겹침 이미지를 함께 제공.**
 CPU 전용 `scripts/publish_lpwm_particle_geometry_overlays.py --watch` / publisher2507743.
 갤러리 `outputs/lpwm_drivor_particle_geometry_overlays_v1/index.html`에서 update별 기존비교·겹침·4열통합 링크를 제공한다.

@@ -2955,3 +2955,22 @@ launch/status는results/lpwm_drivor_planning_path_lora_v1/particle_geometry_over
 Geometry변화는planningbenefit/attention이나semantic tracking의증거가아니다. 앞으로전후와겹침을함께보고한다.
 
 실제PNG검사: 통합그림의header아래기존3열pixel이원본과완전히일치. 8시점출력과CPUheartbeat, source/launch/metadata hash일치를확인했다.
+
+## 2026-10-07 09:52 KST — 차량 밀집 장면3개의 전후 particle 비교·겹침
+
+사용자가기존scene보다주변차량이많은다른이미지도요청했다.기존96고정패널에서front투영vehicle GT수로screening,
+차량박스최소4×3input pixel로큰객체수도계산했고rawcontactsheet를육안검토했다.
+실제차량밀집교통으로scene41(c3ba85bd489a5e47)/21(2516f0fa67f9535f)/27(2b2c80d7c63e5ea4)를선정.
+각기다른recording의도심버스·승용차교통/고가도로아래대기/근거리차량대기. 모두straight유형이며유형대표분해는아님.
+투영차량GT31/15/13은가림포함수로완전히보이는차량수·모델검출수로해석하지않는다.
+선택기준은GT밀도와영상의traffic내용이며particle변화량/PDMS로선정하지않음.
+새script scripts/visualize_lpwm_vehicle_rich_particle_changes.py로exact3,000savedattributes를읽어CPU렌더.
+청록전/주황후/동일64particle/초기presence상위16glimpse박스/실제이동화살표·고정overlaydotradius를유지.
+이미지encoder/planner재추론·학습·GTloss추가없음. 기존source/config/queue/monitor/overlaypublisher변경없음.
+Front평균중심이동scene41 2.212736px /21 2.484261 /27 1.126128;사례효용증거로해석안함.
+원본1920×1080 RGB를BICUBIC128²로resize한값이3장면모두실제cache input과bitwise동일함을검사했다.
+초기BILINEAR가정에서일치검사가실패했고실제prepare_lpwm_drivor_joint_data.py의BICUBIC으로정정해통과.
+완료results/lpwm_drivor_planning_path_lora_v1/vehicle_rich_particle_visualization_update3000/에는
+vehicle_rich_particle_overlays.png, vehicle_rich_before_after_with_overlay.png, vehicle_rich_original_camera_images.png,
+scene041/021/027_four_camera_overlays.png, selection_and_geometry_report.json(source/checkpoint/panel/attributes hash).
+출력PNG3개를육안검토했다. 향후같은3장면은 --updates와새 --output을주어재생성하고전후+겹침을함께제공한다.
