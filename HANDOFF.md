@@ -1,5 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 16:39 KST — 4,000-update 표현 및 공식 95장면 PDMS 완료.**
+PDMS75.8303,3500대비−.0736 CI[−5.2170,+5.2611]. 직진89.0445/좌69.5080/우61.1590. 학습패널/공식navtest 아님.
+Geometry초기대비1.979px/14.098%,appearanceF1.4114/wholeF1.4230. 주행 영역 집중이나 미래정확도 개선은 미확인.
+12scene future-repeat-current ADE+.2444m CI[−.1981,+.8354],oracle−.0072 CI[−.2150,+.2101].
+3500의 긍정적 신호를 현재 안정적인 미래이득으로 보고하지 않는다. 신뢰구간0포함을 효과소멸/무효과 확정으로도 해석하지 않는다.
+16:38:54 학습4116/40350 epoch3,최근23.61–23.83초/update. 4500오늘19:10/epoch3오늘21:25/25epoch10월17일오후 외삽.
+양rank비유한loss0/최근18gradient그룹유한양수/279·283source 정상. 기존train3144180/queue3144181/monitor3144182/publisher2507743 유지.
+결과 `results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/`; 일회PDMS는완료·GPU해제.
+
 **2026-10-07 13:26 KST — 미래분기 개입의 실제 경로 시각화 완료.**
 같은3500모델/저장attributes로원래·현재반복조건12scene를재생,기존24ADE와차이전부0.
 정답GT궤적ADE1.5108→1.9914m,평균+.48065m/8악화·4개선. 두모델경로사이거리와구분한다.
@@ -143,7 +152,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 13:28 KST (Codex)
+마지막 갱신: 2026-10-07 16:42 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -310,6 +319,11 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+16:38:54KST 학습4116/40350 epoch3. GPU0·1/micro16×accum2×2=유효64/loader2/oracle8 유지.
+Train3144180/queue3144181/500monitor3144182/publisher2507743 생존. 4000진단완료→4500대기,기존25epoch계획 유지.
+추가 outputs/lpwm_drivor_intermediate_pdms_update4000_v1 일회평가는95성공/실패0으로종료·GPU해제.
+기존모델·loss·source/config·queue·monitor는변경하지 않았다. 최종v1navtest→freshv2→EPDMS 순서 유지.
 
 13:26KST 본학습3635/40350 epoch3,기존train/queue/매500monitor/publisher 유지.
 이번추가GPU12scene표현재생은완료·GPU해제. 새학습/모델/목표/queue/등록source변경없음.
@@ -815,6 +829,19 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+4000 PDMS75.8302944,3500대비−.0736412 CI[−5.2169817,+5.2610609],1614대비+7.8438780 CI[+.7064257,+15.1245060].
+직진89.044452/좌69.508018/우61.158954,expertADE2.031890m. NC.973684/DAC.884211/TTC.905263.
+같은95training scene/24recording/5000bootstrap seed71,navtest나독립generalization 결과가 아니다.
+Geometry현재초기대비1.979098px/14.098437%,3500→4000실제중심이동1.788838px. AppearanceF1.411411/wholeF1.422994.
+차량중심9.0088%/보행자1.2451%/도로proxy20.0206%/도로presence가중4.6124%,주행중요영역으로집중적재배치 미확인.
+미래대체12scene ADE+.244425m CI[−.198056,+.835376],selectedoracle−.007215 CI[−.214978,+.210078].
+3500의ADE+.480654/score−.084639 신호가이번에는CI0포함. 효과변화자체의유의성이나무효과를확정하지 않음.
+2s current/future3.997089/4.016425m,4s8.233153/8.146505m. 차이CI0포함/zero-displacement control보다높은오차.
+양rank4116로그비유한loss0/nativehash하나유지/4100샘플18gradient그룹유한양수/279·283seal정상.
+평가12장면재생ADE차이0/카드최대41.261466GB. 수치·bootstrap·PDMS그림·미래개입추세·전후겹침 보존.
+최근50/100/200wall23.6104/23.8062/23.8282초. 4500오늘19:10–19:11,epoch3(4842)오늘21:25–21:27.
+V1학습끝10월17일14–16시외삽,진단처리·최종평가·V2학습시간 별도. 공유서버부하로변동가능.
 
 Future-repeat-current 설명용 경로를 재생했고, 24개 ADE가 저장 진단값과 모두 정확히 일치했다.
 12장면 GT 궤적 ADE는 원래 1.510779m /대체 1.991433m, 차이 +.480654m. 8장면 악화 /4장면 개선.
@@ -1509,13 +1536,19 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자의쉬운시각화요청에맞춰3500미래분기개입12scene의실제원래/대체trajectory를읽기전용재생했다.
-- 기존24ADE와오차0,GT경로오차1.5108→1.9914m/8악화4개선을검증하고두모델경로사이거리와구분했다.
-- 입력변경설명도/실제우회전/유형별3사례/12전체barplot과source·checkpoint등록근거를보존했다.
-- 새로운시각화script만추가했다. 기존등록source/config나모델·학습·queue·monitor·publisher는변경하지않았다.
-- README/HANDOFF1–5/RESUME_NOTES/학습문서에재생근거와쉽게읽는해석을기록했다.
+- 사용자 중간 결과 요청에 따라 최신4000 표현·readout·미래개입·geometry를 확인했다.
+- 동일95학습장면의 공식PDMS4000=75.8303 일회평가 및 첫epoch/3000/3500 대비 paired bootstrap을 완료했다.
+- 최근PDMS 평균정체·우회전하락,외관판독개선,미래분기이득의지속성미확인을구분해서 보고했다.
+- 수치·등록·score·전후겹침·PDMS/미래개입추세그림을 새결과폴더에 보존했다.
+- 양rankloss/gradient/279·283source/프로세스·queue 및 ETA를 확인하고 상태 문서를 갱신했다. 본학습 조건 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+기존25epoch학습·매500/epoch진단·후속평가queue 유지. 다음4500 및epoch3(4842)에서상황별PDMS/미래정보 추세 확인.
+16:39실측속도외삽4500오늘19:10–19:11/epoch3오늘21:25–21:27,진단처리시간은별도.
+3500의미래개입결과만반복해긍정적효과가계속확인된다고보고하지 않는다. 최신4000에서CI0포함을같이설명한다.
+보고에전후와겹침이미지함께제공. 현재4116성능값으로4000검증결과를표시하지 않는다.
+등록source/config/학습량/모델/loss를임의변경하거나자동중단gate/새DrivoRbaseline을추가하지 않는다.
 
 사용자에게 설명도와 실제 우회전 그림을 함께 보여주고 초록 GT/파랑 future/주황 current 반복 조건을 설명한다.
 0.48m는 12장면 GT 궤적 ADE 차이. 같은 모델의 입력 검사이며, 두 모델 경로 간 거리와 구분한다.
@@ -1941,6 +1974,12 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최근3500→4000전체PDMS차이는불확실하고직진상승/우회전하락이함께관측됐다. 포화·조기종료를확정하지 않는다.
+Future-repeat-current 효과는4000에서CI0포함. 안정적인미래정보이득/LPWM단독기여/물리미래정확도/독립일반화 미확인.
+Appearance readout의pointestimate는개선됐지만전체attributes readout은조금낮다. GT ROI 기반probe를객체검출성능으로부르지 않는다.
+Particle위치·크기변화량의크기가성능향상이나주행중요도자체를뜻하지 않는다. 도로는segmentation이아닌proxy다.
+원래25epoch실험을유지하며추가진단에서일관된효과를확인한다. 일회공식PDMS는완료됐다.
 
 그림은 3500에서 같은 모델의 표현 입력을 바꾸는 검사다. 미래 attributes 14D/4camera/8step을 대체하고 현재 표현·영상·ego·가중치는 유지한다.
 예측 미래를 현재 반복으로 대체하면 OOD 입력이 될 수 있다. Future 사용 신호와 정확한 물리적 미래 이해·안전 이득을 구분한다.

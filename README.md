@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction
 
+**2026-10-07 16:39 KST — 4,000-update 중간 검증 완료.**
+동일 95학습장면 공식 PDMS 75.8303, 직전3,500의75.9039와 비슷함. 직진89.0445/좌69.5080/우61.1590.
+외관 판독 F1 .3828→.4114, 전체 attribute 판독 .4267→.4230. Geometry 초기대비1.979px/14.098%.
+12장면 미래 대체 ADE +.2444m, CI[−.1981,+.8354]로0포함. 앞선3,500의 미래분기 이득은 안정적으로 재확인되지 않았다.
+16:38:54 학습4,116/40,350 epoch3, 양rank 비유한loss0/18gradient그룹 유한·양수/279·283source 불변.
+최근23.61–23.83초/update,4500오늘19:10–19:11/epoch3경계오늘21:25–21:27/25epoch V1학습10월17일오후 외삽.
+학습·queue·정기진단 유지. [수치·그림·근거](results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/report.json).
+
 **미래 분기 검사 쉽게 보기:** [입력에서 무엇을 바꿨는지](results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/future_branch_test_explained.png) ·
 [실제 우회전 장면의 경로 비교](results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/actual_right_turn_case.png) ·
 [12장면 전체 결과](results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/all12_ade_comparison.png).

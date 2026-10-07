@@ -3139,3 +3139,24 @@ Source·checkpoint·24재생검사·trajectories.npz/visualization_report.json�
 기존 25epoch 학습/queue/500monitor/publisher/sourceconfig는 변경하지 않았다. 추가 GPU 일회 재생은 완료·GPU 해제, 본학습3635/40350 epoch3 계속.
 해석은 미래 분기에 대한 의존의 초기 증거다. 실제 물리적 미래 정확도·운전 객체 이해·안전 이득은 별도 검증이 필요하다.
 실제 참조 camera와 checkpoint 출력을 표준 plot으로 렌더했다.
+
+## 2026-10-07 16:39 KST — 4,000-update 중간 결과
+
+사용자 중간 결과 요청에 따라 완료된4000 표현진단·readout·geometry·미래개입을 확인했다.
+기존 evaluate_lpwm_intermediate_panel_pdms.py로 동일95training장면/24recording의 공식PDMS를 평가했다.
+PDMS75.8302944,3500대비−.0736412 CI[−5.2169817,+5.2610609],첫epoch대비+7.8438780 CI[+.7064257,+15.1245060].
+같은token 대응/5000recording bootstrap/seed71. 직진89.044452/좌69.508018/우61.158954,expertADE2.031890m.
+NC.973684/DAC.884211/TTC.905263. 직진상승과우회전하락이함께관측되어평균만보고일관된개선을주장하지않는다.
+공식평가95성공/실패0/12재생ADE차이0/nativehash유지/최대카드41.261466GB,일회평가완료·GPU해제.
+Geometry초기대비1.979098px/14.098437%,직전3500→4000실제중심이동1.788838px.
+Appearance readout F1 .382788→.411411,전체attributes F1 .426689→.422994. GT ROI probe이며deployment detection이아니다.
+Future-repeat-current ADE+.244425m CI[−.198056,+.835376],selectedoracle−.007215 CI[−.214978,+.210078].
+3500의ADE+.480654/selectedoracle−.084639 긍정신호는이번에는CI0을포함한다. 안정적효과·효과소멸을단정하지않는다.
+2s current/future3.997089/4.016425m,4s8.233153/8.146505m. 차이CI0포함/zero-displacement보다높은오차.
+차량중심9.0088%/도로proxy20.0206%/도로presence가중4.6124%,주행영역집중미확인.
+본학습4116/40350 epoch3/양rankloss비유한0/4100샘플18gradient그룹유한양수/279·283source hash 정상.
+Train3144180/queue3144181/monitor3144182/publisher2507743 생존,본학습조건·모델·loss·유효64·source/config 변경없음.
+최근50/100/200update wall23.6104/23.8062/23.8282초. 4500오늘19:10–19:11/4842오늘21:25–21:27(학습경계도달 기준).
+V1학습끝10월17일14–16시외삽,진단처리/최종평가/V2시간별도. 기존25epoch·후속queue·정기진단 유지.
+새 results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/에report/script/score/등록근거와PDMS·미래개입·전후겹침그림 보존.
+학습패널진단이며navtest/독립일반화/LPWM단독효과증거가아니다. Source수정·중단gate·새baseline 실행없음.

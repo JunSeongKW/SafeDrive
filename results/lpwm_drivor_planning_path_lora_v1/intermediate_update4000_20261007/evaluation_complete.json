@@ -1,0 +1,43 @@
+{
+  "complete": true,
+  "scope": "Official NAVSIM v1 PDMS on a fixed 95-scene subset of the planning training distribution; not navtest",
+  "scene_count": 95,
+  "recording_count": 24,
+  "excluded_missing_cache_tokens": [
+    "20c5f1c678e7548a"
+  ],
+  "rows": [
+    {
+      "completed_updates": 4000,
+      "scene_count": 95,
+      "failed": 0,
+      "pdms": 75.83029442259316,
+      "zero_score_count": 12,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9736842105263158,
+        "drivable_area_compliance": 0.8842105263157894,
+        "ego_progress": 0.6494007503527626,
+        "time_to_collision_within_bound": 0.9052631578947369,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9526315789473684,
+        "score": 0.7583029442259316,
+        "expert_ade_m": 2.031890193725887
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 69.50801820087969
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 61.15895403950638
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 89.04445188223923
+        }
+      }
+    }
+  ],
+  "finished_unix": 1791358637.963729
+}

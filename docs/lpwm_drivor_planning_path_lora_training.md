@@ -756,3 +756,48 @@ Fixed candidate의 oracle score도 .04245 하락했다. 이 oracle 값의 차이
 [세유형](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/three_actual_cases.png),
 [12전체결과](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/all12_ade_comparison.png),
 [재생검사](../results/lpwm_drivor_planning_path_lora_v1/future_branch_intervention_explained_update3500/replay_checks.json).
+
+## 2026-10-07 16:39 KST — 4,000-update 중간 결과
+
+새로 완료된 4,000 표현 진단을 읽고, 기존 동일95학습장면/24recording에서 공식 NAVSIM v1 PDMS를 채점했다.
+공식 scorer·저장particle 재생·원래체크포인트를 유지했다. 95성공/실패0,기존12장면ADE와재생차이0,
+nativehash 동일/평가 카드전체 최대41.2615GB. 본학습과queue는중단하거나변경하지 않았다.
+
+| 지표 | 3,500 | 4,000 |
+|---|---:|---:|
+| 전체 PDMS | 75.9039 | 75.8303 |
+| 직진 PDMS /41장면 | 85.0882 | 89.0445 |
+| 좌회전 PDMS /30장면 | 69.8856 | 69.5080 |
+| 우회전 PDMS /24장면 | 67.7371 | 61.1590 |
+| Expert ADE /m | 1.9652 | 2.0319 |
+| 현재 appearance 판독 macroF1 | .3828 | .4114 |
+| 현재 전체attribute 판독 macroF1 | .4267 | .4230 |
+| 초기 대비 중심 이동 /128입력px | 1.8472 | 1.9791 |
+| 초기 대비 크기 축 상대 변화 | 18.0046% | 14.0984% |
+
+3500→4000 PDMS−.0736점,paired recording bootstrap95%CI[−5.2170,+5.2611].
+첫epoch1614대비+7.8439점,CI[+.7064,+15.1245].5,000반복/seed71/같은95token 대응.
+평균은비슷하고직진과우회전의변화방향이다르다. 학습분포진단이며navtest/독립일반화성능이나LPWM단독효과가아니다.
+
+앞서3,500의future-repeat-current12장면검사에서ADE+.4807m CI[+.1407,+.8392]를관측했다.
+이번4,000에서는+.2444m CI[−.1981,+.8354]로0을포함한다. Selected trajectory의학습oracle score차이는
+−.0072 CI[−.2150,+.2101],fixedcandidate score차이−.0807 CI[−.2589,+.0182]다.
+이로부터이득이사라졌다고단정하거나,앞선긍정적신호가안정적으로지속됐다고말하지않는다.
+오차차이는각checkpoint안에서대체−원래이다. 두checkpoint사이의효과변화에대한별도검정은하지않았다.
+동일12장면/OOD대체/여러checkpoint의반복검사한계를유지하며공식PDMS점수차이와구분한다.
+
+미래변위readout2s current3.9971m/future4.0164m,4s current8.2332m/future8.1465m.
+차이CI는각각[−.0833,+.1330]m/[−.3665,+.1786]m로0을포함한다. Zero-displacement control3.3339/6.7270m보다도높은오차다.
+차량중심비율9.0088%/도로proxy20.0206%/도로presence가중4.6124%로주행중요영역집중을확정하지않는다.
+중심·크기변화는학습이동작한다는기하학적근거이며변화량이커질수록planning이좋다는지표가아니다.
+
+16:38:54 학습4,116/40,350 epoch3. 양rank 전체로그비유한loss0/최근4100의18gradient그룹유한·양수,
+279원래source/283실행source hash 모두일치. Batch16×누적2×2GPU=유효64/loader2/oracle8/카드40.325GB 유지.
+최근50/100/200update wall23.6104/23.8062/23.8282초로4500오늘19:10–19:11/epoch3경계4842오늘21:25–21:27 예상.
+25epoch V1학습끝10월17일14–16시외삽이며진단처리·최종평가·V2학습시간은별도다. 공유서버부하로변동가능하다.
+현재25epoch계획·학습목표·등록source/config·queue·정기진단을유지했다.
+
+[수치·실행 검사·paired 비교](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/report.json),
+[PDMS 추세](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/pdms_progress_and_scenarios.png),
+[미래 개입 추세](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/future_intervention_trend.png),
+[particle 전후·겹침](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/particles_before_after_and_overlay_update4000.png).
