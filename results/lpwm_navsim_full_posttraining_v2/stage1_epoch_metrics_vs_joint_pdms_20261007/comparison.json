@@ -1,0 +1,529 @@
+{
+  "checked_at": "2026-10-07T19:11:34.321814+09:00",
+  "stage1_epoch_pdms_records_exist": false,
+  "stage1_uses_official_ssl_without_planner": true,
+  "stage1_validation_clips": 512,
+  "stage1_validation_rows": [
+    {
+      "epoch": 0,
+      "optimizer_update": 0,
+      "validation_clips": 512,
+      "kl_dyn": 12153.411155700684,
+      "loss": 64.83803288638592,
+      "loss_kl_context": 1120.7517466545105,
+      "loss_rec": 74927.43740844727,
+      "obj_on_l1": 41.990604139864445,
+      "psnr": 13.144877184182405
+    },
+    {
+      "epoch": 1,
+      "optimizer_update": 1446,
+      "validation_clips": 512,
+      "kl_dyn": 4004.8474044799805,
+      "loss": 23.399082094430923,
+      "loss_kl_context": 784.6606607437134,
+      "loss_rec": 26949.302932739258,
+      "obj_on_l1": 36.12716454267502,
+      "psnr": 20.461119547486305
+    },
+    {
+      "epoch": 2,
+      "optimizer_update": 2892,
+      "validation_clips": 512,
+      "kl_dyn": 3951.308568954468,
+      "loss": 22.33469144999981,
+      "loss_kl_context": 745.704948425293,
+      "loss_rec": 25698.031982421875,
+      "obj_on_l1": 35.11758403480053,
+      "psnr": 20.59924452006817
+    },
+    {
+      "epoch": 3,
+      "optimizer_update": 4338,
+      "validation_clips": 512,
+      "kl_dyn": 3948.3817615509033,
+      "loss": 21.85966293513775,
+      "loss_kl_context": 752.7707557678223,
+      "loss_rec": 25125.794631958008,
+      "obj_on_l1": 35.323994576931,
+      "psnr": 20.65707005560398
+    },
+    {
+      "epoch": 4,
+      "optimizer_update": 5784,
+      "validation_clips": 512,
+      "kl_dyn": 3925.6736068725586,
+      "loss": 21.477465987205505,
+      "loss_kl_context": 726.4293756484985,
+      "loss_rec": 24684.75715637207,
+      "obj_on_l1": 34.31344746053219,
+      "psnr": 20.766813278198242
+    },
+    {
+      "epoch": 5,
+      "optimizer_update": 7230,
+      "validation_clips": 512,
+      "kl_dyn": 3840.4396476745605,
+      "loss": 21.132789626717567,
+      "loss_kl_context": 710.3514742851257,
+      "loss_rec": 24302.591278076172,
+      "obj_on_l1": 32.72509354352951,
+      "psnr": 20.834908202290535
+    },
+    {
+      "epoch": 6,
+      "optimizer_update": 8676,
+      "validation_clips": 512,
+      "kl_dyn": 3866.80108833313,
+      "loss": 20.934655249118805,
+      "loss_kl_context": 699.6057877540588,
+      "loss_rec": 24058.36622619629,
+      "obj_on_l1": 33.08173502981663,
+      "psnr": 20.86817567050457
+    },
+    {
+      "epoch": 7,
+      "optimizer_update": 10122,
+      "validation_clips": 512,
+      "kl_dyn": 3863.504274368286,
+      "loss": 20.790220364928246,
+      "loss_kl_context": 705.790135383606,
+      "loss_rec": 23887.202423095703,
+      "obj_on_l1": 32.65065515041351,
+      "psnr": 20.844473481178284
+    },
+    {
+      "epoch": 8,
+      "optimizer_update": 11568,
+      "validation_clips": 512,
+      "kl_dyn": 3769.2658290863037,
+      "loss": 20.591791227459908,
+      "loss_kl_context": 692.7780094146729,
+      "loss_rec": 23676.048263549805,
+      "obj_on_l1": 31.402555748820305,
+      "psnr": 20.901588052511215
+    },
+    {
+      "epoch": 9,
+      "optimizer_update": 13014,
+      "validation_clips": 512,
+      "kl_dyn": 3934.2300357818604,
+      "loss": 20.48767927289009,
+      "loss_kl_context": 692.4905135631561,
+      "loss_rec": 23510.176559448242,
+      "obj_on_l1": 32.844468519091606,
+      "psnr": 20.949064031243324
+    },
+    {
+      "epoch": 10,
+      "optimizer_update": 14460,
+      "validation_clips": 512,
+      "kl_dyn": 3886.3703746795654,
+      "loss": 20.358095660805702,
+      "loss_kl_context": 689.2564804553986,
+      "loss_rec": 23372.19319152832,
+      "obj_on_l1": 31.793668910861015,
+      "psnr": 20.945034846663475
+    },
+    {
+      "epoch": 11,
+      "optimizer_update": 15906,
+      "validation_clips": 512,
+      "kl_dyn": 3987.295581817627,
+      "loss": 20.257865726947784,
+      "loss_kl_context": 705.2345247268677,
+      "loss_rec": 23221.4833984375,
+      "obj_on_l1": 32.49196572601795,
+      "psnr": 20.96661189198494
+    },
+    {
+      "epoch": 12,
+      "optimizer_update": 17352,
+      "validation_clips": 512,
+      "kl_dyn": 3911.3997440338135,
+      "loss": 20.13857811689377,
+      "loss_kl_context": 715.937511920929,
+      "loss_rec": 23095.354598999023,
+      "obj_on_l1": 32.09759570658207,
+      "psnr": 21.02820174396038
+    },
+    {
+      "epoch": 13,
+      "optimizer_update": 18798,
+      "validation_clips": 512,
+      "kl_dyn": 3982.4241733551025,
+      "loss": 20.077662408351898,
+      "loss_kl_context": 696.9000220298767,
+      "loss_rec": 23013.731674194336,
+      "obj_on_l1": 31.68709234893322,
+      "psnr": 21.03543494641781
+    },
+    {
+      "epoch": 14,
+      "optimizer_update": 20244,
+      "validation_clips": 512,
+      "kl_dyn": 3993.4980697631836,
+      "loss": 20.026523038744926,
+      "loss_kl_context": 686.1702184677124,
+      "loss_rec": 22954.558227539062,
+      "obj_on_l1": 31.14085590839386,
+      "psnr": 21.047117456793785
+    },
+    {
+      "epoch": 15,
+      "optimizer_update": 21690,
+      "validation_clips": 512,
+      "kl_dyn": 4015.5797367095947,
+      "loss": 19.88685917854309,
+      "loss_kl_context": 697.3519015312195,
+      "loss_rec": 22779.026107788086,
+      "obj_on_l1": 31.56049770116806,
+      "psnr": 21.05742645263672
+    },
+    {
+      "epoch": 16,
+      "optimizer_update": 23136,
+      "validation_clips": 512,
+      "kl_dyn": 4124.077930450439,
+      "loss": 19.891482681035995,
+      "loss_kl_context": 706.4858818054199,
+      "loss_rec": 22756.750900268555,
+      "obj_on_l1": 32.02454386651516,
+      "psnr": 21.059770196676254
+    },
+    {
+      "epoch": 17,
+      "optimizer_update": 24582,
+      "validation_clips": 512,
+      "kl_dyn": 4126.544038772583,
+      "loss": 19.83746801316738,
+      "loss_kl_context": 710.4837212562561,
+      "loss_rec": 22697.35466003418,
+      "obj_on_l1": 31.130948916077614,
+      "psnr": 21.04479968547821
+    },
+    {
+      "epoch": 18,
+      "optimizer_update": 26028,
+      "validation_clips": 512,
+      "kl_dyn": 4205.54151725769,
+      "loss": 19.740950599312782,
+      "loss_kl_context": 715.6275148391724,
+      "loss_rec": 22561.67218017578,
+      "obj_on_l1": 31.38573256134987,
+      "psnr": 21.112609282135963
+    },
+    {
+      "epoch": 19,
+      "optimizer_update": 27474,
+      "validation_clips": 512,
+      "kl_dyn": 4209.575937271118,
+      "loss": 19.692796662449837,
+      "loss_kl_context": 708.526782989502,
+      "loss_rec": 22507.456329345703,
+      "obj_on_l1": 31.161721661686897,
+      "psnr": 21.100132554769516
+    },
+    {
+      "epoch": 20,
+      "optimizer_update": 28920,
+      "validation_clips": 512,
+      "kl_dyn": 4221.361480712891,
+      "loss": 19.69678394496441,
+      "loss_kl_context": 697.7197823524475,
+      "loss_rec": 22514.686965942383,
+      "obj_on_l1": 30.619263276457787,
+      "psnr": 21.076768085360527
+    }
+  ],
+  "identical_initial_validation_duplicates_deduplicated_for_export_only": 1,
+  "stage1_epoch_checkpoint_files_present": [
+    "epoch01.pt",
+    "epoch02.pt",
+    "epoch03.pt",
+    "epoch04.pt",
+    "epoch05.pt",
+    "epoch06.pt",
+    "epoch07.pt",
+    "epoch08.pt",
+    "epoch09.pt",
+    "epoch10.pt",
+    "epoch11.pt",
+    "epoch12.pt",
+    "epoch13.pt",
+    "epoch14.pt",
+    "epoch15.pt",
+    "epoch16.pt",
+    "epoch17.pt",
+    "epoch18.pt",
+    "epoch19.pt",
+    "epoch20.pt"
+  ],
+  "joint_recorded_pdms_rows": [
+    {
+      "optimizer_updates": 0,
+      "epoch_equivalent": 0.0,
+      "pdms": 30.429934783442707,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 28.221900989433706
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 37.5177871114138
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 27.896582538295476
+        }
+      }
+    },
+    {
+      "optimizer_updates": 500,
+      "epoch_equivalent": 0.3097893432465923,
+      "pdms": 63.40566448528888,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 63.29317235054129
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 63.82498609273627
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 63.24251925269595
+        }
+      }
+    },
+    {
+      "optimizer_updates": 1000,
+      "epoch_equivalent": 0.6195786864931846,
+      "pdms": 67.83150517350948,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 74.34462424755304
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 54.68348740494169
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 70.76220893507828
+        }
+      }
+    },
+    {
+      "optimizer_updates": 1500,
+      "epoch_equivalent": 0.929368029739777,
+      "pdms": 63.51965645981505,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 62.54422820484875
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 58.24326686184552
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 67.32200275250426
+        }
+      }
+    },
+    {
+      "optimizer_updates": 1614,
+      "epoch_equivalent": 1.0,
+      "pdms": 67.98641646933137,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 63.796444871155735
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 61.99709194113409
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 74.55819541133147
+        }
+      }
+    },
+    {
+      "optimizer_updates": 2000,
+      "epoch_equivalent": 1.2391573729863692,
+      "pdms": 70.16709244111213,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 64.46656803206194
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 60.18482565167299
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 80.18148598301568
+        }
+      }
+    },
+    {
+      "optimizer_updates": 2500,
+      "epoch_equivalent": 1.5489467162329615,
+      "pdms": 72.92701236080623,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 67.7145655175227
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 68.81623102609012
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 79.14730888109142
+        }
+      }
+    },
+    {
+      "optimizer_updates": 3000,
+      "epoch_equivalent": 1.858736059479554,
+      "pdms": 74.90627261087963,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 68.29303695543028
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 66.93798853507
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 84.40958693973107
+        }
+      }
+    },
+    {
+      "optimizer_updates": 3228,
+      "epoch_equivalent": 2.0,
+      "pdms": 74.57695425511515,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 71.8970529413559
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 59.343333856198065
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 85.45509886454899
+        }
+      }
+    },
+    {
+      "optimizer_updates": 3500,
+      "epoch_equivalent": 2.168525402726146,
+      "pdms": 75.90393562155289,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 69.88561414504292
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 67.73705938644228
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 85.08819596150295
+        }
+      }
+    },
+    {
+      "optimizer_updates": 4000,
+      "epoch_equivalent": 2.4783147459727384,
+      "pdms": 75.83029442259316,
+      "scene_count": 95,
+      "by_scene_type": {
+        "left_turn": {
+          "count": 30,
+          "pdms": 69.50801820087969
+        },
+        "right_turn": {
+          "count": 24,
+          "pdms": 61.15895403950638
+        },
+        "straight": {
+          "count": 41,
+          "pdms": 89.04445188223923
+        }
+      }
+    }
+  ],
+  "earlier_stage1_endpoint_planning_comparison": {
+    "public_pretrained_frozen": {
+      "ade_meters": 1.3728555315356061,
+      "fde_meters": 3.3423477715559784,
+      "metric_bce": 2.0293713777118985,
+      "pdms": 0.7891607988592927
+    },
+    "navsim_posttrained_frozen": {
+      "ade_meters": 1.1634665849487646,
+      "fde_meters": 2.782463422292494,
+      "metric_bce": 1.780777383971518,
+      "pdms": 0.8252378477697625
+    }
+  },
+  "earlier_endpoint_interpretation": "Public-init or Stage1 epoch20 LPWM was frozen, then an identical planner was separately trained for one epoch. These are downstream planning results, not Stage1 training-time PDMS measurements.",
+  "source_sha256": {
+    "outputs/lpwm_navsim_full_posttraining_v2/stage1/validation_log.jsonl": "9f97ca4568eb7b0362bc7bcf1879e8aa8af15f085285a39d54bf6e8fc5089551",
+    "outputs/lpwm_navsim_full_posttraining_v2/stage1/training_summary.json": "ccbaacb4f01dc9db56292b8c3b0badf1e7d979620236c6a82429e3c854bcd956",
+    "results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/report.json": "b2ff330e406f81e95e701b1bd9dd628081e22e1595ae4df7ad583cbc5d85ab46",
+    "results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json": "2f1882dbc347b8cb4d96bc0af6ab77c33b8e28d6f0c6685e2dca275f5d5bf67c"
+  },
+  "limits": [
+    "SSL loss/PSNR cannot determine planning PDMS or planning saturation.",
+    "The earlier and current PDMS evaluation panels/planners/training budgets differ.",
+    "Swapping earlier Stage1 checkpoints into a planner trained on epoch20 features would confound representation quality with distribution mismatch."
+  ],
+  "compute_graph_audit": {
+    "stage1_effective_clip_batch": 16,
+    "stage1_camera_count": 1,
+    "stage1_camera_sequences_per_optimizer_update": 16,
+    "stage1_actual_video_frames_per_clip": 12,
+    "stage1_native_trainable_parameters": 109545263,
+    "joint_effective_scene_batch": 64,
+    "joint_camera_count": 4,
+    "joint_camera_sequences_per_optimizer_update": 256,
+    "camera_sequence_count_ratio_is_not_a_flops_ratio": true,
+    "joint_current_frame_count_per_camera": 1,
+    "joint_recursive_future_steps_per_camera": 8,
+    "joint_native_lpwm_weights_frozen": true,
+    "joint_lpwm_lora_trainable_parameters": 4683650,
+    "joint_activation_checkpoint_recomputation_during_backward": true,
+    "both_use_preprocessed_rgb_pixel_npy_caches": true,
+    "matched_factorwise_profiling_done": false
+  },
+  "new_training_or_gpu_work_started": false
+}

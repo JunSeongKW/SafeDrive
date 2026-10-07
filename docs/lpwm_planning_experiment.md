@@ -3294,3 +3294,51 @@ World-model SSL 보조목표 유지 유무는 초기화 비교와 동시에 바�
 근거: [이전 frozen 대조](../results/lpwm_frozen_control_v1/completed_comparison_20261005/summary.json),
 [Stage1 효과 대조](../results/lpwm_stage1_effect_v1/queue/stage1_effect_summary.json),
 [현재4,000-update 진단](../results/lpwm_drivor_planning_path_lora_v1/intermediate_update4000_20261007/report.json).
+
+## 2026-10-07 19:10 KST — Stage1 epoch별 PDMS 부재와 현재 학습의 계산량 차이
+
+사용자는 Stage1 20epoch 당시 epoch별PDMS 기록이 있다면 현재와 비교하도록 요청했고,
+이어 같은 큰 LPWM인데 왜 Stage1은 빨랐는지 질문했다. 두 요청을 실제 로그·코드 감사로 확인했다.
+
+**Stage1에는 epoch별PDMS 기록이 없다.** `training_summary.json`은 official_elbo=true/planning_loss=false이며,
+`train_lpwm_navtrain_distributed.py:validate_epoch`는512개발clip의 loss/loss_rec/KL/presence/PSNR만 계산한다.
+Stage1 root의JSON/JSONL/LOG에서PDMS 검색결과가없었다. 당시에는planner가없어PDMS를계산할주행경로도없었다.
+기존82.49점은 Stage1 epoch20완료후Stage2 Adapter+planner1epoch를학습한개발결과다.
+
+| Stage1 epoch | 기록된 SSL loss | 기록된 영상 PSNR(dB) | PDMS |
+|---:|---:|---:|---|
+| 0 | 64.8380 | 13.1449 | 없음 |
+| 1 | 23.3991 | 20.4611 | 없음 |
+| 5 | 21.1328 | 20.8349 | 없음 |
+| 10 | 20.3581 | 20.9450 | 없음 |
+| 15 | 19.8869 | 21.0574 | 없음 |
+| 20 | 19.6968 | 21.0768 | 없음 |
+
+현재95학습장면의기록PDMS는epoch1=67.9864/epoch2=74.5770/update4000(2.4783epoch)=75.8303이다.
+SSLloss/PSNR과PDMS는서로다른지표다. 영상지표초기개선·후기둔화를planning개선·planning수렴으로해석하지않는다.
+새CSV에서만동일epoch0중복1개를제거했다. 원래로그는보존했으며epoch01–20checkpoint모두존재한다.
+[별도축학습곡선PNG](../results/lpwm_navsim_full_posttraining_v2/stage1_epoch_metrics_vs_joint_pdms_20261007/stage1_ssl_and_current_joint_pdms.png),
+[전체epoch CSV](../results/lpwm_navsim_full_posttraining_v2/stage1_epoch_metrics_vs_joint_pdms_20261007/stage1_epoch_validation.csv),
+[감사JSON](../results/lpwm_navsim_full_posttraining_v2/stage1_epoch_metrics_vs_joint_pdms_20261007/comparison.json).
+
+**속도 차이는 모델 크기보다 실제 계산 그래프와 처리량의 차이로 설명된다.**
+
+- Stage1 유효batch16×전방1camera=16개카메라시퀀스/update. 현재유효batch64×4camera=256개다.
+  각각12실제프레임과현재1프레임+미래8단계라동일한시퀀스가아니며이비율을그대로FLOPs배수로부르지않는다.
+- Stage1 공식SSL forward는실제영상전체를encode하고각시점latent transition을dyn_module한호출로계산한다.
+  이전시점의모델예측만을재귀입력으로쓰는현재closed-loop8단계prior sample과다르다.
+- 현재는camera별encode와8단계sample을순차호출한다. 각step에서누적history를context/particleTransformer에다시전달한다.
+  Plannerloss로그전체graph를거슬러gradient를전달하고activation checkpoint 때문에backward에서camera별계산을재실행한다.
+- 현재에는DrivoR generator/scorer·CPU온라인oracle·학습gradient/native동결검사도추가된다.
+  최근로그에서forward약6초/oracle약2–3초/backward약13초가관측됐다. 한표본으로원인별정확기여배수는확정하지않는다.
+- **현재도전처리RGB npy cache를사용한다.** 두실행모두128²입력/cache이므로캐시를주요상대속도차이의원인으로설명하지않는다.
+- Stage1은native109.545M전체학습,현재는native고정+LoRA4.684M학습이다.
+  Frozenweight를통과해이전LoRA로gradient를전달하는계산은여전히필요하므로학습parameter수가작아도시간이더걸릴수있다.
+
+Epoch당update는1446vs1614로비슷하지만update당계산은약1.7초vs23초,epoch시간은약41분vs10.3시간이다.
+현재속도가큰LPWM사용의필연적비용인지와현재구현의순차처리/재계산비용은구분한다. 비용요인별통제profiling은미실시다.
+
+Stage1학습량별planning효과를확인하려면각Stage1 checkpoint를고정하고동일planner를동일예산학습한결과를비교해야한다.
+0/20epoch대조는이미있으며1/5epochcheckpoint도있지만후속실험은미실행이다.
+Epoch20에맞춰학습된planner에encoder만교체하면입력분포불일치가섞인다. 이를각epoch표현의최종planning성능으로취급하지않는다.
+이번에는CPU그림/CSV/감사만추가했고새GPU작업·기존25epoch·source/config·queue·monitor변경없음.

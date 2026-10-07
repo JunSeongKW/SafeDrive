@@ -3270,3 +3270,23 @@ V1끝10월17일07–11시외삽이며후속fullnavtest/V2/EPDMS시간미포함/�
 결과 results/lpwm_drivor_planning_path_lora_v1/intermediate_status_20261007_1900.json에조회시각·progress·health·process·GPU·hash·ETA근거보존.
 README/HANDOFF1–5/학습문서/RESUME_NOTES 갱신. 새GPU작업·학습/queue/monitor/publisher/source/config변경없음.
 기존25epoch/매500·epoch진단/후속평가유지. 새상태로포화·미래정보이득·방법우열을판정하지 않는다.
+
+## 2026-10-07 19:10 KST — Stage1 epoch별 기록과 속도 차이 감사
+
+사용자가과거20epoch Stage1의epoch별PDMS를현재와비교해달라고한뒤큰LPWM인데속도차이가왜나는지추가질문했다.
+실제validation_log0–20/summary와trainervalidate_epoch,stage1root전체JSON/JSONL/LOGPDMS검색으로epoch별PDMS없음을확인.
+당시SSLonly/no planner/official_elbo true/planning_loss false. 매epoch512개발clip의loss/KL/PSNR검사였고주행경로출력없음.
+Loggedloss0/1/5/10/20=64.8380/23.3991/21.1328/20.3581/19.6968,loggedPSNR13.1449/20.4611/20.8349/20.9450/21.0768.
+같은epoch0동일행중복1개는새CSV에서만제거/원래로그보존. Stage1epoch01–20checkpoint모두존재확인.
+현재PDMSepoch1=67.9864/2=74.5770/4000(2.4783epoch)=75.8303,95training패널. 82.49는Stage1epoch20후Stage2Adapter1epoch개발결과다.
+CPUplot3패널(과거SSLloss/PSNR·현재PDMS),PNG/PDF/전체epochCSV/currentCSV/감사JSON/sourcehash/generator를새results디렉토리에보존.
+경로results/lpwm_navsim_full_posttraining_v2/stage1_epoch_metrics_vs_joint_pdms_20261007/. PNG시각검사완료,GPU작업없음.
+현재도RGB npy pixelcache사용을확인. 과거cache가상대속도의주원인이라는해석은정정,128²해상도/cache공통이다.
+Update당카메라시퀀스16(batch16×1)→256(batch64×4),각시퀀스시간입력/graph가달라16배FLOPs라고주장안함.
+Stage1실제영상latent전이한dyn_module호출 vs현재4camera각8step sample/history반복context·particleTransformer/activationcheckpointbackward재계산.
+추가DrivoRgenerator/scorer/CPUonlineoracle/native동결·gradient검사. 최근forward약6/oracle2–3/backward약13초근거확인.
+Stage1native전체109.545M학습/현재native동결+LoRA4.684M이며학습가중치수와gradient전달계산량을구분했다.
+Stage1epoch별PDMS확인은각checkpoint뒤동일planner동일예산학습필요. 0/20기존결과있고1/5후속검토안미실행.
+Epoch20학습planner에encoder만교체하는검사는분포불일치가섞이므로각epoch최종planning성능으로부르지않는다.
+19:07 저장progress4498/40350 epoch3/monitor4000완료→4500대기확인. 이후상태는새로조회해야함.
+HANDOFF1–5/실험문서/RESUME_NOTES 갱신. 기존25epoch·source/config·학습/queue/monitor변경 및새GPU작업/epoch별planner재학습없음.

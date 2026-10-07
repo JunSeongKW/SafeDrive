@@ -1,5 +1,14 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-07 19:10 KST — Stage1 epoch별 PDMS 기록 없음, 실제 SSL 곡선과 계산량 차이 확인.**
+Stage1 training_summary planning_loss=false, epoch0–20 validation은512clip의ELBO/PSNR/KL만 기록했다. Stage1 root에서 PDMS 검색결과 없음.
+ELBO64.838→23.399(epoch1)→19.697(epoch20), loggedPSNR13.145→20.461→21.077dB. 영상지표로 planning 수렴을 판단하지 않는다.
+현재95training패널 PDMS는epoch1=67.9864/epoch2=74.5770/4000(2.478epoch)=75.8303. 82.49는Stage1완료 후Stage2 Adapter1epoch 결과다.
+CPU로SSLloss/PSNR/현재PDMS를 별도축PNG/PDF·CSV·JSON에 정리했다. Root `results/lpwm_navsim_full_posttraining_v2/stage1_epoch_metrics_vs_joint_pdms_20261007/`.
+현재도128×128 RGB npy cache사용. Cache를 상대속도차이의 주원인으로 해석하지 않는다. Update당 카메라시퀀스16→256, 단순FLOPs비율은 아님.
+Stage1 전체시퀀스 latent transition 한 dyn_module 호출 vs 현재4카메라 각각8단계prior rollout·history 재처리·checkpoint backward재계산·planner/oracle.
+Native 가중치 개수와 실행 계산량을 구분한다. 기존25epoch/queue/monitor/source/config 변경 및 새GPU학습/평가 없음.
+
 **2026-10-07 19:01 KST — 중간 상태: 학습4,480 / 새 검증4,500 대기.**
 19:00:43 기준4,480/40,350, 약2.776/25epoch(11.103%). 양rank 전체로그 비유한loss0 /4400의18gradient그룹 유한·양수.
 원래279/실행283sourcehash 일치, nativehash 유지. Host train3144180/queue3144181/monitor3144182/publisher2507743 생존.
@@ -208,7 +217,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-07 19:03 KST (Codex)
+마지막 갱신: 2026-10-07 19:12 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -375,6 +384,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+이번 요청은 과거 epoch별 지표·계산속도 감사다. 기존joint25epoch/정기진단/queue 유지, 새GPU학습/평가/추가대조군 미실행.
+이번최종진행률조회19:07 저장4498/40350 epoch3,monitor4000완료→4500대기였다. 현재진단완료 상태는 이후 조회가 필요하다.
 
 19:00:43 조회 joint-DrivoR4,480/40,350 epoch3. 기존 학습/queue/monitor/publisher host 생존, monitor4000완료→4500대기.
 Micro16×accum2×GPU2=유효64/loader2/oracle8, 각GPU40.325GB 유지. 새 GPU 평가/학습·source/config·queue 변경 없음.
@@ -908,6 +920,15 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Stage1 epoch별PDMS는 기록되지 않았다. 공식SSL only/no planner이며512개발clip의validation0–20을 보존한다.
+동일epoch0 로그가2회 있어 새CSV에서만동일중복1개제거, 역사적로그 불변. Epoch checkpoint01–20 모두존재.
+Stage1 loggedloss0/1/5/10/20=64.8380/23.3991/21.1328/20.3581/19.6968,loggedPSNR13.1449/20.4611/20.8349/20.9450/21.0768.
+SSL/PSNR개선만으로epoch별planningPDMS를 추정하거나planning수렴을 단정하지 않는다.
+현재 epoch1=67.9864/2=74.5770/4000(2.478epoch)=75.8303,95학습패널. 이전82.49는 Stage1 epoch20뒤Stage2 Adapter1epoch의1021개발결과다.
+현재도 npy RGB pixelcache를 사용한다. 해상도128²와캐시는공통이며주요상대속도원인이아니다.
+Stage1 batch16×1camera=16시퀀스/update,현재64×4=256시퀀스/update이나각시퀀스시간입력/계산이다르므로16배FLOPs를 주장하지 않는다.
+Current sample은각미래step에서context와particle누적history를다시처리한다. Stage1 sequence SSL와backward 그래프가다름.
 
 19:01 조회는 새 성능 평가가 아닌 상태 점검이다. 마지막 완료PDMS/표현진단은4000이며75.83/1.979px/14.098%다.
 양rank4480 전체로그 비유한loss0,4400의18gradient그룹 유한·양수,279·283등록hash 정상/nativehash 동일.
@@ -1658,12 +1679,17 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 중간 결과 요청에19:00:43 기준4480/40350 학습·GPU·host 프로세스·양rank loss/gradient·등록sourcehash를 확인했다.
-- 4500 진단은 아직 대기 중이며 마지막4000 성능과 현재 진행률을 구분했다. 새PDMS/표현 성능을 만들어 보고하지 않았다.
-- 최근23초/update로4500오늘19:08/4842오늘21:19–21:21/V1끝10월17일07–11시 학습경계 외삽을 기록했다.
-- 상태 JSON과README/HANDOFF1–5/학습문서/RESUME_NOTES 갱신. 기존25epoch·queue·정기진단·source/config 변경/새GPU 작업 없음.
+- Stage1 epoch별 PDMS가없음을 actual log/summary/trainer와root검색으로 확인하고 실제SSLloss/PSNR0–20을 추출했다.
+- CPU로과거SSL와현재95학습패널PDMS를별도축PNG/PDF·CSV·JSON으로기록하고시각검사했다. 과거로그/결과는불변이다.
+- 후속속도질문에current RGBcache도확인해캐시의상대효과해석을정정하고16→256카메라시퀀스·순차rollout/history·backward재계산 차이를 정리했다.
+- HANDOFF1–5/실험문서/RESUME_NOTES 갱신. 기존25epoch·학습source/config·queue·monitor 변경 및 새GPU작업/epoch별planner재학습없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+사용자에게 모델parameter 수보다update당처리량/순차rollout이현재속도를결정함을 설명하고기존SSL/현재PDMS그림을제공한다.
+Stage1 epoch별PDMS를채우려면동일planner·예산으로각checkpoint뒤planner학습이필요하다. 0/20대조는있고1/5는후속검토안이며새queue등록없음.
+학습된epoch20 planner에중간Stage1 checkpoint만바꿔끼우면입력분포불일치가섞인다. 이를각epoch표현의최종planning성능으로부르지않는다.
+기존25epoch학습·500/epoch진단·후속평가를유지한다. 비용요인별통제profiling은미실시,현재등록source/config무변경.
 
 다음4500 학습경계 오늘19:08전후. 정기 표현진단 처리와 공식PDMS 평가 완료 시점을 경계 도달과 구분한다.
 4500 완료 후4000과 동일 장면별/상황별PDMS·readout·geometry·미래개입을 비교한다. 기존25epoch/queue/monitor/publisher 유지.
@@ -2121,6 +2147,11 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Stage1 epoch별PDMS 부재는기록누락을planning성능0으로대체하는것이아니다. 당시모델은planner가없어주행경로/PDMS출력이없었다.
+SSL학습에실제전체영상latent를쓰는것과현재추론가능한current-only prior rollout을구분한다. 미래GT영상은현재planner입력에없다.
+현재native LPWM고정/LoRA4.684M이어도gradient전달위한연산은필요하다. 이전native전체109.545M학습과속도를parameter수만으로비교하지않는다.
+캐시·해상도는공통이다. 카메라시퀀스16배/순차8단계/재계산의수치를곱해정확속도배수로설명하지않는다. 원인별기여배수미확정.
 
 19:01에는4000 이후 새 성능 결과가 없다. 95학습패널점수를 독립validation/navtest나4480 성능으로 부르지 않는다.
 GPU utilization34/95%는 단일시점 조회이며 지속적인 사용률/속도 변화의 근거로 단정하지 않는다. 전체48decimalGB 제한 유지.
