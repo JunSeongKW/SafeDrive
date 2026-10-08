@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 01:01 KST (Codex)
+마지막 갱신: 2026-10-09 01:04 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 01:04 KST 각실험완료ETA조회: drivor:3200/3200 / jepa:2680/3200 / lpwm_sequential:1821/3200 / lpwm_joint:576/3200. 기존v10/세학습계속,실행변경없음.
 
 2026-10-09 01:01 KST 진행 조회: drivor 3200/3200 (100.0%) / jepa 2635/3200 (82.3%) / lpwm_sequential 1799/3200 (56.2%) / lpwm_joint 562/3200 (17.6%). v10 controller3700728/기존 세학습 계속, 이번 조회에서 실행 변경 없음.
 
@@ -1290,6 +1292,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 01:04 KST 최근10–50update 회복속도 JEPA약4.8–5.3초/순차9.3–10.0초. joint최근10회15.5초이나20–100회에는일시서버지연포함22–38초로변동이큼. elapsed_seconds 재개reset을분리해계산. 근거 results/four_model_small_corpus_v1/completion_eta_20261009_0104.json.
 
 2026-10-09 01:01 KST 새PDMS평가없음. DrivoR pass5 81.253529/JEPA pass3 74.696960/LPWM순차 pass1 64.974333 유지, joint첫평가전. 양rank최근100row 비유한loss/gradient0. GPU0/1각30.35GB,util96/100%. batch증설trial0·physicalmicro2/누적4/유효16 유지. 근거 results/four_model_small_corpus_v1/progress_20261009_0101.json.
 
@@ -2240,11 +2244,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청으로 최신 진행률·평가 결과·배치 증설 상태·GPU 사용량을 조회해 기록했다.
-- 세 학습·v10 대기열은 계속하며, 새 평가나 배치 증설이 아직 발생하지 않았음을 확인했다.
-- 실행 코드·설정·프로세스 변경 없음.
+- 사용자 요청으로 각실험 잔여update와 최근wall속도에서 학습·최종평가 종료시간을 계산했다.
+- 재개에 따른 elapsed reset을 제거하고 일시서버지연에 따른 공동학습 ETA 불확실성을 기록했다.
+- 학습·설정·대기열 변경 없이 기존 batch증설·평가 자동화를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 01:04 KST 회복부하유지시10/9KST 계획예상:JEPA학습01:45–02:00/최종평가01:50–02:05,LPWM순차학습04:40–05:20/평가04:50–05:30,LPWMjoint학습12:00–14:00/평가12:15–14:15. 기존peer완료후조건부배치증설은그대로자동검토,단축률은미측정으로ETA에확정반영하지않음.
 
 2026-10-09 01:01 KST 기존pass1/3/5 자동평가와peer완료후batch증설 검토 대기열계속. 아직새실험완료없어증설미적용. 최신첫epoch공동진행률은현재update/640이며기존ETA는부하변동을반영해재계산해야한다.
 
@@ -2873,6 +2879,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 01:04 KST ETA는현회복속도가유지되는조건이며직전서버지연재발시특히joint완료가수시간늦어질수있음. 현재native단독/micro4 실제속도는미측정. DrivoR는10/8 22:30:39학습/22:31:32평가완료,전체비교마무리는joint최종평가후다. 원격인증실패이력유지.
 
 2026-10-09 01:01 KST 진행률은planning5epoch/3200update기준,JEPA·LPWM순차SSL은5pass이미완료. 최근점수의평가epoch는현재epoch와구분하며전체navtest아닌고정dev1024 결과다. 원격공유는이전인증실패이력있음.
 

@@ -1,0 +1,239 @@
+{
+  "observed_at": "2026-10-09T01:04:51.835558+09:00",
+  "scope": "Existing five-epoch small-corpus planning and dev1024 final evaluation",
+  "execution_changes": false,
+  "models": {
+    "drivor": {
+      "progress": {
+        "completed_updates": 3200,
+        "target_updates": 3200,
+        "corpus_pass": 5.0,
+        "seconds": 3.2699899673461914,
+        "elapsed_seconds": 2535.037996530533,
+        "card_used_bytes": 18479054848,
+        "peak_allocated_bytes": 964635648,
+        "gradient_norm": 13.823330879211426,
+        "gradient_groups": {
+          "planner": 9.364754676818848,
+          "scorer": 3.3031423091888428,
+          "encoder": 5.139552593231201
+        },
+        "planning_presentations": 51200,
+        "ssl_presentations": 0,
+        "loss": 3.1767311096191406,
+        "trajectory_loss": 1.14876127243042,
+        "final_score_loss": 2.0279697477817535,
+        "score": 0.795441284775734,
+        "best_score": 0.9936957657337189,
+        "planning_loss": 3.1767311096191406,
+        "ssl_loss": 0.0,
+        "total_objective": 3.1767311096191406
+      },
+      "reported_ranges": {
+        "training": "Completed2026-10-08 22:30:39KST",
+        "evaluation": "Completed2026-10-08 22:31:32KST"
+      },
+      "recent_rate_windows": []
+    },
+    "jepa": {
+      "progress": {
+        "completed_updates": 2680,
+        "target_updates": 3200,
+        "corpus_pass": 4.1875,
+        "seconds": 3.6783065795898438,
+        "elapsed_seconds": 5780.349870681763,
+        "card_used_bytes": 30355226624,
+        "peak_allocated_bytes": 7134348800,
+        "gradient_norm": 13.252558708190918,
+        "gradient_groups": {},
+        "planning_presentations": 42880,
+        "ssl_presentations": 0,
+        "loss": 1.7292378693819046,
+        "trajectory_loss": 0.7222181707620621,
+        "final_score_loss": 1.0070196688175201,
+        "score": 0.9496708512306213,
+        "best_score": 1.0,
+        "planning_loss": 1.7292378693819046,
+        "ssl_loss": 0.0,
+        "total_objective": 1.7292378693819046
+      },
+      "reported_ranges": {
+        "training": "2026-10-09 01:45–02:00KST",
+        "evaluation": "2026-10-09 01:50–02:05KST"
+      },
+      "recent_rate_windows": [
+        {
+          "requested_window": 10,
+          "actual_updates": 10,
+          "seconds_per_update_including_saves": 5.439993667602539,
+          "training_completion_if_unchanged": "2026-10-09T01:52:00.632265+09:00"
+        },
+        {
+          "requested_window": 20,
+          "actual_updates": 20,
+          "seconds_per_update_including_saves": 5.238367521762848,
+          "training_completion_if_unchanged": "2026-10-09T01:50:15.786669+09:00"
+        },
+        {
+          "requested_window": 30,
+          "actual_updates": 30,
+          "seconds_per_update_including_saves": 5.016120521227519,
+          "training_completion_if_unchanged": "2026-10-09T01:48:20.218229+09:00"
+        },
+        {
+          "requested_window": 50,
+          "actual_updates": 50,
+          "seconds_per_update_including_saves": 4.991956195831299,
+          "training_completion_if_unchanged": "2026-10-09T01:48:07.652780+09:00"
+        },
+        {
+          "requested_window": 100,
+          "actual_updates": 100,
+          "seconds_per_update_including_saves": 5.384015982151031,
+          "training_completion_if_unchanged": "2026-10-09T01:51:31.523869+09:00"
+        },
+        {
+          "requested_window": 200,
+          "actual_updates": 200,
+          "seconds_per_update_including_saves": 9.848169261217118,
+          "training_completion_if_unchanged": "2026-10-09T02:30:12.883574+09:00"
+        }
+      ]
+    },
+    "lpwm_sequential": {
+      "progress": {
+        "completed_updates": 1821,
+        "target_updates": 3200,
+        "corpus_pass": 2.8453125,
+        "seconds": 8.035662412643433,
+        "elapsed_seconds": 5785.047786235809,
+        "card_used_bytes": 30355226624,
+        "peak_allocated_bytes": 5580502016,
+        "gradient_norm": 34.565589904785156,
+        "gradient_groups": {},
+        "planning_presentations": 29136,
+        "ssl_presentations": 0,
+        "loss": 2.8322494328022003,
+        "trajectory_loss": 1.3051540032029152,
+        "final_score_loss": 1.527095377445221,
+        "score": 0.9225825816392899,
+        "best_score": 0.9933139383792877,
+        "planning_loss": 2.8322494328022003,
+        "ssl_loss": 0.0,
+        "total_objective": 2.8322494328022003
+      },
+      "reported_ranges": {
+        "training": "2026-10-09 04:40–05:20KST",
+        "evaluation": "2026-10-09 04:50–05:30KST"
+      },
+      "recent_rate_windows": [
+        {
+          "requested_window": 10,
+          "actual_updates": 10,
+          "seconds_per_update_including_saves": 9.460569643974305,
+          "training_completion_if_unchanged": "2026-10-09T04:42:17.961097+09:00"
+        },
+        {
+          "requested_window": 20,
+          "actual_updates": 20,
+          "seconds_per_update_including_saves": 9.355422139167786,
+          "training_completion_if_unchanged": "2026-10-09T04:39:52.962688+09:00"
+        },
+        {
+          "requested_window": 30,
+          "actual_updates": 30,
+          "seconds_per_update_including_saves": 9.869995546340942,
+          "training_completion_if_unchanged": "2026-10-09T04:51:42.559416+09:00"
+        },
+        {
+          "requested_window": 50,
+          "actual_updates": 50,
+          "seconds_per_update_including_saves": 9.569369144439698,
+          "training_completion_if_unchanged": "2026-10-09T04:44:47.995608+09:00"
+        },
+        {
+          "requested_window": 100,
+          "actual_updates": 100,
+          "seconds_per_update_including_saves": 18.682045426368713,
+          "training_completion_if_unchanged": "2026-10-09T08:14:14.376201+09:00"
+        },
+        {
+          "requested_window": 200,
+          "actual_updates": 200,
+          "seconds_per_update_including_saves": 14.169988890886307,
+          "training_completion_if_unchanged": "2026-10-09T06:30:32.250239+09:00"
+        }
+      ]
+    },
+    "lpwm_joint": {
+      "progress": {
+        "completed_updates": 576,
+        "target_updates": 3200,
+        "corpus_pass": 0.9,
+        "seconds": 14.038909673690796,
+        "elapsed_seconds": 5789.102765321732,
+        "card_used_bytes": 30355226624,
+        "peak_allocated_bytes": 26250561536,
+        "gradient_norm": 14.43666934967041,
+        "gradient_groups": {},
+        "planning_presentations": 9216,
+        "ssl_presentations": 9424,
+        "loss": 8.437607169151306,
+        "trajectory_loss": 5.079921394586563,
+        "final_score_loss": 3.35768586397171,
+        "score": 0.5795513167977333,
+        "best_score": 0.9605949223041534,
+        "planning_loss": 8.437607169151306,
+        "ssl_loss": 37.22761249542236,
+        "total_objective": 12.160368204116821
+      },
+      "reported_ranges": {
+        "training": "2026-10-09 12:00–14:00KST",
+        "evaluation": "2026-10-09 12:15–14:15KST"
+      },
+      "recent_rate_windows": [
+        {
+          "requested_window": 10,
+          "actual_updates": 10,
+          "seconds_per_update_including_saves": 15.255681610107422,
+          "training_completion_if_unchanged": "2026-10-09T12:12:02.744103+09:00"
+        },
+        {
+          "requested_window": 20,
+          "actual_updates": 20,
+          "seconds_per_update_including_saves": 15.204554951190948,
+          "training_completion_if_unchanged": "2026-10-09T12:09:48.587750+09:00"
+        },
+        {
+          "requested_window": 30,
+          "actual_updates": 30,
+          "seconds_per_update_including_saves": 22.474098134040833,
+          "training_completion_if_unchanged": "2026-10-09T17:27:43.869062+09:00"
+        },
+        {
+          "requested_window": 50,
+          "actual_updates": 50,
+          "seconds_per_update_including_saves": 37.646096057891846,
+          "training_completion_if_unchanged": "2026-10-10T04:31:15.191614+09:00"
+        },
+        {
+          "requested_window": 100,
+          "actual_updates": 100,
+          "seconds_per_update_including_saves": 26.880879776477812,
+          "training_completion_if_unchanged": "2026-10-09T20:40:27.264091+09:00"
+        },
+        {
+          "requested_window": 200,
+          "actual_updates": 200,
+          "seconds_per_update_including_saves": 21.467557913064958,
+          "training_completion_if_unchanged": "2026-10-09T16:43:42.707522+09:00"
+        }
+      ]
+    }
+  },
+  "assumptions": [
+    "Recently recovered throughput continues",
+    "Peer completion and batch growth may shorten the run; effects not yet measured",
+    "Repeat server stalls can delay completion; joint estimate has high uncertainty"
+  ]
+}
