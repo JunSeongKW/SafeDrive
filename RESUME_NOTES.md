@@ -3633,3 +3633,41 @@ LPWM에는동일주행영상으로원래particle/영상SSL을적용하는것이�
 우선기존OpenScene에서실제연속clip목록과recording별분리를확정하고LPWM SSL조건을설계하는것을권고한다. Navtest/Navhard 등평가recording과인접frame은새SSL학습목록에서제외하고,외부데이터노출·해상도·관측수·planner·배치·seed를대조조건에명시한다. 외부영상SSL만으로명령별선택표현이학습되는것은아니므로planning/ego intent 적응은별도검증한다. 8frame사전학습은추론8frame을강제하지않는다. GPU0·1은A6000이며현재기존학습중으로새SSL GPUprofile을하지않았고소요시간을단정하지않았다.
 
 근거: [조사 JSON](../results/lpwm_drivor_planning_path_lora_v1/drive_jepa_video_pretraining_feasibility_20261008.json), [CoVLA](https://huggingface.co/datasets/turing-motors/CoVLA-Dataset), [DrivingDojo 데이터 문서](https://github.com/Robertwyq/Drivingdojo/blob/main/docs/DATASET.md), [OpenScene 데이터 문서](https://github.com/OpenDriveLab/OpenScene/blob/main/docs/getting_started.md).
+
+
+## 2026-10-08 10:51 KST — native512×256 LPWM·particle 최소후보 학습 시작
+
+**2026-10-08 10:51 KST — 사용자 지시로 기존 두 학습 중단, 512×256·소수 particle Stage1 시작.**
+기존 본학습5,493 / Adapter13,480 fullstate 저장·pause 및 자동재개 watcher 종료. 과거 25epoch 대기열 재기동 금지.
+새 연구: front1·512×256·2Hz·8frame LPWM SSL → native backbone1e-5 + DrivoR planner1e-4 공동학습.
+Foreground8/16/32/64(+background1) 각200update·유효4·동일32held-out recording 비교 → 잠정 최소개수로 로컬 전체1epoch 자동학습.
+GPU1 queue2819995, root `outputs/lpwm_driving_video_512x256_v1/particle_budget_study/`; CPU overlay2926659. GPU0 타인작업 유지.
+로컬 SSL train14.290h/10,480비중복clip, val3.050h/61recording중고정32평가. 8particle 실제 forward/backward·causal예측·저장 확인. 최종planning 성능보존은 미검증.
+OpenScene downloader2826493: 공용원본 읽기전용, 누락front만 별도processed_dataset/junseong 소유root에 stream, 총1TB제한/압축archive미보관/SHA검사.
+CoVLA·DrivingDojo 및Extra1–5는 현재HF계정403 GatedRepo. 사용자 이용조건 동의·접근승인 필요; 대신 승인하지 않는다.
+**330h 본사전학습 및 Stage2는 아직 미시작.** 원Drive-JEPA의 정확330h clip manifest도 미공개이며 동일3source의 자체curation으로구분한다.
+[시작 근거](results/lpwm_driving_video_512x256_v1/transition_and_start_report.json) · [확정 목표·남은 단계](configs/lpwm_driving_video_512x256_v1/research_plan.json).
+아래 기존실행중·새학습금지·geometry선택대기 문장은 이번 사용자 승인 이전 이력이다.
+
+
+### 최신 — 축소 particle native-resolution 구현과검사
+
+- 128×128 공개LPWM을strict-load후 CNN은실제512×256 RGB를입력받음. prior grid8개2×4/16개4×4/32개4×8/64개8×8, foreground glimpse64×128. CNN후adaptive pooling으로FC dimensions보존. 위치embedding공간평균, background1보존.
+- foreground sprite renderer는공개32×32를유지하고512×256canvas에합성; background latent seed를16×32로확장하여CNN복원. 전체RGB를128로축소하지않음. 이는새아키텍처적응조건이며원본동일아키텍처성능보장아님.
+- 8·16·32·64개공식loss+역전파모두성공. 8개encoder/context/dynamics/decoder gradient모두유한양수. 8개공개초기future MSE.0664,현재반복.0323으로초기public모델주행예측은미적응. 최종경향은각200update후검증해야함.
+- 로컬SSL은train102,890 unique frames(14.2903h),val21,958(3.0497h),image/recordingoverlap0. metadata전체100.419h지만실제영상부족하므로가용시간과구분. 전체330h아님.
+- 최초planning index가82 scene을missing으로기록한원인은camera파일누락이아닌history간격약1초. 전부두이미지존재. `corpus/planning_history_audit_amendment.json`에정정; 등록SSLmanifest불변. 새indexsource는missing/cadence분리. 미래Stage2는실timestamp보존하고예외를기록해야함.
+- 학습전후재구성/causal6미래(2관측) MSE·LPIPS·아래절반오차·presence/spatial/appearance분산검사. 64대비15%내는exploratory후보screen일뿐객체정보/PDMS 비열등성증명아님. 미래GT를context입력하지않음.
+- HF토큰있지만CoVLA와DrivingDojo base/Extra1–5 모두403 GatedRepo,OpenScene200. sandbox밖에서도동일,네트워크설치실패와구분. 사용자동의·승인이필요하다.
+
+
+### 최신 승인된 다음 단계 (과거 자동학습보류보다 우선)
+
+1. 새particle queue/학습/quality결과·PNG 확인. 구조검사통과와주행정보보존검증을구분. 8개가실패하면16/32를검토하며작은객체/가림정보도후속진단.
+2. HF계정CoVLA/DrivingDojo 접근승인대기. 사용자가동의했다면catalog script재확인; 토큰출력·약관자동동의금지. OpenScene download진행/실패/SHA검사. 원본330h manifest미공개조건을숨기지않음.
+3. 완료archive marker의파일만새expanded manifest에추가. 기존실행중localmanifest/등록source수정금지. CoVLA·Dojo video ingest·2Hz/crop28/512×256변환·330uniquehour audit 추가구현필요. 새원본총1TB제한.
+4. 330h 코퍼스완성후full Stage1 DDP0·1 학습·검증설정확정/구현. 현재queue는로컬1epoch후대기하며330h학습·Stage2로자동넘어가지않는다.
+5. Stage1검증후front1/2observed512×256용generic-count particle encoder↔공식DrivoR planner연결(Stage2새구현필요). native backbone1e-5/planner1e-4; intentionCNN경로의checkpoint-safe FiLM을연결하고gradient검사. 기존4cam128코드를그대로재사용하지않음.
+6. 공정split·fullNAVTEST/EPDMS평가후새로받은데이터만owner/ledger확인후삭제. 자동cleanup은아직구현/실행되지않았음; shared Dataset/checkpoints/manifest/results절대삭제금지.
+
+후속실측: 8개200update 검증완료, 미래MSE .066418→.029759/현재반복.032324. Presence평균.999648로거의모두활성: adaptive sparse selection이나객체검출성공으로부르지않음. 16개비교계속. OpenScene첫archive SHA검증통과/누락front2085장확보. CPUpublisher는패널축512×256고정수정후2926659로교체하고 v2그림에저장. 기존그림보존.

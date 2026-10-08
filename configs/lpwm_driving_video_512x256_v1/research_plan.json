@@ -1,0 +1,80 @@
+{
+  "status": "particle_capacity_screen_running; full_330h_corpus_pending_external_access",
+  "research_question": "Can a small set of particles preserve scene and future information needed for intent-conditioned planning?",
+  "stage1": {
+    "objective": "official LPWM temporal ELBO, no object GT labels",
+    "initialization": "public Sketchy LPWM; native rectangular computation; grouped spatial embeddings",
+    "front_cameras": 1,
+    "width": 512,
+    "height": 256,
+    "crop_top_bottom_pixels": 28,
+    "frames": 8,
+    "fps": 2,
+    "target_training_unique_hours": 330,
+    "datasets": [
+      "CoVLA",
+      "DrivingDojo",
+      "OpenScene(trainval)"
+    ],
+    "original_drive_jepa_curated_manifest_available": false,
+    "candidate_foreground_particles": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "background_particles": 1,
+    "initial_screen_updates": 200,
+    "screen_effective_batch": 4,
+    "screen_validation_recordings": 32,
+    "after_screen": "smallest candidate within exploratory 15% error tolerance vs64; one full local OpenScene epoch; not final planning noninferiority",
+    "local_train_hours": 14.290277777777778,
+    "local_validation_hours": 3.049722222222222,
+    "local_train_nonoverlapping_clips": 10480,
+    "target_330h_not_satisfied_by_overlapping_or_repeated_clips": true
+  },
+  "stage2": {
+    "status": "not_started; requires full Stage1 corpus/training/validation",
+    "backbone_learning_rate": 1e-05,
+    "planner_learning_rate": 0.0001,
+    "learning_rate_source": "https://arxiv.org/html/2601.22032v2",
+    "planner_base": "official DrivoR trajectory generator, scorer and losses",
+    "backbone_update": "native encoder, context and dynamics weights jointly fine-tuned; not LoRA in this new condition",
+    "front_cameras": 1,
+    "observed_frames": 2,
+    "observation_order": "previous,current",
+    "width": 512,
+    "height": 256,
+    "history_irregular_intervals_in_existing_split": 82,
+    "required_diagnostics": [
+      "held-out causal future prediction",
+      "representation noncollapse",
+      "particle before-after-overlay",
+      "small-object information readout",
+      "intent intervention",
+      "matched planning ablations and full official benchmark"
+    ]
+  },
+  "data_management": {
+    "shared_original_root": "/home/user/data/Dataset",
+    "shared_originals_read_only": true,
+    "owned_raw_root": "/home/user/data/processed_dataset/junseong/lpwm_driving_video_512x256_v1",
+    "raw_storage_cap_bytes": 1000000000000,
+    "delete_only_newly_downloaded_assets_after_completed_training": true,
+    "cleanup_not_yet_executed": true
+  },
+  "runtime": {
+    "allowed_gpus": [
+      0,
+      1
+    ],
+    "screen_gpu": 1,
+    "whole_card_cap_bytes": 48000000000,
+    "other_user_processes_untouched": true
+  },
+  "stopped_runs": {
+    "primary_completed_updates": 5493,
+    "adapter_completed_updates": 13480,
+    "automatically_resume": false
+  }
+}

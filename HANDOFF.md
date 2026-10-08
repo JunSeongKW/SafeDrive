@@ -1,5 +1,19 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**후속 확인:** 8particle 후보200update·검증완료, 현재16particle 후보학습중. 32held-out기록 futureMSE .06642→.02976 (현재반복.03232), PDMS미평가. OpenScene 첫archiveSHA검증완료/누락front2,085장확보, 다음archive진행. [전후·고정축 겹침](results/lpwm_driving_video_512x256_v1/particle_budget_overlays_v2/candidate_particles8_after_training_before_after_overlay.png).
+
+**2026-10-08 10:51 KST — 사용자 지시로 기존 두 학습 중단, 512×256·소수 particle Stage1 시작.**
+기존 본학습5,493 / Adapter13,480 fullstate 저장·pause 및 자동재개 watcher 종료. 과거 25epoch 대기열 재기동 금지.
+새 연구: front1·512×256·2Hz·8frame LPWM SSL → native backbone1e-5 + DrivoR planner1e-4 공동학습.
+Foreground8/16/32/64(+background1) 각200update·유효4·동일32held-out recording 비교 → 잠정 최소개수로 로컬 전체1epoch 자동학습.
+GPU1 queue2819995, root `outputs/lpwm_driving_video_512x256_v1/particle_budget_study/`; CPU overlay2926659. GPU0 타인작업 유지.
+로컬 SSL train14.290h/10,480비중복clip, val3.050h/61recording중고정32평가. 8particle 실제 forward/backward·causal예측·저장 확인. 최종planning 성능보존은 미검증.
+OpenScene downloader2826493: 공용원본 읽기전용, 누락front만 별도processed_dataset/junseong 소유root에 stream, 총1TB제한/압축archive미보관/SHA검사.
+CoVLA·DrivingDojo 및Extra1–5는 현재HF계정403 GatedRepo. 사용자 이용조건 동의·접근승인 필요; 대신 승인하지 않는다.
+**330h 본사전학습 및 Stage2는 아직 미시작.** 원Drive-JEPA의 정확330h clip manifest도 미공개이며 동일3source의 자체curation으로구분한다.
+[시작 근거](results/lpwm_driving_video_512x256_v1/transition_and_start_report.json) · [확정 목표·남은 단계](configs/lpwm_driving_video_512x256_v1/research_plan.json).
+아래 기존실행중·새학습금지·geometry선택대기 문장은 이번 사용자 승인 이전 이력이다.
+
 **2026-10-08 08:53 KST — 두 학습 중간 점검, 신규 평가 없음.**
 본학습5,464/40,350(3.385epoch), Adapter12,828/14,121(2.725epoch). 양rank 기록에서 비유한 loss 없음; 최신 본학습5,400의18gradient그룹 유한·양수, Adapter encoder/context/dynamics/planner gradient 유한·양수. GPU0·1 최근200update 최대각37.05GB.
 공통navtest1,024장면 PDMS는 기존본학습5,400의81.6096/Adapter2epoch81.6141 그대로다. 새가중치 점수로 부르지 않는다. 최신 particle 진단5,000, 다음5,500 대기.
@@ -340,7 +354,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 09:19 KST (Codex)
+마지막 갱신: 2026-10-08 10:57 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -507,6 +521,17 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+### 최신 — 512×256·particle 축소 Stage1 (2026-10-08)
+
+- 실행 queue2819995 / `scripts/queue_lpwm_reduced_particle_stage1.py`, GPU1. 각8/16/32/64개200update→32검증기록 비교→8/16/32 중 최소 provisional통과조건 전체로컬1epoch(2,620update). 통과없으면품질검토대기.
+- Trainer `scripts/train_lpwm_reduced_particle_stage1.py`: process name kjs-lpwm-stage1, micro1×accum4, worker4, FP32, native encoder/context/dynamics/RGBdecoder Adam8e-5. 공식temporalELBO; 해상도8배 pixel-sum 보정 beta_rec=.125. GT객체loss없음.
+- 비교조건은같은800clip/같은32held-out recording, seed47. local본1epoch은public-init에서새로시작하여후보weights재사용안함. 전체330h학습으로부르지않는다.
+- 새 source/config hash등록 후수정금지. 각조건 latest.pt에model/Adam/RNG/cursor저장. 중단은현재condition/pause.requested와queue root/pause.requested 모두작성; 새로운학습재개는same source필수.
+- CPU시각화2926659: `publish_lpwm_reduced_particle_comparison.py --watch`; 결과 `results/lpwm_driving_video_512x256_v1/particle_budget_overlays_v2/`. 최초그림은축자동확장으로패널범위가달라v2에서512×256고정축으로수정. 고정scene·particle번호전후및겹침. 점고정크기, 박스glimpse, 화살표실이동.
+- Download2826493, `scripts/download_lpwm_openscene_front.py`: shared원본누락570,524front이미지,200archive를1개씩stream. raw `/home/user/data/processed_dataset/junseong/lpwm_driving_video_512x256_v1/openscene_front_trainval/`, control `outputs/lpwm_driving_video_512x256_v1/openscene_download/`. completed archive SHA 검증marker만데이터입장가능; partial파일은학습금지.
+- 기존main5493/Adapter13480 및 checkpoints보존. 이전queue/monitor/publisher/batch복원watcher중지. 자동재개금지.
+
 
 Drive-JEPA 주행 영상 SSL 재사용 조사 완료. 기존 두 학습/평가/대기열 변경 없음. 새 대규모 다운로드·학습·GPU profile은 실행하지 않았다.
 
@@ -1104,6 +1129,17 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+### 최신 — 축소 particle native-resolution 구현과검사
+
+- 128×128 공개LPWM을strict-load후 CNN은실제512×256 RGB를입력받음. prior grid8개2×4/16개4×4/32개4×8/64개8×8, foreground glimpse64×128. CNN후adaptive pooling으로FC dimensions보존. 위치embedding공간평균, background1보존.
+- foreground sprite renderer는공개32×32를유지하고512×256canvas에합성; background latent seed를16×32로확장하여CNN복원. 전체RGB를128로축소하지않음. 이는새아키텍처적응조건이며원본동일아키텍처성능보장아님.
+- 8·16·32·64개공식loss+역전파모두성공. 8개encoder/context/dynamics/decoder gradient모두유한양수. 8개공개초기future MSE.0664,현재반복.0323으로초기public모델주행예측은미적응. 최종경향은각200update후검증해야함.
+- 로컬SSL은train102,890 unique frames(14.2903h),val21,958(3.0497h),image/recordingoverlap0. metadata전체100.419h지만실제영상부족하므로가용시간과구분. 전체330h아님.
+- 최초planning index가82 scene을missing으로기록한원인은camera파일누락이아닌history간격약1초. 전부두이미지존재. `corpus/planning_history_audit_amendment.json`에정정; 등록SSLmanifest불변. 새indexsource는missing/cadence분리. 미래Stage2는실timestamp보존하고예외를기록해야함.
+- 학습전후재구성/causal6미래(2관측) MSE·LPIPS·아래절반오차·presence/spatial/appearance분산검사. 64대비15%내는exploratory후보screen일뿐객체정보/PDMS 비열등성증명아님. 미래GT를context입력하지않음.
+- HF토큰있지만CoVLA와DrivingDojo base/Extra1–5 모두403 GatedRepo,OpenScene200. sandbox밖에서도동일,네트워크설치실패와구분. 사용자동의·승인이필요하다.
+
 
 Drive-JEPA 방법과 공개데이터는 활용 가능하나 정확330h manifest/주행전용SSL config는 미확인. CoVLA 및 DrivingDojo는 HF gated이며 확인한 배포분 합계만1.309TB로 신규원본1TB한도 초과. 로컬 OpenScene1,310log는 실제sensor누락이 있어 전체영상량과 다르다. 7log 파일존재 감사 및 실제8frame/2Hz/512×256 CPU전처리 통과. 기존주행ViT50epoch checkpoint5.13GB 존재. 상세 `results/lpwm_drivor_planning_path_lora_v1/drive_jepa_video_pretraining_feasibility_20261008.json`.
 
@@ -1941,11 +1977,22 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Drive-JEPA 논문·공개 generic V-JEPA 코드와 데이터 접근/저장 규모를 조사하고 정확 재현에 남은 정보를 구분했다.
-- OpenScene 7log의 실제 영상 존재와 연속8frame 전처리를 CPU로 검사하고 기존 주행 ViT checkpoint의 재사용 가능성을 기록했다.
-- LPWM SSL/JEPA 이식/고정 teacher 옵션과 공정 비교 조건을 문서 및 JSON에 기록했다. 현재 등록 학습·평가·대기열 변경 없음.
+- 사용자승인에따라기존두학습fullstate저장·중단하고자동재개watcher를종료했다.
+- 공개LPWM native512×256과8/16/32/64particle변환, fullSSL역전파/causal추론검사, 비교학습→최소후보로컬1epoch 대기열을구현·시작했다.
+- 전후·겹침시각화CPUpublisher,공식dataset접근catalog,로컬split/영상audit,OpenScene누락front streaming다운로더를추가했다.
+- 전체330h와Stage2미시작/남은외부접근승인및구현을명확히기록했다. 과거source/결과수치보존.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+### 최신 승인된 다음 단계 (과거 자동학습보류보다 우선)
+
+1. 새particle queue/학습/quality결과·PNG 확인. 구조검사통과와주행정보보존검증을구분. 8개가실패하면16/32를검토하며작은객체/가림정보도후속진단.
+2. HF계정CoVLA/DrivingDojo 접근승인대기. 사용자가동의했다면catalog script재확인; 토큰출력·약관자동동의금지. OpenScene download진행/실패/SHA검사. 원본330h manifest미공개조건을숨기지않음.
+3. 완료archive marker의파일만새expanded manifest에추가. 기존실행중localmanifest/등록source수정금지. CoVLA·Dojo video ingest·2Hz/crop28/512×256변환·330uniquehour audit 추가구현필요. 새원본총1TB제한.
+4. 330h 코퍼스완성후full Stage1 DDP0·1 학습·검증설정확정/구현. 현재queue는로컬1epoch후대기하며330h학습·Stage2로자동넘어가지않는다.
+5. Stage1검증후front1/2observed512×256용generic-count particle encoder↔공식DrivoR planner연결(Stage2새구현필요). native backbone1e-5/planner1e-4; intentionCNN경로의checkpoint-safe FiLM을연결하고gradient검사. 기존4cam128코드를그대로재사용하지않음.
+6. 공정split·fullNAVTEST/EPDMS평가후새로받은데이터만owner/ledger확인후삭제. 자동cleanup은아직구현/실행되지않았음; shared Dataset/checkpoints/manifest/results절대삭제금지.
+
 
 새 학습을 자동등록하지 않는다. 후속주행SSL 실험에서는 기존OpenScene 실제연속clip manifest/평가recording 제외를 우선확정하고,외부데이터 접근조건·선택shard/저장한도·LPWM목적/해상도변경을설계한다. Drive-JEPA의기존ViT를baseline/teacher로쓰는옵션은별도검증한다.
 
@@ -2471,6 +2518,14 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+### 최신 확정/미결 (2026-10-08)
+
+- 사용자승인: 기존학습중단, LPWM drivingSSL330h/front1/512×256, 이후native backbone+DrivoRplanner공동학습. 최소particle초기경향우선/추후증설. 모델최소수나planning비열등성이이미검증됐다고말하지않음.
+- 현재8개부터비교학습실행중;32/64는대조용,계속64로학습하기로확정한것아님. 최종particlebudget결정은provisionalscreen+Stage2결과로검증.
+- Gated dataset동의/접근권한만사용자작업필요. 330h완전재현은원manifest없으므로불가;같은source의자체선별조건을명시. 독립검증recording은SSL/planning학습에서제외.
+- 본학습이길어져도기존중단본학습/Adapter자동재개금지. 다른사용자process보존; GPU0·1합산아닌각card48decimalGB.
+
 
 Drive-JEPA 데이터 재사용과 ViT JEPA 목적의 LPWM 이식은 구분한다. 원본ViT가중치는LPWM에직접로드불가. 전체330h curation,외부HF계정접근권한,로컬유효영상총시간,새SSL메모리/학습시간은미확인이다. 영상SSL 자체가주행의도별표현선택을보장하지않는다.
 

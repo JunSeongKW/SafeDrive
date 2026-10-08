@@ -1,0 +1,18 @@
+{
+  "candidate_particles8": {
+    "completed_updates": 200,
+    "validation": {
+      "reconstruction_mse": 0.01799704271252267,
+      "forecast_mse": 0.02975932467961684,
+      "persistence_mse": 0.03232372820639284,
+      "forecast_lower_half_mse": 0.021528434270294383,
+      "reconstruction_lpips": 0.5579604394733906,
+      "forecast_lpips": 0.5663504488766193,
+      "mean_presence": 0.9996479582041502,
+      "position_std": 0.473396728746593,
+      "appearance_std": 0.27257673628628254
+    },
+    "planning_performance_verified": false,
+    "full_330h_training": false
+  }
+}

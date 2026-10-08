@@ -1,0 +1,305 @@
+{
+  "passed": true,
+  "foreground_particles": 64,
+  "configuration": {
+    "ds": "sketchy",
+    "root": "/home/ubuntu/pathaklab/data/sketchy/data",
+    "device": "cuda:0",
+    "batch_size": 6,
+    "lr": 8e-05,
+    "use_scheduler": false,
+    "scheduler_gamma": 0.98,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_eps": 1e-06,
+    "weight_decay": 0.0,
+    "load_model": false,
+    "pretrained_path": "./290825_011024_sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_sched0.98/saves/sketchy_gddlp_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed_sched0.98_best.pth",
+    "start_epoch": 0,
+    "num_epochs": 150,
+    "eval_epoch_freq": 1,
+    "warmup_epoch": 1,
+    "patch_size": 16,
+    "n_kp_per_patch": 1,
+    "n_kp_enc": 30,
+    "n_kp_prior": 64,
+    "topk": 10,
+    "anchor_s": 0.25,
+    "scale_std": 0.3,
+    "offset_std": 0.2,
+    "obj_on_alpha": 0.01,
+    "obj_on_beta": 0.01,
+    "recon_loss_type": "vgg",
+    "normalize_rgb": false,
+    "beta_kl": 0.08,
+    "beta_rec": 1.0,
+    "beta_obj": 0.08,
+    "kl_balance": 0.01,
+    "image_size": 128,
+    "ch": 3,
+    "features_dist": "gauss",
+    "learned_feature_dim": 4,
+    "learned_bg_feature_dim": 4,
+    "n_fg_categories": 8,
+    "n_fg_classes": 4,
+    "n_bg_categories": 4,
+    "n_bg_classes": 4,
+    "context_dist": "gauss",
+    "context_dim": 7,
+    "n_ctx_categories": 8,
+    "n_ctx_classes": 4,
+    "ctx_pool_mode": "none",
+    "action_condition": false,
+    "action_dim": 7,
+    "random_action_condition": false,
+    "random_action_dim": 7,
+    "null_action_embed": false,
+    "obj_res_from_fc": 8,
+    "obj_ch_mult_prior": [
+      1,
+      4,
+      8
+    ],
+    "obj_ch_mult": [
+      1,
+      4,
+      8
+    ],
+    "obj_base_ch": 32,
+    "obj_final_cnn_ch": 32,
+    "bg_res_from_fc": 8,
+    "bg_ch_mult": [
+      1,
+      1,
+      1,
+      2,
+      4
+    ],
+    "bg_base_ch": 32,
+    "bg_final_cnn_ch": 32,
+    "pad_mode": "zeros",
+    "num_res_blocks": 1,
+    "cnn_mid_blocks": false,
+    "use_resblock": false,
+    "mlp_hidden_dim": 256,
+    "timestep_horizon": 20,
+    "num_static_frames": 1,
+    "predict_delta": false,
+    "use_ep_done_mask": false,
+    "beta_dyn": 0.2,
+    "beta_dyn_rec": 1.0,
+    "dropout": 0.1,
+    "pint_enc_layers": 1,
+    "pint_enc_heads": 1,
+    "pint_ctx_layers": 4,
+    "pint_ctx_heads": 8,
+    "pint_dyn_layers": 6,
+    "pint_dyn_heads": 8,
+    "pint_dim": 512,
+    "run_prefix": "_bkl0.08_bdyn0.2_bbal0.01_bobj0.08sqrestatic_percepweight0.1_lr8e-5_adameps1e-6_bigcnn_posembedt+p+adaln+ondyn_noposembed",
+    "animation_horizon": 60,
+    "cond_steps": 10,
+    "eval_im_metrics": true,
+    "ctx_for_eval": true,
+    "animation_fps": 12.0,
+    "iou_thresh": 0.2,
+    "input_height": 256,
+    "input_width": 512,
+    "sequence_frames": 8,
+    "rectangular_adapter_version": 1,
+    "foreground_particles": 64,
+    "background_particles": 1,
+    "prior_grid": [
+      8,
+      8
+    ],
+    "prior_patch_shape": [
+      32,
+      64
+    ],
+    "glimpse_shape": [
+      64,
+      128
+    ],
+    "whole_image_downsample_to_128": false
+  },
+  "profile_only_weights_discarded": true,
+  "batch_clips": 1,
+  "frames_per_clip": 8,
+  "precision": "float32",
+  "input_log": "2021.05.12.19.36.12_veh-35_00005_00204.pkl",
+  "input_start": 339,
+  "measurements": [
+    {
+      "update": 1,
+      "seconds": 3.294041177025065,
+      "forward_seconds": 0.9850107450038195,
+      "backward_seconds": 0.6950902119278908,
+      "loss": 81.30039978027344,
+      "gradient_norm": 440.8463439941406,
+      "gradient_groups": {
+        "encoder": 66.69407653808594,
+        "context": 1.5625026226043701,
+        "dynamics": 2.2355222702026367,
+        "decoder": 74.4939193725586
+      },
+      "peak_allocated_bytes": 15891436544,
+      "peak_reserved_bytes": 18217959424,
+      "reconstruction_shape": [
+        8,
+        3,
+        256,
+        512
+      ],
+      "particle_shape": [
+        1,
+        8,
+        64,
+        2
+      ]
+    },
+    {
+      "update": 2,
+      "seconds": 1.0999651149613783,
+      "forward_seconds": 0.37917784496676177,
+      "backward_seconds": 0.6541466590715572,
+      "loss": 68.27054595947266,
+      "gradient_norm": 260.8166198730469,
+      "gradient_groups": {
+        "encoder": 54.90311813354492,
+        "context": 1.8531728982925415,
+        "dynamics": 4.212474346160889,
+        "decoder": 83.4945297241211
+      },
+      "peak_allocated_bytes": 16796358144,
+      "peak_reserved_bytes": 18358468608,
+      "reconstruction_shape": [
+        8,
+        3,
+        256,
+        512
+      ],
+      "particle_shape": [
+        1,
+        8,
+        64,
+        2
+      ]
+    },
+    {
+      "update": 3,
+      "seconds": 1.7657887400127947,
+      "forward_seconds": 0.683040153933689,
+      "backward_seconds": 1.0120508450781927,
+      "loss": 64.20954132080078,
+      "gradient_norm": 231.24856567382812,
+      "gradient_groups": {
+        "encoder": 52.15671920776367,
+        "context": 1.0419529676437378,
+        "dynamics": 2.0783803462982178,
+        "decoder": 85.30204772949219
+      },
+      "peak_allocated_bytes": 16796358144,
+      "peak_reserved_bytes": 18358468608,
+      "reconstruction_shape": [
+        8,
+        3,
+        256,
+        512
+      ],
+      "particle_shape": [
+        1,
+        8,
+        64,
+        2
+      ]
+    },
+    {
+      "update": 4,
+      "seconds": 0.9196385049726814,
+      "forward_seconds": 0.2664919920498505,
+      "backward_seconds": 0.608842063928023,
+      "loss": 61.845741271972656,
+      "gradient_norm": 235.73764038085938,
+      "gradient_groups": {
+        "encoder": 57.10015869140625,
+        "context": 1.1728919744491577,
+        "dynamics": 1.5341683626174927,
+        "decoder": 82.08893585205078
+      },
+      "peak_allocated_bytes": 16796358144,
+      "peak_reserved_bytes": 18358468608,
+      "reconstruction_shape": [
+        8,
+        3,
+        256,
+        512
+      ],
+      "particle_shape": [
+        1,
+        8,
+        64,
+        2
+      ]
+    },
+    {
+      "update": 5,
+      "seconds": 0.9393819690449163,
+      "forward_seconds": 0.2683188070077449,
+      "backward_seconds": 0.6142433470813558,
+      "loss": 60.09548568725586,
+      "gradient_norm": 213.6544189453125,
+      "gradient_groups": {
+        "encoder": 48.71882629394531,
+        "context": 1.0698966979980469,
+        "dynamics": 1.3194714784622192,
+        "decoder": 87.32627868652344
+      },
+      "peak_allocated_bytes": 16796358144,
+      "peak_reserved_bytes": 18358468608,
+      "reconstruction_shape": [
+        8,
+        3,
+        256,
+        512
+      ],
+      "particle_shape": [
+        1,
+        8,
+        64,
+        2
+      ]
+    },
+    {
+      "update": 6,
+      "seconds": 0.999455387936905,
+      "forward_seconds": 0.3005479489220306,
+      "backward_seconds": 0.6098359380848706,
+      "loss": 58.374271392822266,
+      "gradient_norm": 200.00918579101562,
+      "gradient_groups": {
+        "encoder": 46.36269760131836,
+        "context": 0.4737709164619446,
+        "dynamics": 1.1895930767059326,
+        "decoder": 88.59632873535156
+      },
+      "peak_allocated_bytes": 16796358144,
+      "peak_reserved_bytes": 18358468608,
+      "reconstruction_shape": [
+        8,
+        3,
+        256,
+        512
+      ],
+      "particle_shape": [
+        1,
+        8,
+        64,
+        2
+      ]
+    }
+  ],
+  "median_seconds_excluding_warmup": 0.999455387936905
+}

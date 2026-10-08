@@ -1,5 +1,19 @@
 # Planning-Aware Future Prediction
 
+**후속 확인:** 8particle 후보200update·검증완료, 현재16particle 후보학습중. 32held-out기록 futureMSE .06642→.02976 (현재반복.03232), PDMS미평가. OpenScene 첫archiveSHA검증완료/누락front2,085장확보, 다음archive진행. [전후·고정축 겹침](results/lpwm_driving_video_512x256_v1/particle_budget_overlays_v2/candidate_particles8_after_training_before_after_overlay.png).
+
+**2026-10-08 10:51 KST — 사용자 지시로 기존 두 학습 중단, 512×256·소수 particle Stage1 시작.**
+기존 본학습5,493 / Adapter13,480 fullstate 저장·pause 및 자동재개 watcher 종료. 과거 25epoch 대기열 재기동 금지.
+새 연구: front1·512×256·2Hz·8frame LPWM SSL → native backbone1e-5 + DrivoR planner1e-4 공동학습.
+Foreground8/16/32/64(+background1) 각200update·유효4·동일32held-out recording 비교 → 잠정 최소개수로 로컬 전체1epoch 자동학습.
+GPU1 queue2819995, root `outputs/lpwm_driving_video_512x256_v1/particle_budget_study/`; CPU overlay2926659. GPU0 타인작업 유지.
+로컬 SSL train14.290h/10,480비중복clip, val3.050h/61recording중고정32평가. 8particle 실제 forward/backward·causal예측·저장 확인. 최종planning 성능보존은 미검증.
+OpenScene downloader2826493: 공용원본 읽기전용, 누락front만 별도processed_dataset/junseong 소유root에 stream, 총1TB제한/압축archive미보관/SHA검사.
+CoVLA·DrivingDojo 및Extra1–5는 현재HF계정403 GatedRepo. 사용자 이용조건 동의·접근승인 필요; 대신 승인하지 않는다.
+**330h 본사전학습 및 Stage2는 아직 미시작.** 원Drive-JEPA의 정확330h clip manifest도 미공개이며 동일3source의 자체curation으로구분한다.
+[시작 근거](results/lpwm_driving_video_512x256_v1/transition_and_start_report.json) · [확정 목표·남은 단계](configs/lpwm_driving_video_512x256_v1/research_plan.json).
+아래 기존실행중·새학습금지·geometry선택대기 문장은 이번 사용자 승인 이전 이력이다.
+
 **2026-10-08 07:46 KST — 동일 장면에서 Adapter 2 epoch과 LoRA 5,400 update 비교 완료.**
 학습에서 제외된 공통 navtest 부분집합 1,024장면·44주행 기록을 동일 공식 PDMS로 채점했다.
 Adapter **81.6141**, LoRA **81.6096**; LoRA−Adapter 차이의 95% 신뢰구간은 [−1.9981, +1.9968]점이다.

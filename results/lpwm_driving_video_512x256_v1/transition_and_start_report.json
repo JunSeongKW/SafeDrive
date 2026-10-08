@@ -1,0 +1,183 @@
+{
+  "checked_at": "2026-10-08 10:51 KST",
+  "old_runs_stopped": {
+    "primary": {
+      "completed_updates": 5493,
+      "memory_exceeded": false
+    },
+    "adapter": {
+      "reason": "resource_or_user_pause",
+      "completed_updates": 13480,
+      "checkpoint_sha256": "26b09d901f1556ddd4685ae5583a98ed1ff69b6f387808babc99b02bdaaa7124",
+      "updated_unix": 1791419515.280052
+    }
+  },
+  "particle_queue": {
+    "status": "training",
+    "particles": 16,
+    "output": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_driving_video_512x256_v1/particle_budget_study/candidate_particles16",
+    "command": [
+      "/rhome/junseong/envs/kjs-lpwm-navsim/bin/python",
+      "-u",
+      "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_lpwm_reduced_particle_stage1.py",
+      "--particles",
+      "16",
+      "--updates",
+      "200",
+      "--accumulation",
+      "4",
+      "--validation-clips",
+      "32",
+      "--workers",
+      "4",
+      "--output",
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_driving_video_512x256_v1/particle_budget_study/candidate_particles16"
+    ],
+    "started_unix": 1791424241.1541688
+  },
+  "particles8_progress": {
+    "completed_updates": 200,
+    "target_updates": 200,
+    "loss": 35.96958827972412,
+    "gradient_norm": 73.99748992919922,
+    "seconds": 1.3922953605651855,
+    "card_used_bytes": 11659116544,
+    "peak_allocated_bytes": 10652579328,
+    "elapsed_seconds": 542.772908449173,
+    "foreground_particles": 8,
+    "gradient_groups": {
+      "encoder": 66.26239776611328,
+      "context": 0.09109491109848022,
+      "dynamics": 0.7088687419891357,
+      "decoder": 32.93068313598633
+    }
+  },
+  "particles8_result": {
+    "completed_updates": 200,
+    "validation": {
+      "reconstruction_mse": 0.01799704271252267,
+      "forecast_mse": 0.02975932467961684,
+      "persistence_mse": 0.03232372820639284,
+      "forecast_lower_half_mse": 0.021528434270294383,
+      "reconstruction_lpips": 0.5579604394733906,
+      "forecast_lpips": 0.5663504488766193,
+      "mean_presence": 0.9996479582041502,
+      "position_std": 0.473396728746593,
+      "appearance_std": 0.27257673628628254
+    },
+    "planning_performance_verified": false,
+    "full_330h_training": false
+  },
+  "engineering_check": {
+    "completed_updates": 2,
+    "validation": {
+      "reconstruction_mse": 0.03519105911254883,
+      "forecast_mse": 0.03672048635780811,
+      "persistence_mse": 0.037853837944567204,
+      "forecast_lower_half_mse": 0.023308413103222847,
+      "reconstruction_lpips": 0.8816409707069397,
+      "forecast_lpips": 0.8881326913833618,
+      "mean_presence": 0.8400305509567261,
+      "position_std": 0.5057152807712555,
+      "appearance_std": 0.44706763327121735
+    },
+    "planning_performance_verified": false,
+    "full_330h_training": false
+  },
+  "download": {
+    "status": "streaming",
+    "archive": "openscene_sensor_trainval_camera_0.tgz",
+    "completed_archives": 0,
+    "retained_images_this_process": 2000,
+    "retained_bytes": 438025448,
+    "network_bytes_this_archive": 4375767040,
+    "elapsed_seconds_this_archive": 466.86358761787415
+  },
+  "access_audit": [
+    {
+      "repository": "turing-motors/CoVLA-Dataset",
+      "access_status": 403,
+      "error_code": "GatedRepo"
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo",
+      "access_status": 403,
+      "error_code": "GatedRepo"
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra1",
+      "access_status": 403,
+      "error_code": "GatedRepo"
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra2",
+      "access_status": 403,
+      "error_code": "GatedRepo"
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra3",
+      "access_status": 403,
+      "error_code": "GatedRepo"
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra4",
+      "access_status": 403,
+      "error_code": "GatedRepo"
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra5",
+      "access_status": 403,
+      "error_code": "GatedRepo"
+    },
+    {
+      "repository": "OpenDriveLab/OpenScene",
+      "access_status": 200,
+      "error_code": null
+    }
+  ],
+  "planning_history_audit_amendment": {
+    "correction": "Original audit combined image availability and cadence. All 82 flagged pairs exist; intervals are approximately 1 second, not missing files.",
+    "missing_image_pairs": 0,
+    "irregular_history_intervals": 82,
+    "index_source_corrected": true,
+    "registered_SSL_episode_manifest_unchanged": true
+  },
+  "full_330h_training_started": false,
+  "stage2_started": false,
+  "last_runtime_check": "2026-10-08T10:57:36.421580+09:00",
+  "particle_queue_latest": {
+    "status": "training",
+    "particles": 16,
+    "output": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_driving_video_512x256_v1/particle_budget_study/candidate_particles16",
+    "command": [
+      "/rhome/junseong/envs/kjs-lpwm-navsim/bin/python",
+      "-u",
+      "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_lpwm_reduced_particle_stage1.py",
+      "--particles",
+      "16",
+      "--updates",
+      "200",
+      "--accumulation",
+      "4",
+      "--validation-clips",
+      "32",
+      "--workers",
+      "4",
+      "--output",
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_driving_video_512x256_v1/particle_budget_study/candidate_particles16"
+    ],
+    "started_unix": 1791424241.1541688
+  },
+  "download_latest": {
+    "status": "streaming",
+    "archive": "openscene_sensor_trainval_camera_1.tgz",
+    "completed_archives": 1,
+    "retained_images_this_process": 4000,
+    "retained_bytes": 845816086,
+    "network_bytes_this_archive": 2967572480,
+    "elapsed_seconds_this_archive": 297.9826982021332
+  },
+  "verified_download_archives": 1,
+  "overlay_v2": "results/lpwm_driving_video_512x256_v1/particle_budget_overlays_v2/candidate_particles8_after_training_before_after_overlay.png",
+  "overlay_publisher_pid": 2926659
+}
