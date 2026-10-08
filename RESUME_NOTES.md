@@ -4152,3 +4152,13 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 ### 2026-10-09 00:58 KST — 원격 공유 상태
 
 2026-10-09 00:58 KST v10 코드7626c06/실행근거e1e8915 로컬커밋완료. git push mine은sandbox및host재시도모두VSCode Git 인증socket ECONNREFUSED/anonymous write거부로실패. 원격미반영,학습·controller3700728에는영향없음. 인증복구후push필요.
+
+## 2026-10-09 01:01 KST — 네실험최신진행상태
+
+2026-10-09 01:01 KST 진행 조회: drivor 3200/3200 (100.0%) / jepa 2635/3200 (82.3%) / lpwm_sequential 1799/3200 (56.2%) / lpwm_joint 562/3200 (17.6%). v10 controller3700728/기존 세학습 계속, 이번 조회에서 실행 변경 없음.
+
+2026-10-09 01:01 KST 새PDMS평가없음. DrivoR pass5 81.253529/JEPA pass3 74.696960/LPWM순차 pass1 64.974333 유지, joint첫평가전. 양rank최근100row 비유한loss/gradient0. GPU0/1각30.35GB,util96/100%. batch증설trial0·physicalmicro2/누적4/유효16 유지. 근거 results/four_model_small_corpus_v1/progress_20261009_0101.json.
+
+2026-10-09 01:01 KST 기존pass1/3/5 자동평가와peer완료후batch증설 검토 대기열계속. 아직새실험완료없어증설미적용. 최신첫epoch공동진행률은현재update/640이며기존ETA는부하변동을반영해재계산해야한다.
+
+2026-10-09 01:01 KST 진행률은planning5epoch/3200update기준,JEPA·LPWM순차SSL은5pass이미완료. 최근점수의평가epoch는현재epoch와구분하며전체navtest아닌고정dev1024 결과다. 원격공유는이전인증실패이력있음.

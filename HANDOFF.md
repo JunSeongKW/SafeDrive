@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 00:58 KST (Codex)
+마지막 갱신: 2026-10-09 01:01 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 01:01 KST 진행 조회: drivor 3200/3200 (100.0%) / jepa 2635/3200 (82.3%) / lpwm_sequential 1799/3200 (56.2%) / lpwm_joint 562/3200 (17.6%). v10 controller3700728/기존 세학습 계속, 이번 조회에서 실행 변경 없음.
 
 2026-10-09 00:57 KST 사용자조건부batch증설지시로 v10 controller3700728 기동. 기존v9controller3324666만종료,기존순차3331466/joint3331469/JEPA3331473 PID/start_ticks그대로인계·학습재시작없음. jepa 2597 / lpwm_sequential 1776 / lpwm_joint 554 실제진행. root scheduling_v10_batch_growth,상태 train_and_wait_for_peer_completion. 이전v9재기동금지.
 
@@ -1288,6 +1290,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 01:01 KST 새PDMS평가없음. DrivoR pass5 81.253529/JEPA pass3 74.696960/LPWM순차 pass1 64.974333 유지, joint첫평가전. 양rank최근100row 비유한loss/gradient0. GPU0/1각30.35GB,util96/100%. batch증설trial0·physicalmicro2/누적4/유효16 유지. 근거 results/four_model_small_corpus_v1/progress_20261009_0101.json.
 
 2026-10-09 00:57 KST batch증설구현: 별도execution wrapper에서physicalmicro2/4/8·누적4/2/1·GPU2로유효16유지;원121science/이전7실행/새9실행hash불변. CPU검사6개/compile통과,실제LPWM+planner126585133parameter모델CPU생성에서BatchNorm0·CUDA초기화없음확인. 실제GPU profile은peer완료후실행예정이며아직증설안함. 근거 results/four_model_small_corpus_v1/conditional_batch_growth_20261009.json.
 
@@ -2236,14 +2240,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-2026-10-09 00:58 KST v10 코드7626c06/실행근거e1e8915 로컬커밋완료. git push mine은sandbox및host재시도모두VSCode Git 인증socket ECONNREFUSED/anonymous write거부로실패. 원격미반영,학습·controller3700728에는영향없음. 인증복구후push필요.
-
-- 사용자 지시에 따라 다른 실험 완료 후 남은 작업의 물리 배치를 자동 증설하는 v10 대기열을 연결했다(코드7626c06).
-- 유효 배치16·기존 optimizer/LR/노출량을 보존하고, 별도8-update 메모리·속도시험 가중치는 버린다.
-- 메모리 예산과5%속도이득을 통과한 후보만 적용하며, 불가하면 기존 배치로 계속한다.
-- CPU검사6개·실제모델BatchNorm감사·원본hash검사 및 세 학습의 무재시작 인계 근거를 기록했다.
+- 사용자 요청으로 최신 진행률·평가 결과·배치 증설 상태·GPU 사용량을 조회해 기록했다.
+- 세 학습·v10 대기열은 계속하며, 새 평가나 배치 증설이 아직 발생하지 않았음을 확인했다.
+- 실행 코드·설정·프로세스 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 01:01 KST 기존pass1/3/5 자동평가와peer완료후batch증설 검토 대기열계속. 아직새실험완료없어증설미적용. 최신첫epoch공동진행률은현재update/640이며기존ETA는부하변동을반영해재계산해야한다.
 
 2026-10-09 00:57 KST 새실험완료감지→JEPA완료후남은LPWM의안전한optimizer경계에서후보한작업만fullstate저장→snapshot hardlink로동일savedstep의micro기존/4/8중메모리예측통과후보를8update disposable시험→양rank유한/전체카드48GB미만/5%이상속도개선시채택→원optimizer/scheduler/RNG/cursor에서재개. 최종profile update는SSL2배부하를검사. micro변경시원registration불변,별도active_batch_execution/batch_execution이실제batch근거. 실패/불리하면원배치재개;실제증설후메모리실패는해당학습만2로복귀. 기존pass1/3/5평가계속.
 
@@ -2870,6 +2873,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 01:01 KST 진행률은planning5epoch/3200update기준,JEPA·LPWM순차SSL은5pass이미완료. 최근점수의평가epoch는현재epoch와구분하며전체navtest아닌고정dev1024 결과다. 원격공유는이전인증실패이력있음.
 
 2026-10-09 00:58 KST v10 코드7626c06/실행근거e1e8915 로컬커밋완료. git push mine은sandbox및host재시도모두VSCode Git 인증socket ECONNREFUSED/anonymous write거부로실패. 원격미반영,학습·controller3700728에는영향없음. 인증복구후push필요.
 
