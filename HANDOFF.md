@@ -1,5 +1,7 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**최신 사용자 비교 범위 — ①Drive-JEPA ②DrivoR ③LPWM 2stage ④LPWM 처음부터 joint, 모두 작은 데이터로 경향성 비교.** ④는 전방1/512×256 명시. 추천 초안은 공통10,480 SSL clips×5회와 공통 약1만 planning scenes×5회, 기록 분리 dev1,024다. 4개 모두 동일 DrivoR planner를 쓰면 표현 비교에 적합하며, ①만 공식 planner를 쓰는 시스템 비교도 가능하다. 이 선택을 async 질문으로 보냈고 아직 답변 없음. ③④의 초기 LPWM·planner·미세조정 범위·planning 및 SSL 노출량을 맞추고, ④는 SSL+planning 동시학습을 권고했다(이전 planning-only 실행과의 차이를 명시). 공식 DrivoR는 현재1프레임·patch14라 공통2프레임/512×256에는 인터페이스·padding 검증이 필요하다. 기존 LPWM planning bridge는4카메라128 고정이므로 새 설정만으로 실행할 수 없다. 현재 로컬 준비1epoch·검증 queue는 완료, 새4조건학습/Stage2는 미시작. [4조건 설계](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/four_model_small_corpus_comparison_proposal_20261008.json).
+
 **최신 사용자 제안 — Drive-JEPA 쪽도 같은 작은 클립셋으로 학습해 가능성 비교.** 이를 추천한다. 첫 단계는 현재 고정 OpenScene 10,480클립(실소비 약 11.64h)을 양쪽에 사용하고 1/5/10회 노출 경계에서 점검한다. JEPA는 330h 주행 적응 전의 공식 V-JEPA2 ViT-L, LPWM은 공개 Sketchy부터 시작하며 각자의 기존 SSL 목적을 유지한다. 이후 동일 DrivoR 스타일 planner·입력·감독·학습 예산으로 두 백본을 비교한다. 처음부터 서로 다른 planner의 PDMS를 표현 단독 효과로 해석하지 않는다. 두 초기 백본의 원래 사전학습 데이터 차이는 남는다. 제안과 코드 감사만 수행했으며 새 학습은 미기동이다. [설계 근거](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/common_small_clipset_comparison_proposal_20261008.json).
 
 **2026-10-08 최신 사용자 제약 — 30일 규모의 Stage 1은 불가, 축소 실험 추천 요청.** 아래 330h·공개 checkpoint와 동일 노출량 계획은 재검토 대상이다. 입력·SSL 목적은 유지하고 10만 clip 점검 → 최대 30만 clip(현재 속도 약 20시간, 데이터 준비·Stage 2 별도)을 권고했다. 다운로드를 기다릴 수 있으면 330h 코퍼스를 유지하고, 전체 대기시간도 줄여야 하면 세 source의 공통 30–50h 부분집합이 대안이다. 시간 예산은 선택 질문을 보냈으며 아직 답변 없음. 이는 추천안이며 새 본학습 실행이나 기존 설정 변경은 하지 않았다. 현재 로컬 준비 1epoch와 수집은 기존 승인대로 계속한다. [축소 예산·비교 조건](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/reduced_pretraining_recommendation_20261008.json).
@@ -390,7 +392,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 13:17 KST (Codex)
+마지막 갱신: 2026-10-08 13:23 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -557,6 +559,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신 조회: local_stage1_distributed/queue_state.json은 local_epoch_and_validation_complete, Stage2=false. 검증 완료는 품질 통과 판정과 구분한다. 4모델 비교는 제안·코드 검토만 완료했으며 학습 실행/다운로드 변경 없음.
 
 작은 공통 클립셋 비교는 아직 제안 단계이며 새 JEPA/LPWM 학습을 시작하지 않았다. 이번 코드 확인 시 기존 로컬 준비 학습은 633/655 update였다. 기존 실행 코드·설정·다운로드 변경 없음.
 
@@ -1179,6 +1183,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+4조건 코드 감사: DrivoR FeatureBuilder는 cameras[-1]의 현재 영상만 입력하고 DINOv2 ViT-S reg4 patch14를 사용한다. 기존 LPWM DrivoR bridge도4camera/128×128 assert와camera loop가 있으므로 새로운 front1/512×256/과거2frame 통제 실험은 인터페이스 구현이 필요하다. LPWM SSL52,400clip은 현재 처리량 약3.51시간 외삽이며 4조건 전체 시간은 미측정이다. 새 PDMS는 없다.
 
 Drive-JEPA 내 V-JEPA 학습 코드 및 저자 config를 확인했다. 공식 일반 영상 V-JEPA2 ViT-L checkpoint가 공개되어 있다. Vendored `app/vjepa/utils.py:90`의 load_checkpoint는 encoder/predictor/EMA 외에 optimizer·epoch도 복원하므로, 작은 코퍼스의 새 적응에는 가중치 초기화와 학습 재개를 분리해야 한다. JEPA의 주행 e50 checkpoint나 기존 V-JEPA2.1 distilled checkpoint를 이번 시작점으로 혼용하지 않는다. LPWM 10,480클립×10회=104,800 노출은 현 속도 약 7.02시간, JEPA·새 Stage2 시간은 미실측이다.
 
@@ -2041,9 +2047,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 제안에 맞춰 두 백본을 같은 작은 주행 클립셋에 적응시키는 통제 비교를 구체화했다. common_small_clipset_comparison_proposal_20261008.json에 초기 가중치, 데이터·planner 통제, 샘플 예산, 초기화 대 재개 코드 위험과 해석 범위를 기록했다. 새 학습·실행 설정 변경 없음.
+- 사용자의4모델 비교 제안을 four_model_small_corpus_comparison_proposal_20261008.json에 구체화했다. 공통 planner 선택 질문, 축소SSL/planning 예산, 순차대joint 통제, 원본DrivoR 시간입력·patch14와 기존LPWM bridge의 변경 필요를 기록했다. 기존 로컬 준비학습·검증 queue 완료 확인; 새 학습 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신4조건 추천이 이전2조건 설계를 확장한다. Planner 선택 답변을 반영한다: 추천은4개동일DrivoR planner이며 ①는「Drive-JEPA backbone+공통planner」로 명명한다. 대안은①공식Drive-JEPA planner와②③④DrivoR planner인 시스템 비교다. 양쪽 모두 원논문 SOTA 재현이라고 부르지 않는다. 현10480 SSL manifest와 새planning약1만/dev1024 장면은 역할이 다르며 공통recording 분할·유효클립·라벨/cache를 검사해 고정해야 한다. 짧은5회학습용LR/warmup을 등록하고 동일 planning 노출,③④의동일 SSL 노출을 별도 기록한다. ③④는 같은 공개LPWM/particle16/학습범위/명령입력과planner초기화를 사용한다. ④에SSL을 함께 쓸지 기존planning-only로할지는추천범위를명시한다. 4개전체 비용은 실제onecamera 고해상도forward/backward/oracleprofile후계산한다.
 
 작은 공통 코퍼스 비교 추천: 기존 OpenScene10,480개 고정 clip을 양쪽에 동일하게 제공하고 1/5/10회 학습 지점을 보존한다. 초기 예산은 총104,800clip/모델, 양쪽 effective batch·노출 순서와 augmentation을 통제하고 모델별 합리적 LR·짧은 warmup을 등록한다. 공식 V-JEPA2 ViT-L 가중치 확보·호환성, optimizer/epoch fresh start, 실제 2GPU 속도/48GB 검증이 남아 있다. LPWM의 기존 준비 1epoch를 자동 합산하거나 제외하지 말고 본 비교 초기화·전체 노출량을 먼저 명시한다. Stage2는 동일 DrivoR planner의 두 backbone 비교를 우선하며 새로운 해상도에서 실행 시간은 아직 미측정이다. 작은 실험의 승패로 전체330h 수렴 성능을 단정하지 않는다. 가능성 확인 뒤 세 source30–50h와 복수 seed 확장.
 
@@ -2594,6 +2602,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신 관심 대상은 사용자 명시4조건이다. 공통planner 대 공식planner시스템비교는선택질문중, 새학습아직없음. 제안수치(SSL10480×5/planning10240×5/dev1024)는새공통manifest로등록되지않았다. 공식DrivoR는1frame이므로2frame통일시 temporal variant임을밝히고,patch14경계padding도기록한다. ③④의SSL유무까지다르면학습순서단독비교가아니다. 원래VJEPA2/DINOv2/Sketchy초기데이터·규모차이와각모델원래미세조정방식차이는남는다.
 
 사용자는 JEPA 자체도 작은 클립셋으로 학습하는 비교의 타당성을 물었다. 추천은 기록했으나 실행 지시로 간주해 장기 작업을 시작하지 않았다. 원래 사전학습(LPWM Sketchy 대 V-JEPA2 일반 영상)·백본 구조 차이는 남으므로 결과는 동일 주행 적응 예산 아래 두 표현 시스템 비교다. 동일 sample 수는 동일 FLOPs/시간이 아니며 둘 다 기록한다. SSL loss 절대값을 서로 직접 비교하지 않는다.
 

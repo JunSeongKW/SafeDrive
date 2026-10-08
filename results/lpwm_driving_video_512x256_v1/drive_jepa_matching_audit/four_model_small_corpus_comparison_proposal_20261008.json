@@ -1,0 +1,117 @@
+{
+  "status": "four_condition_design_proposal_not_launched",
+  "recorded_kst": "2026-10-08T13:23:25.223670+09:00",
+  "user_scope": [
+    "Drive-JEPA",
+    "DrivoR",
+    "LPWM sequential Stage1 SSL then Stage2 planning",
+    "LPWM joint from first update, one front camera and Drive-JEPA resolution"
+  ],
+  "research_subquestion": "With limited driving data, does LPWM particle representation and sequential versus joint adaptation offer a planning benefit relative to JEPA and register representations?",
+  "planner_choice": {
+    "recommended": "same DrivoR generator/refiner/scorer/loss for all four; name first condition Drive-JEPA-backbone with common planner, not full published Drive-JEPA reproduction",
+    "alternative": "official Drive-JEPA planner for condition1 and DrivoR planner for2/3/4; this is system comparison with planner confounding",
+    "user_question": "async optional multiple-choice sent; no reply at recording time",
+    "new_training_started": false
+  },
+  "conditions": [
+    {
+      "name": "drive_jepa_backbone",
+      "initialization": "official general-video V-JEPA2 ViT-L before330h driving adaptation",
+      "driving_ssl": "V-JEPA masked-latent pretraining on shared small corpus",
+      "planning": "fine-tune backbone with selected planner"
+    },
+    {
+      "name": "drivor_register_backbone",
+      "initialization": "official DINOv2 ViT-S reg4 public backbone beforeNAVSIM planning",
+      "driving_ssl": "none in native recipe",
+      "planning": "native register learning plus DINOv2 LoRA and common planner"
+    },
+    {
+      "name": "lpwm_sequential_ssl_planning",
+      "initialization": "public Sketchy before driving adaptation,16FG+1BG rectangular512x256",
+      "driving_ssl": "native temporalELBO first",
+      "planning": "then jointly fine-tune native LPWM encoder/context/dynamics plus planner"
+    },
+    {
+      "name": "lpwm_joint_ssl_planning",
+      "initialization": "same public Sketchy state and same planner initialization as sequential condition",
+      "driving_ssl": "recommended jointSSL+planning from update1; this loss definition is a recommendation, not yet user-confirmed",
+      "planning": "train same native LPWM modules and planner from first update; noNAVSIM Stage1 checkpoint reuse"
+    }
+  ],
+  "common_data_proposal": {
+    "stage1_clips": 10480,
+    "stage1_source": "existing verified localOpenScene complete8-frame clips",
+    "stage1_nominal_unique_hours": 11.6444444444,
+    "stage1_complete_passes": 5,
+    "stage1_clip_presentations_per_ssl_condition": 52400,
+    "planning_training_scenes_target": 10240,
+    "planning_complete_passes": 5,
+    "planning_scene_presentations_target": 51200,
+    "development_scenes_target": 1024,
+    "counts_are_not_yet_sampled_or_registered": true,
+    "sampling": "same fixed training scene identities, recording-disjoint dev; stratify straight/turn/density/occlusion and retain natural-distribution weighted reporting",
+    "leakage_controls": [
+      "SSL and planning train recordings exclude dev/test recordings",
+      "candidate dictionaries and mined labels built from declared training data or explicitly report any extra source",
+      "future RGB is only SSL target branch and cannot enter current planner features"
+    ],
+    "checkpoint_policy": "world-model checks duringStage1, planning checkpoints at1/3/5corpuspasses with short schedules; no selecting winners from one early checkpoint",
+    "initial_seeds": 1,
+    "confirmation": "additional seeds and larger corpus only after promising trend"
+  },
+  "input_controls": {
+    "front_camera_count": 1,
+    "width": 512,
+    "height": 256,
+    "ssl_frames": 8,
+    "nominal_fps": 2,
+    "planning_frames_recommendation": 2,
+    "drivor_native_image_history": 1,
+    "drivor_two_frame_status": "would require shared image encoder for current/previous frames and an explicitly registered temporal register interface; not implemented, cannot call unchanged official model",
+    "drivor_patch_size": 14,
+    "drivor_spatial_status": "512/256 are not divisible by14; explicit boundary-padding or patch embedding adaptation must be validated and reported without discarding image content",
+    "lpwm_existing_planner_bridge": "hardcoded4cameras/128square; cannot launch new1camera512x256 via configuration-only change",
+    "ego_status": "same accessible ego history and command; LPWM command-conditioning policy identical between models3/4"
+  },
+  "comparison_controls": {
+    "sequential_vs_joint": "same LPWM/planner initialization, trainable scope, particle count, planning supervision and planning scene presentations; match and report separateSSL clip presentations; only schedule changes in the strict ablation",
+    "loss_definition": "jointSSL+planning recommended to test scheduling; historical planning-only variant also changes objective and must be labeled accordingly",
+    "budget": "effectivebatch fixed after profiling; same downstream presentations, separatepretrainingcost; reportGPUhours because sameexposure is not samecompute",
+    "learning_rates": "model-specific registered reduced-budget schedules and equal tuning allowance; do not retain25epoch warmup in5epochpilot",
+    "initialization_confound": "V-JEPA2/DINOv2/LPWM original pretraining and architecture differ; no pureparticlecausality claim",
+    "no_new_object_GT_loss": true,
+    "metrics": [
+      "devPDMS and subscores",
+      "ADE/FDE",
+      "scenario breakdown and pairedrecording confidence intervals",
+      "LPWM particle geometry and future intervention",
+      "totalStage1+Stage2GPUhours"
+    ],
+    "official_test": "reserve for final selected protocol; devsubset is not fullnavtest"
+  },
+  "runtime": {
+    "lpwm_52400_ssl_presentations_estimated_hours": 3.5083467093110086,
+    "jepa_stage1_profiled": false,
+    "new_high_resolution_planning_profiled": false,
+    "four_condition_total_eta_known": false,
+    "gpus": [
+      0,
+      1
+    ],
+    "card_limit_bytes": 48000000000
+  },
+  "current_execution": {
+    "local_preparation_queue_status": "local_epoch_and_validation_complete",
+    "new_stage2_or_four_model_runs_started": false,
+    "existing_data_acquisition_unchanged": true
+  },
+  "sources": [
+    "reference_repositories/DrivoR/navsim/agents/drivoR/drivor_features.py",
+    "reference_repositories/DrivoR/navsim/agents/drivoR/layers/image_encoder/dinov2_lora.py",
+    "src/planning_aware_future_prediction/object_centric/lpwm_drivor_joint.py",
+    "https://github.com/valeoai/DrivoR",
+    "https://arxiv.org/html/2601.22032v2"
+  ]
+}

@@ -3746,3 +3746,13 @@ LoRA 전환·RGB decoder 제거·추가 particle 감소를 동시에 적용하�
 Drive-JEPA 논문·코드와 V-JEPA2 공식 공개 가중치를 재확인했다. JEPA 시작점은 330h 주행 적응 전 일반 영상 V-JEPA2 ViT-L/16이며 LPWM은 공개 Sketchy다. e50 주행 모델이나 V-JEPA2.1 distilled 모델을 조용히 대체하지 않는다. `app/vjepa/utils.py:90`는 optimizer와 epoch까지 load하고 train.py가 해당 epoch만큼 스케줄을 넘기므로, 신규 적응은 가중치 초기화 경로와 resume를 분리해야 한다. 실행 코드 수정은 하지 않았다.
 
 최소 후속 실험은 동일 DrivoR 스타일 planner·loss·현재+직전 전방 입력·ego status·navtrain 노출 예산으로 두 백본을 미세조정하는 비교다. 특징 입력 투영의 필요 차이와 규모는 명시한다. 작은 데이터의 절대 PDMS만으로 구조 효과나330h 확장 우열을 입증하지 않으며, 사전학습 전 원래 데이터 차이도 남는다. Frozen LPWM 대 joint 및 미래 개입은 후속으로 planning 적응 기여를 분리한다. 새 학습은 시작하지 않았고 기존 로컬 준비633/655를 확인했다. 상세: `results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/common_small_clipset_comparison_proposal_20261008.json`.
+
+## 2026-10-08 네 모델의 축소 비교 제안
+
+사용자가①Drive-JEPA ②DrivoR ③현재의2stage LPWM ④LPWM과planner를처음부터공동학습(front1/512×256)의네조건을제안했다. 공통SSL10480클립×5회, 공통planning약1만장면×5회, 독립recording개발1024장면의초안을작성했다. 이는등록·실행완료수치가아니며기존SSL clip과planning scene을같은단위로취급하지않는다. LPWM SSL52400노출만현속도약3.51시간,JEPA및새고해상도Stage2/네모델전체시간미측정.
+
+연구목적에맞춰모두동일DrivoR planner인표현비교를우선추천하되①를공식planner로유지하는시스템비교도가능하므로async선택질문을보냈다. 답변전새학습기동없음. ①시작은주행330h적응전VJEPA2,②는NAVSIM적응전DINOv2,③④는같은공개Sketchy와새planner초기화다. ③④의미세조정범위·ego명령·particle수·planning노출뿐아니라SSL노출도맞춰야순차대joint해석이가능하다. ④는SSL+planning동시학습을추천했으며이전planning-only목적과같다고부르지않는다. loss유무까지바뀌면두요인의영향이섞인다.
+
+코드상DrivoR는현재영상1frame,patch14,기존LPWM plannerbridge는4camera/128assert다. 따라서모든모델front1/512×256/과거현재2frame으로맞추려면DrivoR시간인터페이스와patch경계padding,LPWM직사각형bridge를명시적으로구현·검사해야한다. 인터페이스변경된baseline은원논문설정과구분한다. 원래백본의사전학습데이터와모델규모차이는남으며공통planner라도pureparticle인과효과라고주장하지않는다.
+
+현재localqueue는local_epoch_and_validation_complete/Stage2false확인했다. 검증완료를품질통과로단정하지않는다. 새학습/설정/다운로드변경없음. 설계:`results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/four_model_small_corpus_comparison_proposal_20261008.json`.
