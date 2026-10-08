@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 17:12 KST (Codex)
+마지막 갱신: 2026-10-08 17:18 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 17:18 KST token수 공정성조회: 현재구현/등록config와DrivoR논문Table4(c)읽기전용확인. 학습·대기열·기존science source121개변경없음. 추가16/32/64조건은제안만했으며미등록/미기동.
 
 2026-10-08 17:12 KST 진행조회: LPWM SSL 3179/3275(97.07%), 마지막5번째epoch. 기존queue294935/train136861의fresh heartbeat 유지. GPU0·1 각43.70GB/util100·98%. 실행·배치·대기열변경없음.
 
@@ -1242,6 +1244,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 17:18 KST: 공통planner입력모두16×256. DrivoR는703patch/frame×384와추가scene register16/frame를ViT에서처리후2framefusion16개;원DINOreg4/CLS는별도. JEPA는2frame tubelet의512patch×1024→평균pool16→256. LPWM은16FG+1BG,각FG의현재+8미래28차원속성→252→256. Shape동일성은표현용량동일성이아님. 근거 `results/four_model_small_corpus_v1/token_budget_fairness_audit.json`.
 
 2026-10-08 17:12 KST: 양rank비유한loss0,3150update encoder/context/dynamics/decoder gradient유한양수. 최근100update wall3.68초,Stage1순수학습잔여약5.9분;저장/최종검증포함17:20–17:25KST조건부예상. 최신완료검증은4epoch이며새PDMS없음. 근거 `results/four_model_small_corpus_v1/progress_20261008_1712.json`.
 
@@ -2140,9 +2144,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 2026-10-08 17:12 KST LPWM Stage1마지막epoch 진행률·loss/gradient·GPU·잔여시간을조회해기록했다. 새학습/설정/대기열변경없음. `results/four_model_small_corpus_v1/progress_20261008_1712.json`.
+- 현재세백본의내부토큰/속성차원과공통planner16×256인터페이스를코드로확인하고공정성한계를기록했다. DrivoR원논문개수ablation과LPWM예산대조제안을추가했으며학습·대기열·등록source는변경하지않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 17:18 KST: 기존16조건완주후LPWM내부particle16/32/64와공통집약방식/출력16×256을분리하는추가대조를권고. 동일공개초기화방식·노출·학습률·planner·검증목록으로각조건학습하고PDMS/latency/memory를함께비교한다. 단순중간증설은동일조건대조가아니다. 아직새실험실행승인은추가로가정하지않음.
 
 2026-10-08 17:12 KST: 기존LPWM5epoch최종검증/gate후JEPA SSL+DrivoR 병행후보profile을진행하는등록queue유지. 조건통과시병행,아니면순차. 새로운실험설정변경없음.
 
@@ -2727,6 +2733,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 17:18 KST: Register16선택은원논문에서개수ablation후결정됐지만현재LPWM16의planning충분성은미검증. LPWM내부particle감소와ViT출력요약token수는역할이달라같은개수만으로공정성확정불가. 현재결과는공통planner·작은인터페이스의시스템비교이며LPWM/particle방식일반의우열로확장하지않는다. JEPA평균pool불이익가능성도같이명시.
 
 2026-10-08 17:12 KST: 약97.1%는LPWM사전학습만의진행률이다. 나머지3조건본학습및각planner평가는아직남아있다. 수치안정성과표현품질/주행성능을구분하며RGB정성한계는보존한다.
 

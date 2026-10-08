@@ -3898,3 +3898,16 @@ drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→
 2026-10-08 17:12 KST: 기존LPWM5epoch최종검증/gate후JEPA SSL+DrivoR 병행후보profile을진행하는등록queue유지. 조건통과시병행,아니면순차. 새로운실험설정변경없음.
 
 2026-10-08 17:12 KST: 약97.1%는LPWM사전학습만의진행률이다. 나머지3조건본학습및각planner평가는아직남아있다. 수치안정성과표현품질/주행성능을구분하며RGB정성한계는보존한다.
+
+
+## 2026-10-08 17:18 KST — Register/particle/patch token 예산 공정성
+
+2026-10-08 17:18 KST token수 공정성조회: 현재구현/등록config와DrivoR논문Table4(c)읽기전용확인. 학습·대기열·기존science source121개변경없음. 추가16/32/64조건은제안만했으며미등록/미기동.
+
+2026-10-08 17:18 KST: 공통planner입력모두16×256. DrivoR는703patch/frame×384와추가scene register16/frame를ViT에서처리후2framefusion16개;원DINOreg4/CLS는별도. JEPA는2frame tubelet의512patch×1024→평균pool16→256. LPWM은16FG+1BG,각FG의현재+8미래28차원속성→252→256. Shape동일성은표현용량동일성이아님. 근거 `results/four_model_small_corpus_v1/token_budget_fairness_audit.json`.
+
+2026-10-08 17:18 KST: 기존16조건완주후LPWM내부particle16/32/64와공통집약방식/출력16×256을분리하는추가대조를권고. 동일공개초기화방식·노출·학습률·planner·검증목록으로각조건학습하고PDMS/latency/memory를함께비교한다. 단순중간증설은동일조건대조가아니다. 아직새실험실행승인은추가로가정하지않음.
+
+2026-10-08 17:18 KST: Register16선택은원논문에서개수ablation후결정됐지만현재LPWM16의planning충분성은미검증. LPWM내부particle감소와ViT출력요약token수는역할이달라같은개수만으로공정성확정불가. 현재결과는공통planner·작은인터페이스의시스템비교이며LPWM/particle방식일반의우열로확장하지않는다. JEPA평균pool불이익가능성도같이명시.
+
+논문 https://arxiv.org/html/2601.05083v2 Table4(c)/Sec4.2.1;현재코드 small_corpus_models.py:59/78/103. DIM수나특정외관4차원만으로총정보량을계산하지않으며LPWM에도기하/context/future정보가있음을명시한다.

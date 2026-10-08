@@ -1,0 +1,85 @@
+{
+  "checked_at": "2026-10-08 17:18 KST",
+  "scope": "Static token-budget and representational-capacity audit of registered small-corpus pilot; no experiment changes.",
+  "planner_interface": {
+    "memory_tokens": 16,
+    "feature_dimension": 256,
+    "shared_generator_and_scorer": true
+  },
+  "drivor": {
+    "patch_grid_per_frame": [
+      19,
+      37
+    ],
+    "patch_tokens_per_frame": 703,
+    "observed_frames": 2,
+    "native_feature_dimension": 384,
+    "additional_scene_registers_per_frame": 16,
+    "original_dino_registers": 4,
+    "cls_tokens": 1,
+    "planner_tokens_after_frame_fusion": 16,
+    "native_scene_register_selection": "Additional scene registers after all ViT blocks; patch tokens remain inside the image encoder."
+  },
+  "jepa": {
+    "patch_grid": [
+      16,
+      32
+    ],
+    "observed_frames": 2,
+    "tubelet_frames": 2,
+    "patch_tokens": 512,
+    "native_feature_dimension": 1024,
+    "planner_tokens": 16,
+    "compression": "adaptive_avg_pool1d followed by Linear1024->256; custom pilot interface"
+  },
+  "lpwm": {
+    "foreground_particles": 16,
+    "background_particles": 1,
+    "appearance_dimension_per_foreground": 4,
+    "background_appearance_dimension": 4,
+    "local_context_dimension": 7,
+    "background_context_dimension": 7,
+    "attributes_per_particle_per_time": 28,
+    "current_and_future_steps": 9,
+    "flattened_dimensions_per_particle": 252,
+    "planner_tokens": 16,
+    "planner_projection_dimension": 256,
+    "background_shared_across_foreground_tokens": true
+  },
+  "caveats": [
+    "Equal planner tensor shape does not equate encoder representation capacity, compute or retained information.",
+    "Reducing LPWM particle count changes upstream representation and dynamics, whereas register count controls summary slots alongside dense image patches.",
+    "Small appearance dimension alone is not total information capacity: geometry, context and predicted state also enter planner.",
+    "One particle is not guaranteed to represent exactly one semantic object.",
+    "JEPA512->16 averaging may itself reduce baseline quality; original paper planner is not reproduced.",
+    "Sixteen LPWM particles were chosen for fast screening and planning adequacy has not been established."
+  ],
+  "recommendation": {
+    "priority": "Complete the registered16-token pilot; propose additional particle-budget controls separately.",
+    "internal_particle_counts": [
+      16,
+      32,
+      64
+    ],
+    "fixed_planner_tokens": 16,
+    "fixed_planner_dimension": 256,
+    "aggregation": "Apply the same aggregation design to every particle-count condition, including16, with matched decoder architecture and initialization policy.",
+    "controls": "Same public initialization policy, clips/scenes, exposure, optimizer schedule, downstream architecture and evaluation scenes; do not simply enlarge16-particle weights mid-run.",
+    "reporting": [
+      "PDMS and subscores",
+      "inference latency and memory",
+      "parameter counts",
+      "training exposure and cost"
+    ],
+    "optional_followup": "Memory-token sweep across all model types and PDMS-versus-cost curves."
+  },
+  "paper_reference": {
+    "url": "https://arxiv.org/html/2601.05083v2",
+    "section": "Table4(c) / Sec4.2.1",
+    "official_registers_per_camera": 16,
+    "official_four_camera_registers_total": 64,
+    "register_count_ablation": "5,8,16,32 random scene-token settings; 16 selected after16-32 plateau; paper navval ViT-S settings differ from this pilot."
+  },
+  "experiments_started_or_modified": false,
+  "registered_sources_unchanged": 121
+}
