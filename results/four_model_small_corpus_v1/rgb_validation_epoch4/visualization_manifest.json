@@ -1,0 +1,66 @@
+{
+  "created_at": "2026-10-08T16:44:56.240704+09:00",
+  "validation_label": "update2620",
+  "source_sha256": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/before_training_visuals.npz": "8b8ba77923901c49e5fccfce080dec5e9ce69a78f08915577cd155db8692c826",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/update2620_visuals.npz": "955c3fa8115dbf3d63fd7133a6950fbaab85197eb53b41894fc4bd094bce485c",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/before_training.json": "f5bc29aaee199668769582e425e27339873fe862959f546f8b5d667d7b975e1d",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/update2620.json": "91bb2852da14a1e022b91b00db3f01547b119fc38497bb832d9f91f93a65e55c"
+  },
+  "selection": "First three saved validation clips; same fixed scenes at both checkpoints.",
+  "display": "Native 512x256 panels, values clipped to [0,1] and quantized to uint8; no enhancement.",
+  "forecast_observed_times_seconds": [
+    -0.5,
+    0.0
+  ],
+  "displayed_forecast_time_seconds": 3.0,
+  "no_model_inference_or_training_changes": true,
+  "frame_metrics": [
+    {
+      "scene": 1,
+      "recording": "2021.07.24.20.37.45_veh-17",
+      "latest_observed_reconstruction_mse": 0.011470156721770763,
+      "latest_plus3s_forecast_mse": 0.03306100144982338,
+      "plus3s_persistence_mse": 0.044213924556970596,
+      "initial_plus3s_forecast_mse": 0.04331064596772194
+    },
+    {
+      "scene": 2,
+      "recording": "2021.06.08.14.35.24_veh-26",
+      "latest_observed_reconstruction_mse": 0.01588132232427597,
+      "latest_plus3s_forecast_mse": 0.037908922880887985,
+      "plus3s_persistence_mse": 0.05671977996826172,
+      "initial_plus3s_forecast_mse": 0.04280320927500725
+    },
+    {
+      "scene": 3,
+      "recording": "2021.08.24.17.37.11_veh-08",
+      "latest_observed_reconstruction_mse": 0.015589438378810883,
+      "latest_plus3s_forecast_mse": 0.018210217356681824,
+      "plus3s_persistence_mse": 0.03172799572348595,
+      "initial_plus3s_forecast_mse": 0.07670634984970093
+    }
+  ],
+  "all32_validation_means_before": {
+    "reconstruction_mse": 0.06559659074991941,
+    "forecast_mse": 0.06884639628697187,
+    "persistence_mse": 0.03232372820639284,
+    "forecast_lower_half_mse": 0.03615382022690028,
+    "reconstruction_lpips": 0.8669711202383041,
+    "forecast_lpips": 0.8790117688477039,
+    "mean_presence": 0.726477425545454,
+    "position_std": 0.57819595746696,
+    "appearance_std": 0.43953497149050236
+  },
+  "all32_validation_means_latest": {
+    "reconstruction_mse": 0.012282984229386784,
+    "forecast_mse": 0.02315908890159335,
+    "persistence_mse": 0.03232372820639284,
+    "forecast_lower_half_mse": 0.01470347693975782,
+    "reconstruction_lpips": 0.4854578571394086,
+    "forecast_lpips": 0.5031603192910552,
+    "mean_presence": 0.9285099860280752,
+    "position_std": 0.5585874430835247,
+    "appearance_std": 0.36747089214622974
+  }
+}

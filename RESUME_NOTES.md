@@ -3848,3 +3848,16 @@ drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→
 2026-10-08 16:39 KST: 현재 약80.8%는 LPWM Stage1만의 진행률이며 네 실험 전체 진행률이 아니다. 4epoch 영상 복원/미래예측 개선은 확인됐지만 주행 관련 객체 보존·16particle 적정성·planning 이득은 미검증. 이번 축소 비교의 새 PDMS가 나오기 전 기존82/83점과 혼합하지 않는다.
 
 등록 science hash 불일치: []; scheduler 검사: {'scripts/queue_four_model_small_corpus_overlap.py': True, 'configs/four_model_small_corpus/scheduling_overlap_v2.json': True}. 최종검증을 제외한 선형 ETA는 2026-10-08T17:19:59.996798+09:00. 미래정답을 관측 입력으로 넣지 않고 2관측→6미래로 검증한다. 평균 presence0.92851/position std0.55859/appearance std0.36747이나 의미론적 객체 구분 성능을 뜻하지 않는다.
+
+
+## 2026-10-08 16:46 KST — LPWM Stage1 RGB 복원 및 미래예측 시각화
+
+2026-10-08 16:46 KST RGB 시각화 요청: 저장된 before_training/update2620 배열만 CPU로 읽어 3개 비교 PNG를 생성했다. 학습·대기열·원121 science source/config는 변경하지 않았다.
+
+2026-10-08 16:46 KST LPWM epoch4 RGB 정성검증: 고정 검증목록 첫3clip의 현재원본/학습전후복원 및 +3초정답/학습전후예측을 같은512×256 크기로 비교. 초기 Sketchy 가중치보다 도로·건물의 큰 형태가 개선됐지만 차량·보행자와 세부경계가 흐리거나 누락되며 미래예측은 현재복원과 비슷하게 남는 예가 보인다. 32clip 평균MSE 개선을 객체보존/정확한동역학의 증명으로 해석하지 않는다. 결과 `results/four_model_small_corpus_v1/rgb_validation_epoch4/`.
+
+2026-10-08 16:46 KST 기존등록 학습·검증 대기열을 유지한다. RGB질문에는 observed reconstruction과 2관측→6미래 causal forecast를 구분하고, 정적배경의 큰 형태 개선과 작은객체/움직임 미보존을 함께 보고한다. 새학습/튜닝변형이나gate변경은 수행하지 않았다.
+
+2026-10-08 16:46 KST RGB패널은 저장순서 첫3clip이며 성능으로선별하지 않았다. 현재복원은 영상인코딩/디코딩 결과이며 미래예측성공검사가 아니다. 미래패널은 t=-0.5,0만관측하고 +3s의출력을 표시한다. 전체32clip 집계MSE는 6개미래시점 평균으로, 표시한 +3s 단일프레임MSE와 다르다. RGB에서누락된객체정보가latent에도없는지는추가검증없이는단정하지않는다.
+
+산출물: reconstruction_before_vs_epoch4.png, future_prediction_before_vs_epoch4.png, observed_reconstruction_future_overview_epoch4.png. 전처리 후 원본과 저장출력을 직접배치하고 sharpening/보간확대 없음. 비교 원본·배열 SHA와 실제단일프레임 MSE는 visualization_manifest.json에 보존. 새 script scripts/visualize_small_corpus_lpwm_rgb.py. 모델추론과GPU추가사용없음.
