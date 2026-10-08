@@ -1,0 +1,27 @@
+{
+  "scientific_protocol": "configs/four_model_small_corpus/experiment.json",
+  "change_scope": "Scheduling only; registered trainers and optimizer settings remain unchanged",
+  "gpu_ids": [0, 1],
+  "effective_batch": 16,
+  "training_workers_changed": false,
+  "maximum_concurrent_gpu_jobs": 2,
+  "maximum_concurrent_cpu_evaluations": 1,
+  "evaluation_workers": 4,
+  "cpu_evaluation_nice": 5,
+  "pair_profile_updates": 8,
+  "minimum_parallel_speedup": 1.05,
+  "minimum_profile_training_overlap": 0.6,
+  "profile_card_ceiling_bytes": 44000000000,
+  "whole_card_limit_bytes": 48000000000,
+  "parallel_loss_relative_tolerance": 0.0001,
+  "parallel_loss_absolute_tolerance": 0.00001,
+  "phases": [
+    {"name": "lpwm_ssl", "mode": "adopt existing exclusive training without restart"},
+    {"name": "jepa_ssl_and_drivor", "jobs": ["jepa_ssl", "drivor"], "mode": "measured parallel or serial fallback"},
+    {"name": "lpwm_and_jepa_planning", "jobs": ["lpwm_sequential", "jepa"], "mode": "measured parallel or serial fallback"},
+    {"name": "lpwm_joint", "jobs": ["lpwm_joint"], "mode": "exclusive because peak memory reaches43.6GB"}
+  ],
+  "cpu_scoring_policy": "Score each completed pass1/3/5 prediction as soon as ready while GPU training continues",
+  "stage1_gate_policy": "Preserve existing criteria; failed gate holds only its dependent planning job",
+  "profile_policy": "Disposable weights, identical data order and seeds; no profiling updates enter scientific training"
+}

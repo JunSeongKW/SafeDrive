@@ -3770,3 +3770,12 @@ GPU0·1만, 카드48decimalGB상한. Stage1micro4×누적2×2GPU, 나머지micro
 1seed·작은devsubset비교이며 전체navtest/330h학습/SOTA/pureparticle인과효과로부르지않는다. 공개초기화데이터·백본규모·순차대joint의LR경로차이가남는다. 설정 `configs/four_model_small_corpus/experiment.json`. 아래 미기동/제안 문장은 이전 이력이다.
 
 14:10 KST 재개검증: 양rank235/3275,43.70GB,121source불변;launch_verification.json에기록.
+
+## 2026-10-08 대기열 병렬 배치 최적화
+
+**2026-10-08 14:36 KST — 사용자 시간 단축 지시로 대기열만 overlap_v2로 교체했다.**
+새 controller294935가 기존 train136861을 PID/start_ticks 그대로 인계했다. 기존 controller136859만 종료했으며 학습 재시작·추가노출 없음. 현재 LPWM SSL655/3275(첫epoch후검증경계), root `outputs/four_model_small_corpus_v1/scheduling_v2/`.
+원래121개 scientific source/config hash불변. 새 script `scripts/queue_four_model_small_corpus_overlap.py`, 설정 `configs/four_model_small_corpus/scheduling_overlap_v2.json`. 배치/누적/GPU2 topology/LR/loss/seed/데이터/5epoch 불변.
+순서: 현재LPWM SSL전용 → JEPA SSL+DrivoR 병행 후보 → LPWM순차planner+JEPA planner 병행 후보 → LPWMjoint전용. 각pair는8update독립/병렬 profile의속도1.05배이상·실제training중첩60%이상·양rank loss일치·전체카드44GB이하를통과해야병행하고아니면자동순차. Profile가중치는본학습에미사용. 실제병렬속도검사는LPWM SSL완료후이므로단축률미확정.
+CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병행한다. CPU평가동시1개/worker4/nice5. 학습용10240 scene cache모두기존존재확인,추가생성안함. LPWM SSL·joint는43GB급이라GPU독점,48decimalGB제한유지.
+8개스케줄검사통과. Sourcehash·PID연속성·새state 근거 `scheduling_v2/handover_verified.json`. 이전serial controller/queue를중복실행하지않는다. 전체pause는studyroot/pause.requested,실패는scheduling_v2/failed.json을먼저확인한다. Stage1gate와개별종속planner보류규칙은보존한다.

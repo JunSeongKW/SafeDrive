@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 14:36 KST — 사용자 시간 단축 지시로 대기열만 overlap_v2로 교체했다.**
+새 controller294935가 기존 train136861을 PID/start_ticks 그대로 인계했다. 기존 controller136859만 종료했으며 학습 재시작·추가노출 없음. 현재 LPWM SSL655/3275(첫epoch후검증경계), root `outputs/four_model_small_corpus_v1/scheduling_v2/`.
+원래121개 scientific source/config hash불변. 새 script `scripts/queue_four_model_small_corpus_overlap.py`, 설정 `configs/four_model_small_corpus/scheduling_overlap_v2.json`. 배치/누적/GPU2 topology/LR/loss/seed/데이터/5epoch 불변.
+순서: 현재LPWM SSL전용 → JEPA SSL+DrivoR 병행 후보 → LPWM순차planner+JEPA planner 병행 후보 → LPWMjoint전용. 각pair는8update독립/병렬 profile의속도1.05배이상·실제training중첩60%이상·양rank loss일치·전체카드44GB이하를통과해야병행하고아니면자동순차. Profile가중치는본학습에미사용. 실제병렬속도검사는LPWM SSL완료후이므로단축률미확정.
+CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병행한다. CPU평가동시1개/worker4/nice5. 학습용10240 scene cache모두기존존재확인,추가생성안함. LPWM SSL·joint는43GB급이라GPU독점,48decimalGB제한유지.
+8개스케줄검사통과. Sourcehash·PID연속성·새state 근거 `scheduling_v2/handover_verified.json`. 이전serial controller/queue를중복실행하지않는다. 전체pause는studyroot/pause.requested,실패는scheduling_v2/failed.json을먼저확인한다. Stage1gate와개별종속planner보류규칙은보존한다.
+
+
 **2026-10-08 14:09 KST — 사용자 승인으로 네 모델 축소 비교 학습을 시작했다.**
 별도 planner 선택 답변이 없어 알린 추천안인 **공통 DrivoR planner**를 사용한다. ① Drive-JEPA 방식 백본+공통 planner ② DINOv2 register+공통 planner ③ LPWM SSL 후 planning ④ LPWM SSL+planning 처음부터 joint. 원 논문 전체 설정 재현이 아니다.
 Root `outputs/four_model_small_corpus_v1/`, queue PID136859. LPWM Stage1은 공개 Sketchy에서 새로 시작해219/3275 fullstate 저장 후 호환성 검사를 위해 잠시 양보했고, 검사가 끝나 현재 queue가 같은 상태를 재개한다. 기존 준비655update/기존 LoRA·Adapter는 합산·재개하지 않는다.
@@ -402,7 +410,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 14:11 KST (Codex)
+마지막 갱신: 2026-10-08 14:37 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -569,6 +577,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신14:36: scheduler294935/기존torchrun136861. 원controller136859 종료,학습PID/start_ticks보존. LPWM655/3275→첫epoch검증→계속학습. Canonical queue_state.json은overlap_v2가쓴다. oldqueue재기동금지.
 
 14:10 KST 실제 재개 검증: 양rank235/3275(7.18%), 카드각43.70GB, 최근중앙3.092s/update, 등록121source hash불변. 학습/dev원분할은각navtrain10240/navval1024. 근거 outputs/four_model_small_corpus_v1/launch_verification.json. 나머지조건은본학습대기이며PDMS미산출.
 
@@ -1197,6 +1207,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신대기열최적화: 원121source/config불변·traincache10240/10240존재·8개scheduler검사통과. GPUpair성능bench는앞으로Stage1종료후실행하며아직측정안됨. CPU PDMS즉시병행준비완료,현재planning예측파일은없다. 메모리/속도/loss기준통과시만동시학습한다.
 
 최신: LPWMjoint최대2SSLbatch/GPUmicro2 검사43.632GB,seqplanning6.35GB,DrivoR1.53GB,JEPA SSL9.97GB. 모두2update·양수유한gradient와추론/검증통과. seq/joint에는xy/scale/presence/context/dynamics/command의planning gradient가있다. 원DrivoR safety target view의in-place mutation은새trainer에서같은0.5→0의out-of-place연산으로해결했다. 학습성능검증결과로해석하지않는다.
 
@@ -2063,10 +2075,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 학습 시작 승인을 실행했다. 공통 front1/512×256/2frame corpus, 네 model bridge, LPWM·JEPA SSL 및 공통 planner trainer, 공식 dev scorer, 검증 gate와 durable queue를 구현했다. 공개 VJEPA2와 DINOv2 가중치를 확보했고 모든 경로의 실제2GPU 검사를 통과했다.
-- LPWM Stage1 fresh219 update 보존 후 검사를 마치고 queue136859로 재개했다. 실험 설정·실행 근거·제약과 인수인계를 갱신했다. 기존 결과·원본 데이터는 보존했다.
+- 사용자 시간 단축 지시로 과학적 학습 조건을 유지한 overlap_v2 scheduler/config를 추가했다. GPU pair의 disposable 직렬·병렬 검증 후 채택, CPU PDMS 즉시 병행, 독점 메모리 구간, pause/failure 전파를 구현했다.
+- 기존 controller136859만 교체해 학습136861을 중단 없이 인계했다. 원121source/config와 데이터·유효배치·LR·5epoch를 보존했고 scheduler8검사·PID/start_ticks·학습진행을 검증했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신: overlap_v2 controller294935가모든후속작업을소유한다. LPWM SSL끝나면두pair의등록된8update profiling/admission결과를확인하고병렬속도·메모리·수치일치를보고한다. 새script/config도등록후수정금지. 과거serialqueue재기동금지. 실제시간개선미측정이므로예상가속을확정값으로표시하지않는다.
 
 최신승인: queue136859를중복기동하지말고LPWM SSL→검증→JEPA SSL→검증→4planner조건과dev PDMS자동진행을확인한다. 진행중등록source/config수정금지. 실패시queue_failed및해당로그를읽고원인해결후새등록실행을설계한다. 품질실패는해당Stage2만보류한다. 현재test결과없음. 추가330h/전체navtest/장기epoch확장자동시작금지.
 
@@ -2621,6 +2635,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신확정: 실험의과학적조건불변,스케줄/CPU평가worker만변경. GPU병렬적용은실측gate종속이며속도부족·수치차이·메모리상한시순차자동복귀. GPU0·1/카드48GB유지. 미결: pair실제속도향상및전체walltime. 단계품질gate실패시해당planner보류유지.
 
 최신확정: 4조건공통DrivoR planner;OpenScene10480 SSL clips×5,planning10240×5,dev1024,seed47,effective16,16FG+1BG,front512×256/2frame. 미결: 16particle품질·PDMS유효성·확장수렴·총실제walltime. 단계별profile시간은전체완료ETA보장이아니다. LPWM순차와joint는SSL노출수는동일하나loss시점과LR가달라schedule을포함한시스템비교다.
 

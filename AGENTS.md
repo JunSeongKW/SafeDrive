@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-08 14:36 KST — 사용자 시간 단축 지시로 대기열만 overlap_v2로 교체했다.**
+새 controller294935가 기존 train136861을 PID/start_ticks 그대로 인계했다. 기존 controller136859만 종료했으며 학습 재시작·추가노출 없음. 현재 LPWM SSL655/3275(첫epoch후검증경계), root `outputs/four_model_small_corpus_v1/scheduling_v2/`.
+원래121개 scientific source/config hash불변. 새 script `scripts/queue_four_model_small_corpus_overlap.py`, 설정 `configs/four_model_small_corpus/scheduling_overlap_v2.json`. 배치/누적/GPU2 topology/LR/loss/seed/데이터/5epoch 불변.
+순서: 현재LPWM SSL전용 → JEPA SSL+DrivoR 병행 후보 → LPWM순차planner+JEPA planner 병행 후보 → LPWMjoint전용. 각pair는8update독립/병렬 profile의속도1.05배이상·실제training중첩60%이상·양rank loss일치·전체카드44GB이하를통과해야병행하고아니면자동순차. Profile가중치는본학습에미사용. 실제병렬속도검사는LPWM SSL완료후이므로단축률미확정.
+CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병행한다. CPU평가동시1개/worker4/nice5. 학습용10240 scene cache모두기존존재확인,추가생성안함. LPWM SSL·joint는43GB급이라GPU독점,48decimalGB제한유지.
+8개스케줄검사통과. Sourcehash·PID연속성·새state 근거 `scheduling_v2/handover_verified.json`. 이전serial controller/queue를중복실행하지않는다. 전체pause는studyroot/pause.requested,실패는scheduling_v2/failed.json을먼저확인한다. Stage1gate와개별종속planner보류규칙은보존한다.
+
+
 **2026-10-08 14:09 KST — 사용자 승인으로 네 모델 축소 비교 학습을 시작했다.**
 별도 planner 선택 답변이 없어 알린 추천안인 **공통 DrivoR planner**를 사용한다. ① Drive-JEPA 방식 백본+공통 planner ② DINOv2 register+공통 planner ③ LPWM SSL 후 planning ④ LPWM SSL+planning 처음부터 joint. 원 논문 전체 설정 재현이 아니다.
 Root `outputs/four_model_small_corpus_v1/`, queue PID136859. LPWM Stage1은 공개 Sketchy에서 새로 시작해219/3275 fullstate 저장 후 호환성 검사를 위해 잠시 양보했고, 검사가 끝나 현재 queue가 같은 상태를 재개한다. 기존 준비655update/기존 LoRA·Adapter는 합산·재개하지 않는다.
