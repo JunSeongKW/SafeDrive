@@ -4098,3 +4098,13 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 23:30 KST 세학습및pass1/3/5평가대기열계속. 48GB미만에서45/46.5기준으로의도적대기시키지않음. .5초전체카드감시가48GB이상일때JEPA저장대기,각trainer는48GB초과시저장보호. 보호후현재동반LPWM수감소시JEPA자동재개는유지. 기존JEPA8.5GB/joint27GB allocatorcap은유지. saved_before_policy_update에세fullstate hardlink·pause이력보존.
 
 2026-10-08 23:30 KST 이번정정은47GB중간메시지보다최신48GB지시우선. 기준은이전과같은decimalGB/카드전체사용량. 학습loss/배치/학습률/optimizer/데이터순서/정밀도/5pass불변,한번프로세스재개는명시하고무중단hotpatch라고부르지않음. 외부점유/비동기allocation까지물리적OOM불가를보장하지않는다. 현재세작업재개확인으로중단상태를남기지않았다.
+
+## 2026-10-08 23:57 KST — 네 조건 진행률 조회
+
+2026-10-08 23:57 KST 진행 조회: drivor 3200/3200 (100.0%) / jepa 2041/3200 (63.8%) / lpwm_sequential 1495/3200 (46.7%) / lpwm_joint 390/3200 (12.2%). v9 controller3324666과 세 학습 계속; 이번 확인에서 실행·설정 변경 없음.
+
+2026-10-08 23:57 KST JEPA pass3 PDMS 74.696960 (pass1 66.988966), DrivoR pass5 81.253529. 동일 dev1024, 평가 실패0. 양rank 최근100기록 loss/gradient 비유한0. GPU0/1 각100%, 약30.35decimalGB. 근거 results/four_model_small_corpus_v1/progress_20261008_2357.json.
+
+2026-10-08 23:57 KST 기존48GB 상한 및 세 학습 병행, pass1/3/5 평가·최종 비교 대기열 유지. JEPA3pass 평가 완료; LPWM순차 다음3pass/1920, joint 다음1pass/640. 추가 실행 없음.
+
+2026-10-08 23:57 KST 표시 진행률은 planning 목표3200update/5epoch 기준. JEPA·LPWM순차의 별도 SSL3275update/5pass는 이미 완료. 현재 PDMS는 서로 다른 학습량이며 최종 동등학습량 비교는 미완료; 전체navtest 점수가 아님.
