@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 17:36 KST (Codex)
+마지막 갱신: 2026-10-08 17:47 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 17:46 KST 진행조회: queue1084697/train1099274 fresh heartbeat, JEPA SSL267/3275(8.15%,첫epoch40.76%). LPWM SSL3275/3275·5epoch 학습/최종검증완료. 네 planner조건은아직대기, PDMS없음. GPU0·1각9.97/9.90decimalGB(17:45 snapshot), util31/54%. 이번턴조회만수행, 학습·설정·대기열변경없음.
 
 2026-10-08 17:34 KST 해상도 원인 진단 완료: CPU2thread, 기존128 Stage1 checkpoint/64encoder·30decoder/고정3clip로 decoder-only·encoder-only·full512 즉시 전환을 비교했다. 본학습 가중치·설정은 변경하지 않았다.
 
@@ -1248,6 +1250,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 17:46 KST: JEPA양rank267개기록loss비유한0,최근encoder/predictor gradient유한양수. LPWM최종32clip reconstructionMSE.01212462/futureMSE.02285789/futureLPIPS.50129264;초기대비각81.52%/66.80%/42.97%감소,현재반복futureMSE대비29.28%감소. 기존planning진입gate통과이며객체보존/해상도문제해소/PDMS성공은미확인. 원121science source와새scheduler/config해시불변·active failure0. 근거 `results/four_model_small_corpus_v1/progress_20261008_1746.json`.
 
 2026-10-08 17:34 KST 동일가중치/particle 즉시해상도전환: 공통128target MSE 평균 native128 .00928192 / decoder-only512 .02199972(2.370배) / encoder-only512 .02717889(2.928배) / full512 .03708157(3.995배). 첫2oldtrain·셋째heldout의고정3예시,새학습0. Decoder-only는동일latent/선택까지고정: 확장경로자체의복원교란근거이며현재16particle재학습품질의주원인확정은아님. 결과 `results/four_model_small_corpus_v1/resolution_transfer_diagnosis/`.
 
@@ -2152,10 +2156,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 동일128학습가중치/64encoder·30decoder를고정한CPU해상도전환진단script,원배열,JSON,전후PNG를추가했다. Decoder/encoder확장에따른즉시교란을확인하되현재재학습모델의주원인으로단정하지않았다.
-- 다음작업launch에서발견된중복command메타데이터오류를별도scheduler실행기로수정해기존대기열을복구했다. 원source/등록/실패로그·완료학습보존,새회귀검사포함9개통과,실제JEPA/DrivoR후속profile재개확인.
+- 네 모델 축소비교의17:46진행snapshot을저장했다. LPWM Stage1완료/JEPA267update진행,양rankloss·gradient·원본source hash·GPU·조건부ETA를확인했다. 실행·학습설정·대기열변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 17:46 KST: 기존queue유지: JEPA SSL→DrivoR planning→LPWM순차/JEPA planning(실측병렬admission)→LPWMjoint, pass1/3/5 CPU PDMS. 현재JEPA최근50–200update wall2.62–2.83초/update로첫epoch18:03–18:05,전체SSL학습19:58–20:08KST조건부외삽;앞으로epoch검증/부하변화추가. 전체4조건종료시간이아님. 첫pair는loss일치기준실패로기존규칙대로순차이며해당기준을완화하지않음.
 
 2026-10-08 17:34 KST: 새launch_fix실행기1084697의fresh queue_state를기준으로기존4조건대기열을이어간다. 기존294935/원queue를중복재기동하지않는다. 과거registration·source·실패보존;새실행기등록은scheduling_v2/registration_launch_fix.json. 진단상해상도extension을우선점검하되새128/512학습대조는미등록이다. 동일particle·클립노출·loss정규화로짧은재학습대조후원인기여를판정하는것을권고하며,기존비교실험은중간해상도/구조변경없이유지한다.
 
@@ -2744,6 +2749,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 17:46 KST: 8.15%는JEPA Stage1진행률이며전체실험진행률이아님. 학습수치안정성만확인,JEPA첫epoch검증은아직없음. LPWM복원/해상도진단한계보존;현재512×256·16particle조건은그대로이며새해상도재학습대조미등록. 이번축소실험PDMS미산출,기존81/82점과혼합금지.
 
 2026-10-08 17:34 KST: decoder-only2.37배는128NAVSIM가중치를재학습없이확장한3장면복원검사의값이다. 현재512에서5epoch학습한모델의악화율/전체검증/PDMS로보고하지않는다. 공통128평가가고해상도세부이득을반영하지못함,encoder-only는pool/anchors/mask/input보간등의통합효과임을명시. 첫2과거학습장면중복이있으나동일장면쌍의전환검사이며일반화검증아님. 복구한queue는metadata기록만수정했고9개검사통과·실제양profilelaunch확인;원모델/학습설정불변.
 

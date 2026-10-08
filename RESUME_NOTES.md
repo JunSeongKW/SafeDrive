@@ -3932,3 +3932,16 @@ drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→
 17:35 KST 후속확인: JEPA/DrivoR 병렬profile은속도·메모리·중첩을통과했으나등록loss일치기준을실패해기존규칙대로순차선택했다. 비교profile가중치는폐기되며현재JEPA SSL 본학습train1099274부터시작,DrivoR는이후자동실행. 기준완화·학습조건변경없음.
 
 JEPA 본학습 실제26update/416clip·encoder/predictor gradient유한양수확인. 18MB 진단원배열은git외outputs/four_model_small_corpus_v1/diagnostics/resolution_transfer/에저장하고보고서에경로/SHA보존.
+
+
+## 2026-10-08 17:46 KST — 축소 비교 학습 진행 보고
+
+2026-10-08 17:46 KST 진행조회: queue1084697/train1099274 fresh heartbeat, JEPA SSL267/3275(8.15%,첫epoch40.76%). LPWM SSL3275/3275·5epoch 학습/최종검증완료. 네 planner조건은아직대기, PDMS없음. GPU0·1각9.97/9.90decimalGB(17:45 snapshot), util31/54%. 이번턴조회만수행, 학습·설정·대기열변경없음.
+
+2026-10-08 17:46 KST: JEPA양rank267개기록loss비유한0,최근encoder/predictor gradient유한양수. LPWM최종32clip reconstructionMSE.01212462/futureMSE.02285789/futureLPIPS.50129264;초기대비각81.52%/66.80%/42.97%감소,현재반복futureMSE대비29.28%감소. 기존planning진입gate통과이며객체보존/해상도문제해소/PDMS성공은미확인. 원121science source와새scheduler/config해시불변·active failure0. 근거 `results/four_model_small_corpus_v1/progress_20261008_1746.json`.
+
+2026-10-08 17:46 KST: 기존queue유지: JEPA SSL→DrivoR planning→LPWM순차/JEPA planning(실측병렬admission)→LPWMjoint, pass1/3/5 CPU PDMS. 현재JEPA최근50–200update wall2.62–2.83초/update로첫epoch18:03–18:05,전체SSL학습19:58–20:08KST조건부외삽;앞으로epoch검증/부하변화추가. 전체4조건종료시간이아님. 첫pair는loss일치기준실패로기존규칙대로순차이며해당기준을완화하지않음.
+
+2026-10-08 17:46 KST: 8.15%는JEPA Stage1진행률이며전체실험진행률이아님. 학습수치안정성만확인,JEPA첫epoch검증은아직없음. LPWM복원/해상도진단한계보존;현재512×256·16particle조건은그대로이며새해상도재학습대조미등록. 이번축소실험PDMS미산출,기존81/82점과혼합금지.
+
+JEPA micro2×누적4×GPU2=유효16,worker4/rank,bf16. Training loss와before_training latent validation loss는서로다른표본이므로차이를검증개선으로주장하지않는다. 현재PID는fresh queue파일기반,host PID추가조회없음.
