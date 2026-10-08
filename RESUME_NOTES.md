@@ -3738,3 +3738,11 @@ OpenScene trainval을쓴다는저자답변확인;로컬준비실험의navval61re
 이 추천의 하위 연구 질문은 짧은 주행 SSL 적응으로 얻은 particle이 이후 ego 의도·planning gradient 적응에 유용한가이다. 같은 SSL checkpoint에서 frozen LPWM+planner와 joint LPWM+동일 planner를 비교하면 planning gradient의 추가 효과를 검사할 수 있다. Stage 1 자체 기여는 public 미적응 초기화 대조가 별도 필요하다. 공개330h Drive-JEPA checkpoint는 축소 LPWM과 동일 예산 대조가 아니며, 엄밀한 비교는 공통 코퍼스·입력·학습 예산·planner를 양쪽에 적용하고 서로 다른 upstream 사전학습도 밝힌다.
 
 LoRA 전환·RGB decoder 제거·추가 particle 감소를 동시에 적용하지 않도록 권고한다. BF16은 향후 KL/분산 등 수치 안정성과 실제 처리량을 분리 검증할 최적화 후보다. 현재 source/config/queue/다운로드는 변경하지 않았으며 13:03 로컬 준비 439/655 update를 확인했다. 새 긴 본학습이나 Stage 2를 시작하지 않았다. 근거: `results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/reduced_pretraining_recommendation_20261008.json`.
+
+## 2026-10-08 JEPA와 LPWM의 공통 작은 클립셋 비교 제안
+
+사용자가 Drive-JEPA 쪽도 작은 클립셋으로 학습해 가능성을 판단하는 안을 제안했다. 현재 고정 OpenScene10,480클립/약11.64h를 공통으로 쓰고 1/5/10회 코퍼스 노출을 기록하는 설계를 추천한다. 총104,800노출의 LPWM Stage1은 현재 속도 약7.02시간, JEPA 및 새고해상도 Stage2 시간은 미측정이다. 전방1/512×256/2Hz/8frame, 같은 clip identity/timestamp/preprocessing·sample order·effective batch, 모델별 짧은 LR schedule을 등록한다. SSL 검증용 recording은 양쪽 모두 제외한다.
+
+Drive-JEPA 논문·코드와 V-JEPA2 공식 공개 가중치를 재확인했다. JEPA 시작점은 330h 주행 적응 전 일반 영상 V-JEPA2 ViT-L/16이며 LPWM은 공개 Sketchy다. e50 주행 모델이나 V-JEPA2.1 distilled 모델을 조용히 대체하지 않는다. `app/vjepa/utils.py:90`는 optimizer와 epoch까지 load하고 train.py가 해당 epoch만큼 스케줄을 넘기므로, 신규 적응은 가중치 초기화 경로와 resume를 분리해야 한다. 실행 코드 수정은 하지 않았다.
+
+최소 후속 실험은 동일 DrivoR 스타일 planner·loss·현재+직전 전방 입력·ego status·navtrain 노출 예산으로 두 백본을 미세조정하는 비교다. 특징 입력 투영의 필요 차이와 규모는 명시한다. 작은 데이터의 절대 PDMS만으로 구조 효과나330h 확장 우열을 입증하지 않으며, 사전학습 전 원래 데이터 차이도 남는다. Frozen LPWM 대 joint 및 미래 개입은 후속으로 planning 적응 기여를 분리한다. 새 학습은 시작하지 않았고 기존 로컬 준비633/655를 확인했다. 상세: `results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/common_small_clipset_comparison_proposal_20261008.json`.

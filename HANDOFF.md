@@ -1,5 +1,7 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**최신 사용자 제안 — Drive-JEPA 쪽도 같은 작은 클립셋으로 학습해 가능성 비교.** 이를 추천한다. 첫 단계는 현재 고정 OpenScene 10,480클립(실소비 약 11.64h)을 양쪽에 사용하고 1/5/10회 노출 경계에서 점검한다. JEPA는 330h 주행 적응 전의 공식 V-JEPA2 ViT-L, LPWM은 공개 Sketchy부터 시작하며 각자의 기존 SSL 목적을 유지한다. 이후 동일 DrivoR 스타일 planner·입력·감독·학습 예산으로 두 백본을 비교한다. 처음부터 서로 다른 planner의 PDMS를 표현 단독 효과로 해석하지 않는다. 두 초기 백본의 원래 사전학습 데이터 차이는 남는다. 제안과 코드 감사만 수행했으며 새 학습은 미기동이다. [설계 근거](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/common_small_clipset_comparison_proposal_20261008.json).
+
 **2026-10-08 최신 사용자 제약 — 30일 규모의 Stage 1은 불가, 축소 실험 추천 요청.** 아래 330h·공개 checkpoint와 동일 노출량 계획은 재검토 대상이다. 입력·SSL 목적은 유지하고 10만 clip 점검 → 최대 30만 clip(현재 속도 약 20시간, 데이터 준비·Stage 2 별도)을 권고했다. 다운로드를 기다릴 수 있으면 330h 코퍼스를 유지하고, 전체 대기시간도 줄여야 하면 세 source의 공통 30–50h 부분집합이 대안이다. 시간 예산은 선택 질문을 보냈으며 아직 답변 없음. 이는 추천안이며 새 본학습 실행이나 기존 설정 변경은 하지 않았다. 현재 로컬 준비 1epoch와 수집은 기존 승인대로 계속한다. [축소 예산·비교 조건](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/reduced_pretraining_recommendation_20261008.json).
 
 **2026-10-08 12:54 KST — 사용자 상태조회.** GPU0·1 로컬준비학습 300/655update(16particle/front1/512×256/유효16) 진행. 카드당약43.04GB, loss유한·43source불변·최신modulegradient확인. 네수집process도살아있음. OpenScene8/200archive검증,CoVLA252영상/2.10h,Dojo71clip변환/첫archive미검증,ZIP35약1.89/35.28GB수신(12:53조회). 정확330h비교본학습과Stage2미시작. 실행/설정변경없음. [조회근거](results/lpwm_driving_video_512x256_v1/local_stage1_distributed/status_20261008_1254.json).
@@ -388,7 +390,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 13:05 KST (Codex)
+마지막 갱신: 2026-10-08 13:17 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -555,6 +557,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+작은 공통 클립셋 비교는 아직 제안 단계이며 새 JEPA/LPWM 학습을 시작하지 않았다. 이번 코드 확인 시 기존 로컬 준비 학습은 633/655 update였다. 기존 실행 코드·설정·다운로드 변경 없음.
 
 최신 축소 요청: 새 학습이나 설정 변경 없음. 13:03 조회 로컬 준비 439/655 update. 기존 330h 전체 노출량 본학습은 시작되지 않았으며 자동 실행을 추가하지 않는다. 로컬 1epoch → 검증과 기존 데이터 수집은 유지한다.
 
@@ -1175,6 +1179,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Drive-JEPA 내 V-JEPA 학습 코드 및 저자 config를 확인했다. 공식 일반 영상 V-JEPA2 ViT-L checkpoint가 공개되어 있다. Vendored `app/vjepa/utils.py:90`의 load_checkpoint는 encoder/predictor/EMA 외에 optimizer·epoch도 복원하므로, 작은 코퍼스의 새 적응에는 가중치 초기화와 학습 재개를 분리해야 한다. JEPA의 주행 e50 checkpoint나 기존 V-JEPA2.1 distilled checkpoint를 이번 시작점으로 혼용하지 않는다. LPWM 10,480클립×10회=104,800 노출은 현 속도 약 7.02시간, JEPA·새 Stage2 시간은 미실측이다.
 
 축소 예산 계산: 현 유효 batch16, 검증 포함 3.8565초/update 외삽으로 10만/30만/60만 clip 노출은 약 6.70/20.09/40.17시간. 데이터 다운로드·전처리와 Stage 2는 제외하며, 외부 영상 loader 속도는 아직 미측정이다. 고유 영상 시간과 반복 학습량을 구분한다. 공개 Drive-JEPA checkpoint의 약 783만 노출을 맞추는 것은 사용자 요구한 입력·코퍼스 일치와 별도의 계산 예산 조건이다.
 
@@ -2035,9 +2041,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자의 30일 학습 불가 제약과 축소 추천을 기록했다. reduced_pretraining_recommendation_20261008.json에 실측 기반 10만/30만/60만 노출 시간, 330h 유지 또는 공통 부분집합 대안, 비교 통제·검증 방법을 보존했다. 실행 코드·학습 설정·다운로드 변경 없음.
+- 사용자 제안에 맞춰 두 백본을 같은 작은 주행 클립셋에 적응시키는 통제 비교를 구체화했다. common_small_clipset_comparison_proposal_20261008.json에 초기 가중치, 데이터·planner 통제, 샘플 예산, 초기화 대 재개 코드 위험과 해석 범위를 기록했다. 새 학습·실행 설정 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+작은 공통 코퍼스 비교 추천: 기존 OpenScene10,480개 고정 clip을 양쪽에 동일하게 제공하고 1/5/10회 학습 지점을 보존한다. 초기 예산은 총104,800clip/모델, 양쪽 effective batch·노출 순서와 augmentation을 통제하고 모델별 합리적 LR·짧은 warmup을 등록한다. 공식 V-JEPA2 ViT-L 가중치 확보·호환성, optimizer/epoch fresh start, 실제 2GPU 속도/48GB 검증이 남아 있다. LPWM의 기존 준비 1epoch를 자동 합산하거나 제외하지 말고 본 비교 초기화·전체 노출량을 먼저 명시한다. Stage2는 동일 DrivoR planner의 두 backbone 비교를 우선하며 새로운 해상도에서 실행 시간은 아직 미측정이다. 작은 실험의 승패로 전체330h 수렴 성능을 단정하지 않는다. 가능성 확인 뒤 세 source30–50h와 복수 seed 확장.
 
 최신 우선: 사용자 시간 예산에 맞춰 Stage 1 축소안을 구체화한다. 추천은 동일 front1/512×256/8frame/2Hz·16FG·native SSL에서 10만 노출 점검 후 최대 30만 노출이다. 330h 수집 대기가 허용되면 코퍼스를 유지하되 학습량만 축소; 빠른 전체 회전이 필요하면 3source 공통 30–50h 부분집합을 고정한다. 아직 새 실행 승인으로 해석해 시작하지 않았다. 현재 local checkpoint를 비교 조건에 포함할지는 총 노출·초기화 프로토콜에 명시해야 한다. 별도 준비 데이터를 조용히 이어붙이지 않는다.
 검증: held-out recording 미래 예측과 현재 반복 기준선, particle 비붕괴·객체 정보 readout; 이어 같은 SSL checkpoint에서 frozen LPWM+planner 대 joint LPWM+동일 planner를 우선 비교해 planning gradient 효과를 분리한다. Stage 1 자체 효과는 public 미적응 초기화 대조가 별도 필요하다. 공개330h Drive-JEPA는 학습량이 다르면 참고 결과이며, 통제 비교는 양쪽 같은 코퍼스·학습 예산·planner로 구성하고 upstream 초기화 차이를 공개한다. 단일 seed는 경향성 진단, test는 조기 종료 선택에 쓰지 않는다.
@@ -2586,6 +2594,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+사용자는 JEPA 자체도 작은 클립셋으로 학습하는 비교의 타당성을 물었다. 추천은 기록했으나 실행 지시로 간주해 장기 작업을 시작하지 않았다. 원래 사전학습(LPWM Sketchy 대 V-JEPA2 일반 영상)·백본 구조 차이는 남으므로 결과는 동일 주행 적응 예산 아래 두 표현 시스템 비교다. 동일 sample 수는 동일 FLOPs/시간이 아니며 둘 다 기록한다. SSL loss 절대값을 서로 직접 비교하지 않는다.
 
 최신 확정: 사용자는 약 30일 사전학습을 허용할 수 없어 축소를 요청했다. 10만→30만 clip, 330h 유지 대 30–50h 부분집합은 추천이며 최종 시간 예산·코퍼스 크기 미확정이다. 해상도·관측 프레임·LPWM SSL 유지, 추가 particle 축소보다 노출량 축소를 우선 권고했다. BF16·LoRA의 속도 향상은 실측하지 않았고 적용하지 않았다. 과거 긴 학습 예산을 자동 확정 상태로 취급하지 않는다.
 

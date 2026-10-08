@@ -1,0 +1,78 @@
+{
+  "status": "proposed_common_small_corpus_comparison_not_launched",
+  "recorded_kst": "2026-10-08T13:17:34.002478+09:00",
+  "research_subquestion": "Under matched small driving-video adaptation and a common planner, are LPWM particle representations a promising planning backbone compared with V-JEPA representations?",
+  "recommended_initial_corpus": {
+    "source": "existing localOpenScene fixed manifest",
+    "unique_complete_clips": 10480,
+    "nominal_consumed_hours": 11.6444444444,
+    "width": 512,
+    "height": 256,
+    "camera_count": 1,
+    "fps": 2,
+    "frames_per_clip": 8,
+    "manifest": "outputs/lpwm_driving_video_512x256_v1/corpus/local_openscene_episodes.jsonl",
+    "registration_train_validation_recording_overlap": 0,
+    "training_sampling": "identical fixed clip identities, timestamps, preprocessing, sample order and exposure checkpoints across backbones",
+    "stage1_checkpoints_corpus_passes": [
+      1,
+      5,
+      10
+    ],
+    "stage1_checkpoint_clip_presentations": [
+      10480,
+      52400,
+      104800
+    ],
+    "expansion_if_promising": "shared30-50h stratified corpus fromOpenScene/CoVLA/DrivingDojo"
+  },
+  "initialization": {
+    "jepa": "official general-video V-JEPA2 ViT-L/16 weights before330h driving adaptation",
+    "jepa_exclude": "vitl_merge_3dataset_e50.pt and V-JEPA2.1 distilled model as primary initializations",
+    "lpwm": "public Sketchy weights before driving adaptation, same registered rectangular16FG+1BG model",
+    "upstream_pretraining_equal": false,
+    "interpretation": "matched downstream driving adaptation of two pretrained representation systems, not isolated SSL-objective or particle-structure causality"
+  },
+  "stage1": {
+    "jepa": "native V-JEPA masked latent prediction, EMA target and stop-gradient",
+    "lpwm": "native temporal ELBO reconstruction and particle context/dynamics priors",
+    "optimizer_state": "fresh adaptation optimizer/scheduler/counters, independently verified from pretrained tensor initialization",
+    "code_observation": "vendoredVJEPA app/vjepa/utils.py load_checkpoint restores optimizer and epoch; cannot use resume blindly for fresh small-corpus adaptation",
+    "effective_batch": "match after two-GPU profiling; candidate16",
+    "learning_rate": "model-appropriate registered short schedules with equal tuning budget, not identical numerical LR by fiat",
+    "report_budgets": [
+      "actual clip presentations",
+      "unique clips",
+      "optimizer updates",
+      "GPU hours",
+      "parameters and token counts"
+    ],
+    "equal_sample_exposures_is_equal_compute": false
+  },
+  "stage2": {
+    "primary_runs": 2,
+    "planner": "same DrivoR-style planner, losses, candidate generation/scorer, supervision and output horizon",
+    "observations": "same current+previous front frames, timestamps, resolution and ego status",
+    "backbone_policy": "both fine-tuned with matched policy and explicitly reported LR; only necessary input projections differ and their capacity is reported",
+    "training": "same navtrain scene subset or full split and registered exposure budget, same effective batch and seed; short pilot schedule independent of prior25epoch warmup",
+    "evaluation": "fixed held-out recording dev split for choices; PDMS and components plus scenario breakdown; official navtest after choices fixed",
+    "optional_followup": "LPWM frozen vs fine-tuned control and current-only/future interventions for planning-conditioned representation contribution"
+  },
+  "time": {
+    "lpwm_stage1_ten_passes_hours_with_measured_checks": 7.016693418622017,
+    "jepa_stage1_runtime_profiled": false,
+    "stage2_runtime_profiled_for_this_input": false,
+    "total_completion_eta_known": false
+  },
+  "code_sources": [
+    "reference_repositories/Drive-JEPA/navsim_v1/vjepa2/app/vjepa/train.py",
+    "reference_repositories/Drive-JEPA/navsim_v1/vjepa2/app/vjepa/utils.py",
+    "reference_repositories/Drive-JEPA/navsim_v1/vjepa2/README.md"
+  ],
+  "primary_sources": [
+    "https://arxiv.org/html/2601.22032v2",
+    "https://github.com/facebookresearch/vjepa2"
+  ],
+  "execution_changes": false,
+  "last_observed_local_preparation_updates": 633
+}
