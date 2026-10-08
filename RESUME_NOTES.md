@@ -3962,3 +3962,16 @@ LPWM추가8update비교(JEPA와2작업 vs JEPA/DrivoR와3작업)는loss상대1.5
 2026-10-08 19:20 KST 변경은실행순서·동시작업수·수치재현성admission해석뿐이다. 원훈련코드·배치·optimizer·데이터·loss·가중치초기화·등록science해시불변,모든profile가중치폐기. v3단독재실행까지묶은엄격cap실패를지우거나통과로덮어쓰지않고v4별도규칙수정근거저장. 병렬차이가단독변동보다작다는8update검사이며최종PDMS동일성보장은아님. 약1.268배는짧은동등update블록대비추정으로전체실험종료시간단축률로보고하지않는다. 신규PDMS아직없음. 512해상도/16particle조건변경없음.
 
 실행파일: reassess_small_corpus_parallel_execution.py / queue_small_corpus_calibrated_parallel.py(과거중간controller) / queue_small_corpus_three_jobs.py(현재). 신규실행환경은원래kjs-lpwm-drivor-joint그대로. CurrentGPU PID와source hash·profilegate·resume443AdamW/scheduler451·양rankRNG2·sampler누락중복검사는위JSON에보존. v4 controller인계는SIGTERM handler가trainer를pause시키므로oldcontroller1210946의UID/cmdline/activejobs확인후해당PID만SIGKILL,분리session의torchrun1210957 start_ticks/생존확인후root queue lock획득했다. 기존모델은재시작하지않았으며실제추가학습행확인. 새controller와원래새train만사용하며기존controller중복기동금지.
+
+
+## 2026-10-08 20:04 KST — 세 병행 학습 점검 및 첫 DrivoR PDMS
+
+2026-10-08 20:04 KST 진행 점검: v4 controller1554349와 세 학습 JEPA SSL1210957 / DrivoR1567970 / LPWM순차1580030 정상 실행. JEPA3129/3275(95.54%), DrivoR887/3200(27.72%), LPWM Stage2 270/3200(8.44%). LPWM Stage1은5epoch완료, JEPA planner와LPWMjoint는대기다. GPU0·1 전체카드17.80/17.67decimalGB, 양rank비유한loss0·최신modulegradient양수. 원121science 및v4실행6source불변, active failure없음. 이번에는조회만했고학습/설정/대기열변경없음.
+
+2026-10-08 20:04 KST 새 결과: DrivoR pass1(640update) 공식PDMS66.9414 / ADE4.9712m / FDE10.8544m, 독립planning dev1024장면·실패0·train/dev recording중복0. 무과실충돌98.78%,도로준수85.25%,진행률.4623. 최신887update의점수가아니며전체navtest/원논문재현도아님. `validation/pass1.json`의pending은정적이력이며실제완료근거는`drivor/validation/pass1.pdms.json`이다.
+
+JEPA 고정32held-out기록 masked latentL1 초기.651997→pass1 .514094→pass2 .504583→pass3 .498893→pass4 .495580(약24%감소), feature std2.253→2.355. 최종gate는아직대기. LPWM Stage1 futureMSE.0228579/persistence.0323237(29.28%감소),기존gate통과유지. Snapshot `results/four_model_small_corpus_v1/progress_20261008_2004.json`.
+
+2026-10-08 20:04 KST 현재부하의최근50–200update wall속도기준: JEPA Stage1학습경계20:11경,최종검증포함약20:15이후gate통과시JEPA planner자동시작. DrivoR5epoch학습22:06–22:12, LPWM Stage2 첫epoch21:05경/5epoch10월9일04:05–04:15조건부추정. 앞으로epoch검증·PDMS·동시작업교체의부하변화는별도이므로전체4실험완료시각으로해석하지않는다. 기존v4대기열/48GB상한/LPWMjoint독점규칙유지.
+
+2026-10-08 20:04 KST 첫DrivoR PDMS만산출됐고다른세조건학습후PDMS미산출. 서로같은pass/1024dev장면결과가나오기전모델우열·particle이득을주장하지않는다. 과거81/82점의다른실험과직접비교금지. Loss유한/gradient양수는실행정상근거이며객체정보보존·planning개선증명아님. LPWM512×256/16particle RGB복원한계는보존한다.

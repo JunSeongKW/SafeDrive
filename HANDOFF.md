@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 19:22 KST (Codex)
+마지막 갱신: 2026-10-08 20:07 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 20:04 KST 진행 점검: v4 controller1554349와 세 학습 JEPA SSL1210957 / DrivoR1567970 / LPWM순차1580030 정상 실행. JEPA3129/3275(95.54%), DrivoR887/3200(27.72%), LPWM Stage2 270/3200(8.44%). LPWM Stage1은5epoch완료, JEPA planner와LPWMjoint는대기다. GPU0·1 전체카드17.80/17.67decimalGB, 양rank비유한loss0·최신modulegradient양수. 원121science 및v4실행6source불변, active failure없음. 이번에는조회만했고학습/설정/대기열변경없음.
 
 2026-10-08 19:20 KST 사용자 GPU48GB이내 추가병행 지시로 세 작업 본학습을 동시에 실행했다. 새controller1554349 / `scripts/queue_small_corpus_three_jobs.py`, root `outputs/four_model_small_corpus_v1/scheduling_v4_three_jobs/`. JEPA SSL1210957(2210/3275),DrivoR1567970(54/3200),LPWM순차Stage2 1580030(5/3200). 세작업각각GPU0·1 micro2×누적4=유효16,기존worker/LR/데이터/seed/loss/5epoch보존. 원121science source불변.
 
@@ -1254,6 +1256,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 20:04 KST 새 결과: DrivoR pass1(640update) 공식PDMS66.9414 / ADE4.9712m / FDE10.8544m, 독립planning dev1024장면·실패0·train/dev recording중복0. 무과실충돌98.78%,도로준수85.25%,진행률.4623. 최신887update의점수가아니며전체navtest/원논문재현도아님. `validation/pass1.json`의pending은정적이력이며실제완료근거는`drivor/validation/pass1.pdms.json`이다.
+
+JEPA 고정32held-out기록 masked latentL1 초기.651997→pass1 .514094→pass2 .504583→pass3 .498893→pass4 .495580(약24%감소), feature std2.253→2.355. 최종gate는아직대기. LPWM Stage1 futureMSE.0228579/persistence.0323237(29.28%감소),기존gate통과유지. Snapshot `results/four_model_small_corpus_v1/progress_20261008_2004.json`.
 
 2026-10-08 19:20 KST 실행재현성검사: JEPA 단독재실행loss최대상대.12546%,기존병렬차이.05002%;DrivoR단독.02465%/병렬.01988%. DrivoR3장면궤적차이평균단독3.44mm/병렬2.64mm. 최초1e-4 gate와v3 .1%cap에serial도묶은실패기록보존;v4는병렬간차이에.1%cap·실측단독변동이내·고정검증/출력cap을적용한다고명시해첫pair채택. exactPDMS동등성증명아님.
 
@@ -2164,11 +2170,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 기존loss일치gate를동일조건재실행변동과고정검증/궤적출력으로재검토하는별도audit와등록기록을추가했다. 실패이력보존,첫pair판정규칙의수정근거를명시했다.
-- 사용자추가지시대로48GB이내JEPA SSL·DrivoR·LPWM순차planner세작업을동시에실행하는의존성대기열을등록/기동했다. 기존JEPA451fullstate재개및이후trainPID무중단인계,원121science source/배치/데이터불변확인.
-- LPWM8update병렬비교/실제세본학습·memory·gradient·공통planner241tensor/원update누락중복0확인. 새재현성/메모리/속도/출력gate검사포함17개통과. 결과와운영경로를기록했다.
+- 세 학습의 진행률·양rank loss/gradient·GPU·등록source해시·대기열을 읽기 전용으로 확인하고20:04 snapshot을 저장했다.
+- 새 DrivoR pass1 PDMS66.9414와JEPA pass4 SSL검증을 보고하고, 현재 실측속도로 다음 검증 및 학습종료 ETA를 갱신했다.
+- 학습 코드·설정·실행 상태는 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 20:04 KST 현재부하의최근50–200update wall속도기준: JEPA Stage1학습경계20:11경,최종검증포함약20:15이후gate통과시JEPA planner자동시작. DrivoR5epoch학습22:06–22:12, LPWM Stage2 첫epoch21:05경/5epoch10월9일04:05–04:15조건부추정. 앞으로epoch검증·PDMS·동시작업교체의부하변화는별도이므로전체4실험완료시각으로해석하지않는다. 기존v4대기열/48GB상한/LPWMjoint독점규칙유지.
 
 2026-10-08 19:20 KST v4 대기열유지: JEPA SSL·DrivoR planning·LPWM순차planning 동시진행. JEPA SSL완료/gate후JEPA planner를빈자리에넣어최대3작업. LPWMjoint는기존최대실측43.6GB급이므로다른GPU학습이모두완료된뒤단독실행. CPU공식PDMS pass1/3/5 예측완료즉시1작업/4worker로병행. profile카드44GB/실학습46.5GB저장중단/사용자48GB상한보존. 상태는root queue_state와v4의failed/paused를확인하며과거v2/v3 paused/failed는현재정지근거가아님.
 
@@ -2761,6 +2769,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 20:04 KST 첫DrivoR PDMS만산출됐고다른세조건학습후PDMS미산출. 서로같은pass/1024dev장면결과가나오기전모델우열·particle이득을주장하지않는다. 과거81/82점의다른실험과직접비교금지. Loss유한/gradient양수는실행정상근거이며객체정보보존·planning개선증명아님. LPWM512×256/16particle RGB복원한계는보존한다.
 
 2026-10-08 19:20 KST 변경은실행순서·동시작업수·수치재현성admission해석뿐이다. 원훈련코드·배치·optimizer·데이터·loss·가중치초기화·등록science해시불변,모든profile가중치폐기. v3단독재실행까지묶은엄격cap실패를지우거나통과로덮어쓰지않고v4별도규칙수정근거저장. 병렬차이가단독변동보다작다는8update검사이며최종PDMS동일성보장은아님. 약1.268배는짧은동등update블록대비추정으로전체실험종료시간단축률로보고하지않는다. 신규PDMS아직없음. 512해상도/16particle조건변경없음.
 
