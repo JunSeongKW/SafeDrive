@@ -1,0 +1,72 @@
+{
+  "checked_unix": 1791427359.6347823,
+  "account": "JunseongKwak",
+  "all_repository_sample_downloads_passed": true,
+  "checks": [
+    {
+      "repository": "turing-motors/CoVLA-Dataset",
+      "representative_file": "videos/0000b7dc6478371b.mp4",
+      "revision": "0a6d39e41659903a26dde957744e70dbc360bb6d",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo",
+      "representative_file": "videos/videos_1.tar.gz",
+      "revision": "f9cbd63b9b5a4cde2ce88277f3a20bef2ca48275",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra1",
+      "representative_file": "videos_10.tar.gz",
+      "revision": "0c6ec8cec53476ac8244c62a0616e869ec49c249",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra2",
+      "representative_file": "videos_16.tar.gz",
+      "revision": "d1e67344417bed0478c575cb3309a1ecc3c52488",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra3",
+      "representative_file": "videos_23.tar.gz",
+      "revision": "dfcef0c662fea6f0bcf5f89dfa2c435b445c537a",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra4",
+      "representative_file": "videos_31.tar.gz",
+      "revision": "3f708849d5c01abb7c377d8d8cac774c2d9d5a42",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    },
+    {
+      "repository": "Yuqi1997/DrivingDojo-Extra5",
+      "representative_file": "videos_40.tar.gz",
+      "revision": "961db77afbb1fad28fafb46a04bb4920a0cd4318",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    },
+    {
+      "repository": "OpenDriveLab/OpenScene",
+      "representative_file": "openscene-v1.1/openscene_sensor_trainval_camera/openscene_sensor_trainval_camera_0.tgz",
+      "revision": "a76f840b65e972bc45e56c2adced897498e9a026",
+      "http_status": 206,
+      "bytes_received": 1024,
+      "passed": true
+    }
+  ],
+  "credentials_printed": false
+}

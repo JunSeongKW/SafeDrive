@@ -1,5 +1,13 @@
 # Planning-Aware Future Prediction — 에이전트 작업 규칙
 
+**2026-10-08 11:45 KST — 사용자 동의 후 데이터셋 접근 승인 확인 완료.**
+서버계정 `JunseongKwak` / CoVLA·DrivingDojo기본·Extra1–5·OpenScene 모두 HEAD200, 대표파일실제GET206·1,024bytes수신 성공.
+기존토큰으로통과, 추가사용자동의·토큰교체불필요. 토큰값미출력. [검사근거](results/lpwm_driving_video_512x256_v1/dataset_access_approved.json).
+새승인catalog `outputs/lpwm_driving_video_512x256_v1/download_access_after_user_approval.json`, ready marker `dataset_access_ready.json` 사용. 과거403catalog는이력보존.
+OpenScene다운로드계속. CoVLA/DrivingDojo본영상수집·전처리·330h확정코퍼스는아직구현/준비가남아있으며, 권한해결을다운로드완료로부르지않음.
+Particle200update 8/16/32/64비교완료, 8/16/32는64대비전체재구성MSE15%기준초과로queue `held_for_quality_review`; 자동로컬1epoch 미시작.
+8future오차+21.2%,16+4.45%,32+.55% vs64. 짧은SSL오차검사이므로최종PDMS·최소적정개수결론불가. 규칙을조용히완화하거나학습중이라고보고하지않음.
+
 **후속 확인:** 8particle 후보200update·검증완료, 현재16particle 후보학습중. 32held-out기록 futureMSE .06642→.02976 (현재반복.03232), PDMS미평가. OpenScene 첫archiveSHA검증완료/누락front2,085장확보, 다음archive진행. [전후·고정축 겹침](results/lpwm_driving_video_512x256_v1/particle_budget_overlays_v2/candidate_particles8_after_training_before_after_overlay.png).
 
 **2026-10-08 10:51 KST — 사용자 지시로 기존 두 학습 중단, 512×256·소수 particle Stage1 시작.**

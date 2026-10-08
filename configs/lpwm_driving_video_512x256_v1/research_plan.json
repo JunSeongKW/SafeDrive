@@ -1,5 +1,5 @@
 {
-  "status": "particle_capacity_screen_running; full_330h_corpus_pending_external_access",
+  "status": "all_dataset_access_verified; particle_capacity_screen_requires_review; full_corpus_preparation_incomplete",
   "research_question": "Can a small set of particles preserve scene and future information needed for intent-conditioned planning?",
   "stage1": {
     "objective": "official LPWM temporal ELBO, no object GT labels",
@@ -61,7 +61,9 @@
     "owned_raw_root": "/home/user/data/processed_dataset/junseong/lpwm_driving_video_512x256_v1",
     "raw_storage_cap_bytes": 1000000000000,
     "delete_only_newly_downloaded_assets_after_completed_training": true,
-    "cleanup_not_yet_executed": true
+    "cleanup_not_yet_executed": true,
+    "external_access_approved": true,
+    "approved_catalog": "outputs/lpwm_driving_video_512x256_v1/download_access_after_user_approval.json"
   },
   "runtime": {
     "allowed_gpus": [

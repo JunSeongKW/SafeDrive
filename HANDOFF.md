@@ -1,5 +1,13 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 11:45 KST — 사용자 동의 후 데이터셋 접근 승인 확인 완료.**
+서버계정 `JunseongKwak` / CoVLA·DrivingDojo기본·Extra1–5·OpenScene 모두 HEAD200, 대표파일실제GET206·1,024bytes수신 성공.
+기존토큰으로통과, 추가사용자동의·토큰교체불필요. 토큰값미출력. [검사근거](results/lpwm_driving_video_512x256_v1/dataset_access_approved.json).
+새승인catalog `outputs/lpwm_driving_video_512x256_v1/download_access_after_user_approval.json`, ready marker `dataset_access_ready.json` 사용. 과거403catalog는이력보존.
+OpenScene다운로드계속. CoVLA/DrivingDojo본영상수집·전처리·330h확정코퍼스는아직구현/준비가남아있으며, 권한해결을다운로드완료로부르지않음.
+Particle200update 8/16/32/64비교완료, 8/16/32는64대비전체재구성MSE15%기준초과로queue `held_for_quality_review`; 자동로컬1epoch 미시작.
+8future오차+21.2%,16+4.45%,32+.55% vs64. 짧은SSL오차검사이므로최종PDMS·최소적정개수결론불가. 규칙을조용히완화하거나학습중이라고보고하지않음.
+
 **후속 확인:** 8particle 후보200update·검증완료, 현재16particle 후보학습중. 32held-out기록 futureMSE .06642→.02976 (현재반복.03232), PDMS미평가. OpenScene 첫archiveSHA검증완료/누락front2,085장확보, 다음archive진행. [전후·고정축 겹침](results/lpwm_driving_video_512x256_v1/particle_budget_overlays_v2/candidate_particles8_after_training_before_after_overlay.png).
 
 **2026-10-08 10:51 KST — 사용자 지시로 기존 두 학습 중단, 512×256·소수 particle Stage1 시작.**
@@ -354,7 +362,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 10:57 KST (Codex)
+마지막 갱신: 2026-10-08 11:45 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -521,6 +529,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신: OpenScene다운로더만계속. Particle후보queue는품질검토대기이며해당GPU학습없음. Dataset승인gate는해결됨.
 
 ### 최신 — 512×256·particle 축소 Stage1 (2026-10-08)
 
@@ -1129,6 +1139,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신: 8개저장소모두실제부분다운로드206확인; 기존JunseongKwak토큰으로통과. 참조 `dataset_access_approved.json`.
 
 ### 최신 — 축소 particle native-resolution 구현과검사
 
@@ -1977,12 +1989,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자승인에따라기존두학습fullstate저장·중단하고자동재개watcher를종료했다.
-- 공개LPWM native512×256과8/16/32/64particle변환, fullSSL역전파/causal추론검사, 비교학습→최소후보로컬1epoch 대기열을구현·시작했다.
-- 전후·겹침시각화CPUpublisher,공식dataset접근catalog,로컬split/영상audit,OpenScene누락front streaming다운로더를추가했다.
-- 전체330h와Stage2미시작/남은외부접근승인및구현을명확히기록했다. 과거source/결과수치보존.
+- 사용자동의후기존HF토큰으로전체저장소HEAD200 및대표파일실제GET206수신을검증했다. 토큰값미출력.
+- 승인catalog/ready marker를새로기록하고권한대기문서를해결상태로갱신했다. 과거403기록보존.
+- 자동완료된particle후보검증결과를보존하고queue품질검토대기/본학습미시작을명시했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신: HF승인대기해제. 승인catalog로CoVLA·Dojo ingestion구현/시작과dataset identity·split누출audit진행. Particle축소기준미충족은추가학습량/영상재구성대미래목적분해후판단;자동통과금지. 아래이전HF승인대기문장은해결된이력이다.
 
 ### 최신 승인된 다음 단계 (과거 자동학습보류보다 우선)
 
@@ -2518,6 +2531,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신: 데이터셋접근에추가사용자입력불필요. Source자료수집및모델budget검토는이미승인된작업이므로다시허가를묻지않음.
 
 ### 최신 확정/미결 (2026-10-08)
 

@@ -3671,3 +3671,14 @@ CoVLA·DrivingDojo 및Extra1–5는 현재HF계정403 GatedRepo. 사용자 이�
 6. 공정split·fullNAVTEST/EPDMS평가후새로받은데이터만owner/ledger확인후삭제. 자동cleanup은아직구현/실행되지않았음; shared Dataset/checkpoints/manifest/results절대삭제금지.
 
 후속실측: 8개200update 검증완료, 미래MSE .066418→.029759/현재반복.032324. Presence평균.999648로거의모두활성: adaptive sparse selection이나객체검출성공으로부르지않음. 16개비교계속. OpenScene첫archive SHA검증통과/누락front2085장확보. CPUpublisher는패널축512×256고정수정후2926659로교체하고 v2그림에저장. 기존그림보존.
+
+
+## 2026-10-08 11:45 KST — 데이터셋계정승인검증
+
+**2026-10-08 11:45 KST — 사용자 동의 후 데이터셋 접근 승인 확인 완료.**
+서버계정 `JunseongKwak` / CoVLA·DrivingDojo기본·Extra1–5·OpenScene 모두 HEAD200, 대표파일실제GET206·1,024bytes수신 성공.
+기존토큰으로통과, 추가사용자동의·토큰교체불필요. 토큰값미출력. [검사근거](results/lpwm_driving_video_512x256_v1/dataset_access_approved.json).
+새승인catalog `outputs/lpwm_driving_video_512x256_v1/download_access_after_user_approval.json`, ready marker `dataset_access_ready.json` 사용. 과거403catalog는이력보존.
+OpenScene다운로드계속. CoVLA/DrivingDojo본영상수집·전처리·330h확정코퍼스는아직구현/준비가남아있으며, 권한해결을다운로드완료로부르지않음.
+Particle200update 8/16/32/64비교완료, 8/16/32는64대비전체재구성MSE15%기준초과로queue `held_for_quality_review`; 자동로컬1epoch 미시작.
+8future오차+21.2%,16+4.45%,32+.55% vs64. 짧은SSL오차검사이므로최종PDMS·최소적정개수결론불가. 규칙을조용히완화하거나학습중이라고보고하지않음.
