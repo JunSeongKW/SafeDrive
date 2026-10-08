@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 21:59 KST (Codex)
+마지막 갱신: 2026-10-08 22:02 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 22:02 KST 다음 작업 계획 조회: v6 복구 대기열 유지, DrivoR 2692/3200·JEPA 1077/3200·LPWM순차 823/3200 진행, LPWMjoint87에서메모리대기. LPWM/JEPA SSL은각5pass완료. 이번턴실행·조건변경없음.
 
 2026-10-08 21:58 KST 메모리 보호 정지에서 복구: v6 controller2415190, DrivoR2415910 / JEPA2415917 / LPWM순차2415934가 GPU0·1에서 실행 중이다. 실제 update는 각각 2616/1025/798로 저장점2453/911/743 이후 증가했다. LPWMjoint는87 fullstate에서 메모리 admission 대기이며 자동 재개한다. 새 root scheduling_v6_memory_recovery, 기존v5는21:27 failed 이력이며 재기동금지. 21:56 GPU0/1은14957/14958MiB. root queue_state가 현재 상태다.
 
@@ -1262,6 +1264,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 22:02 KST 현재완료dev PDMS: DrivoR pass1 66.9414/pass3 78.3977, JEPA pass1 66.9890, LPWM순차 pass1 64.9743. 모두동일독립1024scene이며서로다른pass를최종우열비교하지않음. 근거 results/four_model_small_corpus_v1/next_work_plan_20261008.json.
 
 2026-10-08 21:58 KST 중단 원인: 전체카드47,542,435,840bytes가46.5decimalGB 저장/중단 기준을 넘어 DrivoR가 저장 중단했고, v5가 이를 전체 실패로 해석해 나머지도 중단시켰다. 본 실패의 OOM/NaN 근거없음. joint86의2회SSL부하와 겹쳤으나 정확한 프로세스별 peak 원인은 historical NVML 부재로 미확정. 8update profile43.13GB를 장기 peak 보장으로 사용한 여유 판단이 부족했다. 네 fullstate의 Adam step/scheduler/RNG2개 보존 확인, 신규3작업은 loss/gradient 유한·실제 진행. science121 및 old/new execution source hash 불변. CPU 검사3개·compile 통과. 근거 results/four_model_small_corpus_v1/memory_recovery_20261008/report.json.
 
@@ -2184,12 +2188,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 네 병행 학습의 47.54GB 보호 정지와 대기열 전체 중단 원인을 확인하고 fullstate를 보존했다.
-- 보수적 VRAM 예약·최대3작업·정상 동반작업 유지 정책의 복구 대기열과 초기화 이후 RNG 복원 wrapper를 추가했다.
-- DrivoR·JEPA·LPWM순차의 실제 update 재개를 확인했고 joint87은 메모리 여유 확보 후 자동 재개한다.
-- 배치·LR·loss·데이터·원등록 source는 유지하고 복구 검사3개 및 근거 보고서를 추가했다.
+- 복구 대기열과 실제 진행을 읽기 전용으로 확인하고 남은 5pass 학습·검증·최종 비교 순서를 정리했다.
+- 자동화된 작업과 후속 표현 분석 계획을 구분해 상태 보고서와 인수인계에 기록했다.
+- 학습 코드·배치·학습률·대기열은 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 22:02 KST 다음순서: 현재세planner 계속→예약메모리충족시joint87자동재개→각1/3/5pass 독립dev1024의예측/CPU공식PDMS→고정pass5네조건비교. 모든planning목표는5pass/3200update이며25epoch아님. 비교시PDMS·ADE/FDE·명령별세부지표와학습량/연산비용을함께정리. 표현분석은고정장면의particle전후/겹침및미래표현개입을검토할계획이며현재자동대기열에새진단이나학습을추가하지않았다.
 
 2026-10-08 21:58 KST v6는 최대3작업, 모델별 보수적 예약량+실측카드사용량으로44GB admission을 적용한다. DrivoR→JEPA→LPWM순차 우선, joint는87부터 메모리가 충분할 때 자동 재개. 보호중단은 해당 작업 재대기·동시수 감소로 처리하며 정상 동반작업을 유지한다. 사용자 pause는 보존하고 미확인 오류는 기존 저장중단 처리. batch2/rank×accum4×GPU2=16, LR/loss/data/5pass 불변. pass1/3/5 CPU PDMS 1작업/4worker 및 최종비교 자동 연결. joint 단독 시 기존v5 native marker 경로를 사용해 adaptive wrapper를 유지한다. 새 재개 wrapper는 loss 초기화 후 첫 train() 시 양rank RNG를 복원하며 resume_records에 증거를 저장한다. 최신 checkpoint 원본은 before_recovery에 hardlink로 보존했다.
 
@@ -2790,6 +2795,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 22:02 KST 이번요청은다음계획설명이며새실험기동아님. 현대기열은학습/1·3·5pass평가/최종JSON까지만자동화됨. 결과해석은공통planner상태에서의시스템비교와LPWM순차vsjoint의경향성에한정;초기사전학습/백본규모차이·1seed·부분dev의제약유지. 위치이동만으로planning효용판정금지,표현개입등추가진단은필요시다음분석으로명시.
 
 2026-10-08 21:58 KST 이번 변경은 보호정지 복구와 병행 스케줄 수정이며 과학적 조건 변경이 아니다. 48decimalGB 사용자 상한/46.5GB trainer guard 유지,44GB는 예약 admission 기준이지 모든 미래 순간사용량 보장이 아니다. short profile이 장기 peak를 충분히 대표하지 못한 사실과 기존 실패 기록은 보존한다. GPU 수치연산의 bitwise 동일성·최종PDMS 동일성을 보장하지 않는다. joint는 아직87에서대기이며 네학습모두동시실행이라고 보고하지 않는다. 새 queue main은 failed v5 상태에서 최초 복구용이므로 활성 v6 위에 중복기동하지 않는다.
 

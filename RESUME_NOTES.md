@@ -4010,3 +4010,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 21:58 KST v6는 최대3작업, 모델별 보수적 예약량+실측카드사용량으로44GB admission을 적용한다. DrivoR→JEPA→LPWM순차 우선, joint는87부터 메모리가 충분할 때 자동 재개. 보호중단은 해당 작업 재대기·동시수 감소로 처리하며 정상 동반작업을 유지한다. 사용자 pause는 보존하고 미확인 오류는 기존 저장중단 처리. batch2/rank×accum4×GPU2=16, LR/loss/data/5pass 불변. pass1/3/5 CPU PDMS 1작업/4worker 및 최종비교 자동 연결. joint 단독 시 기존v5 native marker 경로를 사용해 adaptive wrapper를 유지한다. 새 재개 wrapper는 loss 초기화 후 첫 train() 시 양rank RNG를 복원하며 resume_records에 증거를 저장한다. 최신 checkpoint 원본은 before_recovery에 hardlink로 보존했다.
 
 2026-10-08 21:58 KST 이번 변경은 보호정지 복구와 병행 스케줄 수정이며 과학적 조건 변경이 아니다. 48decimalGB 사용자 상한/46.5GB trainer guard 유지,44GB는 예약 admission 기준이지 모든 미래 순간사용량 보장이 아니다. short profile이 장기 peak를 충분히 대표하지 못한 사실과 기존 실패 기록은 보존한다. GPU 수치연산의 bitwise 동일성·최종PDMS 동일성을 보장하지 않는다. joint는 아직87에서대기이며 네학습모두동시실행이라고 보고하지 않는다. 새 queue main은 failed v5 상태에서 최초 복구용이므로 활성 v6 위에 중복기동하지 않는다.
+
+
+## 2026-10-08 22:02 KST — 다음 학습·평가 순서 확인
+
+2026-10-08 22:02 KST 다음 작업 계획 조회: v6 복구 대기열 유지, DrivoR 2692/3200·JEPA 1077/3200·LPWM순차 823/3200 진행, LPWMjoint87에서메모리대기. LPWM/JEPA SSL은각5pass완료. 이번턴실행·조건변경없음.
+
+2026-10-08 22:02 KST 현재완료dev PDMS: DrivoR pass1 66.9414/pass3 78.3977, JEPA pass1 66.9890, LPWM순차 pass1 64.9743. 모두동일독립1024scene이며서로다른pass를최종우열비교하지않음. 근거 results/four_model_small_corpus_v1/next_work_plan_20261008.json.
+
+2026-10-08 22:02 KST 다음순서: 현재세planner 계속→예약메모리충족시joint87자동재개→각1/3/5pass 독립dev1024의예측/CPU공식PDMS→고정pass5네조건비교. 모든planning목표는5pass/3200update이며25epoch아님. 비교시PDMS·ADE/FDE·명령별세부지표와학습량/연산비용을함께정리. 표현분석은고정장면의particle전후/겹침및미래표현개입을검토할계획이며현재자동대기열에새진단이나학습을추가하지않았다.
+
+2026-10-08 22:02 KST 이번요청은다음계획설명이며새실험기동아님. 현대기열은학습/1·3·5pass평가/최종JSON까지만자동화됨. 결과해석은공통planner상태에서의시스템비교와LPWM순차vsjoint의경향성에한정;초기사전학습/백본규모차이·1seed·부분dev의제약유지. 위치이동만으로planning효용판정금지,표현개입등추가진단은필요시다음분석으로명시.

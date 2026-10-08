@@ -1,0 +1,48 @@
+{
+  "observed_at": "2026-10-08T22:02:54.943379+09:00",
+  "progress_updates": {
+    "drivor": 2692,
+    "jepa": 1077,
+    "lpwm_sequential": 823,
+    "lpwm_joint": 87
+  },
+  "planning_target_updates": 3200,
+  "planning_passes": 5,
+  "lpwm_and_jepa_ssl_complete": true,
+  "available_dev_pdms": {
+    "drivor": {
+      "1": 66.94141749765791,
+      "3": 78.39769544885766
+    },
+    "jepa": {
+      "1": 66.98896615391867
+    },
+    "lpwm_sequential": {
+      "1": 64.97433296665777
+    },
+    "lpwm_joint": {}
+  },
+  "automatic_queue": [
+    "Continue DrivoR, JEPA and sequential LPWM planning",
+    "Resume joint LPWM from update87 when conservative VRAM admission permits",
+    "Evaluate fixed independent development1024 at passes1/3/5, CPU scoring parallel to training",
+    "Write four-condition comparison using fixed pass5 checkpoints"
+  ],
+  "analysis_plan_not_a_new_queued_training_job": [
+    "Compare PDMS, ADE/FDE and driving-command breakdown at matched passes",
+    "Compare sequential versus joint LPWM and LPWM versus JEPA/register variants",
+    "Inspect fixed-scene particle overlays and representation/future interventions if needed to explain planning benefit"
+  ],
+  "unchanged": [
+    "training code",
+    "batch",
+    "learning rates",
+    "data order",
+    "active queue"
+  ],
+  "limits": [
+    "Development subset and one seed, not full NAVSIM benchmark",
+    "Upstream pretraining and backbone sizes differ",
+    "A particle location change alone is not evidence of planning usefulness"
+  ]
+}
