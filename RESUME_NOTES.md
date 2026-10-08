@@ -3861,3 +3861,16 @@ drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→
 2026-10-08 16:46 KST RGB패널은 저장순서 첫3clip이며 성능으로선별하지 않았다. 현재복원은 영상인코딩/디코딩 결과이며 미래예측성공검사가 아니다. 미래패널은 t=-0.5,0만관측하고 +3s의출력을 표시한다. 전체32clip 집계MSE는 6개미래시점 평균으로, 표시한 +3s 단일프레임MSE와 다르다. RGB에서누락된객체정보가latent에도없는지는추가검증없이는단정하지않는다.
 
 산출물: reconstruction_before_vs_epoch4.png, future_prediction_before_vs_epoch4.png, observed_reconstruction_future_overview_epoch4.png. 전처리 후 원본과 저장출력을 직접배치하고 sharpening/보간확대 없음. 비교 원본·배열 SHA와 실제단일프레임 MSE는 visualization_manifest.json에 보존. 새 script scripts/visualize_small_corpus_lpwm_rgb.py. 모델추론과GPU추가사용없음.
+
+
+## 2026-10-08 16:49 KST — Drive-JEPA 표현 단위 설명
+
+2026-10-08 16:49 KST 표현단위 설명: Drive-JEPA 논문3.1/3.2와 현재 JEPAFrontEncoder를 읽기 전용 확인. 학습·설정·대기열 변경 없음.
+
+2026-10-08 16:49 KST Drive-JEPA backbone 출력은 시공간 patch latent token. V-JEPA SSL은 마스킹된 시공간패치의 EMA target feature를 예측한다. 현재 비교 구현은 patch16/tubelet2/ViT-L1024, planning 512×256의2frame→512patch token→adaptive_avg_pool1d16→Linear1024→256. Planning에서는 predictor를 제거한다. 16token pooling은 공통planner용 우리인터페이스이며 원논문 고유구조로부르지 않는다.
+
+2026-10-08 16:49 KST 설명 시 register=학습된요약token, particle=위치/크기/presence/외관등구조화표현, JEPA=시공간patch feature를 구분한다. 모든token은문맥을담을수있으며 particle1개=의미론적객체1개를보장하지않는다. 기존대기열유지.
+
+2026-10-08 16:49 KST JEPA의예측학습된관측feature와 LPWM의명시적미래particle rollout은다르다. 현재JEPA공통planner입력은16개 pooled patch token이며16개register/particle로해석하지않는다. 임의feature를RGB복원품질로만비교하지않는다.
+
+근거: https://arxiv.org/html/2601.22032v1 §3.1/3.2 및 src/planning_aware_future_prediction/object_centric/small_corpus_models.py:29,59. 논문 버전의 데이터시간수치 등 질문외항목을 현행실험설정으로갱신하지 않았다.

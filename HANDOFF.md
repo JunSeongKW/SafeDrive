@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 16:46 KST (Codex)
+마지막 갱신: 2026-10-08 16:49 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 16:49 KST 표현단위 설명: Drive-JEPA 논문3.1/3.2와 현재 JEPAFrontEncoder를 읽기 전용 확인. 학습·설정·대기열 변경 없음.
 
 2026-10-08 16:46 KST RGB 시각화 요청: 저장된 before_training/update2620 배열만 CPU로 읽어 3개 비교 PNG를 생성했다. 학습·대기열·원121 science source/config는 변경하지 않았다.
 
@@ -1236,6 +1238,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 16:49 KST Drive-JEPA backbone 출력은 시공간 patch latent token. V-JEPA SSL은 마스킹된 시공간패치의 EMA target feature를 예측한다. 현재 비교 구현은 patch16/tubelet2/ViT-L1024, planning 512×256의2frame→512patch token→adaptive_avg_pool1d16→Linear1024→256. Planning에서는 predictor를 제거한다. 16token pooling은 공통planner용 우리인터페이스이며 원논문 고유구조로부르지 않는다.
 
 2026-10-08 16:46 KST LPWM epoch4 RGB 정성검증: 고정 검증목록 첫3clip의 현재원본/학습전후복원 및 +3초정답/학습전후예측을 같은512×256 크기로 비교. 초기 Sketchy 가중치보다 도로·건물의 큰 형태가 개선됐지만 차량·보행자와 세부경계가 흐리거나 누락되며 미래예측은 현재복원과 비슷하게 남는 예가 보인다. 32clip 평균MSE 개선을 객체보존/정확한동역학의 증명으로 해석하지 않는다. 결과 `results/four_model_small_corpus_v1/rgb_validation_epoch4/`.
 
@@ -2128,9 +2132,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 저장된 LPWM epoch4 검증 배열의 학습전후 RGB복원·3초미래예측·전체비교 PNG와 provenance JSON을 CPU로 생성했다. 재사용 시각화 script를 추가했으며 학습 source121개 불변·입력/GT 배열일치 확인. 큰구조 개선과 작은객체/움직임의 정성적 한계를 기록했다.
+- Drive-JEPA 시공간patch feature와DrivoR register/LPWM particle의차이, 현재비교의512→16 pooling을논문·코드로확인해기록했다. 학습과대기열변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 16:49 KST 설명 시 register=학습된요약token, particle=위치/크기/presence/외관등구조화표현, JEPA=시공간patch feature를 구분한다. 모든token은문맥을담을수있으며 particle1개=의미론적객체1개를보장하지않는다. 기존대기열유지.
 
 2026-10-08 16:46 KST 기존등록 학습·검증 대기열을 유지한다. RGB질문에는 observed reconstruction과 2관측→6미래 causal forecast를 구분하고, 정적배경의 큰 형태 개선과 작은객체/움직임 미보존을 함께 보고한다. 새학습/튜닝변형이나gate변경은 수행하지 않았다.
 
@@ -2709,6 +2715,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 16:49 KST JEPA의예측학습된관측feature와 LPWM의명시적미래particle rollout은다르다. 현재JEPA공통planner입력은16개 pooled patch token이며16개register/particle로해석하지않는다. 임의feature를RGB복원품질로만비교하지않는다.
 
 2026-10-08 16:46 KST RGB패널은 저장순서 첫3clip이며 성능으로선별하지 않았다. 현재복원은 영상인코딩/디코딩 결과이며 미래예측성공검사가 아니다. 미래패널은 t=-0.5,0만관측하고 +3s의출력을 표시한다. 전체32clip 집계MSE는 6개미래시점 평균으로, 표시한 +3s 단일프레임MSE와 다르다. RGB에서누락된객체정보가latent에도없는지는추가검증없이는단정하지않는다.
 
