@@ -3825,3 +3825,9 @@ CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병�
 현재11차원은pose(x,y,heading)3+velocity2+acceleration2+command4이며공식과순서가같다. 공식full_history_status=false이므로마지막ego상태만Linear11→256후학습query64에더하고scorer attention이후에도더한다. 현재cache는현재자차상대pose를명시적으로0으로저장하며공식상대좌표변환의현재pose와동일하다. 이미지2frame과ego현재1frame을구분한다. LPWM은command[7:11]을추가FiLM에넣는차이가있다.
 
 현재train/dev각좌/직/우대표1개씩6개를공식AgentInput과DrivoRFeatureBuilder로재구성해cache와비교:maxabs0전부일치. 전체11264cache의pose3이0인것도확인. 산출물 outputs/four_model_small_corpus_v1/ego_status_official_parity.json. 첫GPU학습환경에서는nuplan경로/rasterio가없어검사import가실패했으며,설치·환경변경없이기존CPU평가환경에서검사완료했다. 학습및대기열은변경하지않았다.
+
+## 2026-10-08 Scorer attention 이후 ego 표현 덧셈 설명
+
+drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→ego_token추가→6head를실행한다. Ego는최종숫자점수이전에256차원feature에더해진다. Generatorhidden query를직접전달하지않고좌표에서scorerquery를다시만들기때문에현재속도/가속도/명령을채점head에직접주입하는역할로해석된다. Detach는ego정보삭제가아니라좌표경로의gradient차단이다. 같은ego vector가64후보각각에더해지며비선형MLP는후보별다른응답을학습할수있다.
+
+직접lateaddition은그전에계산한scorerattention을바꾸지않는다. 후보좌표및LPWM명령조건scene이ego에따라바뀌면간접적으로attention도바뀔수있다. Attention앞주입보다lateaddition이낫다는실험근거는이번코드조회에서확인하지않았으며새변형을실행하지않았다. 학습·대기열그대로유지.
