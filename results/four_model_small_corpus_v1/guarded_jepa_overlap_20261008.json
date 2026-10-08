@@ -1,0 +1,215 @@
+{
+  "observed_at": "2026-10-08T23:05:04.499110+09:00",
+  "user_request": "Run remaining JEPA concurrently if feasible",
+  "controller_pid": 2927841,
+  "jepa_torchrun_pid": 2927935,
+  "adopted_lpwm_pids": [
+    2415934,
+    2755586
+  ],
+  "progress": {
+    "jepa": {
+      "completed_updates": 1464,
+      "target_updates": 3200,
+      "corpus_pass": 2.2875,
+      "seconds": 3.867734670639038,
+      "elapsed_seconds": 153.98928046226501,
+      "card_used_bytes": 30355226624,
+      "peak_allocated_bytes": 7134348288,
+      "gradient_norm": 20.21352767944336,
+      "gradient_groups": {},
+      "planning_presentations": 23424,
+      "ssl_presentations": 0,
+      "loss": 3.9781784415245056,
+      "trajectory_loss": 1.8672821074724197,
+      "final_score_loss": 2.11089625954628,
+      "score": 0.6843776553869247,
+      "best_score": 0.993460938334465,
+      "planning_loss": 3.9781784415245056,
+      "ssl_loss": 0.0,
+      "total_objective": 3.9781784415245056
+    },
+    "lpwm_sequential": {
+      "completed_updates": 1200,
+      "target_updates": 3200,
+      "corpus_pass": 1.875,
+      "seconds": 8.408837080001831,
+      "elapsed_seconds": 4579.943222045898,
+      "card_used_bytes": 30355226624,
+      "peak_allocated_bytes": 5580502016,
+      "gradient_norm": 24.324325561523438,
+      "gradient_groups": {
+        "planner": 9.901240348815918,
+        "scorer": 2.8721373081207275,
+        "encoder": 17.561735153198242,
+        "context": 4.244858264923096,
+        "dynamics": 13.101057052612305,
+        "xy": 5.947131156921387,
+        "scale": 2.526369094848633,
+        "presence": 0.28427568078041077,
+        "command": 0.39436158537864685
+      },
+      "planning_presentations": 19200,
+      "ssl_presentations": 0,
+      "loss": 2.767008364200592,
+      "trajectory_loss": 0.9776384830474854,
+      "final_score_loss": 1.7893698811531067,
+      "score": 0.8708756268024445,
+      "best_score": 0.9879001677036285,
+      "planning_loss": 2.767008364200592,
+      "ssl_loss": 0.0,
+      "total_objective": 2.767008364200592
+    },
+    "lpwm_joint": {
+      "completed_updates": 209,
+      "target_updates": 3200,
+      "corpus_pass": 0.3265625,
+      "seconds": 13.194599151611328,
+      "elapsed_seconds": 1933.0532972812653,
+      "card_used_bytes": 30355226624,
+      "peak_allocated_bytes": 26250561536,
+      "gradient_norm": 21.86543846130371,
+      "gradient_groups": {},
+      "planning_presentations": 3344,
+      "ssl_presentations": 3408,
+      "loss": 15.886780977249146,
+      "trajectory_loss": 13.795270800590515,
+      "final_score_loss": 2.091510623693466,
+      "score": 0.5273016393184662,
+      "best_score": 0.8114905804395676,
+      "planning_loss": 15.886780977249146,
+      "ssl_loss": 42.777565002441406,
+      "total_objective": 20.16453742980957
+    }
+  },
+  "health": {
+    "jepa": [
+      {
+        "rank": 0,
+        "update": 1464,
+        "nonfinite_loss_or_gradient": 0,
+        "peak_allocated_bytes": 7134348288
+      },
+      {
+        "rank": 1,
+        "update": 1464,
+        "nonfinite_loss_or_gradient": 0,
+        "peak_allocated_bytes": 7134348288
+      }
+    ],
+    "lpwm_sequential": [
+      {
+        "rank": 0,
+        "update": 1200,
+        "nonfinite_loss_or_gradient": 0,
+        "peak_allocated_bytes": 5580502016
+      },
+      {
+        "rank": 1,
+        "update": 1200,
+        "nonfinite_loss_or_gradient": 0,
+        "peak_allocated_bytes": 5580502016
+      }
+    ],
+    "lpwm_joint": [
+      {
+        "rank": 0,
+        "update": 209,
+        "nonfinite_loss_or_gradient": 0,
+        "peak_allocated_bytes": 26250561536
+      },
+      {
+        "rank": 1,
+        "update": 209,
+        "nonfinite_loss_or_gradient": 0,
+        "peak_allocated_bytes": 26250561536
+      }
+    ]
+  },
+  "source_hash_checks": {
+    "science": {
+      "count": 121,
+      "mismatches": []
+    },
+    "previous_execution": {
+      "count": 5,
+      "mismatches": []
+    },
+    "new_execution": {
+      "count": 6,
+      "mismatches": []
+    }
+  },
+  "full_state_restoration": [
+    {
+      "completed_updates": 1428,
+      "next_update": 1429,
+      "planning_cursor": 22848,
+      "ssl_cursor": null,
+      "restored_after_initialization": true,
+      "torch_rng_sha256": "711c735ad9954677dd2d1e8180bc3098b44ca5b475043cb425189bb0dfa48f7a",
+      "cuda_rng_sha256": "8df381b4cfa73a382b1f3a7cdb148c0a48cee65a51c667de3bb03ef97cc15f09",
+      "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+    },
+    {
+      "completed_updates": 1428,
+      "next_update": 1429,
+      "planning_cursor": 22848,
+      "ssl_cursor": null,
+      "restored_after_initialization": true,
+      "torch_rng_sha256": "711c735ad9954677dd2d1e8180bc3098b44ca5b475043cb425189bb0dfa48f7a",
+      "cuda_rng_sha256": "8df381b4cfa73a382b1f3a7cdb148c0a48cee65a51c667de3bb03ef97cc15f09",
+      "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+    }
+  ],
+  "memory": {
+    "pre_resume_two_job_high_load_whole_card_gb": 35.55,
+    "pre_resume_host_high_load_observation_mib": [
+      34423,
+      34488
+    ],
+    "external_gpu_processes_observed_before_resume": {
+      "owner": "uisung",
+      "pids": [
+        2677360,
+        2677361
+      ],
+      "observed_mib": [
+        2660,
+        2712
+      ],
+      "changed": false
+    },
+    "jepa_allocator_cap_bytes": 8500000000,
+    "jepa_additional_reservation_bytes": 9000000000,
+    "whole_card_user_limit_bytes": 48000000000,
+    "jepa_save_pause_bytes": 45000000000,
+    "existing_trainer_guard_bytes": 46500000000,
+    "sample_count": 190,
+    "observed_whole_card_peak_bytes": [
+      30355226624,
+      30356275200
+    ],
+    "sample_interval_seconds": 0.5,
+    "fallback": "Save JEPA only; retry after active LPWM job count decreases; preserve healthy companions",
+    "maximum_future_peak_guaranteed": false
+  },
+  "execution_only_changes": [
+    "JEPA expandable CUDA allocator and8.5GB allocator cap",
+    "Queue admission and continuous memory telemetry",
+    "No new gradient checkpointing: JEPA encoder already used it"
+  ],
+  "scientific_conditions_unchanged": [
+    "weights and optimizer states",
+    "scheduler and RNG",
+    "microbatch2/rank accumulation4 world2 effective16",
+    "precision losses data order learning rates",
+    "3200planning updates"
+  ],
+  "tests": {
+    "compile_passed": true,
+    "cpu_tests_passed": 4,
+    "three_jobs_actual_progress_verified": true
+  },
+  "caveat": "Early triple-overlap observation; continuous monitor remains active through future doubled SSL updates. Prior whole-study ETA assumed sequential JEPA and must be reestimated after sustained overlap throughput."
+}
