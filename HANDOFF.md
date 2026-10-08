@@ -1,5 +1,16 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 12:35 KST — 다운로드와 병행하여 기존 데이터 Stage 1을 GPU 0·1에서 시작.**
+사용자가 기존 데이터로 즉시 시작하고 두 GPU 배치를 늘리라고 승인했다. 새 trainer/queue는 `scripts/train_lpwm_local_stage1_distributed.py` / `queue_lpwm_local_stage1_distributed.py`.
+Root `outputs/lpwm_driving_video_512x256_v1/local_stage1_distributed/`, queue3516125 / torchrun3519630. 실제 양rank 12update·loss/gradient동일·43개 source hash 일치 확인.
+공개Sketchy LPWM 새초기화, front1·512×256·2Hz·8frame·foreground16+background1. encoder/context/dynamics/decoder native 전체학습, ego명령·planning·객체GT loss 없음.
+GPU당micro4×누적2×GPU2=유효16, worker4/rank, FP32 Adam8e-5. 실측 batch2 3.276s/22.44GB vs batch4 3.100s/43.04GB; batch4채택, batch8은예상메모리초과로미시도. 전체카드48decimalGB상한.
+고정로컬10,480비중복clip/655update=1epoch. 인덱스학습frame14.29h 중 완전8frame clip에 실제소비되는양11.644h; 미래정답을입력하지않는32held-out recording 검증을초기/100update/끝에실행, 전후·겹침PNG자동생성. Adam/양rank RNG/진행cursor 저장.
+16particle은잠정추가학습후보다. 앞선200update의15%품질gate실패를변경/통과처리하지않았고64대비planning성능보존미검증. 앞선유효4와이번유효16을동일조건이라고부르지않음.
+다운로드완료아님: OpenScene3352751(HTTP Range재연결), CoVLA3352752, 실제JPEG형식Dojo3499336 병행. 이전Dojo MP4가정실행3352753은수집0건으로종료·이력보존.
+확장코퍼스는archive SHA/시간/중복·split검증후별도등록해야하며실행중manifest에혼합금지. 330h본학습·새Stage2는미시작. 로컬1epoch→검증까지자동이며확장학습/Stage2자동기동은아직연결되지않음.
+[시작·메모리·gradient 근거](results/lpwm_driving_video_512x256_v1/local_stage1_distributed/start_report.json). 아래작업중상태/PID는과거기록이며기존LoRA/Adapter 중단은유지한다.
+
 **2026-10-08 11:45 KST — 사용자 동의 후 데이터셋 접근 승인 확인 완료.**
 서버계정 `JunseongKwak` / CoVLA·DrivingDojo기본·Extra1–5·OpenScene 모두 HEAD200, 대표파일실제GET206·1,024bytes수신 성공.
 기존토큰으로통과, 추가사용자동의·토큰교체불필요. 토큰값미출력. [검사근거](results/lpwm_driving_video_512x256_v1/dataset_access_approved.json).
@@ -362,7 +373,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 11:45 KST (Codex)
+마지막 갱신: 2026-10-08 12:38 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -529,6 +540,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신: GPU0·1 local_stage1_distributed queue3516125/train3519630, micro4/accum2/effective16/workers4/rank. root의queue_state와training/progress_rank{0,1}.json 확인. 학습pause는training/pause.requested. 실행등록된43 source는수정금지. 655update후검증완료자동. OpenScene3352751/CoVLA3352752/Dojo3499336 동시수집. 기존본학습5493·Adapter13480 중단유지.
 
 최신: OpenScene다운로더만계속. Particle후보queue는품질검토대기이며해당GPU학습없음. Dataset승인gate는해결됨.
 
@@ -1139,6 +1152,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최신: batch2/4 실측통과, batch4 GPU당43.04GB/정상3.10s-update로선택. 양rank 첫12update loss/gradient norm 동일, 네모듈gradient유한양수. Particle16 capacity gate는여전히미통과이며추가1epoch로검증할후보;330h/PDMS결과없음. 실제사용8frameclip시간11.644h와전체가용frame시간14.29h구분.
 
 최신: 8개저장소모두실제부분다운로드206확인; 기존JunseongKwak토큰으로통과. 참조 `dataset_access_approved.json`.
 
@@ -1989,11 +2004,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자동의후기존HF토큰으로전체저장소HEAD200 및대표파일실제GET206수신을검증했다. 토큰값미출력.
-- 승인catalog/ready marker를새로기록하고권한대기문서를해결상태로갱신했다. 과거403기록보존.
-- 자동완료된particle후보검증결과를보존하고queue품질검토대기/본학습미시작을명시했다.
+- OpenScene timeout을HTTP Range재개·SHA검증으로복구; CoVLA 원영상→검증된lossless512×256 변환과Dojo JPEG5Hz→명목2Hz(+실제timestamp) 변환을시작했다. 잘못가정한Dojo MP4실행은종료·보존했다.
+- 사용자명령에따라로컬SSL 두GPU trainer/queue를추가했다. 모듈gradient/DDP동기·sourcehash/실제메모리를검증하고micro4/누적2로공개가중치부터655update 학습·검증을시작했다.
+- 원capacity gate실패를보존하고16particle을잠정추가학습으로표시했다. 실제소비11.644h/가용14.29h/목표330h와배치변경을구분했다.
+- 학습중source/manifest불변,완전checkpoint,정기causal검증과전후·겹침particle PNG를연결했다. 실행근거·데이터수집상태·미구현후속단계를문서에기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신: 655update와32기록causal검증·particle겹침이미지확인. 새데이터는검증완료marker만확장manifest에반영하고중복·시간·recording split과실제고유시간감사.16개품질보존은동일학습량64참조및작은객체검사없이확정금지. 현재checkpoint에서확장SSL구간으로이어갈새loader/등록이필요(FFV1loader아직미구현). 새Stage2연결은이후. 기존본학습/Adapter자동재개금지.
 
 최신: HF승인대기해제. 승인catalog로CoVLA·Dojo ingestion구현/시작과dataset identity·split누출audit진행. Particle축소기준미충족은추가학습량/영상재구성대미래목적분해후판단;자동통과금지. 아래이전HF승인대기문장은해결된이력이다.
 
@@ -2531,6 +2549,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신 확정: GPU2 DDP 로컬1epoch학습/배치4/누적2/유효16/worker4와48GB상한. 미결:16particle성능보존,전체330고유시간확보,확장영상loader·코퍼스admission,Stage2고해상도연결/공식평가/최종download정리. GPU공유부하에따른메모리·ETA변동가능. 수신권한확인과다운로드완료를혼동하지않음.
 
 최신: 데이터셋접근에추가사용자입력불필요. Source자료수집및모델budget검토는이미승인된작업이므로다시허가를묻지않음.
 

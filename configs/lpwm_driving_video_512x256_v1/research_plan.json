@@ -1,5 +1,5 @@
 {
-  "status": "all_dataset_access_verified; particle_capacity_screen_requires_review; full_corpus_preparation_incomplete",
+  "status": "local_stage1_distributed_training_and_external_downloads_running; full_corpus_pending",
   "research_question": "Can a small set of particles preserve scene and future information needed for intent-conditioned planning?",
   "stage1": {
     "objective": "official LPWM temporal ELBO, no object GT labels",
@@ -27,11 +27,29 @@
     "initial_screen_updates": 200,
     "screen_effective_batch": 4,
     "screen_validation_recordings": 32,
-    "after_screen": "smallest candidate within exploratory 15% error tolerance vs64; one full local OpenScene epoch; not final planning noninferiority",
+    "after_screen": "User-authorized provisional 16-particle full local epoch while external downloads run; original capacity gate remains failed, matched longer reference comparison pending",
     "local_train_hours": 14.290277777777778,
     "local_validation_hours": 3.049722222222222,
     "local_train_nonoverlapping_clips": 10480,
-    "target_330h_not_satisfied_by_overlapping_or_repeated_clips": true
+    "target_330h_not_satisfied_by_overlapping_or_repeated_clips": true,
+    "current_local_training": {
+      "foreground_particles": 16,
+      "provisional_quality_not_proven": true,
+      "gpus": [
+        0,
+        1
+      ],
+      "micro_batch_per_gpu": 4,
+      "accumulation": 2,
+      "effective_batch": 16,
+      "workers_per_gpu": 4,
+      "updates": 655,
+      "clips": 10480,
+      "consumed_nonoverlapping_clip_hours": 11.644444444444444,
+      "initialization": "public weights; screening checkpoints not reused",
+      "output": "outputs/lpwm_driving_video_512x256_v1/local_stage1_distributed/training",
+      "original_particle_screen_failed_preserved": true
+    }
   },
   "stage2": {
     "status": "not_started; requires full Stage1 corpus/training/validation",

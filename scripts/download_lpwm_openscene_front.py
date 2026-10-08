@@ -16,6 +16,7 @@ import time
 
 from huggingface_hub import get_token
 import requests
+from lpwm_driving_video_io import ResumableVerifiedReader
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_PARENT = Path("/home/user/data/processed_dataset/junseong/lpwm_driving_video_512x256_v1")
@@ -84,9 +85,12 @@ def main(arguments):
         start = time.time()
         write_json(control / "status.json", {"status": "streaming", "archive": archive_id,
             "completed_archives": completed_archives, "retained_bytes": total_retained, "started_unix": start})
-        with requests.get(url, headers=headers, stream=True, timeout=(30, 120)) as response:
-            response.raise_for_status()
-            reader = HashingArchiveReader(response.raw)
+        def progress(network_bytes, reconnections):
+            write_json(control / "status.json", {"status": "streaming", "archive": archive_id,
+                "completed_archives": completed_archives, "retained_bytes": total_retained,
+                "network_bytes_this_archive": network_bytes, "archive_bytes": archive["bytes"],
+                "reconnections": reconnections, "elapsed_seconds_this_archive": time.time() - start})
+        with ResumableVerifiedReader(url, headers, archive["bytes"], archive["lfs_sha256"], progress) as reader:
             image_ledger = []
             with tarfile.open(fileobj=reader, mode="r|gz") as members:
                 for member in members:
@@ -99,7 +103,7 @@ def main(arguments):
                     destination = raw_root / relative
                     assert destination.resolve().is_relative_to(raw_root.resolve())
                     assert 0 < member.size < 25_000_000, "Unexpected image payload size"
-                    if total_retained + member.size > 900_000_000_000:
+                    if total_retained + member.size > 450_000_000_000:
                         raise RuntimeError("Owned raw dataset would approach the 1TB cap")
                     content = members.extractfile(member).read()
                     assert len(content) == member.size
@@ -119,10 +123,7 @@ def main(arguments):
                             "completed_archives": completed_archives, "retained_images_this_process": retained_images,
                             "retained_bytes": total_retained, "network_bytes_this_archive": reader.byte_count,
                             "elapsed_seconds_this_archive": time.time() - start})
-            while reader.read(1024 * 1024):
-                pass
-            assert reader.byte_count == archive["bytes"]
-            assert reader.digest.hexdigest() == archive["lfs_sha256"], "Archive checksum mismatch: do not admit images"
+            reader.verify()
         write_json(marker, {"archive": archive, "repository": source["repository"], "revision": source["revision"],
             "archive_sha256_verified": True, "images": image_ledger, "elapsed_seconds": time.time() - start})
         completed_archives += 1

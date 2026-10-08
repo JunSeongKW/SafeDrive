@@ -1,5 +1,16 @@
 # Planning-Aware Future Prediction
 
+**2026-10-08 12:35 KST — 다운로드와 병행하여 기존 데이터 Stage 1을 GPU 0·1에서 시작.**
+사용자가 기존 데이터로 즉시 시작하고 두 GPU 배치를 늘리라고 승인했다. 새 trainer/queue는 `scripts/train_lpwm_local_stage1_distributed.py` / `queue_lpwm_local_stage1_distributed.py`.
+Root `outputs/lpwm_driving_video_512x256_v1/local_stage1_distributed/`, queue3516125 / torchrun3519630. 실제 양rank 12update·loss/gradient동일·43개 source hash 일치 확인.
+공개Sketchy LPWM 새초기화, front1·512×256·2Hz·8frame·foreground16+background1. encoder/context/dynamics/decoder native 전체학습, ego명령·planning·객체GT loss 없음.
+GPU당micro4×누적2×GPU2=유효16, worker4/rank, FP32 Adam8e-5. 실측 batch2 3.276s/22.44GB vs batch4 3.100s/43.04GB; batch4채택, batch8은예상메모리초과로미시도. 전체카드48decimalGB상한.
+고정로컬10,480비중복clip/655update=1epoch. 인덱스학습frame14.29h 중 완전8frame clip에 실제소비되는양11.644h; 미래정답을입력하지않는32held-out recording 검증을초기/100update/끝에실행, 전후·겹침PNG자동생성. Adam/양rank RNG/진행cursor 저장.
+16particle은잠정추가학습후보다. 앞선200update의15%품질gate실패를변경/통과처리하지않았고64대비planning성능보존미검증. 앞선유효4와이번유효16을동일조건이라고부르지않음.
+다운로드완료아님: OpenScene3352751(HTTP Range재연결), CoVLA3352752, 실제JPEG형식Dojo3499336 병행. 이전Dojo MP4가정실행3352753은수집0건으로종료·이력보존.
+확장코퍼스는archive SHA/시간/중복·split검증후별도등록해야하며실행중manifest에혼합금지. 330h본학습·새Stage2는미시작. 로컬1epoch→검증까지자동이며확장학습/Stage2자동기동은아직연결되지않음.
+[시작·메모리·gradient 근거](results/lpwm_driving_video_512x256_v1/local_stage1_distributed/start_report.json). 아래작업중상태/PID는과거기록이며기존LoRA/Adapter 중단은유지한다.
+
 **2026-10-08 11:45 KST — 사용자 동의 후 데이터셋 접근 승인 확인 완료.**
 서버계정 `JunseongKwak` / CoVLA·DrivingDojo기본·Extra1–5·OpenScene 모두 HEAD200, 대표파일실제GET206·1,024bytes수신 성공.
 기존토큰으로통과, 추가사용자동의·토큰교체불필요. 토큰값미출력. [검사근거](results/lpwm_driving_video_512x256_v1/dataset_access_approved.json).
