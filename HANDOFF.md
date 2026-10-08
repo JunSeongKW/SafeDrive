@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 16:09 KST (Codex)
+마지막 갱신: 2026-10-08 16:34 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 원 DrivoR의 ego 이중 주입 재확인: 읽기 전용 조회, 실행 변경 없음.
 
 2026-10-08 scorer 마지막 ego 덧셈 설명: 공식forward와score MLP를읽어확인했으며학습·설정·대기열변경없음.
 
@@ -1230,6 +1232,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+공식DrivoR clone fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a의drivor_model.py는git수정없음. 115–117행에서ego_token을generatorquery에더하고178–180행에서scorerattention출력에같은ego_token을더한다. 원공식구현의동작이다.
 
 Scorer late ego: proposal좌표24차원을새로임베딩해scorer_attention에넣고그출력에같은ego_token256을broadcast add한뒤6개MLP로채점한다. Generator의hidden query표현은scorer로직접전달되지않는다. Detach는역전파차단이며좌표에담긴ego영향을지우지않는다. 직접ego덧셈은score head를조건화하지만그앞attention weight를직접변경하지않는다;후보및LPWM명령조건scene을통한간접영향은가능하다. 마지막위치가최적이라는ablation근거는현재확인하지않았다.
 
@@ -2116,9 +2120,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 공식DrivoR scorer의attention후ego덧셈역할을설명했다. 좌표에서새query를만드는경로와원래generatorhidden이전달되지않는점,detach의의미,head조건화와attention직접조건화의차이를기록했다. 코드·실험변경없음.
+- 원DrivoR모델파일의git무수정상태와generator/scorer양쪽ego_token덧셈을재확인했다. 같은embedding을재사용하며현재공통planner가이를그대로쓴다는점을명시했다. 실행변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Generator앞/scorerattention뒤ego주입은공식동작으로유지한다. 새실험등록없음.
 
 현재ego주입위치를유지한다. Scorer의ego를attention전에넣는변형은미등록이며설명요청을구조변경승인으로취급하지않는다.
 
@@ -2691,6 +2697,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+이번ego이중주입확인은공식코드사실이다. Ego는motion뿐아니라pose·velocity·acceleration·driving command전체의11차원embedding이다.
 
 공식scorer의lateego덧셈은채점조건화경로다. 그위치의설계동기를저자의검증된우월성주장으로설명하지않고코드의동작과합리적해석을구분한다. 현재속도가다르면동일미래경로의가감속/comfort판정에필요한조건이달라질수있다는예로설명한다.
 

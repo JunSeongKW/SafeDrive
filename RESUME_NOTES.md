@@ -3831,3 +3831,7 @@ CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병�
 drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→ego_token추가→6head를실행한다. Ego는최종숫자점수이전에256차원feature에더해진다. Generatorhidden query를직접전달하지않고좌표에서scorerquery를다시만들기때문에현재속도/가속도/명령을채점head에직접주입하는역할로해석된다. Detach는ego정보삭제가아니라좌표경로의gradient차단이다. 같은ego vector가64후보각각에더해지며비선형MLP는후보별다른응답을학습할수있다.
 
 직접lateaddition은그전에계산한scorerattention을바꾸지않는다. 후보좌표및LPWM명령조건scene이ego에따라바뀌면간접적으로attention도바뀔수있다. Attention앞주입보다lateaddition이낫다는실험근거는이번코드조회에서확인하지않았으며새변형을실행하지않았다. 학습·대기열그대로유지.
+
+## 2026-10-08 공식 DrivoR generator/scorer ego 이중 주입 재확인
+
+공식clone commit fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a의navsim/agents/drivoR/drivor_model.py가git무수정임을확인했다. 115–117행의generator query+ego_token과178–180행의scorer attention output+ego_token둘다원공식코드다. 동일한11→256 ego embedding을두곳에서재사용한다. 현재공통planner도동일하며LPWM추가FiLM은별개다. 설정·학습·대기열변경없음.
