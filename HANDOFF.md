@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 07:17 KST (Codex)
+마지막 갱신: 2026-10-09 07:30 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 07:29 KST — 사용자 LPWM 저성능 원인/시각화 요청으로 CPU 전용 저장-array 진단을 완료했다. 기존 공동학습은 2223/3200(69.47%)으로 계속 증가하며 root queue heartbeat 정상, GPU0·1 전체카드 각43.408GB. 이번 작업은 model inference/GPU 작업/학습설정 변경 없이 수행했다. 기존 v11/controller·학습/검증 대기열 유지.
 
 2026-10-09 07:17 KST — 진행조회: drivor:3200/3200 / jepa:3200/3200 / lpwm_sequential:3200/3200 / lpwm_joint:2168/3200. DrivoR·JEPA·LPWM순차는 5epoch 학습·최종평가 완료, 공동학습만 GPU0·1에서 기존PID3331469로 계속한다. 공동 진행률 67.75%, v11controller3759839 정상/실패marker 없음. 이번 턴의 실행·설정 변경 없음.
 
@@ -1300,6 +1302,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 07:29 KST — `results/four_model_small_corpus_v1/particle_training_diagnosis_20261009_verified/`: 같은 첫3개 dev장면의 planning 전/1/3/5epoch(순차), 전/1/3epoch(공동), 세 장면 전후 겹침, geometry/PDMS 추세, 별도 SSL3clip의 SSL 전/1/3/5 particle 및 최종 RGB복원/+3s 미래예측 총8PNG 생성. 30개 입력파일 SHA·manifest/prediction/score token 순서·1024 valid rows·같은이미지/고정512×256 좌표 검증 통과, 주요5그림 직접 확인. 청록초기/주황최신·점크기presence·박스glimpse·거리매칭화살표; attention/GT검출/객체ID가 아니다. 순차 초기이미지는 SSL5epoch 이후/planning 직전, 공동은 공개원초기화로서 초기화와 최신epoch가 서로 다르다.
+
+동일5epoch/dev1024의 도로준수 실패 DrivoR74/JEPA110/LPWM순차165건, zero-PDMS86/124/188건, 충돌13/15/27건, 평균progress .69534/.66536/.59036. 이것은 낮은PDMS의 관측된 구성원인이다. 어떤 표현/학습 경로가 도로이탈을 유발했는지는 미분리. 시각화48particle 중심변화 순차8.3104px/폭높이11.0453%, 공동16.0544px/20.6673%; 공동presence 평균.999382/48개모두>.95. 거의격자모양과넓은glimpse가남고작은객체집중이뚜렷하지않지만, 동일모양을보이는장면3의순차PDMS100으로geometry만으로실패판정불가. SSL5epoch RGB의작은객체/도로경계흐림은 latent 정보손실의 증명이 아니다. 복원MSE .06560→.01212, 미래.06885→.02286(현재반복.03232) 개선과작은객체보존을구분한다. 전체navtest/particle 인과우위/공동 최종실패를 주장하지 않는다.
 
 2026-10-09 07:17 KST — 새 최종 결과: JEPA5epoch PDMS77.960173/ADE1.83039m/FDE4.35181m(01:53:58평가완료), LPWM순차5epoch71.123300/2.00551m/4.98701m(03:41:34완료). 기존DrivoR5epoch81.253529/1.83710m/4.46461m 유지. 공동3epoch PDMS63.965951/ADE3.03866m/FDE7.36090m(06:26:32완료). 동일독립dev1024·평가실패0. 순차3→5epoch+1.0316점, 5epoch DrivoR대비−10.1302/JEPA대비−6.8369. 공동1→3epoch+2.2328점이나 같은3epoch순차보다−6.1258. 순차5epoch 명령별 좌72.6846/직진72.9547/우62.3839. 순차도로준수83.8867% vs DrivoR92.7734%/JEPA89.2578%;진행률.59036 vs .69534/.66536. 양rank최근100row 비유한0,science121/실행10hash불변. 현재GPU각약43.408GB/최대44.319GB. 근거 `results/four_model_small_corpus_v1/progress_20261009_0717.json`.
 
@@ -2260,12 +2266,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-
-- 세 조건의5epoch 완료 결과와 LPWM공동3epoch 평가·현재진행을 공통dev1024로 확인해JSON에 기록했다.
-- LPWM의PDMS 차이를 같은epoch로 비교하고 도로준수·진행률·명령별 지표와 잔여학습ETA를 정리했다.
-- 실행설정을 유지하고 공동학습만의 진행·양rank 유한loss/gradient·source hash·48GB 내메모리를 확인했다.
+- CPU 전용 renderer `scripts/visualize_small_corpus_planning_particles.py`와 검증된8개 시각화·진단JSON을 추가했다.
+- Manifest·prediction·score token 및 동일이미지·고정좌표를 검사하고 sourceSHA30개를 저장했다. 기존초안산출물도 보존했다.
+- LPWM의 낮은PDMS를 도로준수/진행률로 분해하고 geometry 변화·presence 포화·RGB 흐림의 해석 한계를 기록했다.
+- 기존 학습설정·등록source·대기열은 변경하지 않았다. 공동학습은 GPU0·1에서2223update까지 진행 확인.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 07:29 KST — 기존 공동학습3200→pass5 예측/공식PDMS→동일5epoch 네조건 비교를 계속한다. 이번 시각화는 현재3/5epoch 캐시만 사용했다. 공동pass5 완료 후 같은 renderer를 pass5 조건으로 확장할 수 있다. 저성능 인과분리는 미래분기개입·고정feature 객체/도로 readout·16대32particle/SSL비중 통제비교가 후보지만 아직 신규실험으로 등록/실행하지 않았다.
 
 2026-10-09 07:17 KST — 기존 공동학습3200update→pass5 GPU예측→dev1024 CPU공식PDMS→네조건고정pass5 비교 자동화를 유지한다. 최근20–200update wall약12.4–13.2초, 잔여약1032회, 현부하유지시학습10:50–11:10/최종평가11:00–11:30KST 예상. 현재joint단독으로decoder/LPIPS native activation 저장 전환이 자동완료됐고 배치2/누적4/유효16 유지. 새학습·진단·배치변경추가없음.
 
@@ -2904,6 +2912,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 07:29 KST — 낮은점수와particle/RGB 변화는 확인됐으나 서로의 인과관계는 미확인. 시각화는 고정3scene/48FGparticle뿐이고 background는 그림에안나오지만 planner입력에서는유지된다. 같은장면·실제주행명령을 사용했으며 같은장면의 counterfactual intent 비교는 이번검사범위아니다. 16particle·좁은latent/bridge·512해상도적응·SSL/planning충돌은 검증할가설이며 원인확정아님. 공동5epoch 평가미완료, 기존GitHub 원격인증실패이력유지.
 
 2026-10-09 07:17 KST — 완료5epoch 비교에서LPWM순차의planning우위미확인, 공동의최종5epoch결과는아직없다. 낮은PDMS원인을particle개수/해상도/SSL충돌로단정하지않는다. 공통planner 축소1seed/독립dev1024이며전체navtest·원논문재현·particle단독인과효과아님. ETA는현부하조건부이고서버변동/검증시간에따라달라진다. 원격인증실패이력유지.
 

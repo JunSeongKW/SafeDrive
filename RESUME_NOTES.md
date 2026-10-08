@@ -4216,3 +4216,15 @@ LPWM 순차 saved1937로 micro2/micro4 각8update 시험을 완료했다. 양ran
 2026-10-09 07:17 KST — 기존 공동학습3200update→pass5 GPU예측→dev1024 CPU공식PDMS→네조건고정pass5 비교 자동화를 유지한다. 최근20–200update wall약12.4–13.2초, 잔여약1032회, 현부하유지시학습10:50–11:10/최종평가11:00–11:30KST 예상. 현재joint단독으로decoder/LPIPS native activation 저장 전환이 자동완료됐고 배치2/누적4/유효16 유지. 새학습·진단·배치변경추가없음.
 
 2026-10-09 07:17 KST — 완료5epoch 비교에서LPWM순차의planning우위미확인, 공동의최종5epoch결과는아직없다. 낮은PDMS원인을particle개수/해상도/SSL충돌로단정하지않는다. 공통planner 축소1seed/독립dev1024이며전체navtest·원논문재현·particle단독인과효과아님. ETA는현부하조건부이고서버변동/검증시간에따라달라진다. 원격인증실패이력유지.
+
+## 2026-10-09 07:29 KST — LPWM 저성능 분해와 학습 전후 particle/RGB 시각화
+
+사용자 요청: LPWM 점수가낮은이유와 이미지/particle 학습변화. CPU/numpy/PIL/matplotlib만사용한 `scripts/visualize_small_corpus_planning_particles.py`로 저장된arrays를그렸다. Model inference/GPU추가사용/실행설정변경없음. 초안출력 `particle_training_diagnosis_20261009`를보존하고 token순서/SHA검증을확장한최종출력 `results/four_model_small_corpus_v1/particle_training_diagnosis_20261009_verified/`에8PNG/diagnosis.json 저장. 모든1024개score valid·manifest/prediction/score token일치·같은현재이미지·고정512×256 좌표검사통과. 입력파일30개SHA 기록, 주요5PNG직접시각검사. 3planning장면은학습전에고정된첫3개 dev이며좋은/실패예제를후선정하지않았음. SSL3clip은planning과다른고정clip이다.
+
+같은5epoch/dev1024: DrivoR/JEPA/LPWM순차 PDMS81.25353/77.96017/71.12330, 도로준수실패74/110/165, zero-score86/124/188, at-fault collision13/15/27, 평균progress .69534/.66536/.59036. LPWM점수구성에서도로이탈/진행률손실이큰것은확인, 표현이그실패를유발한원인은미분리. 공동3epoch63.96595/도로실패197/zero217은다른epoch이므로최종5epoch처럼비교하지않음.
+
+Particle3scene×16개: 순차planning전(SSL5후)→planning5epoch 평균center8.3104inputpx/폭높이절대상대변화11.0453%, 공동공개원초기화→3epoch16.0544px/20.6673%. 공동presence .780514→.999382/48개모두>.95. 업데이트가없다는판정은틀리지만 여전히격자/넓은glimpse이며객체집중증거는부족. 순차장면3은이런배치에서PDMS100이므로background중심을저성능의원인으로단정못함. Overlay청록초기·주황최신·마젠타거리매칭화살표/점반경presence/박스glimpse. 객체GT검출/attention/객체ID추적아님. Background는FG박스그림에안보일뿐planner정보에포함.
+
+Stage1SSL5 RGB복원과+3s미래의작은차량/보행자/도로경계는흐림. 복원MSE .0655966→.0121246, 미래 .0688464→.0228579(반복현재.0323237), LPIPS최종복원.4833/미래.5013. 평균RGB개선만으로정보보존검증통과를주장못하고, decoder의흐림만으로latent손실을주장못함. PNG는Stage1종료RGB이며Stage2planning후decoder결과아님. 16particle예산/latent bridge/해상도domain gap/SSL-gradient충돌가설은미검증. 미래분기개입·feature의객체/도로readout·particle예산/SSL가중치어블레이션은후속후보로만기록하고새실험미기동.
+
+공동학습2223/3200(69.47%), freshrootqueue/양rank진행·wholeGPU43.408GB 확인. Sandbox ps에서hostPID가보이지않았지만 fresh progress/queue가실제update증가를확인한다. 기존GPU0·1/v11/3200→pass5평가대기열유지. Git원격인증실패이력유지.
