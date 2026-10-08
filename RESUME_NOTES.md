@@ -4032,3 +4032,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 22:05 KST 현재부하유지시DrivoR 학습종료10/8 22:30–22:35KST,독립dev1024 최종PDMS포함22:32–22:38추정. 학습3200→GPU추론/저장→CPU채점은이미자동연결. 이번시간추정으로대기열수정없음.
 
 2026-10-08 22:05 KST ETA는현재3작업부하와최근wall처리량기준이며추가보호중단·평가대기·서버부하변화시달라진다. 해당시간은DrivoR만의종료이며전체네실험완료시간이아니다. 결과는전체navtest가아닌독립dev1024.
+
+
+## 2026-10-08 22:13 KST — DrivoR 완료 직후 LPWM 공동학습 우선 전환 등록
+
+2026-10-08 22:13 KST 사용자 DrivoR 직후joint우선 지시 적용: v7 controller2633960, scheduling_v7_joint_after_drivor. 기존DrivoR2415910/JEPA2415917/LPWM순차2415934를PID·start_ticks유지로인계했으며학습재시작없음. 현재update 2889/1204/888, joint87대기. 기존v6 controller2415190만종료했고재기동금지. phase wait_drivor_final_evaluation.
+
+2026-10-08 22:13 KST 전환검사3개통과: DrivoR3200+pass5 PDMS1024/실패0이둘다완료되어야trigger;계획된JEPA yield는checkpoint보존하며memory실패로분류하지않음;joint+LPWM순차예약43GB허용/joint+JEPA+LPWM순차거부/joint완료후JEPA보류해제. 원science121/기존실행6hash불변,신규실행5hash등록. 인계후세학습실제진행확인. 결과 results/four_model_small_corpus_v1/joint_after_drivor_20261008.json.
+
+2026-10-08 22:13 KST 최신순서: DrivoR 최종학습·평가완료→JEPA에소유marker로저장중단요청→종료/paused/latest확인및marker이력보존→joint87 fullstate재개. LPWM순차는메모리허용시계속병행. 사용자48GB상한·46.5GB보호·44GB예약기준유지,추가memory중단시동시수축소하며1작업만가능하면순차도저장대기. joint학습완료후JEPA전체상태자동재개,기존pass1/3/5 CPU평가와최종비교계속. 따라서DrivoR이끝난후JEPA학습완료까지joint가대기하던v6순서는폐기.
+
+2026-10-08 22:13 KST 변경은사용자지시에따른작업우선순위뿐이다. 기존micro2/rank×accum4×2GPU=16·LR/loss/data/5pass유지,새학습조건없음. 지금joint는87에서대기이고전환미발생;실제시작은DrivoR완료와JEPA체크포인트저장/메모리확보후다. 사용자root/per-job pause는보존한다. v7최초인계runner를활성queue위에중복실행하지않는다.

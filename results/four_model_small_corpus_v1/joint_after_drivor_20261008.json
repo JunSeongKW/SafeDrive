@@ -1,0 +1,159 @@
+{
+  "observed_at": "2026-10-08T22:13:20.220696+09:00",
+  "user_request": "Prioritize LPWM joint immediately after DrivoR finishes",
+  "controller_pid": 2633960,
+  "previous_controller_pid": 2415190,
+  "handover": {
+    "controller_pid": 2633960,
+    "adopted_jobs_alive": true,
+    "training_restart": false,
+    "adopted": [
+      {
+        "pid": 2415910,
+        "start_ticks": "62734646",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_planner_full_state.py --kind drivor --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor --micro-batch 2 "
+      },
+      {
+        "pid": 2415917,
+        "start_ticks": "62734653",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_planner_full_state.py --kind jepa --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa --micro-batch 2 --stage1-checkpoint /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt "
+      },
+      {
+        "pid": 2415934,
+        "start_ticks": "62734793",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_planner_full_state.py --kind lpwm_sequential --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential --micro-batch 2 --stage1-checkpoint /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt "
+      }
+    ]
+  },
+  "progress_updates": {
+    "drivor": 2889,
+    "jepa": 1204,
+    "lpwm_sequential": 888,
+    "lpwm_joint": 87
+  },
+  "transition_trigger": {
+    "drivor_training_updates": 3200,
+    "final_pass": 5,
+    "development_scenes": 1024,
+    "failed_scenes": 0
+  },
+  "automatic_order": [
+    "Finish DrivoR training and final development PDMS",
+    "Save and pause JEPA at optimizer boundary to release GPU memory",
+    "Resume joint LPWM from update87; retain sequential LPWM if memory admission permits",
+    "Resume saved JEPA automatically after joint training completes",
+    "Finish remaining pass1/3/5 CPU scoring and fixed-pass5 four-model comparison"
+  ],
+  "memory_policy": {
+    "user_per_card_ceiling_bytes": 48000000000,
+    "trainer_save_and_pause_bytes": 46500000000,
+    "admission_ceiling_bytes": 44000000000,
+    "reserved_joint_bytes": 31000000000,
+    "reserved_sequential_bytes": 10000000000,
+    "overhead_bytes": 2000000000,
+    "memory_pause_fallback": "Reduce concurrency; if limited to one job, save/pause sequential LPWM as well"
+  },
+  "training_batch_lr_loss_data_order_unchanged": true,
+  "current_joint_running": false,
+  "tests": {
+    "compile_passed": true,
+    "transition_checkpoint_and_memory_tests_passed": 3,
+    "original_science_hashes_unchanged": 121,
+    "previous_execution_hashes_unchanged": 6,
+    "new_execution_hashes_verified": 5
+  },
+  "queue_state": {
+    "status": "running",
+    "scheduler_pid": 2633960,
+    "scheduler": "joint_after_drivor_v7",
+    "phase": "wait_drivor_final_evaluation",
+    "stage": "wait_drivor_final_evaluation",
+    "execution_phase": "resume_with_reserved_memory_headroom",
+    "pid": 2415910,
+    "updated_unix": 1791465200.1129804,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "train_drivor",
+        "pid": 2415910,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_planner_full_state.py",
+          "--kind",
+          "drivor",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor",
+          "--micro-batch",
+          "2"
+        ]
+      },
+      {
+        "label": "train_jepa",
+        "pid": 2415917,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_planner_full_state.py",
+          "--kind",
+          "jepa",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt"
+        ]
+      },
+      {
+        "label": "train_lpwm_sequential",
+        "pid": 2415934,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_planner_full_state.py",
+          "--kind",
+          "lpwm_sequential",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt"
+        ]
+      }
+    ],
+    "maximum_gpu_jobs": 3,
+    "reservation_bytes": {
+      "drivor": 3000000000,
+      "jepa": 12000000000,
+      "lpwm_sequential": 10000000000,
+      "lpwm_joint": 31000000000
+    },
+    "admission_ceiling_bytes": 44000000000,
+    "transition_trigger": "DrivoR3200 complete and pass5 PDMS1024 complete with zero failures",
+    "joint_resume_update": 87,
+    "temporarily_deferred_kind": null
+  }
+}
