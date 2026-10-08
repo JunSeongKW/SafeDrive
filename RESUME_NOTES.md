@@ -3911,3 +3911,24 @@ drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→
 2026-10-08 17:18 KST: Register16선택은원논문에서개수ablation후결정됐지만현재LPWM16의planning충분성은미검증. LPWM내부particle감소와ViT출력요약token수는역할이달라같은개수만으로공정성확정불가. 현재결과는공통planner·작은인터페이스의시스템비교이며LPWM/particle방식일반의우열로확장하지않는다. JEPA평균pool불이익가능성도같이명시.
 
 논문 https://arxiv.org/html/2601.05083v2 Table4(c)/Sec4.2.1;현재코드 small_corpus_models.py:59/78/103. DIM수나특정외관4차원만으로총정보량을계산하지않으며LPWM에도기하/context/future정보가있음을명시한다.
+
+
+## 2026-10-08 17:34 KST — 128→512 복원 전환 원인 진단 및 대기열 launch 복구
+
+2026-10-08 17:34 KST 해상도 원인 진단 완료: CPU2thread, 기존128 Stage1 checkpoint/64encoder·30decoder/고정3clip로 decoder-only·encoder-only·full512 즉시 전환을 비교했다. 본학습 가중치·설정은 변경하지 않았다.
+
+조회 중 기존queue294935가17:19에다음profile실행기록의중복command키로실패한것을발견했다. LPWM SSL은3275/3275(5epoch)완료·기존Stage1gate통과. 원scheduler보존후복구실행기 `scripts/queue_four_model_small_corpus_overlap_launch_fix.py`/PID1084697로이어갔다. 원121science source불변, 완료LPWM미재학습·완료JEPA8update profile재사용. 현재JEPA/DrivoR병렬profile실행중(조건통과후본학습);추가설정변경없음. 과거실패는scheduling_v2/launch_metadata_failure_20261008.json에보존,stale failed.json만복구확인후제거.
+
+2026-10-08 17:34 KST 동일가중치/particle 즉시해상도전환: 공통128target MSE 평균 native128 .00928192 / decoder-only512 .02199972(2.370배) / encoder-only512 .02717889(2.928배) / full512 .03708157(3.995배). 첫2oldtrain·셋째heldout의고정3예시,새학습0. Decoder-only는동일latent/선택까지고정: 확장경로자체의복원교란근거이며현재16particle재학습품질의주원인확정은아님. 결과 `results/four_model_small_corpus_v1/resolution_transfer_diagnosis/`.
+
+공간변경: CNN출력원래크기로adaptive pooling, BGdecoderseed8×8→16×32bilinear후원conv,glimpse32×32→64×128. beta_rec1→.125는공식loss C*H*W의8배확대를상쇄하므로단순감독약화로부르지않음. 기존동일512/200update/유효4 screen의16대64 reconstructionMSE+39.18%,forecastLPIPS비단조. 현재최종5epoch reconMSE.01212462/future.02285789/LPIPS.50129264. gate통과는완전적응·planning효용증명아님.
+
+2026-10-08 17:34 KST: 새launch_fix실행기1084697의fresh queue_state를기준으로기존4조건대기열을이어간다. 기존294935/원queue를중복재기동하지않는다. 과거registration·source·실패보존;새실행기등록은scheduling_v2/registration_launch_fix.json. 진단상해상도extension을우선점검하되새128/512학습대조는미등록이다. 동일particle·클립노출·loss정규화로짧은재학습대조후원인기여를판정하는것을권고하며,기존비교실험은중간해상도/구조변경없이유지한다.
+
+2026-10-08 17:34 KST: decoder-only2.37배는128NAVSIM가중치를재학습없이확장한3장면복원검사의값이다. 현재512에서5epoch학습한모델의악화율/전체검증/PDMS로보고하지않는다. 공통128평가가고해상도세부이득을반영하지못함,encoder-only는pool/anchors/mask/input보간등의통합효과임을명시. 첫2과거학습장면중복이있으나동일장면쌍의전환검사이며일반화검증아님. 복구한queue는metadata기록만수정했고9개검사통과·실제양profilelaunch확인;원모델/학습설정불변.
+
+새진단scripts/diagnose_lpwm_resolution_transfer.py: native128 parameter tensor와rectangular parameter tensor전수일치·native복원과이전보존값maxabs<1e-6확인. Native128로양쪽출력을area평균한동일target에서MSE비교;이미지는128만nearest표시확대,512출력원본보존. decoder-only는z/scale/feature/presence/depth/background/filterkey동일. Native해상도NPZ와sourcecheckpoint SHA보존. 원서버GPU0·1idle와관련host PID종료확인후복구;새metadata는process_command문자열과command목록을구분. 새로운실행등록만별도파일이며기존scheduler/config무변경. 기존8개admission검사+실제CPUsubprocess를통한launch회귀검사(일반/CPUslot)통과. 근거results/four_model_small_corpus_v1/scheduler_launch_recovery_20261008.json.
+
+17:35 KST 후속확인: JEPA/DrivoR 병렬profile은속도·메모리·중첩을통과했으나등록loss일치기준을실패해기존규칙대로순차선택했다. 비교profile가중치는폐기되며현재JEPA SSL 본학습train1099274부터시작,DrivoR는이후자동실행. 기준완화·학습조건변경없음.
+
+JEPA 본학습 실제26update/416clip·encoder/predictor gradient유한양수확인. 18MB 진단원배열은git외outputs/four_model_small_corpus_v1/diagnostics/resolution_transfer/에저장하고보고서에경로/SHA보존.

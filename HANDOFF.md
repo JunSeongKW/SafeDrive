@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 17:18 KST (Codex)
+마지막 갱신: 2026-10-08 17:36 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 17:34 KST 해상도 원인 진단 완료: CPU2thread, 기존128 Stage1 checkpoint/64encoder·30decoder/고정3clip로 decoder-only·encoder-only·full512 즉시 전환을 비교했다. 본학습 가중치·설정은 변경하지 않았다.
+
+조회 중 기존queue294935가17:19에다음profile실행기록의중복command키로실패한것을발견했다. LPWM SSL은3275/3275(5epoch)완료·기존Stage1gate통과. 원scheduler보존후복구실행기 `scripts/queue_four_model_small_corpus_overlap_launch_fix.py`/PID1084697로이어갔다. 원121science source불변, 완료LPWM미재학습·완료JEPA8update profile재사용. 병렬profile후loss일치gate실패로기존규칙대로순차선택,현재JEPA SSL 본학습train1099274 시작;DrivoR이후자동실행. 추가설정변경없음. 과거실패는scheduling_v2/launch_metadata_failure_20261008.json에보존,stale failed.json만복구확인후제거.
 
 2026-10-08 17:18 KST token수 공정성조회: 현재구현/등록config와DrivoR논문Table4(c)읽기전용확인. 학습·대기열·기존science source121개변경없음. 추가16/32/64조건은제안만했으며미등록/미기동.
 
@@ -1244,6 +1248,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 17:34 KST 동일가중치/particle 즉시해상도전환: 공통128target MSE 평균 native128 .00928192 / decoder-only512 .02199972(2.370배) / encoder-only512 .02717889(2.928배) / full512 .03708157(3.995배). 첫2oldtrain·셋째heldout의고정3예시,새학습0. Decoder-only는동일latent/선택까지고정: 확장경로자체의복원교란근거이며현재16particle재학습품질의주원인확정은아님. 결과 `results/four_model_small_corpus_v1/resolution_transfer_diagnosis/`.
+
+공간변경: CNN출력원래크기로adaptive pooling, BGdecoderseed8×8→16×32bilinear후원conv,glimpse32×32→64×128. beta_rec1→.125는공식loss C*H*W의8배확대를상쇄하므로단순감독약화로부르지않음. 기존동일512/200update/유효4 screen의16대64 reconstructionMSE+39.18%,forecastLPIPS비단조. 현재최종5epoch reconMSE.01212462/future.02285789/LPIPS.50129264. gate통과는완전적응·planning효용증명아님.
 
 2026-10-08 17:18 KST: 공통planner입력모두16×256. DrivoR는703patch/frame×384와추가scene register16/frame를ViT에서처리후2framefusion16개;원DINOreg4/CLS는별도. JEPA는2frame tubelet의512patch×1024→평균pool16→256. LPWM은16FG+1BG,각FG의현재+8미래28차원속성→252→256. Shape동일성은표현용량동일성이아님. 근거 `results/four_model_small_corpus_v1/token_budget_fairness_audit.json`.
 
@@ -2144,9 +2152,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재세백본의내부토큰/속성차원과공통planner16×256인터페이스를코드로확인하고공정성한계를기록했다. DrivoR원논문개수ablation과LPWM예산대조제안을추가했으며학습·대기열·등록source는변경하지않았다.
+- 동일128학습가중치/64encoder·30decoder를고정한CPU해상도전환진단script,원배열,JSON,전후PNG를추가했다. Decoder/encoder확장에따른즉시교란을확인하되현재재학습모델의주원인으로단정하지않았다.
+- 다음작업launch에서발견된중복command메타데이터오류를별도scheduler실행기로수정해기존대기열을복구했다. 원source/등록/실패로그·완료학습보존,새회귀검사포함9개통과,실제JEPA/DrivoR후속profile재개확인.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 17:34 KST: 새launch_fix실행기1084697의fresh queue_state를기준으로기존4조건대기열을이어간다. 기존294935/원queue를중복재기동하지않는다. 과거registration·source·실패보존;새실행기등록은scheduling_v2/registration_launch_fix.json. 진단상해상도extension을우선점검하되새128/512학습대조는미등록이다. 동일particle·클립노출·loss정규화로짧은재학습대조후원인기여를판정하는것을권고하며,기존비교실험은중간해상도/구조변경없이유지한다.
 
 2026-10-08 17:18 KST: 기존16조건완주후LPWM내부particle16/32/64와공통집약방식/출력16×256을분리하는추가대조를권고. 동일공개초기화방식·노출·학습률·planner·검증목록으로각조건학습하고PDMS/latency/memory를함께비교한다. 단순중간증설은동일조건대조가아니다. 아직새실험실행승인은추가로가정하지않음.
 
@@ -2733,6 +2744,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 17:34 KST: decoder-only2.37배는128NAVSIM가중치를재학습없이확장한3장면복원검사의값이다. 현재512에서5epoch학습한모델의악화율/전체검증/PDMS로보고하지않는다. 공통128평가가고해상도세부이득을반영하지못함,encoder-only는pool/anchors/mask/input보간등의통합효과임을명시. 첫2과거학습장면중복이있으나동일장면쌍의전환검사이며일반화검증아님. 복구한queue는metadata기록만수정했고9개검사통과·실제양profilelaunch확인;원모델/학습설정불변.
 
 2026-10-08 17:18 KST: Register16선택은원논문에서개수ablation후결정됐지만현재LPWM16의planning충분성은미검증. LPWM내부particle감소와ViT출력요약token수는역할이달라같은개수만으로공정성확정불가. 현재결과는공통planner·작은인터페이스의시스템비교이며LPWM/particle방식일반의우열로확장하지않는다. JEPA평균pool불이익가능성도같이명시.
 

@@ -1,0 +1,80 @@
+{
+  "created_at": "2026-10-08T17:33:50.604865+09:00",
+  "conclusion": "Current rectangular extension can degrade reconstruction at fixed weights/latents. The main cause of the retrained16 condition is not yet isolated.",
+  "matched_immediate_transfer": {
+    "native128": 0.009281916388620933,
+    "decoder_only512": 0.021999724830190342,
+    "encoder_only512": 0.027178889140486717,
+    "full512": 0.03708157377938429
+  },
+  "implemented_spatial_changes": {
+    "pixel_count_ratio": 8,
+    "foreground_glimpse_height_width_before": [
+      32,
+      32
+    ],
+    "foreground_glimpse_height_width_after": [
+      64,
+      128
+    ],
+    "cnn_output": "Adaptive average pooling to the original trained head dimensions",
+    "background_decoder_seed_before": [
+      8,
+      8
+    ],
+    "background_decoder_seed_after": [
+      16,
+      32
+    ],
+    "background_seed_resize": "bilinear before original convolutional decoder",
+    "latent_dimensions": "unchanged; fewer particles in active16 condition"
+  },
+  "reconstruction_coefficient": {
+    "native128": 1.0,
+    "rectangular512": 0.125,
+    "interpretation": "Loss implementation multiplies its mean RGB/perceptual loss by C*H*W. The inverse8 coefficient compensates the eightfold pixel count; it is not evidence for an eightfold weakening of reconstruction supervision."
+  },
+  "particle_screening": {
+    "equal_fields": [
+      "updates",
+      "accumulation",
+      "train_clip_count",
+      "training_order_sha256",
+      "manifest_sha256",
+      "loss",
+      "learning_rate",
+      "precision",
+      "effective_batch_clips"
+    ],
+    "metrics": {
+      "16": {
+        "reconstruction_mse": 0.015293422737158835,
+        "forecast_mse": 0.025639148632762954,
+        "persistence_mse": 0.03232372820639284,
+        "forecast_lower_half_mse": 0.0157908563996898,
+        "reconstruction_lpips": 0.525674968957901,
+        "forecast_lpips": 0.5310189025476575,
+        "mean_presence": 0.9989904370158911,
+        "position_std": 0.5830494053661823,
+        "appearance_std": 0.34938582871109247
+      },
+      "64": {
+        "reconstruction_mse": 0.010987991743604653,
+        "forecast_mse": 0.024545923180994578,
+        "persistence_mse": 0.03232372820639284,
+        "forecast_lower_half_mse": 0.01490322718018433,
+        "reconstruction_lpips": 0.5230626054108143,
+        "forecast_lpips": 0.5403431951999664,
+        "mean_presence": 0.9988063257187605,
+        "position_std": 0.5782404523342848,
+        "appearance_std": 0.32801850652322173
+      }
+    },
+    "reconstruction_mse_16_vs_64_ratio": 1.3918305632200785,
+    "scope": "Same512 and200 updates/effective4, count and associated grid/embeddings/decoder count differ; forecastLPIPS not monotonic"
+  },
+  "training_comparison_caveat": "Historical20epochs/28920updates versus current image at4epochs/2620updates differ in exposure, clip length and particle/render counts; not resolution-only evidence.",
+  "preferred_next_diagnosis": "Matched short128/512 retraining at fixed particle count, data exposure, effective batch, optimizer and normalized objective; separately compare decoder architectures before committing to longer runs.",
+  "active_experiment_changed": false,
+  "original_scientific_sources_unchanged": 121
+}

@@ -1,0 +1,141 @@
+{
+  "created_at": "2026-10-08T17:33:50.605607+09:00",
+  "state": {
+    "status": "running",
+    "scheduler_pid": 1084697,
+    "scheduler": "overlap_v2",
+    "phase": "profile_jepa_ssl_and_drivor",
+    "stage": "profile_jepa_ssl_and_drivor",
+    "pid": 1092671,
+    "updated_unix": 1791448429.877654,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "jepa_ssl_and_drivor_parallel_drivor",
+        "pid": 1092672,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_parallel1_drivor",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py",
+          "--kind",
+          "drivor",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_parallel1_drivor",
+          "--micro-batch",
+          "2",
+          "--profile-updates",
+          "8"
+        ]
+      }
+    ]
+  },
+  "original_sources_unchanged": 121,
+  "original_scheduler_and_registration_preserved": true,
+  "tests_passed": 9,
+  "failure_archive": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/launch_metadata_failure_20261008.json",
+  "active_failed_marker_cleared": true,
+  "completed_lpwm": {
+    "completed_updates": 3275,
+    "consumed_training_clips": 52400,
+    "unique_training_clips": 10480,
+    "corpus_passes": 5,
+    "local_epoch_complete": true,
+    "validation": {
+      "reconstruction_mse": 0.012124618035159074,
+      "forecast_mse": 0.02285789352026768,
+      "persistence_mse": 0.03232372820639284,
+      "forecast_lower_half_mse": 0.014706801885040477,
+      "reconstruction_lpips": 0.48325482849031687,
+      "forecast_lpips": 0.5012926384806633,
+      "mean_presence": 0.9301300533115864,
+      "position_std": 0.5628857314586639,
+      "appearance_std": 0.398655847646296
+    },
+    "planning_performance_verified": false,
+    "reduced_particle_quality_gate_passed": false,
+    "full_330h_training": false,
+    "stage2_started": false,
+    "next": "review Stage1 validation then queued common-planner training"
+  },
+  "scope": "Scheduler launch-metadata fix only; no model/config/optimizer/data changes and no additional LPWM updates",
+  "latest_queue_state": {
+    "status": "running",
+    "scheduler_pid": 1084697,
+    "scheduler": "overlap_v2",
+    "phase": "jepa_ssl_and_drivor_serial",
+    "stage": "jepa_ssl_and_drivor_serial",
+    "pid": 1099274,
+    "updated_unix": 1791448528.0891206,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "train_jepa_ssl",
+        "pid": 1099274,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_jepa_ssl.py",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl",
+          "--micro-batch",
+          "2"
+        ]
+      }
+    ]
+  },
+  "first_pair_admission": {
+    "parallel_approved": false,
+    "checks": {
+      "faster": true,
+      "elapsed_training_faster": true,
+      "actual_overlap": true,
+      "loss_matches": false,
+      "memory_safe": true
+    },
+    "projected_pair_speedup": 1.7817906721565415,
+    "serial_step_seconds": [
+      1.981065034866333,
+      2.7507314682006836
+    ],
+    "measured_training_window_speedup": 1.5915302144936823,
+    "training_overlap_fraction": 1.0,
+    "parallel_step_seconds": [
+      2.0123207569122314,
+      2.6556410789489746
+    ],
+    "parallel_card_peak_bytes": 11467227136,
+    "measurement_scope": "Discard first update startup; eight-update pilot, not guaranteed full-run speedup",
+    "serial_profiles": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_serial_jepa_ssl",
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_serial_drivor"
+    ],
+    "parallel_profiles": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_parallel1_jepa_ssl",
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_parallel1_drivor"
+    ]
+  },
+  "jepa_training_started_evidence": {
+    "completed_updates": 40,
+    "target_updates": 3275,
+    "loss": 0.5779215395450592,
+    "gradient_norm": 0.07720228284597397,
+    "gradient_groups": {
+      "encoder": 0.04771408438682556,
+      "predictor": 0.06069232523441315
+    },
+    "seconds": 2.028319835662842,
+    "card_used_bytes": 9970909184,
+    "clip_presentations": 640,
+    "elapsed_seconds": 105.50404262542725
+  }
+}

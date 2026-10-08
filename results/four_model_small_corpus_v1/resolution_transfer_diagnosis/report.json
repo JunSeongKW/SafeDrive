@@ -1,0 +1,119 @@
+{
+  "created_at": "2026-10-08T17:29:08.137183+09:00",
+  "checkpoint": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+  "checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+  "device": "cpu",
+  "threads": 2,
+  "encoded_foreground_particles": 64,
+  "decoded_foreground_particles": 30,
+  "parameter_tensor_count": 688,
+  "all_learned_parameters_exactly_identical": true,
+  "spatial_buffers_regenerated": [
+    "encoder_module.patch_centers",
+    "encoder_module.particle_enc.patch_centers",
+    "encoder_module.particle_inter_enc.particles_anchor",
+    "encoder_module.ctx_enc.particles_anchor",
+    "dyn_module.particles_anchor"
+  ],
+  "scenes": [
+    {
+      "scene": 1,
+      "recording": "2021.07.24.20.37.45_veh-17",
+      "raw_frame_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/83b0003967505414.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/167f5bb511465c79.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/c923c1ae6c6c572c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/e585bbbd0d3d5bdb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/d5ee316cf1a652cf.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/86bc6c6dd97f52ce.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/e09bb6fa367d5043.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/ed152fb23aed5717.jpg"
+      ],
+      "old_training_image": true,
+      "mse_common128": {
+        "native128": 0.007770349737256765,
+        "decoder_only512": 0.01788514107465744,
+        "encoder_only512": 0.020310137420892715,
+        "full512": 0.021921230480074883
+      },
+      "native_reproduction_max_abs": 5.662441253662109e-07,
+      "input_resize_mse": 8.802374395600054e-06
+    },
+    {
+      "scene": 2,
+      "recording": "2021.06.08.14.35.24_veh-26",
+      "raw_frame_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/58ac014209955dcb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/4504022fe59353b4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/76401a3e88d451b1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/10686b9e9cbe5276.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/3f3294cd77fd5811.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/cbc6ba36e1ef5156.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/7b99854d3f985d96.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/525f9f804eb057b8.jpg"
+      ],
+      "old_training_image": true,
+      "mse_common128": {
+        "native128": 0.009762787260115147,
+        "decoder_only512": 0.02745651639997959,
+        "encoder_only512": 0.02709745056927204,
+        "full512": 0.04019783064723015
+      },
+      "native_reproduction_max_abs": 6.258487701416016e-07,
+      "input_resize_mse": 3.199994898750447e-05
+    },
+    {
+      "scene": 3,
+      "recording": "2021.08.24.17.37.11_veh-08",
+      "raw_frame_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/9e595c4c7ef25682.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/741200c1e114567a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/f045b9695f1e59ca.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/33a5a75cb3125bd5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/ee30a458a33c5b2c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/06337b7495f35790.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/4de2d3c7db7459ac.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/0111d0a1b23b50cf.jpg"
+      ],
+      "old_training_image": false,
+      "mse_common128": {
+        "native128": 0.010312612168490887,
+        "decoder_only512": 0.02065751701593399,
+        "encoder_only512": 0.034129079431295395,
+        "full512": 0.049125660210847855
+      },
+      "native_reproduction_max_abs": 5.662441253662109e-07,
+      "input_resize_mse": 1.3326681255421136e-05
+    }
+  ],
+  "mean_mse_common128": {
+    "native128": 0.009281916388620933,
+    "decoder_only512": 0.021999724830190342,
+    "encoder_only512": 0.027178889140486717,
+    "full512": 0.03708157377938429
+  },
+  "mse_ratio_vs_native128": {
+    "native128": 1.0,
+    "decoder_only512": 2.3701705455094024,
+    "encoder_only512": 2.9281549200126804,
+    "full512": 3.9950342393564386
+  },
+  "condition_definition": {
+    "native128": "Original 128 encoder and decoder",
+    "decoder_only512": "Identical native128 latent tensors and particle selection; rectangular512 decoder",
+    "encoder_only512": "Rectangular512 encoder; original128 decoder",
+    "full512": "Rectangular512 encoder and decoder, still 64 encoded/30 decoded"
+  },
+  "metric": "Outputs area-resized to the same 128x128 target before MSE; no clamping before metrics",
+  "limitations": [
+    "3 fixed examples, not a held-out dataset benchmark; first 2 appeared in old training",
+    "Immediate resolution transfer without retraining; cannot assign cause of the current retrained16 model",
+    "Encoder transfer includes pooling, prior patches, masks, anchors and input interpolation changes",
+    "Common128 metric omits the possible benefit of extra detail at native512 resolution",
+    "Observed reconstruction only; not causal future prediction or planning evaluation"
+  ],
+  "training_updates": 0,
+  "active_training_changed": false,
+  "native_output_arrays": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/diagnostics/resolution_transfer/outputs_native_resolution.npz",
+  "native_output_arrays_sha256": "99a9d5287a4391ee694b8e236c9d3351d9a3c00be906d7923908581d44b7a18c"
+}
