@@ -340,7 +340,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 09:00 KST (Codex)
+마지막 갱신: 2026-10-08 09:05 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -507,6 +507,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 09:05 KST: 원본LPWM의시간관측/teacher forcing/표준forecast와context재생/정책추론을조사했다. 현재학습/queue변경없음.
 
 2026-10-08 09:00 KST: 현재 본학습의 단일 관측과 Drive-JEPA/WA-JEPA의 추론 history를 코드·논문으로 확인했다. 설명 요청으로 기존 학습/대기열 변경 없음.
 
@@ -1100,6 +1102,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+원본LPWM이미지encoder는frame독립이고context/dynamics가시간결합한다. Sketchy공개hparams상학습21frame/cond_steps10(README6override예시),BAIR17/1로단일관측도지원한다. 학습은teacher forcing+frame복원/particleKL/contextKL등,표준추론은observed prefix→prior/dynamics autoregression이다. use_all_ctx=True는전체실sequence의context를보는재생진단으로futureforecast와구분한다. 정책논문A.5도현재obs+goal에서시작가능. 근거results/lpwm_drivor_planning_path_lora_v1/original_lpwm_temporal_protocol_20261008.json.
 
 현재 본학습은 DrivoR의4카메라·현재1시점 조건을 따라 current particle→context prior→미래8step을 생성한다. 과거 관측 기반context posterior/online state carry는 사용하지 않는다. Drive-JEPA 공식front JEPA평가는현재+직전1=2frame, WA-JEPA는4카메라×현재+과거3=4frame을추론에서도사용한다. 과거프레임불필요성은입증되지않았으며이전Adapter는4실관측/encoded context를사용한다. 상세는planning_path_lora_training문서마지막절.
 
@@ -1933,11 +1937,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 본학습 단일 관측의 DrivoR 입력 대응 근거와 LPWM context prior 경로를 확인해 기존 연구 문서에 기록했다.
-- Drive-JEPA와 WA-JEPA의 추론 history를 공식 코드·논문에서 검증하고 단일 프레임의 정보 한계를 명시했다.
-- 1시점/2시점 통제 비교를 후속 권고로 기록했다. 현재 등록 학습·평가·대기열은 변경하지 않았다.
+- 원본 LPWM의 학습 sequence/teacher forcing/loss와 추론 관측 prefix·context prior 경로를 공식 코드·논문에서 검증했다.
+- Sketchy 및 다른 데이터셋의 관측 수, 단일 관측 지원, 전체 실제 context 재생과 표준 미래 생성의 차이를 JSON과 문서에 기록했다.
+- 원본 정책 학습·현재 관측에서의 배포 예시를 확인했다. 현재 등록 학습·평가·대기열은 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+원본LPWM설명요청에따른새실험/설정변경없음. 원본추론재현시cond_steps실행override와use_all_ctx분기를기록한다. 미래효용검증에는미래실영상을context로제공하는재생결과를사용하지않는다.
 
 History설명에따른실행변경없음. 후속가설로동일LPWM/4camera/planner/해상도/학습조건의1시점대2시점ablation을권고하되이번질문으로자동학습등록하지않는다. DrivoR register비교에도시간정보를맞춰야한다.
 
@@ -2459,6 +2465,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+원본LPWM은관측여러frame과1frame모두지원한다. Sketchy cond_steps10은공개설정값이며모든공식평가에고정된요구가아니다. 원본정책추론현재1frame예시가NAVSIM1frame충분성을입증하지않는다. num_static_frames와cond_steps를혼동하지않는다.
 
 단일관측으로LPWM prior rollout이가능하다는것은과거관측이불필요하거나motion정보가충분하다는증거가아니다. 자차상태는주변차량속도관측을대체하지않으며현재PDMS차이의원인을history로확정하지않는다. 공개JEPA설정은전처리/variant별로구분한다.
 

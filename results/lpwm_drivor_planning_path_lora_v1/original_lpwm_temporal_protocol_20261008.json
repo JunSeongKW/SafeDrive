@@ -1,0 +1,73 @@
+{
+  "checked_at_kst": "2026-10-08 09:05 KST",
+  "official_lpwm_commit": "4cf53c403433e64c01652ac2adbec66231a46dea",
+  "paper": "https://arxiv.org/html/2603.04553",
+  "training": {
+    "dataset_sequence_length": "timestep_horizon + 1",
+    "particle_image_encoder": "Per-frame; context and dynamics combine temporal particle sequences.",
+    "teacher_forcing": true,
+    "context_inverse": "Infers latent action using transition destination and preceding particle states.",
+    "context_prior": "Predicts latent action without transition destination.",
+    "losses": [
+      "frame reconstruction",
+      "static particle KL",
+      "dynamics particle KL",
+      "context inverse/prior KL",
+      "presence regularization"
+    ],
+    "jointly_trained_modules": [
+      "encoder",
+      "RGB decoder",
+      "context",
+      "dynamics"
+    ]
+  },
+  "generation": {
+    "entry": "models.py:865 sample_from_x",
+    "observed_prefix_parameter": "cond_steps",
+    "standard_use_all_ctx": false,
+    "future_rgb_observed": false,
+    "rollout": "Context prior and particle dynamics autoregression; optionally decode generated particles.",
+    "single_frame_supported": true,
+    "special_context_replay": "use_all_ctx=True obtains latent actions from the full supplied real sequence; separate from forecasting."
+  },
+  "presets": {
+    "sketchy": {
+      "training_sequence_frames": 21,
+      "configured_cond_steps": 10
+    },
+    "traffic": {
+      "training_sequence_frames": 21,
+      "configured_cond_steps": 6
+    },
+    "bair": {
+      "training_sequence_frames": 17,
+      "configured_cond_steps": 1
+    },
+    "bridge": {
+      "training_sequence_frames": 25,
+      "configured_cond_steps": 2
+    }
+  },
+  "policy_paper": {
+    "training": "Frozen LPWM inverse latent actions from real video/action sequences supervise an action mapping transformer with L1.",
+    "deployment": "Current observation and goal can initialize prior/dynamics rollout. Inverse module applied to generated particle trajectory feeds the action mapping; future real RGB is unavailable."
+  },
+  "current_experiment": {
+    "main_observed_frames_per_camera": 1,
+    "previous_adapter_observed_frames_per_camera": 4,
+    "planning_only_main_loss": true,
+    "temporal_ablation_executed": false
+  },
+  "limitations": [
+    "Preset frame counts are configuration values, not a universal LPWM requirement.",
+    "Sketchy generation/evaluation CLI may override cond_steps; README examples use six.",
+    "num_static_frames controls the static KL region, not inference observation count.",
+    "No training changes were made for this explanation."
+  ],
+  "downloaded_sketchy_hparams": {
+    "timestep_horizon": 20,
+    "num_static_frames": 1,
+    "cond_steps": 10
+  }
+}
