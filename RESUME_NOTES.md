@@ -3793,3 +3793,9 @@ CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병�
 현재데이터실사: SSL기존OpenScene10480clips/101recording,검증32recording각1clip. Planning navtrain10240/101recording,navval1024/61recording. SSLtrain↔planningdev recording중복0,SSLval32recording은planningdev61에포함된다. NAVSIMv1 scorer사용,navtest/navhard미평가. navval은DrivoR공식training/default_train_val_test_log_split.yaml의val_logs에서navtrain필터token을구분한것이다.
 
 근거 outputs/four_model_small_corpus_v1/dataset_usage_20261008.json. 실행변경없음.
+
+## 2026-10-08 Planning에서 두 관측 프레임을 쓰는 이유
+
+현재 전방 512×256 입력은 현재 + 약 0.5초 전 이미지다. 시간 변화 단서를 제공하고 네 모델의 관측 범위를 맞추려는 설정이며 1프레임 대비 성능 우위는 미검증이다. JEPA는 tubelet_size=2로 인코딩, LPWM은 두 관측의 particle/context를 native dynamics에 넣어 미래 8단계를 예측하고 현재+미래 속성을 planner에 전달한다. 원 DrivoR는 현재 이미지뿐이며 이번 baseline에는 프레임별 DINO 인코딩과 temporal register fusion을 추가했다. 따라서 원 논문 전체 설정 재현으로 부르지 않는다.
+
+근거: src/planning_aware_future_prediction/object_centric/small_corpus_models.py:27,69,93,131; scripts/prepare_four_model_small_corpus.py:40; reference_repositories/DrivoR/navsim/planning/script/config/common/agent/drivoR.yaml:32. 코드·설정·실행 변경 없이 설명만 수행했다. 새 1프레임 대조 실험은 등록하지 않았다.

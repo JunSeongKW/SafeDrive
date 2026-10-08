@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 15:05 KST (Codex)
+마지막 갱신: 2026-10-08 15:15 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+두 프레임 설명 요청: 코드만 확인했으며 실행·설정·대기열을 변경하지 않았다. 아래 진행률은 각 조회 시점의 이력이다.
 
 데이터범위조회: 현재four_model_small_corpus_v1의phase는lpwm_ssl. 이번턴학습·설정·대기열변경없음.
 
@@ -1218,6 +1220,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Planning 입력은 전방 현재 + 약 0.5초 전 이미지다. JEPA는 tubelet_size=2, LPWM은 두 관측을 encode_all/context/dynamics에 넣어 미래 8단계를 예측한다. DrivoR 원 설정은 현재 프레임만 쓰며 이번 비교에서는 프레임별 공통 DINO와 temporal register fusion을 추가했다. 따라서 원 논문 입력 재현이 아닌 공통 관측 조건의 변형 baseline이다. 두 프레임의 움직임 단서가 1프레임 대비 PDMS를 높이는지는 아직 비교하지 않았다.
 
 현재데이터실사: SSL기존OpenScene10480clips/101recording,검증32recording각1clip. Planning navtrain10240/101recording,navval1024/61recording. SSLtrain↔planningdev recording중복0,SSLval32recording은planningdev61에포함된다. NAVSIMv1 scorer사용,navtest/navhard미평가. navval은DrivoR공식training/default_train_val_test_log_split.yaml의val_logs에서navtrain필터token을구분한것이다.
 
@@ -2090,9 +2094,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자의 데이터셋 조회에 대해 고정 manifest와 원 DrivoR 분할 코드를 확인했다. SSL10480/검증32clips, planning10240/검증1024scenes, recording 분리와 navval의 역할을 기록했다. 학습·대기열·데이터 변경 없음.
+- Planning 학습·추론의 두 프레임 선택 이유와 실제 JEPA/LPWM/DrivoR 입력 경로를 확인했다. 원 DrivoR와의 차이 및 1프레임 대비 성능 우위 미검증을 기록했다. 과학적 코드·설정·학습·대기열 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+두 프레임은 현재 비교의 고정 입력이다. 1프레임 ablation은 미등록이며 자동 추가하지 않는다. 향후 비교 시 JEPA의 현재 프레임 복제는 시간 단서 제거 대조군이지 실제 단일 프레임 연산량 측정이 아님을 구분한다.
 
 데이터설명시navval1024는개발검증부분집합이며전체navtest/navhard가아님을명시한다. 현재SSL검증은32개고정clip의진단규모이고planningdev와별개의독립test라고부르지않는다.
 
@@ -2653,6 +2659,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+두 프레임의 이점은 시간 단서 제공이라는 설계 근거이며 실험으로 확정된 성능 향상이 아니다. 자차와 객체 움직임이 섞여 있으므로 두 이미지로 정확한 객체 속도를 보장하지 않는다. Planning 학습·추론 모두 과거/현재만 관측하며 미래 정답 이미지는 planner 관측 입력에 넣지 않는다.
 
 현재추가학습데이터는기존OpenScene/NAVSIM고정부분집합뿐이다. CoVLA/DrivingDojo미사용. 네모델planning학습·검증목록은공통,SSL은JEPA/LPWM순차/LPWMjoint에만사용하며DrivoR에는별도SSL단계없음.
 
