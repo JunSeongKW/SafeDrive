@@ -3988,3 +3988,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 21:04 KST 네planner를병행하고pass1/3/5예측완료즉시기존CPU공식PDMS(동시1/worker4)계속. 새joint는기존micro2×누적4×GPU2=유효16,worker2/rank,loss/LR/seed/데이터/총노출그대로. RGB decoder와LPIPS만비재진입activation checkpointing;그외연산과원trainer불변. 동시실행중새allocator27GB,전체카드46.5GB초과시저장중단/사용자상한48GB. 다른세GPU학습완료후v5가native_joint_allowed.json을발행하고각rank에서외부+context2GB이하확인시재시작없이기존activation저장/allocator44GB로전환해재계산비용제거. 기존v4및과거controllers재기동금지.
 
 2026-10-08 21:04 KST 변경은추가병행및activation저장/재계산방식뿐이다. 기존모델/학습조건/실험수변경없음,profile가중치본학습미사용.8update메모리·gradient수치범위확인이최종PDMS동등성증명은아니다. 짧은2단계시간모형은26.91→17.67시간/1.52배를산출했으나과거native2update startup이포함되고향후eval/부하변화가있어확정ETA/보장단축률로보고하지않는다. 최대43.13GB는실측profile고점이며미래모든부하의상한을보장하지않음;기존pause/allocator보호를유지한다.
+
+
+## 2026-10-08 21:09 KST — JEPA/DrivoR 학습 단계 설명
+
+2026-10-08 21:09 KST 단계구성질문에현재config/model/JEPA complete+gate를읽기전용확인. 기존v5 네planner병행유지,실행·배치·loss변경없음.
+
+2026-10-08 21:09 KST 현재Drive-JEPA방식은공개일반영상V-JEPA2→고정10480주행clip×5의maskedlatent SSL→완료/gate후encoder체크포인트+공통DrivoR planner학습이다.3275update Stage1완료. Stage2에서는SSL predictor/EMA target을제외하고encoder native1e-5/planner1e-4로planning loss학습. DrivoR조건은공개DINOv2 ViT-S reg4→곧바로planning이며추가주행SSL Stage1없음(config stage1:null); q/v LoRA rank32와scene register/입력interface/planner학습. 공개DINO사전학습과이번자체주행Stage1을구분한다.
+
+2026-10-08 21:09 KST 기존네조건학습/검증대기열을유지한다. 단계설명에따른새Stage1추가나학습방법변경은없음.
+
+2026-10-08 21:09 KST JEPA/LPWM순차는같은주행SSL clip을쓰지만DrivoR에는그추가노출이없다. 공통planning데이터/모듈비교이지네조건의총SSL노출·상류사전학습데이터가동일한실험은아님. 현재Drive-JEPA명칭은공통DrivoR planner를쓴변형조건이며원논문전체재현으로설명하지않는다.
