@@ -1,5 +1,12 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 14:54 KST — 사용자 지시로 최근 다운로드만 삭제 완료.**
+범위는이번에새로받은CoVLA·DrivingDojo및미사용OpenScene보충이미지뿐이다. 기존공용NAVSIM/OpenScene·다른데이터·checkpoint·학습/검증cache는보존했다.
+삭제파일할당량51,062,308,864bytes(51.06decimalGB): CoVLA변환5.445GB,DrivingDojo변환2.377GB+ZIP35.283GB,새OpenScene보충7.958GB,빈전송버퍼. 작업공간7.822GB/전용raw저장소43.240GB.
+원다운로드3352751/3499336종료,CoVLA3352752는pause marker후종료확인,ZIP3594914는이미완료였다. 관련5control에pause.requested와cleanup_completed.json,root downloads_retired_for_small_corpus.json을기록했다. 이전active.pid/status/converted metadata는역사적출처기록이며파일존재근거가아니다. 이데이터수집을자동재개하지않는다.
+소유자·오늘생성범위·현재136021참조파일존재·삭제대상중복0·열린파일0검사후.trash격리→재검사→실삭제했다. 원121science source/config불변,train136861/queue294935유지,양rank950/3275로계속학습. 근거 outputs/recent_driving_download_cleanup_20261008/cleanup_complete.json 및final_verification.json.
+
+
 **2026-10-08 14:36 KST — 사용자 시간 단축 지시로 대기열만 overlap_v2로 교체했다.**
 새 controller294935가 기존 train136861을 PID/start_ticks 그대로 인계했다. 기존 controller136859만 종료했으며 학습 재시작·추가노출 없음. 현재 LPWM SSL655/3275(첫epoch후검증경계), root `outputs/four_model_small_corpus_v1/scheduling_v2/`.
 원래121개 scientific source/config hash불변. 새 script `scripts/queue_four_model_small_corpus_overlap.py`, 설정 `configs/four_model_small_corpus/scheduling_overlap_v2.json`. 배치/누적/GPU2 topology/LR/loss/seed/데이터/5epoch 불변.
@@ -410,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 14:37 KST (Codex)
+마지막 갱신: 2026-10-08 14:55 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -577,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+최신14:54: 새데이터다운로드/변환전부종료·미사용payload삭제완료. 원train136861/queue294935는그대로,양rank950/3275. 330h데이터수집을자동재개하지않는다. 현재작은고정코퍼스만학습한다.
 
 최신14:36: scheduler294935/기존torchrun136861. 원controller136859 종료,학습PID/start_ticks보존. LPWM655/3275→첫epoch검증→계속학습. Canonical queue_state.json은overlap_v2가쓴다. oldqueue재기동금지.
 
@@ -1207,6 +1216,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+최근다운로드51.06GB삭제완료(작업공간7.822/raw43.240GB). 공용원본미변경.136021개학습/검증참조파일존재·대상중복0·121source불변,삭제전후검사통과. cleanup_complete.json/final_verification.json이최종근거다.
 
 최신대기열최적화: 원121source/config불변·traincache10240/10240존재·8개scheduler검사통과. GPUpair성능bench는앞으로Stage1종료후실행하며아직측정안됨. CPU PDMS즉시병행준비완료,현재planning예측파일은없다. 메모리/속도/loss기준통과시만동시학습한다.
 
@@ -2075,10 +2086,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 시간 단축 지시로 과학적 학습 조건을 유지한 overlap_v2 scheduler/config를 추가했다. GPU pair의 disposable 직렬·병렬 검증 후 채택, CPU PDMS 즉시 병행, 독점 메모리 구간, pause/failure 전파를 구현했다.
-- 기존 controller136859만 교체해 학습136861을 중단 없이 인계했다. 원121source/config와 데이터·유효배치·LR·5epoch를 보존했고 scheduler8검사·PID/start_ticks·학습진행을 검증했다.
+- 사용자가 명시한 이번 신규 데이터 다운로드만 정리했다. CoVLA·DrivingDojo 변환본/ZIP 및 현재 실험에서 쓰지 않는 새 OpenScene 보충 이미지를 삭제해 총51.06GB의 파일 할당량을 제거했다.
+- 해당 다운로드 PID·소유권·생성 시점·136021개 현재 참조파일을 감사하고, 관련 작업 종료→격리→재검사→삭제했다. 다운로드 재기동 방지 marker와 감사 script/기록을 남겼다. 기존 데이터·훈련121source/config·학습PID/대기열은 보존했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+최신: 기존four-model queue는계속진행한다. 삭제된CoVLA/DrivingDojo/OpenScene보충데이터는현재코퍼스에포함되지않는다. 과거수집설정/active.pid/verified.json을보고자동재시작하지말것. 사용자가새수집을요청하면삭제기록과기존provenance를참고해별도등록해야한다.
 
 최신: overlap_v2 controller294935가모든후속작업을소유한다. LPWM SSL끝나면두pair의등록된8update profiling/admission결과를확인하고병렬속도·메모리·수치일치를보고한다. 새script/config도등록후수정금지. 과거serialqueue재기동금지. 실제시간개선미측정이므로예상가속을확정값으로표시하지않는다.
 
@@ -2635,6 +2648,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+최신확정: 삭제권한은이번에신규다운로드한미사용데이터에만적용했고완료했다. 기존데이터·공용원본·과거실험checkpoint의추가삭제권한으로확대하지않는다. 이전330h데이터수집은중단상태이며작은고정OpenScene실험의가용데이터는보존됐다.
 
 최신확정: 실험의과학적조건불변,스케줄/CPU평가worker만변경. GPU병렬적용은실측gate종속이며속도부족·수치차이·메모리상한시순차자동복귀. GPU0·1/카드48GB유지. 미결: pair실제속도향상및전체walltime. 단계품질gate실패시해당planner보류유지.
 

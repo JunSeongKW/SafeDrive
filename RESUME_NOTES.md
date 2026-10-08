@@ -3779,3 +3779,11 @@ GPU0·1만, 카드48decimalGB상한. Stage1micro4×누적2×2GPU, 나머지micro
 순서: 현재LPWM SSL전용 → JEPA SSL+DrivoR 병행 후보 → LPWM순차planner+JEPA planner 병행 후보 → LPWMjoint전용. 각pair는8update독립/병렬 profile의속도1.05배이상·실제training중첩60%이상·양rank loss일치·전체카드44GB이하를통과해야병행하고아니면자동순차. Profile가중치는본학습에미사용. 실제병렬속도검사는LPWM SSL완료후이므로단축률미확정.
 CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병행한다. CPU평가동시1개/worker4/nice5. 학습용10240 scene cache모두기존존재확인,추가생성안함. LPWM SSL·joint는43GB급이라GPU독점,48decimalGB제한유지.
 8개스케줄검사통과. Sourcehash·PID연속성·새state 근거 `scheduling_v2/handover_verified.json`. 이전serial controller/queue를중복실행하지않는다. 전체pause는studyroot/pause.requested,실패는scheduling_v2/failed.json을먼저확인한다. Stage1gate와개별종속planner보류규칙은보존한다.
+
+## 2026-10-08 최근 미사용 다운로드 삭제
+
+**2026-10-08 14:54 KST — 사용자 지시로 최근 다운로드만 삭제 완료.**
+범위는이번에새로받은CoVLA·DrivingDojo및미사용OpenScene보충이미지뿐이다. 기존공용NAVSIM/OpenScene·다른데이터·checkpoint·학습/검증cache는보존했다.
+삭제파일할당량51,062,308,864bytes(51.06decimalGB): CoVLA변환5.445GB,DrivingDojo변환2.377GB+ZIP35.283GB,새OpenScene보충7.958GB,빈전송버퍼. 작업공간7.822GB/전용raw저장소43.240GB.
+원다운로드3352751/3499336종료,CoVLA3352752는pause marker후종료확인,ZIP3594914는이미완료였다. 관련5control에pause.requested와cleanup_completed.json,root downloads_retired_for_small_corpus.json을기록했다. 이전active.pid/status/converted metadata는역사적출처기록이며파일존재근거가아니다. 이데이터수집을자동재개하지않는다.
+소유자·오늘생성범위·현재136021참조파일존재·삭제대상중복0·열린파일0검사후.trash격리→재검사→실삭제했다. 원121science source/config불변,train136861/queue294935유지,양rank950/3275로계속학습. 근거 outputs/recent_driving_download_cleanup_20261008/cleanup_complete.json 및final_verification.json.

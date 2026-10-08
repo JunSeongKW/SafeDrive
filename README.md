@@ -1,5 +1,12 @@
 # Planning-Aware Future Prediction
 
+**2026-10-08 14:54 KST — 사용자 지시로 최근 다운로드만 삭제 완료.**
+범위는이번에새로받은CoVLA·DrivingDojo및미사용OpenScene보충이미지뿐이다. 기존공용NAVSIM/OpenScene·다른데이터·checkpoint·학습/검증cache는보존했다.
+삭제파일할당량51,062,308,864bytes(51.06decimalGB): CoVLA변환5.445GB,DrivingDojo변환2.377GB+ZIP35.283GB,새OpenScene보충7.958GB,빈전송버퍼. 작업공간7.822GB/전용raw저장소43.240GB.
+원다운로드3352751/3499336종료,CoVLA3352752는pause marker후종료확인,ZIP3594914는이미완료였다. 관련5control에pause.requested와cleanup_completed.json,root downloads_retired_for_small_corpus.json을기록했다. 이전active.pid/status/converted metadata는역사적출처기록이며파일존재근거가아니다. 이데이터수집을자동재개하지않는다.
+소유자·오늘생성범위·현재136021참조파일존재·삭제대상중복0·열린파일0검사후.trash격리→재검사→실삭제했다. 원121science source/config불변,train136861/queue294935유지,양rank950/3275로계속학습. 근거 outputs/recent_driving_download_cleanup_20261008/cleanup_complete.json 및final_verification.json.
+
+
 **2026-10-08 14:36 KST — 사용자 시간 단축 지시로 대기열만 overlap_v2로 교체했다.**
 새 controller294935가 기존 train136861을 PID/start_ticks 그대로 인계했다. 기존 controller136859만 종료했으며 학습 재시작·추가노출 없음. 현재 LPWM SSL655/3275(첫epoch후검증경계), root `outputs/four_model_small_corpus_v1/scheduling_v2/`.
 원래121개 scientific source/config hash불변. 새 script `scripts/queue_four_model_small_corpus_overlap.py`, 설정 `configs/four_model_small_corpus/scheduling_overlap_v2.json`. 배치/누적/GPU2 topology/LR/loss/seed/데이터/5epoch 불변.
