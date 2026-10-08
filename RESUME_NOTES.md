@@ -3945,3 +3945,20 @@ JEPA 본학습 실제26update/416clip·encoder/predictor gradient유한양수확
 2026-10-08 17:46 KST: 8.15%는JEPA Stage1진행률이며전체실험진행률이아님. 학습수치안정성만확인,JEPA첫epoch검증은아직없음. LPWM복원/해상도진단한계보존;현재512×256·16particle조건은그대로이며새해상도재학습대조미등록. 이번축소실험PDMS미산출,기존81/82점과혼합금지.
 
 JEPA micro2×누적4×GPU2=유효16,worker4/rank,bf16. Training loss와before_training latent validation loss는서로다른표본이므로차이를검증개선으로주장하지않는다. 현재PID는fresh queue파일기반,host PID추가조회없음.
+
+
+## 2026-10-08 19:20 KST — GPU48GB 제한 내 세 작업 병행 적용
+
+2026-10-08 19:20 KST 사용자 GPU48GB이내 추가병행 지시로 세 작업 본학습을 동시에 실행했다. 새controller1554349 / `scripts/queue_small_corpus_three_jobs.py`, root `outputs/four_model_small_corpus_v1/scheduling_v4_three_jobs/`. JEPA SSL1210957(2210/3275),DrivoR1567970(54/3200),LPWM순차Stage2 1580030(5/3200). 세작업각각GPU0·1 micro2×누적4=유효16,기존worker/LR/데이터/seed/loss/5epoch보존. 원121science source불변.
+
+초기반복검사를위해JEPA451에model/AdamW443state/scheduler/2rankRNG를저장후같은trainer로재개했다. 1084697은정상종료,중간1210946은이후새controller가검증된해당PID만종료하면서train1210957을그대로인계했다. 원본학습update누락/중복0. old1084697/1210946/294935/원queue 재기동금지.
+
+2026-10-08 19:20 KST 실행재현성검사: JEPA 단독재실행loss최대상대.12546%,기존병렬차이.05002%;DrivoR단독.02465%/병렬.01988%. DrivoR3장면궤적차이평균단독3.44mm/병렬2.64mm. 최초1e-4 gate와v3 .1%cap에serial도묶은실패기록보존;v4는병렬간차이에.1%cap·실측단독변동이내·고정검증/출력cap을적용한다고명시해첫pair채택. exactPDMS동등성증명아님.
+
+LPWM추가8update비교(JEPA와2작업 vs JEPA/DrivoR와3작업)는loss상대1.50e-6/gradient상대1.15e-4,3장면궤적평균차이.0826mm/최대.1640mm. LPWM9.0767→9.2536초/update,동등update블록조건부약1.268배,최대카드17.7996GB,전체gate통과. 세본학습양rankloss비유한0·encoder/context/dynamics/geometry/commandgradient확인. 공통planner초기241tensor동일. 17개검사통과. 근거 `results/four_model_small_corpus_v1/parallel_execution_20261008/execution_report.json`.
+
+2026-10-08 19:20 KST v4 대기열유지: JEPA SSL·DrivoR planning·LPWM순차planning 동시진행. JEPA SSL완료/gate후JEPA planner를빈자리에넣어최대3작업. LPWMjoint는기존최대실측43.6GB급이므로다른GPU학습이모두완료된뒤단독실행. CPU공식PDMS pass1/3/5 예측완료즉시1작업/4worker로병행. profile카드44GB/실학습46.5GB저장중단/사용자48GB상한보존. 상태는root queue_state와v4의failed/paused를확인하며과거v2/v3 paused/failed는현재정지근거가아님.
+
+2026-10-08 19:20 KST 변경은실행순서·동시작업수·수치재현성admission해석뿐이다. 원훈련코드·배치·optimizer·데이터·loss·가중치초기화·등록science해시불변,모든profile가중치폐기. v3단독재실행까지묶은엄격cap실패를지우거나통과로덮어쓰지않고v4별도규칙수정근거저장. 병렬차이가단독변동보다작다는8update검사이며최종PDMS동일성보장은아님. 약1.268배는짧은동등update블록대비추정으로전체실험종료시간단축률로보고하지않는다. 신규PDMS아직없음. 512해상도/16particle조건변경없음.
+
+실행파일: reassess_small_corpus_parallel_execution.py / queue_small_corpus_calibrated_parallel.py(과거중간controller) / queue_small_corpus_three_jobs.py(현재). 신규실행환경은원래kjs-lpwm-drivor-joint그대로. CurrentGPU PID와source hash·profilegate·resume443AdamW/scheduler451·양rankRNG2·sampler누락중복검사는위JSON에보존. v4 controller인계는SIGTERM handler가trainer를pause시키므로oldcontroller1210946의UID/cmdline/activejobs확인후해당PID만SIGKILL,분리session의torchrun1210957 start_ticks/생존확인후root queue lock획득했다. 기존모델은재시작하지않았으며실제추가학습행확인. 새controller와원래새train만사용하며기존controller중복기동금지.

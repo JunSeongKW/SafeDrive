@@ -1,0 +1,499 @@
+{
+  "created_at": "2026-10-08T19:20:23.079401+09:00",
+  "science_sources_unchanged": 121,
+  "scheduler_sources_unchanged": 6,
+  "queue": {
+    "status": "running",
+    "scheduler_pid": 1554349,
+    "scheduler": "three_jobs_v4",
+    "phase": "dependency_ready_planning",
+    "stage": "dependency_ready_planning",
+    "pid": 1210957,
+    "updated_unix": 1791454823.0695224,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "train_jepa_ssl",
+        "pid": 1210957,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_jepa_ssl.py",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl",
+          "--micro-batch",
+          "2"
+        ]
+      },
+      {
+        "label": "train_drivor",
+        "pid": 1567970,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py",
+          "--kind",
+          "drivor",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor",
+          "--micro-batch",
+          "2"
+        ]
+      },
+      {
+        "label": "train_lpwm_sequential",
+        "pid": 1580030,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py",
+          "--kind",
+          "lpwm_sequential",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt"
+        ]
+      }
+    ]
+  },
+  "resume_checkpoint": {
+    "completed_updates": 451,
+    "optimizer_steps": [
+      451
+    ],
+    "optimizer_state_count": 443,
+    "scheduler": {
+      "base_lrs": [
+        0.0001
+      ],
+      "last_epoch": 451,
+      "_step_count": 452,
+      "_is_initial": false,
+      "_get_lr_called_within_step": false,
+      "_last_lr": [
+        9.811145777542953e-05
+      ],
+      "lr_lambdas": [
+        null
+      ]
+    },
+    "rank_rng_count": 2,
+    "encoder_tensor_count": 292,
+    "target_encoder_tensor_count": 292,
+    "predictor_tensor_count": 151,
+    "registration_unchanged": true
+  },
+  "first_pair_rule_revision": {
+    "parallel_approved": true,
+    "checks": {
+      "faster": true,
+      "elapsed_training_faster": true,
+      "actual_overlap": true,
+      "memory_safe": true,
+      "jepa_ssl_loss_bounded": true,
+      "jepa_ssl_within_repeatability_envelope": true,
+      "jepa_ssl_gradient_bounded": true,
+      "masked_latent_l1_bounded": true,
+      "spatial_feature_std_bounded": true,
+      "drivor_loss_bounded": true,
+      "drivor_within_repeatability_envelope": true,
+      "drivor_gradient_bounded": true,
+      "drivor_predictions_bounded": true,
+      "jepa_ssl_within_serial_repeatability": true,
+      "drivor_within_serial_repeatability": true
+    },
+    "previous_assessment": {
+      "parallel_approved": false,
+      "checks": {
+        "faster": true,
+        "elapsed_training_faster": true,
+        "actual_overlap": true,
+        "memory_safe": true,
+        "jepa_ssl_loss_bounded": false,
+        "jepa_ssl_within_repeatability_envelope": true,
+        "jepa_ssl_gradient_bounded": true,
+        "masked_latent_l1_bounded": true,
+        "spatial_feature_std_bounded": true,
+        "drivor_loss_bounded": true,
+        "drivor_within_repeatability_envelope": true,
+        "drivor_gradient_bounded": true,
+        "drivor_predictions_bounded": true
+      },
+      "repeatability": {
+        "jepa_ssl": {
+          "serial_repeat_loss_relative": 0.0012546223561237893,
+          "cross_mode_loss_relative": 0.0005001525327061071,
+          "serial_repeat_gradient_relative": 0.056706922010810845,
+          "cross_mode_gradient_relative": 0.03358500124722751,
+          "validation": {
+            "original": {
+              "masked_latent_l1": 0.5986639062563578,
+              "spatial_feature_std": 1.727776050567627,
+              "held_out_recordings": 3,
+              "comparable_to_lpwm_reconstruction_loss": false
+            },
+            "parallel": {
+              "masked_latent_l1": 0.5987580815951029,
+              "spatial_feature_std": 1.7315311431884766,
+              "held_out_recordings": 3,
+              "comparable_to_lpwm_reconstruction_loss": false
+            },
+            "repeated": {
+              "masked_latent_l1": 0.5985013246536255,
+              "spatial_feature_std": 1.7397678693135579,
+              "held_out_recordings": 3,
+              "comparable_to_lpwm_reconstruction_loss": false
+            }
+          }
+        },
+        "drivor": {
+          "serial_repeat_loss_relative": 0.0002465087702268067,
+          "cross_mode_loss_relative": 0.00019877383088015937,
+          "serial_repeat_gradient_relative": 0.03215154735556717,
+          "cross_mode_gradient_relative": 0.023919643736859616,
+          "prediction_differences": {
+            "parallel": {
+              "mean_displacement_m": 0.0026397407054901123,
+              "maximum_displacement_m": 0.005589362699538469,
+              "maximum_heading_rad": 0.00995790958404541
+            },
+            "repeated": {
+              "mean_displacement_m": 0.0034352291841059923,
+              "maximum_displacement_m": 0.00875812117010355,
+              "maximum_heading_rad": 0.011328951455652714
+            }
+          }
+        }
+      },
+      "previous_admission": {
+        "parallel_approved": false,
+        "checks": {
+          "faster": true,
+          "elapsed_training_faster": true,
+          "actual_overlap": true,
+          "loss_matches": false,
+          "memory_safe": true
+        },
+        "projected_pair_speedup": 1.7817906721565415,
+        "serial_step_seconds": [
+          1.981065034866333,
+          2.7507314682006836
+        ],
+        "measured_training_window_speedup": 1.5915302144936823,
+        "training_overlap_fraction": 1.0,
+        "parallel_step_seconds": [
+          2.0123207569122314,
+          2.6556410789489746
+        ],
+        "parallel_card_peak_bytes": 11467227136,
+        "measurement_scope": "Discard first update startup; eight-update pilot, not guaranteed full-run speedup",
+        "serial_profiles": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_serial_jepa_ssl",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_serial_drivor"
+        ],
+        "parallel_profiles": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_parallel1_jepa_ssl",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v2/profiles/jepa_ssl_and_drivor_parallel1_drivor"
+        ]
+      },
+      "protocol": {
+        "loss_relative_cap": 0.001,
+        "gradient_relative_cap": 0.1,
+        "minimum_repeatability_envelope": 0.0001,
+        "repeatability_envelope_multiplier": 2.0,
+        "validation_loss_relative_cap": 0.005,
+        "feature_std_relative_cap": 0.02,
+        "trajectory_mean_displacement_cap_m": 0.05,
+        "trajectory_maximum_displacement_cap_m": 0.2,
+        "trajectory_maximum_heading_cap_rad": 0.02,
+        "updates": 8,
+        "rationale": "Calibrate same-configuration numerical repeatability instead of requiring bitwise agreement across independent nondeterministic runs"
+      },
+      "scientific_protocol_changed": false,
+      "previous_failed_gate_preserved": true,
+      "conclusion_scope": "Eight-update execution repeatability and three fixed validation clips; not proof of equal final PDMS"
+    },
+    "rule_revision": "Apply0.1percent absolute loss cap to scheduling-induced cross-mode difference. Use observed serial variation as a baseline, not a reason to reject concurrency when serial itself also varies. Retain fixed validation and prediction caps.",
+    "authorization": "User requests additional concurrent jobs within48GB; scientific trainer/settings unchanged.",
+    "limit": "Repeatability evidence does not guarantee equal final PDMS. Prior failed decisions are preserved."
+  },
+  "protocol": {
+    "loss_relative_cap": 0.001,
+    "gradient_relative_cap": 0.1,
+    "trajectory_mean_cap_m": 0.05,
+    "trajectory_maximum_cap_m": 0.2,
+    "trajectory_heading_cap_rad": 0.02,
+    "profile_card_ceiling_bytes": 44000000000,
+    "whole_card_limit_bytes": 48000000000,
+    "trainer_pause_threshold_bytes": 46500000000,
+    "lpwm_slowdown_cap": 1.25,
+    "minimum_block_speedup": 1.05,
+    "profile_updates": 8,
+    "maximum_concurrent_jobs": 3,
+    "lpwm_joint": "Exclusive: measured worst-case43.6GB per card",
+    "scientific_source_changes": false
+  },
+  "tests_passed": 17,
+  "conditions": {
+    "jepa_ssl": {
+      "progress": {
+        "completed_updates": 2210,
+        "target_updates": 3275,
+        "loss": 0.4893721044063568,
+        "gradient_norm": 0.06556808203458786,
+        "gradient_groups": {
+          "encoder": 0.046459443867206573,
+          "predictor": 0.04626762866973877
+        },
+        "seconds": 2.2367730140686035,
+        "card_used_bytes": 17801674752,
+        "clip_presentations": 35360,
+        "elapsed_seconds": 4963.58612704277
+      },
+      "ranks": {
+        "rank0": {
+          "completed_updates": 2210,
+          "nonfinite_losses": 0,
+          "recent_card_peak_bytes": 17801674752,
+          "latest_gradient_record": {
+            "encoder": 0.046459443867206573,
+            "predictor": 0.04626762866973877
+          }
+        },
+        "rank1": {
+          "completed_updates": 2210,
+          "nonfinite_losses": 0,
+          "recent_card_peak_bytes": 17674797056,
+          "latest_gradient_record": {
+            "encoder": 0.046459443867206573,
+            "predictor": 0.04626762866973877
+          }
+        }
+      },
+      "no_skipped_or_duplicated_updates": true
+    },
+    "drivor": {
+      "progress": {
+        "completed_updates": 54,
+        "target_updates": 3200,
+        "corpus_pass": 0.084375,
+        "seconds": 3.4473717212677,
+        "elapsed_seconds": 208.4324460029602,
+        "card_used_bytes": 17801674752,
+        "peak_allocated_bytes": 968880640,
+        "gradient_norm": 19.19878578186035,
+        "gradient_groups": {},
+        "planning_presentations": 864,
+        "ssl_presentations": 0,
+        "loss": 15.256913900375366,
+        "trajectory_loss": 13.34256887435913,
+        "final_score_loss": 1.9143448173999786,
+        "score": 0.5716088935732841,
+        "best_score": 0.7162141650915146,
+        "planning_loss": 15.256913900375366,
+        "ssl_loss": 0.0,
+        "total_objective": 15.256913900375366
+      },
+      "ranks": {
+        "rank0": {
+          "completed_updates": 54,
+          "nonfinite_losses": 0,
+          "recent_card_peak_bytes": 17801674752,
+          "latest_gradient_record": {
+            "planner": 23.130685806274414,
+            "scorer": 18.11859893798828,
+            "encoder": 8.05453872680664
+          }
+        },
+        "rank1": {
+          "completed_updates": 54,
+          "nonfinite_losses": 0,
+          "recent_card_peak_bytes": 17674797056,
+          "latest_gradient_record": {
+            "planner": 23.130685806274414,
+            "scorer": 18.11859893798828,
+            "encoder": 8.05453872680664
+          }
+        }
+      },
+      "no_skipped_or_duplicated_updates": true
+    },
+    "lpwm_sequential": {
+      "progress": {
+        "completed_updates": 5,
+        "target_updates": 3200,
+        "corpus_pass": 0.0078125,
+        "seconds": 10.20600962638855,
+        "elapsed_seconds": 66.75871658325195,
+        "card_used_bytes": 17801674752,
+        "peak_allocated_bytes": 5583237120,
+        "gradient_norm": 30.179128646850586,
+        "gradient_groups": {},
+        "planning_presentations": 80,
+        "ssl_presentations": 0,
+        "loss": 25.730104446411133,
+        "trajectory_loss": 21.54090642929077,
+        "final_score_loss": 4.189197778701782,
+        "score": 0.582356832921505,
+        "best_score": 0.6872052401304245,
+        "planning_loss": 25.730104446411133,
+        "ssl_loss": 0.0,
+        "total_objective": 25.730104446411133
+      },
+      "ranks": {
+        "rank0": {
+          "completed_updates": 5,
+          "nonfinite_losses": 0,
+          "recent_card_peak_bytes": 17801674752,
+          "latest_gradient_record": {
+            "planner": 21.468048095703125,
+            "scorer": 19.246992111206055,
+            "encoder": 3.1685240268707275,
+            "context": 2.2568888664245605,
+            "dynamics": 5.289567470550537,
+            "xy": 1.1038936376571655,
+            "scale": 0.6225361227989197,
+            "presence": 0.28684887290000916,
+            "command": 0.054727572947740555
+          }
+        },
+        "rank1": {
+          "completed_updates": 5,
+          "nonfinite_losses": 0,
+          "recent_card_peak_bytes": 17674797056,
+          "latest_gradient_record": {
+            "planner": 21.468048095703125,
+            "scorer": 19.246992111206055,
+            "encoder": 3.1685240268707275,
+            "context": 2.2568888664245605,
+            "dynamics": 5.289567470550537,
+            "xy": 1.1038936376571655,
+            "scale": 0.6225361227989197,
+            "presence": 0.28684887290000916,
+            "command": 0.054727572947740555
+          }
+        }
+      },
+      "no_skipped_or_duplicated_updates": true
+    }
+  },
+  "third_job_admission": {
+    "third_job_approved": true,
+    "checks": {
+      "loss_bounded": true,
+      "gradient_bounded": true,
+      "predictions_bounded": true,
+      "memory_safe": true,
+      "lpwm_not_excessively_slowed": true,
+      "work_block_faster": true,
+      "other_jobs_progressing": true
+    },
+    "loss_relative_difference": 1.4961995237309185e-06,
+    "gradient_relative_difference": 0.00011458832216406762,
+    "prediction_difference": {
+      "mean_displacement_m": 8.262184564955533e-05,
+      "maximum_displacement_m": 0.00016403575136791915,
+      "maximum_heading_rad": 0.00023186206817626953
+    },
+    "lpwm_baseline_seconds": 9.07667875289917,
+    "lpwm_three_job_seconds": 9.253643035888672,
+    "other_job_speeds": {
+      "jepa_ssl": {
+        "updates": 48,
+        "median_seconds": 2.157006025314331
+      },
+      "drivor": {
+        "updates": 26,
+        "median_seconds": 2.8104500770568848
+      }
+    },
+    "estimated_equal_update_block_speedup": 1.2678595647515631,
+    "peak_card_bytes": 17799577600,
+    "scope": "LPWM baseline already overlaps JEPA; current three-job throughput versus earlier pair then LPWM. Short scheduling estimate, not guaranteed full-run speedup or equal final PDMS"
+  },
+  "handover": {
+    "controller": {
+      "pid": 1210946,
+      "start_ticks": "61349613",
+      "state": "S",
+      "uid": 1020,
+      "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -u /rhome/junseong/PlanningAwareFuturePrediction/scripts/queue_small_corpus_calibrated_parallel.py "
+    },
+    "training": {
+      "pid": 1210957,
+      "start_ticks": "61349741",
+      "state": "S",
+      "uid": 1020,
+      "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_jepa_ssl.py --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl --micro-batch 2 "
+    },
+    "queue": {
+      "status": "running",
+      "scheduler_pid": 1210946,
+      "scheduler": "overlap_v3_repeatability",
+      "phase": "jepa_ssl_and_drivor_serial",
+      "stage": "jepa_ssl_and_drivor_serial",
+      "pid": 1210957,
+      "updated_unix": 1791454468.7886221,
+      "held_conditions": {},
+      "active_jobs": [
+        {
+          "label": "train_jepa_ssl",
+          "pid": 1210957,
+          "cpu": false,
+          "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl",
+          "command": [
+            "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+            "-m",
+            "torch.distributed.run",
+            "--standalone",
+            "--nproc_per_node=2",
+            "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_jepa_ssl.py",
+            "--output",
+            "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl",
+            "--micro-batch",
+            "2"
+          ]
+        }
+      ]
+    },
+    "jepa_progress": {
+      "completed_updates": 2086,
+      "target_updates": 3275,
+      "loss": 0.49641791731119156,
+      "gradient_norm": 0.059897832572460175,
+      "gradient_groups": {
+        "encoder": 0.04905819520354271,
+        "predictor": 0.03436632454395294
+      },
+      "seconds": 1.6706478595733643,
+      "card_used_bytes": 9981394944,
+      "clip_presentations": 33376,
+      "elapsed_seconds": 4608.437850475311
+    }
+  },
+  "active_failure_files": [],
+  "all_sources_still_match": true,
+  "common_planner_initialization_sha256": {
+    "drivor": "f7d144f50b670bace905e9b80a673e27b72a14624f75ed524ce43e71eb4b099f",
+    "lpwm_sequential": "f7d144f50b670bace905e9b80a673e27b72a14624f75ed524ce43e71eb4b099f"
+  },
+  "common_planner_initialization_equal_tensors": 241
+}
