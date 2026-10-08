@@ -4087,3 +4087,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 23:05 KST 세학습동시계속하며.5초간격으로전체카드VRAM기록. 45GB이상시JEPA만optimizer경계에서저장대기,동반LPWM유지;현재동반LPWM수보다작아지면자동재개. 기존46.5GB trainer저장보호/48GB사용자상한유지. 공동학습후JEPA재개만허용하던v7우선순위규칙은최신사용자지시로해제. pass1/3/5 CPU평가와최종비교는기존대로. JEPA최초1428fullstate는before_jepa_resume에hardlink보존.
 
 2026-10-08 23:05 KST 배치·LR·가중치·optimizer·데이터순서·loss·정밀도·학습량불변,JEPA메모리할당방식과실행순서만변경. 새source는별도wrapper/controller이며등록원본불변. GPU수치의bitwise동일성이나향후외부작업변화까지48GB유지를보장하는표현은금지. 현재는재개초기이며큰SSL부하를계속관측한다. 이전전체ETA13–16시는JEPA순차대기기준이므로병행속도축적후갱신해야함.
+
+
+## 2026-10-08 23:30 KST — 최신 사용자48GB 기준 적용 및 세 작업 재개
+
+2026-10-08 23:30 KST 사용자48GB까지계속지시반영완료: v9 controller3324666/LPWM순차3331466/joint3331469/JEPA3331473,root scheduling_v9_user_48gb. 내부46.5GB상수갱신을위해한번fullstate저장·자동재개했고JEPA1704→1724,순차1317→1327,joint285→291실제진행확인. 이전v8controller2927841종료/재기동금지.
+
+2026-10-08 23:30 KST 대기열45GB→48GB,세trainer46.5GB→48GB실제적용. 새wrapper는등록main의유일46500000000상수만48000000000으로대체하고바이트코드/나머지상수불변검사통과. 모델별execution_user_memory_limit.json과양rank from_update resume proof확인. 원science121/이전실행6/새실행7hash불변. CPU검사3개/compile통과,loss/gradient유한. 기존세작업큰SSL부하카드peak약41.55GB. 근거 results/four_model_small_corpus_v1/user_48gb_policy_20261008.json.
+
+2026-10-08 23:30 KST 세학습및pass1/3/5평가대기열계속. 48GB미만에서45/46.5기준으로의도적대기시키지않음. .5초전체카드감시가48GB이상일때JEPA저장대기,각trainer는48GB초과시저장보호. 보호후현재동반LPWM수감소시JEPA자동재개는유지. 기존JEPA8.5GB/joint27GB allocatorcap은유지. saved_before_policy_update에세fullstate hardlink·pause이력보존.
+
+2026-10-08 23:30 KST 이번정정은47GB중간메시지보다최신48GB지시우선. 기준은이전과같은decimalGB/카드전체사용량. 학습loss/배치/학습률/optimizer/데이터순서/정밀도/5pass불변,한번프로세스재개는명시하고무중단hotpatch라고부르지않음. 외부점유/비동기allocation까지물리적OOM불가를보장하지않는다. 현재세작업재개확인으로중단상태를남기지않았다.

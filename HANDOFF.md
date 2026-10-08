@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 23:05 KST (Codex)
+마지막 갱신: 2026-10-08 23:30 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 23:30 KST 사용자48GB까지계속지시반영완료: v9 controller3324666/LPWM순차3331466/joint3331469/JEPA3331473,root scheduling_v9_user_48gb. 내부46.5GB상수갱신을위해한번fullstate저장·자동재개했고JEPA1704→1724,순차1317→1327,joint285→291실제진행확인. 이전v8controller2927841종료/재기동금지.
 
 2026-10-08 23:05 KST 사용자JEPA병행지시적용: v8 controller2927841/JEPA2927935,기존LPWM순차2415934·joint2755586 PID/start_ticks유지인계. 현재JEPA1428→1464,순차1200,joint209실제진행. root scheduling_v8_guarded_jepa_overlap,phase guarded_three_job_overlap. v7 controller2633960만종료했으며재기동금지.
 
@@ -1276,6 +1278,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 23:30 KST 대기열45GB→48GB,세trainer46.5GB→48GB실제적용. 새wrapper는등록main의유일46500000000상수만48000000000으로대체하고바이트코드/나머지상수불변검사통과. 모델별execution_user_memory_limit.json과양rank from_update resume proof확인. 원science121/이전실행6/새실행7hash불변. CPU검사3개/compile통과,loss/gradient유한. 기존세작업큰SSL부하카드peak약41.55GB. 근거 results/four_model_small_corpus_v1/user_48gb_policy_20261008.json.
 
 2026-10-08 23:05 KST 병행근거: 두LPWM+외부작업카드peak35.55–36.16GB,JEPA기존allocatedpeak7.139GB. 새JEPA allocator8.5GB+context예약.5GB/expandable_segments 적용,원래gradient checkpointing은이미활성이라변경없음. 최초재개후실측카드최대30.356GB,세학습양rankloss/gradient유한·양rankRNG복원검증. 원science121/이전실행5/새실행6hash불변. CPU검사4개/compile통과. 외부uisung2677360/2677361(각약2.8GB)확인만하고미변경. 근거 results/four_model_small_corpus_v1/guarded_jepa_overlap_20261008.json.
 
@@ -2212,12 +2216,14 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청으로 JEPA를1428 fullstate부터 두 LPWM과 병행 재개했다. 기존 LPWM은 재시작하지 않았다.
-- JEPA8.5GB allocator 상한과.5초 전체카드 감시/45GB JEPA만 저장대기하는 v8 대기열을 추가했다.
-- 실제 세학습 update·RNG복원·원본hash불변을 확인하고 메모리 보호 동작을 포함한 CPU검사4개를 통과했다.
-- 메모리 실측·외부작업 미변경·실행조건 유지·이전ETA 재산정 필요를 문서와 보고서에 기록했다.
+- 최신 사용자 지시대로 대기열45GB와 trainer46.5GB 보호중단 기준을 모두48GB로 바꿨다.
+- 세 작업의 fullstate를 한 번 저장하고 기존 optimizer/RNG/데이터순서로 즉시 재개해 실제 update 증가를 확인했다.
+- 학습 main의 바이트코드·나머지 상수 유지 및 중단 경계 검사3개를 통과했고 원등록source는 보존했다.
+- 새v9 실행 등록·모델별48GB 적용 증거·재개 지점·보고서를 문서에 기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 23:30 KST 세학습및pass1/3/5평가대기열계속. 48GB미만에서45/46.5기준으로의도적대기시키지않음. .5초전체카드감시가48GB이상일때JEPA저장대기,각trainer는48GB초과시저장보호. 보호후현재동반LPWM수감소시JEPA자동재개는유지. 기존JEPA8.5GB/joint27GB allocatorcap은유지. saved_before_policy_update에세fullstate hardlink·pause이력보존.
 
 2026-10-08 23:05 KST 세학습동시계속하며.5초간격으로전체카드VRAM기록. 45GB이상시JEPA만optimizer경계에서저장대기,동반LPWM유지;현재동반LPWM수보다작아지면자동재개. 기존46.5GB trainer저장보호/48GB사용자상한유지. 공동학습후JEPA재개만허용하던v7우선순위규칙은최신사용자지시로해제. pass1/3/5 CPU평가와최종비교는기존대로. JEPA최초1428fullstate는before_jepa_resume에hardlink보존.
 
@@ -2832,6 +2838,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 23:30 KST 이번정정은47GB중간메시지보다최신48GB지시우선. 기준은이전과같은decimalGB/카드전체사용량. 학습loss/배치/학습률/optimizer/데이터순서/정밀도/5pass불변,한번프로세스재개는명시하고무중단hotpatch라고부르지않음. 외부점유/비동기allocation까지물리적OOM불가를보장하지않는다. 현재세작업재개확인으로중단상태를남기지않았다.
 
 2026-10-08 23:05 KST 배치·LR·가중치·optimizer·데이터순서·loss·정밀도·학습량불변,JEPA메모리할당방식과실행순서만변경. 새source는별도wrapper/controller이며등록원본불변. GPU수치의bitwise동일성이나향후외부작업변화까지48GB유지를보장하는표현은금지. 현재는재개초기이며큰SSL부하를계속관측한다. 이전전체ETA13–16시는JEPA순차대기기준이므로병행속도축적후갱신해야함.
 
