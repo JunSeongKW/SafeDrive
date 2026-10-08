@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 16:34 KST (Codex)
+마지막 갱신: 2026-10-08 16:40 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 16:39 KST 진행 조회: LPWM SSL 2646/3275 update(80.79%), 4/5 epoch 검증 완료 후 5번째 epoch 진행. GPU0·1 각43.70 decimalGB, 조회 시 utilization100%. Queue294935/train136861/양rank138319·138320 생존. 이번 턴 실행·배치·설정 변경 없음.
 
 2026-10-08 원 DrivoR의 ego 이중 주입 재확인: 읽기 전용 조회, 실행 변경 없음.
 
@@ -1232,6 +1234,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 16:39 KST: 고정 held-out32clip 미래 MSE 초기0.068846→epoch1 0.025333→epoch2 0.024397→epoch3 0.024375→epoch4 0.023159. 미래 LPIPS 0.879012→0.524589→0.511373→0.506619→0.503160. 마지막 프레임 반복 MSE0.032324 대비 epoch4 28.35% 낮음. 양rank 비유한loss0, 2600update encoder/context/dynamics/decoder gradient 유한양수. 등록121 source/config 및 scheduler2개 해시 일치. 근거 `results/four_model_small_corpus_v1/progress_20261008_1639.json`.
 
 공식DrivoR clone fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a의drivor_model.py는git수정없음. 115–117행에서ego_token을generatorquery에더하고178–180행에서scorerattention출력에같은ego_token을더한다. 원공식구현의동작이다.
 
@@ -2120,9 +2124,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 원DrivoR모델파일의git무수정상태와generator/scorer양쪽ego_token덧셈을재확인했다. 같은embedding을재사용하며현재공통planner가이를그대로쓴다는점을명시했다. 실행변경없음.
+- 2026-10-08 16:39 KST 네 모델 축소 비교 진행 조회를 기록했다. LPWM SSL 진행률·epoch1–4 고정검증·양rank loss/gradient·GPU·PID·source hash 및 Stage1 잔여시간을 확인했다. 실험 코드·설정·학습·대기열 변경 없음. 근거 `results/four_model_small_corpus_v1/progress_20261008_1639.json`.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 16:39 KST: 기존 5epoch LPWM SSL 마무리→최종검증·gate→overlap_v2의 병렬 후보 profile/다음 작업을 유지한다. 최근100update wall 약3.82초 기준 Stage1 학습 잔여 약40.1분이며 최종검증 추가 필요. 나머지 세 조건 본학습 및 새 PDMS는 아직 없음.
 
 Generator앞/scorerattention뒤ego주입은공식동작으로유지한다. 새실험등록없음.
 
@@ -2697,6 +2703,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 16:39 KST: 현재 약80.8%는 LPWM Stage1만의 진행률이며 네 실험 전체 진행률이 아니다. 4epoch 영상 복원/미래예측 개선은 확인됐지만 주행 관련 객체 보존·16particle 적정성·planning 이득은 미검증. 이번 축소 비교의 새 PDMS가 나오기 전 기존82/83점과 혼합하지 않는다.
 
 이번ego이중주입확인은공식코드사실이다. Ego는motion뿐아니라pose·velocity·acceleration·driving command전체의11차원embedding이다.
 

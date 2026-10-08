@@ -1,0 +1,190 @@
+{
+  "checked_at": "2026-10-08T16:39:56.809324+09:00",
+  "scope": "four_model_small_corpus_v1: current progress, not historical LoRA/Adapter",
+  "queue": {
+    "status": "running",
+    "scheduler_pid": 294935,
+    "scheduler": "overlap_v2",
+    "phase": "lpwm_ssl",
+    "stage": "lpwm_ssl",
+    "pid": 136861,
+    "updated_unix": 1791445195.7824087,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "lpwm_ssl",
+        "pid": 136861,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl",
+        "command": [
+          "/rhome/junseong/envs/kjs-lpwm-navsim/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_lpwm_ssl.py",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl",
+          "--micro-batch",
+          "4",
+          "--accumulation",
+          "2",
+          "--epochs",
+          "5",
+          "--workers",
+          "4"
+        ]
+      }
+    ]
+  },
+  "ranks": [
+    {
+      "rank": 0,
+      "completed_updates": 2646,
+      "target_updates": 3275,
+      "progress_percent": 80.79389312977099,
+      "epoch_progress": 4.03969465648855,
+      "card_used_decimal_gb": 43.703599104,
+      "nonfinite_loss_records": 0,
+      "last_module_gradient_update": 2600,
+      "gradient_groups": {
+        "encoder": 33.20737838745117,
+        "context": 0.08014675974845886,
+        "dynamics": 0.9940568804740906,
+        "decoder": 18.802833557128906
+      },
+      "recent100_wall_seconds_per_update": 3.8206478128529557,
+      "recent100_compute_seconds_per_update": 3.1149537634849547
+    },
+    {
+      "rank": 1,
+      "completed_updates": 2646,
+      "target_updates": 3275,
+      "progress_percent": 80.79389312977099,
+      "epoch_progress": 4.03969465648855,
+      "card_used_decimal_gb": 43.703599104,
+      "nonfinite_loss_records": 0,
+      "last_module_gradient_update": 2600,
+      "gradient_groups": {
+        "encoder": 33.20737838745117,
+        "context": 0.08014675974845886,
+        "dynamics": 0.9940568804740906,
+        "decoder": 18.802833557128906
+      },
+      "recent100_wall_seconds_per_update": 3.8206478562017883,
+      "recent100_compute_seconds_per_update": 3.115128617286682
+    }
+  ],
+  "registered_source_count": 121,
+  "source_mismatches": [],
+  "scheduler_checks": {
+    "scripts/queue_four_model_small_corpus_overlap.py": true,
+    "configs/four_model_small_corpus/scheduling_overlap_v2.json": true
+  },
+  "validation": [
+    {
+      "label": "before_training",
+      "epoch": 0,
+      "clips": 32,
+      "mean": {
+        "reconstruction_mse": 0.06559659074991941,
+        "forecast_mse": 0.06884639628697187,
+        "persistence_mse": 0.03232372820639284,
+        "forecast_lower_half_mse": 0.03615382022690028,
+        "reconstruction_lpips": 0.8669711202383041,
+        "forecast_lpips": 0.8790117688477039,
+        "mean_presence": 0.726477425545454,
+        "position_std": 0.57819595746696,
+        "appearance_std": 0.43953497149050236
+      }
+    },
+    {
+      "label": "update655",
+      "epoch": 1,
+      "clips": 32,
+      "mean": {
+        "reconstruction_mse": 0.012942457527969964,
+        "forecast_mse": 0.025332888588309288,
+        "persistence_mse": 0.03232372820639284,
+        "forecast_lower_half_mse": 0.016038091882364824,
+        "reconstruction_lpips": 0.5122828232124448,
+        "forecast_lpips": 0.5245890356600285,
+        "mean_presence": 0.9990700874477625,
+        "position_std": 0.5559702068567276,
+        "appearance_std": 0.26585692865774035
+      }
+    },
+    {
+      "label": "update1310",
+      "epoch": 2,
+      "clips": 32,
+      "mean": {
+        "reconstruction_mse": 0.012656967577640899,
+        "forecast_mse": 0.02439667312137317,
+        "persistence_mse": 0.03232372820639284,
+        "forecast_lower_half_mse": 0.015400561285787262,
+        "reconstruction_lpips": 0.4967177100479603,
+        "forecast_lpips": 0.5113733885809779,
+        "mean_presence": 0.9984137881547213,
+        "position_std": 0.5569123048335314,
+        "appearance_std": 0.30361969070509076
+      }
+    },
+    {
+      "label": "update1965",
+      "epoch": 3,
+      "clips": 32,
+      "mean": {
+        "reconstruction_mse": 0.012526837293989956,
+        "forecast_mse": 0.024374932443606667,
+        "persistence_mse": 0.03232372820639284,
+        "forecast_lower_half_mse": 0.015517789899604395,
+        "reconstruction_lpips": 0.4905232973396778,
+        "forecast_lpips": 0.5066186618059874,
+        "mean_presence": 0.9795500561594963,
+        "position_std": 0.5571594443172216,
+        "appearance_std": 0.34004716388881207
+      }
+    },
+    {
+      "label": "update2620",
+      "epoch": 4,
+      "clips": 32,
+      "mean": {
+        "reconstruction_mse": 0.012282984229386784,
+        "forecast_mse": 0.02315908890159335,
+        "persistence_mse": 0.03232372820639284,
+        "forecast_lower_half_mse": 0.01470347693975782,
+        "reconstruction_lpips": 0.4854578571394086,
+        "forecast_lpips": 0.5031603192910552,
+        "mean_presence": 0.9285099860280752,
+        "position_std": 0.5585874430835247,
+        "appearance_std": 0.36747089214622974
+      }
+    }
+  ],
+  "forecast_mse_reduction_from_initial_percent": 66.36121837799685,
+  "forecast_mse_reduction_vs_persistence_percent": 28.35266788002181,
+  "stage1_training_remaining_minutes": 40.05312457140849,
+  "stage1_training_eta": "2026-10-08T17:19:59.996798+09:00",
+  "eta_excludes_final_validation_and_queue_profiling": true,
+  "new_planning_training_started": false,
+  "new_pdms_available": false,
+  "host_pid_check": {
+    "torchrun": 136861,
+    "rank0": 138319,
+    "rank1": 138320,
+    "scheduler": 294935,
+    "all_alive": true
+  },
+  "gpu_utilization_percent_at_163802": [
+    100,
+    100
+  ],
+  "notes": [
+    "Fixed 32 held-out-recording SSL clips; two observed frames predict six future frames (3 seconds).",
+    "Image metrics do not establish object preservation or planning benefit.",
+    "Other three scientific conditions have not started training; engineering profiles do not count as trained results.",
+    "Old paused.json is from update219 and is not current status."
+  ]
+}
