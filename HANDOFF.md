@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 22:02 KST (Codex)
+마지막 갱신: 2026-10-08 22:05 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 22:05 KST DrivoR 종료시간 조회: 2741/3200(85.66%),잔여459update. 기존v6 controller2415190과3학습계속,LPWMjoint87대기. 실행변경없음.
 
 2026-10-08 22:02 KST 다음 작업 계획 조회: v6 복구 대기열 유지, DrivoR 2692/3200·JEPA 1077/3200·LPWM순차 823/3200 진행, LPWMjoint87에서메모리대기. LPWM/JEPA SSL은각5pass완료. 이번턴실행·조건변경없음.
 
@@ -1264,6 +1266,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 22:05 KST DrivoR 최근50/100/200update의누적wall차이기준 3.173–3.275초/update. 이전pass1/3 추론+저장약28/23초,CPU공식PDMS24/22초. 근거 results/four_model_small_corpus_v1/drivor_completion_eta_20261008.json.
 
 2026-10-08 22:02 KST 현재완료dev PDMS: DrivoR pass1 66.9414/pass3 78.3977, JEPA pass1 66.9890, LPWM순차 pass1 64.9743. 모두동일독립1024scene이며서로다른pass를최종우열비교하지않음. 근거 results/four_model_small_corpus_v1/next_work_plan_20261008.json.
 
@@ -2188,11 +2192,12 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 복구 대기열과 실제 진행을 읽기 전용으로 확인하고 남은 5pass 학습·검증·최종 비교 순서를 정리했다.
-- 자동화된 작업과 후속 표현 분석 계획을 구분해 상태 보고서와 인수인계에 기록했다.
-- 학습 코드·배치·학습률·대기열은 변경하지 않았다.
+- DrivoR 실제 잔여 update와 최근50/100/200update 처리량으로 학습·평가 종료시간을 각각 추정했다.
+- 기존 검증 소요시간과 추정 조건을 보고서 및 인수인계에 기록했다. 학습·대기열 변경은 없다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 22:05 KST 현재부하유지시DrivoR 학습종료10/8 22:30–22:35KST,독립dev1024 최종PDMS포함22:32–22:38추정. 학습3200→GPU추론/저장→CPU채점은이미자동연결. 이번시간추정으로대기열수정없음.
 
 2026-10-08 22:02 KST 다음순서: 현재세planner 계속→예약메모리충족시joint87자동재개→각1/3/5pass 독립dev1024의예측/CPU공식PDMS→고정pass5네조건비교. 모든planning목표는5pass/3200update이며25epoch아님. 비교시PDMS·ADE/FDE·명령별세부지표와학습량/연산비용을함께정리. 표현분석은고정장면의particle전후/겹침및미래표현개입을검토할계획이며현재자동대기열에새진단이나학습을추가하지않았다.
 
@@ -2795,6 +2800,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 22:05 KST ETA는현재3작업부하와최근wall처리량기준이며추가보호중단·평가대기·서버부하변화시달라진다. 해당시간은DrivoR만의종료이며전체네실험완료시간이아니다. 결과는전체navtest가아닌독립dev1024.
 
 2026-10-08 22:02 KST 이번요청은다음계획설명이며새실험기동아님. 현대기열은학습/1·3·5pass평가/최종JSON까지만자동화됨. 결과해석은공통planner상태에서의시스템비교와LPWM순차vsjoint의경향성에한정;초기사전학습/백본규모차이·1seed·부분dev의제약유지. 위치이동만으로planning효용판정금지,표현개입등추가진단은필요시다음분석으로명시.
 

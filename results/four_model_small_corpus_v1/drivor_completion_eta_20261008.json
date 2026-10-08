@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-10-08T22:05:30.222594+09:00",
+  "completed_updates": 2741,
+  "target_updates": 3200,
+  "remaining_updates": 459,
+  "percent_complete": 85.65625,
+  "recent_wall_seconds_per_update": {
+    "50": 3.1732354974746704,
+    "100": 3.275062258243561,
+    "200": 3.251004993915558
+  },
+  "central_training_eta_range": [
+    "2026-10-08T22:29:46.737687+09:00",
+    "2026-10-08T22:30:33.476171+09:00"
+  ],
+  "planning_training_eta_kst": "2026-10-08 22:30–22:35",
+  "final_development_pdms_eta_kst": "2026-10-08 22:32–22:38",
+  "prior_pass_inference_and_save_seconds": [
+    27.91,
+    23.34
+  ],
+  "prior_cpu_pdms_seconds": [
+    24.13,
+    22.14
+  ],
+  "conditions": "Current three-job workload continues, no new pause, short CPU scoring queue",
+  "evaluation_scenes": 1024,
+  "full_navtest": false,
+  "queue_or_training_changes": false
+}
