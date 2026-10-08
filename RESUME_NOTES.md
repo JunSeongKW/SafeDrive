@@ -4172,3 +4172,12 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-09 01:04 KST 회복부하유지시10/9KST 계획예상:JEPA학습01:45–02:00/최종평가01:50–02:05,LPWM순차학습04:40–05:20/평가04:50–05:30,LPWMjoint학습12:00–14:00/평가12:15–14:15. 기존peer완료후조건부배치증설은그대로자동검토,단축률은미측정으로ETA에확정반영하지않음.
 
 2026-10-09 01:04 KST ETA는현회복속도가유지되는조건이며직전서버지연재발시특히joint완료가수시간늦어질수있음. 현재native단독/micro4 실제속도는미측정. DrivoR는10/8 22:30:39학습/22:31:32평가완료,전체비교마무리는joint최종평가후다. 원격인증실패이력유지.
+
+
+## 2026-10-09 01:21 KST — 현재 VRAM 여유에서 배치 4 즉시 시험 연결
+
+사용자의 현재 배치 증설 점검 요청에 따라 별도 v11 controller3759839를 실행했다. 기존 v10 coordinator3700728만 종료했고 순차3331466·공동3331469·JEPA3331473 학습 PID와 상태는 그대로 인계했다. 원121 scientific source/config 및 실행등록10 hash 불변, 새 메모리 admission 검사2개 통과했다.
+
+평상시 전체 카드 약30.35GB, 기존 큰 SSL 배치 최대41.555GB를 사용했다. 순차 allocator peak5.581GB를 제외한 동반 메모리35.975GB를 보호하면 순차 micro4의 예상 전체 peak46.05GB가48GB 내에 들어온다. micro8과 jointmicro4는 현재 세 작업 병행에서 예측상 불가하다. 단순 idle 메모리 대신 allocator 최대와 전체 카드 최대를 함께 사용한다.
+
+LPWM 순차3epoch의 기존 GPU 검증을 마친 뒤 안전한 경계에서 fullstate를 저장하고, 같은 snapshot의 micro2/micro4 각8update disposable 속도를 비교한다. 5% 이상 속도 개선·양rank 유한 loss/gradient·연속 카드48GB 아래이면 micro4/accum2로 원 상태를 재개한다. 불리하거나 실패하면 원 micro2/accum4를 유지한다. effective16·LR·optimizer/scheduler·계획된 노출량 유지, profile weights폐기, 동일PDMS 보장 없음. 새 경로 scheduling_v11_measured_batch_growth, source scripts/queue_small_corpus_batch_growth_now.py. 현재 실측 시험 결과는 아직 대기 중이다.
