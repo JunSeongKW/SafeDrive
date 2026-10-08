@@ -340,7 +340,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 09:05 KST (Codex)
+마지막 갱신: 2026-10-08 09:19 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -507,6 +507,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+Drive-JEPA 주행 영상 SSL 재사용 조사 완료. 기존 두 학습/평가/대기열 변경 없음. 새 대규모 다운로드·학습·GPU profile은 실행하지 않았다.
 
 2026-10-08 09:05 KST: 원본LPWM의시간관측/teacher forcing/표준forecast와context재생/정책추론을조사했다. 현재학습/queue변경없음.
 
@@ -1102,6 +1104,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Drive-JEPA 방법과 공개데이터는 활용 가능하나 정확330h manifest/주행전용SSL config는 미확인. CoVLA 및 DrivingDojo는 HF gated이며 확인한 배포분 합계만1.309TB로 신규원본1TB한도 초과. 로컬 OpenScene1,310log는 실제sensor누락이 있어 전체영상량과 다르다. 7log 파일존재 감사 및 실제8frame/2Hz/512×256 CPU전처리 통과. 기존주행ViT50epoch checkpoint5.13GB 존재. 상세 `results/lpwm_drivor_planning_path_lora_v1/drive_jepa_video_pretraining_feasibility_20261008.json`.
 
 원본LPWM이미지encoder는frame독립이고context/dynamics가시간결합한다. Sketchy공개hparams상학습21frame/cond_steps10(README6override예시),BAIR17/1로단일관측도지원한다. 학습은teacher forcing+frame복원/particleKL/contextKL등,표준추론은observed prefix→prior/dynamics autoregression이다. use_all_ctx=True는전체실sequence의context를보는재생진단으로futureforecast와구분한다. 정책논문A.5도현재obs+goal에서시작가능. 근거results/lpwm_drivor_planning_path_lora_v1/original_lpwm_temporal_protocol_20261008.json.
 
@@ -1937,11 +1941,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 원본 LPWM의 학습 sequence/teacher forcing/loss와 추론 관측 prefix·context prior 경로를 공식 코드·논문에서 검증했다.
-- Sketchy 및 다른 데이터셋의 관측 수, 단일 관측 지원, 전체 실제 context 재생과 표준 미래 생성의 차이를 JSON과 문서에 기록했다.
-- 원본 정책 학습·현재 관측에서의 배포 예시를 확인했다. 현재 등록 학습·평가·대기열은 변경하지 않았다.
+- Drive-JEPA 논문·공개 generic V-JEPA 코드와 데이터 접근/저장 규모를 조사하고 정확 재현에 남은 정보를 구분했다.
+- OpenScene 7log의 실제 영상 존재와 연속8frame 전처리를 CPU로 검사하고 기존 주행 ViT checkpoint의 재사용 가능성을 기록했다.
+- LPWM SSL/JEPA 이식/고정 teacher 옵션과 공정 비교 조건을 문서 및 JSON에 기록했다. 현재 등록 학습·평가·대기열 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+새 학습을 자동등록하지 않는다. 후속주행SSL 실험에서는 기존OpenScene 실제연속clip manifest/평가recording 제외를 우선확정하고,외부데이터 접근조건·선택shard/저장한도·LPWM목적/해상도변경을설계한다. Drive-JEPA의기존ViT를baseline/teacher로쓰는옵션은별도검증한다.
 
 원본LPWM설명요청에따른새실험/설정변경없음. 원본추론재현시cond_steps실행override와use_all_ctx분기를기록한다. 미래효용검증에는미래실영상을context로제공하는재생결과를사용하지않는다.
 
@@ -2465,6 +2471,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Drive-JEPA 데이터 재사용과 ViT JEPA 목적의 LPWM 이식은 구분한다. 원본ViT가중치는LPWM에직접로드불가. 전체330h curation,외부HF계정접근권한,로컬유효영상총시간,새SSL메모리/학습시간은미확인이다. 영상SSL 자체가주행의도별표현선택을보장하지않는다.
 
 원본LPWM은관측여러frame과1frame모두지원한다. Sketchy cond_steps10은공개설정값이며모든공식평가에고정된요구가아니다. 원본정책추론현재1frame예시가NAVSIM1frame충분성을입증하지않는다. num_static_frames와cond_steps를혼동하지않는다.
 

@@ -3615,3 +3615,21 @@ CPU전용 `scripts/visualize_lpwm_largest_particle_changes.py` 추가, `--update
 공개config와다운로드Sketchyhparams는horizon20/학습21frames/cond_steps10이다. README의Sketchy예시-c6과생성CLI기본fallback=horizon20도있으므로실행별override를구분한다. Traffic21/6,BAIR17/1,Bridge25/2로관측수는설정별이며1frame도정식지원된다. num_static_frames=1은KL의static구간수이지추론관측1장지정이아니다.
 정책학습논문A.5에서는LPWM고정후실영상inverse latent actions→action mapping을L1로학습한다. 배포예시는현재obs+goal에서prior/dynamicsrollout후생성particletrajectory의inverse latent actions를mapping에넣으므로현재1관측출발자체는원본과불일치가아니다. 우리의planningloss LoRA/DrivoRplanner와원본정책방식은다르다.
 현재본학습1frame/기존Adapter4frame의관측차이는유지했다. 원본이무조건여러frame을요구한다거나원본1frame지원이NAVSIM충분성증거라는주장을하지않는다. 근거 `results/lpwm_drivor_planning_path_lora_v1/original_lpwm_temporal_protocol_20261008.json`. 등록학습/평가/대기열변경없음.
+
+
+## 2026-10-08 — Drive-JEPA 주행 영상 사전학습 재사용 가능성
+
+검증할 하위 질문은 더 넓은 주행 영상의 자기지도 적응이 의도 조건부 planning에 필요한 particle의 움직임 정보를 개선하는가이다. 이번 요청은 가능성 조사이며 기존 두 학습·평가·대기열을 변경하지 않았다.
+
+논문 https://arxiv.org/html/2601.22032v2 는 V-JEPA2 초기화, CoVLA/DrivingDojo/OpenScene trainval의 전방 영상 330시간, 8frame·2Hz·512×256, H800 8대에서 50epoch 약3일을 보고한다. 공개 Drive-JEPA checkout의 generic V-JEPA encoder/predictor/EMA 학습 코드는 확인했지만 동일330시간 clip manifest·데이터별 혼합률·주행 전용 SSL YAML은 확인하지 못했다. 포함된 generic YAML은16frame/4Hz/정사각256/generic video sources여서 논문 주행 설정이 아니다. RGB 복원 대신 가려진 위치의 target latent를 예측하며 target branch는stop-gradient/EMA다. 무작위 시공간 마스킹을 엄격한 과거→미래 예측과 동일시하지 않는다.
+
+- CoVLA 공식 HF는10,000×30초/80시간 이상, 저장소452GB. 로그인·연락처 공유·조건 동의가 필요하며 현재 계정 승인 여부는 확인하지 않았다. 데이터 이용 조건은 학술/비상업 목적이며 코드 라이선스와 구분한다.
+- DrivingDojo 공식 문서는약18,000영상/45archive다. 확인한 base/Extra1/Extra2만283+283+291GB이고 모두gated다. Base Apache-2.0와Extra CC-BY-NC-SA-4.0가 달라 전체를단일license/283GB로표기하지않는다. CoVLA와 이세저장소만 합해도약1.309TB로신규원본1TB정책을넘는다. 전체다운로드는실행하지않았다.
+- OpenScene 공식trainval카메라archive는1.1TB이며RGB SSL에LiDAR는필요없다. 로컬trainval1,310log는메타데이터규모이지연속영상보유량이아니다. 7log의메타데이터와실제CAM_F0를대조했고다수누락을확인했다. 현재NAVSIM current/history subset만으로330시간확보를주장할수없다.
+- CPU검사에서첫log의339번부터8장을실제로decode하고1920×1080→512×256 RGB BICUBIC변환에성공했다. 인접간격약0.5초,첫끝3.498873초다. 이것은전처리가능성확인이며논문crop을재현했다는검사는아니다. 전체유효시간은아직집계하지않았다.
+
+LPWM에는동일주행영상으로원래particle/영상SSL을적용하는것이가장직접적인확장이다. 현재128×128 LPWM에512×256을넣거나ViT가중치를그대로로드할수있다고가정하지않는다. JEPA목적을particle에적용하려면target대응·collapse방지·gradient경로설계가별도로필요하다. 주행사전학습50epoch의ViT `runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt`(5,127,748,765bytes)는이미존재한다. 이를별도baseline또는고정featureteacher로활용하면ViT주행재학습을생략할수있지만LPWM증류효과는미검증이다.
+
+우선기존OpenScene에서실제연속clip목록과recording별분리를확정하고LPWM SSL조건을설계하는것을권고한다. Navtest/Navhard 등평가recording과인접frame은새SSL학습목록에서제외하고,외부데이터노출·해상도·관측수·planner·배치·seed를대조조건에명시한다. 외부영상SSL만으로명령별선택표현이학습되는것은아니므로planning/ego intent 적응은별도검증한다. 8frame사전학습은추론8frame을강제하지않는다. GPU0·1은A6000이며현재기존학습중으로새SSL GPUprofile을하지않았고소요시간을단정하지않았다.
+
+근거: [조사 JSON](../results/lpwm_drivor_planning_path_lora_v1/drive_jepa_video_pretraining_feasibility_20261008.json), [CoVLA](https://huggingface.co/datasets/turing-motors/CoVLA-Dataset), [DrivingDojo 데이터 문서](https://github.com/Robertwyq/Drivingdojo/blob/main/docs/DATASET.md), [OpenScene 데이터 문서](https://github.com/OpenDriveLab/OpenScene/blob/main/docs/getting_started.md).

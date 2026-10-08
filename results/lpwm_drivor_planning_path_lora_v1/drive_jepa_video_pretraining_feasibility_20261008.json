@@ -1,0 +1,186 @@
+{
+  "recorded_at": "2026-10-08T09:19:26+09:00",
+  "question": "Reuse Drive-JEPA driving-video pretraining data and method for the current LPWM research",
+  "scope": "Feasibility investigation; no new downloads, training jobs, or changes to registered training sources/configuration/queues",
+  "research_subquestion": "Does broader self-supervised driving-video adaptation improve particle motion information available to intent-conditioned planning?",
+  "paper": {
+    "url": "https://arxiv.org/html/2601.22032v2",
+    "initialization": "V-JEPA 2 released encoder",
+    "datasets": [
+      "CoVLA",
+      "DrivingDojo",
+      "OpenScene trainval"
+    ],
+    "camera": "front",
+    "frames_per_clip": 8,
+    "frames_per_second": 2,
+    "image_width": 512,
+    "image_height": 256,
+    "curated_hours": 330,
+    "reported_pretraining_gpus": "8 H800",
+    "reported_pretraining_epochs": 50,
+    "reported_pretraining_duration_days": 3
+  },
+  "public_code_audit": {
+    "repository": "reference_repositories/Drive-JEPA",
+    "commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "generic_vjepa_train": "navsim_v1/vjepa2/app/vjepa/train.py",
+    "generic_yaml": "navsim_v1/vjepa2/configs/train/vitl16/pretrain-256px-16f.yaml",
+    "loss": "Masked target representation regression; encoder and predictor receive gradient, target encoder uses stop-gradient and EMA",
+    "exact_driving_clip_manifest_found": false,
+    "exact_driving_pretrain_config_found": false,
+    "search_scope": "README and tracked-looking py/yaml/yml/sh/md files in local checkout; absence is limited to inspected public assets",
+    "generic_config_difference": "16 frames, 4Hz, square 256 crop, generic video datasets; not the driving-paper recipe",
+    "caution": "Spatiotemporal mask completion is not necessarily strictly past-to-future forecasting"
+  },
+  "available_checkpoint": {
+    "path": "runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+    "bytes": 5127748765,
+    "sha256_previously_verified": "4649182770ef68f84a001780c6579435345948fd80f186fa3616ab078ced668f",
+    "role": "Driving-domain ViT encoder checkpoint; cannot be directly loaded into the LPWM CNN/context/dynamics architecture"
+  },
+  "dataset_access": [
+    {
+      "name": "CoVLA",
+      "source": "https://huggingface.co/datasets/turing-motors/CoVLA-Dataset",
+      "clips": 10000,
+      "clip_seconds": 30,
+      "reported_repository_gb": 452,
+      "access": "HF login, contact-information sharing and terms acceptance; current account approval not checked",
+      "terms_note": "Academic/noncommercial dataset terms must be reviewed separately from software licensing",
+      "local_copy_found_in_checked_roots": false
+    },
+    {
+      "name": "DrivingDojo",
+      "source": "https://github.com/Robertwyq/Drivingdojo/blob/main/docs/DATASET.md",
+      "approximate_clips": 18000,
+      "documented_archives": 45,
+      "repositories_checked": [
+        {
+          "url": "https://huggingface.co/datasets/Yuqi1997/DrivingDojo",
+          "gb": 283,
+          "card_license": "Apache-2.0"
+        },
+        {
+          "url": "https://huggingface.co/datasets/Yuqi1997/DrivingDojo-Extra1",
+          "gb": 283,
+          "card_license": "CC-BY-NC-SA-4.0"
+        },
+        {
+          "url": "https://huggingface.co/datasets/Yuqi1997/DrivingDojo-Extra2",
+          "gb": 291,
+          "card_license": "CC-BY-NC-SA-4.0"
+        }
+      ],
+      "access": "Gated HF repositories; account approval not checked",
+      "caution": "Base repository size and license must not be presented as those of all shards",
+      "local_copy_found_in_checked_roots": false
+    },
+    {
+      "name": "OpenScene trainval",
+      "source": "https://github.com/OpenDriveLab/OpenScene/blob/main/docs/getting_started.md",
+      "documented_camera_archive_tb": 1.1,
+      "local_log_count": 1310,
+      "local_root": "dataset/navsim_logs/trainval",
+      "sensor_root": "dataset/sensor_blobs/trainval",
+      "availability": "Some front-view continuous clips verified; local NAVSIM sensor subset does not cover every metadata frame",
+      "valid_total_hours": "not measured"
+    }
+  ],
+  "bounded_local_frame_audit": {
+    "criterion": "All eight CAM_F0 files exist, and each metadata interval lies between 0.4 and 0.6 seconds; windows overlap",
+    "logs": [
+      {
+        "sorted_log_index": 0,
+        "metadata_frames": 398,
+        "existing_front_images": 9,
+        "valid_eight_frame_windows": 2
+      },
+      {
+        "sorted_log_index": 100,
+        "metadata_frames": 498,
+        "existing_front_images": 82,
+        "valid_eight_frame_windows": 19
+      },
+      {
+        "sorted_log_index": 250,
+        "metadata_frames": 224,
+        "existing_front_images": 14,
+        "valid_eight_frame_windows": 0
+      },
+      {
+        "sorted_log_index": 500,
+        "metadata_frames": 361,
+        "existing_front_images": 78,
+        "valid_eight_frame_windows": 31
+      },
+      {
+        "sorted_log_index": 750,
+        "metadata_frames": 2154,
+        "existing_front_images": 450,
+        "valid_eight_frame_windows": 200
+      },
+      {
+        "sorted_log_index": 1000,
+        "metadata_frames": 162,
+        "existing_front_images": 43,
+        "valid_eight_frame_windows": 18
+      },
+      {
+        "sorted_log_index": 1309,
+        "metadata_frames": 648,
+        "existing_front_images": 234,
+        "valid_eight_frame_windows": 157
+      }
+    ],
+    "caution": "Small availability audit, not a statistical estimate of full corpus hours or image decoding validity"
+  },
+  "cpu_preprocessing_smoke": {
+    "passed": true,
+    "python": "/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python",
+    "log": "2021.05.12.19.36.12_veh-35_00005_00204.pkl",
+    "start_index": 339,
+    "decoded_frames": 8,
+    "source_width_height": [
+      1920,
+      1080
+    ],
+    "output_width_height": [
+      512,
+      256
+    ],
+    "resize": "RGB BICUBIC, feasibility only; exact paper crop protocol not established",
+    "intervals_seconds": [
+      0.500095,
+      0.500175,
+      0.500094,
+      0.499705,
+      0.49948,
+      0.499567,
+      0.499757
+    ],
+    "first_to_last_seconds": 3.498873
+  },
+  "constraints": {
+    "new_raw_dataset_cap_tb": 1,
+    "new_raw_dataset_root": "/home/user/data/processed_dataset",
+    "shared_originals_readonly": true,
+    "approximate_covla_plus_three_drivingdojo_repositories_tb": 1.309,
+    "gpus_allowed": [
+      0,
+      1
+    ],
+    "gpu_model": "RTX A6000 48GB",
+    "training_memory_or_time_profile_for_this_pretraining": "not performed",
+    "note": "Both GPUs already run existing experiments; paper H800 runtime cannot be transferred to this server"
+  },
+  "assessment": {
+    "reuse_datasets": "Yes, subject to access, training-only recording manifest and storage budgeting",
+    "reuse_exact_vjepa_recipe": "Generic implementation is available; exact 330-hour curation/mixture/crop/training configuration remains unverified",
+    "reuse_for_lpwm": "LPWM SSL on these videos is feasible after data loader/config changes; JEPA loss and ViT weights are not a drop-in replacement for particle SSL",
+    "teacher_option": "Existing driving-pretrained encoder can be a frozen feature teacher; particle-to-feature alignment and gradient routing require new design and validation",
+    "recommended_first_step": "Establish training-only continuous clip manifest from existing OpenScene images and compare driving-video SSL before planning under controlled downstream conditions",
+    "future_exclusion": "Exclude evaluation recordings/adjacent frames from any locally curated adaptation corpus; audit rather than assume absence of overlap",
+    "fair_comparison": "Report and control external pretraining exposure, camera/history/resolution, planner, batch and seed in register-versus-particle comparisons"
+  }
+}
