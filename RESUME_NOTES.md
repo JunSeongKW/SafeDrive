@@ -4194,3 +4194,14 @@ LPWM 순차 saved1937로 micro2/micro4 각8update 시험을 완료했다. 양ran
 결과 results/four_model_small_corpus_v1/measured_batch_growth_20261009.json. 단기 candidate profile의33.14GB를 이후 모든 doubled-SSL peak로 단정하지 않는다. 기존41.555GB overlap과joint allocator26.251GB 최대를 사용한35.975GB companion budget을 보호했다. inherited final_profile_update_exercises_doubled_ssl:true는 순차에 적용되지 않는 공통 태그이며 순차 planning에는SSL이없다.
 
 코드 로컬commit008d00a. git push mine sandbox DNS실패 후 host재시도는GitHub에접속했으나VSCode credential socket ECONNREFUSED/anonymous write거부로실패. 학습과 로컬 산출물은 정상 유지, 원격 공유 인증 복구가 남는다.
+
+
+## 2026-10-09 01:47 KST — 네 축소 실험의 최신 중간 결과
+
+진행: DrivoR3200/3200 완료,JEPA3154/3200(98.56%),LPWM순차2041/3200(63.78%),공동682/3200(21.31%). v11controller3759839와세학습계속,실행설정변경없음. 순차micro4/accum2,나머지micro2/accum4,유효16/48GB 유지.
+
+동일 독립dev1024장면의pass1/3/5PDMS: DrivoR66.941417/78.397695/81.253529,JEPA66.988966/74.696960/미완료,순차64.974333/70.091745/미완료,공동61.733126/미완료/미완료. 새순차3epoch ADE3.286484m/FDE7.689972m,공동1epoch4.685708m/10.741339m,평가실패0. 순차3epoch 명령별PDMS 좌72.589930/직진72.227188/우58.745489.
+
+순차1→3epoch+5.1174점이나같은3epoch JEPA보다4.6052/DrivoR보다8.3060점낮다. 공동1epoch는순차1epoch보다3.2412점낮음. 현재particle의planning우위미확인,최종5epoch비교미완료이며공동1epoch로실패/포화단정하지않는다. 전체navtest/원논문재현아닌공통planner·1seed·작은dev 비교다.
+
+양rank최근100row loss/gradient비유한0,원science121/실행10hash불변. 큰SSL중전체카드peak44.319GB로48GB이내. 결과 results/four_model_small_corpus_v1/progress_20261009_0147.json. 기존pass1/3/5검증·peer완료후조건부batch검토·최종비교대기열유지. Git원격인증실패이력유지.

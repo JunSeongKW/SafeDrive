@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 01:39 KST (Codex)
+마지막 갱신: 2026-10-09 01:49 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 01:47 KST — 현재 결과 조회: DrivoR3200/3200 완료, JEPA3154/3200(98.56%), LPWM순차2041/3200(63.78%), 공동682/3200(21.31%). v11 controller3759839와 세 학습 계속, 실패 marker 없음. 순차 micro4/누적2, JEPA·공동micro2/누적4, 유효16 유지. 이번 턴에서는 실행·학습 설정을 변경하지 않았다.
 
 2026-10-09 01:38 KST — 즉시 배치 비교 완료 후 LPWM 순차는 원 fullstate1937에서 GPU당 micro4·누적2·GPU2=유효16으로 재개했다. 새 순차 trainer3816644, v11 controller3759839 유지. 양rank1938→1955의18회 실제 업데이트 확인; JEPA3050/공동661은 기존 PID3331473/3331469로 계속 진행했다. 원 등록의 micro2는 역사 기록이며 실제 설정은 `lpwm_sequential/active_batch_execution.json`과 별도 `batch_execution/`을 확인한다.
 
@@ -1296,6 +1298,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 01:47 KST — 新완료 평가: 순차3epoch PDMS70.091745/ADE3.28648m/FDE7.68997m, 공동1epoch PDMS61.733126/ADE4.68571m/FDE10.74134m. 동일독립dev1024·평가실패0. 순차1→3epoch PDMS+5.1174지만 같은3epoch JEPA74.696960 대비−4.6052, DrivoR78.397695 대비−8.3060. 공동1epoch는순차1epoch64.974333보다−3.2412. 순차3epoch 명령별PDMS 좌72.5899/직진72.2272/우58.7455. DrivoR5epoch81.253529 유지,JEPA5epoch아직미완료. 양rank 최근100row loss/gradient비유한0, 원source121/실행10hash불변. GPU큰SSL중실측peak44.319GB로48GB이내. 근거 `results/four_model_small_corpus_v1/progress_20261009_0147.json`.
 
 2026-10-09 01:38 KST — 같은 saved1937로 각8update 시험: micro2 중앙값8.4938초 vs micro4 5.0162초, 처리량1.693배/업데이트 시간40.94% 감소. 후보 시험의 연속 전체 카드 최대33.139GB, allocator 최대8.495GB로 통과했다. 본학습 재개 첫53.67초의 로딩을 제외한17회 중앙값4.7608초, 양rank loss/gradient 비유한0, RNG 원 snapshot 동일 복원 확인. 원 science121/실행10 hash 불변. 근거 `results/four_model_small_corpus_v1/measured_batch_growth_20261009.json` 및 v11 `batch_trials/lpwm_sequential/1937/decision.json`. 순차3epoch의 기존 평가도 누락 없이 완료됐으며 PDMS70.0917/실패0은 증설 이전 체크포인트의 점수다.
 
@@ -2252,11 +2256,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 같은 체크포인트의 GPU 배치 2·4 실측을 완료하고, LPWM 순차에 GPU당 배치4·누적2를 적용해 원 optimizer/scheduler/RNG에서 재개했다.
-- 업데이트 시간40.94% 감소, 후보 전체 카드 최대33.139GB, 재개18회와 양rank 유한 loss/gradient 및 RNG 복원을 결과 JSON에 기록했다.
-- 순차3epoch 검증 보존, 기존 동반 학습 PID 유지, source121/실행10 hash 불변 및 유효16/48GB 상한을 확인했다. 원격 push는 호스트 재시도에서도 인증 오류로 실패해 로컬 커밋만 보존했다.
+- 네 축소 실험의 최신 진행률과 pass1/3/5 PDMS·ADE/FDE·명령별 지표를 공통dev1024 기준으로 조회해 결과 JSON에 기록했다.
+- LPWM순차3epoch70.0917/공동1epoch61.7331의 새 평가와 같은epoch baseline 차이를 정리했다. 현재 particle 표현의 planning 우위는 미확인이다.
+- 세 학습의 실행 설정은 유지하고, 양rank loss/gradient 유한성·등록source hash·실측 최대44.319GB를 확인했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 01:47 KST — 기존 학습/검증 대기열 유지. JEPA3200의5epoch 평가, LPWM순차5epoch와 공동3/5epoch 평가가 남아 있다. 비교는같은완료epoch/동일dev1024로하고, 서로다른현재update의최신PDMS처럼표시하지않는다. 새진단·추가학습·실행설정변경없음.
 
 2026-10-09 01:38 KST — 순차micro4/누적2와 JEPA·공동micro2/누적4를 현재 세 작업 병행으로 계속한다. 기존 pass1/3/5 dev1024 평가 및 최종비교 자동화 유지. 동반 실험 완료 시 이후 후보를 다시 검토하되 protected 최대 메모리와 실제 속도 기준을 통과한 설정만 적용한다. 증설 작업 메모리 실패 시 해당 학습만 원 batch2로 복귀하는 기존 rollback 유지. 새 학습/데이터/진단을 추가하지 않는다.
 
@@ -2891,6 +2897,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 01:47 KST — 현재LPWM planning 개선은진행중이나같은epoch baseline보다낮다. 공동1epoch수치로최종실패/포화를결론내리지않는다. 공통DrivoR planner의축소1seed 비교이며전체navtest/원논문재현/particle 단독인과효과가아니다. 이번진행률은planning목표3200/5epoch 기준,JEPA·순차의별도SSL은이미5pass완료. 원격인증실패이력유지.
 
 2026-10-09 01:38 KST — 40.94% 단축은 짧은 동시 실행 시험의 업데이트 시간 기준이다. 전체 실험 종료까지의 단축률은 동반 작업 완료·서버 부하·추후 증설에 따라 달라진다. 유효16·LR·계획 노출 보존, 물리 배치에 따른 난수/합산 차이와 동일PDMS 미보장은 유지한다. inherited `final_profile_update_exercises_doubled_ssl:true`는 공통 profile schema 필드로 순차 시험에는 SSL이 없다; 동반 공동학습의 기존 doubled-SSL 최대를 메모리 예산으로 보호한 것이다. 이 태그를 순차에서 SSL 재학습했다는 근거로 해석하지 않는다. 원격 인증 실패로 commit008d00a는 아직 로컬이며 원격 공유 복구가 남는다.
 
