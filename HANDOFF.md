@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 22:38 KST (Codex)
+마지막 갱신: 2026-10-08 22:51 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 22:51 KST 전체ETA조회: v7현순서유지,DrivoR완료/LPWM순차1114/LPWMjoint159/JEPA1428저장대기. 학습/평가/대기열변경없음.
 
 2026-10-08 22:38 KST 네조건데이터동일성조회: 기존v7대기열/학습설정유지,데이터추가·재학습·실행순서변경없음.
 
@@ -1272,6 +1274,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 22:51 KST 최근wall속도 LPWM순차약9.8–10.0초/update, joint약15초/update(재개후약70update), JEPA중단전약4.9–5.3초/update. 이전전체dev추론LPWM304초/JEPA104초,CPUDrivoR PDMS22–26초. central계산의전체완료는10/09 14:39 KST. 근거 results/four_model_small_corpus_v1/full_study_eta_20261008.json.
 
 2026-10-08 22:38 KST 네planning등록의manifest SHA d08760b560235353da8f297d7beee6807e772f36c7d42c6c1b2ae73548896394가실제manifest와모두일치. navtrain10240/101recording,navval1024/61recording,기록중복0. planning5pass/51200노출/3200update/유효16/4800+epoch순서공통. JEPA·LPWM순차·LPWMjoint의SSL은동일OpenScene10480clip×5=52400노출목표,실제prepare_records함수로목록·4700+pass순서를재구성해LPWMStage1저장hash16535cf4…와일치확인. DrivoR는이추가SSL없음. SSL훈련과planningdev기록중복0,원science121불변. 근거 results/four_model_small_corpus_v1/dataset_comparison_audit_20261008.json.
 
@@ -2204,11 +2208,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 네 조건의 실제 planning manifest 해시 일치와 navtrain/navval 부분집합 구성을 확인했다.
-- 세 SSL 조건의 공통 클립·순서를 재구성해 등록 해시와 비교하고, DrivoR의 추가SSL 부재를 명시했다.
-- 전체 사전학습 이력까지 동일하지 않다는 해석 범위를 보고서와 인수인계에 기록했다. 학습 변경은 없다.
+- 네 실험의 현재 진행량·최근wall속도·자동 실행 순서로 전체 종료시간을 계산했다.
+- LPWM 공동학습 이후 JEPA 잔여학습과 검증 비용까지 포함한 조건부 ETA와 한계를 기록했다.
+- 실행 코드·학습 조건·대기열 변경 없이 상태 보고서와 인수인계만 갱신했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 22:51 KST 현부하/자동순서기준10/9KST 예상: LPWM순차04:45–05:30,LPWMjoint11:00–13:00,그뒤JEPA잔여약2–3시간을더해전체평가·고정pass5수치비교13:00–16:00. 신규ETA확인을위해profile/학습을추가하지않고기존대기열계속.
 
 2026-10-08 22:38 KST 공통5pass planning학습·평가대기열유지. 최종결과에는같은planning데이터/순서/목표노출과서로다른SSL노출·외부초기사전학습을구분해서보고한다. 이번질문에따라DrivoR Stage1을추가하거나데이터를변경하지않았다.
 
@@ -2819,6 +2825,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 22:51 KST 전체ETA는현재5pass·공통dev1024평가·최종수치비교범위이며확정시각아님. joint약70update의짧은관측및향후단독실행속도미측정,보호중단/서버부하변화가남는다. 순차완료후joint가빨라질수있지만추정에확정단축률을넣지않음. 다음평가경계에서속도축적후보정가능.
 
 2026-10-08 22:38 KST 데이터공정성정리: planning학습/평가데이터는네조건정확히동일하지만전체학습데이터노출은동일하지않다. DrivoR만추가주행SSL없고DINOv2/V-JEPA2/LPWMSketchy의공개초기사전학습도다름. LPWM순차vsjoint는SSL및planning최종노출목표를같게하고학습시점/목적구성을바꾼비교. 현축소SSL은OpenScene만사용하며CoVLA·DrivingDojo·330h전체아님. 목표노출과현재까지소비량은구분한다.
 

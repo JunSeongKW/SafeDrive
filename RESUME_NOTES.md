@@ -4065,3 +4065,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 22:38 KST 공통5pass planning학습·평가대기열유지. 최종결과에는같은planning데이터/순서/목표노출과서로다른SSL노출·외부초기사전학습을구분해서보고한다. 이번질문에따라DrivoR Stage1을추가하거나데이터를변경하지않았다.
 
 2026-10-08 22:38 KST 데이터공정성정리: planning학습/평가데이터는네조건정확히동일하지만전체학습데이터노출은동일하지않다. DrivoR만추가주행SSL없고DINOv2/V-JEPA2/LPWMSketchy의공개초기사전학습도다름. LPWM순차vsjoint는SSL및planning최종노출목표를같게하고학습시점/목적구성을바꾼비교. 현축소SSL은OpenScene만사용하며CoVLA·DrivingDojo·330h전체아님. 목표노출과현재까지소비량은구분한다.
+
+
+## 2026-10-08 22:51 KST — 네 실험 전체 학습·평가 종료시간 추정
+
+2026-10-08 22:51 KST 전체ETA조회: v7현순서유지,DrivoR완료/LPWM순차1114/LPWMjoint159/JEPA1428저장대기. 학습/평가/대기열변경없음.
+
+2026-10-08 22:51 KST 최근wall속도 LPWM순차약9.8–10.0초/update, joint약15초/update(재개후약70update), JEPA중단전약4.9–5.3초/update. 이전전체dev추론LPWM304초/JEPA104초,CPUDrivoR PDMS22–26초. central계산의전체완료는10/09 14:39 KST. 근거 results/four_model_small_corpus_v1/full_study_eta_20261008.json.
+
+2026-10-08 22:51 KST 현부하/자동순서기준10/9KST 예상: LPWM순차04:45–05:30,LPWMjoint11:00–13:00,그뒤JEPA잔여약2–3시간을더해전체평가·고정pass5수치비교13:00–16:00. 신규ETA확인을위해profile/학습을추가하지않고기존대기열계속.
+
+2026-10-08 22:51 KST 전체ETA는현재5pass·공통dev1024평가·최종수치비교범위이며확정시각아님. joint약70update의짧은관측및향후단독실행속도미측정,보호중단/서버부하변화가남는다. 순차완료후joint가빨라질수있지만추정에확정단축률을넣지않음. 다음평가경계에서속도축적후보정가능.

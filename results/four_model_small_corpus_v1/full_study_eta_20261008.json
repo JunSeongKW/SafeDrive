@@ -1,0 +1,59 @@
+{
+  "observed_at": "2026-10-08T22:51:17.963907+09:00",
+  "progress_updates": {
+    "drivor": 3200,
+    "jepa": 1428,
+    "lpwm_sequential": 1114,
+    "lpwm_joint": 159
+  },
+  "remaining_updates": {
+    "drivor": 0,
+    "jepa": 1772,
+    "lpwm_sequential": 2086,
+    "lpwm_joint": 3041
+  },
+  "recent_wall_seconds_per_update": {
+    "jepa": {
+      "25": 4.82518590927124,
+      "50": 5.305310430526734,
+      "100": 5.109075870513916,
+      "200": 4.945973945856094
+    },
+    "lpwm_sequential": {
+      "25": 10.941400413513184,
+      "50": 10.390827789306641,
+      "100": 10.101373133659363,
+      "200": 10.142924782037735
+    },
+    "lpwm_joint": {
+      "25": 15.091409320831298,
+      "50": 15.202361540794373
+    }
+  },
+  "previous_pass1_validation_seconds": {
+    "jepa": 104.26124811172485,
+    "lpwm_sequential": 303.80435371398926
+  },
+  "joint_central_assumed_wall_seconds_per_update": 15.3,
+  "central_estimates": {
+    "lpwm_sequential_complete": "2026-10-09T04:53:07.036971+09:00",
+    "lpwm_joint_complete": "2026-10-09T12:03:26.676968+09:00",
+    "jepa_remaining_training_and_evaluation_hours_after_joint": 2.6060569274372525,
+    "all_four_final_comparison": "2026-10-09T14:39:48.481907+09:00"
+  },
+  "reported_planning_windows_kst": {
+    "drivor": "Complete 2026-10-08 22:31",
+    "lpwm_sequential": "2026-10-09 04:45–05:30",
+    "lpwm_joint": "2026-10-09 11:00–13:00",
+    "jepa_and_final_four_model_comparison": "2026-10-09 13:00–16:00"
+  },
+  "assumptions": [
+    "Current v7 ordering: joint+sequential now, JEPA resumes only after joint finishes",
+    "No additional memory pause or external workload increase",
+    "Sequential completion may speed up joint, but that exclusive throughput has not been measured",
+    "Joint recent window has only about70 resumed updates; ETA is provisional",
+    "Registered checkpoint and pass1/3/5 inference/scoring costs included approximately"
+  ],
+  "scope": "Current five-pass four-condition study with development1024, final fixed-pass5 numerical comparison; no new training or diagnostics added",
+  "execution_changes": false
+}
