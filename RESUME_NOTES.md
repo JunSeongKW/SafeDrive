@@ -4043,3 +4043,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 22:13 KST 최신순서: DrivoR 최종학습·평가완료→JEPA에소유marker로저장중단요청→종료/paused/latest확인및marker이력보존→joint87 fullstate재개. LPWM순차는메모리허용시계속병행. 사용자48GB상한·46.5GB보호·44GB예약기준유지,추가memory중단시동시수축소하며1작업만가능하면순차도저장대기. joint학습완료후JEPA전체상태자동재개,기존pass1/3/5 CPU평가와최종비교계속. 따라서DrivoR이끝난후JEPA학습완료까지joint가대기하던v6순서는폐기.
 
 2026-10-08 22:13 KST 변경은사용자지시에따른작업우선순위뿐이다. 기존micro2/rank×accum4×2GPU=16·LR/loss/data/5pass유지,새학습조건없음. 지금joint는87에서대기이고전환미발생;실제시작은DrivoR완료와JEPA체크포인트저장/메모리확보후다. 사용자root/per-job pause는보존한다. v7최초인계runner를활성queue위에중복실행하지않는다.
+
+
+## 2026-10-08 22:34 KST — DrivoR 완료 및 LPWM 공동학습 자동 재개 확인
+
+2026-10-08 22:34 KST DrivoR5pass/3200학습22:30:39완료,최종PDMS22:31:32완료. v7자동전환성공: JEPA1428에fullstate저장대기,LPWMjoint2755586이22:32:13시작해87→93실제진행. LPWM순차2415934는1014/3200으로계속병행. controller2633960유지,phase joint_priority_after_drivor. 이번턴조회만수행.
+
+2026-10-08 22:34 KST DrivoR 독립dev1024 최종PDMS81.2535/ADE1.83710m/FDE4.46461m/실패0. pass1 66.9414→pass3 78.3977→pass5 81.2535. train/dev recording중복0. 네조건양rank최근100row(또는전체87이하) 비유한loss/gradient0,원science121/실행5hash불변. joint양rank RNG복원proof완료,실제88이상update확인. 근거 results/four_model_small_corpus_v1/progress_20261008_2233.json.
+
+2026-10-08 22:34 KST LPWMjoint와LPWM순차학습계속. JEPA1428은의도된메모리양보상태이며joint학습완료후자동재개. pass1/3/5의동일1024dev평가·고정pass5최종비교대기열유지. DrivoR완료실험재기동금지;동일학습량의나머지결과가나오면비교한다.
+
+2026-10-08 22:34 KST DrivoR81.25는이번축소실험dev1024의5pass결과이며전체navtest/공식원논문재현아님. JEPA/LPWM의기존pass1과최종우열직접비교금지. joint는재개직후이므로장기처리량/종료ETA를첫update로추정하지않는다. 현재joint+순차메모리는최신양rank학습로그기준약25.48decimalGB,48GB상한유지.

@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 22:13 KST (Codex)
+마지막 갱신: 2026-10-08 22:34 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 22:34 KST DrivoR5pass/3200학습22:30:39완료,최종PDMS22:31:32완료. v7자동전환성공: JEPA1428에fullstate저장대기,LPWMjoint2755586이22:32:13시작해87→93실제진행. LPWM순차2415934는1014/3200으로계속병행. controller2633960유지,phase joint_priority_after_drivor. 이번턴조회만수행.
 
 2026-10-08 22:13 KST 사용자 DrivoR 직후joint우선 지시 적용: v7 controller2633960, scheduling_v7_joint_after_drivor. 기존DrivoR2415910/JEPA2415917/LPWM순차2415934를PID·start_ticks유지로인계했으며학습재시작없음. 현재update 2889/1204/888, joint87대기. 기존v6 controller2415190만종료했고재기동금지. phase wait_drivor_final_evaluation.
 
@@ -1268,6 +1270,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 22:34 KST DrivoR 독립dev1024 최종PDMS81.2535/ADE1.83710m/FDE4.46461m/실패0. pass1 66.9414→pass3 78.3977→pass5 81.2535. train/dev recording중복0. 네조건양rank최근100row(또는전체87이하) 비유한loss/gradient0,원science121/실행5hash불변. joint양rank RNG복원proof완료,실제88이상update확인. 근거 results/four_model_small_corpus_v1/progress_20261008_2233.json.
 
 2026-10-08 22:13 KST 전환검사3개통과: DrivoR3200+pass5 PDMS1024/실패0이둘다완료되어야trigger;계획된JEPA yield는checkpoint보존하며memory실패로분류하지않음;joint+LPWM순차예약43GB허용/joint+JEPA+LPWM순차거부/joint완료후JEPA보류해제. 원science121/기존실행6hash불변,신규실행5hash등록. 인계후세학습실제진행확인. 결과 results/four_model_small_corpus_v1/joint_after_drivor_20261008.json.
 
@@ -2196,12 +2200,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- DrivoR 최종 평가 직후 LPWM 공동학습을 우선 재개하도록 v7 대기열을 구현·기동했다.
-- 기존 세 학습은 PID/start_ticks를 유지했고, 전환 시 JEPA 저장대기와 공동학습 완료 후 자동재개를 연결했다.
-- VRAM 예약 및 보호 기준·기존 학습 조건을 유지하고 전환/체크포인트/메모리 검사3개를 통과했다.
-- 새 실행 등록·인계 검증·근거 보고서와 문서를 저장했다.
+- DrivoR 5epoch 학습·평가 완료와 최종PDMS81.2535를 확인해 기록했다.
+- JEPA1428 저장대기 및 LPWMjoint87 이후 실제 update 진행으로 자동 우선순위 전환 성공을 확인했다.
+- 두 LPWM 병행 상태·양rank 학습 건전성·source 해시를 조회해 보고서를 남겼다. 실행 변경은 없다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 22:34 KST LPWMjoint와LPWM순차학습계속. JEPA1428은의도된메모리양보상태이며joint학습완료후자동재개. pass1/3/5의동일1024dev평가·고정pass5최종비교대기열유지. DrivoR완료실험재기동금지;동일학습량의나머지결과가나오면비교한다.
 
 2026-10-08 22:13 KST 최신순서: DrivoR 최종학습·평가완료→JEPA에소유marker로저장중단요청→종료/paused/latest확인및marker이력보존→joint87 fullstate재개. LPWM순차는메모리허용시계속병행. 사용자48GB상한·46.5GB보호·44GB예약기준유지,추가memory중단시동시수축소하며1작업만가능하면순차도저장대기. joint학습완료후JEPA전체상태자동재개,기존pass1/3/5 CPU평가와최종비교계속. 따라서DrivoR이끝난후JEPA학습완료까지joint가대기하던v6순서는폐기.
 
@@ -2808,6 +2813,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 22:34 KST DrivoR81.25는이번축소실험dev1024의5pass결과이며전체navtest/공식원논문재현아님. JEPA/LPWM의기존pass1과최종우열직접비교금지. joint는재개직후이므로장기처리량/종료ETA를첫update로추정하지않는다. 현재joint+순차메모리는최신양rank학습로그기준약25.48decimalGB,48GB상한유지.
 
 2026-10-08 22:13 KST 변경은사용자지시에따른작업우선순위뿐이다. 기존micro2/rank×accum4×2GPU=16·LR/loss/data/5pass유지,새학습조건없음. 지금joint는87에서대기이고전환미발생;실제시작은DrivoR완료와JEPA체크포인트저장/메모리확보후다. 사용자root/per-job pause는보존한다. v7최초인계runner를활성queue위에중복실행하지않는다.
 
