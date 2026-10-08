@@ -3805,3 +3805,11 @@ CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병�
 사용자가 직전 원논문 방식 유지 요청을 취소하고 원래대로 복구하도록 지시했다. 미실행·미커밋 초안 configs/four_model_small_corpus/drivor_official_revision.json, scripts/queue_four_model_official_drivor.py, scripts/train_small_corpus_official_drivor.py, src/planning_aware_future_prediction/object_centric/small_corpus_official_drivor.py를 제거했다. 새 대기열은 한 번도 실행하지 않았다.
 
 기존 registered scientific source/config121개와 overlap_v2 scheduler source/config 해시 모두 일치. 기존 queue294935/train136861 호스트 실행과 양rank1462/3275를 확인했다. 학습 중단·재시작·가중치 롤백 없음. 전방1·512×256·과거현재2프레임 및 기존5epoch 비교/검증 대기열을 유지한다. 근거 outputs/four_model_small_corpus_v1/cancelled_official_drivor_revision.json.
+
+## 2026-10-08 세 백본의 출력과 공통 planner 계산 그래프 확인
+
+현재small_corpus_models.py 기준 세백본은모두장면당16×256 memory를준다. LPWM sequential/joint는같은inference구조:16FG마다현재1+미래8상태의28차원속성(geometry/appearance/background/context)을연결해252→256으로투영한다. Background는각FG에공유되는feature/context이며별도17번째memory는아니다. JEPA는2frame tubelet2/patch16에서512patch×1024를16개평균pooling→256으로투영하고사전학습predictor는planning에서제거한다. DrivoR는두frame각각16개의추가scene register를DINOpatch/CLS/원reg4와self-attention시키고384→256후같은register index의두시점을concat해512→256으로fusion한다.
+
+공통DrivoRModel:현재ego11→256+학습query64→generator4block(self-attention64↔64,cross-attention64↔scene16,FFN)→각head가전체궤적8×3을출력,최종64후보사용. 좌표누적residual correction은없다. 좌표flatten24를detach후MLP24→1024→256→별도scorer4block의동일attention→ego추가→6subscorehead. NC/DAC/DDC로그+TTC/EP/comfort가중합로그로순위값을만들어argmax후보선택. NAVSIMv1 DDC선택가중치는0이지만해당head와감독은존재한다. Scoringloss는proposal좌표경로에gradient를주지않고sharedscene경로로backbone에전달된다. CurrentLPWM만명령FiLM/명시적future rollout을사용하므로token수일치만으로particle단독효과라고해석하지않는다. 원논문전체pipeline비교나새학습을실행한것이아니며코드조회만수행했다.
+
+근거: src/planning_aware_future_prediction/object_centric/small_corpus_models.py:59,78,102,166; reference_repositories/DrivoR/navsim/agents/drivoR/drivor_model.py:107; transformer_decoder.py:32; layers/image_encoder/dinov2_lora.py:22; layers/losses/drivor_loss.py:242; scripts/train_small_corpus_common_planner.py:54.
