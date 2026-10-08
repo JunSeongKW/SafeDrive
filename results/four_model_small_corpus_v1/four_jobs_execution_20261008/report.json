@@ -1,0 +1,478 @@
+{
+  "timestamp": "2026-10-08T21:04:12.265105+09:00",
+  "request": "Add useful concurrent work within48decimalGB per GPU",
+  "queue": {
+    "status": "running",
+    "scheduler_pid": 2114751,
+    "scheduler": "four_planners_v5",
+    "phase": "four_planners_parallel",
+    "stage": "four_planners_parallel",
+    "pid": 1567970,
+    "updated_unix": 1791461050.4683743,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "train_drivor",
+        "pid": 1567970,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py",
+          "--kind",
+          "drivor",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor",
+          "--micro-batch",
+          "2"
+        ]
+      },
+      {
+        "label": "train_lpwm_sequential",
+        "pid": 1580030,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py",
+          "--kind",
+          "lpwm_sequential",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt"
+        ]
+      },
+      {
+        "label": "train_jepa",
+        "pid": 1891906,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py",
+          "--kind",
+          "jepa",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt"
+        ]
+      },
+      {
+        "label": "train_lpwm_joint",
+        "pid": 2114768,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_joint_adaptive_checkpointing.py",
+          "--kind",
+          "lpwm_joint",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint",
+          "--micro-batch",
+          "2",
+          "--native-marker",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v5_joint_overlap/native_joint_allowed.json"
+        ]
+      }
+    ]
+  },
+  "admission": {
+    "approved": true,
+    "checks": {
+      "numerical_audit_passed": true,
+      "maxload_completed": true,
+      "memory_safe": true,
+      "companions_progressing": true,
+      "projected_completion_faster": true
+    },
+    "maximum_sampled_card_bytes": 43126882304,
+    "joint_overlap_seconds": 16.289648592472076,
+    "historical_native_joint_seconds": 22.895136833190918,
+    "other_speeds": {
+      "drivor": {
+        "updates": 75,
+        "median_seconds": 2.7035529613494873
+      },
+      "jepa": {
+        "updates": 43,
+        "median_seconds": 3.908332109451294
+      },
+      "lpwm_sequential": {
+        "updates": 23,
+        "median_seconds": 9.144420385360718
+      }
+    },
+    "projected_remaining_sequential_hours": 26.90925514996052,
+    "projected_remaining_concurrent_hours": 17.6742031603959,
+    "estimated_completion_speedup": 1.5225158897266944,
+    "limitation": "Short, two-phase estimate: overlap until other jobs finish, then native joint activation storage. Not a guaranteed ETA."
+  },
+  "gradient_equivalence": {
+    "passed": true,
+    "checks": {
+      "loss_preserved": true,
+      "gradients_preserved": true,
+      "memory_reduced": true,
+      "all_groups_active": true
+    },
+    "reports": {
+      "native": {
+        "objective": 42.21339416503906,
+        "losses": {
+          "loss": 34.48028564453125,
+          "trajectory_loss": 30.063058853149414,
+          "final_score_loss": 4.417224884033203,
+          "score": 0.534354031085968,
+          "best_score": 0.5396075248718262,
+          "planning_loss": 34.48028564453125,
+          "ssl_loss": 77.33109283447266,
+          "total_objective": 42.21339416503906
+        },
+        "gradient_groups": {
+          "planner": 28.5293025970459,
+          "scorer": 26.93373680114746,
+          "encoder": 66.71155548095703,
+          "context": 10.269021987915039,
+          "dynamics": 17.028553009033203,
+          "xy": 47.627723693847656,
+          "scale": 6.984773635864258,
+          "presence": 1.8431729078292847,
+          "command": 1.4674781560897827,
+          "decoder": 26.06125259399414
+        },
+        "seconds": 12.311871528625488,
+        "peak_allocated_bytes": 20104935936,
+        "whole_card_bytes": 37447794688
+      },
+      "checkpointed": {
+        "objective": 42.21339416503906,
+        "losses": {
+          "loss": 34.48028564453125,
+          "trajectory_loss": 30.063058853149414,
+          "final_score_loss": 4.417224884033203,
+          "score": 0.534354031085968,
+          "best_score": 0.5396075248718262,
+          "planning_loss": 34.48028564453125,
+          "ssl_loss": 77.33109283447266,
+          "total_objective": 42.21339416503906
+        },
+        "gradient_groups": {
+          "planner": 28.5293025970459,
+          "scorer": 26.93373680114746,
+          "encoder": 66.71340942382812,
+          "context": 10.269021987915039,
+          "dynamics": 17.028553009033203,
+          "xy": 47.62697219848633,
+          "scale": 6.984697341918945,
+          "presence": 1.8431767225265503,
+          "command": 1.4674487113952637,
+          "decoder": 26.061248779296875
+        },
+        "seconds": 11.384609699249268,
+        "peak_allocated_bytes": 12430033408,
+        "whole_card_bytes": 29793189888
+      }
+    },
+    "gradient_difference": {
+      "tensors": 936,
+      "relative_l2": 0.00012101885973624975,
+      "maximum_absolute": 0.002894878387451172
+    },
+    "loss_relative_difference": 0.0,
+    "scope": "Same real two-scene/two-clip microbatch, initial parameters and RNG; no training weights reused; final PDMS equivalence unproven"
+  },
+  "handover": {
+    "adopted_jobs_alive": true,
+    "training_restart": false,
+    "controller_pid": 2114751,
+    "adopted": [
+      {
+        "pid": 1567970,
+        "start_ticks": "61825980",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py --kind drivor --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/drivor --micro-batch 2 "
+      },
+      {
+        "pid": 1580030,
+        "start_ticks": "61839229",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py --kind lpwm_sequential --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential --micro-batch 2 --stage1-checkpoint /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt "
+      },
+      {
+        "pid": 1891906,
+        "start_ticks": "62154157",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/train_small_corpus_common_planner.py --kind jepa --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa --micro-batch 2 --stage1-checkpoint /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt "
+      }
+    ]
+  },
+  "common_planner_initial_tensors_equal": 241,
+  "cpu_execution_tests_passed": 2,
+  "main_runs": {
+    "drivor": {
+      "progress": {
+        "completed_updates": 2066,
+        "target_updates": 3200,
+        "corpus_pass": 3.228125,
+        "seconds": 2.92225980758667,
+        "elapsed_seconds": 6436.928159236908,
+        "card_used_bytes": 31913410560,
+        "peak_allocated_bytes": 968880640,
+        "gradient_norm": 15.645824432373047,
+        "gradient_groups": {},
+        "planning_presentations": 33056,
+        "ssl_presentations": 0,
+        "loss": 2.641573190689087,
+        "trajectory_loss": 1.1322346702218056,
+        "final_score_loss": 1.5093384981155396,
+        "score": 0.7933865860104561,
+        "best_score": 0.9818344116210938,
+        "planning_loss": 2.641573190689087,
+        "ssl_loss": 0.0,
+        "total_objective": 2.641573190689087
+      },
+      "ranks": {
+        "0": {
+          "updates": 2066,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 11.44880485534668,
+            "scorer": 4.348289966583252,
+            "encoder": 4.208845138549805
+          }
+        },
+        "1": {
+          "updates": 2066,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 11.44880485534668,
+            "scorer": 4.348289966583252,
+            "encoder": 4.208845138549805
+          }
+        }
+      }
+    },
+    "jepa": {
+      "progress": {
+        "completed_updates": 659,
+        "target_updates": 3200,
+        "corpus_pass": 1.0296875,
+        "seconds": 4.695625305175781,
+        "elapsed_seconds": 3144.5761802196503,
+        "card_used_bytes": 31913410560,
+        "peak_allocated_bytes": 7140053504,
+        "gradient_norm": 19.820024490356445,
+        "gradient_groups": {},
+        "planning_presentations": 10544,
+        "ssl_presentations": 0,
+        "loss": 7.340349614620209,
+        "trajectory_loss": 5.300908714532852,
+        "final_score_loss": 2.039440870285034,
+        "score": 0.798907533288002,
+        "best_score": 0.9131546914577484,
+        "planning_loss": 7.340349614620209,
+        "ssl_loss": 0.0,
+        "total_objective": 7.340349614620209
+      },
+      "ranks": {
+        "0": {
+          "updates": 659,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 11.780252456665039,
+            "scorer": 4.230175971984863,
+            "encoder": 4.168587684631348
+          }
+        },
+        "1": {
+          "updates": 659,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 11.780252456665039,
+            "scorer": 4.230175971984863,
+            "encoder": 4.168587684631348
+          }
+        }
+      }
+    },
+    "lpwm_sequential": {
+      "progress": {
+        "completed_updates": 640,
+        "target_updates": 3200,
+        "corpus_pass": 1.0,
+        "seconds": 8.866621255874634,
+        "elapsed_seconds": 6266.320283651352,
+        "card_used_bytes": 31913410560,
+        "peak_allocated_bytes": 5583237120,
+        "gradient_norm": 25.202131271362305,
+        "gradient_groups": {},
+        "planning_presentations": 10240,
+        "ssl_presentations": 0,
+        "loss": 4.260264158248901,
+        "trajectory_loss": 1.7011719644069672,
+        "final_score_loss": 2.559092164039612,
+        "score": 0.5766486674547195,
+        "best_score": 0.9897585660219193,
+        "planning_loss": 4.260264158248901,
+        "ssl_loss": 0.0,
+        "total_objective": 4.260264158248901
+      },
+      "ranks": {
+        "0": {
+          "updates": 640,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 13.678303718566895,
+            "scorer": 4.439725875854492,
+            "encoder": 5.871161937713623,
+            "context": 2.299649477005005,
+            "dynamics": 6.563729286193848,
+            "xy": 3.097777843475342,
+            "scale": 0.9142398238182068,
+            "presence": 0.06925005465745926,
+            "command": 0.10414830595254898
+          }
+        },
+        "1": {
+          "updates": 640,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 13.678303718566895,
+            "scorer": 4.439725875854492,
+            "encoder": 5.871161937713623,
+            "context": 2.299649477005005,
+            "dynamics": 6.563729286193848,
+            "xy": 3.097777843475342,
+            "scale": 0.9142398238182068,
+            "presence": 0.06925005465745926,
+            "command": 0.10414830595254898
+          }
+        }
+      }
+    },
+    "lpwm_joint": {
+      "progress": {
+        "completed_updates": 8,
+        "target_updates": 3200,
+        "corpus_pass": 0.0125,
+        "seconds": 19.393790245056152,
+        "elapsed_seconds": 149.07156920433044,
+        "card_used_bytes": 31913410560,
+        "peak_allocated_bytes": 14455557632,
+        "gradient_norm": 174.25100708007812,
+        "gradient_groups": {},
+        "planning_presentations": 128,
+        "ssl_presentations": 128,
+        "loss": 20.28482961654663,
+        "trajectory_loss": 16.486539840698242,
+        "final_score_loss": 3.798289716243744,
+        "score": 0.5739659890532494,
+        "best_score": 0.7372908294200897,
+        "planning_loss": 20.28482961654663,
+        "ssl_loss": 71.83768558502197,
+        "total_objective": 27.46859836578369
+      },
+      "ranks": {
+        "0": {
+          "updates": 8,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 20.321578979492188,
+            "scorer": 19.57172203063965,
+            "encoder": 14.457056045532227,
+            "context": 3.1081314086914062,
+            "dynamics": 12.90734577178955,
+            "xy": 8.799551963806152,
+            "scale": 2.1880650520324707,
+            "presence": 0.5365564823150635,
+            "command": 0.38187456130981445,
+            "decoder": 29.098346710205078
+          }
+        },
+        "1": {
+          "updates": 8,
+          "nonfinite_losses": 0,
+          "last_gradient_groups": {
+            "planner": 20.321578979492188,
+            "scorer": 19.57172203063965,
+            "encoder": 14.457056045532227,
+            "context": 3.1081314086914062,
+            "dynamics": 12.90734577178955,
+            "xy": 8.799551963806152,
+            "scale": 2.1880650520324707,
+            "presence": 0.5365564823150635,
+            "command": 0.38187456130981445,
+            "decoder": 29.098346710205078
+          }
+        }
+      }
+    }
+  },
+  "source_checks": {
+    "outputs/four_model_small_corpus_v1/queue_registration.json": {
+      "count": 121,
+      "changed": []
+    },
+    "outputs/four_model_small_corpus_v1/scheduling_v5_joint_overlap/registration.json": {
+      "count": 6,
+      "changed": []
+    }
+  },
+  "limitations": [
+    "Numerical execution audit is not a proof of identical final PDMS",
+    "Historical two-update native timing includes startup; projected speedup is only a scheduling estimate",
+    "Profile states were discarded; joint training starts from public LPWM and common planner initialization"
+  ],
+  "rejected_profiles": {
+    "cpu_offload": {
+      "reason": "More than 180 seconds without a completed optimizer update; CPU activation transfer does not meet speedup objective",
+      "time": 1791460086.6783824,
+      "profile_only": true,
+      "weights_discarded": true
+    },
+    "checkpoint_without_expandable_allocator": "Disposable maximum-load profile hit allocator caps; no main trainer failed. Logs preserved. One offload worker survived parent termination and was explicitly cleaned before retry.",
+    "cleanup": {
+      "terminated_profile_pids": [
+        2045695
+      ],
+      "time": 1791460334.9058278,
+      "training_jobs_untouched": true
+    }
+  },
+  "gpu_snapshot": {
+    "snapshot_time": "2026-10-08 21:02 KST",
+    "gpu0_bytes": 31913410560,
+    "gpu1_bytes": 31949062144,
+    "utilization_percent": [
+      100,
+      100
+    ],
+    "maximum_profile_card_bytes": 43126882304
+  }
+}

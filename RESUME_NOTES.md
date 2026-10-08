@@ -3975,3 +3975,16 @@ JEPA 고정32held-out기록 masked latentL1 초기.651997→pass1 .514094→pass
 2026-10-08 20:04 KST 현재부하의최근50–200update wall속도기준: JEPA Stage1학습경계20:11경,최종검증포함약20:15이후gate통과시JEPA planner자동시작. DrivoR5epoch학습22:06–22:12, LPWM Stage2 첫epoch21:05경/5epoch10월9일04:05–04:15조건부추정. 앞으로epoch검증·PDMS·동시작업교체의부하변화는별도이므로전체4실험완료시각으로해석하지않는다. 기존v4대기열/48GB상한/LPWMjoint독점규칙유지.
 
 2026-10-08 20:04 KST 첫DrivoR PDMS만산출됐고다른세조건학습후PDMS미산출. 서로같은pass/1024dev장면결과가나오기전모델우열·particle이득을주장하지않는다. 과거81/82점의다른실험과직접비교금지. Loss유한/gradient양수는실행정상근거이며객체정보보존·planning개선증명아님. LPWM512×256/16particle RGB복원한계는보존한다.
+
+
+## 2026-10-08 21:04 KST — 네 번째 LPWMjoint 병행 시작
+
+2026-10-08 21:04 KST 사용자 추가병행 지시 적용: 새 v5 controller2114751 / `scripts/queue_small_corpus_four_planners.py`, root `outputs/four_model_small_corpus_v1/scheduling_v5_joint_overlap/`. 기존DrivoR1567970·LPWM순차1580030·JEPA1891906은 PID/start_ticks 유지로 인계했고, LPWMjoint2114768을 공개초기화부터 새로 시작했다. 현재 drivor 2066/3200, jepa 659/3200, lpwm_sequential 640/3200, lpwm_joint 8/3200. 네 본학습 양rank loss유한·필요modulegradient양수. 이전controller1554349만 종료했으며 기존학습 재시작없음.
+
+2026-10-08 21:04 KST 메모리/수치검사: 같은 실제2scene+2SSL clip/같은RNG에서 native 대 decoder+LPIPS activation checkpointing의 loss차이0,936개 gradient tensor상대L2 .000121019(0.0121%),GPU allocated20.10→12.43GB. RNG/gradient/원래모드복원안전조건 CPU검사2개통과. 별도DDP8update(마지막2배SSL) 네작업동시시험완료,whole-card최대43.1269GB,일반단계약15–16초/update,가중평균16.29초. 기존세조건도각75/43/23update진행. 공통planner초기241tensor동일. 실제본학습GPU0/1약31.91/31.95GB·util100/100%. 원science121 및v5등록6source불변. 근거 `results/four_model_small_corpus_v1/four_jobs_execution_20261008/report.json`.
+
+CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 첫checkpoint시험은allocator제한OOM으로종료(본학습이아님);그때남은offloadworker2045695를명시적으로정리했다. 실패로그보존후expandable_segments:True로재시험성공. GPU전체48GB상한·기존세학습은보존됐다.
+
+2026-10-08 21:04 KST 네planner를병행하고pass1/3/5예측완료즉시기존CPU공식PDMS(동시1/worker4)계속. 새joint는기존micro2×누적4×GPU2=유효16,worker2/rank,loss/LR/seed/데이터/총노출그대로. RGB decoder와LPIPS만비재진입activation checkpointing;그외연산과원trainer불변. 동시실행중새allocator27GB,전체카드46.5GB초과시저장중단/사용자상한48GB. 다른세GPU학습완료후v5가native_joint_allowed.json을발행하고각rank에서외부+context2GB이하확인시재시작없이기존activation저장/allocator44GB로전환해재계산비용제거. 기존v4및과거controllers재기동금지.
+
+2026-10-08 21:04 KST 변경은추가병행및activation저장/재계산방식뿐이다. 기존모델/학습조건/실험수변경없음,profile가중치본학습미사용.8update메모리·gradient수치범위확인이최종PDMS동등성증명은아니다. 짧은2단계시간모형은26.91→17.67시간/1.52배를산출했으나과거native2update startup이포함되고향후eval/부하변화가있어확정ETA/보장단축률로보고하지않는다. 최대43.13GB는실측profile고점이며미래모든부하의상한을보장하지않음;기존pause/allocator보호를유지한다.

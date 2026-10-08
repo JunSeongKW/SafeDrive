@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 20:07 KST (Codex)
+마지막 갱신: 2026-10-08 21:04 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 21:04 KST 사용자 추가병행 지시 적용: 새 v5 controller2114751 / `scripts/queue_small_corpus_four_planners.py`, root `outputs/four_model_small_corpus_v1/scheduling_v5_joint_overlap/`. 기존DrivoR1567970·LPWM순차1580030·JEPA1891906은 PID/start_ticks 유지로 인계했고, LPWMjoint2114768을 공개초기화부터 새로 시작했다. 현재 drivor 2066/3200, jepa 659/3200, lpwm_sequential 640/3200, lpwm_joint 8/3200. 네 본학습 양rank loss유한·필요modulegradient양수. 이전controller1554349만 종료했으며 기존학습 재시작없음.
 
 2026-10-08 20:04 KST 진행 점검: v4 controller1554349와 세 학습 JEPA SSL1210957 / DrivoR1567970 / LPWM순차1580030 정상 실행. JEPA3129/3275(95.54%), DrivoR887/3200(27.72%), LPWM Stage2 270/3200(8.44%). LPWM Stage1은5epoch완료, JEPA planner와LPWMjoint는대기다. GPU0·1 전체카드17.80/17.67decimalGB, 양rank비유한loss0·최신modulegradient양수. 원121science 및v4실행6source불변, active failure없음. 이번에는조회만했고학습/설정/대기열변경없음.
 
@@ -1256,6 +1258,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 21:04 KST 메모리/수치검사: 같은 실제2scene+2SSL clip/같은RNG에서 native 대 decoder+LPIPS activation checkpointing의 loss차이0,936개 gradient tensor상대L2 .000121019(0.0121%),GPU allocated20.10→12.43GB. RNG/gradient/원래모드복원안전조건 CPU검사2개통과. 별도DDP8update(마지막2배SSL) 네작업동시시험완료,whole-card최대43.1269GB,일반단계약15–16초/update,가중평균16.29초. 기존세조건도각75/43/23update진행. 공통planner초기241tensor동일. 실제본학습GPU0/1약31.91/31.95GB·util100/100%. 원science121 및v5등록6source불변. 근거 `results/four_model_small_corpus_v1/four_jobs_execution_20261008/report.json`.
+
+CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 첫checkpoint시험은allocator제한OOM으로종료(본학습이아님);그때남은offloadworker2045695를명시적으로정리했다. 실패로그보존후expandable_segments:True로재시험성공. GPU전체48GB상한·기존세학습은보존됐다.
 
 2026-10-08 20:04 KST 새 결과: DrivoR pass1(640update) 공식PDMS66.9414 / ADE4.9712m / FDE10.8544m, 독립planning dev1024장면·실패0·train/dev recording중복0. 무과실충돌98.78%,도로준수85.25%,진행률.4623. 최신887update의점수가아니며전체navtest/원논문재현도아님. `validation/pass1.json`의pending은정적이력이며실제완료근거는`drivor/validation/pass1.pdms.json`이다.
 
@@ -2170,11 +2176,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 세 학습의 진행률·양rank loss/gradient·GPU·등록source해시·대기열을 읽기 전용으로 확인하고20:04 snapshot을 저장했다.
-- 새 DrivoR pass1 PDMS66.9414와JEPA pass4 SSL검증을 보고하고, 현재 실측속도로 다음 검증 및 학습종료 ETA를 갱신했다.
-- 학습 코드·설정·실행 상태는 변경하지 않았다.
+- 사용자 추가병행 지시로 LPWMjoint의 메모리 절약 실행기를 작성하고 loss/936개 gradient/RNG/최대부하를 검증했다. CPUoffload 및 초기 allocator 실패기록은 보존했다.
+- 기존 세 학습 PID를 그대로 유지하는 v5 queue로 인계하고 네 번째 LPWMjoint 본학습을 시작했다. 나머지 학습 종료 후 재시작 없는 native activation 저장 복원을 연결했다.
+- 원121science source/동일batch/LR/데이터/초기planner241tensor를 확인하고 결과와 진행상태를 기록했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 21:04 KST 네planner를병행하고pass1/3/5예측완료즉시기존CPU공식PDMS(동시1/worker4)계속. 새joint는기존micro2×누적4×GPU2=유효16,worker2/rank,loss/LR/seed/데이터/총노출그대로. RGB decoder와LPIPS만비재진입activation checkpointing;그외연산과원trainer불변. 동시실행중새allocator27GB,전체카드46.5GB초과시저장중단/사용자상한48GB. 다른세GPU학습완료후v5가native_joint_allowed.json을발행하고각rank에서외부+context2GB이하확인시재시작없이기존activation저장/allocator44GB로전환해재계산비용제거. 기존v4및과거controllers재기동금지.
 
 2026-10-08 20:04 KST 현재부하의최근50–200update wall속도기준: JEPA Stage1학습경계20:11경,최종검증포함약20:15이후gate통과시JEPA planner자동시작. DrivoR5epoch학습22:06–22:12, LPWM Stage2 첫epoch21:05경/5epoch10월9일04:05–04:15조건부추정. 앞으로epoch검증·PDMS·동시작업교체의부하변화는별도이므로전체4실험완료시각으로해석하지않는다. 기존v4대기열/48GB상한/LPWMjoint독점규칙유지.
 
@@ -2769,6 +2777,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 21:04 KST 변경은추가병행및activation저장/재계산방식뿐이다. 기존모델/학습조건/실험수변경없음,profile가중치본학습미사용.8update메모리·gradient수치범위확인이최종PDMS동등성증명은아니다. 짧은2단계시간모형은26.91→17.67시간/1.52배를산출했으나과거native2update startup이포함되고향후eval/부하변화가있어확정ETA/보장단축률로보고하지않는다. 최대43.13GB는실측profile고점이며미래모든부하의상한을보장하지않음;기존pause/allocator보호를유지한다.
 
 2026-10-08 20:04 KST 첫DrivoR PDMS만산출됐고다른세조건학습후PDMS미산출. 서로같은pass/1024dev장면결과가나오기전모델우열·particle이득을주장하지않는다. 과거81/82점의다른실험과직접비교금지. Loss유한/gradient양수는실행정상근거이며객체정보보존·planning개선증명아님. LPWM512×256/16particle RGB복원한계는보존한다.
 
