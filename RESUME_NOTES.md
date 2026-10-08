@@ -4228,3 +4228,30 @@ Particle3scene×16개: 순차planning전(SSL5후)→planning5epoch 평균center8
 Stage1SSL5 RGB복원과+3s미래의작은차량/보행자/도로경계는흐림. 복원MSE .0655966→.0121246, 미래 .0688464→.0228579(반복현재.0323237), LPIPS최종복원.4833/미래.5013. 평균RGB개선만으로정보보존검증통과를주장못하고, decoder의흐림만으로latent손실을주장못함. PNG는Stage1종료RGB이며Stage2planning후decoder결과아님. 16particle예산/latent bridge/해상도domain gap/SSL-gradient충돌가설은미검증. 미래분기개입·feature의객체/도로readout·particle예산/SSL가중치어블레이션은후속후보로만기록하고새실험미기동.
 
 공동학습2223/3200(69.47%), freshrootqueue/양rank진행·wholeGPU43.408GB 확인. Sandbox ps에서hostPID가보이지않았지만 fresh progress/queue가실제update증가를확인한다. 기존GPU0·1/v11/3200→pass5평가대기열유지. Git원격인증실패이력유지.
+
+## 2026-10-09 08:26 KST — 학습 중단 후 이전128·현재512 checkpoint 공통 평가 및 복원/particle 비교
+
+사용자 요청으로 현재 축소 공동학습을 안전한2264update에서 중단했다. `latest.pt`의 model/모든Adam step2264/scheduler.last_epoch2264/양rank RNG2개를 검증했다. Root pause.requested 유지, queue_state paused/active_jobs=[], 기존 v11 controller3759839와 trainer3331469 종료. 현재·과거 학습을 자동 재개하지 않는다. 기존 순차는3200/5epoch 완료였으며 현재 joint는3.5375epoch/36224planning·37072SSL노출이다. 이 중단은 학습목표 완료가 아니다.
+
+이전128 마지막 보존 Adapter13480와 공동 geometry/appearance/future LoRA5493 및 현재512 순차3200/공동2264를 score 확인 전에 hardlink snapshot했다. Root `outputs/lpwm_preserved_checkpoint_same_panels_20261009/`, results 동명. AdapterSHA26b09d90…/128joint47ad8854…/512seq5b8fe1a3…/512joint9ba4f854…이며 이후 원본/snapshot digest 모두 불변. 평가 전용 `evaluate_preserved_lpwm_same_panels.py`/`queue_preserved_lpwm_checkpoint_evaluation.py`, host controller2996336/exec29661, 학습 update 없음. GPU0의128Adapter가 먼저 끝나 idle GPU0에서512두조건과128joint 시각화를 먼저 실행했고 idempotent/phase-lock으로 parent의 중복작업을 방지했다. Controller08:19 정상 완료, queue complete/evaluation_complete=true, 08:26 CPU 집계 완료. Sandbox CUDA는 비가시라 host 승인 GPU0·1을 사용했다. CPU scorer를 GPU3.12환경으로 잘못 직접 호출한2회 missingnuplan 실패 후 공식 preserved3.9환경으로 정상 재실행했고 script도 score self-reexec하도록 했다. 최초 backgroundnohup은 기동안된 빈로그로 보존한다.
+
+같은 reduced-dev1024는 이전128joint 학습token/recording1024, Adapter832, Stage1 recording832와 겹친다. 이 패널의 이전128 점수는77.956602/76.175110으로 완료했지만 일반화 비교가 아니다. 모든 모델의 학습 token/recording 및128Stage1과 겹치지 않는 기존44recording/navtest1024를 주 비교 패널로 사용했다. 정확히 같은 token 순서·GT·metric cache·공식 NAVSIM v1 pdm_score·출력8×0.5s·시뮬레이션40×0.1s, 총6회 모두1024 valid/실패0. 전체navtest12146장면 점수는 아니다.
+
+| preserved checkpoint | update | 공통navtest PDMS | ADE m | FDE m | 도로준수 실패 |
+|---|---:|---:|---:|---:|---:|
+|128×128 2-stage Adapter|13480|81.51071572|1.13277411|2.65084171|83|
+|128×128 공동 LoRA, planning only|5493|80.12894187|1.49216986|3.61505938|94|
+|512×256 2-stage|3200|77.99441016|1.79179752|4.41284037|111|
+|512×256 공동, planning+SSL|2264|72.42888810|2.07806349|5.07756996|136|
+
+대응 recording bootstrap5000/seed71:128Adapter−512순차+3.516306점95%CI[1.116441,6.157967];128joint−512joint+7.700054[4.934496,10.424604];128Adapter−128joint+1.381774[−0.771633,3.630092]. 마지막 차이는 CI0 포함으로 우열 근거 불충분하며 동등성 입증도 아니다. Trainingseed 변동은 반영하지 않는다. `comparison_summary.json`에 시나리오별 점수(최종GT yaw±.25rad의직진/좌/우 분류, 모델입력아님), CI, sourceSHA, geometry/RGB 평균, checkpoint검증 저장. 같은 reduced-dev의 현재512joint63.965951은1920update/3epoch 결과로서 이번2264 navtest72.428888와 평가셋·checkpoint가 다르다.
+
+기존 input 유지:128Adapter front1·4history·crop28/INTER_AREA·ego8·64FG+1BG/SSL20후Adapter;128joint4currentcam·fullFOV/BICUBIC·ego11·64FG+1BG/공개LPWM+DrivoR planning-only LoRA;현재512두조건 front1·2history·crop28/INTER_LINEAR·ego11·16FG+1BG/commonDrivoR/native업데이트. Adapter는Stage2 약2.864epoch,128joint약3.403epoch,512순차5epoch/공동3.5375epoch. 학습데이터/노출·planner·원초기화·SSLloss도 달라 해상도·particle수 단독 인과비교가 아니다. 원래121science와 실행등록source/config는 수정하지 않았다.
+
+같은 첫3개 reduced-dev 장면(학습전 고정, 결과후선정없음)의 현재 관측RGB 복원 및 particle 전후/겹침6PNG 저장. 경로 `results/lpwm_preserved_checkpoint_same_panels_20261009/scene{1,2,3}_reconstruction_before_after.png`, `scene{1,2,3}_particle_before_after_overlay.png`. Scene3 두 PNG 직접시각검사: 차량·보행자 포함. 초기2stage=SSL완료/planning전, 초기joint=공개초기화. Native128표시만512×256 nearest확대, 입력/crop 유지. Foreground64또는16개 중심 모두·초기presence top16만glimpse box, 점반경presence, 청록전/주황후; attention/검출/GT박스/객체ID 아님. 이전128 RGBdecoder는64중30개만선택. 미래GT영상 입력 없고 이번복원그림은현재영상이지 미래예측검증이 아니다.
+
+3scene 평균 center nativepx/폭높이상대변화:128Adapter .089988/.754055%;128joint2.774656/20.714679%;512seq8.310413/11.045342%;512joint15.806905/20.281209%. 128/512 pixel단위를 직접 비교하지 않는다. 정규화 center 변화%는 .070303/2.167700/2.211949/4.357663. Adapter의 native geometry CNN/head가 고정돼 위치가 거의 불변이어도 PDMS가 가장 높다. Geometry이동량만으로 planning 표현학습을 평가할 수 없다.
+
+3scene 현재 RGB MSE 전→후:128Adapter .009142→.008874;128joint .032701→.032644;512seq .010889→.017960;512joint .040712→.012730. 128Adapter는 도로구조 복원을 유지하지만 작은보행자는 흐림. 128joint는 NAVSIM RGBdecoder 학습없이 공개장면의 녹색 비주행 구조로 크게왜곡돼도 PDMS80.13이라 RGB 선명도가 planning 성능의 직접 지표가 아님을 보여준다. 512seq는 decoder고정/planning-only backbone적응 후 복원오차 약64.9% 증가(3scene만), latent 손실의 증명은 아님. 512joint는 주행장면 복원으로 개선하나 작은객체가흐림. 서로다른입력/해상도 MSE를 동등품질 비교로 해석하지 않는다.
+
+현재학습은 계속 중단, 새후속학습·해상도어블레이션 미등록/미기동. 추후 카메라/관측·particle예산·planner·학습데이터/노출·SSLloss를 고정해야 해상도 원인을 분리할 수 있다. GPU1은25MiB이고 GPU0전체18077MiB는 종료 후 다른 점유이며 타인프로세스를 변경하지 않았다. 기존 Git 원격 인증 socket 실패 이력은 유지한다.

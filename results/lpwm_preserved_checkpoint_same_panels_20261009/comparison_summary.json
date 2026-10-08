@@ -1,0 +1,423 @@
+{
+  "summaries": {
+    "shared_navtest": {
+      "historical_adapter": {
+        "condition": "historical_adapter",
+        "panel": "shared_navtest",
+        "count": 1024,
+        "failed": 0,
+        "pdms": 81.51071572086683,
+        "ade_m": 1.1327741146087646,
+        "fde_m": 2.65084171295166,
+        "non_drivable_trajectory_count": 83,
+        "subscores": {
+          "no_at_fault_collisions": 0.97119140625,
+          "drivable_area_compliance": 0.9189453125,
+          "ego_progress": 0.759608488101396,
+          "time_to_collision_within_bound": 0.9052734375,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.9375,
+          "score": 0.8151071572086682
+        },
+        "training_overlap": {
+          "historical_joint_planning_tokens": 0,
+          "historical_joint_planning_recording_scenes": 0,
+          "historical_adapter_planning_tokens": 0,
+          "historical_adapter_planning_recording_scenes": 0,
+          "historical_adapter_stage1_recording_scenes": 0
+        },
+        "interpretation": "Common held-out NAVSIM v1 navtest subset",
+        "full_navtest": false,
+        "checkpoint": {
+          "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/checkpoints/historical_adapter.pt",
+          "sha256": "26b09d901f1556ddd4685ae5583a98ed1ff69b6f387808babc99b02bdaaa7124",
+          "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_adapter_original_batch_shared_v4/latest.pt",
+          "completed_updates": 13480
+        },
+        "scenario_scores": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 77.80578526520999,
+            "drivable_area_compliance": 0.8756476683937824,
+            "ego_progress": 0.7175375386998881
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 69.91622834090495,
+            "drivable_area_compliance": 0.8222222222222222,
+            "ego_progress": 0.6091005912928302
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 83.88393494102652,
+            "drivable_area_compliance": 0.941970310391363,
+            "ego_progress": 0.7888465501084975
+          }
+        }
+      },
+      "historical_joint": {
+        "condition": "historical_joint",
+        "panel": "shared_navtest",
+        "count": 1024,
+        "failed": 0,
+        "pdms": 80.12894186702846,
+        "ade_m": 1.4921698570251465,
+        "fde_m": 3.6150593757629395,
+        "non_drivable_trajectory_count": 94,
+        "subscores": {
+          "no_at_fault_collisions": 0.962890625,
+          "drivable_area_compliance": 0.908203125,
+          "ego_progress": 0.729735229808683,
+          "time_to_collision_within_bound": 0.919921875,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.95556640625,
+          "score": 0.8012894186702846
+        },
+        "training_overlap": {
+          "historical_joint_planning_tokens": 0,
+          "historical_joint_planning_recording_scenes": 0,
+          "historical_adapter_planning_tokens": 0,
+          "historical_adapter_planning_recording_scenes": 0,
+          "historical_adapter_stage1_recording_scenes": 0
+        },
+        "interpretation": "Common held-out NAVSIM v1 navtest subset",
+        "full_navtest": false,
+        "checkpoint": {
+          "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/checkpoints/historical_joint.pt",
+          "sha256": "47ad88547ff7d520799724350c70f717f537aab85986cdebf38b8c1051370816",
+          "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_planning_path_lora_v1/navsim_v1/latest.pt",
+          "completed_updates": 5493
+        },
+        "scenario_scores": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 71.893780741476,
+            "drivable_area_compliance": 0.8341968911917098,
+            "ego_progress": 0.623896333650346
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 68.81429817233195,
+            "drivable_area_compliance": 0.8111111111111111,
+            "ego_progress": 0.5804320450248556
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 83.64811059814089,
+            "drivable_area_compliance": 0.9392712550607287,
+            "ego_progress": 0.7754358959208337
+          }
+        }
+      },
+      "rectangular_sequential": {
+        "condition": "rectangular_sequential",
+        "panel": "shared_navtest",
+        "count": 1024,
+        "failed": 0,
+        "pdms": 77.99441016094731,
+        "ade_m": 1.7917975187301636,
+        "fde_m": 4.412840366363525,
+        "non_drivable_trajectory_count": 111,
+        "subscores": {
+          "no_at_fault_collisions": 0.96630859375,
+          "drivable_area_compliance": 0.8916015625,
+          "ego_progress": 0.7014905364470037,
+          "time_to_collision_within_bound": 0.916015625,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.93310546875,
+          "score": 0.7799441016094731
+        },
+        "training_overlap": {
+          "historical_joint_planning_tokens": 0,
+          "historical_joint_planning_recording_scenes": 0,
+          "historical_adapter_planning_tokens": 0,
+          "historical_adapter_planning_recording_scenes": 0,
+          "historical_adapter_stage1_recording_scenes": 0
+        },
+        "interpretation": "Common held-out NAVSIM v1 navtest subset",
+        "full_navtest": false,
+        "checkpoint": {
+          "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/checkpoints/rectangular_sequential.pt",
+          "sha256": "5b8fe1a31a151c110d259105739433b1b290dec8d611e6af8188cfe7cdb9662a",
+          "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential/latest.pt",
+          "completed_updates": 3200
+        },
+        "scenario_scores": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 72.56149784391228,
+            "drivable_area_compliance": 0.8393782383419689,
+            "ego_progress": 0.6254137720880915
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 57.738754523792714,
+            "drivable_area_compliance": 0.7444444444444445,
+            "ego_progress": 0.49906344190435864
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 81.8696612871709,
+            "drivable_area_compliance": 0.9230769230769231,
+            "ego_progress": 0.7458916889842613
+          }
+        }
+      },
+      "rectangular_joint": {
+        "condition": "rectangular_joint",
+        "panel": "shared_navtest",
+        "count": 1024,
+        "failed": 0,
+        "pdms": 72.42888809607405,
+        "ade_m": 2.078063488006592,
+        "fde_m": 5.077569961547852,
+        "non_drivable_trajectory_count": 136,
+        "subscores": {
+          "no_at_fault_collisions": 0.947265625,
+          "drivable_area_compliance": 0.8671875,
+          "ego_progress": 0.609340736387893,
+          "time_to_collision_within_bound": 0.90234375,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.90869140625,
+          "score": 0.7242888809607404
+        },
+        "training_overlap": {
+          "historical_joint_planning_tokens": 0,
+          "historical_joint_planning_recording_scenes": 0,
+          "historical_adapter_planning_tokens": 0,
+          "historical_adapter_planning_recording_scenes": 0,
+          "historical_adapter_stage1_recording_scenes": 0
+        },
+        "interpretation": "Common held-out NAVSIM v1 navtest subset",
+        "full_navtest": false,
+        "checkpoint": {
+          "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/checkpoints/rectangular_joint.pt",
+          "sha256": "9ba4f8545aa154e51f10cb38b897d94623401138f2a66fec0254c73aec02607b",
+          "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint/latest.pt",
+          "completed_updates": 2264
+        },
+        "scenario_scores": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 66.16218732478787,
+            "drivable_area_compliance": 0.8238341968911918,
+            "ego_progress": 0.5381515631524217
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 64.48476332602469,
+            "drivable_area_compliance": 0.8555555555555555,
+            "ego_progress": 0.46985654204681465
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 75.02597915972136,
+            "drivable_area_compliance": 0.8798920377867746,
+            "ego_progress": 0.6448239859494894
+          }
+        }
+      }
+    },
+    "reduced_dev": {
+      "historical_adapter": {
+        "condition": "historical_adapter",
+        "panel": "reduced_dev",
+        "count": 1024,
+        "failed": 0,
+        "pdms": 77.95660168860998,
+        "ade_m": 1.2395938634872437,
+        "fde_m": 2.9468185901641846,
+        "non_drivable_trajectory_count": 120,
+        "subscores": {
+          "no_at_fault_collisions": 0.97998046875,
+          "drivable_area_compliance": 0.8828125,
+          "ego_progress": 0.6865329053595567,
+          "time_to_collision_within_bound": 0.9501953125,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.9150390625,
+          "score": 0.7795660168860998
+        },
+        "training_overlap": {
+          "historical_joint_planning_tokens": 1024,
+          "historical_joint_planning_recording_scenes": 1024,
+          "historical_adapter_planning_tokens": 832,
+          "historical_adapter_planning_recording_scenes": 832,
+          "historical_adapter_stage1_recording_scenes": 832
+        },
+        "interpretation": "Historical training overlap; diagnostic only",
+        "full_navtest": false,
+        "checkpoint": {
+          "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/checkpoints/historical_adapter.pt",
+          "sha256": "26b09d901f1556ddd4685ae5583a98ed1ff69b6f387808babc99b02bdaaa7124",
+          "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_adapter_original_batch_shared_v4/latest.pt",
+          "completed_updates": 13480
+        },
+        "scenario_scores": {
+          "left_turn": {
+            "count": 284,
+            "pdms": 78.60812301812351,
+            "drivable_area_compliance": 0.8873239436619719,
+            "ego_progress": 0.6721698784097717
+          },
+          "right_turn": {
+            "count": 155,
+            "pdms": 64.85861584116388,
+            "drivable_area_compliance": 0.7806451612903226,
+            "ego_progress": 0.5204777479298688
+          },
+          "straight": {
+            "count": 585,
+            "pdms": 81.11071407967374,
+            "drivable_area_compliance": 0.9076923076923077,
+            "ego_progress": 0.7375032456250962
+          }
+        }
+      },
+      "historical_joint": {
+        "condition": "historical_joint",
+        "panel": "reduced_dev",
+        "count": 1024,
+        "failed": 0,
+        "pdms": 76.17510950834685,
+        "ade_m": 1.525916576385498,
+        "fde_m": 3.788532257080078,
+        "non_drivable_trajectory_count": 125,
+        "subscores": {
+          "no_at_fault_collisions": 0.982421875,
+          "drivable_area_compliance": 0.8779296875,
+          "ego_progress": 0.6553318312706369,
+          "time_to_collision_within_bound": 0.9462890625,
+          "comfort": 0.9990234375,
+          "driving_direction_compliance": 0.92333984375,
+          "score": 0.7617510950834685
+        },
+        "training_overlap": {
+          "historical_joint_planning_tokens": 1024,
+          "historical_joint_planning_recording_scenes": 1024,
+          "historical_adapter_planning_tokens": 832,
+          "historical_adapter_planning_recording_scenes": 832,
+          "historical_adapter_stage1_recording_scenes": 832
+        },
+        "interpretation": "Historical training overlap; diagnostic only",
+        "full_navtest": false,
+        "checkpoint": {
+          "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/checkpoints/historical_joint.pt",
+          "sha256": "47ad88547ff7d520799724350c70f717f537aab85986cdebf38b8c1051370816",
+          "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_drivor_planning_path_lora_v1/navsim_v1/latest.pt",
+          "completed_updates": 5493
+        },
+        "scenario_scores": {
+          "left_turn": {
+            "count": 284,
+            "pdms": 72.49976375734407,
+            "drivable_area_compliance": 0.8485915492957746,
+            "ego_progress": 0.5843605273593563
+          },
+          "right_turn": {
+            "count": 155,
+            "pdms": 62.847795595698045,
+            "drivable_area_compliance": 0.7741935483870968,
+            "ego_progress": 0.49415354590965593
+          },
+          "straight": {
+            "count": 585,
+            "pdms": 81.49054856774062,
+            "drivable_area_compliance": 0.9196581196581196,
+            "ego_progress": 0.7324916339061167
+          }
+        }
+      }
+    }
+  },
+  "paired_recording_bootstrap": {
+    "historical_adapter_minus_rectangular_sequential": {
+      "difference": 3.5163055599195117,
+      "confidence_interval_95": [
+        1.1164412055089734,
+        6.1579672293224235
+      ],
+      "recordings": 44,
+      "scenes": 1024
+    },
+    "historical_joint_minus_rectangular_joint": {
+      "difference": 7.700053770954424,
+      "confidence_interval_95": [
+        4.934496340157057,
+        10.424603986545977
+      ],
+      "recordings": 44,
+      "scenes": 1024
+    },
+    "historical_adapter_minus_historical_joint": {
+      "difference": 1.3817738538383613,
+      "confidence_interval_95": [
+        -0.7716334945719736,
+        3.630091899765017
+      ],
+      "recordings": 44,
+      "scenes": 1024
+    }
+  },
+  "bootstrap_repeats": 5000,
+  "bootstrap_seed": 71,
+  "mean_visual_metrics_three_scenes": {
+    "historical_adapter": {
+      "center_shift_native_input_pixels": 0.08998812851769383,
+      "center_shift_normalized_coordinates_percent": 0.07030322402715683,
+      "mean_absolute_width_height_change_percent": 0.754055122534434,
+      "reconstruction_mse_before": 0.009142079235364994,
+      "reconstruction_mse_after": 0.008874484182645878
+    },
+    "historical_joint": {
+      "center_shift_native_input_pixels": 2.774656227946469,
+      "center_shift_normalized_coordinates_percent": 2.1677000919977822,
+      "mean_absolute_width_height_change_percent": 20.7146790822347,
+      "reconstruction_mse_before": 0.03270098753273487,
+      "reconstruction_mse_after": 0.032644422724843025
+    },
+    "rectangular_sequential": {
+      "center_shift_native_input_pixels": 8.310412938784607,
+      "center_shift_normalized_coordinates_percent": 2.2119487126668296,
+      "mean_absolute_width_height_change_percent": 11.045341968536377,
+      "reconstruction_mse_before": 0.010889494015524784,
+      "reconstruction_mse_after": 0.017960152588784695
+    },
+    "rectangular_joint": {
+      "center_shift_native_input_pixels": 15.806904612714348,
+      "center_shift_normalized_coordinates_percent": 4.357663075129191,
+      "mean_absolute_width_height_change_percent": 20.281208992004395,
+      "reconstruction_mse_before": 0.040712106972932816,
+      "reconstruction_mse_after": 0.01273049165805181
+    }
+  },
+  "checkpoint_integrity": {
+    "historical_adapter": {
+      "snapshot_unchanged": true,
+      "source_unchanged": true
+    },
+    "historical_joint": {
+      "snapshot_unchanged": true,
+      "source_unchanged": true
+    },
+    "rectangular_sequential": {
+      "snapshot_unchanged": true,
+      "source_unchanged": true
+    },
+    "rectangular_joint": {
+      "snapshot_unchanged": true,
+      "source_unchanged": true
+    }
+  },
+  "source_sha256": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/historical_adapter/scores.csv": "dde7d3e0edb6ed0baca21025d93cbe4549a3e264e267bdbd70564fef4abb10a8",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/historical_joint/scores.csv": "d6ca87ea36cb78ff4ea4a09d1e4ac166de351178595877d9dd7de096c4a32e81",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/rectangular_sequential/scores.csv": "693beeaa8dbdb06ec8b3d53fda955a28434cd86297da5fd5f0166b8ec1871382",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/rectangular_joint/scores.csv": "34bb2ddce681f2b28ea90d86c9d9128a13a1a27b19410ae087db8031249752e6",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/reduced_dev/historical_adapter/scores.csv": "52fc940d661e07d70b28d1693313f973225bec966df66393bb0b221ed5db70b6",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/reduced_dev/historical_joint/scores.csv": "4549d2151d46daa1d98db8c51020d45f409ae64a6164e9568d7b052213a429a2"
+  },
+  "current_training_remains_paused": true,
+  "scene_type_definition": "Expert terminal yaw above+0.25rad: left; below-0.25rad: right; otherwise straight. Evaluation stratification only.",
+  "interpretation": "Common held-out navtest subset of1024scenes; original inputs and unequal training budgets retained. Not a resolution-only comparison.",
+  "visualization_scope": "Three fixed reduced-dev scenes with historical training overlap; current reconstruction, not future prediction."
+}

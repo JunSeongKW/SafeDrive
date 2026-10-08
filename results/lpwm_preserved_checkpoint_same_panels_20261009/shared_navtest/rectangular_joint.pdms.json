@@ -1,0 +1,34 @@
+{
+  "condition": "rectangular_joint",
+  "panel": "shared_navtest",
+  "count": 1024,
+  "failed": 0,
+  "pdms": 72.42888809607405,
+  "ade_m": 2.078063488006592,
+  "fde_m": 5.077569961547852,
+  "non_drivable_trajectory_count": 136,
+  "subscores": {
+    "no_at_fault_collisions": 0.947265625,
+    "drivable_area_compliance": 0.8671875,
+    "ego_progress": 0.609340736387893,
+    "time_to_collision_within_bound": 0.90234375,
+    "comfort": 1.0,
+    "driving_direction_compliance": 0.90869140625,
+    "score": 0.7242888809607404
+  },
+  "training_overlap": {
+    "historical_joint_planning_tokens": 0,
+    "historical_joint_planning_recording_scenes": 0,
+    "historical_adapter_planning_tokens": 0,
+    "historical_adapter_planning_recording_scenes": 0,
+    "historical_adapter_stage1_recording_scenes": 0
+  },
+  "interpretation": "Common held-out NAVSIM v1 navtest subset",
+  "full_navtest": false,
+  "checkpoint": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/checkpoints/rectangular_joint.pt",
+    "sha256": "9ba4f8545aa154e51f10cb38b897d94623401138f2a66fec0254c73aec02607b",
+    "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint/latest.pt",
+    "completed_updates": 2264
+  }
+}

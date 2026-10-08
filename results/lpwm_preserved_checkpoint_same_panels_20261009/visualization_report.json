@@ -1,0 +1,123 @@
+{
+  "metrics": {
+    "historical_adapter": [
+      {
+        "scene": 1,
+        "center_shift_native_input_pixels": 0.09317065896245158,
+        "center_shift_normalized_coordinates_percent": 0.07278957962989807,
+        "mean_absolute_width_height_change_percent": 0.7597628831863403,
+        "reconstruction_mse_before": 0.00972512736916542,
+        "reconstruction_mse_after": 0.0097659295424819
+      },
+      {
+        "scene": 2,
+        "center_shift_native_input_pixels": 0.10275676237744788,
+        "center_shift_normalized_coordinates_percent": 0.08027871698141098,
+        "mean_absolute_width_height_change_percent": 0.6692208051681519,
+        "reconstruction_mse_before": 0.0041028275154531,
+        "reconstruction_mse_after": 0.004109639208763838
+      },
+      {
+        "scene": 3,
+        "center_shift_native_input_pixels": 0.07403696421318205,
+        "center_shift_normalized_coordinates_percent": 0.05784137547016144,
+        "mean_absolute_width_height_change_percent": 0.8331816792488098,
+        "reconstruction_mse_before": 0.01359828282147646,
+        "reconstruction_mse_after": 0.012747883796691895
+      }
+    ],
+    "historical_joint": [
+      {
+        "scene": 1,
+        "center_shift_native_input_pixels": 2.9730397487958835,
+        "center_shift_normalized_coordinates_percent": 2.3226871490478516,
+        "mean_absolute_width_height_change_percent": 18.456119537353516,
+        "reconstruction_mse_before": 0.0466792993247509,
+        "reconstruction_mse_after": 0.04105236008763313
+      },
+      {
+        "scene": 2,
+        "center_shift_native_input_pixels": 2.8291283502339395,
+        "center_shift_normalized_coordinates_percent": 2.210256576538086,
+        "mean_absolute_width_height_change_percent": 24.37714958190918,
+        "reconstruction_mse_before": 0.018349988386034966,
+        "reconstruction_mse_after": 0.021675357595086098
+      },
+      {
+        "scene": 3,
+        "center_shift_native_input_pixels": 2.521800584809585,
+        "center_shift_normalized_coordinates_percent": 1.9701565504074097,
+        "mean_absolute_width_height_change_percent": 19.310768127441406,
+        "reconstruction_mse_before": 0.03307367488741875,
+        "reconstruction_mse_after": 0.035205550491809845
+      }
+    ],
+    "rectangular_sequential": [
+      {
+        "scene": 1,
+        "center_shift_native_input_pixels": 6.50235441869909,
+        "center_shift_normalized_coordinates_percent": 1.950643539428711,
+        "mean_absolute_width_height_change_percent": 13.499853134155273,
+        "reconstruction_mse_before": 0.011466659605503082,
+        "reconstruction_mse_after": 0.019468359649181366
+      },
+      {
+        "scene": 2,
+        "center_shift_native_input_pixels": 8.03672814042446,
+        "center_shift_normalized_coordinates_percent": 2.205700397491455,
+        "mean_absolute_width_height_change_percent": 7.962884426116943,
+        "reconstruction_mse_before": 0.0060662091709673405,
+        "reconstruction_mse_after": 0.012027268297970295
+      },
+      {
+        "scene": 3,
+        "center_shift_native_input_pixels": 10.392156257230267,
+        "center_shift_normalized_coordinates_percent": 2.4795022010803223,
+        "mean_absolute_width_height_change_percent": 11.673288345336914,
+        "reconstruction_mse_before": 0.015135613270103931,
+        "reconstruction_mse_after": 0.022384829819202423
+      }
+    ],
+    "rectangular_joint": [
+      {
+        "scene": 1,
+        "center_shift_native_input_pixels": 16.55693408826444,
+        "center_shift_normalized_coordinates_percent": 4.3979926109313965,
+        "mean_absolute_width_height_change_percent": 14.181462287902832,
+        "reconstruction_mse_before": 0.04390841722488403,
+        "reconstruction_mse_after": 0.012948121875524521
+      },
+      {
+        "scene": 2,
+        "center_shift_native_input_pixels": 13.25214915507412,
+        "center_shift_normalized_coordinates_percent": 3.964179754257202,
+        "mean_absolute_width_height_change_percent": 22.148996353149414,
+        "reconstruction_mse_before": 0.03287767991423607,
+        "reconstruction_mse_after": 0.007767140865325928
+      },
+      {
+        "scene": 3,
+        "center_shift_native_input_pixels": 17.61163059480448,
+        "center_shift_normalized_coordinates_percent": 4.710816860198975,
+        "mean_absolute_width_height_change_percent": 24.513168334960938,
+        "reconstruction_mse_before": 0.045350223779678345,
+        "reconstruction_mse_after": 0.017476212233304977
+      }
+    ]
+  },
+  "source_sha256": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/historical_adapter_visuals.npz": "ba1e183237f345cfde35293caa2549d226fddb9a4957939aea76874ae915b1a4",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/historical_joint_visuals.npz": "5a5c4baf148dc18d4c07f170295a46830cd169a0099a7389826d2a28c5cc003f",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/rectangular_sequential_visuals.npz": "fe165261704be05026c08b05c9a01f7adefbeb7006f8818a354b9e7e046d93d9",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_preserved_checkpoint_same_panels_20261009/rectangular_joint_visuals.npz": "2bac72e373b52ba4bb259514cfc645417e46d84e208b2f81603d062b7975ecd8"
+  },
+  "scope": "First3 fixed reduced-dev scenes; historical training overlap. Representation comparison, not resolution-only causal ablation.",
+  "files": [
+    "/rhome/junseong/PlanningAwareFuturePrediction/results/lpwm_preserved_checkpoint_same_panels_20261009/scene1_particle_before_after_overlay.png",
+    "/rhome/junseong/PlanningAwareFuturePrediction/results/lpwm_preserved_checkpoint_same_panels_20261009/scene1_reconstruction_before_after.png",
+    "/rhome/junseong/PlanningAwareFuturePrediction/results/lpwm_preserved_checkpoint_same_panels_20261009/scene2_particle_before_after_overlay.png",
+    "/rhome/junseong/PlanningAwareFuturePrediction/results/lpwm_preserved_checkpoint_same_panels_20261009/scene2_reconstruction_before_after.png",
+    "/rhome/junseong/PlanningAwareFuturePrediction/results/lpwm_preserved_checkpoint_same_panels_20261009/scene3_particle_before_after_overlay.png",
+    "/rhome/junseong/PlanningAwareFuturePrediction/results/lpwm_preserved_checkpoint_same_panels_20261009/scene3_reconstruction_before_after.png"
+  ]
+}
