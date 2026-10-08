@@ -1,5 +1,100 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-09 — 주요 LPWM 학습 과정과 비교 결과 통합
+
+사용자 요청으로 기존 결과를 정리한 표다. 새 학습·추론·평가를 실행하지 않았다.
+현재 축소 공동학습은2264update에서 중단 상태를 유지한다. 아래 세 평가 패널은 서로 다르므로 표 사이의 점수를 직접 비교하지 않는다.
+
+### 학습 과정과 입력
+
+| 실험 계열 | Planning 입력 | 표현 | Stage1 | Planning 학습과 실제 학습량 |
+|---|---|---|---|---|
+|이전128 2-stage|전방1대·과거/현재4프레임·128×128|64FG+1BG particle|공개 Sketchy→NAVSIM23,126clip×20epoch,12frame/clip,28,920update|navtrain 내부 학습분할75,297scene. 일부계층/LoRA/Adapter/전체미세조정/고정군 각1epoch4707update. Adapter는2epoch9414까지 검증 후13,480(약2.86epoch)에서 중단|
+|이전128 공동학습 LoRA|현재4카메라·128×128|64FG+1BG particle|별도NAVSIM SSL 없음;공개Sketchy에서 시작|navtrain85,109+navval18,179=103,288scene. 공식DrivoR planner와 geometry/appearance/context/dynamics LoRA를 planning-only 공동학습.25epoch계획 중5493/40350update(약3.40epoch)에서 중단|
+|최근 Drive-JEPA 방식|전방1대·과거/현재2프레임·512×256|spatiotemporal patch latent|공개V-JEPA2→공통OpenScene10,480clip×5회;masked latent prediction|공통navtrain10,240scene×5epoch=3200update. Native백본+공통DrivoR planner미세조정 완료|
+|최근 DrivoR 방식|동일전방1대·2프레임·512×256,patch14 padding|DINOv2 register|공개DINOv2,추가주행SSL 없음|동일10,240scene×5epoch=3200update. Q/V LoRA rank32+register/공통planner학습 완료|
+|최근 LPWM 2-stage|동일전방1대·2프레임·512×256|16FG+1BG particle|공개Sketchy→공통10,480clip×5회;LPWM원래SSL|동일10,240scene×5epoch=3200update. Encoder/context/dynamics/명령FiLM native+공통planner학습 완료|
+|최근 LPWM 공동학습|동일전방1대·2프레임·512×256|16FG+1BG particle|분리하지 않고공개Sketchy에서 시작|동일planning목록에서planning+0.1SSL.2264/3200update(3.5375epoch),36,224planning/37,072SSL노출 후 사용자 중단|
+
+최근 공통SSL은8frame/2Hz/실제11.644h OpenScene이다. 목표5회 노출52,400clip,330h실험이 아니다.
+최근 네 조건의 planning 유효 batch16·초기 planner tensor·학습/개발 scene 목록이 같지만 원래 공개 백본 사전학습과 추가 SSL 유무는 다르다.
+최근 planner LR1e-4,JEPA/LPWM native LR1e-5,DrivoR LoRA LR1e-4. LPWM Stage1 LR8e-5.
+이전128Adapter Stage2 LR=LPWM Adapter1e-5/planner3e-4,planning+0.02원SSL;encoder native CNN/head는 고정이다.
+128공동 LoRA의LPWM/planner LR은2e-4,RGBdecoder와미사용context posterior는 고정,SSL/objectGT 가중치0이다.
+이전 초기LoRA1.343M 조건과 나중 geometry/CNN/future LoRA 공동학습은 서로 다른실험이다.
+
+### 이전128 내부 개발 패널 결과
+
+평가패널:1,024개발장면/40recording 중 같은3개 PDM cache 미유효를 제외한PDMS1021장면, ADE/FDE1024장면.
+별도world평가256clip. 각Stage2 seed47.20epochStage1 약13시간41분은 아래Stage2시간에 포함되지 않는다.
+
+| 방법 | Stage2 epoch/update | PDMS | ADE m | FDE m | LPWM 학습 parameter | Stage2 누적학습시간 |
+|---|---:|---:|---:|---:|---:|---|
+|Stage1 없음·공개LPWM고정+planner|1/4707|78.9161|1.3729|3.3423|0|별도시간미집계|
+|Stage1 이후LPWM/명령FiLM고정+planner|1/4707|82.5238|1.1635|2.7825|0|1시간27분|
+|일부 계층 native미세조정|1/4707|81.6341|1.2825|3.0433|5,558,389|4시간17분|
+|Transformer LoRA|1/4707|81.9141|1.1822|2.8406|1,343,488|6시간19분|
+|잔차 Adapter|1/4707|82.4852|1.1551|2.7567|704,960|4시간9분|
+|전체 native 낮은LR미세조정|1/4707|81.2282|1.2960|3.0161|109,545,263|8시간25분|
+|동일Adapter 추가학습|2/9414|83.5279|1.1433|2.7021|704,960|누적시간미집계|
+
+Planner/명령 학습parameter는미세조정군에별도2,211,975개,완전고정군planner는2,207,495개다.
+시간은기록된active training누적값;공유부하·실제microbatch·재개·schedule이 달라 방법 자체속도순위가 아니다.
+유효planning batch16을 유지했으나 일부계층/LoRA의중간microbatch 변경으로dropout·SSL표본·합산순서 차이가남는다.
+Stage1대비 미래LPIPS변화:일부계층+11.764%,LoRA−0.103%,Adapter+0.385%,Full+0.802%.
+일부계층은기존10%미래품질유지기준을넘었지만이를객체정보전체손실이나planning실패로확대하지않는다.
+
+### 최근512 네 조건의 동일 축소 개발 패널 곡선
+
+평가패널:공통navval 개발1024장면,현축소planning/SSL학습과recording중복0,모든평가실패0.
+Epoch은planning목록1회=640update로 정의한다. Drive-JEPA/LPWM순차의별도Stage1 5회는이epoch에 합산하지 않는다.
+
+| 방법 | 1epoch PDMS | 3epoch PDMS | 5epoch PDMS | 실제planning 진행 |
+|---|---:|---:|---:|---|
+|DrivoR 방식|66.9414|78.3977|81.2535|3200/3200,완료|
+|Drive-JEPA 방식|66.9890|74.6970|77.9602|3200/3200,완료|
+|LPWM 2-stage|64.9743|70.0917|71.1233|3200/3200,완료|
+|LPWM 공동학습|61.7331|63.9660|미완료|2264/3200,3.5375epoch에서중단|
+
+네조건은공통planner/입력으로변경한축소비교며원논문 전체설정의재현이 아니다.
+Drive-JEPA방식은공개일반영상V-JEPA2를작은주행SSL목록에 적응시킨조건이며공식Drive-JEPA330hcheckpoint 재현이 아니다.
+동일5epoch에서LPWM순차의도로준수83.8867%/progress.59036은DrivoR92.7734%/.69534보다낮다.
+이는낮은점수의관측된구성항목이고해상도/particle예산/SSL충돌이이를유발했다고증명하지않는다.
+
+### 이전128와현재512의공통navtest 결과
+
+평가패널:학습token/recording과겹치지않는기존navtest1024장면/44recording.공식NAVSIMv1동일scorer/GT/cache/출력horizon,모든scene유효.
+이전에점검한5400/9414 checkpoint와이번평가전고정5493/13480 checkpoint를구분한다.
+
+| 방법 | 이전동일navtest평가 checkpoint/PDMS | 최근평가 checkpoint/PDMS | 최근ADE/FDE m |
+|---|---|---|---|
+|128×128 2-stage Adapter|9414(2epoch)/81.6141|13480(약2.86epoch)/81.5107|1.1328/2.6508|
+|128×128 공동 LoRA|5400(약3.35epoch)/81.6096|5493(약3.40epoch)/80.1289|1.4922/3.6151|
+|512×256 2-stage|동일 패널 과거 평가 없음|3200(5epoch)/77.9944|1.7918/4.4128|
+|512×256 공동|동일 패널 과거 평가 없음|2264(약3.54epoch)/72.4289|2.0781/5.0776|
+
+Navtest1024는전체navtest가아니다.이전128공동은4camera+navtrain/navval,Adapter는front4history+다른planner,최근512는front2history+16FG+다른학습예산이므로해상도만의비교가아니다.
+최근128Adapter−512순차+3.5163점95%recordingCI[1.1164,6.1580];128joint−512joint+7.7001[4.9345,10.4246]이지만조건차이의원인을분리하지않는다.
+이전128Adapter−128joint+1.3818점CI[−0.7716,3.6301]은0을포함한다.
+
+### 확인된사실과미확인연구가설
+
+| 질문 | 관측 | 해석 |
+|---|---|---|
+|NAVSIM Stage1 SSL적응이도움되는가?|같은고정LPWM/planner조건78.9161→82.5238,+3.6077점CI[1.5065,5.8539]|해당내부개발조건에서적응이득확인;독립test/particle구조단독이득은아님|
+|Planning미세조정이planner-only보다나은가?|128Stage1-frozen82.5238vsAdapter82.4852;차이−.0386CI0포함|초기1epoch조건에서는추가PDMS이득미확인|
+|Adapter추가학습이도움되는가?|내부dev1→2epoch82.4852→83.5279;공통navtest2→2.86epoch81.6141→81.5107|개발점수상승과독립패널점수개선을구분;수렴/상한판정불가|
+|Particle이위치/크기를바꾸었는가?|첫3고정장면평균128Adapter .09nativepx/.75%,128joint2.77px/20.71%,512seq8.31px/11.05%,512joint15.81px/20.28%|위치변화존재.128Adapter는거의불변이어도가장높은PDMS;이동량은유용성지표가아님|
+|RGB복원선명도가planning을대변하는가?|128jointRGB크게왜곡/decoderNAVSIM미학습인데PDMS80.13;512seqplanning후3sceneRGBMSE+64.9%|복원품질과latent유용성은구분해야함;작은객체보존probe/개입은별도필요|
+|명령별객체미래표현이일반압축feature보다우수한가?|최근공통5epochLPWM순차71.12vsDrivoR81.25|본축소조건에서우위미확인;원명제의인과검증/예산통제는남음|
+
+근거: [128네방법](../results/lpwm_card_budget_measured_v4/completed_four_method_review_20261005/summary.json),
+[고정대조군](../results/lpwm_frozen_control_v1/completed_comparison_20261005/summary.json),
+[Adapter2epoch](../results/lpwm_adapter_original_batch_shared_v4/epoch02_summary.json),
+[축소네조건최근기록](../results/four_model_small_corpus_v1/progress_20261009_0717.json),
+[공통navtest1024및particle/RGB](../results/lpwm_preserved_checkpoint_same_panels_20261009/comparison_summary.json).
+이전계획·현재상태문장은아래이력이다.현재중단상태가우선한다.
+
 ## 2026-10-05: Stage1 유무 대조군 최종 검증 완료
 
 **하위 질문:** LPWM을 고정하고 동일 planner만 학습할 때 NAVSIM Stage1 적응이 planning에 도움이 되는가?

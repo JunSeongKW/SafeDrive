@@ -4255,3 +4255,17 @@ Stage1SSL5 RGB복원과+3s미래의작은차량/보행자/도로경계는흐림.
 3scene 현재 RGB MSE 전→후:128Adapter .009142→.008874;128joint .032701→.032644;512seq .010889→.017960;512joint .040712→.012730. 128Adapter는 도로구조 복원을 유지하지만 작은보행자는 흐림. 128joint는 NAVSIM RGBdecoder 학습없이 공개장면의 녹색 비주행 구조로 크게왜곡돼도 PDMS80.13이라 RGB 선명도가 planning 성능의 직접 지표가 아님을 보여준다. 512seq는 decoder고정/planning-only backbone적응 후 복원오차 약64.9% 증가(3scene만), latent 손실의 증명은 아님. 512joint는 주행장면 복원으로 개선하나 작은객체가흐림. 서로다른입력/해상도 MSE를 동등품질 비교로 해석하지 않는다.
 
 현재학습은 계속 중단, 새후속학습·해상도어블레이션 미등록/미기동. 추후 카메라/관측·particle예산·planner·학습데이터/노출·SSLloss를 고정해야 해상도 원인을 분리할 수 있다. GPU1은25MiB이고 GPU0전체18077MiB는 종료 후 다른 점유이며 타인프로세스를 변경하지 않았다. 기존 Git 원격 인증 socket 실패 이력은 유지한다.
+
+## 2026-10-09 08:40 KST — 주요 학습 과정과 결과를 패널별 표로 통합
+
+사용자는 지금까지의 결과들과 학습 과정을 표로 정리해 달라고 요청했다. Stage1 실제training_summary·기존method/frozen/Stage1유무 JSON·Adapter epoch02·최근experiment config와각pass1/3/5 PDMS·최근preserved comparison_summary를 읽어 `docs/lpwm_planning_experiment.md` 최상단에 통합 절을 추가했다. 새 학습/추론/평가/기존수치 수정 없음. 현재축소joint2264/rootpaused/active_jobs=[] 유지, 어떤 대기열도 재기동하지 않는다.
+
+통합표 구성:①학습 계열6개(이전128 2-stage와공동LoRA,최근JEPA/DrivoR/LPWM순차/LPWM공동)의입력·표현·Stage1·Stage2 데이터/실제학습량;②이전128 내부개발1021PDMS의4미세조정·frozen·Stage1없음·Adapter2epoch;③최근512 공통개발1024의1/3/5epoch곡선;④같은44recording/navtest1024에서과거9414/5400와최근13480/5493/3200/2264 checkpoint의점수;⑤연구질문별확인사실/미확인해석. 최종사용자표에서는 숫자를2–3자리로표시하되원자료정밀도는보존한다.
+
+재확인:이전Stage1은23,126개의12frame(4관측+8미래)clip/20epoch/28920update/49245.37초(13h41m),기존Adapter82.4852는그후Stage2 navtrain내부분할75297scene/1epoch4707update/14974.40초(4h9m)다. 네방법PDMS partial81.6341/초기TransformerLoRA81.9141/Adapter82.4852/full81.2282,frozen82.5238/publicfrozen78.9161. Frozen/FiLM frozen 대조와방법별학습parameters·loss·LR·시간을구분했다. 일부계층미래LPIPS+11.764%는품질유지기준미충족이나객체정보전체손실이아니다.
+
+Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6141과구분. 마지막13480≈2.864epoch navtest81.5107는추가학습일반화향상을입증하지않는다. 나중128공동geometry/appearance/futureLoRA는navtrain85109+navval18179=103288scene/publicSketchy/SSL가중치0/25epoch계획중5493≈3.403epoch중단으로초기TransformerLoRA조건과다르다.
+
+최근조건은OpenScene10480개의8frame/2Hzclip(실제11.644h)×5회52400노출목표,공통navtrain10240/recording분리dev1024/5planningepoch3200update/유효batch16. DrivoR추가주행SSL없음,JEPA와LPWM순차SSL5회완료,LPWMjoint는planning+.1SSL 동시이고현재3.5375epoch에서중단. 이는330h나원논문전체재현이아니다. Dev최종DrivoR81.2535/JEPA77.9602/LPWM순차71.1233,joint3epoch63.9660(최신2264점수아님). 최신같은navtest1024는128Adapter81.5107/128joint80.1289/512seq77.9944/512joint72.4289다.
+
+기존microbatch변경·공유GPU부하·schedule차이를숨기지않고시간/최종성능동등성을보장하지않았다. 서로다른개발패널간82대71의비교와해상도단독인과해석을피한다. Stage1 SSL효과는해당개발frozen대조에서+3.6077점으로확인했지만Stage2 planning미세조정의추가PDMS이득/명령별particle미래표현의인과기여/최종수렴은미확인이다. 원격Git socket인증실패이력은유지한다.

@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 08:27 KST (Codex)
+마지막 갱신: 2026-10-09 08:41 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 08:40 KST — 사용자 요청은 지금까지의 학습 과정·결과 표 정리다. 기존 JSON/config/Stage1 summary와 epoch별 PDMS를 읽어 보고서를 정리했으며 새 학습·GPU 추론·평가 없음. 현재 공동학습2264 fullstate/root paused/active_jobs=[] 유지. 완료 평가와 기존 학습을 재기동하지 않는다.
 
 2026-10-09 08:26 KST — 사용자 요청한 학습 중단·보존 checkpoint 평가·시각화 모두 완료. 현재 공동학습은 2264 fullstate(Adam/scheduler/양 rank RNG)에서 중단됐고 root `outputs/four_model_small_corpus_v1/pause.requested` 및 paused/active_jobs=[] 유지. 평가 controller2996336도 08:19 정상 종료했다. `outputs/lpwm_preserved_checkpoint_same_panels_20261009/queue_state.json` complete, `evaluation_complete.json` complete=true. 평가 중 추가 optimizer update 없음. 명시적 사용자 재개 전 현재·과거 학습/자동 대기열을 재기동하지 않는다. GPU1은25MiB; GPU0 전체18077MiB에는 다른 작업 점유가 생겼으며 우리 평가 종료를 다른 사용자 메모리 반환으로 오해하지 않는다.
 
@@ -1306,6 +1308,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 08:40 KST — `docs/lpwm_planning_experiment.md` 맨 앞에 학습과정/이전128개발/최근512개발 epoch곡선/공통navtest/연구질문별 판단 표를 추가했다. 이전128 Stage1은23,126개12frame clip/20epoch/28,920update/13시간41분. Stage2는75,297scene/1epoch/4707update에서 partial81.6341/초기TransformerLoRA81.9141/Adapter82.4852/full81.2282/frozen82.5238이며 PDMS1021개발장면 기준. Stage1미적응frozen78.9161 대비+3.6077. Adapter2epoch9414의같은dev83.5279와navtest81.6141을 구분한다. 나중128공동geometry/CNN/futureLoRA는다른방법으로navtrain+navval103,288scene/5493update이며별도NAVSIM SSL없음. 최근512네조건은공통10,240navtrain/1024dev,공통SSL10,480clip×5(OpenScene11.644h),330h실험 아님. 최근공통navtest결과81.5107/80.1289/77.9944/72.4289를별도패널로유지. 과거동일navtest의Adapter9414/LoRA5400=81.6141/81.6096도표에분리했다.
 
 2026-10-09 08:26 KST — 같은 held-out navtest1024/44recording, 공식 NAVSIM v1 PDM scorer·GT·metric cache·8×0.5s 출력/40×0.1s 시뮬레이션으로 네 checkpoint 평가 완료, 모두1024 valid/실패0. 이전128 2-stage Adapter13480: PDMS81.510716/ADE1.132774/FDE2.650842m; 이전128 planning-only 공동 LoRA5493:80.128942/1.492170/3.615059m; 현재512 순차3200:77.994410/1.791798/4.412840m; 현재512 공동2264:72.428888/2.078063/5.077570m. 마지막 보존 checkpoint를 평가 전 고정했고 이전 최고점으로 선택하지 않았다. 원본/snapshot4 SHA 모두 유지 검증. 학습량/데이터·관측·planner·64대16FG·SSL 목적 차이가 있으므로 해상도 단독 효과가 아니다.
 
@@ -2278,15 +2282,16 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청으로 현재 공동학습과 v11 자동 대기열을 2264 fullstate에서 정상 중단하고 재개 방지 marker를 유지했다.
-- 이전128 Adapter13480/공동LoRA5493 및 현재512 순차3200/공동2264를 평가 전에 snapshot하고 각자의 원래 입력·학습량을 보존했다.
-- 새 평가 전용 script/queue로 두128모델을 같은 reduced-dev 및 공통 held-out navtest1024에, 두512모델을 같은 navtest1024에 평가했다. 총6회 모두1024 valid/실패0; checkpoint 원본/snapshot4 SHA 불변.
-- 새1024공통 navtest PDMS는81.5107/80.1289/77.9944/72.4289이며, 개발패널의 과거학습 중복을 밝혀 일반화 비교와 분리했다.
-- 같은3장면의 현재 RGB 복원과 particle 전후/겹침6PNG, 원래64대16particle·decoder30/64선택과 planning 전 초기화 차이를 기록했다.
-- 시나리오별 점수 및 대응 recording bootstrap95%CI를 저장하고, 위치 이동·RGB 복원 품질을 planning 표현의 유용성과 구분했다.
-- 원래 학습 source/config/데이터를 변경하지 않았고 추가 학습 update는 없었다. 평가 queue 완료·현재학습중단을 검증하고 인수인계를 갱신했다.
+- 사용자 요청에 따라 주요 LPWM 실험의 입력·학습데이터·Stage1/2 epoch/update·loss·미세조정 범위를 표로 통합했다.
+- 이전128 내부개발1021,최근512 축소개발1024,공통navtest1024를 분리해 점수와 epoch별 곡선을 정리했다.
+- Stage1적응 대조/원래 네미세조정/frozen/Adapter2epoch/나중128jointLoRA/최근네조건/최신navtest를 실제JSON/config와 대조했다.
+- Stage1 13시간41분과Stage2시간을 구분하고,초기TransformerLoRA와나중geometry/CNN/futureLoRA의차이를 명시했다.
+- 해상도·학습데이터/관측·particle·학습량·planner 차이 및개발/test 중복을 기록하고,Stage1효과와planning미세조정 추가이득을 구분했다.
+- 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 08:40 KST — 통합 표를 보고하고 사용자 다음 지시를 기다린다. 현재2264 학습과 과거25epoch/Adapter 연장을 자동 재개하지 않는다. 표 정리는새대기열/학습승인이 아니다.
 
 2026-10-09 08:26 KST — 요청 평가·시각화는 완료됐고 실행 중 대기열은 없다. 결과와 PNG를 보고한 뒤 사용자 다음 지시를 기다린다. 현재 joint의 잔여936update/5epoch 평가 및 과거128 학습을 자동 재개하지 않는다. 향후 해상도 원인 검증에는 카메라·과거관측·particle 예산·planner·학습 scene/노출·SSL loss를 고정한 비교가 필요하다. 이 후속 비교는 제안이며 등록/실행하지 않았다.
 
@@ -2931,6 +2936,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 08:40 KST — 과거12882점과현재51271점은서로다른개발패널이다. 비교는같은패널안에서만하며공통navtest에서도학습조건차이가남는다. 소요시간은기존active누적기록으로공유부하/배치/schedule차이가있어방법자체속도순위가아님. 초기4방법과frozen은1seed/1planningepoch이며수렴/최적성판정불가. Stage1이득은해당내부개발조건에서확인,planning미세조정추가PDMS이득/particle단독이득은미확인. Joint5epoch는중단으로미완료. Git원격인증socket실패이력은유지한다.
 
 2026-10-09 08:26 KST — 현재 학습 중단은 사용자 지시이며 평가 완료가 학습목표 달성을 뜻하지 않는다. 네 checkpoint는 같은1024 navtest scene에서 평가했지만 학습 조건은 다르다;128 공동4currentcam/planning-only LoRA와512 공동front2history/planning+SSL를 동일 실험으로 부르지 않는다. 시각화는 별도의 첫3개 reduced-dev장면이며 과거학습과 겹친다. Dot/box는 FG중심·presence/glimpse이고 객체검출·attention·객체ID가 아니다. 이전64FG decoder는30FG만 선택한다. 그림128→512×256 nearest확대는 표시용; 모델입력은128 유지. 신규6개 PDMS는 모두 완료, 512공동5epoch는 중단으로 미완료. 최초 빈nohup/controller.log와 잘못된CPU환경 scorer 실패 이력은 보존; 실제host controller2996336 정상종료, 공식3.9환경으로 채점완료. 마지막 로컬 결과는 보존하며 원격은 기존 VSCode credential socket 인증 실패가 남아 있다.
 
