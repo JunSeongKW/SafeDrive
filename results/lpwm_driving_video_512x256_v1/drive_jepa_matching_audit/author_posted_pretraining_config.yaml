@@ -1,0 +1,85 @@
+app: vjepa
+nodes: 1
+tasks_per_node: 8
+cpus_per_task: 8
+mem_per_gpu: 80G
+folder: /workspace/linhan.wang@xiaopeng.com/experiments/vitl_merge_3dataset
+data:
+  dataset_type: VideoDataset
+  datasets:
+  - /workspace/linhan.wang@xiaopeng.com/data/openScene/openscene.csv
+  - /workspace/linhan.wang@xiaopeng.com/data/openScene/covla.csv
+  - /workspace/linhan.wang@xiaopeng.com/data/openScene/drivingdojo.csv
+  datasets_weights:
+  - 0.5
+  - 0.2
+  - 0.3
+  batch_size: 64 
+  crop_size: [256, 512]
+  patch_size: 16
+  dataset_fpcs:
+  - 8
+  - 8
+  - 8
+  tubelet_size: 2
+  fps: 2
+  num_workers: 8
+  persistent_workers: true
+  pin_mem: true
+data_aug:
+  auto_augment: false
+  motion_shift: false
+  random_resize_aspect_ratio:
+  - 1.0
+  - 1.0
+  random_resize_scale:
+  - 1.0
+  - 1.0
+  reprob: 0.0
+loss:
+  loss_exp: 1.0
+mask:
+- aspect_ratio:
+  - 0.75
+  - 1.5
+  full_complement: false
+  max_keep: null
+  max_temporal_keep: 1.0
+  num_blocks: 8
+  spatial_scale:
+  - 0.15
+  - 0.15
+  temporal_scale:
+  - 1.0
+  - 1.0
+meta:
+  dtype: bfloat16
+  eval_freq: 100
+  load_checkpoint: true
+  read_checkpoint: /workspace/group_share/adc-perception-xbrain/linhan/vjepa2/vitl.pt
+  save_every_freq: 25
+  seed: 239
+  use_sdpa: true
+model:
+  model_name: vit_large
+  pred_depth: 12
+  pred_embed_dim: 384
+  pred_num_heads: 12
+  uniform_power: true
+  use_activation_checkpointing: true
+  use_mask_tokens: true
+  use_rope: true
+  zero_init_mask_tokens: true
+optimization:
+  ema:
+  - 0.99925
+  - 0.99925
+  epochs: 100
+  final_lr: 0.000525
+  final_weight_decay: 0.04
+  ipe: 300
+  ipe_scale: 1.25
+  lr: 0.000525
+  start_lr: 0.0001
+  warmup: 20
+  weight_decay: 0.04

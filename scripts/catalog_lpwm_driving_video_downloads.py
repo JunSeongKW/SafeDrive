@@ -25,7 +25,7 @@ def main(arguments):
             if "CoVLA" in repository:
                 keep = name.endswith(".mp4")
             elif "DrivingDojo" in repository:
-                keep = "video" in name and name.endswith((".tar.gz", ".tgz", ".tar"))
+                keep = "video" in name and name.endswith((".tar.gz", ".tgz", ".tar", ".zip"))
             else:
                 keep = "openscene-v1.1/openscene_sensor_trainval_camera/" in name
             if keep:

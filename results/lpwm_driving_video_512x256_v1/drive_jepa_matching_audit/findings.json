@@ -1,0 +1,45 @@
+{
+  "checked_kst": "2026-10-08T12:44:58.070390+09:00",
+  "author_config_found": true,
+  "author_config_source": "https://github.com/linhanwang/Drive-JEPA/issues/7#issuecomment-4006091822",
+  "reference_csvs_available": false,
+  "missing": [
+    "three source-video CSV contents",
+    "original video-generation scripts",
+    "confirmed source-specific exact preprocessing and temporal sampling"
+  ],
+  "newly_found_sampling_probabilities": {
+    "OpenScene": 0.5,
+    "CoVLA": 0.2,
+    "DrivingDojo": 0.3
+  },
+  "paper_and_config_epoch_discrepancy": {
+    "paper_reported_epochs": 50,
+    "author_config_max_epochs": 100,
+    "author_config_updates_per_reported_epoch": 300,
+    "author_config_batch_per_gpu": 64,
+    "author_config_gpu_count": 8,
+    "derived_global_batch_clips": 512,
+    "released_checkpoint_epoch_field": 51,
+    "released_checkpoint_optimizer_updates": 15300,
+    "released_checkpoint_nominal_clip_presentations": 7833600,
+    "paper50_epoch_nominal_clip_presentations": 7680000,
+    "epoch_is_fixed_update_interval_not_one_unique_corpus_pass": true,
+    "lpwm_paper_budget_target_clip_presentations": 7680000,
+    "lpwm_public_checkpoint_comparison_target_clip_presentations": 7833600,
+    "lpwm_full_run_budget_target": "use released checkpoint presentations when using released checkpoint as reference; log actual sampling and failed batch counts",
+    "lpwm_microbatch_per_gpu_candidate": 4,
+    "lpwm_gpus": [
+      0,
+      1
+    ],
+    "lpwm_accumulation_for_effective512_candidate": 64,
+    "lpwm_full_run_effective_batch": "512 via accumulation only after stability/throughput validation; not active now",
+    "learning_rate": "LPWM-specific SSL LR to be registered and validated; do not copy ViT LR blindly",
+    "precision": "LPWM FP32 currently validated; reference posted bf16 but released checkpoint also includes scaler state, so actual reference precision not established"
+  },
+  "local_crop28_not_verified_as_ssl_recipe": true,
+  "full_matched_run_ready": false,
+  "primary_result_must_not_reuse_local_pilot_weights": true,
+  "current_preparation_and_download_jobs_continue": true
+}

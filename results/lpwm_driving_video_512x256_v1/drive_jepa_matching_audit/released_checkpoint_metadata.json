@@ -1,0 +1,42 @@
+{
+  "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa/vitl_merge_3dataset_e50.pt",
+  "bytes": 5127748765,
+  "keys": [
+    "encoder",
+    "predictor",
+    "opt",
+    "scaler",
+    "target_encoder",
+    "epoch",
+    "loss",
+    "batch_size",
+    "world_size",
+    "lr"
+  ],
+  "scalar_metadata": {
+    "epoch": 51,
+    "loss": 0.48458056886990863,
+    "batch_size": 64,
+    "world_size": 8,
+    "lr": 0.000525
+  },
+  "nested_nonmodel_keys": {
+    "opt": [
+      "state",
+      "param_groups"
+    ],
+    "scaler": [
+      "scale",
+      "growth_factor",
+      "backoff_factor",
+      "growth_interval",
+      "_growth_tracker"
+    ]
+  },
+  "optimizer_steps": [
+    15300.0
+  ],
+  "scaler_present": true,
+  "per_rank_batch_interpretation": "official loader uses batch_size per distributed rank",
+  "nominal_global_batch": 512
+}

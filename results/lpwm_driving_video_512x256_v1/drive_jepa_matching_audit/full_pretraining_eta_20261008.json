@@ -1,0 +1,59 @@
+{
+  "checked_kst": "2026-10-08T12:51:19.955988+09:00",
+  "local_completed_updates": 255,
+  "local_target_updates": 655,
+  "local_epoch_remaining_seconds_estimate": 1572.6013011932373,
+  "current_effective_batch": 16,
+  "seconds_per_update_median_gpu_work": 3.1009767055511475,
+  "seconds_per_update_median_wall": 3.520773768424988,
+  "seconds_per_update_recent_mean_with_checks": 3.856503252983093,
+  "reference_clip_presentations": 7833600,
+  "reference_basis": "released e50 checkpoint optimizer15300 x64 clips/rank x8 ranks; paper50/IPE300 gives7680000 instead",
+  "full_training_days_estimates": {
+    "compute_only": 17.5722013314565,
+    "current_wall_overhead": 19.951051354408264,
+    "current_evaluation_cadence": 21.853518433570862
+  },
+  "source_total_bytes_to_stream": {
+    "CoVLA": 440049933987,
+    "DrivingDojo": 1687862003202,
+    "OpenScene": 1242213272326
+  },
+  "data_preparation_remaining_days_linear_estimates": {
+    "CoVLA": 1.5790266599508955,
+    "DrivingDojo": 3.884539534631395,
+    "OpenScene": 2.417265476495793
+  },
+  "planning_range_days": {
+    "data_preparation": [
+      4,
+      6
+    ],
+    "full_training": [
+      18,
+      23
+    ],
+    "final_validation": [
+      0.5,
+      1
+    ],
+    "overall_rounded": [
+      23,
+      30
+    ]
+  },
+  "conditional_finish_kst_range": [
+    "2026-10-31T12:51:19.956013+09:00",
+    "2026-11-07T12:51:19.956020+09:00"
+  ],
+  "conditions": [
+    "Same16foreground/512x256/FP32 and twoGPU capacity",
+    "No source download failures or long shared-resource interruptions",
+    "Frozen valid330h corpus and common data protocol established",
+    "Fullrun512effective accumulation throughput still to be measured; extrapolated from16effectivebatch",
+    "No claim that unknown reference CSV availability has a bounded completion date"
+  ],
+  "stage2_training_and_pdms_evaluation_included": false,
+  "exact_paper_corpus_match_confirmed": false,
+  "full330h_main_training_started": false
+}

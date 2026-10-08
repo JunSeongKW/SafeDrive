@@ -1,5 +1,16 @@
 # Planning-Aware Future Prediction
 
+**12:51 KST 전체 Stage1 ETA(조건부 추정):** 현재16particle/FP32/GPU0·1 처리량을공개Drive-JEPA e50의15,300×512=7,833,600clip노출에환산하면GPU연산17.57일,현재wall19.95일,검증주기포함21.85일. 데이터수집/전처리4–6일+학습18–23일+최종검증0.5–1일로총23–30일(10/31–11/7KST) 계획범위. Stage2/PDMS미포함. 정확referenceCSV미확보/본batch512미실측이므로확정종료일아님. 현재로컬1epoch는255/655로별도이며약13:18완료예상. [계산근거](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/full_pretraining_eta_20261008.json).
+
+**2026-10-08 12:49 KST — 사용자 목적 확정: Drive-JEPA와 입력·330h 데이터가 일치하는 LPWM 사전학습 비교.**
+[비교용 본학습 프로토콜](configs/lpwm_driving_video_512x256_v1/drive_jepa_matched_pretraining_protocol.json)을 등록했다. 현재 GPU0·1의 로컬1epoch는 준비실험으로만계속하며, 그checkpoint/optimizer/추가노출을비교용본학습으로넘기지않는다. 본학습은공개LPWM원초기화부터새로등록한다.
+공식논문 front1·512×256·2Hz·8frame·330h·50epoch 확인. 저자GitHub issue7/12/17에서 실제설정을추가발견: OpenScene/CoVLA/DrivingDojo sampling0.5/0.2/0.3,8GPU×batch64=global512,300update/보고epoch. 이확률은원본시간비율이아니다.
+저자posted config max100epoch, 논문50epoch, 공개e50checkpoint metadata epoch51/Adam15,300step이므로서로동일값으로고치지않는다. 비교시epoch명칭보다실제clip노출량을명시한다. 공개checkpoint대상노출7,833,600clip;paper50기준7,680,000clip. 본학습global512/누적64후보는계획이며아직실행아님.
+정확한세CSV내용과저자의영상생성script는미확보.28px crop은공식downstream에서확인한것이며pretraining에서도같다는근거는없다.현재준비자산을exact-equivalent라고부르지않음.원논문목록미확보시동일자체330h목록으로LPWM·V-JEPA2를양쪽재학습하는통제비교가대안이며새JEPA학습은미시작.
+OpenScene trainval을쓴다는저자답변확인;로컬준비실험의navval61recording제외를본실험동일분할이라고가정하지않음.사전학습에포함되는navval을독립SSL검증으로부르지않고공식test누출제외.
+다운로드검사에서DrivingDojo35만ZIP이라기존44tar목록에빠진것발견. 별도catalog `download_catalog_with_dojo_zip35.json`, 새zip수집3594914/`drivingdojo_zip35_download`시작·실제8MB수신확인.원catalog/기존세수집source불변,zip변환/admission은아직남음.
+학습원본43source불변,기존LoRA/Adapter중단유지,330h완료/동일영상비교성립/Stage2시작을주장하지않는다. [저자설정·checkpoint 감사](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/findings.json).
+
 **2026-10-08 12:35 KST — 다운로드와 병행하여 기존 데이터 Stage 1을 GPU 0·1에서 시작.**
 사용자가 기존 데이터로 즉시 시작하고 두 GPU 배치를 늘리라고 승인했다. 새 trainer/queue는 `scripts/train_lpwm_local_stage1_distributed.py` / `queue_lpwm_local_stage1_distributed.py`.
 Root `outputs/lpwm_driving_video_512x256_v1/local_stage1_distributed/`, queue3516125 / torchrun3519630. 실제 양rank 12update·loss/gradient동일·43개 source hash 일치 확인.

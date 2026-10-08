@@ -1,0 +1,163 @@
+{
+  "status": "comparison_requirements_registered; exact_reference_video_manifest_not_available; full_run_not_ready",
+  "research_question": "With matched driving-video inputs and downstream planning conditions, do LPWM particle representations improve planning relative to Drive-JEPA representations?",
+  "reference": {
+    "paper": "https://arxiv.org/html/2601.22032v2",
+    "author_config_url": "https://github.com/linhanwang/Drive-JEPA/issues/7#issuecomment-4006091822",
+    "author_confirmed_openscene_split_url": "https://github.com/linhanwang/Drive-JEPA/issues/10#issuecomment-4120088355",
+    "repository_revision": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "author_config_copy": "results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/author_posted_pretraining_config.yaml",
+    "released_checkpoint_metadata": "results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/released_checkpoint_metadata.json"
+  },
+  "matched_input": {
+    "front_camera_count": 1,
+    "width": 512,
+    "height": 256,
+    "nominal_fps": 2,
+    "clip_frames": 8,
+    "source_datasets": [
+      "OpenScene(trainval)",
+      "CoVLA",
+      "DrivingDojo"
+    ],
+    "target_unique_source_hours": 330,
+    "overlapping_clips_and_repeated_epochs_do_not_increase_unique_hours": true,
+    "source_sampling_probabilities": {
+      "OpenScene": 0.5,
+      "CoVLA": 0.2,
+      "DrivingDojo": 0.3
+    },
+    "sampling_probability_is_not_unique_duration_share": true,
+    "within_source_sampling": "uniform over the reference CSV video entries, then temporal clip sampling; not uniformly over our derived 8-frame clip list",
+    "sampling_entry_granularity_pending_reference_csv": true
+  },
+  "exact_data_match": {
+    "reference_csv_files_required": [
+      "openscene.csv",
+      "covla.csv",
+      "drivingdojo.csv"
+    ],
+    "reference_csv_contents_available": false,
+    "author_video_conversion_script_available": false,
+    "shared_manifest_fields": [
+      "source_dataset",
+      "source_revision",
+      "source_video_id",
+      "source_video_sha256",
+      "recording_id",
+      "front_camera_id",
+      "source_start_seconds",
+      "source_end_seconds",
+      "frame_ids",
+      "frame_timestamps_seconds",
+      "preprocessing_version",
+      "split"
+    ],
+    "must_compare_source_identities_and_time_intervals": true,
+    "unique_hours_audited_before_main_training": true,
+    "same_sources_plus_same_hours_alone_proves_exact_match": false,
+    "official_original_split_is_trainval": true,
+    "exclude_official_test_recordings": true,
+    "local_61_validation_recordings_exclusion_is_not_assumed_to_match_reference_pretraining": true,
+    "if_local_navval_becomes_ssl_training_do_not_call_it_independent_ssl_validation": true,
+    "missing_reference_manifest_action": "continue preparation; do not claim exact paper-corpus match; common-manifest LPWM and fresh V-JEPA2 driving adaptation is the controlled alternative"
+  },
+  "preprocessing_evidence": {
+    "front_and_resolution_and_clip_length": "paper and author config verified",
+    "crop28_and_linear_resize": "verified in official downstream NAVSIM feature builder; not verified in author pretraining video-conversion script",
+    "current_external_crop28_outputs": "candidate prepared assets; exact reference preprocessing equivalence unproven",
+    "DrivingDojo": "current nominal2Hz output uses nearest source5Hz frames, with actual .4/.6s intervals retained; compare with reference conversion before declaring exact timing match",
+    "author_augmentation_config": {
+      "auto_augment": false,
+      "motion_shift": false,
+      "random_resize_aspect_ratio": [
+        1.0,
+        1.0
+      ],
+      "random_resize_scale": [
+        1.0,
+        1.0
+      ],
+      "reprob": 0.0
+    }
+  },
+  "learning_budget_reference": {
+    "paper_reported_epochs": 50,
+    "author_config_max_epochs": 100,
+    "author_config_updates_per_reported_epoch": 300,
+    "author_config_batch_per_gpu": 64,
+    "author_config_gpu_count": 8,
+    "derived_global_batch_clips": 512,
+    "released_checkpoint_epoch_field": 51,
+    "released_checkpoint_optimizer_updates": 15300,
+    "released_checkpoint_nominal_clip_presentations": 7833600,
+    "paper50_epoch_nominal_clip_presentations": 7680000,
+    "epoch_is_fixed_update_interval_not_one_unique_corpus_pass": true,
+    "lpwm_paper_budget_target_clip_presentations": 7680000,
+    "lpwm_public_checkpoint_comparison_target_clip_presentations": 7833600,
+    "lpwm_full_run_budget_target": "use released checkpoint presentations when using released checkpoint as reference; log actual sampling and failed batch counts",
+    "lpwm_microbatch_per_gpu_candidate": 4,
+    "lpwm_gpus": [
+      0,
+      1
+    ],
+    "lpwm_accumulation_for_effective512_candidate": 64,
+    "lpwm_full_run_effective_batch": "512 via accumulation only after stability/throughput validation; not active now",
+    "learning_rate": "LPWM-specific SSL LR to be registered and validated; do not copy ViT LR blindly",
+    "precision": "LPWM FP32 currently validated; reference posted bf16 but released checkpoint also includes scaler state, so actual reference precision not established"
+  },
+  "current_local_run": {
+    "output": "outputs/lpwm_driving_video_512x256_v1/local_stage1_distributed/training",
+    "role": "preparation experiment only; not the matched330h primary result",
+    "may_finish_authorized_local_epoch": true,
+    "promote_to_main_initialization": false,
+    "local_updates_count_toward_main_budget": false,
+    "automatic_stage2_promotion": false,
+    "registered_training_source_and_manifest_unchanged": true
+  },
+  "main_lpwm_initialization": {
+    "checkpoint": "public Sketchy LPWM before any local driving adaptation",
+    "discard_preparation_optimizer_state": true,
+    "particle_count": 16,
+    "particle_count_is_provisional": true,
+    "prior200_update_capacity_gate_passed": false,
+    "native_encoder_context_dynamics_decoder_trainable": true,
+    "object_gt_supervision": false,
+    "planning_loss_in_stage1": false
+  },
+  "downstream_comparison": {
+    "backbone_observations": 2,
+    "front_camera_count": 1,
+    "width": 512,
+    "height": 256,
+    "representation_effect_requires_same_planner_and_losses": true,
+    "preferred_shared_planner": "DrivoR style per existing user direction",
+    "same_training_split_and_exposures_and_evaluation_scenes": true,
+    "primary_benchmark": "full official NAVSIM benchmark; dev subsets reported separately",
+    "public_Drive_JEPA_complete_planner_score": "system-level reference, not isolated backbone or pretraining objective effect",
+    "initialization_difference_to_disclose": "LPWM Sketchy vs V-JEPA2 broad video pretraining; matched driving adaptation does not make upstream initial pretraining identical",
+    "new_Drive_JEPA_training_started": false
+  },
+  "required_before_main_launch": [
+    "verified fixed corpus and actual unique durations",
+    "source identities and preprocessing match evidence, or a explicitly defined shared-corpus baseline protocol",
+    "registered weighted video sampling and temporal extraction",
+    "training exposure/optimizer schedule registration",
+    "particle capacity review",
+    "two-GPU memory and gradient validation"
+  ],
+  "storage": {
+    "raw_cap_bytes": 1000000000000,
+    "delete_owned_downloads_after_completed_training": true,
+    "never_delete_shared_originals_or_results": true
+  },
+  "registered_kst": "2026-10-08T12:44:58.070390+09:00",
+  "data_acquisition_amendment": {
+    "DrivingDojo_tar_archives": 44,
+    "separate_zip_archive": 35,
+    "zip_bytes": 35282485473,
+    "zip_downloader_pid": 3594914,
+    "zip_conversion_pending": true,
+    "catalog": "outputs/lpwm_driving_video_512x256_v1/download_catalog_with_dojo_zip35.json"
+  }
+}

@@ -48,8 +48,18 @@
       "consumed_nonoverlapping_clip_hours": 11.644444444444444,
       "initialization": "public weights; screening checkpoints not reused",
       "output": "outputs/lpwm_driving_video_512x256_v1/local_stage1_distributed/training",
-      "original_particle_screen_failed_preserved": true
-    }
+      "original_particle_screen_failed_preserved": true,
+      "role": "preparation experiment only",
+      "promote_checkpoint_to_comparison_main_run": false
+    },
+    "source_sampling_probabilities": {
+      "OpenScene": 0.5,
+      "CoVLA": 0.2,
+      "DrivingDojo": 0.3
+    },
+    "reference_sampling_source": "https://github.com/linhanwang/Drive-JEPA/issues/7#issuecomment-4006091822",
+    "main_initialization": "public Sketchy weights before local adaptation; local preparation checkpoint not reused",
+    "exact_reference_video_csvs_available": false
   },
   "stage2": {
     "status": "not_started; requires full Stage1 corpus/training/validation",
@@ -81,7 +91,9 @@
     "delete_only_newly_downloaded_assets_after_completed_training": true,
     "cleanup_not_yet_executed": true,
     "external_access_approved": true,
-    "approved_catalog": "outputs/lpwm_driving_video_512x256_v1/download_access_after_user_approval.json"
+    "approved_catalog": "outputs/lpwm_driving_video_512x256_v1/download_access_after_user_approval.json",
+    "complete_source_catalog": "outputs/lpwm_driving_video_512x256_v1/download_catalog_with_dojo_zip35.json",
+    "registered_active_tar_catalog_preserved": true
   },
   "runtime": {
     "allowed_gpus": [
@@ -96,5 +108,6 @@
     "primary_completed_updates": 5493,
     "adapter_completed_updates": 13480,
     "automatically_resume": false
-  }
+  },
+  "comparison_protocol": "configs/lpwm_driving_video_512x256_v1/drive_jepa_matched_pretraining_protocol.json"
 }

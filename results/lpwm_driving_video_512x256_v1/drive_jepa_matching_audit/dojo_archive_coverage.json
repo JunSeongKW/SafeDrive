@@ -1,0 +1,112 @@
+[
+  {
+    "repository": "Yuqi1997/DrivingDojo",
+    "excluded_source_files": [
+      {
+        "filename": ".gitattributes",
+        "bytes": 2510,
+        "sha256": null
+      },
+      {
+        "filename": "README.md",
+        "bytes": 125,
+        "sha256": null
+      },
+      {
+        "filename": "action_info.tar.gz",
+        "bytes": 61215046,
+        "sha256": "823304d20ea757031b52240a80eaada92c5f74043324e6c434e68002b366512d"
+      },
+      {
+        "filename": "camera_info.tar.gz",
+        "bytes": 197066047,
+        "sha256": "5734f5aefce99b213b09c0f0cd708fea6f42c7a724a37f05068b84f9fa6b7710"
+      },
+      {
+        "filename": "meta.json",
+        "bytes": 489941006,
+        "sha256": "6f2ea5c27718a51bdec2403dcf52459da6b8a8317577f6df25557d69a482bd03"
+      }
+    ]
+  },
+  {
+    "repository": "Yuqi1997/DrivingDojo-Extra1",
+    "excluded_source_files": [
+      {
+        "filename": ".gitattributes",
+        "bytes": 2419,
+        "sha256": null
+      },
+      {
+        "filename": "README.md",
+        "bytes": 36,
+        "sha256": null
+      }
+    ]
+  },
+  {
+    "repository": "Yuqi1997/DrivingDojo-Extra2",
+    "excluded_source_files": [
+      {
+        "filename": ".gitattributes",
+        "bytes": 2419,
+        "sha256": null
+      },
+      {
+        "filename": "README.md",
+        "bytes": 36,
+        "sha256": null
+      }
+    ]
+  },
+  {
+    "repository": "Yuqi1997/DrivingDojo-Extra3",
+    "excluded_source_files": [
+      {
+        "filename": ".gitattributes",
+        "bytes": 2419,
+        "sha256": null
+      },
+      {
+        "filename": "README.md",
+        "bytes": 36,
+        "sha256": null
+      }
+    ]
+  },
+  {
+    "repository": "Yuqi1997/DrivingDojo-Extra4",
+    "excluded_source_files": [
+      {
+        "filename": ".gitattributes",
+        "bytes": 2419,
+        "sha256": null
+      },
+      {
+        "filename": "README.md",
+        "bytes": 36,
+        "sha256": null
+      }
+    ]
+  },
+  {
+    "repository": "Yuqi1997/DrivingDojo-Extra5",
+    "excluded_source_files": [
+      {
+        "filename": ".gitattributes",
+        "bytes": 2419,
+        "sha256": null
+      },
+      {
+        "filename": "README.md",
+        "bytes": 36,
+        "sha256": null
+      },
+      {
+        "filename": "videos_35.zip",
+        "bytes": 35282485473,
+        "sha256": "de9f8d0b6f2f8fa80be75442cbb7a1bdcab353828978626a379c6de9f32e87c2"
+      }
+    ]
+  }
+]
