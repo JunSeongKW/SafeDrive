@@ -3723,3 +3723,8 @@ OpenScene trainval을쓴다는저자답변확인;로컬준비실험의navval61re
 ## 2026-10-08 12:54 KST 현재 작업 상태조회
 
 **2026-10-08 12:54 KST — 사용자 상태조회.** GPU0·1 로컬준비학습 300/655update(16particle/front1/512×256/유효16) 진행. 카드당약43.04GB, loss유한·43source불변·최신modulegradient확인. 네수집process도살아있음. OpenScene8/200archive검증,CoVLA252영상/2.10h,Dojo71clip변환/첫archive미검증,ZIP35약1.89/35.28GB수신(12:53조회). 정확330h비교본학습과Stage2미시작. 실행/설정변경없음. [조회근거](results/lpwm_driving_video_512x256_v1/local_stage1_distributed/status_20261008_1254.json).
+
+
+## 2026-10-08 12:57 KST 학습 가중치 범위 확인
+
+12:57미세조정범위확인:encoder/context/dynamics/RGBdecoder native전부requires_grad=True,Adam(model.parameters(),lr8e-5). LPIPS VGG만고정;module별300update양수gradient확인. 현재SSL/명령·planningloss없음. 모든조건부parameter가매step비영gradient라는주장은하지않음. 실행변경없음.

@@ -386,7 +386,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 12:54 KST (Codex)
+마지막 갱신: 2026-10-08 12:57 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -553,6 +553,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+12:57미세조정범위확인:encoder/context/dynamics/RGBdecoder native전부requires_grad=True,Adam(model.parameters(),lr8e-5). LPIPS VGG만고정;module별300update양수gradient확인. 현재SSL/명령·planningloss없음. 모든조건부parameter가매step비영gradient라는주장은하지않음. 실행변경없음.
 
 12:54조회: 로컬준비학습300/655와네다운로드정상실행. 기존프로세스/설정그대로.
 
@@ -1169,6 +1171,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+12:57미세조정범위확인:encoder/context/dynamics/RGBdecoder native전부requires_grad=True,Adam(model.parameters(),lr8e-5). LPIPS VGG만고정;module별300update양수gradient확인. 현재SSL/명령·planningloss없음. 모든조건부parameter가매step비영gradient라는주장은하지않음. 실행변경없음.
 
 12:54조회: 새최종결과없음. loss/gradient/소스불변검사정상,330h본학습미시작.
 
@@ -2025,9 +2029,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자현재상태질문에실제프로세스/GPU/학습로그/다운로드진행을읽어확인하고snapshot을남겼다. 학습·source·설정·대기열변경없음.
+- 현재native전체미세조정범위를코드·등록설정·gradient기록으로확인해trainable_scope_20261008.json에보존했다. 실행변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+12:57미세조정범위확인:encoder/context/dynamics/RGBdecoder native전부requires_grad=True,Adam(model.parameters(),lr8e-5). LPIPS VGG만고정;module별300update양수gradient확인. 현재SSL/명령·planningloss없음. 모든조건부parameter가매step비영gradient라는주장은하지않음. 실행변경없음.
 
 12:54상태조회후기존로컬학습→검증및데이터준비유지. 새본학습을시작한것으로보고하지않음.
 
@@ -2571,6 +2577,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+12:57미세조정범위확인:encoder/context/dynamics/RGBdecoder native전부requires_grad=True,Adam(model.parameters(),lr8e-5). LPIPS VGG만고정;module별300update양수gradient확인. 현재SSL/명령·planningloss없음. 모든조건부parameter가매step비영gradient라는주장은하지않음. 실행변경없음.
 
 12:54미결유지: 정확referenceCSV/SSL전처리일치와확장loader/ZIP변환/mainregistration 준비가남음.
 

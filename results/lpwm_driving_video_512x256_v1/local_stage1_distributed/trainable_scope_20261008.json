@@ -1,0 +1,26 @@
+{
+  "checked_kst": "2026-10-08T12:57:43.354544+09:00",
+  "all_native_parameters_require_grad": true,
+  "optimizer_covers": "model.parameters()",
+  "method": "full native weight fine-tuning",
+  "modules": [
+    "encoder including geometry/appearance/prior CNNs and heads",
+    "context",
+    "dynamics",
+    "RGB decoder"
+  ],
+  "fixed_loss_network": "LPIPS VGG; gradient through predicted RGB retained",
+  "learning_rate": 8e-05,
+  "objective": "official LPWM temporal SSL ELBO",
+  "planning_loss": false,
+  "ego_intent_input": false,
+  "all_modules_nonzero_gradient_at_update": 350,
+  "gradient_norms": {
+    "encoder": 65.69676208496094,
+    "context": 0.13939006626605988,
+    "dynamics": 1.4477391242980957,
+    "decoder": 26.126953125
+  },
+  "note": "All parameters are eligible; unused conditional heads need not receive nonzero gradients every step. This is the local preparation experiment.",
+  "execution_changed": false
+}
