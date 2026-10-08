@@ -4054,3 +4054,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 22:34 KST LPWMjoint와LPWM순차학습계속. JEPA1428은의도된메모리양보상태이며joint학습완료후자동재개. pass1/3/5의동일1024dev평가·고정pass5최종비교대기열유지. DrivoR완료실험재기동금지;동일학습량의나머지결과가나오면비교한다.
 
 2026-10-08 22:34 KST DrivoR81.25는이번축소실험dev1024의5pass결과이며전체navtest/공식원논문재현아님. JEPA/LPWM의기존pass1과최종우열직접비교금지. joint는재개직후이므로장기처리량/종료ETA를첫update로추정하지않는다. 현재joint+순차메모리는최신양rank학습로그기준약25.48decimalGB,48GB상한유지.
+
+
+## 2026-10-08 22:38 KST — 네 조건의 planning/SSL 데이터 동일성 확인
+
+2026-10-08 22:38 KST 네조건데이터동일성조회: 기존v7대기열/학습설정유지,데이터추가·재학습·실행순서변경없음.
+
+2026-10-08 22:38 KST 네planning등록의manifest SHA d08760b560235353da8f297d7beee6807e772f36c7d42c6c1b2ae73548896394가실제manifest와모두일치. navtrain10240/101recording,navval1024/61recording,기록중복0. planning5pass/51200노출/3200update/유효16/4800+epoch순서공통. JEPA·LPWM순차·LPWMjoint의SSL은동일OpenScene10480clip×5=52400노출목표,실제prepare_records함수로목록·4700+pass순서를재구성해LPWMStage1저장hash16535cf4…와일치확인. DrivoR는이추가SSL없음. SSL훈련과planningdev기록중복0,원science121불변. 근거 results/four_model_small_corpus_v1/dataset_comparison_audit_20261008.json.
+
+2026-10-08 22:38 KST 공통5pass planning학습·평가대기열유지. 최종결과에는같은planning데이터/순서/목표노출과서로다른SSL노출·외부초기사전학습을구분해서보고한다. 이번질문에따라DrivoR Stage1을추가하거나데이터를변경하지않았다.
+
+2026-10-08 22:38 KST 데이터공정성정리: planning학습/평가데이터는네조건정확히동일하지만전체학습데이터노출은동일하지않다. DrivoR만추가주행SSL없고DINOv2/V-JEPA2/LPWMSketchy의공개초기사전학습도다름. LPWM순차vsjoint는SSL및planning최종노출목표를같게하고학습시점/목적구성을바꾼비교. 현축소SSL은OpenScene만사용하며CoVLA·DrivingDojo·330h전체아님. 목표노출과현재까지소비량은구분한다.

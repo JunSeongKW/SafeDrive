@@ -1,0 +1,59 @@
+{
+  "observed_at": "2026-10-08T22:38:35.769586+09:00",
+  "planning_identical_across_all_four": true,
+  "planning_manifest": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus/manifest.json",
+  "planning_manifest_sha256": "d08760b560235353da8f297d7beee6807e772f36c7d42c6c1b2ae73548896394",
+  "planning_splits": {
+    "train": {
+      "scenes": 10240,
+      "original_split_counts": {
+        "navtrain": 10240
+      },
+      "recordings": 101
+    },
+    "dev": {
+      "scenes": 1024,
+      "original_split_counts": {
+        "navval": 1024
+      },
+      "recordings": 61
+    }
+  },
+  "planning_training_target": {
+    "passes": 5,
+    "presentations": 51200,
+    "updates": 3200,
+    "effective_batch": 16,
+    "epoch_shuffle_seed": "4800+epoch"
+  },
+  "planning_train_dev_recording_overlap": 0,
+  "ssl_train_planning_dev_recording_overlap": 0,
+  "ssl": {
+    "source": "Fixed local OpenScene train videos; no CoVLA or DrivingDojo in this reduced study",
+    "manifest": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_driving_video_512x256_v1/corpus/local_openscene_episodes.jsonl",
+    "manifest_sha256": "3277085fdfd0482ebf4e1a8b3667ab20877b00c5a035dc39be57f3b2fdbb83a5",
+    "unique_clips": 10480,
+    "frames_per_clip": 8,
+    "fps": 2,
+    "passes": 5,
+    "target_clip_presentations": 52400,
+    "validation_recordings": 32,
+    "shared_order_sha256": "16535cf4294886a88ed63db3ec9d108aa1a84b52b9f2b03eb98565a0e8017afb",
+    "order_verification": "Exact shared prepare_records plus seed4700+pass shuffle, reconstructed hash equals saved LPWM Stage1 registration",
+    "conditions": {
+      "drivor": "No additional local driving SSL",
+      "jepa": "Same clips/order in separate Stage1, already complete",
+      "lpwm_sequential": "Same clips/order in separate Stage1, already complete",
+      "lpwm_joint": "Same clips/order, interleaved during planning to same final52400 exposures"
+    }
+  },
+  "different_public_initializations": {
+    "drivor": "DINOv2 ViT-S with registers",
+    "jepa": "General-video V-JEPA2 ViT-L",
+    "lpwm_sequential": "LPWM Sketchy",
+    "lpwm_joint": "Same LPWM Sketchy initialization as sequential"
+  },
+  "scientific_source_hashes_checked": 121,
+  "changes": false,
+  "conclusion": "Planning train/dev lists and final planning exposure budget match. Total driving SSL exposure does not match DrivoR, and upstream pretraining differs. Final budgets are not current consumed amounts."
+}
