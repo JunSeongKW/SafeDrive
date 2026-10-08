@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 17:03 KST (Codex)
+마지막 갱신: 2026-10-08 17:12 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 17:12 KST 진행조회: LPWM SSL 3179/3275(97.07%), 마지막5번째epoch. 기존queue294935/train136861의fresh heartbeat 유지. GPU0·1 각43.70GB/util100·98%. 실행·배치·대기열변경없음.
 
 2026-10-08 17:03 KST 과거 LPWM 동일장면 RGB 비교 완료: CPU2thread로 기존128 Stage1 20epoch 및 Adapter1epoch를 exact3scene 재추론. 현재epoch4 및 이전512/64particle200update는기존배열사용. 원121science source/config불변, GPU학습·대기열 변경 없음.
 
@@ -1240,6 +1242,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 17:12 KST: 양rank비유한loss0,3150update encoder/context/dynamics/decoder gradient유한양수. 최근100update wall3.68초,Stage1순수학습잔여약5.9분;저장/최종검증포함17:20–17:25KST조건부예상. 최신완료검증은4epoch이며새PDMS없음. 근거 `results/four_model_small_corpus_v1/progress_20261008_1712.json`.
 
 2026-10-08 17:03 KST 현재첨부PNG의3개복원패널은saved float출력의uint8변환과픽셀완전일치: 그림생성단계가뭉개짐원인이아님. 과거128/64encoder(30decoder) 모델은두번째흰차등을더잘보존하나보행자/세부손실은여전함. 과거Stage1대Adapter RGB차이는작음. 같은512/64particle200update도반복질감/흐림이있어16particle만을원인으로단정불가. 결과 `results/four_model_small_corpus_v1/historical_rgb_same_scenes/`.
 
@@ -2136,9 +2140,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 과거128 Stage1/Adapter를동일3장면에CPU재추론한비교script·원본NPZ·3개PNG·provenance보고서를추가했다. 첨부이미지픽셀일치·공식forward동등성·30/64decoder선택·학습이미지중복검사를수행했다. 첫2장면과거학습노출을명시하며복원품질한계와원인불확실성을기록. 실행중학습과science source121개변경없음.
+- 2026-10-08 17:12 KST LPWM Stage1마지막epoch 진행률·loss/gradient·GPU·잔여시간을조회해기록했다. 새학습/설정/대기열변경없음. `results/four_model_small_corpus_v1/progress_20261008_1712.json`.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 17:12 KST: 기존LPWM5epoch최종검증/gate후JEPA SSL+DrivoR 병행후보profile을진행하는등록queue유지. 조건통과시병행,아니면순차. 새로운실험설정변경없음.
 
 2026-10-08 17:03 KST 시각화요청범위에서기존실행유지. 후속원인분리는직사각형encoder/decoder확장·particle수·학습량/노출·loss차이를통제해야한다. 평균RGB오차개선이나학습수치정상을충분한객체보존/주행적응성공으로취급하지않는다.
 
@@ -2721,6 +2727,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 17:12 KST: 약97.1%는LPWM사전학습만의진행률이다. 나머지3조건본학습및각planner평가는아직남아있다. 수치안정성과표현품질/주행성능을구분하며RGB정성한계는보존한다.
 
 2026-10-08 17:03 KST 핵심비교제약: 첫2장면은이전Stage1의실제training frame이며현재는heldout. 세번째만양쪽Stage1미학습recording이다. 그림에명시했고일반화우열주장금지. 과거128출력은최근접픽셀로512×256표시크기만확대;정보추가없음. 이번공통8frame clip의두번째영상복원진단은원래12frame학습/4관측planning평가와구별한다.
 

@@ -3887,3 +3887,14 @@ drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→
 2026-10-08 17:03 KST 핵심비교제약: 첫2장면은이전Stage1의실제training frame이며현재는heldout. 세번째만양쪽Stage1미학습recording이다. 그림에명시했고일반화우열주장금지. 과거128출력은최근접픽셀로512×256표시크기만확대;정보추가없음. 이번공통8frame clip의두번째영상복원진단은원래12frame학습/4관측planning평가와구별한다.
 
 새script `scripts/compare_lpwm_historical_rgb_same_scenes.py`. Native128 stage1 checkpoint hash71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f; Adapter는보존epoch01.pt. 실제command는동일이미지camera파일명을rawlog에서대응시켜추출. Encoded64/decoded30의공식filter_key를적용한manualdecode와canonicalforward 최대차0,full/slicedcontext최대차0,normalize_rgb=false. 초기CPU시도는비연속tensor와공식filter누락을잡는assertion에서실패했고입력contiguous·공식selection을새진단script에만반영후완료. 원학습/eval코드변경없음. 비교script는sampling이나모델학습을수행하지않았다. Sourcearrays/체크포인트hash와해상도별MSE,학습중복근거는comparison_report.json에보존.
+
+
+## 2026-10-08 17:12 KST — 네 모델 축소 비교 진행률
+
+2026-10-08 17:12 KST 진행조회: LPWM SSL 3179/3275(97.07%), 마지막5번째epoch. 기존queue294935/train136861의fresh heartbeat 유지. GPU0·1 각43.70GB/util100·98%. 실행·배치·대기열변경없음.
+
+2026-10-08 17:12 KST: 양rank비유한loss0,3150update encoder/context/dynamics/decoder gradient유한양수. 최근100update wall3.68초,Stage1순수학습잔여약5.9분;저장/최종검증포함17:20–17:25KST조건부예상. 최신완료검증은4epoch이며새PDMS없음. 근거 `results/four_model_small_corpus_v1/progress_20261008_1712.json`.
+
+2026-10-08 17:12 KST: 기존LPWM5epoch최종검증/gate후JEPA SSL+DrivoR 병행후보profile을진행하는등록queue유지. 조건통과시병행,아니면순차. 새로운실험설정변경없음.
+
+2026-10-08 17:12 KST: 약97.1%는LPWM사전학습만의진행률이다. 나머지3조건본학습및각planner평가는아직남아있다. 수치안정성과표현품질/주행성능을구분하며RGB정성한계는보존한다.
