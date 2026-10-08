@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 14:55 KST (Codex)
+마지막 갱신: 2026-10-08 15:05 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+데이터범위조회: 현재four_model_small_corpus_v1의phase는lpwm_ssl. 이번턴학습·설정·대기열변경없음.
 
 최신14:54: 새데이터다운로드/변환전부종료·미사용payload삭제완료. 원train136861/queue294935는그대로,양rank950/3275. 330h데이터수집을자동재개하지않는다. 현재작은고정코퍼스만학습한다.
 
@@ -1216,6 +1218,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+현재데이터실사: SSL기존OpenScene10480clips/101recording,검증32recording각1clip. Planning navtrain10240/101recording,navval1024/61recording. SSLtrain↔planningdev recording중복0,SSLval32recording은planningdev61에포함된다. NAVSIMv1 scorer사용,navtest/navhard미평가. navval은DrivoR공식training/default_train_val_test_log_split.yaml의val_logs에서navtrain필터token을구분한것이다.
 
 최근다운로드51.06GB삭제완료(작업공간7.822/raw43.240GB). 공용원본미변경.136021개학습/검증참조파일존재·대상중복0·121source불변,삭제전후검사통과. cleanup_complete.json/final_verification.json이최종근거다.
 
@@ -2086,10 +2090,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자가 명시한 이번 신규 데이터 다운로드만 정리했다. CoVLA·DrivingDojo 변환본/ZIP 및 현재 실험에서 쓰지 않는 새 OpenScene 보충 이미지를 삭제해 총51.06GB의 파일 할당량을 제거했다.
-- 해당 다운로드 PID·소유권·생성 시점·136021개 현재 참조파일을 감사하고, 관련 작업 종료→격리→재검사→삭제했다. 다운로드 재기동 방지 marker와 감사 script/기록을 남겼다. 기존 데이터·훈련121source/config·학습PID/대기열은 보존했다.
+- 사용자의 데이터셋 조회에 대해 고정 manifest와 원 DrivoR 분할 코드를 확인했다. SSL10480/검증32clips, planning10240/검증1024scenes, recording 분리와 navval의 역할을 기록했다. 학습·대기열·데이터 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+데이터설명시navval1024는개발검증부분집합이며전체navtest/navhard가아님을명시한다. 현재SSL검증은32개고정clip의진단규모이고planningdev와별개의독립test라고부르지않는다.
 
 최신: 기존four-model queue는계속진행한다. 삭제된CoVLA/DrivingDojo/OpenScene보충데이터는현재코퍼스에포함되지않는다. 과거수집설정/active.pid/verified.json을보고자동재시작하지말것. 사용자가새수집을요청하면삭제기록과기존provenance를참고해별도등록해야한다.
 
@@ -2648,6 +2653,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+현재추가학습데이터는기존OpenScene/NAVSIM고정부분집합뿐이다. CoVLA/DrivingDojo미사용. 네모델planning학습·검증목록은공통,SSL은JEPA/LPWM순차/LPWMjoint에만사용하며DrivoR에는별도SSL단계없음.
 
 최신확정: 삭제권한은이번에신규다운로드한미사용데이터에만적용했고완료했다. 기존데이터·공용원본·과거실험checkpoint의추가삭제권한으로확대하지않는다. 이전330h데이터수집은중단상태이며작은고정OpenScene실험의가용데이터는보존됐다.
 
