@@ -1,0 +1,188 @@
+{
+  "checked_kst": "2026-10-08T12:54:24.518373+09:00",
+  "progress": [
+    {
+      "completed_updates": 300,
+      "target_updates": 655,
+      "rank": 0,
+      "loss": 32.380619049072266,
+      "loss_components_local": {
+        "loss": 32.978759765625,
+        "psnr": 18.209997177124023,
+        "kl": 328.5594177246094,
+        "kl_dyn": 984.0319213867188,
+        "loss_rec": 209038.609375,
+        "obj_on_l1": 15.996261596679688,
+        "loss_kl_kp": 94.49340057373047,
+        "loss_kl_feat": 266.2073974609375,
+        "loss_kl_obj_on": 53.35327911376953,
+        "loss_kl_scale": 150.72085571289062,
+        "loss_kl_depth": 27.329814910888672,
+        "loss_kl_context": 48.160133361816406,
+        "loss_kl_score_dyn": 0.0,
+        "loss_kl_kp_dyn": 176.9892120361328,
+        "loss_kl_feat_dyn": 584.8811645507812,
+        "loss_kl_obj_on_dyn": 7.543091773986816,
+        "loss_kl_scale_dyn": 161.73162841796875,
+        "loss_kl_depth_dyn": 24.877058029174805,
+        "loss_obj_reg": 255.73068237304688
+      },
+      "seconds": 3.1119003295898438,
+      "elapsed_seconds": 1141.1600947380066,
+      "card_used_bytes": 43040899072,
+      "peak_allocated_bytes": 41260282368,
+      "peak_reserved_bytes": 42521853952,
+      "gradient_norm": 30.420026779174805,
+      "gradient_groups": {
+        "encoder": 27.200389862060547,
+        "context": 0.07683819532394409,
+        "dynamics": 1.410266637802124,
+        "decoder": 13.547470092773438
+      },
+      "consumed_training_clips": 4800
+    },
+    {
+      "completed_updates": 300,
+      "target_updates": 655,
+      "rank": 1,
+      "loss": 32.380619049072266,
+      "loss_components_local": {
+        "loss": 31.78247833251953,
+        "psnr": 18.776378631591797,
+        "kl": 321.2767333984375,
+        "kl_dyn": 921.4027099609375,
+        "loss_rec": 201490.1875,
+        "obj_on_l1": 15.993623733520508,
+        "loss_kl_kp": 92.7718505859375,
+        "loss_kl_feat": 264.1474609375,
+        "loss_kl_obj_on": 50.77653503417969,
+        "loss_kl_scale": 149.00909423828125,
+        "loss_kl_depth": 26.077762603759766,
+        "loss_kl_context": 46.29296875,
+        "loss_kl_score_dyn": 0.0,
+        "loss_kl_kp_dyn": 163.52685546875,
+        "loss_kl_feat_dyn": 551.850830078125,
+        "loss_kl_obj_on_dyn": 6.387858867645264,
+        "loss_kl_scale_dyn": 155.0872802734375,
+        "loss_kl_depth_dyn": 20.59225082397461,
+        "loss_obj_reg": 255.8468475341797
+      },
+      "seconds": 3.113165855407715,
+      "elapsed_seconds": 1142.688381910324,
+      "card_used_bytes": 43049287680,
+      "peak_allocated_bytes": 41261883904,
+      "peak_reserved_bytes": 42530242560,
+      "gradient_norm": 30.420026779174805,
+      "gradient_groups": {
+        "encoder": 27.200389862060547,
+        "context": 0.07683819532394409,
+        "dynamics": 1.410266637802124,
+        "decoder": 13.547470092773438
+      },
+      "consumed_training_clips": 4800
+    }
+  ],
+  "source_hashes_match": true,
+  "finite_loss_updates_checked": 300,
+  "latest_gradient_check": {
+    "completed_updates": 300,
+    "target_updates": 655,
+    "rank": 0,
+    "loss": 32.380619049072266,
+    "loss_components_local": {
+      "loss": 32.978759765625,
+      "psnr": 18.209997177124023,
+      "kl": 328.5594177246094,
+      "kl_dyn": 984.0319213867188,
+      "loss_rec": 209038.609375,
+      "obj_on_l1": 15.996261596679688,
+      "loss_kl_kp": 94.49340057373047,
+      "loss_kl_feat": 266.2073974609375,
+      "loss_kl_obj_on": 53.35327911376953,
+      "loss_kl_scale": 150.72085571289062,
+      "loss_kl_depth": 27.329814910888672,
+      "loss_kl_context": 48.160133361816406,
+      "loss_kl_score_dyn": 0.0,
+      "loss_kl_kp_dyn": 176.9892120361328,
+      "loss_kl_feat_dyn": 584.8811645507812,
+      "loss_kl_obj_on_dyn": 7.543091773986816,
+      "loss_kl_scale_dyn": 161.73162841796875,
+      "loss_kl_depth_dyn": 24.877058029174805,
+      "loss_obj_reg": 255.73068237304688
+    },
+    "seconds": 3.1119003295898438,
+    "elapsed_seconds": 1141.1600947380066,
+    "card_used_bytes": 43040899072,
+    "peak_allocated_bytes": 41260282368,
+    "peak_reserved_bytes": 42521853952,
+    "gradient_norm": 30.420026779174805,
+    "gradient_groups": {
+      "encoder": 27.200389862060547,
+      "context": 0.07683819532394409,
+      "dynamics": 1.410266637802124,
+      "decoder": 13.547470092773438
+    },
+    "consumed_training_clips": 4800
+  },
+  "downloads": {
+    "OpenScene": {
+      "status": "streaming",
+      "archive": "openscene_sensor_trainval_camera_8.tgz",
+      "completed_archives": 8,
+      "retained_bytes": 5232609143,
+      "network_bytes_this_archive": 5482158080,
+      "archive_bytes": 13081301356,
+      "reconnections": 2,
+      "elapsed_seconds_this_archive": 978.7072331905365
+    },
+    "CoVLA": {
+      "status": "receiving_source",
+      "dataset": "covla",
+      "completed_videos": 254,
+      "converted_nominal_hours": 2.1166666666666667,
+      "updated_unix": 1791431652.0953224,
+      "full_330h_manifest_ready": false,
+      "source": {
+        "repository": "turing-motors/CoVLA-Dataset",
+        "revision": "0a6d39e41659903a26dde957744e70dbc360bb6d",
+        "filename": "videos/06ab5988fd6dd0b2.mp4"
+      },
+      "received_bytes": 1048576,
+      "expected_bytes": 41743462,
+      "reconnections": 0
+    },
+    "DrivingDojo": {
+      "status": "streaming_and_converting",
+      "archive": "DrivingDojo_videos_1.tar.gz",
+      "received_bytes": 7116881920,
+      "archive_bytes": 35672696877,
+      "reconnections": 2,
+      "completed_clips": 73,
+      "converted_nominal_hours": 0.3858333333333333,
+      "archives_verified": 0,
+      "updated_unix": 1791431648.1471615,
+      "full_330h_manifest_ready": false
+    },
+    "DrivingDojoZIP35": {
+      "status": "downloading_zip35",
+      "received_bytes": 2105540608,
+      "expected_bytes": 35282485473,
+      "reconnections": 0,
+      "updated_unix": 1791431649.680213,
+      "source_archive_verified": false,
+      "converted": false,
+      "eligible_for_training": false
+    }
+  },
+  "host_processes_confirmed_alive": [
+    3352751,
+    3352752,
+    3499336,
+    3594914,
+    3516125,
+    3519630
+  ],
+  "full330h_pretraining_started": false,
+  "stage2_started": false,
+  "training_changes": false
+}

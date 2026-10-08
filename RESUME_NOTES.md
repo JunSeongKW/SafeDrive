@@ -3720,3 +3720,6 @@ OpenScene trainval을쓴다는저자답변확인;로컬준비실험의navval61re
 
 **12:51 KST 전체 Stage1 ETA(조건부 추정):** 현재16particle/FP32/GPU0·1 처리량을공개Drive-JEPA e50의15,300×512=7,833,600clip노출에환산하면GPU연산17.57일,현재wall19.95일,검증주기포함21.85일. 데이터수집/전처리4–6일+학습18–23일+최종검증0.5–1일로총23–30일(10/31–11/7KST) 계획범위. Stage2/PDMS미포함. 정확referenceCSV미확보/본batch512미실측이므로확정종료일아님. 현재로컬1epoch는255/655로별도이며약13:18완료예상. [계산근거](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/full_pretraining_eta_20261008.json).
 
+## 2026-10-08 12:54 KST 현재 작업 상태조회
+
+**2026-10-08 12:54 KST — 사용자 상태조회.** GPU0·1 로컬준비학습 300/655update(16particle/front1/512×256/유효16) 진행. 카드당약43.04GB, loss유한·43source불변·최신modulegradient확인. 네수집process도살아있음. OpenScene8/200archive검증,CoVLA252영상/2.10h,Dojo71clip변환/첫archive미검증,ZIP35약1.89/35.28GB수신(12:53조회). 정확330h비교본학습과Stage2미시작. 실행/설정변경없음. [조회근거](results/lpwm_driving_video_512x256_v1/local_stage1_distributed/status_20261008_1254.json).

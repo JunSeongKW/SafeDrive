@@ -1,5 +1,7 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-08 12:54 KST — 사용자 상태조회.** GPU0·1 로컬준비학습 300/655update(16particle/front1/512×256/유효16) 진행. 카드당약43.04GB, loss유한·43source불변·최신modulegradient확인. 네수집process도살아있음. OpenScene8/200archive검증,CoVLA252영상/2.10h,Dojo71clip변환/첫archive미검증,ZIP35약1.89/35.28GB수신(12:53조회). 정확330h비교본학습과Stage2미시작. 실행/설정변경없음. [조회근거](results/lpwm_driving_video_512x256_v1/local_stage1_distributed/status_20261008_1254.json).
+
 **12:51 KST 전체 Stage1 ETA(조건부 추정):** 현재16particle/FP32/GPU0·1 처리량을공개Drive-JEPA e50의15,300×512=7,833,600clip노출에환산하면GPU연산17.57일,현재wall19.95일,검증주기포함21.85일. 데이터수집/전처리4–6일+학습18–23일+최종검증0.5–1일로총23–30일(10/31–11/7KST) 계획범위. Stage2/PDMS미포함. 정확referenceCSV미확보/본batch512미실측이므로확정종료일아님. 현재로컬1epoch는255/655로별도이며약13:18완료예상. [계산근거](results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/full_pretraining_eta_20261008.json).
 
 **2026-10-08 12:49 KST — 사용자 목적 확정: Drive-JEPA와 입력·330h 데이터가 일치하는 LPWM 사전학습 비교.**
@@ -384,7 +386,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 12:52 KST (Codex)
+마지막 갱신: 2026-10-08 12:54 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -551,6 +553,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+12:54조회: 로컬준비학습300/655와네다운로드정상실행. 기존프로세스/설정그대로.
 
 최신: 기존 GPU2 로컬학습은준비실험으로655update까지진행(본학습승격금지). 세수집외에ZIP35 downloader3594914 추가. 330h비교프로토콜등록,정확referenceCSV 미확보라본실험미기동. 다른실행source수정없음.
 
@@ -1165,6 +1169,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+12:54조회: 새최종결과없음. loss/gradient/소스불변검사정상,330h본학습미시작.
 
 최신 조사: 저자issue7/12/17 설정발견으로이전「pretraining config없음」정정. sampling.5/.2/.3,global512,IPE300;paper50/postconfig100/checkpoint51·15300 구분. 세CSV개별내용미공개확인범위이고「동일3sources+330h=동일영상」아님. Zip35누락수집복구. 상세audit JSON보존.
 
@@ -2019,14 +2025,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 전체Stage1 ETA를실측처리량과공개checkpoint학습량으로환산하여조건부23–30일로기록했다.330h데이터길이와반복학습량을구분하며본학습아직미기동·referenceCSV미확보를명시했다.
-
-- 사용자목적에따라Drive-JEPA-matched330h본학습프로토콜을등록하고현재로컬학습을준비실험으로분리했다.본실험은공개LPWM부터새로시작하며로컬추가노출/optimizer를승격하지않는다.
-- 공식paper/repo/HF/저자issues/공개e50checkpoint를감사했다. 저자실제sampling비율과globalbatch512/IPE300을발견했고paper50/config100/checkpoint51·15300차이를보존했다.
-- referenceCSV와영상생성script미확보,downstreamcrop28의SSL동일성미확정,initialization/planner통제필요를명시했다. 정밀원논문목록없을경우공통자체330h두백본학습대안을기록했다.
-- DrivingDojo35ZIP필터누락을수정하고기존activecatalog를보존한채추가ZIP다운로드를시작했다. 새외부메시지는보내지않았고기존학습/수집등록source는불변이다.
+- 사용자현재상태질문에실제프로세스/GPU/학습로그/다운로드진행을읽어확인하고snapshot을남겼다. 학습·source·설정·대기열변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+12:54상태조회후기존로컬학습→검증및데이터준비유지. 새본학습을시작한것으로보고하지않음.
 
 최신 우선: 사용자는Drive-JEPA-matched330h목적을명시했다. localcheckpoint를확장본학습으로이어쓴다는이전계획은대체됨. 공개원가중치부터고정corpus/mainbudget등록.저자3CSV/영상전처리추가근거를확보하거나공통자체목록으로두백본재사전학습비교를명시.새download ZIP35의SHA·프레임변환완료후합류;비디오단위weighted sampler와실제시간검증필요.원논문재현완료로성급히승격금지.
 
@@ -2568,6 +2571,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+12:54미결유지: 정확referenceCSV/SSL전처리일치와확장loader/ZIP변환/mainregistration 준비가남음.
 
 최신: samefront1/512×256/8frame/nominal2Hz/3sources330h 목적,저자sampling.5/.2/.3확정. 본실험학습량은reference별sample exposure기록. 정확영상CSV/주행영상preprocess미확보·공개e50epoch차이·bf16config와scaler상태차이는미결.초기LPWM(Sketchy)/V-JEPA2 사전지식차이는남으므로pureSSLloss단독효과라하지않음.다운스트림sameplanner/splits/loss도함께통제.
 
