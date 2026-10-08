@@ -1,0 +1,678 @@
+{
+  "checked_at": "2026-10-09T07:17:10.139335+09:00",
+  "models": {
+    "drivor": {
+      "progress": {
+        "completed_updates": 3200,
+        "target_updates": 3200,
+        "corpus_pass": 5.0,
+        "seconds": 3.2699899673461914,
+        "elapsed_seconds": 2535.037996530533,
+        "card_used_bytes": 18479054848,
+        "peak_allocated_bytes": 964635648,
+        "gradient_norm": 13.823330879211426,
+        "gradient_groups": {
+          "planner": 9.364754676818848,
+          "scorer": 3.3031423091888428,
+          "encoder": 5.139552593231201
+        },
+        "planning_presentations": 51200,
+        "ssl_presentations": 0,
+        "loss": 3.1767311096191406,
+        "trajectory_loss": 1.14876127243042,
+        "final_score_loss": 2.0279697477817535,
+        "score": 0.795441284775734,
+        "best_score": 0.9936957657337189,
+        "planning_loss": 3.1767311096191406,
+        "ssl_loss": 0.0,
+        "total_objective": 3.1767311096191406
+      },
+      "planning_progress_percent": 100.0,
+      "training_complete": true,
+      "evaluations": {
+        "1": {
+          "completed_updates": 640,
+          "pdms": 66.94141749765791,
+          "ade_m": 4.971161365509033,
+          "fde_m": 10.854358673095703,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.7166907266833282
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.641212903271242
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6823278058404195
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.98779296875,
+            "drivable_area_compliance": 0.8525390625,
+            "ego_progress": 0.46225808244378974,
+            "time_to_collision_within_bound": 0.94140625,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.95947265625,
+            "score": 0.6694141749765791
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-08T19:51:31.545321+09:00"
+        },
+        "3": {
+          "completed_updates": 1920,
+          "pdms": 78.39769544885766,
+          "ade_m": 2.4013304710388184,
+          "fde_m": 5.741953372955322,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.765546860323777
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.8108466694477763
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.7262722960815373
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.97998046875,
+            "drivable_area_compliance": 0.931640625,
+            "ego_progress": 0.6314377806236955,
+            "time_to_collision_within_bound": 0.9501953125,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.9619140625,
+            "score": 0.7839769544885766
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-08T20:57:03.226216+09:00"
+        },
+        "5": {
+          "completed_updates": 3200,
+          "pdms": 81.25352884905898,
+          "ade_m": 1.8370991945266724,
+          "fde_m": 4.464611053466797,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.786558632075256
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.8430058959171518
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.7557576871486245
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.98681640625,
+            "drivable_area_compliance": 0.927734375,
+            "ego_progress": 0.6953401603443911,
+            "time_to_collision_within_bound": 0.9560546875,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.95361328125,
+            "score": 0.8125352884905899
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-08T22:31:32.152524+09:00"
+        }
+      },
+      "recent_training_health": {
+        "0": {
+          "latest_update": 3200,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 3200,
+          "gradient_groups": {
+            "planner": 9.364754676818848,
+            "scorer": 3.3031423091888428,
+            "encoder": 5.139552593231201
+          }
+        },
+        "1": {
+          "latest_update": 3200,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 3200,
+          "gradient_groups": {
+            "planner": 9.364754676818848,
+            "scorer": 3.3031423091888428,
+            "encoder": 5.139552593231201
+          }
+        }
+      },
+      "physical_microbatch_per_gpu": 2,
+      "accumulation": 4
+    },
+    "jepa": {
+      "progress": {
+        "completed_updates": 3200,
+        "target_updates": 3200,
+        "corpus_pass": 5.0,
+        "seconds": 4.241153955459595,
+        "elapsed_seconds": 8584.188936948776,
+        "card_used_bytes": 33138147328,
+        "peak_allocated_bytes": 7134348800,
+        "gradient_norm": 14.683534622192383,
+        "gradient_groups": {
+          "planner": 8.876132011413574,
+          "scorer": 2.6352896690368652,
+          "encoder": 10.091553688049316
+        },
+        "planning_presentations": 51200,
+        "ssl_presentations": 0,
+        "loss": 2.646944284439087,
+        "trajectory_loss": 0.8667363673448563,
+        "final_score_loss": 1.7802079021930695,
+        "score": 0.8164293169975281,
+        "best_score": 0.993896946310997,
+        "planning_loss": 2.646944284439087,
+        "ssl_loss": 0.0,
+        "total_objective": 2.646944284439087
+      },
+      "planning_progress_percent": 100.0,
+      "training_complete": true,
+      "evaluations": {
+        "1": {
+          "completed_updates": 640,
+          "pdms": 66.98896615391867,
+          "ade_m": 3.1601085662841797,
+          "fde_m": 7.179725646972656,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.6004608955449661
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.7073559864560784
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6640269255697582
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.9697265625,
+            "drivable_area_compliance": 0.8232421875,
+            "ego_progress": 0.5291784772445688,
+            "time_to_collision_within_bound": 0.9287109375,
+            "comfort": 0.98046875,
+            "driving_direction_compliance": 0.9580078125,
+            "score": 0.6698896615391867
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-08T21:02:53.271249+09:00"
+        },
+        "3": {
+          "completed_updates": 1920,
+          "pdms": 74.69696044465395,
+          "ade_m": 2.6841726303100586,
+          "fde_m": 6.197061538696289,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.7723119887364062
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.7664058166240796
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6392559861395163
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.990234375,
+            "drivable_area_compliance": 0.8740234375,
+            "ego_progress": 0.6067895506716948,
+            "time_to_collision_within_bound": 0.9560546875,
+            "comfort": 0.9990234375,
+            "driving_direction_compliance": 0.94921875,
+            "score": 0.7469696044465395
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-08T23:48:14.190674+09:00"
+        },
+        "5": {
+          "completed_updates": 3200,
+          "pdms": 77.96017323263742,
+          "ade_m": 1.8303934335708618,
+          "fde_m": 4.351810932159424,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.8174921855889303
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.7883465095267658
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6859529924018914
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.98388671875,
+            "drivable_area_compliance": 0.892578125,
+            "ego_progress": 0.6653649898957598,
+            "time_to_collision_within_bound": 0.9541015625,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.9580078125,
+            "score": 0.7796017323263742
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-09T01:53:58.535068+09:00"
+        }
+      },
+      "recent_training_health": {
+        "0": {
+          "latest_update": 3200,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 3200,
+          "gradient_groups": {
+            "planner": 8.876132011413574,
+            "scorer": 2.6352896690368652,
+            "encoder": 10.091553688049316
+          }
+        },
+        "1": {
+          "latest_update": 3200,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 3200,
+          "gradient_groups": {
+            "planner": 8.876132011413574,
+            "scorer": 2.6352896690368652,
+            "encoder": 10.091553688049316
+          }
+        }
+      },
+      "physical_microbatch_per_gpu": 2,
+      "accumulation": 4
+    },
+    "lpwm_sequential": {
+      "progress": {
+        "completed_updates": 3200,
+        "target_updates": 3200,
+        "corpus_pass": 5.0,
+        "seconds": 5.300067186355591,
+        "elapsed_seconds": 7273.724363327026,
+        "card_used_bytes": 25436356608,
+        "peak_allocated_bytes": 8495164928,
+        "gradient_norm": 45.93785095214844,
+        "gradient_groups": {
+          "planner": 16.145151138305664,
+          "scorer": 2.7412593364715576,
+          "encoder": 32.50741958618164,
+          "context": 7.50534200668335,
+          "dynamics": 27.36874771118164,
+          "xy": 21.307104110717773,
+          "scale": 4.49376106262207,
+          "presence": 0.3911580741405487,
+          "command": 0.9600868821144104
+        },
+        "planning_presentations": 51200,
+        "ssl_presentations": 0,
+        "loss": 3.647422194480896,
+        "trajectory_loss": 1.0743526816368103,
+        "final_score_loss": 2.573069453239441,
+        "score": 0.8037499189376831,
+        "best_score": 0.9937170743942261,
+        "planning_loss": 3.647422194480896,
+        "ssl_loss": 0.0,
+        "total_objective": 3.647422194480896
+      },
+      "planning_progress_percent": 100.0,
+      "training_complete": true,
+      "evaluations": {
+        "1": {
+          "completed_updates": 640,
+          "pdms": 64.97433296665777,
+          "ade_m": 4.793010711669922,
+          "fde_m": 10.598105430603027,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.7055933689858319
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.6233893631674938
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6419028926248107
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.962890625,
+            "drivable_area_compliance": 0.865234375,
+            "ego_progress": 0.42283495335853427,
+            "time_to_collision_within_bound": 0.9296875,
+            "comfort": 0.9990234375,
+            "driving_direction_compliance": 0.93798828125,
+            "score": 0.6497433296665777
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-08T21:09:05.427677+09:00"
+        },
+        "3": {
+          "completed_updates": 1920,
+          "pdms": 70.09174502393478,
+          "ade_m": 3.2864840030670166,
+          "fde_m": 7.689972400665283,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.725899301505059
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.7222718792936731
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.5874548922764318
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.97412109375,
+            "drivable_area_compliance": 0.8623046875,
+            "ego_progress": 0.5376630607963562,
+            "time_to_collision_within_bound": 0.9365234375,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.9208984375,
+            "score": 0.7009174502393478
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-09T01:25:44.845909+09:00"
+        },
+        "5": {
+          "completed_updates": 3200,
+          "pdms": 71.1233000198458,
+          "ade_m": 2.005513906478882,
+          "fde_m": 4.98701286315918,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.7268461428670726
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.7295472427979551
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6238386225513133
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.97265625,
+            "drivable_area_compliance": 0.8388671875,
+            "ego_progress": 0.5903576379762993,
+            "time_to_collision_within_bound": 0.9345703125,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.90869140625,
+            "score": 0.711233000198458
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-09T03:41:34.050203+09:00"
+        }
+      },
+      "recent_training_health": {
+        "0": {
+          "latest_update": 3200,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 3200,
+          "gradient_groups": {
+            "planner": 16.145151138305664,
+            "scorer": 2.7412593364715576,
+            "encoder": 32.50741958618164,
+            "context": 7.50534200668335,
+            "dynamics": 27.36874771118164,
+            "xy": 21.307104110717773,
+            "scale": 4.49376106262207,
+            "presence": 0.3911580741405487,
+            "command": 0.9600868821144104
+          }
+        },
+        "1": {
+          "latest_update": 3200,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 3200,
+          "gradient_groups": {
+            "planner": 16.145151138305664,
+            "scorer": 2.7412593364715576,
+            "encoder": 32.50741958618164,
+            "context": 7.50534200668335,
+            "dynamics": 27.36874771118164,
+            "xy": 21.307104110717773,
+            "scale": 4.49376106262207,
+            "presence": 0.3911580741405487,
+            "command": 0.9600868821144104
+          }
+        }
+      },
+      "physical_microbatch_per_gpu": 4,
+      "accumulation": 2
+    },
+    "lpwm_joint": {
+      "progress": {
+        "completed_updates": 2168,
+        "target_updates": 3200,
+        "corpus_pass": 3.3875,
+        "seconds": 12.383724451065063,
+        "elapsed_seconds": 28127.827068328857,
+        "card_used_bytes": 43407900672,
+        "peak_allocated_bytes": 41617333760,
+        "gradient_norm": 15.727987289428711,
+        "gradient_groups": {},
+        "planning_presentations": 34688,
+        "ssl_presentations": 35488,
+        "loss": 3.722854495048523,
+        "trajectory_loss": 1.2752475291490555,
+        "final_score_loss": 2.447606921195984,
+        "score": 0.7653623968362808,
+        "best_score": 0.8685472905635834,
+        "planning_loss": 3.722854495048523,
+        "ssl_loss": 34.07812786102295,
+        "total_objective": 7.130667209625244
+      },
+      "planning_progress_percent": 67.75,
+      "training_complete": false,
+      "evaluations": {
+        "1": {
+          "completed_updates": 640,
+          "pdms": 61.733126452659526,
+          "ade_m": 4.685708045959473,
+          "fde_m": 10.741338729858398,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.6454297361948876
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.5957112546617566
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6411261397028556
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.98779296875,
+            "drivable_area_compliance": 0.8203125,
+            "ego_progress": 0.3876497223638286,
+            "time_to_collision_within_bound": 0.94140625,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.97119140625,
+            "score": 0.6173312645265953
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-09T01:33:21.189825+09:00"
+        },
+        "3": {
+          "completed_updates": 1920,
+          "pdms": 63.96595067906197,
+          "ade_m": 3.038658618927002,
+          "fde_m": 7.360902786254883,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.6605699023994603
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.6262372051307121
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6485192915531139
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.97509765625,
+            "drivable_area_compliance": 0.8076171875,
+            "ego_progress": 0.47356927490466294,
+            "time_to_collision_within_bound": 0.927734375,
+            "comfort": 0.9990234375,
+            "driving_direction_compliance": 0.9404296875,
+            "score": 0.6396595067906197
+          },
+          "failed": 0,
+          "count": 1024,
+          "completed_at": "2026-10-09T06:26:32.269947+09:00"
+        }
+      },
+      "recent_training_health": {
+        "0": {
+          "latest_update": 2168,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 2100,
+          "gradient_groups": {
+            "planner": 10.158575057983398,
+            "scorer": 2.609072685241699,
+            "encoder": 4.023174285888672,
+            "context": 1.7885160446166992,
+            "dynamics": 5.089056968688965,
+            "xy": 0.8447250723838806,
+            "scale": 0.8464531302452087,
+            "presence": 0.014657019637525082,
+            "command": 0.021546650677919388,
+            "decoder": 1.0699430704116821
+          }
+        },
+        "1": {
+          "latest_update": 2168,
+          "checked_recent_rows": 100,
+          "nonfinite_loss_or_gradient_count": 0,
+          "last_gradient_group_update": 2100,
+          "gradient_groups": {
+            "planner": 10.158575057983398,
+            "scorer": 2.609072685241699,
+            "encoder": 4.023174285888672,
+            "context": 1.7885160446166992,
+            "dynamics": 5.089056968688965,
+            "xy": 0.8447250723838806,
+            "scale": 0.8464531302452087,
+            "presence": 0.014657019637525082,
+            "command": 0.021546650677919388,
+            "decoder": 1.0699430704116821
+          }
+        }
+      },
+      "physical_microbatch_per_gpu": 2,
+      "accumulation": 4
+    }
+  },
+  "queue_status": "running",
+  "scheduler_pid": 3759839,
+  "active_jobs": [
+    {
+      "label": "train_lpwm_joint",
+      "pid": 3331469
+    }
+  ],
+  "current_gpu_card_bytes": [
+    43407900672,
+    43407900672
+  ],
+  "monitored_peak_card_bytes": [
+    44313870336,
+    44319113216
+  ],
+  "card_limit_bytes": 48000000000,
+  "training_updates_target": 3200,
+  "planning_epochs_target": 5,
+  "effective_batch": 16,
+  "benchmark": "NAVSIM v1 independent development subset",
+  "evaluation_scenes": 1024,
+  "full_navtest": false,
+  "seed_count": 1,
+  "common_planner": "DrivoR",
+  "original_paper_reproduction": false,
+  "source_hash_counts": {
+    "scientific": 121,
+    "execution": 10
+  },
+  "source_hashes_unchanged": true,
+  "training_settings_changed_this_turn": false,
+  "joint_eta_windows": {
+    "20": {
+      "wall_seconds_per_update": 13.565745556354523,
+      "median_update_seconds": 13.128904461860657,
+      "training_eta_at_current_speed": "2026-10-09T11:10:29.988749+09:00"
+    },
+    "50": {
+      "wall_seconds_per_update": 13.116771612167359,
+      "median_update_seconds": 12.525515794754028,
+      "training_eta_at_current_speed": "2026-10-09T11:02:46.647639+09:00"
+    },
+    "100": {
+      "wall_seconds_per_update": 13.064176285266877,
+      "median_update_seconds": 12.320854663848877,
+      "training_eta_at_current_speed": "2026-10-09T11:01:52.369261+09:00"
+    },
+    "200": {
+      "wall_seconds_per_update": 12.495047084093095,
+      "median_update_seconds": 12.013402104377747,
+      "training_eta_at_current_speed": "2026-10-09T10:52:05.027926+09:00"
+    }
+  },
+  "joint_final_evaluation_eta_reported": "2026-10-09 11:00–11:30 KST, conditional on current load",
+  "interpretation": {
+    "sequential_epoch3_to_epoch5_pdms_change": 1.0315549959110228,
+    "sequential_minus_drivor_epoch5": -10.13022882921318,
+    "sequential_minus_jepa_epoch5": -6.836873212791616,
+    "joint_epoch1_to_epoch3_pdms_change": 2.2328242264024425,
+    "joint_minus_sequential_epoch3": -6.1257943448728085,
+    "particle_planning_advantage_established": false,
+    "all_models_epoch5_comparison_complete": false,
+    "diagnostic": "Sequential LPWM has lower drivable-area compliance and progress than the completed baselines; causal diagnosis has not been performed."
+  }
+}
