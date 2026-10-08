@@ -3813,3 +3813,9 @@ CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병�
 공통DrivoRModel:현재ego11→256+학습query64→generator4block(self-attention64↔64,cross-attention64↔scene16,FFN)→각head가전체궤적8×3을출력,최종64후보사용. 좌표누적residual correction은없다. 좌표flatten24를detach후MLP24→1024→256→별도scorer4block의동일attention→ego추가→6subscorehead. NC/DAC/DDC로그+TTC/EP/comfort가중합로그로순위값을만들어argmax후보선택. NAVSIMv1 DDC선택가중치는0이지만해당head와감독은존재한다. Scoringloss는proposal좌표경로에gradient를주지않고sharedscene경로로backbone에전달된다. CurrentLPWM만명령FiLM/명시적future rollout을사용하므로token수일치만으로particle단독효과라고해석하지않는다. 원논문전체pipeline비교나새학습을실행한것이아니며코드조회만수행했다.
 
 근거: src/planning_aware_future_prediction/object_centric/small_corpus_models.py:59,78,102,166; reference_repositories/DrivoR/navsim/agents/drivoR/drivor_model.py:107; transformer_decoder.py:32; layers/image_encoder/dinov2_lora.py:22; layers/losses/drivor_loss.py:242; scripts/train_small_corpus_common_planner.py:54.
+
+## 2026-10-08 주행 명령 생성과 입력 출처 확인
+
+현재planning코드는frame['driving_command']를원본NAVSIM/OpenScene메타데이터에서읽어ego의마지막4차원(7:11)에그대로넣는다. 명령은(left,forward,right,unknown)one-hot. 전체cache11264개가유효one-hot이고각좌/직/우대표원본과동일,unknown현재없음. OpenScene/DriveEngine/process_data/create_openscene_metadata.py:127은get_driving_command(ego_pose,map_api,roadblock_ids)를호출한다. helpers/driving_command.py:40은route보정/차선검색/중심선구성후현재중심선의진행방향에대해20m앞경로점의횡오프셋이+2m이상이면left,-2m이하면right,그사이면forward로기록한다. Route보정불가시unknown. Distance실제default20m이며docstring10m를따르지않는다. 우리학습코드에서미래GT궤적을이용해새명령을만들지는않는다.
+
+명령은planning학습·추론의외부입력. 공통planner의ego embedding에포함되며LPWM에서는MLP4→64→64후scale/shift로분리해attribute CNN conv_in출력을FiLM조건화한다. Stage1 SSL에는명령을넣지않는다. 코드·데이터·학습·대기열변경없음.

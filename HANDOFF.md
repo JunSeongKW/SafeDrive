@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 15:31 KST (Codex)
+마지막 갱신: 2026-10-08 15:37 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 주행 명령 출처 설명: 원본 메타데이터·OpenScene 생성 코드·현재 ego cache를 읽기 전용 확인했다. 학습·입력·대기열 변경 없음.
 
 2026-10-08 백본→planner 구조 설명: 현재 등록 코드를 읽어 확인했으며 학습·설정·대기열 변경 없음. 아래 진행률은 이전 조회 시점의 기록이다.
 
@@ -1224,6 +1226,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+명령은 원본 frame['driving_command']를 가져온4차원one-hot(left,forward,right,unknown). 현재11264개ego cache모두유효one-hot,좌/직/우각대표샘플원본일치,unknown샘플없음. OpenScene 공식생성코드는현재ego pose+지도+기록route roadblock으로중심선을만들고현재중심선방향기준경로20m앞의횡오프셋±2m로좌/우/직진을정하며route복구실패는unknown. 함수signature20m가실제default이고docstring10m는불일치한다.
 
 축소 비교 인터페이스: 모두 장면당16×256 memory. LPWM은 foreground16개의 현재+예측미래8시점 속성(위치/크기/presence/depth/외관/공유background 및 local/background context)을 particle별로 펼쳐 projection한다. Background 독립17번째 token은 없다. JEPA는512×1024 관측 patch token을16개로 평균 pooling 후256차원 projection하며 planning에서 predictor를 사용하지 않는다. DrivoR는 각관측의 추가 register16개(원DINO reg4와 구분)를384→256으로 변환하고 동일 register index의 두시점 concat→512→256 fusion한다.
 
@@ -2104,9 +2108,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 현재 축소 비교의 백본 출력, 공통 generator/scorer의 attention Q/K/V, ego 주입, proposal detach와6항목 채점 경로를 실제 코드에서 확인해 기록했다. 실험 코드·설정·실행 변경 없음.
+- 주행 명령의 원본 metadata→ego[7:11]→planner/LPWM FiLM 경로와 OpenScene의지도·경로기반생성법을확인했다. 현재cache11264개one-hot 및좌/직/우대표원본일치확인. 학습·설정 변경 없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+주행 명령 설명 시 데이터셋이제공하는route조건과모델의예측결과를구분한다. 기존planning입력에서명령을새로생성하거나미래GT궤적으로재분류하지않는다.
 
 구조 설명 시 LPWM particle별 현재/미래가 한 token으로 압축된다는 점, JEPA planning predictor 미사용, DrivoR 추가scene register16와원DINO reg4의차이를 명시한다. 기존 등록 학습·검증 대기열 유지.
 
@@ -2673,6 +2679,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+주행 명령은상위경로안내조건이며정지/회피/속도등세부행동이나실제교차로maneuver의완전한라벨이아니다. 공개생성법은중심선곡률에도반응한다. 현재Stage1 SSL에는명령미사용,planning에서는모든모델ego입력및LPWM추가FiLM으로사용한다.
 
 세 백본의16개 memory token은 의미가다르다. Particle은검증된semantic객체/detection이아니며현재planner에는particle전용충돌연산·geometry근접attention마스크·명시적미래시점별query선택이없다. Scorer출력pdm_score는후보선택용학습예측log값이며공식평가PDMS와다르다. 구조상가능성과실제표현효용검증을구분한다.
 
