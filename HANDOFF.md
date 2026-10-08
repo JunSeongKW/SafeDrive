@@ -340,7 +340,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 08:53 KST (Codex)
+마지막 갱신: 2026-10-08 09:00 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -507,6 +507,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 09:00 KST: 현재 본학습의 단일 관측과 Drive-JEPA/WA-JEPA의 추론 history를 코드·논문으로 확인했다. 설명 요청으로 기존 학습/대기열 변경 없음.
 
 08:53 KST 로그 점검: 본학습5,464/40,350, Adapter12,828/14,121. Mainmicro4×acc8×GPU2/Adapterbatch8×GPU2 유지, queue는epoch03_training, 표현monitor는5,500대기, 복원watcher는Adapter학습·평가완료대기. 진행파일은4.24/1.15초전 갱신으로 신선하다.
 
@@ -1098,6 +1100,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+현재 본학습은 DrivoR의4카메라·현재1시점 조건을 따라 current particle→context prior→미래8step을 생성한다. 과거 관측 기반context posterior/online state carry는 사용하지 않는다. Drive-JEPA 공식front JEPA평가는현재+직전1=2frame, WA-JEPA는4카메라×현재+과거3=4frame을추론에서도사용한다. 과거프레임불필요성은입증되지않았으며이전Adapter는4실관측/encoded context를사용한다. 상세는planning_path_lora_training문서마지막절.
 
 08:53: 신규PDMS/particle진단 없음. 공통navtest1,024장면 기존LoRA5,400 PDMS81.6096/ADE2.3644/FDE5.4760, Adapter2epoch81.6141/1.1632/2.7367. 최신particle5,000의전체384이미지갤러리는같은checkpoint의추가시각화다. 본학습5,464개/Adapter4,734–12,828의8,095개update 양rank 로그에서 비유한loss 없음.
 
@@ -1929,11 +1933,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 두 학습의 08:53 진행/양rank loss·gradient·실측속도와 기존 평가·대기열 상태를 JSON으로 보존했다.
-- 기존 공통navtest PDMS와 현재 진행률을 구분하고 다음5,500진단/Adapter3epoch학습 ETA를 갱신했다.
-- 학습/평가/등록소스·설정·대기열 변경 없이 인수인계와 실험 일지를 갱신했다.
+- 본학습 단일 관측의 DrivoR 입력 대응 근거와 LPWM context prior 경로를 확인해 기존 연구 문서에 기록했다.
+- Drive-JEPA와 WA-JEPA의 추론 history를 공식 코드·논문에서 검증하고 단일 프레임의 정보 한계를 명시했다.
+- 1시점/2시점 통제 비교를 후속 권고로 기록했다. 현재 등록 학습·평가·대기열은 변경하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+History설명에따른실행변경없음. 후속가설로동일LPWM/4camera/planner/해상도/학습조건의1시점대2시점ablation을권고하되이번질문으로자동학습등록하지않는다. DrivoR register비교에도시간정보를맞춰야한다.
 
 08:53 실측속도: 5,500학습경계09:45–09:48, Adapter3epoch학습10:10–10:12KST 예상. 진단 GPU양보·평가시간은 별도다. 기존5,500진단과Adapter3epoch→dev검증→본학습batch16복원 순서를 유지하며, 본학습 장기ETA는복원후실측해야한다.
 
@@ -2453,6 +2459,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+단일관측으로LPWM prior rollout이가능하다는것은과거관측이불필요하거나motion정보가충분하다는증거가아니다. 자차상태는주변차량속도관측을대체하지않으며현재PDMS차이의원인을history로확정하지않는다. 공개JEPA설정은전처리/variant별로구분한다.
 
 이번상태조회는2026-10-08 08:53KST기준이다. 현재5,464/12,828 checkpoint성능을새로평가하지않았다. 학습진행과유한gradient는성능개선·포화판정의증거가아니다. 전체navtest평가미완료/두시스템학습입력과구조차이는기존과같다.
 

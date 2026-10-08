@@ -3598,3 +3598,12 @@ CPU전용 `scripts/visualize_lpwm_largest_particle_changes.py` 추가, `--update
 공통navtest1,024장면 PDMS는 기존본학습5,400의81.6096/Adapter2epoch81.6141 그대로다. 새가중치 점수로 부르지 않는다. 최신 particle 진단5,000, 다음5,500 대기.
 최근50–200update 본학습85.78–90.69초, Adapter3.58–3.66초. 5,500 학습경계09:45–09:48, Adapter3epoch학습10:10–10:12KST 추정; 진단양보·평가시간 별도다. Adapter3epoch→dev평가→본학습batch16복원 대기열 유지.
 근거 `results/lpwm_adapter_original_batch_shared_v4/intermediate_both_runs_20261008_0853.json`. 이번 확인은 로그/진행 파일 기반이며 새 host PID조회는 하지 않았다. 실행코드·설정·대기열 변경 없음.
+
+## 2026-10-08 09:00 KST — 본학습의 단일 관측과 JEPA 추론 history 확인
+
+사용자는 본학습이 과거 영상을 사용하지 않는 이유와 Drive-JEPA/WA-JEPA 추론의 history 사용을 질문했다.
+현재 `lpwm_drivor_joint.py:83`은 현재 RGB를 길이1 sequence로 encoder에 넣고 `dyn_module.sample(..., z_context=None, steps=8, return_context_posterior=False)`을 호출한다. LPWM `modules/modules.py:6417`에서 context가 없거나 길이가 부족하면 context prior를 예측한다. 과거 관측으로 motion context를 추론하는 경로는 이번 조건에서 사용하지 않는다. 미래 rollout 내 예측 state는 이어지지만 이전 실제 관측 시점의 상태를 전달하는 online memory는 없다.
+이는 DrivoR NAVSIM `drivoR.yaml:32`의cam_*:[3]과 `drivor_features.py:74`의cameras[-1]을 맞춘 입력 선택이다. 과거 프레임 불필요성이나 1프레임의 최적성을 실험으로 검증한 결과가 아니다.
+공식 Drive-JEPA NAVSIM perception-free eval은front_only=true/double_image=true이고 feature builder가cameras[-1]/[-2]를512×256으로 처리한다. 현재+직전1장=총2장이다. Perception-based JEPA경로도front[2,3]이며ResNet대안과구분한다. WA-JEPA 공식PDMS YAML은4camera×4history/512×256(W×H), agent가마지막4시점영상을실제로stack한다. 0.5초간격으로현재+과거3장이다. 논문 https://arxiv.org/html/2608.20974v1 의Planning inference/Implementation details와 https://arxiv.org/html/2601.22032v2 의Implementation details도열람했다.
+이전 Adapter는front4실관측frame과encoded context를dynamics에전달하므로시간관측정보가본학습과다르다. 자차속도/가속도는주변객체속도관측을대체하지않으며,단일이미지학습prior로미래출력을만드는것과실제motion을관측하는것은구분한다. 과거부재가현재성능차이의원인인지는통제실험전미확정이다.
+후속연구권고는동일LPWM초기화/4camera/해상도/planner/학습조건에서1시점대현재+직전2시점비교,동적객체·교차로·가림분해및미래개입평가다. Register대particle비교에는같은시간정보와처리설계통제가필요하다. 설명요청이므로현재등록학습/평가/대기열은변경하지않았다.
