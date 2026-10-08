@@ -1,0 +1,72 @@
+{
+  "purpose": "Compare small-data planning trends with a common DrivoR planner",
+  "scope": "Modified research baselines, not original-paper benchmark reproductions",
+  "output_directory": "outputs/four_model_small_corpus_v1",
+  "seed": 47,
+  "common_planner_seed": 4701,
+  "cameras": ["front"],
+  "image_width": 512,
+  "image_height": 256,
+  "planning_observed_frames": 2,
+  "planning_future_gt_images_as_input": false,
+  "dino_patch_alignment": "Pad right6 and bottom10 after shared preprocessing; no further image resize",
+  "ssl_source": "Fixed local OpenScene train recordings only",
+  "ssl_unique_clips": 10480,
+  "ssl_frames_per_clip": 8,
+  "ssl_frames_per_second": 2,
+  "ssl_passes": 5,
+  "ssl_presentations": 52400,
+  "ssl_updates": 3275,
+  "planning_train_scenes": 10240,
+  "planning_dev_scenes": 1024,
+  "planning_passes": 5,
+  "planning_presentations": 51200,
+  "planning_updates": 3200,
+  "effective_batch": 16,
+  "development_evaluation_passes": [1, 3, 5],
+  "checkpoint_selection": "Fixed pass5",
+  "full_navtest": false,
+  "foreground_particles": 16,
+  "background_particles": 1,
+  "common_planner_memory_tokens": 16,
+  "common_planner_memory_dimension": 256,
+  "gpus": [0, 1],
+  "whole_card_limit_bytes": 48000000000,
+  "conditions": {
+    "jepa": {
+      "initialization": "Public general-video V-JEPA2 ViT-L/16, including predictor and EMA teacher",
+      "stage1": "Masked latent L1 with stop-gradient EMA targets; fresh optimizer",
+      "stage2": "Native backbone fine-tuning plus common DrivoR planner",
+      "native_backbone_learning_rate": 0.00001,
+      "planner_learning_rate": 0.0001
+    },
+    "drivor": {
+      "initialization": "Public DINOv2 ViT-S/14 with registers",
+      "stage1": null,
+      "planning": "Official query/value LoRA rank32, two-frame register fusion, common DrivoR planner",
+      "backbone_lora_learning_rate": 0.0001,
+      "planner_learning_rate": 0.0001
+    },
+    "lpwm_sequential": {
+      "initialization": "Public LPWM Sketchy; no earlier preparation updates reused",
+      "stage1": "Native LPWM reconstruction, dynamics, KL and presence objectives",
+      "stage2": "Planning loss fine-tunes encoder, context, dynamics and command FiLM; decoder has no planning gradient",
+      "native_backbone_learning_rate": 0.00001,
+      "planner_learning_rate": 0.0001
+    },
+    "lpwm_joint": {
+      "initialization": "Same public LPWM and planner initialization as sequential condition",
+      "training": "Planning plus0.1 times native SSL loss from first update",
+      "ssl_presentations": 52400,
+      "planning_presentations": 51200,
+      "native_backbone_learning_rate": 0.00001,
+      "planner_learning_rate": 0.0001
+    }
+  },
+  "interpretation_limits": [
+    "Upstream pretraining data and model sizes differ",
+    "Sequential versus joint differs in objective timing and learning-rate trajectory",
+    "One seed and a development subset cannot establish SOTA or isolated particle causality",
+    "Sixteen-particle adequacy is provisional and requires planning validation"
+  ]
+}

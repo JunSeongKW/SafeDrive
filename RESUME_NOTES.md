@@ -3756,3 +3756,17 @@ Drive-JEPA 논문·코드와 V-JEPA2 공식 공개 가중치를 재확인했다.
 코드상DrivoR는현재영상1frame,patch14,기존LPWM plannerbridge는4camera/128assert다. 따라서모든모델front1/512×256/과거현재2frame으로맞추려면DrivoR시간인터페이스와patch경계padding,LPWM직사각형bridge를명시적으로구현·검사해야한다. 인터페이스변경된baseline은원논문설정과구분한다. 원래백본의사전학습데이터와모델규모차이는남으며공통planner라도pureparticle인과효과라고주장하지않는다.
 
 현재localqueue는local_epoch_and_validation_complete/Stage2false확인했다. 검증완료를품질통과로단정하지않는다. 새학습/설정/다운로드변경없음. 설계:`results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/four_model_small_corpus_comparison_proposal_20261008.json`.
+
+
+## 2026-10-08 네 모델 축소 실험 실행
+
+**2026-10-08 14:09 KST — 사용자 승인으로 네 모델 축소 비교 학습을 시작했다.**
+별도 planner 선택 답변이 없어 알린 추천안인 **공통 DrivoR planner**를 사용한다. ① Drive-JEPA 방식 백본+공통 planner ② DINOv2 register+공통 planner ③ LPWM SSL 후 planning ④ LPWM SSL+planning 처음부터 joint. 원 논문 전체 설정 재현이 아니다.
+Root `outputs/four_model_small_corpus_v1/`, queue PID136859. LPWM Stage1은 공개 Sketchy에서 새로 시작해219/3275 fullstate 저장 후 호환성 검사를 위해 잠시 양보했고, 검사가 끝나 현재 queue가 같은 상태를 재개한다. 기존 준비655update/기존 LoRA·Adapter는 합산·재개하지 않는다.
+OpenScene 고정10480 SSL clips(8frame/2Hz/실제11.644h)×5회=52400노출. 공통 planning10240/dev1024장면, recording 중복0, front1·512×256·과거현재2frame·effective16·5회/3200update. DINO만 patch14 정렬용 우6/하10px padding. 모두 같은241개 planner 초기 tensor를 사용한다.
+LPWM16FG+1BG native전체가중치 학습, planning 단계 encoder/context/dynamics/geometry/command FiLM gradient 확인. 순차Stage2는planning loss, joint는planning+0.1SSL이며 SSL총노출도52400으로 맞춘다. 순차Stage1 LR8e-5, planning native1e-5/planner1e-4. DrivoR는공식q/v LoRA rank32.
+GPU0·1만, 카드48decimalGB상한. Stage1micro4×누적2×2GPU, 나머지micro2×누적4×2GPU. 최대 joint부하43.63GB, 모든경로2update 및 inference/validation 검사통과; profile가중치는본학습에사용하지않는다. 공식PDMS scorer1장면 호환성확인(성능결과아님).
+대기열: LPWM SSL검증 → JEPA SSL검증 → DrivoR/LPWM순차/LPWMjoint/JEPA planning와각pass1·3·5 dev PDMS. Stage1품질실패시해당종속planner는보류하고독립조건은계속한다; 실행오류는queue_failed로중단. 실제진행은queue_state와각progress를확인한다.
+1seed·작은devsubset비교이며 전체navtest/330h학습/SOTA/pureparticle인과효과로부르지않는다. 공개초기화데이터·백본규모·순차대joint의LR경로차이가남는다. 설정 `configs/four_model_small_corpus/experiment.json`. 아래 미기동/제안 문장은 이전 이력이다.
+
+14:10 KST 재개검증: 양rank235/3275,43.70GB,121source불변;launch_verification.json에기록.
