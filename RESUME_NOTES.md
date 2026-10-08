@@ -4138,3 +4138,13 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-09 00:23 KST 사용자보고예상: 공동학습1epoch 학습완료01:00–01:10,PDMS평가포함01:10–01:20KST. 자동평가후기존5epoch학습계속.
 
 2026-10-09 00:23 KST 완료시간은현재동시실행부하유지조건이며확정시각아님. 첫epoch학습640update완료와dev1024 PDMS완료를구분한다.
+
+## 2026-10-09 00:57 KST — 실험완료후조건부배치증설자동화
+
+2026-10-09 00:57 KST 사용자조건부batch증설지시로 v10 controller3700728 기동. 기존v9controller3324666만종료,기존순차3331466/joint3331469/JEPA3331473 PID/start_ticks그대로인계·학습재시작없음. jepa 2597 / lpwm_sequential 1776 / lpwm_joint 554 실제진행. root scheduling_v10_batch_growth,상태 train_and_wait_for_peer_completion. 이전v9재기동금지.
+
+2026-10-09 00:57 KST batch증설구현: 별도execution wrapper에서physicalmicro2/4/8·누적4/2/1·GPU2로유효16유지;원121science/이전7실행/새9실행hash불변. CPU검사6개/compile통과,실제LPWM+planner126585133parameter모델CPU생성에서BatchNorm0·CUDA초기화없음확인. 실제GPU profile은peer완료후실행예정이며아직증설안함. 근거 results/four_model_small_corpus_v1/conditional_batch_growth_20261009.json.
+
+2026-10-09 00:57 KST 새실험완료감지→JEPA완료후남은LPWM의안전한optimizer경계에서후보한작업만fullstate저장→snapshot hardlink로동일savedstep의micro기존/4/8중메모리예측통과후보를8update disposable시험→양rank유한/전체카드48GB미만/5%이상속도개선시채택→원optimizer/scheduler/RNG/cursor에서재개. 최종profile update는SSL2배부하를검사. micro변경시원registration불변,별도active_batch_execution/batch_execution이실제batch근거. 실패/불리하면원배치재개;실제증설후메모리실패는해당학습만2로복귀. 기존pass1/3/5평가계속.
+
+2026-10-09 00:57 KST 물리batch변경은dropout난수배치·부동소수점합산순서를바꾸므로bitwise/PDMSequivalence미보장. 유효batch/LR/optimizer상태/계획된노출량은유지. 현재jointmicro2 peak26.25GB→micro4예측이48GB초과라무조건증설안함;순차4후보우선. joint단독시후보검토후기존nativeactivation44GB정책허용. 학습진행중원등록source를수정하지않고추가wrapper/controller사용. 외부점유변화까지OOM불가능보장하지않음.

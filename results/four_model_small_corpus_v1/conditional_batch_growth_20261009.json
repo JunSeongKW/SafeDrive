@@ -1,0 +1,302 @@
+{
+  "observed_at": "2026-10-09T00:57:36.782765+09:00",
+  "queue_state": {
+    "status": "running",
+    "scheduler_pid": 3700728,
+    "scheduler": "batch_growth_v10",
+    "phase": "train_and_wait_for_peer_completion",
+    "stage": "train_and_wait_for_peer_completion",
+    "execution_phase": "train_and_wait_for_peer_completion",
+    "pid": 3331466,
+    "updated_unix": 1791475056.7042966,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "train_lpwm_sequential",
+        "pid": 3331466,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py",
+          "--kind",
+          "lpwm_sequential",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt"
+        ]
+      },
+      {
+        "label": "train_lpwm_joint",
+        "pid": 3331469,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py",
+          "--kind",
+          "lpwm_joint",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint",
+          "--micro-batch",
+          "2",
+          "--native-marker",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v5_joint_overlap/native_joint_allowed.json"
+        ]
+      },
+      {
+        "label": "train_jepa",
+        "pid": 3331473,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py",
+          "--kind",
+          "jepa",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt"
+        ]
+      }
+    ],
+    "maximum_gpu_jobs": 3,
+    "reservation_bytes": {
+      "drivor": 3000000000,
+      "jepa": 12000000000,
+      "lpwm_sequential": 10000000000,
+      "lpwm_joint": 31000000000
+    },
+    "admission_ceiling_bytes": 48000000000,
+    "transition_trigger": "DrivoR3200 complete and pass5 PDMS1024 complete with zero failures",
+    "joint_resume_update": 87,
+    "temporarily_deferred_kind": null,
+    "monitored_peak_card_bytes": [
+      41554018304,
+      41555066880
+    ],
+    "jepa_allocator_cap_bytes": 8500000000,
+    "jepa_retry_below_active_lpwm_count": null,
+    "jepa_save_pause_bytes": 48000000000,
+    "admission_note": "JEPA uses measured LPWM+external peak plus9GB; other admissions keep original reservations",
+    "trainer_card_guard_bytes": 48000000000,
+    "user_card_limit_bytes": 48000000000,
+    "temporary_checkpoint_restart": false,
+    "batch_growth": {
+      "trigger": "A previously active experiment finishes",
+      "pending": false,
+      "physical_microbatch_per_gpu": {
+        "drivor": 2,
+        "lpwm_sequential": 2,
+        "jepa": 2,
+        "lpwm_joint": 2
+      },
+      "accumulation": {
+        "drivor": 4,
+        "lpwm_sequential": 4,
+        "jepa": 4,
+        "lpwm_joint": 4
+      },
+      "effective_batch": 16,
+      "candidates": [
+        4,
+        8
+      ],
+      "trials": [],
+      "original_science_registration_kept": true,
+      "numerical_equivalence_claimed": false
+    }
+  },
+  "handover": {
+    "controller_pid": 3700728,
+    "adopted_jobs_alive": true,
+    "training_restart": false,
+    "adopted": [
+      {
+        "pid": 3331466,
+        "start_ticks": "63333047",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py --kind lpwm_sequential --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential --micro-batch 2 --stage1-checkpoint /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt "
+      },
+      {
+        "pid": 3331469,
+        "start_ticks": "63333054",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py --kind lpwm_joint --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint --micro-batch 2 --native-marker /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v5_joint_overlap/native_joint_allowed.json "
+      },
+      {
+        "pid": 3331473,
+        "start_ticks": "63333064",
+        "state": "S",
+        "uid": 1020,
+        "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 /rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py --kind jepa --output /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa --micro-batch 2 --stage1-checkpoint /rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt "
+      }
+    ]
+  },
+  "hash_checks": {
+    "science": {
+      "checked": 121,
+      "mismatches": []
+    },
+    "previous_execution": {
+      "checked": 7,
+      "mismatches": []
+    },
+    "new_execution": {
+      "checked": 9,
+      "mismatches": []
+    }
+  },
+  "progress": {
+    "jepa": {
+      "completed_updates": 2597,
+      "target_updates": 3200,
+      "corpus_pass": 4.0578125,
+      "seconds": 3.1423559188842773,
+      "elapsed_seconds": 5345.790924310684,
+      "card_used_bytes": 41272999936,
+      "peak_allocated_bytes": 7134348800,
+      "gradient_norm": 16.898366928100586,
+      "gradient_groups": {},
+      "planning_presentations": 41552,
+      "ssl_presentations": 0,
+      "loss": 2.9131309390068054,
+      "trajectory_loss": 1.1537268161773682,
+      "final_score_loss": 1.7594040632247925,
+      "score": 0.8625641167163849,
+      "best_score": 1.0,
+      "planning_loss": 2.9131309390068054,
+      "ssl_loss": 0.0,
+      "total_objective": 2.9131309390068054,
+      "rank_health": [
+        {
+          "rank": 0,
+          "last_update": 2597,
+          "finite": true
+        },
+        {
+          "rank": 1,
+          "last_update": 2597,
+          "finite": true
+        }
+      ]
+    },
+    "lpwm_sequential": {
+      "completed_updates": 1776,
+      "target_updates": 3200,
+      "corpus_pass": 2.775,
+      "seconds": 7.859567880630493,
+      "elapsed_seconds": 5353.97604393959,
+      "card_used_bytes": 41243639808,
+      "peak_allocated_bytes": 5580502016,
+      "gradient_norm": 25.5489559173584,
+      "gradient_groups": {},
+      "planning_presentations": 28416,
+      "ssl_presentations": 0,
+      "loss": 2.95115202665329,
+      "trajectory_loss": 0.9980099946260452,
+      "final_score_loss": 1.953141987323761,
+      "score": 0.8908034563064575,
+      "best_score": 0.9907740354537964,
+      "planning_loss": 2.95115202665329,
+      "ssl_loss": 0.0,
+      "total_objective": 2.95115202665329,
+      "rank_health": [
+        {
+          "rank": 0,
+          "last_update": 1776,
+          "finite": true
+        },
+        {
+          "rank": 1,
+          "last_update": 1776,
+          "finite": true
+        }
+      ]
+    },
+    "lpwm_joint": {
+      "completed_updates": 554,
+      "target_updates": 3200,
+      "corpus_pass": 0.865625,
+      "seconds": 12.879010200500488,
+      "elapsed_seconds": 5235.6879460811615,
+      "card_used_bytes": 30355226624,
+      "peak_allocated_bytes": 26250561536,
+      "gradient_norm": 16.754657745361328,
+      "gradient_groups": {},
+      "planning_presentations": 8864,
+      "ssl_presentations": 9056,
+      "loss": 5.682288289070129,
+      "trajectory_loss": 3.235699564218521,
+      "final_score_loss": 2.4465888142585754,
+      "score": 0.593735434114933,
+      "best_score": 0.9481513798236847,
+      "planning_loss": 5.682288289070129,
+      "ssl_loss": 36.67508029937744,
+      "total_objective": 9.349796533584595,
+      "rank_health": [
+        {
+          "rank": 0,
+          "last_update": 554,
+          "finite": true
+        },
+        {
+          "rank": 1,
+          "last_update": 554,
+          "finite": true
+        }
+      ]
+    }
+  },
+  "tests": {
+    "unit_tests_passed": 6,
+    "py_compile": "passed",
+    "actual_lpwm_model_cpu_inspection": {
+      "parameters": 126585133,
+      "batch_norm_modules": [],
+      "cuda_initialized": false
+    }
+  },
+  "policy": {
+    "physical_batches": [
+      2,
+      4,
+      8
+    ],
+    "corresponding_accumulation": [
+      4,
+      2,
+      1
+    ],
+    "world_size": 2,
+    "effective_batch": 16,
+    "workers_per_rank": 2,
+    "minimum_measured_speedup": 1.05,
+    "source_checkpoint_and_optimizer_preserved": true,
+    "profile_weights_used_for_training": false,
+    "maximum_card_bytes": 48000000000,
+    "stochastic_or_final_score_equivalence_claimed": false,
+    "first_likely_growth": "LPWM sequential2 to4 afterJEPA finishes; GPU measurement pending",
+    "joint_caution": "Currentmicro2 peak26.25GB projectsmicro4 above48GB; reject if protected memory admission fails"
+  }
+}
