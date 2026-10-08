@@ -4181,3 +4181,16 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 평상시 전체 카드 약30.35GB, 기존 큰 SSL 배치 최대41.555GB를 사용했다. 순차 allocator peak5.581GB를 제외한 동반 메모리35.975GB를 보호하면 순차 micro4의 예상 전체 peak46.05GB가48GB 내에 들어온다. micro8과 jointmicro4는 현재 세 작업 병행에서 예측상 불가하다. 단순 idle 메모리 대신 allocator 최대와 전체 카드 최대를 함께 사용한다.
 
 LPWM 순차3epoch의 기존 GPU 검증을 마친 뒤 안전한 경계에서 fullstate를 저장하고, 같은 snapshot의 micro2/micro4 각8update disposable 속도를 비교한다. 5% 이상 속도 개선·양rank 유한 loss/gradient·연속 카드48GB 아래이면 micro4/accum2로 원 상태를 재개한다. 불리하거나 실패하면 원 micro2/accum4를 유지한다. effective16·LR·optimizer/scheduler·계획된 노출량 유지, profile weights폐기, 동일PDMS 보장 없음. 새 경로 scheduling_v11_measured_batch_growth, source scripts/queue_small_corpus_batch_growth_now.py. 현재 실측 시험 결과는 아직 대기 중이다.
+
+
+## 2026-10-09 01:38 KST — 배치 4 실측 채택 및 원 상태 재개 확인
+
+LPWM 순차 saved1937로 micro2/micro4 각8update 시험을 완료했다. 양rank 중 느린 중앙값 micro2 8.493785977초 vs micro4 5.016172528초: 처리량1.69328배, 업데이트 시간40.943% 감소. 후보 연속 카드 최대33.139195904GB, allocator8.495164416GB, 양rank loss/gradient 유한으로 micro4 채택. Profile 가중치는 폐기하고 원 checkpoint/optimizer/scheduler/RNG/cursor1937로 재개했다.
+
+새 trainer3816644는 실제1938→1955의18update 진행, 초기 CPU oracle/로딩53.67초 제외17회 중앙값4.7608초, 양rank 비유한0. 원 snapshot과 torch/CUDA RNG SHA 동일복원 확인. 원 scientific121/실행10 hash 불변. 유효batch16=GPU당micro4×누적2×GPU2, LR/노출량 유지. 물리batch에 따른 dropout/합산 차이와 동일PDMS 미보장 기록. JEPA3050/공동661은 기존PID3331473/3331469 유지, 전체 카드 현재33.14GB.
+
+기존 순차3epoch 평가도 완료(PDMS70.091745/실패0, dev1024)했으며 이는 증설 이전1920 checkpoint 결과다. batchgrowth controller3759839와 peer완료후 추가 후보 검토, pass1/3/5 PDMS 및 최종비교 자동화를 유지한다. 전체 완료시간의40.94% 감소를 주장하지 않는다. Jointmicro4/순차micro8은 현재 동시 사용의 protected 최대 예산을 넘어서 미시험이다.
+
+결과 results/four_model_small_corpus_v1/measured_batch_growth_20261009.json. 단기 candidate profile의33.14GB를 이후 모든 doubled-SSL peak로 단정하지 않는다. 기존41.555GB overlap과joint allocator26.251GB 최대를 사용한35.975GB companion budget을 보호했다. inherited final_profile_update_exercises_doubled_ssl:true는 순차에 적용되지 않는 공통 태그이며 순차 planning에는SSL이없다.
+
+코드 로컬commit008d00a. git push mine sandbox DNS실패 후 host재시도는GitHub에접속했으나VSCode credential socket ECONNREFUSED/anonymous write거부로실패. 학습과 로컬 산출물은 정상 유지, 원격 공유 인증 복구가 남는다.

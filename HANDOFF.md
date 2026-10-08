@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 01:23 KST (Codex)
+마지막 갱신: 2026-10-09 01:39 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 01:38 KST — 즉시 배치 비교 완료 후 LPWM 순차는 원 fullstate1937에서 GPU당 micro4·누적2·GPU2=유효16으로 재개했다. 새 순차 trainer3816644, v11 controller3759839 유지. 양rank1938→1955의18회 실제 업데이트 확인; JEPA3050/공동661은 기존 PID3331473/3331469로 계속 진행했다. 원 등록의 micro2는 역사 기록이며 실제 설정은 `lpwm_sequential/active_batch_execution.json`과 별도 `batch_execution/`을 확인한다.
 
 2026-10-09 01:21 KST — 사용자의 현재 VRAM 여유 활용 요청으로 v11 controller 3759839가 기존 세 학습을 인계했다. 실행 경로는 `outputs/four_model_small_corpus_v1/scheduling_v11_measured_batch_growth/`이며 v10 coordinator 3700728만 종료했다. 기존 trainer PID 3331466(순차)/3331469(공동)/3331473(JEPA)는 유지했다. 순차 3 epoch 검증 완료 후 안전한 저장 경계에서 GPU당 배치 2와 4의 disposable 속도 시험을 진행한다. 현재 증설은 아직 미적용이다. 이전 controller를 재기동하지 않는다.
 
@@ -1294,6 +1296,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 01:38 KST — 같은 saved1937로 각8update 시험: micro2 중앙값8.4938초 vs micro4 5.0162초, 처리량1.693배/업데이트 시간40.94% 감소. 후보 시험의 연속 전체 카드 최대33.139GB, allocator 최대8.495GB로 통과했다. 본학습 재개 첫53.67초의 로딩을 제외한17회 중앙값4.7608초, 양rank loss/gradient 비유한0, RNG 원 snapshot 동일 복원 확인. 원 science121/실행10 hash 불변. 근거 `results/four_model_small_corpus_v1/measured_batch_growth_20261009.json` 및 v11 `batch_trials/lpwm_sequential/1937/decision.json`. 순차3epoch의 기존 평가도 누락 없이 완료됐으며 PDMS70.0917/실패0은 증설 이전 체크포인트의 점수다.
 
 2026-10-09 01:21 KST — 세 작업의 평상시 카드 사용량은 GPU당 약 30.35GB지만 기존 큰 SSL 배치에서 최대 41.555GB였다. 순차 학습의 allocator 최대 5.581GB를 제외하고 동반 작업에 35.975GB를 보호하면 배치 4의 전체 예상 최대는 약 46.05GB로 48GB 내에 들어온다. 배치 8과 공동학습 배치 4는 예상 상한 초과라 현재 동시 실행에서는 시험하지 않는다. 새 메모리 계산 검사 2개 통과, 원 scientific source/config 121개와 새 실행 등록 10개 hash 불변 확인. GPU 배치 2·4 실측 비교 결과는 아직 대기 중이다.
 
@@ -2248,11 +2252,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청으로 현재 세 학습의 실측 최대 메모리에 근거해 LPWM 순차 배치 4를 즉시 시험하는 별도 controller를 추가했다.
-- 원 trainer와 등록 source를 유지하고 기존 학습 PID를 인계했다. 검증 직후 원 상태 저장 → 같은 상태의 배치 2·4 속도 비교 → 원 상태 재개의 절차를 연결했다.
-- 유효 배치 16과 48GB 상한을 유지하며, 실제 속도 5% 이상 개선 시에만 증설하도록 했다. 실측 비교 결과는 아직 대기 중이다.
+- 같은 체크포인트의 GPU 배치 2·4 실측을 완료하고, LPWM 순차에 GPU당 배치4·누적2를 적용해 원 optimizer/scheduler/RNG에서 재개했다.
+- 업데이트 시간40.94% 감소, 후보 전체 카드 최대33.139GB, 재개18회와 양rank 유한 loss/gradient 및 RNG 복원을 결과 JSON에 기록했다.
+- 순차3epoch 검증 보존, 기존 동반 학습 PID 유지, source121/실행10 hash 불변 및 유효16/48GB 상한을 확인했다. 원격 push는 호스트 재시도에서도 인증 오류로 실패해 로컬 커밋만 보존했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 01:38 KST — 순차micro4/누적2와 JEPA·공동micro2/누적4를 현재 세 작업 병행으로 계속한다. 기존 pass1/3/5 dev1024 평가 및 최종비교 자동화 유지. 동반 실험 완료 시 이후 후보를 다시 검토하되 protected 최대 메모리와 실제 속도 기준을 통과한 설정만 적용한다. 증설 작업 메모리 실패 시 해당 학습만 원 batch2로 복귀하는 기존 rollback 유지. 새 학습/데이터/진단을 추가하지 않는다.
 
 2026-10-09 01:21 KST — LPWM 순차의 3 epoch 예측을 마친 뒤 16update 이상 진행한 저장 경계에서 즉시 배치 시험을 한다. 배치별 8update 중 첫·마지막을 제외한 중앙값, 양rank loss/gradient 유한성, 연속 전체 카드 최대를 비교한다. 5% 이상 빨라지고 48GB 아래이면 GPU당 배치 4·누적 2회로 원 fullstate를 재개하고, 아니면 배치 2·누적 4회를 유지한다. Profile 가중치는 본학습에 사용하지 않는다. 이후 peer 완료 시 추가 증설 검토와 pass1/3/5 평가·최종 비교는 계속 자동 실행한다.
 
@@ -2885,6 +2891,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 01:38 KST — 40.94% 단축은 짧은 동시 실행 시험의 업데이트 시간 기준이다. 전체 실험 종료까지의 단축률은 동반 작업 완료·서버 부하·추후 증설에 따라 달라진다. 유효16·LR·계획 노출 보존, 물리 배치에 따른 난수/합산 차이와 동일PDMS 미보장은 유지한다. inherited `final_profile_update_exercises_doubled_ssl:true`는 공통 profile schema 필드로 순차 시험에는 SSL이 없다; 동반 공동학습의 기존 doubled-SSL 최대를 메모리 예산으로 보호한 것이다. 이 태그를 순차에서 SSL 재학습했다는 근거로 해석하지 않는다. 원격 인증 실패로 commit008d00a는 아직 로컬이며 원격 공유 복구가 남는다.
 
 2026-10-09 01:21 KST — 메모리 여유가 속도 개선을 보장하지 않아 실제 GPU 비교를 기다리고 있다. 유효 배치·LR·optimizer/scheduler·계획된 노출량은 유지하지만 물리 배치 변경은 dropout 난수 배치와 부동소수점 합산을 바꾸므로 동일 PDMS를 보장하지 않는다. 3 epoch 검증 이전 결과를 누락하지 않도록 시험 시작을 해당 검증 뒤로 둔다. Git 원격 인증 실패 이력은 유지하며 로컬 결과/학습에는 영향 없다.
 

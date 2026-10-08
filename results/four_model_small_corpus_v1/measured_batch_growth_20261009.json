@@ -1,0 +1,179 @@
+{
+  "checked_at": "2026-10-09T01:38:12.982994+09:00",
+  "controller_pid": 3759839,
+  "decision": {
+    "kind": "lpwm_sequential",
+    "from_microbatch": 2,
+    "predicted_peak_bytes": {
+      "4": 10077104435,
+      "8": 17954208870
+    },
+    "companion_reservation_bytes": 35974564864,
+    "candidate_microbatches": [
+      4
+    ],
+    "time": 1791476879.5625272,
+    "completed_updates_before_request": 1936,
+    "saved_update": 1937,
+    "selected_microbatch": 4,
+    "measurements": {
+      "2": {
+        "passed": true,
+        "seconds": 8.493785977363586,
+        "card_peak_bytes": 20518535168,
+        "allocator_peak_bytes": 5534847488,
+        "final_profile_update_exercises_doubled_ssl": true,
+        "weights_discarded": true,
+        "continuous_card_peak_bytes": 31467765760
+      },
+      "4": {
+        "passed": true,
+        "seconds": 5.016172528266907,
+        "card_peak_bytes": 33139195904,
+        "allocator_peak_bytes": 8495164416,
+        "final_profile_update_exercises_doubled_ssl": true,
+        "weights_discarded": true,
+        "continuous_card_peak_bytes": 33139195904
+      }
+    },
+    "effective_batch": 16,
+    "resume_original_checkpoint": true,
+    "profile_weights_discarded": true,
+    "numerical_or_pdms_equivalence_claimed": false
+  },
+  "decision_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v11_measured_batch_growth/batch_trials/lpwm_sequential/1937/decision.json",
+  "profile_speedup_factor": 1.693280270863849,
+  "profile_update_time_reduction_fraction": 0.40943031274448327,
+  "per_gpu_physical_microbatch_before": 2,
+  "per_gpu_physical_microbatch_after": 4,
+  "gradient_accumulation_before": 4,
+  "gradient_accumulation_after": 2,
+  "world_size": 2,
+  "effective_batch": 16,
+  "maximum_whole_card_bytes_observed_in_candidate_profile": 33139195904,
+  "latest_whole_card_bytes": [
+    33138147328,
+    33139195904
+  ],
+  "user_card_limit_bytes": 48000000000,
+  "worst_companion_budget_bytes": 35974564864,
+  "original_optimizer_scheduler_rng_cursor_resumed": true,
+  "profile_weights_discarded": true,
+  "rank_resume_proofs": {
+    "0": {
+      "completed_updates": 1937,
+      "next_update": 1938,
+      "planning_cursor": 30992,
+      "ssl_cursor": null,
+      "restored_after_initialization": true,
+      "torch_rng_sha256": "ebc360e49227b72249753d0851c41d0d99b0cb6b8f139e6078487c0a34cfc7a2",
+      "cuda_rng_sha256": "352d8f55a1072a1faac5e02b75d020bd02e2effe02ffa7a905b01944a766e439",
+      "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+    },
+    "1": {
+      "completed_updates": 1937,
+      "next_update": 1938,
+      "planning_cursor": 30992,
+      "ssl_cursor": null,
+      "restored_after_initialization": true,
+      "torch_rng_sha256": "ebc360e49227b72249753d0851c41d0d99b0cb6b8f139e6078487c0a34cfc7a2",
+      "cuda_rng_sha256": "352d8f55a1072a1faac5e02b75d020bd02e2effe02ffa7a905b01944a766e439",
+      "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+    }
+  },
+  "post_resume_diagnostics": {
+    "0": {
+      "resumed_update_count": 18,
+      "latest_update": 1955,
+      "first_update_seconds": 53.671278953552246,
+      "steady_update_count": 17,
+      "steady_median_seconds": 4.760841369628906,
+      "nonfinite_loss_or_gradient_count": 0
+    },
+    "1": {
+      "resumed_update_count": 18,
+      "latest_update": 1955,
+      "first_update_seconds": 53.682626247406006,
+      "steady_update_count": 17,
+      "steady_median_seconds": 4.756604909896851,
+      "nonfinite_loss_or_gradient_count": 0
+    }
+  },
+  "progress": {
+    "jepa": {
+      "completed_updates": 3050,
+      "target_updates": 3200,
+      "corpus_pass": 4.765625,
+      "seconds": 3.370148181915283,
+      "elapsed_seconds": 7778.677102088928,
+      "card_used_bytes": 33138147328,
+      "peak_allocated_bytes": 7134348800,
+      "gradient_norm": 12.705026626586914,
+      "gradient_groups": {},
+      "planning_presentations": 48800,
+      "ssl_presentations": 0,
+      "loss": 2.2151987552642822,
+      "trajectory_loss": 0.8988240510225296,
+      "final_score_loss": 1.3163747191429138,
+      "score": 0.8320234268903732,
+      "best_score": 0.9940380603075027,
+      "planning_loss": 2.2151987552642822,
+      "ssl_loss": 0.0,
+      "total_objective": 2.2151987552642822
+    },
+    "lpwm_sequential": {
+      "completed_updates": 1955,
+      "target_updates": 3200,
+      "corpus_pass": 3.0546875,
+      "seconds": 4.644680500030518,
+      "elapsed_seconds": 163.2890625,
+      "card_used_bytes": 33138147328,
+      "peak_allocated_bytes": 8495164416,
+      "gradient_norm": 34.29898452758789,
+      "gradient_groups": {},
+      "planning_presentations": 31280,
+      "ssl_presentations": 0,
+      "loss": 3.1964621543884277,
+      "trajectory_loss": 1.0027108788490295,
+      "final_score_loss": 2.1937512159347534,
+      "score": 0.8557024598121643,
+      "best_score": 1.0,
+      "planning_loss": 3.1964621543884277,
+      "ssl_loss": 0.0,
+      "total_objective": 3.1964621543884277
+    },
+    "lpwm_joint": {
+      "completed_updates": 661,
+      "target_updates": 3200,
+      "corpus_pass": 1.0328125,
+      "seconds": 13.666409730911255,
+      "elapsed_seconds": 7791.3894600868225,
+      "card_used_bytes": 33138147328,
+      "peak_allocated_bytes": 26250561536,
+      "gradient_norm": 15.37396240234375,
+      "gradient_groups": {},
+      "planning_presentations": 10576,
+      "ssl_presentations": 10816,
+      "loss": 5.056350588798523,
+      "trajectory_loss": 2.4321959018707275,
+      "final_score_loss": 2.624154716730118,
+      "score": 0.8573674708604813,
+      "best_score": 0.9988531470298767,
+      "planning_loss": 5.056350588798523,
+      "ssl_loss": 33.55582571029663,
+      "total_objective": 8.411933064460754
+    }
+  },
+  "immutable_scientific_source_count": 121,
+  "immutable_execution_source_count": 10,
+  "source_hashes_unchanged": true,
+  "independent_companion_trainer_pids_preserved": {
+    "lpwm_joint": 3331469,
+    "jepa": 3331473
+  },
+  "new_sequential_trainer_pid": 3816644,
+  "inherited_profile_metadata_clarification": "final_profile_update_exercises_doubled_ssl is a generic inherited field. Sequential planning has no SSL. Its safety budget protects the previously measured joint doubled-SSL allocator peak; this candidate profile does not force companion doubled SSL.",
+  "pdms_equivalence_claimed": false,
+  "performance_measurement_limit": "Short profiles under concurrent training; total-study completion time depends on companion completion and server load.",
+  "remote_push_status": "Local code commit008d00a. Sandbox DNS blocked; host retry reached GitHub but failed VSCode credential socket and anonymous-write authentication."
+}
