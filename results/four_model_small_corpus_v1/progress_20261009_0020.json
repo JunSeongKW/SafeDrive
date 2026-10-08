@@ -1,0 +1,483 @@
+{
+  "observed_at": "2026-10-09T00:20:45.165943+09:00",
+  "scope": "Existing training and evaluation status; no execution changes",
+  "queue_state": {
+    "status": "running",
+    "scheduler_pid": 3324666,
+    "scheduler": "user_48gb_v9",
+    "phase": "guarded_three_job_overlap",
+    "stage": "guarded_three_job_overlap",
+    "execution_phase": "resume_with_reserved_memory_headroom",
+    "pid": 3331466,
+    "updated_unix": 1791472843.5614748,
+    "held_conditions": {},
+    "active_jobs": [
+      {
+        "label": "train_lpwm_sequential",
+        "pid": 3331466,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py",
+          "--kind",
+          "lpwm_sequential",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_sequential",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt"
+        ]
+      },
+      {
+        "label": "train_lpwm_joint",
+        "pid": 3331469,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py",
+          "--kind",
+          "lpwm_joint",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_joint",
+          "--micro-batch",
+          "2",
+          "--native-marker",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/scheduling_v5_joint_overlap/native_joint_allowed.json"
+        ]
+      },
+      {
+        "label": "train_jepa",
+        "pid": 3331473,
+        "cpu": false,
+        "directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+        "command": [
+          "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+          "-m",
+          "torch.distributed.run",
+          "--standalone",
+          "--nproc_per_node=2",
+          "/rhome/junseong/PlanningAwareFuturePrediction/scripts/resume_small_corpus_user_memory_limit.py",
+          "--kind",
+          "jepa",
+          "--output",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa",
+          "--micro-batch",
+          "2",
+          "--stage1-checkpoint",
+          "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt"
+        ]
+      }
+    ],
+    "maximum_gpu_jobs": 3,
+    "reservation_bytes": {
+      "drivor": 3000000000,
+      "jepa": 12000000000,
+      "lpwm_sequential": 10000000000,
+      "lpwm_joint": 31000000000
+    },
+    "admission_ceiling_bytes": 48000000000,
+    "transition_trigger": "DrivoR3200 complete and pass5 PDMS1024 complete with zero failures",
+    "joint_resume_update": 87,
+    "temporarily_deferred_kind": null,
+    "monitored_peak_card_bytes": [
+      41554018304,
+      41555066880
+    ],
+    "jepa_allocator_cap_bytes": 8500000000,
+    "jepa_retry_below_active_lpwm_count": null,
+    "jepa_save_pause_bytes": 48000000000,
+    "admission_note": "JEPA uses measured LPWM+external peak plus9GB; other admissions keep original reservations",
+    "trainer_card_guard_bytes": 48000000000,
+    "user_card_limit_bytes": 48000000000,
+    "temporary_checkpoint_restart": false
+  },
+  "models": {
+    "drivor": {
+      "progress": {
+        "completed_updates": 3200,
+        "target_updates": 3200,
+        "corpus_pass": 5.0,
+        "seconds": 3.2699899673461914,
+        "elapsed_seconds": 2535.037996530533,
+        "card_used_bytes": 18479054848,
+        "peak_allocated_bytes": 964635648,
+        "gradient_norm": 13.823330879211426,
+        "gradient_groups": {
+          "planner": 9.364754676818848,
+          "scorer": 3.3031423091888428,
+          "encoder": 5.139552593231201
+        },
+        "planning_presentations": 51200,
+        "ssl_presentations": 0,
+        "loss": 3.1767311096191406,
+        "trajectory_loss": 1.14876127243042,
+        "final_score_loss": 2.0279697477817535,
+        "score": 0.795441284775734,
+        "best_score": 0.9936957657337189,
+        "planning_loss": 3.1767311096191406,
+        "ssl_loss": 0.0,
+        "total_objective": 3.1767311096191406
+      },
+      "percent": 100.0,
+      "evaluations": {
+        "pass1.pdms.json": {
+          "count": 1024,
+          "benchmark": "NAVSIM v1 independent development subset",
+          "full_navtest": false,
+          "pdms": 66.94141749765791,
+          "failed": 0,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.7166907266833282
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.641212903271242
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6823278058404195
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.98779296875,
+            "drivable_area_compliance": 0.8525390625,
+            "ego_progress": 0.46225808244378974,
+            "time_to_collision_within_bound": 0.94140625,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.95947265625,
+            "score": 0.6694141749765791
+          },
+          "train_dev_recording_overlap": 0
+        },
+        "pass3.pdms.json": {
+          "count": 1024,
+          "benchmark": "NAVSIM v1 independent development subset",
+          "full_navtest": false,
+          "pdms": 78.39769544885766,
+          "failed": 0,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.765546860323777
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.8108466694477763
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.7262722960815373
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.97998046875,
+            "drivable_area_compliance": 0.931640625,
+            "ego_progress": 0.6314377806236955,
+            "time_to_collision_within_bound": 0.9501953125,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.9619140625,
+            "score": 0.7839769544885766
+          },
+          "train_dev_recording_overlap": 0
+        },
+        "pass5.pdms.json": {
+          "count": 1024,
+          "benchmark": "NAVSIM v1 independent development subset",
+          "full_navtest": false,
+          "pdms": 81.25352884905898,
+          "failed": 0,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.786558632075256
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.8430058959171518
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.7557576871486245
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.98681640625,
+            "drivable_area_compliance": 0.927734375,
+            "ego_progress": 0.6953401603443911,
+            "time_to_collision_within_bound": 0.9560546875,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.95361328125,
+            "score": 0.8125352884905899
+          },
+          "train_dev_recording_overlap": 0
+        }
+      },
+      "rank_health": [
+        {
+          "rank": 0,
+          "first_update": 3100,
+          "last_update": 3200,
+          "seconds_per_update_including_saves": 3.7291067123413084,
+          "nonfinite_loss_or_gradient": 0
+        },
+        {
+          "rank": 1,
+          "first_update": 3100,
+          "last_update": 3200,
+          "seconds_per_update_including_saves": 3.729211673736572,
+          "nonfinite_loss_or_gradient": 0
+        }
+      ]
+    },
+    "jepa": {
+      "progress": {
+        "completed_updates": 2340,
+        "target_updates": 3200,
+        "corpus_pass": 3.65625,
+        "seconds": 3.742487907409668,
+        "elapsed_seconds": 3132.7528817653656,
+        "card_used_bytes": 30355226624,
+        "peak_allocated_bytes": 7134348800,
+        "gradient_norm": 16.76297950744629,
+        "gradient_groups": {},
+        "planning_presentations": 37440,
+        "ssl_presentations": 0,
+        "loss": 2.4640035033226013,
+        "trajectory_loss": 0.9456728249788284,
+        "final_score_loss": 1.5183306783437729,
+        "score": 0.832804836332798,
+        "best_score": 1.0,
+        "planning_loss": 2.4640035033226013,
+        "ssl_loss": 0.0,
+        "total_objective": 2.4640035033226013
+      },
+      "percent": 73.125,
+      "evaluations": {
+        "pass1.pdms.json": {
+          "count": 1024,
+          "benchmark": "NAVSIM v1 independent development subset",
+          "full_navtest": false,
+          "pdms": 66.98896615391867,
+          "failed": 0,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.6004608955449661
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.7073559864560784
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6640269255697582
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.9697265625,
+            "drivable_area_compliance": 0.8232421875,
+            "ego_progress": 0.5291784772445688,
+            "time_to_collision_within_bound": 0.9287109375,
+            "comfort": 0.98046875,
+            "driving_direction_compliance": 0.9580078125,
+            "score": 0.6698896615391867
+          },
+          "train_dev_recording_overlap": 0
+        },
+        "pass3.pdms.json": {
+          "count": 1024,
+          "benchmark": "NAVSIM v1 independent development subset",
+          "full_navtest": false,
+          "pdms": 74.69696044465395,
+          "failed": 0,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.7723119887364062
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.7664058166240796
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6392559861395163
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.990234375,
+            "drivable_area_compliance": 0.8740234375,
+            "ego_progress": 0.6067895506716948,
+            "time_to_collision_within_bound": 0.9560546875,
+            "comfort": 0.9990234375,
+            "driving_direction_compliance": 0.94921875,
+            "score": 0.7469696044465395
+          },
+          "train_dev_recording_overlap": 0
+        }
+      },
+      "rank_health": [
+        {
+          "rank": 0,
+          "first_update": 2240,
+          "last_update": 2340,
+          "seconds_per_update_including_saves": 4.374292051792144,
+          "nonfinite_loss_or_gradient": 0
+        },
+        {
+          "rank": 1,
+          "first_update": 2240,
+          "last_update": 2340,
+          "seconds_per_update_including_saves": 4.374629838466644,
+          "nonfinite_loss_or_gradient": 0
+        }
+      ]
+    },
+    "lpwm_sequential": {
+      "progress": {
+        "completed_updates": 1642,
+        "target_updates": 3200,
+        "corpus_pass": 2.565625,
+        "seconds": 8.599225282669067,
+        "elapsed_seconds": 3139.8934473991394,
+        "card_used_bytes": 30355226624,
+        "peak_allocated_bytes": 5580502016,
+        "gradient_norm": 30.371070861816406,
+        "gradient_groups": {},
+        "planning_presentations": 26272,
+        "ssl_presentations": 0,
+        "loss": 3.0893120169639587,
+        "trajectory_loss": 1.1804892867803574,
+        "final_score_loss": 1.908822774887085,
+        "score": 0.9340576082468033,
+        "best_score": 0.9970765262842178,
+        "planning_loss": 3.0893120169639587,
+        "ssl_loss": 0.0,
+        "total_objective": 3.0893120169639587
+      },
+      "percent": 51.31250000000001,
+      "evaluations": {
+        "pass1.pdms.json": {
+          "count": 1024,
+          "benchmark": "NAVSIM v1 independent development subset",
+          "full_navtest": false,
+          "pdms": 64.97433296665777,
+          "failed": 0,
+          "by_command": {
+            "0": {
+              "count": 290,
+              "mean": 0.7055933689858319
+            },
+            "1": {
+              "count": 564,
+              "mean": 0.6233893631674938
+            },
+            "2": {
+              "count": 170,
+              "mean": 0.6419028926248107
+            }
+          },
+          "subscores": {
+            "no_at_fault_collisions": 0.962890625,
+            "drivable_area_compliance": 0.865234375,
+            "ego_progress": 0.42283495335853427,
+            "time_to_collision_within_bound": 0.9296875,
+            "comfort": 0.9990234375,
+            "driving_direction_compliance": 0.93798828125,
+            "score": 0.6497433296665777
+          },
+          "train_dev_recording_overlap": 0
+        }
+      },
+      "rank_health": [
+        {
+          "rank": 0,
+          "first_update": 1542,
+          "last_update": 1642,
+          "seconds_per_update_including_saves": 9.373389222621917,
+          "nonfinite_loss_or_gradient": 0
+        },
+        {
+          "rank": 1,
+          "first_update": 1542,
+          "last_update": 1642,
+          "seconds_per_update_including_saves": 9.37343769788742,
+          "nonfinite_loss_or_gradient": 0
+        }
+      ],
+      "next_evaluation": {
+        "update": 1920,
+        "estimated_training_boundary": "2026-10-09T01:04:10.968147+09:00",
+        "evaluation_overhead_minutes_approx": 6,
+        "assumption": "Recent100-update wall throughput holds; future load and evaluation contention may change timing"
+      }
+    },
+    "lpwm_joint": {
+      "progress": {
+        "completed_updates": 479,
+        "target_updates": 3200,
+        "corpus_pass": 0.7484375,
+        "seconds": 13.96244740486145,
+        "elapsed_seconds": 3144.8594300746918,
+        "card_used_bytes": 30355226624,
+        "peak_allocated_bytes": 26250561536,
+        "gradient_norm": 21.427196502685547,
+        "gradient_groups": {},
+        "planning_presentations": 7664,
+        "ssl_presentations": 7840,
+        "loss": 5.547197699546814,
+        "trajectory_loss": 2.062018573284149,
+        "final_score_loss": 3.4851791858673096,
+        "score": 0.855055183172226,
+        "best_score": 0.9705195426940918,
+        "planning_loss": 5.547197699546814,
+        "ssl_loss": 37.222890853881836,
+        "total_objective": 9.269486784934998
+      },
+      "percent": 14.96875,
+      "evaluations": {},
+      "rank_health": [
+        {
+          "rank": 0,
+          "first_update": 379,
+          "last_update": 479,
+          "seconds_per_update_including_saves": 16.045204899311067,
+          "nonfinite_loss_or_gradient": 0
+        },
+        {
+          "rank": 1,
+          "first_update": 379,
+          "last_update": 479,
+          "seconds_per_update_including_saves": 16.045124762058258,
+          "nonfinite_loss_or_gradient": 0
+        }
+      ],
+      "next_evaluation": {
+        "update": 640,
+        "estimated_training_boundary": "2026-10-09T01:03:48.443932+09:00",
+        "evaluation_overhead_minutes_approx": 6,
+        "assumption": "Recent100-update wall throughput holds; future load and evaluation contention may change timing"
+      }
+    }
+  },
+  "gpu_sample": {
+    "observed_at": "2026-10-09 00:19:55 KST",
+    "gpu0_mib": 28949,
+    "gpu1_mib": 28950,
+    "gpu0_utilization_percent": 57,
+    "gpu1_utilization_percent": 100
+  }
+}

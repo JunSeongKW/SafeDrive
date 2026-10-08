@@ -4118,3 +4118,13 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-09 00:00 KST 2epoch 비교는 현재산출물만으로 불가하며 별도학습재실행은 시작하지 않았다. 기존1/3/5 자동평가를 계속하고 동일완료epoch끼리 비교한다.
 
 2026-10-09 00:00 KST 2epochPDMS를1·3epoch값에서 보간하거나 최신2.xepoch가중치로 대체하지 않는다. 없는체크포인트를보존됐다고주장하지않음. 점수는동일dev1024이며최종navtest아님.
+
+## 2026-10-09 00:20 KST — 네조건진행률및다음평가점검
+
+2026-10-09 00:20 KST 진행조회: drivor 3200/3200 (100.0%) / jepa 2340/3200 (73.1%) / lpwm_sequential 1642/3200 (51.3%) / lpwm_joint 479/3200 (15.0%). v9 controller3324666과세학습계속, pause/실패marker없음. 실행변경없음.
+
+2026-10-09 00:20 KST 새PDMS평가없음. DrivoR pass5 81.253529/JEPA pass3 74.696960/LPWM순차 pass1 64.974333 유지,joint첫평가전. 양rank최근101row loss/gradient유한. 조회순간GPU0/1 VRAM각30.35GB,사용률57/100%. 근거 results/four_model_small_corpus_v1/progress_20261009_0020.json.
+
+2026-10-09 00:20 KST 기존세학습·48GB보호·pass1/3/5대기열유지. 최근100update wall속도기준다음LPWM순차3epoch/joint1epoch 평가결과는대략01:05–01:20KST 예상;부하유지조건의외삽이며새평가를기동하지않음.
+
+2026-10-09 00:20 KST 진행률은planning5epoch/3200기준,JEPA·LPWM순차SSL5pass는이미완료. 최신점수를현재update점수라고부르지않고평가epoch를함께표시. 전체navtest아닌dev1024,학습량다른점수의직접우열판단금지.
