@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 15:37 KST (Codex)
+마지막 갱신: 2026-10-08 15:46 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 ego status 동일성 질문: 공식 feature builder와 현재 cache의6장면 CPU 비교 완료, 학습·설정·대기열 변경 없음.
 
 2026-10-08 주행 명령 출처 설명: 원본 메타데이터·OpenScene 생성 코드·현재 ego cache를 읽기 전용 확인했다. 학습·입력·대기열 변경 없음.
 
@@ -1226,6 +1228,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+Ego 동일성: train/dev각좌·직·우1장면씩6개에서공식DrivoRFeatureBuilder의현재ego11과cache가수치완전일치(maxabs0). 전체11264개cache의pose3은0이며현재자차기준상대좌표에해당한다. 공식full_history_status=false와동일하게현재상태만Linear11→256→query64에더한다. 사진2frame과ego현재1시점을구분한다. LPWM은추가command FiLM경로를갖는다. 근거 outputs/four_model_small_corpus_v1/ego_status_official_parity.json.
 
 명령은 원본 frame['driving_command']를 가져온4차원one-hot(left,forward,right,unknown). 현재11264개ego cache모두유효one-hot,좌/직/우각대표샘플원본일치,unknown샘플없음. OpenScene 공식생성코드는현재ego pose+지도+기록route roadblock으로중심선을만들고현재중심선방향기준경로20m앞의횡오프셋±2m로좌/우/직진을정하며route복구실패는unknown. 함수signature20m가실제default이고docstring10m는불일치한다.
 
@@ -2108,9 +2112,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 주행 명령의 원본 metadata→ego[7:11]→planner/LPWM FiLM 경로와 OpenScene의지도·경로기반생성법을확인했다. 현재cache11264개one-hot 및좌/직/우대표원본일치확인. 학습·설정 변경 없음.
+- Ego 입력 항목/순서/현재시점 선택/Linear11→256→trajectory query64 주입의공식DrivoR동일성을확인했다. 공식 feature builder6장면과cache maxabs0,전체현재pose0확인. LPWM추가명령FiLM을구분해기록했다. CPU일회검사외실험변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+Ego설명시현재pose의0은자차좌표원점이라는점과full_history_status=false를명시한다. 공식planner주입경로동일성과LPWM추가FiLM을구분하며기존실험을유지한다.
 
 주행 명령 설명 시 데이터셋이제공하는route조건과모델의예측결과를구분한다. 기존planning입력에서명령을새로생성하거나미래GT궤적으로재분류하지않는다.
 
@@ -2679,6 +2685,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+Ego11개항목과planner주입방식은공식DrivoR와동일하다. LPWM의perception추가명령입력까지포함한전체조건화경로가동일하다는주장은하지않는다. 6개실장면입력일치검사는모든데이터의원본재계산검증은아니다.
 
 주행 명령은상위경로안내조건이며정지/회피/속도등세부행동이나실제교차로maneuver의완전한라벨이아니다. 공개생성법은중심선곡률에도반응한다. 현재Stage1 SSL에는명령미사용,planning에서는모든모델ego입력및LPWM추가FiLM으로사용한다.
 

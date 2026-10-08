@@ -3819,3 +3819,9 @@ CPU PDMS는pass1/3/5예측+1024count메타데이터완료즉시GPU학습과병�
 현재planning코드는frame['driving_command']를원본NAVSIM/OpenScene메타데이터에서읽어ego의마지막4차원(7:11)에그대로넣는다. 명령은(left,forward,right,unknown)one-hot. 전체cache11264개가유효one-hot이고각좌/직/우대표원본과동일,unknown현재없음. OpenScene/DriveEngine/process_data/create_openscene_metadata.py:127은get_driving_command(ego_pose,map_api,roadblock_ids)를호출한다. helpers/driving_command.py:40은route보정/차선검색/중심선구성후현재중심선의진행방향에대해20m앞경로점의횡오프셋이+2m이상이면left,-2m이하면right,그사이면forward로기록한다. Route보정불가시unknown. Distance실제default20m이며docstring10m를따르지않는다. 우리학습코드에서미래GT궤적을이용해새명령을만들지는않는다.
 
 명령은planning학습·추론의외부입력. 공통planner의ego embedding에포함되며LPWM에서는MLP4→64→64후scale/shift로분리해attribute CNN conv_in출력을FiLM조건화한다. Stage1 SSL에는명령을넣지않는다. 코드·데이터·학습·대기열변경없음.
+
+## 2026-10-08 Ego status와공식DrivoR입력동일성검사
+
+현재11차원은pose(x,y,heading)3+velocity2+acceleration2+command4이며공식과순서가같다. 공식full_history_status=false이므로마지막ego상태만Linear11→256후학습query64에더하고scorer attention이후에도더한다. 현재cache는현재자차상대pose를명시적으로0으로저장하며공식상대좌표변환의현재pose와동일하다. 이미지2frame과ego현재1frame을구분한다. LPWM은command[7:11]을추가FiLM에넣는차이가있다.
+
+현재train/dev각좌/직/우대표1개씩6개를공식AgentInput과DrivoRFeatureBuilder로재구성해cache와비교:maxabs0전부일치. 전체11264cache의pose3이0인것도확인. 산출물 outputs/four_model_small_corpus_v1/ego_status_official_parity.json. 첫GPU학습환경에서는nuplan경로/rasterio가없어검사import가실패했으며,설치·환경변경없이기존CPU평가환경에서검사완료했다. 학습및대기열은변경하지않았다.
