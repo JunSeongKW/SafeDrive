@@ -1,0 +1,56 @@
+{
+  "observed_at": "2026-10-09T00:23:13.003429+09:00",
+  "progress": {
+    "completed_updates": 489,
+    "target_updates": 3200,
+    "corpus_pass": 0.7640625,
+    "seconds": 14.399790525436401,
+    "elapsed_seconds": 3295.2527434825897,
+    "card_used_bytes": 30355226624,
+    "peak_allocated_bytes": 26250561536,
+    "gradient_norm": 15.597548484802246,
+    "gradient_groups": {},
+    "planning_presentations": 7824,
+    "ssl_presentations": 8000,
+    "loss": 4.239984929561615,
+    "trajectory_loss": 2.174433872103691,
+    "final_score_loss": 2.065550982952118,
+    "score": 0.6818547397851944,
+    "best_score": 0.9725066721439362,
+    "planning_loss": 4.239984929561615,
+    "ssl_loss": 37.88801383972168,
+    "total_objective": 8.028786301612854
+  },
+  "epoch1_target_updates": 640,
+  "remaining_updates": 151,
+  "recent_wall_rates": [
+    {
+      "window": 25,
+      "seconds_per_update": 16.02327000617981,
+      "remaining_seconds": 2419.5137709331516,
+      "estimated_epoch1_training_completion": "2026-10-09T01:03:32.517200+09:00"
+    },
+    {
+      "window": 50,
+      "seconds_per_update": 15.526780185699463,
+      "remaining_seconds": 2344.543808040619,
+      "estimated_epoch1_training_completion": "2026-10-09T01:02:17.547237+09:00"
+    },
+    {
+      "window": 100,
+      "seconds_per_update": 15.74554560661316,
+      "remaining_seconds": 2377.577386598587,
+      "estimated_epoch1_training_completion": "2026-10-09T01:02:50.580816+09:00"
+    },
+    {
+      "window": 200,
+      "seconds_per_update": 16.04793655991554,
+      "remaining_seconds": 2423.2384205472467,
+      "estimated_epoch1_training_completion": "2026-10-09T01:03:36.241850+09:00"
+    }
+  ],
+  "reported_training_completion_range_kst": "2026-10-09 01:00–01:10",
+  "reported_pdms_completion_range_kst": "2026-10-09 01:10–01:20",
+  "assumptions": "Current overlap load continues; model checkpoint and GPU inference plus CPU score require additional time; not guaranteed",
+  "execution_changes": false
+}

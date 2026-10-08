@@ -4128,3 +4128,13 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-09 00:20 KST 기존세학습·48GB보호·pass1/3/5대기열유지. 최근100update wall속도기준다음LPWM순차3epoch/joint1epoch 평가결과는대략01:05–01:20KST 예상;부하유지조건의외삽이며새평가를기동하지않음.
 
 2026-10-09 00:20 KST 진행률은planning5epoch/3200기준,JEPA·LPWM순차SSL5pass는이미완료. 최신점수를현재update점수라고부르지않고평가epoch를함께표시. 전체navtest아닌dev1024,학습량다른점수의직접우열판단금지.
+
+## 2026-10-09 00:23 KST — 공동학습첫epoch ETA
+
+2026-10-09 00:23 KST 공동학습첫epoch ETA조회: 489/640,잔여151update. v9와세학습유지,실행변경없음.
+
+2026-10-09 00:23 KST 최근25/50/100/200update wall속도약15.5–16.1초. 단순외삽첫epoch학습완료01:02–01:04KST 부근. 근거 results/four_model_small_corpus_v1/joint_epoch1_eta_20261009_0023.json.
+
+2026-10-09 00:23 KST 사용자보고예상: 공동학습1epoch 학습완료01:00–01:10,PDMS평가포함01:10–01:20KST. 자동평가후기존5epoch학습계속.
+
+2026-10-09 00:23 KST 완료시간은현재동시실행부하유지조건이며확정시각아님. 첫epoch학습640update완료와dev1024 PDMS완료를구분한다.
