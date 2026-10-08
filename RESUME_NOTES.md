@@ -3874,3 +3874,16 @@ drivor_model.py:177–180은후보좌표detach→pos_embed→scorer_attention→
 2026-10-08 16:49 KST JEPA의예측학습된관측feature와 LPWM의명시적미래particle rollout은다르다. 현재JEPA공통planner입력은16개 pooled patch token이며16개register/particle로해석하지않는다. 임의feature를RGB복원품질로만비교하지않는다.
 
 근거: https://arxiv.org/html/2601.22032v1 §3.1/3.2 및 src/planning_aware_future_prediction/object_centric/small_corpus_models.py:29,59. 논문 버전의 데이터시간수치 등 질문외항목을 현행실험설정으로갱신하지 않았다.
+
+
+## 2026-10-08 17:03 KST — 현재 RGB 뭉개짐 점검 및 과거 LPWM 동일장면 비교
+
+2026-10-08 17:03 KST 과거 LPWM 동일장면 RGB 비교 완료: CPU2thread로 기존128 Stage1 20epoch 및 Adapter1epoch를 exact3scene 재추론. 현재epoch4 및 이전512/64particle200update는기존배열사용. 원121science source/config불변, GPU학습·대기열 변경 없음.
+
+2026-10-08 17:03 KST 현재첨부PNG의3개복원패널은saved float출력의uint8변환과픽셀완전일치: 그림생성단계가뭉개짐원인이아님. 과거128/64encoder(30decoder) 모델은두번째흰차등을더잘보존하나보행자/세부손실은여전함. 과거Stage1대Adapter RGB차이는작음. 같은512/64particle200update도반복질감/흐림이있어16particle만을원인으로단정불가. 결과 `results/four_model_small_corpus_v1/historical_rgb_same_scenes/`.
+
+2026-10-08 17:03 KST 시각화요청범위에서기존실행유지. 후속원인분리는직사각형encoder/decoder확장·particle수·학습량/노출·loss차이를통제해야한다. 평균RGB오차개선이나학습수치정상을충분한객체보존/주행적응성공으로취급하지않는다.
+
+2026-10-08 17:03 KST 핵심비교제약: 첫2장면은이전Stage1의실제training frame이며현재는heldout. 세번째만양쪽Stage1미학습recording이다. 그림에명시했고일반화우열주장금지. 과거128출력은최근접픽셀로512×256표시크기만확대;정보추가없음. 이번공통8frame clip의두번째영상복원진단은원래12frame학습/4관측planning평가와구별한다.
+
+새script `scripts/compare_lpwm_historical_rgb_same_scenes.py`. Native128 stage1 checkpoint hash71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f; Adapter는보존epoch01.pt. 실제command는동일이미지camera파일명을rawlog에서대응시켜추출. Encoded64/decoded30의공식filter_key를적용한manualdecode와canonicalforward 최대차0,full/slicedcontext최대차0,normalize_rgb=false. 초기CPU시도는비연속tensor와공식filter누락을잡는assertion에서실패했고입력contiguous·공식selection을새진단script에만반영후완료. 원학습/eval코드변경없음. 비교script는sampling이나모델학습을수행하지않았다. Sourcearrays/체크포인트hash와해상도별MSE,학습중복근거는comparison_report.json에보존.

@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 16:49 KST (Codex)
+마지막 갱신: 2026-10-08 17:03 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-08 17:03 KST 과거 LPWM 동일장면 RGB 비교 완료: CPU2thread로 기존128 Stage1 20epoch 및 Adapter1epoch를 exact3scene 재추론. 현재epoch4 및 이전512/64particle200update는기존배열사용. 원121science source/config불변, GPU학습·대기열 변경 없음.
 
 2026-10-08 16:49 KST 표현단위 설명: Drive-JEPA 논문3.1/3.2와 현재 JEPAFrontEncoder를 읽기 전용 확인. 학습·설정·대기열 변경 없음.
 
@@ -1238,6 +1240,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-08 17:03 KST 현재첨부PNG의3개복원패널은saved float출력의uint8변환과픽셀완전일치: 그림생성단계가뭉개짐원인이아님. 과거128/64encoder(30decoder) 모델은두번째흰차등을더잘보존하나보행자/세부손실은여전함. 과거Stage1대Adapter RGB차이는작음. 같은512/64particle200update도반복질감/흐림이있어16particle만을원인으로단정불가. 결과 `results/four_model_small_corpus_v1/historical_rgb_same_scenes/`.
 
 2026-10-08 16:49 KST Drive-JEPA backbone 출력은 시공간 patch latent token. V-JEPA SSL은 마스킹된 시공간패치의 EMA target feature를 예측한다. 현재 비교 구현은 patch16/tubelet2/ViT-L1024, planning 512×256의2frame→512patch token→adaptive_avg_pool1d16→Linear1024→256. Planning에서는 predictor를 제거한다. 16token pooling은 공통planner용 우리인터페이스이며 원논문 고유구조로부르지 않는다.
 
@@ -2132,9 +2136,11 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- Drive-JEPA 시공간patch feature와DrivoR register/LPWM particle의차이, 현재비교의512→16 pooling을논문·코드로확인해기록했다. 학습과대기열변경없음.
+- 과거128 Stage1/Adapter를동일3장면에CPU재추론한비교script·원본NPZ·3개PNG·provenance보고서를추가했다. 첨부이미지픽셀일치·공식forward동등성·30/64decoder선택·학습이미지중복검사를수행했다. 첫2장면과거학습노출을명시하며복원품질한계와원인불확실성을기록. 실행중학습과science source121개변경없음.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-08 17:03 KST 시각화요청범위에서기존실행유지. 후속원인분리는직사각형encoder/decoder확장·particle수·학습량/노출·loss차이를통제해야한다. 평균RGB오차개선이나학습수치정상을충분한객체보존/주행적응성공으로취급하지않는다.
 
 2026-10-08 16:49 KST 설명 시 register=학습된요약token, particle=위치/크기/presence/외관등구조화표현, JEPA=시공간patch feature를 구분한다. 모든token은문맥을담을수있으며 particle1개=의미론적객체1개를보장하지않는다. 기존대기열유지.
 
@@ -2715,6 +2721,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-08 17:03 KST 핵심비교제약: 첫2장면은이전Stage1의실제training frame이며현재는heldout. 세번째만양쪽Stage1미학습recording이다. 그림에명시했고일반화우열주장금지. 과거128출력은최근접픽셀로512×256표시크기만확대;정보추가없음. 이번공통8frame clip의두번째영상복원진단은원래12frame학습/4관측planning평가와구별한다.
 
 2026-10-08 16:49 KST JEPA의예측학습된관측feature와 LPWM의명시적미래particle rollout은다르다. 현재JEPA공통planner입력은16개 pooled patch token이며16개register/particle로해석하지않는다. 임의feature를RGB복원품질로만비교하지않는다.
 

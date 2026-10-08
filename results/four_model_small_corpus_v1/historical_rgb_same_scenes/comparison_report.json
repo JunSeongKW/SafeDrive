@@ -1,0 +1,211 @@
+{
+  "created_at": "2026-10-08T16:59:35.263797+09:00",
+  "scenes": [
+    {
+      "recording": "2021.07.24.20.37.45_veh-17",
+      "log": "2021.07.24.20.37.45_veh-17_00015_00375",
+      "start": 0,
+      "raw_frame_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/83b0003967505414.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/167f5bb511465c79.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/c923c1ae6c6c572c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/e585bbbd0d3d5bdb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/d5ee316cf1a652cf.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/86bc6c6dd97f52ce.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/e09bb6fa367d5043.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.20.37.45_veh-17_00015_00375/CAM_F0/ed152fb23aed5717.jpg"
+      ],
+      "current_token": "d63242933ca35394",
+      "current_ego": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.6270993947982788,
+        -0.022063536569476128,
+        0.5356373190879822,
+        -0.026791131123900414
+      ],
+      "historical_stage1_training_recording_overlap": true,
+      "input_uint8_exact_match_with_saved_current_validation": true,
+      "historical_stage1_training_image_overlap": true
+    },
+    {
+      "recording": "2021.06.08.14.35.24_veh-26",
+      "log": "2021.06.08.14.35.24_veh-26_02555_03004",
+      "start": 16,
+      "raw_frame_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/58ac014209955dcb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/4504022fe59353b4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/76401a3e88d451b1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/10686b9e9cbe5276.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/3f3294cd77fd5811.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/cbc6ba36e1ef5156.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/7b99854d3f985d96.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.35.24_veh-26_02555_03004/CAM_F0/525f9f804eb057b8.jpg"
+      ],
+      "current_token": "84313df7ed355edc",
+      "current_ego": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        3.1033782958984375,
+        -0.06605936586856842,
+        0.13700862228870392,
+        0.44938188791275024
+      ],
+      "historical_stage1_training_recording_overlap": true,
+      "input_uint8_exact_match_with_saved_current_validation": true,
+      "historical_stage1_training_image_overlap": true
+    },
+    {
+      "recording": "2021.08.24.17.37.11_veh-08",
+      "log": "2021.08.24.17.37.11_veh-08_02359_02623",
+      "start": 0,
+      "raw_frame_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/9e595c4c7ef25682.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/741200c1e114567a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/f045b9695f1e59ca.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/33a5a75cb3125bd5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/ee30a458a33c5b2c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/06337b7495f35790.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/4de2d3c7db7459ac.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.17.37.11_veh-08_02359_02623/CAM_F0/0111d0a1b23b50cf.jpg"
+      ],
+      "current_token": "d88ad7d2f63d5898",
+      "current_ego": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0443488173186779,
+        -0.008434546180069447,
+        -0.00380185735411942,
+        0.027657052502036095
+      ],
+      "historical_stage1_training_recording_overlap": false,
+      "input_uint8_exact_match_with_saved_current_validation": true,
+      "historical_stage1_training_image_overlap": false
+    }
+  ],
+  "conditions": {
+    "current": {
+      "resolution": [
+        512,
+        256
+      ],
+      "foreground_particles": 16,
+      "updates": 2620,
+      "epochs": 4
+    },
+    "stage1": {
+      "resolution": [
+        128,
+        128
+      ],
+      "foreground_particles": 64,
+      "decoded_foreground_particles": 30,
+      "updates": 28920,
+      "epochs": 20
+    },
+    "adapter": {
+      "resolution": [
+        128,
+        128
+      ],
+      "foreground_particles": 64,
+      "decoded_foreground_particles": 30,
+      "stage1_epochs": 20,
+      "stage2_epochs": 1,
+      "stage2_updates": 4707
+    },
+    "screening": {
+      "resolution": [
+        512,
+        256
+      ],
+      "foreground_particles": 64,
+      "updates": 200
+    }
+  },
+  "checkpoint_sha256": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_card_budget_measured_v4/residual_adapter/batch8/metric_plus_world/epoch01.pt": "4ed6ee7099c8d3c087069240c409e1b8c0958dd407386429ee744d93dceb2a38"
+  },
+  "source_array_sha256": {
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/lpwm_ssl/update2620_visuals.npz": "955c3fa8115dbf3d63fd7133a6950fbaab85197eb53b41894fc4bd094bce485c",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_driving_video_512x256_v1/particle_budget_study/candidate_particles64/after_training_visuals.npz": "743122bde1e0e2b2184c44094b10ad08fa9ff1a092c0541bfab182f17134fbb5"
+  },
+  "native128_metrics": {
+    "stage1": [
+      {
+        "scene": 1,
+        "reconstruction_mse_native128": 0.007770349737256765
+      },
+      {
+        "scene": 2,
+        "reconstruction_mse_native128": 0.009762787260115147
+      },
+      {
+        "scene": 3,
+        "reconstruction_mse_native128": 0.010312612168490887
+      }
+    ],
+    "adapter": [
+      {
+        "scene": 1,
+        "reconstruction_mse_native128": 0.007783997803926468
+      },
+      {
+        "scene": 2,
+        "reconstruction_mse_native128": 0.009778677485883236
+      },
+      {
+        "scene": 3,
+        "reconstruction_mse_native128": 0.010350465774536133
+      }
+    ]
+  },
+  "decoder_api_checks": {
+    "stage1": {
+      "normalize_rgb": false,
+      "encoded_foreground_particles": 64,
+      "decoded_foreground_particles": 30,
+      "manual_vs_forward_max_abs": 0.0,
+      "full_vs_sliced_context_max_abs": 0.0
+    },
+    "adapter": {
+      "normalize_rgb": false,
+      "encoded_foreground_particles": 64,
+      "decoded_foreground_particles": 30,
+      "manual_vs_forward_max_abs": 0.0,
+      "full_vs_sliced_context_max_abs": 0.0
+    }
+  },
+  "scope": "RGB reconstruction on three fixed scenes; not planning evaluation, not a controlled ablation.",
+  "device": "cpu",
+  "threads": 2,
+  "no_training_updates": true,
+  "normalization": "Original [0,1] RGB; normalize_rgb=false.",
+  "display": "Native historical arrays saved; nearest-neighbor expansion only for side-by-side viewing.",
+  "attached_png_current_reconstruction_matches_saved_model_output_pixel_exact": [
+    true,
+    true,
+    true
+  ],
+  "matched_reconstruction_protocol": "Same 8 raw RGB frames and displayed second frame for both historical checkpoints; native original training used 12-frame clips. No planning inference.",
+  "qualitative_findings": [
+    "Historical Stage1 and Adapter preserve the white vehicle shape and color in scene2 better than current16/512 model.",
+    "Historical models also blur pedestrians, small objects and road markings; do not claim complete object preservation.",
+    "The earlier64-particle 512x256 screening also shows repeated textures and blur; current particle count alone is not an established cause."
+  ],
+  "hypotheses_not_causal_conclusions": [
+    "Rectangular spatial adaptation: original128-square pretrained network extended to512x256 without increasing latent appearance dimensions.",
+    "Reduced particle budget:16 encoded and decoded instead of64 encoded/30decoded in the historical model.",
+    "Different training amount:current4epochs on10480 clips vs historical20epochs on23126 clips, different losses and sequence length."
+  ],
+  "running_scientific_sources_verified": 121,
+  "source_mismatches": [],
+  "historical_training_overlap_warning": "Scenes1 and2 were actual training frames of the historical Stage1; only scene3 was held out for both old and current Stage1. These are fixed requested images, not generalization evidence."
+}
