@@ -4148,3 +4148,7 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-09 00:57 KST 새실험완료감지→JEPA완료후남은LPWM의안전한optimizer경계에서후보한작업만fullstate저장→snapshot hardlink로동일savedstep의micro기존/4/8중메모리예측통과후보를8update disposable시험→양rank유한/전체카드48GB미만/5%이상속도개선시채택→원optimizer/scheduler/RNG/cursor에서재개. 최종profile update는SSL2배부하를검사. micro변경시원registration불변,별도active_batch_execution/batch_execution이실제batch근거. 실패/불리하면원배치재개;실제증설후메모리실패는해당학습만2로복귀. 기존pass1/3/5평가계속.
 
 2026-10-09 00:57 KST 물리batch변경은dropout난수배치·부동소수점합산순서를바꾸므로bitwise/PDMSequivalence미보장. 유효batch/LR/optimizer상태/계획된노출량은유지. 현재jointmicro2 peak26.25GB→micro4예측이48GB초과라무조건증설안함;순차4후보우선. joint단독시후보검토후기존nativeactivation44GB정책허용. 학습진행중원등록source를수정하지않고추가wrapper/controller사용. 외부점유변화까지OOM불가능보장하지않음.
+
+### 2026-10-09 00:58 KST — 원격 공유 상태
+
+2026-10-09 00:58 KST v10 코드7626c06/실행근거e1e8915 로컬커밋완료. git push mine은sandbox및host재시도모두VSCode Git 인증socket ECONNREFUSED/anonymous write거부로실패. 원격미반영,학습·controller3700728에는영향없음. 인증복구후push필요.

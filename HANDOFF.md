@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 00:57 KST (Codex)
+마지막 갱신: 2026-10-09 00:58 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -2236,6 +2236,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+2026-10-09 00:58 KST v10 코드7626c06/실행근거e1e8915 로컬커밋완료. git push mine은sandbox및host재시도모두VSCode Git 인증socket ECONNREFUSED/anonymous write거부로실패. 원격미반영,학습·controller3700728에는영향없음. 인증복구후push필요.
+
 - 사용자 지시에 따라 다른 실험 완료 후 남은 작업의 물리 배치를 자동 증설하는 v10 대기열을 연결했다(코드7626c06).
 - 유효 배치16·기존 optimizer/LR/노출량을 보존하고, 별도8-update 메모리·속도시험 가중치는 버린다.
 - 메모리 예산과5%속도이득을 통과한 후보만 적용하며, 불가하면 기존 배치로 계속한다.
@@ -2868,6 +2870,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 00:58 KST v10 코드7626c06/실행근거e1e8915 로컬커밋완료. git push mine은sandbox및host재시도모두VSCode Git 인증socket ECONNREFUSED/anonymous write거부로실패. 원격미반영,학습·controller3700728에는영향없음. 인증복구후push필요.
 
 2026-10-09 00:57 KST 물리batch변경은dropout난수배치·부동소수점합산순서를바꾸므로bitwise/PDMSequivalence미보장. 유효batch/LR/optimizer상태/계획된노출량은유지. 현재jointmicro2 peak26.25GB→micro4예측이48GB초과라무조건증설안함;순차4후보우선. joint단독시후보검토후기존nativeactivation44GB정책허용. 학습진행중원등록source를수정하지않고추가wrapper/controller사용. 외부점유변화까지OOM불가능보장하지않음.
 
