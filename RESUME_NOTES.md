@@ -3728,3 +3728,13 @@ OpenScene trainval을쓴다는저자답변확인;로컬준비실험의navval61re
 ## 2026-10-08 12:57 KST 학습 가중치 범위 확인
 
 12:57미세조정범위확인:encoder/context/dynamics/RGBdecoder native전부requires_grad=True,Adam(model.parameters(),lr8e-5). LPIPS VGG만고정;module별300update양수gradient확인. 현재SSL/명령·planningloss없음. 모든조건부parameter가매step비영gradient라는주장은하지않음. 실행변경없음.
+
+## 2026-10-08 사전학습 축소 추천
+
+사용자가 약 30일 사전학습은 불가하다고 하여 학습량 축소를 검토했다. 현재 입력·목적(front1/512×256/2Hz/8frame, 16FG+1BG, native LPWM SSL)은 유지하고 10만 clip에서 검증 후 최대 30만 clip을 권고한다. 유효 batch16·검증 포함 3.8565초/update 기준 각각 6.70/20.09시간, 60만은 40.17시간이다. 외부 loader·공유 부하·다운로드·Stage 2는 이 추정에 포함되지 않는다.
+
+30일 추정에는 330h 코퍼스뿐 아니라 공개 Drive-JEPA checkpoint의 약 783만 clip 노출량까지 맞추는 가정이 있었다. 입력·코퍼스 일치와 학습량 일치는 별개 조건이다. 수집 대기가 가능하면 330h 코퍼스에 축소 노출 예산을 적용하고, 전체 완료 시간이 짧아야 하면 세 source 공통 30–50h 부분집합을 사용한다. 고유 시간·반복 노출·무작위 샘플링의 커버리지를 구분한다. 시간 예산 선택 질문을 보냈으며 기록 시 답변 없음.
+
+이 추천의 하위 연구 질문은 짧은 주행 SSL 적응으로 얻은 particle이 이후 ego 의도·planning gradient 적응에 유용한가이다. 같은 SSL checkpoint에서 frozen LPWM+planner와 joint LPWM+동일 planner를 비교하면 planning gradient의 추가 효과를 검사할 수 있다. Stage 1 자체 기여는 public 미적응 초기화 대조가 별도 필요하다. 공개330h Drive-JEPA checkpoint는 축소 LPWM과 동일 예산 대조가 아니며, 엄밀한 비교는 공통 코퍼스·입력·학습 예산·planner를 양쪽에 적용하고 서로 다른 upstream 사전학습도 밝힌다.
+
+LoRA 전환·RGB decoder 제거·추가 particle 감소를 동시에 적용하지 않도록 권고한다. BF16은 향후 KL/분산 등 수치 안정성과 실제 처리량을 분리 검증할 최적화 후보다. 현재 source/config/queue/다운로드는 변경하지 않았으며 13:03 로컬 준비 439/655 update를 확인했다. 새 긴 본학습이나 Stage 2를 시작하지 않았다. 근거: `results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/reduced_pretraining_recommendation_20261008.json`.

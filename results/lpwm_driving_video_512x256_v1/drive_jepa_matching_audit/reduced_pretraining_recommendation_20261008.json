@@ -1,0 +1,63 @@
+{
+  "recorded_kst": "2026-10-08T13:04:50.199986+09:00",
+  "status": "recommendation_only_not_launched",
+  "user_constraint": "Approximately30days of Stage1 is unacceptable; asks for scaled-down experiment recommendation.",
+  "research_subquestion": "Can short driving SSL adaptation yield particles that subsequently benefit from ego-intent and planning-gradient adaptation?",
+  "recommendation": {
+    "primary": "Keep front1/512x256/8frames/2Hz and LPWM native SSL; cap presentations at300000, review at100000.",
+    "corpus_if_download_wait_acceptable": "Keep330h candidate corpus; reduced sampling budget is not full checkpoint training-budget replication.",
+    "if_total_turnaround_must_be_short": "Use shared stratified30-50h subset from3sources; exact duration and dataset shares pending source verification and user time preference.",
+    "keep_native_full_training": true,
+    "foreground_particles": 16,
+    "particle_capacity_validated": false,
+    "effective_batch_candidate": 16,
+    "gpu_ids": [
+      0,
+      1
+    ],
+    "precision_candidate": "Current validatedFP32; BF16 is a separate numerical-stability and speed experiment, not applied.",
+    "no_further_particle_reduction_recommended": "8particle earlier capacity screen had larger future-prediction error; do not add this confound now.",
+    "avoid_decoder_removal_or_frozen_feature_cache": "Would change SSL objective or block intended encoder adaptation.",
+    "scope": "Stage1 time only; new Stage2 high-resolution runtime not measured."
+  },
+  "measurement_source": "results/lpwm_driving_video_512x256_v1/drive_jepa_matching_audit/full_pretraining_eta_20261008.json",
+  "estimated_training_budgets": [
+    {
+      "clip_presentations": 100000,
+      "updates_at_effective16": 6250,
+      "hours_at_measured_compute": 5.383640113804075,
+      "hours_at_measured_wall_with_checks": 6.6953181475400925
+    },
+    {
+      "clip_presentations": 300000,
+      "updates_at_effective16": 18750,
+      "hours_at_measured_compute": 16.150920341412228,
+      "hours_at_measured_wall_with_checks": 20.085954442620277
+    },
+    {
+      "clip_presentations": 600000,
+      "updates_at_effective16": 37500,
+      "hours_at_measured_compute": 32.301840682824455,
+      "hours_at_measured_wall_with_checks": 40.171908885240555
+    }
+  ],
+  "estimation_caveats": [
+    "Extrapolated from localOpenScene loader/current16FG model; external video decoder and sharing can change throughput.",
+    "Downloaded verified corpus preparation not included; earlier330h preparation estimate4-6days remains uncertain.",
+    "Unique source hours and repeated clip presentations are distinct.",
+    "Random weighted sampling does not guarantee every source clip was observed.",
+    "A fixed-sample budget comparison is not necessarily equalFLOPs or equalGPUhours."
+  ],
+  "comparison": {
+    "public_Drive_JEPA_330h_checkpoint": "System/reference comparison only after reduced LPWM adaptation; not matched pretraining exposure.",
+    "controlled_backbone_comparison": "Common corpus and preprocessing, reported clip exposures, same downstream observations/planner/loss/split/budget; freshVJEPA2 adaptation required for matched driving budget.",
+    "upstream_pretraining_difference": "LPWM Sketchy and VJEPA2 general-video initializations remain different.",
+    "planning_gradient_primary_pair": "Same SSL checkpoint and same planner budget: LPWM fully frozen vs jointly fine-tuned with encoder command conditioning accounted for.",
+    "stage1_effect_optional_control": "Public unadaptedLPWM with identical downstream training.",
+    "metrics": "Held-out recording future prediction and repeat-current baseline, particle noncollapse/readout, devPDMS and scenario breakdown; no navtest early-stop tuning."
+  },
+  "execution_changes": false,
+  "long_full_budget_main_run_started": false,
+  "current_local_preparation_epoch_and_downloads": "Continue previously authorized work; no new long main run or Stage2 launched.",
+  "pending_preference": "Async optional Stage1 time-budget question; no response at recording time."
+}
