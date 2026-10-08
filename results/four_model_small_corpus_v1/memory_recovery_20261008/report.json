@@ -1,0 +1,248 @@
+{
+  "observed_at": "2026-10-08T21:58:51.801137+09:00",
+  "failure": {
+    "failed_at": "2026-10-08T21:27:34.428032+09:00",
+    "measured_card_used_bytes": 47542435840,
+    "save_and_pause_guard_bytes": 46500000000,
+    "user_limit_bytes": 48000000000,
+    "cause": "Four concurrent planners exceeded the memory guard; v5 treated the saved memory pause as fatal and paused all companions.",
+    "oom_or_nonfinite_loss_in_this_failure": false,
+    "profile_was_not_sufficient_to_bound_long_run_concurrent_peak": true,
+    "coincident_joint_update": 86,
+    "coincident_joint_ssl_batches": 2,
+    "exact_per_process_peak_cause": "Not established: historical per-process NVML samples were not saved."
+  },
+  "saved_full_state": {
+    "drivor": {
+      "update": 2453,
+      "adam_state_count": 297,
+      "adam_step": 2453,
+      "scheduler_last_epoch": 2453,
+      "rank_rng_state_count": 2,
+      "weights_optimizer_scheduler_rng_preserved": true
+    },
+    "jepa": {
+      "update": 911,
+      "adam_state_count": 537,
+      "adam_step": 911,
+      "scheduler_last_epoch": 911,
+      "rank_rng_state_count": 2,
+      "weights_optimizer_scheduler_rng_preserved": true
+    },
+    "lpwm_sequential": {
+      "update": 743,
+      "adam_state_count": 844,
+      "adam_step": 743,
+      "scheduler_last_epoch": 743,
+      "rank_rng_state_count": 2,
+      "weights_optimizer_scheduler_rng_preserved": true
+    },
+    "lpwm_joint": {
+      "update": 87,
+      "adam_state_count": 936,
+      "adam_step": 87,
+      "scheduler_last_epoch": 87,
+      "rank_rng_state_count": 2,
+      "weights_optimizer_scheduler_rng_preserved": true
+    }
+  },
+  "recovery": {
+    "controller_pid": 2415190,
+    "torchrun_pids": {
+      "drivor": 2415910,
+      "jepa": 2415917,
+      "lpwm_sequential": 2415934
+    },
+    "maximum_gpu_jobs": 3,
+    "admission_ceiling_bytes": 44000000000,
+    "reservations_bytes": {
+      "drivor": 3000000000,
+      "jepa": 12000000000,
+      "lpwm_sequential": 10000000000,
+      "lpwm_joint": 31000000000
+    },
+    "lpwm_joint": "Queued from update 87 until reservations and observed VRAM allow admission",
+    "batch_lr_data_order_loss_unchanged": true,
+    "rng_restored_after_model_loss_loader_setup": {
+      "drivor": [
+        {
+          "completed_updates": 2453,
+          "next_update": 2454,
+          "planning_cursor": 39248,
+          "ssl_cursor": null,
+          "restored_after_initialization": true,
+          "torch_rng_sha256": "e22811c2fb2e6301b644c06ea17ced52afb9cf14e02a2d04f66ddc5ff4e950c9",
+          "cuda_rng_sha256": "5a9f978deb6aabe3d47958d777b9ef579927dc76bdad1e170710e0458a372da3",
+          "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+        },
+        {
+          "completed_updates": 2453,
+          "next_update": 2454,
+          "planning_cursor": 39248,
+          "ssl_cursor": null,
+          "restored_after_initialization": true,
+          "torch_rng_sha256": "e22811c2fb2e6301b644c06ea17ced52afb9cf14e02a2d04f66ddc5ff4e950c9",
+          "cuda_rng_sha256": "5a9f978deb6aabe3d47958d777b9ef579927dc76bdad1e170710e0458a372da3",
+          "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+        }
+      ],
+      "jepa": [
+        {
+          "completed_updates": 911,
+          "next_update": 912,
+          "planning_cursor": 14576,
+          "ssl_cursor": null,
+          "restored_after_initialization": true,
+          "torch_rng_sha256": "711c735ad9954677dd2d1e8180bc3098b44ca5b475043cb425189bb0dfa48f7a",
+          "cuda_rng_sha256": "53279adbd7114c1470af9e212ac2fde39e3d52437f6d003d2537189847c2a8e8",
+          "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+        },
+        {
+          "completed_updates": 911,
+          "next_update": 912,
+          "planning_cursor": 14576,
+          "ssl_cursor": null,
+          "restored_after_initialization": true,
+          "torch_rng_sha256": "711c735ad9954677dd2d1e8180bc3098b44ca5b475043cb425189bb0dfa48f7a",
+          "cuda_rng_sha256": "53279adbd7114c1470af9e212ac2fde39e3d52437f6d003d2537189847c2a8e8",
+          "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+        }
+      ],
+      "lpwm_sequential": [
+        {
+          "completed_updates": 743,
+          "next_update": 744,
+          "planning_cursor": 11888,
+          "ssl_cursor": null,
+          "restored_after_initialization": true,
+          "torch_rng_sha256": "ebc360e49227b72249753d0851c41d0d99b0cb6b8f139e6078487c0a34cfc7a2",
+          "cuda_rng_sha256": "a860f5fded3445033077f86986209a8a1cb8716088033e2e17a47cdc35251f8a",
+          "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+        },
+        {
+          "completed_updates": 743,
+          "next_update": 744,
+          "planning_cursor": 11888,
+          "ssl_cursor": null,
+          "restored_after_initialization": true,
+          "torch_rng_sha256": "ebc360e49227b72249753d0851c41d0d99b0cb6b8f139e6078487c0a34cfc7a2",
+          "cuda_rng_sha256": "a860f5fded3445033077f86986209a8a1cb8716088033e2e17a47cdc35251f8a",
+          "wrapper_sha256": "dd505672ea19649bf99189220e733ed6bb2e84a1cfdead154d3520956d18a75a"
+        }
+      ],
+      "lpwm_joint": []
+    },
+    "memory_pause_handling": "Requeue saved memory pause, reduce allowed concurrency, retain healthy companions",
+    "gpu_observation": {
+      "at": "2026-10-08 21:56:29 KST",
+      "gpu0_mib": 14957,
+      "gpu1_mib": 14958
+    },
+    "progress": {
+      "drivor": {
+        "completed_updates": 2616,
+        "target_updates": 3200,
+        "corpus_pass": 4.0875,
+        "seconds": 2.171055555343628,
+        "elapsed_seconds": 625.2440609931946,
+        "card_used_bytes": 15683551232,
+        "peak_allocated_bytes": 964635648,
+        "gradient_norm": 13.432703018188477,
+        "gradient_groups": {},
+        "planning_presentations": 41856,
+        "ssl_presentations": 0,
+        "loss": 2.9498143196105957,
+        "trajectory_loss": 1.280992902815342,
+        "final_score_loss": 1.6688214242458344,
+        "score": 0.7945941686630249,
+        "best_score": 0.9283624589443207,
+        "planning_loss": 2.9498143196105957,
+        "ssl_loss": 0.0,
+        "total_objective": 2.9498143196105957
+      },
+      "jepa": {
+        "completed_updates": 1025,
+        "target_updates": 3200,
+        "corpus_pass": 1.6015625,
+        "seconds": 3.709277629852295,
+        "elapsed_seconds": 601.1289377212524,
+        "card_used_bytes": 15683551232,
+        "peak_allocated_bytes": 7138905600,
+        "gradient_norm": 15.283295631408691,
+        "gradient_groups": {},
+        "planning_presentations": 16400,
+        "ssl_presentations": 0,
+        "loss": 4.375181555747986,
+        "trajectory_loss": 1.9587471038103104,
+        "final_score_loss": 2.4164343774318695,
+        "score": 0.700075313448906,
+        "best_score": 0.9401064515113831,
+        "planning_loss": 4.375181555747986,
+        "ssl_loss": 0.0,
+        "total_objective": 4.375181555747986
+      },
+      "lpwm_sequential": {
+        "completed_updates": 798,
+        "target_updates": 3200,
+        "corpus_pass": 1.246875,
+        "seconds": 8.526710748672485,
+        "elapsed_seconds": 607.1925809383392,
+        "card_used_bytes": 15683551232,
+        "peak_allocated_bytes": 5580501504,
+        "gradient_norm": 24.437711715698242,
+        "gradient_groups": {},
+        "planning_presentations": 12768,
+        "ssl_presentations": 0,
+        "loss": 6.404618620872498,
+        "trajectory_loss": 3.8525295853614807,
+        "final_score_loss": 2.5520890951156616,
+        "score": 0.7641514092683792,
+        "best_score": 0.9471451640129089,
+        "planning_loss": 6.404618620872498,
+        "ssl_loss": 0.0,
+        "total_objective": 6.404618620872498
+      },
+      "lpwm_joint": {
+        "completed_updates": 87,
+        "target_updates": 3200,
+        "corpus_pass": 0.1359375,
+        "seconds": 19.75779700279236,
+        "elapsed_seconds": 1552.8071525096893,
+        "card_used_bytes": 39234568192,
+        "peak_allocated_bytes": 26250561536,
+        "gradient_norm": 44.948326110839844,
+        "gradient_groups": {},
+        "planning_presentations": 1392,
+        "ssl_presentations": 1424,
+        "loss": 21.689862728118896,
+        "trajectory_loss": 19.92796003818512,
+        "final_score_loss": 1.7619028985500336,
+        "score": 0.5834343731403351,
+        "best_score": 0.7473980337381363,
+        "planning_loss": 21.689862728118896,
+        "ssl_loss": 65.45667362213135,
+        "total_objective": 28.23552966117859
+      }
+    }
+  },
+  "registered_source_checks": {
+    "science": {
+      "checked": 121,
+      "mismatches": []
+    },
+    "recovery_execution": {
+      "checked": 6,
+      "mismatches": []
+    },
+    "old_execution": {
+      "checked": 6,
+      "mismatches": []
+    }
+  },
+  "verification": {
+    "python_compile": "passed",
+    "cpu_unit_tests_passed": 3,
+    "active_trainers_progressed_and_latest_loss_and_gradient_finite": true
+  },
+  "scope": "Recovery of the existing experiment; no new performance result or guarantee of bitwise identical GPU arithmetic."
+}

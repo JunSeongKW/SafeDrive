@@ -3999,3 +3999,14 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 21:09 KST 기존네조건학습/검증대기열을유지한다. 단계설명에따른새Stage1추가나학습방법변경은없음.
 
 2026-10-08 21:09 KST JEPA/LPWM순차는같은주행SSL clip을쓰지만DrivoR에는그추가노출이없다. 공통planning데이터/모듈비교이지네조건의총SSL노출·상류사전학습데이터가동일한실험은아님. 현재Drive-JEPA명칭은공통DrivoR planner를쓴변형조건이며원논문전체재현으로설명하지않는다.
+
+
+## 2026-10-08 21:58 KST — 보호 메모리 중단 진단 및 세 작업 복구
+
+2026-10-08 21:58 KST 메모리 보호 정지에서 복구: v6 controller2415190, DrivoR2415910 / JEPA2415917 / LPWM순차2415934가 GPU0·1에서 실행 중이다. 실제 update는 각각 2616/1025/798로 저장점2453/911/743 이후 증가했다. LPWMjoint는87 fullstate에서 메모리 admission 대기이며 자동 재개한다. 새 root scheduling_v6_memory_recovery, 기존v5는21:27 failed 이력이며 재기동금지. 21:56 GPU0/1은14957/14958MiB. root queue_state가 현재 상태다.
+
+2026-10-08 21:58 KST 중단 원인: 전체카드47,542,435,840bytes가46.5decimalGB 저장/중단 기준을 넘어 DrivoR가 저장 중단했고, v5가 이를 전체 실패로 해석해 나머지도 중단시켰다. 본 실패의 OOM/NaN 근거없음. joint86의2회SSL부하와 겹쳤으나 정확한 프로세스별 peak 원인은 historical NVML 부재로 미확정. 8update profile43.13GB를 장기 peak 보장으로 사용한 여유 판단이 부족했다. 네 fullstate의 Adam step/scheduler/RNG2개 보존 확인, 신규3작업은 loss/gradient 유한·실제 진행. science121 및 old/new execution source hash 불변. CPU 검사3개·compile 통과. 근거 results/four_model_small_corpus_v1/memory_recovery_20261008/report.json.
+
+2026-10-08 21:58 KST v6는 최대3작업, 모델별 보수적 예약량+실측카드사용량으로44GB admission을 적용한다. DrivoR→JEPA→LPWM순차 우선, joint는87부터 메모리가 충분할 때 자동 재개. 보호중단은 해당 작업 재대기·동시수 감소로 처리하며 정상 동반작업을 유지한다. 사용자 pause는 보존하고 미확인 오류는 기존 저장중단 처리. batch2/rank×accum4×GPU2=16, LR/loss/data/5pass 불변. pass1/3/5 CPU PDMS 1작업/4worker 및 최종비교 자동 연결. joint 단독 시 기존v5 native marker 경로를 사용해 adaptive wrapper를 유지한다. 새 재개 wrapper는 loss 초기화 후 첫 train() 시 양rank RNG를 복원하며 resume_records에 증거를 저장한다. 최신 checkpoint 원본은 before_recovery에 hardlink로 보존했다.
+
+2026-10-08 21:58 KST 이번 변경은 보호정지 복구와 병행 스케줄 수정이며 과학적 조건 변경이 아니다. 48decimalGB 사용자 상한/46.5GB trainer guard 유지,44GB는 예약 admission 기준이지 모든 미래 순간사용량 보장이 아니다. short profile이 장기 peak를 충분히 대표하지 못한 사실과 기존 실패 기록은 보존한다. GPU 수치연산의 bitwise 동일성·최종PDMS 동일성을 보장하지 않는다. joint는 아직87에서대기이며 네학습모두동시실행이라고 보고하지 않는다. 새 queue main은 failed v5 상태에서 최초 복구용이므로 활성 v6 위에 중복기동하지 않는다.
