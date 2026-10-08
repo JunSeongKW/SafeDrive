@@ -417,7 +417,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-08 23:57 KST (Codex)
+마지막 갱신: 2026-10-09 00:00 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +584,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 00:00 KST 2epoch 점수 비교 요청 조회. 기존 v9의 JEPA·LPWM순차·LPWMjoint 학습 계속, 실행 변경 없음.
 
 2026-10-08 23:57 KST 진행 조회: drivor 3200/3200 (100.0%) / jepa 2041/3200 (63.8%) / lpwm_sequential 1495/3200 (46.7%) / lpwm_joint 390/3200 (12.2%). v9 controller3324666과 세 학습 계속; 이번 확인에서 실행·설정 변경 없음.
 
@@ -1280,6 +1282,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 00:00 KST planning2epoch=1280update의 영구checkpoint/예측/PDMS 없음. 원trainer는 매640에latest를 저장하지만 pass1/3/5만 영구보존·평가하므로 이미2epoch를 지난 세조건의1280latest는 덮어써짐. 보존된 pause checkpoint에도1280없음. joint는아직1epoch미만. 확인된1epoch PDMS DrivoR66.941417/JEPA66.988966/LPWM순차64.974333;3epoch DrivoR78.397695/JEPA74.696960. 근거 results/four_model_small_corpus_v1/epoch2_comparison_availability_20261009.json.
 
 2026-10-08 23:57 KST JEPA pass3 PDMS 74.696960 (pass1 66.988966), DrivoR pass5 81.253529. 동일 dev1024, 평가 실패0. 양rank 최근100기록 loss/gradient 비유한0. GPU0/1 각100%, 약30.35decimalGB. 근거 results/four_model_small_corpus_v1/progress_20261008_2357.json.
 
@@ -2220,11 +2224,13 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
-- 사용자 요청으로 네 조건의 최신 진행량·학습 로그·GPU 사용량·평가 결과를 확인했다.
-- JEPA 3 epoch PDMS 74.70 및 양rank 최근100기록 유한성 결과를 snapshot으로 보존했다.
-- 학습 코드·설정·프로세스·대기열은 변경하지 않았다.
+- 사용자 요청인 planning2epoch 비교 가능성을 checkpoint·pause archive·평가파일·trainer 저장주기로 확인했다.
+- 정확1280update 결과 미보존을 기록하고 실제1/3epoch 점수만 보고했다.
+- 학습·대기열 변경 및 별도 재학습은 하지 않았다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 00:00 KST 2epoch 비교는 현재산출물만으로 불가하며 별도학습재실행은 시작하지 않았다. 기존1/3/5 자동평가를 계속하고 동일완료epoch끼리 비교한다.
 
 2026-10-08 23:57 KST 기존48GB 상한 및 세 학습 병행, pass1/3/5 평가·최종 비교 대기열 유지. JEPA3pass 평가 완료; LPWM순차 다음3pass/1920, joint 다음1pass/640. 추가 실행 없음.
 
@@ -2843,6 +2849,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 00:00 KST 2epochPDMS를1·3epoch값에서 보간하거나 최신2.xepoch가중치로 대체하지 않는다. 없는체크포인트를보존됐다고주장하지않음. 점수는동일dev1024이며최종navtest아님.
 
 2026-10-08 23:57 KST 표시 진행률은 planning 목표3200update/5epoch 기준. JEPA·LPWM순차의 별도 SSL3275update/5pass는 이미 완료. 현재 PDMS는 서로 다른 학습량이며 최종 동등학습량 비교는 미완료; 전체navtest 점수가 아님.
 

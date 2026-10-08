@@ -4108,3 +4108,13 @@ CPU saved-tensor offload시험은180초이상 update미완료로기각·폐기. 
 2026-10-08 23:57 KST 기존48GB 상한 및 세 학습 병행, pass1/3/5 평가·최종 비교 대기열 유지. JEPA3pass 평가 완료; LPWM순차 다음3pass/1920, joint 다음1pass/640. 추가 실행 없음.
 
 2026-10-08 23:57 KST 표시 진행률은 planning 목표3200update/5epoch 기준. JEPA·LPWM순차의 별도 SSL3275update/5pass는 이미 완료. 현재 PDMS는 서로 다른 학습량이며 최종 동등학습량 비교는 미완료; 전체navtest 점수가 아님.
+
+## 2026-10-09 00:00 KST — 정확2epoch 비교 가능성 확인
+
+2026-10-09 00:00 KST 2epoch 점수 비교 요청 조회. 기존 v9의 JEPA·LPWM순차·LPWMjoint 학습 계속, 실행 변경 없음.
+
+2026-10-09 00:00 KST planning2epoch=1280update의 영구checkpoint/예측/PDMS 없음. 원trainer는 매640에latest를 저장하지만 pass1/3/5만 영구보존·평가하므로 이미2epoch를 지난 세조건의1280latest는 덮어써짐. 보존된 pause checkpoint에도1280없음. joint는아직1epoch미만. 확인된1epoch PDMS DrivoR66.941417/JEPA66.988966/LPWM순차64.974333;3epoch DrivoR78.397695/JEPA74.696960. 근거 results/four_model_small_corpus_v1/epoch2_comparison_availability_20261009.json.
+
+2026-10-09 00:00 KST 2epoch 비교는 현재산출물만으로 불가하며 별도학습재실행은 시작하지 않았다. 기존1/3/5 자동평가를 계속하고 동일완료epoch끼리 비교한다.
+
+2026-10-09 00:00 KST 2epochPDMS를1·3epoch값에서 보간하거나 최신2.xepoch가중치로 대체하지 않는다. 없는체크포인트를보존됐다고주장하지않음. 점수는동일dev1024이며최종navtest아님.
