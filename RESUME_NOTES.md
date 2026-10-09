@@ -4311,3 +4311,8 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 ### 해석 범위
 
 이전 Adapter와는 planner/loss/ego표현/유효batch/LPWM적응방식이 바뀐 새 조건이다. 이전4카메라공동LoRA와는 초기화·카메라/시간입력·데이터분할·LR이 다르다. 점수 차이를 LoRA단독·particle단독효과로 해석하지 않는다. Particle좌표가변할수있는gradient경로는확인했으나, 차량·보행자·도로로집중/객체정보보존/계획도움/동일영상intent별재배치의실제발생은향후검증항목이다. 박스는LPWMglimpse이며객체detection박스가아니다. world16clip MSE는품질진단으로전체Stage1validation재현이아님.
+
+
+## 2026-10-09 — 新Stage2 split 라벨 추가정정
+
+전체75297token을공식scene cache분할로대조해navtrain60561+navval14736임을확인했다. 앞서navtrain-only라고한설명은잘못됐으며이를철회한다. 사용자가제시한이전2stage75297내부분할을그대로유지한다. 실행중데이터·source/config hash·optimizer·학습흐름은변경하지않았다. 현재등록config의note오표기는sidecar `outputs/lpwm_front_history_stage1_lora_v1/split_label_correction.json`과최신문서로정정한다. 개발셋구성은{'navtrain': 618, 'navval': 406}; score분모기존1021. 원격push는기존VSCodegit socket ECONNREFUSED/anonymous write 거부로실패,학습계속.

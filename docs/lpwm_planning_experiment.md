@@ -14,7 +14,7 @@
 | 고정 범위 | Stage1 native109,545,263 parameter+buffers; RGBdecoder; observed context posterior의 native 가중치 |
 | LoRA | Linear229+Conv44, 4,683,650 parameter, Q/V 및 추가 attention rank32/기타 linear·conv rank8(작은head dimension상한) |
 | 전체 학습 파라미터 |21,752,960개; 이 중 LPWM LoRA4,683,650 |
-| 학습 데이터 | 기존 Stage2 navtrain 내부75297scene; navval 학습 혼합 없음 |
+| 학습 데이터 | 기존 Stage2 내부75297scene 그대로: 공식navtrain60,561+navval14,736. navtrain-only 아님 |
 | 검증 | 이전2stage prereg1024dev/PDMScache있는1021,3missing기존동일 제외; 독립 full navtest가 아님 |
 | Loss | 공식 DrivoR trajectory best-of-K L1·diversity + online PDM6subscore BCE. 공식 scorer의 proposal detach와 CPUoracle SG 유지; GTobject/SSL aux weight0 |
 | LR/schedule | LoRA1e-5/planner1e-4, AdamW wd.01, actual75297 기반10%warmup+cosine. 25epoch/1177update per epoch/29425target;1seed2 |
@@ -38,6 +38,8 @@
 - 중단: 새studyroot 또는stage2root에 `pause.requested`, 저장경계에서양rank저장. 재개시명시승인후새study의marker만해제하고同launch를실행한다. 과거study의pause는건드리지않는다.
 
 ### 해석 범위
+
+추가split감사로 이전75297의공식분할navtrain60561+navval14736을확인했다. 이전navtrain-only설명은철회하며실행중학습샘플은바꾸지않았다. 등록config의잘못된note는원본hash보존을위해그대로두고 `outputs/lpwm_front_history_stage1_lora_v1/split_label_correction.json`으로정정한다.
 
 이전 Adapter와는 planner/loss/ego표현/유효batch/LPWM적응방식이 바뀐 새 조건이다. 이전4카메라공동LoRA와는 초기화·카메라/시간입력·데이터분할·LR이 다르다. 점수 차이를 LoRA단독·particle단독효과로 해석하지 않는다. Particle좌표가변할수있는gradient경로는확인했으나, 차량·보행자·도로로집중/객체정보보존/계획도움/동일영상intent별재배치의실제발생은향후검증항목이다. 박스는LPWMglimpse이며객체detection박스가아니다. world16clip MSE는품질진단으로전체Stage1validation재현이아님.
 

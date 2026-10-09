@@ -3,7 +3,7 @@
 **2026-10-09 09:08 KST — 사용자 승인: 완료된 Stage1을 사용하는 전방4프레임 planning-path LoRA Stage2 시작.**
 기존Stage1 rawcheckpoint SHA71478e 재사용/SSL 재학습 없음. 새root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`, queue3878331/torchrun3878332, 실제9update 확인. 원래Adapter13480·4cameraLoRA5493·512joint2264는중단유지/체크포인트불변.
 전방1/과거현재4frame/128crop28 INTER_AREA/64FG+1BG; native109.55M고정, geometry·CNN·appearance·contextprior·dynamics LoRA4.684M와command/projection/공식DrivoR planner학습. 관측contextposterior는고정추론에사용,미래GT입력없음.
-navtrain내부75297/기존dev1024(공식PDMS1021),유효64=micro8×acc4×GPU2/loader2/oracle8,LoRA1e-5/planner1e-4/25epoch29425update/10%warmup+cosine. 실제18gradient그룹유한양수/native보존/카드40.8GB/48decimalGB상한 검사통과,검사weights미사용.
+기존내부학습75297(공식navtrain60561+navval14736)/기존dev1024(공식PDMS1021),유효64=micro8×acc4×GPU2/loader2/oracle8,LoRA1e-5/planner1e-4/25epoch29425update/10%warmup+cosine. 실제18gradient그룹유한양수/native보존/카드40.8GB/48decimalGB상한 검사통과,검사weights미사용.
 500update전후·겹침시각화+각epoch devPDMS/16worldRGB검증 후다음epoch 자동queue. 실행/finiteness gate이며표현효용은검증결과로판단;새PDMS아직없음. `admission_report.json`,설정 `configs/lpwm_front_history_stage1_lora/experiment.json`,설계 docs/lpwm_planning_experiment.md 최신절. 과거아래재개금지는새실험승인범위에한해갱신,기존대기열은재기동금지.
 
 **2026-10-08 14:54 KST — 사용자 지시로 최근 다운로드만 삭제 완료.**
@@ -423,7 +423,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 09:09 KST (Codex)
+마지막 갱신: 2026-10-09 09:13 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -2950,6 +2950,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 09:15 KST — 추가split감사: 이전2stage75297의공식분할은navtrain60561+navval14736이다. 이번새실험은요청한이전내부분할을유지하며navtrain-only주장을철회한다. 기존config source/hash는보존하고split_label_correction.json으로등록note오표기를정정했다. 개발셋도독립공식navval/fullnavtest아닌기존내부분할이다.
 
 2026-10-09 09:08 KST — 새Stage2는이전Adapter재개아님:Stage1에서LoRA zero-init·공식DrivoR planner새학습. planning-only/SSL0/objectGT0,25epoch·1seed·기존노출dev.위치gradient확인했으나운전entity집중·미래정확도·PDMS이득은미확인.기존checkpoint·공용원본보호.원격인증socket실패이력유지.
 
