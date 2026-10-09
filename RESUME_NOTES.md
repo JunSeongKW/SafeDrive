@@ -4325,3 +4325,9 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 새queue19736/torchrun19757, root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`. 기존500시각화/epoch검증→다음학습 대기열복구;다른과거실험중단유지。근거 `outputs/lpwm_front_history_stage1_lora_v1/server_restart_recovery_20261009/resume_confirmed.json`. 원100checkpoint hardlink와이전control보존. 최신상태는progress/queue_state에서확인한다.
 
 두rank101재수행loss가이전101과정확일치했다. 복원checkpoint SHA5b936a343d04500a847eebf139db76e8e668e18e5c75ec388dc3f3ff6ec735b4;optimizer796state/scheduler100/양rankRNG/cursor100복구. 새source실험이나profile학습없음. 100→111 확인. 원복원checkpoint 및이전control은recoveryroot보존.
+
+
+## 2026-10-09 20:23 KST — 동일Stage2 중간 결과
+
+2026-10-09 20:23 KST — 사용자 중간결과 조회. 동일Stage2 656/29425(전체2.23%),epoch1 656/1177(55.73%) 계속. 양rank최근600의18gradient그룹유한양수/비유한loss0/286source불변/wholecard최대41.076GB(48상한). 첫50loss 29.8269→최근50 14.6881;trajectory 25.5930→12.9062,scoreBCE 4.2338→1.7818. batch가다른학습loss추세로PDMS나LPWM단독효과아님。
+500fixed4dev geometry중심0.0252px/크기0.2342%/presence평균절대차0.001554,육안변화거의없음/주행관련재배치미확인. 현재warmup중(656/2942),새PDMS없음. 첫epoch훈련ETA 10/09 22:33 KST 조건부,후속1024dev추론/1021PDMS/16world진단시간별도. 학습설정·코드·queue변경없음. 근거 `outputs/lpwm_front_history_stage1_lora_v1/intermediate_status_20261009_2023.json` 및500particle PNG。
