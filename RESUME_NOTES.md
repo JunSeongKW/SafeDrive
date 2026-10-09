@@ -4269,3 +4269,45 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 최근조건은OpenScene10480개의8frame/2Hzclip(실제11.644h)×5회52400노출목표,공통navtrain10240/recording분리dev1024/5planningepoch3200update/유효batch16. DrivoR추가주행SSL없음,JEPA와LPWM순차SSL5회완료,LPWMjoint는planning+.1SSL 동시이고현재3.5375epoch에서중단. 이는330h나원논문전체재현이아니다. Dev최종DrivoR81.2535/JEPA77.9602/LPWM순차71.1233,joint3epoch63.9660(최신2264점수아님). 최신같은navtest1024는128Adapter81.5107/128joint80.1289/512seq77.9944/512joint72.4289다.
 
 기존microbatch변경·공유GPU부하·schedule차이를숨기지않고시간/최종성능동등성을보장하지않았다. 서로다른개발패널간82대71의비교와해상도단독인과해석을피한다. Stage1 SSL효과는해당개발frozen대조에서+3.6077점으로확인했지만Stage2 planning미세조정의추가PDMS이득/명령별particle미래표현의인과기여/최종수렴은미확인이다. 원격Git socket인증실패이력은유지한다.
+
+
+## 2026-10-09 09:08 KST — 완료된 128 Stage1 + 전방 시간 입력 + planning-path LoRA Stage2 시작
+
+사용자 최신 지시는 이전 두 실험을 결합하는 것이다. 완료된 Stage1을 재사용하며 전방 1대의 시간 순서 4프레임을 입력한다. 별도 새 Stage2이므로 이전 Adapter13480 / 공개초기화 4카메라 LoRA5493 model·optimizer를 이어받지 않는다.
+
+| 항목 | 확정 실행 |
+|---|---|
+| Stage1 | 기존 NAVSIM23,126clip×20epoch /28,920update raw checkpoint 그대로, 재학습 없음 |
+| 입력 | 전방1대·과거/현재4frame·2Hz·crop28top/bottom→128×128 INTER_AREA, 원 Stage1 RGB mmap 재사용 |
+| 표현 | 64foreground+1background; 현재+인과적 미래8step attributes; FG64개를 pooling 없이64×256 planner memory로 투영 |
+| 미래/context | 관측4frame의 context posterior는 고정 상태로 사용; 미래는 context prior+dynamics 예측. 미래 RGB/객체 GT는 planning 입력 아님 |
+| 학습 범위 | Geometry xy/scale/presence head, prior/attribute/appearance/background CNN, feature/interaction, context prior, dynamics/future head Linear+Conv LoRA. 새 command FiLM·projection·공식 DrivoR planner 전체학습 |
+| 고정 범위 | Stage1 native109,545,263 parameter+buffers; RGBdecoder; observed context posterior의 native 가중치 |
+| LoRA | Linear229+Conv44, 4,683,650 parameter, Q/V 및 추가 attention rank32/기타 linear·conv rank8(작은head dimension상한) |
+| 전체 학습 파라미터 |21,752,960개; 이 중 LPWM LoRA4,683,650 |
+| 학습 데이터 | 기존 Stage2 navtrain 내부75297scene; navval 학습 혼합 없음 |
+| 검증 | 이전2stage prereg1024dev/PDMScache있는1021,3missing기존동일 제외; 독립 full navtest가 아님 |
+| Loss | 공식 DrivoR trajectory best-of-K L1·diversity + online PDM6subscore BCE. 공식 scorer의 proposal detach와 CPUoracle SG 유지; GTobject/SSL aux weight0 |
+| LR/schedule | LoRA1e-5/planner1e-4, AdamW wd.01, actual75297 기반10%warmup+cosine. 25epoch/1177update per epoch/29425target;1seed2 |
+| 배치/GPU | GPU0·1, micro8×누적4×2=유효64, loader2/oracle8 per rank, encoderFP32/restBF16/checkpoint. 카드 전체48decimalGB상한 |
+| 자동 사이클 | epoch학습→1024예측/1021공식PDMS→16개고정world검사→다음epoch. 매500particle 전후+겹침. full model/Adam/scheduler/양rankRNG/cursor 저장 |
+
+### 시작 검증과 현재 상태
+
+- Stage1 파일SHA `71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f` 검증. Native tensor digest `d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e` 유지.
+- 분할 recording 중복0; 샘플32scene current front 원본crop28/INTER_AREA bitwise일치, ego명령·GTtrajectory 차이0. 기존4camera cache RGB는 full resize/BICUBIC이므로 동일preprocessing이라고 부르지 않는다.
+- 실제 DDP2update로18gradient그룹 양수·유한/native보존/wholecard 최대약40.8GB 통과. micro16은micro8메모리로상한초과위험이커시도하지않음. 검사weights는main에미사용.
+- 별도16scene추론/12scene미래반복개입/16worldclip Stage1복원·인과적예측 비교 및PNG 경로통과. CPU공식PDMS scorer1scene호환검사통과. 이것은학습효과나전체PDMS결과가아니다.
+- 본학습 실제 9 update 확인. queue3878331 / torchrun3878332, root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`. `progress.json` 및 `queue_state.json`을 최신값으로 읽는다.
+
+### 결과 경로와 조작
+
+- 설정: `configs/lpwm_front_history_stage1_lora/experiment.json`, 실행 `execution_microbatch8.json`.
+- 체크포인트: `outputs/lpwm_front_history_stage1_lora_v1/stage2/latest.pt` (매100 및경계), `epoch_01.pt` 등.
+- 초기/매500/epoch particle: `outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/<label>/particles_before_after_overlay.png` 및attributes.npy/diagnostics.json.
+- epoch검증: `outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_<update>/validation_complete.json`, `rgb_stage1_vs_stage2.png`; 최신요약 `latest_validation.json`.
+- 중단: 새studyroot 또는stage2root에 `pause.requested`, 저장경계에서양rank저장. 재개시명시승인후새study의marker만해제하고同launch를실행한다. 과거study의pause는건드리지않는다.
+
+### 해석 범위
+
+이전 Adapter와는 planner/loss/ego표현/유효batch/LPWM적응방식이 바뀐 새 조건이다. 이전4카메라공동LoRA와는 초기화·카메라/시간입력·데이터분할·LR이 다르다. 점수 차이를 LoRA단독·particle단독효과로 해석하지 않는다. Particle좌표가변할수있는gradient경로는확인했으나, 차량·보행자·도로로집중/객체정보보존/계획도움/동일영상intent별재배치의실제발생은향후검증항목이다. 박스는LPWMglimpse이며객체detection박스가아니다. world16clip MSE는품질진단으로전체Stage1validation재현이아님.

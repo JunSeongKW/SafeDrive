@@ -1,5 +1,11 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-09 09:08 KST — 사용자 승인: 완료된 Stage1을 사용하는 전방4프레임 planning-path LoRA Stage2 시작.**
+기존Stage1 rawcheckpoint SHA71478e 재사용/SSL 재학습 없음. 새root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`, queue3878331/torchrun3878332, 실제9update 확인. 원래Adapter13480·4cameraLoRA5493·512joint2264는중단유지/체크포인트불변.
+전방1/과거현재4frame/128crop28 INTER_AREA/64FG+1BG; native109.55M고정, geometry·CNN·appearance·contextprior·dynamics LoRA4.684M와command/projection/공식DrivoR planner학습. 관측contextposterior는고정추론에사용,미래GT입력없음.
+navtrain내부75297/기존dev1024(공식PDMS1021),유효64=micro8×acc4×GPU2/loader2/oracle8,LoRA1e-5/planner1e-4/25epoch29425update/10%warmup+cosine. 실제18gradient그룹유한양수/native보존/카드40.8GB/48decimalGB상한 검사통과,검사weights미사용.
+500update전후·겹침시각화+각epoch devPDMS/16worldRGB검증 후다음epoch 자동queue. 실행/finiteness gate이며표현효용은검증결과로판단;새PDMS아직없음. `admission_report.json`,설정 `configs/lpwm_front_history_stage1_lora/experiment.json`,설계 docs/lpwm_planning_experiment.md 최신절. 과거아래재개금지는새실험승인범위에한해갱신,기존대기열은재기동금지.
+
 **2026-10-08 14:54 KST — 사용자 지시로 최근 다운로드만 삭제 완료.**
 범위는이번에새로받은CoVLA·DrivingDojo및미사용OpenScene보충이미지뿐이다. 기존공용NAVSIM/OpenScene·다른데이터·checkpoint·학습/검증cache는보존했다.
 삭제파일할당량51,062,308,864bytes(51.06decimalGB): CoVLA변환5.445GB,DrivingDojo변환2.377GB+ZIP35.283GB,새OpenScene보충7.958GB,빈전송버퍼. 작업공간7.822GB/전용raw저장소43.240GB.
@@ -417,7 +423,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 08:41 KST (Codex)
+마지막 갱신: 2026-10-09 09:09 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -584,6 +590,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 09:08 KST — 새 Stage2 본학습: queue3878331/torchrun3878332 `outputs/lpwm_front_history_stage1_lora_v1/stage2/`, 실제9/29425 확인. GPU0·1/micro8×acc4/effective64. 최신은progress/queue_state. 기존Adapter·4카메라공동·512공동 중단유지. 각epoch 검증완료후 다음학습 자동연결.
 
 2026-10-09 08:40 KST — 사용자 요청은 지금까지의 학습 과정·결과 표 정리다. 기존 JSON/config/Stage1 summary와 epoch별 PDMS를 읽어 보고서를 정리했으며 새 학습·GPU 추론·평가 없음. 현재 공동학습2264 fullstate/root paused/active_jobs=[] 유지. 완료 평가와 기존 학습을 재기동하지 않는다.
 
@@ -1308,6 +1316,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 09:08 KST — Stage1 SHA71478e/native109.55M고정,LoRA4.684M/전체학습21.753M.18gradient그룹 정상,40.8GB/48GB상한.32scene 원front crop28/INTER_AREA·command·GT일치;16scene추론·미래개입·16worldRGB/공식CPUscore호환통과.검사weights폐기.새mainPDMS미평가.
 
 2026-10-09 08:40 KST — `docs/lpwm_planning_experiment.md` 맨 앞에 학습과정/이전128개발/최근512개발 epoch곡선/공통navtest/연구질문별 판단 표를 추가했다. 이전128 Stage1은23,126개12frame clip/20epoch/28,920update/13시간41분. Stage2는75,297scene/1epoch/4707update에서 partial81.6341/초기TransformerLoRA81.9141/Adapter82.4852/full81.2282/frozen82.5238이며 PDMS1021개발장면 기준. Stage1미적응frozen78.9161 대비+3.6077. Adapter2epoch9414의같은dev83.5279와navtest81.6141을 구분한다. 나중128공동geometry/CNN/futureLoRA는다른방법으로navtrain+navval103,288scene/5493update이며별도NAVSIM SSL없음. 최근512네조건은공통10,240navtrain/1024dev,공통SSL10,480clip×5(OpenScene11.644h),330h실험 아님. 최근공통navtest결과81.5107/80.1289/77.9944/72.4289를별도패널로유지. 과거동일navtest의Adapter9414/LoRA5400=81.6141/81.6096도표에분리했다.
 
@@ -2282,6 +2292,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+완료된Stage1에전방4frame history를연결하는새LoRA model/data/trainer/queue/validation/launch/particleoverlay 및설정3개추가. 기존등록source/config/checkpoint불변.데이터75297train/dev1024재사용,공식DrivoRloss/onlineCPUoracle/SG유지,각epoch검증연결.문서·시작근거·현재PID/실제updates기록. 기존paused실험자동재개없음.
+
 - 사용자 요청에 따라 주요 LPWM 실험의 입력·학습데이터·Stage1/2 epoch/update·loss·미세조정 범위를 표로 통합했다.
 - 이전128 내부개발1021,최근512 축소개발1024,공통navtest1024를 분리해 점수와 epoch별 곡선을 정리했다.
 - Stage1적응 대조/원래 네미세조정/frozen/Adapter2epoch/나중128jointLoRA/최근네조건/최신navtest를 실제JSON/config와 대조했다.
@@ -2290,6 +2302,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 09:08 KST — 새queue 유지하며500updateparticle/epoch1 PDMS·world진단 확인. 기존내부dev Adapter/이전joint 결과와는시스템비교로해석하고pureLoRA인과비교로부르지않는다. latest_validation/GPU48GB/queue_failed확인. 과거queue자동재개없음.
 
 2026-10-09 08:40 KST — 통합 표를 보고하고 사용자 다음 지시를 기다린다. 현재2264 학습과 과거25epoch/Adapter 연장을 자동 재개하지 않는다. 표 정리는새대기열/학습승인이 아니다.
 
@@ -2936,6 +2950,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 09:08 KST — 새Stage2는이전Adapter재개아님:Stage1에서LoRA zero-init·공식DrivoR planner새학습. planning-only/SSL0/objectGT0,25epoch·1seed·기존노출dev.위치gradient확인했으나운전entity집중·미래정확도·PDMS이득은미확인.기존checkpoint·공용원본보호.원격인증socket실패이력유지.
 
 2026-10-09 08:40 KST — 과거12882점과현재51271점은서로다른개발패널이다. 비교는같은패널안에서만하며공통navtest에서도학습조건차이가남는다. 소요시간은기존active누적기록으로공유부하/배치/schedule차이가있어방법자체속도순위가아님. 초기4방법과frozen은1seed/1planningepoch이며수렴/최적성판정불가. Stage1이득은해당내부개발조건에서확인,planning미세조정추가PDMS이득/particle단독이득은미확인. Joint5epoch는중단으로미완료. Git원격인증socket실패이력은유지한다.
 

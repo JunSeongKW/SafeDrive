@@ -1,0 +1,46 @@
+{
+  "benchmark": "navsim_v1",
+  "seed": 2,
+  "epochs": 25,
+  "training_splits": [
+    "train"
+  ],
+  "manifest": "outputs/lpwm_front_history_stage1_lora_v1/manifest.json",
+  "output_directory": "outputs/lpwm_front_history_stage1_lora_v1/stage2",
+  "stage1_checkpoint": "outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+  "microbatch_per_gpu": 8,
+  "effective_batch": 64,
+  "loader_workers_per_rank": 2,
+  "oracle_workers_per_rank": 8,
+  "lpwm_lr": 1e-05,
+  "planner_lr": 0.0001,
+  "scheduler_dataset_size": 75297,
+  "checkpoint_every": 100,
+  "visualization_every": 500,
+  "registration": "outputs/lpwm_front_history_stage1_lora_v1/registration.json",
+  "maximum_total_card_bytes": 48000000000,
+  "ssl_reconstruction_weight": 0,
+  "direct_object_gt_weight": 0,
+  "selection_policy": "fixed_final_epoch",
+  "stage1_reused_without_retraining": true,
+  "camera_count": 1,
+  "observed_frame_count": 4,
+  "input_resolution": [
+    128,
+    128
+  ],
+  "foreground_particles": 64,
+  "background_particles": 1,
+  "future_steps": 8,
+  "loss": "unmodified official DrivoR trajectory loss and online PDM subscore BCE",
+  "notes": [
+    "New Stage2 from completed Stage1; historical Adapter and joint checkpoints/optimizers are not resumed.",
+    "Only four past/current front RGB frames enter the model; future images and object GT are not inputs.",
+    "Geometry/CNN/appearance/context-prior/dynamics LoRA train; native Stage1 weights and RGB decoder are frozen.",
+    "Same 75297 old Stage2 navtrain scenes and preregistered1024 development panel.",
+    "Microbatch may be profiled before main training, effective64 stays fixed throughout this condition.",
+    "Official downstream planner, ego11, proposal stop-gradient and online oracle retained.",
+    "Epoch validation and500-update before/after/overlay particles, fixed final25epochs; not exact old Adapter or DrivoR controlled replication.",
+    "Whole-card cap48decimalGB; GPU0 and1 only."
+  ]
+}

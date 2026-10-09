@@ -1,0 +1,12 @@
+{
+  "registration": "outputs/lpwm_front_history_stage1_lora_v1/registration.json",
+  "overrides": {
+    "microbatch_per_gpu": 8,
+    "loader_workers_per_rank": 2,
+    "oracle_workers_per_rank": 8
+  },
+  "optimizations": {
+    "sdpa_training": false,
+    "batched_gradient_finite_check": true
+  }
+}

@@ -1,5 +1,11 @@
 # Planning-Aware Future Prediction
 
+**2026-10-09 09:08 KST — 사용자 승인: 완료된 Stage1을 사용하는 전방4프레임 planning-path LoRA Stage2 시작.**
+기존Stage1 rawcheckpoint SHA71478e 재사용/SSL 재학습 없음. 새root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`, queue3878331/torchrun3878332, 실제9update 확인. 원래Adapter13480·4cameraLoRA5493·512joint2264는중단유지/체크포인트불변.
+전방1/과거현재4frame/128crop28 INTER_AREA/64FG+1BG; native109.55M고정, geometry·CNN·appearance·contextprior·dynamics LoRA4.684M와command/projection/공식DrivoR planner학습. 관측contextposterior는고정추론에사용,미래GT입력없음.
+navtrain내부75297/기존dev1024(공식PDMS1021),유효64=micro8×acc4×GPU2/loader2/oracle8,LoRA1e-5/planner1e-4/25epoch29425update/10%warmup+cosine. 실제18gradient그룹유한양수/native보존/카드40.8GB/48decimalGB상한 검사통과,검사weights미사용.
+500update전후·겹침시각화+각epoch devPDMS/16worldRGB검증 후다음epoch 자동queue. 실행/finiteness gate이며표현효용은검증결과로판단;새PDMS아직없음. `admission_report.json`,설정 `configs/lpwm_front_history_stage1_lora/experiment.json`,설계 docs/lpwm_planning_experiment.md 최신절. 과거아래재개금지는새실험승인범위에한해갱신,기존대기열은재기동금지.
+
 **2026-10-08 14:54 KST — 사용자 지시로 최근 다운로드만 삭제 완료.**
 범위는이번에새로받은CoVLA·DrivingDojo및미사용OpenScene보충이미지뿐이다. 기존공용NAVSIM/OpenScene·다른데이터·checkpoint·학습/검증cache는보존했다.
 삭제파일할당량51,062,308,864bytes(51.06decimalGB): CoVLA변환5.445GB,DrivingDojo변환2.377GB+ZIP35.283GB,새OpenScene보충7.958GB,빈전송버퍼. 작업공간7.822GB/전용raw저장소43.240GB.
