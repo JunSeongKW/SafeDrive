@@ -1,5 +1,11 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-09 23:07 KST — Warmup 이후 연구 진행 판단
+
+2026-10-09 23:07 KST — 사용자warmup의뜻과계속학습/중단판단질문. 현재warmup2942update≈2.50epoch;첫epoch1177에목표LR약40.01%,현재1285update에서LR[4.367782654656715e-06, 4.367782654656686e-05]. Baselinewarmup160/첫epoch640에이미완료라학습진행도도다름。epoch1후반loss8.9555→2epoch최근50loss7.3569 감소하지만다른배치평균/PDMS나LPWM단독효과아님。
+권고는3epoch/3531까지계속해warmup후첫검토. 현재추가9.34h/훈련ETA2026-10-10T08:28:05.070057+09:00·검증별도。dev1epoch69.7437와dev후속추세/ADE·FDE·미래반복개입(현재12scene+0.008692m작음)/표현·intent·world유지를확인。3–5epoch이후에도dev개선없고표현기여약하면현재LoRA/loss학습구성재설계검토。3epoch만으로수렴판정하거나geometry이동량임계치를gate로쓰지않음。사용자는실제중단을명령하지않았으므로원25epochqueue유지/새자동pause없음。근거 results/lpwm_front_history_stage1_lora_v1/warmup_and_research_review_20261009.json。
+
+
 ## 2026-10-09 23:02 KST — 첫epoch PDMS와 학습·입력 조건 통합
 
 각planning1epoch checkpoint를동일NAVSIM v1 navtest1024장면/44recording에서공식PDM scorer로평가했다. 모든모델실패0,학습recording과중복0,전체navtest아님.

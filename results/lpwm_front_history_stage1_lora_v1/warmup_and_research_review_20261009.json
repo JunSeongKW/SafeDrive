@@ -1,0 +1,63 @@
+{
+  "observed_at_kst": "2026-10-09T23:07:26.220483+09:00",
+  "current_completed_updates": 1285,
+  "current_learning_rates": [
+    4.367782654656715e-06,
+    4.367782654656686e-05
+  ],
+  "warmup_steps": 2942,
+  "warmup_epochs_equivalent": 2.4995751911639763,
+  "first_epoch_updates": 1177,
+  "first_epoch_learning_rate_factor": 0.4000685808973487,
+  "maximum_learning_rates": {
+    "lpwm_lora": 1e-05,
+    "planner": 0.0001
+  },
+  "baseline_warmup_steps": 160,
+  "training_loss_means": {
+    "epoch1_last100": {
+      "loss": 8.955507758259774,
+      "trajectory_loss": 6.783080471271978,
+      "final_score_loss": 2.1724273075952247
+    },
+    "epoch2_latest50": {
+      "loss": 7.356914802789688,
+      "trajectory_loss": 5.163067480325699,
+      "final_score_loss": 2.1938472998142244
+    }
+  },
+  "dev_epoch1_pdms": 69.74366946017395,
+  "future_repeat_12scene_ade_difference_meters": 0.008691787719726562,
+  "particle_epoch1": {
+    "label": "epoch_01",
+    "tokens": [
+      "ddbde9d6bfda5a6e",
+      "782e2832bd025494",
+      "df19480a94ec58ff",
+      "85f0514810285441"
+    ],
+    "mean_center_shift_input_pixels": 0.17080572247505188,
+    "mean_relative_size_change_percent": 1.7150517702102661,
+    "mean_absolute_presence_change": 0.012491460889577866,
+    "scene_selection": "fixed first four of registered development panel",
+    "dots": "all 64 foreground particle centers; radius indicates presence",
+    "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+  },
+  "recommended_review_epoch": 3,
+  "review_epoch_updates": 3531,
+  "remaining_training_hours_to_epoch3": 9.344124881723193,
+  "epoch3_training_only_eta_kst": "2026-10-10T08:28:05.070057+09:00",
+  "review_criteria": [
+    "Use the same development panel PDMS/ADE/FDE trend, not repeated NAVTEST checkpoint selection",
+    "Assess future-repeat intervention;12 scenes are a limited diagnostic and not proof of correct forecasts",
+    "Check particle information/intent sensitivity and world retention; center movement alone is not a success or failure criterion",
+    "Flat development results and weak representation use across later3-5 epoch reviews would motivate redesign of this training formulation; no claim of model-family failure"
+  ],
+  "uncertainty": [
+    "Warmup does not guarantee later PDMS improvement and is not an established cause of the first-epoch score",
+    "Training loss windows contain different examples and do not isolate LPWM improvement from planner learning",
+    "Epoch3 is a first review point, not a convergence or saturation guarantee"
+  ],
+  "automatic_training_stop_added": false,
+  "original_25epoch_queue_unchanged": true
+}

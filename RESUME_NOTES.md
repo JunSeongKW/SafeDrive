@@ -4372,3 +4372,9 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 
 2026-10-09 23:02 KST — 현재첫epoch비교는학습량/입력/SSL/memory/적응방식/schedule/seed가다른시스템비교. 데이터장면수7.35배나1epoch명칭만으로학습이득·수렴·particle인과효과판정불가. 일반공개초기화와추가주행SSL을구분하고현재planningnavval포함을표기. Baseline원논문전체재현으로부르지않는다。
 현재본학습 source/config/queue변경없음。
+
+
+## 2026-10-09 23:07 KST — Warmup과연구진행판단
+
+2026-10-09 23:07 KST — 사용자warmup의뜻과계속학습/중단판단질문. 현재warmup2942update≈2.50epoch;첫epoch1177에목표LR약40.01%,현재1285update에서LR[4.367782654656715e-06, 4.367782654656686e-05]. Baselinewarmup160/첫epoch640에이미완료라학습진행도도다름。epoch1후반loss8.9555→2epoch최근50loss7.3569 감소하지만다른배치평균/PDMS나LPWM단독효과아님。
+권고는3epoch/3531까지계속해warmup후첫검토. 현재추가9.34h/훈련ETA2026-10-10T08:28:05.070057+09:00·검증별도。dev1epoch69.7437와dev후속추세/ADE·FDE·미래반복개입(현재12scene+0.008692m작음)/표현·intent·world유지를확인。3–5epoch이후에도dev개선없고표현기여약하면현재LoRA/loss학습구성재설계검토。3epoch만으로수렴판정하거나geometry이동량임계치를gate로쓰지않음。사용자는실제중단을명령하지않았으므로원25epochqueue유지/새자동pause없음。근거 results/lpwm_front_history_stage1_lora_v1/warmup_and_research_review_20261009.json。
