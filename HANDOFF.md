@@ -1,5 +1,9 @@
 # HANDOFF — 이 파일 하나로 다음 에이전트가 이어받는다
 
+**2026-10-09 18:24 KST — 사용자 요청으로 서버 종료 후 같은 Stage2 학습 재개.**
+정상 fullstate100update(model/AdamW796state/scheduler100/양rankRNG/epoch0cursor100)에서 GPU0·1 재개, 실제111update 확인. shutdown 직전 로그146이나저장은100이라46update 재수행. 첫101의scene token hash·loss 양rank 모두이전101과정확일치,18gradient그룹유한양수. 원286source/config/입력hash·nativeStage1보존. 유효64=micro8×acc4×GPU2/loader2/oracle8/48decimalGB상한,실측약41.1GB.
+새queue19736/torchrun19757, root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`. 기존500시각화/epoch검증→다음학습 대기열복구;다른과거실험중단유지。근거 `outputs/lpwm_front_history_stage1_lora_v1/server_restart_recovery_20261009/resume_confirmed.json`. 원100checkpoint hardlink와이전control보존. 최신상태는progress/queue_state에서확인한다.
+
 **2026-10-09 09:08 KST — 사용자 승인: 완료된 Stage1을 사용하는 전방4프레임 planning-path LoRA Stage2 시작.**
 기존Stage1 rawcheckpoint SHA71478e 재사용/SSL 재학습 없음. 새root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`, queue3878331/torchrun3878332, 실제9update 확인. 원래Adapter13480·4cameraLoRA5493·512joint2264는중단유지/체크포인트불변.
 전방1/과거현재4frame/128crop28 INTER_AREA/64FG+1BG; native109.55M고정, geometry·CNN·appearance·contextprior·dynamics LoRA4.684M와command/projection/공식DrivoR planner학습. 관측contextposterior는고정추론에사용,미래GT입력없음.
@@ -423,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 09:13 KST (Codex)
+마지막 갱신: 2026-10-09 18:24 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -590,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 18:24 KST — 서버재시작후동일Stage2 fullstate100→실제111 재개. queue19736/torchrun19757,GPU0·1/유효64/wholecard48GB. epoch1훈련과500/epoch검증queue정상. 다른paused실험재기동없음.
 
 2026-10-09 09:08 KST — 새 Stage2 본학습: queue3878331/torchrun3878332 `outputs/lpwm_front_history_stage1_lora_v1/stage2/`, 실제9/29425 확인. GPU0·1/micro8×acc4/effective64. 최신은progress/queue_state. 기존Adapter·4카메라공동·512공동 중단유지. 각epoch 검증완료후 다음학습 자동연결.
 
@@ -1316,6 +1322,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 18:24 KST — checkpoint100/AdamW796state전부step100/scheduler100/2rankRNG/cursor100검증. 첫재개101의양rank장면hash·loss이전101과정확일치,18gradient그룹양수·유한,286source/config/input보존. 로그146중미저장46update재수행.새PDMS없음.
 
 2026-10-09 09:08 KST — Stage1 SHA71478e/native109.55M고정,LoRA4.684M/전체학습21.753M.18gradient그룹 정상,40.8GB/48GB상한.32scene 원front crop28/INTER_AREA·command·GT일치;16scene추론·미래개입·16worldRGB/공식CPUscore호환통과.검사weights폐기.새mainPDMS미평가.
 
@@ -2292,6 +2300,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+서버중단후사용자승인으로기존100update fullstate를복원해같은학습재개. 원source/config/data/batch/LR/optimizer/scheduler불변.100checkpoint hardlink·이전control보존,복원/재실행동일성근거JSON기록,새PID및HANDOFF1-5/README/AGENTS/RESUME_NOTES갱신.
+
 완료된Stage1에전방4frame history를연결하는새LoRA model/data/trainer/queue/validation/launch/particleoverlay 및설정3개추가. 기존등록source/config/checkpoint불변.데이터75297train/dev1024재사용,공식DrivoRloss/onlineCPUoracle/SG유지,각epoch검증연결.문서·시작근거·현재PID/실제updates기록. 기존paused실험자동재개없음.
 
 - 사용자 요청에 따라 주요 LPWM 실험의 입력·학습데이터·Stage1/2 epoch/update·loss·미세조정 범위를 표로 통합했다.
@@ -2302,6 +2312,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 18:24 KST — 동일queue계속,500particle/epoch1 PDMS·world진단 확인. 새복원실행의update101부터log중복이있으므로server_restart_recovery의branch근거와currentprogress를기준으로본다. checkpoint200이새저장경계.이전4cam/Adapter/512실험재개없음.
 
 2026-10-09 09:08 KST — 새queue 유지하며500updateparticle/epoch1 PDMS·world진단 확인. 기존내부dev Adapter/이전joint 결과와는시스템비교로해석하고pureLoRA인과비교로부르지않는다. latest_validation/GPU48GB/queue_failed확인. 과거queue자동재개없음.
 
@@ -2950,6 +2962,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 18:24 KST — 마지막저장100이며로그146까지의46step은복구불가로동일순서재학습. 모델/optimizer/scheduler/RNG는처음부터초기화하지않음. 과거마지막모델Adapter/5493/512가아닌현재front-history Stage2만재개. 기존공식split교정(navtrain60561+navval14736)유지.원격git인증실패이력유지.
 
 2026-10-09 09:15 KST — 추가split감사: 이전2stage75297의공식분할은navtrain60561+navval14736이다. 이번새실험은요청한이전내부분할을유지하며navtrain-only주장을철회한다. 기존config source/hash는보존하고split_label_correction.json으로등록note오표기를정정했다. 개발셋도독립공식navval/fullnavtest아닌기존내부분할이다.
 

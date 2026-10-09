@@ -4316,3 +4316,12 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 ## 2026-10-09 — 新Stage2 split 라벨 추가정정
 
 전체75297token을공식scene cache분할로대조해navtrain60561+navval14736임을확인했다. 앞서navtrain-only라고한설명은잘못됐으며이를철회한다. 사용자가제시한이전2stage75297내부분할을그대로유지한다. 실행중데이터·source/config hash·optimizer·학습흐름은변경하지않았다. 현재등록config의note오표기는sidecar `outputs/lpwm_front_history_stage1_lora_v1/split_label_correction.json`과최신문서로정정한다. 개발셋구성은{'navtrain': 618, 'navval': 406}; score분모기존1021. 원격push는기존VSCodegit socket ECONNREFUSED/anonymous write 거부로실패,학습계속.
+
+
+## 2026-10-09 18:24 KST — 서버 종료 후 동일 Stage2 재개
+
+**2026-10-09 18:24 KST — 사용자 요청으로 서버 종료 후 같은 Stage2 학습 재개.**
+정상 fullstate100update(model/AdamW796state/scheduler100/양rankRNG/epoch0cursor100)에서 GPU0·1 재개, 실제111update 확인. shutdown 직전 로그146이나저장은100이라46update 재수행. 첫101의scene token hash·loss 양rank 모두이전101과정확일치,18gradient그룹유한양수. 원286source/config/입력hash·nativeStage1보존. 유효64=micro8×acc4×GPU2/loader2/oracle8/48decimalGB상한,실측약41.1GB.
+새queue19736/torchrun19757, root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`. 기존500시각화/epoch검증→다음학습 대기열복구;다른과거실험중단유지。근거 `outputs/lpwm_front_history_stage1_lora_v1/server_restart_recovery_20261009/resume_confirmed.json`. 원100checkpoint hardlink와이전control보존. 최신상태는progress/queue_state에서확인한다.
+
+두rank101재수행loss가이전101과정확일치했다. 복원checkpoint SHA5b936a343d04500a847eebf139db76e8e668e18e5c75ec388dc3f3ff6ec735b4;optimizer796state/scheduler100/양rankRNG/cursor100복구. 새source실험이나profile학습없음. 100→111 확인. 원복원checkpoint 및이전control은recoveryroot보존.
