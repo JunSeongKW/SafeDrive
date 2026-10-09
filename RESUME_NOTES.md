@@ -4355,3 +4355,12 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 
 2026-10-09 22:24 KST — 사용자첫epoch완료조회. 1144/1177(97.20%),잔여33update/최근100평균15.155s,약8.3분。훈련ETA2026-10-09T22:32:47.645504+09:00 조건부/epoch최종저장·진단시간별도. epoch_01.pt와공통비교완료아직없음,두failure marker없고원queue1533508/torchrun19757계속。본학습/설정/대기열변경없음。
 근거 results/lpwm_front_history_stage1_lora_v1/epoch1_status_20261009_2224.json。
+
+
+## 2026-10-09 22:53 KST — 첫epoch 학습·공통평가 완료
+
+2026-10-09 22:53 KST — 첫epoch1177훈련·공통1024navtest PDMS·기존dev1021/world진단완료. 공통PDMS LPWM70.1667/DrivoR70.6457/JEPA75.8652,각실패0。현재epoch2 52/1177·누적1229/29425,queue1533508/torchrun2631479 계속. 원25epoch 일정과source286불변。
+
+2026-10-09 22:53 KST — 첫epoch공통navtest LPWM70.1667/ADE3.7751/FDE9.4406,DrivoR70.6457/4.7238/10.2270,JEPA75.8652/2.9147/6.4911。LPWM−DrivoR−0.4790/−JEPA−5.6984점。현재devPDMS69.7437/1021(별도panel)。world16clip 재구성오차-0.0330%/미래오차-0.7014%,native보존。固定4scene particle中心shift0.170806inputpx/크기변화1.71505%/presence平均絶対差0.0124915。미래를현재반복으로바꾼12scene ADE차+0.008692m는작으며큰미래표현효용의근거아님。근거 results/lpwm_front_history_stage1_lora_v1/epoch1_complete_20261009.json。
+
+2026-10-09 22:53 KST — 첫epoch공통평가완료는확인했으나LPWM성능우위나particle단독이득미확인。학습량75297vs10240/입력128×1284framevs512×2562frame/사전학습·memory·seed·schedule차이남는다. 현재1177은warmup2942이전이다. 공통subset1024는전체navtest아님. 고정4scene geometry 변화는작고driving-entity집중검증이나성능수렴판정이아니다。

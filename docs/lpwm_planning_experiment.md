@@ -1,5 +1,20 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-09 22:53 KST — 첫epoch 공통평가 완료
+
+2026-10-09 22:53 KST — 첫epoch1177훈련·공통1024navtest PDMS·기존dev1021/world진단완료. 공통PDMS LPWM70.1667/DrivoR70.6457/JEPA75.8652,각실패0。현재epoch2 52/1177·누적1229/29425,queue1533508/torchrun2631479 계속. 원25epoch 일정과source286불변。
+
+| Model | 공통navtest1024 PDMS | ADE(m) | FDE(m) |
+|---|---:|---:|---:|
+| lpwm | 70.1667 | 3.7751 | 9.4406 |
+| drivor | 70.6457 | 4.7238 | 10.2270 |
+| jepa | 75.8652 | 2.9147 | 6.4911 |
+
+2026-10-09 22:53 KST — 첫epoch공통평가완료는확인했으나LPWM성능우위나particle단독이득미확인。학습량75297vs10240/입력128×1284framevs512×2562frame/사전학습·memory·seed·schedule차이남는다. 현재1177은warmup2942이전이다. 공통subset1024는전체navtest아님. 고정4scene geometry 변화는작고driving-entity집중검증이나성능수렴판정이아니다。
+
+고정4개개발scene의particle 중심은평균0.1708inputpx/크기1.7151% 변화했다. 겹침PNG: `outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_01/particles_before_after_overlay.png`。world16clip 오차는재구성−0.0330%/미래−0.7014%로큰악화없음;객체보존/미래planning효용입증은아니다. 이전현재반복미래개입12scene ADE차+0.00869m는미미한신호다. 원학습지속/1epoch점수로자동설정변경없음。
+
+
 ## 2026-10-09 21:24 KST — 현재 LPWM 첫 epoch와 보존된 DrivoR·JEPA 첫 epoch 비교 등록
 
 사용자 요청으로 첫 epoch 종료 후 공통 평가를 자동 실행하도록 연결했다. 현재 torchrun19757은 재시작하지 않았으며, 제어 프로세스만1533508로 인계했다. 원학습 모델·배치·데이터·loss·LR·optimizer/scheduler와286등록source는 유지한다.

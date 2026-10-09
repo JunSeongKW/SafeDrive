@@ -1,0 +1,368 @@
+{
+  "observed_at_kst": "2026-10-09T22:53:18.110130+09:00",
+  "first_epoch_training_complete": true,
+  "first_epoch_checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_01.pt",
+  "checkpoint_written_at_kst": "2026-10-09T22:32:41.602989+09:00",
+  "common_evaluation": {
+    "complete": true,
+    "results": {
+      "lpwm": {
+        "checkpoint_sha256": "0a79db3a6af152d60676828c2edaf64cf7024f4b08221e27780b5b277f8a5485",
+        "completed_updates": 1177,
+        "strict_state_load": true,
+        "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+        "complete": true,
+        "count": 1024,
+        "ade_meters": 3.7750589847564697,
+        "fde_meters": 9.440553665161133,
+        "seconds": 107.63629722595215,
+        "images": "historical_adapter_images.npy",
+        "ego": "historical_joint_ego.npy",
+        "peak_reserved_bytes": 1872756736,
+        "precision_matches_original_evaluation": true,
+        "pdms": 70.16673137162185,
+        "mean_metrics": {
+          "no_at_fault_collisions": 0.95947265625,
+          "drivable_area_compliance": 0.8935546875,
+          "ego_progress": 0.5457203029189244,
+          "time_to_collision_within_bound": 0.8984375,
+          "comfort": 0.955078125,
+          "driving_direction_compliance": 0.94287109375,
+          "score": 0.7016673137162185
+        },
+        "by_scene_type": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 63.03657203030154
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 60.637794421563584
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 73.18120516160843
+          }
+        },
+        "failed": 0,
+        "full_navtest": false,
+        "benchmark": "NAVSIM v1 fixed independent navtest subset"
+      },
+      "drivor": {
+        "checkpoint_sha256": "b6cc6c50a5686fd26e3ea093ef2ed4cc38738f73d057ae9fd49ae2c2a0d70092",
+        "completed_updates": 640,
+        "strict_state_load": true,
+        "frozen_native_sha256": null,
+        "complete": true,
+        "count": 1024,
+        "ade_meters": 4.723801612854004,
+        "fde_meters": 10.227029800415039,
+        "seconds": 4.514280080795288,
+        "images": "rectangular_images.npy",
+        "ego": "rectangular_ego.npy",
+        "peak_reserved_bytes": 306184192,
+        "precision_matches_original_evaluation": true,
+        "pdms": 70.6457059629757,
+        "mean_metrics": {
+          "no_at_fault_collisions": 0.9638671875,
+          "drivable_area_compliance": 0.9033203125,
+          "ego_progress": 0.5292214274420153,
+          "time_to_collision_within_bound": 0.9189453125,
+          "comfort": 0.998046875,
+          "driving_direction_compliance": 0.9619140625,
+          "score": 0.7064570596297569
+        },
+        "by_scene_type": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 70.51246767388058
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 70.79670096433239
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 70.66206957926889
+          }
+        },
+        "failed": 0,
+        "full_navtest": false,
+        "benchmark": "NAVSIM v1 fixed independent navtest subset"
+      },
+      "jepa": {
+        "checkpoint_sha256": "046f4c27088cc7562a12bb1c2cb01d1db44f56f0bb9fdf1e638f2afff5d12f98",
+        "completed_updates": 640,
+        "strict_state_load": true,
+        "frozen_native_sha256": null,
+        "complete": true,
+        "count": 1024,
+        "ade_meters": 2.9146885871887207,
+        "fde_meters": 6.4910807609558105,
+        "seconds": 17.363964080810547,
+        "images": "rectangular_images.npy",
+        "ego": "rectangular_ego.npy",
+        "peak_reserved_bytes": 1415577600,
+        "precision_matches_original_evaluation": true,
+        "pdms": 75.86516540959684,
+        "mean_metrics": {
+          "no_at_fault_collisions": 0.97705078125,
+          "drivable_area_compliance": 0.88671875,
+          "ego_progress": 0.6635282434709256,
+          "time_to_collision_within_bound": 0.90625,
+          "comfort": 0.966796875,
+          "driving_direction_compliance": 0.97216796875,
+          "score": 0.7586516540959684
+        },
+        "by_scene_type": {
+          "left_turn": {
+            "count": 193,
+            "pdms": 64.71147308508301
+          },
+          "right_turn": {
+            "count": 90,
+            "pdms": 73.5290056692544
+          },
+          "straight": {
+            "count": 741,
+            "pdms": 79.05398726555093
+          }
+        },
+        "failed": 0,
+        "full_navtest": false,
+        "benchmark": "NAVSIM v1 fixed independent navtest subset"
+      }
+    },
+    "count": 1024,
+    "full_navtest": false,
+    "historical_development_scores_not_same_panel": {
+      "drivor": {
+        "count": 1024,
+        "benchmark": "NAVSIM v1 independent development subset",
+        "full_navtest": false,
+        "pdms": 66.94141749765791,
+        "failed": 0,
+        "by_command": {
+          "0": {
+            "count": 290,
+            "mean": 0.7166907266833282
+          },
+          "1": {
+            "count": 564,
+            "mean": 0.641212903271242
+          },
+          "2": {
+            "count": 170,
+            "mean": 0.6823278058404195
+          }
+        },
+        "subscores": {
+          "no_at_fault_collisions": 0.98779296875,
+          "drivable_area_compliance": 0.8525390625,
+          "ego_progress": 0.46225808244378974,
+          "time_to_collision_within_bound": 0.94140625,
+          "comfort": 1.0,
+          "driving_direction_compliance": 0.95947265625,
+          "score": 0.6694141749765791
+        },
+        "train_dev_recording_overlap": 0
+      },
+      "jepa": {
+        "count": 1024,
+        "benchmark": "NAVSIM v1 independent development subset",
+        "full_navtest": false,
+        "pdms": 66.98896615391867,
+        "failed": 0,
+        "by_command": {
+          "0": {
+            "count": 290,
+            "mean": 0.6004608955449661
+          },
+          "1": {
+            "count": 564,
+            "mean": 0.7073559864560784
+          },
+          "2": {
+            "count": 170,
+            "mean": 0.6640269255697582
+          }
+        },
+        "subscores": {
+          "no_at_fault_collisions": 0.9697265625,
+          "drivable_area_compliance": 0.8232421875,
+          "ego_progress": 0.5291784772445688,
+          "time_to_collision_within_bound": 0.9287109375,
+          "comfort": 0.98046875,
+          "driving_direction_compliance": 0.9580078125,
+          "score": 0.6698896615391867
+        },
+        "train_dev_recording_overlap": 0
+      }
+    },
+    "conditions": {
+      "lpwm": {
+        "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_01.pt",
+        "completed_updates": 1177,
+        "planning_training_scenes": 75297,
+        "official_training_split_composition": "navtrain 60561 + navval 14736",
+        "effective_batch": 64,
+        "observed_frames": 4,
+        "image_size_width_height": [
+          128,
+          128
+        ],
+        "planner_memory_tokens": 64,
+        "seed": 2,
+        "local_stage1": "23126 clips, 20 epochs; reused completed LPWM SSL checkpoint"
+      },
+      "drivor": {
+        "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass1.pt",
+        "completed_updates": 640,
+        "planning_training_scenes": 10240,
+        "effective_batch": 16,
+        "observed_frames": 2,
+        "image_size_width_height": [
+          512,
+          256
+        ],
+        "planner_memory_tokens": 16,
+        "seed": 47,
+        "local_stage1": "None; public DINOv2 initialization",
+        "historical_development_scores": "outputs/four_model_small_corpus_v1/drivor/validation/pass1.pdms.json"
+      },
+      "jepa": {
+        "checkpoint": "outputs/four_model_small_corpus_v1/jepa/pass1.pt",
+        "stage1_checkpoint": "outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt",
+        "completed_updates": 640,
+        "planning_training_scenes": 10240,
+        "effective_batch": 16,
+        "observed_frames": 2,
+        "image_size_width_height": [
+          512,
+          256
+        ],
+        "planner_memory_tokens": 16,
+        "seed": 47,
+        "local_stage1": "10480 clips, 5 passes, V-JEPA2 initialization",
+        "historical_development_scores": "outputs/four_model_small_corpus_v1/jepa/validation/pass1.pdms.json"
+      }
+    },
+    "overlap": {
+      "lpwm_planning_tokens": 0,
+      "lpwm_planning_recordings": 0,
+      "lpwm_stage1_recordings": 0,
+      "baseline_planning_tokens": 0,
+      "baseline_planning_recordings": 0,
+      "jepa_stage1_recordings": 0
+    },
+    "lpwm_minus_baseline_pdms": {
+      "drivor": -0.4789745913538468,
+      "jepa": -5.698434037974991
+    },
+    "interpretation": "Same evaluation systems comparison. Training amount, splits, resolution, history, pretraining, memory size and seed differ. Not original-paper replication or a particle-only causal experiment.",
+    "selection_policy": "One requested first-epoch diagnostic; retain the fixed 25-epoch training schedule without test-driven changes."
+  },
+  "development_validation": {
+    "pdms": 69.74366946017395,
+    "pdms_count": 1021,
+    "ade_meters": 3.5841193199157715,
+    "fde_meters": 8.924787521362305,
+    "failed": 0,
+    "frozen_native_unchanged": true,
+    "world_means": {
+      "stage1": {
+        "reconstruction_mse": 0.008039972046390176,
+        "future_mse": 0.01871084945742041
+      },
+      "stage2": {
+        "reconstruction_mse": 0.008037321851588786,
+        "future_mse": 0.018579618306830525
+      }
+    },
+    "persistent_future_ade_difference_12scenes_meters": 0.008691787719726562
+  },
+  "world_error_relative_change_percent": {
+    "reconstruction_mse": -0.03296273651324233,
+    "future_mse": -0.701363938011057
+  },
+  "particle_diagnostics": {
+    "label": "epoch_01",
+    "tokens": [
+      "ddbde9d6bfda5a6e",
+      "782e2832bd025494",
+      "df19480a94ec58ff",
+      "85f0514810285441"
+    ],
+    "mean_center_shift_input_pixels": 0.17080572247505188,
+    "mean_relative_size_change_percent": 1.7150517702102661,
+    "mean_absolute_presence_change": 0.012491460889577866,
+    "scene_selection": "fixed first four of registered development panel",
+    "dots": "all 64 foreground particle centers; radius indicates presence",
+    "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+  },
+  "particle_overlay": "outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_01/particles_before_after_overlay.png",
+  "current_progress": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 1229,
+    "epoch": 2,
+    "rank_scene_tokens_sha256": "ba7ddcf1c7990204841b73f59c6c76bafebe26e101b5436ea8915c089e0c33cd",
+    "update_in_epoch": 52,
+    "seconds_this_update": 14.417869806289673,
+    "elapsed_seconds": 783.5879247188568,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0010023117065429688,
+      "forward": 2.798537015914917,
+      "oracle": 3.4835715293884277,
+      "backward": 7.928555727005005
+    },
+    "learning_rates": [
+      4.177436142080239e-06,
+      4.1774361420802124e-05
+    ],
+    "loss": 9.666588544845581,
+    "trajectory_loss": 7.608566403388977,
+    "final_score_loss": 2.058021903038025,
+    "score": 0.735595092177391,
+    "best_score": 0.8915718048810959,
+    "estimated_remaining_seconds": 424885.64128710673
+  },
+  "queue": {
+    "status": "training_epoch_02",
+    "queue_pid": 1533508,
+    "active_pid": 2631479,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nproc_per_node=2",
+      "scripts/train_lpwm_front_history_stage1_lora.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/experiment.json",
+      "--execution",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/execution_microbatch8.json",
+      "--stop-after-epoch"
+    ],
+    "started_at_unix": 1791553193.7796469
+  },
+  "training_code_or_schedule_changed": false
+}
