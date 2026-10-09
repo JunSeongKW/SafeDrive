@@ -1,0 +1,47 @@
+{
+  "observed_at_kst": "2026-10-09T21:35:06.998477+09:00",
+  "target_epochs": 25,
+  "updates_per_epoch": 1177,
+  "completed_updates": 948,
+  "total_updates": 29425,
+  "remaining_updates": 28477,
+  "overall_progress_percent": 3.221750212404418,
+  "recent_windows": {
+    "100": {
+      "seconds_per_update_including_checkpoint_and_in_window_visualization": 14.703056116104126,
+      "hours_per_epoch": 4.807082513515155,
+      "remaining_training_hours": 116.30525806063811,
+      "training_only_completion_kst": "2026-10-14T17:53:25.927495+09:00"
+    },
+    "200": {
+      "seconds_per_update_including_checkpoint_and_in_window_visualization": 14.767072787284851,
+      "hours_per_epoch": 4.828012408509519,
+      "remaining_training_hours": 116.8116477120863,
+      "training_only_completion_kst": "2026-10-14T18:23:48.930241+09:00"
+    },
+    "500": {
+      "seconds_per_update_including_checkpoint_and_in_window_visualization": 14.456197185516357,
+      "hours_per_epoch": 4.7263733575979865,
+      "remaining_training_hours": 114.3525353477637,
+      "training_only_completion_kst": "2026-10-14T15:56:16.125729+09:00"
+    }
+  },
+  "epoch_validation_duration_measured": false,
+  "evaluation_overhead_in_training_only_estimate": false,
+  "provisional_training_and_validation_completion": "Approximately five days from now; around 2026-10-14 night to 2026-10-15 KST. Qualitative allowance, not a measured validation duration.",
+  "assumptions": [
+    "Same GPU0/1 allocation and effective64 execution",
+    "No server shutdown or manual pause",
+    "Similar shared GPU and CPU load",
+    "Recalculate after the first epoch common evaluation and development validation"
+  ],
+  "current_queue": {
+    "status": "training_epoch_01",
+    "queue_pid": 1533508,
+    "active_pid": 19757,
+    "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 scripts/train_lpwm_front_history_stage1_lora.py --config /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/experiment.json --execution /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/execution_microbatch8.json --stop-after-epoch",
+    "adopted_without_training_restart": true,
+    "epoch1_common_comparison_pending": true
+  },
+  "training_code_or_configuration_changed": false
+}

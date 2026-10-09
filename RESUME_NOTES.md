@@ -4343,3 +4343,9 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 새queue는1177epochcheckpoint후세모델을GPU0에서순차추론/CPU4worker공식PDMS채점→비교JSON/MD→등록원queue에복귀하여epoch1내부dev/world검증및epoch2..25진행. GPU평가전까지추가VRAM사용없음/wholecard48decimalGB/평가process12GB이하및기존GPUadmission사용. 진행모델이1177전실패·사용자pause하면자동비교나새학습을진행하지않는다.
 
 학습량75297vs10240/유효64vs16/4frame128vs2frame512×256/64vs16memory/Stage1및seed와LRschedule이달라시스템비교로만해석. 동일epoch을동일노출이나particle인과효과로부르지않음。현재firstepochPDMS없음。등록·기동근거 `results/lpwm_front_history_stage1_lora_v1/epoch1_comparison_queued_20261009.json`,상태/완료 `outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison/`.
+
+## 2026-10-09 21:33 KST — 전체25epoch 학습 완료 ETA
+
+사용자가목표전체epoch잔여시간을요청했다. 조회시941/29425(3.20%),잔여28484update/약24.20epoch. 최근100/200/500 update의walltime(elapsed_seconds차이)로14.647/14.748/14.415s/update,epoch당4.71–4.82h,잔여훈련114.05–116.69h(4.75–4.86일)를계산했다. 훈련만10/14 15:36–18:15KST 조건부추정。
+
+각epoch내부devPDMS/world진단및첫epoch3모델공통navtest비교시간은아직실측없음. 이시간까지포함한완료는약5일전후/10/14밤–10/15로잠정안내하며첫epoch평가후다시계산한다. 같은GPU0/1·유효64/현재공유부하/서버중단없음을가정한다. source/config/optimizer/LR/batch/queue변경없음. 근거 `results/lpwm_front_history_stage1_lora_v1/total_training_eta_20261009.json`.
