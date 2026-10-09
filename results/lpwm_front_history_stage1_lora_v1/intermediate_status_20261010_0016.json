@@ -1,0 +1,164 @@
+{
+  "observed_at_kst": "2026-10-10T00:16:39.771439+09:00",
+  "progress": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 1562,
+    "epoch": 2,
+    "rank_scene_tokens_sha256": "ce25b52d4713d422405d0559bca174b778f048f965317da3fe310bcd407567f4",
+    "update_in_epoch": 385,
+    "seconds_this_update": 15.949862003326416,
+    "elapsed_seconds": 5775.10483455658,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0008511543273925781,
+      "forward": 3.3467416763305664,
+      "oracle": 4.2122111320495605,
+      "backward": 8.12598466873169
+    },
+    "learning_rates": [
+      5.309318082936789e-06,
+      5.3093180829367676e-05
+    ],
+    "loss": 6.006729245185852,
+    "trajectory_loss": 3.6839561462402344,
+    "final_score_loss": 2.3227731585502625,
+    "score": 0.6803206950426102,
+    "best_score": 0.9151906073093414,
+    "estimated_remaining_seconds": 417952.613529832
+  },
+  "overall_percent": 5.308411214953271,
+  "epoch2_percent": 32.71028037383178,
+  "recent200_seconds_per_update": 14.994980686903,
+  "training_only_eta_kst": {
+    "epoch2": "2026-10-10T03:34:35.796143+09:00",
+    "warmup": "2026-10-10T06:01:32.844787+09:00",
+    "epoch3": "2026-10-10T08:28:44.888412+09:00",
+    "epoch25": "2026-10-14T20:20:04.918318+09:00"
+  },
+  "loss_windows": {
+    "epoch1_last100": {
+      "loss": 8.955507758259774,
+      "trajectory_loss": 6.783080471271978,
+      "final_score_loss": 2.1724273075952247
+    },
+    "epoch2_latest100": {
+      "loss": 6.108412619233132,
+      "trajectory_loss": 3.84603242829442,
+      "final_score_loss": 2.2623801985383034
+    }
+  },
+  "gradient_audits": {
+    "0": {
+      "latest_update": 1562,
+      "gradient_update": 1500,
+      "group_count": 18,
+      "all_positive_and_finite": true,
+      "maximum_recent200_card_decimal_gb": 41.075867648,
+      "nonfinite_loss_count_recent200": 0
+    },
+    "1": {
+      "latest_update": 1562,
+      "gradient_update": 1500,
+      "group_count": 18,
+      "all_positive_and_finite": true,
+      "maximum_recent200_card_decimal_gb": 41.075867648,
+      "nonfinite_loss_count_recent200": 0
+    }
+  },
+  "particle_diagnostics": {
+    "epoch_01": {
+      "label": "epoch_01",
+      "tokens": [
+        "ddbde9d6bfda5a6e",
+        "782e2832bd025494",
+        "df19480a94ec58ff",
+        "85f0514810285441"
+      ],
+      "mean_center_shift_input_pixels": 0.17080572247505188,
+      "mean_relative_size_change_percent": 1.7150517702102661,
+      "mean_absolute_presence_change": 0.012491460889577866,
+      "scene_selection": "fixed first four of registered development panel",
+      "dots": "all 64 foreground particle centers; radius indicates presence",
+      "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+    },
+    "update_000500": {
+      "label": "update_000500",
+      "tokens": [
+        "ddbde9d6bfda5a6e",
+        "782e2832bd025494",
+        "df19480a94ec58ff",
+        "85f0514810285441"
+      ],
+      "mean_center_shift_input_pixels": 0.02520482987165451,
+      "mean_relative_size_change_percent": 0.2341582030057907,
+      "mean_absolute_presence_change": 0.0015541536267846823,
+      "scene_selection": "fixed first four of registered development panel",
+      "dots": "all 64 foreground particle centers; radius indicates presence",
+      "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+    },
+    "update_001000": {
+      "label": "update_001000",
+      "tokens": [
+        "ddbde9d6bfda5a6e",
+        "782e2832bd025494",
+        "df19480a94ec58ff",
+        "85f0514810285441"
+      ],
+      "mean_center_shift_input_pixels": 0.11104361712932587,
+      "mean_relative_size_change_percent": 1.0567896366119385,
+      "mean_absolute_presence_change": 0.006968040019273758,
+      "scene_selection": "fixed first four of registered development panel",
+      "dots": "all 64 foreground particle centers; radius indicates presence",
+      "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+    },
+    "update_001500": {
+      "label": "update_001500",
+      "tokens": [
+        "ddbde9d6bfda5a6e",
+        "782e2832bd025494",
+        "df19480a94ec58ff",
+        "85f0514810285441"
+      ],
+      "mean_center_shift_input_pixels": 0.21540039777755737,
+      "mean_relative_size_change_percent": 2.101611852645874,
+      "mean_absolute_presence_change": 0.014139875769615173,
+      "scene_selection": "fixed first four of registered development panel",
+      "dots": "all 64 foreground particle centers; radius indicates presence",
+      "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+    }
+  },
+  "development_validations": [
+    {
+      "pdms": 69.74366946017395,
+      "pdms_count": 1021,
+      "ade_meters": 3.5841193199157715,
+      "fde_meters": 8.924787521362305,
+      "failed": 0,
+      "persistent_future_ade_difference_12scenes_meters": 0.008691787719726562
+    }
+  ],
+  "registered_source_count": 286,
+  "source_mismatches": [],
+  "queue_failed_exists": false,
+  "comparison_controller_failed_exists": false,
+  "pause_requested": false,
+  "planning_or_execution_changed": false
+}

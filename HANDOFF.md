@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 23:07 KST (Codex)
+마지막 갱신: 2026-10-10 00:18 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-10 00:16 KST — 사용자진행률/중간결과조회. 누적1562/29425(5.31%),epoch2 385/1177(32.71%) 계속. 양rank1500의18gradient그룹유한양수/최근200비유한loss0/GPU각최대41.0759decimalGB/286source불변/실패·pause없음. 최근100loss8.9555(epoch1후반)→6.1084(epoch2),trajectory6.7831→3.8460,scoreBCE2.1724→2.2624。서로다른배치/목표로PDMS상승이나LPWM단독효과로해석하지않음。
 
 2026-10-09 23:07 KST — warmup/진행가치판단을문서화했고현재Stage2 epoch2/누적1285 계속. 학습코드·배치·LR/scheduler·목표25epoch·queue변경없음. 3epoch 검토권고는자동중단예약이아니다。
 
@@ -1339,6 +1341,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-10 00:16 KST — 새PDMS없음. 최신공통navtest1024의1epoch LPWM70.1667/DrivoR70.6457/JEPA75.8652 및내부dev1021의69.7437 유지。고정4scene1500geometry mean中心0.215400inputpx/크기변화2.101612%/presence절대차0.0141399;1epoch0.170806px/1.715052%보다증가하나주행entity집중/정보보존/효용미검증。최신겹침PNG outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/update_001500/particles_before_after_overlay.png。근거 results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261010_0016.json。
 
 2026-10-09 23:07 KST — 사용자warmup의뜻과계속학습/중단판단질문. 현재warmup2942update≈2.50epoch;첫epoch1177에목표LR약40.01%,현재1285update에서LR[4.367782654656715e-06, 4.367782654656686e-05]. Baselinewarmup160/첫epoch640에이미완료라학습진행도도다름。epoch1후반loss8.9555→2epoch최근50loss7.3569 감소하지만다른배치평균/PDMS나LPWM단독효과아님。
 권고는3epoch/3531까지계속해warmup후첫검토. 현재추가9.34h/훈련ETA2026-10-10T08:28:05.070057+09:00·검증별도。dev1epoch69.7437와dev후속추세/ADE·FDE·미래반복개입(현재12scene+0.008692m작음)/표현·intent·world유지를확인。3–5epoch이후에도dev개선없고표현기여약하면현재LoRA/loss학습구성재설계검토。3epoch만으로수렴판정하거나geometry이동량임계치를gate로쓰지않음。사용자는실제중단을명령하지않았으므로원25epochqueue유지/새자동pause없음。근거 results/lpwm_front_history_stage1_lora_v1/warmup_and_research_review_20261009.json。
@@ -2332,6 +2336,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+사용자중간보고요청에양rank진행/loss/1500gradient·geometry/sourcehash/PDMS완료상태와같은세션200update ETA를점검해JSON저장. HANDOFF1–5/RESUME_NOTES갱신. 학습코드·설정·배치/LR·queue변경없음.
+
 warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를확인. 최신loss·미래개입·geometry진단을근거로3epoch검토권고와중단/재설계판단의한계를기록. JSON/HANDOFF1–5/RESUME_NOTES/연구문서갱신,원25epoch학습대기열변경없음.
 
 첫epochPDMS와학습데이터/SSL/카메라·시간/전처리/memory/미세조정범위/LR/warmup/유효batch/seed를통합표로기록. checkpoint·manifest·설정실제값검사및근거JSON저장. 연구문서/HANDOFF1–5/RESUME_NOTES갱신,학습source/config/queue변경없음.
@@ -2358,6 +2364,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-10 00:16 KST — 原25epochqueue/每epochdev검증유지. 최근200 update14.995s,훈련만epoch2 10/10 03:34:36/워밍업06:01:33/epoch3 08:28:45KST 예상;epoch검증시간별도/공유부하조건부. 기존3epoch검토권고는유지하며그시점PDMS·미래기여·world진단검토. 조회로설정변경없음。
 
 2026-10-09 23:07 KST — 기존학습/각epochdev검증을계속하며3epoch를warmup후첫검토시점으로본다. 새중단명령아님/자동pause등록없음. NAVTEST반복튜닝이나현재70점을보고LR를조용히바꾸지않는다。
 
@@ -3022,6 +3030,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-10 00:16 KST — 아직epoch2PDMS없음/워밍업2942미완료. loss감소와geometry변화를성능이득이나particle단독기여로부르지않는다. geometry통계는4scene만/첫epoch미래반복개입12scene+0.00869m는아직작은효과. NAVTEST를추가epoch튜닝패널로반복사용하지않고동일dev추세로진행판단。
 
 2026-10-09 23:07 KST — warmup후개선은미보장/낮은PDMS의원인이warmup이라고확정불가. 첫epoch시스템조건차이남음/학습loss감소는LPWM기여인과증거아님. 3epoch는후속검토시점이며포화판정아님. geometry작은이동은독립실패gate아님。
 

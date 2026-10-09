@@ -4378,3 +4378,12 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 
 2026-10-09 23:07 KST — 사용자warmup의뜻과계속학습/중단판단질문. 현재warmup2942update≈2.50epoch;첫epoch1177에목표LR약40.01%,현재1285update에서LR[4.367782654656715e-06, 4.367782654656686e-05]. Baselinewarmup160/첫epoch640에이미완료라학습진행도도다름。epoch1후반loss8.9555→2epoch최근50loss7.3569 감소하지만다른배치평균/PDMS나LPWM단독효과아님。
 권고는3epoch/3531까지계속해warmup후첫검토. 현재추가9.34h/훈련ETA2026-10-10T08:28:05.070057+09:00·검증별도。dev1epoch69.7437와dev후속추세/ADE·FDE·미래반복개입(현재12scene+0.008692m작음)/표현·intent·world유지를확인。3–5epoch이후에도dev개선없고표현기여약하면현재LoRA/loss학습구성재설계검토。3epoch만으로수렴판정하거나geometry이동량임계치를gate로쓰지않음。사용자는실제중단을명령하지않았으므로원25epochqueue유지/새자동pause없음。근거 results/lpwm_front_history_stage1_lora_v1/warmup_and_research_review_20261009.json。
+
+
+## 2026-10-10 00:16 KST — Stage2 중간 결과
+
+2026-10-10 00:16 KST — 사용자진행률/중간결과조회. 누적1562/29425(5.31%),epoch2 385/1177(32.71%) 계속. 양rank1500의18gradient그룹유한양수/최근200비유한loss0/GPU각최대41.0759decimalGB/286source불변/실패·pause없음. 최근100loss8.9555(epoch1후반)→6.1084(epoch2),trajectory6.7831→3.8460,scoreBCE2.1724→2.2624。서로다른배치/목표로PDMS상승이나LPWM단독효과로해석하지않음。
+
+2026-10-10 00:16 KST — 새PDMS없음. 최신공통navtest1024의1epoch LPWM70.1667/DrivoR70.6457/JEPA75.8652 및내부dev1021의69.7437 유지。고정4scene1500geometry mean中心0.215400inputpx/크기변화2.101612%/presence절대차0.0141399;1epoch0.170806px/1.715052%보다증가하나주행entity집중/정보보존/효용미검증。최신겹침PNG outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/update_001500/particles_before_after_overlay.png。근거 results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261010_0016.json。
+
+2026-10-10 00:16 KST — 原25epochqueue/每epochdev검증유지. 최근200 update14.995s,훈련만epoch2 10/10 03:34:36/워밍업06:01:33/epoch3 08:28:45KST 예상;epoch검증시간별도/공유부하조건부. 기존3epoch검토권고는유지하며그시점PDMS·미래기여·world진단검토. 조회로설정변경없음。
