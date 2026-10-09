@@ -1,5 +1,23 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-09 21:24 KST — 현재 LPWM 첫 epoch와 보존된 DrivoR·JEPA 첫 epoch 비교 등록
+
+사용자 요청으로 첫 epoch 종료 후 공통 평가를 자동 실행하도록 연결했다. 현재 torchrun19757은 재시작하지 않았으며, 제어 프로세스만1533508로 인계했다. 원학습 모델·배치·데이터·loss·LR·optimizer/scheduler와286등록source는 유지한다.
+
+기존 DrivoR·JEPA의1epoch/640update 개발 PDMS는 각각66.9414/66.9890이다. 이 개발셋은 현재 LPWM개발셋과공통token21뿐이며 옛개발832장면은현재LPWM의학습장면이다. 기존 점수를 현재개발PDMS와 직접 비교할 수 없다.
+
+따라서 이전에 고정한 NAVSIM v1 navtest1,024장면/44recording에서 세 체크포인트를 재평가한다. 현재 LPWM planning·Stage1와baseline planning·JEPA SSL의token/recording 중복0을 확인했다. 각 모델의 학습 당시 입력전처리·추론precision을 보존하고 공식 PDM scorer를 사용한다. 평가용 GT궤적은 오차·채점에만 쓰며 모델입력에 넣지 않는다.
+
+| 조건 | 첫 epoch checkpoint | Planning 학습장면 / 유효배치 | 전방 입력 | Planner memory |
+|---|---|---|---|---|
+|현재LPWM Stage1+LoRA|epoch_01.pt,1177update|75297(navtrain60561+navval14736) /64|4frame,128×128|64particle token|
+|DrivoR 방식|보존된pass1.pt,640update|10240 /16|2frame,512×256|16register memory token|
+|JEPA 방식|보존된pass1.pt,640update|10240 /16|2frame,512×256|16 pooled patch memory token|
+
+LPWM은23126clip×20epoch SSL을재사용하고,JEPA는10480clip×5회 SSL,DrivoR는공개DINOv2에서추가SSL없이학습했다. Seed와25대5epoch LR schedule/warmup진행도도다르다. 이는같은평가장면에서의시스템비교이며particle단독기여나동일학습량비교가아니다. 이전에도사용한subset이라새로운untouched최종test로부르지않으며,이번점수로고정25epoch일정을자동수정하지않는다.
+
+순서: 첫epoch저장→세모델공통추론·공식CPU PDMS/비교표→기존내부dev1021 PDMS·world진단→다음epoch. 결과는 `outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison/comparison_complete.json` 및 `comparison.md`. 현재는대기열등록/CPU strict-load·scorer호환검사완료이며공통PDMS는아직없다. 설정은 `configs/lpwm_front_history_stage1_lora/epoch1_common_comparison.json`; 기동근거는 `results/lpwm_front_history_stage1_lora_v1/epoch1_comparison_queued_20261009.json`.
+
 ## 2026-10-09 09:08 KST — 완료된 128 Stage1 + 전방 시간 입력 + planning-path LoRA Stage2 시작
 
 사용자 최신 지시는 이전 두 실험을 결합하는 것이다. 완료된 Stage1을 재사용하며 전방 1대의 시간 순서 4프레임을 입력한다. 별도 새 Stage2이므로 이전 Adapter13480 / 공개초기화 4카메라 LoRA5493 model·optimizer를 이어받지 않는다.

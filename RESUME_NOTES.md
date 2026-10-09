@@ -4331,3 +4331,15 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 
 2026-10-09 20:23 KST — 사용자 중간결과 조회. 동일Stage2 656/29425(전체2.23%),epoch1 656/1177(55.73%) 계속. 양rank최근600의18gradient그룹유한양수/비유한loss0/286source불변/wholecard최대41.076GB(48상한). 첫50loss 29.8269→최근50 14.6881;trajectory 25.5930→12.9062,scoreBCE 4.2338→1.7818. batch가다른학습loss추세로PDMS나LPWM단독효과아님。
 500fixed4dev geometry중심0.0252px/크기0.2342%/presence평균절대차0.001554,육안변화거의없음/주행관련재배치미확인. 현재warmup중(656/2942),새PDMS없음. 첫epoch훈련ETA 10/09 22:33 KST 조건부,후속1024dev추론/1021PDMS/16world진단시간별도. 학습설정·코드·queue변경없음. 근거 `outputs/lpwm_front_history_stage1_lora_v1/intermediate_status_20261009_2023.json` 및500particle PNG。
+
+## 2026-10-09 21:24 KST — 첫 epoch 공통 PDMS 비교 대기열 연결
+
+사용자가현재LPWM1epoch후보존DrivoR/JEPA1epoch와PDMS비교를요청했다. 이전축소dev1024의DrivoR66.9414175/JEPA66.9889662를확인했으나현재LPWMdev와21token만공통이고옛dev832token/45recording은현재train에포함됐다. 현재dev에도baselinetrain68token/24recording이겹치므로원점수직접대조하지않는다.
+
+기존fixednavtest1024/44recording panel과전처리입력mmap을재사용하도록새비교설정및script를등록했다. 현재planning/Stage1와baselineplanning/JEPA SSL token/recording중복0,모든공식cache존재/입력shape/hash검사,baseline640updateCPU strictload두모델,Python3.9 scorer GT1scene호환검사통과. GT1scene채점은성능결과아님. 원286source/config및checkpoint보존.
+
+기존controller19736만SIGTERM후새controller1533508이기존torchrun19757/start_ticks61316을인계했다. 학습PID/배치/유효64/optimizer/LR/scheduler/RNG경로변경없음,900→906실제update확인。첫epoch76.98%,최근100update14.457s로훈련ETA22:30KST/평가별도。
+
+새queue는1177epochcheckpoint후세모델을GPU0에서순차추론/CPU4worker공식PDMS채점→비교JSON/MD→등록원queue에복귀하여epoch1내부dev/world검증및epoch2..25진행. GPU평가전까지추가VRAM사용없음/wholecard48decimalGB/평가process12GB이하및기존GPUadmission사용. 진행모델이1177전실패·사용자pause하면자동비교나새학습을진행하지않는다.
+
+학습량75297vs10240/유효64vs16/4frame128vs2frame512×256/64vs16memory/Stage1및seed와LRschedule이달라시스템비교로만해석. 동일epoch을동일노출이나particle인과효과로부르지않음。현재firstepochPDMS없음。등록·기동근거 `results/lpwm_front_history_stage1_lora_v1/epoch1_comparison_queued_20261009.json`,상태/완료 `outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison/`.

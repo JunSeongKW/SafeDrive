@@ -1,0 +1,136 @@
+{
+  "queued": true,
+  "observed_at_kst": "2026-10-09T21:24:24.144359+09:00",
+  "progress": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 906,
+    "epoch": 1,
+    "rank_scene_tokens_sha256": "690ab896f13303e4215d00e430327f49362b1216a55e1bce4b2469ad200ec5c0",
+    "update_in_epoch": 906,
+    "seconds_this_update": 14.223547458648682,
+    "elapsed_seconds": 10980.169708013535,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0010344982147216797,
+      "forward": 3.609715700149536,
+      "oracle": 2.8662405014038086,
+      "backward": 7.537320613861084
+    },
+    "learning_rates": [
+      3.079544649898044e-06,
+      3.079544649898024e-05
+    ],
+    "loss": 11.947493076324463,
+    "trajectory_loss": 9.922505021095276,
+    "final_score_loss": 2.024988055229187,
+    "score": 0.6108189225196838,
+    "best_score": 0.8689673095941544,
+    "estimated_remaining_seconds": 388515.4692959978
+  },
+  "first_epoch_progress_percent": 76.97536108751062,
+  "recent_100_seconds_per_update_including_overhead": 14.456808357238769,
+  "first_epoch_training_eta_kst": "2026-10-09T22:29:41.939424+09:00",
+  "eta_excludes_common_and_development_evaluation": true,
+  "handover": {
+    "passed": true,
+    "queue_pid": 1533508,
+    "training_identity_unchanged": true,
+    "training": {
+      "pid": 19757,
+      "start_ticks": 61316,
+      "uid": 1020,
+      "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 scripts/train_lpwm_front_history_stage1_lora.py --config /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/experiment.json --execution /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/execution_microbatch8.json --stop-after-epoch"
+    },
+    "previous_controller": {
+      "pid": 19736,
+      "start_ticks": 61312,
+      "uid": 1020,
+      "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -u scripts/queue_lpwm_front_history_stage1_lora.py --config /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/experiment.json --execution /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/execution_microbatch8.json"
+    },
+    "progress_before": 900,
+    "progress_after": 900,
+    "training_restart": false,
+    "first_epoch_comparison_queued": true,
+    "time": 1791548586.1164804
+  },
+  "controller": {
+    "status": "waiting_for_first_epoch",
+    "pid": 1533508,
+    "adopted_training": {
+      "pid": 19757,
+      "start_ticks": 61316,
+      "uid": 1020,
+      "command": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python -m torch.distributed.run --standalone --nproc_per_node=2 scripts/train_lpwm_front_history_stage1_lora.py --config /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/experiment.json --execution /rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/execution_microbatch8.json --stop-after-epoch"
+    },
+    "first_epoch_updates": 1177
+  },
+  "overlap": {
+    "lpwm_planning_tokens": 0,
+    "lpwm_planning_recordings": 0,
+    "lpwm_stage1_recordings": 0,
+    "baseline_planning_tokens": 0,
+    "baseline_planning_recordings": 0,
+    "jepa_stage1_recordings": 0
+  },
+  "baseline_checkpoint_cpu_audit": {
+    "passed": true,
+    "models": {
+      "drivor": {
+        "checkpoint_sha256": "b6cc6c50a5686fd26e3ea093ef2ed4cc38738f73d057ae9fd49ae2c2a0d70092",
+        "completed_updates": 640,
+        "strict_state_load": true,
+        "frozen_native_sha256": null
+      },
+      "jepa": {
+        "checkpoint_sha256": "046f4c27088cc7562a12bb1c2cb01d1db44f56f0bb9fdf1e638f2afff5d12f98",
+        "completed_updates": 640,
+        "strict_state_load": true,
+        "frozen_native_sha256": null
+      }
+    },
+    "gpu_used": false
+  },
+  "official_scorer_compatibility": {
+    "passed": true,
+    "count": 1,
+    "scope": "Official scorer compatibility using GT trajectory; not model performance",
+    "row": {
+      "token": "50d6986491d3510a",
+      "log_name": "2021.05.25.15.59.03_veh-30_03499_03671",
+      "valid": true,
+      "no_at_fault_collisions": 1.0,
+      "drivable_area_compliance": 1.0,
+      "ego_progress": 0.5933269749101887,
+      "time_to_collision_within_bound": 1.0,
+      "comfort": 1.0,
+      "driving_direction_compliance": 1.0,
+      "score": 0.8305529062125787
+    }
+  },
+  "historical_development_pdms": {
+    "drivor": 66.94141749765791,
+    "jepa": 66.98896615391867
+  },
+  "common_evaluation_count": 1024,
+  "full_navtest": false,
+  "configuration": "configs/lpwm_front_history_stage1_lora/epoch1_common_comparison.json",
+  "interpretation": "Same evaluation systems comparison. Training amount, splits, resolution, history, pretraining, memory size and seed differ. Not original-paper replication or a particle-only causal experiment."
+}

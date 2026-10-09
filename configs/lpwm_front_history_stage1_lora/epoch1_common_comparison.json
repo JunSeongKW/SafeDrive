@@ -1,0 +1,56 @@
+{
+  "purpose": "Compare saved first planning epochs on the same independent NAVSIM v1 panel",
+  "output_directory": "outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison",
+  "training_configuration": "configs/lpwm_front_history_stage1_lora/experiment.json",
+  "training_execution": "configs/lpwm_front_history_stage1_lora/execution_microbatch8.json",
+  "panel": "outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/panel.json",
+  "inputs": "outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/inputs",
+  "scene_count": 1024,
+  "full_navtest": false,
+  "gpu": 0,
+  "inference_batch_size": 4,
+  "maximum_total_card_bytes": 48000000000,
+  "maximum_process_bytes": 12000000000,
+  "scoring_workers": 4,
+  "conditions": {
+    "lpwm": {
+      "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_01.pt",
+      "completed_updates": 1177,
+      "planning_training_scenes": 75297,
+      "official_training_split_composition": "navtrain 60561 + navval 14736",
+      "effective_batch": 64,
+      "observed_frames": 4,
+      "image_size_width_height": [128, 128],
+      "planner_memory_tokens": 64,
+      "seed": 2,
+      "local_stage1": "23126 clips, 20 epochs; reused completed LPWM SSL checkpoint"
+    },
+    "drivor": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass1.pt",
+      "completed_updates": 640,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [512, 256],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "None; public DINOv2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/drivor/validation/pass1.pdms.json"
+    },
+    "jepa": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/jepa/pass1.pt",
+      "stage1_checkpoint": "outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt",
+      "completed_updates": 640,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [512, 256],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "10480 clips, 5 passes, V-JEPA2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/jepa/validation/pass1.pdms.json"
+    }
+  },
+  "interpretation": "Same evaluation systems comparison. Training amount, splits, resolution, history, pretraining, memory size and seed differ. Not original-paper replication or a particle-only causal experiment.",
+  "selection_policy": "One requested first-epoch diagnostic; retain the fixed 25-epoch training schedule without test-driven changes."
+}

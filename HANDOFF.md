@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 20:23 KST (Codex)
+마지막 갱신: 2026-10-09 21:27 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 21:24 KST — 사용자 요청으로 첫 epoch 공통 PDMS 비교 대기열 연결. 새 controller1533508이 원 torchrun19757/start_ticks61316을 그대로 인계했고, 이전 controller19736만 종료했다. 학습900→906/1177(76.98%) 증가, batch/LR/model/optimizer/scheduler/286등록source 불변. 첫epoch훈련 ETA22:30 KST(최근100 update14.457s), 평가시간별도.
+`outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison/controller_state.json` waiting_for_first_epoch. epoch_01.pt(1177) 완성→공통navtest1024의LPWM/DrivoR pass1/JEPA pass1 순차추론·공식CPU PDMS→comparison_complete.json→원queue의epoch1 dev1021/world검증→epoch2..25 자동. 비교평가 전까지 추가GPU작업없음. 새대기열과기존queue를중복실행하지않는다. 다른과거실험중단유지.
 
 2026-10-09 20:23 KST — 사용자 중간결과 조회. 동일Stage2 656/29425(전체2.23%),epoch1 656/1177(55.73%) 계속. 양rank최근600의18gradient그룹유한양수/비유한loss0/286source불변/wholecard최대41.076GB(48상한). 첫50loss 29.8269→최근50 14.6881;trajectory 25.5930→12.9062,scoreBCE 4.2338→1.7818. batch가다른학습loss추세로PDMS나LPWM단독효과아님。
 500fixed4dev geometry중심0.0252px/크기0.2342%/presence평균절대차0.001554,육안변화거의없음/주행관련재배치미확인. 현재warmup중(656/2942),새PDMS없음. 첫epoch훈련ETA 10/09 22:33 KST 조건부,후속1024dev추론/1021PDMS/16world진단시간별도. 학습설정·코드·queue변경없음. 근거 `outputs/lpwm_front_history_stage1_lora_v1/intermediate_status_20261009_2023.json` 및500particle PNG。
@@ -1326,6 +1329,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 21:24 KST — 저장된축소실험 pass1/640update PDMS DrivoR66.9414/JEPA66.9890(각1024dev). 현재dev와공통token21뿐이고, 그옛dev832token/45recording이현재LPWM train에포함된다. 현재dev에도baseline train68token/24recording이포함되어원점수직접대조불가. 공통navtest1024/44recording panel을재사용해각자의원입력으로재평가등록했으며현재planning/Stage1·baselineplanning/JEPA SSL의token/recording중복모두0. baseline CPU strict-load 두모델/640metadata 및공식scorer GT1scene호환검사통과(성능평가아님). 아직현재epoch1 PDMS나공통세모델PDMS없음. 근거 `results/lpwm_front_history_stage1_lora_v1/epoch1_comparison_queued_20261009.json`.
 
 2026-10-09 20:23 KST — 新Stage2初50/최근50loss 29.8269/14.6881,500particle중심0.0252px/크기0.2342%의미미한변화.새PDMS없음,표현도움미확인。
 
@@ -2306,6 +2311,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+첫epoch공통비교 설정 및prepare/CPUload audit/각모델추론/공식PDMS/비교표 script, live-controller 인계 launcher/wrapper 추가. 원scientific source와학습프로세스를그대로유지하며epoch1후공통비교→원epoch검증·25epochqueue로복귀하도록연결. 공통panel독립성·checkpoint/source SHA·원FP32/BF16 평가precision·CPUscorer호환검사와실제PID/update연속성기록. HANDOFF1–5/연구문서/RESUME_NOTES갱신.
+
 사용자 중간결과 요청으로진행/최근loss/600gradient/500particle/등록source와GPU상한 점검 및근거JSON 저장. 본학습·설정·source·queue변경없음. HANDOFF1-5와RESUME_NOTES갱신。
 
 서버중단후사용자승인으로기존100update fullstate를복원해같은학습재개. 원source/config/data/batch/LR/optimizer/scheduler불변.100checkpoint hardlink·이전control보존,복원/재실행동일성근거JSON기록,새PID및HANDOFF1-5/README/AGENTS/RESUME_NOTES갱신.
@@ -2320,6 +2327,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 21:24 KST — 새controller1533508 유지. 첫epoch/1177후 `epoch1_common_comparison/comparison_complete.json`과comparison.md 확인하여같은1024navtest PDMS/ADE/FDE/상황별지표보고. 과거66.94/66.99는별도dev참고수치로만표시. 이후원내부dev1021검증및epoch2..25 자동. controller_failed.json 발생시평가가완료됐다고하지않고오류해결;원학습·baselinecheckpoint·공용원본수정금지. 기존launch를별도로실행해비교를우회하지않는다.
 
 2026-10-09 20:23 KST — 기존queue유지.1000particle와epoch1/1177 PDMS 검증확인。tinygeometry를LoRA실패나planner효용으로단정하지않고같은장면더긴추세/미래개입/PDMS로판단。
 
@@ -2972,6 +2981,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 21:24 KST — 이번비교는같은평가장면의시스템비교다. 현재LPWM75297/유효64/4frame128/64memory/seed2/Stage1 23126×20 vs baseline10240/유효16/2frame512×256/16memory/seed47/DrivoR SSL없음·JEPA10480×5. 전체25대5epoch schedule 및warmup진행도도다르다. 동일epoch은동일노출·update·수렴상태가아니다. particle단독효과·원논문재현·전체navtest/SOTA주장불가. 이전에도사용한고정navtest subset의단발진단이며점수로학습일정이나checkpoint선택을자동변경하지않는다. 첫epochPDMS미평가.
 
 2026-10-09 20:23 KST — loss감소는학습목적개선신호이나batch가다르고LPWM과planner가같이갱신되어LPWM단독효과미분리。500geometry는4개고정dev장면뿐,운전entity집중및intent별차이미검증。아직warmup2942이전/epoch1진행중,새PDMS수치없음。
 
