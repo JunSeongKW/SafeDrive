@@ -4349,3 +4349,9 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 사용자가목표전체epoch잔여시간을요청했다. 조회시941/29425(3.20%),잔여28484update/약24.20epoch. 최근100/200/500 update의walltime(elapsed_seconds차이)로14.647/14.748/14.415s/update,epoch당4.71–4.82h,잔여훈련114.05–116.69h(4.75–4.86일)를계산했다. 훈련만10/14 15:36–18:15KST 조건부추정。
 
 각epoch내부devPDMS/world진단및첫epoch3모델공통navtest비교시간은아직실측없음. 이시간까지포함한완료는약5일전후/10/14밤–10/15로잠정안내하며첫epoch평가후다시계산한다. 같은GPU0/1·유효64/현재공유부하/서버중단없음을가정한다. source/config/optimizer/LR/batch/queue변경없음. 근거 `results/lpwm_front_history_stage1_lora_v1/total_training_eta_20261009.json`.
+
+
+## 2026-10-09 22:24 KST — 첫epoch 완료 여부 확인
+
+2026-10-09 22:24 KST — 사용자첫epoch완료조회. 1144/1177(97.20%),잔여33update/최근100평균15.155s,약8.3분。훈련ETA2026-10-09T22:32:47.645504+09:00 조건부/epoch최종저장·진단시간별도. epoch_01.pt와공통비교완료아직없음,두failure marker없고원queue1533508/torchrun19757계속。본학습/설정/대기열변경없음。
+근거 results/lpwm_front_history_stage1_lora_v1/epoch1_status_20261009_2224.json。

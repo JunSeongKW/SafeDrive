@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-09 21:35 KST (Codex)
+마지막 갱신: 2026-10-09 22:24 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-09 22:24 KST — 사용자첫epoch완료조회. 1144/1177(97.20%),잔여33update/최근100평균15.155s,약8.3분。훈련ETA2026-10-09T22:32:47.645504+09:00 조건부/epoch최종저장·진단시간별도. epoch_01.pt와공통비교완료아직없음,두failure marker없고원queue1533508/torchrun19757계속。본학습/설정/대기열변경없음。
 
 2026-10-09 21:33 KST — 전체25epoch ETA 조회. 현재941/29425(3.20%),잔여28484update/약24.20epoch. 최근100/200/500 update실측14.647/14.748/14.415s로epoch당4.71–4.82h,잔여훈련114.05–116.69h. 순수학습종료10/14 15:36–18:15KST 조건부. 각epoch검증과첫epoch3모델공통비교시간은아직실측없으며전부완료는약5일전후/10/14밤–10/15 잠정. 원학습·batch·LR·queue변경없음,새controller1533508/torchrun19757 및첫epoch비교queue유지.
 
@@ -1331,6 +1333,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-09 22:24 KST — 아직첫epoch훈련과PDMS비교미완료. 최신progress/비교controller/failure marker를읽어상태와최근100 update ETA확인. 근거 results/lpwm_front_history_stage1_lora_v1/epoch1_status_20261009_2224.json。새PDMS없음。
 
 2026-10-09 21:33 KST — ETA는마지막단일update나progress의세션전체평균에의존하지않고최근100/200/500의elapsed_seconds차이를사용했다. 저장과해당window내particle진단대기포함,epoch사이별도PDMS/world검증시간은제외한다. 최근훈련속도기반잔여114–117h/4.75–4.86일이며검증포함약5일은미실측평가시간여유를둔잠정치다. 근거 `results/lpwm_front_history_stage1_lora_v1/total_training_eta_20261009.json`. 새로운PDMS결과없음.
 
@@ -2315,6 +2319,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+사용자첫epoch완료여부질문에최신진행·잔여시간·checkpoint/비교/failure marker확인및상태JSON저장. HANDOFF1–5/RESUME_NOTES갱신,학습코드/설정/queue변경없음.
+
 사용자전체25epoch종료ETA요청으로현재진행및최근100/200/500 update walltime를계산해근거JSON저장. 훈련만114–117h와미실측검증시간을구분하여완료시각범위를기록했다. HANDOFF1–5/RESUME_NOTES갱신,학습코드·설정·프로세스·대기열변경없음.
 
 첫epoch공통비교 설정 및prepare/CPUload audit/각모델추론/공식PDMS/비교표 script, live-controller 인계 launcher/wrapper 추가. 원scientific source와학습프로세스를그대로유지하며epoch1후공통비교→원epoch검증·25epochqueue로복귀하도록연결. 공통panel독립성·checkpoint/source SHA·원FP32/BF16 평가precision·CPUscorer호환검사와실제PID/update연속성기록. HANDOFF1–5/연구문서/RESUME_NOTES갱신.
@@ -2333,6 +2339,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-09 22:24 KST — 기존1177경계와공통1024navtest PDMS→원내부dev/world검증→다음epoch 자동queue유지. epoch_01.pt/비교완료를확인후실제점수보고;조회로새작업기동없음。
 
 2026-10-09 21:33 KST — 기존첫epoch비교/25epoch대기열유지. 첫epoch공통비교와dev/world검증완료후실제평가소요시간을추가해전체ETA재계산. 최근window외부하변화나서버중단으로ETA변경가능,단순조회로학습일정변경없음.
 
@@ -2989,6 +2997,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-09 22:24 KST — 첫epoch ETA는현재최근100속도기반조건부다. epoch경계저장/시각화와후속세모델공통추론/PDMS시간은별도이며훈련완료와검증완료를구분한다。
 
 2026-10-09 21:33 KST — 전체ETA는같은GPU0/1·유효64실행/현재공유GPU·CPU부하/중단없음을가정한다. 아직전체epoch검증시간실측이없어훈련114–117h보다검증포함종료의불확실성이크다. 약5일전후는정확예약시간이나수렴·성능보장이아니며현재25epoch목표를변경하지않았다.
 
