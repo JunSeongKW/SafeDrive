@@ -1,5 +1,35 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-09 23:02 KST — 첫epoch PDMS와 학습·입력 조건 통합
+
+각planning1epoch checkpoint를동일NAVSIM v1 navtest1024장면/44recording에서공식PDM scorer로평가했다. 모든모델실패0,학습recording과중복0,전체navtest아님.
+
+| 항목 | 현재 LPWM Stage1+LoRA | DrivoR 방식 | Drive-JEPA 방식 |
+|---|---|---|---|
+| PDMS | **70.17** | **70.65** | **75.87** |
+| ADE / FDE (m) | 3.78 / 9.44 | 4.72 / 10.23 | 2.91 / 6.49 |
+| 공개 초기화 | LPWM Sketchy | DINOv2 ViT-S/14 reg4 | 범용 V-JEPA2 ViT-L/16 |
+| 추가주행SSL(Stage1) | NAVSIM23,126클립×20epoch,28,920update | 없음 | OpenScene10,480클립×5epoch,3,275update |
+| SSL입력 | 12frame·128×128·2Hz | 해당없음 | 8frame·512×256·2Hz |
+| Planning학습유일장면 | 75,297: navtrain60,561+navval14,736 | navtrain10,240 | 동일navtrain10,240 |
+| 평가checkpoint | 1epoch/1,177update | 1epoch/640update | 1epoch/640update |
+| Planning입력 | 전방1대·과거/현재4frame·128×128 | 전방1대·과거/현재2frame·512×256 | 동일전방1대·2frame·512×256 |
+| 관측간격/시간범위 | 0.5초/직전1.5초–현재 | 0.5초/직전0.5초–현재 | 동일 |
+| Planner입력memory | 64×256: 현재+8step미래particle속성 | 16×256: register기반scene memory | 16×256: pooled patch latent |
+| 유효planningbatch | 64(GPU당micro8×누적4×GPU2;마지막partial) | 16 | 16 |
+| 백본학습 | native고정;geometry/appearance/CNN/contextprior/dynamics LoRA | native고정;q/v LoRA rank32 | native encoder가중치미세조정 |
+| Planner학습 | 전체학습 | 전체학습 | 전체학습 |
+| 목표LR(백본/LoRA,planner) | 1e-5,1e-4 | 1e-4,1e-4 | 1e-5,1e-4 |
+| Warmup | 2,942update;1epoch후에도진행중 | 160update;1epoch후완료 | 동일 |
+| Planning전체schedule/seed | 25epoch/seed2 | 5epoch/seed47 | 5epoch/seed47 |
+
+전처리: 모두상하28pxcrop,LPWM INTER_AREA128,baseline INTER_LINEAR512×256;DrivoR만patch14정렬용오른쪽6/아래10px추가padding. Ego11과공식DrivoR기반generator/scorer·trajectory L1/diversity+PDM6subscore BCE를함께학습했고planning RGB/objectGT auxiliary loss없음. LPWM은추가로encoder CNN에ego명령FiLM을주입한다.
+
+현재LPWM의planning장면은대조군의7.35배이고SSL반복량·관측/해상도·memory·미세조정·schedule·seed도다르다. 첫epochwarmup배율은LPWM0.4001,baseline0.9458;따라서같은epoch이동일학습노출이나학습진행도를뜻하지않는다. 같은평가장면의시스템비교로해석하며particle표현단독효과나원논문재현으로부르지않는다. 이전공개LPWM/범용V-JEPA2도이미사전학습된모델이고위Stage1은추가주행SSL의학습량이다. 원학습·대기열변경없음.
+
+근거 `results/lpwm_front_history_stage1_lora_v1/epoch1_conditions_comparison_20261009.json` 및 `configs/lpwm_front_history_stage1_lora/epoch1_common_comparison.json`.
+
+
 ## 2026-10-09 22:53 KST — 첫epoch 공통평가 완료
 
 2026-10-09 22:53 KST — 첫epoch1177훈련·공통1024navtest PDMS·기존dev1021/world진단완료. 공통PDMS LPWM70.1667/DrivoR70.6457/JEPA75.8652,각실패0。현재epoch2 52/1177·누적1229/29425,queue1533508/torchrun2631479 계속. 원25epoch 일정과source286불변。

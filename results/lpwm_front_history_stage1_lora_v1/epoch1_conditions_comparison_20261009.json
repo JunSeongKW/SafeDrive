@@ -1,0 +1,272 @@
+{
+  "observed_at_kst": "2026-10-09T23:02:57.609981+09:00",
+  "conditions": {
+    "lpwm": {
+      "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_01.pt",
+      "completed_updates": 1177,
+      "planning_training_scenes": 75297,
+      "official_training_split_composition": "navtrain 60561 + navval 14736",
+      "effective_batch": 64,
+      "observed_frames": 4,
+      "image_size_width_height": [
+        128,
+        128
+      ],
+      "planner_memory_tokens": 64,
+      "seed": 2,
+      "local_stage1": "23126 clips, 20 epochs; reused completed LPWM SSL checkpoint"
+    },
+    "drivor": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass1.pt",
+      "completed_updates": 640,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "None; public DINOv2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/drivor/validation/pass1.pdms.json"
+    },
+    "jepa": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/jepa/pass1.pt",
+      "stage1_checkpoint": "outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt",
+      "completed_updates": 640,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "10480 clips, 5 passes, V-JEPA2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/jepa/validation/pass1.pdms.json"
+    }
+  },
+  "metrics": {
+    "lpwm": {
+      "checkpoint_sha256": "0a79db3a6af152d60676828c2edaf64cf7024f4b08221e27780b5b277f8a5485",
+      "completed_updates": 1177,
+      "strict_state_load": true,
+      "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 3.7750589847564697,
+      "fde_meters": 9.440553665161133,
+      "seconds": 107.63629722595215,
+      "images": "historical_adapter_images.npy",
+      "ego": "historical_joint_ego.npy",
+      "peak_reserved_bytes": 1872756736,
+      "precision_matches_original_evaluation": true,
+      "pdms": 70.16673137162185,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.95947265625,
+        "drivable_area_compliance": 0.8935546875,
+        "ego_progress": 0.5457203029189244,
+        "time_to_collision_within_bound": 0.8984375,
+        "comfort": 0.955078125,
+        "driving_direction_compliance": 0.94287109375,
+        "score": 0.7016673137162185
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 63.03657203030154
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 60.637794421563584
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 73.18120516160843
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    },
+    "drivor": {
+      "checkpoint_sha256": "b6cc6c50a5686fd26e3ea093ef2ed4cc38738f73d057ae9fd49ae2c2a0d70092",
+      "completed_updates": 640,
+      "strict_state_load": true,
+      "frozen_native_sha256": null,
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 4.723801612854004,
+      "fde_meters": 10.227029800415039,
+      "seconds": 4.514280080795288,
+      "images": "rectangular_images.npy",
+      "ego": "rectangular_ego.npy",
+      "peak_reserved_bytes": 306184192,
+      "precision_matches_original_evaluation": true,
+      "pdms": 70.6457059629757,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9638671875,
+        "drivable_area_compliance": 0.9033203125,
+        "ego_progress": 0.5292214274420153,
+        "time_to_collision_within_bound": 0.9189453125,
+        "comfort": 0.998046875,
+        "driving_direction_compliance": 0.9619140625,
+        "score": 0.7064570596297569
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 70.51246767388058
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 70.79670096433239
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 70.66206957926889
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    },
+    "jepa": {
+      "checkpoint_sha256": "046f4c27088cc7562a12bb1c2cb01d1db44f56f0bb9fdf1e638f2afff5d12f98",
+      "completed_updates": 640,
+      "strict_state_load": true,
+      "frozen_native_sha256": null,
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 2.9146885871887207,
+      "fde_meters": 6.4910807609558105,
+      "seconds": 17.363964080810547,
+      "images": "rectangular_images.npy",
+      "ego": "rectangular_ego.npy",
+      "peak_reserved_bytes": 1415577600,
+      "precision_matches_original_evaluation": true,
+      "pdms": 75.86516540959684,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.97705078125,
+        "drivable_area_compliance": 0.88671875,
+        "ego_progress": 0.6635282434709256,
+        "time_to_collision_within_bound": 0.90625,
+        "comfort": 0.966796875,
+        "driving_direction_compliance": 0.97216796875,
+        "score": 0.7586516540959684
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 64.71147308508301
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 73.5290056692544
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 79.05398726555093
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    }
+  },
+  "common_evaluation": {
+    "count": 1024,
+    "recording_count": 44,
+    "full_navtest": false,
+    "benchmark": "NAVSIM v1 same official PDM scorer",
+    "training_recording_overlap": {
+      "lpwm_planning_tokens": 0,
+      "lpwm_planning_recordings": 0,
+      "lpwm_stage1_recordings": 0,
+      "baseline_planning_tokens": 0,
+      "baseline_planning_recordings": 0,
+      "jepa_stage1_recordings": 0
+    }
+  },
+  "stage1": {
+    "lpwm": {
+      "initialization": "Public Sketchy LPWM",
+      "unique_clips": 23126,
+      "epochs": 20,
+      "optimizer_updates": 28920,
+      "clip_presentations_including_padding": 462720,
+      "resolution_width_height": [
+        128,
+        128
+      ],
+      "frames": 12,
+      "observed_frames": 4,
+      "future_frames": 8,
+      "seconds_between_frames": 0.5
+    },
+    "drivor": {
+      "initialization": "Public DINOv2 ViT-S/14 reg4",
+      "additional_driving_ssl": false
+    },
+    "jepa": {
+      "initialization": "Public general-video V-JEPA2 ViT-L/16",
+      "unique_clips": 10480,
+      "epochs": 5,
+      "optimizer_updates": 3275,
+      "clip_presentations": 52400,
+      "resolution_width_height": [
+        512,
+        256
+      ],
+      "frames": 8,
+      "seconds_between_frames": 0.5
+    }
+  },
+  "planning_learning_rates": {
+    "target_backbone_or_lora_and_planner": {
+      "lpwm": [
+        1e-05,
+        0.0001
+      ],
+      "drivor": [
+        0.0001,
+        0.0001
+      ],
+      "jepa": [
+        1e-05,
+        0.0001
+      ]
+    },
+    "warmup_steps": {
+      "lpwm": 2942,
+      "drivor": 160,
+      "jepa": 160
+    },
+    "first_epoch_learning_rate_factors": {
+      "lpwm": 0.4000685808973487,
+      "drivor": 0.94576318804292,
+      "jepa": 0.94576318804292
+    },
+    "target_epochs": {
+      "lpwm": 25,
+      "drivor": 5,
+      "jepa": 5
+    }
+  },
+  "planning_train_scene_count_ratio_lpwm_to_baseline": 7.35322265625,
+  "planning_last_batch_note": "LPWM DistributedSampler has one repeated scene to equalize two ranks; last update is partial. Effective64 is the normal full update batch, not 64 scenes for every final update.",
+  "planning_inputs": {
+    "lpwm": "Front camera4 frames at2Hz, crop28top/bottom and128square INTER_AREA; ego11 + encoder command FiLM",
+    "drivor": "Front camera2 frames at2Hz, crop28top/bottom and512x256 INTER_LINEAR, right6/bottom10 patch padding; ego11 to planner",
+    "jepa": "Front camera2 frames at2Hz, crop28top/bottom and512x256 INTER_LINEAR; ego11 to planner"
+  },
+  "fine_tuning": {
+    "lpwm": "Native pretrained LPWM frozen; geometry/appearance/CNN/interaction/contextprior/dynamics/futureheads Linear+Conv LoRA, task interface and full DrivoR planner train",
+    "drivor": "Native DINOv2 frozen; q/v LoRA rank32, scene-register/temporalfusion interface and full DrivoR planner train",
+    "jepa": "Encoder native weights fine-tune with projection and full DrivoR planner"
+  },
+  "shared_planning_objective": "Official DrivoR best-of-K trajectory L1/diversity and online PDM6subscore BCE; no RGB or objectGT auxiliary planning objective",
+  "training_changed": false
+}

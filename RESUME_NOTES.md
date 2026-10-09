@@ -4364,3 +4364,11 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 2026-10-09 22:53 KST — 첫epoch공통navtest LPWM70.1667/ADE3.7751/FDE9.4406,DrivoR70.6457/4.7238/10.2270,JEPA75.8652/2.9147/6.4911。LPWM−DrivoR−0.4790/−JEPA−5.6984점。현재devPDMS69.7437/1021(별도panel)。world16clip 재구성오차-0.0330%/미래오차-0.7014%,native보존。固定4scene particle中心shift0.170806inputpx/크기변화1.71505%/presence平均絶対差0.0124915。미래를현재반복으로바꾼12scene ADE차+0.008692m는작으며큰미래표현효용의근거아님。근거 results/lpwm_front_history_stage1_lora_v1/epoch1_complete_20261009.json。
 
 2026-10-09 22:53 KST — 첫epoch공통평가완료는확인했으나LPWM성능우위나particle단독이득미확인。학습량75297vs10240/입력128×1284framevs512×2562frame/사전학습·memory·seed·schedule차이남는다. 현재1177은warmup2942이전이다. 공통subset1024는전체navtest아님. 고정4scene geometry 변화는작고driving-entity집중검증이나성능수렴판정이아니다。
+
+
+## 2026-10-09 23:02 KST — 첫epoch 비교조건 통합
+
+2026-10-09 23:02 KST — 같은1024navtest PDMS LPWM70.1667/DrivoR70.6457/JEPA75.8652. planning75297(navtrain60561+navval14736)vsnavtrain10240,4frame128vs2frame512×256,유효64vs16,현재64memoryvs16。追加SSL LPWM23126×20/28920update/462720padding포함노출,JEPA10480×5/3275update/52400노출,DrivoR없음. warmup2942vs160,첫epoch배율.4001vs.9458。근거 results/lpwm_front_history_stage1_lora_v1/epoch1_conditions_comparison_20261009.json。
+
+2026-10-09 23:02 KST — 현재첫epoch비교는학습량/입력/SSL/memory/적응방식/schedule/seed가다른시스템비교. 데이터장면수7.35배나1epoch명칭만으로학습이득·수렴·particle인과효과판정불가. 일반공개초기화와추가주행SSL을구분하고현재planningnavval포함을표기. Baseline원논문전체재현으로부르지않는다。
+현재본학습 source/config/queue변경없음。
