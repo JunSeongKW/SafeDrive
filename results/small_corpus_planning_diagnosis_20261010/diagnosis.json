@@ -1,0 +1,726 @@
+{
+  "observed_at_kst": "2026-10-10T13:46:07.770455+09:00",
+  "complete": true,
+  "scope": "previous small512x256 four-model experiment; commonplanningepoch3/1920updates; not current128x128 run",
+  "full_development_evaluation": {
+    "drivor": {
+      "count": 1024,
+      "benchmark": "NAVSIM v1 independent development subset",
+      "full_navtest": false,
+      "pdms": 78.39769544885766,
+      "failed": 0,
+      "by_command": {
+        "0": {
+          "count": 290,
+          "mean": 0.765546860323777
+        },
+        "1": {
+          "count": 564,
+          "mean": 0.8108466694477763
+        },
+        "2": {
+          "count": 170,
+          "mean": 0.7262722960815373
+        }
+      },
+      "subscores": {
+        "no_at_fault_collisions": 0.97998046875,
+        "drivable_area_compliance": 0.931640625,
+        "ego_progress": 0.6314377806236955,
+        "time_to_collision_within_bound": 0.9501953125,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9619140625,
+        "score": 0.7839769544885766
+      },
+      "train_dev_recording_overlap": 0
+    },
+    "jepa": {
+      "count": 1024,
+      "benchmark": "NAVSIM v1 independent development subset",
+      "full_navtest": false,
+      "pdms": 74.69696044465395,
+      "failed": 0,
+      "by_command": {
+        "0": {
+          "count": 290,
+          "mean": 0.7723119887364062
+        },
+        "1": {
+          "count": 564,
+          "mean": 0.7664058166240796
+        },
+        "2": {
+          "count": 170,
+          "mean": 0.6392559861395163
+        }
+      },
+      "subscores": {
+        "no_at_fault_collisions": 0.990234375,
+        "drivable_area_compliance": 0.8740234375,
+        "ego_progress": 0.6067895506716948,
+        "time_to_collision_within_bound": 0.9560546875,
+        "comfort": 0.9990234375,
+        "driving_direction_compliance": 0.94921875,
+        "score": 0.7469696044465395
+      },
+      "train_dev_recording_overlap": 0
+    },
+    "lpwm_sequential": {
+      "count": 1024,
+      "benchmark": "NAVSIM v1 independent development subset",
+      "full_navtest": false,
+      "pdms": 70.09174502393478,
+      "failed": 0,
+      "by_command": {
+        "0": {
+          "count": 290,
+          "mean": 0.725899301505059
+        },
+        "1": {
+          "count": 564,
+          "mean": 0.7222718792936731
+        },
+        "2": {
+          "count": 170,
+          "mean": 0.5874548922764318
+        }
+      },
+      "subscores": {
+        "no_at_fault_collisions": 0.97412109375,
+        "drivable_area_compliance": 0.8623046875,
+        "ego_progress": 0.5376630607963562,
+        "time_to_collision_within_bound": 0.9365234375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9208984375,
+        "score": 0.7009174502393478
+      },
+      "train_dev_recording_overlap": 0
+    },
+    "lpwm_joint": {
+      "count": 1024,
+      "benchmark": "NAVSIM v1 independent development subset",
+      "full_navtest": false,
+      "pdms": 63.96595067906197,
+      "failed": 0,
+      "by_command": {
+        "0": {
+          "count": 290,
+          "mean": 0.6605699023994603
+        },
+        "1": {
+          "count": 564,
+          "mean": 0.6262372051307121
+        },
+        "2": {
+          "count": 170,
+          "mean": 0.6485192915531139
+        }
+      },
+      "subscores": {
+        "no_at_fault_collisions": 0.97509765625,
+        "drivable_area_compliance": 0.8076171875,
+        "ego_progress": 0.47356927490466294,
+        "time_to_collision_within_bound": 0.927734375,
+        "comfort": 0.9990234375,
+        "driving_direction_compliance": 0.9404296875,
+        "score": 0.6396595067906197
+      },
+      "train_dev_recording_overlap": 0
+    }
+  },
+  "candidate_evaluation": {
+    "drivor": {
+      "complete": true,
+      "count": 192,
+      "selected_pdms": 72.76099083399176,
+      "oracle_best_pdms": 97.80808481830445,
+      "selection_regret": 25.047093984312692,
+      "oracle_best_below_80_fraction": 0.010416666666666666,
+      "oracle_perfect_but_selected_below_80_fraction": 0.21875,
+      "maximum_historical_selected_pdms_difference": 0.0,
+      "score_definition": "Official NAVSIM v1, each candidate paired with reference; not the training proxy",
+      "by_command": {
+        "0": {
+          "count": 64,
+          "selected_pdms": 72.64557963791418,
+          "oracle_best_pdms": 99.32395952400304
+        },
+        "1": {
+          "count": 64,
+          "selected_pdms": 77.47523584354656,
+          "oracle_best_pdms": 97.65908015952338
+        },
+        "2": {
+          "count": 64,
+          "selected_pdms": 68.16215702051454,
+          "oracle_best_pdms": 96.44121477138694
+        }
+      }
+    },
+    "jepa": {
+      "complete": true,
+      "count": 192,
+      "selected_pdms": 71.78870424774863,
+      "oracle_best_pdms": 98.56106670661738,
+      "selection_regret": 26.77236245886876,
+      "oracle_best_below_80_fraction": 0.005208333333333333,
+      "oracle_perfect_but_selected_below_80_fraction": 0.22916666666666666,
+      "maximum_historical_selected_pdms_difference": 0.0,
+      "score_definition": "Official NAVSIM v1, each candidate paired with reference; not the training proxy",
+      "by_command": {
+        "0": {
+          "count": 64,
+          "selected_pdms": 75.04804483213834,
+          "oracle_best_pdms": 99.32272793571374
+        },
+        "1": {
+          "count": 64,
+          "selected_pdms": 71.61047921759584,
+          "oracle_best_pdms": 97.88267835305675
+        },
+        "2": {
+          "count": 64,
+          "selected_pdms": 68.7075886935117,
+          "oracle_best_pdms": 98.47779383108168
+        }
+      }
+    },
+    "lpwm_sequential": {
+      "complete": true,
+      "count": 192,
+      "selected_pdms": 67.79358011912798,
+      "oracle_best_pdms": 97.82833690912939,
+      "selection_regret": 30.03475679000141,
+      "oracle_best_below_80_fraction": 0.010416666666666666,
+      "oracle_perfect_but_selected_below_80_fraction": 0.3177083333333333,
+      "maximum_historical_selected_pdms_difference": 8.469075964967487e-06,
+      "score_definition": "Official NAVSIM v1, each candidate paired with reference; not the training proxy",
+      "by_command": {
+        "0": {
+          "count": 64,
+          "selected_pdms": 73.80558567636322,
+          "oracle_best_pdms": 99.12769107220181
+        },
+        "1": {
+          "count": 64,
+          "selected_pdms": 69.44989237129099,
+          "oracle_best_pdms": 97.14695964970701
+        },
+        "2": {
+          "count": 64,
+          "selected_pdms": 60.12526230972976,
+          "oracle_best_pdms": 97.21036000547934
+        }
+      }
+    },
+    "lpwm_joint": {
+      "complete": true,
+      "count": 192,
+      "selected_pdms": 63.35632272804179,
+      "oracle_best_pdms": 97.88765175141423,
+      "selection_regret": 34.53132902337243,
+      "oracle_best_below_80_fraction": 0.005208333333333333,
+      "oracle_perfect_but_selected_below_80_fraction": 0.2864583333333333,
+      "maximum_historical_selected_pdms_difference": 1.5649880481305445e-05,
+      "score_definition": "Official NAVSIM v1, each candidate paired with reference; not the training proxy",
+      "by_command": {
+        "0": {
+          "count": 64,
+          "selected_pdms": 65.28437866879307,
+          "oracle_best_pdms": 99.06012704576074
+        },
+        "1": {
+          "count": 64,
+          "selected_pdms": 56.799982713586246,
+          "oracle_best_pdms": 97.14849574147769
+        },
+        "2": {
+          "count": 64,
+          "selected_pdms": 67.98460680174605,
+          "oracle_best_pdms": 97.45433246700424
+        }
+      }
+    }
+  },
+  "candidate_panel": "192 fixed dev scenes,64 percommand;64 candidates/model/scene; official NAVSIMv1 paired withreference",
+  "candidate_normalization": "Batch simulation then pairwise reference progress normalization; public evaluator checked for selected and best candidates on every scene, error<1e-8",
+  "interface_inference": {
+    "drivor": {
+      "complete": true,
+      "checkpoint_updates": 1920,
+      "scene_count": 192,
+      "candidate_count": 64,
+      "peak_reserved_bytes": 209715200,
+      "largest_sampled_card_bytes": 41629515776,
+      "maximum_selected_trajectory_replay_difference": 0.0,
+      "interface": []
+    },
+    "jepa": {
+      "complete": true,
+      "checkpoint_updates": 1920,
+      "scene_count": 192,
+      "candidate_count": 64,
+      "peak_reserved_bytes": 1340080128,
+      "largest_sampled_card_bytes": 42759880704,
+      "maximum_selected_trajectory_replay_difference": 0.0,
+      "interface": []
+    },
+    "lpwm_sequential": {
+      "complete": true,
+      "checkpoint_updates": 1920,
+      "scene_count": 192,
+      "candidate_count": 64,
+      "peak_reserved_bytes": 801112064,
+      "largest_sampled_card_bytes": 42216718336,
+      "maximum_selected_trajectory_replay_difference": 7.62939453125e-06,
+      "interface": [
+        {
+          "token": "4d6608189ed25ba1",
+          "attributes_shape": [
+            1,
+            9,
+            16,
+            28
+          ],
+          "planner_memory_shape": [
+            1,
+            16,
+            256
+          ],
+          "memory_rms": 0.6773204207420349,
+          "attribute_rms": {
+            "position": 0.5718358159065247,
+            "scale": 0.26482921838760376,
+            "presence": 0.9991304874420166,
+            "foreground_appearance": 0.5606576204299927,
+            "background_appearance": 0.41605859994888306,
+            "local_context": 0.36917605996131897,
+            "background_context": 0.15328384935855865
+          },
+          "memory_change_rms": {
+            "position": 0.33794283866882324,
+            "scale": 0.12236694991588593,
+            "presence": 0.3107749819755554,
+            "foreground_appearance": 0.39656901359558105,
+            "background_appearance": 0.2704103887081146,
+            "local_context": 0.31844428181648254,
+            "background_context": 0.1427784413099289,
+            "future_repeat_current": 0.3013666272163391
+          }
+        },
+        {
+          "token": "bbe8c94bc903528d",
+          "attributes_shape": [
+            1,
+            9,
+            16,
+            28
+          ],
+          "planner_memory_shape": [
+            1,
+            16,
+            256
+          ],
+          "memory_rms": 0.6597386002540588,
+          "attribute_rms": {
+            "position": 0.5180360078811646,
+            "scale": 0.2584543526172638,
+            "presence": 0.8652524948120117,
+            "foreground_appearance": 0.5280345678329468,
+            "background_appearance": 0.4426083564758301,
+            "local_context": 0.41485726833343506,
+            "background_context": 0.15059447288513184
+          },
+          "memory_change_rms": {
+            "position": 0.3122633993625641,
+            "scale": 0.11197765171527863,
+            "presence": 0.24261659383773804,
+            "foreground_appearance": 0.3534255921840668,
+            "background_appearance": 0.276705801486969,
+            "local_context": 0.34205153584480286,
+            "background_context": 0.14540331065654755,
+            "future_repeat_current": 0.44165337085723877
+          }
+        },
+        {
+          "token": "52a53c5da4ec5439",
+          "attributes_shape": [
+            1,
+            9,
+            16,
+            28
+          ],
+          "planner_memory_shape": [
+            1,
+            16,
+            256
+          ],
+          "memory_rms": 0.6594477295875549,
+          "attribute_rms": {
+            "position": 0.5680980682373047,
+            "scale": 0.2957012355327606,
+            "presence": 0.9469249248504639,
+            "foreground_appearance": 0.5882336497306824,
+            "background_appearance": 0.4410187005996704,
+            "local_context": 0.4148281216621399,
+            "background_context": 0.1487819403409958
+          },
+          "memory_change_rms": {
+            "position": 0.31379035115242004,
+            "scale": 0.1215791180729866,
+            "presence": 0.2694905996322632,
+            "foreground_appearance": 0.37114718556404114,
+            "background_appearance": 0.259753555059433,
+            "local_context": 0.32726168632507324,
+            "background_context": 0.128188818693161,
+            "future_repeat_current": 0.5999488830566406
+          }
+        }
+      ]
+    },
+    "lpwm_joint": {
+      "complete": true,
+      "checkpoint_updates": 1920,
+      "scene_count": 192,
+      "candidate_count": 64,
+      "peak_reserved_bytes": 801112064,
+      "largest_sampled_card_bytes": 42216718336,
+      "maximum_selected_trajectory_replay_difference": 2.288818359375e-05,
+      "interface": [
+        {
+          "token": "4d6608189ed25ba1",
+          "attributes_shape": [
+            1,
+            9,
+            16,
+            28
+          ],
+          "planner_memory_shape": [
+            1,
+            16,
+            256
+          ],
+          "memory_rms": 0.7103024125099182,
+          "attribute_rms": {
+            "position": 0.5564897656440735,
+            "scale": 0.2856445610523224,
+            "presence": 0.9113603234291077,
+            "foreground_appearance": 0.35142406821250916,
+            "background_appearance": 0.5927397608757019,
+            "local_context": 0.2838810980319977,
+            "background_context": 0.18800777196884155
+          },
+          "memory_change_rms": {
+            "position": 0.29437077045440674,
+            "scale": 0.11498585343360901,
+            "presence": 0.2671055793762207,
+            "foreground_appearance": 0.2160598486661911,
+            "background_appearance": 0.352546751499176,
+            "local_context": 0.22377915680408478,
+            "background_context": 0.16711196303367615,
+            "future_repeat_current": 0.34002771973609924
+          }
+        },
+        {
+          "token": "bbe8c94bc903528d",
+          "attributes_shape": [
+            1,
+            9,
+            16,
+            28
+          ],
+          "planner_memory_shape": [
+            1,
+            16,
+            256
+          ],
+          "memory_rms": 0.6845394968986511,
+          "attribute_rms": {
+            "position": 0.5544973015785217,
+            "scale": 0.25710487365722656,
+            "presence": 0.8019455671310425,
+            "foreground_appearance": 0.463229238986969,
+            "background_appearance": 0.6476673483848572,
+            "local_context": 0.29071685671806335,
+            "background_context": 0.1861216127872467
+          },
+          "memory_change_rms": {
+            "position": 0.26770466566085815,
+            "scale": 0.09379138052463531,
+            "presence": 0.21450255811214447,
+            "foreground_appearance": 0.2766115963459015,
+            "background_appearance": 0.3408863842487335,
+            "local_context": 0.2158844769001007,
+            "background_context": 0.1513347029685974,
+            "future_repeat_current": 0.4397493600845337
+          }
+        },
+        {
+          "token": "52a53c5da4ec5439",
+          "attributes_shape": [
+            1,
+            9,
+            16,
+            28
+          ],
+          "planner_memory_shape": [
+            1,
+            16,
+            256
+          ],
+          "memory_rms": 0.6959800720214844,
+          "attribute_rms": {
+            "position": 0.5602932572364807,
+            "scale": 0.27946311235427856,
+            "presence": 0.812865138053894,
+            "foreground_appearance": 0.4188355803489685,
+            "background_appearance": 0.47902894020080566,
+            "local_context": 0.29663971066474915,
+            "background_context": 0.18715544044971466
+          },
+          "memory_change_rms": {
+            "position": 0.3038967251777649,
+            "scale": 0.11301125586032867,
+            "presence": 0.24020183086395264,
+            "foreground_appearance": 0.2744152545928955,
+            "background_appearance": 0.2715122401714325,
+            "local_context": 0.24711905419826508,
+            "background_context": 0.16493044793605804,
+            "future_repeat_current": 0.4421350955963135
+          }
+        }
+      ]
+    }
+  },
+  "separate_gradients": {
+    "complete": true,
+    "checkpoint_updates": 1920,
+    "samples": [
+      {
+        "planning_token": "de864917fc075773",
+        "ssl_clip_index": 0,
+        "ssl_loss": 33.344383239746094,
+        "groups": {
+          "encoder": {
+            "parameter_count": 45387744,
+            "planning_gradient_l2": 25.66263161763153,
+            "ssl_gradient_l2": 72.70270070549324,
+            "weighted_ssl_gradient_l2": 7.270270070549325,
+            "weighted_ssl_over_planning": 0.28330181326977705,
+            "gradient_cosine": -0.21689482397889856
+          },
+          "geometry_heads": {
+            "parameter_count": 1575944,
+            "planning_gradient_l2": 6.328206701994692,
+            "ssl_gradient_l2": 26.940753088913727,
+            "weighted_ssl_gradient_l2": 2.6940753088913727,
+            "weighted_ssl_over_planning": 0.4257249226770963,
+            "gradient_cosine": 0.12769921387615035
+          },
+          "appearance": {
+            "parameter_count": 2249680,
+            "planning_gradient_l2": 14.64486730180576,
+            "ssl_gradient_l2": 53.036665849432154,
+            "weighted_ssl_gradient_l2": 5.303666584943215,
+            "weighted_ssl_over_planning": 0.3621519045303508,
+            "gradient_cosine": -0.3708271365135635
+          },
+          "interaction": {
+            "parameter_count": 1522946,
+            "planning_gradient_l2": 11.39298439404354,
+            "ssl_gradient_l2": 35.458788084350275,
+            "weighted_ssl_gradient_l2": 3.5458788084350275,
+            "weighted_ssl_over_planning": 0.3112335351120886,
+            "gradient_cosine": -0.28160188518415985
+          }
+        },
+        "seconds": 44.93556475639343
+      },
+      {
+        "planning_token": "364dacc96e1f5bd2",
+        "ssl_clip_index": 1,
+        "ssl_loss": 34.38093185424805,
+        "groups": {
+          "encoder": {
+            "parameter_count": 45387744,
+            "planning_gradient_l2": 19.673154703407032,
+            "ssl_gradient_l2": 62.05440032268601,
+            "weighted_ssl_gradient_l2": 6.205440032268601,
+            "weighted_ssl_over_planning": 0.3154267897458221,
+            "gradient_cosine": 0.06476276871033304
+          },
+          "geometry_heads": {
+            "parameter_count": 1575944,
+            "planning_gradient_l2": 5.643224076085334,
+            "ssl_gradient_l2": 27.781131972400267,
+            "weighted_ssl_gradient_l2": 2.778113197240027,
+            "weighted_ssl_over_planning": 0.4922918458994074,
+            "gradient_cosine": -0.06113172147018421
+          },
+          "appearance": {
+            "parameter_count": 2249680,
+            "planning_gradient_l2": 8.085223714979572,
+            "ssl_gradient_l2": 43.8155378025631,
+            "weighted_ssl_gradient_l2": 4.3815537802563105,
+            "weighted_ssl_over_planning": 0.5419211557669782,
+            "gradient_cosine": 0.17884202663450788
+          },
+          "interaction": {
+            "parameter_count": 1522946,
+            "planning_gradient_l2": 7.953566251978847,
+            "ssl_gradient_l2": 26.43912423952252,
+            "weighted_ssl_gradient_l2": 2.6439124239522522,
+            "weighted_ssl_over_planning": 0.33241848250078343,
+            "gradient_cosine": 0.09094498960733265
+          }
+        },
+        "seconds": 35.902649879455566
+      }
+    ],
+    "device": "cpu",
+    "no_optimizer_step": true,
+    "unclipped": true,
+    "ssl_weight": 0.1,
+    "planning_batch": 1,
+    "ssl_batch": 1,
+    "scope": "Fixed two training samples, original resolution/ELBO; CPU execution diagnostic, not historical DDP gradients"
+  },
+  "training_proxy_log_window": {
+    "drivor": {
+      "score": 0.8344750434532762,
+      "best_score": 0.9830375302582979,
+      "planning_loss": 3.0124147851765155,
+      "ssl_loss": 0.0,
+      "selected_proxy_score_points": 83.44750434532762,
+      "oracle_best_proxy_score_points": 98.30375302582979,
+      "scope": "rank0, fixedupdates1821..1920; training oracle proxy; not official dev PDMS"
+    },
+    "jepa": {
+      "score": 0.8307259571924805,
+      "best_score": 0.990875199586153,
+      "planning_loss": 2.6304395343363285,
+      "ssl_loss": 0.0,
+      "selected_proxy_score_points": 83.07259571924806,
+      "oracle_best_proxy_score_points": 99.0875199586153,
+      "scope": "rank0, fixedupdates1821..1920; training oracle proxy; not official dev PDMS"
+    },
+    "lpwm_sequential": {
+      "score": 0.7924675127491355,
+      "best_score": 0.9870050927996635,
+      "planning_loss": 3.2602609530091287,
+      "ssl_loss": 0.0,
+      "selected_proxy_score_points": 79.24675127491355,
+      "oracle_best_proxy_score_points": 98.70050927996635,
+      "scope": "rank0, fixedupdates1821..1920; training oracle proxy; not official dev PDMS"
+    },
+    "lpwm_joint": {
+      "score": 0.753272849060595,
+      "best_score": 0.9848329141736031,
+      "planning_loss": 3.579849852323532,
+      "ssl_loss": 34.53422506809235,
+      "selected_proxy_score_points": 75.3272849060595,
+      "oracle_best_proxy_score_points": 98.4832914173603,
+      "scope": "rank0, fixedupdates1821..1920; training oracle proxy; not official dev PDMS"
+    }
+  },
+  "frozen_adapter_preflight": {
+    "passed": true,
+    "device": "cpu",
+    "disposable_optimizer_steps": 1,
+    "diagnostic_weights_used_for_training": false,
+    "initial_proposals_maximum_difference": 6.556510925292969e-07,
+    "initial_common_planner_tensor_count": 241,
+    "native_weights_and_buffers_unchanged": true,
+    "native_gradient_count": 0,
+    "adapter_regions": {
+      "encoder_module.particle_inter_enc.pte": 1,
+      "ctx_module.pte": 4,
+      "dyn_module.particle_transformer": 6
+    },
+    "adapter_parameter_count": 360544,
+    "trainable_parameter_count": 17461854,
+    "gradient_groups": {
+      "adapters": 0.7051406057105729,
+      "command": 0.05448271735768141,
+      "projection": 10.019809387391765,
+      "generator": 42.83033447866294,
+      "scorer": 29.261054441746502
+    },
+    "planning_loss": 14.464742660522461,
+    "module_parameter_counts": {
+      "encoder": 45542272,
+      "context": 39502185,
+      "dynamics": 99553041
+    }
+  },
+  "frozen_adapter_configuration": "configs/small_corpus_planning_diagnosis/frozen_adapter_control.json",
+  "frozen_adapter_training_launched": false,
+  "existing_training_source_count": 286,
+  "existing_training_changed_sources": [],
+  "source_sha256": {
+    "scripts/diagnose_small_corpus_planner.py": "860dda7170f55db13c0d804bb6996233510ff632b58f6fb9e102ffd40752e0e9",
+    "scripts/train_small_corpus_frozen_adapter.py": "0219517c44286072d8c7b70edf86ea9dd8ee9c71e24c792ca5b00d272c7b027b",
+    "scripts/queue_small_corpus_frozen_adapter.py": "cd6639faa619da114622379da2fd298919414fb53f92866bea84647a5a070864",
+    "scripts/audit_small_corpus_frozen_adapter.py": "e4af00752d7fa043354e9f0b5feb70fc3898a4eacbce03b4ba05f28ce37a8058",
+    "src/planning_aware_future_prediction/object_centric/small_corpus_frozen_adapter.py": "6f9459ed0fec86b1a2d80d2a544ad8f5f2c1c89dc2aa53eb3716e883961f4ae0",
+    "configs/small_corpus_planning_diagnosis/frozen_adapter_control.json": "20441b5eafbfbc0893d6be2b1c26cce1979442917190d9f555854a5f94c9db2b"
+  },
+  "confirmed_facts": [
+    "Common3epochdevelopment:LPWM lowerDAC/progress/DDC; comfort near1.",
+    "On fixed192devscenes bestcandidate quality is similar acrossmodels, but LPWM selection regret is larger.",
+    "Currentplus8future particle attributes/background/localandbackgroundcontext reach16x256 memory; no representation detach.",
+    "Scorer receives detached proposal embeddings, while shared memory remains differentiable; BCE does not directly move proposal coordinates.",
+    "At joint1920 on twofixedtrain samples, weightedSSL gradient is28.3..31.5percent of planning norm on encoder, directions vary.",
+    "No adaptive particle count/horizon/kindselection currently:all16FGand8futuresteps used."
+  ],
+  "hypotheses": [
+    "Scorer ranking/generalization or mismatch between training proxy and official evaluation may explain additional selection regret; not isolated yet.",
+    "Rectangular encoder/decoder transfer and reducedparticle capacity may impair useful state encoding; reconstruction alone does not prove planning information loss.",
+    "Repeated background and temporal flattening may dilute task-relevant states; connection sensitivity alone does not establish harm.",
+    "Native planning adaptation may damage representation; the matched frozen-adapter control will test strategy, not isolatedparticle causality."
+  ],
+  "priorities": [
+    {
+      "priority": 1,
+      "experiment": "Keep each model generator/backbone fixed; audit scorer per-subscore calibration, candidate ranking, and train-oracle versus official score discrepancy on development; then compare rank-aware scorer training using same candidate labels."
+    },
+    {
+      "priority": 2,
+      "experiment": "Run configured matched frozen-native adapter control; preserve original5epoch budgets/inputs/microbatch schedule; compare developmentPDMS/regret/futureprobes against native2stage."
+    },
+    {
+      "priority": 3,
+      "experiment": "After selection bottleneck is understood, train task-conditioned selection of current/future information with matched fixed/random selectors and equal token/horizon/averagecompute budgets."
+    }
+  ],
+  "limitations": [
+    "one trainingseed",
+    "candidateanalysis192commandbalanced scenes differs from full1024 dev distribution",
+    "oracle is future-informed upperbound, not deployable selection",
+    "CPU gradient diagnostictwo singletonpairs,nothistorical DDPeffective16 gradients",
+    "controlCPUpreflight passed; production2GPUmemory/DDPresume gate remains before fulltraining"
+  ],
+  "comparison_figure": "results/small_corpus_planning_diagnosis_20261010/candidate_selection_and_subscores.png",
+  "execution_phase_transform_checked": [
+    {
+      "microbatch": 2,
+      "stop_after": 640
+    },
+    {
+      "microbatch": 2,
+      "stop_after": 1920
+    },
+    {
+      "microbatch": 2,
+      "stop_after": 1937
+    },
+    {
+      "microbatch": 4,
+      "stop_after": 0
+    }
+  ],
+  "cpu_diagnostic_failures_preserved": [
+    "outputs/small_corpus_planning_diagnosis_20261010/gradients_host.log",
+    "outputs/small_corpus_planning_diagnosis_20261010/adapter_preflight.log"
+  ]
+}

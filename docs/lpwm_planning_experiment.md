@@ -1,5 +1,39 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-10 13:47 KST — 이전 축소실험의 생성·선택·표현·gradient 진단 완료
+
+현재 128×128 본학습과 별개로 이전 512×256 축소실험의 공통 planner 3 epoch/1,920 update를 분석했다. 동일 1,024 개발 장면의 PDMS는 DrivoR 78.3977, JEPA 74.6970, LPWM 순차 70.0917, LPWM 공동 63.9660이다. 원 논문 전체 재현·전체 NAVTEST 결과가 아니다.
+
+| 조건 | PDMS | NC 평균×100 | 도로 준수×100 | 진행률×100 | TTC×100 | 방향 준수×100 |
+|---|---:|---:|---:|---:|---:|---:|
+| DrivoR | 78.40 | 98.00 | 93.16 | 63.14 | 95.02 | 96.19 |
+| JEPA | 74.70 | 99.02 | 87.40 | 60.68 | 95.61 | 94.92 |
+| LPWM 순차 | 70.09 | 97.41 | 86.23 | 53.77 | 93.65 | 92.09 |
+| LPWM 공동 | 63.97 | 97.51 | 80.76 | 47.36 | 92.77 | 94.04 |
+
+주행 명령별 64개씩 점수 확인 전에 고정한 개발 192장면에서 후보 64개를 모두 공식 NAVSIM v1로 채점했다. 배치 시뮬레이션 후 후보마다 reference와의 진행률 정규화를 복원했다. 모든 장면에서 선택·최고 후보를 원 `pdm_score`로 재검사해 오차 <1e-8이다. 이전 선택 궤적/점수 재현 오차는 FP32 반올림 수준이다.
+
+| 조건 | 후보 최고 PDMS | 실제 선택 PDMS | 선택 손실(점) |
+|---|---:|---:|---:|
+| DrivoR | 97.81 | 72.76 | 25.05 |
+| JEPA | 98.56 | 71.79 | 26.77 |
+| LPWM 순차 | 97.83 | 67.79 | 30.03 |
+| LPWM 공동 | 97.89 | 63.36 | 34.53 |
+
+후보 생성의 최상위 coverage는 이 표본에서 비슷하고 LPWM의 선택 손실이 크다. 따라서 scorer/표현의 후보 순위 판단을 우선 조사할 근거가 있다. Oracle는 미래 정답을 쓰는 상한이며, 생성 품질 전체가 충분하거나 scorer만 변경하면 상한에 도달한다는 결론은 아니다. 균형 표본과 전체 개발셋 점수를 혼용하지 않는다.
+
+연결은 `(batch, 현재+미래8, foreground16, attribute28)` → particle별 시간축 flatten252 → Linear/LayerNorm/GELU → `16×256` memory다. Attribute는 위치2/크기2/presence1/depth1/foreground feature4/background feature4/local context7/background context7이다. Background는 별도 17번째 token 없이 16개에 복제된다. 현재·미래·위치·presence·background를 제거/반복하면 projection memory가 변했다(고정 3장면); 이는 전달 경로 검사이며 실제 planning 효용이나 attention의 근거는 아니다. Presence는 encoder 외관 feature에 곱해지고 memory에는 연속값으로 전달되지만 planner token을 버리는 mask는 아니다. 모든 16개 particle와 미래 8시점을 고정적으로 사용하므로 상황별 종류·양의 선택은 아직 구현되지 않았다.
+
+Scorer에는 proposal 좌표 embedding이 detach되어 입력된다. Planning trajectory/diversity loss는 generator를 학습하고, 6개 BCE는 scorer 및 shared memory/LPWM을 학습한다. BCE가 proposal 좌표를 안전한 방향으로 직접 수정하는 경로는 없다. 공식 선택식의 DDC 계수는 0이며 모든 비교군에 공통인 설정이다.
+
+공동 체크포인트에서 고정 train 표본 2쌍의 loss를 CPU에서 따로 역전파했다(512×256 원 ELBO, batch1, optimizer step 없음). Encoder는 공개 `encoder_module` 전체로 관측 context alias도 포함한다. Planning norm 25.6626/19.6732, raw SSL 72.7027/62.0544, 실제 `0.1×SSL` norm 7.2703/6.2054; SSL/planning 0.2833/0.3154, cosine −0.2169/+0.0648이다. Planning gradient 소실이나 SSL 지배는 이 검사로 지지되지 않는다. 두 singleton CPU 검사이며 과거 DDP 유효16 gradient 전체·지속적 충돌을 입증하지 않는다. CPU public view 호환 오류는 입력 저장 순서를 contiguous로 바꿔 해결했고 기존 GPU 코드는 수정하지 않았다.
+
+Frozen-native adapter 대조군은 구성 및 CPU 1회 연결 검사를 완료했고 본학습은 기동하지 않았다. 동일 Stage1 10,480클립×5회 checkpoint, planning 10,240장면×5회/3,200 update, 같은 개발1,024·seed47/planner4701·유효16·loss·LR schedule·전처리를 재사용한다. 원 micro2×acc4에서 1,937 이후 micro4×acc2로 바뀐 실행 이력을 복원한다. 추가 adapter 360,544개는 interaction 1/context 4/dynamics 6 block의 bottleneck32 residual이고 native 가중치·buffer는 고정한다. Command FiLM/projection와 planner는 기존처럼 학습하므로 **native 가중치 고정이 표현 함수 전체의 고정을 뜻하지 않는다**. Adapter LR1e-5, planner/interface1e-4, SSL 추가0, warmup160이다. 초기 planner241 tensor 동일/초기 candidate 차이 6.56e-7, 실제 planning backward 및 disposable AdamW1회에서 native gradient0/digest 불변/adapters·planner gradient 양수를 확인했다. GPU2 DDP/재개·메모리 검사는 본학습 전에 필요하다. 대기열 코드만 준비했고 실행 예약은 하지 않았다.
+
+우선순위: ① 고정 generator에서 scorer 하위 지표 calibration·ranking과 학습 proxy/공식 채점 차이를 검사하고 동일 조건의 순위 loss를 비교한다. ② 구성한 native-frozen adapter 대조로 native 미세조정이 저성능에 기여했는지 조사한다. ③ 병목을 확인한 뒤 상황·의도별 현재/미래 정보 선택을 고정·무작위 선택과 동일 예산으로 비교한다. 해상도 변환/particle 축소·background 복제·시간 flatten의 영향은 가설이며 저성능 원인으로 확정하지 않는다.
+
+근거: [진단 JSON](../results/small_corpus_planning_diagnosis_20261010/diagnosis.json), [비교 그림](../results/small_corpus_planning_diagnosis_20261010/candidate_selection_and_subscores.png), [대조 설정](../configs/small_corpus_planning_diagnosis/frozen_adapter_control.json). 기존 본학습 286개 source/config는 불변이며 GPU0 진단 최대 전체 카드 42.217GB로 48GB 이내였다. 후보 평가/gradient/CPU preflight는 모두 완료했고 새 full training은 없다.
+
 ## 2026-10-10 10:00 KST — 성능 우위와 표현 기여를 검증하는 후속 설계
 
 사용자 질문에 대한 연구 설계 권고다. 아래 실험은 아직 구현·등록·기동하지 않았으며 현재 25 epoch 학습은 그대로 유지한다.

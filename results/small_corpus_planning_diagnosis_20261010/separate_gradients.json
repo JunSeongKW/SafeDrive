@@ -1,0 +1,93 @@
+{
+  "complete": true,
+  "checkpoint_updates": 1920,
+  "samples": [
+    {
+      "planning_token": "de864917fc075773",
+      "ssl_clip_index": 0,
+      "ssl_loss": 33.344383239746094,
+      "groups": {
+        "encoder": {
+          "parameter_count": 45387744,
+          "planning_gradient_l2": 25.66263161763153,
+          "ssl_gradient_l2": 72.70270070549324,
+          "weighted_ssl_gradient_l2": 7.270270070549325,
+          "weighted_ssl_over_planning": 0.28330181326977705,
+          "gradient_cosine": -0.21689482397889856
+        },
+        "geometry_heads": {
+          "parameter_count": 1575944,
+          "planning_gradient_l2": 6.328206701994692,
+          "ssl_gradient_l2": 26.940753088913727,
+          "weighted_ssl_gradient_l2": 2.6940753088913727,
+          "weighted_ssl_over_planning": 0.4257249226770963,
+          "gradient_cosine": 0.12769921387615035
+        },
+        "appearance": {
+          "parameter_count": 2249680,
+          "planning_gradient_l2": 14.64486730180576,
+          "ssl_gradient_l2": 53.036665849432154,
+          "weighted_ssl_gradient_l2": 5.303666584943215,
+          "weighted_ssl_over_planning": 0.3621519045303508,
+          "gradient_cosine": -0.3708271365135635
+        },
+        "interaction": {
+          "parameter_count": 1522946,
+          "planning_gradient_l2": 11.39298439404354,
+          "ssl_gradient_l2": 35.458788084350275,
+          "weighted_ssl_gradient_l2": 3.5458788084350275,
+          "weighted_ssl_over_planning": 0.3112335351120886,
+          "gradient_cosine": -0.28160188518415985
+        }
+      },
+      "seconds": 44.93556475639343
+    },
+    {
+      "planning_token": "364dacc96e1f5bd2",
+      "ssl_clip_index": 1,
+      "ssl_loss": 34.38093185424805,
+      "groups": {
+        "encoder": {
+          "parameter_count": 45387744,
+          "planning_gradient_l2": 19.673154703407032,
+          "ssl_gradient_l2": 62.05440032268601,
+          "weighted_ssl_gradient_l2": 6.205440032268601,
+          "weighted_ssl_over_planning": 0.3154267897458221,
+          "gradient_cosine": 0.06476276871033304
+        },
+        "geometry_heads": {
+          "parameter_count": 1575944,
+          "planning_gradient_l2": 5.643224076085334,
+          "ssl_gradient_l2": 27.781131972400267,
+          "weighted_ssl_gradient_l2": 2.778113197240027,
+          "weighted_ssl_over_planning": 0.4922918458994074,
+          "gradient_cosine": -0.06113172147018421
+        },
+        "appearance": {
+          "parameter_count": 2249680,
+          "planning_gradient_l2": 8.085223714979572,
+          "ssl_gradient_l2": 43.8155378025631,
+          "weighted_ssl_gradient_l2": 4.3815537802563105,
+          "weighted_ssl_over_planning": 0.5419211557669782,
+          "gradient_cosine": 0.17884202663450788
+        },
+        "interaction": {
+          "parameter_count": 1522946,
+          "planning_gradient_l2": 7.953566251978847,
+          "ssl_gradient_l2": 26.43912423952252,
+          "weighted_ssl_gradient_l2": 2.6439124239522522,
+          "weighted_ssl_over_planning": 0.33241848250078343,
+          "gradient_cosine": 0.09094498960733265
+        }
+      },
+      "seconds": 35.902649879455566
+    }
+  ],
+  "device": "cpu",
+  "no_optimizer_step": true,
+  "unclipped": true,
+  "ssl_weight": 0.1,
+  "planning_batch": 1,
+  "ssl_batch": 1,
+  "scope": "Fixed two training samples, original resolution/ELBO; CPU execution diagnostic, not historical DDP gradients"
+}

@@ -1,0 +1,84 @@
+{
+  "purpose": "Does native-weight-frozen particle adaptation outperform destructive native planning adaptation under the same budget?",
+  "status": "configured_not_launched",
+  "reference": "outputs/four_model_small_corpus_v1/lpwm_sequential",
+  "output_directory": "outputs/small_corpus_frozen_adapter_control_v1",
+  "stage1_checkpoint": "outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt",
+  "initial_planner_state": "outputs/four_model_small_corpus_v1/lpwm_sequential/initial_common_planner.pt",
+  "adapter_bottleneck_dimension": 32,
+  "preserved_input_sha256": {
+    "outputs/four_model_small_corpus_v1/corpus/manifest.json": "d08760b560235353da8f297d7beee6807e772f36c7d42c6c1b2ae73548896394",
+    "outputs/four_model_small_corpus_v1/corpus/images.npy": "419ba3287102fcd89a5b95a12cb1a0b6721d456a4a8c18b938436be44af5ff5c",
+    "outputs/four_model_small_corpus_v1/corpus/ego.npy": "c589527cb65c90204a93e53fc2bc85f84d9a33c464286ec01a453b1131fc1754",
+    "outputs/four_model_small_corpus_v1/corpus/trajectory.npy": "c8c1909a339376b0ab550c771833dbd0de92b7ed02d1d6d17291a5308d7dd1d3",
+    "outputs/four_model_small_corpus_v1/corpus/trajectory_long.npy": "8b6280e8a794f502e001aeeb14127a54c8bd9728b8db0399c0cdbae5321d4215",
+    "outputs/four_model_small_corpus_v1/lpwm_ssl/latest.pt": "2c398befe652d6b883b8580129dcf8e66021bb32eb811746d01a972ec8281eb2",
+    "outputs/four_model_small_corpus_v1/lpwm_sequential/initial_common_planner.pt": "f7d144f50b670bace905e9b80a673e27b72a14624f75ed524ce43e71eb4b099f",
+    "scripts/train_small_corpus_common_planner.py": "caa46cc42534948e1a957940f846cd897a1403138388e794c7a4c2310ff058d2",
+    "src/planning_aware_future_prediction/object_centric/small_corpus_models.py": "366bdb366b4f40fcc99eff12a35e610c6a4ebb1903512053bd9841e977ec4197",
+    "scripts/lpwm_drivor_oracle.py": "4d89c9c99dee9f7545b76d6146bdc4a6a5d68933dde221b3a211aab63e3e4c9e",
+    "scripts/resume_small_corpus_scaled_batch.py": "ccdb00d93bbdf2e266c5f929c07826a7bb3f9d53498d1859be34146ff90624be",
+    "outputs/four_model_small_corpus_v1/lpwm_sequential/active_batch_execution.json": "e8faf04535ee745308c53fa1e81edd918c868409f225e9b25f14a76bfe4b3f9f",
+    "src/planning_aware_future_prediction/object_centric/lpwm_adapter_full_finetuning.py": "e52c996ad0e4611fc2d2c9d28d43ec11cd26e02654f8aabd2830ef5be86897be"
+  },
+  "planning_train_scenes": 10240,
+  "development_scenes": 1024,
+  "effective_batch": 16,
+  "microbatch_per_gpu": 2,
+  "accumulation_steps": 4,
+  "gpus": [
+    0,
+    1
+  ],
+  "planning_updates": 3200,
+  "epochs": 5,
+  "planning_presentations": 51200,
+  "warmup_updates": 160,
+  "adapter_learning_rate": 1e-05,
+  "planner_and_command_projection_learning_rate": 0.0001,
+  "optimizer": "AdamW weight_decay0.01; original cosine ending at0.1 LR factor",
+  "ssl_stage1_unique_clips": 10480,
+  "ssl_stage1_updates": 3275,
+  "ssl_stage1_clip_presentations": 52400,
+  "stage2_ssl_weight": 0,
+  "seed": 47,
+  "planner_seed": 4701,
+  "input": "front1; previous/current2 frames;512x256;crop28 top/bottom;cv2 linear",
+  "foreground_particles": 16,
+  "background_particles": 1,
+  "memory_shape": [
+    16,
+    256
+  ],
+  "validation_epochs": [
+    1,
+    3,
+    5
+  ],
+  "checkpoint_selection": "fixed epoch5",
+  "evaluation": "same original independent development1024; official NAVSIMv1; no navtest",
+  "whole_card_limit_bytes": 48000000000,
+  "native_lpwm_weights_and_buffers": "frozen; verify digest at every checkpoint",
+  "trainable": "added interaction/context/dynamics residual adapters; same command FiLM and projection; full common DrivoR planner",
+  "clarification": "Native weights frozen does not freeze represented states: added adapters and the retained command FiLM can change computations. Geometry CNN/heads remain frozen. This tests the adaptation strategy as a bundle, not particle causality.",
+  "physical_batch_schedule": [
+    {
+      "start_update": 0,
+      "end_update": 1937,
+      "microbatch_per_gpu": 2,
+      "accumulation": 4
+    },
+    {
+      "start_update": 1937,
+      "end_update": 3200,
+      "microbatch_per_gpu": 4,
+      "accumulation": 2
+    }
+  ],
+  "resume_policy": "Restore complete model/AdamW/scheduler/rank RNG at original1937 physical batch change; adapters consume RNG in a fork during setup.",
+  "adapter_parameter_count_verified": 360544,
+  "cpu_preflight": "outputs/small_corpus_planning_diagnosis_20261010/adapter_audit/preflight.json",
+  "launch_command": "env CUDA_VISIBLE_DEVICES=0,1 runtime/environments/kjs-lpwm-drivor-joint/bin/python -u scripts/queue_small_corpus_frozen_adapter.py --config /rhome/junseong/PlanningAwareFuturePrediction/configs/small_corpus_planning_diagnosis/frozen_adapter_control.json",
+  "interleaved_validation_policy": "train640 -> officialdevPDMS -> train1920 -> officialdevPDMS -> train1937 physicalbatchboundary -> train3200 -> officialdevPDMS",
+  "allocator_limit_bytes_per_process": 12000000000
+}

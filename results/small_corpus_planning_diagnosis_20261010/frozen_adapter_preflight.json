@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "device": "cpu",
+  "disposable_optimizer_steps": 1,
+  "diagnostic_weights_used_for_training": false,
+  "initial_proposals_maximum_difference": 6.556510925292969e-07,
+  "initial_common_planner_tensor_count": 241,
+  "native_weights_and_buffers_unchanged": true,
+  "native_gradient_count": 0,
+  "adapter_regions": {
+    "encoder_module.particle_inter_enc.pte": 1,
+    "ctx_module.pte": 4,
+    "dyn_module.particle_transformer": 6
+  },
+  "adapter_parameter_count": 360544,
+  "trainable_parameter_count": 17461854,
+  "gradient_groups": {
+    "adapters": 0.7051406057105729,
+    "command": 0.05448271735768141,
+    "projection": 10.019809387391765,
+    "generator": 42.83033447866294,
+    "scorer": 29.261054441746502
+  },
+  "planning_loss": 14.464742660522461,
+  "module_parameter_counts": {
+    "encoder": 45542272,
+    "context": 39502185,
+    "dynamics": 99553041
+  }
+}

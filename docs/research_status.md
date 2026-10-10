@@ -1,5 +1,11 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 2026-10-10 13:47 KST — 이전 축소 LPWM 저성능 진단 완료
+
+공통 3 epoch 개발셋 PDMS: DrivoR78.40/JEPA74.70/LPWM순차70.09/공동63.97. 별도 고정192장면에서 후보 최고97.8–98.6 대비 LPWM 선택67.79/63.36으로 선택 손실이 큰 것을 확인했다. 현재·미래·background·geometry/context 연결과 planning gradient는 정상 전달된다. 두 CPU 표본의 가중 SSL gradient는 planning의28–32%이며 항상 충돌하거나 SSL이 지배한다는 근거는 없다. Frozen-native adapter 대조는 동일 이전2단계 조건으로 구성하고 CPU 연결·native고정 검사를 완료했으며 본학습·대기열 기동은 하지 않았다. 현재25epoch 학습의286개 source는 불변이다.
+
+[전체 진단과 한계](lpwm_planning_experiment.md) · [결과 JSON](../results/small_corpus_planning_diagnosis_20261010/diagnosis.json)
+
 ## 2026-10-06: 세 경로 planning LoRA 본학습
 
 사용자가 선택한 geometry·appearance·future LoRA 조건을 시작했다.
