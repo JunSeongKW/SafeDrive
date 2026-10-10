@@ -4518,3 +4518,16 @@ LPWM의 NC·도로 준수·TTC 평균×100은 각각 96.39→97.56, 91.60→94.4
 누적5,608/29,425, epoch5 900/1,177(76.5%), 잔여277update. 최근50–500update 평균14.66–15.19초로 순수학습17:50–18:00KST, 기존 내부dev검증17:55–18:05 추정. 이전3/4epoch 저장→검증149.9/144.6초. 현속도조건부이며 새 common NAVTEST 비교 예약은 아니다.
 
 원code/config/25epoch queue는변경하지않고새평가도예약하지않았다. 근거 `results/lpwm_front_history_stage1_lora_v1/epoch5_completion_eta_20261010_1642.json`.
+
+
+## 2026-10-10 17:59 KST — 5 epoch 학습·내부 검증 완료
+
+5epoch 5,885update 학습17:51·저장17:51:16·자동내부검증17:53완료. 내부dev1,021 PDMS 83.9882(동일dev4epoch 81.8300 대비+2.1582), ADE/FDE 1.7463/4.2489m. 공통NAVTEST1,024 또는전체NAVTEST점수아님.
+
+| 동일 내부dev | Epoch4 | Epoch5 |
+|---|---:|---:|
+| PDMS | 81.8300 | 83.9882 |
+| ADE (m) | 2.0900 | 1.7463 |
+| FDE (m) | 5.2255 | 4.2489 |
+
+명령별기존검증집계: `{"0": {"count": 227, "pdms": 84.18526640153014}, "1": {"count": 667, "pdms": 85.21908608347964}, "2": {"count": 127, "pdms": 77.17129017531327}}`(0좌/1직진/2우). native불변·실행·유한성gate통과, 원25epochqueue는6epoch학습에진입했다. 12scene미래반복개입 ADE+.2348m은미래분기사용검사이며미래정확성/추가효용입증이아니다. 새로운학습·평가·대조군예약없음. 근거 `results/lpwm_front_history_stage1_lora_v1/epoch5_completion_status_20261010_1759.json`.

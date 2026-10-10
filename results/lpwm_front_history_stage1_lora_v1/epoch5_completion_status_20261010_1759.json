@@ -1,0 +1,74 @@
+{
+  "recorded_at_kst": "2026-10-10T17:59:06.777306+09:00",
+  "epoch": 5,
+  "completed_updates_at_epoch_end": 5885,
+  "checkpoint_saved_at_kst": "2026-10-10T17:51:16.736407+09:00",
+  "validation_completed_at_kst": "2026-10-10T17:53:52.143930+09:00",
+  "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_05.pt",
+  "checkpoint_exists": true,
+  "internal_development_validation": {
+    "complete": true,
+    "count": 1024,
+    "audit_only": false,
+    "ade_meters": 1.7462801933288574,
+    "fde_meters": 4.2488837242126465,
+    "persistent_future_ade_difference_12scenes_meters": 0.23475682735443115,
+    "future_intervention_scope": "future use, not actual future correctness",
+    "world_diagnostic_count": 16,
+    "world_means": {
+      "stage1": {
+        "reconstruction_mse": 0.008039972046390176,
+        "future_mse": 0.01871084945742041
+      },
+      "stage2": {
+        "reconstruction_mse": 0.007990439073182642,
+        "future_mse": 0.018561778764706105
+      }
+    },
+    "frozen_native_unchanged": true,
+    "same_dev_panel_as_historical_2stage": true,
+    "passed_execution_and_finiteness": true,
+    "pdms": 83.9881877993076,
+    "pdms_count": 1021,
+    "failed": 0,
+    "excluded_missing_caches": [
+      "289338b093215c65",
+      "3ed0712647875d2d",
+      "aae6d4e099dd565c"
+    ],
+    "mean_metrics": {
+      "no_at_fault_collisions": 0.9764936336924583,
+      "drivable_area_compliance": 0.9480901077375122,
+      "ego_progress": 0.7566567618356839,
+      "time_to_collision_within_bound": 0.9363369245837414,
+      "comfort": 0.9990205680705191,
+      "driving_direction_compliance": 0.9549461312438785,
+      "score": 0.8398818779930759
+    },
+    "benchmark_scope": "previously exposed internal navtrain development subset, not full navtest",
+    "gate_scope": "execution/finite-output/frozen-native; no arbitrary particle-movement or object-box quality threshold",
+    "learning_quality_requires_review": true
+  },
+  "previous_epoch4_internal_development_pdms": 81.83002594946208,
+  "internal_development_pdms_change": 2.158161849845513,
+  "by_command": {
+    "0": {
+      "count": 227,
+      "pdms": 84.18526640153014
+    },
+    "1": {
+      "count": 667,
+      "pdms": 85.21908608347964
+    },
+    "2": {
+      "count": 127,
+      "pdms": 77.17129017531327
+    }
+  },
+  "command_source": "official cached ego[7:11], matching lpwm_drivor_joint.py; 0 left, 1 straight, 2 right, 3 other",
+  "current_queue_status": "training_epoch_06",
+  "current_completed_updates": 5903,
+  "common_navtest_epoch5_comparison_complete": false,
+  "new_training_or_evaluation_launched": false,
+  "training_configuration_unchanged": true
+}
