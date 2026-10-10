@@ -4582,3 +4582,25 @@ Frozen encoder 실제 feature 캐시 및 official PF planner 재사용 경로, 2
 **Soft reweighting 해석 범위:** 실제 A/B/C 공통 frozen cache 비교이며 공개full planning encoder+planner checkpoint에서 추가 적응했다. C가A를 개선한다는 증거 없음. C−B 상승을 조건부 객체중요도 발견으로 부르지 않는다: C bias를끄거나섞어도 출력/점수차이는극미량이고 중요도는거의균일하다. 8×16 공간 index는 전역 ViT/planner encoder가 정보를 섞은 anchor이며 객체/인과적 픽셀 마스크가 아니다. 표본CI는seed분산을포함하지않음. NAVSIMv1부분navval/EPDMS미적용. Profile raw total-time 필드오류는 results의measurement_notes에 정정; 개별step/학습시간/실제score 영향없음.
 
 재실행: `/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python scripts/run_soft_token_reweighting_suite.py --config configs/soft_token_reweighting/pilot_v1.json --replay-id rerun_001`. 과거 실행 결과는 덮어쓰지 않는다.
+
+
+## 2026-10-11 02:17 KST — Normalized soft token importance pilot
+
+**2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
+`outputs/soft_token_reweighting_normalized_v2/` suite3928089는 모든 단계 완료 후 종료. GPU0에서 기존 실제128×1024 FP32 encoder cache/공통 planner 초기값·batch schedule 재사용, A/B/C 각1000update. 기존 LPWM25epoch는7852/29425(epoch7)에서 계속하며 등록289 source/config 불변. 이전실험/대규모학습을 추가 기동하지 않는다.
+
+**2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
+부분 navval1000 PDMS A85.6691/B86.6783/C85.4146. C−A −0.2545점, recording bootstrap95%[−1.12484,+0.76274]. C bias0 85.414386/shuffle85.414421. bias std .00057546→.09818598(약171배), QK대비 .02515%→4.28702%, OFF평균waypoint이동 .269mm로 driving이득미확인. 명령 변경 중요도 상대효과 .212%. 검증6종+추가CPU4검사 통과/5000채점실패0. 학습.048351GPUh/전체suite479.86초/카드최대41.9567GB. [results/soft_token_reweighting_normalized_v2/normalization_comparison.md](results/soft_token_reweighting_normalized_v2/normalization_comparison.md).
+
+**2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
+ConditionalTokenImportance에 opt-in valid-token population std 정규화(std+1e-6)만 추가. default false로v1보존. suite의 읽기전용cache재사용·config/SHA통제·현재실제샘플ON/OFF검사·상수/단일valid 안정성검사·전후/동일C개입PNG/명령변경PNG 구현. config `configs/soft_token_reweighting/pilot_normalized_v2.json`; tests/test_normalized_token_importance.py 4통과. 실험후 report helper에 baseline재현변동 해석만 보강, 실행science source/config와원래v1산출물불변.
+
+**2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
+승인된 정규화-only pilot은 완료. 추가 sweep/seed/전체학습 자동등록 없음. 다음제안 하나는 연산재현성 검증후같은A/B/C를추가seed에서반복하는것; 미실행. 기존 LPWM25epoch와정기검증은기존승인대로유지. 새실험해석/재현진입점 `results/soft_token_reweighting_normalized_v2/normalization_comparison.md`.
+
+**2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
+navtrain10000/navval1000, 단일seed0/batch32/1000step/공개PF planner부터추가적응. 이번유일모델변경은B/C importance출력정규화이며추가loss/encoderFT없음. A도87.2890→85.6691로재실행변동: 동일초기상태/배치/초기예측확인,update3부터loss2.235e-8차이가증폭;정확kernel원인미분리/엄격결정성설정없음. 이전→이번점수차이를정규화단독효과로귀속불가. CI에학습seed/재실행변동미포함. 중요도비균일은정규화로생길수있어학습의미/객체인과중요도증거아님. 최초nohup은작업시작전종료했고독립세션재실행으로정상완료,이력보존.
+
+재실행: `/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python scripts/run_soft_token_reweighting_suite.py --config configs/soft_token_reweighting/pilot_normalized_v2.json --replay-id rerun_001`
+
+기본 모델(정규화 없음) 동작은 유지. 새 feature 추출 없이 기존 read-only cache 사용/이번cache생성0초. 원래학습source hash와data·initial·schedule의SHA검증통과. CLI suite완료후compare reporter의재현성분석문구만수정/별도CPU재실행했고비교PNG실물확인.

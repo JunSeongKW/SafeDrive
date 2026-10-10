@@ -1,0 +1,6 @@
+{
+  "first_different_training_loss_step": 3,
+  "first_loss_difference": 2.2351741790771484e-08,
+  "strict_deterministic_algorithms_configured": false,
+  "interpretation": "Identical seed/initial weights/schedule do not yield bitwise replay. Tiny early floating-point differences amplify; exact kernel cause was not isolated. Between-run score differences include replay variation."
+}

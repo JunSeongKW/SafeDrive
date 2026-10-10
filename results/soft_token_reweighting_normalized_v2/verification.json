@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "cpu": true,
+  "beta_zero_prediction_max_difference": 5.7220458984375e-06,
+  "beta_zero_loss_difference": 0.0,
+  "gradient_norms": {
+    "importance": 0.027081673964858055,
+    "planner": 14.946341514587402
+  },
+  "initial_beta": 0.10000000149011612,
+  "initial_bias_quantiles": [
+    -0.27372995018959045,
+    -0.2208191305398941,
+    -0.003239947371184826,
+    0.20473068952560425,
+    0.26260411739349365
+  ],
+  "encoder_forward_calls_in_cached_training": 0,
+  "encoder_gradient": null,
+  "invalid_attention_max": 0.0,
+  "synthetic_bias_broadcast_shape": [
+    16,
+    8,
+    4
+  ],
+  "synthetic_bias_increases_attention": true,
+  "padding_content_invariance": true,
+  "same_native_initial_state": true,
+  "same_unconditioned_conditioned_module_parameters": true,
+  "unconditioned_importance_ego_invariance": true,
+  "original_to_cache": [
+    {
+      "tokens": [
+        "2991b6c6ca595856",
+        "6d18132d792b51fc",
+        "15c91dcebf5455b2",
+        "d6e09dfdcaed5bb0"
+      ],
+      "feature_max_difference": 0.0,
+      "prediction_max_difference": 1.9073486328125e-06
+    },
+    {
+      "tokens": [
+        "54ced13f54d45595",
+        "b182afe96eff545c",
+        "0ef905cf005e5c7f",
+        "9f95591656ee5812"
+      ],
+      "feature_max_difference": 0.0,
+      "prediction_max_difference": 1.9073486328125e-06
+    }
+  ],
+  "raw_official_builder_target_checks": [
+    {
+      "token": "2991b6c6ca595856",
+      "raw_image_preprocessing_max_difference": 0,
+      "ego_status_max_difference": 0,
+      "gt_trajectory_max_difference": 8.304321070795595e-07
+    },
+    {
+      "token": "6d18132d792b51fc",
+      "raw_image_preprocessing_max_difference": 0,
+      "ego_status_max_difference": 0,
+      "gt_trajectory_max_difference": 1.7399405365381426e-06
+    },
+    {
+      "token": "15c91dcebf5455b2",
+      "raw_image_preprocessing_max_difference": 0,
+      "ego_status_max_difference": 0,
+      "gt_trajectory_max_difference": 3.2274171424262477e-07
+    },
+    {
+      "token": "54ced13f54d45595",
+      "raw_image_preprocessing_max_difference": 0,
+      "ego_status_max_difference": 0,
+      "gt_trajectory_max_difference": 1.5617770365849992e-07
+    },
+    {
+      "token": "b182afe96eff545c",
+      "raw_image_preprocessing_max_difference": 0,
+      "ego_status_max_difference": 0,
+      "gt_trajectory_max_difference": 3.759365068134457e-07
+    },
+    {
+      "token": "0ef905cf005e5c7f",
+      "raw_image_preprocessing_max_difference": 0,
+      "ego_status_max_difference": 0,
+      "gt_trajectory_max_difference": 6.254296351926314e-07
+    }
+  ],
+  "atol": 2e-05,
+  "rtol": 2e-05,
+  "dropout": 0.0,
+  "normalization": {
+    "valid_population_std": [
+      0.9993218779563904,
+      0.9991748332977295,
+      0.9992547035217285
+    ],
+    "epsilon": 1e-06,
+    "attention_mean_absolute_change": 0.0004008411488030106,
+    "attention_max_absolute_change": 0.026149749755859375,
+    "waypoint_mean_change_meters": 0.0003325392317492515,
+    "waypoint_max_change_meters": 0.0013524232199415565,
+    "one_valid_token_zero_output_finite_gradient": true,
+    "scope": "three fixed training samples before training; not evidence of improved planning"
+  }
+}

@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.** valid-token std 정규화 외 조건 동일. navval1000 PDMS A85.67/B86.68/C85.41; bias는171배 커졌으나 C 개입 영향·planning 이득은미미. A재실행변동과해석한계포함 [비교보고서](results/soft_token_reweighting_normalized_v2/normalization_comparison.md). 기존 LPWM학습은계속한다.
+
 **2026-10-11 01:35 KST — frozen-token soft reweighting pilot 완료.** 공식 Drive-JEPA PF의 고정128×1024 feature 캐시/공통 seed0·batch32·1000update에서 navval1000 PDMS A87.29/B85.19/C87.28. C의 beta0/shuffle도 동일해 추가 bias 효용은 확인되지 않았다. 검증 통과·학습합계0.0476 GPUh·결과/시각화/재실행은 [보고서](results/soft_token_reweighting_v1/report.md). 기존 LPWM25epoch는 계속한다.
 
 **2026-10-09 18:24 KST — 사용자 요청으로 서버 종료 후 같은 Stage2 학습 재개.**

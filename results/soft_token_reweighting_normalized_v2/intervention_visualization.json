@@ -1,0 +1,18 @@
+{
+  "selection": "same first validation scene per command as v1, not selected for effect",
+  "tokens": [
+    "54ced13f54d45595",
+    "0ef905cf005e5c7f",
+    "92a43114965e51d3"
+  ],
+  "bias_shared_color_limit": 0.2886952757835388,
+  "attention_difference_color_limit": 0.005763150751590729,
+  "command_difference_color_limit": 0.0010138079524040222,
+  "mean_absolute_attention_on_off_difference": 0.0003786164743360132,
+  "maximum_absolute_attention_on_off_difference": 0.005763150751590729,
+  "mean_waypoint_on_off_change_meters": 0.00024976301938295364,
+  "maximum_command_bias_change_from_straight": 0.0010138079524040222,
+  "mean_command_attention_change_from_straight": 5.676908472196374e-07,
+  "mean_command_waypoint_change_from_straight_meters": 4.6473601855723246e-07,
+  "scope": "three fixed validation scenes only; grid anchors are not detected objects; not a planning-benefit test"
+}

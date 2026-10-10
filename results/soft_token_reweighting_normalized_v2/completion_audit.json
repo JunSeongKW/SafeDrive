@@ -1,0 +1,56 @@
+{
+  "complete": true,
+  "scientific_sources_unchanged_since_profile": true,
+  "old_v1_outputs_preserved": true,
+  "same_read_only_encoder_cache": true,
+  "existing_lpwm_sources_checked": 289,
+  "existing_lpwm_source_mismatches": [],
+  "requested_verification_passed": true,
+  "additional_normalization_tests_passed": 4,
+  "evaluated_cases": [
+    [
+      "baseline",
+      "normal",
+      1000,
+      0
+    ],
+    [
+      "unconditioned",
+      "normal",
+      1000,
+      0
+    ],
+    [
+      "conditioned",
+      "normal",
+      1000,
+      0
+    ],
+    [
+      "conditioned",
+      "beta_zero",
+      1000,
+      0
+    ],
+    [
+      "conditioned",
+      "shuffle",
+      1000,
+      0
+    ]
+  ],
+  "actual_optimizer_updates": 3000,
+  "source_sha256": {
+    "configs/soft_token_reweighting/pilot_normalized_v2.json": "c40fc6b920466ac686169222227f10bb835865b6a9dd40e688c18c3ba075d178",
+    "src/planning_aware_future_prediction/models/soft_token_reweighting.py": "1deddbc2edaee6e2702359c0a46fff441385dc43143f9074c06b7f0bfa608df1",
+    "scripts/run_soft_token_reweighting.py": "5eaa89e72139bd43d16f2889bffd95b9d6758c29017e919dae7593a73262d998",
+    "scripts/run_soft_token_reweighting_suite.py": "959aa9a27dbde5476c0af977c1a70bedc92b8202f340394ecbfb27d21c56c5a9",
+    "scripts/diagnose_soft_token_reweighting.py": "5ded0af9935b602b623a6fe6825f2c0e526a6c00ea624260e1f701808a5a7d48",
+    "scripts/compare_normalized_soft_token_reweighting.py": "86b527de3e123b915c2b2cd35ff5144dc76efc03a8cadd1eed95e2c71ef0d553",
+    "tests/test_normalized_token_importance.py": "8f1e2738503a82100169feab6ae8c8ba5c490a510e076fb639ceae12ac556855"
+  },
+  "report_only_followup": "After suite completion, comparison reporter was extended to record baseline replay variability. Training model/main runner/config stayed unchanged. Original executed source snapshots are retained in output/source_snapshot.",
+  "training_gpu_hours": 0.04835119626611736,
+  "maximum_observed_whole_card_bytes": 41956671488,
+  "initial_launch": "First shell nohup process exited without starting work; preserved attempt log. Detached session then completed normally."
+}

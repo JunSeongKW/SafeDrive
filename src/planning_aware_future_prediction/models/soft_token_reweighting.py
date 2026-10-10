@@ -29,8 +29,13 @@ def token_coordinates():
 
 
 class ConditionalTokenImportance(nn.Module):
-    def __init__(self, feature_dimension=1024, hidden_dimension=128):
+    def __init__(self, feature_dimension=1024, hidden_dimension=128,
+                 normalize_importance=False, normalization_epsilon=1e-6):
         super().__init__()
+        self.normalize_importance = normalize_importance
+        self.normalization_epsilon = normalization_epsilon
+        if normalization_epsilon <= 0:
+            raise ValueError("normalization_epsilon must be positive")
         self.feature_normalization = nn.LayerNorm(feature_dimension)
         self.ego_embedding = nn.Sequential(nn.Linear(8, 32), nn.SiLU())
         self.importance_mlp = nn.Sequential(
@@ -56,7 +61,17 @@ class ConditionalTokenImportance(nn.Module):
         importance = self.importance_mlp(module_input).squeeze(-1)
         # Remove the unidentifiable scene-wide offset without detaching gradients.
         valid_mean = (importance * valid_token_mask).sum(1, keepdim=True) / valid_token_mask.sum(1, keepdim=True)
-        return (importance - valid_mean).masked_fill(~valid_token_mask, 0)
+        centered_importance = (importance - valid_mean).masked_fill(~valid_token_mask, 0)
+        if self.normalize_importance:
+            # Population std across valid tokens; vector_norm has a finite
+            # derivative at a constant/one-valid-token input. No detach or
+            # additional parameters. Preserve the original centering above.
+            valid_count = valid_token_mask.sum(1, keepdim=True).to(importance.dtype)
+            standard_deviation = torch.linalg.vector_norm(
+                centered_importance, dim=1, keepdim=True) / valid_count.sqrt()
+            centered_importance = centered_importance / (
+                standard_deviation + self.normalization_epsilon)
+        return centered_importance
 
 
 def cross_attention_bias(visual_importance, valid_token_mask, beta, head_count, query_count):
@@ -70,13 +85,16 @@ def cross_attention_bias(visual_importance, valid_token_mask, beta, head_count, 
 
 
 class CachedTokenPlanner(nn.Module):
-    def __init__(self, planner_components, condition="baseline"):
+    def __init__(self, planner_components, condition="baseline",
+                 normalize_importance=False, normalization_epsilon=1e-6):
         super().__init__()
         if condition not in {"baseline", "unconditioned", "conditioned"}:
             raise ValueError(condition)
         self.planner = planner_components
         self.condition = condition
-        self.importance = None if condition == "baseline" else ConditionalTokenImportance()
+        self.importance = None if condition == "baseline" else ConditionalTokenImportance(
+            normalize_importance=normalize_importance,
+            normalization_epsilon=normalization_epsilon)
         self.register_buffer("positions", token_coordinates())
         self.last_importance = None
         self.last_attention = None

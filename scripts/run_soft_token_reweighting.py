@@ -295,7 +295,10 @@ def model_from_initial(output, condition, device="cpu"):
     seed_everything(0)
     components = torch.load(output / "initial_planner.pt", map_location="cpu")
     components.requires_grad_(True)
-    return CachedTokenPlanner(components, condition).to(device)
+    configuration = read_json(output / "configuration.json")
+    return CachedTokenPlanner(components, condition,
+        normalize_importance=configuration.get("normalize_importance", False),
+        normalization_epsilon=configuration.get("normalization_epsilon", 1e-6)).to(device)
 
 
 def prediction_from_minibatch(model, minibatch, **options):
@@ -433,6 +436,40 @@ def verify(configuration, output):
         "unconditioned_importance_ego_invariance": True, "original_to_cache": metadata["raw_vs_cache_checks"],
         "raw_official_builder_target_checks": raw_target_checks,
         "atol": 2e-5, "rtol": 2e-5, "dropout": 0.0}
+    if configuration.get("normalize_importance", False):
+        # Actual cached TRAIN samples only. These are pre-training mechanism
+        # checks, not a validation-score selection rule.
+        modified.eval()
+        with torch.no_grad():
+            normalized_prediction = prediction_from_minibatch(modified, observations, capture_attention=True)
+            normalized_attention = modified.last_attention.clone()
+            normalized_importance = modified.last_importance.clone()
+            zero_prediction = prediction_from_minibatch(modified, observations,
+                intervention="beta_zero", capture_attention=True)
+            attention_difference = (normalized_attention-modified.last_attention).abs()
+            trajectory_difference = (normalized_prediction[..., :2]-zero_prediction[..., :2]).norm(dim=-1)
+            output_std = normalized_importance.std(1, unbiased=False)
+            assert ((output_std > .99) & (output_std <= 1.00001)).all()
+            assert attention_difference.max() > 1e-6
+            assert trajectory_difference.max() > 1e-5
+            identical = {name: tensor[:1].clone() for name, tensor in observations.items()}
+            identical["valid_token_mask"][:] = False
+            identical["valid_token_mask"][:, 0] = True
+        modified.zero_grad(set_to_none=True)
+        single_prediction = prediction_from_minibatch(modified, identical)
+        official_loss(single_prediction, identical["trajectory"]).backward()
+        assert torch.isfinite(single_prediction).all()
+        assert (modified.last_importance == 0).all()
+        assert all(parameter.grad is None or torch.isfinite(parameter.grad).all()
+                   for parameter in modified.parameters())
+        result["normalization"] = {
+            "valid_population_std": output_std.tolist(), "epsilon": configuration["normalization_epsilon"],
+            "attention_mean_absolute_change": float(attention_difference.mean()),
+            "attention_max_absolute_change": float(attention_difference.max()),
+            "waypoint_mean_change_meters": float(trajectory_difference.mean()),
+            "waypoint_max_change_meters": float(trajectory_difference.max()),
+            "one_valid_token_zero_output_finite_gradient": True,
+            "scope": "three fixed training samples before training; not evidence of improved planning"}
     write_json(output / "verification.json", result)
     print(json.dumps(result), flush=True)
 
@@ -487,6 +524,12 @@ def profile(configuration, output):
     np.save(output / "training_schedule.npy", np.asarray(schedule))
     execution["schedule_sha256"] = sha256(output / "training_schedule.npy")
     execution["initial_planner_sha256"] = sha256(output / "initial_planner.pt")
+    execution["configuration_sha256"] = sha256(output / "configuration.json")
+    if configuration.get("reuse_inputs_from"):
+        previous = PROJECT_ROOT / configuration["reuse_inputs_from"]
+        assert execution["schedule_sha256"] == sha256(previous / "training_schedule.npy")
+        assert execution["initial_planner_sha256"] == sha256(previous / "initial_planner.pt")
+        execution["same_previous_training_schedule_and_initial_planner"] = True
     execution["source_sha256"] = scientific_source_hashes()
     execution["profiling_seconds"] = time.perf_counter()-started
     write_json(output / "execution.json", execution)
@@ -512,6 +555,7 @@ def train(configuration, output, condition):
     setup_official()
     gpu_setup(configuration)
     execution = read_json(output / "execution.json")
+    assert execution["configuration_sha256"] == sha256(output / "configuration.json")
     assert execution["source_sha256"] == scientific_source_hashes(), "Scientific source changed after profiling"
     assert sha256(output / "initial_planner.pt") == execution["initial_planner_sha256"]
     assert sha256(output / "training_schedule.npy") == execution["schedule_sha256"]
@@ -938,7 +982,7 @@ def report(configuration, output):
     else:
         lines.append("C−A의 기록단위 구간이0을 포함한다. 이 pilot으로 조건부 reweighting의 성능 향상을 확정할 수 없다. 평균차이와 seed간 불확실성을 구분해야 한다.")
     lines += ["C−B는 ego조건의 추가 이득을, C의 beta0/valid-token shuffle은 학습된 bias 사용 여부를 검사한다. 이 개입은 재학습 대조가 아니며 분포 변화 효과를 포함한다. 높은 entropy는 균일한 bias, 작은 command상대효과는 약한 명령 의존을 시사하며 객체 이해의 증거가 아니다."]
-    if "bias_scale_and_ego_sensitivity" in result:
+    if "bias_scale_and_ego_sensitivity" in result and not configuration.get("normalize_importance", False):
         diagnostic = result["bias_scale_and_ego_sensitivity"]
         sensitivity = diagnostic["trajectory_sensitivity"]["beta_zero"]
         lines += [
@@ -947,6 +991,8 @@ def report(configuration, output):
             f"명령만 바꿀 때 중요도 변화는 원 분포 표준편차의 약 {result['models']['conditioned']['prediction']['diagnostics']['command_only_counterfactual_relative_to_importance_std']*100:.3f}%, ego8개 값을 장면 간 섞을 때 장면별 상대변화 평균은 {diagnostic['ego_permutation_mean_change_relative_to_importance_std']*100:.3f}%였다. 입력 의존성이 약하게 측정됐으나, 완전히 무시한다고 단정할 수는 없다. 섞은 ego는 해당 영상과 맞지 않을 수 있어 인과적 성능 검사로 해석하지 않는다.",
             "추정: 현재 bias의 크기가 작아 기존 content attention을 실질적으로 바꾸지 못한 것이 직접적인 제한 요인일 수 있다. 작은 초기 출력층, 이미 학습된 planner와의 공동 최적화, 시각 feature의 전역 혼합 중 무엇이 원인인지는 이번 실험만으로 구분하지 못했다. B와 C는 학습 후 planner 가중치도 다르므로 점수 차이를 추론 중 중요도 배치의 기여로 설명할 수 없다. 조건부 객체 중요도를 배웠다는 증거는 확인하지 못했다.",
             "다음 실험 하나: valid token 사이에서 중요도 r의 표준편차를 정규화해 beta=0.1이 실제 약0.1 logit 규모가 되도록 한 A/B/C 통제 pilot. 데이터·seed·초기 planner·batch·step·loss를 유지하고 bias의 기능적 사용과 PDMS를 다시 검사한다. 추가 정규화 loss나 hard selection을 도입하는 제안은 아니며, 이번 작업에서는 실행하지 않았다."]
+    elif configuration.get("normalize_importance", False):
+        lines += ["이번 조건은 기존 valid-token 평균 제거 후 population 표준편차+1e-6으로 나누는 정규화만 추가했다. 정규화 이전 pilot과의 비교·개입·해석은 normalization_comparison.md 및 normalization_comparison.json을 참조한다. 정규화로 분포가 비균일해지는 것 자체는 학습된 의미의 증거가 아니다."]
     else:
         lines += ["다음 실험 하나: 같은 A/B/C 조건의 추가2seed 반복으로 효과의 방향과 분산을 확인한다. 이번 작업에서는 실행하지 않았다."]
     lines += [
@@ -958,6 +1004,8 @@ def report(configuration, output):
         "```", "", "캐시 및 checkpoint는 outputs/soft_token_reweighting_v1, 공유 수치/검증/manifest/그림은 results/soft_token_reweighting_v1에 있다."]
     if "measurement_notes" in result:
         lines += ["", "## 측정 기록 정정", "", result["measurement_notes"]["description"]]
+    if configuration.get("normalize_importance", False):
+        lines += ["", "## 이번 정규화 조건의 실행·비용", "", "입력 캐시와 subset은 기존 v1에서 읽기 전용 재사용했다. 위 캐시 생성 시간은 이전 실험 비용이며 이번 생성 비용은0초다. 실제 해시 검증 비용은 input_reuse.json에 기록한다.", "", "```bash", "python scripts/run_soft_token_reweighting_suite.py --config configs/soft_token_reweighting/pilot_normalized_v2.json --replay-id rerun_001", "```", "", "이전 v1 실행 명령은 정규화 없는 원 비교군의 재현용이다."]
     (results_directory / "report.md").write_text("\n".join(lines)+"\n")
     print(json.dumps({"complete": True, "training_gpu_hours": training_total/3600, "results": str(results_directory)}), flush=True)
 

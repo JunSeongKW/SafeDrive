@@ -1,0 +1,44 @@
+{
+  "common_steps": 1000,
+  "common_batch_size": 32,
+  "profile": {
+    "baseline": {
+      "mean_step_seconds": 0.029163691601570462,
+      "p95_step_seconds": 0.03440654934383929,
+      "peak_allocated_bytes": 348482048,
+      "peak_reserved_bytes": 494927872,
+      "whole_card_used_bytes": 41914728448
+    },
+    "unconditioned": {
+      "mean_step_seconds": 0.024666790600167587,
+      "p95_step_seconds": 0.03493674689816544,
+      "peak_allocated_bytes": 394392064,
+      "peak_reserved_bytes": 509607936,
+      "whole_card_used_bytes": 41929408512
+    },
+    "conditioned": {
+      "mean_step_seconds": 0.037468840201472633,
+      "p95_step_seconds": 0.04250128044295708,
+      "peak_allocated_bytes": 394554880,
+      "peak_reserved_bytes": 507510784,
+      "whole_card_used_bytes": 41927311360
+    }
+  },
+  "estimated_total_training_gpu_seconds": 167.7668650274427,
+  "profile_weights_discarded": true,
+  "training_restarts_from_initial_checkpoint": true,
+  "maximum_training_gpu_seconds": 10800,
+  "schedule_sha256": "4a664055f079db78d770ce99672c5f301907638e037228c08f2347e3cc2aa600",
+  "initial_planner_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+  "configuration_sha256": "c40fc6b920466ac686169222227f10bb835865b6a9dd40e688c18c3ba075d178",
+  "same_previous_training_schedule_and_initial_planner": true,
+  "source_sha256": {
+    "scripts/run_soft_token_reweighting.py": "5eaa89e72139bd43d16f2889bffd95b9d6758c29017e919dae7593a73262d998",
+    "src/planning_aware_future_prediction/models/soft_token_reweighting.py": "1deddbc2edaee6e2702359c0a46fff441385dc43143f9074c06b7f0bfa608df1",
+    "configs/soft_token_reweighting/pilot_v1.json": "f7b81493dc91feee7eaaaaeb87b1f778017fa00c30834b61e735cc01f777d08d",
+    "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_model.py": "7a02015d0b92ca15297bc31cda11a00465e1911f21e561514cf529797068f3d5",
+    "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_agent.py": "cf3d93da54aa0a478b2fca12e50fc2d90fddfc611ffc5e861051a5ba101aa710",
+    "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_features.py": "b0000a69977209bf8f71b2f6c1bcb90464ca97d32414362cade9a32ec34d5c6f"
+  },
+  "profiling_seconds": 16.52871964899532
+}

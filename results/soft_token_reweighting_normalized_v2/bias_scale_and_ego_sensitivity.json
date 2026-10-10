@@ -1,0 +1,38 @@
+{
+  "no_additional_training": true,
+  "scenes": 1000,
+  "mean_content_qk_logit_std": 2.3553291598558426,
+  "mean_learned_bias_std": 0.09818598382174969,
+  "mean_bias_to_content_std_ratio": 0.04287017645918135,
+  "ego_permutation_mean_absolute_importance_change": 0.0076707488790998465,
+  "ego_permutation_mean_change_relative_to_importance_std": 0.007671938029261458,
+  "dynamic_only_permutation_mean_change_relative_to_importance_std": 0.007452721326569759,
+  "counterfactual_scope": "Only importance inputs are changed; scene tokens and native decoder ego are held fixed. Permuted ego can be out-of-distribution.",
+  "entropy_precision_audit": {
+    "unconditioned": {
+      "normalized_entropy_float64_mean": 0.9989700128264872,
+      "mean_probability_coefficient_of_variation": 0.10026022175610481,
+      "maximum_probability_divided_by_uniform": 1.7630678885948399,
+      "note": "Entropy recomputed in FP64; higher entropy means a more uniform importance-only distribution"
+    },
+    "conditioned": {
+      "normalized_entropy_float64_mean": 0.9990183705963379,
+      "mean_probability_coefficient_of_variation": 0.0975120533401985,
+      "maximum_probability_divided_by_uniform": 1.5148481151814615,
+      "note": "Entropy recomputed in FP64; higher entropy means a more uniform importance-only distribution"
+    }
+  },
+  "trajectory_sensitivity": {
+    "beta_zero": {
+      "mean_waypoint_change_meters": 0.0002690017281565815,
+      "maximum_waypoint_change_meters": 0.013645175844430923,
+      "mean_endpoint_change_meters": 0.0006803037249483168
+    },
+    "shuffle": {
+      "mean_waypoint_change_meters": 0.0003165157395415008,
+      "maximum_waypoint_change_meters": 0.020111801102757454,
+      "mean_endpoint_change_meters": 0.0008610530057922006
+    }
+  },
+  "seconds": 6.128961213995353
+}

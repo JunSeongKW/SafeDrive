@@ -71,7 +71,7 @@ def run(arguments):
             "normalized_entropy_float64_mean": float(entropy.mean()),
             "mean_probability_coefficient_of_variation": float((probabilities.std(-1)/probabilities.mean(-1)).mean()),
             "maximum_probability_divided_by_uniform": float((probabilities*128).max()),
-            "note": "Original FP32 entropy rounds to1; distribution is nearly uniform but not exactly constant"}
+            "note": "Entropy recomputed in FP64; higher entropy means a more uniform importance-only distribution"}
     native_predictions = np.load(output / "conditioned/predictions_normal.npz")["trajectories"]
     interventions = {}
     for mode in ("beta_zero", "shuffle"):

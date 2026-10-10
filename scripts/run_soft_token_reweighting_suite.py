@@ -1,15 +1,48 @@
 """Finite authorized pilot; validation gates, common profile, A/B/C, evaluation."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
 import subprocess
+import shutil
 import sys
 import time
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TRAIN_PYTHON = "/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python"
 EVALUATION_PYTHON = str(PROJECT_ROOT / "runtime/environments/drive_jepa_official_evaluation/bin/python")
+
+
+def reuse_verified_inputs(configuration, output):
+    """Reuse actual encoder outputs; never write into the original cache."""
+    source = PROJECT_ROOT / configuration["reuse_inputs_from"]
+    previous = json.loads((source / "configuration.json").read_text())
+    allowed_changes = {"output_directory", "results_directory", "reuse_inputs_from",
+        "normalize_importance", "normalization_epsilon", "research_question"}
+    changed = [key for key in set(previous) | set(configuration)
+               if previous.get(key) != configuration.get(key)]
+    assert set(changed) <= allowed_changes, changed
+    assert json.loads((source / "cache/metadata.json").read_text())["complete"]
+    assert not (output / "cache").exists(), "Use a fresh output directory"
+    started = time.perf_counter()
+    (output / "cache").symlink_to(source / "cache", target_is_directory=True)
+    checksums = {}
+    for name in ("initial_planner.pt", "subset_manifest.json"):
+        shutil.copy2(source / name, output / name)
+    for name in ("initial_planner.pt", "subset_manifest.json", "training_schedule.npy",
+                 "cache/visual_tokens.npy", "cache/valid_token_mask.npy", "cache/ego_status.npy",
+                 "cache/trajectory.npy", "cache/token_coordinates.npy", "cache/metadata.json"):
+        digest = hashlib.sha256()
+        with (source / name).open("rb") as stream:
+            for block in iter(lambda: stream.read(8*1024*1024), b""):
+                digest.update(block)
+        checksums[name] = digest.hexdigest()
+    (output / "input_reuse.json").write_text(json.dumps({
+        "source": str(source), "changed_configuration_keys": sorted(changed),
+        "source_sha256": checksums, "cache_read_only_memmap": True,
+        "cache_generation_seconds_this_run": 0,
+        "reuse_verification_seconds": time.perf_counter()-started}, indent=2)+"\n")
 
 
 def main():
@@ -31,6 +64,21 @@ def main():
         config_path.write_text(json.dumps(configuration, indent=2)+"\n")
     output = PROJECT_ROOT / configuration["output_directory"]
     output.mkdir(parents=True, exist_ok=True)
+    assert not any((output / condition / "training_complete.json").exists()
+                   for condition in configuration["conditions"]), "Use a new replay directory"
+    (output / "configuration.json").write_text(json.dumps(configuration, indent=2)+"\n")
+    if configuration.get("reuse_inputs_from") and not arguments.reuse_complete_cache:
+        reuse_verified_inputs(configuration, output)
+        arguments.reuse_complete_cache = True
+    snapshot = output / "source_snapshot"
+    snapshot.mkdir(exist_ok=True)
+    source_paths = ["src/planning_aware_future_prediction/models/soft_token_reweighting.py",
+        "scripts/run_soft_token_reweighting.py", "scripts/run_soft_token_reweighting_suite.py",
+        "scripts/diagnose_soft_token_reweighting.py"]
+    if configuration.get("normalize_importance"):
+        source_paths.append("scripts/compare_normalized_soft_token_reweighting.py")
+    for relative_path in source_paths:
+        shutil.copy2(PROJECT_ROOT / relative_path, snapshot / Path(relative_path).name)
     environment = dict(os.environ, OMP_NUM_THREADS="2", OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1",
         LD_LIBRARY_PATH=str(PROJECT_ROOT / "runtime/environments/drive_jepa_official_evaluation/lib"))
     stages = [] if arguments.reuse_complete_cache else [("prepare", None), ("cache", None)]
@@ -40,6 +88,8 @@ def main():
     for condition in configuration["conditions"]:
         stages += [("train", condition), ("predict", condition), ("score", condition)]
     stages += [("latency", None), ("diagnose", None), ("report", None)]
+    if configuration.get("normalize_importance"):
+        stages += [("compare_normalization", None)]
     started = time.time()
     for stage, condition in stages:
         state = {"status": "running", "stage": stage, "condition": condition, "started_unix": started}
@@ -51,6 +101,8 @@ def main():
                    "--config", str(config_path)]
         if stage == "diagnose":
             command = [interpreter, "-u", str(PROJECT_ROOT / "scripts/diagnose_soft_token_reweighting.py"), "--config", str(config_path)]
+        if stage == "compare_normalization":
+            command = [interpreter, "-u", str(PROJECT_ROOT / "scripts/compare_normalized_soft_token_reweighting.py"), "--config", str(config_path)]
         if condition:
             command += ["--condition", condition]
         log_path = output / ("stage_" + stage + ("_"+condition if condition else "") + ".log")

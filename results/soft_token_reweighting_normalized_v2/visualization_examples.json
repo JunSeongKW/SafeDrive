@@ -1,0 +1,11 @@
+{
+  "selection": "first manifest entry for each command, independent of predictions",
+  "tokens": [
+    "54ced13f54d45595",
+    "0ef905cf005e5c7f",
+    "92a43114965e51d3"
+  ],
+  "attention_color_max": 0.06720822989940649,
+  "importance_probability_color_max": 0.010324225723743445,
+  "mapping": "Native pooled8x16 grid mapped to cropped original image. Global attention contextualizes these anchors; not object masks."
+}

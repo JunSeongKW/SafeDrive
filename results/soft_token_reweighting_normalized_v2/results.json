@@ -1,0 +1,1070 @@
+{
+  "configuration": {
+    "output_directory": "outputs/soft_token_reweighting_normalized_v2",
+    "results_directory": "results/soft_token_reweighting_normalized_v2",
+    "source_image_manifest": "outputs/four_model_small_corpus_v1/corpus/manifest.json",
+    "source_image_cache": "outputs/four_model_small_corpus_v1/corpus/images.npy",
+    "base": "official Drive-JEPA perception-free ViT-L full planning checkpoint",
+    "conditions": [
+      "baseline",
+      "unconditioned",
+      "conditioned"
+    ],
+    "seed": 0,
+    "train_scenes": 10000,
+    "validation_scenes": 1000,
+    "maximum_optimizer_steps": 1000,
+    "candidate_batch_size": 32,
+    "cache_batch_size": 4,
+    "learning_rate": 0.0001,
+    "optimizer": "Adam",
+    "loss": "official l1_length_normalized_loss alpha=5",
+    "maximum_training_gpu_seconds": 10800,
+    "physical_gpu": 0,
+    "whole_card_limit_bytes": 48000000000,
+    "process_allocator_limit_bytes": 5000000000,
+    "cache_dtype": "float32",
+    "compute_dtype": "float32",
+    "encoder_features": "native encoder then original nonlearnable 2x2 pooling, before image_fc",
+    "feature_shape": [
+      128,
+      1024
+    ],
+    "modification": "first decoder cross-attention only; visual logit beta*r; ego token bias 0",
+    "initial_beta": 0.1,
+    "importance_hidden_dimension": 128,
+    "scoring_workers": 4,
+    "validation_selection": "seed0 within original official navval; previously used development logs, not untouched test",
+    "checkpoint_selection": "fixed common last step; no validation selection or sweep",
+    "reuse_inputs_from": "outputs/soft_token_reweighting_v1",
+    "normalize_importance": true,
+    "normalization_epsilon": 1e-06,
+    "research_question": "Does valid-token output standardization make the conditional importance bias functionally used and improve planning under identical cached-feature pilot conditions?"
+  },
+  "execution": {
+    "common_steps": 1000,
+    "common_batch_size": 32,
+    "profile": {
+      "baseline": {
+        "mean_step_seconds": 0.029163691601570462,
+        "p95_step_seconds": 0.03440654934383929,
+        "peak_allocated_bytes": 348482048,
+        "peak_reserved_bytes": 494927872,
+        "whole_card_used_bytes": 41914728448
+      },
+      "unconditioned": {
+        "mean_step_seconds": 0.024666790600167587,
+        "p95_step_seconds": 0.03493674689816544,
+        "peak_allocated_bytes": 394392064,
+        "peak_reserved_bytes": 509607936,
+        "whole_card_used_bytes": 41929408512
+      },
+      "conditioned": {
+        "mean_step_seconds": 0.037468840201472633,
+        "p95_step_seconds": 0.04250128044295708,
+        "peak_allocated_bytes": 394554880,
+        "peak_reserved_bytes": 507510784,
+        "whole_card_used_bytes": 41927311360
+      }
+    },
+    "estimated_total_training_gpu_seconds": 167.7668650274427,
+    "profile_weights_discarded": true,
+    "training_restarts_from_initial_checkpoint": true,
+    "maximum_training_gpu_seconds": 10800,
+    "schedule_sha256": "4a664055f079db78d770ce99672c5f301907638e037228c08f2347e3cc2aa600",
+    "initial_planner_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+    "configuration_sha256": "c40fc6b920466ac686169222227f10bb835865b6a9dd40e688c18c3ba075d178",
+    "same_previous_training_schedule_and_initial_planner": true,
+    "source_sha256": {
+      "scripts/run_soft_token_reweighting.py": "5eaa89e72139bd43d16f2889bffd95b9d6758c29017e919dae7593a73262d998",
+      "src/planning_aware_future_prediction/models/soft_token_reweighting.py": "1deddbc2edaee6e2702359c0a46fff441385dc43143f9074c06b7f0bfa608df1",
+      "configs/soft_token_reweighting/pilot_v1.json": "f7b81493dc91feee7eaaaaeb87b1f778017fa00c30834b61e735cc01f777d08d",
+      "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_model.py": "7a02015d0b92ca15297bc31cda11a00465e1911f21e561514cf529797068f3d5",
+      "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_agent.py": "cf3d93da54aa0a478b2fca12e50fc2d90fddfc611ffc5e861051a5ba101aa710",
+      "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_features.py": "b0000a69977209bf8f71b2f6c1bcb90464ca97d32414362cade9a32ec34d5c6f"
+    },
+    "profiling_seconds": 16.52871964899532
+  },
+  "verification": {
+    "passed": true,
+    "cpu": true,
+    "beta_zero_prediction_max_difference": 5.7220458984375e-06,
+    "beta_zero_loss_difference": 0.0,
+    "gradient_norms": {
+      "importance": 0.027081673964858055,
+      "planner": 14.946341514587402
+    },
+    "initial_beta": 0.10000000149011612,
+    "initial_bias_quantiles": [
+      -0.27372995018959045,
+      -0.2208191305398941,
+      -0.003239947371184826,
+      0.20473068952560425,
+      0.26260411739349365
+    ],
+    "encoder_forward_calls_in_cached_training": 0,
+    "encoder_gradient": null,
+    "invalid_attention_max": 0.0,
+    "synthetic_bias_broadcast_shape": [
+      16,
+      8,
+      4
+    ],
+    "synthetic_bias_increases_attention": true,
+    "padding_content_invariance": true,
+    "same_native_initial_state": true,
+    "same_unconditioned_conditioned_module_parameters": true,
+    "unconditioned_importance_ego_invariance": true,
+    "original_to_cache": [
+      {
+        "tokens": [
+          "2991b6c6ca595856",
+          "6d18132d792b51fc",
+          "15c91dcebf5455b2",
+          "d6e09dfdcaed5bb0"
+        ],
+        "feature_max_difference": 0.0,
+        "prediction_max_difference": 1.9073486328125e-06
+      },
+      {
+        "tokens": [
+          "54ced13f54d45595",
+          "b182afe96eff545c",
+          "0ef905cf005e5c7f",
+          "9f95591656ee5812"
+        ],
+        "feature_max_difference": 0.0,
+        "prediction_max_difference": 1.9073486328125e-06
+      }
+    ],
+    "raw_official_builder_target_checks": [
+      {
+        "token": "2991b6c6ca595856",
+        "raw_image_preprocessing_max_difference": 0,
+        "ego_status_max_difference": 0,
+        "gt_trajectory_max_difference": 8.304321070795595e-07
+      },
+      {
+        "token": "6d18132d792b51fc",
+        "raw_image_preprocessing_max_difference": 0,
+        "ego_status_max_difference": 0,
+        "gt_trajectory_max_difference": 1.7399405365381426e-06
+      },
+      {
+        "token": "15c91dcebf5455b2",
+        "raw_image_preprocessing_max_difference": 0,
+        "ego_status_max_difference": 0,
+        "gt_trajectory_max_difference": 3.2274171424262477e-07
+      },
+      {
+        "token": "54ced13f54d45595",
+        "raw_image_preprocessing_max_difference": 0,
+        "ego_status_max_difference": 0,
+        "gt_trajectory_max_difference": 1.5617770365849992e-07
+      },
+      {
+        "token": "b182afe96eff545c",
+        "raw_image_preprocessing_max_difference": 0,
+        "ego_status_max_difference": 0,
+        "gt_trajectory_max_difference": 3.759365068134457e-07
+      },
+      {
+        "token": "0ef905cf005e5c7f",
+        "raw_image_preprocessing_max_difference": 0,
+        "ego_status_max_difference": 0,
+        "gt_trajectory_max_difference": 6.254296351926314e-07
+      }
+    ],
+    "atol": 2e-05,
+    "rtol": 2e-05,
+    "dropout": 0.0,
+    "normalization": {
+      "valid_population_std": [
+        0.9993218779563904,
+        0.9991748332977295,
+        0.9992547035217285
+      ],
+      "epsilon": 1e-06,
+      "attention_mean_absolute_change": 0.0004008411488030106,
+      "attention_max_absolute_change": 0.026149749755859375,
+      "waypoint_mean_change_meters": 0.0003325392317492515,
+      "waypoint_max_change_meters": 0.0013524232199415565,
+      "one_valid_token_zero_output_finite_gradient": true,
+      "scope": "three fixed training samples before training; not evidence of improved planning"
+    }
+  },
+  "cache_metadata": {
+    "complete": true,
+    "feature_shape": [
+      11000,
+      128,
+      1024
+    ],
+    "dtype": "float32",
+    "feature_location": "official image_encoder output (512x1024), then original AvgPool2d2 to128x1024 before learned image_fc",
+    "preprocessing": "front only; past/current[-0.5,0]s; RGB crop28 top/bottom; cv2 INTER_LINEAR512x256; /255; ImageNet normalization",
+    "token_grid": [
+      8,
+      16
+    ],
+    "joint_observed_tubelet": true,
+    "future_inputs": false,
+    "encoder_frozen": true,
+    "encoder_eval": true,
+    "encoder_no_gradients": true,
+    "encoder_state_sha256": "111084687b754f21c48692f4e705f9aca701367bef6817a71db7616a2af49a02",
+    "full_planning_checkpoint": {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+      "size_bytes": 3720285081,
+      "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+    },
+    "strict_loading": "<All keys matched successfully>",
+    "official_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "planner_initial_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+    "subset_manifest_sha256": "e195e8321e0b634ff71deb645e0629ca6cf919918e5108971dbf12217067ade1",
+    "cache_visual_tokens_sha256": "3e55c0dc91afd77f2a0e4ef7167611ca8ba5692b1b7240d220e91768c0a2a7cb",
+    "raw_vs_cache_checks": [
+      {
+        "tokens": [
+          "2991b6c6ca595856",
+          "6d18132d792b51fc",
+          "15c91dcebf5455b2",
+          "d6e09dfdcaed5bb0"
+        ],
+        "feature_max_difference": 0.0,
+        "prediction_max_difference": 1.9073486328125e-06
+      },
+      {
+        "tokens": [
+          "54ced13f54d45595",
+          "b182afe96eff545c",
+          "0ef905cf005e5c7f",
+          "9f95591656ee5812"
+        ],
+        "feature_max_difference": 0.0,
+        "prediction_max_difference": 1.9073486328125e-06
+      }
+    ],
+    "cache_seconds": 671.7908153533936,
+    "peak_allocated_bytes": 1416493568,
+    "peak_reserved_bytes": 1516240896,
+    "maximum_whole_card_bytes": 42938138624,
+    "environment": {
+      "python": "3.9.23 | packaged by conda-forge | (main, Jun  4 2025, 17:57:12) \n[GCC 13.3.0]",
+      "torch": "2.1.0+cu121",
+      "numpy": "1.24.0",
+      "gpu": "NVIDIA RTX A6000"
+    }
+  },
+  "models": {
+    "baseline": {
+      "training": {
+        "complete": true,
+        "condition": "baseline",
+        "steps": 1000,
+        "batch_size": 32,
+        "seed": 0,
+        "training_seconds": 56.237197695998475,
+        "gpu_hours": 0.01562144380444402,
+        "mean_step_seconds": 0.04019033798166492,
+        "p95_step_seconds": 0.051725394796812894,
+        "train_loss_last100_mean": 0.051629606448113916,
+        "initial_validation": {
+          "loss": 0.2286829948425293,
+          "ade_meters": 0.5731573700904846,
+          "fde_meters": 1.4408553838729858
+        },
+        "validation": {
+          "loss": 0.22968831658363342,
+          "ade_meters": 0.5805178880691528,
+          "fde_meters": 1.439589500427246
+        },
+        "initial_native_planner_state_sha256": "6fa3a88f8f8e8ff3fa007e83a269a1c7a0073c20a25e9ea57ad9e42316384a46",
+        "initial_checkpoint_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+        "schedule_sha256": "4a664055f079db78d770ce99672c5f301907638e037228c08f2347e3cc2aa600",
+        "trainable_parameters": 6096643,
+        "native_planner_trainable_parameters": 6096643,
+        "importance_trainable_parameters": 0,
+        "importance_gradient_mean": null,
+        "beta": null,
+        "peak_allocated_bytes": 348538368,
+        "peak_reserved_bytes": 494927872,
+        "maximum_whole_card_bytes": 41914728448,
+        "encoder_forward_calls": 0,
+        "source_sha256": {
+          "scripts/run_soft_token_reweighting.py": "5eaa89e72139bd43d16f2889bffd95b9d6758c29017e919dae7593a73262d998",
+          "src/planning_aware_future_prediction/models/soft_token_reweighting.py": "1deddbc2edaee6e2702359c0a46fff441385dc43143f9074c06b7f0bfa608df1",
+          "configs/soft_token_reweighting/pilot_v1.json": "f7b81493dc91feee7eaaaaeb87b1f778017fa00c30834b61e735cc01f777d08d",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_model.py": "7a02015d0b92ca15297bc31cda11a00465e1911f21e561514cf529797068f3d5",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_agent.py": "cf3d93da54aa0a478b2fca12e50fc2d90fddfc611ffc5e861051a5ba101aa710",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_features.py": "b0000a69977209bf8f71b2f6c1bcb90464ca97d32414362cade9a32ec34d5c6f"
+        }
+      },
+      "evaluation": {
+        "complete": true,
+        "results": {
+          "normal": {
+            "count": 1000,
+            "failed": 0,
+            "pdms": 85.66906228969125,
+            "metrics": {
+              "no_at_fault_collisions": 0.9905,
+              "drivable_area_compliance": 0.943,
+              "ego_progress": 0.7754574949525904,
+              "time_to_collision_within_bound": 0.961,
+              "comfort": 1.0,
+              "driving_direction_compliance": 0.9695,
+              "score": 0.8566906228969126
+            },
+            "scenarios": {
+              "left": {
+                "count": 286,
+                "pdms": 88.60695659332195
+              },
+              "straight": {
+                "count": 546,
+                "pdms": 85.37052062553751
+              },
+              "right": {
+                "count": 168,
+                "pdms": 81.63790739558159
+              },
+              "speed_below_0.5_mps": {
+                "count": 55,
+                "pdms": 90.24599119866062
+              },
+              "speed_at_least_0.5_mps": {
+                "count": 945,
+                "pdms": 85.40268018387825
+              }
+            },
+            "loss": 0.22968831658363342,
+            "ade_meters": 0.5805178880691528,
+            "fde_meters": 1.439589500427246
+          }
+        },
+        "benchmark": "NAVSIM v1 official PDMS on fixed navval subset",
+        "full_benchmark": false,
+        "epdms": "not applicable to this NAVSIM v1 scorer",
+        "intersection_labels": "unavailable; not fabricated",
+        "scoring_seconds": 26.798687575996155
+      },
+      "prediction": {
+        "complete": true,
+        "conditions": {
+          "normal": {
+            "loss": 0.22968831658363342,
+            "ade_meters": 0.5805178880691528,
+            "fde_meters": 1.439589500427246
+          }
+        },
+        "diagnostics": {
+          "beta": 0.0,
+          "importance_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "bias_quantiles": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mean_importance_std_within_scene": 0.0,
+          "mean_normalized_importance_entropy": 1.0,
+          "mean_attention_on_ego_token": 0.12247997522354126,
+          "command_only_counterfactual_mean_absolute_importance_change": null,
+          "command_only_counterfactual_relative_to_importance_std": null,
+          "counterfactual_scope": "importance module only, cyclic permutation of one-hot command; original decoder ego remains real",
+          "decoder_batch_size": 32,
+          "decoder_latency_mean_ms": 10.743904799455777,
+          "decoder_latency_median_ms": 10.740060002717655,
+          "decoder_latency_p95_ms": 10.91316534220823,
+          "latency_on_shared_gpu": true,
+          "encoder_forward_calls": 0
+        },
+        "prediction_and_diagnosis_seconds": 8.384704319003504
+      },
+      "checkpoint_sha256": "d76aae2daa940367d77243a0c7e19923268f3dfaace1ba5cbed7367fec152c94"
+    },
+    "unconditioned": {
+      "training": {
+        "complete": true,
+        "condition": "unconditioned",
+        "steps": 1000,
+        "batch_size": 32,
+        "seed": 0,
+        "training_seconds": 59.66723714201362,
+        "gpu_hours": 0.016574232539448227,
+        "mean_step_seconds": 0.04619950226003129,
+        "p95_step_seconds": 0.06107957561180228,
+        "train_loss_last100_mean": 0.0497644829005003,
+        "initial_validation": {
+          "loss": 0.22868216037750244,
+          "ade_meters": 0.5731563568115234,
+          "fde_meters": 1.4407998323440552
+        },
+        "validation": {
+          "loss": 0.22994934022426605,
+          "ade_meters": 0.5804038047790527,
+          "fde_meters": 1.445806622505188
+        },
+        "initial_native_planner_state_sha256": "6fa3a88f8f8e8ff3fa007e83a269a1c7a0073c20a25e9ea57ad9e42316384a46",
+        "initial_checkpoint_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+        "schedule_sha256": "4a664055f079db78d770ce99672c5f301907638e037228c08f2347e3cc2aa600",
+        "trainable_parameters": 6365989,
+        "native_planner_trainable_parameters": 6096643,
+        "importance_trainable_parameters": 269346,
+        "importance_gradient_mean": 0.0017574300124542789,
+        "beta": 0.09988772124052048,
+        "peak_allocated_bytes": 394485760,
+        "peak_reserved_bytes": 536870912,
+        "maximum_whole_card_bytes": 41956671488,
+        "encoder_forward_calls": 0,
+        "source_sha256": {
+          "scripts/run_soft_token_reweighting.py": "5eaa89e72139bd43d16f2889bffd95b9d6758c29017e919dae7593a73262d998",
+          "src/planning_aware_future_prediction/models/soft_token_reweighting.py": "1deddbc2edaee6e2702359c0a46fff441385dc43143f9074c06b7f0bfa608df1",
+          "configs/soft_token_reweighting/pilot_v1.json": "f7b81493dc91feee7eaaaaeb87b1f778017fa00c30834b61e735cc01f777d08d",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_model.py": "7a02015d0b92ca15297bc31cda11a00465e1911f21e561514cf529797068f3d5",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_agent.py": "cf3d93da54aa0a478b2fca12e50fc2d90fddfc611ffc5e861051a5ba101aa710",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_features.py": "b0000a69977209bf8f71b2f6c1bcb90464ca97d32414362cade9a32ec34d5c6f"
+        }
+      },
+      "evaluation": {
+        "complete": true,
+        "results": {
+          "normal": {
+            "count": 1000,
+            "failed": 0,
+            "pdms": 86.6783223664261,
+            "metrics": {
+              "no_at_fault_collisions": 0.9915,
+              "drivable_area_compliance": 0.948,
+              "ego_progress": 0.7862797367942262,
+              "time_to_collision_within_bound": 0.967,
+              "comfort": 1.0,
+              "driving_direction_compliance": 0.9715,
+              "score": 0.866783223664261
+            },
+            "scenarios": {
+              "left": {
+                "count": 286,
+                "pdms": 90.34184607842938
+              },
+              "straight": {
+                "count": 546,
+                "pdms": 86.51832557861471
+              },
+              "right": {
+                "count": 168,
+                "pdms": 80.96159894090279
+              },
+              "speed_below_0.5_mps": {
+                "count": 55,
+                "pdms": 92.10421963455394
+              },
+              "speed_at_least_0.5_mps": {
+                "count": 945,
+                "pdms": 86.36252940373083
+              }
+            },
+            "loss": 0.22994934022426605,
+            "ade_meters": 0.5804038047790527,
+            "fde_meters": 1.445806622505188
+          }
+        },
+        "benchmark": "NAVSIM v1 official PDMS on fixed navval subset",
+        "full_benchmark": false,
+        "epdms": "not applicable to this NAVSIM v1 scorer",
+        "intersection_labels": "unavailable; not fabricated",
+        "scoring_seconds": 26.5106280589971
+      },
+      "prediction": {
+        "complete": true,
+        "conditions": {
+          "normal": {
+            "loss": 0.22994934022426605,
+            "ade_meters": 0.5804038047790527,
+            "fde_meters": 1.445806622505188
+          }
+        },
+        "diagnostics": {
+          "beta": 0.09988772124052048,
+          "importance_quantiles": [
+            -4.669425964355469,
+            -2.344923901557922,
+            0.0029697640566155314,
+            2.386426520347595,
+            5.73103141784668
+          ],
+          "bias_quantiles": [
+            -0.4664183259010315,
+            -0.23422910451889037,
+            0.00029664297471754253,
+            0.2383747141063213,
+            0.5724596977233887
+          ],
+          "mean_importance_std_within_scene": 0.9998297095298767,
+          "mean_normalized_importance_entropy": 0.9989699721336365,
+          "mean_attention_on_ego_token": 0.11790166050195694,
+          "command_only_counterfactual_mean_absolute_importance_change": 0.0,
+          "command_only_counterfactual_relative_to_importance_std": 0.0,
+          "counterfactual_scope": "importance module only, cyclic permutation of one-hot command; original decoder ego remains real",
+          "decoder_batch_size": 32,
+          "decoder_latency_mean_ms": 9.52041326003382,
+          "decoder_latency_median_ms": 7.396152999717742,
+          "decoder_latency_p95_ms": 16.046493457542965,
+          "latency_on_shared_gpu": true,
+          "encoder_forward_calls": 0
+        },
+        "prediction_and_diagnosis_seconds": 7.409374053997453
+      },
+      "checkpoint_sha256": "c3ab6807d92410da6bacc351513014037069a1a5256a6b1d001c96669d7656de"
+    },
+    "conditioned": {
+      "training": {
+        "complete": true,
+        "condition": "conditioned",
+        "steps": 1000,
+        "batch_size": 32,
+        "seed": 0,
+        "training_seconds": 58.159871720010415,
+        "gpu_hours": 0.016155519922225116,
+        "mean_step_seconds": 0.04593661916462588,
+        "p95_step_seconds": 0.06072498110879678,
+        "train_loss_last100_mean": 0.050353850983083245,
+        "initial_validation": {
+          "loss": 0.22868214547634125,
+          "ade_meters": 0.5731565356254578,
+          "fde_meters": 1.4407998323440552
+        },
+        "validation": {
+          "loss": 0.23062172532081604,
+          "ade_meters": 0.5803206562995911,
+          "fde_meters": 1.443205714225769
+        },
+        "initial_native_planner_state_sha256": "6fa3a88f8f8e8ff3fa007e83a269a1c7a0073c20a25e9ea57ad9e42316384a46",
+        "initial_checkpoint_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+        "schedule_sha256": "4a664055f079db78d770ce99672c5f301907638e037228c08f2347e3cc2aa600",
+        "trainable_parameters": 6365989,
+        "native_planner_trainable_parameters": 6096643,
+        "importance_trainable_parameters": 269346,
+        "importance_gradient_mean": 0.0018153010483947583,
+        "beta": 0.09820008277893066,
+        "peak_allocated_bytes": 394484736,
+        "peak_reserved_bytes": 536870912,
+        "maximum_whole_card_bytes": 41956671488,
+        "encoder_forward_calls": 0,
+        "source_sha256": {
+          "scripts/run_soft_token_reweighting.py": "5eaa89e72139bd43d16f2889bffd95b9d6758c29017e919dae7593a73262d998",
+          "src/planning_aware_future_prediction/models/soft_token_reweighting.py": "1deddbc2edaee6e2702359c0a46fff441385dc43143f9074c06b7f0bfa608df1",
+          "configs/soft_token_reweighting/pilot_v1.json": "f7b81493dc91feee7eaaaaeb87b1f778017fa00c30834b61e735cc01f777d08d",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_model.py": "7a02015d0b92ca15297bc31cda11a00465e1911f21e561514cf529797068f3d5",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_agent.py": "cf3d93da54aa0a478b2fca12e50fc2d90fddfc611ffc5e861051a5ba101aa710",
+          "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_free/drive_jepa_features.py": "b0000a69977209bf8f71b2f6c1bcb90464ca97d32414362cade9a32ec34d5c6f"
+        }
+      },
+      "evaluation": {
+        "complete": true,
+        "results": {
+          "normal": {
+            "count": 1000,
+            "failed": 0,
+            "pdms": 85.41456431918643,
+            "metrics": {
+              "no_at_fault_collisions": 0.9915,
+              "drivable_area_compliance": 0.938,
+              "ego_progress": 0.776949543660474,
+              "time_to_collision_within_bound": 0.96,
+              "comfort": 1.0,
+              "driving_direction_compliance": 0.97,
+              "score": 0.8541456431918643
+            },
+            "scenarios": {
+              "left": {
+                "count": 286,
+                "pdms": 88.11759616022519
+              },
+              "straight": {
+                "count": 546,
+                "pdms": 85.18290534977605
+              },
+              "right": {
+                "count": 168,
+                "pdms": 81.56586604990646
+              },
+              "speed_below_0.5_mps": {
+                "count": 55,
+                "pdms": 91.93175624505754
+              },
+              "speed_at_least_0.5_mps": {
+                "count": 945,
+                "pdms": 85.03525685260132
+              }
+            },
+            "loss": 0.23062172532081604,
+            "ade_meters": 0.5803206562995911,
+            "fde_meters": 1.443205714225769
+          },
+          "beta_zero": {
+            "count": 1000,
+            "failed": 0,
+            "pdms": 85.41438615211081,
+            "metrics": {
+              "no_at_fault_collisions": 0.9915,
+              "drivable_area_compliance": 0.938,
+              "ego_progress": 0.7769452676506595,
+              "time_to_collision_within_bound": 0.96,
+              "comfort": 1.0,
+              "driving_direction_compliance": 0.97,
+              "score": 0.8541438615211081
+            },
+            "scenarios": {
+              "left": {
+                "count": 286,
+                "pdms": 88.11768685274421
+              },
+              "straight": {
+                "count": 546,
+                "pdms": 85.18261359896194
+              },
+              "right": {
+                "count": 168,
+                "pdms": 81.56559932852826
+              },
+              "speed_below_0.5_mps": {
+                "count": 55,
+                "pdms": 91.93168873222885
+              },
+              "speed_at_least_0.5_mps": {
+                "count": 945,
+                "pdms": 85.03507224533145
+              }
+            },
+            "loss": 0.23061487078666687,
+            "ade_meters": 0.5803029537200928,
+            "fde_meters": 1.4431592226028442
+          },
+          "shuffle": {
+            "count": 1000,
+            "failed": 0,
+            "pdms": 85.41442061320666,
+            "metrics": {
+              "no_at_fault_collisions": 0.9915,
+              "drivable_area_compliance": 0.938,
+              "ego_progress": 0.7769460947169599,
+              "time_to_collision_within_bound": 0.96,
+              "comfort": 1.0,
+              "driving_direction_compliance": 0.97,
+              "score": 0.8541442061320667
+            },
+            "scenarios": {
+              "left": {
+                "count": 286,
+                "pdms": 88.11765956682733
+              },
+              "straight": {
+                "count": 546,
+                "pdms": 85.18267897528531
+              },
+              "right": {
+                "count": 168,
+                "pdms": 81.565638432073
+              },
+              "speed_below_0.5_mps": {
+                "count": 55,
+                "pdms": 91.93165178154568
+              },
+              "speed_at_least_0.5_mps": {
+                "count": 945,
+                "pdms": 85.03511086266842
+              }
+            },
+            "loss": 0.23061785101890564,
+            "ade_meters": 0.5803080201148987,
+            "fde_meters": 1.4431747198104858
+          }
+        },
+        "benchmark": "NAVSIM v1 official PDMS on fixed navval subset",
+        "full_benchmark": false,
+        "epdms": "not applicable to this NAVSIM v1 scorer",
+        "intersection_labels": "unavailable; not fabricated",
+        "scoring_seconds": 77.27530545998889
+      },
+      "prediction": {
+        "complete": true,
+        "conditions": {
+          "normal": {
+            "loss": 0.23062172532081604,
+            "ade_meters": 0.5803206562995911,
+            "fde_meters": 1.443205714225769
+          },
+          "beta_zero": {
+            "loss": 0.23061487078666687,
+            "ade_meters": 0.5803029537200928,
+            "fde_meters": 1.4431592226028442
+          },
+          "shuffle": {
+            "loss": 0.23061785101890564,
+            "ade_meters": 0.5803080201148987,
+            "fde_meters": 1.4431747198104858
+          }
+        },
+        "diagnostics": {
+          "beta": 0.09820008277893066,
+          "importance_quantiles": [
+            -4.970889091491699,
+            -2.401332952976227,
+            0.04092615842819214,
+            2.171701717376707,
+            4.2793049812316895
+          ],
+          "bias_quantiles": [
+            -0.4881417155265808,
+            -0.2358110961318016,
+            0.004018952138721943,
+            0.21326128959655744,
+            0.42022809386253357
+          ],
+          "mean_importance_std_within_scene": 0.9998564720153809,
+          "mean_normalized_importance_entropy": 0.9990183711051941,
+          "mean_attention_on_ego_token": 0.12000654637813568,
+          "command_only_counterfactual_mean_absolute_importance_change": 0.0021206093952059746,
+          "command_only_counterfactual_relative_to_importance_std": 0.00212091370485723,
+          "counterfactual_scope": "importance module only, cyclic permutation of one-hot command; original decoder ego remains real",
+          "decoder_batch_size": 32,
+          "decoder_latency_mean_ms": 12.0342698393506,
+          "decoder_latency_median_ms": 13.623091996123549,
+          "decoder_latency_p95_ms": 16.04067315129214,
+          "latency_on_shared_gpu": true,
+          "encoder_forward_calls": 0
+        },
+        "prediction_and_diagnosis_seconds": 8.38184093098971
+      },
+      "checkpoint_sha256": "b439d940d2d9af4d04283bcccec8ac75ea39028bd5f2412087dcd9974d660ea0"
+    }
+  },
+  "comparisons": {
+    "B_minus_A": {
+      "mean_difference_points": 1.009260076734829,
+      "recording_bootstrap_95_interval": [
+        0.4083701250244172,
+        1.709814069072292
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_minus_A": {
+      "mean_difference_points": -0.25449797050485123,
+      "recording_bootstrap_95_interval": [
+        -1.124838709839886,
+        0.7627395023628153
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_minus_B": {
+      "mean_difference_points": -1.2637580472396803,
+      "recording_bootstrap_95_interval": [
+        -2.0174206003595754,
+        -0.48795589017867735
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_beta_zero_minus_C": {
+      "mean_difference_points": -0.00017816707560288592,
+      "recording_bootstrap_95_interval": [
+        -0.0002652663841508937,
+        -8.984847311470156e-05
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_shuffle_minus_C": {
+      "mean_difference_points": -0.0001437059797560707,
+      "recording_bootstrap_95_interval": [
+        -0.00026344008726079834,
+        -2.7223176895767437e-05
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    }
+  },
+  "training_total_gpu_hours": 0.04835119626611736,
+  "paired_latency": {
+    "batch_size": 32,
+    "rounds": 60,
+    "order": "rotated A/B/C, shared GPU0, resident inputs, forward only, no encoder",
+    "milliseconds": {
+      "baseline": [
+        3.9788620051695034,
+        4.060477003804408,
+        3.9763179956935346,
+        3.9622910117032006,
+        3.9922169962665066,
+        3.9894229994388297,
+        3.9538450073450804,
+        4.917486003250815,
+        5.00826800998766,
+        4.931652991217561,
+        5.054545996244997,
+        5.076478002592921,
+        5.298370000673458,
+        3.9734619931550696,
+        3.9448070019716397,
+        3.9653660060139373,
+        3.9727910043438897,
+        3.9652160048717633,
+        3.972771010012366,
+        5.281197009026073,
+        5.030169995734468,
+        4.202908006845973,
+        4.010903998278081,
+        3.9436049992218614,
+        3.9307400002144277,
+        3.9540549914818257,
+        7.6154030102770776,
+        4.016163002233952,
+        6.040220003342256,
+        3.997608000645414,
+        4.76220999553334,
+        4.463113000383601,
+        5.6266739993589,
+        4.7304000036092475,
+        5.411776000983082,
+        3.88746899261605,
+        4.98635700205341,
+        5.121964000863954,
+        4.856030005612411,
+        4.1240680002374575,
+        3.9603159966645762,
+        4.102548002265394,
+        4.149136002524756,
+        4.030399999464862,
+        3.9589139923918992,
+        4.689151988714002,
+        4.960967999068089,
+        5.110732992761768,
+        3.9248389948625118,
+        5.295443988870829,
+        10.966260990244336,
+        10.794995992910117,
+        10.701298000640236,
+        10.830473998794332,
+        10.790057000122033,
+        3.984363007475622,
+        4.0595949976705015,
+        3.923697004211135,
+        3.96645900036674,
+        3.939086993341334
+      ],
+      "unconditioned": [
+        6.3156639953376725,
+        6.182290002470836,
+        6.301426998106763,
+        6.029038995620795,
+        6.049636998795904,
+        6.229088990949094,
+        5.977349996101111,
+        5.906346006668173,
+        7.508380003855564,
+        7.477229999494739,
+        7.213749995571561,
+        13.562956999521703,
+        7.867121996241622,
+        6.1736040079267696,
+        6.223397998837754,
+        6.594943988602608,
+        6.500344999949448,
+        6.533256993861869,
+        7.642334996489808,
+        7.82328900822904,
+        7.139198001823388,
+        6.740130003890954,
+        6.1140600009821355,
+        6.080626000766642,
+        6.169786007376388,
+        5.989704004605301,
+        6.1645569949178025,
+        6.601606990443543,
+        5.938136993790977,
+        13.568006994319148,
+        7.123508999939077,
+        6.68426399352029,
+        8.06574999296572,
+        7.303531005163677,
+        6.672190997051075,
+        7.345910998992622,
+        7.508620998123661,
+        6.75203200080432,
+        6.793541993829422,
+        6.599562999326736,
+        6.327476003207266,
+        6.59175799228251,
+        6.466699996963143,
+        6.295304992818274,
+        6.188301005749963,
+        7.368024002062157,
+        7.4783229938475415,
+        6.33545100572519,
+        6.0672010004054755,
+        7.034870999632403,
+        13.692123000510037,
+        9.596026997314766,
+        15.838712002732791,
+        13.606909997179173,
+        13.48745399445761,
+        5.844437997438945,
+        6.072521005989984,
+        5.888751999009401,
+        5.857383002876304,
+        5.865116996574216
+      ],
+      "conditioned": [
+        6.188340994413011,
+        6.283972994424403,
+        6.351983000058681,
+        5.997408996336162,
+        6.065968991606496,
+        6.122997001511976,
+        5.91781699040439,
+        8.364877008716576,
+        7.549316986114718,
+        7.2600879939273,
+        7.245831002364866,
+        8.007549011381343,
+        6.534408996230923,
+        6.050619995221496,
+        6.136202006018721,
+        6.578512009582482,
+        6.390415001078509,
+        6.376277990057133,
+        7.663223994313739,
+        7.593361995532177,
+        7.586919004097581,
+        6.334008008707315,
+        6.357542995829135,
+        6.14619099360425,
+        5.986646996461786,
+        5.950278005911969,
+        5.904371995711699,
+        6.064707005862147,
+        13.178585999412462,
+        6.115081996540539,
+        7.010765009908937,
+        6.485416000941768,
+        8.054026999161579,
+        6.275077001191676,
+        6.642734006163664,
+        6.402356986654922,
+        7.031554006971419,
+        7.651933003216982,
+        7.987320990650915,
+        6.617166000069119,
+        6.265659001655877,
+        6.318818996078335,
+        6.30251900292933,
+        6.778533002943732,
+        6.326583999907598,
+        7.422285998472944,
+        7.27785199705977,
+        8.368203998543322,
+        6.901095010107383,
+        7.4608600116334856,
+        13.270913012092933,
+        13.654642010806128,
+        13.552607997553423,
+        13.690599997062236,
+        6.408449000446126,
+        10.795027003041469,
+        5.905083002289757,
+        5.855047988006845,
+        5.849888009834103,
+        5.910873995162547
+      ]
+    },
+    "summary": {
+      "baseline": {
+        "mean_ms": 5.002106966761251,
+        "median_ms": 4.113308001251426,
+        "mean_paired_extra_ms_vs_A": 0.0,
+        "ratio_of_means_vs_A": 1.0
+      },
+      "unconditioned": {
+        "mean_ms": 7.389483765534048,
+        "median_ms": 6.593350990442559,
+        "mean_paired_extra_ms_vs_A": 2.3873767987727965,
+        "ratio_of_means_vs_A": 1.4772742395628073
+      },
+      "conditioned": {
+        "mean_ms": 7.312956650033205,
+        "median_ms": 6.446932500693947,
+        "mean_paired_extra_ms_vs_A": 2.310849683271954,
+        "ratio_of_means_vs_A": 1.4619752633495113
+      }
+    }
+  },
+  "bias_scale_and_ego_sensitivity": {
+    "no_additional_training": true,
+    "scenes": 1000,
+    "mean_content_qk_logit_std": 2.3553291598558426,
+    "mean_learned_bias_std": 0.09818598382174969,
+    "mean_bias_to_content_std_ratio": 0.04287017645918135,
+    "ego_permutation_mean_absolute_importance_change": 0.0076707488790998465,
+    "ego_permutation_mean_change_relative_to_importance_std": 0.007671938029261458,
+    "dynamic_only_permutation_mean_change_relative_to_importance_std": 0.007452721326569759,
+    "counterfactual_scope": "Only importance inputs are changed; scene tokens and native decoder ego are held fixed. Permuted ego can be out-of-distribution.",
+    "entropy_precision_audit": {
+      "unconditioned": {
+        "normalized_entropy_float64_mean": 0.9989700128264872,
+        "mean_probability_coefficient_of_variation": 0.10026022175610481,
+        "maximum_probability_divided_by_uniform": 1.7630678885948399,
+        "note": "Entropy recomputed in FP64; higher entropy means a more uniform importance-only distribution"
+      },
+      "conditioned": {
+        "normalized_entropy_float64_mean": 0.9990183705963379,
+        "mean_probability_coefficient_of_variation": 0.0975120533401985,
+        "maximum_probability_divided_by_uniform": 1.5148481151814615,
+        "note": "Entropy recomputed in FP64; higher entropy means a more uniform importance-only distribution"
+      }
+    },
+    "trajectory_sensitivity": {
+      "beta_zero": {
+        "mean_waypoint_change_meters": 0.0002690017281565815,
+        "maximum_waypoint_change_meters": 0.013645175844430923,
+        "mean_endpoint_change_meters": 0.0006803037249483168
+      },
+      "shuffle": {
+        "mean_waypoint_change_meters": 0.0003165157395415008,
+        "maximum_waypoint_change_meters": 0.020111801102757454,
+        "mean_endpoint_change_meters": 0.0008610530057922006
+      }
+    },
+    "seconds": 6.128961213995353
+  },
+  "cost_definition": "One GPU per process; elapsed training residency hours on a shared GPU, including CPU minibatch/diagnostics; not isolated GPU kernel time. Cache/evaluation excluded.",
+  "limits": [
+    "Single seed0, small previously used navval development subset, no independent final test",
+    "Full planning checkpoint initializes encoder AND original planner; this is continued adaptation, not training from scratch",
+    "128 grid indices are spatial anchors; ViT and original planner encoder mix information across them",
+    "No hard selection/compression and unchanged token count; no computational reduction claim",
+    "NAVSIM v1 PDMS; EPDMS not available in this evaluator",
+    "Shared-GPU latency has interference and is not an isolated deployment benchmark"
+  ],
+  "source_sha256": {
+    "scripts/run_soft_token_reweighting.py": "5eaa89e72139bd43d16f2889bffd95b9d6758c29017e919dae7593a73262d998",
+    "scripts/run_soft_token_reweighting_suite.py": "959aa9a27dbde5476c0af977c1a70bedc92b8202f340394ecbfb27d21c56c5a9",
+    "src/planning_aware_future_prediction/models/soft_token_reweighting.py": "1deddbc2edaee6e2702359c0a46fff441385dc43143f9074c06b7f0bfa608df1",
+    "configs/soft_token_reweighting/pilot_v1.json": "f7b81493dc91feee7eaaaaeb87b1f778017fa00c30834b61e735cc01f777d08d"
+  }
+}

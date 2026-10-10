@@ -1,0 +1,25 @@
+{
+  "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/soft_token_reweighting_v1",
+  "changed_configuration_keys": [
+    "normalization_epsilon",
+    "normalize_importance",
+    "output_directory",
+    "research_question",
+    "results_directory",
+    "reuse_inputs_from"
+  ],
+  "source_sha256": {
+    "initial_planner.pt": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+    "subset_manifest.json": "e195e8321e0b634ff71deb645e0629ca6cf919918e5108971dbf12217067ade1",
+    "training_schedule.npy": "4a664055f079db78d770ce99672c5f301907638e037228c08f2347e3cc2aa600",
+    "cache/visual_tokens.npy": "3e55c0dc91afd77f2a0e4ef7167611ca8ba5692b1b7240d220e91768c0a2a7cb",
+    "cache/valid_token_mask.npy": "5a9972fd137a0af591bf5d0b30048295721de6ca1078eda18efb08673e068970",
+    "cache/ego_status.npy": "086d180dce84c3d22dc0cd81f4f26484df5f6397ddead1c9667eb24903857403",
+    "cache/trajectory.npy": "28de7e309cbf58e65d21f52c0fdd38a03e2fdce8e2ae24c88ae34861617a8bc0",
+    "cache/token_coordinates.npy": "d12e816012fdba0d623fafb99fdc2ed88dbf591a20cbeb0fbf2a673a07849455",
+    "cache/metadata.json": "2c0a5017d5bcd2ec44664a9efe2b3c8bf3b9671d3d4b37cebabf1a4627a44c44"
+  },
+  "cache_read_only_memmap": true,
+  "cache_generation_seconds_this_run": 0,
+  "reuse_verification_seconds": 4.355556932991021
+}

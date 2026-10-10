@@ -1,0 +1,244 @@
+{
+  "only_scientific_change": "valid-token centered importance / (population std + 1e-6)",
+  "rows": [
+    {
+      "condition": "baseline",
+      "previous_pdms": 87.28898943535107,
+      "normalized_pdms": 85.66906228969125,
+      "difference_points": -1.6199271456598012,
+      "ade_meters": 0.5805178880691528,
+      "fde_meters": 1.439589500427246
+    },
+    {
+      "condition": "unconditioned",
+      "previous_pdms": 85.19331755165419,
+      "normalized_pdms": 86.6783223664261,
+      "difference_points": 1.4850048147718966,
+      "ade_meters": 0.5804038047790527,
+      "fde_meters": 1.445806622505188
+    },
+    {
+      "condition": "conditioned",
+      "previous_pdms": 87.27588604553718,
+      "normalized_pdms": 85.41456431918643,
+      "difference_points": -1.8613217263507618,
+      "ade_meters": 0.5803206562995911,
+      "fde_meters": 1.443205714225769
+    }
+  ],
+  "paired_previous_comparisons": {
+    "baseline": {
+      "mean_difference_points": -1.6199271456598012,
+      "recording_bootstrap_95_interval": [
+        -2.8249363816735595,
+        -0.542116963381835
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "unconditioned": {
+      "mean_difference_points": 1.4850048147718966,
+      "recording_bootstrap_95_interval": [
+        -0.13848396159865883,
+        2.8854920623075535
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "conditioned": {
+      "mean_difference_points": -1.8613217263507618,
+      "recording_bootstrap_95_interval": [
+        -2.628788557253284,
+        -1.0804590718605134
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    }
+  },
+  "within_normalized_comparisons": {
+    "B_minus_A": {
+      "mean_difference_points": 1.009260076734829,
+      "recording_bootstrap_95_interval": [
+        0.4083701250244172,
+        1.709814069072292
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_minus_A": {
+      "mean_difference_points": -0.25449797050485123,
+      "recording_bootstrap_95_interval": [
+        -1.124838709839886,
+        0.7627395023628153
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_minus_B": {
+      "mean_difference_points": -1.2637580472396803,
+      "recording_bootstrap_95_interval": [
+        -2.0174206003595754,
+        -0.48795589017867735
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_beta_zero_minus_C": {
+      "mean_difference_points": -0.00017816707560288592,
+      "recording_bootstrap_95_interval": [
+        -0.0002652663841508937,
+        -8.984847311470156e-05
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    },
+    "C_shuffle_minus_C": {
+      "mean_difference_points": -0.0001437059797560707,
+      "recording_bootstrap_95_interval": [
+        -0.00026344008726079834,
+        -2.7223176895767437e-05
+      ],
+      "recording_count": 61,
+      "bootstrap_seed": 0,
+      "bootstrap_resamples": 10000
+    }
+  },
+  "baseline_replay_prediction_max_absolute_difference": 1.1375541687011719,
+  "baseline_replay_audit": {
+    "first_different_training_loss_step": 3,
+    "first_loss_difference": 2.2351741790771484e-08,
+    "strict_deterministic_algorithms_configured": false,
+    "interpretation": "Identical seed/initial weights/schedule do not yield bitwise replay. Tiny early floating-point differences amplify; exact kernel cause was not isolated. Between-run score differences include replay variation."
+  },
+  "same_manifest_initial_planner_schedule": true,
+  "previous_mechanism": {
+    "no_additional_training": true,
+    "scenes": 1000,
+    "mean_content_qk_logit_std": 2.3548351703882218,
+    "mean_learned_bias_std": 0.000575458777253516,
+    "mean_bias_to_content_std_ratio": 0.0002514549685895615,
+    "ego_permutation_mean_absolute_importance_change": 7.329482508976071e-05,
+    "ego_permutation_mean_change_relative_to_importance_std": 0.012641139274871885,
+    "dynamic_only_permutation_mean_change_relative_to_importance_std": 0.011966889529990893,
+    "counterfactual_scope": "Only importance inputs are changed; scene tokens and native decoder ego are held fixed. Permuted ego can be out-of-distribution.",
+    "entropy_precision_audit": {
+      "unconditioned": {
+        "normalized_entropy_float64_mean": 0.9999999479011876,
+        "mean_probability_coefficient_of_variation": 0.0006882074923668431,
+        "maximum_probability_divided_by_uniform": 1.0046132984230007,
+        "note": "Original FP32 entropy rounds to1; distribution is nearly uniform but not exactly constant"
+      },
+      "conditioned": {
+        "normalized_entropy_float64_mean": 0.9999999643592516,
+        "mean_probability_coefficient_of_variation": 0.0005754894189566142,
+        "maximum_probability_divided_by_uniform": 1.0042463552255214,
+        "note": "Original FP32 entropy rounds to1; distribution is nearly uniform but not exactly constant"
+      }
+    },
+    "trajectory_sensitivity": {
+      "beta_zero": {
+        "mean_waypoint_change_meters": 1.5919800944175222e-06,
+        "maximum_waypoint_change_meters": 9.704349940875545e-05,
+        "mean_endpoint_change_meters": 3.821502559731016e-06
+      },
+      "shuffle": {
+        "mean_waypoint_change_meters": 1.8657048030945589e-06,
+        "maximum_waypoint_change_meters": 7.97816610429436e-05,
+        "mean_endpoint_change_meters": 4.7581120270479005e-06
+      }
+    },
+    "seconds": 3.6964305879955646
+  },
+  "normalized_mechanism": {
+    "no_additional_training": true,
+    "scenes": 1000,
+    "mean_content_qk_logit_std": 2.3553291598558426,
+    "mean_learned_bias_std": 0.09818598382174969,
+    "mean_bias_to_content_std_ratio": 0.04287017645918135,
+    "ego_permutation_mean_absolute_importance_change": 0.0076707488790998465,
+    "ego_permutation_mean_change_relative_to_importance_std": 0.007671938029261458,
+    "dynamic_only_permutation_mean_change_relative_to_importance_std": 0.007452721326569759,
+    "counterfactual_scope": "Only importance inputs are changed; scene tokens and native decoder ego are held fixed. Permuted ego can be out-of-distribution.",
+    "entropy_precision_audit": {
+      "unconditioned": {
+        "normalized_entropy_float64_mean": 0.9989700128264872,
+        "mean_probability_coefficient_of_variation": 0.10026022175610481,
+        "maximum_probability_divided_by_uniform": 1.7630678885948399,
+        "note": "Entropy recomputed in FP64; higher entropy means a more uniform importance-only distribution"
+      },
+      "conditioned": {
+        "normalized_entropy_float64_mean": 0.9990183705963379,
+        "mean_probability_coefficient_of_variation": 0.0975120533401985,
+        "maximum_probability_divided_by_uniform": 1.5148481151814615,
+        "note": "Entropy recomputed in FP64; higher entropy means a more uniform importance-only distribution"
+      }
+    },
+    "trajectory_sensitivity": {
+      "beta_zero": {
+        "mean_waypoint_change_meters": 0.0002690017281565815,
+        "maximum_waypoint_change_meters": 0.013645175844430923,
+        "mean_endpoint_change_meters": 0.0006803037249483168
+      },
+      "shuffle": {
+        "mean_waypoint_change_meters": 0.0003165157395415008,
+        "maximum_waypoint_change_meters": 0.020111801102757454,
+        "mean_endpoint_change_meters": 0.0008610530057922006
+      }
+    },
+    "seconds": 6.128961213995353
+  },
+  "visualization": {
+    "selection": "same first validation scene per command as v1, not selected for effect",
+    "tokens": [
+      "54ced13f54d45595",
+      "0ef905cf005e5c7f",
+      "92a43114965e51d3"
+    ],
+    "bias_shared_color_limit": 0.2886952757835388,
+    "attention_difference_color_limit": 0.005763150751590729,
+    "command_difference_color_limit": 0.0010138079524040222,
+    "mean_absolute_attention_on_off_difference": 0.0003786164743360132,
+    "maximum_absolute_attention_on_off_difference": 0.005763150751590729,
+    "mean_waypoint_on_off_change_meters": 0.00024976301938295364,
+    "maximum_command_bias_change_from_straight": 0.0010138079524040222,
+    "mean_command_attention_change_from_straight": 5.676908472196374e-07,
+    "mean_command_waypoint_change_from_straight_meters": 4.6473601855723246e-07,
+    "scope": "three fixed validation scenes only; grid anchors are not detected objects; not a planning-benefit test"
+  },
+  "cache_reuse": {
+    "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/soft_token_reweighting_v1",
+    "changed_configuration_keys": [
+      "normalization_epsilon",
+      "normalize_importance",
+      "output_directory",
+      "research_question",
+      "results_directory",
+      "reuse_inputs_from"
+    ],
+    "source_sha256": {
+      "initial_planner.pt": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+      "subset_manifest.json": "e195e8321e0b634ff71deb645e0629ca6cf919918e5108971dbf12217067ade1",
+      "training_schedule.npy": "4a664055f079db78d770ce99672c5f301907638e037228c08f2347e3cc2aa600",
+      "cache/visual_tokens.npy": "3e55c0dc91afd77f2a0e4ef7167611ca8ba5692b1b7240d220e91768c0a2a7cb",
+      "cache/valid_token_mask.npy": "5a9972fd137a0af591bf5d0b30048295721de6ca1078eda18efb08673e068970",
+      "cache/ego_status.npy": "086d180dce84c3d22dc0cd81f4f26484df5f6397ddead1c9667eb24903857403",
+      "cache/trajectory.npy": "28de7e309cbf58e65d21f52c0fdd38a03e2fdce8e2ae24c88ae34861617a8bc0",
+      "cache/token_coordinates.npy": "d12e816012fdba0d623fafb99fdc2ed88dbf591a20cbeb0fbf2a673a07849455",
+      "cache/metadata.json": "2c0a5017d5bcd2ec44664a9efe2b3c8bf3b9671d3d4b37cebabf1a4627a44c44"
+    },
+    "cache_read_only_memmap": true,
+    "cache_generation_seconds_this_run": 0,
+    "reuse_verification_seconds": 4.355556932991021
+  },
+  "training_gpu_hours": 0.04835119626611736,
+  "single_seed": true,
+  "validation_scenes": 1000,
+  "comparison_seconds": 15.67379921200336
+}
