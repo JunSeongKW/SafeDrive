@@ -1,5 +1,9 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 비교 완료
+
+동일1,024장면/44recording·공식NAVSIMv1·모두5epoch·실패0: LPWM82.3243/DrivoR83.9662/Drive-JEPA85.3751. LPWM4→5+.7633점(CI−.3996~+1.9229), 직진증가/좌·우감소. 학습scene/노출량·입력·SSL·seed·scheduler차이가남아표현단독효과·공정한논문우위입증아님. 원25epoch학습/조건불변,epoch6계속. 전체NAVTEST평가는아니다. [전체비교](lpwm_planning_experiment.md) · [결과](../results/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison_20261010.json).
+
 ## 2026-10-10 17:59 KST — 5 epoch 학습·내부dev 검증 완료
 
 5epoch 5,885update 학습17:51·저장17:51:16·자동내부검증17:53완료. 내부dev1,021 PDMS 83.9882(동일dev4epoch 81.8300 대비+2.1582), ADE/FDE 1.7463/4.2489m. 공통NAVTEST1,024 또는전체NAVTEST점수아님.

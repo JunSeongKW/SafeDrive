@@ -1,5 +1,40 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-10 18:13 KST — 세 모델의 5 epoch 공통 NAVTEST 비교 완료
+
+연구 명제의 하위 질문: 현재 planning 목적 LPWM 적응 시스템은 공통 planner 대조군과 비교해 경로 계획 성능을 확보하는가? 이 비교는 시스템 성능 점검이며 표현의 인과적 기여를 분리하지 않는다.
+
+동일 독립 NAVTEST 1,024장면·44주행 기록·공식 NAVSIM v1 scorer이며 모든 모델의 실제 5 epoch 저장본을 새로 추론·채점했다. 전체 NAVTEST/원 논문 전체 재현이 아니다. 조건별 평가 실패0, planning 및 SSL 학습과 token/recording 중복0, 기존 입력·추론batch4·각 모델 정밀도 보존.
+
+| 모델 | Epoch3 PDMS | Epoch5 PDMS | ADE (m) | FDE (m) | Planning 장면 / update | 입력 |
+|---|---:|---:|---:|---:|---|---|
+| LPWM 현재 모델 | 80.2828 | 82.3243 | 1.8408 | 4.4376 | 75,297 / 5,885 | front1, 4frame, 128×128 |
+| DrivoR 방식 | 81.0005 | 83.9662 | 1.8092 | 4.3526 | 10,240 / 3,200 | front1, 2frame, 512×256 |
+| Drive-JEPA 방식 | 81.9835 | 85.3751 | 1.6929 | 3.9388 | 10,240 / 3,200 | front1, 2frame, 512×256 |
+
+| 상황 | 장면 수 | LPWM | DrivoR | Drive-JEPA |
+|---|---:|---:|---:|---:|
+| 직진 | 741 | 85.0773 | 86.0802 | 86.4615 |
+| 좌회전 | 193 | 74.9186 | 80.1026 | 83.2351 |
+| 우회전 | 90 | 75.5388 | 74.8466 | 81.0196 |
+
+| 하위 지표 평균×100 | LPWM | DrivoR | Drive-JEPA |
+|---|---:|---:|---:|
+| 무과실 충돌 회피 | 96.9238 | 98.7793 | 98.5840 |
+| 도로 준수 | 93.8477 | 94.0430 | 94.7266 |
+| 진행률 | 73.8780 | 76.1232 | 77.7863 |
+| TTC | 92.7734 | 94.3359 | 94.9219 |
+| Comfort | 100.0000 | 100.0000 | 99.9023 |
+| 방향 준수 | 95.5078 | 96.8750 | 97.2656 |
+
+평균 점수 순서는 JEPA85.3751 > DrivoR83.9662 > LPWM82.3243이다. LPWM−DrivoR −1.6419점/기록단위 paired bootstrap95%CI[−4.0210,+.8708], LPWM−JEPA −3.0508점/CI[−4.9533,−1.1698]. 44recording 재표집10,000회·seed47이며, 동일panel의시스템차이이고동일학습조건의표현효과검정이아니다.
+
+LPWM4epoch81.5610→5epoch82.3243(+.7633점), CI[−.3996,+1.9229]로 안정적인개선의통계적근거는아직확정하지않는다. ADE/FDE2.1684/5.3802→1.8408/4.4376m. 직진+1.4188점, 좌−.8729점, 우−1.1249점이며, 진행률평균은증가했지만NC·도로준수·TTC는하락했다. 전체평균상승을모든상황/안전지표개선으로해석하지않는다. 내부dev5epoch83.9882는별도1,021장면점수라공통비교에혼합하지않았다.
+
+**남은 비교조건 차이:** LPWM75,297scene×5(유효batch64),64memory,history4/128,Stage1 23,126clip×20·Geometry/CNN/appearance/context/dynamics LoRA,seed2,25epoch목표/2,942warmup. 대조군10,240scene×5(유효16),16memory,history2/512×256,seed47,5epoch목표/160warmup이며 JEPA는10,480clip×5의축소SSL을추가했다. LPWM의 학습 데이터·예산이 더 크므로 공정한 표현 단독 비교/논문 성능 우위 입증으로 부르지 않는다. 현재 LPWM에 점수 우위가 있다는 근거는 없다.
+
+새공통평가controller와결과report는완료됐다. 기존25epoch 학습/286scientific source/config/배치/LR/queue는불변이며 epoch6 학습은계속한다. 평가표본 whole-card최대43.297GB<48decimalGB. 원CSV/예측/hash/등록/로그는 `outputs/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison/`, 공유 JSON은 `results/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison_20261010.json`다.
+
 ## 2026-10-10 17:59 KST — 5 epoch 학습·내부 검증 완료
 
 5epoch 5,885update 학습17:51·저장17:51:16·자동내부검증17:53완료. 내부dev1,021 PDMS 83.9882(동일dev4epoch 81.8300 대비+2.1582), ADE/FDE 1.7463/4.2489m. 공통NAVTEST1,024 또는전체NAVTEST점수아님.

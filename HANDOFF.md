@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-10 17:59 KST (Codex)
+마지막 갱신: 2026-10-10 18:16 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  평가controller1688698/모델별GPU추론·공식CPU채점은종료했다. 원25epochqueue1533508은epoch6,평가후누적5959로계속한다. 286science source/config/배치/LR/원queue불변. 과거frozenadapter진단본학습은미기동.
 
 **2026-10-10 17:59 KST — 5 epoch 학습·자동검증 완료.** 5epoch 5,885update 학습17:51·저장17:51:16·자동내부검증17:53완료. 내부dev1,021 PDMS 83.9882(동일dev4epoch 81.8300 대비+2.1582), ADE/FDE 1.7463/4.2489m. 공통NAVTEST1,024 또는전체NAVTEST점수아님. 원25epochqueue1533508은training_epoch_06, 누적5,903. 이번조회에서새작업/실행변경없음.
 
@@ -1359,6 +1361,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  공통1,024 NAVTEST/44recording,모두실제5epoch,실패0/학습중복0. PDMS LPWM82.3243/DrivoR83.9662/JEPA85.3751. LPWM직진85.0773/좌74.9186/우75.5388,4→5+.7633(CI−.3996~+1.9229). 입력·학습예산다름,전체NAVTEST/논문우위/particle단독효과아님. results/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison_20261010.json
 
 **2026-10-10 17:59 KST — 5 epoch 학습·자동검증 완료.** 5epoch 5,885update 학습17:51·저장17:51:16·자동내부검증17:53완료. 내부dev1,021 PDMS 83.9882(동일dev4epoch 81.8300 대비+2.1582), ADE/FDE 1.7463/4.2489m. 공통NAVTEST1,024 또는전체NAVTEST점수아님. 내부dev명령별PDMS {'0': {'count': 227, 'pdms': 84.18526640153014}, '1': {'count': 667, 'pdms': 85.21908608347964}, '2': {'count': 127, 'pdms': 77.17129017531327}}; native고정/실행·유한성gate통과/실패0. 근거 results/lpwm_front_history_stage1_lora_v1/epoch5_completion_status_20261010_1759.json.
 
@@ -2372,6 +2376,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  새compare_common_navtest_saved_epochs.py/5epoch config는원등록infer/score를재사용하면서실제epoch·상황별결과를표기한다. 세저장본5885/3200/3200을새추론·채점,원패널/입력hash·native고정검사. paired44recording bootstrap/하위지표·3→5·LPWM4→5변화를JSON/문서에기록. 기존학습·평가source는수정하지않았다.
+
 **2026-10-10 17:59 KST — 5 epoch 학습·자동검증 완료.**  기존checkpoint/자동검증marker/점수와6epoch자동시작을확인하고결과JSON·명령별집계·인수인계문서에기록했다. 원학습source/config/batch/LR/25epochqueue불변, 신규추론·채점·대조군학습없음.
 
 **2026-10-10 16:42 KST — 5 epoch 종료 예상 조회.** 진행파일·최근50/100/200/500회 실측속도와 이전자동검증시간으로 ETA를 산출해 결과JSON/HANDOFF/RESUME_NOTES에 기록했다. code/config/queue 불변, 새학습·추론·평가없음.
@@ -2418,6 +2424,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  완료5epoch공통평가를재실행하지않는다. 원25epoch학습/매epoch내부검증/500시각화는계속한다. 모델별학습·입력조건을맞춘표현대조는별도설계이며이번요청에서새학습/방법변경예약없음.
 
 **2026-10-10 17:59 KST — 5 epoch 학습·자동검증 완료.**  원25epoch학습·매epoch내부검증을유지한다. 이번요청은완료확인이며5epoch공통NAVTEST/DrivoR·JEPA비교는아직기동하지않았다.
 
@@ -3102,6 +3110,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  공통NAVTEST5epoch LPWM82.3243과내부dev5epoch83.9882를구분한다. LPWM은평균점수대조군보다낮고좌/우점수는4epoch보다하락했다. 같은epoch지만LPWM75,297·대조군10,240scene와입력/SSL/scheduler차이가남으며표현의원인적우열미입증.
 
 **2026-10-10 17:59 KST — 5 epoch 학습·자동검증 완료.**  83.9882는내부dev1,021점수이며이전공통NAVTEST4epoch81.5610과개선폭을직접비교하지않는다. 동일내부dev4→5는+2.1582; 공통NAVTEST5epoch는미평가.
 
