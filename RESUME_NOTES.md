@@ -4387,3 +4387,29 @@ Adapter2epoch9414의기존같은dev83.5279/ADE1.1433/FDE2.7021,동일navtest81.6
 2026-10-10 00:16 KST — 새PDMS없음. 최신공통navtest1024의1epoch LPWM70.1667/DrivoR70.6457/JEPA75.8652 및내부dev1021의69.7437 유지。고정4scene1500geometry mean中心0.215400inputpx/크기변화2.101612%/presence절대차0.0141399;1epoch0.170806px/1.715052%보다증가하나주행entity집중/정보보존/효용미검증。최신겹침PNG outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/update_001500/particles_before_after_overlay.png。근거 results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261010_0016.json。
 
 2026-10-10 00:16 KST — 原25epochqueue/每epochdev검증유지. 최근200 update14.995s,훈련만epoch2 10/10 03:34:36/워밍업06:01:33/epoch3 08:28:45KST 예상;epoch검증시간별도/공유부하조건부. 기존3epoch검토권고는유지하며그시점PDMS·미래기여·world진단검토. 조회로설정변경없음。
+
+
+## 2026-10-10 09:11 KST — 3epoch 검증 결과와진행판단
+
+2026-10-10 09:11 KST — 3 epoch 검증 완료, 4 epoch 학습 중. 누적 3,748/29,425 update(12.74%), epoch 4는 217/1,177 update(18.44%). 동일 내부 개발셋 1,021장면 PDMS는 69.7437→77.4678→81.7225, ADE는 3.5841→1.8605→1.6245m, FDE는 8.9248→4.5543→3.9800m. 1→3 epoch에서 PDMS +11.9788점. Warmup 2,942 update 완료. Queue 1533508/torchrun 1664853 계속 실행하며 등록된 286개 source와 학습 설정은 불변. 양 rank의 3,700 update 검사에서 18개 gradient 그룹이 유한한 양수이고 최근 loss에 비유한 값은 없다. 전체 GPU 카드 사용량은 각각 약 41.076GB.
+
+2026-10-10 09:11 KST — 추가 학습으로 동일 개발셋 성능이 개선되어 4–5 epoch까지 추세를 확인할 근거가 있다. LPWM 단독 효과와 미래 예측의 이득은 아직 분리하지 못했다. 미래 정보를 현재 정보의 반복으로 대체한 12장면 ADE 차이는 1 epoch +0.00869m, 2 epoch −0.23419m, 3 epoch +0.09767m로 부호가 일관되지 않다. 고정 16클립의 3 epoch 복원 MSE는 Stage1 대비 −0.2836%, 미래 MSE는 −2.0815%. 고정 4장면에서 particle 중심 이동 평균 0.3494 입력 픽셀, 크기 변화 4.1019%, presence 절대 차이 0.025213. 이 시점에는 3 epoch NAVTEST 평가가 없으며 기존 1 epoch 공통 NAVTEST 70.1667과 개발셋 81.7225를 직접 비교하지 않는다. 근거: results/lpwm_front_history_stage1_lora_v1/epoch3_review_20261010.json.
+
+2026-10-10 09:11 KST — 원래 25 epoch 학습과 매 epoch 개발셋/world model 검증을 계속한다. 같은 세션 속도로 추정한 4 epoch 학습 완료는 10/10 13:03 KST, 5 epoch는 17:47 KST이며 검증 시간은 별도다. 다음 개발셋 성능 증가, 미래 분기 개입, geometry와 미래 영상 오차를 확인한다. 이 조회 시점에는 학습 설정 변경이나 새 NAVTEST 평가를 실행하지 않았다.
+
+
+## 2026-10-10 09:30 KST — 세 모델 3 epoch 공통 평가 완료
+
+2026-10-10 09:30 KST — 사용자 요청한 세 모델의 planner 3 epoch 공통 평가 완료. 학습은 기존 queue 1533508/torchrun 1664853에서 계속하며 누적 3819/29,425 update(12.98%), epoch 4의 288/1,177 update다. 평가 프로세스는 종료했고 전체 GPU 0의 평가 병행 표본 최대는 43.297GB로 48GB 상한 이내. 기존 배치/LR/25 epoch 대기열과 등록 286개 학습 source/config는 불변. 양 rank 3,800 update의 18개 gradient 그룹은 유한한 양수.
+
+| 모델 | 1 epoch PDMS | 3 epoch PDMS | 변화(점) | 3 epoch ADE(m) | 3 epoch FDE(m) |
+|---|---:|---:|---:|---:|---:|
+| 현재 LPWM | 70.17 | 80.28 | +10.12 | 1.697 | 4.112 |
+| DrivoR 방식 | 70.65 | 81.00 | +10.35 | 2.426 | 5.756 |
+| Drive-JEPA 방식 | 75.87 | 81.98 | +6.12 | 2.381 | 5.356 |
+
+2026-10-10 09:30 KST — 동일 NAVTEST 1,024장면/44주행 기록, 공식 NAVSIM v1 scorer, 실패 0: 3 epoch PDMS LPWM 80.2828/DrivoR 81.0005/Drive-JEPA 방식 81.9835; ADE 1.6974/2.4263/2.3810m, FDE 4.1122/5.7565/5.3563m. 동일 패널의 1→3 epoch PDMS 증가는 +10.1161/+10.3548/+6.1183점. 이전 1 epoch 평가와 패널 및 5개 입력 배열 hash가 동일하고 모든 학습·평가 주행 기록 중복은 0. LPWM의 궤적 오차는 낮지만 충돌·도로 준수 지표는 두 대조군보다 낮다. LPWM−DrivoR 차이 −0.7178점의 주행 기록 단위 paired bootstrap 95% CI는 [−3.0753,+1.4813], LPWM−JEPA −1.7007점은 [−3.5383,+0.1476]로 모두 0을 포함한다. 전체 NAVTEST나 동일 학습 조건 비교가 아니다. 근거: results/lpwm_front_history_stage1_lora_v1/epoch3_common_comparison_20261010.json.
+
+2026-10-10 09:30 KST — 이번 결과는 동일한 평가 장면에서의 시스템 비교다. LPWM은 epoch당 학습 75,297장면·유효64·4프레임·128×128·memory64이며, 이전 두 대조군은 10,240장면·유효16·2프레임·512×256·memory16이다. 사전학습·학습률 경로·seed도 다르므로 particle 또는 LPWM 적응만의 효과나 원 논문 재현으로 주장하지 않는다. PDMS 차이 CI가 0을 포함하는 것은 동등성 입증이 아니다. 앞서 내부 개발셋 81.7225와 이번 NAVTEST 80.2828은 다른 평가 패널의 점수다.
+
+2026-10-10 09:30 KST — 원래 25 epoch 학습과 매 epoch 내부 개발셋/world model 검증을 계속한다. 이번 사용자가 요청한 3 epoch NAVTEST 비교는 완료됐으며 추가 NAVTEST 반복 평가를 자동 예약하지 않는다. 동일 개발셋에서 4–5 epoch 이후 성능 추세, 미래 개입과 world model 유지 검사를 확인한다.

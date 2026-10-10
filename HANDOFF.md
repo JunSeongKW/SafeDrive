@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-10 00:18 KST (Codex)
+마지막 갱신: 2026-10-10 09:31 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,10 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+2026-10-10 09:30 KST — 사용자 요청한 세 모델의 planner 3 epoch 공통 평가 완료. 학습은 기존 queue 1533508/torchrun 1664853에서 계속하며 누적 3819/29,425 update(12.98%), epoch 4의 288/1,177 update다. 평가 프로세스는 종료했고 전체 GPU 0의 평가 병행 표본 최대는 43.297GB로 48GB 상한 이내. 기존 배치/LR/25 epoch 대기열과 등록 286개 학습 source/config는 불변. 양 rank 3,800 update의 18개 gradient 그룹은 유한한 양수.
+
+2026-10-10 09:11 KST — 3 epoch 검증 완료, 4 epoch 학습 중. 누적 3,748/29,425 update(12.74%), epoch 4는 217/1,177 update(18.44%). 동일 내부 개발셋 1,021장면 PDMS는 69.7437→77.4678→81.7225, ADE는 3.5841→1.8605→1.6245m, FDE는 8.9248→4.5543→3.9800m. 1→3 epoch에서 PDMS +11.9788점. Warmup 2,942 update 완료. Queue 1533508/torchrun 1664853 계속 실행하며 등록된 286개 source와 학습 설정은 불변. 양 rank의 3,700 update 검사에서 18개 gradient 그룹이 유한한 양수이고 최근 loss에 비유한 값은 없다. 전체 GPU 카드 사용량은 각각 약 41.076GB.
 
 2026-10-10 00:16 KST — 사용자진행률/중간결과조회. 누적1562/29425(5.31%),epoch2 385/1177(32.71%) 계속. 양rank1500의18gradient그룹유한양수/최근200비유한loss0/GPU각최대41.0759decimalGB/286source불변/실패·pause없음. 최근100loss8.9555(epoch1후반)→6.1084(epoch2),trajectory6.7831→3.8460,scoreBCE2.1724→2.2624。서로다른배치/목표로PDMS상승이나LPWM단독효과로해석하지않음。
 
@@ -1341,6 +1345,10 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+2026-10-10 09:30 KST — 동일 NAVTEST 1,024장면/44주행 기록, 공식 NAVSIM v1 scorer, 실패 0: 3 epoch PDMS LPWM 80.2828/DrivoR 81.0005/Drive-JEPA 방식 81.9835; ADE 1.6974/2.4263/2.3810m, FDE 4.1122/5.7565/5.3563m. 동일 패널의 1→3 epoch PDMS 증가는 +10.1161/+10.3548/+6.1183점. 이전 1 epoch 평가와 패널 및 5개 입력 배열 hash가 동일하고 모든 학습·평가 주행 기록 중복은 0. LPWM의 궤적 오차는 낮지만 충돌·도로 준수 지표는 두 대조군보다 낮다. LPWM−DrivoR 차이 −0.7178점의 주행 기록 단위 paired bootstrap 95% CI는 [−3.0753,+1.4813], LPWM−JEPA −1.7007점은 [−3.5383,+0.1476]로 모두 0을 포함한다. 전체 NAVTEST나 동일 학습 조건 비교가 아니다. 근거: results/lpwm_front_history_stage1_lora_v1/epoch3_common_comparison_20261010.json.
+
+2026-10-10 09:11 KST — 추가 학습으로 동일 개발셋 성능이 개선되어 4–5 epoch까지 추세를 확인할 근거가 있다. LPWM 단독 효과와 미래 예측의 이득은 아직 분리하지 못했다. 미래 정보를 현재 정보의 반복으로 대체한 12장면 ADE 차이는 1 epoch +0.00869m, 2 epoch −0.23419m, 3 epoch +0.09767m로 부호가 일관되지 않다. 고정 16클립의 3 epoch 복원 MSE는 Stage1 대비 −0.2836%, 미래 MSE는 −2.0815%. 고정 4장면에서 particle 중심 이동 평균 0.3494 입력 픽셀, 크기 변화 4.1019%, presence 절대 차이 0.025213. 이 시점에는 3 epoch NAVTEST 평가가 없으며 기존 1 epoch 공통 NAVTEST 70.1667과 개발셋 81.7225를 직접 비교하지 않는다. 근거: results/lpwm_front_history_stage1_lora_v1/epoch3_review_20261010.json.
 
 2026-10-10 00:16 KST — 새PDMS없음. 최신공통navtest1024의1epoch LPWM70.1667/DrivoR70.6457/JEPA75.8652 및내부dev1021의69.7437 유지。고정4scene1500geometry mean中心0.215400inputpx/크기변화2.101612%/presence절대차0.0141399;1epoch0.170806px/1.715052%보다증가하나주행entity집중/정보보존/효용미검증。최신겹침PNG outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/update_001500/particles_before_after_overlay.png。근거 results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261010_0016.json。
 
@@ -2336,6 +2344,10 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+사용자 추가 요청으로 세 모델의 저장된 3 epoch 체크포인트를 기존 NAVTEST 패널에서 재평가했다. 새 configs/lpwm_front_history_stage1_lora/epoch3_common_comparison.json 및 scripts/compare_planning_epoch_checkpoints.py는 원래 model loader/입력/precision/공식 scorer를 재사용하며 학습 queue와 분리해 GPU 평가 할당을 최대 4GB로 제한한다. 모델 strict load, source/checkpoint/input hash와 학습 중복 검사를 통과했고 3,072장면 채점 실패는 0이다. 결과 JSON, 주행 기록 단위 paired bootstrap CI와 상황별 표를 저장하고 HANDOFF 1–5절/RESUME_NOTES/연구 문서를 갱신했다. 초기 shell background는 지속되지 않아 실행 결과 없이 종료됐으며 start_new_session으로 평가를 실행해 완료했다. 원래 학습 코드·설정·배치·optimizer·scheduler·25 epoch 목표는 변경하지 않았다.
+
+3 epoch 검토로 1–3 epoch의 동일 개발셋 PDMS/ADE/FDE, world model 유지, 12장면 미래 반복 개입, 고정 4장면 geometry, 양 rank gradient와 source hash를 확인하고 JSON으로 저장했다. 결과표와 추가 학습 판단을 HANDOFF 1–5절, RESUME_NOTES, 연구 문서에 기록했다. 기존 source/config/queue와 목표 25 epoch는 변경하지 않았다.
+
 사용자중간보고요청에양rank진행/loss/1500gradient·geometry/sourcehash/PDMS완료상태와같은세션200update ETA를점검해JSON저장. HANDOFF1–5/RESUME_NOTES갱신. 학습코드·설정·배치/LR·queue변경없음.
 
 warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를확인. 최신loss·미래개입·geometry진단을근거로3epoch검토권고와중단/재설계판단의한계를기록. JSON/HANDOFF1–5/RESUME_NOTES/연구문서갱신,원25epoch학습대기열변경없음.
@@ -2364,6 +2376,10 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+2026-10-10 09:30 KST — 원래 25 epoch 학습과 매 epoch 내부 개발셋/world model 검증을 계속한다. 이번 사용자가 요청한 3 epoch NAVTEST 비교는 완료됐으며 추가 NAVTEST 반복 평가를 자동 예약하지 않는다. 동일 개발셋에서 4–5 epoch 이후 성능 추세, 미래 개입과 world model 유지 검사를 확인한다.
+
+2026-10-10 09:11 KST — 원래 25 epoch 학습과 매 epoch 개발셋/world model 검증을 계속한다. 같은 세션 속도로 추정한 4 epoch 학습 완료는 10/10 13:03 KST, 5 epoch는 17:47 KST이며 검증 시간은 별도다. 다음 개발셋 성능 증가, 미래 분기 개입, geometry와 미래 영상 오차를 확인한다. 이 조회 시점에는 학습 설정 변경이나 새 NAVTEST 평가를 실행하지 않았다.
 
 2026-10-10 00:16 KST — 原25epochqueue/每epochdev검증유지. 최근200 update14.995s,훈련만epoch2 10/10 03:34:36/워밍업06:01:33/epoch3 08:28:45KST 예상;epoch검증시간별도/공유부하조건부. 기존3epoch검토권고는유지하며그시점PDMS·미래기여·world진단검토. 조회로설정변경없음。
 
@@ -3030,6 +3046,10 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+2026-10-10 09:30 KST — 이번 결과는 동일한 평가 장면에서의 시스템 비교다. LPWM은 epoch당 학습 75,297장면·유효64·4프레임·128×128·memory64이며, 이전 두 대조군은 10,240장면·유효16·2프레임·512×256·memory16이다. 사전학습·학습률 경로·seed도 다르므로 particle 또는 LPWM 적응만의 효과나 원 논문 재현으로 주장하지 않는다. PDMS 차이 CI가 0을 포함하는 것은 동등성 입증이 아니다. 앞서 내부 개발셋 81.7225와 이번 NAVTEST 80.2828은 다른 평가 패널의 점수다.
+
+2026-10-10 09:11 KST — 개발셋 69.74→81.72는 동일 패널에서의 개선으로 추가 학습을 이어갈 근거다. 전체 NAVTEST 점수는 아니다. 미래 개입 12장면, geometry 4장면, world model 16클립은 제한된 진단이며 particle 단독 기여, 객체 상태 정보 보존과 의도에 따른 선택은 미검증이다. 3 epoch는 warmup 이후 첫 검토 시점이며 수렴했다고 판단하지 않는다.
 
 2026-10-10 00:16 KST — 아직epoch2PDMS없음/워밍업2942미완료. loss감소와geometry변화를성능이득이나particle단독기여로부르지않는다. geometry통계는4scene만/첫epoch미래반복개입12scene+0.00869m는아직작은효과. NAVTEST를추가epoch튜닝패널로반복사용하지않고동일dev추세로진행판단。
 

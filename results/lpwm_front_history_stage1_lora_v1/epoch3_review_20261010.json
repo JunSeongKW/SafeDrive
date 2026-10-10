@@ -1,0 +1,200 @@
+{
+  "observed_at_kst": "2026-10-10T09:11:57.798881+09:00",
+  "progress": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 3748,
+    "epoch": 4,
+    "rank_scene_tokens_sha256": "d125d56e64604c1188de0981e2a71bf4ec806a7801e651a9c9eb80b4c042dba5",
+    "update_in_epoch": 217,
+    "seconds_this_update": 14.29954195022583,
+    "elapsed_seconds": 3146.008550643921,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0005829334259033203,
+      "forward": 2.733745813369751,
+      "oracle": 3.3799490928649902,
+      "backward": 8.00902795791626
+    },
+    "learning_rates": [
+      9.977162708478004e-06,
+      9.977162708478048e-05
+    ],
+    "loss": 3.1429965496063232,
+    "trajectory_loss": 1.2400997877120972,
+    "final_score_loss": 1.902896761894226,
+    "score": 0.8141836822032928,
+    "best_score": 0.9940856397151947,
+    "estimated_remaining_seconds": 372258.37613668636
+  },
+  "overall_percent": 12.737468139337299,
+  "current_epoch_percent": 18.436703483432456,
+  "development_validations": [
+    {
+      "epoch": 1,
+      "completed_updates": 1177,
+      "pdms": 69.74366946017395,
+      "ade_meters": 3.5841193199157715,
+      "fde_meters": 8.924787521362305,
+      "pdms_count": 1021,
+      "future_repeat_12scene_ade_difference_meters": 0.008691787719726562,
+      "world_relative_error_change_percent": {
+        "reconstruction_mse": -0.03296273651324233,
+        "future_mse": -0.701363938011057
+      },
+      "subscores": {
+        "no_at_fault_collisions": 0.9618021547502449,
+        "drivable_area_compliance": 0.8893241919686582,
+        "ego_progress": 0.5283044823233128,
+        "time_to_collision_within_bound": 0.9196865817825661,
+        "comfort": 0.9627815866797258,
+        "driving_direction_compliance": 0.9515181194906954,
+        "score": 0.6974366946017395
+      }
+    },
+    {
+      "epoch": 2,
+      "completed_updates": 2354,
+      "pdms": 77.46779454209883,
+      "ade_meters": 1.8604743480682373,
+      "fde_meters": 4.554338455200195,
+      "pdms_count": 1021,
+      "future_repeat_12scene_ade_difference_meters": -0.23418760299682617,
+      "world_relative_error_change_percent": {
+        "reconstruction_mse": -0.05821872296755126,
+        "future_mse": -1.2280344262369236
+      },
+      "subscores": {
+        "no_at_fault_collisions": 0.9622918707149853,
+        "drivable_area_compliance": 0.9020568070519099,
+        "ego_progress": 0.6918273289770996,
+        "time_to_collision_within_bound": 0.910871694417238,
+        "comfort": 0.9941234084231146,
+        "driving_direction_compliance": 0.9632713026444663,
+        "score": 0.7746779454209882
+      }
+    },
+    {
+      "epoch": 3,
+      "completed_updates": 3531,
+      "pdms": 81.72250838495911,
+      "ade_meters": 1.6244981288909912,
+      "fde_meters": 3.9799752235412598,
+      "pdms_count": 1021,
+      "future_repeat_12scene_ade_difference_meters": 0.09766852855682373,
+      "world_relative_error_change_percent": {
+        "reconstruction_mse": -0.28355663771342243,
+        "future_mse": -2.081517537414679
+      },
+      "subscores": {
+        "no_at_fault_collisions": 0.975024485798237,
+        "drivable_area_compliance": 0.9255631733594515,
+        "ego_progress": 0.7349280674291983,
+        "time_to_collision_within_bound": 0.9324191968658179,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9573947110675808,
+        "score": 0.8172250838495911
+      }
+    }
+  ],
+  "pdms_gain_epoch3_minus1": 11.978838924785165,
+  "ade_relative_reduction_epoch3_vs1_percent": 54.675110288204145,
+  "fde_relative_reduction_epoch3_vs1_percent": 55.40537840240094,
+  "particle_diagnostics": {
+    "epoch_01": {
+      "label": "epoch_01",
+      "tokens": [
+        "ddbde9d6bfda5a6e",
+        "782e2832bd025494",
+        "df19480a94ec58ff",
+        "85f0514810285441"
+      ],
+      "mean_center_shift_input_pixels": 0.17080572247505188,
+      "mean_relative_size_change_percent": 1.7150517702102661,
+      "mean_absolute_presence_change": 0.012491460889577866,
+      "scene_selection": "fixed first four of registered development panel",
+      "dots": "all 64 foreground particle centers; radius indicates presence",
+      "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+    },
+    "epoch_02": {
+      "label": "epoch_02",
+      "tokens": [
+        "ddbde9d6bfda5a6e",
+        "782e2832bd025494",
+        "df19480a94ec58ff",
+        "85f0514810285441"
+      ],
+      "mean_center_shift_input_pixels": 0.23039889335632324,
+      "mean_relative_size_change_percent": 2.2144064903259277,
+      "mean_absolute_presence_change": 0.012963375076651573,
+      "scene_selection": "fixed first four of registered development panel",
+      "dots": "all 64 foreground particle centers; radius indicates presence",
+      "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+    },
+    "epoch_03": {
+      "label": "epoch_03",
+      "tokens": [
+        "ddbde9d6bfda5a6e",
+        "782e2832bd025494",
+        "df19480a94ec58ff",
+        "85f0514810285441"
+      ],
+      "mean_center_shift_input_pixels": 0.3494272232055664,
+      "mean_relative_size_change_percent": 4.101900577545166,
+      "mean_absolute_presence_change": 0.025213003158569336,
+      "scene_selection": "fixed first four of registered development panel",
+      "dots": "all 64 foreground particle centers; radius indicates presence",
+      "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+    }
+  },
+  "particle_overlay": "outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_03/particles_before_after_overlay.png",
+  "recent200_same_session_seconds_per_update": 14.474097753763198,
+  "training_only_eta_kst": {
+    "4": "2026-10-10T13:03:32.932725+09:00",
+    "5": "2026-10-10T17:47:28.945781+09:00",
+    "25": "2026-10-14T16:26:09.206904+09:00"
+  },
+  "gradient_audits": {
+    "0": {
+      "current_updates": 3748,
+      "gradient_audit_update": 3700,
+      "group_count": 18,
+      "all_positive_finite": true,
+      "recent_nonfinite_loss_count": 0,
+      "max_recent_card_decimal_gb": 41.075867648
+    },
+    "1": {
+      "current_updates": 3748,
+      "gradient_audit_update": 3700,
+      "group_count": 18,
+      "all_positive_finite": true,
+      "recent_nonfinite_loss_count": 0,
+      "max_recent_card_decimal_gb": 41.075867648
+    }
+  },
+  "registered_source_count": 286,
+  "source_mismatches": [],
+  "warmup_complete": true,
+  "epoch3_navtest_evaluated": false,
+  "latest_navtest_epoch": 1,
+  "latest_navtest_pdms": 70.16673137162185,
+  "interpretation": "Same internal development improvement supports continued training. No frozen-LPWM matched control; cannot isolate LPWM contribution. Future-repeat intervention only12 scenes and changes sign between epochs; no robust future-representation benefit established.",
+  "training_or_queue_changed": false
+}
