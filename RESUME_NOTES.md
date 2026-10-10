@@ -4567,3 +4567,18 @@ LPWM4epoch81.5610→5epoch82.3243(+.7633점), CI[−.3996,+1.9229]로 안정적�
 **남은 비교조건 차이:** LPWM75,297scene×5(유효batch64),64memory,history4/128,Stage1 23,126clip×20·Geometry/CNN/appearance/context/dynamics LoRA,seed2,25epoch목표/2,942warmup. 대조군10,240scene×5(유효16),16memory,history2/512×256,seed47,5epoch목표/160warmup이며 JEPA는10,480clip×5의축소SSL을추가했다. LPWM의 학습 데이터·예산이 더 크므로 공정한 표현 단독 비교/논문 성능 우위 입증으로 부르지 않는다. 현재 LPWM에 점수 우위가 있다는 근거는 없다.
 
 새공통평가controller와결과report는완료됐다. 기존25epoch 학습/286scientific source/config/배치/LR/queue는불변이며 epoch6 학습은계속한다. 평가표본 whole-card최대43.297GB<48decimalGB. 원CSV/예측/hash/등록/로그는 `outputs/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison/`, 공유 JSON은 `results/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison_20261010.json`다.
+
+
+## 2026-10-11 01:35 KST — frozen-token soft reweighting pilot 완료
+
+**2026-10-11 01:35 KST — Frozen-token soft reweighting pilot 완료.** GPU0의 별도 캐시/검증/ABC 각1000update/공식navval PDMS/개입 평가/진단/보고서가 모두 종료했다. 새 full-scale 학습이나 sweep은 예약하지 않았다. 기존 LPWM25epoch는 epoch7, 누적7686/29425로 계속하며 등록된 source/config 289개 hash가 모두 유지된다. 새실험 root `outputs/soft_token_reweighting_v1/`, 공유 `results/soft_token_reweighting_v1/report.md`.
+
+**2026-10-11 01:35 KST — Soft reweighting 실제 결과.** 공식 Drive-JEPA perception-free full planning checkpoint의 visual ViT를 완전 freeze하고 실제 post-pool encoder feature(128×1024 FP32)를 캐시했다. front1/관측2frame/512×256, 공식navtrain10000·navval1000/recording101·61/중복0, seed0/batch32/1000update/Adam1e-4/공식L1. A baseline PDMS87.28899/ADE.59113/FDE1.45784, B 비조건부85.19332/.58822/1.45135, C 조건부87.27589/.58316/1.44469. C−A−.01310점, recording95%CI[−.77928,+.70255]. 6종 자동검증 통과/5000개 채점 실패0. C beta0/shuffle은87.275885로 사실상 동일; bias std/content std≈.02515%, 확률변동계수 .05755%, command 상대효과 .3105%. 추가 bias의 기능적 효용 확인 못함. 학습합계 .04761 GPUh(171.40초), 캐시671.79초, 최대 전체카드42.938GB. 단일seed·이미 사용한navval 개발셋·pretrained planner 재적응이며 독립test/논문baseline 점수 대체가 아니다.
+
+Frozen encoder 실제 feature 캐시 및 official PF planner 재사용 경로, 269346-parameter 조건부/비조건부 중요도 MLP와 첫 cross-attention additive bias 구현. 공통 초기값·순서·loss·Adam의 ABC pilot, beta0/padding/gradient/raw-cache 검증, 공식PDMS 및 상황별 지표, C개입·ego민감도·실제QK 대비bias 진단, 교차순서 latency와 PNG·CSV·JSON·Markdown 보고서 추가. 본학습 원본source/config/queue는 변경하지 않음. Pilot 이후 profile 전체시간 변수 충돌만 수정하고 실제 실행 source snapshot 및 정정 기록 보존; model/train/predict/score 함수 불변 AST 확인. HANDOFF1–5/RESUME_NOTES/README/연구상태 갱신.
+
+**Soft reweighting pilot 후속 제안(미실행):** 실제 bias가 content logits 대비 너무 작고 C beta0/shuffle 효과가 거의0이므로, r의 valid-token 표준편차를 정규화해 beta=.1이 약.1 logit 규모를 갖도록 한 동일ABC pilot을 다음 한 실험으로 제안한다. 이번 요청 범위의 pilot은 끝났으며 추가 학습을 자동 시작하지 않는다. 기존 LPWM25epoch/정기검증은 계속한다.
+
+**Soft reweighting 해석 범위:** 실제 A/B/C 공통 frozen cache 비교이며 공개full planning encoder+planner checkpoint에서 추가 적응했다. C가A를 개선한다는 증거 없음. C−B 상승을 조건부 객체중요도 발견으로 부르지 않는다: C bias를끄거나섞어도 출력/점수차이는극미량이고 중요도는거의균일하다. 8×16 공간 index는 전역 ViT/planner encoder가 정보를 섞은 anchor이며 객체/인과적 픽셀 마스크가 아니다. 표본CI는seed분산을포함하지않음. NAVSIMv1부분navval/EPDMS미적용. Profile raw total-time 필드오류는 results의measurement_notes에 정정; 개별step/학습시간/실제score 영향없음.
+
+재실행: `/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python scripts/run_soft_token_reweighting_suite.py --config configs/soft_token_reweighting/pilot_v1.json --replay-id rerun_001`. 과거 실행 결과는 덮어쓰지 않는다.

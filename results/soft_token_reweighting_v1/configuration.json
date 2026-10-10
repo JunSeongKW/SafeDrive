@@ -1,0 +1,38 @@
+{
+  "output_directory": "outputs/soft_token_reweighting_v1",
+  "results_directory": "results/soft_token_reweighting_v1",
+  "source_image_manifest": "outputs/four_model_small_corpus_v1/corpus/manifest.json",
+  "source_image_cache": "outputs/four_model_small_corpus_v1/corpus/images.npy",
+  "base": "official Drive-JEPA perception-free ViT-L full planning checkpoint",
+  "conditions": [
+    "baseline",
+    "unconditioned",
+    "conditioned"
+  ],
+  "seed": 0,
+  "train_scenes": 10000,
+  "validation_scenes": 1000,
+  "maximum_optimizer_steps": 1000,
+  "candidate_batch_size": 32,
+  "cache_batch_size": 4,
+  "learning_rate": 0.0001,
+  "optimizer": "Adam",
+  "loss": "official l1_length_normalized_loss alpha=5",
+  "maximum_training_gpu_seconds": 10800,
+  "physical_gpu": 0,
+  "whole_card_limit_bytes": 48000000000,
+  "process_allocator_limit_bytes": 5000000000,
+  "cache_dtype": "float32",
+  "compute_dtype": "float32",
+  "encoder_features": "native encoder then original nonlearnable 2x2 pooling, before image_fc",
+  "feature_shape": [
+    128,
+    1024
+  ],
+  "modification": "first decoder cross-attention only; visual logit beta*r; ego token bias 0",
+  "initial_beta": 0.1,
+  "importance_hidden_dimension": 128,
+  "scoring_workers": 4,
+  "validation_selection": "seed0 within original official navval; previously used development logs, not untouched test",
+  "checkpoint_selection": "fixed common last step; no validation selection or sweep"
+}

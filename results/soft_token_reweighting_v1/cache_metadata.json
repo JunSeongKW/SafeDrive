@@ -1,0 +1,63 @@
+{
+  "complete": true,
+  "feature_shape": [
+    11000,
+    128,
+    1024
+  ],
+  "dtype": "float32",
+  "feature_location": "official image_encoder output (512x1024), then original AvgPool2d2 to128x1024 before learned image_fc",
+  "preprocessing": "front only; past/current[-0.5,0]s; RGB crop28 top/bottom; cv2 INTER_LINEAR512x256; /255; ImageNet normalization",
+  "token_grid": [
+    8,
+    16
+  ],
+  "joint_observed_tubelet": true,
+  "future_inputs": false,
+  "encoder_frozen": true,
+  "encoder_eval": true,
+  "encoder_no_gradients": true,
+  "encoder_state_sha256": "111084687b754f21c48692f4e705f9aca701367bef6817a71db7616a2af49a02",
+  "full_planning_checkpoint": {
+    "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+    "size_bytes": 3720285081,
+    "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+  },
+  "strict_loading": "<All keys matched successfully>",
+  "official_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+  "planner_initial_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+  "subset_manifest_sha256": "e195e8321e0b634ff71deb645e0629ca6cf919918e5108971dbf12217067ade1",
+  "cache_visual_tokens_sha256": "3e55c0dc91afd77f2a0e4ef7167611ca8ba5692b1b7240d220e91768c0a2a7cb",
+  "raw_vs_cache_checks": [
+    {
+      "tokens": [
+        "2991b6c6ca595856",
+        "6d18132d792b51fc",
+        "15c91dcebf5455b2",
+        "d6e09dfdcaed5bb0"
+      ],
+      "feature_max_difference": 0.0,
+      "prediction_max_difference": 1.9073486328125e-06
+    },
+    {
+      "tokens": [
+        "54ced13f54d45595",
+        "b182afe96eff545c",
+        "0ef905cf005e5c7f",
+        "9f95591656ee5812"
+      ],
+      "feature_max_difference": 0.0,
+      "prediction_max_difference": 1.9073486328125e-06
+    }
+  ],
+  "cache_seconds": 671.7908153533936,
+  "peak_allocated_bytes": 1416493568,
+  "peak_reserved_bytes": 1516240896,
+  "maximum_whole_card_bytes": 42938138624,
+  "environment": {
+    "python": "3.9.23 | packaged by conda-forge | (main, Jun  4 2025, 17:57:12) \n[GCC 13.3.0]",
+    "torch": "2.1.0+cu121",
+    "numpy": "1.24.0",
+    "gpu": "NVIDIA RTX A6000"
+  }
+}

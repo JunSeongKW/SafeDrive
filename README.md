@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-11 01:35 KST — frozen-token soft reweighting pilot 완료.** 공식 Drive-JEPA PF의 고정128×1024 feature 캐시/공통 seed0·batch32·1000update에서 navval1000 PDMS A87.29/B85.19/C87.28. C의 beta0/shuffle도 동일해 추가 bias 효용은 확인되지 않았다. 검증 통과·학습합계0.0476 GPUh·결과/시각화/재실행은 [보고서](results/soft_token_reweighting_v1/report.md). 기존 LPWM25epoch는 계속한다.
+
 **2026-10-09 18:24 KST — 사용자 요청으로 서버 종료 후 같은 Stage2 학습 재개.**
 정상 fullstate100update(model/AdamW796state/scheduler100/양rankRNG/epoch0cursor100)에서 GPU0·1 재개, 실제111update 확인. shutdown 직전 로그146이나저장은100이라46update 재수행. 첫101의scene token hash·loss 양rank 모두이전101과정확일치,18gradient그룹유한양수. 원286source/config/입력hash·nativeStage1보존. 유효64=micro8×acc4×GPU2/loader2/oracle8/48decimalGB상한,실측약41.1GB.
 새queue19736/torchrun19757, root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`. 기존500시각화/epoch검증→다음학습 대기열복구;다른과거실험중단유지。근거 `outputs/lpwm_front_history_stage1_lora_v1/server_restart_recovery_20261009/resume_confirmed.json`. 원100checkpoint hardlink와이전control보존. 최신상태는progress/queue_state에서확인한다.

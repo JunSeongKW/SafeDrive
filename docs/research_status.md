@@ -1,5 +1,11 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+**2026-10-11 01:35 KST — Frozen-token soft reweighting pilot 완료.** GPU0의 별도 캐시/검증/ABC 각1000update/공식navval PDMS/개입 평가/진단/보고서가 모두 종료했다. 새 full-scale 학습이나 sweep은 예약하지 않았다. 기존 LPWM25epoch는 epoch7, 누적7686/29425로 계속하며 등록된 source/config 289개 hash가 모두 유지된다. 새실험 root `outputs/soft_token_reweighting_v1/`, 공유 `results/soft_token_reweighting_v1/report.md`.
+
+**2026-10-11 01:35 KST — Soft reweighting 실제 결과.** 공식 Drive-JEPA perception-free full planning checkpoint의 visual ViT를 완전 freeze하고 실제 post-pool encoder feature(128×1024 FP32)를 캐시했다. front1/관측2frame/512×256, 공식navtrain10000·navval1000/recording101·61/중복0, seed0/batch32/1000update/Adam1e-4/공식L1. A baseline PDMS87.28899/ADE.59113/FDE1.45784, B 비조건부85.19332/.58822/1.45135, C 조건부87.27589/.58316/1.44469. C−A−.01310점, recording95%CI[−.77928,+.70255]. 6종 자동검증 통과/5000개 채점 실패0. C beta0/shuffle은87.275885로 사실상 동일; bias std/content std≈.02515%, 확률변동계수 .05755%, command 상대효과 .3105%. 추가 bias의 기능적 효용 확인 못함. 학습합계 .04761 GPUh(171.40초), 캐시671.79초, 최대 전체카드42.938GB. 단일seed·이미 사용한navval 개발셋·pretrained planner 재적응이며 독립test/논문baseline 점수 대체가 아니다.
+
+**Soft reweighting pilot 후속 제안(미실행):** 실제 bias가 content logits 대비 너무 작고 C beta0/shuffle 효과가 거의0이므로, r의 valid-token 표준편차를 정규화해 beta=.1이 약.1 logit 규모를 갖도록 한 동일ABC pilot을 다음 한 실험으로 제안한다. 이번 요청 범위의 pilot은 끝났으며 추가 학습을 자동 시작하지 않는다. 기존 LPWM25epoch/정기검증은 계속한다.
+
 ## 2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 비교 완료
 
 동일1,024장면/44recording·공식NAVSIMv1·모두5epoch·실패0: LPWM82.3243/DrivoR83.9662/Drive-JEPA85.3751. LPWM4→5+.7633점(CI−.3996~+1.9229), 직진증가/좌·우감소. 학습scene/노출량·입력·SSL·seed·scheduler차이가남아표현단독효과·공정한논문우위입증아님. 원25epoch학습/조건불변,epoch6계속. 전체NAVTEST평가는아니다. [전체비교](lpwm_planning_experiment.md) · [결과](../results/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison_20261010.json).

@@ -1,0 +1,38 @@
+{
+  "no_additional_training": true,
+  "scenes": 1000,
+  "mean_content_qk_logit_std": 2.3548351703882218,
+  "mean_learned_bias_std": 0.000575458777253516,
+  "mean_bias_to_content_std_ratio": 0.0002514549685895615,
+  "ego_permutation_mean_absolute_importance_change": 7.329482508976071e-05,
+  "ego_permutation_mean_change_relative_to_importance_std": 0.012641139274871885,
+  "dynamic_only_permutation_mean_change_relative_to_importance_std": 0.011966889529990893,
+  "counterfactual_scope": "Only importance inputs are changed; scene tokens and native decoder ego are held fixed. Permuted ego can be out-of-distribution.",
+  "entropy_precision_audit": {
+    "unconditioned": {
+      "normalized_entropy_float64_mean": 0.9999999479011876,
+      "mean_probability_coefficient_of_variation": 0.0006882074923668431,
+      "maximum_probability_divided_by_uniform": 1.0046132984230007,
+      "note": "Original FP32 entropy rounds to1; distribution is nearly uniform but not exactly constant"
+    },
+    "conditioned": {
+      "normalized_entropy_float64_mean": 0.9999999643592516,
+      "mean_probability_coefficient_of_variation": 0.0005754894189566142,
+      "maximum_probability_divided_by_uniform": 1.0042463552255214,
+      "note": "Original FP32 entropy rounds to1; distribution is nearly uniform but not exactly constant"
+    }
+  },
+  "trajectory_sensitivity": {
+    "beta_zero": {
+      "mean_waypoint_change_meters": 1.5919800944175222e-06,
+      "maximum_waypoint_change_meters": 9.704349940875545e-05,
+      "mean_endpoint_change_meters": 3.821502559731016e-06
+    },
+    "shuffle": {
+      "mean_waypoint_change_meters": 1.8657048030945589e-06,
+      "maximum_waypoint_change_meters": 7.97816610429436e-05,
+      "mean_endpoint_change_meters": 4.7581120270479005e-06
+    }
+  },
+  "seconds": 3.6964305879955646
+}

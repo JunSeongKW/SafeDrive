@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-11 01:35 KST",
+  "pilot_complete": true,
+  "pilot_suite_state": {
+    "status": "complete",
+    "wall_seconds": 452.00190353393555
+  },
+  "prior_training_completed_updates": 7686,
+  "prior_training_epoch": 7,
+  "prior_registered_source_count": 289,
+  "prior_source_mismatches": [],
+  "new_training_not_queued": true,
+  "three_models_same_initial_state_schedule_steps": true,
+  "official_scores_valid": 5000
+}

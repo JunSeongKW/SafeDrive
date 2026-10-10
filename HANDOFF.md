@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-10 18:16 KST (Codex)
+마지막 갱신: 2026-10-11 01:37 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 01:35 KST — Frozen-token soft reweighting pilot 완료.** GPU0의 별도 캐시/검증/ABC 각1000update/공식navval PDMS/개입 평가/진단/보고서가 모두 종료했다. 새 full-scale 학습이나 sweep은 예약하지 않았다. 기존 LPWM25epoch는 epoch7, 누적7686/29425로 계속하며 등록된 source/config 289개 hash가 모두 유지된다. 새실험 root `outputs/soft_token_reweighting_v1/`, 공유 `results/soft_token_reweighting_v1/report.md`.
 
 **2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  평가controller1688698/모델별GPU추론·공식CPU채점은종료했다. 원25epochqueue1533508은epoch6,평가후누적5959로계속한다. 286science source/config/배치/LR/원queue불변. 과거frozenadapter진단본학습은미기동.
 
@@ -1361,6 +1363,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 01:35 KST — Soft reweighting 실제 결과.** 공식 Drive-JEPA perception-free full planning checkpoint의 visual ViT를 완전 freeze하고 실제 post-pool encoder feature(128×1024 FP32)를 캐시했다. front1/관측2frame/512×256, 공식navtrain10000·navval1000/recording101·61/중복0, seed0/batch32/1000update/Adam1e-4/공식L1. A baseline PDMS87.28899/ADE.59113/FDE1.45784, B 비조건부85.19332/.58822/1.45135, C 조건부87.27589/.58316/1.44469. C−A−.01310점, recording95%CI[−.77928,+.70255]. 6종 자동검증 통과/5000개 채점 실패0. C beta0/shuffle은87.275885로 사실상 동일; bias std/content std≈.02515%, 확률변동계수 .05755%, command 상대효과 .3105%. 추가 bias의 기능적 효용 확인 못함. 학습합계 .04761 GPUh(171.40초), 캐시671.79초, 최대 전체카드42.938GB. 단일seed·이미 사용한navval 개발셋·pretrained planner 재적응이며 독립test/논문baseline 점수 대체가 아니다.
 
 **2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  공통1,024 NAVTEST/44recording,모두실제5epoch,실패0/학습중복0. PDMS LPWM82.3243/DrivoR83.9662/JEPA85.3751. LPWM직진85.0773/좌74.9186/우75.5388,4→5+.7633(CI−.3996~+1.9229). 입력·학습예산다름,전체NAVTEST/논문우위/particle단독효과아님. results/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison_20261010.json
 
@@ -2376,6 +2380,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+Frozen encoder 실제 feature 캐시 및 official PF planner 재사용 경로, 269346-parameter 조건부/비조건부 중요도 MLP와 첫 cross-attention additive bias 구현. 공통 초기값·순서·loss·Adam의 ABC pilot, beta0/padding/gradient/raw-cache 검증, 공식PDMS 및 상황별 지표, C개입·ego민감도·실제QK 대비bias 진단, 교차순서 latency와 PNG·CSV·JSON·Markdown 보고서 추가. 본학습 원본source/config/queue는 변경하지 않음. Pilot 이후 profile 전체시간 변수 충돌만 수정하고 실제 실행 source snapshot 및 정정 기록 보존; model/train/predict/score 함수 불변 AST 확인. HANDOFF1–5/RESUME_NOTES/README/연구상태 갱신.
+
 **2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  새compare_common_navtest_saved_epochs.py/5epoch config는원등록infer/score를재사용하면서실제epoch·상황별결과를표기한다. 세저장본5885/3200/3200을새추론·채점,원패널/입력hash·native고정검사. paired44recording bootstrap/하위지표·3→5·LPWM4→5변화를JSON/문서에기록. 기존학습·평가source는수정하지않았다.
 
 **2026-10-10 17:59 KST — 5 epoch 학습·자동검증 완료.**  기존checkpoint/자동검증marker/점수와6epoch자동시작을확인하고결과JSON·명령별집계·인수인계문서에기록했다. 원학습source/config/batch/LR/25epochqueue불변, 신규추론·채점·대조군학습없음.
@@ -2424,6 +2430,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**Soft reweighting pilot 후속 제안(미실행):** 실제 bias가 content logits 대비 너무 작고 C beta0/shuffle 효과가 거의0이므로, r의 valid-token 표준편차를 정규화해 beta=.1이 약.1 logit 규모를 갖도록 한 동일ABC pilot을 다음 한 실험으로 제안한다. 이번 요청 범위의 pilot은 끝났으며 추가 학습을 자동 시작하지 않는다. 기존 LPWM25epoch/정기검증은 계속한다.
 
 **2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  완료5epoch공통평가를재실행하지않는다. 원25epoch학습/매epoch내부검증/500시각화는계속한다. 모델별학습·입력조건을맞춘표현대조는별도설계이며이번요청에서새학습/방법변경예약없음.
 
@@ -3110,6 +3118,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**Soft reweighting 해석 범위:** 실제 A/B/C 공통 frozen cache 비교이며 공개full planning encoder+planner checkpoint에서 추가 적응했다. C가A를 개선한다는 증거 없음. C−B 상승을 조건부 객체중요도 발견으로 부르지 않는다: C bias를끄거나섞어도 출력/점수차이는극미량이고 중요도는거의균일하다. 8×16 공간 index는 전역 ViT/planner encoder가 정보를 섞은 anchor이며 객체/인과적 픽셀 마스크가 아니다. 표본CI는seed분산을포함하지않음. NAVSIMv1부분navval/EPDMS미적용. Profile raw total-time 필드오류는 results의measurement_notes에 정정; 개별step/학습시간/실제score 영향없음.
 
 **2026-10-10 18:13 KST — 5 epoch 공통 NAVTEST 평가 완료.**  공통NAVTEST5epoch LPWM82.3243과내부dev5epoch83.9882를구분한다. LPWM은평균점수대조군보다낮고좌/우점수는4epoch보다하락했다. 같은epoch지만LPWM75,297·대조군10,240scene와입력/SSL/scheduler차이가남으며표현의원인적우열미입증.
 
