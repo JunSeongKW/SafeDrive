@@ -4481,3 +4481,33 @@ Frozen-native adapter 대조군은 구성 및 CPU 1회 연결 검사를 완료�
 **2026-10-10 13:47 KST — 후속 우선순위.** scorer calibration·순위/학습proxy대공식채점 차이 → 구성한 frozen-native adapter 통제학습 → 같은 예산의 상황/의도별 정보선택. 진단 대조는 구성 요청에 따라 준비했으나 실행하지 않았다. 원25epoch와매epoch검증을 유지한다.
 
 **2026-10-10 13:47 KST — 해석 범위.** 후보분석192명령균형장면은1024dev와분포가다르고 oracle는미래정답상한이다. CPUgradient2쌍은과거DDP전체의분리gradient가아니다. Native고정+adapter/command학습은함수전체고정이아니다. Source128현재실험과512축소실험을구분한다. 새로운2GPU대조production검사는아직남아있다.
+
+
+## 2026-10-10 14:07 KST — LPWM 4 epoch 공통 NAVTEST 재평가 완료
+
+연구 명제의 하위 질문: planning loss로 미세조정 중인 LPWM 시스템에서 학습량 증가가 경로 계획 성능 개선으로 이어지는가? 표현 선택 또는 LPWM 단독 기여를 분리하는 실험은 아니다.
+
+같은 독립 NAVTEST 1,024장면·44주행 기록과 공식 NAVSIM v1 scorer를 사용했다. 전체 NAVTEST가 아니며 모든 조건 평가 실패 0, planning/SSL 학습과 token·recording 중복 0이다. LPWM은 새 4 epoch 저장본을 평가하고, 대조군은 동일 checkpoint·panel·입력·scorer hash를 확인해 기존 3 epoch 결과를 재사용했다. DrivoR·Drive-JEPA planner 저장 규칙이 1/3/5 epoch이어서 4 epoch 체크포인트는 없으며, 조사한 recovery fullstate도 모두 2,560 update 이전이다. 재학습하거나 다른 epoch을 4 epoch으로 표기하지 않았다.
+
+| 모델 | Planning epoch | Update | PDMS | ADE (m) | FDE (m) |
+|---|---:|---:|---:|---:|---:|
+| LPWM 이전 저장본 | 3 | 3,531 | 80.2828 | 1.6974 | 4.1122 |
+| LPWM 이번 저장본 | 4 | 4,708 | 81.5610 | 2.1684 | 5.3802 |
+| DrivoR 방식 | 3 | 1,920 | 81.0005 | 2.4263 | 5.7565 |
+| Drive-JEPA 방식 | 3 | 1,920 | 81.9835 | 2.3810 | 5.3563 |
+
+LPWM 3→4 epoch PDMS는 +1.2782점이다. 이번 LPWM은 대조군 3 epoch보다 DrivoR +0.5605점, JEPA −0.4225점이다. 학습 장면 수·노출량·SSL·해상도·관측 프레임·memory 크기·seed·scheduler와 epoch이 달라, 이 표로 표현의 우열이나 공정한 동일 예산 성능 우위를 입증할 수 없다.
+
+| 상황 | 장면 수 | LPWM 3 epoch | LPWM 4 epoch | DrivoR 3 epoch | JEPA 3 epoch |
+|---|---:|---:|---:|---:|---:|
+| 직진 | 741 | 82.8911 | 83.6585 | 82.7610 | 84.5233 |
+| 좌회전 | 193 | 75.4359 | 75.7915 | 78.3548 | 77.7640 |
+| 우회전 | 90 | 69.2014 | 76.6638 | 72.1795 | 70.1212 |
+
+LPWM의 NC·도로 준수·TTC 평균×100은 각각 96.39→97.56, 91.60→94.43, 92.48→93.95이다. 진행률은 72.18→70.25로 낮아졌고 ADE/FDE도 악화했다. 따라서 PDMS 상승을 모든 주행 품질 지표의 개선이나 미래 particle 표현 단독 효과로 해석하지 않는다. 상황별 값은 동일 장면의 기술 통계이며 여러 seed의 유의성 검정 결과가 아니다. 내부 개발셋의 4 epoch 81.8300(유효1,021)은 다른 장면 점수라 공통 표에 혼합하지 않았다.
+
+입력·학습: LPWM 전방1·과거현재4프레임·128×128·64 foreground+1 background·planner memory64, planning75,297장면·유효batch64·목표25epoch; 완료 Stage1(23,126clip×20epoch) 재사용 및 geometry/CNN/appearance/context/dynamics LoRA. 대조군은 전방1·2프레임·512×256·memory16, planning10,240장면·유효batch16·목표5epoch이다. 모두 공통 DrivoR planner를 사용하는 축소/변형 시스템이며 원 논문 전체 재현이 아니다.
+
+새 진입점 `scripts/evaluate_lpwm_saved_epoch_against_baselines.py`는 model별 epoch을 분리해서 보고하고 동일 대조군 평가 파일의 hash를 검증해 재사용한다. 기존 등록된 학습·평가 source는 수정하지 않았다. GPU 추론243.0초, 표본 whole-card 최대43.297GB<48decimalGB, 추론 종료 후 메모리 반환. 기존25epoch queue/배치/LR 유지, 평가 후 누적4,971·epoch5 진행. Frozen adapter 진단 본학습은 미기동이다.
+
+결과 `results/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison_20261010.json`; 원 CSV·예측·등록·가용 checkpoint 조사·재사용 증거는 `outputs/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison/`에 보존했다.

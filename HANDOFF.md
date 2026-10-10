@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-10 13:49 KST (Codex)
+마지막 갱신: 2026-10-10 14:07 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-10 14:07 KST — 사용자 요청 4 epoch 재평가 완료.** 새 평가controller2011023의 LPWM GPU 추론→공식CPU채점→report 종료. 원25epoch Stage2는 누적4,971/29,425·epoch5 진행, batch/LR/286scientific sources 불변. 다른 과거 실험·frozen adapter 진단 본학습은 미기동.
 
 **2026-10-10 13:47 KST — 이전 축소실험 진단 완료.** 후보192장면×64×4모델 공식 평가/CPU 분리 gradient2쌍/frozen adapter1step preflight가 완료됐고 진단 GPU는 반환됐다. 현재 원25epoch Stage2는 4,891/29,425 update, epoch 5로 유지한다. 새 대조 본학습·대기열은 미기동.
 
@@ -1353,6 +1355,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-10 14:07 KST — 공통 NAVTEST 1,024장면 LPWM4epoch81.5610.** 이전3epoch80.2828 대비+1.2782점. DrivoR/JEPA는 기존3epoch81.0005/81.9835 재사용이며 4epoch checkpoint는 보존되지 않았다(원save1/3/5). 상황별LPWM 직진83.6585/좌75.7915/우76.6638, 실패0/44recording/학습중복0. ADE/FDE2.1684/5.3802m로3epoch보다악화. 전체NAVTEST·동일4epoch/동일예산·원논문비교 아님. 결과 results/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison_20261010.json.
 
 **2026-10-10 13:47 KST — 축소실험 저성능 병목.** 공통3epoch 개발PDMS 78.40/74.70/70.09/63.97(DrivoR/JEPA/순차/공동). 별도192장면 oracle-best 97.81/98.56/97.83/97.89, selected72.76/71.79/67.79/63.36. LPWM 선택손실이 크고 memory 연결·planning gradient는 정상이다. SSL 가중 gradient는 encoder planning의28–32%, 방향은 표본별 다름. 결과 results/small_corpus_planning_diagnosis_20261010/diagnosis.json.
 
@@ -2360,6 +2364,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-10 14:07 KST — 4 epoch PDMS 평가.** 새 saved-epoch evaluator/config는 model별 epoch과 대조군 hash검증재사용을 기록한다. 원학습·기존평가 source/config는 수정하지 않고 LPWM4708 저장본만 새 평가했다. 결과JSON·객체 checkpoint가용성 조사·상황/하위지표 및 ADE/FDE 변화·비교한계를 문서화했다. GPU whole-card43.297GB<48GB, 원학습 계속.
+
 2026-10-10 13:47 KST — 새 candidate/gradient 진단 및 frozen-native adapter 모델·훈련/대기열/CPU검사 코드를 추가했다. 대조 설정은 동일 Stage1/학습장면·예산·평가와 원1937 microbatch변경을 반영한다. CPU native gradient0/digest불변/241planner 초기동일 확인. 연구 문서·결과JSON·비교PNG 갱신. 기존286 source와 scientific config는 불변.
 
 
@@ -2400,6 +2406,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-10 14:07 KST 최신 상태:** 원25epoch 학습과 매epoch 내부검증/500update 시각화 대기열을 유지한다. 이번4epoch공통평가는 완료되어 재실행하지 않는다. 대조군4epoch 저장본이 없으므로 임의재학습/3·5epoch의4epoch표기 금지. Frozen adapter 대조는 구성·preflight완료 상태이며 사용자 추가실행지시 없이 이번평가와 함께 시작하지 않았다.
 
 **2026-10-10 13:47 KST — 후속 우선순위.** scorer calibration·순위/학습proxy대공식채점 차이 → 구성한 frozen-native adapter 통제학습 → 같은 예산의 상황/의도별 정보선택. 진단 대조는 구성 요청에 따라 준비했으나 실행하지 않았다. 원25epoch와매epoch검증을 유지한다.
 
@@ -3078,6 +3086,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-10 14:07 KST 비교 범위:** LPWM4epoch vs DrivoR/JEPA3epoch의 동일평가장면 시스템비교다. 입력·학습scene/예산·SSL·seed·warmup차이가 남아 우월성/particle 단독기여 미입증. PDMS+1.2782와 ADE/FDE악화를 함께 보고한다. 대조군4epoch PDMS는 저장본부재로 미평가; 내부dev4epoch81.8300과공통NAVTEST81.5610을 구분한다.
 
 **2026-10-10 13:47 KST — 해석 범위.** 후보분석192명령균형장면은1024dev와분포가다르고 oracle는미래정답상한이다. CPUgradient2쌍은과거DDP전체의분리gradient가아니다. Native고정+adapter/command학습은함수전체고정이아니다. Source128현재실험과512축소실험을구분한다. 새로운2GPU대조production검사는아직남아있다.
 

@@ -1,5 +1,11 @@
 # 연구 상태 — Codex / ChatGPT 공통 인수인계
 
+## 2026-10-10 14:07 KST — LPWM 4 epoch NAVTEST 부분집합 PDMS 81.5610
+
+공통 독립1,024장면·44주행 기록·공식NAVSIMv1·실패0. LPWM3epoch80.2828→4epoch81.5610(+1.2782); 기존 대조군은 DrivoR3epoch81.0005/JEPA3epoch81.9835이다. 대조군4epoch checkpoint가 보존되지 않았으므로 동일4epoch 비교로 부르지 않는다. LPWM의 ADE/FDE는1.6974/4.1122→2.1684/5.3802m로 악화했으며 입력·학습 예산도 서로 다르다. 학습code/config/286sources와25epoch 대기열은 불변, epoch5 계속. 전체NAVTEST·원논문재현·표현의단독효과 입증이 아니다.
+
+[상황별 점수·입력·학습량·한계](lpwm_planning_experiment.md) · [전체 결과](../results/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison_20261010.json)
+
 ## 2026-10-10 13:47 KST — 이전 축소 LPWM 저성능 진단 완료
 
 공통 3 epoch 개발셋 PDMS: DrivoR78.40/JEPA74.70/LPWM순차70.09/공동63.97. 별도 고정192장면에서 후보 최고97.8–98.6 대비 LPWM 선택67.79/63.36으로 선택 손실이 큰 것을 확인했다. 현재·미래·background·geometry/context 연결과 planning gradient는 정상 전달된다. 두 CPU 표본의 가중 SSL gradient는 planning의28–32%이며 항상 충돌하거나 SSL이 지배한다는 근거는 없다. Frozen-native adapter 대조는 동일 이전2단계 조건으로 구성하고 CPU 연결·native고정 검사를 완료했으며 본학습·대기열 기동은 하지 않았다. 현재25epoch 학습의286개 source는 불변이다.

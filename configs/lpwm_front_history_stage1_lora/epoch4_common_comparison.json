@@ -1,0 +1,72 @@
+{
+  "purpose": "User-requested completed LPWM fourth-epoch PDMS with explicit saved third-epoch baseline comparison",
+  "output_directory": "outputs/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison",
+  "training_configuration": "configs/lpwm_front_history_stage1_lora/experiment.json",
+  "training_execution": "configs/lpwm_front_history_stage1_lora/execution_microbatch8.json",
+  "panel": "outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/panel.json",
+  "inputs": "outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/inputs",
+  "scene_count": 1024,
+  "full_navtest": false,
+  "gpu": 0,
+  "inference_batch_size": 4,
+  "maximum_total_card_bytes": 48000000000,
+  "maximum_process_bytes": 4000000000,
+  "scoring_workers": 4,
+  "conditions": {
+    "lpwm": {
+      "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_04.pt",
+      "completed_updates": 4708,
+      "planning_training_scenes": 75297,
+      "official_training_split_composition": "navtrain 60561 + navval 14736",
+      "effective_batch": 64,
+      "observed_frames": 4,
+      "image_size_width_height": [
+        128,
+        128
+      ],
+      "planner_memory_tokens": 64,
+      "seed": 2,
+      "local_stage1": "23126 clips, 20 epochs; reused completed LPWM SSL checkpoint",
+      "planning_epoch": 4
+    },
+    "drivor": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass3.pt",
+      "completed_updates": 1920,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "None; public DINOv2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/drivor/validation/pass3.pdms.json",
+      "planning_epoch": 3
+    },
+    "jepa": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/jepa/pass3.pt",
+      "stage1_checkpoint": "outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt",
+      "completed_updates": 1920,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "10480 clips, 5 passes, V-JEPA2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/jepa/validation/pass3.pdms.json",
+      "planning_epoch": 3
+    }
+  },
+  "interpretation": "Same evaluation panel, different training conditions and saved epochs: LPWM epoch 4; DrivoR and Drive-JEPA variants epoch 3. Baseline epoch-4 planning checkpoints were not retained (only 1/3/5). This is not a same-epoch controlled comparison or an original-paper replication.",
+  "selection_policy": "Evaluate the explicitly requested saved LPWM epoch 4; reuse verified unchanged baseline epoch-3 results on identical panel/inputs/scorer. No retraining to fabricate unavailable baseline epoch-4 weights. Original 25-epoch LPWM training schedule and settings remain unchanged.",
+  "planning_epoch": 4,
+  "first_epoch_comparison": "outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison/comparison_complete.json",
+  "baseline_comparison_configuration": "configs/lpwm_front_history_stage1_lora/epoch3_common_comparison.json",
+  "previous_lpwm_comparison": "outputs/lpwm_front_history_stage1_lora_v1/epoch3_common_comparison/comparison_complete.json"
+}
