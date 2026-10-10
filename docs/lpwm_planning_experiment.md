@@ -1,5 +1,66 @@
 # LPWM 표현 학습과 플래너의 개발 PDMS 비교
 
+## 2026-10-10 10:00 KST — 성능 우위와 표현 기여를 검증하는 후속 설계
+
+사용자 질문에 대한 연구 설계 권고다. 아래 실험은 아직 구현·등록·기동하지 않았으며 현재 25 epoch 학습은 그대로 유지한다.
+검증할 하위 질문은 **주행 의도에 따른 particle 미래 표현이 동일 planning 조건에서 일반 register/영상 patch 표현보다 유용한가**다.
+현재 3 epoch 공통 NAVTEST 점수 LPWM 80.2828/DrivoR 방식 81.0005/JEPA 방식 81.9835만으로 우위가 입증되지 않았다.
+
+### 두 비교의 범위
+
+| 비교 | 맞출 조건 | 가능한 주장 |
+|---|---|---|
+| 공통 planner에서 backbone 비교 | 학습 장면·관측·해상도·memory·planner 구조/초기값/loss/후보 수·학습량·평가 | 이 프로토콜에서 표현을 포함한 backbone 방법의 planning 이득 |
+| 원 논문의 완성 시스템 비교 | 공식 agent/입력/학습 및 감독 조건을 보고하고 동일 버전의 공식 evaluator로 평가 | 해당 공식 벤치마크에서 완성 시스템의 성능 우위 |
+
+현재 두 대조군은 축소실험의 공통 DrivoR planner 모델이다. 원 Drive-JEPA는 multimodal trajectory distillation과 momentum-aware selection도 사용한다.
+따라서 공통 planner JEPA 결과를 완성 Drive-JEPA 논문 점수라고 부르지 않는다.
+[DrivoR 공식 학습·평가](https://github.com/valeoai/DrivoR) · [Drive-JEPA 논문](https://arxiv.org/html/2601.22032v2).
+
+### 가장 먼저 확인할 개발셋 진단
+
+현재 공통 NAVTEST의 DAC는 LPWM 91.60%, DrivoR 95.21%, JEPA 93.07%; NC 평균 점수는 96.39/97.75/98.73이다.
+ADE/FDE가 낮아도 이러한 안전·도로 준수 지표가 개선됐다는 뜻은 아니다.
+개발셋에서 선택 경로 PDMS와 후보 전체 중 공식 oracle-best PDMS 및 차이를 함께 측정한다.
+Oracle-best도 낮으면 후보 생성 또는 그 입력을 조사하고, 좋은 후보가 있는데 선택 점수만 낮으면 scorer/선택을 조사한다.
+이 검사만으로 Stage1 실패를 확정하지 않는다. 안전 loss나 refiner를 바꾸는 경우 공통 planner 비교의 모든 backbone에 동일하게 적용한다.
+
+### 통제 비교와 최소 어블레이션
+
+빠른 후속 대조는 현재 LPWM의 전방 1대·관측 4프레임·128×128·학습 75,297장면·memory 64×256·유효 batch 64를 두 baseline에도 맞추는 안이다.
+동일한 planner 초기 tensor, 후보 수, ego status, 장면 노출 및 update 수, planner schedule과 seed를 고정한다.
+각 조건의 microbatch/누적/GPU topology를 실행 중 고정하고 기록한다. Backbone별 LR는 같은 개발 튜닝 예산으로 선택할 수 있다.
+Encoder가 명령을 받는 위치도 통제하거나 각 backbone에서 명령 조건화 유무를 별도 비교한다. Planner ego status만 같은 것으로 early command injection의 효과가 분리되지는 않는다.
+이 저해상도 비교는 원 DrivoR/Drive-JEPA의 원래 입력 성능을 대체하지 않는다. 512×256 또는 공식 입력 비교를 하려면 LPWM 구조·가중치 호환성과 연산 비용을 먼저 검증한다.
+공개 초기화, 로컬 SSL 영상·노출, 활성 파라미터와 FLOPs 차이를 명시한다. LoRA rank나 memory 수만 같은 것으로 용량이 맞춰졌다고 주장하지 않는다.
+다른 공개 backbone/사전학습을 쓰는 비교에서 particle 구조만의 효과를 분리하려면, 공통 visual feature에서 register와 particle을 만드는 추가 기전 비교가 필요하다.
+
+| LPWM 조건 | 직접 확인하는 질문 |
+|---|---|
+| LoRA만 고정, encoder 명령 FiLM·projection·planner는 동일하게 학습 | Planning-path LoRA를 학습하는 추가 효과 |
+| 미래 슬롯에 현재 정보를 반복하여 별도 학습 | 예측한 미래 정보의 추가 이득 |
+| Encoder 명령만 제외, planner에는 명령 유지 | 표현 자체를 의도에 조건화하는 이득 |
+| 의도·미래·planning-path LoRA를 모두 사용 | 전체 방법 |
+
+동일 Stage1과 planner 초기값/학습 조건으로 시작한다. 완전히 고정된 LPWM과 명령 FiLM에 planner만 학습하는 조건은 별도의 전체 적응 대조다.
+미래 반복 조건은 같은 8개 시간 슬롯과 planner 입력 차원을 유지하되 활성 파라미터/연산 차이를 보고하며, 필요하면 같은 용량의 비예측 feature expansion을 추가한다.
+현재 checkpoint의 미래 정보만 추론 시 바꾸는 12장면 검사는 보조 진단이다. 별도 학습 대조와 더 큰 개발 패널에서 확인해야 한다.
+
+### 표현과 최종 성능의 근거
+
+- 객체 상태·미래 이동량 probe는 주행 기록 단위로 fit/evaluation을 분리한다. 객체 GT는 진단에만 쓰며 이번 권고로 학습 loss에 추가하지 않는다.
+- 주행 관련 particle 개입과 개수/presence/feature 크기 등을 맞춘 무작위 개입을 비교한다. 단순 삭제로 생기는 분포 이탈도 점검한다.
+- 같은 영상에서 명령을 바꾸면 표현의 민감도를 볼 수 있다. 다른 명령에서도 경로가 정답인지는 일관된 경로 목표·시뮬레이션 또는 대안 GT가 필요하다.
+- Particle의 이동과 박스 변화는 보조 시각화다. 실제 미래 정보 보존과 planning 이득을 함께 보여야 한다.
+- 먼저 1 seed로 경향을 확인하고 주요 결과는 최소 3개 대응 seed로 반복한다. Seed별 점수/표준편차와 주행 기록 단위 paired CI를 각각 보고한다.
+- 최소 개선폭과 안전 비열등 허용폭, checkpoint 선택 규칙을 개발 단계에서 먼저 정한다. 최종 점수를 보고 기준을 바꾸지 않는다.
+- 이미 조회한 NAVTEST 1,024장면 이력을 공개한다. 설계 변경은 개발셋에서 하고, 최종 공식 전체 평가 조건을 고정한다. 새로운 독립 확인을 주장하려면 미노출 주행 기록 단위 패널을 사용한다.
+- NAVSIM v1 NAVTEST PDMS와 v2 NAVHARD EPDMS는 각 버전의 공식 evaluator/cache/rollout으로 별도 보고한다. [NAVSIM 공식 버전·평가 안내](https://github.com/autonomousvision/navsim).
+- 회전·차량 밀집·보행자·가림을 데이터 기준으로 사전 정의하고 안전/진행/comfort와 비용을 함께 보고한다. Baseline이 낮은 점수를 낸 장면만 골라 난이도 계층을 만들지 않는다.
+
+권고 순서는 **개발셋 후보/선택 진단 → 현재 4–5 epoch 개발 추세 확인 → 공통 조건 baseline → LoRA/미래/의도 어블레이션 → 주요 조건 seed 반복과 공식 최종 평가**다.
+새 학습이나 평가 queue는 등록하지 않았다. 구조화 설계 근거는 `results/lpwm_front_history_stage1_lora_v1/controlled_superiority_validation_plan_20261010.json`.
+
 ## 2026-10-10 09:30 KST — 세 모델 3 epoch 공통 NAVTEST 비교 완료
 
 사용자의 명시적인 비교 요청으로 저장된 세 체크포인트를 평가했다. Epoch는 planner 학습 기준이다. 이전 1 epoch 평가와 같은 1,024장면/44주행 기록이며 전체 NAVTEST는 아니다. 세 모델 모두 채점 실패 0, 추가 학습이나 기존 학습 설정 변경 없음.

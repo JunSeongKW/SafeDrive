@@ -1,0 +1,112 @@
+{
+  "documented_at_kst": "2026-10-10 10:00 KST",
+  "status": "research_design_recommendation_not_launched",
+  "research_question": "Does ego-intent-conditioned particle future representation improve planning beyond generic register or video patch features under controlled training and planning conditions?",
+  "current_evidence": {
+    "planning_epoch": 3,
+    "same_navtest_subset_count": 1024,
+    "same_recording_count": 44,
+    "pdms": {
+      "lpwm": 80.2827837575524,
+      "drivor": 81.00053400132217,
+      "jepa": 81.98350923951872
+    },
+    "planning_training_scenes": {
+      "lpwm": 75297,
+      "drivor": 10240,
+      "jepa": 10240
+    },
+    "current_baselines": "Modified small-corpus backbones connected to a common DrivoR planner; not the full original papers.",
+    "superiority_established": false,
+    "future_information_benefit_established": false,
+    "current_training_unchanged": true
+  },
+  "comparison_tracks": {
+    "representation_comparison": {
+      "planner": "Same generator/scorer architecture, initial planner tensors, loss, proposal budget, ego status and candidate selection rule; train each planner with its own backbone.",
+      "planning_training": "Same scene tokens, recording split, effective batch, scene exposures, update budget, planner LR schedule and paired seeds.",
+      "inputs": "Same cameras, observed timestamps, original RGB coverage, resolution and augmentation. Retain appropriate native backbone normalization and document patch padding.",
+      "memory": "Same token count and embedding width; report internal particle count, active trainable parameters and actual compute.",
+      "adaptation": "Backbone-specific LR may be selected on development data with equal tuning budget; equal LoRA rank does not match parameter count.",
+      "ssl": "Audit external initialization, local SSL clips, frames and exposures; match local driving corpus when testing pretraining method, or ablate and report remaining pretraining differences.",
+      "remaining_limitation": "Different native backbones and external pretraining remain confounds for a particle-only claim. A stronger mechanism comparison needs common visual features with register versus particle construction.",
+      "encoder_intent": "Match encoder access to the command across backbones, or separately ablate encoder command conditioning in each backbone; the same planner ego status alone does not isolate particle structure from early command injection."
+    },
+    "complete_system_comparison": {
+      "baselines": "Official full DrivoR and Drive-JEPA agents/checkpoints, including their canonical input and planning logic, evaluated through the same official evaluator version.",
+      "training": "Choose and report one official benchmark training recipe, labels and external pretraining; do not label the present 75297 internal training scenes as full official training.",
+      "v1": "Full NAVTEST PDMS after protocol and checkpoint selection rule are fixed.",
+      "v2": "Optional NAVHARD EPDMS with matching official v2 evaluator, cache, two-stage rollout and supervision; never compare PDMS to EPDMS.",
+      "original_jepa_logic": "Multimodal trajectory distillation and momentum-aware selection are part of the complete Drive-JEPA method and absent from our common-planner JEPA baseline."
+    }
+  },
+  "first_development_diagnosis": {
+    "inputs": "Saved checkpoints and a fixed development panel; GT and oracle labels used only for diagnosis.",
+    "metrics": [
+      "selected_trajectory_pdms",
+      "best_candidate_oracle_pdms",
+      "oracle_to_selected_pdms_gap",
+      "collision_and_drivable_subscores"
+    ],
+    "interpretation": "Low oracle-best candidate quality localizes the limitation to candidate generation or its inputs; a large oracle-to-selected gap localizes it to candidate scoring/selection. Neither alone identifies Stage1 as the cause.",
+    "planner_modification_policy": "If safety losses or refinement are introduced in a representation comparison, apply the same planner modification to every backbone condition.",
+    "initial_panel": "Use 128-256 fixed development scenes selected without model scores for an initial diagnosis, then expand a confirmed finding."
+  },
+  "minimal_lpwm_ablation_conditions": [
+    {
+      "condition": "lpwm_lora_frozen_common_intent_and_planner_train",
+      "difference": "Freeze only LPWM LoRA at initialization; train the same encoder command FiLM, projection and planner as the complete condition.",
+      "question": "Incremental effect of updating native-world-model paths through LoRA; distinguish this from fully frozen LPWM plus frozen FiLM."
+    },
+    {
+      "condition": "lpwm_current_repeat_without_predicted_future",
+      "difference": "Train from the common initialization using repeated current attributes in the same eight future positions and unchanged planner interface.",
+      "question": "Benefit of forecast information beyond observed-history features; report active parameter/compute differences and optionally use a capacity-matched learned expansion control."
+    },
+    {
+      "condition": "lpwm_without_encoder_intent",
+      "difference": "Remove command conditioning only from particle generation while retaining the identical command in the planner ego status.",
+      "question": "Benefit of conditioning representation on intent beyond feeding intent to the planner."
+    },
+    {
+      "condition": "lpwm_intent_future_planning_lora",
+      "difference": "Current proposed complete LPWM method: native Stage1 initialization, intent conditioning, predicted future particles and planning-path LoRA.",
+      "question": "Combined contribution; other conditions start from the same Stage1 and initial planner, with matched training."
+    }
+  ],
+  "representation_diagnostics": [
+    "GT object state and future displacement probes on recording-disjoint fit/evaluation splits; labels are for evaluation and do not become training losses by default.",
+    "Planning-relevant particle intervention compared with random removal matched on particle number, presence, feature norm and spatial extent; assess finite-distribution and perturbation effects.",
+    "Inference-only future repetition/time shuffle complements separately trained ablations; it is not sufficient causal evidence by itself.",
+    "Changing encoder command for the same image tests sensitivity. Alternative-command correctness requires consistent routes/simulation or alternative valid targets, not the original single-command GT trajectory.",
+    "Movement toward visible objects is supplementary visualization, not an attention map or proof of preserved task information."
+  ],
+  "evaluation_policy": {
+    "development": "Use a fixed recording-disjoint development split for design and checkpoint choice; audit both Stage1 and Stage2 leakage.",
+    "navtest_history": "The existing 1024-scene panel has already been observed; report this history. Fix further choices before final official evaluation and use an untouched recording-disjoint confirmation panel when making independent confirmation claims.",
+    "seeds": "One paired seed for initial screening, then at least three paired seeds for a main result; report per-seed values and training variability separately from recording-level sampling uncertainty.",
+    "primary_metric": "Predefine a meaningful PDMS improvement threshold and safety noninferiority margins; do not choose them after test scores.",
+    "confidence": "Paired recording-cluster intervals for each baseline; a positive superiority interval is evidence within this protocol, not universal model superiority or proof of the mechanism.",
+    "scenario_metrics": "Prespecify turn, vehicle density, pedestrian and occlusion strata from data annotations or declared proxies; do not define hard scenes using a baseline score.",
+    "efficiency": "Report Stage1 and Stage2 cost, inference latency/FPS, model peak VRAM and parameter count; token equality alone does not match compute."
+  },
+  "recommended_order": [
+    "Inspect development candidate quality and ranking gap.",
+    "Preserve current fixed 25-epoch run and inspect its next development checkpoints.",
+    "Register fresh common-input/common-training DrivoR and JEPA controls, initially on one seed; a 128x128 comparison supports the low-resolution protocol only.",
+    "Run LoRA, future and encoder-intent ablations under the same protocol.",
+    "Repeat promising main comparisons with paired seeds, then evaluate final agents with the fixed official full benchmark protocol."
+  ],
+  "official_primary_sources": [
+    "https://github.com/valeoai/DrivoR",
+    "https://arxiv.org/html/2601.22032v2",
+    "https://github.com/autonomousvision/navsim"
+  ],
+  "no_new_training_evaluation_or_queue_registered_this_turn": true,
+  "progress_at_documentation": {
+    "completed_updates": 3945,
+    "epoch": 4,
+    "update_in_epoch": 414,
+    "total_updates": 29425
+  }
+}
