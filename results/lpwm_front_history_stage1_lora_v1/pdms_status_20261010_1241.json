@@ -1,0 +1,71 @@
+{
+  "observed_at_kst": "2026-10-10T12:41:02.003640+09:00",
+  "latest_common_navtest": {
+    "epoch": 3,
+    "pdms": 80.2827837575524,
+    "scene_count": 1024,
+    "full_navtest": false,
+    "source": "results/lpwm_front_history_stage1_lora_v1/epoch3_common_comparison_20261010.json"
+  },
+  "latest_internal_development": {
+    "epoch": 3,
+    "completed_updates": 3531,
+    "validation": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_003531",
+    "pdms": 81.72250838495911,
+    "ade_meters": 1.6244981288909912,
+    "fde_meters": 3.9799752235412598,
+    "learning_quality_requires_review": true
+  },
+  "progress": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 4614,
+    "epoch": 4,
+    "rank_scene_tokens_sha256": "d4851527cd100f70f89f9db0de4f8bc6949069778b0f1ae8b5e5e892fb72d0b9",
+    "update_in_epoch": 1083,
+    "seconds_this_update": 13.240338563919067,
+    "elapsed_seconds": 15688.103244543076,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0008344650268554688,
+      "forward": 2.7935104370117188,
+      "oracle": 2.6951355934143066,
+      "backward": 7.533585548400879
+    },
+    "learning_rates": [
+      9.901971197287462e-06,
+      9.901971197287544e-05
+    ],
+    "loss": 2.9199231266975403,
+    "trajectory_loss": 0.9662265926599503,
+    "final_score_loss": 1.9536965787410736,
+    "score": 0.6936379224061966,
+    "best_score": 0.9662299007177353,
+    "estimated_remaining_seconds": 359406.778299888
+  },
+  "epoch_progress_percent": 92.01359388275276,
+  "completed_validation_markers": [
+    "outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_001177/validation_complete.json",
+    "outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_002354/validation_complete.json",
+    "outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_003531/validation_complete.json"
+  ],
+  "new_evaluation_launched": false,
+  "training_configuration_changed": false
+}

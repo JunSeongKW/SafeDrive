@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-10 10:02 KST (Codex)
+마지막 갱신: 2026-10-10 12:41 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-10 12:41 KST — 현재 PDMS 조회.** 누적 4,614/29,425 update, epoch 4는 1,083/1,177(92.0%)다. 최신 완료 평가는 3 epoch이며 4 epoch PDMS는 아직 없다. 기존 25 epoch 학습과 매 epoch 검증을 유지한다.
+
 
 2026-10-10 10:00 KST — 사용자 성능 우위 입증 방법 질문에 연구 설계를 검토했다. 기존 Stage2 epoch 4, 누적 3945/29,425 update 계속. 현재 학습 code/config/batch/LR/25 epoch queue는 변경하지 않았고 새 학습·평가·대기열을 시작하지 않았다.
 
@@ -1347,6 +1350,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-10 12:41 KST — 최신 확정 PDMS.** 3 epoch 공통 NAVTEST 1,024장면은 80.2828점, 내부 개발셋 유효 1,021장면은 81.7225점이다. 서로 다른 평가 패널이며 전체 NAVTEST 점수가 아니다. 새 평가를 실행하지 않았다. 근거: `results/lpwm_front_history_stage1_lora_v1/pdms_status_20261010_1241.json`.
+
 
 2026-10-10 10:00 KST — 기존 3 epoch 80.28/81.00/81.98은 공통 planner 축소모델의 시스템 비교다. 공식 DrivoR/Drive-JEPA·NAVSIM 소스 확인 후 공통 planner의 backbone 비교와 원 완성 모델 비교를 각각 설계했다. 현재 DAC 91.60/95.21/93.07 차이를 근거로 dev oracle-best 후보와 실제 선택 점수 차이 진단을 우선 권고했다. LoRA만 고정 대조는 command FiLM/projection/planner를 동일하게 학습해야 LoRA 추가 효과를 분리한다. 미래·encoder intent 별도 학습 대조, seed 반복과 공식 최종 평가를 권고했으며 미실행이다.
 
@@ -2348,6 +2354,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+2026-10-10 12:41 KST — 진행 파일과 완료된 평가 근거를 조회하고 상태 JSON, HANDOFF 1–5절, RESUME_NOTES를 갱신했다. 학습 코드·설정·가중치·대기열은 변경하지 않았다.
+
+
 공식 연구와 기존 결과를 확인해 성능 우위/표현 기여 검증을 별도로 설계했다. 연구 문서와 structured proposal JSON에 통제 조건, 개발셋 후보/scorer 진단, LoRA·미래·encoder intent 대조, 평가 독립성/paired seed/비용 보고를 기록하고 HANDOFF 1–5절 및 RESUME_NOTES에 남겼다. 신규 실험은 제안이며 등록·기동하지 않았다. 기존 286개 학습 source/config와 실행 queue는 불변.
 
 사용자 추가 요청으로 세 모델의 저장된 3 epoch 체크포인트를 기존 NAVTEST 패널에서 재평가했다. 새 configs/lpwm_front_history_stage1_lora/epoch3_common_comparison.json 및 scripts/compare_planning_epoch_checkpoints.py는 원래 model loader/입력/precision/공식 scorer를 재사용하며 학습 queue와 분리해 GPU 평가 할당을 최대 4GB로 제한한다. 모델 strict load, source/checkpoint/input hash와 학습 중복 검사를 통과했고 3,072장면 채점 실패는 0이다. 결과 JSON, 주행 기록 단위 paired bootstrap CI와 상황별 표를 저장하고 HANDOFF 1–5절/RESUME_NOTES/연구 문서를 갱신했다. 초기 shell background는 지속되지 않아 실행 결과 없이 종료됐으며 start_new_session으로 평가를 실행해 완료했다. 원래 학습 코드·설정·배치·optimizer·scheduler·25 epoch 목표는 변경하지 않았다.
@@ -2382,6 +2391,9 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-10 12:41 KST — 다음 검증.** 기존 대기열에서 4 epoch 학습 완료 후 내부 개발셋 PDMS 및 world model 진단을 수행한다. 이번 조회로 추가 NAVTEST 평가나 새 대조 실험을 예약하지 않았다.
+
 
 2026-10-10 10:00 KST — 현재 등록 25 epoch 학습과 정기 개발셋/world model 검증을 계속한다. 추가 우위 검증은 별도 후속 계획이며, 먼저 개발셋에서 후보 생성/선택 한계를 진단하고 공통 관측/학습량 baseline 및 최소 어블레이션을 구체화하는 것을 권고한다. 이번 사용자 질문은 새 실행 명령이 아니므로 해당 계획을 queue에 넣지 않았다.
 
@@ -3054,6 +3066,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-10 12:41 KST — 점수 해석.** 현재 가중치의 점수는 아직 평가 전이며 최신 확정 값은 3 epoch 기준이다. 공통 NAVTEST 80.28과 내부 개발셋 81.72를 구분한다.
+
 
 2026-10-10 10:00 KST — 우위는 보장되지 않는다. 저해상도 통제 비교를 완성 원 모델 우위로 부르지 않으며 다른 공개 backbone/사전학습으로 particle만의 효과를 단정하지 않는다. 이미 조회한 test 이력과 현재 학습량 차이를 명시한다. Seed 반복 및 미노출 기록 단위 확인은 제안이고 아직 결과가 없다. 현재는 모든 64개 particle/8개 미래 시점 예측으로 명시적 장면별 예측 예산 선택까지 입증한 상태가 아니다.
 
