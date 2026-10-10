@@ -4511,3 +4511,10 @@ LPWM의 NC·도로 준수·TTC 평균×100은 각각 96.39→97.56, 91.60→94.4
 새 진입점 `scripts/evaluate_lpwm_saved_epoch_against_baselines.py`는 model별 epoch을 분리해서 보고하고 동일 대조군 평가 파일의 hash를 검증해 재사용한다. 기존 등록된 학습·평가 source는 수정하지 않았다. GPU 추론243.0초, 표본 whole-card 최대43.297GB<48decimalGB, 추론 종료 후 메모리 반환. 기존25epoch queue/배치/LR 유지, 평가 후 누적4,971·epoch5 진행. Frozen adapter 진단 본학습은 미기동이다.
 
 결과 `results/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison_20261010.json`; 원 CSV·예측·등록·가용 checkpoint 조사·재사용 증거는 `outputs/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison/`에 보존했다.
+
+
+## 2026-10-10 16:42 KST — 5 epoch 학습 종료 ETA
+
+누적5,608/29,425, epoch5 900/1,177(76.5%), 잔여277update. 최근50–500update 평균14.66–15.19초로 순수학습17:50–18:00KST, 기존 내부dev검증17:55–18:05 추정. 이전3/4epoch 저장→검증149.9/144.6초. 현속도조건부이며 새 common NAVTEST 비교 예약은 아니다.
+
+원code/config/25epoch queue는변경하지않고새평가도예약하지않았다. 근거 `results/lpwm_front_history_stage1_lora_v1/epoch5_completion_eta_20261010_1642.json`.

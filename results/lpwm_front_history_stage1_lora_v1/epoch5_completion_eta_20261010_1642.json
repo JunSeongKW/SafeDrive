@@ -1,0 +1,58 @@
+{
+  "recorded_at_kst": "2026-10-10T16:42:30.272936+09:00",
+  "completed_updates": 5608,
+  "planning_epoch": 5,
+  "current_epoch_completed_updates": 900,
+  "updates_per_epoch": 1177,
+  "epoch_progress_percent": 76.46559048428207,
+  "epoch5_target_completed_updates": 5885,
+  "remaining_updates": 277,
+  "recent_throughput_windows": {
+    "50": {
+      "mean_seconds_per_update": 14.663965487480164,
+      "update_range": [
+        5559,
+        5608
+      ],
+      "remaining_seconds": 4061.9184400320055,
+      "training_eta_kst": "2026-10-10T17:50:12.191376+09:00"
+    },
+    "100": {
+      "mean_seconds_per_update": 15.191780529022218,
+      "update_range": [
+        5509,
+        5608
+      ],
+      "remaining_seconds": 4208.123206539154,
+      "training_eta_kst": "2026-10-10T17:52:38.396143+09:00"
+    },
+    "200": {
+      "mean_seconds_per_update": 14.934948151111604,
+      "update_range": [
+        5409,
+        5608
+      ],
+      "remaining_seconds": 4136.980637857914,
+      "training_eta_kst": "2026-10-10T17:51:27.253574+09:00"
+    },
+    "500": {
+      "mean_seconds_per_update": 14.835123440742493,
+      "update_range": [
+        5109,
+        5608
+      ],
+      "remaining_seconds": 4109.32919308567,
+      "training_eta_kst": "2026-10-10T17:50:59.602129+09:00"
+    }
+  },
+  "previous_checkpoint_to_internal_validation_seconds": {
+    "3": 149.87187314033508,
+    "4": 144.62265944480896
+  },
+  "training_eta_display_kst": "2026-10-10 17:50\u201318:00",
+  "internal_validation_eta_display_kst": "2026-10-10 17:55\u201318:05",
+  "estimate_is_conditional_on_current_throughput": true,
+  "no_training_configuration_or_queue_changed": true,
+  "new_common_navtest_comparison_scheduled": false,
+  "latest_progress_age_seconds": 3.6693928241729736
+}
