@@ -1,0 +1,74 @@
+{
+  "requested_scope": "256×256 resolution LPWM experiments",
+  "configuration_json_files_checked": 117,
+  "actual_square_input_resolution": [
+    128,
+    128
+  ],
+  "display_resolution": [
+    256,
+    256
+  ],
+  "display_code_evidence": [
+    {
+      "file": "scripts/visualize_lpwm_front_history.py",
+      "line": 53,
+      "operation": "Image.resize((256,256)) for visualization"
+    },
+    {
+      "file": "scripts/monitor_lpwm_drivor_planning_path_representations.py",
+      "lines": [
+        91,
+        92,
+        94
+      ],
+      "operation": "128×128 overlay resized to256×256"
+    }
+  ],
+  "actual_input_config_evidence": [
+    {
+      "file": "configs/lpwm_drivor_planning_path_lora/navsim_v1.json",
+      "line": 28
+    },
+    {
+      "file": "configs/lpwm_front_history_stage1_lora/experiment.json",
+      "line": 28
+    }
+  ],
+  "largest_recorded_mean_square128_condition": "historical 4-camera planning-path LoRA joint, geometry/appearance/context/dynamics",
+  "representative_saved_measurement": {
+    "completed_updates": 5000,
+    "scenes": 96,
+    "cameras": 4,
+    "particles_per_camera": 64,
+    "particle_measurements": 24576,
+    "mean_center_displacement_native128pixels": 2.2769558429718018,
+    "max_individual_displacement_native128pixels": 21.91069221496582,
+    "source": "outputs/lpwm_drivor_particle_trends_every500_v1/reports/update_005000.json"
+  },
+  "separate_common3scene_measurement": {
+    "completed_updates": 5493,
+    "scenes": 3,
+    "mean_center_displacement_native128pixels": 2.774656227946469,
+    "source": "results/lpwm_preserved_checkpoint_same_panels_20261009/comparison_summary.json"
+  },
+  "limitations": [
+    "256×256 actual-input experiment was not found; square128 numbers are not presented as a256×256 training result.",
+    "Mean displacement and maximum individual displacement are different statistics.",
+    "The96scene and3scene measurements use different checkpoints and panels.",
+    "Large displacement does not imply useful planning objects."
+  ],
+  "model_training_or_evaluation_started": false,
+  "resolution_fields_containing256": [
+    {
+      "file": "configs/four_model_small_corpus/experiment.json",
+      "field": "image_height",
+      "value": 256
+    }
+  ],
+  "rectangular_condition_width_height": [
+    512,
+    256
+  ],
+  "matching_square256_input_configurations": []
+}

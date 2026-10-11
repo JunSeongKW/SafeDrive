@@ -4842,3 +4842,10 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - 같은512joint의pass3진단16.0544px는더이른checkpoint이고2264의15.8069px와구분한다. 현재front-history12,000의.7371px는다른4장면이라동일패널순위에넣지않았다. 표본3개·camera/history/particle수/학습량/목적차이가있어이동량순위를학습법우열/전체데이터최대로확대하지않는다.
 - 같은NAVTEST1024 PDMS512joint72.4289 vs128Adapter81.5107로이동량과planning효용은다르다. SSL+planningjoint의움직임을planninggradient단독효과로해석하지않는다. Particle는latent슬롯이고객체track이아니다.
 - 새조회근거 `results/lpwm_particle_movement_review_20261011/comparison.json`에원NPZ/sourceSHA·조건/update·원좌표재계산·한계·이미지경로를저장했다. 확인PNG `results/lpwm_preserved_checkpoint_same_panels_20261009/scene3_particle_before_after_overlay.png`의마지막행이512joint다.
+
+## 2026-10-11 — 사용자요청을256×256정사각형조건으로좁혀해상도확인
+
+- 사용자가“256x256해상도로했던실험중에서”로비교범위를좁혔다. 관련LPWM/four-model117개configJSON와실제NPZshape/시각화코드를확인했다. 실제256×256입력학습은확인되지않았다. Four-model의height256은width512인직사각형이다.
+- 이전및현재정사각형조건은실제128×128이다. `monitor_lpwm_drivor_planning_path_representations.py:91,94`, `visualize_lpwm_front_history.py:53`에서256×256으로확대해표시한다. 시각화확대를모델입력으로부르지않는다.
+- 확인된128정사각형실험중이전4cameraGeometry·appearance·context·dynamics planning-pathLoRA공동학습의변화가가장컸다. 5000update/96scene×4cam×64FG 평균2.2769558inputpx·개별최대21.9106922px. 5493update동일3scene평균2.7746562px는다른snapshot/표본이다. 단위를128입력px로유지한다.
+- 새근거 `results/lpwm_particle_movement_review_20261011/resolution_scope_clarification.json`. 사용자가별도실제256입력실험을의미한다면경로근거가필요하다. 추측해서그실험수치를만들지않았다. 기존학습/모델/설정/결과미변경,새GPU/추론/학습0。
