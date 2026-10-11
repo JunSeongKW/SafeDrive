@@ -1,0 +1,1891 @@
+{
+  "complete": true,
+  "diagnostic_scenes": 12,
+  "selected_rows": [
+    1098,
+    1103,
+    1104,
+    1105,
+    1088,
+    1090,
+    1092,
+    1093,
+    1089,
+    1091,
+    1100,
+    1102
+  ],
+  "fixed_subset_source": "/rhome/junseong/PlanningAwareFuturePrediction/results/metric_visual_evidence_v1/diagnostic_subset.json",
+  "optimizer_steps": 0,
+  "gpu_seconds": 0.0,
+  "encoder_calls": 0,
+  "python": "3.12.13",
+  "torch": "2.8.0+cu128",
+  "script_sha256": "4b647e9e4b7541b23fa512f424069b1be266ed7825a600ddf1f3e74d433a2cc0",
+  "original_sources": {
+    "configs/metric_visual_evidence/pilot_v1.json": "a4f82d8e9d22bb139ee722fa1854eb67e7faf8d8f50487d937690206ae3ff655",
+    "scripts/run_metric_visual_evidence_pilot.py": "7b4c4df28a2b6f8dbe9705f3f0fea0f46565b7bd9d7e0adc93bcffb6e9076832",
+    "src/planning_aware_future_prediction/models/metric_visual_evidence.py": "d749b7e1a7c188a1cbf9f32113b7c90855f36309c0e8f6c42730fd45f55f1d16",
+    "tests/test_metric_visual_evidence.py": "d09e9e52884ca23c57b908aaaf602343f25cf07289da3acd2dcd9dc58e361067",
+    "scripts/diagnose_metric_visual_evidence.py": "0699c7c9595a9f20ef6863c19e05c35bdbe08fb4248c4cc5ac8e9ee0c4efad8e",
+    "scripts/run_metric_visual_evidence_pilot.sh": "ab9409374f212e8368d1c2278d5fbd20fbfffff1240ec0ca37742928e430c58a"
+  },
+  "protected_before": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11607
+  },
+  "protected_after": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11607
+  },
+  "synthetic_nonlinear_query_capacity_check": {
+    "maximum_candidate_dependence_of_metric_relative_odds": {
+      "additive": 2.384185791015625e-07,
+      "nonlinear_joint": 0.08366488665342331
+    },
+    "optimizer_steps": 0,
+    "interpretation": "Nonlinearly joining candidate and metric inputs removes this algebraic constraint. It establishes capacity, not semantic learning or planning benefit."
+  },
+  "training_labels": {
+    "NC_all_safe_scenes": 214,
+    "DAC_all_safe_scenes": 363,
+    "NC_candidate_fraction_fully_safe": 0.859710693359375,
+    "DAC_candidate_fraction_fully_safe": 0.854461669921875
+  },
+  "checkpoints": [
+    {
+      "training_step": 100,
+      "checkpoint_sha256": "8a0310c48f8b983cf4a8cc4d0a9baad73017571305f999331ffa57df3976f6e3",
+      "scenes": [
+        {
+          "pilot_row": 1098,
+          "sample_id": "d3d2e1f595c15eab",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.6242265701293945e-06,
+            "candidate_interaction_max_error": 1.9073486328125e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.49043649435043335,
+          "ranking_loss": 0.46878793835639954,
+          "attention_gradient_norm": 0.3601917624473572,
+          "visual_token_gradient_norm": 0.00021415964874904603,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 1.6765714462962933e-05,
+              "mean_absolute_gradient_times_input_per_channel": 9.166409654426388e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 1.7729909814079292e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.3952981134934817e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 7.012029527686536e-06,
+              "mean_absolute_gradient_times_input_per_channel": 1.1284661241006688e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 8.399306352657732e-06,
+              "mean_absolute_gradient_times_input_per_channel": 3.499408876450616e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 4.8345173127017915e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.5410971172968857e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.08706210553646088,
+              "mean_absolute_log_score_change": 0.06861364096403122,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.10467376559972763,
+              "mean_absolute_log_score_change": 0.06644448637962341,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.013558055274188519,
+              "mean_absolute_log_score_change": 0.006439622491598129,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.1186363697052002,
+              "mean_absolute_log_score_change": 0.07223907113075256,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.5506035089492798,
+            1.6168386936187744
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.678236186504364,
+            0.6232473254203796
+          ]
+        },
+        {
+          "pilot_row": 1103,
+          "sample_id": "ad50d798cf59571f",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 9.98377799987793e-07,
+            "candidate_interaction_max_error": 1.430511474609375e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.49723824858665466,
+          "ranking_loss": 0.5237782001495361,
+          "attention_gradient_norm": 0.2248886674642563,
+          "visual_token_gradient_norm": 0.00014069120516069233,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 1.2866944416600745e-05,
+              "mean_absolute_gradient_times_input_per_channel": 6.124541414465057e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 1.3160046364646405e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.0268458026985172e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 5.285426141199423e-06,
+              "mean_absolute_gradient_times_input_per_channel": 4.5833260742256243e-07
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 6.9741745392093435e-06,
+              "mean_absolute_gradient_times_input_per_channel": 7.163340001170582e-07
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 3.795948578044772e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.965591945918277e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.0649646520614624,
+              "mean_absolute_log_score_change": 0.018940238282084465,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.1914491355419159,
+              "mean_absolute_log_score_change": 0.04394553601741791,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.03295775502920151,
+              "mean_absolute_log_score_change": 0.006053395569324493,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.21622902154922485,
+              "mean_absolute_log_score_change": 0.048400282859802246,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.1872044801712036,
+            1.237252950668335
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.8477845191955566,
+            0.7977437973022461
+          ]
+        },
+        {
+          "pilot_row": 1104,
+          "sample_id": "3f6d991e9f565b22",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.2814998626708984e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.22288599610328674,
+          "ranking_loss": 0.43406909704208374,
+          "attention_gradient_norm": 0.10279422253370285,
+          "visual_token_gradient_norm": 2.8632994144572876e-05,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 7.758892024867237e-06,
+              "mean_absolute_gradient_times_input_per_channel": 2.8689919417956844e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 8.245245226135012e-06,
+              "mean_absolute_gradient_times_input_per_channel": 6.294739250733983e-06
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 3.999570253654383e-06,
+              "mean_absolute_gradient_times_input_per_channel": 2.8866213597211754e-07
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 3.99575219489634e-06,
+              "mean_absolute_gradient_times_input_per_channel": 9.350274012831505e-07
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 2.054903598036617e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.455890681740129e-06
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.03609035164117813,
+              "mean_absolute_log_score_change": 0.003826811909675598,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.17040124535560608,
+              "mean_absolute_log_score_change": 0.04433770477771759,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.028767969459295273,
+              "mean_absolute_log_score_change": 0.003753206692636013,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.17880123853683472,
+              "mean_absolute_log_score_change": 0.04280766099691391,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.2039602994918823,
+            1.2645782232284546
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.8188391327857971,
+            0.7576323747634888
+          ]
+        },
+        {
+          "pilot_row": 1105,
+          "sample_id": "796698f0fd7d53c5",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.2218952178955078e-06,
+            "candidate_interaction_max_error": 1.9073486328125e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.2906450629234314,
+          "ranking_loss": 0.6042041778564453,
+          "attention_gradient_norm": 0.42977362871170044,
+          "visual_token_gradient_norm": 2.7862544811796397e-05,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 2.8707223464152776e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.4411234587896615e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 3.0392873668461107e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.224906893388834e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 1.2594709005497862e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.4270832454931224e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.5009904018370435e-05,
+              "mean_absolute_gradient_times_input_per_channel": 5.159930879017338e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 8.219642768381163e-05,
+              "mean_absolute_gradient_times_input_per_channel": 3.827104956144467e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.06111619994044304,
+              "mean_absolute_log_score_change": 0.05264017730951309,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.17583614587783813,
+              "mean_absolute_log_score_change": 0.08569152653217316,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.01768636144697666,
+              "mean_absolute_log_score_change": 0.01151789166033268,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.18916386365890503,
+              "mean_absolute_log_score_change": 0.09145735204219818,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.2807358503341675,
+            1.359635353088379
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.7761395573616028,
+            0.724536657333374
+          ]
+        },
+        {
+          "pilot_row": 1088,
+          "sample_id": "ea573171fd53572a",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.6242265701293945e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.25685763359069824,
+          "ranking_loss": 0.3415006995201111,
+          "attention_gradient_norm": 0.09810063242912292,
+          "visual_token_gradient_norm": 9.056126145878807e-05,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 6.572735401277896e-06,
+              "mean_absolute_gradient_times_input_per_channel": 3.195016006429796e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 6.737131116096862e-06,
+              "mean_absolute_gradient_times_input_per_channel": 5.343059456208721e-06
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 2.5110193746513687e-06,
+              "mean_absolute_gradient_times_input_per_channel": 3.51399535247765e-07
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 3.0467426768154837e-06,
+              "mean_absolute_gradient_times_input_per_channel": 6.580438025594049e-07
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 1.3994439541420434e-05,
+              "mean_absolute_gradient_times_input_per_channel": 6.751459295628592e-06
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.11342748254537582,
+              "mean_absolute_log_score_change": 0.014812961220741272,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.2889315187931061,
+              "mean_absolute_log_score_change": 0.03517843782901764,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.03346668928861618,
+              "mean_absolute_log_score_change": 0.0034716613590717316,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.31491294503211975,
+              "mean_absolute_log_score_change": 0.03672574460506439,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.4071193933486938,
+            1.4676121473312378
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.7760487198829651,
+            0.714097261428833
+          ]
+        },
+        {
+          "pilot_row": 1090,
+          "sample_id": "27a0ed357788574f",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.5497207641601562e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.31361809372901917,
+          "ranking_loss": 0.5262001156806946,
+          "attention_gradient_norm": 0.19839264452457428,
+          "visual_token_gradient_norm": 0.0001271885121241212,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 1.7704882338875905e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.281684247573139e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 1.9252809579484165e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.541515848657582e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 7.438625743816374e-06,
+              "mean_absolute_gradient_times_input_per_channel": 1.4724377024322166e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 8.577703738410491e-06,
+              "mean_absolute_gradient_times_input_per_channel": 2.4260577902168734e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 5.318327384884469e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.1469430066645145e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.03616361692547798,
+              "mean_absolute_log_score_change": 0.018814271315932274,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.1517908275127411,
+              "mean_absolute_log_score_change": 0.10715891420841217,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.02574889175593853,
+              "mean_absolute_log_score_change": 0.009751802310347557,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.16416098177433014,
+              "mean_absolute_log_score_change": 0.10925506055355072,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.3769807815551758,
+            1.4365936517715454
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.8035649657249451,
+            0.7488294839859009
+          ]
+        },
+        {
+          "pilot_row": 1092,
+          "sample_id": "53880c7e22d553b5",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.5795230865478516e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.268800288438797,
+          "ranking_loss": 0.40640538930892944,
+          "attention_gradient_norm": 0.1710232049226761,
+          "visual_token_gradient_norm": 0.00013962220691610128,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 1.653307663218584e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.593069312861189e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 1.7720658433972858e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.3317846423888113e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 8.682122825121041e-06,
+              "mean_absolute_gradient_times_input_per_channel": 2.386036612733733e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 9.32075363380136e-06,
+              "mean_absolute_gradient_times_input_per_channel": 3.2580453535047127e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 4.855719816987403e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.1298867068253458e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.04325076565146446,
+              "mean_absolute_log_score_change": 0.027352225035429,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.29355114698410034,
+              "mean_absolute_log_score_change": 0.10131679475307465,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.028362032026052475,
+              "mean_absolute_log_score_change": 0.011428920552134514,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.3101876378059387,
+              "mean_absolute_log_score_change": 0.10701589286327362,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.3499153852462769,
+            1.4018281698226929
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.762566089630127,
+            0.7145007252693176
+          ]
+        },
+        {
+          "pilot_row": 1093,
+          "sample_id": "6a8eec69b45f50d0",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.3336539268493652e-06,
+            "candidate_interaction_max_error": 1.9073486328125e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.6206539273262024,
+          "ranking_loss": 0.6189716458320618,
+          "attention_gradient_norm": 0.14406882226467133,
+          "visual_token_gradient_norm": 0.0001489348942413926,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 1.8537404685048386e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.519030987168662e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 1.979515036509838e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.5517676729359664e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 8.355534191650804e-06,
+              "mean_absolute_gradient_times_input_per_channel": 1.8695959624892566e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 8.881325811671559e-06,
+              "mean_absolute_gradient_times_input_per_channel": 2.050092689387384e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 4.9799356929725036e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.6979667634586804e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.02776947058737278,
+              "mean_absolute_log_score_change": 0.007420990616083145,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.1463698297739029,
+              "mean_absolute_log_score_change": 0.0838644728064537,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.01966383494436741,
+              "mean_absolute_log_score_change": 0.0065102120861411095,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.14206543564796448,
+              "mean_absolute_log_score_change": 0.08194465935230255,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.2774667739868164,
+            1.3208149671554565
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.7770178318023682,
+            0.7367364764213562
+          ]
+        },
+        {
+          "pilot_row": 1089,
+          "sample_id": "34774cd08c045d92",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.4007091522216797e-06,
+            "candidate_interaction_max_error": 1.9073486328125e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.9042947292327881,
+          "ranking_loss": 0.5893048644065857,
+          "attention_gradient_norm": 0.2473708987236023,
+          "visual_token_gradient_norm": 7.154023478506133e-05,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 2.2034333596820943e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.0008157914853655e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 2.463769487803802e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.9182078176527284e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 1.3084011698083486e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.916747462222702e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.4233698493626434e-05,
+              "mean_absolute_gradient_times_input_per_channel": 4.587152034218889e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 5.8538164012134075e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.0790173948626034e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.05025181546807289,
+              "mean_absolute_log_score_change": 0.02655884064733982,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.2943801283836365,
+              "mean_absolute_log_score_change": 0.11263885349035263,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.02142935059964657,
+              "mean_absolute_log_score_change": 0.008099403232336044,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.2912648320198059,
+              "mean_absolute_log_score_change": 0.10446122288703918,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.3387436866760254,
+            1.3844505548477173
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.7295392155647278,
+            0.6862697005271912
+          ]
+        },
+        {
+          "pilot_row": 1091,
+          "sample_id": "a3c3be01bd675b41",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.1622905731201172e-06,
+            "candidate_interaction_max_error": 1.9073486328125e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.19682158529758453,
+          "ranking_loss": 0.5407921075820923,
+          "attention_gradient_norm": 0.09964531660079956,
+          "visual_token_gradient_norm": 0.00013303695595823228,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 8.530812920071185e-06,
+              "mean_absolute_gradient_times_input_per_channel": 3.928665591956815e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 9.233464879798703e-06,
+              "mean_absolute_gradient_times_input_per_channel": 7.559121513622813e-06
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 4.608234576153336e-06,
+              "mean_absolute_gradient_times_input_per_channel": 8.941648275140324e-07
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 4.6100471990939695e-06,
+              "mean_absolute_gradient_times_input_per_channel": 7.140277489270375e-07
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 2.1702644517063163e-05,
+              "mean_absolute_gradient_times_input_per_channel": 8.569867532060016e-06
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.06241097301244736,
+              "mean_absolute_log_score_change": 0.011848988011479378,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.30261850357055664,
+              "mean_absolute_log_score_change": 0.08968634903430939,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.03357267007231712,
+              "mean_absolute_log_score_change": 0.005443999543786049,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.32788121700286865,
+              "mean_absolute_log_score_change": 0.09454374015331268,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.2292962074279785,
+            1.2943744659423828
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.8221929669380188,
+            0.768922746181488
+          ]
+        },
+        {
+          "pilot_row": 1100,
+          "sample_id": "3de452c5a98a5faf",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.0058283805847168e-06,
+            "candidate_interaction_max_error": 1.430511474609375e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.41337451338768005,
+          "ranking_loss": 0.20790472626686096,
+          "attention_gradient_norm": 0.1315833479166031,
+          "visual_token_gradient_norm": 8.16544852568768e-05,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 9.12557607080089e-06,
+              "mean_absolute_gradient_times_input_per_channel": 4.549593086267123e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 9.520595995127223e-06,
+              "mean_absolute_gradient_times_input_per_channel": 7.478578481823206e-06
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 5.272886482998729e-06,
+              "mean_absolute_gradient_times_input_per_channel": 7.336868179663725e-07
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 5.233789579506265e-06,
+              "mean_absolute_gradient_times_input_per_channel": 4.5163440631768026e-07
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 2.101557947753463e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.769921467115637e-06
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.08479949086904526,
+              "mean_absolute_log_score_change": 0.03469543159008026,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.18698576092720032,
+              "mean_absolute_log_score_change": 0.047221746295690536,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.019497685134410858,
+              "mean_absolute_log_score_change": 0.004697014577686787,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.20314784348011017,
+              "mean_absolute_log_score_change": 0.05116830766201019,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.2197414636611938,
+            1.2834832668304443
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.8192087411880493,
+            0.7638821005821228
+          ]
+        },
+        {
+          "pilot_row": 1102,
+          "sample_id": "e07dd506081d5425",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.7881393432617188e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.44939035177230835,
+          "ranking_loss": 0.4943951368331909,
+          "attention_gradient_norm": 0.48605355620384216,
+          "visual_token_gradient_norm": 0.00023478988441638649,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 2.2865327991894446e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.2324499039095826e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 2.572556331870146e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.018292070715688e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 1.2743646948365495e-05,
+              "mean_absolute_gradient_times_input_per_channel": 3.4055801734211855e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.3812016732117627e-05,
+              "mean_absolute_gradient_times_input_per_channel": 4.772493866767036e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 6.64641338516958e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.0047917132615112e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.08335079252719879,
+              "mean_absolute_log_score_change": 0.053115859627723694,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.33162760734558105,
+              "mean_absolute_log_score_change": 0.18477842211723328,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.018501173704862595,
+              "mean_absolute_log_score_change": 0.009221503511071205,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.32660192251205444,
+              "mean_absolute_log_score_change": 0.1718285083770752,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.529315710067749,
+            1.5987366437911987
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.6923777461051941,
+            0.628320574760437
+          ]
+        }
+      ],
+      "maximum_candidate_interaction_error": 2.384185791015625e-06,
+      "mean_attention_gradient_norm": 0.2244905587285757,
+      "mean_visual_token_gradient_norm": 0.00011988956900192231,
+      "intervention_summary": {
+        "zero_visual_readout": {
+          "mean_absolute_NC_DAC_logit_change": 0.06255480973049998,
+          "selected_candidate_changes": 1
+        },
+        "zero_original_scored_feature": {
+          "mean_absolute_NC_DAC_logit_change": 0.21988463463882604,
+          "selected_candidate_changes": 0
+        },
+        "zero_original_logits_in_correction_only": {
+          "mean_absolute_NC_DAC_logit_change": 0.02443437239465614,
+          "selected_candidate_changes": 0
+        },
+        "zero_all_direct_inputs": {
+          "mean_absolute_NC_DAC_logit_change": 0.2319211090604464,
+          "selected_candidate_changes": 0
+        }
+      }
+    },
+    {
+      "training_step": 500,
+      "checkpoint_sha256": "cf62eba3e0303d11fd57ea375969c72a7aff5442ac33f4d5fa55f993f5e72edf",
+      "scenes": [
+        {
+          "pilot_row": 1098,
+          "sample_id": "d3d2e1f595c15eab",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 2.6226043701171875e-06,
+            "candidate_interaction_max_error": 2.86102294921875e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.5643717646598816,
+          "ranking_loss": 0.4523031413555145,
+          "attention_gradient_norm": 1.0298354625701904,
+          "visual_token_gradient_norm": 0.0025603275280445814,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 4.8640147724654526e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.428642983431928e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 4.097204146091826e-05,
+              "mean_absolute_gradient_times_input_per_channel": 3.199571801815182e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 3.514353738864884e-05,
+              "mean_absolute_gradient_times_input_per_channel": 6.2756912484474014e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 2.2152204110170715e-05,
+              "mean_absolute_gradient_times_input_per_channel": 9.299060366174672e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00020248880900908262,
+              "mean_absolute_gradient_times_input_per_channel": 5.1973474910482764e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.24352727830410004,
+              "mean_absolute_log_score_change": 0.21380789577960968,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.3470730781555176,
+              "mean_absolute_log_score_change": 0.3414739966392517,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.03818386793136597,
+              "mean_absolute_log_score_change": 0.019684478640556335,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.3682379424571991,
+              "mean_absolute_log_score_change": 0.35058385133743286,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.9992579221725464,
+            2.027334213256836
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.4938065707683563,
+            0.4638838768005371
+          ]
+        },
+        {
+          "pilot_row": 1103,
+          "sample_id": "ad50d798cf59571f",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.4193356037139893e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.6449034810066223,
+          "ranking_loss": 0.5148740410804749,
+          "attention_gradient_norm": 0.826176643371582,
+          "visual_token_gradient_norm": 0.0010913931764662266,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 3.54362819052767e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.5134341083467007e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 2.7873928047483787e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.1648400434060022e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 2.606323869258631e-05,
+              "mean_absolute_gradient_times_input_per_channel": 4.2786032281583175e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.5042899576656055e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.720251134429418e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.0001513045426690951,
+              "mean_absolute_gradient_times_input_per_channel": 5.964362935628742e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.17483875155448914,
+              "mean_absolute_log_score_change": 0.04353420063853264,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.5866487622261047,
+              "mean_absolute_log_score_change": 0.09808181971311569,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.1236456036567688,
+              "mean_absolute_log_score_change": 0.013449747115373611,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.7081265449523926,
+              "mean_absolute_log_score_change": 0.11530262976884842,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.297039270401001,
+            1.3129864931106567
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.8759825229644775,
+            0.8483635187149048
+          ]
+        },
+        {
+          "pilot_row": 1104,
+          "sample_id": "3f6d991e9f565b22",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 3.039836883544922e-06,
+            "candidate_interaction_max_error": 3.337860107421875e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.21213343739509583,
+          "ranking_loss": 0.4104593098163605,
+          "attention_gradient_norm": 0.667794942855835,
+          "visual_token_gradient_norm": 0.00026267155772075057,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 2.8495460355770774e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.1694541171891615e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 2.1604202629532665e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.5787434676894918e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 1.8124661437468603e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.7103683351015206e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.1400243238313124e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.5039496449608123e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 9.706959826871753e-05,
+              "mean_absolute_gradient_times_input_per_channel": 3.082676630583592e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.2069353461265564,
+              "mean_absolute_log_score_change": 0.06064498424530029,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.5282350182533264,
+              "mean_absolute_log_score_change": 0.12116526812314987,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.16290096938610077,
+              "mean_absolute_log_score_change": 0.01761172153055668,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.6396347880363464,
+              "mean_absolute_log_score_change": 0.13140687346458435,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.549414873123169,
+            1.6170306205749512
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.5794820189476013,
+            0.5192072987556458
+          ]
+        },
+        {
+          "pilot_row": 1105,
+          "sample_id": "796698f0fd7d53c5",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.996755599975586e-06,
+            "candidate_interaction_max_error": 3.814697265625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.3341069519519806,
+          "ranking_loss": 0.642681896686554,
+          "attention_gradient_norm": 1.6473050117492676,
+          "visual_token_gradient_norm": 0.00020877047791145742,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 8.603365859016776e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.8976628527743742e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 6.611096614506096e-05,
+              "mean_absolute_gradient_times_input_per_channel": 5.263806815491989e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 6.197646143846214e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.359845312748803e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 3.6587942304322496e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.0894375009229407e-05
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00032559162355028093,
+              "mean_absolute_gradient_times_input_per_channel": 0.00011600889411056414
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.038137972354888916,
+              "mean_absolute_log_score_change": 0.0488983690738678,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.42429792881011963,
+              "mean_absolute_log_score_change": 0.5519216656684875,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.03382163494825363,
+              "mean_absolute_log_score_change": 0.02650422789156437,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.44681283831596375,
+              "mean_absolute_log_score_change": 0.560481071472168,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.3798935413360596,
+            1.4335293769836426
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.6651415228843689,
+            0.6250227689743042
+          ]
+        },
+        {
+          "pilot_row": 1088,
+          "sample_id": "ea573171fd53572a",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 2.16066837310791e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.25304168462753296,
+          "ranking_loss": 0.3401140868663788,
+          "attention_gradient_norm": 0.6116501092910767,
+          "visual_token_gradient_norm": 0.001313949702307582,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 2.2971516955294646e-05,
+              "mean_absolute_gradient_times_input_per_channel": 9.124636562773958e-06
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 1.8743610780802555e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.4849533727101516e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 9.76644969341578e-06,
+              "mean_absolute_gradient_times_input_per_channel": 1.0865704780371743e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.0010950063588098e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.7329197135040886e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 7.088181882863864e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.6799441911862232e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.2943386733531952,
+              "mean_absolute_log_score_change": 0.04675181582570076,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.7379025220870972,
+              "mean_absolute_log_score_change": 0.10219798982143402,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.14504103362560272,
+              "mean_absolute_log_score_change": 0.013980352319777012,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.8700397610664368,
+              "mean_absolute_log_score_change": 0.10931143164634705,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.9931122064590454,
+            2.0343213081359863
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.5643647313117981,
+            0.5272387266159058
+          ]
+        },
+        {
+          "pilot_row": 1090,
+          "sample_id": "27a0ed357788574f",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 2.4586915969848633e-06,
+            "candidate_interaction_max_error": 3.337860107421875e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.3383044898509979,
+          "ranking_loss": 0.5433037281036377,
+          "attention_gradient_norm": 1.092058539390564,
+          "visual_token_gradient_norm": 0.0018121181055903435,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 6.507735815830529e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.600512743811123e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 5.0389597163302824e-05,
+              "mean_absolute_gradient_times_input_per_channel": 3.896039925166406e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 4.768975486513227e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.1706099030561745e-05
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 2.4683205992914736e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.1886274781718384e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00027089062496088445,
+              "mean_absolute_gradient_times_input_per_channel": 8.184636681107804e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.1794832944869995,
+              "mean_absolute_log_score_change": 0.14288339018821716,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.40232542157173157,
+              "mean_absolute_log_score_change": 0.26085710525512695,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.09935835748910904,
+              "mean_absolute_log_score_change": 0.035559702664613724,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.45985525846481323,
+              "mean_absolute_log_score_change": 0.2737223505973816,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.8207752704620361,
+            1.8442976474761963
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.6049056053161621,
+            0.574811577796936
+          ]
+        },
+        {
+          "pilot_row": 1092,
+          "sample_id": "53880c7e22d553b5",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 2.6300549507141113e-06,
+            "candidate_interaction_max_error": 3.337860107421875e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.23015111684799194,
+          "ranking_loss": 0.36613667011260986,
+          "attention_gradient_norm": 1.2946970462799072,
+          "visual_token_gradient_norm": 0.0008621891611255705,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 6.835200474597514e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.976549876620993e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 5.368861457100138e-05,
+              "mean_absolute_gradient_times_input_per_channel": 3.820243728114292e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 6.0714442952303216e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.5991994587238878e-05
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 2.6556568627711385e-05,
+              "mean_absolute_gradient_times_input_per_channel": 9.367357961309608e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00026665019686333835,
+              "mean_absolute_gradient_times_input_per_channel": 8.526159217581153e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.262554794549942,
+              "mean_absolute_log_score_change": 0.17072694003582,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.4376010298728943,
+              "mean_absolute_log_score_change": 0.16265885531902313,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.11149556934833527,
+              "mean_absolute_log_score_change": 0.05774383246898651,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.500435471534729,
+              "mean_absolute_log_score_change": 0.19192305207252502,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.740653395652771,
+            1.7651888132095337
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.5137738585472107,
+            0.4904544949531555
+          ]
+        },
+        {
+          "pilot_row": 1093,
+          "sample_id": "6a8eec69b45f50d0",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 2.034008502960205e-06,
+            "candidate_interaction_max_error": 3.337860107421875e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.5588681697845459,
+          "ranking_loss": 0.5878832936286926,
+          "attention_gradient_norm": 1.1285666227340698,
+          "visual_token_gradient_norm": 0.0020134360529482365,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 7.547544373665005e-05,
+              "mean_absolute_gradient_times_input_per_channel": 3.0160625101416372e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 5.199749648454599e-05,
+              "mean_absolute_gradient_times_input_per_channel": 4.0914259443525225e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 4.8786252591526136e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.4369323253049515e-05
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 2.5785908292164095e-05,
+              "mean_absolute_gradient_times_input_per_channel": 7.0704504651075695e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.0002514126244932413,
+              "mean_absolute_gradient_times_input_per_channel": 7.387129153357819e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.1962508261203766,
+              "mean_absolute_log_score_change": 0.07850193977355957,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.3562476933002472,
+              "mean_absolute_log_score_change": 0.21753981709480286,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.0794944241642952,
+              "mean_absolute_log_score_change": 0.03168777748942375,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.374026894569397,
+              "mean_absolute_log_score_change": 0.2266036570072174,
+              "selected_candidate_changed": true,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.725602626800537,
+            1.7397198677062988
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.3762127161026001,
+            0.3546532094478607
+          ]
+        },
+        {
+          "pilot_row": 1089,
+          "sample_id": "34774cd08c045d92",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.911073923110962e-06,
+            "candidate_interaction_max_error": 2.86102294921875e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.8827264904975891,
+          "ranking_loss": 0.6138975024223328,
+          "attention_gradient_norm": 1.7490018606185913,
+          "visual_token_gradient_norm": 0.0004276185354683548,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 9.894921095110476e-05,
+              "mean_absolute_gradient_times_input_per_channel": 4.029677074868232e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 7.544287655036896e-05,
+              "mean_absolute_gradient_times_input_per_channel": 5.6438289902871475e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 7.497605838580057e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.5483346942346543e-05
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 3.991811900050379e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.3045693776803091e-05
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00033137411810457706,
+              "mean_absolute_gradient_times_input_per_channel": 8.153876842698082e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.3298376202583313,
+              "mean_absolute_log_score_change": 0.24810847640037537,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.4176187515258789,
+              "mean_absolute_log_score_change": 0.19093695282936096,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.08216985315084457,
+              "mean_absolute_log_score_change": 0.03472182899713516,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.4339962601661682,
+              "mean_absolute_log_score_change": 0.18120145797729492,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.1265382766723633,
+            1.1294314861297607
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.915194034576416,
+            0.8874795436859131
+          ]
+        },
+        {
+          "pilot_row": 1091,
+          "sample_id": "a3c3be01bd675b41",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.4416873455047607e-06,
+            "candidate_interaction_max_error": 1.9073486328125e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.244379460811615,
+          "ranking_loss": 0.6050274968147278,
+          "attention_gradient_norm": 1.149421215057373,
+          "visual_token_gradient_norm": 0.0014550562482327223,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 4.405237268656492e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.3812661563861184e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 3.270296292612329e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.6715431886259466e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 2.778214002319146e-05,
+              "mean_absolute_gradient_times_input_per_channel": 5.945786142547149e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.633394458622206e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.461532403685851e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00012007272016489878,
+              "mean_absolute_gradient_times_input_per_channel": 4.185202487860806e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.07208449393510818,
+              "mean_absolute_log_score_change": 0.02251344546675682,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.6003283262252808,
+              "mean_absolute_log_score_change": 0.21051253378391266,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.15519142150878906,
+              "mean_absolute_log_score_change": 0.02699579857289791,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.7230729460716248,
+              "mean_absolute_log_score_change": 0.23908188939094543,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.151064395904541,
+            1.1881060600280762
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.9403429627418518,
+            0.9011694192886353
+          ]
+        },
+        {
+          "pilot_row": 1100,
+          "sample_id": "3de452c5a98a5faf",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.2628734111785889e-06,
+            "candidate_interaction_max_error": 1.430511474609375e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.4229183793067932,
+          "ranking_loss": 0.20723232626914978,
+          "attention_gradient_norm": 0.6096163392066956,
+          "visual_token_gradient_norm": 0.0006623083027079701,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 3.164761801599525e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.3355080227483995e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 2.4603205019957386e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.8983855625265278e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 2.1394404029706493e-05,
+              "mean_absolute_gradient_times_input_per_channel": 4.5561837396235205e-06
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 1.3578329344454687e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.1951224223594181e-06
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00010180865501752123,
+              "mean_absolute_gradient_times_input_per_channel": 2.678483542695176e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.20649896562099457,
+              "mean_absolute_log_score_change": 0.0754164308309555,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.46178528666496277,
+              "mean_absolute_log_score_change": 0.14584597945213318,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.07946240901947021,
+              "mean_absolute_log_score_change": 0.016798511147499084,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.5452749729156494,
+              "mean_absolute_log_score_change": 0.16376838088035583,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.1223697662353516,
+            1.1711523532867432
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            1.0432802438735962,
+            1.0111801624298096
+          ]
+        },
+        {
+          "pilot_row": 1102,
+          "sample_id": "e07dd506081d5425",
+          "query_constraint": {
+            "relative_metric_token_log_odds_formula_max_error": 1.8477439880371094e-06,
+            "candidate_interaction_max_error": 2.384185791015625e-06,
+            "constraint": "For fixed scene keys, NC/DAC relative token-pair odds depend only on metric embedding difference, not candidate/ego query."
+          },
+          "component_loss": 0.45068567991256714,
+          "ranking_loss": 0.4554782807826996,
+          "attention_gradient_norm": 2.713249444961548,
+          "visual_token_gradient_norm": 0.003233665833249688,
+          "adapter_input_gradient_groups": {
+            "visual_readout": {
+              "channels": 64,
+              "mean_absolute_input_gradient": 0.00010627305164234713,
+              "mean_absolute_gradient_times_input_per_channel": 5.359457281883806e-05
+            },
+            "original_scored_feature": {
+              "channels": 256,
+              "mean_absolute_input_gradient": 8.29268028610386e-05,
+              "mean_absolute_gradient_times_input_per_channel": 6.288432632572949e-05
+            },
+            "direct_ego": {
+              "channels": 11,
+              "mean_absolute_input_gradient": 8.693209383636713e-05,
+              "mean_absolute_gradient_times_input_per_channel": 2.4121265596477315e-05
+            },
+            "direct_trajectory": {
+              "channels": 24,
+              "mean_absolute_input_gradient": 4.0252769395010546e-05,
+              "mean_absolute_gradient_times_input_per_channel": 1.4526717677654233e-05
+            },
+            "original_component_logit": {
+              "channels": 6,
+              "mean_absolute_input_gradient": 0.00037498920573852956,
+              "mean_absolute_gradient_times_input_per_channel": 8.650992094771937e-05
+            }
+          },
+          "input_interventions": {
+            "zero_visual_readout": {
+              "mean_absolute_NC_DAC_logit_change": 0.41898730397224426,
+              "mean_absolute_log_score_change": 0.4695086181163788,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_scored_feature": {
+              "mean_absolute_NC_DAC_logit_change": 0.5289210677146912,
+              "mean_absolute_log_score_change": 0.4167599678039551,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_original_logits_in_correction_only": {
+              "mean_absolute_NC_DAC_logit_change": 0.0680774599313736,
+              "mean_absolute_log_score_change": 0.04092435538768768,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            },
+            "zero_all_direct_inputs": {
+              "mean_absolute_NC_DAC_logit_change": 0.5147227644920349,
+              "mean_absolute_log_score_change": 0.3895420432090759,
+              "selected_candidate_changed": false,
+              "native_other_four_components_unchanged": true
+            }
+          },
+          "current_frame_upper_six_rows_density_NC_DAC": [
+            1.6321203708648682,
+            1.683194637298584
+          ],
+          "current_frame_lower_six_rows_density_NC_DAC": [
+            0.9307844638824463,
+            0.8889203667640686
+          ]
+        }
+      ],
+      "maximum_candidate_interaction_error": 3.814697265625e-06,
+      "mean_attention_gradient_norm": 1.2099477698405583,
+      "mean_visual_token_gradient_norm": 0.001325292056814457,
+      "intervention_summary": {
+        "zero_visual_readout": {
+          "mean_absolute_NC_DAC_logit_change": 0.2186229433864355,
+          "selected_candidate_changes": 1
+        },
+        "zero_original_scored_feature": {
+          "mean_absolute_NC_DAC_logit_change": 0.4857487405339877,
+          "selected_candidate_changes": 4
+        },
+        "zero_original_logits_in_correction_only": {
+          "mean_absolute_NC_DAC_logit_change": 0.09823688368002574,
+          "selected_candidate_changes": 1
+        },
+        "zero_all_direct_inputs": {
+          "mean_absolute_NC_DAC_logit_change": 0.5486863702535629,
+          "selected_candidate_changes": 4
+        }
+      }
+    }
+  ],
+  "cpu_wall_seconds": 1.1226920280023478,
+  "interpretation": "Additive query constraint is algebraic. Input zeroing is OOD functional diagnosis, not causal attribution or a newly trained ablation. Coordinate bands are not semantic sky/road masks."
+}

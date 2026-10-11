@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 16:55 KST (Codex)
+마지막 갱신: 2026-10-11 17:10 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 — NC·DAC 구조 진단 완료.** 별도 CPU 진단만 실행했다. 고정된 12장면과 저장된 100/500-step 모델을 사용했고 optimizer step0/encoder 호출0/GPU0초다. 기존 LPWM 대기열과 등록289파일은 보존했다. 새 reader 학습이나 추가 성능 실험은 미기동이다.
 
 **2026-10-11 — 사용자 승인으로 NC·DAC visual evidence pilot 구현·실행 완료.**
 새root `outputs/metric_visual_evidence_v1/`의cache/검증/profile/shared·specific각500step/평가/시각화queue완료. GPU0만사용/새process2.5GiB상한/전체카드48GB조건,원LPWMqueue/source289개보존·계속. 이전새학습금지는이번고정예산pilot범위에서갱신. 추가fullscale/probe학습자동기동없음.
@@ -1384,6 +1386,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**NC·DAC reader 구조와 gradient 확인.** 가산 query의 NC/DAC 상대 token-pair odds에서 candidate query가 소거됨을 코드·수식·실측으로 확인했다(100/500-step 후보 간 차이 최대2.38e-6/3.81e-6). Attention gradient norm 평균0.22449/1.20995로 경로는 유효하다. 500-step 입력 제거 시 NC/DAC 평균 logit 변화 visual readout0.21862 vs 원 scorer feature0.48575, 선택변경1/12 vs4/12. 0대체는 OOD 기능 진단이고 인과적 기여율이 아니다. 보고서 `results/metric_visual_reader_structure_v1/report.md`.
 
 **2026-10-11 — NC·DAC-specific visual reading 실제 결과, 개선 미확인.**
 같은DrivoRpass5/native64/NAVTRAIN1024·tuning64·별도NAVVAL192, frozen finalDINOpatch1406×384FP16/register16×256/scoredfeature재사용. Shared/specific126978parameter·같은init/batch8/500step/seed0/AdamW3e-4·NC/DAC BCE+PDMSgap pairloss. Tuningselected shared500/specific100. PDMS기존78.4753/shared78.2336/specific78.3413,oracle97.5683고정; specific−shared+.1077 CI[−1.4462,+1.7385],gatefail. NC1.56%/DAC10.94%실패모두동일. Uniform/swapattention192장면선택불변,추가patch mean대체선택4.69%변화/78.7172. 고정12장면entropy.99243/metricTV.02333,초기→100→500PNG에서도객체/도로특화근거없음. CPU6검증·실제2stepgradientpositive·원경로/scene오차0·score9.54e-7·OFF전선택복원. GPUcache49.85s/학습합52.76s/전체카드최대41.743GB. 신규공식label계산0/기존검증labels재사용. 공유report `results/metric_visual_evidence_v1/report.md`.
@@ -2422,6 +2426,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**구조 진단 산출물 추가.** 읽기 전용 CPU script `scripts/diagnose_metric_visual_reader_structure.py`, 구조·loss·gradient·한계 설명 보고서와 실제 결과 JSON을 별도 저장했다. 기존 등록 모델·실험 config·학습 source와 checkpoint는 수정하지 않았다. README/HANDOFF1–5/RESUME_NOTES 갱신.
+
 **2026-10-11 — metric-specific evidence adapter와실제controlledpilot 추가.**
 새model `models/metric_visual_evidence.py`: 같은parameter의shared-vs-specificNC/DACattention+bounded2logitresidual+loss. 신규config/CPU6tests/등록·공간hookcache·validation/profile/train/reportphase·replay shell·CPUfunctionaldiagnostics·heatmap/evolution/packaging추가. Source/config/입력등록후불변,원학습파일미수정. 실제JSON/CSV/NPZ·splitmanifest·source/checkpoint/envhash·검증·negative결과보고·4PNG저장. 첫backgroundshell실행전종료는빈log/host중복0확인후foregroundnohup으로기동;모델학습실패없음. README/HANDOFF1–5/RESUME_NOTES갱신.
 
@@ -2493,6 +2499,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**우선 권고: 아직 미학습.** 원 scorer feature/logit 우회 입력을 제외하고 frozen spatial feature로 NC/DAC를 직접 예측하는 작은 probe를 먼저 비교한다. Query는 ego·candidate·metric을 비선형 결합한다. 합성 검사로 가산 제약 제거의 표현 가능성만 확인했으며 planning 개선은 미측정이다.
 
 **2026-10-11 — NC·DAC pilot 이후 추천 하나, 미실행.**
 Specificgate미통과이므로규모/학습시간자동확장없음. 같은frozenpatch+ego+candidate만입력하는작은NC/DACprobe를학습해원scoredfeature/logit우회경로를제외한직접지표정보의읽기가능성부터검사하는것을추천한다. 새probe/semantic감독/generatorFT미기동. 현결과·재실행·초기/100/500attention/해석한계는report참조. 기존LPWM25epochqueue계속.
@@ -3202,6 +3210,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**이번 범위와 미확인 사항.** 사용자 구조 의심과 학습 흐름 질문에 대응한 CPU 진단이다. Semantic 하늘/도로 라벨 검사는 없고 상하단 좌표만 집계했다. 하늘 강조 원인을 한 가지로 확정하거나 NC/DAC map 강제 분리·semantic 감독·대규모 재학습을 시작하지 않는다. 현재 heatmap은 별도 DINO/DrivoR reader이며 LPWM particle 시각화와 혼동하지 않는다.
 
 **2026-10-11 — metric visual evidence pilot 해석 범위.**
 같은parameter수지만shared는두query logit평균이라effectivequery자유도는다르다. 현재query=공통ego/pathMLP+metricembedding으로비선형metric×candidateinteraction이제한됨. 원candidatefeature가보정head에남아우회경로가능. Finitegradient/loss감소/attention변화는semantic특화·planning효용증거아님. 같은scaleimageoverlay는읽기비중이며objectmask/위험GT/객체인과중요도아님. 공식라벨 재집계의실제PDMS이나부분개발NAVVAL/단일seed/약한원checkpoint;독립NAVTEST/EPDMS/원논문baseline아님. Specific500까지학습했으나공식비교checkpoint는tuning선택100,500PNG는표현진단이다. Gatefail후추가학습미승인/미실행.

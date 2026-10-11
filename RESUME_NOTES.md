@@ -4764,3 +4764,19 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 다음 권고는 **기존 scored feature와 logit 입력을 제외한 NC/DAC 직접 probe** 하나다. 같은 frozen 공간 patch+ego+후보로 지표를 예측해 시각 정보를 읽을 수 있는지 먼저 확인한다. 이 probe와 추가 본학습은 아직 실행하지 않았다.
 
 재실행: `bash scripts/run_metric_visual_evidence_pilot.sh`. 추가 CPU 시각화·packaging 명령은 보고서에 있다. 완료 phase는 건너뛰며 새 설정은 새 출력 경로에 등록한다.
+
+## 2026-10-11 — NC·DAC 공간 reader 구조와 학습 경로 진단
+
+사용자는 NC/DAC가 모두 하늘을 강조하는 모습에서 구조적 문제를 의심했고, 이어 색상 가중치가 어떻게 학습되는지와 모델 구조를 설명해달라고 요청했다. 기존 pilot을 변경하지 않고 CPU 구조 진단을 실행했다.
+
+- 새 script `scripts/diagnose_metric_visual_reader_structure.py`, 결과 `results/metric_visual_reader_structure_v1/structure_diagnostics.json`, 보고서 같은 폴더 `report.md`. 같은 고정12장면, Specific100/500 checkpoint, optimizer step0/encoder0/GPU0초. 원 source/input 등록과 LPWM 보호289파일 검증 통과. 진단 loop1.12초.
+- 코드와 식에서 query=MLP(ego,candidate)+metric embedding이므로, 고정 keys의 NC/DAC 상대 token-pair odds는 candidate/ego query에 무관하다. 실제 후보 간 차이 최대2.38e-6/3.81e-6으로 확인했다. Absolute attention은 candidate마다 달라질 수 있다는 구분을 유지한다.
+- 합성 query에서 nonlinear MLP(concat(candidate,metric))는 해당 제약을 제거할 수 있었다. 표현 가능한 구조 검사이며 학습·planning 성능 결과가 아니다.
+- Attention gradient norm 평균100step0.22449/500step1.20995, cache token gradient 평균0.00011989/0.00132529 모두 finite. 진단용 feature gradient이며 원 encoder를 업데이트하지 않았다.
+- 100/500step에서 head visual readout만0으로 대체한 NC/DAC 평균 logit 변화0.06255/0.21862, 원 scorer feature만0이면0.21988/0.48575. 500step 선택변경은1/12 vs4/12. 우회 경로의 사용은 확인했지만 0대체는 OOD이고 입력 차원도 달라 인과적 기여율로 해석하지 않는다.
+- 학습 후보 완전안전 비율NC85.97%/DAC85.45%, 모든64후보안전scene NC214/1024·DAC363/1024. 점수 정답만으로 semantic 영역을 유일하게 식별하지 못하며 별도 출력head는 동일한 readout에서도 지표를 구별할 수 있다.
+- 현재영상 상단6patch행/하단6행 평균농도100step NC1.329/.775·DAC1.389/.722,500step NC1.545/.709·DAC1.579/.674. 상단 강조 증가라는 좌표 진단이며 하늘/도로 semantic segmentation 검사가 아니다.
+- 보고서는 현재 DINO/DrivoR 캐시1406×384,64후보,각8waypoint,11차원ego,64차원key/value/query와 loss/gradient 및 feature 우회 구조를 설명한다. 진행 중 LPWM 학습과 별도다.
+- 다음 하나의 권고: 기존 scored feature/logit 입력을 제외한 NC/DAC 직접 probe와 비선형 후보·지표 query를 먼저 비교. 원 scorer/기존결과 보존. Semantic 감독/새학습/fullscale은 미실행이다.
+
+재실행: `CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=1 PYTHONPATH=src runtime/environments/kjs-scorer-selection-pilot/bin/python scripts/diagnose_metric_visual_reader_structure.py`.
