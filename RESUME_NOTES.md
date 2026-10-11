@@ -4823,3 +4823,13 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - 다음권고는동일reader/예산의 **BCE-only vs 현재BCE+compositePDMSranking** 하나다. 고정된다른4지표오차를NC/DAC출력이보상하게만드는지의가설을검사한다. 원인으로확정하지않았고후속checkpoint선택/성공기준은학습전에등록한다. 이추가학습·epoch확대·semantic감독은실행하지않았다.
 
 재실행: `bash scripts/run_direct_metric_visual_probe_pilot.sh` (완료phase는건너뜀). 읽기전용 위험AUC/튜닝loss 재실행 명령은 같은폴더 report.md에기록했다.
+
+## 2026-10-11 19:22 KST — 실행 중인 LPWM Stage2 중간 상태 조회
+
+- 사용자 “현재 LPWM 학습 중간 결과는 어때?”에 대응해 기존학습만조회했다. Root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`, 전방1/과거현재4frame/128×128/Stage1재사용/geometry·appearance·context·dynamics LoRA+DrivoR planner다. 모델·설정·checkpoint·queue변경없고새학습/forward/공식평가호출0이다.
+- 저장snapshot12,179/29,425update=41.39%,10epoch완료·11번째epoch학습중이다. 직전연속조회12,174→12,176→12,179로실제진행을확인했다. 양rank최근500update loss비유한0,12,100의18gradient그룹모두유한양수다. NVIDIAquery GPU0·1각39,173MiB/100%사용률,41.08decimalGB<48GB였다.
+- 동일내부개발패널1,024예측/1,021공식score에서epoch5/8/9/10 PDMS83.9882/85.8215/87.4335/87.4052. Epoch10 ADE1.4209m/FDE3.5435m이며원래누락3cache제외/평가실패0이다. Epoch9→10 PDMS−.0283점과오차증가가있지만한구간정체로학습포화를확정하지않는다.
+- Epoch10 world16clip Stage1대비복원MSE+.9565%·미래MSE+3.3983%. 미래표현을현재반복으로대체한12scene ADE+.1421m는분기의존성검사이며미래정확도/인과적planning이득증명이아니다. Native가중치불변/execution·finitenessgate통과,학습품질검토flag는남아있다.
+- Particle12,000 고정4scene의Stage2전대비중심.7371inputpx/크기9.0937%/presence절대평균.04772변화다. 운전에중요한객체로특화됐다는semantic검증은별개다.
+- 최신공통NAVTEST1,024는기존epoch9 LPWM85.9317/DrivoRepoch5 83.9662다. 학습scene/양/입력/SSL차이가있는시스템진단이며공정한동일예산우위입증이아니다. Epoch10내부87.41과NAVTEST85.93은서로다른패널이다. 이번조회에서새NAVTEST평가를기동하지않았다.
+- JSON근거 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261011_1921.json`. 기존25epoch학습과각epoch검증queue를계속유지했다.

@@ -1,0 +1,301 @@
+{
+  "observed_at_kst": "2026-10-11T19:22:08.867957+09:00",
+  "request": "현재 LPWM 학습 중간 결과 조회",
+  "progress": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 12179,
+    "epoch": 11,
+    "rank_scene_tokens_sha256": "4688c3f4829aff68245c965d52b512901b75c210540bd2a1e5c4f4cb3c0c1947",
+    "update_in_epoch": 409,
+    "seconds_this_update": 11.500513792037964,
+    "elapsed_seconds": 5747.899547338486,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0006632804870605469,
+      "forward": 2.7761402130126953,
+      "oracle": 2.4830217361450195,
+      "backward": 6.0663368701934814
+    },
+    "learning_rates": [
+      7.286874031651642e-06,
+      7.286874031651636e-05
+    ],
+    "loss": 2.9525548815727234,
+    "trajectory_loss": 0.8170933127403259,
+    "final_score_loss": 2.1354615688323975,
+    "score": 0.7839810699224472,
+    "best_score": 0.984309047460556,
+    "estimated_remaining_seconds": 242367.4324139406
+  },
+  "progress_percent": 41.38997451146984,
+  "queue_state": {
+    "status": "training_epoch_11",
+    "queue_pid": 1533508,
+    "active_pid": 574536,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nproc_per_node=2",
+      "scripts/train_lpwm_front_history_stage1_lora.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/experiment.json",
+      "--execution",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/execution_microbatch8.json",
+      "--stop-after-epoch"
+    ],
+    "started_at_unix": 1791708343.2536247
+  },
+  "latest_validation": {
+    "complete": true,
+    "count": 1024,
+    "audit_only": false,
+    "ade_meters": 1.4208587408065796,
+    "fde_meters": 3.5434794425964355,
+    "persistent_future_ade_difference_12scenes_meters": 0.1421372890472412,
+    "future_intervention_scope": "future use, not actual future correctness",
+    "world_diagnostic_count": 16,
+    "world_means": {
+      "stage1": {
+        "reconstruction_mse": 0.008039972046390176,
+        "future_mse": 0.01871084945742041
+      },
+      "stage2": {
+        "reconstruction_mse": 0.008116872952086851,
+        "future_mse": 0.0193466930068098
+      }
+    },
+    "frozen_native_unchanged": true,
+    "same_dev_panel_as_historical_2stage": true,
+    "passed_execution_and_finiteness": true,
+    "pdms": 87.40519276067192,
+    "pdms_count": 1021,
+    "failed": 0,
+    "excluded_missing_caches": [
+      "289338b093215c65",
+      "3ed0712647875d2d",
+      "aae6d4e099dd565c"
+    ],
+    "mean_metrics": {
+      "no_at_fault_collisions": 0.9828599412340843,
+      "drivable_area_compliance": 0.9657198824681684,
+      "ego_progress": 0.8167152376488799,
+      "time_to_collision_within_bound": 0.9333986287952988,
+      "comfort": 1.0,
+      "driving_direction_compliance": 0.9666993143976493,
+      "score": 0.8740519276067192
+    },
+    "benchmark_scope": "previously exposed internal navtrain development subset, not full navtest",
+    "gate_scope": "execution/finite-output/frozen-native; no arbitrary particle-movement or object-box quality threshold",
+    "learning_quality_requires_review": true
+  },
+  "same_internal_development_history": [
+    {
+      "epoch": 1,
+      "completed_updates": 1177,
+      "pdms": 69.74366946017395,
+      "pdms_count": 1021,
+      "ade_meters": 3.5841193199157715,
+      "fde_meters": 8.924787521362305
+    },
+    {
+      "epoch": 2,
+      "completed_updates": 2354,
+      "pdms": 77.46779454209883,
+      "pdms_count": 1021,
+      "ade_meters": 1.8604743480682373,
+      "fde_meters": 4.554338455200195
+    },
+    {
+      "epoch": 3,
+      "completed_updates": 3531,
+      "pdms": 81.72250838495911,
+      "pdms_count": 1021,
+      "ade_meters": 1.6244981288909912,
+      "fde_meters": 3.9799752235412598
+    },
+    {
+      "epoch": 4,
+      "completed_updates": 4708,
+      "pdms": 81.83002594946208,
+      "pdms_count": 1021,
+      "ade_meters": 2.0899879932403564,
+      "fde_meters": 5.225548267364502
+    },
+    {
+      "epoch": 5,
+      "completed_updates": 5885,
+      "pdms": 83.9881877993076,
+      "pdms_count": 1021,
+      "ade_meters": 1.7462801933288574,
+      "fde_meters": 4.2488837242126465
+    },
+    {
+      "epoch": 6,
+      "completed_updates": 7062,
+      "pdms": 85.48840876520283,
+      "pdms_count": 1021,
+      "ade_meters": 1.6863800287246704,
+      "fde_meters": 3.985008716583252
+    },
+    {
+      "epoch": 7,
+      "completed_updates": 8239,
+      "pdms": 85.63988782023874,
+      "pdms_count": 1021,
+      "ade_meters": 1.6395004987716675,
+      "fde_meters": 4.076857566833496
+    },
+    {
+      "epoch": 8,
+      "completed_updates": 9416,
+      "pdms": 85.82147629221727,
+      "pdms_count": 1021,
+      "ade_meters": 1.6021747589111328,
+      "fde_meters": 3.995117664337158
+    },
+    {
+      "epoch": 9,
+      "completed_updates": 10593,
+      "pdms": 87.43345675540293,
+      "pdms_count": 1021,
+      "ade_meters": 1.3611421585083008,
+      "fde_meters": 3.421414852142334
+    },
+    {
+      "epoch": 10,
+      "completed_updates": 11770,
+      "pdms": 87.40519276067192,
+      "pdms_count": 1021,
+      "ade_meters": 1.4208587408065796,
+      "fde_meters": 3.5434794425964355
+    }
+  ],
+  "training_health": [
+    {
+      "rank": 0,
+      "latest_logged_update": 12179,
+      "recent_count": 500,
+      "nonfinite_loss_updates": [],
+      "mean_recent100_step_seconds": 14.075072298049927,
+      "gradient_update": 12100,
+      "gradient_groups": {
+        "particle_interaction_lora": 6.787598745144147,
+        "context_prior_lora": 12.918298870012773,
+        "particle_dynamics_lora": 8.561374682105228,
+        "particle_xy_head_lora": 49.413382880019164,
+        "particle_scale_xy_head_lora": 16.427645101158404,
+        "particle_obj_on_head_lora": 0.8693853087116892,
+        "current_prior_cnn_lora": 39.70631851516886,
+        "current_attribute_cnn_lora": 71.10813472466819,
+        "appearance_encoder_lora": 14.216811914712133,
+        "background_appearance_lora": 2.616589997278565,
+        "interaction_visual_and_output_lora": 20.3450994079013,
+        "context_prior_projection_and_output_lora": 26.507027558373196,
+        "dynamics_projection_and_ffn_lora": 22.87904379829373,
+        "future_particle_heads_lora": 58.17637396285214,
+        "encoder_command": 21.04033242439648,
+        "scene_projection": 3.8822540564248866,
+        "trajectory_generator": 7.528744381840581,
+        "scorer": 1.6980174355417725
+      },
+      "all_gradient_groups_finite_positive": true
+    },
+    {
+      "rank": 1,
+      "latest_logged_update": 12179,
+      "recent_count": 500,
+      "nonfinite_loss_updates": [],
+      "mean_recent100_step_seconds": 14.084448144435882,
+      "gradient_update": 12100,
+      "gradient_groups": {
+        "particle_interaction_lora": 6.787598745144147,
+        "context_prior_lora": 12.918298870012773,
+        "particle_dynamics_lora": 8.561374682105228,
+        "particle_xy_head_lora": 49.413382880019164,
+        "particle_scale_xy_head_lora": 16.427645101158404,
+        "particle_obj_on_head_lora": 0.8693853087116892,
+        "current_prior_cnn_lora": 39.70631851516886,
+        "current_attribute_cnn_lora": 71.10813472466819,
+        "appearance_encoder_lora": 14.216811914712133,
+        "background_appearance_lora": 2.616589997278565,
+        "interaction_visual_and_output_lora": 20.3450994079013,
+        "context_prior_projection_and_output_lora": 26.507027558373196,
+        "dynamics_projection_and_ffn_lora": 22.87904379829373,
+        "future_particle_heads_lora": 58.17637396285214,
+        "encoder_command": 21.04033242439648,
+        "scene_projection": 3.8822540564248866,
+        "trajectory_generator": 7.528744381840581,
+        "scorer": 1.6980174355417725
+      },
+      "all_gradient_groups_finite_positive": true
+    }
+  ],
+  "world_error_change_percent_vs_stage1": {
+    "reconstruction_mse": 0.9564822520894634,
+    "future_mse": 3.3982612646013655
+  },
+  "latest_particle_diagnostics": {
+    "label": "update_012000",
+    "tokens": [
+      "ddbde9d6bfda5a6e",
+      "782e2832bd025494",
+      "df19480a94ec58ff",
+      "85f0514810285441"
+    ],
+    "mean_center_shift_input_pixels": 0.7371435165405273,
+    "mean_relative_size_change_percent": 9.09366512298584,
+    "mean_absolute_presence_change": 0.047724649310112,
+    "scene_selection": "fixed first four of registered development panel",
+    "dots": "all 64 foreground particle centers; radius indicates presence",
+    "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+  },
+  "latest_common_navtest_result": {
+    "lpwm_epoch": 9,
+    "lpwm_pdms": 85.9317,
+    "drivor_epoch": 5,
+    "drivor_pdms": 83.9662,
+    "scenes": 1024,
+    "scope": "fixed NAVTEST subset; unequal training data and budget, not matched comparison",
+    "source": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/report.md"
+  },
+  "gpu_query": {
+    "index0": {
+      "memory_used_mib": 39173,
+      "utilization_percent": 100
+    },
+    "index1": {
+      "memory_used_mib": 39173,
+      "utilization_percent": 100
+    },
+    "query_scope": "one earlier nvidia-smi snapshot during this status check"
+  },
+  "new_training_started": false,
+  "training_configuration_modified": false,
+  "new_model_forward_or_evaluation_calls": 0,
+  "interpretation": [
+    "Internal development PDMS improved through epoch9; epoch10 did not improve it. One interval cannot establish saturation.",
+    "Finite gradients and changing particle geometry do not prove planning useful object specialization.",
+    "World error changes use only 16 clips; future intervention uses only 12 scenes and is not future prediction correctness.",
+    "Internal development 87.41 and NAVTEST subset 85.93 are different evaluations."
+  ]
+}
