@@ -4849,3 +4849,11 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - 이전및현재정사각형조건은실제128×128이다. `monitor_lpwm_drivor_planning_path_representations.py:91,94`, `visualize_lpwm_front_history.py:53`에서256×256으로확대해표시한다. 시각화확대를모델입력으로부르지않는다.
 - 확인된128정사각형실험중이전4cameraGeometry·appearance·context·dynamics planning-pathLoRA공동학습의변화가가장컸다. 5000update/96scene×4cam×64FG 평균2.2769558inputpx·개별최대21.9106922px. 5493update동일3scene평균2.7746562px는다른snapshot/표본이다. 단위를128입력px로유지한다.
 - 새근거 `results/lpwm_particle_movement_review_20261011/resolution_scope_clarification.json`. 사용자가별도실제256입력실험을의미한다면경로근거가필요하다. 추측해서그실험수치를만들지않았다. 기존학습/모델/설정/결과미변경,새GPU/추론/학습0。
+
+## 2026-10-11 — 이전4camera Geometry·appearance·context·dynamics LoRA particle이미지전체경로
+
+- 사용자가해당실험의이미지위치를전부요청했다. 기존PNG존재/기존HTMLindex5개를확인했고이미지렌더링이나학습은시작하지않았다. 원학습queue/모델/설정/체크포인트/이미지불변이다.
+- 5000update 전체갤러리는 `results/lpwm_drivor_planning_path_lora_v1/particle_gallery_update5000/index.html`,comparisons384/overlays384/scenario_sheets6/root요약2=776PNG다. 같은96장면×4camera의쌍이다.
+- 시점별100–5000대표전후/겹침은 `outputs/lpwm_drivor_particle_geometry_overlays_v1/index.html`/28PNG. 0–5000전체particle·명령진단은 `outputs/lpwm_drivor_planning_path_representation_monitor_v1/index.html`/748PNG이며진단그래프도포함한다.
+- 첫epoch이전LoRA범위대조14,300update4,차량밀집3000/5000각6,변화최대4,기타시점대표18,학습native시점4,보존5493같은3scene복합패널3등을모아기존파일1,615경로를저장했다. 일부내용복사본이있으며1,615개의독립장면을뜻하지않는다.
+- 전체절대경로목록 `results/lpwm_particle_movement_review_20261011/all_joint_lora_particle_png_paths.txt`,분류카탈로그 `joint_lora_particle_image_catalog.json`. Gallery의박스는glimpse지만representation-monitor의박스는GT투영이다. 첫epoch/보존모델패널에는비교조건도같이표시돼있다.

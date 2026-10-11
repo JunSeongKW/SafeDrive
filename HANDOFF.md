@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 19:51 KST (Codex)
+마지막 갱신: 2026-10-11 19:57 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 — 이전4camera planning-pathLoRA particle이미지경로목록완료.** 원이미지를변경/새렌더링하지않고관련기존PNG1,615개존재와5개galleryindex를확인했다. `results/lpwm_particle_movement_review_20261011/all_joint_lora_particle_png_paths.txt`에전체절대경로를저장했다. 기존LPWM학습/queue불변.
 
 **2026-10-11 — 사용자가particle비교를256×256조건으로좁힘.** 관련117configJSON와시각화코드를확인했다. 실제256정사각형입력실험은확인되지않았고,128입력을256으로확대표시하는코드를확인했다. 512×256직사각형조건과구분한다. 새학습/평가/모델변경없음. `results/lpwm_particle_movement_review_20261011/resolution_scope_clarification.json`.
 
@@ -1394,6 +1396,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**이미지카탈로그:** 5000update 전체96scene×4camera갤러리는384전후+384겹침+8요약=776PNG,100–5000시점별대표겹침28PNG,0–5000particle/명령진단748PNG,첫epoch이전scope대조14PNG,차량밀집3000/5000각6PNG,변화최대4PNG등이다. 총1,615는파일경로수이며복사본·진단그래프·비교패널을포함한다. 대표갤러리 `results/lpwm_drivor_planning_path_lora_v1/particle_gallery_update5000/index.html`,시점별 `outputs/lpwm_drivor_particle_geometry_overlays_v1/index.html`. Category별경로는 `joint_lora_particle_image_catalog.json`.
 
 **정사각형LPWM조건의particle변화:** 실제입력128×128/시각화256×256. 가장큰평균변화기록은이전4camera planning-pathLoRA공동학습이다. 5000update 고정96scene×4camera×64FG=24,576particle 평균2.27696inputpx,개별최대21.91069px. 별도5493update 동일3scene평균2.77466px와혼합하지않는다. 값은256입력학습결과가아니다. 근거 oldnavsim_v1 config28·monitor resize91/94·front_history config28–30。
 
@@ -2442,6 +2446,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**Particle이미지위치산출물추가.** 전체절대경로TXT와category별JSON을기존movement_review폴더에저장하고HANDOFF1–5/RESUME_NOTES갱신했다. 실제PNG·학습source·설정·checkpoint미변경,추가GPU/학습/렌더링0이다.
+
 **입력해상도범위설명추가.** `resolution_scope_clarification.json`에117config검사범위·256높이는512폭직사각형임·128실제입력/256표시코드근거·정사각형LoRA5000및5493의분리통계를저장하고HANDOFF1–5/RESUME_NOTES갱신했다. 이전비교수치와source모두보존,새GPU/학습/추론0이다.
 
 **Particle변화량조회산출물만추가.** `results/lpwm_particle_movement_review_20261011/comparison.json`에원NPZ/sourceSHA·같은3scene재계산·조건/해상도/particle수/update·축별정규화정의·이미지경로·표본한계를저장했다. HANDOFF1–5/RESUME_NOTES갱신,새모델추론/GPU/학습/평가0이다.
@@ -2523,6 +2529,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**이미지확인진입점:** 전체5000galleryindex에서장면/camera별전후와겹침을본다. 시점변화는geometry_overlaysindex,명령개입은planning_path_representation_monitorindex를사용한다. 전체PNG개별경로는TXT에있다. 이요청에서새시각화·실험은시작하지않았다.
 
 **해상도범위확인후:** 사용자가실제256×256입력의별도실험을의미한다면그실험경로/설정근거가필요하다. 현128입력통계를256입력결과로바꾸지않는다. 조회범위안에서이전4camera planning-pathLoRA의particle변화PNG를참조한다. 학습새기동없음。
 
@@ -3242,6 +3250,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**이미지카탈로그범위:** 이전4camera128입력planning-pathLoRA조건과그조건을포함한첫epoch/보존checkpoint대조패널이다. 현재front-history조건과512공동학습단독결과는별도로두었다. Geometrygallery박스는LPWMglimpse,representation-monitor박스는GT투영이라혼동하지않는다. 총PNG수는독립장면수/unique내용수가아니다.
 
 **256표시와256입력구분.** 확인된정사각형모델입력은128×128이며256×256은시각화resize다. 사용자가다른256입력실험을지칭하는지는확정하지않았다. 이에현재확인된정사각형128실험의변화량을실제입력단위로안내한다. 평균/개별최대및96×4표본/3scene표본의checkpoint차이를유지한다.
 
