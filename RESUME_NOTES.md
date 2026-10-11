@@ -4866,3 +4866,16 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 **2026-10-11 — 저장공간 정리 실측.** 삭제87파일/85고유inode·54,441,963,520할당bytes,역사profile/메모리복구snapshot만. 원293등록hash·Git추적1794파일·보존가중치inode/mtime 확인,실제사용자작업238개 후보참조0,OS인증/SSH transport만명시제외. 원JSON/CSV/log/NPZ/PNG/수치/hash 이력불변. 목록·근거 `results/unused_result_cleanup_20261011/{report.md,summary.json,deleted_files.csv}`。
 
 현재학습source/config는293등록hash로확인했고현재Stage1sourceSHA71478ee 불변이다. 옛메모리복구snapshot보다더진행된fullstate는보존했다. logical bytes의하드링크중복은확보량에서제외했다. 상세local감사 outputs/unused_result_cleanup_20261011/audit.json 및cleanup_complete.json,공유CSV모든87경로. 기타프로젝트/공용원본/환경은변경없다.
+
+
+## 2026-10-11 21:03 KST — LPWM 중간 결과 조회
+
+**2026-10-11 21:03 KST — LPWM 중간상태 조회.** 누적12,612/29,425update(42.86%),epoch11 842/1177. 기존queue1533508/torchrun574536·25epoch학습을보존했고새학습/평가/설정변경없음. 조회근거 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261011_2103.json`。
+
+**2026-10-11 21시 조회 — 최신완료epoch10 내부dev1021 PDMS87.4052/ADE1.4209/FDE3.5435m.** 같은패널epoch8 85.8215→9 87.4335→10 87.4052;epoch11미완료. 별도공통NAVTEST1024 최신epoch9 LPWM85.9317/DrivoR epoch5 83.9662는학습조건차이가남는다. 12500update 고정4scene geometry0.768px/size9.672%/presence.05015,객체중요도효용미입증。
+
+**2026-10-11 — 중간상태 JSON와문서기록만추가.** 실제rank0/1 최근500loss비유한0,12600update 18gradient그룹유한양수,원293source/config/inputSHA일치. source/model/config/checkpoint/queue변경없음。
+
+**2026-10-11 21시 — 다음단계는기존11epoch 완료→자동devPDMS/world검증→12epoch 학습.** 전체25epoch 일정유지. 최근50–500평균13.6–14.5초/update로잔여순수학습약64–68시간,10/14오후조건부외삽;평가/시각화비용별도。
+
+**2026-10-11 — 중간결과해석범위.** 최신87.41은이전노출된내부development1021이며전체NAVTEST가아니다. 9→10epoch .028점하락1회로포화단정불가. world오차전대비reconstruction+.956%/future+3.398%(16clip),geometry4scene이동은객체특화나LPWM단독planning기여를입증하지않음。

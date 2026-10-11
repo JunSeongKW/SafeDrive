@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 20:22 KST (Codex)
+마지막 갱신: 2026-10-11 21:03 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 21:03 KST — LPWM 중간상태 조회.** 누적12,612/29,425update(42.86%),epoch11 842/1177. 기존queue1533508/torchrun574536·25epoch학습을보존했고새학습/평가/설정변경없음. 조회근거 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261011_2103.json`。
 
 **2026-10-11 — 사용자 요청으로 미사용 산출물 87개 정리 완료.** 폐기된 profile/engineering 가중치와 더 진행된 상태로 대체된 복구 snapshot만 `.trash-*` 격리·재검사 후 삭제했다. 54.442decimalGB(50.703GiB) 확보. 현재Stage2 root/Stage1 원가중치·cache/이전최종·에폭별가중치/요청particlePNG1,615개 보존; 학습12,413→12,420/29,425update·epoch11 계속,queue1533508/torchrun574536 불변. 새학습/GPU작업 없음。
 
@@ -1398,6 +1400,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 21시 조회 — 최신완료epoch10 내부dev1021 PDMS87.4052/ADE1.4209/FDE3.5435m.** 같은패널epoch8 85.8215→9 87.4335→10 87.4052;epoch11미완료. 별도공통NAVTEST1024 최신epoch9 LPWM85.9317/DrivoR epoch5 83.9662는학습조건차이가남는다. 12500update 고정4scene geometry0.768px/size9.672%/presence.05015,객체중요도효용미입증。
 
 **2026-10-11 — 저장공간 정리 실측.** 삭제87파일/85고유inode·54,441,963,520할당bytes,역사profile/메모리복구snapshot만. 원293등록hash·Git추적1794파일·보존가중치inode/mtime 확인,실제사용자작업238개 후보참조0,OS인증/SSH transport만명시제외. 원JSON/CSV/log/NPZ/PNG/수치/hash 이력불변. 목록·근거 `results/unused_result_cleanup_20261011/{report.md,summary.json,deleted_files.csv}`。
 
@@ -2450,6 +2454,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 — 중간상태 JSON와문서기록만추가.** 실제rank0/1 최근500loss비유한0,12600update 18gradient그룹유한양수,원293source/config/inputSHA일치. source/model/config/checkpoint/queue변경없음。
+
 **2026-10-11 — 미사용 실험 결과 정리.** 전용감사·격리·삭제script `scripts/cleanup_unused_experiment_artifacts.py`와공유report/JSON/CSV 추가. 현재학습/source/config 및기존results 원문변경없음. 보호검사 후폐기된87.pt만삭제하고54.44GB확보,이미지목록1,615경로유지。
 
 **Particle이미지위치산출물추가.** 전체절대경로TXT와category별JSON을기존movement_review폴더에저장하고HANDOFF1–5/RESUME_NOTES갱신했다. 실제PNG·학습source·설정·checkpoint미변경,추가GPU/학습/렌더링0이다.
@@ -2535,6 +2541,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 21시 — 다음단계는기존11epoch 완료→자동devPDMS/world검증→12epoch 학습.** 전체25epoch 일정유지. 최근50–500평균13.6–14.5초/update로잔여순수학습약64–68시간,10/14오후조건부외삽;평가/시각화비용별도。
 
 **2026-10-11 — 정리 후 다음 작업.** 기존25epoch 학습·epoch검증queue를 그대로유지한다. 이번에삭제된옛profile/복구snapshot으로 자동재개하지않는다. 추후재평가에는보존된최종/에폭별가중치를사용하고,추가정리는새감사목록으로진행한다。
 
@@ -3258,6 +3266,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 — 중간결과해석범위.** 최신87.41은이전노출된내부development1021이며전체NAVTEST가아니다. 9→10epoch .028점하락1회로포화단정불가. world오차전대비reconstruction+.956%/future+3.398%(16clip),geometry4scene이동은객체특화나LPWM단독planning기여를입증하지않음。
 
 **2026-10-11 — 삭제 범위 확정.** 현재Stage2/Stage1·cache·dataset·환경·참고repo·고유scientific 최종/에폭checkpoint·실험기록·requestedparticle이미지보존. 삭제된profile/이전복구.pt는복구불가지만더진행된fullstate는남아있다. 과거JSON의해당경로는이력이며현재파일존재근거가아님;삭제manifest와함께확인한다。
 
