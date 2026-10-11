@@ -1,0 +1,23 @@
+{
+  "reason": "Correct recording_bootstrap positional argument order before any profile/training/evaluation; use explicit seed/repetitions keywords.",
+  "previous_registered_sources": {
+    "configs/direct_metric_visual_probe/pilot_v1.json": "87d19069f3a31c0db9fca1aeb4bf06a4c6b20609227eda6c129517a6ab963b1d",
+    "scripts/run_direct_metric_visual_probe_pilot.py": "7608791b4483fa572f26135d90b2c83fcdfd7d3c20a53b5fd2e1d5fba5c43ca9",
+    "src/planning_aware_future_prediction/models/direct_metric_visual_probe.py": "f82116dbc52192dcdac6549cce73f32f3506fcc471d063f0afe5aeef59bde73b",
+    "tests/test_direct_metric_visual_probe.py": "ad6f968bdb582ec13b426007169ab21caa2f4cfe35a8c7b94eecfecbf79204f6",
+    "scripts/diagnose_direct_metric_visual_probe.py": "4c8bd7b30552e1bd63cf99dd850114478e72a6299a71551f90b287d4cf83d485",
+    "scripts/run_direct_metric_visual_probe_pilot.sh": "c03871d966e6f0a17e40c7038ff74822879c0ec35f9d213fc11593f302eaec57"
+  },
+  "optimizer_steps_before_correction": 0,
+  "score_results_observed_before_correction": false,
+  "prior_registration_archive": "outputs/direct_metric_visual_probe_v1/registration_before_bootstrap_api_fix.json",
+  "final_registered_sources": {
+    "configs/direct_metric_visual_probe/pilot_v1.json": "87d19069f3a31c0db9fca1aeb4bf06a4c6b20609227eda6c129517a6ab963b1d",
+    "scripts/run_direct_metric_visual_probe_pilot.py": "c1e54b80422fa0976c1e49ec3b6a4c6b8793c901bc925e1765305ef7a5cf9213",
+    "src/planning_aware_future_prediction/models/direct_metric_visual_probe.py": "f82116dbc52192dcdac6549cce73f32f3506fcc471d063f0afe5aeef59bde73b",
+    "tests/test_direct_metric_visual_probe.py": "ad6f968bdb582ec13b426007169ab21caa2f4cfe35a8c7b94eecfecbf79204f6",
+    "scripts/diagnose_direct_metric_visual_probe.py": "4c8bd7b30552e1bd63cf99dd850114478e72a6299a71551f90b287d4cf83d485",
+    "scripts/run_direct_metric_visual_probe_pilot.sh": "c03871d966e6f0a17e40c7038ff74822879c0ec35f9d213fc11593f302eaec57"
+  },
+  "final_registered_utc": "2026-10-11T08:28:13.237979+00:00"
+}

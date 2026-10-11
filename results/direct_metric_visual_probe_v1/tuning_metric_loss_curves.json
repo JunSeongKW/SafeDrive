@@ -1,0 +1,47 @@
+{
+  "curves": {
+    "shared": [
+      {
+        "step": 100,
+        "NC_DAC_BCE_cpu": 0.5014559030532837,
+        "previously_recorded_tuning_PDMS_gpu": 78.58039093017578
+      },
+      {
+        "step": 250,
+        "NC_DAC_BCE_cpu": 0.45335853099823,
+        "previously_recorded_tuning_PDMS_gpu": 73.67013549804688
+      },
+      {
+        "step": 500,
+        "NC_DAC_BCE_cpu": 0.4304053783416748,
+        "previously_recorded_tuning_PDMS_gpu": 75.68922424316406
+      }
+    ],
+    "metric_specific": [
+      {
+        "step": 100,
+        "NC_DAC_BCE_cpu": 0.5013487935066223,
+        "previously_recorded_tuning_PDMS_gpu": 78.58039093017578
+      },
+      {
+        "step": 250,
+        "NC_DAC_BCE_cpu": 0.45485538244247437,
+        "previously_recorded_tuning_PDMS_gpu": 73.42022705078125
+      },
+      {
+        "step": 500,
+        "NC_DAC_BCE_cpu": 0.42691004276275635,
+        "previously_recorded_tuning_PDMS_gpu": 76.4347915649414
+      }
+    ]
+  },
+  "cpu_wall_seconds": 2.015802256006282,
+  "optimizer_steps": 0,
+  "gpu_seconds": 0.0,
+  "encoder_calls": 0,
+  "selection_unchanged": {
+    "shared": 100,
+    "metric_specific": 100
+  },
+  "interpretation": "Read-only loss diagnosis on already registered tuning64/checkpoints. Does not reselect a primary model from development scores."
+}

@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "profile_steps": 12,
+  "median_step_seconds": 0.016768484012573026,
+  "estimated_combined_training_seconds": 16.768484012573026,
+  "gpu_profile_seconds": 0.627448406041367,
+  "profile_weights_used_for_training": false,
+  "peak_allocated_bytes": 145414656,
+  "maximum_whole_card_bytes": 41648390144,
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.8.0+cu128",
+    "device": "cuda:0",
+    "physical_gpu": 0,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "deterministic_algorithms": true,
+    "bitwise_replay_verified": false
+  }
+}

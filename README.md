@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-11 — NC·DAC 직접 visual reader 비교 완료.** 원 scorer feature/logit 우회 입력을 제거하고 ego·후보·metric을 비선형 결합했다. Shared/Specific 각500step·동일초기화/배치/파라미터, 튜닝에서 둘 다100step 선택. 같은 개발192장면의 PDMS는 기존78.48/Shared79.55/Specific79.55이며 새 두 조건은 모든 후보 선택이 같다. 시각 읽기 진단은 통과했지만 NC실패3→5/192로 planning gate는 실패했다. [실측·통제·한계](results/direct_metric_visual_probe_v1/report.md), [학습 전후 NC/DAC 시각화](results/direct_metric_visual_probe_v1/nc_dac_training_evolution.png). 기존 LPWM 학습은 보존했고 추가 실험은 시작하지 않았다.
+
 **2026-10-11 — NC·DAC reader 구조 진단 완료.** 고정 12장면/100·500-step 모델의 CPU 검사에서 candidate와 무관한 metric 상대 attention 제약, 원 scorer feature 직접 경로, 실제 attention gradient를 확인했다. 학습 추가 0/GPU0초. [구조·loss·gradient 설명과 실측](results/metric_visual_reader_structure_v1/report.md). 원 pilot/LPWM 학습은 보존했다.
 
 **2026-10-11 — NC·DAC 지표별 시각 표현 pilot 완료, 개선 미확인.** 같은 native64/NAVVAL192에서 기존78.48·공유adapter78.23·지표별adapter78.34PDMS. 실제 frozen DINO patch1406×384캐시, 두조건126978parameter/500step, CPU6검사·실제gradient/OFF검사통과. Attention uniform/swap시최종선택불변, 초기→100→500시각화 포함 [실제 결과·PNG·재실행](results/metric_visual_evidence_v1/report.md). 원LPWM학습/등록source보존,추가학습미기동.

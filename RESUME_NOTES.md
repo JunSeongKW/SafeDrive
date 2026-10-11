@@ -4780,3 +4780,46 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - 다음 하나의 권고: 기존 scored feature/logit 입력을 제외한 NC/DAC 직접 probe와 비선형 후보·지표 query를 먼저 비교. 원 scorer/기존결과 보존. Semantic 감독/새학습/fullscale은 미실행이다.
 
 재실행: `CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=1 PYTHONPATH=src runtime/environments/kjs-scorer-selection-pilot/bin/python scripts/diagnose_metric_visual_reader_structure.py`.
+
+## 2026-10-11 — NC·DAC 직접 visual probe 구현·검증·비교 완료
+
+사용자의 “진행해줘”는 앞선 구조 진단에서 제안한 direct probe를 승인한 것으로 해석했다. 원 scorer feature/logit 우회 입력을 제외하고, ego·후보·metric을 비선형 결합하는 query로 NC/DAC를 직접 예측했다. 새로운 독립 output을 사용했고 이전 결과·모델·checkpoint와 실행 중인 LPWM25epoch 대기열은 보존했다.
+
+### 구현·통제
+
+- `models/direct_metric_visual_probe.py`: frozen spatial feature의 LN→key/value64, position4→key만, query는 ego11·path24·metric16 concat→MLP128→64다. Head는 visual readout64→128→128→2만 입력받으며 원 scored feature/logit과 직접 조건을 받지 않는다. 다른4지표는 원출력을 유지하고 OFF는 원6logit을 정확하게 복원한다.
+- Shared는 두 metric attention logit을 평균해 같은 공간을 읽고, Specific은 각각 읽는다. 두 모델 모두90,402파라미터·같은초기state·seed0·batch8·500step·AdamW3e-4·BCE+실제PDMS-gap ranking이다. 원 pilot의 실제 batch/pair 배열을 복사하고 hash 일치를 확인했다. NC0.5 soft target을 보존한다.
+- 동일한 DINO cache1406×384FP16/1280장면과 native64후보·기존 공식 후보 점수 라벨을 재사용했다. NAVTRAIN1024/101recording, 튜닝NAVVAL64/15, 개발NAVVAL192/37이며 그룹간 recording중복0이다. 전방1대·과거현재2frame·512×256/crop28/padding이고 미래입력은 없다. 새encoderforward/cache생성/공식후보평가호출은 모두0이다.
+- 각500step학습 후 튜닝64 PDMS로100/250/500중 선택했다. 두 조건 모두100step을 선택했다. Profiling의 학습 가중치는 폐기하고 공통 초기state에서 본 비교를 시작했다.
+
+### 검증·등록
+
+- CPU 자동검사6개와 실제cache검사를 통과했다. Head 입력 경로 차단, constant-value 시 ego/path/position 변화 무효, nonlinear metric×candidate query, Shared/Specific 용량·초기화, 첫loss finite/nonzero query/key/value/head/metric gradient, invalid NaN padding 제외, 다른4지표불변/OFF정확성을 확인했다.
+- 첫 실제 gradient norm은 query.002181/key.002990/value.150943/head.308819/metric.00010849였다. 후보별 metric 상대 token odds는 초기.003323/학습후.012180으로 변했고, 기존 가산 query의 수치 잡음 수준 제약을 제거했다. 이것은 planning 향상 증거가 아니다.
+- Bootstrap helper 인자 순서를 본학습 전에 고쳤다. 이전등록과 `pre_training_source_revision.json`에 optimizer step0/평가score미관측 상태의수정근거를남기고 재등록했다. 핵심 source/config는 최종등록 이후 불변이다.
+- 추가 읽기전용 AUC 진단의 constant feature 조건에 최대3.8e-6 FP32 logit noise가 있었다. Flat범위1e-5이하는동률AUC.5로명시하고이전diagnostic JSON을보존했다. 학습/PDMS/선택/checkpoint는변경하지않았다.
+- GPU 학습 시 deterministic algorithms/TF32 off/CUBLASworkspace를 설정하고 phase 환경을 저장했다. Bitwise seed 재실행은 하지 않았다. 기존LPWM보호289파일 hash불일치0이었다.
+
+### 실제 결과·해석
+
+| 조건 | PDMS | 후보 최고 PDMS | NC 실패 | DAC 실패 | NC/DAC 평균 BCE |
+|---|---:|---:|---:|---:|---:|
+| 원 scorer | 78.4753 | 97.5683 | 3/192 | 21/192 | 0.32050 |
+| Shared | 79.5545 | 97.5683 | 5/192 | 21/192 | 0.48356 |
+| Specific | 79.5545 | 97.5683 | 5/192 | 21/192 | 0.48317 |
+
+- 새 두조건은192장면의선택이모두같다. Specific−Shared recording bootstrap95%CI[0,0], Specific−기존+1.0792점 CI[-1.0420,+2.9069]. NC실패+1.0417pp로등록허용1pp를초과해planninggate실패다.
+- 장면내후보위험AUC는기존NC.8983/DAC.8662에서Specific.7748/.5913으로나빠졌다. 후보위험구분은.5보다높지만원scorer를개선한것은아니다.
+- Train-only constant priorBCE.52726보다Specific.48317은낮다. Feature를학습token평균으로대체하면BCE1.01867/PDMS78.6998·선택15/192변화였다. 약한시각읽기gate는통과했으며semantic특화/객체인과중요도의증명은아니다.
+- NC/DAC attention교환은선택0/192변화,uniformattention은15/192변화다. 고정12장면 attention entropy/max.97771·metricTV.00660·candidateTV.00600으로NC와DAC읽기는여전히유사하다.
+- 같은원영상·후보·공통농도척도에서이전하늘쪽강조가줄고하단도로영역의가중치가늘었다. 상단6행/하단6행 평균농도Specific100 NC.488/1.649·DAC.477/1.650이다. Semantic mask 정답을사용한하늘/도로검증이아니다.
+- 마지막500step개발PDMS Shared75.1530/Specific74.7112는선택되지않은진단값이다. 튜닝BCE100→250→500은Shared.50146→.45336→.43041/Specific.50135→.45486→.42691로감소했지만튜닝PDMS는100의78.58에서개선되지않았다. 지표예측loss와최종선택개선을분리한다.
+
+### 비용·산출물·다음 하나
+
+- 물리GPU0만사용/process allocator2.5GiB/전체카드48decimalGB조건이다. 전체카드관측최대41.648GB, 새모델peakallocated약.135GiB였다. Shared학습193.32초/Specific185.13초, 합378.45초는미니배치읽기·동기화를포함한step경과시간이다. Purekernel시간이아니다. Profile.63초, GPU평가phase7.37초, CPU기능진단·PNG17.05초는별도다. 짧은profile의학습16.8초예상과실측의차이 원인을 세부계측하지않았다.
+- `results/direct_metric_visual_probe_v1/`에보고서·JSON/CSV/NPZ·subsetmanifest·cachemetadata·등록/source/hash/환경·검증·진단·공통척도PNG3개를저장했다. 두추가분석기는CPU읽기전용이고학습후진단으로명시했다.
+- 단일seed·재사용개발NAVVAL패널이며 독립최종NAVTEST/EPDMS가아니다. 원scorer3200update와새head500step의학습이력이달라원표현의성능열위를결론내리지않는다. 이전residual대비여러구조가함께바뀌어단일요인효과로해석하지않는다.
+- 다음권고는동일reader/예산의 **BCE-only vs 현재BCE+compositePDMSranking** 하나다. 고정된다른4지표오차를NC/DAC출력이보상하게만드는지의가설을검사한다. 원인으로확정하지않았고후속checkpoint선택/성공기준은학습전에등록한다. 이추가학습·epoch확대·semantic감독은실행하지않았다.
+
+재실행: `bash scripts/run_direct_metric_visual_probe_pilot.sh` (완료phase는건너뜀). 읽기전용 위험AUC/튜닝loss 재실행 명령은 같은폴더 report.md에기록했다.

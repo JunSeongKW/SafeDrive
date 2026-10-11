@@ -1,0 +1,107 @@
+{
+  "measurements": {
+    "unchanged": {
+      "NC": {
+        "pooled_binary_risk_auc": 0.8608064651489258,
+        "mean_within_scene_binary_risk_auc": 0.8982845018518731,
+        "informative_scenes_with_both_binary_labels": 94,
+        "excluded_partial_targets": 174
+      },
+      "DAC": {
+        "pooled_binary_risk_auc": 0.865212619304657,
+        "mean_within_scene_binary_risk_auc": 0.8662160876509877,
+        "informative_scenes_with_both_binary_labels": 163,
+        "excluded_partial_targets": 0
+      }
+    },
+    "shared": {
+      "NC": {
+        "pooled_binary_risk_auc": 0.4147997498512268,
+        "mean_within_scene_binary_risk_auc": 0.7737489501212506,
+        "informative_scenes_with_both_binary_labels": 94,
+        "excluded_partial_targets": 174
+      },
+      "DAC": {
+        "pooled_binary_risk_auc": 0.7302551865577698,
+        "mean_within_scene_binary_risk_auc": 0.5925844110279955,
+        "informative_scenes_with_both_binary_labels": 163,
+        "excluded_partial_targets": 0
+      }
+    },
+    "metric_specific": {
+      "NC": {
+        "pooled_binary_risk_auc": 0.41666555404663086,
+        "mean_within_scene_binary_risk_auc": 0.7748103064901017,
+        "informative_scenes_with_both_binary_labels": 94,
+        "excluded_partial_targets": 174
+      },
+      "DAC": {
+        "pooled_binary_risk_auc": 0.7305648922920227,
+        "mean_within_scene_binary_risk_auc": 0.5912837665928014,
+        "informative_scenes_with_both_binary_labels": 163,
+        "excluded_partial_targets": 0
+      }
+    },
+    "metric_specific_uniform_attention": {
+      "NC": {
+        "pooled_binary_risk_auc": 0.4140663743019104,
+        "mean_within_scene_binary_risk_auc": 0.5,
+        "informative_scenes_with_both_binary_labels": 94,
+        "excluded_partial_targets": 174
+      },
+      "DAC": {
+        "pooled_binary_risk_auc": 0.724859893321991,
+        "mean_within_scene_binary_risk_auc": 0.5,
+        "informative_scenes_with_both_binary_labels": 163,
+        "excluded_partial_targets": 0
+      }
+    },
+    "metric_specific_swap_metric_attention": {
+      "NC": {
+        "pooled_binary_risk_auc": 0.4148341715335846,
+        "mean_within_scene_binary_risk_auc": 0.7732283808290958,
+        "informative_scenes_with_both_binary_labels": 94,
+        "excluded_partial_targets": 174
+      },
+      "DAC": {
+        "pooled_binary_risk_auc": 0.7304160594940186,
+        "mean_within_scene_binary_risk_auc": 0.5914229861306358,
+        "informative_scenes_with_both_binary_labels": 163,
+        "excluded_partial_targets": 0
+      }
+    },
+    "metric_specific_patch_constant": {
+      "NC": {
+        "pooled_binary_risk_auc": 0.5,
+        "mean_within_scene_binary_risk_auc": 0.5,
+        "informative_scenes_with_both_binary_labels": 94,
+        "excluded_partial_targets": 174
+      },
+      "DAC": {
+        "pooled_binary_risk_auc": 0.5,
+        "mean_within_scene_binary_risk_auc": 0.5,
+        "informative_scenes_with_both_binary_labels": 163,
+        "excluded_partial_targets": 0
+      }
+    },
+    "train_only_metric_prior": {
+      "NC": {
+        "pooled_binary_risk_auc": 0.5,
+        "mean_within_scene_binary_risk_auc": 0.5,
+        "informative_scenes_with_both_binary_labels": 94,
+        "excluded_partial_targets": 174
+      },
+      "DAC": {
+        "pooled_binary_risk_auc": 0.5,
+        "mean_within_scene_binary_risk_auc": 0.5,
+        "informative_scenes_with_both_binary_labels": 163,
+        "excluded_partial_targets": 0
+      }
+    }
+  },
+  "script_sha256": "0352fe3098e600edae6cc01097dfd0a34c48b9c01c9aeeb3d85f4f5efae89da6",
+  "binary_target_policy": "Unsafe0 vs safe1; exclude0.5 NC from this diagnostic only. Risk prediction=-safe_logit. Treat flat logit ranges<=1e-5 as ties; otherwise round1e-6.",
+  "interpretation": "Candidate risk ranking, not object/sky/road semantic localization. Pooled AUC can reflect scene differences; within-scene AUC uses only scenes with both classes.",
+  "optimizer_steps": 0,
+  "gpu_seconds": 0
+}

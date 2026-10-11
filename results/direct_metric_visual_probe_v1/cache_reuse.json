@@ -1,0 +1,93 @@
+{
+  "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/metric_visual_evidence_v1",
+  "metadata": {
+    "complete": true,
+    "shape": [
+      1280,
+      1406,
+      384
+    ],
+    "dtype": "float16",
+    "grid_shape_per_frame": [
+      19,
+      37
+    ],
+    "observed_frames": 2,
+    "time_offsets_seconds": [
+      -0.5,
+      0.0
+    ],
+    "camera": "CAM_F0",
+    "future_input": false,
+    "extraction": "Final DINO norm, after original learned registers/LoRA attention and before prefix slicing/neck; hook only",
+    "spatial_mapping": "14px patches of right6/bottom10 padded512x256 crop28 input; partially padded boundary patches retained",
+    "token_position_columns": [
+      "normalized_x",
+      "normalized_y",
+      "camera_index",
+      "time_offset_seconds"
+    ],
+    "same_forward_original_route_errors": {
+      "scene_features": 0.0,
+      "native_trajectories": 0.0,
+      "component_scores": 9.5367431640625e-07
+    },
+    "float16_maximum_absolute_storage_error": 0.00390625,
+    "float16_maximum_relative_l2_storage_error": 0.00020881101954728365,
+    "frozen_parameters_unchanged": true,
+    "frozen_gradients_absent": true,
+    "encoder_calls": 640,
+    "encoder_calls_during_training": 0,
+    "backbone_checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+    "cache_loop_wall_seconds": 49.848510109994095,
+    "gpu_loop_seconds": 49.848510109994095,
+    "physical_gpu": 0,
+    "peak_allocated_gpu_bytes": 249346560,
+    "peak_reserved_gpu_bytes": 297795584,
+    "maximum_whole_card_bytes": 41742761984,
+    "observed_sample_ego_boundary_checks": [
+      {
+        "past_acceleration": 1.1922496557235718,
+        "past_yaw_rate": 0.18865838254199965,
+        "previous_timestamp_offset_seconds": -0.499725,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      {
+        "past_acceleration": 1.515784740447998,
+        "past_yaw_rate": 0.001864905583797165,
+        "previous_timestamp_offset_seconds": -0.500108,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      {
+        "past_acceleration": -0.7681560516357422,
+        "past_yaw_rate": -5.7869884139701585e-06,
+        "previous_timestamp_offset_seconds": -0.499909,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      {
+        "past_acceleration": -0.8002809286117554,
+        "past_yaw_rate": 0.025566797942564747,
+        "previous_timestamp_offset_seconds": -0.499967,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      }
+    ],
+    "cache_sha256": {
+      "spatial_tokens.npy": "7c5354f0b26b036361986b9e06d84d458d2f84490385c72ba0c73f5fa9d2a59d",
+      "token_positions.npy": "93b3c62fff0101eea382825ad1783f130cc4c966035c9583d6e66f03b0e499cf",
+      "valid_token_mask.npy": "b9fd63b75752646b195aa68d4466c1f63dc8989c9feaf6cd88d4d97e3c973ec5"
+    },
+    "protected_training": {
+      "checked_files": 289,
+      "mismatches": [],
+      "running_training_completed_updates": 11502
+    }
+  },
+  "new_encoder_calls": 0,
+  "same_sample_order_as_prior_pilot": true,
+  "same_batch_and_pair_order_as_prior_pilot": true,
+  "cache_hash_verification_seconds": 1.0470372499839868
+}

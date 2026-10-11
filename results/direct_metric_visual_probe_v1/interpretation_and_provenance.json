@@ -1,0 +1,40 @@
+{
+  "specific_minus_original_pdms": 1.0792022943496704,
+  "specific_minus_original_recording_95ci": [
+    -1.041989823407347,
+    2.9069128788365375
+  ],
+  "shared_specific_all_selected_indices_identical": true,
+  "fixed12_upper6rows_attention_density_NC_DAC": [
+    0.4877483571569125,
+    0.47690754383802414
+  ],
+  "fixed12_lower6rows_attention_density_NC_DAC": [
+    1.6485906044642131,
+    1.6501938501993816
+  ],
+  "semantic_sky_road_masks_used": false,
+  "original_source_registration": {
+    "configs/direct_metric_visual_probe/pilot_v1.json": "87d19069f3a31c0db9fca1aeb4bf06a4c6b20609227eda6c129517a6ab963b1d",
+    "scripts/run_direct_metric_visual_probe_pilot.py": "c1e54b80422fa0976c1e49ec3b6a4c6b8793c901bc925e1765305ef7a5cf9213",
+    "src/planning_aware_future_prediction/models/direct_metric_visual_probe.py": "f82116dbc52192dcdac6549cce73f32f3506fcc471d063f0afe5aeef59bde73b",
+    "tests/test_direct_metric_visual_probe.py": "ad6f968bdb582ec13b426007169ab21caa2f4cfe35a8c7b94eecfecbf79204f6",
+    "scripts/diagnose_direct_metric_visual_probe.py": "4c8bd7b30552e1bd63cf99dd850114478e72a6299a71551f90b287d4cf83d485",
+    "scripts/run_direct_metric_visual_probe_pilot.sh": "c03871d966e6f0a17e40c7038ff74822879c0ec35f9d213fc11593f302eaec57"
+  },
+  "postprocessor_sha256": "252c13b0108873ea39a776e5d0741a7ac5b48ba7299444cd1ed46aa3b8cef165",
+  "candidate_discrimination_postprocessor_sha256": "0352fe3098e600edae6cc01097dfd0a34c48b9c01c9aeeb3d85f4f5efae89da6",
+  "checkpoint_sha256": {
+    "shared_step250.pt": "65e25b99d436e1bbb315e3a83dd356dfe20dc20cc50250463c072ea0176f2988",
+    "metric_specific_step250.pt": "64dd744b6d20e00d0a15e2d36369a2aced05dae7fa744aa58fbef00931381cdd",
+    "metric_specific_step100.pt": "9204592445b29e2f8aaa1904bff418e522e89f74237449bdc92d01d279224890",
+    "metric_specific_step500.pt": "f7c61e3b4e8d744690980638f8f2d49eaf704650016ac221da10ffe4b142a968",
+    "shared_step100.pt": "51e32fdcbc94d1f36a404ee75764c832843934316c52af163c53d63b2dba8d7c",
+    "shared_step500.pt": "10a9257b9316c71f76b13cde73da37b0b2ab596701c36a7bae7f29d04eb42b35"
+  },
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11770
+  }
+}

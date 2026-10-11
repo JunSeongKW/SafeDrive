@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "samples": [
+    "9d22c8cb59a453b4",
+    "09a90ad33d3d5a18"
+  ],
+  "trainable_parameters": 90402,
+  "shared_specific_parameter_count_equal": true,
+  "first_update_gradient_groups": {
+    "query": 0.002181046997861405,
+    "keys": 0.0029899686840961504,
+    "values": 0.15094264448763486,
+    "head": 0.3088186407875065,
+    "metric_embedding": 0.00010848698730114847
+  },
+  "metric_relative_odds_candidate_dependence": 0.003323078155517578,
+  "constant_values_condition_intervention_max_logit_change": 4.470348358154297e-08,
+  "original_logits_off_exact": true,
+  "other_four_metrics_exact": true,
+  "original_scorer_and_encoder_modules_in_model": false,
+  "encoder_calls": 0,
+  "cache_inputs_have_no_gradient": true,
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.8.0+cu128",
+    "device": "cpu",
+    "physical_gpu": null,
+    "CUBLAS_WORKSPACE_CONFIG": null,
+    "deterministic_algorithms": false,
+    "bitwise_replay_verified": false
+  },
+  "prior_live_cache_equivalence": {
+    "scene_features": 0.0,
+    "native_trajectories": 0.0,
+    "component_scores": 9.5367431640625e-07
+  },
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11704
+  }
+}

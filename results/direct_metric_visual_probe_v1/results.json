@@ -1,0 +1,886 @@
+{
+  "complete": true,
+  "summaries": {
+    "unchanged": {
+      "selected_pdms": 78.47525024414062,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 19.093000411987305,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.015625,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.6740310788154602,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 71.60783386230469
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 83.64767456054688
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 72.75166320800781
+        }
+      },
+      "ranking_calibration": {
+        "gap_weighted_pair_accuracy": 0.8289871215820312,
+        "mean_within_scene_spearman": 0.3827289595785857,
+        "calibration": {
+          "NC": {
+            "brier": 0.05636763572692871,
+            "BCE": 0.21495181322097778,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.1387835592031479,
+            "BCE": 0.42604079842567444,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "selected_index_changed_from_original_fraction": 0.0,
+      "mean_NC_DAC_BCE": 0.3204963058233261
+    },
+    "shared": {
+      "selected_pdms": 79.55445098876953,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 18.0137996673584,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.026041666666666668,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.9765625,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.7103486061096191,
+        "time_to_collision_within_bound": 0.9479166865348816,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9192708134651184
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 76.96350860595703
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.22452545166016
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 69.6065673828125
+        }
+      },
+      "ranking_calibration": {
+        "gap_weighted_pair_accuracy": 0.8227126002311707,
+        "mean_within_scene_spearman": 0.4181508580787077,
+        "calibration": {
+          "NC": {
+            "brier": 0.08203421533107758,
+            "BCE": 0.31809261441230774,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.22771728038787842,
+            "BCE": 0.649024486541748,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "selected_index_changed_from_original_fraction": 0.5625,
+      "mean_NC_DAC_BCE": 0.4835585504770279
+    },
+    "metric_specific": {
+      "selected_pdms": 79.55445098876953,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 18.0137996673584,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.026041666666666668,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.9765625,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.7103486061096191,
+        "time_to_collision_within_bound": 0.9479166865348816,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9192708134651184
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 76.96350860595703
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.22452545166016
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 69.6065673828125
+        }
+      },
+      "ranking_calibration": {
+        "gap_weighted_pair_accuracy": 0.822727382183075,
+        "mean_within_scene_spearman": 0.4181879151511851,
+        "calibration": {
+          "NC": {
+            "brier": 0.08200544118881226,
+            "BCE": 0.3179537355899811,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.22750143706798553,
+            "BCE": 0.6483898758888245,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "selected_index_changed_from_original_fraction": 0.5625,
+      "mean_NC_DAC_BCE": 0.48317180573940277
+    },
+    "metric_specific_uniform_attention": {
+      "selected_pdms": 78.69983673095703,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 18.868417739868164,
+      "collision_or_offroad_rate": 0.13541666666666666,
+      "NC_failure_rate": 0.026041666666666668,
+      "DAC_failure_rate": 0.11979166666666667,
+      "submetrics": {
+        "no_at_fault_collisions": 0.9765625,
+        "drivable_area_compliance": 0.8802083134651184,
+        "ego_progress": 0.7044210433959961,
+        "time_to_collision_within_bound": 0.9479166865348816,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9192708134651184
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 76.96350860595703
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 82.64799499511719
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 69.68833923339844
+        }
+      },
+      "ranking_calibration": {
+        "gap_weighted_pair_accuracy": 0.8225679993629456,
+        "mean_within_scene_spearman": 0.4200577709244728,
+        "calibration": {
+          "NC": {
+            "brier": 0.08391908556222916,
+            "BCE": 0.3246038258075714,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.22717809677124023,
+            "BCE": 0.6476722359657288,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "selected_index_changed_from_original_fraction": 0.5833333333333334,
+      "mean_NC_DAC_BCE": 0.4861380308866501
+    },
+    "metric_specific_swap_metric_attention": {
+      "selected_pdms": 79.55445098876953,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 18.0137996673584,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.026041666666666668,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.9765625,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.7103486061096191,
+        "time_to_collision_within_bound": 0.9479166865348816,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9192708134651184
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 76.96350860595703
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.22452545166016
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 69.6065673828125
+        }
+      },
+      "ranking_calibration": {
+        "gap_weighted_pair_accuracy": 0.8227284550666809,
+        "mean_within_scene_spearman": 0.4181610773846419,
+        "calibration": {
+          "NC": {
+            "brier": 0.08201541751623154,
+            "BCE": 0.3180123269557953,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.22756944596767426,
+            "BCE": 0.6485998630523682,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "selected_index_changed_from_original_fraction": 0.5625,
+      "mean_NC_DAC_BCE": 0.4833060950040817
+    },
+    "metric_specific_patch_constant": {
+      "selected_pdms": 78.69983673095703,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 18.868417739868164,
+      "collision_or_offroad_rate": 0.13541666666666666,
+      "NC_failure_rate": 0.026041666666666668,
+      "DAC_failure_rate": 0.11979166666666667,
+      "submetrics": {
+        "no_at_fault_collisions": 0.9765625,
+        "drivable_area_compliance": 0.8802083134651184,
+        "ego_progress": 0.7044210433959961,
+        "time_to_collision_within_bound": 0.9479166865348816,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9192708134651184
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 76.96350860595703
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 82.64799499511719
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 69.68833923339844
+        }
+      },
+      "ranking_calibration": {
+        "gap_weighted_pair_accuracy": 0.8225679993629456,
+        "mean_within_scene_spearman": 0.4200577709244728,
+        "calibration": {
+          "NC": {
+            "brier": 0.08533647656440735,
+            "BCE": 0.43890896439552307,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.32610437273979187,
+            "BCE": 1.5984300374984741,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "selected_index_changed_from_original_fraction": 0.5833333333333334,
+      "mean_NC_DAC_BCE": 1.0186695009469986
+    },
+    "train_only_metric_prior": {
+      "selected_pdms": 78.69983673095703,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 18.868417739868164,
+      "collision_or_offroad_rate": 0.13541666666666666,
+      "NC_failure_rate": 0.026041666666666668,
+      "DAC_failure_rate": 0.11979166666666667,
+      "submetrics": {
+        "no_at_fault_collisions": 0.9765625,
+        "drivable_area_compliance": 0.8802083134651184,
+        "ego_progress": 0.7044210433959961,
+        "time_to_collision_within_bound": 0.9479166865348816,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9192708134651184
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 76.96350860595703
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 82.64799499511719
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 69.68833923339844
+        }
+      },
+      "ranking_calibration": {
+        "gap_weighted_pair_accuracy": 0.8225679993629456,
+        "mean_within_scene_spearman": 0.4200577709244728,
+        "calibration": {
+          "NC": {
+            "brier": 0.08010715991258621,
+            "BCE": 0.3105423152446747,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.25616225600242615,
+            "BCE": 0.7439813613891602,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "selected_index_changed_from_original_fraction": 0.5833333333333334,
+      "mean_NC_DAC_BCE": 0.5272618383169174
+    }
+  },
+  "selected_steps": {
+    "shared": 100,
+    "metric_specific": 100
+  },
+  "metric_specific_minus_shared_pdms": 0.0,
+  "metric_specific_minus_shared_recording_95ci": [
+    0.0,
+    0.0
+  ],
+  "planning_gate_passed": false,
+  "visual_reading_gate_passed": true,
+  "interventions": {
+    "metric_specific": {
+      "uniform_attention": {
+        "selected_index_changed_fraction": 0.078125,
+        "mean_absolute_log_score_change": 0.024788370355963707
+      },
+      "swap_metric_attention": {
+        "selected_index_changed_fraction": 0.0,
+        "mean_absolute_log_score_change": 0.0003191613359376788
+      },
+      "patch_constant": {
+        "selected_index_changed_fraction": 0.078125,
+        "mean_absolute_log_score_change": 0.317575067281723
+      }
+    }
+  },
+  "original_off_exact": true,
+  "last_step500_pdms_without_dev_selection": {
+    "shared": 75.15296173095703,
+    "metric_specific": 74.71117401123047
+  },
+  "cached_probe_gpu_forward_ms_per_scene_batched8": {
+    "shared": 0.3334810957312584,
+    "metric_specific": 0.2709461749570134
+  },
+  "gpu_report_wall_seconds": 7.374659844004782,
+  "maximum_whole_card_bytes": 41574989824,
+  "training": {
+    "complete": true,
+    "conditions": {
+      "shared": {
+        "completed_steps": 500,
+        "best_tuning_step": 100,
+        "best_tuning_pdms": 78.58039093017578,
+        "trainable_parameters": 90402,
+        "gpu_training_step_seconds": 193.32203762419522,
+        "median_step_seconds": 0.02587047900306061,
+        "phase_wall_seconds": 195.67522688998724,
+        "maximum_whole_card_bytes": 41627418624,
+        "peak_allocated_bytes": 143867392,
+        "logs": [
+          {
+            "step": 1,
+            "loss": 1.2274155616760254,
+            "component_loss": 0.6784164905548096,
+            "ranking_loss": 0.5489990711212158,
+            "gradient_norm_before_clip": 0.27672621607780457,
+            "reader_gradient_norm": 0.1123165244419795
+          },
+          {
+            "step": 25,
+            "loss": 0.9925881028175354,
+            "component_loss": 0.43308860063552856,
+            "ranking_loss": 0.5594995021820068,
+            "gradient_norm_before_clip": 0.2661965489387512,
+            "reader_gradient_norm": 0.08588348815669428
+          },
+          {
+            "step": 50,
+            "loss": 0.8222690224647522,
+            "component_loss": 0.3830850124359131,
+            "ranking_loss": 0.4391840100288391,
+            "gradient_norm_before_clip": 0.0771656483411789,
+            "reader_gradient_norm": 0.05023937973698902
+          },
+          {
+            "step": 75,
+            "loss": 1.0925536155700684,
+            "component_loss": 0.48987245559692383,
+            "ranking_loss": 0.6026811003684998,
+            "gradient_norm_before_clip": 0.37625637650489807,
+            "reader_gradient_norm": 0.12894187254865028
+          },
+          {
+            "step": 100,
+            "loss": 1.1236509084701538,
+            "component_loss": 0.5467253923416138,
+            "ranking_loss": 0.57692551612854,
+            "gradient_norm_before_clip": 0.4250654876232147,
+            "reader_gradient_norm": 0.2141980487407243,
+            "tuning_pdms": 78.58039093017578,
+            "tuning_wall_seconds": 0.41362110801856034
+          },
+          {
+            "step": 125,
+            "loss": 0.8005858659744263,
+            "component_loss": 0.32708650827407837,
+            "ranking_loss": 0.4734993875026703,
+            "gradient_norm_before_clip": 0.09141790121793747,
+            "reader_gradient_norm": 0.07152664420479173
+          },
+          {
+            "step": 150,
+            "loss": 0.8058608770370483,
+            "component_loss": 0.2705909311771393,
+            "ranking_loss": 0.5352699160575867,
+            "gradient_norm_before_clip": 0.26137402653694153,
+            "reader_gradient_norm": 0.12974751358121042
+          },
+          {
+            "step": 175,
+            "loss": 0.8804835081100464,
+            "component_loss": 0.37493857741355896,
+            "ranking_loss": 0.505544900894165,
+            "gradient_norm_before_clip": 0.24484038352966309,
+            "reader_gradient_norm": 0.16846315311077228
+          },
+          {
+            "step": 200,
+            "loss": 0.8361527323722839,
+            "component_loss": 0.3079407811164856,
+            "ranking_loss": 0.5282119512557983,
+            "gradient_norm_before_clip": 0.24475359916687012,
+            "reader_gradient_norm": 0.1913600113326692
+          },
+          {
+            "step": 225,
+            "loss": 0.7849087715148926,
+            "component_loss": 0.3460630774497986,
+            "ranking_loss": 0.4388456642627716,
+            "gradient_norm_before_clip": 0.24774198234081268,
+            "reader_gradient_norm": 0.16032503779438614
+          },
+          {
+            "step": 250,
+            "loss": 0.9667407274246216,
+            "component_loss": 0.44690102338790894,
+            "ranking_loss": 0.5198397040367126,
+            "gradient_norm_before_clip": 0.6677743196487427,
+            "reader_gradient_norm": 0.49479849948772436,
+            "tuning_pdms": 73.67013549804688,
+            "tuning_wall_seconds": 0.28544992799288593
+          },
+          {
+            "step": 275,
+            "loss": 0.9056040048599243,
+            "component_loss": 0.3085891902446747,
+            "ranking_loss": 0.5970147848129272,
+            "gradient_norm_before_clip": 1.0390504598617554,
+            "reader_gradient_norm": 0.7617286443754262
+          },
+          {
+            "step": 300,
+            "loss": 0.7312260866165161,
+            "component_loss": 0.25895780324935913,
+            "ranking_loss": 0.472268283367157,
+            "gradient_norm_before_clip": 0.24032263457775116,
+            "reader_gradient_norm": 0.19019043177132702
+          },
+          {
+            "step": 325,
+            "loss": 0.8364562392234802,
+            "component_loss": 0.30285000801086426,
+            "ranking_loss": 0.533606231212616,
+            "gradient_norm_before_clip": 0.2963447868824005,
+            "reader_gradient_norm": 0.22669097809538158
+          },
+          {
+            "step": 350,
+            "loss": 0.794188916683197,
+            "component_loss": 0.3480517864227295,
+            "ranking_loss": 0.44613713026046753,
+            "gradient_norm_before_clip": 0.6101588606834412,
+            "reader_gradient_norm": 0.45289935029025113
+          },
+          {
+            "step": 375,
+            "loss": 0.7823828458786011,
+            "component_loss": 0.3071593940258026,
+            "ranking_loss": 0.47522348165512085,
+            "gradient_norm_before_clip": 0.5178350210189819,
+            "reader_gradient_norm": 0.41556445735406156
+          },
+          {
+            "step": 400,
+            "loss": 0.9490804672241211,
+            "component_loss": 0.3877880275249481,
+            "ranking_loss": 0.5612924695014954,
+            "gradient_norm_before_clip": 0.46228814125061035,
+            "reader_gradient_norm": 0.3626938274161508
+          },
+          {
+            "step": 425,
+            "loss": 0.9403770565986633,
+            "component_loss": 0.3824223279953003,
+            "ranking_loss": 0.557954728603363,
+            "gradient_norm_before_clip": 0.5970171093940735,
+            "reader_gradient_norm": 0.5627140358151113
+          },
+          {
+            "step": 450,
+            "loss": 0.8457545638084412,
+            "component_loss": 0.31349629163742065,
+            "ranking_loss": 0.5322582721710205,
+            "gradient_norm_before_clip": 0.3322417736053467,
+            "reader_gradient_norm": 0.31214685584714363
+          },
+          {
+            "step": 475,
+            "loss": 0.8368903398513794,
+            "component_loss": 0.3534831404685974,
+            "ranking_loss": 0.4834071695804596,
+            "gradient_norm_before_clip": 0.7238442897796631,
+            "reader_gradient_norm": 0.6171524719639732
+          },
+          {
+            "step": 500,
+            "loss": 0.6417627334594727,
+            "component_loss": 0.2003774791955948,
+            "ranking_loss": 0.44138526916503906,
+            "gradient_norm_before_clip": 0.5965787172317505,
+            "reader_gradient_norm": 0.5508612199320001,
+            "tuning_pdms": 75.68922424316406,
+            "tuning_wall_seconds": 0.15543295699171722
+          }
+        ],
+        "environment": {
+          "python": "3.12.13",
+          "torch": "2.8.0+cu128",
+          "device": "cuda:0",
+          "physical_gpu": 0,
+          "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+          "deterministic_algorithms": true,
+          "bitwise_replay_verified": false
+        }
+      },
+      "metric_specific": {
+        "completed_steps": 500,
+        "best_tuning_step": 100,
+        "best_tuning_pdms": 78.58039093017578,
+        "trainable_parameters": 90402,
+        "gpu_training_step_seconds": 185.12637869588798,
+        "median_step_seconds": 0.025631566502852365,
+        "phase_wall_seconds": 199.6597820519819,
+        "maximum_whole_card_bytes": 41648390144,
+        "peak_allocated_bytes": 145415168,
+        "logs": [
+          {
+            "step": 1,
+            "loss": 1.227409839630127,
+            "component_loss": 0.6784107685089111,
+            "ranking_loss": 0.5489990711212158,
+            "gradient_norm_before_clip": 0.27673035860061646,
+            "reader_gradient_norm": 0.11233249787658449
+          },
+          {
+            "step": 25,
+            "loss": 0.9929282069206238,
+            "component_loss": 0.4334542155265808,
+            "ranking_loss": 0.559473991394043,
+            "gradient_norm_before_clip": 0.2673453688621521,
+            "reader_gradient_norm": 0.08604684437719415
+          },
+          {
+            "step": 50,
+            "loss": 0.822204053401947,
+            "component_loss": 0.3830253481864929,
+            "ranking_loss": 0.4391787052154541,
+            "gradient_norm_before_clip": 0.07678145170211792,
+            "reader_gradient_norm": 0.0499669360404212
+          },
+          {
+            "step": 75,
+            "loss": 1.0924756526947021,
+            "component_loss": 0.4897960424423218,
+            "ranking_loss": 0.6026795506477356,
+            "gradient_norm_before_clip": 0.3761517405509949,
+            "reader_gradient_norm": 0.12928912935594353
+          },
+          {
+            "step": 100,
+            "loss": 1.123674750328064,
+            "component_loss": 0.5467497110366821,
+            "ranking_loss": 0.5769250392913818,
+            "gradient_norm_before_clip": 0.4257052540779114,
+            "reader_gradient_norm": 0.21403914589078502,
+            "tuning_pdms": 78.58039093017578,
+            "tuning_wall_seconds": 0.13653121099923737
+          },
+          {
+            "step": 125,
+            "loss": 0.8006883859634399,
+            "component_loss": 0.3271978497505188,
+            "ranking_loss": 0.47349056601524353,
+            "gradient_norm_before_clip": 0.09156647324562073,
+            "reader_gradient_norm": 0.07150673950734128
+          },
+          {
+            "step": 150,
+            "loss": 0.8057185411453247,
+            "component_loss": 0.27042466402053833,
+            "ranking_loss": 0.5352938771247864,
+            "gradient_norm_before_clip": 0.2634929120540619,
+            "reader_gradient_norm": 0.13010879259012428
+          },
+          {
+            "step": 175,
+            "loss": 0.8773915767669678,
+            "component_loss": 0.3719956874847412,
+            "ranking_loss": 0.5053958892822266,
+            "gradient_norm_before_clip": 0.23939727246761322,
+            "reader_gradient_norm": 0.16299884911163112
+          },
+          {
+            "step": 200,
+            "loss": 0.8352975249290466,
+            "component_loss": 0.30761462450027466,
+            "ranking_loss": 0.527682900428772,
+            "gradient_norm_before_clip": 0.24632912874221802,
+            "reader_gradient_norm": 0.1955811809372731
+          },
+          {
+            "step": 225,
+            "loss": 0.783618688583374,
+            "component_loss": 0.3453795909881592,
+            "ranking_loss": 0.43823912739753723,
+            "gradient_norm_before_clip": 0.24559837579727173,
+            "reader_gradient_norm": 0.1660864502263196
+          },
+          {
+            "step": 250,
+            "loss": 0.9671728610992432,
+            "component_loss": 0.4478707015514374,
+            "ranking_loss": 0.5193021893501282,
+            "gradient_norm_before_clip": 0.7547218799591064,
+            "reader_gradient_norm": 0.5404760551576754,
+            "tuning_pdms": 73.42022705078125,
+            "tuning_wall_seconds": 0.23707891299272887
+          },
+          {
+            "step": 275,
+            "loss": 0.9069581031799316,
+            "component_loss": 0.31056439876556396,
+            "ranking_loss": 0.5963937044143677,
+            "gradient_norm_before_clip": 1.0579142570495605,
+            "reader_gradient_norm": 0.8105117118982014
+          },
+          {
+            "step": 300,
+            "loss": 0.7295733690261841,
+            "component_loss": 0.257118821144104,
+            "ranking_loss": 0.47245457768440247,
+            "gradient_norm_before_clip": 0.23687683045864105,
+            "reader_gradient_norm": 0.19424891360355426
+          },
+          {
+            "step": 325,
+            "loss": 0.8368995785713196,
+            "component_loss": 0.3037915825843811,
+            "ranking_loss": 0.5331079959869385,
+            "gradient_norm_before_clip": 0.34522008895874023,
+            "reader_gradient_norm": 0.2659777449954669
+          },
+          {
+            "step": 350,
+            "loss": 0.7934495210647583,
+            "component_loss": 0.3482065796852112,
+            "ranking_loss": 0.44524291157722473,
+            "gradient_norm_before_clip": 0.6676803231239319,
+            "reader_gradient_norm": 0.5028392653570635
+          },
+          {
+            "step": 375,
+            "loss": 0.7792514562606812,
+            "component_loss": 0.30515316128730774,
+            "ranking_loss": 0.4740983247756958,
+            "gradient_norm_before_clip": 0.5502296686172485,
+            "reader_gradient_norm": 0.4798198407952902
+          },
+          {
+            "step": 400,
+            "loss": 0.9448552131652832,
+            "component_loss": 0.38905784487724304,
+            "ranking_loss": 0.5557973980903625,
+            "gradient_norm_before_clip": 0.5587542057037354,
+            "reader_gradient_norm": 0.47013704001347717
+          },
+          {
+            "step": 425,
+            "loss": 0.9351528286933899,
+            "component_loss": 0.3790377974510193,
+            "ranking_loss": 0.5561150312423706,
+            "gradient_norm_before_clip": 0.5785974264144897,
+            "reader_gradient_norm": 0.5411632690269474
+          },
+          {
+            "step": 450,
+            "loss": 0.8421297669410706,
+            "component_loss": 0.31405526399612427,
+            "ranking_loss": 0.5280745029449463,
+            "gradient_norm_before_clip": 0.36510375142097473,
+            "reader_gradient_norm": 0.34108226382353174
+          },
+          {
+            "step": 475,
+            "loss": 0.8293663263320923,
+            "component_loss": 0.34814655780792236,
+            "ranking_loss": 0.4812197685241699,
+            "gradient_norm_before_clip": 0.7752044796943665,
+            "reader_gradient_norm": 0.7163728883910476
+          },
+          {
+            "step": 500,
+            "loss": 0.6326314806938171,
+            "component_loss": 0.19806961715221405,
+            "ranking_loss": 0.4345618784427643,
+            "gradient_norm_before_clip": 0.564501941204071,
+            "reader_gradient_norm": 0.5332349603532205,
+            "tuning_pdms": 76.4347915649414,
+            "tuning_wall_seconds": 13.461993568984326
+          }
+        ],
+        "environment": {
+          "python": "3.12.13",
+          "torch": "2.8.0+cu128",
+          "device": "cuda:0",
+          "physical_gpu": 0,
+          "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+          "deterministic_algorithms": true,
+          "bitwise_replay_verified": false
+        }
+      }
+    },
+    "encoder_calls": 0,
+    "original_scorer_calls": 0,
+    "batch_order_sha256": "af073c45b66c155051bae135a7ce94f3a1407c54d794be93a1aeeae80474c2a7",
+    "pair_order_sha256": "796515455a1f11dcf2a10b9096372389848682f9ce916ddcd3c766be3face431",
+    "initialization_sha256": "00b8cdacdfd5149da35e50de6409bcabe47413a216a0abd531c0644c2936326b",
+    "protected_training": {
+      "checked_files": 289,
+      "mismatches": [],
+      "running_training_completed_updates": 11737
+    }
+  },
+  "profile": {
+    "complete": true,
+    "profile_steps": 12,
+    "median_step_seconds": 0.016768484012573026,
+    "estimated_combined_training_seconds": 16.768484012573026,
+    "gpu_profile_seconds": 0.627448406041367,
+    "profile_weights_used_for_training": false,
+    "peak_allocated_bytes": 145414656,
+    "maximum_whole_card_bytes": 41648390144,
+    "environment": {
+      "python": "3.12.13",
+      "torch": "2.8.0+cu128",
+      "device": "cuda:0",
+      "physical_gpu": 0,
+      "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+      "deterministic_algorithms": true,
+      "bitwise_replay_verified": false
+    }
+  },
+  "validation": {
+    "passed": true,
+    "samples": [
+      "9d22c8cb59a453b4",
+      "09a90ad33d3d5a18"
+    ],
+    "trainable_parameters": 90402,
+    "shared_specific_parameter_count_equal": true,
+    "first_update_gradient_groups": {
+      "query": 0.002181046997861405,
+      "keys": 0.0029899686840961504,
+      "values": 0.15094264448763486,
+      "head": 0.3088186407875065,
+      "metric_embedding": 0.00010848698730114847
+    },
+    "metric_relative_odds_candidate_dependence": 0.003323078155517578,
+    "constant_values_condition_intervention_max_logit_change": 4.470348358154297e-08,
+    "original_logits_off_exact": true,
+    "other_four_metrics_exact": true,
+    "original_scorer_and_encoder_modules_in_model": false,
+    "encoder_calls": 0,
+    "cache_inputs_have_no_gradient": true,
+    "environment": {
+      "python": "3.12.13",
+      "torch": "2.8.0+cu128",
+      "device": "cpu",
+      "physical_gpu": null,
+      "CUBLAS_WORKSPACE_CONFIG": null,
+      "deterministic_algorithms": false,
+      "bitwise_replay_verified": false
+    },
+    "prior_live_cache_equivalence": {
+      "scene_features": 0.0,
+      "native_trajectories": 0.0,
+      "component_scores": 9.5367431640625e-07
+    },
+    "protected_training": {
+      "checked_files": 289,
+      "mismatches": [],
+      "running_training_completed_updates": 11704
+    }
+  },
+  "sources": {
+    "configs/direct_metric_visual_probe/pilot_v1.json": "87d19069f3a31c0db9fca1aeb4bf06a4c6b20609227eda6c129517a6ab963b1d",
+    "scripts/run_direct_metric_visual_probe_pilot.py": "c1e54b80422fa0976c1e49ec3b6a4c6b8793c901bc925e1765305ef7a5cf9213",
+    "src/planning_aware_future_prediction/models/direct_metric_visual_probe.py": "f82116dbc52192dcdac6549cce73f32f3506fcc471d063f0afe5aeef59bde73b",
+    "tests/test_direct_metric_visual_probe.py": "ad6f968bdb582ec13b426007169ab21caa2f4cfe35a8c7b94eecfecbf79204f6",
+    "scripts/diagnose_direct_metric_visual_probe.py": "4c8bd7b30552e1bd63cf99dd850114478e72a6299a71551f90b287d4cf83d485",
+    "scripts/run_direct_metric_visual_probe_pilot.sh": "c03871d966e6f0a17e40c7038ff74822879c0ec35f9d213fc11593f302eaec57"
+  },
+  "input_hashes": {
+    "configs/metric_visual_evidence/pilot_v1.json": "a4f82d8e9d22bb139ee722fa1854eb67e7faf8d8f50487d937690206ae3ff655",
+    "outputs/metric_visual_evidence_v1/registration.json": "5fe1deb48f6ce8c2904ec7cb35d31a1f1ae7d36900a529cd9fb0cdfc7bf71b92",
+    "outputs/metric_visual_evidence_v1/patch_cache_complete.json": "f1d511385e0dbece6ed6b574bf5f2beb62c83ecaf9a3220de308e15e22edbfa0",
+    "outputs/metric_visual_evidence_v1/batch_order.npy": "af073c45b66c155051bae135a7ce94f3a1407c54d794be93a1aeeae80474c2a7",
+    "outputs/metric_visual_evidence_v1/pair_indices.npy": "796515455a1f11dcf2a10b9096372389848682f9ce916ddcd3c766be3face431",
+    "outputs/direct_metric_visual_probe_v1/common_initialization.pt": "00b8cdacdfd5149da35e50de6409bcabe47413a216a0abd531c0644c2936326b",
+    "outputs/scorer_selection_learning_v1/registration.json": "a910477ab3b4d328f13c31b34f1bad6b99b674f34d85cc9c97b4d036a477ca01",
+    "outputs/scorer_selection_learning_v1/cache_complete.json": "6a1e0882cd5ebec079be8d10bc5b107d0e8cd7408f135737306adb8df5817de2",
+    "outputs/scorer_selection_learning_v1/scout_official_metrics.npy": "e60b1382f1c6155254019943d542c78aebae36af68836ce1c61cf7c46020bc60",
+    "outputs/scorer_selection_learning_v1/training_remainder_official_metrics.npy": "bb055bf1df798e91bda02c6e295e812193f369110f56cb6830f251ac22d30a69",
+    "outputs/scorer_selection_learning_v1/development_official_metrics.npy": "3e8abc1ef8612c73d95064f18e48753886e713025b634bf7d2fea3e0e5d326b0",
+    "outputs/four_model_small_corpus_v1/drivor/pass5.pt": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252"
+  },
+  "official_candidate_label_calls": 0,
+  "cache_generation_calls": 0,
+  "evaluation_scope": "Previously used NAVVAL development recordings; not independent final NAVTEST",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.8.0+cu128",
+    "device": "cuda:0",
+    "physical_gpu": 0,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "deterministic_algorithms": true,
+    "bitwise_replay_verified": false
+  },
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11738
+  }
+}
