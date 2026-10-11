@@ -1,0 +1,54 @@
+{
+  "reviewed_utc": "2026-10-11T13:12:17.755659+00:00",
+  "review_date_kst": "2026-10-11",
+  "scope": "Research direction review; existing measurements reused; no new optimization, training, or GPU work",
+  "public_sources": {
+    "toad_paper_v1": "https://arxiv.org/html/2606.07170v1",
+    "toad_official_code": "https://github.com/valeoai/TOAD",
+    "toad_navsim_v1_instructions": "https://github.com/valeoai/TOAD/blob/nav1/README.md",
+    "toad_navsim_v1_release": "https://github.com/valeoai/TOAD/releases/tag/Nav1",
+    "toad_navsim_v1_asset_name": "nav1_30epochs_with_134k_simscale_103ktrainval_random_bouquet.pth",
+    "toad_navsim_v1_asset_sha256_as_published": "257fa93d0145b6a67542f41eb1b02258649639ecee1b5a9a1f45e463594a26c8",
+    "toad_navsim_v1_asset_published_utc": "2026-08-27T15:47:41Z",
+    "toad_navsim_v1_asset_local_loading_verified": false,
+    "drivever_paper_v1": "https://arxiv.org/html/2607.00399v1",
+    "drivever_visual_encoder_training_status": "IV-A.3 explicitly freezes visual encoder during verifier training; III-C describes its DrivoR/DINOv2 LoRA provenance",
+    "drivever_official_repository_or_checkpoint_confirmed": false
+  },
+  "search_queries": [
+    "DriveVer autonomous driving inference verification trajectory optimization",
+    "TOAD Test-Time Trajectory Optimization for Autonomous Driving 2606.07170",
+    "DriveVer trajectory verifier github official 2607.00399",
+    "training free autonomous driving test time optimization scorer uncertainty adaptive computation trajectory CEM",
+    "autonomous driving \"adaptive\" \"test-time\" trajectory optimization scorer",
+    "\"DriveVer\" github code verifier",
+    "\"AdaThinkDrive\" inference adaptive trajectory"
+  ],
+  "local_evidence_files": {
+    "scorer_calibration_report": "results/frozen_drivor_scorer_calibration_20261011/report.md",
+    "scorer_calibration_results": "results/frozen_drivor_scorer_calibration_20261011/results.json",
+    "real_scorer_gradient_and_cache_checks": "results/frozen_drivor_scorer_calibration_20261011/inference_diagnostics.json",
+    "sampler_feasibility_review": "results/residual_control_sampler_feasibility_20261011/review.md",
+    "metric_visual_reader_negative_result": "results/direct_metric_visual_probe_v1/report.md"
+  },
+  "existing_measurements": {
+    "development_scene_count": 64,
+    "local_checkpoint_updates": 3200,
+    "native64_selected_pdms": 76.81087080392683,
+    "native64_oracle_pdms": 98.84115279534458,
+    "native64_regret_pdms_points": 22.030281991417763,
+    "candidate_context_maximum_logscore_change": 0.02646195888519287,
+    "cached_backbone_call_count": 0,
+    "frozen_weight_digest_unchanged": true,
+    "gradient_verified_scenes": 64,
+    "is_author_released_TOAD_checkpoint": false,
+    "is_new_measurement_this_turn": false
+  },
+  "running_training_protection": {
+    "checked_files": 293,
+    "mismatches": []
+  },
+  "new_gpu_seconds": 0,
+  "new_optimizer_steps": 0,
+  "new_performance_experiment_started": false
+}

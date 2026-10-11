@@ -4879,3 +4879,16 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 **2026-10-11 21시 — 다음단계는기존11epoch 완료→자동devPDMS/world검증→12epoch 학습.** 전체25epoch 일정유지. 최근50–500평균13.6–14.5초/update로잔여순수학습약64–68시간,10/14오후조건부외삽;평가/시각화비용별도。
 
 **2026-10-11 — 중간결과해석범위.** 최신87.41은이전노출된내부development1021이며전체NAVTEST가아니다. 9→10epoch .028점하락1회로포화단정불가. world오차전대비reconstruction+.956%/future+3.398%(16clip),geometry4scene이동은객체특화나LPWM단독planning기여를입증하지않음。
+
+
+## 2026-10-11 — 고정 backbone의 추론 단계 경로 보정 연구 검토
+
+사용자 최신 의도는 TOAD/DriveVer처럼 무거운 backbone 재학습을 피하고 후처리·최적화로 planning을 개선하는 연구 방향이다. 이번에는 원문method·공식TOAD코드·현재scorer·기존결과를 확인했으며 새학습/성능실험/GPU작업을 시작하지 않았다.
+
+DriveVer IV-A.3은visual encoder를고정하고verifier decoder를학습한다고명시한다. III-C의DrivoR DINOv2 LoRA provenance를verifier학습중새backbone업데이트로오해하지않는다. TOAD는고정scorer/캐시/CEM 무학습탐색이며trustregion·comfort·원본fallback은이미포함한다.
+
+공식TOAD Nav1release의 nav1_30epochs_with_134k_simscale_103ktrainval_random_bouquet.pth(2026-08-27,공개SHA257fa93d…)를확인했다. prescribed local checkpoint부재는공개weight부재가아니다. 다운로드·strictloading·새cache·공식성능은미실행이다.
+
+후속추천은완성scorer의off-proposal/동일크기candidate-context안정성진단후선택적보정연구. 안정성이실제악화를예측해야하며confidencegate만은DriveVer와겹친다. 기존64scene/pass5selected76.81/oracle98.84/context최대logscore차.026462는기존측정재사용이며이번새성능이아니다. 새코드/optimizer/queue없음; 보호source/config/input293개SHA불일치0, GPU0초. 기존LPWM25epoch작업보존.
+
+산출물: results/frozen_planner_postprocessing_review_20261011/report.md 및 sources_and_repository_evidence.json. 원본/TOAD/선택적TOAD는같은공개weight·seed·총scorer예산을사용하고BMroundtrip-only·안전/진행/comfort/선택손실/지연시간을분리하도록설계했다.
