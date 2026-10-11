@@ -1,0 +1,15 @@
+{
+  "label": "update_010593",
+  "tokens": [
+    "ddbde9d6bfda5a6e",
+    "782e2832bd025494",
+    "df19480a94ec58ff",
+    "85f0514810285441"
+  ],
+  "mean_center_shift_input_pixels": 0.7348809242248535,
+  "mean_relative_size_change_percent": 9.289851188659668,
+  "mean_absolute_presence_change": 0.04810035228729248,
+  "scene_selection": "fixed first four of registered development panel",
+  "dots": "all 64 foreground particle centers; radius indicates presence",
+  "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+}

@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 02:18 KST (Codex)
+마지막 갱신: 2026-10-11 13:39 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+새평가/렌더링 queue는완료. 원Stage2 queue1533508은 GPU0·1 epoch10, 누적10662/29425로 계속한다. 사용자요청은기존LPWM/DrivoR결과와NAVSIM시각화이며 새학습·batch/LR·대기열변경없다. 등록289 source/config hash불변, 별도평가최대whole-card43.297GB<48GB. 다른과거실험은중단유지.
 
 **2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
 `outputs/soft_token_reweighting_normalized_v2/` suite3928089는 모든 단계 완료 후 종료. GPU0에서 기존 실제128×1024 FP32 encoder cache/공통 planner 초기값·batch schedule 재사용, A/B/C 각1000update. 기존 LPWM25epoch는7852/29425(epoch7)에서 계속하며 등록289 source/config 불변. 이전실험/대규모학습을 추가 기동하지 않는다.
@@ -1366,6 +1369,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+독립공통NAVTEST1024/44recording 공식v1 PDMS LPWM9epoch85.9317/ADE1.4212/FDE3.5233m, DrivoR5epoch83.9662/1.8092/4.3526m, 실패0. LPWM5epoch82.3243보다+3.6074점. 직진741/좌193/우90 각각 LPWM87.9285/81.7080/78.5485 vsDrivoR86.0802/80.1026/74.8466. LPWM진행·도로준수우세이나NC/TTC/DDC낮음. 내부노출dev1021의9epoch87.4335는별도점수. Particle고정4dev장면중심이동.7349inputpx/크기9.2899%/presence절대.0481이며attention/detection으로부르지않음.
 
 **2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
 부분 navval1000 PDMS A85.6691/B86.6783/C85.4146. C−A −0.2545점, recording bootstrap95%[−1.12484,+0.76274]. C bias0 85.414386/shuffle85.414421. bias std .00057546→.09818598(약171배), QK대비 .02515%→4.28702%, OFF평균waypoint이동 .269mm로 driving이득미확인. 명령 변경 중요도 상대효과 .212%. 검증6종+추가CPU4검사 통과/5000채점실패0. 학습.048351GPUh/전체suite479.86초/카드최대41.9567GB. [results/soft_token_reweighting_normalized_v2/normalization_comparison.md](results/soft_token_reweighting_normalized_v2/normalization_comparison.md).
@@ -2386,6 +2392,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+새 config configs/lpwm_front_history_stage1_lora/epoch9_navsim_visualization.json, 실행 scripts/run_lpwm_drivor_navsim_visualization.py, CPUrenderer scripts/visualize_lpwm_drivor_navsim.py 추가. 기존 loader/infer/officialscorer재사용, DrivoR기존예측/점수4파일SHA동일복사. nativeNAVSIM plot_bev_with_agent 12회+map/annotations/trajectory/camera helper로6장면·21PNG생성. 결과CSV/JSON/검증/소스SHA/조건/Markdown은 results/lpwm_drivor_navsim_visualization_epoch9_20261011/. NAVSIM버전SensorConfig부재수정후실행완료; 실패로그보존. 원학습scientificsource변경없음.
+
 **2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
 ConditionalTokenImportance에 opt-in valid-token population std 정규화(std+1e-6)만 추가. default false로v1보존. suite의 읽기전용cache재사용·config/SHA통제·현재실제샘플ON/OFF검사·상수/단일valid 안정성검사·전후/동일C개입PNG/명령변경PNG 구현. config `configs/soft_token_reweighting/pilot_normalized_v2.json`; tests/test_normalized_token_importance.py 4통과. 실험후 report helper에 baseline재현변동 해석만 보강, 실행science source/config와원래v1산출물불변.
 
@@ -2439,6 +2448,9 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+이시각화평가는완료이므로자동재평가·DrivoR재학습을추가하지않는다. 원25epoch와500update/epoch검증queue유지. 재실행명령·대표/차량많은장면·원nativeBEV·particle전후겹침은공유report.md. 별도동일학습예산DriveoR대조는후속사용자지시가필요하다.
 
 **2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
 승인된 정규화-only pilot은 완료. 추가 sweep/seed/전체학습 자동등록 없음. 다음제안 하나는 연산재현성 검증후같은A/B/C를추가seed에서반복하는것; 미실행. 기존 LPWM25epoch와정기검증은기존승인대로유지. 새실험해석/재현진입점 `results/soft_token_reweighting_normalized_v2/normalization_comparison.md`.
@@ -3130,6 +3142,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,240scene×5/history2/512×256/DINO/seed47. 동일test장면의현재시스템비교이며공정한표현단독효과/원논문DriveoR재현/전체NAVTEST/EPDMS우위입증이아니다. 지도와객체박스는GT시각화용이며모델입력아님. 카메라경로는z=0평면투영근사,BEV경로는저장된ego좌표. Particle패널은별도dev4장면·glimpse박스이지객체검출아님.
 
 **2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.**
 navtrain10000/navval1000, 단일seed0/batch32/1000step/공개PF planner부터추가적응. 이번유일모델변경은B/C importance출력정규화이며추가loss/encoderFT없음. A도87.2890→85.6691로재실행변동: 동일초기상태/배치/초기예측확인,update3부터loss2.235e-8차이가증폭;정확kernel원인미분리/엄격결정성설정없음. 이전→이번점수차이를정규화단독효과로귀속불가. CI에학습seed/재실행변동미포함. 중요도비균일은정규화로생길수있어학습의미/객체인과중요도증거아님. 최초nohup은작업시작전종료했고독립세션재실행으로정상완료,이력보존.

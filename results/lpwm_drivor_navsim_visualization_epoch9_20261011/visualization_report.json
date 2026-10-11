@@ -1,0 +1,432 @@
+{
+  "complete": true,
+  "count": 1024,
+  "full_navtest": false,
+  "results": {
+    "lpwm": {
+      "checkpoint_sha256": "4624e94b0ddca42aa5e00eafc83404919ac526636449107790e5790071b4badb",
+      "completed_updates": 10593,
+      "strict_state_load": true,
+      "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.4211902618408203,
+      "fde_meters": 3.5233306884765625,
+      "seconds": 301.82167768478394,
+      "images": "historical_adapter_images.npy",
+      "ego": "historical_joint_ego.npy",
+      "peak_reserved_bytes": 1872756736,
+      "largest_sampled_total_card_bytes": 43296751616,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 85.93170049544132,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.9775390625,
+        "drivable_area_compliance": 0.95703125,
+        "ego_progress": 0.7922436243905919,
+        "time_to_collision_within_bound": 0.9326171875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9560546875,
+        "score": 0.8593170049544132
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 81.70804172635856
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 78.54852242145697
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 87.9285320326769
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    },
+    "drivor": {
+      "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+      "completed_updates": 3200,
+      "strict_state_load": true,
+      "frozen_native_sha256": null,
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.8091833591461182,
+      "fde_meters": 4.352607727050781,
+      "seconds": 36.66040086746216,
+      "images": "rectangular_images.npy",
+      "ego": "rectangular_ego.npy",
+      "peak_reserved_bytes": 306184192,
+      "largest_sampled_total_card_bytes": 41725984768,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 83.96620868119717,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.98779296875,
+        "drivable_area_compliance": 0.9404296875,
+        "ego_progress": 0.7612321478623008,
+        "time_to_collision_within_bound": 0.943359375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.96875,
+        "score": 0.8396620868119717
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 80.10261789024406
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 74.84659867219112
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 86.08015999491444
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    }
+  },
+  "planning_epochs_by_condition": {
+    "lpwm": 9,
+    "drivor": 5
+  },
+  "conditions": {
+    "lpwm": {
+      "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_09.pt",
+      "completed_updates": 10593,
+      "planning_training_scenes": 75297,
+      "official_training_split_composition": "navtrain 60561 + navval 14736",
+      "effective_batch": 64,
+      "observed_frames": 4,
+      "image_size_width_height": [
+        128,
+        128
+      ],
+      "planner_memory_tokens": 64,
+      "seed": 2,
+      "local_stage1": "23126 clips, 20 epochs; reused completed LPWM SSL checkpoint",
+      "planning_epoch": 9
+    },
+    "drivor": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass5.pt",
+      "completed_updates": 3200,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "None; public DINOv2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/drivor/validation/pass5.pdms.json",
+      "planning_epoch": 5
+    }
+  },
+  "same_panel_input_and_score_token_order_verified": true,
+  "overlap": {
+    "lpwm_planning_tokens": 0,
+    "lpwm_planning_recordings": 0,
+    "lpwm_stage1_recordings": 0,
+    "baseline_planning_tokens": 0,
+    "baseline_planning_recordings": 0,
+    "jepa_stage1_recordings": 0
+  },
+  "visualized_scenes": [
+    {
+      "token": "50d6986491d3510a",
+      "scene_type": "straight",
+      "selection": "first_straight",
+      "current_forward_vehicles_within40m": 9,
+      "log_name": "2021.05.25.15.59.03_veh-30_03499_03671",
+      "predictions_cache_index": 0,
+      "pdms": {
+        "lpwm": 86.36911161799122,
+        "drivor": 81.46589372464459
+      },
+      "camera_visible_waypoints": {
+        "human": 0,
+        "lpwm": 0,
+        "drivor": 0
+      },
+      "comparison_png": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_straight_navsim.png",
+      "native_navsim_bev_png": {
+        "lpwm": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_straight_lpwm_native_navsim_bev.png",
+        "drivor": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_straight_drivor_native_navsim_bev.png"
+      }
+    },
+    {
+      "token": "74d0c56b12f25f92",
+      "scene_type": "straight",
+      "selection": "vehicle_rich_straight",
+      "current_forward_vehicles_within40m": 24,
+      "log_name": "2021.09.09.18.29.25_veh-39_00969_01184",
+      "predictions_cache_index": 260,
+      "pdms": {
+        "lpwm": 86.60718771475179,
+        "drivor": 84.46045446339353
+      },
+      "camera_visible_waypoints": {
+        "human": 6,
+        "lpwm": 6,
+        "drivor": 6
+      },
+      "comparison_png": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_straight_navsim.png",
+      "native_navsim_bev_png": {
+        "lpwm": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_straight_lpwm_native_navsim_bev.png",
+        "drivor": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_straight_drivor_native_navsim_bev.png"
+      }
+    },
+    {
+      "token": "ea8ce810e307587d",
+      "scene_type": "left_turn",
+      "selection": "first_left_turn",
+      "current_forward_vehicles_within40m": 17,
+      "log_name": "2021.09.16.16.20.27_veh-08_02435_02525",
+      "predictions_cache_index": 2,
+      "pdms": {
+        "lpwm": 83.02050599897272,
+        "drivor": 85.57754137280364
+      },
+      "camera_visible_waypoints": {
+        "human": 3,
+        "lpwm": 2,
+        "drivor": 3
+      },
+      "comparison_png": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_left_turn_navsim.png",
+      "native_navsim_bev_png": {
+        "lpwm": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_left_turn_lpwm_native_navsim_bev.png",
+        "drivor": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_left_turn_drivor_native_navsim_bev.png"
+      }
+    },
+    {
+      "token": "5c4c3448f7a1517f",
+      "scene_type": "left_turn",
+      "selection": "vehicle_rich_left_turn",
+      "current_forward_vehicles_within40m": 20,
+      "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+      "predictions_cache_index": 449,
+      "pdms": {
+        "lpwm": 100.0,
+        "drivor": 100.0
+      },
+      "camera_visible_waypoints": {
+        "human": 3,
+        "lpwm": 6,
+        "drivor": 7
+      },
+      "comparison_png": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_left_turn_navsim.png",
+      "native_navsim_bev_png": {
+        "lpwm": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_left_turn_lpwm_native_navsim_bev.png",
+        "drivor": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_left_turn_drivor_native_navsim_bev.png"
+      }
+    },
+    {
+      "token": "aaf949be7f2150df",
+      "scene_type": "right_turn",
+      "selection": "first_right_turn",
+      "current_forward_vehicles_within40m": 14,
+      "log_name": "2021.09.16.19.49.00_veh-42_00990_01609",
+      "predictions_cache_index": 22,
+      "pdms": {
+        "lpwm": 87.7392114764128,
+        "drivor": 91.54880138385288
+      },
+      "camera_visible_waypoints": {
+        "human": 4,
+        "lpwm": 4,
+        "drivor": 4
+      },
+      "comparison_png": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_right_turn_navsim.png",
+      "native_navsim_bev_png": {
+        "lpwm": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_right_turn_lpwm_native_navsim_bev.png",
+        "drivor": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_right_turn_drivor_native_navsim_bev.png"
+      }
+    },
+    {
+      "token": "b0a6370d836a59ed",
+      "scene_type": "right_turn",
+      "selection": "vehicle_rich_right_turn",
+      "current_forward_vehicles_within40m": 20,
+      "log_name": "2021.09.16.19.49.00_veh-42_00990_01609",
+      "predictions_cache_index": 506,
+      "pdms": {
+        "lpwm": 58.333333333333336,
+        "drivor": 58.333333333333336
+      },
+      "camera_visible_waypoints": {
+        "human": 3,
+        "lpwm": 3,
+        "drivor": 3
+      },
+      "comparison_png": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_right_turn_navsim.png",
+      "native_navsim_bev_png": {
+        "lpwm": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_right_turn_lpwm_native_navsim_bev.png",
+        "drivor": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_right_turn_drivor_native_navsim_bev.png"
+      }
+    }
+  ],
+  "selection_scope": "First scene and most nearby forward GT vehicles per actual command; no score-based selection",
+  "camera_projection": "Native NAVSIM projection; ego ground z=0 approximation, not road elevation estimation",
+  "native_visualization_functions": [
+    "navsim.visualization.plots.plot_bev_with_agent",
+    "navsim.visualization.bev.add_configured_bev_on_ax",
+    "navsim.visualization.bev.add_trajectory_to_bev_ax",
+    "navsim.visualization.camera.add_camera_ax",
+    "navsim.visualization.camera._transform_pcs_to_images"
+  ],
+  "navsim_source": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/DrivoR",
+  "internal_development_history": [
+    {
+      "epoch": 1,
+      "updates": 1177,
+      "pdms": 69.74366946017395,
+      "count": 1021,
+      "ade_meters": 3.5841193199157715,
+      "fde_meters": 8.924787521362305
+    },
+    {
+      "epoch": 2,
+      "updates": 2354,
+      "pdms": 77.46779454209883,
+      "count": 1021,
+      "ade_meters": 1.8604743480682373,
+      "fde_meters": 4.554338455200195
+    },
+    {
+      "epoch": 3,
+      "updates": 3531,
+      "pdms": 81.72250838495911,
+      "count": 1021,
+      "ade_meters": 1.6244981288909912,
+      "fde_meters": 3.9799752235412598
+    },
+    {
+      "epoch": 4,
+      "updates": 4708,
+      "pdms": 81.83002594946208,
+      "count": 1021,
+      "ade_meters": 2.0899879932403564,
+      "fde_meters": 5.225548267364502
+    },
+    {
+      "epoch": 5,
+      "updates": 5885,
+      "pdms": 83.9881877993076,
+      "count": 1021,
+      "ade_meters": 1.7462801933288574,
+      "fde_meters": 4.2488837242126465
+    },
+    {
+      "epoch": 6,
+      "updates": 7062,
+      "pdms": 85.48840876520283,
+      "count": 1021,
+      "ade_meters": 1.6863800287246704,
+      "fde_meters": 3.985008716583252
+    },
+    {
+      "epoch": 7,
+      "updates": 8239,
+      "pdms": 85.63988782023874,
+      "count": 1021,
+      "ade_meters": 1.6395004987716675,
+      "fde_meters": 4.076857566833496
+    },
+    {
+      "epoch": 8,
+      "updates": 9416,
+      "pdms": 85.82147629221727,
+      "count": 1021,
+      "ade_meters": 1.6021747589111328,
+      "fde_meters": 3.995117664337158
+    },
+    {
+      "epoch": 9,
+      "updates": 10593,
+      "pdms": 87.43345675540293,
+      "count": 1021,
+      "ade_meters": 1.3611421585083008,
+      "fde_meters": 3.421414852142334
+    }
+  ],
+  "particle_snapshot": {
+    "label": "update_010593",
+    "tokens": [
+      "ddbde9d6bfda5a6e",
+      "782e2832bd025494",
+      "df19480a94ec58ff",
+      "85f0514810285441"
+    ],
+    "mean_center_shift_input_pixels": 0.7348809242248535,
+    "mean_relative_size_change_percent": 9.289851188659668,
+    "mean_absolute_presence_change": 0.04810035228729248,
+    "scene_selection": "fixed first four of registered development panel",
+    "dots": "all 64 foreground particle centers; radius indicates presence",
+    "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+  },
+  "interpretation": "Latest completed LPWM epoch9 versus preserved DrivoR epoch5 on identical NAVTEST1024 scenes. Training amount, data, history, resolution, SSL and seed differ. This is a systems diagnostic, not a matched-budget comparison or original DrivoR paper reproduction.",
+  "render_seconds": 33.554146224982105,
+  "original_training_progress_at_render": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 10656,
+    "epoch": 10,
+    "rank_scene_tokens_sha256": "7af3cbb43872de85a15c0cfd23355ad96760e07480d9172630f646f5f3118dce",
+    "update_in_epoch": 63,
+    "seconds_this_update": 12.418357372283936,
+    "elapsed_seconds": 823.6878740787506,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0010106563568115234,
+      "forward": 2.9070241451263428,
+      "oracle": 2.2381598949432373,
+      "backward": 5.809055805206299
+    },
+    "learning_rates": [
+      8.048608593415113e-06,
+      8.048608593415163e-05
+    ],
+    "loss": 2.2774957418441772,
+    "trajectory_loss": 0.8506407588720322,
+    "final_score_loss": 1.426855057477951,
+    "score": 0.8478901237249374,
+    "best_score": 0.9998123347759247,
+    "estimated_remaining_seconds": 245393.7461112454
+  },
+  "native_source_sha256": {
+    "navsim/visualization/plots.py": "a85712a96219751e760b07bf91031ec8bd08ee79c0dcc9d444f1cb97b5f72948",
+    "navsim/visualization/bev.py": "3ff772cc123eb3e9402175a48a8083cc6c142fb8caaaedeee137beacbb2dbb5a",
+    "navsim/visualization/camera.py": "fcd42a9a755336cc12d421575b2838ebd18ceff82f169afc914af5891b924b7d",
+    "navsim/common/dataclasses.py": "8aa265c1d7f8934e1cb55bf4893817365819b3c20d86f07ab87358e7fc840503"
+  },
+  "source_sha256": {
+    "scripts/visualize_lpwm_drivor_navsim.py": "f95ab4a32f712bcc7ff9374148830a401e482a778b2cf10179f3618cd508aec6"
+  }
+}

@@ -4604,3 +4604,23 @@ navtrain10000/navval1000, 단일seed0/batch32/1000step/공개PF planner부터추
 재실행: `/rhome/junseong/envs/kjs-drive-jepa-extension/bin/python scripts/run_soft_token_reweighting_suite.py --config configs/soft_token_reweighting/pilot_normalized_v2.json --replay-id rerun_001`
 
 기본 모델(정규화 없음) 동작은 유지. 새 feature 추출 없이 기존 read-only cache 사용/이번cache생성0초. 원래학습source hash와data·initial·schedule의SHA검증통과. CLI suite완료후compare reporter의재현성분석문구만수정/별도CPU재실행했고비교PNG실물확인.
+
+
+## 2026-10-11 13:39 KST — LPWM/DrivoR planning과particle NAVSIM시각화
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+새평가/렌더링 queue는완료. 원Stage2 queue1533508은 GPU0·1 epoch10, 누적10662/29425로 계속한다. 사용자요청은기존LPWM/DrivoR결과와NAVSIM시각화이며 새학습·batch/LR·대기열변경없다. 등록289 source/config hash불변, 별도평가최대whole-card43.297GB<48GB. 다른과거실험은중단유지.
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+독립공통NAVTEST1024/44recording 공식v1 PDMS LPWM9epoch85.9317/ADE1.4212/FDE3.5233m, DrivoR5epoch83.9662/1.8092/4.3526m, 실패0. LPWM5epoch82.3243보다+3.6074점. 직진741/좌193/우90 각각 LPWM87.9285/81.7080/78.5485 vsDrivoR86.0802/80.1026/74.8466. LPWM진행·도로준수우세이나NC/TTC/DDC낮음. 내부노출dev1021의9epoch87.4335는별도점수. Particle고정4dev장면중심이동.7349inputpx/크기9.2899%/presence절대.0481이며attention/detection으로부르지않음.
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+새 config configs/lpwm_front_history_stage1_lora/epoch9_navsim_visualization.json, 실행 scripts/run_lpwm_drivor_navsim_visualization.py, CPUrenderer scripts/visualize_lpwm_drivor_navsim.py 추가. 기존 loader/infer/officialscorer재사용, DrivoR기존예측/점수4파일SHA동일복사. nativeNAVSIM plot_bev_with_agent 12회+map/annotations/trajectory/camera helper로6장면·21PNG생성. 결과CSV/JSON/검증/소스SHA/조건/Markdown은 results/lpwm_drivor_navsim_visualization_epoch9_20261011/. NAVSIM버전SensorConfig부재수정후실행완료; 실패로그보존. 원학습scientificsource변경없음.
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+이시각화평가는완료이므로자동재평가·DrivoR재학습을추가하지않는다. 원25epoch와500update/epoch검증queue유지. 재실행명령·대표/차량많은장면·원nativeBEV·particle전후겹침은공유report.md. 별도동일학습예산DriveoR대조는후속사용자지시가필요하다.
+
+**2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
+LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,240scene×5/history2/512×256/DINO/seed47. 동일test장면의현재시스템비교이며공정한표현단독효과/원논문DriveoR재현/전체NAVTEST/EPDMS우위입증이아니다. 지도와객체박스는GT시각화용이며모델입력아님. 카메라경로는z=0평면투영근사,BEV경로는저장된ego좌표. Particle패널은별도dev4장면·glimpse박스이지객체검출아님.
+
+실행: `runtime/environments/kjs-lpwm-drivor-joint/bin/python scripts/run_lpwm_drivor_navsim_visualization.py --config configs/lpwm_front_history_stage1_lora/epoch9_navsim_visualization.json`

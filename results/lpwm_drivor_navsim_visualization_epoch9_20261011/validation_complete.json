@@ -1,0 +1,147 @@
+{
+  "complete": true,
+  "scene_token_order_and_raw_gt_match": true,
+  "official_pdms_failures": 0,
+  "scene_count": 1024,
+  "native_high_level_bev_calls": 12,
+  "comparison_scenes": 6,
+  "score_independent_scene_selection": true,
+  "png_count": 21,
+  "pngs": [
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_left_turn_drivor_native_navsim_bev.png",
+      "width": 607,
+      "height": 639,
+      "sha256": "884604384c8acfa567b3e9f3caf806d7f3499080238a9e03e646deea41ab423b"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_left_turn_lpwm_native_navsim_bev.png",
+      "width": 607,
+      "height": 639,
+      "sha256": "bd69a449019e1711dab9adc4489003e91f6051bb9305a2fe70733d05b9d57bfc"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_left_turn_navsim.png",
+      "width": 3000,
+      "height": 750,
+      "sha256": "3cfcec25031d6557a81a9da8808811e4e7f6131d1f2e39d9468b09fbba6a0204"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_right_turn_drivor_native_navsim_bev.png",
+      "width": 607,
+      "height": 639,
+      "sha256": "2285d4787bf43328ecf2d754c3216cbcf8848ff8959a768898277457ea0cb655"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_right_turn_lpwm_native_navsim_bev.png",
+      "width": 607,
+      "height": 639,
+      "sha256": "7b08316a774a5fc95981c6e546dedd3b205e4f4a1d57ce0db86412470c38e8e4"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_right_turn_navsim.png",
+      "width": 3000,
+      "height": 750,
+      "sha256": "6d5a9aec0976e814a5959df7b522062bf616b44ec0361351cfa22c8021728443"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_straight_drivor_native_navsim_bev.png",
+      "width": 607,
+      "height": 639,
+      "sha256": "20bd29ab3a24456cbd4fe7a822b434aa08d521f12834b31c954f64c275bd1ebc"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_straight_lpwm_native_navsim_bev.png",
+      "width": 607,
+      "height": 639,
+      "sha256": "59d17839a988488360ce88f604761694470d2df2950173ab7520a4cfc7f0dff9"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/first_straight_navsim.png",
+      "width": 3000,
+      "height": 750,
+      "sha256": "10b5aa5968f94e009b8ad24141c93edd3fc20a3bc7d79722f53e64d7a9ee2127"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/lpwm_particles_before_after_overlay.png",
+      "width": 1024,
+      "height": 1255,
+      "sha256": "253f2bc39a64292a07a4b215d47845b5cce257f7b07167960fc5c6c70f44dcd2"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/planning_comparison_overview.png",
+      "width": 3000,
+      "height": 2250,
+      "sha256": "145e7312ffa5af5a8d3620edba9db4573cf612f699849c5a78d683792608a06f"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/training_progress_and_common_navtest.png",
+      "width": 1760,
+      "height": 640,
+      "sha256": "1e1f664a8adb1773a6cea77651fcde3ed449e2bb097fdcc5d2c3317e2a124c1d"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_left_turn_drivor_native_navsim_bev.png",
+      "width": 653,
+      "height": 639,
+      "sha256": "86e8e41dd7c7b32bfa9ee9ea1496f2b88cbd285f783bb1bc9e24a73efc409063"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_left_turn_lpwm_native_navsim_bev.png",
+      "width": 647,
+      "height": 639,
+      "sha256": "093a8f0f19a5ae53223841b9191ef751ae13a9943f1c58c3da92e8a625f730ed"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_left_turn_navsim.png",
+      "width": 3000,
+      "height": 750,
+      "sha256": "8de673cb6f1d8d053a4650c47f531367a26a5380ee3fd7a1e09e1f9208281b52"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_right_turn_drivor_native_navsim_bev.png",
+      "width": 688,
+      "height": 639,
+      "sha256": "d5b72987ae85312dfaa67fdbc7e52e284634f86e25eda9af537c394a7b9a289a"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_right_turn_lpwm_native_navsim_bev.png",
+      "width": 682,
+      "height": 639,
+      "sha256": "e2d12d4115c54a9215ce51ae7329b90f552385e249c7d7a061088095adf3cfc0"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_right_turn_navsim.png",
+      "width": 3000,
+      "height": 750,
+      "sha256": "c14602e6c704a48e6be20eab9853ff1b4ca67a4a2c6852e26e3291d72b1e7654"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_straight_drivor_native_navsim_bev.png",
+      "width": 648,
+      "height": 639,
+      "sha256": "135db562bda5c4b8e992a9d2f5c152cadaf13a86754f533f8a0bfec96ab0e899"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_straight_lpwm_native_navsim_bev.png",
+      "width": 642,
+      "height": 639,
+      "sha256": "c09a78900fa7bb2ca795edd021ad83144c46c3ed57fd0ba5a440d057912ee99b"
+    },
+    {
+      "path": "results/lpwm_drivor_navsim_visualization_epoch9_20261011/vehicle_rich_straight_navsim.png",
+      "width": 3000,
+      "height": 750,
+      "sha256": "1c1fbeda70cf4219353b64357264c500bf4d425a8977dc0a6242e1328629f7af"
+    }
+  ],
+  "visual_inspection": "Comparison overview, crowded left-turn scene, particles and progress plot inspected; paths and legends visible",
+  "camera_projection_is_approximate": true,
+  "whole_card_maximum_bytes": 43296751616,
+  "whole_card_limit_bytes": 48000000000,
+  "training_preservation": {
+    "registered_training_sources_and_configurations": 289,
+    "mismatches": [],
+    "unchanged": true
+  }
+}
