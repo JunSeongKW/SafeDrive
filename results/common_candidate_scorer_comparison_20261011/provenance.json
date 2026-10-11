@@ -1,0 +1,59 @@
+{
+  "configuration": {
+    "research_question": "On identical NAVSIM trajectories, how much ranking and metric error remains in the original public DrivoR scorer and the random-bouquet DrivoR scorer released by TOAD?",
+    "reference_configuration": "configs/frozen_planner_postprocessing/official_toad_navsim_v1_scorer_calibration.json",
+    "reference_output_directory": "outputs/official_toad_navsim_v1_scorer_calibration_20261011",
+    "drivor_checkpoint": "runtime/checkpoints/drivor_navsim_v1_134k_simscale_official.pth",
+    "drivor_checkpoint_url": "https://github.com/valeoai/DrivoR/releases/download/Scaling/nav1_30epochs_with_134k_simscale_bis_103ktrainval.pth",
+    "drivor_checkpoint_sha256": "617e22c5ebcf8b24c542d42a470514b09c3cadce1a2630071d49f2d422d76672",
+    "drivor_expected_checkpoint_epoch": 28,
+    "drivor_expected_checkpoint_global_step": 53911,
+    "drivor_repository": "reference_repositories/DrivoR",
+    "drivor_repository_commit": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+    "models": [
+      "drivor_public",
+      "toad_released_drivor"
+    ],
+    "candidate_pools": {
+      "balanced_native128": [
+        0,
+        128
+      ],
+      "random_bouquet64": [
+        128,
+        192
+      ],
+      "nearby64": [
+        192,
+        256
+      ]
+    },
+    "candidate_pool_note": "Balanced native pool contains 64 proposals from each checkpoint. Random and nearby pools reuse exactly the previous TOAD diagnostic trajectories. Both scorers score each identical complete pool, controlling candidate self-attention context.",
+    "maximum_new_gpu_phase_seconds": 600,
+    "physical_gpu": 0,
+    "maximum_process_bytes": 4500000000,
+    "maximum_total_card_bytes": 48000000000,
+    "safe_prediction_threshold": 0.9,
+    "bootstrap_repetitions": 2000,
+    "bootstrap_seed": 20261011,
+    "official_evaluation_workers": 2,
+    "scene_count": 64,
+    "optimizer_steps": 0,
+    "full_navtest": false,
+    "independent_final_test": false,
+    "output_directory": "outputs/common_candidate_scorer_comparison_20261011",
+    "results_directory": "results/common_candidate_scorer_comparison_20261011"
+  },
+  "inference_source_sha256": "bfe1b6c54e24a2f26df1b106404121360901644d66c065203053266c54ee7eb2",
+  "report_source_sha256": "ece9c4e1eac049a6936c4c5a0381b3ffa8e700d40868ae390e5225a8139625a3",
+  "checkpoint_hashes": {
+    "drivor": "617e22c5ebcf8b24c542d42a470514b09c3cadce1a2630071d49f2d422d76672",
+    "toad": "257fa93d0145b6a67542f41eb1b02258649639ecee1b5a9a1f45e463594a26c8"
+  },
+  "cache_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/common_candidate_scorer_comparison_20261011/scorer_cache_and_candidates.npz",
+  "cache_sha256": "4d63a99ae8b93db36791c1725ef8e48826b89785ca757d127de81ab3190ec64f",
+  "environment": {
+    "torch": "2.8.0+cu128",
+    "timm": "1.0.15"
+  }
+}

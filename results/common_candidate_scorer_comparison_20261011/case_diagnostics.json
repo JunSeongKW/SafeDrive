@@ -1,0 +1,152 @@
+{
+  "examples_selected_after_scoring": true,
+  "cases": [
+    {
+      "token": "075154c90a0a5d7c",
+      "pool": "balanced_native128",
+      "selection_reason": "largest_selection_regret_rank1",
+      "image": "results/common_candidate_scorer_comparison_20261011/case_1_balanced_native128_navsim.png",
+      "selected_indices": [
+        34,
+        112,
+        4
+      ],
+      "selected_actual_pdms": [
+        0.0,
+        0.0,
+        100.0
+      ],
+      "selected_scorer_pdms_estimates": [
+        98.66674493184618,
+        96.69565307568764
+      ],
+      "official_selected_submetrics": {
+        "drivor_public": {
+          "no_at_fault_collisions": 0.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 0.0,
+          "time_to_collision_within_bound": 0.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 0.0
+        },
+        "toad_released_drivor": {
+          "no_at_fault_collisions": 0.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 0.0,
+          "time_to_collision_within_bound": 0.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 0.0
+        },
+        "oracle_best": {
+          "no_at_fault_collisions": 1.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 1.0,
+          "time_to_collision_within_bound": 1.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 1.0
+        }
+      }
+    },
+    {
+      "token": "e61adc75d7da50c3",
+      "pool": "balanced_native128",
+      "selection_reason": "largest_selection_regret_rank2",
+      "image": "results/common_candidate_scorer_comparison_20261011/case_2_balanced_native128_navsim.png",
+      "selected_indices": [
+        17,
+        40,
+        0
+      ],
+      "selected_actual_pdms": [
+        53.122988242869795,
+        98.29369735006117,
+        100.0
+      ],
+      "selected_scorer_pdms_estimates": [
+        84.5737098900803,
+        72.08339021780115
+      ],
+      "official_selected_submetrics": {
+        "drivor_public": {
+          "no_at_fault_collisions": 1.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 0.8749517178288749,
+          "time_to_collision_within_bound": 0.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 0.531229882428698
+        },
+        "toad_released_drivor": {
+          "no_at_fault_collisions": 1.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 0.9590487364014676,
+          "time_to_collision_within_bound": 1.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 0.9829369735006116
+        },
+        "oracle_best": {
+          "no_at_fault_collisions": 1.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 1.0,
+          "time_to_collision_within_bound": 1.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 1.0
+        }
+      }
+    },
+    {
+      "token": "131ab0263b07507c",
+      "pool": "nearby64",
+      "selection_reason": "largest_selection_regret_rank1",
+      "image": "results/common_candidate_scorer_comparison_20261011/case_3_nearby64_navsim.png",
+      "selected_indices": [
+        5,
+        50,
+        0
+      ],
+      "selected_actual_pdms": [
+        0.0,
+        100.0,
+        100.0
+      ],
+      "selected_scorer_pdms_estimates": [
+        64.10726567581176,
+        89.58289108815234
+      ],
+      "official_selected_submetrics": {
+        "drivor_public": {
+          "no_at_fault_collisions": 1.0,
+          "drivable_area_compliance": 0.0,
+          "ego_progress": 0.0,
+          "time_to_collision_within_bound": 1.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 0.0
+        },
+        "toad_released_drivor": {
+          "no_at_fault_collisions": 1.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 1.0,
+          "time_to_collision_within_bound": 1.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 1.0
+        },
+        "oracle_best": {
+          "no_at_fault_collisions": 1.0,
+          "drivable_area_compliance": 1.0,
+          "ego_progress": 1.0,
+          "time_to_collision_within_bound": 1.0,
+          "comfort": 1.0,
+          "driving_direction_compliance": 1.0,
+          "score": 1.0
+        }
+      }
+    }
+  ]
+}

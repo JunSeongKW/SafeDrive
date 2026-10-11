@@ -1,0 +1,68 @@
+{
+  "examples_selected_after_inspecting_regret": true,
+  "cases": [
+    {
+      "token": "075154c90a0a5d7c",
+      "pool": "balanced_native128",
+      "selection_reason": "largest_selection_regret_rank1",
+      "image": "results/common_candidate_scorer_comparison_20261011/case_1_balanced_native128_navsim.png",
+      "selected_indices": [
+        34,
+        112,
+        4
+      ],
+      "selected_actual_pdms": [
+        0.0,
+        0.0,
+        100.0
+      ],
+      "selected_scorer_pdms_estimates": [
+        98.66674493184618,
+        96.69565307568764
+      ]
+    },
+    {
+      "token": "e61adc75d7da50c3",
+      "pool": "balanced_native128",
+      "selection_reason": "largest_selection_regret_rank2",
+      "image": "results/common_candidate_scorer_comparison_20261011/case_2_balanced_native128_navsim.png",
+      "selected_indices": [
+        17,
+        40,
+        0
+      ],
+      "selected_actual_pdms": [
+        53.122988242869795,
+        98.29369735006117,
+        100.0
+      ],
+      "selected_scorer_pdms_estimates": [
+        84.5737098900803,
+        72.08339021780115
+      ]
+    },
+    {
+      "token": "131ab0263b07507c",
+      "pool": "nearby64",
+      "selection_reason": "largest_selection_regret_rank1",
+      "image": "results/common_candidate_scorer_comparison_20261011/case_3_nearby64_navsim.png",
+      "selected_indices": [
+        5,
+        50,
+        0
+      ],
+      "selected_actual_pdms": [
+        0.0,
+        100.0,
+        100.0
+      ],
+      "selected_scorer_pdms_estimates": [
+        64.10726567581176,
+        89.58289108815234
+      ]
+    }
+  ],
+  "visualization_backend": "Upstream NAVSIM camera / configured BEV / trajectory functions",
+  "cpu_seconds": 61.34765397300362,
+  "gpu_seconds": 0
+}

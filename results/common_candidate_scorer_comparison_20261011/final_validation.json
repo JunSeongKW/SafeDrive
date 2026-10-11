@@ -1,0 +1,23 @@
+{
+  "checked_at_kst": "2026-10-11T23:36:55.340819",
+  "python_compilation_passed": true,
+  "shell_syntax_passed": true,
+  "git_diff_whitespace_check_passed": true,
+  "inspected_figures": [
+    "oracle_vs_public_scorers.png",
+    "case_1_balanced_native128_navsim.png",
+    "case_2_balanced_native128_navsim.png",
+    "case_3_nearby64_navsim.png"
+  ],
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13248
+  },
+  "scripts_sha256": {
+    "scripts/compare_public_drivor_toad_scorers.py": "bfe1b6c54e24a2f26df1b106404121360901644d66c065203053266c54ee7eb2",
+    "scripts/report_common_candidate_scorer_comparison.py": "ece9c4e1eac049a6936c4c5a0381b3ffa8e700d40868ae390e5225a8139625a3",
+    "scripts/visualize_common_candidate_scorer_comparison.py": "b9eabe56ffb83a65b583b560124e922f80f659a354bcda5741f10f27425327ea",
+    "scripts/run_common_candidate_scorer_comparison.sh": "a1be12119b7d086eb9448173fce0e1620f3ff45145799d658fb82669a2671875"
+  }
+}

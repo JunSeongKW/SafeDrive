@@ -1,0 +1,1282 @@
+{
+  "complete": true,
+  "models": {
+    "drivor_public": {
+      "strict_loading": "<All keys matched successfully>",
+      "checkpoint_tensor_count": 467,
+      "checkpoint_epoch": 28,
+      "checkpoint_global_step": 53911,
+      "parameters": 40787582,
+      "trainable_parameters": 0,
+      "configuration": {
+        "b2d": false,
+        "shared_refiner": false,
+        "ref_num": 4,
+        "scorer_ref_num": 4,
+        "proposal_num": 64,
+        "num_poses": 8,
+        "num_scene_tokens": 16,
+        "one_token_per_traj": true,
+        "full_history_status": false,
+        "long_trajectory_additional_poses": 2,
+        "noc": 1.0,
+        "dac": 1.0,
+        "ddc": 0.0,
+        "ttc": 5.0,
+        "ep": 5.0,
+        "comfort": 2.0,
+        "tf_d_model": 256,
+        "tf_d_ffn": 1024,
+        "cam_f0": [
+          3
+        ],
+        "cam_l0": [
+          3
+        ],
+        "cam_l1": [],
+        "cam_l2": [],
+        "cam_r0": [
+          3
+        ],
+        "cam_r1": [],
+        "cam_r2": [],
+        "cam_b0": [
+          3
+        ],
+        "lidar_pc": [],
+        "use_cem": false,
+        "cem_seed_topk": 64,
+        "cem_num_samples": 64,
+        "cem_num_iterations": 5,
+        "cem_num_elites": null,
+        "proposal_augment_random": 0,
+        "random_bouquet_control_mode": "family_mix",
+        "image_size": [
+          1148,
+          672
+        ],
+        "image_backbone": {
+          "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+          "model_weights": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/four_model_small_corpus/dinov2_vits_reg4.safetensors",
+          "use_lora": true,
+          "finetune": false,
+          "lora_rank": 32,
+          "focus_front_cam": false,
+          "use_feature_pooling": false,
+          "compress_fc": false,
+          "image_size": [
+            1148,
+            672
+          ],
+          "num_scene_tokens": 16,
+          "tf_d_model": 256
+        },
+        "lidar_min_x": -35,
+        "lidar_max_x": 35,
+        "lidar_min_y": -35,
+        "lidar_max_y": 35,
+        "lidar_image_size": [
+          518,
+          518
+        ],
+        "lidar_hist_max_per_pixel": 5,
+        "lidar_max_height": 100.0,
+        "lidar_split_height": 0.2,
+        "lidar_use_ground_plane": true,
+        "lidar_backbone": {
+          "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+          "model_weights": "weights/vit_small_patch14_reg4_dinov2.lvd142m/model.safetensors",
+          "use_lora": true,
+          "finetune": false,
+          "lora_rank": 32,
+          "in_chans": 2
+        },
+        "double_score": false,
+        "agent_pred": false,
+        "area_pred": false,
+        "bev_map": false,
+        "bev_agent": false,
+        "refiner_num_heads": 1,
+        "refiner_ls_values": 0.0,
+        "trajectory_sampling": {
+          "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+          "time_horizon": 4,
+          "interval_length": 0.5
+        }
+      },
+      "source_path": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/TOADNav1OfficialCalibration/navsim/agents/drivoR/drivor_model.py",
+      "source_sha256": "9e33b0bc0438d8554d90fe6d532d0f3512c666ebdc60a2aaeb71312b077e3e5a"
+    },
+    "toad_released_drivor": {
+      "strict_loading": "<All keys matched successfully>",
+      "checkpoint_tensor_count": 467,
+      "checkpoint_epoch": 29,
+      "checkpoint_global_step": 55770,
+      "parameters": 40787582,
+      "trainable_parameters": 0,
+      "configuration": {
+        "b2d": false,
+        "shared_refiner": false,
+        "ref_num": 4,
+        "scorer_ref_num": 4,
+        "proposal_num": 64,
+        "num_poses": 8,
+        "num_scene_tokens": 16,
+        "one_token_per_traj": true,
+        "full_history_status": false,
+        "long_trajectory_additional_poses": 2,
+        "noc": 1.0,
+        "dac": 1.0,
+        "ddc": 0.0,
+        "ttc": 5.0,
+        "ep": 5.0,
+        "comfort": 2.0,
+        "tf_d_model": 256,
+        "tf_d_ffn": 1024,
+        "cam_f0": [
+          3
+        ],
+        "cam_l0": [
+          3
+        ],
+        "cam_l1": [],
+        "cam_l2": [],
+        "cam_r0": [
+          3
+        ],
+        "cam_r1": [],
+        "cam_r2": [],
+        "cam_b0": [
+          3
+        ],
+        "lidar_pc": [],
+        "use_cem": false,
+        "cem_seed_topk": 64,
+        "cem_num_samples": 64,
+        "cem_num_iterations": 5,
+        "cem_num_elites": null,
+        "proposal_augment_random": 0,
+        "random_bouquet_control_mode": "family_mix",
+        "image_size": [
+          1148,
+          672
+        ],
+        "image_backbone": {
+          "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+          "model_weights": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/four_model_small_corpus/dinov2_vits_reg4.safetensors",
+          "use_lora": true,
+          "finetune": false,
+          "lora_rank": 32,
+          "focus_front_cam": false,
+          "use_feature_pooling": false,
+          "compress_fc": false,
+          "image_size": [
+            1148,
+            672
+          ],
+          "num_scene_tokens": 16,
+          "tf_d_model": 256
+        },
+        "lidar_min_x": -35,
+        "lidar_max_x": 35,
+        "lidar_min_y": -35,
+        "lidar_max_y": 35,
+        "lidar_image_size": [
+          518,
+          518
+        ],
+        "lidar_hist_max_per_pixel": 5,
+        "lidar_max_height": 100.0,
+        "lidar_split_height": 0.2,
+        "lidar_use_ground_plane": true,
+        "lidar_backbone": {
+          "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+          "model_weights": "weights/vit_small_patch14_reg4_dinov2.lvd142m/model.safetensors",
+          "use_lora": true,
+          "finetune": false,
+          "lora_rank": 32,
+          "in_chans": 2
+        },
+        "double_score": false,
+        "agent_pred": false,
+        "area_pred": false,
+        "bev_map": false,
+        "bev_agent": false,
+        "refiner_num_heads": 1,
+        "refiner_ls_values": 0.0,
+        "trajectory_sampling": {
+          "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+          "time_horizon": 4,
+          "interval_length": 0.5
+        }
+      },
+      "source_path": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/TOADNav1OfficialCalibration/navsim/agents/drivoR/drivor_model.py",
+      "source_sha256": "9e33b0bc0438d8554d90fe6d532d0f3512c666ebdc60a2aaeb71312b077e3e5a"
+    }
+  },
+  "checks": {
+    "drivor_public": [
+      {
+        "token": "a8dacf347a605f0d",
+        "preprocessing": {
+          "official_vs_independent_preprocessing_maximum_error": 0.0,
+          "ego_sample_matching_exact": true,
+          "future_input_frames": 0
+        },
+        "original_drivor_forward_maximum_error": 0.0,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "524695a4857859fe",
+        "preprocessing": {
+          "official_vs_independent_preprocessing_maximum_error": 0.0,
+          "ego_sample_matching_exact": true,
+          "future_input_frames": 0
+        },
+        "original_drivor_forward_maximum_error": 0.0,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "ece3a3dc01cd53d2",
+        "preprocessing": {
+          "official_vs_independent_preprocessing_maximum_error": 0.0,
+          "ego_sample_matching_exact": true,
+          "future_input_frames": 0
+        },
+        "original_drivor_forward_maximum_error": 0.0,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "9f528c7bfca6509b",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "06c9339fdc3e5404",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "625a015c1f7c5170",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "78c9157a55905d81",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "14769a8e472350cc",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "ed01297783a05dba",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "153dfbd3d4355809",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "131ab0263b07507c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "075154c90a0a5d7c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "74308c04628b5879",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "62c5045db3c159aa",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "13cfa80cabf85b80",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "d38070017e4e53c3",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "46369836a9b654ee",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "13c555e68671524f",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "e61adc75d7da50c3",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "f3f9f7a6f8f15f49",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "4e19d097005e55b5",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "be87511d69ba58e7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "d8952813d8de574d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "4501554f824e59fc",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "510e507046865b40",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "60ae22c26d59572e",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "9ac3f47635bd5fe1",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "96d9a24139ca5ad4",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "2ee8d10b988c58b2",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "353988b87d995f68",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "8b8466eb334f5957",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "e38dd745e363544c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "116aacf9868e5e4e",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "97bbc33ac7d4586d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "812a8e70ad07507d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "8611c130815150a7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "3cdaaa2bcfd55b68",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "16df188810315dc7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "d99103d5b5025654",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "95165bfbaadf5a64",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "62d339c4086d51ba",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "3e11d77a9aca5bb7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "04aa69f18d255c96",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "a631fec170525388",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "c7b679fb61655f22",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "77ee60147e0e55b7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "74da64c81fe1552e",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "99b52fa162c550d4",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "5982df20d90a59cc",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "e99744bcd703522c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "458e833803315b4f",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "4f08dd3299925309",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "fb73ca8c7d5f5d34",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "5a37ffc78c1e5782",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "5dcc8367111b5fad",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "64b99da814205341",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "9a15d775514e5018",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "37e2bc0cb5a053a5",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "1825640c9ed75a4b",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "47c92818d9005eea",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "ac55c7f072c6528d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "94683fc69ce4599c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "df36523fdaeb5882",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "f23073987e7956e3",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": 0.0,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      }
+    ],
+    "toad_released_drivor": [
+      {
+        "token": "a8dacf347a605f0d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "524695a4857859fe",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "ece3a3dc01cd53d2",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "9f528c7bfca6509b",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "06c9339fdc3e5404",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "625a015c1f7c5170",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "78c9157a55905d81",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "14769a8e472350cc",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "ed01297783a05dba",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "153dfbd3d4355809",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "131ab0263b07507c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "075154c90a0a5d7c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "74308c04628b5879",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "62c5045db3c159aa",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 4.172325134277344e-07
+      },
+      {
+        "token": "13cfa80cabf85b80",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "d38070017e4e53c3",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "46369836a9b654ee",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "13c555e68671524f",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "e61adc75d7da50c3",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "f3f9f7a6f8f15f49",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "4e19d097005e55b5",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "be87511d69ba58e7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "d8952813d8de574d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "4501554f824e59fc",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "510e507046865b40",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "60ae22c26d59572e",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "9ac3f47635bd5fe1",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "96d9a24139ca5ad4",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "2ee8d10b988c58b2",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "353988b87d995f68",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "8b8466eb334f5957",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "e38dd745e363544c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "116aacf9868e5e4e",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "97bbc33ac7d4586d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "812a8e70ad07507d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.980232238769531e-07
+      },
+      {
+        "token": "8611c130815150a7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "3cdaaa2bcfd55b68",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "16df188810315dc7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "d99103d5b5025654",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "95165bfbaadf5a64",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "62d339c4086d51ba",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "3e11d77a9aca5bb7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "04aa69f18d255c96",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "a631fec170525388",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "c7b679fb61655f22",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "77ee60147e0e55b7",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "74da64c81fe1552e",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "99b52fa162c550d4",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 1.7881393432617188e-07
+      },
+      {
+        "token": "5982df20d90a59cc",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "e99744bcd703522c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "458e833803315b4f",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "4f08dd3299925309",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "fb73ca8c7d5f5d34",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "5a37ffc78c1e5782",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "5dcc8367111b5fad",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "64b99da814205341",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "9a15d775514e5018",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "37e2bc0cb5a053a5",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "1825640c9ed75a4b",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "47c92818d9005eea",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "ac55c7f072c6528d",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "94683fc69ce4599c",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      },
+      {
+        "token": "df36523fdaeb5882",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 3.5762786865234375e-07
+      },
+      {
+        "token": "f23073987e7956e3",
+        "preprocessing": {},
+        "original_drivor_forward_maximum_error": null,
+        "native_replay_maximum_error": null,
+        "cached_backbone_calls": 0,
+        "pdms_conversion_maximum_error": 2.384185791015625e-07
+      }
+    ]
+  },
+  "all_weights_unchanged": true,
+  "all_weights_frozen": true,
+  "all_weight_gradients_absent": true,
+  "maximum_card_used_bytes": 42010214400,
+  "memory": {
+    "card_used_bytes": 41475440640,
+    "peak_allocated_bytes": 504891904,
+    "peak_reserved_bytes": 597688320
+  },
+  "gpu_phase_wall_seconds": 266.7402089329844,
+  "optimizer_steps": 0,
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13208
+  },
+  "source_sha256": "bfe1b6c54e24a2f26df1b106404121360901644d66c065203053266c54ee7eb2",
+  "official_scorer_source_matches_original_drivor": true,
+  "official_scorer_decoder_source_matches_original_drivor": true,
+  "environment": {
+    "torch": "2.8.0+cu128",
+    "timm": "1.0.15"
+  }
+}
