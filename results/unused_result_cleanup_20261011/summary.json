@@ -1,0 +1,98 @@
+{
+  "complete": true,
+  "completed_at": "2026-10-11T11:17:50.739649+00:00",
+  "removed_file_count": 87,
+  "released_allocated_bytes": 54441963520,
+  "released_bytes_by_family": {
+    "four_model_small_corpus_v1": 21332983808,
+    "lpwm_48gb_planning_v1": 3302666240,
+    "lpwm_adapter_original_batch_rebalance_v1": 3574145024,
+    "lpwm_card_budget_expandable_v3": 963403776,
+    "lpwm_card_budget_measured_v4": 4991254528,
+    "lpwm_card_budget_planning_v2": 963375104,
+    "lpwm_driving_video_512x256_v1": 1314738176,
+    "lpwm_drivor_geometry_lora_v1": 729083904,
+    "lpwm_drivor_joint_v1": 1554935808,
+    "lpwm_drivor_lora_v1": 3426041856,
+    "lpwm_drivor_optimized_execution_v1": 2803826688,
+    "lpwm_drivor_planning_path_lora_v1": 769171456,
+    "lpwm_frozen_control_v1": 912859136,
+    "lpwm_navsim_posttraining_v1": 438624256,
+    "lpwm_object_future_planning_v3": 4027297792,
+    "lpwm_partial_planning_profiles": 2424696832,
+    "lpwm_stage1_effect_v1": 912859136
+  },
+  "tracked_files_unchanged": 1794,
+  "no_shared_originals_modified": true,
+  "scientific_final_and_epoch_checkpoints_preserved": true,
+  "all_requested_particle_image_paths_preserved": true,
+  "unique_deleted_inode_count": 85,
+  "logical_bytes_unlinked_including_multiple_links": 57414277964,
+  "active_training_before_update": 12413,
+  "active_training_after_update": 12420,
+  "active_training_epoch": 11,
+  "active_training_total_updates": 29425,
+  "active_card_used_bytes": 41075867648,
+  "registered_hashes_verified": 293,
+  "particle_png_paths_preserved": 1615,
+  "process_check": {
+    "owned_process_count": 232,
+    "candidate_references": [],
+    "excluded_system_sessions": [
+      {
+        "pid": 11436,
+        "name": "sd-pam",
+        "reason": "OS authentication session"
+      },
+      {
+        "pid": 2788956,
+        "name": "sshd",
+        "reason": "SSH transport; children inspected separately"
+      }
+    ],
+    "stale_unrelated_file_descriptors": [
+      {
+        "pid": 12799,
+        "descriptor": "99"
+      },
+      {
+        "pid": 3698073,
+        "descriptor": "99"
+      }
+    ],
+    "preserved_queue_pid": 1533508,
+    "active_pid": 574536,
+    "active_experiment": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1",
+    "host_namespace_verified": true
+  },
+  "preserved_checkpoints": [
+    "outputs/lpwm_navsim_full_posttraining_v2/stage1/checkpoint.pt",
+    "outputs/lpwm_navsim_full_posttraining_v2/stage1/latest.pt",
+    "outputs/lpwm_adapter_original_batch_shared_v4/latest.pt",
+    "outputs/lpwm_drivor_planning_path_lora_v1/navsim_v1/latest.pt",
+    "outputs/four_model_small_corpus_v1/drivor/latest.pt",
+    "outputs/four_model_small_corpus_v1/drivor/pass1.pt",
+    "outputs/four_model_small_corpus_v1/drivor/pass3.pt",
+    "outputs/four_model_small_corpus_v1/drivor/pass5.pt",
+    "outputs/four_model_small_corpus_v1/jepa/latest.pt",
+    "outputs/four_model_small_corpus_v1/jepa/pass1.pt",
+    "outputs/four_model_small_corpus_v1/jepa/pass3.pt",
+    "outputs/four_model_small_corpus_v1/jepa/pass5.pt",
+    "outputs/four_model_small_corpus_v1/lpwm_sequential/latest.pt",
+    "outputs/four_model_small_corpus_v1/lpwm_sequential/pass1.pt",
+    "outputs/four_model_small_corpus_v1/lpwm_sequential/pass3.pt",
+    "outputs/four_model_small_corpus_v1/lpwm_sequential/pass5.pt",
+    "outputs/four_model_small_corpus_v1/lpwm_joint/latest.pt",
+    "outputs/four_model_small_corpus_v1/lpwm_joint/pass1.pt",
+    "outputs/four_model_small_corpus_v1/lpwm_joint/pass3.pt"
+  ],
+  "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+  "local_audit": "outputs/unused_result_cleanup_20261011/audit.json",
+  "local_completion": "outputs/unused_result_cleanup_20261011/cleanup_complete.json",
+  "quarantine_directory_removed": true,
+  "note": "Logical per-file bytes double-count hardlinks; released allocation counts each final-link inode once. Ongoing training can change filesystem usage.",
+  "project_disk_usage_after_bytes": 325744136192,
+  "project_disk_usage_after_gib": 303.3728675842285,
+  "project_disk_usage_before_rounded_du": "355 GiB (du -h, rounded)",
+  "cleanup_script_sha256": "7afd00ba1f78674f34aea5f9b05e2f6d64ecdf20aea3e58cbfc1e73e3a62da74"
+}

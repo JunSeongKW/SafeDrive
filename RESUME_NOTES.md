@@ -4857,3 +4857,12 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - 시점별100–5000대표전후/겹침은 `outputs/lpwm_drivor_particle_geometry_overlays_v1/index.html`/28PNG. 0–5000전체particle·명령진단은 `outputs/lpwm_drivor_planning_path_representation_monitor_v1/index.html`/748PNG이며진단그래프도포함한다.
 - 첫epoch이전LoRA범위대조14,300update4,차량밀집3000/5000각6,변화최대4,기타시점대표18,학습native시점4,보존5493같은3scene복합패널3등을모아기존파일1,615경로를저장했다. 일부내용복사본이있으며1,615개의독립장면을뜻하지않는다.
 - 전체절대경로목록 `results/lpwm_particle_movement_review_20261011/all_joint_lora_particle_png_paths.txt`,분류카탈로그 `joint_lora_particle_image_catalog.json`. Gallery의박스는glimpse지만representation-monitor의박스는GT투영이다. 첫epoch/보존모델패널에는비교조건도같이표시돼있다.
+
+
+## 2026-10-11 20:17 KST — 사용자 요청 미사용 결과 파일 정리
+
+**2026-10-11 — 사용자 요청으로 미사용 산출물 87개 정리 완료.** 폐기된 profile/engineering 가중치와 더 진행된 상태로 대체된 복구 snapshot만 `.trash-*` 격리·재검사 후 삭제했다. 54.442decimalGB(50.703GiB) 확보. 현재Stage2 root/Stage1 원가중치·cache/이전최종·에폭별가중치/요청particlePNG1,615개 보존; 학습12,413→12,420/29,425update·epoch11 계속,queue1533508/torchrun574536 불변. 새학습/GPU작업 없음。
+
+**2026-10-11 — 저장공간 정리 실측.** 삭제87파일/85고유inode·54,441,963,520할당bytes,역사profile/메모리복구snapshot만. 원293등록hash·Git추적1794파일·보존가중치inode/mtime 확인,실제사용자작업238개 후보참조0,OS인증/SSH transport만명시제외. 원JSON/CSV/log/NPZ/PNG/수치/hash 이력불변. 목록·근거 `results/unused_result_cleanup_20261011/{report.md,summary.json,deleted_files.csv}`。
+
+현재학습source/config는293등록hash로확인했고현재Stage1sourceSHA71478ee 불변이다. 옛메모리복구snapshot보다더진행된fullstate는보존했다. logical bytes의하드링크중복은확보량에서제외했다. 상세local감사 outputs/unused_result_cleanup_20261011/audit.json 및cleanup_complete.json,공유CSV모든87경로. 기타프로젝트/공용원본/환경은변경없다.

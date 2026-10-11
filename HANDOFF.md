@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 19:57 KST (Codex)
+마지막 갱신: 2026-10-11 20:22 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 — 사용자 요청으로 미사용 산출물 87개 정리 완료.** 폐기된 profile/engineering 가중치와 더 진행된 상태로 대체된 복구 snapshot만 `.trash-*` 격리·재검사 후 삭제했다. 54.442decimalGB(50.703GiB) 확보. 현재Stage2 root/Stage1 원가중치·cache/이전최종·에폭별가중치/요청particlePNG1,615개 보존; 학습12,413→12,420/29,425update·epoch11 계속,queue1533508/torchrun574536 불변. 새학습/GPU작업 없음。
 
 **2026-10-11 — 이전4camera planning-pathLoRA particle이미지경로목록완료.** 원이미지를변경/새렌더링하지않고관련기존PNG1,615개존재와5개galleryindex를확인했다. `results/lpwm_particle_movement_review_20261011/all_joint_lora_particle_png_paths.txt`에전체절대경로를저장했다. 기존LPWM학습/queue불변.
 
@@ -1396,6 +1398,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 — 저장공간 정리 실측.** 삭제87파일/85고유inode·54,441,963,520할당bytes,역사profile/메모리복구snapshot만. 원293등록hash·Git추적1794파일·보존가중치inode/mtime 확인,실제사용자작업238개 후보참조0,OS인증/SSH transport만명시제외. 원JSON/CSV/log/NPZ/PNG/수치/hash 이력불변. 목록·근거 `results/unused_result_cleanup_20261011/{report.md,summary.json,deleted_files.csv}`。
 
 **이미지카탈로그:** 5000update 전체96scene×4camera갤러리는384전후+384겹침+8요약=776PNG,100–5000시점별대표겹침28PNG,0–5000particle/명령진단748PNG,첫epoch이전scope대조14PNG,차량밀집3000/5000각6PNG,변화최대4PNG등이다. 총1,615는파일경로수이며복사본·진단그래프·비교패널을포함한다. 대표갤러리 `results/lpwm_drivor_planning_path_lora_v1/particle_gallery_update5000/index.html`,시점별 `outputs/lpwm_drivor_particle_geometry_overlays_v1/index.html`. Category별경로는 `joint_lora_particle_image_catalog.json`.
 
@@ -2446,6 +2450,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 — 미사용 실험 결과 정리.** 전용감사·격리·삭제script `scripts/cleanup_unused_experiment_artifacts.py`와공유report/JSON/CSV 추가. 현재학습/source/config 및기존results 원문변경없음. 보호검사 후폐기된87.pt만삭제하고54.44GB확보,이미지목록1,615경로유지。
+
 **Particle이미지위치산출물추가.** 전체절대경로TXT와category별JSON을기존movement_review폴더에저장하고HANDOFF1–5/RESUME_NOTES갱신했다. 실제PNG·학습source·설정·checkpoint미변경,추가GPU/학습/렌더링0이다.
 
 **입력해상도범위설명추가.** `resolution_scope_clarification.json`에117config검사범위·256높이는512폭직사각형임·128실제입력/256표시코드근거·정사각형LoRA5000및5493의분리통계를저장하고HANDOFF1–5/RESUME_NOTES갱신했다. 이전비교수치와source모두보존,새GPU/학습/추론0이다.
@@ -2529,6 +2535,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 — 정리 후 다음 작업.** 기존25epoch 학습·epoch검증queue를 그대로유지한다. 이번에삭제된옛profile/복구snapshot으로 자동재개하지않는다. 추후재평가에는보존된최종/에폭별가중치를사용하고,추가정리는새감사목록으로진행한다。
 
 **이미지확인진입점:** 전체5000galleryindex에서장면/camera별전후와겹침을본다. 시점변화는geometry_overlaysindex,명령개입은planning_path_representation_monitorindex를사용한다. 전체PNG개별경로는TXT에있다. 이요청에서새시각화·실험은시작하지않았다.
 
@@ -3250,6 +3258,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 — 삭제 범위 확정.** 현재Stage2/Stage1·cache·dataset·환경·참고repo·고유scientific 최종/에폭checkpoint·실험기록·requestedparticle이미지보존. 삭제된profile/이전복구.pt는복구불가지만더진행된fullstate는남아있다. 과거JSON의해당경로는이력이며현재파일존재근거가아님;삭제manifest와함께확인한다。
 
 **이미지카탈로그범위:** 이전4camera128입력planning-pathLoRA조건과그조건을포함한첫epoch/보존checkpoint대조패널이다. 현재front-history조건과512공동학습단독결과는별도로두었다. Geometrygallery박스는LPWMglimpse,representation-monitor박스는GT투영이라혼동하지않는다. 총PNG수는독립장면수/unique내용수가아니다.
 
