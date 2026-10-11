@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 16:16 KST (Codex)
+마지막 갱신: 2026-10-11 16:25 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 16:23 KST — NC·DAC 지표별 시각 표현 연구 방향 검토.**
+이번 사용자 요청은 아이디어의 타당성·활용·시각화 검토다. 실제 DrivoR forward/scorer/공식 지표 정의와 MTAN·TaskPrompter 원문을 확인했다. 새 학습·캐시·GPU 작업·기존 queue 변경 없음. 지표별 feature는 제안이며 새 성능 수치가 아니다. 기존 실행 기록은 아래를 유지한다.
 
 **2026-10-11 — 사용자 승인으로 선택 오류 획득 sampler·scorer 보정 pilot 완료.**
 사용자는 새 추천 연구 방향을 진행하라고 승인했다. 별도 `outputs/scorer_selection_learning_v1/`에서 실제 cache/라벨/세조건학습/고정후보평가 완료, queue complete. 이전 gate를 완화해 frozen-scorer reward 최적화를 재개한 것이 아니라 작은 보정기를 새로 학습한 실험이다. 원래LPWM25epoch queue 유지/등록289파일불변(완료조회11354update). 새fullscale/추가seed/native-only 대조 미기동. 아래 이전sampler학습금지는이번고정예산pilot 승인범위에서만 갱신된다.
@@ -1378,6 +1381,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 16:23 KST — score-specific feature 코드 근거와 한계.**
+DrivoR `drivor_model.py:177–180`은 공유 scene memory에 후보 query를 cross-attend한 같은 후보 표현을 만들고 `score_module/scorer.py:20–62,120`의6개별 MLP가 점수를 예측한다. 지표별 visual reading은 별도 가설이다. 공식 v1 DAC는 drivable polygon 내 ego4corner 검사이지 차선 segmentation이 아니며, NC에는 객체·상대운동·후보 경로·귀책조건과 도로 상태가 관여한다. 최근 캐시16×256은 register라 직접 pixel 대응 없음; image overlay에는 동일 frozen forward의 spatial patch 출력과 전처리 역매핑을 별도 보존해야 한다. MTAN/TaskPrompter로 task-specific attention 자체의 novelty는 충분하지 않다. 상세 설계·출처는 RESUME_NOTES 마지막 절.
 
 **2026-10-11 — scorer selection-error acquisition pilot: 개선 미확인.**
 NAVTRAIN1024/101recording, 공통128scout에서C sampler56542param/300CPUstep, 동일89222param scorer 보정기A/B/C각500step/batch16/AdamW3e-4/seed0. 추가후보Auniform/BGT·geometryboundary/Cscene-conditional-error; 모두96label/scene. 동일native64·lockedNAVVAL192/37recording에서 baseline78.4753/oracle97.5683/regret19.0930; A78.0014/19.5669; B77.5620/20.0063; C77.5871/19.9811. C−A−.4142 CI[−1.3969,+.0756], C−baseline−.8881 CI[−3.4336,+1.7334]; promotion gate fail. C선택변화51.04%/학습native+.6372vs개발−.8881, 일반화원인미분리. 실제후보188416/공식pair8300대조오차0/기능검증5pass/캐시선택1280일치/OFF복원. GPU0cache루프35.18s/peak.226GiB, 학습CPU총19.35s+sampler.57s/라벨511.86s. B는논문solver정확재현아님; development재사용/단일seed/NAVSIMv1/독립finaltest아님. 공유폴더 `results/scorer_selection_learning_v1/summary_ko.md`.
@@ -2410,6 +2416,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 16:23 KST — 지표별 표현 검토 문서만 추가.**
+HANDOFF1–5와RESUME_NOTES에 확인 사실/후속 제안/미실행 범위를 기록했다. 모델·config·등록 scientific source·캐시·학습/평가 결과·queue는 수정하지 않았다. 성능 진단이나 새 학습은 수행하지 않았다.
+
 **2026-10-11 — 승인된 선택 오류 획득과 frozen scorer correction 비교 구현·실행.**
 `models/scorer_selection_learning.py`에6logit correction/8family sampler/score composition/ranking loss, cache builder와단계queue/공식pair-evaluator재사용/세조건동일학습/init/batch/step/예산/recording split 추가. CPU5검증,실제1024train+64tune+192helddevelopment/188416labels/3×500step 실행,JSON·CSV·cache/provenance·부정결과보고·경로PNG/획득진단/학습vs개발진단/재실행shell을저장했다. CUDA sandbox CPUfallback 중단·부분cache보존후GPU0추출,nuplan부재는기존officialenv의동일geometry전처리로수정;기존완료/학습함수AST·model/config불변과실패source/hash/log보존. 원LPWMsource289파일·queue·batch·LR보존. 추가학습미예약.
 
@@ -2475,6 +2484,9 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 16:23 KST — 추천, 미실행: NC·DAC를 위한 후보 경로 조건부 visual reading.**
+사용자는 새 방향을 제안했고 실행은 아직 요청하지 않았다. 제안 첫 비교는 동일 frozen backbone/generator/native64/oracle labels에서 용량을 맞춘 shared visual adapter vs NC·DAC-specific adapter; 원scorerlogit+학습residual, 나머지4지표 원출력 유지. 고정후보 oracle–selected gap/NC·DAC failure와 calibration/ranking/기능적 개입을 함께 검사한다. 공간 patch 캐시 추가 시 shared와specific 모두 같은 추가입력 사용. Generator/selector 추가학습과 semantic supervision은 첫 검증을 통과한 이후 검토한다.
 
 **2026-10-11 — scorer 보정 pilot 완료 후 보류.**
 현재C의추가PDMS이득/selection-regret개선은없다. sampler규모확대/본학습/추가seed를자동실행하지않는다. 추천한다음하나(미실행)는같은1024scene·500step·평가192에서native64만사용하는작은scorer보정대조:보정기자체의이득과acquisition/context문제를분리한다. 기존LPWM25epoch/정기검증은계속한다. 결과해석과재실행 `results/scorer_selection_learning_v1/summary_ko.md` / `bash scripts/run_scorer_selection_pilot.sh`.
@@ -3178,6 +3190,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 16:23 KST — score-specific 가설 해석 범위.**
+NC=모든차량mask/DAC=차선mask로 정의하지 않는다. 같은 사람도 후보에 따라 중요도가 다르며 NC/DAC 정보는 겹칠 수 있으므로 강제배타성/orthogonality를 첫 조건에 넣지 않는다. 후보별 metric supervision은 spatial map의 의미/faithfulness를 보장하지 않는다. Heatmap은 attention 사용 비중이며 객체확률/인과적 원인/픽셀별위험GT가 아니다. Future oracle labels는 train target만; 미래 영상·지도/boxGT를 inference condition으로 넣지 않는다. Register spatial decoding은 재구성 추정이지 기하학적 직접투영이 아니다. 새 PDMS/gradient 측정/학습 승인 없음.
 
 **2026-10-11 — scorer 보정 연구의 현재 한계.**
 현재sampler는학습라벨획득용이며추론CEM분포를최적화하지않는다. 기존scorer가중치고정,추가6logit보정기만학습했으며future예측/encoderFT/객체감독없음. B훈련용GT·미래occupancy와geometryprobe비용은공개,Versatile Samples정확재현아님. 128scout획득proxy·경계샘플comfort26.2%실패·작은보정기의일반화·학습acquired32/평가native64context차이·BCE/ranking/최종선택목적불일치를원인으로확정하지않는다. C의functional변화·train이득은개발planning이득/시각인과효과/novelty증거가아님. CI는recording변동/학습seed변동미포함;기존NAVVAL재사용이며전체NAVTEST/EPDMS성능아님.

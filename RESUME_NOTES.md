@@ -4675,3 +4675,48 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - GPU0cache루프35.18s/peakallocated.226GiB; CPUscorer학습합계19.35s+sampler.57s; CPUofficiallabels511.86s/4worker. CPUfallback부분cache·누락nuplan실패log·초기source snapshot 보존. 동일geometry전처리를기존officialenv로분리하고완료/학습함수AST·model/config불변검증후재개.
 - 산출물 results/scorer_selection_learning_v1/summary_ko.md·report.md·JSON/CSV/NPZ/2PNG/source-env-provenance. 재실행 bash scripts/run_scorer_selection_pilot.sh (완료단계skip).
 - 원LPWM25epoch학습/정기검증queue·source/config289개보존(완료조회11354update). 추가seed/fullscale/native-only대조 자동기동없음. 다음추천하나(미실행): 같은fixed native64에서보정기자체적응이득을확인해획득전략과문제를분리.
+
+## 2026-10-11 16:23 KST — NC·DAC 지표별 시각 표현 연구 방향 검토 (미실행 제안)
+
+사용자는 frozen image feature를 NC에 필요한 표현/DAC에 필요한 표현으로 후처리하고, downstream planning에서 활용하며 지표별 이미지 heatmap으로 확인하는 방향을 제안했다. 이번 작업은 코드·문헌에 근거한 설계 검토다. 새 학습·캐시·gradient 진단·GPU 작업을 실행하지 않았으며 기존 LPWM queue와 등록 코드는 변경하지 않았다.
+
+### 확인 사실
+
+- DrivoR 공식 `reference_repositories/DrivoR/navsim/agents/drivoR/drivor_model.py:177–180`: trajectory flatten+detach → pos_embed → shared scorer_attention(scene_features) → ego token addition → Scorer.
+- `score_module/scorer.py:20–62,120–121`: 같은 candidate feature에서 NC/DAC/TTC/EP/DDC/comfort 각각의 MLP가 출력한다. metric-specific head는 이미 존재하며, 제안하는 차이는 visual evidence를 읽는 단계의 지표별 조건화다.
+- 공식 `pdm_scorer.py:251–285,351–358`: DAC는 roadblock/intersection/drivable/carpark polygon과 ego corner containment 기반. 차선 선분 검출과 같은 목표가 아니다.
+- `pdm_scorer.py:293–349`: NC는 미래 tracked occupancy·상대상태·후보ego형상·귀책규칙에 따라 결정되고, 정적 tracked object와 차선/도로 영역 상태도 관여한다. NC feature를 차량·보행자 semantic mask로 고정하지 않는다.
+- 현재 실제 DrivoR 캐시는 scene register16×256FP32이다. `small_corpus_models.py:93–99`은2frame register를fusion하고, 공식 `dinov2_lora.py:67–85,371–405`는 전체patch+prefix를 처리한 뒤register만 잘라neck을 거친다. 같은 frozen forward의 slicing 전 patch 출력을 보존하는 설계가 가능해 보이나 새 hook/cache equality 검사는 미실행이다.
+- Drive-JEPA 기존128×1024cache에는8×16 spatial grid 대응이 있다. DrivoR memory와 같은 표현으로 취급하지 않으며 다른 백본을 붙일 때 비교 범위 변화를 기록한다.
+
+### 권고하는 첫 방법과 검증 가설
+
+원래 연구의 하위 질문: "같은 frozen visual representation에서도 평가 목적·ego 의도·후보 경로에 따라 필요한 시각 정보가 달라지며, 이를 구분해 읽으면 제한된 후보의 선택 오류가 줄어드는가?" 이번 단계는 현재 관측 정보의 선택을 검증하며 entity 미래예측 효과를 주장하지 않는다.
+
+1. 같은 DrivoR checkpoint/backbone/generator/native64 후보를 고정한다. 원register/scored-feature/logit/oracle label은 재사용하고, 공간 heatmap이 필요하면 같은 encoder의 공간 patch·좌표·시간·valid mask·전처리 정보만 별도 캐시한다.
+2. NC·DAC만 대상으로 metric embedding+현재ego/명령+각candidate trajectory embedding을 query로 만들고, 같은 spatial tokens에 작은 cross-attention을 수행해 z_metric,candidate를 생성한다. 실제 위험은 candidate-conditioned이므로 정적인 scene-wide 두 mask만으로 끝내지 않는다. NC와DAC 간 중복을 허용한다.
+3. 원래component logit+작은residual head로 출력하고 나머지4component는 원출력을 유지한다. Residual OFF는 원scorer의예측/선택을 복원한다. Backbone/generator/scorer의 native weights는 업데이트하지 않는다.
+4. 공식 candidate NC·DAC targets에 BCE(0.5 같은softtarget 보존)와 native64의 최종score차 기반pair-ranking을 적용하는 설계다. Target은 기존 evaluator가 생성하며 비미분 evaluator를 backward 경로로 쓰지 않는다. Gradient는 loss→보정head→metric query/attention/value projection이며encoder/generator로 전달되지 않는다.
+5. 각scene내positive/negative score 변화가 있어야 candidate-dependent evidence를 학습할 수 있다. 거의 모두safe인 label 분포·시각입력무시·속도/곡률shortcut·이미지밖위험·작은표현의일반화는 실패위험이다. Label 분포와metrics별class calibration/ranking을 먼저 확인한다.
+
+첫 비교는 원고정scorer / parameter-budget를 맞춘shared visual adapter / NC·DAC-specific visual adapter다. 두adapter에 같은patch추가입력·같은labels/native64·loss/init/steps/batch order를 제공한다. 원baseline보다specific만좋다는결과로추가patch정보/추가용량과metric conditioning을혼동하지않는다. 지표임베딩제거/visual constant/OFF는학습또는평가개입으로구분한다. Generator까지동시에변경하지않아oracle고정상태의selection gap개선을판단한다.
+
+### 시각화와 평가
+
+- 작은attention의 실제 공간token 가중치를 원crop/resize/pad를 되돌린 현재/과거 각frame에 표시한다. NC 빨강/DAC 파랑을 별도panel과overlay로 보여주되 같은score/candidate/색상scale/normalization을 사용한다. 과거/현재attention을 현재이미지에무단합산하지않는다.
+- RGB reconstruction decoder는 heatmap 생성에 필수가 아니다. Register를 임의pixel grid로펴거나learneddecoder출력을실제투영이라고부르지않는다.
+- Attention은 읽기 비중이다. Grad×feature/고가중token을mean-replacement한 score변화/같은수randomtoken intervention을 비교해 예측의기능적의존성을검사한다. Frozen-token삭제는 실제객체를장면에서제거한인과실험과다르다.
+- 독립annotation의차량/보행자박스·drivable geometry는 공간진단에활용하되영상전체차량coverage를NCrisk정답으로취급하지않는다. 같은scene의충돌/비충돌candidate와도로내/도로밖candidate별지역변화를확인한다. Semantic supervision을사용하면후속별도어블레이션으로분리한다.
+- 주요지표는같은native64최선PDMS−선택PDMS, 최종PDMS와NC/DAC failure, ranking/calibration, 상황별sample수, inference비용과parameter수다. Annotation overlap/attention차이만으로planning효용을판정하지않는다. 기존개발셋재사용/seed/recordingbootstrap한계를유지하고새실험전판정조건을등록한다.
+
+### 선행연구 및 novelty 판단
+
+조사일2026-10-11. 가까운자료는원문method와공식코드를확인한범위에서정리했다.
+
+- [MTAN, CVPR2019](https://openaccess.thecvf.com/content_CVPR_2019/papers/Liu_End-To-End_Multi-Task_Learning_With_Attention_CVPR_2019_paper.pdf), §3.2: sharedfeatures에서task별soft spatial/channel attention을학습. Feature를task별로분리하는것만으로novelty충분하지않다.
+- [TaskPrompter, ICLR2023](https://openreview.net/pdf?id=-CwPopPJda): taskprompt와imagepatch의spatial/channel상호작용및task-specificdense decoding. 공식 [코드](https://github.com/prismformore/Multi-Task-Transformer/tree/main/TaskPrompter). 제안의lightweightfrozenadapter가paper전체jointbackbone방식과동일한것은아니다.
+- [DrivoR v2, 2026-02-03](https://arxiv.org/html/2601.05083v2), §3.4: trajectory-conditionedsharedscoringdecoder+metric별MLP+BCE. 이미있는metrichead와차이를명시해야한다.
+- [DriveSuprim AAAI원문](https://ojs.aaai.org/index.php/AAAI/article/download/38178/42140): 검색엔진원문methodexcerpt의trajectorycrossattention+componentheads를확인했다. 전체PDF직접fetch는size제한으로실패했으므로완전검토로표현하지않는다.
+- [VAD ICCV2023](https://openaccess.thecvf.com/content/ICCV2023/papers/Jiang_VAD_Vectorized_Scene_Representation_for_Efficient_Autonomous_Driving_ICCV_2023_paper.pdf): agent motion/map구조를planning에활용하는가까운개념. 이번제안은명시적semantic객체decoder를필수로두지않으며exactnovelty검색은완료되지않았다.
+
+현재 판단: 소규모연구로검증할가치는있지만"NC/DACfeature분리+heatmap"만으로는차별화가약하다. 강화할질문은candidate/metric/intent에맞춘evidence선택이일반공유attention대비실제선택오류를줄이는가이며, 성공·실패는미측정이다. Downstream 우선순위는 fixed-candidate scorer → 효과검증 후generatorconditioning검토. 별도learnedselector는아직필요성이입증되지않았다.
