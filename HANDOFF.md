@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 22:14 KST (Codex)
+마지막 갱신: 2026-10-11 22:57 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 22:54 KST — 승인된 공식 TOAD Nav1 scorer 검사 완료.** 공개 checkpoint를 다운로드해 SHA257fa93d 검증, 별도 공식 nav1 checkout0110647 strict467 tensor 로딩 후 NAVTEST64/38recording에서 실제 추론/공식PDMS/CPU gradient 검사를 완료했다. 새 model 학습0step/전체 CEM 미실행. GPU0의 완료 profile+infer63.74초, 전체 카드 관측최대42.025decimalGB; GPU1 새작업 없음. 최초 feature-builder import 오류는 forward 전에 실패했고 로그 보존·공식 원본 builder 본문 재사용으로 수정했다. `outputs/official_toad_navsim_v1_scorer_calibration_20261011/inspection_packaged.json` 완료. 기존 LPWM25epoch/queue 보존, 등록293source/config/input SHA 불일치0, 포장 시13068update(epoch12) 확인. 아래 공개weight 로딩 미검증 문장은 이전 이력이다.
 
 **2026-10-11 — 고정 backbone의 추론 단계 후처리 연구 방향 검토.** 사용자 요청은 연구 방향 제안이며 새 본학습/성능 비교를 시작하지 않았다. 기존 LPWM25epoch 학습·대기열·원모델·설정은 보존했다. 등록 source/config/input293개 SHA 불일치0, 새optimizer0step/GPU0초다. 이번에는 새 LPWM 진행량을 재측정하지 않았으므로 이전21:03 snapshot과 구분한다.
 
@@ -1402,6 +1404,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 — 공식 TOAD checkpoint 실제 결과.** 현재4camera/1148×672, image_backbone64×256FP32 register 캐시, 현재ego11 및 comfort경계용 이전ego; 미래영상0. 공개모델 trainval+Simscale 학습이므로 NAVVAL 대신 이전에 노출된 NAVTEST1024 패널에서 현재명령별21/22/21의64장면을 사전선정했다. Learned64-alone95.8391/oracle99.8511/regret4.0120; 공식128(learned64+random64, CEM OFF)96.1419/99.9470/3.8052; near64(원fallback+BMcenter+공식σGaussian62)96.1052/99.5385/3.4333; near16 96.0235/98.5681/2.5446. NC 또는 DAC 위반 선택1/64, 사전5점/악화1pp point-estimate gate 통과지만CI상한5점초과 조건존재. Gradient0.05/0.1은mean+1.53이나median0·CI0포함·한장면 영향;0.25는mean−6.2057/95%CI[−13.0045,−1.4334],1점초과하락5/64. Neural-only/roundtripcenter대비이며 전체TOAD comfort·anchor CEM 효과 아님. BM역변환ADE.4424m. 고정64context3개/공통16target top1변동25/64, 불안정성↔선택손실ρ−.0622로 오류검출 근거미확인. CPU실제FP64 gradient3×2방향최대오차6.41e−11/원cached score차0/공식pair evaluator차0/weights불변. [보고서](results/official_toad_navsim_v1_scorer_calibration_20261011/report.md).
 
 **2026-10-11 — TOAD/DriveVer 원문과 공식 TOAD Nav1 release 확인.** TOAD는 고정 scorer를 쓰는 무학습 CEM; DriveVer는 IV-A.3에서 visual encoder를 고정하고 confidence·보정 decoder를 학습한다(DrivoR/DINO LoRA provenance와 구분). 공식 TOAD Nav1 checkpoint가2026-08-27 공개됐으며 local loading은 미검증이다. 과거64scene/pass5/3200의76.81selected/98.84oracle와 context 최대logscore차.026462는 기존 측정이며 공개완성모델 결과가 아니다. 연구 후보는 scorer 판단 안정성으로 선택적 보정 여부를 결정하는 방식, novelty·실제 이득은 미검증. `results/frozen_planner_postprocessing_review_20261011/report.md`.
 
@@ -2458,6 +2462,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**이번 변경 — 공식 TOAD NAVSIM v1 scorer 진단 구현·실행·포장.** 별도config/phase별검사script/CPU실제finite-difference script/결과포장script/재실행wrapper, results의사전subsetmanifest·strictload/env/provenance/JSON/CSV/PNG/보고서추가. 공식asset291MB와isolatednav1clone은runtime/reference에두고Git제외. 보호293파일/공용원본/원training/queue/이전결과 수치 불변. 신규 optimizer0step, GPU0 제한된진단만실행. 입력import실패로그·보정코드·실제CPU0error 동등성보존;기준완화/샘플러학습/fullscale비교자동기동없음. HANDOFF1–5/RESUME_NOTES 갱신.
+
 **이번 변경 — 고정 planner 후처리 연구 검토 문서·출처 JSON 추가.** `results/frozen_planner_postprocessing_review_20261011/`에 원문method 구분, 공개Nav1asset/SHA/date, 기존negative scorer/reader 근거, 기능적 안정성 가설, 원본/TOAD/선택적TOAD의 후속 비교·예산 통제를 기록했다. 보호293파일 SHA 불일치0; 새학습/캐시/성능실험/GPU작업/queue변경없음. HANDOFF1–5 및 RESUME_NOTES를 갱신했다.
 
 **2026-10-11 — 중간상태 JSON와문서기록만추가.** 실제rank0/1 최근500loss비유한0,12600update 18gradient그룹유한양수,원293source/config/inputSHA일치. source/model/config/checkpoint/queue변경없음。
@@ -2547,6 +2553,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 최신 — 공식 scorer 검사는 완료, 다음 성능 실험은 미기동.** 작은subset에서점수선택gate통과지만큰gradient step 악화 및context instability↔선택손실 상관미확인. 추천하나: 동일공식weight·기존명령고정패널·공통noise에서 CEM OFF와전체공식TOAD(comfort/anchor/기존fallback포함)를먼저비교해실제순이득확인. 안정성으로보정필요/실패예측하는selector는그후 별도검증. 기존LPWM25epoch와자동epoch/world검증은계속한다. 신규sampler/scorer학습·CEM비교queue는자동등록하지않았다. 완료진단재실행wrapper는phase marker를확인해추론/평가를반복하지않는다.
 
 **2026-10-11 최신 추천 — 먼저 공식 TOAD Nav1 scorer 진단.** 공개가중치·공식nav1 config의 strict loading/전처리/cache동등성을 확인하고 off-proposal순위 및 동일크기후보context안정성을 검사한다. 안정성이 실제 보정악화를 구분할 때만 원본/공식TOAD/선택적TOAD를 같은weight·노이즈·총scorer예산으로 비교한다. 이는 제안이며 추가학습/평가queue를 자동등록하지 않았다. 현재 LPWM25epoch의 기존 작업은 계속한다.
 
@@ -3274,6 +3282,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 공식 TOAD 진단 범위.** 가중치접근·strictload·공식입력·실제cache·arbitrary-path gradient는확인됐다. NAVTEST64는balancedcommand/이전노출dev패널이며전체NAVTEST/독립final/EPDMS/다른모델대비 공정성능비교가아니다. NearGaussian/CEM초기std만검사했고전체CEM최적화는미실행. Neural-only gradient 실제악화는원TOAD 전체objective실패증거가아니다. 작은보정효과CI는0포함·median0,context불안정성은실제선택손실과뚜렷한관계미확인. 최적화오류를불안정성이예측하는지·novelty·새learning후개선은미확인. 처음failed GPU process wall시간은미계측/forward0이고예산120초예약,완료GPU63.74초를누적정확GPUkernel시간으로해석하지않는다. 공개가중치/데이터/clone는Git미포함·local경로/SHA/provenance로복구한다.
 
 **2026-10-11 후처리 방향 범위.** 사용자는 무거운 backbone 재학습 없이 inference postprocessing/optimization 연구를 원한다. 학습 없이 TOAD를 재사용하거나 frozen cache로 작은 보정/적용판별 모듈만 학습하는 것이 범위 후보다. 기존 gate를 완화하지 않았고 sampler reward 학습을 재기동하지 않았다. 공식TOADNav1weight local loading/공식성능과 context안정성→실제악화예측은 미확인; DriveVer 공식code/weight는 이번 검색에서 미확인이다. 고정 모델+CEM/보정threshold만으로 novelty를 확보했다고 주장하지 않는다.
 

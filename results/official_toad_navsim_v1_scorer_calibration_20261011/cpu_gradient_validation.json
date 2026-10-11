@@ -1,0 +1,99 @@
+{
+  "all_finite_difference_checks_passed": true,
+  "scene_count": 3,
+  "direction_count": 6,
+  "dtype": "float64",
+  "device": "cpu",
+  "gpu_seconds": 0,
+  "optimizer_steps": 0,
+  "encoder_calls": 0,
+  "frozen_weights_unchanged": true,
+  "frozen_parameter_gradients_absent": true,
+  "finite_difference_tolerance": {
+    "absolute": 1e-07,
+    "relative": 0.001
+  },
+  "scene_results": [
+    {
+      "token": "a8dacf347a605f0d",
+      "gradient_norm": 0.004777130693671475,
+      "fp64_vs_cached_fp32_score_maximum_error": 4.236476613961315e-06,
+      "directions": [
+        {
+          "analytic": 0.0047771306936714745,
+          "finite_difference": 0.0047771306999067065,
+          "epsilon": 0.0001,
+          "absolute_error": 6.23523194881459e-12,
+          "relative_error": 1.3052253204913065e-09,
+          "passed": true
+        },
+        {
+          "analytic": 0.0018335072286063533,
+          "finite_difference": 0.0018335072926589646,
+          "epsilon": 0.0001,
+          "absolute_error": 6.405261130520978e-11,
+          "relative_error": 3.493447316062772e-08,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "524695a4857859fe",
+      "gradient_norm": 0.0010822690538631182,
+      "fp64_vs_cached_fp32_score_maximum_error": 1.940907093933575e-06,
+      "directions": [
+        {
+          "analytic": 0.0010822690538631185,
+          "finite_difference": 0.0010822691076661783,
+          "epsilon": 0.0001,
+          "absolute_error": 5.380305988060552e-11,
+          "relative_error": 4.9713199332305865e-08,
+          "passed": true
+        },
+        {
+          "analytic": -0.000498696179961044,
+          "finite_difference": -0.0004986961821273894,
+          "epsilon": 0.0001,
+          "absolute_error": 2.166345445045459e-12,
+          "relative_error": 4.34401850803036e-09,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "ece3a3dc01cd53d2",
+      "gradient_norm": 0.008723659946835395,
+      "fp64_vs_cached_fp32_score_maximum_error": 3.0020432939537045e-07,
+      "directions": [
+        {
+          "analytic": 0.008723659946835395,
+          "finite_difference": 0.008723659958853602,
+          "epsilon": 0.0001,
+          "absolute_error": 1.2018207609654219e-11,
+          "relative_error": 1.3776565875263163e-09,
+          "passed": true
+        },
+        {
+          "analytic": -0.0019220650055673224,
+          "finite_difference": -0.0019220650049334154,
+          "epsilon": 0.0001,
+          "absolute_error": 6.339069894001348e-13,
+          "relative_error": 3.2980517701742815e-10,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "cpu_wall_seconds": 8.379211968014715,
+  "environment": {
+    "torch": "2.8.0+cu128"
+  },
+  "strict_loading": "<All keys matched successfully>",
+  "source_sha256": "762045aa72039d17417ac1ed15566832c81574fb9d69c0579673539ba40236cc",
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13050
+  },
+  "note": "Double precision isolates derivatives from FP32 score quantization. Not a planning performance measurement."
+}

@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-11 — 공식 TOAD NAVSIM v1 scorer 검사 완료.** 공개 가중치 SHA/467 tensor strict load, 64장면 원본·cache 점수 일치, 실제 CPU gradient 6방향 검증을 통과했다. NAVTEST64 개발 진단에서 CEM OFF 기존128후보 선택96.14/후보최고99.95/선택손실3.81점, 주변64후보96.11/99.54/3.43점이다. 큰 neural-gradient 보정은 실제 PDMS−6.21점, 동일64 context의 공통 경로 최고선택은25/64장면에서 바뀌었다. 전체 TOAD/CEM 성능이나 이전 모델 대비 공정 비교 점수가 아니다. [실측·통제·다음 단계](results/official_toad_navsim_v1_scorer_calibration_20261011/report.md), [시각화](results/official_toad_navsim_v1_scorer_calibration_20261011/scorer_calibration_summary.png). 추가 학습 없이 기존 LPWM 학습과 등록293파일을 보존했다.
+
 **2026-10-11 — 미사용 결과 정리 완료.** 폐기된profile·engineering 가중치와이전복구snapshot87개/85inode를격리검사후삭제해54.44GB(50.70GiB)확보했다. 현재학습·Stage1·최종/에폭별checkpoint·cache·실험기록·particlePNG1,615개는보존했다. [삭제목록·검사·실측](results/unused_result_cleanup_20261011/report.md).
 
 **2026-10-11 — NC·DAC 직접 visual reader 비교 완료.** 원 scorer feature/logit 우회 입력을 제거하고 ego·후보·metric을 비선형 결합했다. Shared/Specific 각500step·동일초기화/배치/파라미터, 튜닝에서 둘 다100step 선택. 같은 개발192장면의 PDMS는 기존78.48/Shared79.55/Specific79.55이며 새 두 조건은 모든 후보 선택이 같다. 시각 읽기 진단은 통과했지만 NC실패3→5/192로 planning gate는 실패했다. [실측·통제·한계](results/direct_metric_visual_probe_v1/report.md), [학습 전후 NC/DAC 시각화](results/direct_metric_visual_probe_v1/nc_dac_training_evolution.png). 기존 LPWM 학습은 보존했고 추가 실험은 시작하지 않았다.

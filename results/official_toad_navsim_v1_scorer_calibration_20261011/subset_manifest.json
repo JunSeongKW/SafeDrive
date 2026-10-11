@@ -1,0 +1,4049 @@
+{
+  "registered_utc": "2026-10-11T13:41:36.532944+00:00",
+  "records": [
+    {
+      "token": "a8dacf347a605f0d",
+      "log_name": "2021.09.16.19.27.01_veh-45_01749_03230",
+      "recording_group": "2021.09.16.19.27.01_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.19.27.01_veh-45_01749_03230/unknown/a8dacf347a605f0d/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 6.260761737823486,
+      "observed_timestamps": [
+        1631822458499988,
+        1631822458999825
+      ],
+      "source_panel_row": 651,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 488,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.27.01_veh-45_01749_03230/CAM_F0/3212ee73fb2e50d2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.27.01_veh-45_01749_03230/CAM_B0/d3ebdeaaf3965a73.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.27.01_veh-45_01749_03230/CAM_L0/c4e55925499153a5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.27.01_veh-45_01749_03230/CAM_R0/5bf2e470431457fb.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.9824364516373176,
+          0.20469904886782594,
+          -0.1315167654939935,
+          6.107589305179553,
+          -0.0716960961476398,
+          0.16544626951467017,
+          1.5486297974962973,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.260507143781966,
+          -0.05647461567737727,
+          0.36344941307907025,
+          2.089612043172306,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.36344941307907025,
+        "past_yaw_rate": 0.26311930788235666,
+        "previous_timestamp_offset_seconds": -0.499837,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "524695a4857859fe",
+      "log_name": "2021.06.28.20.24.43_veh-38_03385_04952",
+      "recording_group": "2021.06.28.20.24.43_veh-38",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.20.24.43_veh-38_03385_04952/unknown/524695a4857859fe/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 3.4900705814361572,
+      "observed_timestamps": [
+        1624915567600082,
+        1624915568099775
+      ],
+      "source_panel_row": 275,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 376,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.20.24.43_veh-38_03385_04952/CAM_F0/5a78547857e15c79.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.20.24.43_veh-38_03385_04952/CAM_B0/b6a2196ca72a515e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.20.24.43_veh-38_03385_04952/CAM_L0/60311bffd6215910.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.20.24.43_veh-38_03385_04952/CAM_R0/96f0e55ee2eb5877.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.7068443948591832,
+          0.04554756893078102,
+          -0.0642578399934024,
+          3.550301027257261,
+          -0.06804601547633664,
+          -0.08179175179894281,
+          0.5292901030672545,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.4896076346456297,
+          -0.05685069915584802,
+          -0.1850617930080038,
+          0.3636566768497424,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.1850617930080038,
+        "past_yaw_rate": 0.1285946370939805,
+        "previous_timestamp_offset_seconds": -0.499693,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "ece3a3dc01cd53d2",
+      "log_name": "2021.09.09.18.29.25_veh-39_01622_01766",
+      "recording_group": "2021.09.09.18.29.25_veh-39",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.09.18.29.25_veh-39_01622_01766/unknown/ece3a3dc01cd53d2/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 0.8915300369262695,
+      "observed_timestamps": [
+        1631213946499880,
+        1631213947000100
+      ],
+      "source_panel_row": 392,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 47,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.29.25_veh-39_01622_01766/CAM_F0/38a111066fea54ae.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.29.25_veh-39_01622_01766/CAM_B0/6ac6ce46858a5949.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.29.25_veh-39_01622_01766/CAM_L0/ead1a7108bcc5794.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.29.25_veh-39_01622_01766/CAM_R0/6c18bd0359385696.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.43841574487685664,
+          0.002979197242657574,
+          -0.013051118518116134,
+          0.7896139946037956,
+          0.01775449248017299,
+          0.264811390100578,
+          0.03882395686343886,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.8913598294914346,
+          0.01742142403322353,
+          0.2869024654111482,
+          0.06835126937682068,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.2869024654111482,
+        "past_yaw_rate": 0.0260907571031069,
+        "previous_timestamp_offset_seconds": -0.50022,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "9f528c7bfca6509b",
+      "log_name": "2021.10.06.08.16.17_veh-52_00181_00574",
+      "recording_group": "2021.10.06.08.16.17_veh-52",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.10.06.08.16.17_veh-52_00181_00574/unknown/9f528c7bfca6509b/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 4.372045993804932,
+      "observed_timestamps": [
+        1633508487700587,
+        1633508488200310
+      ],
+      "source_panel_row": 321,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 153,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_F0/380db18e11d0523b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_B0/5c652a7dfc655f2c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_L0/ac0ee46087a551ea.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_R0/dfc40570cf3c5b09.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.050142650595566,
+          0.14024619375161967,
+          -0.1293550928066991,
+          4.194017550885709,
+          -0.015407635065077339,
+          0.42226009885925697,
+          1.17791210283741,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.37202754066502,
+          -0.012695850635438993,
+          0.4377400642077888,
+          1.2076594883273204,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.4377400642077888,
+        "past_yaw_rate": 0.25885359050253665,
+        "previous_timestamp_offset_seconds": -0.499723,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "06c9339fdc3e5404",
+      "log_name": "2021.09.16.17.40.09_veh-45_02539_02745",
+      "recording_group": "2021.09.16.17.40.09_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.17.40.09_veh-45_02539_02745/unknown/06c9339fdc3e5404/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 6.228167533874512,
+      "observed_timestamps": [
+        1631816812399609,
+        1631816812899979
+      ],
+      "source_panel_row": 817,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 371,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_F0/3437bd51c3005c7a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_B0/18a0e66302235271.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_L0/bbf21d9882cc5fac.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_R0/3f96c0b74766598c.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.9792205210197538,
+          0.21399053317113872,
+          -0.14831961301420504,
+          6.090439754384963,
+          -0.17998131768051853,
+          0.3937457847057861,
+          1.8514590953027694,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.227174258575498,
+          -0.11121739690070528,
+          0.41378106823135774,
+          1.7385117353388022,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.41378106823135774,
+        "past_yaw_rate": 0.2964198753206728,
+        "previous_timestamp_offset_seconds": -0.50037,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "625a015c1f7c5170",
+      "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+      "recording_group": "2021.06.28.18.03.27_veh-14",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.18.03.27_veh-14_00620_01581/unknown/625a015c1f7c5170/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 9.770242691040039,
+      "observed_timestamps": [
+        1624904147200084,
+        1624904147700005
+      ],
+      "source_panel_row": 185,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 106,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_F0/2a5fffd9712e5ca3.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_B0/a156e8e529445b03.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_L0/2565fb3e8a35525d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_R0/6c30117acc5d5f36.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.9868029333144688,
+          -0.24784478669727247,
+          -0.028760620222765747,
+          10.105296883842534,
+          0.0669075840053046,
+          0.6686169416483304,
+          0.3066240055955998,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          9.769856812503772,
+          0.08684851667833413,
+          0.6139386676910447,
+          0.3069444546071237,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.6139386676910447,
+        "past_yaw_rate": 0.05753033023770905,
+        "previous_timestamp_offset_seconds": -0.499921,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "78c9157a55905d81",
+      "log_name": "2021.06.28.15.10.57_veh-16_02438_02580",
+      "recording_group": "2021.06.28.15.10.57_veh-16",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.15.10.57_veh-16_02438_02580/unknown/78c9157a55905d81/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 8.622663497924805,
+      "observed_timestamps": [
+        1624895695799554,
+        1624895696299929
+      ],
+      "source_panel_row": 137,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 55,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_F0/3ec77f832aec559a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_B0/94f9a843a546597e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_L0/3f4c594262885944.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_R0/09d029c318f45fe9.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -4.110879427354316,
+          0.2907777557514832,
+          -0.12777853945760453,
+          8.194145799897226,
+          -0.205512326826476,
+          0.76513816353041,
+          2.419231756122512,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          8.619873994622127,
+          -0.21930266507884205,
+          0.882095826775407,
+          2.2615229582324288,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.882095826775407,
+        "past_yaw_rate": 0.2553655547491472,
+        "previous_timestamp_offset_seconds": -0.500375,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "14769a8e472350cc",
+      "log_name": "2021.06.28.15.02.02_veh-38_02398_02848",
+      "recording_group": "2021.06.28.15.02.02_veh-38",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.15.02.02_veh-38_02398_02848/unknown/14769a8e472350cc/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 3.7419965267181396,
+      "observed_timestamps": [
+        1624895314499341,
+        1624895314999735
+      ],
+      "source_panel_row": 456,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 542,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_F0/f9d090ee7b105c00.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_B0/c3d127a89db35b9c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_L0/d2ada808dc8b54da.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_R0/163c553225ec5e56.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.8455037385169921,
+          0.08575868359596153,
+          -0.0764461097537752,
+          3.60698487833802,
+          -0.09729204005527028,
+          0.7219431949954634,
+          0.401351909191347,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.7405868094214108,
+          -0.10271080002990125,
+          -0.06164139436985662,
+          0.5961336308951883,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.06164139436985662,
+        "past_yaw_rate": 0.15277183530133293,
+        "previous_timestamp_offset_seconds": -0.500394,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "ed01297783a05dba",
+      "log_name": "2021.09.29.14.44.26_veh-28_00528_00992",
+      "recording_group": "2021.09.29.14.44.26_veh-28",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.29.14.44.26_veh-28_00528_00992/unknown/ed01297783a05dba/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 6.152070999145508,
+      "observed_timestamps": [
+        1632927657799757,
+        1632927658299851
+      ],
+      "source_panel_row": 649,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 827,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_F0/24dca8d581065b7a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_B0/785e70199054569f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_L0/55388c81c79351c4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_R0/36ef08e5f041549a.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.0378317704118003,
+          0.17470488226224057,
+          -0.09889617509602444,
+          6.370039104849,
+          0.07455288392477205,
+          -0.506446285616326,
+          0.7730924099362358,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.151476977990262,
+          0.08548688680177179,
+          -0.4580646236019691,
+          0.7807522324913332,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.4580646236019691,
+        "past_yaw_rate": 0.19775517221967157,
+        "previous_timestamp_offset_seconds": -0.500094,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "153dfbd3d4355809",
+      "log_name": "2021.10.06.07.26.10_veh-52_00772_00917",
+      "recording_group": "2021.10.06.07.26.10_veh-52",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.10.06.07.26.10_veh-52_00772_00917/unknown/153dfbd3d4355809/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 2.7586729526519775,
+      "observed_timestamps": [
+        1633506097199915,
+        1633506097699874
+      ],
+      "source_panel_row": 678,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 204,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00772_00917/CAM_F0/b19cc35247f553b8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00772_00917/CAM_B0/b86ab89ea5ba5148.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00772_00917/CAM_L0/61b59fff406e545f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00772_00917/CAM_R0/a2673ac965265c53.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.3236983011592383,
+          0.08797361683856685,
+          -0.1094245781961205,
+          2.581290446283734,
+          -0.014837563472462142,
+          0.30775094930647373,
+          1.0401985267017817,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          2.758438126801752,
+          -0.03599094421355079,
+          0.29046290130200075,
+          0.4257785483051742,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.29046290130200075,
+        "past_yaw_rate": 0.21886710349472757,
+        "previous_timestamp_offset_seconds": -0.499959,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "131ab0263b07507c",
+      "log_name": "2021.09.16.15.47.30_veh-45_01199_01391",
+      "recording_group": "2021.09.16.15.47.30_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.15.47.30_veh-45_01199_01391/unknown/131ab0263b07507c/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 3.6901259422302246,
+      "observed_timestamps": [
+        1631808541299483,
+        1631808541799821
+      ],
+      "source_panel_row": 377,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 90,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_F0/8464fe7479a95f8e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_B0/bb82862ad2165264.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_L0/63107b1b84375ab5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_R0/4e82bd89502e58c3.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.624135256619653,
+          0.17174944863177688,
+          -0.1807065153966917,
+          2.9708825891685664,
+          -0.1322774998018086,
+          1.7851864879791142,
+          1.0182539941106354,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.6875797622393995,
+          -0.13705665738383405,
+          1.1559927879203185,
+          1.270727416029797,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 1.1559927879203185,
+        "past_yaw_rate": 0.36116888063007746,
+        "previous_timestamp_offset_seconds": -0.500338,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "075154c90a0a5d7c",
+      "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+      "recording_group": "2021.06.28.18.03.27_veh-14",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.18.03.27_veh-14_00620_01581/unknown/075154c90a0a5d7c/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.310110479593277,
+      "observed_timestamps": [
+        1624904879200300,
+        1624904879700224
+      ],
+      "source_panel_row": 1014,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 1570,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_F0/1db05990d745534f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_B0/32008f3d74fd5938.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_L0/f03d188094e354f5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.18.03.27_veh-14_00620_01581/CAM_R0/5a9213a703105000.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.06469529251181767,
+          6.692135977433618e-05,
+          0.0005287243572360545,
+          0.054022013269604145,
+          0.00011877841972125896,
+          0.5365442663890329,
+          0.02265844674138809,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.3100855944943151,
+          -0.003928258186655765,
+          0.6456606550377397,
+          0.02826292228275509,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.6456606550377397,
+        "past_yaw_rate": -0.001057609471111718,
+        "previous_timestamp_offset_seconds": -0.499924,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "74308c04628b5879",
+      "log_name": "2021.09.16.16.20.27_veh-08_02435_02525",
+      "recording_group": "2021.09.16.16.20.27_veh-08",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.16.20.27_veh-08_02435_02525/unknown/74308c04628b5879/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 0.6262433528900146,
+      "observed_timestamps": [
+        1631811896699710,
+        1631811897199674
+      ],
+      "source_panel_row": 574,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 124,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_F0/45479e6e47a75284.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_B0/e6cc9d2655a5544e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_L0/5ae4cceb9ba951b3.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_R0/6cf401d5ec0c5cfd.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.2167137468895693,
+          -0.006493681034964015,
+          -0.00017665670743960415,
+          0.34088510915825665,
+          0.010079543543417746,
+          0.1954243993038893,
+          0.011278239785336317,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.6262431364573836,
+          0.0005635656895166179,
+          0.8155666750350895,
+          -0.03550252967062651,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.8155666750350895,
+        "past_yaw_rate": 0.0003533388552767882,
+        "previous_timestamp_offset_seconds": -0.499964,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "62c5045db3c159aa",
+      "log_name": "2021.06.28.15.10.57_veh-16_02438_02580",
+      "recording_group": "2021.06.28.15.10.57_veh-16",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.15.10.57_veh-16_02438_02580/unknown/62c5045db3c159aa/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 4.110063552856445,
+      "observed_timestamps": [
+        1624895690300029,
+        1624895690800468
+      ],
+      "source_panel_row": 181,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 44,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_F0/3358e996ec6853ad.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_B0/4fc908cc510358d5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_L0/3af1997181755cbb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.10.57_veh-16_02438_02580/CAM_R0/6a070fd3acec568a.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.813647261000288,
+          0.017611794122099816,
+          -0.020614404601282832,
+          3.2399768461034455,
+          -0.08036319900956068,
+          1.720581279040379,
+          -0.06629270972836537,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.109335331649526,
+          -0.07736729096046727,
+          1.2935417921884829,
+          0.12865918007863833,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 1.2935417921884829,
+        "past_yaw_rate": 0.041192642062834496,
+        "previous_timestamp_offset_seconds": -0.500439,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "13cfa80cabf85b80",
+      "log_name": "2021.06.28.16.57.59_veh-26_00016_00484",
+      "recording_group": "2021.06.28.16.57.59_veh-26",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.16.57.59_veh-26_00016_00484/unknown/13cfa80cabf85b80/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 8.087560653686523,
+      "observed_timestamps": [
+        1624899756497834,
+        1624899756997572
+      ],
+      "source_panel_row": 628,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 332,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.57.59_veh-26_00016_00484/CAM_F0/deffdd275a545cc8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.57.59_veh-26_00016_00484/CAM_B0/1ad3ef495c295bde.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.57.59_veh-26_00016_00484/CAM_L0/52ed62988a625d52.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.57.59_veh-26_00016_00484/CAM_R0/3bb237d5d5a25eac.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.9112096937203638,
+          0.2659036866225916,
+          -0.12650223721178389,
+          7.966015281826514,
+          -0.21254536957014356,
+          0.29483874303772606,
+          1.9955457645436998,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          8.085257033754718,
+          -0.1930048580115314,
+          0.09722654578440398,
+          2.247295894980205,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.09722654578440398,
+        "past_yaw_rate": 0.2531371182735431,
+        "previous_timestamp_offset_seconds": -0.499738,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "d38070017e4e53c3",
+      "log_name": "2021.09.16.14.39.34_veh-42_00032_00186",
+      "recording_group": "2021.09.16.14.39.34_veh-42",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.14.39.34_veh-42_00032_00186/unknown/d38070017e4e53c3/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 8.388851165771484,
+      "observed_timestamps": [
+        1631803324700031,
+        1631803325199727
+      ],
+      "source_panel_row": 404,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 140,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00032_00186/CAM_F0/285d3628358a51a2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00032_00186/CAM_B0/72d45d5d69325d43.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00032_00186/CAM_L0/9facb90640635f33.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00032_00186/CAM_R0/5e810f91aa0d5fde.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -4.047328781236537,
+          0.009921871449942702,
+          -7.089839974594447e-05,
+          8.27648214225469,
+          -0.1036760256846941,
+          0.29772462190179555,
+          -0.0835344494259794,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          8.388333200474092,
+          -0.09318659238241331,
+          0.36719295075713676,
+          0.02986976652361108,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.36719295075713676,
+        "past_yaw_rate": 0.00014188306439504115,
+        "previous_timestamp_offset_seconds": -0.499696,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "46369836a9b654ee",
+      "log_name": "2021.09.16.13.53.10_veh-42_00180_00342",
+      "recording_group": "2021.09.16.13.53.10_veh-42",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.13.53.10_veh-42_00180_00342/unknown/46369836a9b654ee/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 8.851070404052734,
+      "observed_timestamps": [
+        1631800687899219,
+        1631800688399445
+      ],
+      "source_panel_row": 210,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 83,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.13.53.10_veh-42_00180_00342/CAM_F0/cc47c5e2b49d55e4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.13.53.10_veh-42_00180_00342/CAM_B0/8605c6926d2c5771.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.13.53.10_veh-42_00180_00342/CAM_L0/503a93a3a50155b6.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.13.53.10_veh-42_00180_00342/CAM_R0/dc34c12913bf5441.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -4.314105216912428,
+          0.08531542740028472,
+          -0.02441002080805177,
+          8.85147673625343,
+          -0.1204339812302601,
+          -0.2153724291325578,
+          0.4145226338612249,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          8.85024918551065,
+          -0.12059289962769663,
+          0.009681398294768561,
+          0.6370216921253797,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.009681398294768561,
+        "past_yaw_rate": 0.048797984926916574,
+        "previous_timestamp_offset_seconds": -0.500226,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "13c555e68671524f",
+      "log_name": "2021.10.06.08.16.17_veh-52_00181_00574",
+      "recording_group": "2021.10.06.08.16.17_veh-52",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.10.06.08.16.17_veh-52_00181_00574/unknown/13c555e68671524f/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 3.4173734188079834,
+      "observed_timestamps": [
+        1633508472699777,
+        1633508473199515
+      ],
+      "source_panel_row": 409,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 123,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_F0/5ed037fecbc35b18.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_B0/1a5c7045753c5e5b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_L0/8a86145aa7095aa8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_00181_00574/CAM_R0/93a6a1e1e1a75ae5.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.6329787526189439,
+          0.11013895414519635,
+          -0.11495254085794303,
+          3.144812047523384,
+          -0.02452542505729474,
+          0.6083560102108818,
+          0.4414097959475051,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.4168645942756526,
+          -0.05896849720874559,
+          0.4484726059684326,
+          1.218796573485554,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.4484726059684326,
+        "past_yaw_rate": 0.23002561513821848,
+        "previous_timestamp_offset_seconds": -0.499738,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "e61adc75d7da50c3",
+      "log_name": "2021.09.16.15.12.03_veh-42_01037_01434",
+      "recording_group": "2021.09.16.15.12.03_veh-42",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.15.12.03_veh-42_01037_01434/unknown/e61adc75d7da50c3/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 5.2034687995910645,
+      "observed_timestamps": [
+        1631806553000196,
+        1631806553500458
+      ],
+      "source_panel_row": 904,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 554,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.12.03_veh-42_01037_01434/CAM_F0/315b9f0e7fdb5680.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.12.03_veh-42_01037_01434/CAM_B0/ecaae286fbd55446.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.12.03_veh-42_01037_01434/CAM_L0/5c6fc2c484565f3a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.12.03_veh-42_01037_01434/CAM_R0/22c9c0f562df54e1.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.491303249322636,
+          0.2586811344426081,
+          -0.2193355642294643,
+          5.230818020221634,
+          -0.07437427596114216,
+          0.16985214955865466,
+          2.2984142587170586,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          5.203468244993809,
+          0.0027616128198786633,
+          0.361959707015508,
+          1.631402288259443,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.361959707015508,
+        "past_yaw_rate": 0.4384413851730979,
+        "previous_timestamp_offset_seconds": -0.500262,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "f3f9f7a6f8f15f49",
+      "log_name": "2021.06.28.16.29.11_veh-38_03263_03766",
+      "recording_group": "2021.06.28.16.29.11_veh-38",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.16.29.11_veh-38_03263_03766/unknown/f3f9f7a6f8f15f49/metric_cache.pkl",
+      "scene_type": "left_turn",
+      "ego_speed_mps": 3.7595226764678955,
+      "observed_timestamps": [
+        1624901537300009,
+        1624901537800287
+      ],
+      "source_panel_row": 869,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 652,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_F0/b7f1990cf7615a83.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_B0/ea7c55da666a5d8e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_L0/8531bee9f28357c5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_R0/24e5d7f8b63e5af1.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.844560156814709,
+          0.04726806198067381,
+          -0.04523017123374595,
+          3.866191860856323,
+          -0.07032965439351489,
+          -0.13594841716491357,
+          0.47193705206280384,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.7587896281377655,
+          -0.07423573036229944,
+          -0.12665072841569253,
+          0.2015553200947729,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.12665072841569253,
+        "past_yaw_rate": 0.09041007446608876,
+        "previous_timestamp_offset_seconds": -0.500278,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "4e19d097005e55b5",
+      "log_name": "2021.10.06.08.16.17_veh-52_01949_02501",
+      "recording_group": "2021.10.06.08.16.17_veh-52",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.10.06.08.16.17_veh-52_01949_02501/unknown/4e19d097005e55b5/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.0006422004080377519,
+      "observed_timestamps": [
+        1633510236700249,
+        1633510237200406
+      ],
+      "source_panel_row": 717,
+      "split": "navtest",
+      "command_index": 0,
+      "command_name": "left_turn",
+      "current_frame_index": 115,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_F0/ba0a3439e42659c9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_B0/89bcfd80cb7a5151.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_L0/2b64aebd11db5a5d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_R0/d2b64b7d1ef45269.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          1.4935626624286016e-05,
+          3.2381530111630686e-05,
+          2.102090641242782e-05,
+          4.814597456477443e-06,
+          -0.0004765133420447158,
+          -0.0011497882515332876,
+          -0.002641556127937427,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -0.00028367609451447585,
+          -0.0005761503459782195,
+          -0.013413967166820518,
+          -0.027626737856278432,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.013413967166820518,
+        "past_yaw_rate": -4.202861583948205e-05,
+        "previous_timestamp_offset_seconds": -0.500157,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "be87511d69ba58e7",
+      "log_name": "2021.05.25.14.26.37_veh-27_04122_04279",
+      "recording_group": "2021.05.25.14.26.37_veh-27",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.14.26.37_veh-27_04122_04279/unknown/be87511d69ba58e7/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 6.233561992645264,
+      "observed_timestamps": [
+        1621971566899719,
+        1621971567399616
+      ],
+      "source_panel_row": 21,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 260,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.26.37_veh-27_04122_04279/CAM_F0/4f1d8527bec65a3e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.26.37_veh-27_04122_04279/CAM_B0/8471768bfab35a4b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.26.37_veh-27_04122_04279/CAM_L0/164da4d6541d50ea.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.26.37_veh-27_04122_04279/CAM_R0/fd3427718d0351a9.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.170705317243611,
+          0.005521307699013537,
+          0.0004217288432528665,
+          6.796170551027776,
+          -0.17088820791988196,
+          -1.2172844281301893,
+          0.14729505146089888,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.232153934078448,
+          -0.13249819153932016,
+          -0.8343197354163053,
+          -0.02631154001057023,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.8343197354163053,
+        "past_yaw_rate": -0.0008436314745894985,
+        "previous_timestamp_offset_seconds": -0.499897,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "d8952813d8de574d",
+      "log_name": "2021.09.09.14.18.22_veh-48_00322_00895",
+      "recording_group": "2021.09.09.14.18.22_veh-48",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.09.14.18.22_veh-48_00322_00895/unknown/d8952813d8de574d/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 8.000757217407227,
+      "observed_timestamps": [
+        1631197654999636,
+        1631197655499599
+      ],
+      "source_panel_row": 592,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 62,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.14.18.22_veh-48_00322_00895/CAM_F0/a43605808a115383.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.14.18.22_veh-48_00322_00895/CAM_B0/ea37dd1356e55935.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.14.18.22_veh-48_00322_00895/CAM_L0/0e6dc23ae7675a93.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.14.18.22_veh-48_00322_00895/CAM_R0/ecf4b552814f5c0f.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.959484866357673,
+          0.027694575094770198,
+          -0.00256367676275282,
+          8.348005852280169,
+          0.1825593439952708,
+          -0.4747540572762977,
+          -0.02377312106005257,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          7.998810595802806,
+          0.1765062093263014,
+          -0.856365542573886,
+          0.1578177503049628,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.856365542573886,
+        "past_yaw_rate": 0.005127732977745994,
+        "previous_timestamp_offset_seconds": -0.499963,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "4501554f824e59fc",
+      "log_name": "2021.09.16.17.40.09_veh-45_02539_02745",
+      "recording_group": "2021.09.16.17.40.09_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.17.40.09_veh-45_02539_02745/unknown/4501554f824e59fc/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 4.865590572357178,
+      "observed_timestamps": [
+        1631816799899929,
+        1631816800399926
+      ],
+      "source_panel_row": 512,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 346,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_F0/3cb59f609cb65aaf.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_B0/4d59ecb312dc5c91.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_L0/113daa56653c54d6.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_R0/997e73fa939f5cff.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.351385694841263,
+          0.045572946712029605,
+          -0.10513436340398961,
+          4.916327805482485,
+          0.19960050620702555,
+          0.05813714085905472,
+          1.7192429615812974,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.86349958029708,
+          0.14262611963846103,
+          -0.054014233044619546,
+          1.2580921550355988,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.054014233044619546,
+        "past_yaw_rate": 0.21026998842790978,
+        "previous_timestamp_offset_seconds": -0.499997,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "510e507046865b40",
+      "log_name": "2021.05.25.14.24.08_veh-25_03764_04034",
+      "recording_group": "2021.05.25.14.24.08_veh-25",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.14.24.08_veh-25_03764_04034/unknown/510e507046865b40/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 3.562844753265381,
+      "observed_timestamps": [
+        1621971086000015,
+        1621971086500057
+      ],
+      "source_panel_row": 411,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 425,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.24.08_veh-25_03764_04034/CAM_F0/885aa52501265111.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.24.08_veh-25_03764_04034/CAM_B0/ef9f520105865138.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.24.08_veh-25_03764_04034/CAM_L0/ca7a0d35f7f35358.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.14.24.08_veh-25_03764_04034/CAM_R0/1e21c37df2205637.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.8446950700594371,
+          -0.016176174828787814,
+          0.00027983674940035286,
+          4.120948809727845,
+          -0.08528552784163392,
+          -1.0741932724656953,
+          0.12281535345914493,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.562547539255259,
+          -0.04602910901059454,
+          -1.0688536446484482,
+          0.03328870504696009,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -1.0688536446484482,
+        "past_yaw_rate": -0.0005596264901755309,
+        "previous_timestamp_offset_seconds": -0.500042,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "60ae22c26d59572e",
+      "log_name": "2021.05.25.16.37.23_veh-25_03311_03550",
+      "recording_group": "2021.05.25.16.37.23_veh-25",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.16.37.23_veh-25_03311_03550/unknown/60ae22c26d59572e/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 1.09176504611969,
+      "observed_timestamps": [
+        1621978494100114,
+        1621978494600116
+      ],
+      "source_panel_row": 535,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 157,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_F0/fd7fb09b9c8751a7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_B0/c0aeb60b22a251c1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_L0/1ef91bddb94c5e85.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_R0/4e95afcd01cd5aae.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.5225027551843164,
+          -0.007948589934094348,
+          3.6192157805148284e-05,
+          0.9508614336974174,
+          -0.03171631725047155,
+          0.245363881811457,
+          -0.0015399167223772527,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0916752187181158,
+          -0.014009319896496583,
+          0.42127559070949394,
+          -0.0513527789191439,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.42127559070949394,
+        "past_yaw_rate": -7.238402607419227e-05,
+        "previous_timestamp_offset_seconds": -0.500002,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "9ac3f47635bd5fe1",
+      "log_name": "2021.05.25.17.54.41_veh-35_02723_02902",
+      "recording_group": "2021.05.25.17.54.41_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.17.54.41_veh-35_02723_02902/unknown/9ac3f47635bd5fe1/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 8.789759635925293,
+      "observed_timestamps": [
+        1621982541900820,
+        1621982542400518
+      ],
+      "source_panel_row": 226,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 153,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_02723_02902/CAM_F0/c08c397843c158b4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_02723_02902/CAM_B0/e9bb0123af7b573f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_02723_02902/CAM_L0/9973f8d42ff15a82.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_02723_02902/CAM_R0/e1254e3a8cae58f1.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -4.482650174371607,
+          0.006150278448954795,
+          -0.002810151455641119,
+          9.493445780080517,
+          -0.1821612749010414,
+          -1.3352154968746122,
+          0.10128741516141879,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          8.788115740851493,
+          -0.17000716894371937,
+          -1.3250645798239586,
+          -0.07056037432811826,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -1.3250645798239586,
+        "past_yaw_rate": 0.005623699625856255,
+        "previous_timestamp_offset_seconds": -0.499698,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "96d9a24139ca5ad4",
+      "log_name": "2021.09.16.19.49.00_veh-42_00990_01609",
+      "recording_group": "2021.09.16.19.49.00_veh-42",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.19.49.00_veh-42_00990_01609/unknown/96d9a24139ca5ad4/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 8.081738471984863,
+      "observed_timestamps": [
+        1631823374999874,
+        1631823375499871
+      ],
+      "source_panel_row": 110,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 1025,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_F0/dac1f805af35566f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_B0/440193fd9bb854a9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_L0/4cd77796f4f85de7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_R0/70c6d072e7885f8b.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.927876739586399,
+          0.005905672163200221,
+          -0.0010384435536190395,
+          8.241955976035007,
+          -0.0935804240097269,
+          -0.24839795467925463,
+          -0.03974746708049833,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          8.08117554985816,
+          -0.09535701765527989,
+          -0.31603461236151587,
+          0.21865209233314034,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.31603461236151587,
+        "past_yaw_rate": 0.002076899568635491,
+        "previous_timestamp_offset_seconds": -0.499997,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "2ee8d10b988c58b2",
+      "log_name": "2021.05.25.16.37.23_veh-25_03311_03550",
+      "recording_group": "2021.05.25.16.37.23_veh-25",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.16.37.23_veh-25_03311_03550/unknown/2ee8d10b988c58b2/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.6205866932868958,
+      "observed_timestamps": [
+        1621978492600070,
+        1621978493100042
+      ],
+      "source_panel_row": 711,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 154,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_F0/2a89e436b49e5a33.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_B0/10d3bdb9330a5cd3.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_L0/8212d11672085e50.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.16.37.23_veh-25_03311_03550/CAM_R0/867685042bfa5e95.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.277075980906073,
+          0.0004901943376776089,
+          -0.00030906346954573394,
+          0.4857468999423399,
+          -0.0041493949307031845,
+          0.22402518754221415,
+          -0.05605762022664625,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.6203761771428413,
+          -0.016163215320999354,
+          0.28175598030349935,
+          0.029285489735262585,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.28175598030349935,
+        "past_yaw_rate": 0.0006181615561386116,
+        "previous_timestamp_offset_seconds": -0.499972,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "353988b87d995f68",
+      "log_name": "2021.09.16.14.39.34_veh-42_00297_00935",
+      "recording_group": "2021.09.16.14.39.34_veh-42",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.14.39.34_veh-42_00297_00935/unknown/353988b87d995f68/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 6.634547710418701,
+      "observed_timestamps": [
+        1631803749699768,
+        1631803750199865
+      ],
+      "source_panel_row": 884,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 460,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00297_00935/CAM_F0/f78d567107e35fdb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00297_00935/CAM_B0/dd59678f71c453f7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00297_00935/CAM_L0/15c5582f0c935059.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.14.39.34_veh-42_00297_00935/CAM_R0/977bca85a64b50a8.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.2050655110477955,
+          0.020347544053014994,
+          -0.0056663256397038175,
+          6.524967569281477,
+          -0.034561481868965495,
+          -0.23216475860926278,
+          0.2011578057932595,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.633961522371874,
+          -0.08817520555527537,
+          0.3261486350944331,
+          0.13397662806362937,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.3261486350944331,
+        "past_yaw_rate": 0.011330453171492364,
+        "previous_timestamp_offset_seconds": -0.500097,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "8b8466eb334f5957",
+      "log_name": "2021.06.28.21.47.53_veh-35_00280_00424",
+      "recording_group": "2021.06.28.21.47.53_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.21.47.53_veh-35_00280_00424/unknown/8b8466eb334f5957/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 11.431312561035156,
+      "observed_timestamps": [
+        1624917342201048,
+        1624917342700752
+      ],
+      "source_panel_row": 701,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 229,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_F0/008174cabcec52ec.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_B0/2ef1f426548c5fcc.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_L0/3c1c55beea975f34.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_R0/4097b19e47f957e1.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -5.564711273856583,
+          -0.013981114689127582,
+          -0.0047984477378535395,
+          11.604926812494988,
+          -0.1828248341268681,
+          -0.4671464730829264,
+          0.18381866015920537,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          11.42998233278675,
+          -0.17438481745533804,
+          -0.01432651325296926,
+          0.15228250757787948,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.01432651325296926,
+        "past_yaw_rate": 0.009602580203187366,
+        "previous_timestamp_offset_seconds": -0.499704,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "e38dd745e363544c",
+      "log_name": "2021.06.28.13.53.26_veh-26_00492_00696",
+      "recording_group": "2021.06.28.13.53.26_veh-26",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.13.53.26_veh-26_00492_00696/unknown/e38dd745e363544c/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 7.245865821838379,
+      "observed_timestamps": [
+        1624889175201475,
+        1624889175701411
+      ],
+      "source_panel_row": 559,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 334,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_F0/288eddadd8f355a8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_B0/3fbeb1d24ad951d4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_L0/c72784383ba1549e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_R0/0785b35d5e775903.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.553853489529889,
+          -0.0010217155394157838,
+          0.0023242985031431407,
+          7.600133415584714,
+          -0.1513154291685135,
+          -0.9816789036274528,
+          -0.18748459853207533,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          7.24404851966468,
+          -0.16228966058568017,
+          -0.49956734187178514,
+          -0.2044686468622562,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.49956734187178514,
+        "past_yaw_rate": -0.004649192102875449,
+        "previous_timestamp_offset_seconds": -0.499936,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "116aacf9868e5e4e",
+      "log_name": "2021.09.16.19.12.04_veh-42_00289_00398",
+      "recording_group": "2021.09.16.19.12.04_veh-42",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.19.12.04_veh-42_00289_00398/unknown/116aacf9868e5e4e/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 9.440629005432129,
+      "observed_timestamps": [
+        1631820163000361,
+        1631820163500562
+      ],
+      "source_panel_row": 476,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 40,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.12.04_veh-42_00289_00398/CAM_F0/fcdb63d80f975887.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.12.04_veh-42_00289_00398/CAM_B0/e0d8f61a3bad54e8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.12.04_veh-42_00289_00398/CAM_L0/04db58250d1e5930.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.12.04_veh-42_00289_00398/CAM_R0/16921ba09160589f.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -4.550294682047844,
+          0.08432904338727101,
+          -0.024856241895935716,
+          9.30898265083704,
+          -0.10837839459356881,
+          0.16812984663989505,
+          0.3879118039375282,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          9.439734743187943,
+          -0.12994784982848245,
+          0.2179386031319098,
+          0.45754510050917846,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.2179386031319098,
+        "past_yaw_rate": 0.04969250740389507,
+        "previous_timestamp_offset_seconds": -0.500201,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "97bbc33ac7d4586d",
+      "log_name": "2021.06.03.17.06.58_veh-35_03860_03992",
+      "recording_group": "2021.06.03.17.06.58_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.03.17.06.58_veh-35_03860_03992/unknown/97bbc33ac7d4586d/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 9.815791130065918,
+      "observed_timestamps": [
+        1622758462301578,
+        1622758462801835
+      ],
+      "source_panel_row": 836,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 228,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_03860_03992/CAM_F0/c1ec1535aa415635.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_03860_03992/CAM_B0/2c5220f914b458f4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_03860_03992/CAM_L0/aae9c70576fa5588.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_03860_03992/CAM_R0/ea90b8015c535e67.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -4.923170513383261,
+          0.03378307821253587,
+          -0.015567765701141267,
+          10.21538804088218,
+          -0.21112407015774753,
+          -0.8850346516702433,
+          -0.15358110755085053,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          9.814162074126545,
+          -0.17879934715228904,
+          -0.7261040494885554,
+          0.4845488258210112,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.7261040494885554,
+        "past_yaw_rate": 0.031119535960798687,
+        "previous_timestamp_offset_seconds": -0.500257,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "812a8e70ad07507d",
+      "log_name": "2021.06.28.21.47.53_veh-35_00280_00424",
+      "recording_group": "2021.06.28.21.47.53_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.21.47.53_veh-35_00280_00424/unknown/812a8e70ad07507d/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.033390726894140244,
+      "observed_timestamps": [
+        1624917289199775,
+        1624917289699984
+      ],
+      "source_panel_row": 744,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 123,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_F0/b6a4a18691005124.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_B0/c30c4891349559b2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_L0/85121597963854e9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.47.53_veh-35_00280_00424/CAM_R0/7d464fec1e235d0e.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.006502625948467108,
+          5.371662816781004e-05,
+          -0.0002754000482649843,
+          0.024097298625944584,
+          -0.0007901144793253981,
+          0.16001291633122872,
+          -0.008934427472941896,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.03330568089988413,
+          -0.0023816073857582066,
+          0.35547768803237345,
+          0.0027119379408819884,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.35547768803237345,
+        "past_yaw_rate": 0.0005505699582874045,
+        "previous_timestamp_offset_seconds": -0.500209,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "8611c130815150a7",
+      "log_name": "2021.05.25.17.54.41_veh-35_01905_02121",
+      "recording_group": "2021.05.25.17.54.41_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.17.54.41_veh-35_01905_02121/unknown/8611c130815150a7/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.7874047160148621,
+      "observed_timestamps": [
+        1621981732900260,
+        1621981733400196
+      ],
+      "source_panel_row": 402,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 171,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_F0/caf7083ee36d5aa9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_B0/872e2420e895555d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_L0/f3daa84742735ece.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_R0/febb34310cb359cc.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.3679316038147907,
+          0.01154125436249294,
+          0.001702707095050826,
+          0.686448235427391,
+          -0.02312890351174676,
+          0.24273471189201912,
+          -0.008512911342144994,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.7869650665586396,
+          -0.02630788556577664,
+          0.26712651607530913,
+          -0.02742913047110713,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.26712651607530913,
+        "past_yaw_rate": -0.003405850138919434,
+        "previous_timestamp_offset_seconds": -0.499936,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "3cdaaa2bcfd55b68",
+      "log_name": "2021.09.29.15.23.04_veh-28_00814_01101",
+      "recording_group": "2021.09.29.15.23.04_veh-28",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.29.15.23.04_veh-28_00814_01101/unknown/3cdaaa2bcfd55b68/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 2.7565789222717285,
+      "observed_timestamps": [
+        1632930132799811,
+        1632930133299795
+      ],
+      "source_panel_row": 331,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 331,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.15.23.04_veh-28_00814_01101/CAM_F0/553f61e1b31c5a78.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.15.23.04_veh-28_00814_01101/CAM_B0/c722f1ae9dbc5047.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.15.23.04_veh-28_00814_01101/CAM_L0/80343fa8359959f5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.15.23.04_veh-28_00814_01101/CAM_R0/b60bfe5ea37952d2.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.4350661027118898,
+          0.008051946843959941,
+          0.003462575595496231,
+          3.2332322194695466,
+          0.05685488691761892,
+          -0.9617980025407442,
+          -0.12913803783936473,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          2.756340458207898,
+          0.03625075260533364,
+          -0.962409408084907,
+          -0.04741641386486402,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.962409408084907,
+        "past_yaw_rate": -0.006925372802922156,
+        "previous_timestamp_offset_seconds": -0.499984,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "16df188810315dc7",
+      "log_name": "2021.10.06.07.26.10_veh-52_00006_00398",
+      "recording_group": "2021.10.06.07.26.10_veh-52",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.10.06.07.26.10_veh-52_00006_00398/unknown/16df188810315dc7/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 4.982065677642822,
+      "observed_timestamps": [
+        1633505495200630,
+        1633505495700435
+      ],
+      "source_panel_row": 18,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 532,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00006_00398/CAM_F0/53530e2e17d359ed.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00006_00398/CAM_B0/f7b74ac0148a5733.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00006_00398/CAM_L0/9d4a41c367405493.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_00006_00398/CAM_R0/40005df0497f52b0.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.369036705973431,
+          -0.018791658445840423,
+          0.012332758453015735,
+          4.953316622386431,
+          -0.008034868596444077,
+          0.10146725678932636,
+          -0.3529989067022291,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.982063240143301,
+          -0.004805393885249243,
+          0.14529007072103248,
+          -0.05140418458707515,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.14529007072103248,
+        "past_yaw_rate": -0.02467514021071365,
+        "previous_timestamp_offset_seconds": -0.499805,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "d99103d5b5025654",
+      "log_name": "2021.06.03.13.55.17_veh-35_02866_03582",
+      "recording_group": "2021.06.03.13.55.17_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.03.13.55.17_veh-35_02866_03582/unknown/d99103d5b5025654/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.5654062032699585,
+      "observed_timestamps": [
+        1622746495100576,
+        1622746495600732
+      ],
+      "source_panel_row": 784,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 1260,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.13.55.17_veh-35_02866_03582/CAM_F0/7149b901de7a5771.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.13.55.17_veh-35_02866_03582/CAM_B0/1fce06a410d450d8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.13.55.17_veh-35_02866_03582/CAM_L0/d9a5e62a810a5d4f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.13.55.17_veh-35_02866_03582/CAM_R0/3445cf886e3d5451.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.2484279597894014,
+          0.018436213658704813,
+          0.0008004662628668946,
+          0.2545130143226433,
+          -0.012096840448324292,
+          0.3160453550341972,
+          -0.03460758301945457,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.5642682610011903,
+          -0.03585447076594551,
+          0.36546645071611567,
+          -0.03610426779784268,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.36546645071611567,
+        "past_yaw_rate": -0.0016004331905783286,
+        "previous_timestamp_offset_seconds": -0.500156,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "95165bfbaadf5a64",
+      "log_name": "2021.05.25.18.38.25_veh-25_04058_04186",
+      "recording_group": "2021.05.25.18.38.25_veh-25",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.18.38.25_veh-25_04058_04186/unknown/95165bfbaadf5a64/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.3914679288864136,
+      "observed_timestamps": [
+        1621986542400103,
+        1621986542900150
+      ],
+      "source_panel_row": 76,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 236,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.18.38.25_veh-25_04058_04186/CAM_F0/28d482d949285bed.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.18.38.25_veh-25_04058_04186/CAM_B0/d88c2ae80463588a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.18.38.25_veh-25_04058_04186/CAM_L0/7446dcb2f9425656.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.18.38.25_veh-25_04058_04186/CAM_R0/d1cf78bdee8e54ef.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.13345049975011652,
+          0.0033113814897123587,
+          -0.0005245344804166163,
+          0.08975009227718986,
+          -0.002527569451643294,
+          0.32041657684032593,
+          -0.004165425242653037,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.39126673972373216,
+          -0.012548996492394871,
+          0.49271509237787486,
+          -0.03437459842531038,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.49271509237787486,
+        "past_yaw_rate": 0.0010489703576196164,
+        "previous_timestamp_offset_seconds": -0.500047,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "62d339c4086d51ba",
+      "log_name": "2021.06.28.15.02.02_veh-38_02398_02848",
+      "recording_group": "2021.06.28.15.02.02_veh-38",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.15.02.02_veh-38_02398_02848/unknown/62d339c4086d51ba/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 4.860177516937256,
+      "observed_timestamps": [
+        1624895078500200,
+        1624895078999940
+      ],
+      "source_panel_row": 1020,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 70,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_F0/3d90d1e46e7d50bd.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_B0/e58eb7311fb25e86.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_L0/6a73d37d7a34597f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_R0/0688aab63fdb5d65.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.426725740008311,
+          -0.006747935599003847,
+          -0.0025439083628939763,
+          5.179855113756041,
+          -0.11268767999689441,
+          -0.6111847893296191,
+          -0.01201391944612231,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.859416121525727,
+          -0.08602463732046485,
+          -0.6743301672765976,
+          0.14891800942619862,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.6743301672765976,
+        "past_yaw_rate": 0.005090463766946765,
+        "previous_timestamp_offset_seconds": -0.49974,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "3e11d77a9aca5bb7",
+      "log_name": "2021.09.09.17.18.51_veh-48_00889_01147",
+      "recording_group": "2021.09.09.17.18.51_veh-48",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.09.17.18.51_veh-48_00889_01147/unknown/3e11d77a9aca5bb7/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 6.781896114349365,
+      "observed_timestamps": [
+        1631209029000096,
+        1631209029500159
+      ],
+      "source_panel_row": 290,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 123,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.17.18.51_veh-48_00889_01147/CAM_F0/b2f7277c98c75e84.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.17.18.51_veh-48_00889_01147/CAM_B0/2e1a0881cf2c5e3b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.17.18.51_veh-48_00889_01147/CAM_L0/cd7df91902015279.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.17.18.51_veh-48_00889_01147/CAM_R0/f251dec36dd35341.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.315951835952989,
+          -0.037714321365008005,
+          0.002247595241850475,
+          6.747616697320662,
+          0.20949938757215314,
+          0.5727481361885027,
+          -0.005064706921959154,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.7783425832621695,
+          0.2195152477877516,
+          -0.10220419521172996,
+          -0.01931762524743459,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.10220419521172996,
+        "past_yaw_rate": -0.004494624161056657,
+        "previous_timestamp_offset_seconds": -0.500063,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "04aa69f18d255c96",
+      "log_name": "2021.06.28.16.29.11_veh-38_00022_00368",
+      "recording_group": "2021.06.28.16.29.11_veh-38",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.16.29.11_veh-38_00022_00368/unknown/04aa69f18d255c96/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.030406080186367035,
+      "observed_timestamps": [
+        1624898164300416,
+        1624898164800180
+      ],
+      "source_panel_row": 653,
+      "split": "navtest",
+      "command_index": 1,
+      "command_name": "straight",
+      "current_frame_index": 388,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_00022_00368/CAM_F0/dd072b238e0f5402.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_00022_00368/CAM_B0/134adeb92340541c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_00022_00368/CAM_L0/1bbcef39de6b5156.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_00022_00368/CAM_R0/9b1bb8839f7158a3.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.0020747126476892497,
+          9.58538299186545e-06,
+          2.84425173839864e-05,
+          -0.001468009596965842,
+          -0.002626422461580765,
+          -0.0175830865547986,
+          -0.051830206195848515,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.03021753308893482,
+          -0.00338088051396032,
+          0.3089133704467802,
+          -0.039703158799395705,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.3089133704467802,
+        "past_yaw_rate": -5.691189718344339e-05,
+        "previous_timestamp_offset_seconds": -0.499764,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "a631fec170525388",
+      "log_name": "2021.08.30.16.16.44_veh-40_00256_00716",
+      "recording_group": "2021.08.30.16.16.44_veh-40",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.08.30.16.16.44_veh-40_00256_00716/unknown/a631fec170525388/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 3.553030490875244,
+      "observed_timestamps": [
+        1630340856000050,
+        1630340856500190
+      ],
+      "source_panel_row": 219,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 691,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.30.16.16.44_veh-40_00256_00716/CAM_F0/7105f1466a095680.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.30.16.16.44_veh-40_00256_00716/CAM_B0/2da5b30a8fce5032.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.30.16.16.44_veh-40_00256_00716/CAM_L0/135365f6fd5b5ce7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.30.16.16.44_veh-40_00256_00716/CAM_R0/8228cb55aaf95d22.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.585538339382712,
+          0.00703175366828473,
+          0.005042998459391157,
+          2.868771960524692,
+          0.09810438319838112,
+          1.4716740953261955,
+          0.48452131311125185,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.5524845772470806,
+          0.06228386103752467,
+          1.3154175857703696,
+          -0.2914310587671228,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 1.3154175857703696,
+        "past_yaw_rate": -0.010083173630165866,
+        "previous_timestamp_offset_seconds": -0.50014,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "c7b679fb61655f22",
+      "log_name": "2021.09.29.14.44.26_veh-28_00528_00992",
+      "recording_group": "2021.09.29.14.44.26_veh-28",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.29.14.44.26_veh-28_00528_00992/unknown/c7b679fb61655f22/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.8508815765380859,
+      "observed_timestamps": [
+        1632927431299838,
+        1632927431799661
+      ],
+      "source_panel_row": 165,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 374,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_F0/179872a218765e16.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_B0/51e0af6ed65d5486.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_L0/fe30d50ca1385c11.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.14.44.26_veh-28_00528_00992/CAM_R0/0b76cfc321ea50c4.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.31285439254274117,
+          0.012996202365608188,
+          0.0003168783942458786,
+          0.3119058516807246,
+          0.004533746021529754,
+          0.8224321641758133,
+          -0.003282439974589019,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.8508637707325157,
+          -0.005511159816940685,
+          0.9210967586350675,
+          -0.01920402951549495,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.9210967586350675,
+        "past_yaw_rate": -0.0006339812178428736,
+        "previous_timestamp_offset_seconds": -0.499823,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "77ee60147e0e55b7",
+      "log_name": "2021.06.28.15.02.02_veh-38_02398_02848",
+      "recording_group": "2021.06.28.15.02.02_veh-38",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.15.02.02_veh-38_02398_02848/unknown/77ee60147e0e55b7/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 7.419190883636475,
+      "observed_timestamps": [
+        1624895253999326,
+        1624895254499307
+      ],
+      "source_panel_row": 676,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 421,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_F0/d844a89345335679.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_B0/1cabecd9ab1552a3.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_L0/1ad8466101f2584f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.15.02.02_veh-38_02398_02848/CAM_R0/bdc8cb94adbc5adc.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.64241194789488,
+          -0.01933070107545406,
+          -0.0011083598770365022,
+          7.767574682900296,
+          -0.13266272741653484,
+          -0.9953072920927649,
+          0.23533346920768664,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          7.4184849843706475,
+          -0.10234773165777956,
+          -0.39378429571212764,
+          -0.09614409130155312,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.39378429571212764,
+        "past_yaw_rate": 0.002216803992624724,
+        "previous_timestamp_offset_seconds": -0.499981,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "74da64c81fe1552e",
+      "log_name": "2021.06.28.21.16.05_veh-14_00957_01198",
+      "recording_group": "2021.06.28.21.16.05_veh-14",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.21.16.05_veh-14_00957_01198/unknown/74da64c81fe1552e/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.037402328103780746,
+      "observed_timestamps": [
+        1624916194000362,
+        1624916194500453
+      ],
+      "source_panel_row": 288,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 112,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.16.05_veh-14_00957_01198/CAM_F0/3deaea4304da57a7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.16.05_veh-14_00957_01198/CAM_B0/4553e75c412d5481.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.16.05_veh-14_00957_01198/CAM_L0/9ab356dc74e25aa4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.21.16.05_veh-14_00957_01198/CAM_R0/464018735a0e567f.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.004523251092169831,
+          0.00014215326284005867,
+          -3.841919483016376e-05,
+          0.010199880759161999,
+          0.0016279681585264411,
+          0.05677859283202656,
+          0.021265094743296426,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.037400172979495924,
+          0.00040152545056939247,
+          0.27749671446140955,
+          -0.00774979199258361,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.27749671446140955,
+        "past_yaw_rate": 7.682440761814103e-05,
+        "previous_timestamp_offset_seconds": -0.500091,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "99b52fa162c550d4",
+      "log_name": "2021.08.16.14.23.37_veh-45_00015_00132",
+      "recording_group": "2021.08.16.14.23.37_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.08.16.14.23.37_veh-45_00015_00132/unknown/99b52fa162c550d4/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 4.4967827796936035,
+      "observed_timestamps": [
+        1629123997499599,
+        1629123998000002
+      ],
+      "source_panel_row": 687,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 28,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.16.14.23.37_veh-45_00015_00132/CAM_F0/1e3a10ac5d515bbb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.16.14.23.37_veh-45_00015_00132/CAM_B0/3db015fa35515e00.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.16.14.23.37_veh-45_00015_00132/CAM_L0/4ce379c764e159a1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.08.16.14.23.37_veh-45_00015_00132/CAM_R0/11d63d627d075edc.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.1720789755596153,
+          -0.15507084345113392,
+          0.07730317537325337,
+          4.445070121375344,
+          0.03797406210306171,
+          0.12850331971502366,
+          -0.597632570209774,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.496698719223717,
+          0.027438639937440182,
+          0.11572469681760059,
+          -0.5024719209510098,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.11572469681760059,
+        "past_yaw_rate": -0.15448183838476862,
+        "previous_timestamp_offset_seconds": -0.500403,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "5982df20d90a59cc",
+      "log_name": "2021.06.28.13.53.26_veh-26_00492_00696",
+      "recording_group": "2021.06.28.13.53.26_veh-26",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.13.53.26_veh-26_00492_00696/unknown/5982df20d90a59cc/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 7.02456521987915,
+      "observed_timestamps": [
+        1624889108697599,
+        1624889109197972
+      ],
+      "source_panel_row": 383,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 201,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_F0/75c73b88628c52b5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_B0/7dee6d326cea5351.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_L0/a5ed287232095e34.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_R0/2d716c5333d8500c.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.4669338919042323,
+          -0.04784786669599857,
+          0.01924609078588757,
+          7.3051739570767475,
+          -0.09689618087945052,
+          -0.6562474858423101,
+          -0.5733000418741293,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          7.023898083345616,
+          -0.09681223189163894,
+          -0.588842063405971,
+          0.010550181614081831,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.588842063405971,
+        "past_yaw_rate": -0.03846348780986898,
+        "previous_timestamp_offset_seconds": -0.500373,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "e99744bcd703522c",
+      "log_name": "2021.09.29.18.19.40_veh-28_01268_01685",
+      "recording_group": "2021.09.29.18.19.40_veh-28",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.29.18.19.40_veh-28_01268_01685/unknown/e99744bcd703522c/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 0.03137842193245888,
+      "observed_timestamps": [
+        1632940938599683,
+        1632940939099550
+      ],
+      "source_panel_row": 614,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 80,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.18.19.40_veh-28_01268_01685/CAM_F0/6edba2f4bce858c5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.18.19.40_veh-28_01268_01685/CAM_B0/8ce5bb31ef875722.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.18.19.40_veh-28_01268_01685/CAM_L0/9267f071959f5377.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.18.19.40_veh-28_01268_01685/CAM_R0/5fc89fcea10d53fc.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          0.019022133753983133,
+          0.007221167234696,
+          6.695793471234168e-05,
+          -0.015055358932836257,
+          -0.0033907348012722134,
+          -0.10194898395453297,
+          0.054298120162632434,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.03137410029278365,
+          0.0005208085156621691,
+          0.27127189071862967,
+          -0.013640052062984576,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.27127189071862967,
+        "past_yaw_rate": -0.0001339515005238227,
+        "previous_timestamp_offset_seconds": -0.499867,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "458e833803315b4f",
+      "log_name": "2021.09.16.19.49.00_veh-42_00990_01609",
+      "recording_group": "2021.09.16.19.49.00_veh-42",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.19.49.00_veh-42_00990_01609/unknown/458e833803315b4f/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 0.019682276993989944,
+      "observed_timestamps": [
+        1631822943499741,
+        1631822943999883
+      ],
+      "source_panel_row": 811,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 162,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_F0/bb2bf56baef25f98.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_B0/ca038d043a025a44.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_L0/d175673161735cae.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.19.49.00_veh-42_00990_01609/CAM_R0/20c369e596985e2f.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          0.022628971193212048,
+          -0.004322615004448501,
+          -3.0175387455422257e-05,
+          -0.01601766201275858,
+          0.0028462149389868333,
+          0.03523999288756279,
+          0.00508139240893361,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.019680669049480206,
+          -0.00025156148179373,
+          0.1974422295396886,
+          -0.011269214609652215,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.1974422295396886,
+        "past_yaw_rate": 6.033364015703992e-05,
+        "previous_timestamp_offset_seconds": -0.500142,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "4f08dd3299925309",
+      "log_name": "2021.10.06.07.26.10_veh-52_01245_02064",
+      "recording_group": "2021.10.06.07.26.10_veh-52",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.10.06.07.26.10_veh-52_01245_02064/unknown/4f08dd3299925309/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 7.3694281578063965,
+      "observed_timestamps": [
+        1633507259699642,
+        1633507260200052
+      ],
+      "source_panel_row": 502,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 1583,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_01245_02064/CAM_F0/55eac4b16cb7550d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_01245_02064/CAM_B0/6b6e7aeed4db58f4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_01245_02064/CAM_L0/330bb008481d5543.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.07.26.10_veh-52_01245_02064/CAM_R0/18c6c8ccedfc5e35.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.5609151242036874,
+          -0.04054763239078865,
+          0.0316723053676995,
+          7.294248782443492,
+          -0.020682457125498408,
+          0.1648240387287527,
+          -0.545641553392923,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          7.369399332453909,
+          -0.020473573973146843,
+          0.00281473349687436,
+          -0.2728780470346566,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.00281473349687436,
+        "past_yaw_rate": -0.06329271071261465,
+        "previous_timestamp_offset_seconds": -0.50041,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "fb73ca8c7d5f5d34",
+      "log_name": "2021.09.16.16.20.27_veh-08_02435_02525",
+      "recording_group": "2021.09.16.16.20.27_veh-08",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.16.20.27_veh-08_02435_02525/unknown/fb73ca8c7d5f5d34/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 4.8298845291137695,
+      "observed_timestamps": [
+        1631811876199647,
+        1631811876699606
+      ],
+      "source_panel_row": 222,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 83,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_F0/3c30025d9bea588e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_B0/49f529b39fae5086.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_L0/e455f0b4ac5655b7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.16.20.27_veh-08_02435_02525/CAM_R0/dd832ab0411751b6.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.253285125176435,
+          -0.03197924278213272,
+          0.023929791626379426,
+          4.045229378067675,
+          -0.03589699785314944,
+          2.025566214539284,
+          -0.30952998152155026,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.829718163218774,
+          -0.04009545218984993,
+          1.0447703647787185,
+          -0.26835065634855915,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 1.0447703647787185,
+        "past_yaw_rate": -0.04786350806041981,
+        "previous_timestamp_offset_seconds": -0.499959,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "5a37ffc78c1e5782",
+      "log_name": "2021.06.28.16.29.11_veh-38_03263_03766",
+      "recording_group": "2021.06.28.16.29.11_veh-38",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.16.29.11_veh-38_03263_03766/unknown/5a37ffc78c1e5782/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 4.2980194091796875,
+      "observed_timestamps": [
+        1624901423800183,
+        1624901424300347
+      ],
+      "source_panel_row": 955,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 425,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_F0/a79ef9da69de5764.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_B0/b35ccc19602754a2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_L0/226d54b5823d505e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.16.29.11_veh-38_03263_03766/CAM_R0/2f09b60f26895dba.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.1231525766252664,
+          0.023118728204800452,
+          0.008858723961667314,
+          4.424673788833217,
+          -0.07978321284685286,
+          -0.21946926207835513,
+          -0.24655295356850926,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.296514417999109,
+          -0.11372637009301634,
+          -0.21583240418397798,
+          -0.1512782121751489,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.21583240418397798,
+        "past_yaw_rate": -0.017711638505904688,
+        "previous_timestamp_offset_seconds": -0.500164,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "5dcc8367111b5fad",
+      "log_name": "2021.06.03.17.06.58_veh-35_02943_03220",
+      "recording_group": "2021.06.03.17.06.58_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.03.17.06.58_veh-35_02943_03220/unknown/5dcc8367111b5fad/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 5.601718425750732,
+      "observed_timestamps": [
+        1622757456801067,
+        1622757457301124
+      ],
+      "source_panel_row": 443,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 51,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_02943_03220/CAM_F0/c7bf87c8595c5fc7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_02943_03220/CAM_B0/efa6d017392b54f5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_02943_03220/CAM_L0/4fce2da68a7351c7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.17.06.58_veh-35_02943_03220/CAM_R0/9ae7dee4f3d85a6f.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.7140249907815663,
+          -0.09584373961747546,
+          0.06852516021841368,
+          5.388648213045373,
+          -0.08277399216470994,
+          0.4894310298148751,
+          -0.6662324617086053,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          5.600658422200494,
+          -0.1089740653469586,
+          0.3348379935726824,
+          -0.9810454068489283,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.3348379935726824,
+        "past_yaw_rate": -0.1370346984812005,
+        "previous_timestamp_offset_seconds": -0.500057,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "64b99da814205341",
+      "log_name": "2021.06.03.12.02.06_veh-35_00233_00609",
+      "recording_group": "2021.06.03.12.02.06_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.03.12.02.06_veh-35_00233_00609/unknown/64b99da814205341/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 5.3165059089660645,
+      "observed_timestamps": [
+        1622736783000800,
+        1622736783501005
+      ],
+      "source_panel_row": 89,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 638,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.12.02.06_veh-35_00233_00609/CAM_F0/3d176a4a868b5dd8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.12.02.06_veh-35_00233_00609/CAM_B0/1c7b448fb5a057d3.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.12.02.06_veh-35_00233_00609/CAM_L0/116998f642665111.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.03.12.02.06_veh-35_00233_00609/CAM_R0/b44d4fafc170528e.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.6807701087093756,
+          -0.017163977587584433,
+          0.009223829158718775,
+          5.5524856466095995,
+          -0.10806455394517668,
+          -0.3077454066067458,
+          -0.08391598517463707,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          5.3155110332363575,
+          -0.10283792097326985,
+          -0.6506880328100063,
+          -0.5059570387762934,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.6506880328100063,
+        "past_yaw_rate": -0.018440097877307854,
+        "previous_timestamp_offset_seconds": -0.500205,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "9a15d775514e5018",
+      "log_name": "2021.09.16.15.47.30_veh-45_01199_01391",
+      "recording_group": "2021.09.16.15.47.30_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.15.47.30_veh-45_01199_01391/unknown/9a15d775514e5018/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 6.022233486175537,
+      "observed_timestamps": [
+        1631808549799989,
+        1631808550299819
+      ],
+      "source_panel_row": 814,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 107,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_F0/e98239ddee4850ed.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_B0/ac9ecf021a1f5ac7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_L0/c4d9a187a3215a61.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.15.47.30_veh-45_01199_01391/CAM_R0/0e02aa56dd0053f4.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.924216499874283,
+          -0.021646293143870586,
+          0.0016335366022031117,
+          6.07585105273455,
+          -0.02926605043968225,
+          -0.3496292721890572,
+          0.04464987538633976,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.022012233641545,
+          -0.051593244490441344,
+          -0.16716898259313467,
+          0.05140838400980706,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.16716898259313467,
+        "past_yaw_rate": -0.003268184387097837,
+        "previous_timestamp_offset_seconds": -0.49983,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "37e2bc0cb5a053a5",
+      "log_name": "2021.09.16.17.40.09_veh-45_02539_02745",
+      "recording_group": "2021.09.16.17.40.09_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.17.40.09_veh-45_02539_02745/unknown/37e2bc0cb5a053a5/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 1.747117519378662,
+      "observed_timestamps": [
+        1631816806400773,
+        1631816806900626
+      ],
+      "source_panel_row": 860,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 359,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_F0/e606833ff0dd5699.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_B0/695f4a71fe05513e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_L0/6e4a4f1a05f058f2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_R0/870e4327687c5f08.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -0.7243412362990436,
+          -0.009180950853850355,
+          0.02927985986459891,
+          1.0255272115876877,
+          -0.01604213614657073,
+          1.2106092052749418,
+          -0.031483012629183085,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.7469688727424382,
+          -0.022792483014755102,
+          1.2647887042191117,
+          -0.15084682253049625,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 1.2647887042191117,
+        "past_yaw_rate": -0.05857694134995471,
+        "previous_timestamp_offset_seconds": -0.499853,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "1825640c9ed75a4b",
+      "log_name": "2021.09.16.17.40.09_veh-45_02539_02745",
+      "recording_group": "2021.09.16.17.40.09_veh-45",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.16.17.40.09_veh-45_02539_02745/unknown/1825640c9ed75a4b/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 5.076859951019287,
+      "observed_timestamps": [
+        1631816711400053,
+        1631816711900222
+      ],
+      "source_panel_row": 424,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 169,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_F0/dfe40276db5a5d60.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_B0/226636629a34517d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_L0/22ed52a388645802.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.16.17.40.09_veh-45_02539_02745/CAM_R0/b5f570e3cf7f5107.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.345368950973713,
+          -0.2858635423271889,
+          0.20374692964472396,
+          4.6942465725340625,
+          0.014450013203692663,
+          0.8088060965285896,
+          -1.7191437241655443,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          5.07679671019044,
+          0.025364683664466033,
+          0.9388234779637251,
+          -2.009233950264477,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 0.9388234779637251,
+        "past_yaw_rate": -0.40735617290300674,
+        "previous_timestamp_offset_seconds": -0.500169,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "47c92818d9005eea",
+      "log_name": "2021.06.28.13.53.26_veh-26_00492_00696",
+      "recording_group": "2021.06.28.13.53.26_veh-26",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.06.28.13.53.26_veh-26_00492_00696/unknown/47c92818d9005eea/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 4.3807268142700195,
+      "observed_timestamps": [
+        1624889086203132,
+        1624889086702879
+      ],
+      "source_panel_row": 75,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 156,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_F0/5cfb1526e8b7553c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_B0/7f497f080fd9522b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_L0/5d3b2ed0908655ba.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.06.28.13.53.26_veh-26_00492_00696/CAM_R0/0d4c3a9593bd57c1.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.12647489836505,
+          -0.19484433508620053,
+          0.15554963734251337,
+          4.681199154348194,
+          -0.0071447966037308346,
+          -0.5483217126483505,
+          -1.9224729405942522,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.380312257041569,
+          -0.060252066041081076,
+          -0.6047661123921892,
+          -1.552890813339135,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.6047661123921892,
+        "past_yaw_rate": -0.31125677061095586,
+        "previous_timestamp_offset_seconds": -0.499747,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "ac55c7f072c6528d",
+      "log_name": "2021.05.25.17.54.41_veh-35_01905_02121",
+      "recording_group": "2021.05.25.17.54.41_veh-35",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.05.25.17.54.41_veh-35_01905_02121/unknown/ac55c7f072c6528d/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 6.635610580444336,
+      "observed_timestamps": [
+        1621981831900038,
+        1621981832400217
+      ],
+      "source_panel_row": 446,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 369,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_F0/e141e442cb9d5439.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_B0/440185380d3d5a37.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_L0/7c5a217517415217.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.05.25.17.54.41_veh-35_01905_02121/CAM_R0/dc46230157dd54bb.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -3.4346286663811663,
+          -0.002743834160680144,
+          0.009971014518152188,
+          7.250575010291793,
+          -0.11782363913361178,
+          -1.1415529503559023,
+          -0.2797165111185501,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          6.634221607343086,
+          -0.13575017403063086,
+          -1.6590871824474605,
+          -0.24478856467332852,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -1.6590871824474605,
+        "past_yaw_rate": -0.01993489234484492,
+        "previous_timestamp_offset_seconds": -0.500179,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "94683fc69ce4599c",
+      "log_name": "2021.10.06.08.16.17_veh-52_01949_02501",
+      "recording_group": "2021.10.06.08.16.17_veh-52",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.10.06.08.16.17_veh-52_01949_02501/unknown/94683fc69ce4599c/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 4.131608963012695,
+      "observed_timestamps": [
+        1633510211699647,
+        1633510212200014
+      ],
+      "source_panel_row": 189,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 65,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_F0/cc5a9169e9e957ff.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_B0/b2017cbafe3f5102.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_L0/388f618ce7da59f5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.10.06.08.16.17_veh-52_01949_02501/CAM_R0/7a09b1064aaf5c0d.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.0313931455159113,
+          -0.0007652349264242703,
+          0.011714728476148519,
+          4.23793842886721,
+          -0.043066767478441834,
+          -0.14639191749904368,
+          -0.24479593477694217,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          4.13152942580974,
+          -0.025646003899786645,
+          -0.3806984228893299,
+          -0.09749322394132312,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -0.3806984228893299,
+        "past_yaw_rate": -0.02341227234439625,
+        "previous_timestamp_offset_seconds": -0.500367,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "df36523fdaeb5882",
+      "log_name": "2021.09.09.18.04.06_veh-40_00743_01071",
+      "recording_group": "2021.09.09.18.04.06_veh-40",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.09.18.04.06_veh-40_00743_01071/unknown/df36523fdaeb5882/metric_cache.pkl",
+      "scene_type": "straight",
+      "ego_speed_mps": 3.934206247329712,
+      "observed_timestamps": [
+        1631211594200478,
+        1631211594700411
+      ],
+      "source_panel_row": 664,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 180,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.04.06_veh-40_00743_01071/CAM_F0/837dd5c034d558a5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.04.06_veh-40_00743_01071/CAM_B0/400b56685d755d35.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.04.06_veh-40_00743_01071/CAM_L0/563d8d5c95725548.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.09.18.04.06_veh-40_00743_01071/CAM_R0/5da19a5f0f415ec6.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -2.030509292423668,
+          0.017789248734268605,
+          -0.01009579431479879,
+          4.683506439125707,
+          0.09998705556425092,
+          -1.4842329657493423,
+          0.05856332406845515,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.9328350793195015,
+          0.10385840107411339,
+          -1.571476862593035,
+          0.36476623024703414,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": -1.571476862593035,
+        "past_yaw_rate": 0.0201942946650827,
+        "previous_timestamp_offset_seconds": -0.499933,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    },
+    {
+      "token": "f23073987e7956e3",
+      "log_name": "2021.09.29.19.02.14_veh-28_00964_01689",
+      "recording_group": "2021.09.29.19.02.14_veh-28",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_drive_jepa_reproduction/downloaded_metric_cache/metric_cache/2021.09.29.19.02.14_veh-28_00964_01689/unknown/f23073987e7956e3/metric_cache.pkl",
+      "scene_type": "right_turn",
+      "ego_speed_mps": 3.2131333351135254,
+      "observed_timestamps": [
+        1632943671799812,
+        1632943672299804
+      ],
+      "source_panel_row": 61,
+      "split": "navtest",
+      "command_index": 2,
+      "command_name": "right_turn",
+      "current_frame_index": 932,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.19.02.14_veh-28_00964_01689/CAM_F0/94887a20c8ed5fad.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.19.02.14_veh-28_00964_01689/CAM_B0/5ff730c028b8579f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.19.02.14_veh-28_00964_01689/CAM_L0/4626942bcb9652e9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/test/2021.09.29.19.02.14_veh-28_00964_01689/CAM_R0/87ba16b13b5c5649.jpg"
+      ],
+      "camera_order": [
+        "CAM_F0",
+        "CAM_B0",
+        "CAM_L0",
+        "CAM_R0"
+      ],
+      "ego_history": [
+        [
+          -1.463027595621724,
+          -0.014631931233021199,
+          -0.0014076932881983417,
+          2.462288715187489,
+          0.08169192062595546,
+          1.037375342190486,
+          0.6016687115097556,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          3.211643017588763,
+          0.09785743841146982,
+          1.3717290049952138,
+          -0.35451535339388607,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "boundary": {
+        "past_acceleration": 1.3717290049952138,
+        "past_yaw_rate": 0.002815431623302656,
+        "previous_timestamp_offset_seconds": -0.499992,
+        "latest_timestamp_offset_seconds": 0.0
+      }
+    }
+  ],
+  "checkpoint_sha256": "257fa93d0145b6a67542f41eb1b02258649639ecee1b5a9a1f45e463594a26c8",
+  "subset_source_sha256": "505b9d5f0734dc58fd1ef5cc27a9659fcec068261037778c7ac33967e9f5f83f",
+  "official_repository_commit": "0110647142888dd56644565588510812bdafaa27",
+  "selection_before_predictions": true,
+  "training_split_overlap": "NAVTEST is outside released trainval+Simscale training",
+  "previous_development_exposure": true,
+  "independent_final_test": false,
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13022
+  }
+}

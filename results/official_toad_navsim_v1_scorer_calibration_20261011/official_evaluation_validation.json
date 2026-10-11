@@ -1,0 +1,21 @@
+{
+  "complete": true,
+  "scene_count": 64,
+  "candidate_count_per_scene": 198,
+  "official_evaluated_candidates": 12672,
+  "checked_against_unmodified_pair_evaluator": 381,
+  "maximum_pair_evaluator_error": 0.0,
+  "metric_names": [
+    "no_at_fault_collisions",
+    "drivable_area_compliance",
+    "ego_progress",
+    "time_to_collision_within_bound",
+    "comfort",
+    "driving_direction_compliance",
+    "score"
+  ],
+  "cpu_wall_seconds": 61.69949801900657,
+  "workers": 2,
+  "gpu_seconds": 0,
+  "evaluation_definition": "Official NAVSIM v1 reference-plus-single-candidate progress normalization, reused batch simulation"
+}

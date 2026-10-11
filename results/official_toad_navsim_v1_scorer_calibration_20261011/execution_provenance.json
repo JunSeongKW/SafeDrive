@@ -1,0 +1,53 @@
+{
+  "sources": {
+    "scripts/calibrate_official_toad_navsim_v1_scorer.py": "06e5d7f7efbbd3daad845d7a87b3b7c21a024e4155efba41d615c5dd7fb43149",
+    "scripts/verify_official_toad_cached_gradients.py": "762045aa72039d17417ac1ed15566832c81574fb9d69c0579673539ba40236cc",
+    "scripts/package_official_toad_scorer_inspection.py": "64d8aef12f2dca9215de777dd388e84d9d448fd2d3c7bbb8b69997946b432d45",
+    "scripts/run_official_toad_navsim_v1_scorer_calibration.sh": "1a975ccd4b7c4c2788e1352a0f41b71c367feaab81d3f2b70f3711a11f375017",
+    "configs/frozen_planner_postprocessing/official_toad_navsim_v1_scorer_calibration.json": "19098959c67dcaf4b842be964665bbdbf9807026f6014e114d995bd636c780c9"
+  },
+  "inference_source_sha256": "06e5d7f7efbbd3daad845d7a87b3b7c21a024e4155efba41d615c5dd7fb43149",
+  "official_repository_commit": "0110647142888dd56644565588510812bdafaa27",
+  "official_feature_builder_source_sha256": "82137a3b59fcb6fd614bd9073d2a5b31ef8b97efde2b675ac5010aee331ced7a",
+  "checkpoint_sha256": "257fa93d0145b6a67542f41eb1b02258649639ecee1b5a9a1f45e463594a26c8",
+  "scorer_cache_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_toad_navsim_v1_scorer_calibration_20261011/scorer_cache_and_candidates.npz",
+  "scorer_cache_sha256": "42d8683950a84b5a6b8bc7c4d03004957592be7d63e30946c96d613bb7747f44",
+  "official_metrics_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_toad_navsim_v1_scorer_calibration_20261011/official_metrics.npy",
+  "official_metrics_sha256": "71870f17eb22ea395b8525d7af108586b7d4210c6ab6108b738e92f143f2cbde",
+  "feature_metadata": {
+    "camera_order": [
+      "CAM_F0",
+      "CAM_B0",
+      "CAM_L0",
+      "CAM_R0"
+    ],
+    "image_shape_per_scene": [
+      4,
+      3,
+      672,
+      1148
+    ],
+    "future_image_count": 0,
+    "scorer_feature_location": "image_backbone output with learned register projection",
+    "spatial_interpretation": "Register tokens do not directly correspond to image pixel locations",
+    "all_visual_tokens_valid": true,
+    "ego_shape_per_scene": [
+      2,
+      11
+    ],
+    "feature_builder_method_execution": "Unmodified compute_features and _get_camera_feature AST bodies; map imports omitted"
+  },
+  "feature_shape": [
+    64,
+    64,
+    256
+  ],
+  "feature_dtype": "float32",
+  "environment": {
+    "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+    "torch": "2.8.0+cu128",
+    "timm": "1.0.15"
+  },
+  "physical_gpu": 0,
+  "optimizer_steps": 0
+}

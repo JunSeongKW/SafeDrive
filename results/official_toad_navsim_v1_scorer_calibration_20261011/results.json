@@ -1,0 +1,445 @@
+{
+  "complete": true,
+  "benchmark": "NAVSIM v1 NAVTEST64 development diagnostic",
+  "full_navtest": false,
+  "independent_final_test": false,
+  "scene_count": 64,
+  "recording_count": 38,
+  "checkpoint_sha256": "257fa93d0145b6a67542f41eb1b02258649639ecee1b5a9a1f45e463594a26c8",
+  "groups": {
+    "learned64_alone": {
+      "scene_count": 64,
+      "candidate_count": 64,
+      "selected_pdms": 95.83911354491696,
+      "oracle_best_pdms": 99.85110682943349,
+      "selection_regret_pdms_points": 4.01199328451653,
+      "selection_regret_recording_bootstrap_95ci": [
+        1.6933605186024896,
+        7.551225148828109
+      ],
+      "spearman_scene_mean": 0.48529065389139864,
+      "spearman_nonconstant_scene_count": 63,
+      "selected_collision_or_offroad_rate": 0.015625,
+      "unsafe_rate_change_from_official128_percentage_points": 0.0,
+      "selected_mean_submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9376387250780069,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "oracle_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9964265639064037,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "selected_augmented_bouquet_rate": null,
+      "by_command": {
+        "left_turn": {
+          "scenes": 21,
+          "selected_pdms": 94.64400775681537,
+          "oracle_best_pdms": 99.7077282710253
+        },
+        "straight": {
+          "scenes": 22,
+          "selected_pdms": 97.86619041919496,
+          "oracle_best_pdms": 100.0
+        },
+        "right_turn": {
+          "scenes": 21,
+          "selected_pdms": 94.91061498853678,
+          "oracle_best_pdms": 99.83850206629577
+        }
+      }
+    },
+    "official128": {
+      "scene_count": 64,
+      "candidate_count": 128,
+      "selected_pdms": 96.14185396236817,
+      "oracle_best_pdms": 99.94700849050331,
+      "selection_regret_pdms_points": 3.805154528135131,
+      "selection_regret_recording_bootstrap_95ci": [
+        1.3624766351426496,
+        7.562819091691077
+      ],
+      "spearman_scene_mean": 0.7948781415268451,
+      "spearman_nonconstant_scene_count": 64,
+      "selected_collision_or_offroad_rate": 0.015625,
+      "unsafe_rate_change_from_official128_percentage_points": 0.0,
+      "selected_mean_submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9449044950968362,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9375
+      },
+      "oracle_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9987282037720793,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9453125
+      },
+      "selected_augmented_bouquet_rate": 0.0625,
+      "by_command": {
+        "left_turn": {
+          "scenes": 21,
+          "selected_pdms": 94.76440359944334,
+          "oracle_best_pdms": 100.0
+        },
+        "straight": {
+          "scenes": 22,
+          "selected_pdms": 98.10167532738528,
+          "oracle_best_pdms": 100.0
+        },
+        "right_turn": {
+          "scenes": 21,
+          "selected_pdms": 95.46615813337033,
+          "oracle_best_pdms": 99.83850206629577
+        }
+      }
+    },
+    "nearby64": {
+      "scene_count": 64,
+      "candidate_count": 64,
+      "selected_pdms": 96.10523957982389,
+      "oracle_best_pdms": 99.53853794622411,
+      "selection_regret_pdms_points": 3.4332983664002135,
+      "selection_regret_recording_bootstrap_95ci": [
+        1.0685666346534632,
+        7.193557763941869
+      ],
+      "spearman_scene_mean": 0.6510757910305747,
+      "spearman_nonconstant_scene_count": 64,
+      "selected_collision_or_offroad_rate": 0.015625,
+      "unsafe_rate_change_from_official128_percentage_points": 0.0,
+      "selected_mean_submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9440257499157731,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.921875
+      },
+      "oracle_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9889249107093783,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.8984375
+      },
+      "selected_augmented_bouquet_rate": null,
+      "by_command": {
+        "left_turn": {
+          "scenes": 21,
+          "selected_pdms": 94.59608854597373,
+          "oracle_best_pdms": 99.91818202061434
+        },
+        "straight": {
+          "scenes": 22,
+          "selected_pdms": 98.10363632680462,
+          "oracle_best_pdms": 99.71864732671737
+        },
+        "right_turn": {
+          "scenes": 21,
+          "selected_pdms": 95.52083211683711,
+          "oracle_best_pdms": 98.97020785417422
+        }
+      }
+    },
+    "nearby16": {
+      "scene_count": 64,
+      "candidate_count": 16,
+      "selected_pdms": 96.02347369354915,
+      "oracle_best_pdms": 98.5681213232052,
+      "selection_regret_pdms_points": 2.544647629656051,
+      "selection_regret_recording_bootstrap_95ci": [
+        0.8519771892764245,
+        4.946628849133909
+      ],
+      "spearman_scene_mean": 0.6726503689979473,
+      "spearman_nonconstant_scene_count": 63,
+      "selected_collision_or_offroad_rate": 0.015625,
+      "unsafe_rate_change_from_official128_percentage_points": 0.0,
+      "selected_mean_submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9420633686451798,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9140625
+      },
+      "oracle_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.981259911756925,
+        "time_to_collision_within_bound": 0.984375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.90625
+      },
+      "selected_augmented_bouquet_rate": null,
+      "by_command": {
+        "left_turn": {
+          "scenes": 21,
+          "selected_pdms": 94.54413242557361,
+          "oracle_best_pdms": 97.8499718823396
+        },
+        "straight": {
+          "scenes": 22,
+          "selected_pdms": 98.03564753345701,
+          "oracle_best_pdms": 99.40191393924832
+        },
+        "right_turn": {
+          "scenes": 21,
+          "selected_pdms": 95.3948233197165,
+          "oracle_best_pdms": 98.41277373773994
+        }
+      }
+    }
+  },
+  "gradient_direction_tests": [
+    {
+      "reference_std_radius": 0.05,
+      "neural_score_increase_rate": 0.953125,
+      "actual_pdms_mean_change": 1.5346873122620823,
+      "actual_pdms_median_change": 0.0,
+      "actual_pdms_change_recording_bootstrap_95ci": [
+        -0.002615297631656611,
+        4.8938994918969305
+      ],
+      "actual_decrease_above_1_point_count": 0,
+      "actual_improvement_above_1_point_count": 1
+    },
+    {
+      "reference_std_radius": 0.1,
+      "neural_score_increase_rate": 0.875,
+      "actual_pdms_mean_change": 1.5388881390560032,
+      "actual_pdms_median_change": 0.0,
+      "actual_pdms_change_recording_bootstrap_95ci": [
+        -0.008405817501328237,
+        4.898828412298604
+      ],
+      "actual_decrease_above_1_point_count": 0,
+      "actual_improvement_above_1_point_count": 1
+    },
+    {
+      "reference_std_radius": 0.25,
+      "neural_score_increase_rate": 0.703125,
+      "actual_pdms_mean_change": -6.205736146365481,
+      "actual_pdms_median_change": 0.0,
+      "actual_pdms_change_recording_bootstrap_95ci": [
+        -13.004530394481234,
+        -1.433384430205897
+      ],
+      "actual_decrease_above_1_point_count": 5,
+      "actual_improvement_above_1_point_count": 2
+    }
+  ],
+  "fixed_size_context_diagnostic": {
+    "candidate_count_in_every_context": 64,
+    "shared_target_count": 16,
+    "context_count": 3,
+    "same_target_top1_change_scene_count": 25,
+    "relative_score_instability_mean": 0.08973201364278793,
+    "instability_vs_actual_selection_regret_spearman": -0.06217393672701459,
+    "mean_actual_selected_pdms_by_context": [
+      96.05773596930153,
+      95.85622799398863,
+      95.98230395767435
+    ],
+    "interpretation": "Functional context dependence only; correlation is exploratory and does not calibrate safety or prove causal scene uncertainty."
+  },
+  "quality_gate_passed": true,
+  "regret_gate_passed": true,
+  "safety_gate_passed": true,
+  "no_followup_training_automatically_started": true,
+  "checks": {
+    "strict_loading_passed": true,
+    "encoder_calls_during_cached_diagnostic": 0,
+    "frozen_weights_unchanged": true,
+    "frozen_parameter_gradients_absent": true,
+    "finite_nonzero_gradient_scenes": 64,
+    "finite_difference_checks": [
+      {
+        "analytic": 0.004777093883603811,
+        "finite_difference": 0.00476837158203125,
+        "absolute_error": 8.722301572561264e-06,
+        "relative_error": 0.001825859358238363
+      },
+      {
+        "analytic": -0.0006499724695459008,
+        "finite_difference": -0.0007152557373046875,
+        "absolute_error": 6.528326775878668e-05,
+        "relative_error": 0.09127262369791667
+      },
+      {
+        "analytic": 0.001082490780390799,
+        "finite_difference": 0.0010728836059570312,
+        "absolute_error": 9.607174433767796e-06,
+        "relative_error": 0.00887506351813863
+      },
+      {
+        "analytic": -0.00011309160618111491,
+        "finite_difference": -0.00011920928955078125,
+        "absolute_error": 6.117683369666338e-06,
+        "relative_error": 0.05131884765625
+      },
+      {
+        "analytic": 0.008723587729036808,
+        "finite_difference": 0.008702278137207031,
+        "absolute_error": 2.1309591829776764e-05,
+        "relative_error": 0.002442755491395695
+      },
+      {
+        "analytic": 0.0013580198865383863,
+        "finite_difference": 0.0013113021850585938,
+        "absolute_error": 4.6717701479792595e-05,
+        "relative_error": 0.03440133825939526
+      }
+    ],
+    "official_pair_evaluator_maximum_error": 0.0
+  },
+  "roundtrip_xy_ADE_m": 0.44244638847885653,
+  "cost": {
+    "inference_gpu_phase_wall_seconds": 53.55968477000715,
+    "cache_creation_seconds": 18.99557141700643,
+    "cached_scorer_diagnostics_seconds": 5.953149234032026,
+    "maximum_card_used_bytes": 42024894464,
+    "official_evaluation_seconds": 61.69949801900657,
+    "official_evaluated_candidates": 12672,
+    "completed_profile_gpu_phase_wall_seconds": 10.178155797999352,
+    "completed_gpu_phases_wall_seconds_sum": 63.737840568006504,
+    "gpu_peak_allocated_bytes": 512570880,
+    "gpu_peak_reserved_bytes": 601882624,
+    "preliminary_failed_phase": {
+      "failure": "nav1 has DrivoRFeatureBuilder rather than the older drivor_mpc utility",
+      "image_or_scorer_forward_calls": 0,
+      "gpu_phase_wall_seconds": null,
+      "budget_reserve_seconds": 120,
+      "failure_log": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/official_toad_navsim_v1_scorer_calibration_20261011/profile_failed_before_inference.log"
+    }
+  },
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13068
+  },
+  "additional_validation": {
+    "cpu_double_precision_finite_difference": {
+      "all_finite_difference_checks_passed": true,
+      "scene_count": 3,
+      "direction_count": 6,
+      "dtype": "float64",
+      "device": "cpu",
+      "gpu_seconds": 0,
+      "optimizer_steps": 0,
+      "encoder_calls": 0,
+      "frozen_weights_unchanged": true,
+      "frozen_parameter_gradients_absent": true,
+      "finite_difference_tolerance": {
+        "absolute": 1e-07,
+        "relative": 0.001
+      },
+      "scene_results": [
+        {
+          "token": "a8dacf347a605f0d",
+          "gradient_norm": 0.004777130693671475,
+          "fp64_vs_cached_fp32_score_maximum_error": 4.236476613961315e-06,
+          "directions": [
+            {
+              "analytic": 0.0047771306936714745,
+              "finite_difference": 0.0047771306999067065,
+              "epsilon": 0.0001,
+              "absolute_error": 6.23523194881459e-12,
+              "relative_error": 1.3052253204913065e-09,
+              "passed": true
+            },
+            {
+              "analytic": 0.0018335072286063533,
+              "finite_difference": 0.0018335072926589646,
+              "epsilon": 0.0001,
+              "absolute_error": 6.405261130520978e-11,
+              "relative_error": 3.493447316062772e-08,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "524695a4857859fe",
+          "gradient_norm": 0.0010822690538631182,
+          "fp64_vs_cached_fp32_score_maximum_error": 1.940907093933575e-06,
+          "directions": [
+            {
+              "analytic": 0.0010822690538631185,
+              "finite_difference": 0.0010822691076661783,
+              "epsilon": 0.0001,
+              "absolute_error": 5.380305988060552e-11,
+              "relative_error": 4.9713199332305865e-08,
+              "passed": true
+            },
+            {
+              "analytic": -0.000498696179961044,
+              "finite_difference": -0.0004986961821273894,
+              "epsilon": 0.0001,
+              "absolute_error": 2.166345445045459e-12,
+              "relative_error": 4.34401850803036e-09,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "ece3a3dc01cd53d2",
+          "gradient_norm": 0.008723659946835395,
+          "fp64_vs_cached_fp32_score_maximum_error": 3.0020432939537045e-07,
+          "directions": [
+            {
+              "analytic": 0.008723659946835395,
+              "finite_difference": 0.008723659958853602,
+              "epsilon": 0.0001,
+              "absolute_error": 1.2018207609654219e-11,
+              "relative_error": 1.3776565875263163e-09,
+              "passed": true
+            },
+            {
+              "analytic": -0.0019220650055673224,
+              "finite_difference": -0.0019220650049334154,
+              "epsilon": 0.0001,
+              "absolute_error": 6.339069894001348e-13,
+              "relative_error": 3.2980517701742815e-10,
+              "passed": true
+            }
+          ]
+        }
+      ],
+      "cpu_wall_seconds": 8.379211968014715,
+      "environment": {
+        "torch": "2.8.0+cu128"
+      },
+      "strict_loading": "<All keys matched successfully>",
+      "source_sha256": "762045aa72039d17417ac1ed15566832c81574fb9d69c0579673539ba40236cc",
+      "protected_training": {
+        "checked_files": 293,
+        "mismatches": [],
+        "running_training_completed_updates": 13050
+      },
+      "note": "Double precision isolates derivatives from FP32 score quantization. Not a planning performance measurement."
+    },
+    "nearby_selection_source_counts": {
+      "original_fallback": 13,
+      "bicycle_roundtrip_center": 9,
+      "new_gaussian_samples": 42
+    },
+    "maximum_fixed_size_same_path_score_change": 1.721882939338684,
+    "mean_nearby_control_clipping_fraction": 0.00028351813671179116,
+    "mean_nearby_analytical_comfort_violation_fraction": 0.20535715538426302,
+    "raw_bicycle_center_mean_pdms": 94.59289238981636,
+    "original_fallback_mean_pdms": 96.14185396236817
+  }
+}

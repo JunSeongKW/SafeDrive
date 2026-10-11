@@ -1,0 +1,3484 @@
+{
+  "complete": true,
+  "scenes": 64,
+  "loading": {
+    "strict_loading": "<All keys matched successfully>",
+    "checkpoint_tensor_count": 467,
+    "checkpoint_epoch": 29,
+    "checkpoint_global_step": 55770,
+    "parameters": 40787582,
+    "trainable_parameters": 0,
+    "configuration": {
+      "b2d": false,
+      "shared_refiner": false,
+      "ref_num": 4,
+      "scorer_ref_num": 4,
+      "proposal_num": 64,
+      "num_poses": 8,
+      "num_scene_tokens": 16,
+      "one_token_per_traj": true,
+      "full_history_status": false,
+      "long_trajectory_additional_poses": 2,
+      "noc": 1.0,
+      "dac": 1.0,
+      "ddc": 0.0,
+      "ttc": 5.0,
+      "ep": 5.0,
+      "comfort": 2.0,
+      "tf_d_model": 256,
+      "tf_d_ffn": 1024,
+      "cam_f0": [
+        3
+      ],
+      "cam_l0": [
+        3
+      ],
+      "cam_l1": [],
+      "cam_l2": [],
+      "cam_r0": [
+        3
+      ],
+      "cam_r1": [],
+      "cam_r2": [],
+      "cam_b0": [
+        3
+      ],
+      "lidar_pc": [],
+      "use_cem": false,
+      "cem_seed_topk": 64,
+      "cem_num_samples": 64,
+      "cem_num_iterations": 5,
+      "cem_num_elites": null,
+      "proposal_augment_random": 64,
+      "random_bouquet_control_mode": "family_mix",
+      "image_size": [
+        1148,
+        672
+      ],
+      "image_backbone": {
+        "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+        "model_weights": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/four_model_small_corpus/dinov2_vits_reg4.safetensors",
+        "use_lora": true,
+        "finetune": false,
+        "lora_rank": 32,
+        "focus_front_cam": false,
+        "use_feature_pooling": false,
+        "compress_fc": false,
+        "image_size": [
+          1148,
+          672
+        ],
+        "num_scene_tokens": 16,
+        "tf_d_model": 256
+      },
+      "lidar_min_x": -35,
+      "lidar_max_x": 35,
+      "lidar_min_y": -35,
+      "lidar_max_y": 35,
+      "lidar_image_size": [
+        518,
+        518
+      ],
+      "lidar_hist_max_per_pixel": 5,
+      "lidar_max_height": 100.0,
+      "lidar_split_height": 0.2,
+      "lidar_use_ground_plane": true,
+      "lidar_backbone": {
+        "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+        "model_weights": "weights/vit_small_patch14_reg4_dinov2.lvd142m/model.safetensors",
+        "use_lora": true,
+        "finetune": false,
+        "lora_rank": 32,
+        "in_chans": 2
+      },
+      "double_score": false,
+      "agent_pred": false,
+      "area_pred": false,
+      "bev_map": false,
+      "bev_agent": false,
+      "refiner_num_heads": 1,
+      "refiner_ls_values": 0.0,
+      "trajectory_sampling": {
+        "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+        "time_horizon": 4,
+        "interval_length": 0.5
+      }
+    },
+    "source_path": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/TOADNav1OfficialCalibration/navsim/agents/drivoR/drivor_model.py",
+    "source_sha256": "9e33b0bc0438d8554d90fe6d532d0f3512c666ebdc60a2aaeb71312b077e3e5a"
+  },
+  "feature_shape": [
+    64,
+    64,
+    256
+  ],
+  "feature_dtype": "float32",
+  "encoder_calls_for_cache_creation": 64,
+  "encoder_calls_for_cached_diagnostics": 0,
+  "frozen_weights_unchanged": true,
+  "frozen_parameter_gradients_absent": true,
+  "cache_creation_seconds": 18.99557141700643,
+  "cached_scorer_diagnostics_seconds": 5.953149234032026,
+  "gpu_phase_wall_seconds": 53.55968477000715,
+  "maximum_card_used_bytes": 42024894464,
+  "memory": {
+    "card_used_bytes": 42024894464,
+    "peak_allocated_bytes": 512570880,
+    "peak_reserved_bytes": 601882624
+  },
+  "physical_gpu": 0,
+  "optimizer_steps": 0,
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13046
+  },
+  "diagnostic_source_sha256": "06e5d7f7efbbd3daad845d7a87b3b7c21a024e4155efba41d615c5dd7fb43149",
+  "reused_evaluator_source_sha256": "78a9a18151baf6d9c96d25ee0ff49066d66ff9c73a361dd02cca3126dc9f3daf",
+  "official_feature_builder_source_sha256": "82137a3b59fcb6fd614bd9073d2a5b31ef8b97efde2b675ac5010aee331ced7a",
+  "observed_inputs": {
+    "camera_order": [
+      "CAM_F0",
+      "CAM_B0",
+      "CAM_L0",
+      "CAM_R0"
+    ],
+    "image_shape_per_scene": [
+      4,
+      3,
+      672,
+      1148
+    ],
+    "future_image_count": 0,
+    "scorer_feature_location": "image_backbone output with learned register projection",
+    "spatial_interpretation": "Register tokens do not directly correspond to image pixel locations",
+    "all_visual_tokens_valid": true,
+    "ego_shape_per_scene": [
+      2,
+      11
+    ],
+    "feature_builder_method_execution": "Unmodified compute_features and _get_camera_feature AST bodies; map imports omitted"
+  },
+  "scene_diagnostics": [
+    {
+      "token": "a8dacf347a605f0d",
+      "preprocessing_checks": {
+        "official_vs_independent_preprocessing_maximum_error": 0.0,
+        "ego_sample_matching_exact": true,
+        "future_input_frames": 0
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.004777093883603811,
+      "finite_difference_directions": [
+        {
+          "analytic": 0.004777093883603811,
+          "finite_difference": 0.00476837158203125,
+          "absolute_error": 8.722301572561264e-06,
+          "relative_error": 0.001825859358238363
+        },
+        {
+          "analytic": -0.0006499724695459008,
+          "finite_difference": -0.0007152557373046875,
+          "absolute_error": 6.528326775878668e-05,
+          "relative_error": 0.09127262369791667
+        }
+      ],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0002257823944091797
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0002484321594238281
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004305839538574219
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0005154609680175781
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0008618831634521484
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0014464855194091797
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.7003247737884521,
+      "nearby_clipped_control_fraction": 0.0010080644860863686,
+      "nearby_comfort_violation_fraction": 0.3650793731212616,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.33010172843933105,
+      "fixed64_context_same_path_score_maximum_delta": 0.5481338500976562,
+      "cache_extraction_seconds": 0.5216232970124111,
+      "cached_diagnostic_seconds": 1.0437865709827747,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 504747008,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "524695a4857859fe",
+      "preprocessing_checks": {
+        "official_vs_independent_preprocessing_maximum_error": 0.0,
+        "ego_sample_matching_exact": true,
+        "future_input_frames": 0
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0010824906639754772,
+      "finite_difference_directions": [
+        {
+          "analytic": 0.001082490780390799,
+          "finite_difference": 0.0010728836059570312,
+          "absolute_error": 9.607174433767796e-06,
+          "relative_error": 0.00887506351813863
+        },
+        {
+          "analytic": -0.00011309160618111491,
+          "finite_difference": -0.00011920928955078125,
+          "absolute_error": 6.117683369666338e-06,
+          "relative_error": 0.05131884765625
+        }
+      ],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 4.267692565917969e-05
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -6.437301635742188e-05
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 6.508827209472656e-05
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00015044212341308594
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 7.414817810058594e-05
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0006749629974365234
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.01608765497803688,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.01587301678955555,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.20129680633544922,
+      "fixed64_context_same_path_score_maximum_delta": 0.5681247711181641,
+      "cache_extraction_seconds": 0.35174459900008515,
+      "cached_diagnostic_seconds": 0.11621931998524815,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "ece3a3dc01cd53d2",
+      "preprocessing_checks": {
+        "official_vs_independent_preprocessing_maximum_error": 0.0,
+        "ego_sample_matching_exact": true,
+        "future_input_frames": 0
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.008723586797714233,
+      "finite_difference_directions": [
+        {
+          "analytic": 0.008723587729036808,
+          "finite_difference": 0.008702278137207031,
+          "absolute_error": 2.1309591829776764e-05,
+          "relative_error": 0.002442755491395695
+        },
+        {
+          "analytic": 0.0013580198865383863,
+          "finite_difference": 0.0013113021850585938,
+          "absolute_error": 4.6717701479792595e-05,
+          "relative_error": 0.03440133825939526
+        }
+      ],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004200935363769531
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00044918060302734375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0008034706115722656
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0009407997131347656
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.001750946044921875
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0026721954345703125
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6853148937225342,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.6507936716079712,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.004183530807495117,
+      "fixed64_context_same_path_score_maximum_delta": 0.008706331253051758,
+      "cache_extraction_seconds": 0.37033770699054,
+      "cached_diagnostic_seconds": 0.10974162200000137,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "9f528c7bfca6509b",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.18338842689990997,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005441427230834961
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.015967607498168945
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007376909255981445
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.06672501564025879
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00853276252746582
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -2.2353146076202393
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6930638551712036,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.3809524178504944,
+      "nearby64_vs16_same_path_score_maximum_delta": 1.3014779090881348,
+      "fixed64_context_same_path_score_maximum_delta": 0.5408504009246826,
+      "cache_extraction_seconds": 0.33153217198560014,
+      "cached_diagnostic_seconds": 0.06702535599470139,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "06c9339fdc3e5404",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.043927840888500214,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0018496513366699219
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.002712249755859375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0030088424682617188
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006674528121948242
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003185749053955078
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.033231258392333984
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5462708473205566,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.4126984477043152,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.06742453575134277,
+      "fixed64_context_same_path_score_maximum_delta": 0.3488866090774536,
+      "cache_extraction_seconds": 0.17252793500665575,
+      "cached_diagnostic_seconds": 0.058844401995884255,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "625a015c1f7c5170",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.04144974425435066,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0018546581268310547
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.002292156219482422
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003342151641845703
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005232572555541992
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005536794662475586
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01786041259765625
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.1530531942844391,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.60317462682724,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3584284782409668,
+      "fixed64_context_same_path_score_maximum_delta": 0.4055730104446411,
+      "cache_extraction_seconds": 0.351263528020354,
+      "cached_diagnostic_seconds": 0.07923118601320311,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "78c9157a55905d81",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0015464464668184519,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 6.699562072753906e-05
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -9.083747863769531e-05
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00011110305786132812
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0002353191375732422
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 9.799003601074219e-05
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0008139610290527344
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6040607690811157,
+      "nearby_clipped_control_fraction": 0.0010080644860863686,
+      "nearby_comfort_violation_fraction": 0.6507936716079712,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.23122406005859375,
+      "fixed64_context_same_path_score_maximum_delta": 0.8325339555740356,
+      "cache_extraction_seconds": 0.37137013298342936,
+      "cached_diagnostic_seconds": 0.08729154200409539,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "14769a8e472350cc",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.07879417389631271,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0030717849731445312
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005330324172973633
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0049343109130859375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01477503776550293
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007135152816772461
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10022377967834473
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.030606962740421295,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0317460335791111,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.217582106590271,
+      "fixed64_context_same_path_score_maximum_delta": 0.6460471153259277,
+      "cache_extraction_seconds": 0.35431327400146984,
+      "cached_diagnostic_seconds": 0.07907680500647984,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "ed01297783a05dba",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.6660149693489075,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.028876543045043945
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.039244890213012695
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04968833923339844
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.09297609329223633
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.07877516746520996
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.34969019889831543
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.127401202917099,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1269841343164444,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3389930725097656,
+      "fixed64_context_same_path_score_maximum_delta": 0.7740278244018555,
+      "cache_extraction_seconds": 0.1738626739825122,
+      "cached_diagnostic_seconds": 0.08185162299196236,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "153dfbd3d4355809",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 5.386693000793457,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.20189213752746582
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.33965063095092773
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.30882906913757324
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.834392786026001
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.38721656799316406
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -2.7950291633605957
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5911935567855835,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0952381044626236,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.6149001121520996,
+      "fixed64_context_same_path_score_maximum_delta": 0.4616546630859375,
+      "cache_extraction_seconds": 0.2406380560132675,
+      "cached_diagnostic_seconds": 0.06759009099914692,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "131ab0263b07507c",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.14946606755256653,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002457857131958008
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01584935188293457
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.005372047424316406
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.04807758331298828
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.08658123016357422
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.31661152839660645
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.17819461226463318,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1269841343164444,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.5054868459701538,
+      "fixed64_context_same_path_score_maximum_delta": 1.453642725944519,
+      "cache_extraction_seconds": 0.17345389199908823,
+      "cached_diagnostic_seconds": 0.057894817990018055,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "075154c90a0a5d7c",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.017199398949742317,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0005831718444824219
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0013287067413330078
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0005733966827392578
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.003117799758911133
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.0045623779296875
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.012000560760498047
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5707608461380005,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0317460335791111,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.005053281784057617,
+      "fixed64_context_same_path_score_maximum_delta": 0.054756879806518555,
+      "cache_extraction_seconds": 0.29940533099579625,
+      "cached_diagnostic_seconds": 0.09012213401729241,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "74308c04628b5879",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.05405067279934883,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002254009246826172
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0031137466430664062
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0039784908294677734
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006945610046386719
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007018089294433594
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.025161027908325195
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5648573040962219,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0634920671582222,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3336840867996216,
+      "fixed64_context_same_path_score_maximum_delta": 0.15957868099212646,
+      "cache_extraction_seconds": 0.357955655985279,
+      "cached_diagnostic_seconds": 0.09370252297958359,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "62c5045db3c159aa",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.009867984801530838,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004706382751464844
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0005536079406738281
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0008082389831542969
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0011930465698242188
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0013613700866699219
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0039408206939697266
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.713424801826477,
+      "nearby_clipped_control_fraction": 0.002016128972172737,
+      "nearby_comfort_violation_fraction": 0.4285714626312256,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.023929595947265625,
+      "fixed64_context_same_path_score_maximum_delta": 0.08482909202575684,
+      "cache_extraction_seconds": 0.3521278449916281,
+      "cached_diagnostic_seconds": 0.08397531099035405,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "13cfa80cabf85b80",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.01179308257997036,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004527568817138672
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0007581710815429688
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0005452632904052734
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0018780231475830078
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.000156402587890625
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.008546829223632812
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.334172785282135,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.3809524178504944,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.07169342041015625,
+      "fixed64_context_same_path_score_maximum_delta": 0.66845703125,
+      "cache_extraction_seconds": 0.17315599700668827,
+      "cached_diagnostic_seconds": 0.062152405007509515,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "d38070017e4e53c3",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.750480592250824,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.021183490753173828
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.08029389381408691
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.026287078857421875
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.3421609401702881
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0167844295501709
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -3.0967793464660645
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5562686920166016,
+      "nearby_clipped_control_fraction": 0.0010080644860863686,
+      "nearby_comfort_violation_fraction": 0.4126984477043152,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.31441211700439453,
+      "fixed64_context_same_path_score_maximum_delta": 1.1168556213378906,
+      "cache_extraction_seconds": 0.35244632500689477,
+      "cached_diagnostic_seconds": 0.08219651199760847,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "46369836a9b654ee",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.47576430439949036,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0187222957611084
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.030581235885620117
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.029808521270751953
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.08401274681091309
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.020765304565429688
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.5778744220733643
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.17388343811035156,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1904762089252472,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.22404861450195312,
+      "fixed64_context_same_path_score_maximum_delta": 0.8180487155914307,
+      "cache_extraction_seconds": 0.31337319500744343,
+      "cached_diagnostic_seconds": 0.08573078401968814,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "13c555e68671524f",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 1.1947633028030396,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.03677201271057129
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.09941864013671875
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04814958572387695
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.3542454242706299
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.05629253387451172
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -2.682771682739258
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5875166058540344,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.2063492238521576,
+      "nearby64_vs16_same_path_score_maximum_delta": 1.0411710739135742,
+      "fixed64_context_same_path_score_maximum_delta": 1.011601448059082,
+      "cache_extraction_seconds": 0.37287579898838885,
+      "cached_diagnostic_seconds": 0.07970087000285275,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "e61adc75d7da50c3",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.5295059084892273,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.016944169998168945
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03291511535644531
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.021055221557617188
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.07844042778015137
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.03845381736755371
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.3263988494873047
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.04597777873277664,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.111111119389534,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.2109200358390808,
+      "fixed64_context_same_path_score_maximum_delta": 0.38206183910369873,
+      "cache_extraction_seconds": 0.20026619199779816,
+      "cached_diagnostic_seconds": 0.0558881800097879,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "f3f9f7a6f8f15f49",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.00413915328681469,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0001862049102783203
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00022602081298828125
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0003364086151123047
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0004918575286865234
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0006139278411865234
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0016057491302490234
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.10517793893814087,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.01587301678955555,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.053276896476745605,
+      "fixed64_context_same_path_score_maximum_delta": 1.2414922714233398,
+      "cache_extraction_seconds": 0.17320650300825946,
+      "cached_diagnostic_seconds": 0.055963833001442254,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "4e19d097005e55b5",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.044808294624090195,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0015473365783691406
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0032889842987060547
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002402782440185547
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010338306427001953
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003451824188232422
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.123077392578125
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.7791823148727417,
+      "nearby_clipped_control_fraction": 0.008064515888690948,
+      "nearby_comfort_violation_fraction": 0.968254029750824,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.23684823513031006,
+      "fixed64_context_same_path_score_maximum_delta": 0.54410719871521,
+      "cache_extraction_seconds": 0.17316487300558947,
+      "cached_diagnostic_seconds": 0.07307451299857348,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "be87511d69ba58e7",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.1512611210346222,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.006679534912109375
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.008533716201782227
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010465621948242188
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.017859935760498047
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0028786659240722656
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.06804466247558594
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.47323334217071533,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0634920671582222,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.1467123031616211,
+      "fixed64_context_same_path_score_maximum_delta": 0.47093796730041504,
+      "cache_extraction_seconds": 0.35307613099575974,
+      "cached_diagnostic_seconds": 0.0879022820154205,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "d8952813d8de574d",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.053212326020002365,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.0005400180816650391
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0044443607330322266
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.009059429168701172
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.011159181594848633
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.4540102481842041
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.05309343338012695
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4255076050758362,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0952381044626236,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.2327728271484375,
+      "fixed64_context_same_path_score_maximum_delta": 0.21777677536010742,
+      "cache_extraction_seconds": 0.17394220098503865,
+      "cached_diagnostic_seconds": 0.05817465600557625,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "4501554f824e59fc",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.02366846427321434,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.001001119613647461
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0024836063385009766
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.001575469970703125
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006426811218261719
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002131938934326172
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0337371826171875
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.15143141150474548,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0634920671582222,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3862581253051758,
+      "fixed64_context_same_path_score_maximum_delta": 0.3427596092224121,
+      "cache_extraction_seconds": 0.3451880490174517,
+      "cached_diagnostic_seconds": 0.0826491060142871,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "510e507046865b40",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.017101118341088295,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0002079010009765625
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0013585090637207031
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.0010843276977539062
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0037450790405273438
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.01638650894165039
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014466285705566406
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.29499539732933044,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.01587301678955555,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.05374276638031006,
+      "fixed64_context_same_path_score_maximum_delta": 0.15004920959472656,
+      "cache_extraction_seconds": 0.37101259600603953,
+      "cached_diagnostic_seconds": 0.08893194602569565,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "60ae22c26d59572e",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.15003745257854462,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005466938018798828
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.011773824691772461
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007982492446899414
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03285479545593262
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0052602291107177734
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0876760482788086
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5052696466445923,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.01587301678955555,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.16600918769836426,
+      "fixed64_context_same_path_score_maximum_delta": 0.2143181562423706,
+      "cache_extraction_seconds": 0.3436768249957822,
+      "cached_diagnostic_seconds": 0.06499109297874384,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "9ac3f47635bd5fe1",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0094711659476161,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.002085447311401367
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005318880081176758
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.011732101440429688
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02751779556274414
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.48153984546661377
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.41240692138671875
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5627115368843079,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.222222238779068,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.10852622985839844,
+      "fixed64_context_same_path_score_maximum_delta": 0.9078941345214844,
+      "cache_extraction_seconds": 0.3265980150026735,
+      "cached_diagnostic_seconds": 0.06964151200372726,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "96d9a24139ca5ad4",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.10558689385652542,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002871274948120117
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01818990707397461
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0038771629333496094
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.13379120826721191
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0002522468566894531
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -2.131425380706787
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4778643846511841,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.2380952537059784,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.15404415130615234,
+      "fixed64_context_same_path_score_maximum_delta": 0.7768086194992065,
+      "cache_extraction_seconds": 0.1733388290158473,
+      "cached_diagnostic_seconds": 0.05623945299885236,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "2ee8d10b988c58b2",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0474277138710022,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0021774768829345703
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0028564929962158203
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003829479217529297
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005774259567260742
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005311489105224609
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014197349548339844
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.38525304198265076,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.047280192375183105,
+      "fixed64_context_same_path_score_maximum_delta": 0.07582736015319824,
+      "cache_extraction_seconds": 0.17334998000296764,
+      "cached_diagnostic_seconds": 0.06163616999401711,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "353988b87d995f68",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.012082126922905445,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004677772521972656
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0009212493896484375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0006520748138427734
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0035774707794189453
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 8.869171142578125e-05
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.13276267051696777
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.7105653882026672,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.4761905074119568,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3618478775024414,
+      "fixed64_context_same_path_score_maximum_delta": 0.945988655090332,
+      "cache_extraction_seconds": 0.3173286060045939,
+      "cached_diagnostic_seconds": 0.08949159202165902,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "8b8466eb334f5957",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.04723577946424484,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00049591064453125
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004781961441040039
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.003490924835205078
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0159151554107666
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.41248536109924316
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.13851690292358398
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.2872980237007141,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.2380952537059784,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.2832554578781128,
+      "fixed64_context_same_path_score_maximum_delta": 0.6033992767333984,
+      "cache_extraction_seconds": 0.3691259729966987,
+      "cached_diagnostic_seconds": 0.08950302298762836,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "e38dd745e363544c",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.4067097008228302,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.012560367584228516
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03951215744018555
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.013736486434936523
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.12489056587219238
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.003780364990234375
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.8043051958084106
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.329853355884552,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0634920671582222,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.25172412395477295,
+      "fixed64_context_same_path_score_maximum_delta": 0.2531404495239258,
+      "cache_extraction_seconds": 0.3357020780094899,
+      "cached_diagnostic_seconds": 0.10602969001047313,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "116aacf9868e5e4e",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.06695479899644852,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0016632080078125
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005685329437255859
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00125885009765625
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.019373416900634766
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.00500178337097168
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.28910326957702637
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6026790142059326,
+      "nearby_clipped_control_fraction": 0.0010080644860863686,
+      "nearby_comfort_violation_fraction": 0.2539682686328888,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.2615220546722412,
+      "fixed64_context_same_path_score_maximum_delta": 0.8876481056213379,
+      "cache_extraction_seconds": 0.1737741190008819,
+      "cached_diagnostic_seconds": 0.05876147298840806,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "97bbc33ac7d4586d",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.35202598571777344,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007063388824462891
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02480316162109375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.003937721252441406
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.07122445106506348
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.2223672866821289
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.27906370162963867
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6301374435424805,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1904762089252472,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.2084794044494629,
+      "fixed64_context_same_path_score_maximum_delta": 0.3766012191772461,
+      "cache_extraction_seconds": 0.3474903099995572,
+      "cached_diagnostic_seconds": 0.08097051602089778,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "812a8e70ad07507d",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0020762549247592688,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 8.893013000488281e-05
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00012159347534179688
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00015163421630859375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00028395652770996094
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00016546249389648438
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0011627674102783203
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6884962320327759,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.3333333432674408,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.08589029312133789,
+      "fixed64_context_same_path_score_maximum_delta": 0.1033940315246582,
+      "cache_extraction_seconds": 0.37417021198780276,
+      "cached_diagnostic_seconds": 0.08723911899141967,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "8611c130815150a7",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.00453014113008976,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00010442733764648438
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0003113746643066406
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -7.486343383789062e-05
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0008389949798583984
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.004379749298095703
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006363868713378906
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.534954845905304,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0634920671582222,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.16052985191345215,
+      "fixed64_context_same_path_score_maximum_delta": 0.21398353576660156,
+      "cache_extraction_seconds": 0.3719133510021493,
+      "cached_diagnostic_seconds": 0.08092477999161929,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "3cdaaa2bcfd55b68",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.2630540132522583,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010695219039916992
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014716863632202148
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.018250703811645508
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03241848945617676
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.029010534286499023
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10503745079040527
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.3376346230506897,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0476190522313118,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.4111144542694092,
+      "fixed64_context_same_path_score_maximum_delta": 0.20119643211364746,
+      "cache_extraction_seconds": 0.35906888399040326,
+      "cached_diagnostic_seconds": 0.06186173501191661,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "16df188810315dc7",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.03212188184261322,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0009999275207519531
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0022993087768554688
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0011670589447021484
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006725788116455078
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.0060253143310546875
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.08945608139038086
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5963418483734131,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.222222238779068,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.1864941120147705,
+      "fixed64_context_same_path_score_maximum_delta": 1.0525399446487427,
+      "cache_extraction_seconds": 0.17371130001265556,
+      "cached_diagnostic_seconds": 0.055848312011221424,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "d99103d5b5025654",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.004946091677993536,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00023555755615234375
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00028061866760253906
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004982948303222656
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0005931854248046875
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0013036727905273438
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0018177032470703125
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4117651879787445,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.027590394020080566,
+      "fixed64_context_same_path_score_maximum_delta": 0.18549859523773193,
+      "cache_extraction_seconds": 0.18019142199773341,
+      "cached_diagnostic_seconds": 0.05720112699782476,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "95165bfbaadf5a64",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.009851842187345028,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.000400543212890625
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.000545501708984375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0005404949188232422
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00121307373046875
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.001018524169921875
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004906892776489258
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5591722130775452,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.2063492238521576,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.12889325618743896,
+      "fixed64_context_same_path_score_maximum_delta": 0.2125236988067627,
+      "cache_extraction_seconds": 0.3425075499981176,
+      "cached_diagnostic_seconds": 0.07202206400688738,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "62d339c4086d51ba",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.03064015880227089,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0017399787902832031
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0017240047454833984
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0035572052001953125
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0038330554962158203
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008189201354980469
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.012717247009277344
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.591206431388855,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.111111119389534,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.174957275390625,
+      "fixed64_context_same_path_score_maximum_delta": 0.6962985992431641,
+      "cache_extraction_seconds": 0.37088417599443346,
+      "cached_diagnostic_seconds": 0.08796506799990311,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "3e11d77a9aca5bb7",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.6411208510398865,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.011249303817749023
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10489320755004883
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0008802413940429688
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.4884772300720215
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.07464599609375
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -3.186610698699951
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5279467105865479,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1428571492433548,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.14294517040252686,
+      "fixed64_context_same_path_score_maximum_delta": 0.9558967351913452,
+      "cache_extraction_seconds": 0.3373412869987078,
+      "cached_diagnostic_seconds": 0.09850772900972515,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "04aa69f18d255c96",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0035136439837515354,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 8.058547973632812e-05
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0002675056457519531
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 3.147125244140625e-05
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0008041858673095703
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.0009884834289550781
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006424665451049805
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5964149832725525,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.6507936716079712,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.019844412803649902,
+      "fixed64_context_same_path_score_maximum_delta": 0.0949697494506836,
+      "cache_extraction_seconds": 0.17406241098069586,
+      "cached_diagnostic_seconds": 0.08505138897453435,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "a631fec170525388",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.24822601675987244,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010111331939697266
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014539957046508789
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.016635894775390625
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.034583091735839844
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02300548553466797
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.13216543197631836
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5670695900917053,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1904762089252472,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3128983974456787,
+      "fixed64_context_same_path_score_maximum_delta": 0.33806777000427246,
+      "cache_extraction_seconds": 0.17611781100276858,
+      "cached_diagnostic_seconds": 0.07874078501481563,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "c7b679fb61655f22",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.021510083228349686,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0009157657623291016
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0011913776397705078
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.001592874526977539
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.002565145492553711
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0026493072509765625
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00864100456237793
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.7524399757385254,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.111111119389534,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.04903221130371094,
+      "fixed64_context_same_path_score_maximum_delta": 0.23654651641845703,
+      "cache_extraction_seconds": 0.3082552010018844,
+      "cached_diagnostic_seconds": 0.10429796899552457,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "77ee60147e0e55b7",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.3862071931362152,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.018096208572387695
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.022268295288085938
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.03349113464355469
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.04973292350769043
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04710674285888672
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.2089707851409912
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.24905145168304443,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1269841343164444,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.34174251556396484,
+      "fixed64_context_same_path_score_maximum_delta": 0.5058369636535645,
+      "cache_extraction_seconds": 0.37253894700552337,
+      "cached_diagnostic_seconds": 0.06757422699593008,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "74da64c81fe1552e",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.01952284760773182,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0007066726684570312
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0011591911315917969
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00130462646484375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.002492666244506836
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002551555633544922
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.007850885391235352
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5122997760772705,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.01587301678955555,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.7932411432266235,
+      "fixed64_context_same_path_score_maximum_delta": 0.9415563344955444,
+      "cache_extraction_seconds": 0.35536733199842274,
+      "cached_diagnostic_seconds": 0.08067993499571458,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "99b52fa162c550d4",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.012470624409615993,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00035572052001953125
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0010271072387695312
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00024008750915527344
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0029718875885009766
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.002157449722290039
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01728224754333496
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.9226596355438232,
+      "nearby_clipped_control_fraction": 0.0010080644860863686,
+      "nearby_comfort_violation_fraction": 0.5873016119003296,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.525348424911499,
+      "fixed64_context_same_path_score_maximum_delta": 1.721882939338684,
+      "cache_extraction_seconds": 0.18194189300993457,
+      "cached_diagnostic_seconds": 0.08629223998286761,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "5982df20d90a59cc",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.049334824085235596,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.001744985580444336
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0033881664276123047
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0025260448455810547
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010514259338378906
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0013964176177978516
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.1386101245880127
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.2916160821914673,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0317460335791111,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.29958558082580566,
+      "fixed64_context_same_path_score_maximum_delta": 1.5589542388916016,
+      "cache_extraction_seconds": 0.3529126869980246,
+      "cached_diagnostic_seconds": 0.0901748190226499,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "e99744bcd703522c",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.023328697308897972,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0011229515075683594
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0011582374572753906
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0022478103637695312
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0023479461669921875
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005150794982910156
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006341218948364258
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5698923468589783,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0476190522313118,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.12204694747924805,
+      "fixed64_context_same_path_score_maximum_delta": 0.09668874740600586,
+      "cache_extraction_seconds": 0.37451538498862647,
+      "cached_diagnostic_seconds": 0.09164675697684288,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "458e833803315b4f",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.018025118857622147,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0007810592651367188
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00089263916015625
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0013527870178222656
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.001827239990234375
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0030829906463623047
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005202293395996094
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6889723539352417,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.4603174924850464,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.18959856033325195,
+      "fixed64_context_same_path_score_maximum_delta": 0.46514081954956055,
+      "cache_extraction_seconds": 0.3464436040085275,
+      "cached_diagnostic_seconds": 0.06732626902521588,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "4f08dd3299925309",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.9392421841621399,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.03261542320251465
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.07122588157653809
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04620242118835449
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.20522236824035645
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04024457931518555
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -1.466251254081726
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.36005985736846924,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.2063492238521576,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.46665823459625244,
+      "fixed64_context_same_path_score_maximum_delta": 1.0881346464157104,
+      "cache_extraction_seconds": 0.1736158650019206,
+      "cached_diagnostic_seconds": 0.05860129802022129,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "fb73ca8c7d5f5d34",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.012404984794557095,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": -4.744529724121094e-05
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0012578964233398438
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.001979351043701172
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0035881996154785156
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.021363019943237305
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02174663543701172
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4885329008102417,
+      "nearby_clipped_control_fraction": 0.0010080644860863686,
+      "nearby_comfort_violation_fraction": 0.222222238779068,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.6331939697265625,
+      "fixed64_context_same_path_score_maximum_delta": 0.45668458938598633,
+      "cache_extraction_seconds": 0.18734346798737533,
+      "cached_diagnostic_seconds": 0.09059310800512321,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "5a37ffc78c1e5782",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0039021573029458523,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00019073486328125
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0002033710479736328
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00036525726318359375
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0004374980926513672
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004363059997558594
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.001440286636352539
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.18021509051322937,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0476190522313118,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.9545698165893555,
+      "fixed64_context_same_path_score_maximum_delta": 1.0525035858154297,
+      "cache_extraction_seconds": 0.35639854398323223,
+      "cached_diagnostic_seconds": 0.08224404798238538,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "5dcc8367111b5fad",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.0035350585822016,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00014090538024902344
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0001952648162841797
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0002319812774658203
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0004439353942871094
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0001800060272216797
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0015995502471923828
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.042205698788166046,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0793650820851326,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.18228483200073242,
+      "fixed64_context_same_path_score_maximum_delta": 0.7044627666473389,
+      "cache_extraction_seconds": 0.371644632978132,
+      "cached_diagnostic_seconds": 0.0937198789906688,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "64b99da814205341",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.17366726696491241,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0071659088134765625
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010571479797363281
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.011842012405395508
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02544999122619629
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.014913320541381836
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10659146308898926
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.18499182164669037,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0634920671582222,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.36454105377197266,
+      "fixed64_context_same_path_score_maximum_delta": 0.8383045196533203,
+      "cache_extraction_seconds": 0.351107785012573,
+      "cached_diagnostic_seconds": 0.08485792099963874,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "9a15d775514e5018",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.06876947730779648,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0022182464599609375
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004270315170288086
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003564596176147461
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.009970426559448242
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": -0.014936685562133789
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03851032257080078
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.3051823079586029,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1428571492433548,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.20166802406311035,
+      "fixed64_context_same_path_score_maximum_delta": 0.537289023399353,
+      "cache_extraction_seconds": 0.3089871169941034,
+      "cached_diagnostic_seconds": 0.05572428699815646,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "37e2bc0cb5a053a5",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.18565990030765533,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0072021484375
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.012202262878417969
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.011687755584716797
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.032883644104003906
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.017068862915039062
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.21239137649536133
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6571049690246582,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1746031790971756,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.1676642894744873,
+      "fixed64_context_same_path_score_maximum_delta": 0.3915606737136841,
+      "cache_extraction_seconds": 0.17390762499417178,
+      "cached_diagnostic_seconds": 0.05615654299617745,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "1825640c9ed75a4b",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.24246245622634888,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.009220361709594727
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.017261981964111328
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.01421046257019043
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0502474308013916
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.013735771179199219
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.3602132797241211
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.3501060903072357,
+      "nearby_clipped_control_fraction": 0.002016128972172737,
+      "nearby_comfort_violation_fraction": 0.222222238779068,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.23377597332000732,
+      "fixed64_context_same_path_score_maximum_delta": 0.561767578125,
+      "cache_extraction_seconds": 0.3466722200100776,
+      "cached_diagnostic_seconds": 0.08290616699378006,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "47c92818d9005eea",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.3492574393749237,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.016015291213989258
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.017569780349731445
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0297548770904541
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.037137746810913086
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04865431785583496
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.13287758827209473
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.18077687919139862,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0476190522313118,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3147716522216797,
+      "fixed64_context_same_path_score_maximum_delta": 0.44782495498657227,
+      "cache_extraction_seconds": 0.37418609601445496,
+      "cached_diagnostic_seconds": 0.08719677600311115,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "ac55c7f072c6528d",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.2332194298505783,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008488893508911133
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014208316802978516
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.014339685440063477
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03622317314147949
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.021424531936645508
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.18030691146850586
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.37794414162635803,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1746031790971756,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.6691608428955078,
+      "fixed64_context_same_path_score_maximum_delta": 0.6200342178344727,
+      "cache_extraction_seconds": 0.3376929310034029,
+      "cached_diagnostic_seconds": 0.0570605399843771,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "94683fc69ce4599c",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.1637435257434845,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0063860416412353516
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00913691520690918
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008410215377807617
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.024663209915161133
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003573179244995117
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.11144185066223145
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.07942970097064972,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.3336045742034912,
+      "fixed64_context_same_path_score_maximum_delta": 0.29546916484832764,
+      "cache_extraction_seconds": 0.35107163302018307,
+      "cached_diagnostic_seconds": 0.08938834301079623,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "df36523fdaeb5882",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.013527167961001396,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0006694793701171875
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0007708072662353516
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0011594295501708984
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.001796722412109375
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0019288063049316406
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006879568099975586
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5918258428573608,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.0793650820851326,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.01468968391418457,
+      "fixed64_context_same_path_score_maximum_delta": 0.10844624042510986,
+      "cache_extraction_seconds": 0.17438344200490974,
+      "cached_diagnostic_seconds": 0.07601019900175743,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    },
+    {
+      "token": "f23073987e7956e3",
+      "preprocessing_checks": {},
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm": 0.5687390565872192,
+      "finite_difference_directions": [],
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02423381805419922
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03435635566711426
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.03901171684265137
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.08078527450561523
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.028423786163330078
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.31832385063171387
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5266648530960083,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_comfort_violation_fraction": 0.1269841343164444,
+      "nearby64_vs16_same_path_score_maximum_delta": 0.4562854766845703,
+      "fixed64_context_same_path_score_maximum_delta": 0.7232837677001953,
+      "cache_extraction_seconds": 0.3523679100035224,
+      "cached_diagnostic_seconds": 0.07935288798762485,
+      "memory": {
+        "card_used_bytes": 42024894464,
+        "peak_allocated_bytes": 512570880,
+        "peak_reserved_bytes": 601882624
+      }
+    }
+  ],
+  "environment": {
+    "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+    "torch": "2.8.0+cu128",
+    "timm": "1.0.15"
+  }
+}
