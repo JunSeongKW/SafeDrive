@@ -4833,3 +4833,12 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - Particle12,000 고정4scene의Stage2전대비중심.7371inputpx/크기9.0937%/presence절대평균.04772변화다. 운전에중요한객체로특화됐다는semantic검증은별개다.
 - 최신공통NAVTEST1,024는기존epoch9 LPWM85.9317/DrivoRepoch5 83.9662다. 학습scene/양/입력/SSL차이가있는시스템진단이며공정한동일예산우위입증이아니다. Epoch10내부87.41과NAVTEST85.93은서로다른패널이다. 이번조회에서새NAVTEST평가를기동하지않았다.
 - JSON근거 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261011_1921.json`. 기존25epoch학습과각epoch검증queue를계속유지했다.
+
+## 2026-10-11 — LPWM particle 위치 변화가 가장 컸던 과거 실험 확인
+
+- 사용자의과거실험최대변화질문에저장진단702경로를조회했다. 원LPWM학습/source/config/체크포인트/queue변경없고모델추론/GPU/새학습0이다.
+- 기존보존모델동일3dev장면의geometry NPZ를CPU로재계산했다. Nativepixels는delta(y,x)에[H/2,W/2]를곱한Euclidean거리,축별정규화는100×mean(norm(delta(y,x)/2))다. 정규화퍼센트는영상대각선대비비율이아니다. 모든수치가기존comparison_summary와1e-5이내일치했다.
+- 최대는512×256/16FG/공개LPWM초기화에서SSL+planning native전체공동학습2264update:15.8069px/4.3577%. 512순차3200:8.3104px/2.2119%,128planning-pathLoRA공동5493:2.7747px/2.1677%,128Stage1+Adapter13480:.0900px/.0703%다. 128조건만보면공동planning-pathLoRA가가장컸다.
+- 같은512joint의pass3진단16.0544px는더이른checkpoint이고2264의15.8069px와구분한다. 현재front-history12,000의.7371px는다른4장면이라동일패널순위에넣지않았다. 표본3개·camera/history/particle수/학습량/목적차이가있어이동량순위를학습법우열/전체데이터최대로확대하지않는다.
+- 같은NAVTEST1024 PDMS512joint72.4289 vs128Adapter81.5107로이동량과planning효용은다르다. SSL+planningjoint의움직임을planninggradient단독효과로해석하지않는다. Particle는latent슬롯이고객체track이아니다.
+- 새조회근거 `results/lpwm_particle_movement_review_20261011/comparison.json`에원NPZ/sourceSHA·조건/update·원좌표재계산·한계·이미지경로를저장했다. 확인PNG `results/lpwm_preserved_checkpoint_same_panels_20261009/scene3_particle_before_after_overlay.png`의마지막행이512joint다.

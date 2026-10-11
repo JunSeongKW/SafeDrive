@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 19:23 KST (Codex)
+마지막 갱신: 2026-10-11 19:48 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 — 과거 LPWM particle 이동량 비교 완료, 새학습 없음.** 저장진단702경로와동일3장면의원geometry NPZ를CPU로조회·재계산했다. 최대평균변화조건은512×256/16FG/SSL+planning native공동학습2264update다. 기존LPWM25epochqueue/모델/설정/체크포인트는변경하지않았다. 근거 `results/lpwm_particle_movement_review_20261011/comparison.json`.
 
 **2026-10-11 19:22 KST — LPWM 상태 조회: 12,179/29,425update(41.39%), 11번째epoch 학습 중.** 완료epoch10의 내부dev검증을확인했다. GPU0·1 사용률100%/각39,173MiB(41.08decimalGB),양rank최근500loss비유한0·12,100의18gradient그룹유한양수다. Epoch10→11queue는계속실행하며이요청에서학습/설정/queue를변경하지않았다. progress는시간에따라갱신되므로현재값을읽는다. 조회근거 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261011_1921.json`.
 
@@ -1390,6 +1392,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**Particle위치변화 최대기록:** 같은3dev장면의before/after 평균 nativepx/축별정규화좌표변화는512joint2264=15.8069px/4.3577%,512sequential3200=8.3104px/2.2119%,128jointLoRA5493=2.7747px/2.1677%,128Adapter13480=.0900px/.0703%다. Raw NPZ재계산이기존기록과1e-5이내일치했다. 512joint이전pass3의16.0544px는별도checkpoint값이다. 현재front-history12,000의.7371px는다른4scene패널이므로동일3scene순위에넣지않았다. 128해상도조건만보면old planning-pathLoRA공동학습변화가컸다. 이동량최대512joint의동일NAVTEST1024 PDMS72.4289는128Adapter81.5107보다낮아큰이동이planning효용을뜻하지않는다.
 
 **LPWM epoch10 검증: 내부dev PDMS87.4052, epoch9의87.4335보다−.0283점.** 동일1,024예측/1,021유효공식score/3개원래cache누락제외, ADE1.4209m/FDE3.5435m다. 같은패널의epoch5/8/9/10 PDMS83.9882/85.8215/87.4335/87.4052. 학습자체는진행되고있지만한구간정체로saturation을확정하지않는다. 16clip RGB복원MSE Stage1대비+.9565%·미래MSE+3.3983%,12scene미래현재반복개입ADE+.1421m는별도작은진단이다. Particle12,000의고정4scene 중심.7371inputpx/크기9.0937%/presence.04772변화;운전객체특화증거아님. 최신공통NAVTEST1024는여전히epoch9 LPWM85.9317/DrivoRepoch5 83.9662이며학습량/조건차이가있다. Epoch10 내부dev87.41과NAVTEST85.93을동일평가로비교하지않는다.
 
@@ -2434,6 +2438,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**Particle변화량조회산출물만추가.** `results/lpwm_particle_movement_review_20261011/comparison.json`에원NPZ/sourceSHA·같은3scene재계산·조건/해상도/particle수/update·축별정규화정의·이미지경로·표본한계를저장했다. HANDOFF1–5/RESUME_NOTES갱신,새모델추론/GPU/학습/평가0이다.
+
 **LPWM 중간상태 조회 근거 추가.** 진행/queue/epoch별내부검증/최근500loss/18gradient/particle12,000/world진단/기존NAVTEST결과와구분을 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261011_1921.json`에저장하고HANDOFF1–5·RESUME_NOTES를갱신했다. 모델·설정·checkpoint·학습/평가queue미변경,새forward/학습/평가호출0이다.
 
 **NC·DAC 직접 visual probe 구현·검증·실측 추가.** `models/direct_metric_visual_probe.py`는 원 scorer feature/logit을 받지 않고 ego11·후보24·metric16의 비선형query로 frozen DINO1406×384FP16 spatial cache를 읽는다. Position은key에만, head는visual readout에만 연결했다. 같은용량Shared/Specific90,402파라미터 모델·config·CPU6tests·prepare/validate/profile/train/report 실행기·replay shell·CPU기능진단/위험AUC/튜닝loss 요약을 추가했다. 실제JSON/CSV/NPZ·manifest·등록hash/환경·6검사·GPU측정·공통척도3PNG·실패gate보고를 저장했다. Bootstrap API 오류는학습전에수정·재등록했고 이전등록/사전수정근거를보존했다. Constantfeature AUC의FP32동률허용오차를읽기전용추가진단에서명시하고이전결과를보존했다. 기존289보호파일/학습/체크포인트와이전pilot결과는불변. README/HANDOFF1–5/RESUME_NOTES를갱신했다.
@@ -2511,6 +2517,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**Particle순위조회후:** 이결과로학습조건을자동변경하거나512joint를재개하지않는다. 기존현재LPWMqueue는유지한다. 재확인시보존된동일3sceneNPZ와축별정규화좌표변화를사용하고서로다른snapshot/표본의15.81·16.05px값을혼합하지않는다.
 
 **LPWM 상태조회 이후:** 기존25epochqueue의각epoch검증을계속유지한다. 10epoch는PDMS정체구간하나이며추가원인확정/조기중단/학습확대는하지않았다. 공통NAVTEST 최신결과는9epoch로고정되어있고이번조회에서10epoch NAVTEST평가를새로기동하지않았다.
 
@@ -3226,6 +3234,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**Particle최대변화의범위:** 저장된진단중동일3장면평균의순위이며전체데이터분포의최대/학습법우열이아니다. 512와128 nativepixel은직접비교하지않고각축길이로정규화했다. Camera/history·particle16vs64·학습량·SSL/LoRA/nativeFT차이가남는다. 슬롯인덱스는객체track이아니고512joint의이동은SSL+planning공동효과다. 측정되지않은실험까지전수최대라고단정하지않는다.
 
 **이번 LPWM 중간결과는조회만수행했다.** 내부dev는기존노출패널/NAVSIMv1이며독립NAVTEST와구분한다. 87.41PDMS의표본은1,021장면,9epoch공통NAVTEST85.93은1,024장면이다. finitegradient·particle변화만으로객체중심표현학습/LPWM단독planning기여를확정하지않는다. 작은16clipworld오차와12scene미래개입은대표성·유의성검증을대신하지않는다.
 
