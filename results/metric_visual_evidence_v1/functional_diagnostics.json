@@ -1,0 +1,473 @@
+{
+  "complete": true,
+  "diagnostic_scenes": 12,
+  "records": [
+    {
+      "token": "d3d2e1f595c15eab",
+      "pilot_row": 1098,
+      "command_index": 0,
+      "attention_coefficient_of_variation": 0.49577295780181885,
+      "normalized_attention_entropy": 0.984558641910553,
+      "NC_DAC_attention_total_variation": 0.023496288806200027,
+      "candidate_attention_mean_total_variation": 0.014155888929963112,
+      "before_after_attention_total_variation": 0.2040977030992508,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 1.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.014577627182006836,
+          "random_replacement_abs_logit_change": 0.0016186237335205078
+        },
+        "DAC": {
+          "candidate": 45,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0007727146148681641,
+          "random_replacement_abs_logit_change": 0.006139516830444336
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.00047171537880785763,
+          "absolute_gradient_times_feature_sum": 0.24594280123710632
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0006340547115541995,
+          "absolute_gradient_times_feature_sum": 0.34793779253959656
+        }
+      }
+    },
+    {
+      "token": "ad50d798cf59571f",
+      "pilot_row": 1103,
+      "command_index": 0,
+      "attention_coefficient_of_variation": 0.18566326797008514,
+      "normalized_attention_entropy": 0.9975897073745728,
+      "NC_DAC_attention_total_variation": 0.020535476505756378,
+      "candidate_attention_mean_total_variation": 0.006562192924320698,
+      "before_after_attention_total_variation": 0.081168532371521,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 1.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.003175497055053711,
+          "random_replacement_abs_logit_change": 0.0014281272888183594
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0066283345222473145,
+          "random_replacement_abs_logit_change": 0.011299192905426025
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.0004252858634572476,
+          "absolute_gradient_times_feature_sum": 0.2425631284713745
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0007456082967109978,
+          "absolute_gradient_times_feature_sum": 0.41684064269065857
+        }
+      }
+    },
+    {
+      "token": "3f6d991e9f565b22",
+      "pilot_row": 1104,
+      "command_index": 0,
+      "attention_coefficient_of_variation": 0.2579309642314911,
+      "normalized_attention_entropy": 0.995408296585083,
+      "NC_DAC_attention_total_variation": 0.02645980566740036,
+      "candidate_attention_mean_total_variation": 0.008135826326906681,
+      "before_after_attention_total_variation": 0.10510746389627457,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 31,
+          "official_target": 0.5,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.004604816436767578,
+          "random_replacement_abs_logit_change": 0.0017247200012207031
+        },
+        "DAC": {
+          "candidate": 1,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.005763530731201172,
+          "random_replacement_abs_logit_change": 0.012142300605773926
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.0005059048417024314,
+          "absolute_gradient_times_feature_sum": 0.2790095806121826
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0006254964973777533,
+          "absolute_gradient_times_feature_sum": 0.3458389341831207
+        }
+      }
+    },
+    {
+      "token": "796698f0fd7d53c5",
+      "pilot_row": 1105,
+      "command_index": 0,
+      "attention_coefficient_of_variation": 0.280537486076355,
+      "normalized_attention_entropy": 0.9946134090423584,
+      "NC_DAC_attention_total_variation": 0.025965284556150436,
+      "candidate_attention_mean_total_variation": 0.006126723252236843,
+      "before_after_attention_total_variation": 0.11704641580581665,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 1.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0038940906524658203,
+          "random_replacement_abs_logit_change": 0.00022411346435546875
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.007896184921264648,
+          "random_replacement_abs_logit_change": 0.01080322265625
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.00044875434832647443,
+          "absolute_gradient_times_feature_sum": 0.25003427267074585
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0007552786846645176,
+          "absolute_gradient_times_feature_sum": 0.4032765030860901
+        }
+      }
+    },
+    {
+      "token": "ea573171fd53572a",
+      "pilot_row": 1088,
+      "command_index": 1,
+      "attention_coefficient_of_variation": 0.37472841143608093,
+      "normalized_attention_entropy": 0.990696132183075,
+      "NC_DAC_attention_total_variation": 0.02475033327937126,
+      "candidate_attention_mean_total_variation": 0.013513989746570587,
+      "before_after_attention_total_variation": 0.1588447540998459,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.016188859939575195,
+          "random_replacement_abs_logit_change": 0.003106832504272461
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 1.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0032978057861328125,
+          "random_replacement_abs_logit_change": 0.004229068756103516
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.000529261480551213,
+          "absolute_gradient_times_feature_sum": 0.2911459505558014
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0008191718952730298,
+          "absolute_gradient_times_feature_sum": 0.45162487030029297
+        }
+      }
+    },
+    {
+      "token": "27a0ed357788574f",
+      "pilot_row": 1090,
+      "command_index": 1,
+      "attention_coefficient_of_variation": 0.41801655292510986,
+      "normalized_attention_entropy": 0.9889135360717773,
+      "NC_DAC_attention_total_variation": 0.023998606950044632,
+      "candidate_attention_mean_total_variation": 0.014159711077809334,
+      "before_after_attention_total_variation": 0.16157804429531097,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 1.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.012422800064086914,
+          "random_replacement_abs_logit_change": 0.001958131790161133
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.004200965166091919,
+          "random_replacement_abs_logit_change": 0.009023725986480713
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.0004871228593401611,
+          "absolute_gradient_times_feature_sum": 0.2565748691558838
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0008589560748077929,
+          "absolute_gradient_times_feature_sum": 0.45253986120224
+        }
+      }
+    },
+    {
+      "token": "53880c7e22d553b5",
+      "pilot_row": 1092,
+      "command_index": 1,
+      "attention_coefficient_of_variation": 0.38725143671035767,
+      "normalized_attention_entropy": 0.9905619621276855,
+      "NC_DAC_attention_total_variation": 0.02104240655899048,
+      "candidate_attention_mean_total_variation": 0.011347610503435135,
+      "before_after_attention_total_variation": 0.15906043350696564,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 1.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0016484260559082031,
+          "random_replacement_abs_logit_change": 0.003908872604370117
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.010444939136505127,
+          "random_replacement_abs_logit_change": 0.01531749963760376
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.00048627061187289655,
+          "absolute_gradient_times_feature_sum": 0.2593041658401489
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0009849687339738011,
+          "absolute_gradient_times_feature_sum": 0.5247889161109924
+        }
+      }
+    },
+    {
+      "token": "6a8eec69b45f50d0",
+      "pilot_row": 1093,
+      "command_index": 1,
+      "attention_coefficient_of_variation": 0.29299741983413696,
+      "normalized_attention_entropy": 0.9941624402999878,
+      "NC_DAC_attention_total_variation": 0.016784019768238068,
+      "candidate_attention_mean_total_variation": 0.01143843587487936,
+      "before_after_attention_total_variation": 0.12482704222202301,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 1,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0016720294952392578,
+          "random_replacement_abs_logit_change": 0.002552598714828491
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0026781558990478516,
+          "random_replacement_abs_logit_change": 0.010846436023712158
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.00043789850315079093,
+          "absolute_gradient_times_feature_sum": 0.24186629056930542
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0008249079110100865,
+          "absolute_gradient_times_feature_sum": 0.4447956085205078
+        }
+      }
+    },
+    {
+      "token": "34774cd08c045d92",
+      "pilot_row": 1089,
+      "command_index": 2,
+      "attention_coefficient_of_variation": 0.32593244314193726,
+      "normalized_attention_entropy": 0.9928951859474182,
+      "NC_DAC_attention_total_variation": 0.01918225735425949,
+      "candidate_attention_mean_total_variation": 0.009241709485650063,
+      "before_after_attention_total_variation": 0.13952793180942535,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 2,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0006098747253417969,
+          "random_replacement_abs_logit_change": 0.004057407379150391
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0012156963348388672,
+          "random_replacement_abs_logit_change": 0.006679534912109375
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.00041635450907051563,
+          "absolute_gradient_times_feature_sum": 0.2341804951429367
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0008401288068853319,
+          "absolute_gradient_times_feature_sum": 0.4549911320209503
+        }
+      }
+    },
+    {
+      "token": "a3c3be01bd675b41",
+      "pilot_row": 1091,
+      "command_index": 2,
+      "attention_coefficient_of_variation": 0.24162766337394714,
+      "normalized_attention_entropy": 0.9960391521453857,
+      "NC_DAC_attention_total_variation": 0.023363010957837105,
+      "candidate_attention_mean_total_variation": 0.007031719200313091,
+      "before_after_attention_total_variation": 0.08974964916706085,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.007667422294616699,
+          "random_replacement_abs_logit_change": 5.638599395751953e-05
+        },
+        "DAC": {
+          "candidate": 11,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.004753828048706055,
+          "random_replacement_abs_logit_change": 0.007193326950073242
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.0004642554558813572,
+          "absolute_gradient_times_feature_sum": 0.2581396698951721
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0007532339077442884,
+          "absolute_gradient_times_feature_sum": 0.4213159680366516
+        }
+      }
+    },
+    {
+      "token": "3de452c5a98a5faf",
+      "pilot_row": 1100,
+      "command_index": 2,
+      "attention_coefficient_of_variation": 0.21011251211166382,
+      "normalized_attention_entropy": 0.9968529939651489,
+      "NC_DAC_attention_total_variation": 0.025152146816253662,
+      "candidate_attention_mean_total_variation": 0.00684778019785881,
+      "before_after_attention_total_variation": 0.08204144239425659,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.007457733154296875,
+          "random_replacement_abs_logit_change": 0.0031180381774902344
+        },
+        "DAC": {
+          "candidate": 7,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0036219656467437744,
+          "random_replacement_abs_logit_change": 0.0075674355030059814
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.0004493740852922201,
+          "absolute_gradient_times_feature_sum": 0.2526508569717407
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0007025356753729284,
+          "absolute_gradient_times_feature_sum": 0.40030989050865173
+        }
+      }
+    },
+    {
+      "token": "e07dd506081d5425",
+      "pilot_row": 1102,
+      "command_index": 2,
+      "attention_coefficient_of_variation": 0.44443395733833313,
+      "normalized_attention_entropy": 0.986844539642334,
+      "NC_DAC_attention_total_variation": 0.029230158776044846,
+      "candidate_attention_mean_total_variation": 0.012360846623778343,
+      "before_after_attention_total_variation": 0.18880173563957214,
+      "shared_metric_attention_max_error": 0.0,
+      "feature_replacement": {
+        "NC": {
+          "candidate": 6,
+          "official_target": 0.5,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.0026383399963378906,
+          "random_replacement_abs_logit_change": 0.000423431396484375
+        },
+        "DAC": {
+          "candidate": 0,
+          "official_target": 0.0,
+          "important_token_count": 140,
+          "important_replacement_abs_logit_change": 0.001744985580444336,
+          "random_replacement_abs_logit_change": 0.004642486572265625
+        }
+      },
+      "patch_branch_gradients": {
+        "NC": {
+          "feature_gradient_norm": 0.000449666433269158,
+          "absolute_gradient_times_feature_sum": 0.245956152677536
+        },
+        "DAC": {
+          "feature_gradient_norm": 0.0009334737551398575,
+          "absolute_gradient_times_feature_sum": 0.5014157295227051
+        }
+      }
+    }
+  ],
+  "mean_NC_DAC_attention_total_variation": 0.02332998299971223,
+  "mean_candidate_attention_total_variation": 0.010076869511976838,
+  "mean_before_after_attention_total_variation": 0.1343209290256103,
+  "mean_normalized_attention_entropy": 0.9924279997746149,
+  "mean_attention_coefficient_of_variation": 0.32625042274594307,
+  "feature_replacement_summary": {
+    "NC": {
+      "mean_important_abs_logit_change": 0.006379793087641398,
+      "mean_random_abs_logit_change": 0.0020147735873858133
+    },
+    "DAC": {
+      "mean_important_abs_logit_change": 0.0044182588656743365,
+      "mean_random_abs_logit_change": 0.008823645611604055
+    }
+  },
+  "interpretation": "Attention reading and frozen-token interventions; no segmentation, no image/object causal removal, no semantic specialization proof",
+  "cpu_wall_seconds": 2.047266754001612,
+  "gpu_seconds": 0.0,
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11510
+  }
+}

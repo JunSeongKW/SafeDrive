@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "spatial_cache_hashes_match": true,
+  "initial_and_off_logits_exact": true,
+  "other_four_metrics_exact": true,
+  "equal_parameter_count": true,
+  "actual_cache_two_step_gradients": [
+    {
+      "step": 1,
+      "loss": 0.5614621043205261,
+      "parameter_gradient_norms": {
+        "metric_embedding": 0.0,
+        "visual_normalization.weight": 0.0,
+        "visual_normalization.bias": 0.0,
+        "key_projection.weight": 0.0,
+        "key_projection.bias": 0.0,
+        "value_projection.weight": 0.0,
+        "value_projection.bias": 0.0,
+        "position_projection.weight": 0.0,
+        "position_projection.bias": 0.0,
+        "candidate_query.0.weight": 0.0,
+        "candidate_query.0.bias": 0.0,
+        "candidate_query.2.weight": 0.0,
+        "candidate_query.2.bias": 0.0,
+        "scored_normalization.weight": 0.0,
+        "scored_normalization.bias": 0.0,
+        "residual_adapter.0.weight": 0.0,
+        "residual_adapter.0.bias": 0.0,
+        "residual_adapter.2.weight": 0.0,
+        "residual_adapter.2.bias": 0.0,
+        "correction_head.weight": 0.0990070253610611,
+        "correction_head.bias": 0.13373582065105438
+      }
+    },
+    {
+      "step": 2,
+      "loss": 0.5610542297363281,
+      "parameter_gradient_norms": {
+        "metric_embedding": 1.761504563546623e-06,
+        "visual_normalization.weight": 8.484294085064903e-06,
+        "visual_normalization.bias": 1.8243810700369067e-05,
+        "key_projection.weight": 3.5690902677742997e-06,
+        "key_projection.bias": 5.38293402094301e-14,
+        "value_projection.weight": 0.0003174952871631831,
+        "value_projection.bias": 3.1900668545858935e-05,
+        "position_projection.weight": 8.042514309636317e-06,
+        "position_projection.bias": 3.1900668545858935e-05,
+        "candidate_query.0.weight": 1.1969027582381386e-06,
+        "candidate_query.0.bias": 5.761072543464252e-07,
+        "candidate_query.2.weight": 2.660266318343929e-06,
+        "candidate_query.2.bias": 2.124163302141824e-06,
+        "scored_normalization.weight": 4.930733848595992e-05,
+        "scored_normalization.bias": 6.014708924340084e-05,
+        "residual_adapter.0.weight": 0.0013548869173973799,
+        "residual_adapter.0.bias": 0.00011367921251803637,
+        "residual_adapter.2.weight": 0.0005387936253100634,
+        "residual_adapter.2.bias": 0.00025427062064409256,
+        "correction_head.weight": 0.09819415211677551,
+        "correction_head.bias": 0.13261175155639648
+      }
+    }
+  ],
+  "cache_input_gradients_absent": true,
+  "encoder_and_scorer_modules_present_in_training": false,
+  "encoder_calls_in_cached_steps": 0,
+  "future_input": false,
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11502
+  }
+}

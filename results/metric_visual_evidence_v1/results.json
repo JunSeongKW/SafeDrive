@@ -1,0 +1,953 @@
+{
+  "complete": true,
+  "completed_utc": "2026-10-11T07:44:37.235917+00:00",
+  "configuration": {
+    "research_question": "Does candidate- and metric-conditioned reading of frozen spatial visual tokens reduce NC/DAC-related selection errors compared with an equal-parameter shared visual reader?",
+    "seed": 0,
+    "source_pilot_directory": "outputs/scorer_selection_learning_v1",
+    "corpus_directory": "outputs/four_model_small_corpus_v1/corpus",
+    "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass5.pt",
+    "expected_checkpoint_updates": 3200,
+    "toad_repository": "reference_repositories/TOAD",
+    "unchanged_running_training_registration": "outputs/lpwm_front_history_stage1_lora_v1/registration.json",
+    "output_directory": "outputs/metric_visual_evidence_v1",
+    "results_directory": "results/metric_visual_evidence_v1",
+    "training_scenes": 1024,
+    "tuning_scenes": 64,
+    "evaluation_scenes": 192,
+    "native_candidates": 64,
+    "cache_batch_size": 2,
+    "physical_gpu": 0,
+    "whole_card_limit_decimal_gb": 48.0,
+    "allocator_limit_gib": 2.5,
+    "training_steps": 500,
+    "batch_size": 8,
+    "reader_dimension": 64,
+    "hidden_dimension": 128,
+    "learning_rate": 0.0003,
+    "maximum_logit_correction": 3.0,
+    "component_loss_weight": 1.0,
+    "ranking_loss_weight": 1.0,
+    "ranking_temperature": 1.0,
+    "pairs_per_scene": 128,
+    "checkpoint_steps": [
+      100,
+      250,
+      500
+    ],
+    "cpu_threads": 2,
+    "bootstrap_repetitions": 2000,
+    "profile_steps": 12,
+    "maximum_combined_training_gpu_hours": 0.5,
+    "preregistered_gate": {
+      "primary": "Metric-specific minus shared selected PDMS has a positive paired recording-bootstrap 95% lower bound on the separate 192 development scenes",
+      "secondary": "Metric-specific selected collision/offroad rate exceeds neither shared nor unchanged by more than one percentage point",
+      "interpretation": "Passing supports replication, not independent test superiority; failure does not trigger a larger experiment"
+    },
+    "no_semantic_supervision": true,
+    "no_generator_training": true,
+    "no_full_scale_extension": true,
+    "evaluation_scope": "Previously used NAVVAL development recordings; not independent final NAVTEST"
+  },
+  "summaries": {
+    "unchanged": {
+      "selected_pdms": 78.47525024414062,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 19.093000411987305,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.015625,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.6740310788154602,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 71.60783386230469
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 83.64767456054688
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 72.75166320800781
+        }
+      },
+      "ranking": {
+        "gap_weighted_pair_accuracy": 0.8289871215820312,
+        "mean_within_scene_spearman": 0.3827289595785857,
+        "calibration": {
+          "NC": {
+            "brier": 0.05636763572692871,
+            "BCE": 0.21495181322097778,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.1387835592031479,
+            "BCE": 0.42604079842567444,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      }
+    },
+    "shared": {
+      "selected_pdms": 78.2336196899414,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 19.334630966186523,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.015625,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.6734402179718018,
+        "time_to_collision_within_bound": 0.9635416865348816,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9609375
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 68.78863525390625
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.3773422241211
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 73.14093017578125
+        }
+      },
+      "ranking": {
+        "gap_weighted_pair_accuracy": 0.8217257261276245,
+        "mean_within_scene_spearman": 0.3599568861861419,
+        "calibration": {
+          "NC": {
+            "brier": 0.05952313914895058,
+            "BCE": 0.22428637742996216,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.14108151197433472,
+            "BCE": 0.44755837321281433,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "minus_unchanged_pdms": -0.24163079261779785,
+      "minus_unchanged_recording_95ci": [
+        -1.9582313006111745,
+        1.3429291981594524
+      ],
+      "selected_index_changed_from_original_fraction": 0.2708333333333333
+    },
+    "metric_specific": {
+      "selected_pdms": 78.34131622314453,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 19.2269344329834,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.015625,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.6708166599273682,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9609375
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 69.4453353881836
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.36483764648438
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 72.86593627929688
+        }
+      },
+      "ranking": {
+        "gap_weighted_pair_accuracy": 0.8261116743087769,
+        "mean_within_scene_spearman": 0.36699865200557485,
+        "calibration": {
+          "NC": {
+            "brier": 0.05719226226210594,
+            "BCE": 0.21713228523731232,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.13894517719745636,
+            "BCE": 0.42955896258354187,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "minus_unchanged_pdms": -0.13393323123455048,
+      "minus_unchanged_recording_95ci": [
+        -1.4673047937665666,
+        1.234873694524156
+      ],
+      "selected_index_changed_from_original_fraction": 0.140625
+    },
+    "metric_specific_uniform_attention": {
+      "selected_pdms": 78.34131622314453,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 19.2269344329834,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.015625,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.6708166599273682,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9609375
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 69.4453353881836
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.36483764648438
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 72.86593627929688
+        }
+      },
+      "ranking": {
+        "gap_weighted_pair_accuracy": 0.8260502219200134,
+        "mean_within_scene_spearman": 0.3666784343501314,
+        "calibration": {
+          "NC": {
+            "brier": 0.057241667062044144,
+            "BCE": 0.21727032959461212,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.13896958529949188,
+            "BCE": 0.42959749698638916,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "minus_unchanged_pdms": -0.13393323123455048,
+      "minus_unchanged_recording_95ci": [
+        -1.4673047937665666,
+        1.234873694524156
+      ],
+      "selected_index_changed_from_original_fraction": 0.140625
+    },
+    "metric_specific_swap_metric_attention": {
+      "selected_pdms": 78.34131622314453,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 19.2269344329834,
+      "collision_or_offroad_rate": 0.125,
+      "NC_failure_rate": 0.015625,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.984375,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.6708166599273682,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9609375
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 69.4453353881836
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.36483764648438
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 72.86593627929688
+        }
+      },
+      "ranking": {
+        "gap_weighted_pair_accuracy": 0.8261204957962036,
+        "mean_within_scene_spearman": 0.36702346320607643,
+        "calibration": {
+          "NC": {
+            "brier": 0.057185858488082886,
+            "BCE": 0.21711938083171844,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.13894397020339966,
+            "BCE": 0.429553359746933,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "minus_unchanged_pdms": -0.13393323123455048,
+      "minus_unchanged_recording_95ci": [
+        -1.4673047937665666,
+        1.234873694524156
+      ],
+      "selected_index_changed_from_original_fraction": 0.140625
+    },
+    "metric_specific_patch_mean": {
+      "selected_pdms": 78.7171859741211,
+      "oracle_pdms": 97.5682601928711,
+      "selection_regret": 18.8510684967041,
+      "collision_or_offroad_rate": 0.11979166666666667,
+      "NC_failure_rate": 0.010416666666666666,
+      "DAC_failure_rate": 0.109375,
+      "submetrics": {
+        "no_at_fault_collisions": 0.9895833134651184,
+        "drivable_area_compliance": 0.890625,
+        "ego_progress": 0.6777541041374207,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9609375
+      },
+      "by_command": {
+        "0": {
+          "scenes": 49,
+          "selected_pdms": 70.74320220947266
+        },
+        "1": {
+          "scenes": 106,
+          "selected_pdms": 84.44569396972656
+        },
+        "2": {
+          "scenes": 37,
+          "selected_pdms": 72.86593627929688
+        }
+      },
+      "ranking": {
+        "gap_weighted_pair_accuracy": 0.825717031955719,
+        "mean_within_scene_spearman": 0.367634309201408,
+        "calibration": {
+          "NC": {
+            "brier": 0.05710434913635254,
+            "BCE": 0.2169579416513443,
+            "negative_fraction": 0.097412109375
+          },
+          "DAC": {
+            "brier": 0.14082978665828705,
+            "BCE": 0.4357057511806488,
+            "negative_fraction": 0.3314615885416667
+          }
+        }
+      },
+      "minus_unchanged_pdms": 0.24193185567855835,
+      "minus_unchanged_recording_95ci": [
+        -1.1471316932408901,
+        1.8283497264139776
+      ],
+      "selected_index_changed_from_original_fraction": 0.13020833333333334
+    }
+  },
+  "metric_specific_minus_shared_pdms": 0.10769752413034439,
+  "metric_specific_minus_shared_recording_95ci": [
+    -1.446248871805236,
+    1.7384990815265307
+  ],
+  "replication_gate_passed": false,
+  "full_scale_started": false,
+  "independent_final_test": false,
+  "training": {
+    "complete": true,
+    "conditions": {
+      "shared": {
+        "completed_steps": 500,
+        "trainable_parameters": 126978,
+        "best_tuning_step": 500,
+        "best_tuning_pdms": 78.99034881591797,
+        "gpu_training_step_seconds": 27.86447673701332,
+        "median_training_step_seconds": 0.04383442900143564,
+        "phase_wall_seconds": 29.750289783987682,
+        "maximum_whole_card_bytes": 41650487296,
+        "peak_allocated_bytes": 162881024,
+        "peak_reserved_bytes": 178257920,
+        "logs": [
+          {
+            "step": 1,
+            "loss": 0.6689765453338623,
+            "component_loss": 0.25448381900787354,
+            "ranking_loss": 0.41449272632598877,
+            "gradient_norm_before_clip": 0.25441738963127136,
+            "reader_gradient_norm": 0.0,
+            "elapsed_seconds": 0.6462934729934204
+          },
+          {
+            "step": 25,
+            "loss": 0.7711353302001953,
+            "component_loss": 0.27732962369918823,
+            "ranking_loss": 0.4938057065010071,
+            "gradient_norm_before_clip": 0.16668878495693207,
+            "reader_gradient_norm": 0.0017985489052426923,
+            "elapsed_seconds": 2.449453077977523
+          },
+          {
+            "step": 50,
+            "loss": 0.4464517831802368,
+            "component_loss": 0.19382670521736145,
+            "ranking_loss": 0.25262507796287537,
+            "gradient_norm_before_clip": 0.10263810306787491,
+            "reader_gradient_norm": 0.0024040248653125675,
+            "elapsed_seconds": 4.868572109990055
+          },
+          {
+            "step": 75,
+            "loss": 0.7632941603660583,
+            "component_loss": 0.30521708726882935,
+            "ranking_loss": 0.458077073097229,
+            "gradient_norm_before_clip": 0.35834529995918274,
+            "reader_gradient_norm": 0.011280770406746434,
+            "elapsed_seconds": 6.347821272996953
+          },
+          {
+            "step": 100,
+            "loss": 0.8748816251754761,
+            "component_loss": 0.40653538703918457,
+            "ranking_loss": 0.4683462679386139,
+            "gradient_norm_before_clip": 0.4466085135936737,
+            "reader_gradient_norm": 0.01943959394181789,
+            "elapsed_seconds": 7.542992838978535
+          },
+          {
+            "step": 125,
+            "loss": 0.5261742472648621,
+            "component_loss": 0.18685205280780792,
+            "ranking_loss": 0.33932217955589294,
+            "gradient_norm_before_clip": 0.21855567395687103,
+            "reader_gradient_norm": 0.008639990798901554,
+            "elapsed_seconds": 9.88406101198052
+          },
+          {
+            "step": 150,
+            "loss": 0.6484987735748291,
+            "component_loss": 0.20858164131641388,
+            "ranking_loss": 0.43991711735725403,
+            "gradient_norm_before_clip": 0.27874431014060974,
+            "reader_gradient_norm": 0.021460932498334234,
+            "elapsed_seconds": 10.97807124798419
+          },
+          {
+            "step": 175,
+            "loss": 0.5530154705047607,
+            "component_loss": 0.21344292163848877,
+            "ranking_loss": 0.33957257866859436,
+            "gradient_norm_before_clip": 0.3617282509803772,
+            "reader_gradient_norm": 0.017017650977737397,
+            "elapsed_seconds": 12.702015809976729
+          },
+          {
+            "step": 200,
+            "loss": 0.5900108814239502,
+            "component_loss": 0.21435314416885376,
+            "ranking_loss": 0.37565770745277405,
+            "gradient_norm_before_clip": 0.36148548126220703,
+            "reader_gradient_norm": 0.019592686925886033,
+            "elapsed_seconds": 13.983226674987236
+          },
+          {
+            "step": 225,
+            "loss": 0.47332796454429626,
+            "component_loss": 0.17469292879104614,
+            "ranking_loss": 0.2986350357532501,
+            "gradient_norm_before_clip": 0.3265470862388611,
+            "reader_gradient_norm": 0.03646079511794522,
+            "elapsed_seconds": 15.021698706987081
+          },
+          {
+            "step": 250,
+            "loss": 0.6779270172119141,
+            "component_loss": 0.3258325159549713,
+            "ranking_loss": 0.35209450125694275,
+            "gradient_norm_before_clip": 0.6159275770187378,
+            "reader_gradient_norm": 0.06930052747684755,
+            "elapsed_seconds": 16.54458979598712
+          },
+          {
+            "step": 275,
+            "loss": 0.5141021609306335,
+            "component_loss": 0.10031680762767792,
+            "ranking_loss": 0.4137853682041168,
+            "gradient_norm_before_clip": 0.24308419227600098,
+            "reader_gradient_norm": 0.024807225287718532,
+            "elapsed_seconds": 18.303523431997746
+          },
+          {
+            "step": 300,
+            "loss": 0.4568025469779968,
+            "component_loss": 0.15175636112689972,
+            "ranking_loss": 0.3050461709499359,
+            "gradient_norm_before_clip": 0.2156476527452469,
+            "reader_gradient_norm": 0.024676474286274085,
+            "elapsed_seconds": 19.959277505986392
+          },
+          {
+            "step": 325,
+            "loss": 0.6298161149024963,
+            "component_loss": 0.197414368391037,
+            "ranking_loss": 0.43240174651145935,
+            "gradient_norm_before_clip": 0.4487903416156769,
+            "reader_gradient_norm": 0.039192254351715215,
+            "elapsed_seconds": 20.85823304898804
+          },
+          {
+            "step": 350,
+            "loss": 0.4937840700149536,
+            "component_loss": 0.19270822405815125,
+            "ranking_loss": 0.30107584595680237,
+            "gradient_norm_before_clip": 0.3600863516330719,
+            "reader_gradient_norm": 0.03845811802974023,
+            "elapsed_seconds": 21.94104715497815
+          },
+          {
+            "step": 375,
+            "loss": 0.6179159879684448,
+            "component_loss": 0.22451016306877136,
+            "ranking_loss": 0.39340585470199585,
+            "gradient_norm_before_clip": 0.8208692669868469,
+            "reader_gradient_norm": 0.06327164980689198,
+            "elapsed_seconds": 23.05064320997917
+          },
+          {
+            "step": 400,
+            "loss": 0.7240120768547058,
+            "component_loss": 0.28657880425453186,
+            "ranking_loss": 0.43743327260017395,
+            "gradient_norm_before_clip": 0.20350532233715057,
+            "reader_gradient_norm": 0.04366175673600486,
+            "elapsed_seconds": 24.573615136003355
+          },
+          {
+            "step": 425,
+            "loss": 0.7051371335983276,
+            "component_loss": 0.2520034611225128,
+            "ranking_loss": 0.45313364267349243,
+            "gradient_norm_before_clip": 0.49247270822525024,
+            "reader_gradient_norm": 0.08741189363430364,
+            "elapsed_seconds": 25.69476172598661
+          },
+          {
+            "step": 450,
+            "loss": 0.6712986826896667,
+            "component_loss": 0.23978593945503235,
+            "ranking_loss": 0.4315127432346344,
+            "gradient_norm_before_clip": 0.33645668625831604,
+            "reader_gradient_norm": 0.03140236300754818,
+            "elapsed_seconds": 27.148574908002047
+          },
+          {
+            "step": 475,
+            "loss": 0.661264181137085,
+            "component_loss": 0.28347712755203247,
+            "ranking_loss": 0.3777870833873749,
+            "gradient_norm_before_clip": 0.4083830416202545,
+            "reader_gradient_norm": 0.07570962205956222,
+            "elapsed_seconds": 28.363734246988315
+          },
+          {
+            "step": 500,
+            "loss": 0.44416847825050354,
+            "component_loss": 0.13850507140159607,
+            "ranking_loss": 0.30566340684890747,
+            "gradient_norm_before_clip": 0.26467365026474,
+            "reader_gradient_norm": 0.052562753638473,
+            "elapsed_seconds": 29.315705999993952
+          }
+        ]
+      },
+      "metric_specific": {
+        "completed_steps": 500,
+        "trainable_parameters": 126978,
+        "best_tuning_step": 100,
+        "best_tuning_pdms": 78.67481231689453,
+        "gpu_training_step_seconds": 24.897966551419813,
+        "median_training_step_seconds": 0.03973874250368681,
+        "phase_wall_seconds": 26.58504649801762,
+        "maximum_whole_card_bytes": 41652584448,
+        "peak_allocated_bytes": 163696128,
+        "peak_reserved_bytes": 180355072,
+        "logs": [
+          {
+            "step": 1,
+            "loss": 0.6689765453338623,
+            "component_loss": 0.25448381900787354,
+            "ranking_loss": 0.41449272632598877,
+            "gradient_norm_before_clip": 0.25442004203796387,
+            "reader_gradient_norm": 0.0,
+            "elapsed_seconds": 0.09488918699207716
+          },
+          {
+            "step": 25,
+            "loss": 0.7711350917816162,
+            "component_loss": 0.27732953429222107,
+            "ranking_loss": 0.49380555748939514,
+            "gradient_norm_before_clip": 0.16669179499149323,
+            "reader_gradient_norm": 0.0017990434457089582,
+            "elapsed_seconds": 1.151666124991607
+          },
+          {
+            "step": 50,
+            "loss": 0.4464492201805115,
+            "component_loss": 0.19382381439208984,
+            "ranking_loss": 0.25262540578842163,
+            "gradient_norm_before_clip": 0.10264115780591965,
+            "reader_gradient_norm": 0.00240456319459255,
+            "elapsed_seconds": 2.272876625007484
+          },
+          {
+            "step": 75,
+            "loss": 0.7632578015327454,
+            "component_loss": 0.30521121621131897,
+            "ranking_loss": 0.4580465853214264,
+            "gradient_norm_before_clip": 0.3584570586681366,
+            "reader_gradient_norm": 0.011332914478814442,
+            "elapsed_seconds": 3.728530779015273
+          },
+          {
+            "step": 100,
+            "loss": 0.8748410940170288,
+            "component_loss": 0.4064689874649048,
+            "ranking_loss": 0.46837207674980164,
+            "gradient_norm_before_clip": 0.447117418050766,
+            "reader_gradient_norm": 0.0195353508508962,
+            "elapsed_seconds": 4.711454339005286
+          },
+          {
+            "step": 125,
+            "loss": 0.5261983275413513,
+            "component_loss": 0.18689745664596558,
+            "ranking_loss": 0.33930087089538574,
+            "gradient_norm_before_clip": 0.2185075879096985,
+            "reader_gradient_norm": 0.008659433917245761,
+            "elapsed_seconds": 6.959108689014101
+          },
+          {
+            "step": 150,
+            "loss": 0.6485137939453125,
+            "component_loss": 0.20861324667930603,
+            "ranking_loss": 0.4399005174636841,
+            "gradient_norm_before_clip": 0.27896958589553833,
+            "reader_gradient_norm": 0.02159449710073445,
+            "elapsed_seconds": 7.835165789001621
+          },
+          {
+            "step": 175,
+            "loss": 0.5530393719673157,
+            "component_loss": 0.2134484201669693,
+            "ranking_loss": 0.3395909368991852,
+            "gradient_norm_before_clip": 0.36162278056144714,
+            "reader_gradient_norm": 0.01704709235890697,
+            "elapsed_seconds": 9.390785991010489
+          },
+          {
+            "step": 200,
+            "loss": 0.5900866985321045,
+            "component_loss": 0.2143399715423584,
+            "ranking_loss": 0.3757467269897461,
+            "gradient_norm_before_clip": 0.36205431818962097,
+            "reader_gradient_norm": 0.01972876632764963,
+            "elapsed_seconds": 10.713847605016781
+          },
+          {
+            "step": 225,
+            "loss": 0.4729993939399719,
+            "component_loss": 0.1745450794696808,
+            "ranking_loss": 0.29845431447029114,
+            "gradient_norm_before_clip": 0.3251662254333496,
+            "reader_gradient_norm": 0.035992749749572284,
+            "elapsed_seconds": 11.935713487007888
+          },
+          {
+            "step": 250,
+            "loss": 0.6779438257217407,
+            "component_loss": 0.325835645198822,
+            "ranking_loss": 0.3521081507205963,
+            "gradient_norm_before_clip": 0.616054892539978,
+            "reader_gradient_norm": 0.0694120167522995,
+            "elapsed_seconds": 13.763565200992161
+          },
+          {
+            "step": 275,
+            "loss": 0.514121413230896,
+            "component_loss": 0.1003369390964508,
+            "ranking_loss": 0.4137844443321228,
+            "gradient_norm_before_clip": 0.2417396903038025,
+            "reader_gradient_norm": 0.0247170214998868,
+            "elapsed_seconds": 15.067945270013297
+          },
+          {
+            "step": 300,
+            "loss": 0.4569443464279175,
+            "component_loss": 0.15182673931121826,
+            "ranking_loss": 0.3051176071166992,
+            "gradient_norm_before_clip": 0.2161465436220169,
+            "reader_gradient_norm": 0.02479467142770455,
+            "elapsed_seconds": 16.57947932300158
+          },
+          {
+            "step": 325,
+            "loss": 0.6300426125526428,
+            "component_loss": 0.197526752948761,
+            "ranking_loss": 0.43251585960388184,
+            "gradient_norm_before_clip": 0.44807693362236023,
+            "reader_gradient_norm": 0.03894824625789861,
+            "elapsed_seconds": 17.449408203014173
+          },
+          {
+            "step": 350,
+            "loss": 0.4938822090625763,
+            "component_loss": 0.19271519780158997,
+            "ranking_loss": 0.30116701126098633,
+            "gradient_norm_before_clip": 0.3585348129272461,
+            "reader_gradient_norm": 0.038301126739690765,
+            "elapsed_seconds": 18.43598359700991
+          },
+          {
+            "step": 375,
+            "loss": 0.617847204208374,
+            "component_loss": 0.22451138496398926,
+            "ranking_loss": 0.39333584904670715,
+            "gradient_norm_before_clip": 0.8138797283172607,
+            "reader_gradient_norm": 0.06327806693522507,
+            "elapsed_seconds": 19.53812516099424
+          },
+          {
+            "step": 400,
+            "loss": 0.7239823341369629,
+            "component_loss": 0.2864794433116913,
+            "ranking_loss": 0.4375028908252716,
+            "gradient_norm_before_clip": 0.2051793783903122,
+            "reader_gradient_norm": 0.043479520780600724,
+            "elapsed_seconds": 21.252760127012152
+          },
+          {
+            "step": 425,
+            "loss": 0.7052094340324402,
+            "component_loss": 0.25201839208602905,
+            "ranking_loss": 0.45319104194641113,
+            "gradient_norm_before_clip": 0.4931720495223999,
+            "reader_gradient_norm": 0.08608251734529306,
+            "elapsed_seconds": 22.257925715995952
+          },
+          {
+            "step": 450,
+            "loss": 0.671312689781189,
+            "component_loss": 0.23969215154647827,
+            "ranking_loss": 0.4316205680370331,
+            "gradient_norm_before_clip": 0.3370169699192047,
+            "reader_gradient_norm": 0.031340707294274434,
+            "elapsed_seconds": 23.836488922010176
+          },
+          {
+            "step": 475,
+            "loss": 0.6614857316017151,
+            "component_loss": 0.28370076417922974,
+            "ranking_loss": 0.37778496742248535,
+            "gradient_norm_before_clip": 0.4076451361179352,
+            "reader_gradient_norm": 0.07639077103636095,
+            "elapsed_seconds": 25.038281179993646
+          },
+          {
+            "step": 500,
+            "loss": 0.44372913241386414,
+            "component_loss": 0.13805869221687317,
+            "ranking_loss": 0.30567044019699097,
+            "gradient_norm_before_clip": 0.2633364796638489,
+            "reader_gradient_norm": 0.05126989185239788,
+            "elapsed_seconds": 26.09197518401197
+          }
+        ]
+      }
+    },
+    "encoder_calls": 0,
+    "original_scorer_calls": 0,
+    "common_initialization_sha256": "a025764d5632081cea162d375e42d69b9ccb308d15a3d91d9917097577e2f055",
+    "common_batch_order_sha256": "af073c45b66c155051bae135a7ce94f3a1407c54d794be93a1aeeae80474c2a7",
+    "common_pair_order_sha256": "796515455a1f11dcf2a10b9096372389848682f9ce916ddcd3c766be3face431",
+    "physical_gpu": 0,
+    "protected_training": {
+      "checked_files": 289,
+      "mismatches": [],
+      "running_training_completed_updates": 11508
+    }
+  },
+  "interventions": {
+    "shared": {
+      "correction_off_maximum_score_error": 4.76837158203125e-07,
+      "off_selection_restored": true
+    },
+    "metric_specific": {
+      "correction_off_maximum_score_error": 4.76837158203125e-07,
+      "off_selection_restored": true,
+      "uniform_attention": {
+        "mean_absolute_log_score_change": 0.002954009920358658,
+        "selected_index_changed_fraction": 0.0
+      },
+      "swap_metric_attention": {
+        "mean_absolute_log_score_change": 0.00024301977828145027,
+        "selected_index_changed_fraction": 0.0
+      },
+      "patch_mean": {
+        "mean_absolute_log_score_change": 0.047184813767671585,
+        "selected_index_changed_fraction": 0.046875
+      }
+    }
+  },
+  "adapter_latency": {
+    "shared": {
+      "cached_adapter_gpu_forward_ms_per_scene_batched8": 0.18992985411993382
+    },
+    "metric_specific": {
+      "cached_adapter_gpu_forward_ms_per_scene_batched8": 0.3313841666871061
+    }
+  },
+  "spatial_cache": {
+    "complete": true,
+    "shape": [
+      1280,
+      1406,
+      384
+    ],
+    "dtype": "float16",
+    "grid_shape_per_frame": [
+      19,
+      37
+    ],
+    "observed_frames": 2,
+    "time_offsets_seconds": [
+      -0.5,
+      0.0
+    ],
+    "camera": "CAM_F0",
+    "future_input": false,
+    "extraction": "Final DINO norm, after original learned registers/LoRA attention and before prefix slicing/neck; hook only",
+    "spatial_mapping": "14px patches of right6/bottom10 padded512x256 crop28 input; partially padded boundary patches retained",
+    "token_position_columns": [
+      "normalized_x",
+      "normalized_y",
+      "camera_index",
+      "time_offset_seconds"
+    ],
+    "same_forward_original_route_errors": {
+      "scene_features": 0.0,
+      "native_trajectories": 0.0,
+      "component_scores": 9.5367431640625e-07
+    },
+    "float16_maximum_absolute_storage_error": 0.00390625,
+    "float16_maximum_relative_l2_storage_error": 0.00020881101954728365,
+    "frozen_parameters_unchanged": true,
+    "frozen_gradients_absent": true,
+    "encoder_calls": 640,
+    "encoder_calls_during_training": 0,
+    "backbone_checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+    "cache_loop_wall_seconds": 49.848510109994095,
+    "gpu_loop_seconds": 49.848510109994095,
+    "physical_gpu": 0,
+    "peak_allocated_gpu_bytes": 249346560,
+    "peak_reserved_gpu_bytes": 297795584,
+    "maximum_whole_card_bytes": 41742761984,
+    "observed_sample_ego_boundary_checks": [
+      {
+        "past_acceleration": 1.1922496557235718,
+        "past_yaw_rate": 0.18865838254199965,
+        "previous_timestamp_offset_seconds": -0.499725,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      {
+        "past_acceleration": 1.515784740447998,
+        "past_yaw_rate": 0.001864905583797165,
+        "previous_timestamp_offset_seconds": -0.500108,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      {
+        "past_acceleration": -0.7681560516357422,
+        "past_yaw_rate": -5.7869884139701585e-06,
+        "previous_timestamp_offset_seconds": -0.499909,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      {
+        "past_acceleration": -0.8002809286117554,
+        "past_yaw_rate": 0.025566797942564747,
+        "previous_timestamp_offset_seconds": -0.499967,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      }
+    ],
+    "cache_sha256": {
+      "spatial_tokens.npy": "7c5354f0b26b036361986b9e06d84d458d2f84490385c72ba0c73f5fa9d2a59d",
+      "token_positions.npy": "93b3c62fff0101eea382825ad1783f130cc4c966035c9583d6e66f03b0e499cf",
+      "valid_token_mask.npy": "b9fd63b75752646b195aa68d4466c1f63dc8989c9feaf6cd88d4d97e3c973ec5"
+    },
+    "protected_training": {
+      "checked_files": 289,
+      "mismatches": [],
+      "running_training_completed_updates": 11502
+    }
+  },
+  "profile": {
+    "complete": true,
+    "batch_size": 8,
+    "candidate_count": 64,
+    "spatial_tokens": 1406,
+    "profile_steps": 12,
+    "step_seconds": [
+      0.8928245389834046,
+      0.04681318599614315,
+      0.06690293899737298,
+      0.09422354600974359,
+      0.0637455029936973,
+      0.050197941018268466,
+      0.29300086601870134,
+      0.05530770300538279,
+      0.12728796299779788,
+      1.055345671979012,
+      0.28393056700588204,
+      0.05189870300819166
+    ],
+    "steady_median_step_seconds": 0.08056324250355829,
+    "estimated_combined_training_seconds": 80.56324250355829,
+    "measured_profile_gpu_seconds": 3.081479128013598,
+    "peak_allocated_bytes": 161933312,
+    "peak_reserved_bytes": 178257920,
+    "maximum_whole_card_bytes": 41650487296,
+    "trainable_parameters": 126978,
+    "profile_weights_used_for_training": false,
+    "physical_gpu": 0
+  },
+  "evaluation_gpu_phase_seconds": 9.567062555986922,
+  "maximum_whole_card_bytes": 41579184128,
+  "official_labels_reused": true,
+  "new_official_candidate_evaluations": 0,
+  "training_official_candidates": 65536,
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.8.0+cu128",
+    "physical_gpu": 0,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "deterministic_algorithms": false
+  },
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11509
+  }
+}

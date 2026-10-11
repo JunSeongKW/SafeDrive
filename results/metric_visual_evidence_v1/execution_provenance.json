@@ -1,0 +1,53 @@
+{
+  "sources": {
+    "configs/metric_visual_evidence/pilot_v1.json": "a4f82d8e9d22bb139ee722fa1854eb67e7faf8d8f50487d937690206ae3ff655",
+    "scripts/run_metric_visual_evidence_pilot.py": "7b4c4df28a2b6f8dbe9705f3f0fea0f46565b7bd9d7e0adc93bcffb6e9076832",
+    "src/planning_aware_future_prediction/models/metric_visual_evidence.py": "d749b7e1a7c188a1cbf9f32113b7c90855f36309c0e8f6c42730fd45f55f1d16",
+    "tests/test_metric_visual_evidence.py": "d09e9e52884ca23c57b908aaaf602343f25cf07289da3acd2dcd9dc58e361067",
+    "scripts/diagnose_metric_visual_evidence.py": "0699c7c9595a9f20ef6863c19e05c35bdbe08fb4248c4cc5ac8e9ee0c4efad8e",
+    "scripts/run_metric_visual_evidence_pilot.sh": "ab9409374f212e8368d1c2278d5fbd20fbfffff1240ec0ca37742928e430c58a",
+    "scripts/package_metric_visual_evidence_results.py": "7d8d47471550bb097f65c11f152fc4c73bb362ec248f146206ca2ee50dfdb085",
+    "scripts/visualize_metric_evidence_training_steps.py": "02f716c19cf1e849f871f0ae3262ffcd06aa4e6b4a4e59d03dccf15b3174e3f2"
+  },
+  "input_hashes": {
+    "outputs/scorer_selection_learning_v1/registration.json": "a910477ab3b4d328f13c31b34f1bad6b99b674f34d85cc9c97b4d036a477ca01",
+    "outputs/scorer_selection_learning_v1/cache_complete.json": "6a1e0882cd5ebec079be8d10bc5b107d0e8cd7408f135737306adb8df5817de2",
+    "outputs/scorer_selection_learning_v1/scout_official_metrics.npy": "e60b1382f1c6155254019943d542c78aebae36af68836ce1c61cf7c46020bc60",
+    "outputs/scorer_selection_learning_v1/training_remainder_official_metrics.npy": "bb055bf1df798e91bda02c6e295e812193f369110f56cb6830f251ac22d30a69",
+    "outputs/scorer_selection_learning_v1/development_official_metrics.npy": "3e8abc1ef8612c73d95064f18e48753886e713025b634bf7d2fea3e0e5d326b0",
+    "outputs/four_model_small_corpus_v1/drivor/pass5.pt": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252"
+  },
+  "checkpoints": {
+    "shared_step250.pt": "2631ecd419e0513231b47cf808471fb0fdddc6d2df12e9df7c4f327ceea9b8ee",
+    "metric_specific_step250.pt": "6b0d396e7fa6dc332e69bf4bd9cf2ff541a8144c24e6cbb39bb449c874be7d35",
+    "metric_specific_step100.pt": "8a0310c48f8b983cf4a8cc4d0a9baad73017571305f999331ffa57df3976f6e3",
+    "metric_specific_step500.pt": "cf62eba3e0303d11fd57ea375969c72a7aff5442ac33f4d5fa55f993f5e72edf",
+    "shared_step100.pt": "94a79fc4781cb3de70a3bfcb1f9751d233cb75b55bc65005b8c71bd07d75c1c9",
+    "shared_step500.pt": "b1f0023f14447e4bd2360f0fef173513933fac2fdfb8a4c2d50e97e769e9a356"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.8.0+cu128",
+    "physical_gpu": 0,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "deterministic_algorithms": false
+  },
+  "determinism_context": {
+    "environment_snapshot_phase": "report",
+    "training_source_enables_deterministic_algorithms": true,
+    "training_source": "scripts/run_metric_visual_evidence_pilot.py:376",
+    "training_runtime_flag_separately_recorded": false,
+    "bitwise_replay_verified": false
+  },
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11558
+  },
+  "first_launcher_attempt": "Background shell exited before creating outputs; empty log and no duplicate host pilot process. Foreground nohup session37149/controller37151 then executed the registered queue.",
+  "sandbox_cuda_unavailable": true,
+  "host_gpu_execution_authorized": true,
+  "original_native_weights_unchanged": true,
+  "official_labels_source": "Previous scorer-selection pilot; native64 slices only. Its unchanged pair evaluator8300 checks had maximum7-metric error0.",
+  "completed_after_core_queue": "Read-only CPU attention evolution and packaging; original learning sources/config unchanged"
+}

@@ -1,0 +1,27 @@
+{
+  "examples": [
+    {
+      "pilot_row": 1098,
+      "token": "d3d2e1f595c15eab",
+      "command_index": 0,
+      "candidate": 52
+    },
+    {
+      "pilot_row": 1088,
+      "token": "ea573171fd53572a",
+      "command_index": 1,
+      "candidate": 44
+    },
+    {
+      "pilot_row": 1089,
+      "token": "34774cd08c045d92",
+      "command_index": 2,
+      "candidate": 5
+    }
+  ],
+  "display_maximum": 2.1367859840393066,
+  "mapping": "Patch grid19x37 -> padded518x266 -> crop512x256 -> original image resize into rows28:-28",
+  "same_scale_all_panels": true,
+  "future_input": false,
+  "semantic_supervision_used": false
+}

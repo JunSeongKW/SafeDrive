@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 16:25 KST (Codex)
+마지막 갱신: 2026-10-11 16:55 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 — 사용자 승인으로 NC·DAC visual evidence pilot 구현·실행 완료.**
+새root `outputs/metric_visual_evidence_v1/`의cache/검증/profile/shared·specific각500step/평가/시각화queue완료. GPU0만사용/새process2.5GiB상한/전체카드48GB조건,원LPWMqueue/source289개보존·계속. 이전새학습금지는이번고정예산pilot범위에서갱신. 추가fullscale/probe학습자동기동없음.
 
 **2026-10-11 16:23 KST — NC·DAC 지표별 시각 표현 연구 방향 검토.**
 이번 사용자 요청은 아이디어의 타당성·활용·시각화 검토다. 실제 DrivoR forward/scorer/공식 지표 정의와 MTAN·TaskPrompter 원문을 확인했다. 새 학습·캐시·GPU 작업·기존 queue 변경 없음. 지표별 feature는 제안이며 새 성능 수치가 아니다. 기존 실행 기록은 아래를 유지한다.
@@ -1381,6 +1384,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 — NC·DAC-specific visual reading 실제 결과, 개선 미확인.**
+같은DrivoRpass5/native64/NAVTRAIN1024·tuning64·별도NAVVAL192, frozen finalDINOpatch1406×384FP16/register16×256/scoredfeature재사용. Shared/specific126978parameter·같은init/batch8/500step/seed0/AdamW3e-4·NC/DAC BCE+PDMSgap pairloss. Tuningselected shared500/specific100. PDMS기존78.4753/shared78.2336/specific78.3413,oracle97.5683고정; specific−shared+.1077 CI[−1.4462,+1.7385],gatefail. NC1.56%/DAC10.94%실패모두동일. Uniform/swapattention192장면선택불변,추가patch mean대체선택4.69%변화/78.7172. 고정12장면entropy.99243/metricTV.02333,초기→100→500PNG에서도객체/도로특화근거없음. CPU6검증·실제2stepgradientpositive·원경로/scene오차0·score9.54e-7·OFF전선택복원. GPUcache49.85s/학습합52.76s/전체카드최대41.743GB. 신규공식label계산0/기존검증labels재사용. 공유report `results/metric_visual_evidence_v1/report.md`.
 
 **2026-10-11 16:23 KST — score-specific feature 코드 근거와 한계.**
 DrivoR `drivor_model.py:177–180`은 공유 scene memory에 후보 query를 cross-attend한 같은 후보 표현을 만들고 `score_module/scorer.py:20–62,120`의6개별 MLP가 점수를 예측한다. 지표별 visual reading은 별도 가설이다. 공식 v1 DAC는 drivable polygon 내 ego4corner 검사이지 차선 segmentation이 아니며, NC에는 객체·상대운동·후보 경로·귀책조건과 도로 상태가 관여한다. 최근 캐시16×256은 register라 직접 pixel 대응 없음; image overlay에는 동일 frozen forward의 spatial patch 출력과 전처리 역매핑을 별도 보존해야 한다. MTAN/TaskPrompter로 task-specific attention 자체의 novelty는 충분하지 않다. 상세 설계·출처는 RESUME_NOTES 마지막 절.
@@ -2416,6 +2422,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 — metric-specific evidence adapter와실제controlledpilot 추가.**
+새model `models/metric_visual_evidence.py`: 같은parameter의shared-vs-specificNC/DACattention+bounded2logitresidual+loss. 신규config/CPU6tests/등록·공간hookcache·validation/profile/train/reportphase·replay shell·CPUfunctionaldiagnostics·heatmap/evolution/packaging추가. Source/config/입력등록후불변,원학습파일미수정. 실제JSON/CSV/NPZ·splitmanifest·source/checkpoint/envhash·검증·negative결과보고·4PNG저장. 첫backgroundshell실행전종료는빈log/host중복0확인후foregroundnohup으로기동;모델학습실패없음. README/HANDOFF1–5/RESUME_NOTES갱신.
+
 **2026-10-11 16:23 KST — 지표별 표현 검토 문서만 추가.**
 HANDOFF1–5와RESUME_NOTES에 확인 사실/후속 제안/미실행 범위를 기록했다. 모델·config·등록 scientific source·캐시·학습/평가 결과·queue는 수정하지 않았다. 성능 진단이나 새 학습은 수행하지 않았다.
 
@@ -2484,6 +2493,9 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 — NC·DAC pilot 이후 추천 하나, 미실행.**
+Specificgate미통과이므로규모/학습시간자동확장없음. 같은frozenpatch+ego+candidate만입력하는작은NC/DACprobe를학습해원scoredfeature/logit우회경로를제외한직접지표정보의읽기가능성부터검사하는것을추천한다. 새probe/semantic감독/generatorFT미기동. 현결과·재실행·초기/100/500attention/해석한계는report참조. 기존LPWM25epochqueue계속.
 
 **2026-10-11 16:23 KST — 추천, 미실행: NC·DAC를 위한 후보 경로 조건부 visual reading.**
 사용자는 새 방향을 제안했고 실행은 아직 요청하지 않았다. 제안 첫 비교는 동일 frozen backbone/generator/native64/oracle labels에서 용량을 맞춘 shared visual adapter vs NC·DAC-specific adapter; 원scorerlogit+학습residual, 나머지4지표 원출력 유지. 고정후보 oracle–selected gap/NC·DAC failure와 calibration/ranking/기능적 개입을 함께 검사한다. 공간 patch 캐시 추가 시 shared와specific 모두 같은 추가입력 사용. Generator/selector 추가학습과 semantic supervision은 첫 검증을 통과한 이후 검토한다.
@@ -3190,6 +3202,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 — metric visual evidence pilot 해석 범위.**
+같은parameter수지만shared는두query logit평균이라effectivequery자유도는다르다. 현재query=공통ego/pathMLP+metricembedding으로비선형metric×candidateinteraction이제한됨. 원candidatefeature가보정head에남아우회경로가능. Finitegradient/loss감소/attention변화는semantic특화·planning효용증거아님. 같은scaleimageoverlay는읽기비중이며objectmask/위험GT/객체인과중요도아님. 공식라벨 재집계의실제PDMS이나부분개발NAVVAL/단일seed/약한원checkpoint;독립NAVTEST/EPDMS/원논문baseline아님. Specific500까지학습했으나공식비교checkpoint는tuning선택100,500PNG는표현진단이다. Gatefail후추가학습미승인/미실행.
 
 **2026-10-11 16:23 KST — score-specific 가설 해석 범위.**
 NC=모든차량mask/DAC=차선mask로 정의하지 않는다. 같은 사람도 후보에 따라 중요도가 다르며 NC/DAC 정보는 겹칠 수 있으므로 강제배타성/orthogonality를 첫 조건에 넣지 않는다. 후보별 metric supervision은 spatial map의 의미/faithfulness를 보장하지 않는다. Heatmap은 attention 사용 비중이며 객체확률/인과적 원인/픽셀별위험GT가 아니다. Future oracle labels는 train target만; 미래 영상·지도/boxGT를 inference condition으로 넣지 않는다. Register spatial decoding은 재구성 추정이지 기하학적 직접투영이 아니다. 새 PDMS/gradient 측정/학습 승인 없음.

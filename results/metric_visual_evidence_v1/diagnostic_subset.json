@@ -1,0 +1,31 @@
+{
+  "selection_rule": "First four separate-development scenes per logged command, not selected by attention or score improvement",
+  "rows": [
+    1098,
+    1103,
+    1104,
+    1105,
+    1088,
+    1090,
+    1092,
+    1093,
+    1089,
+    1091,
+    1100,
+    1102
+  ],
+  "tokens": [
+    "d3d2e1f595c15eab",
+    "ad50d798cf59571f",
+    "3f6d991e9f565b22",
+    "796698f0fd7d53c5",
+    "ea573171fd53572a",
+    "27a0ed357788574f",
+    "53880c7e22d553b5",
+    "6a8eec69b45f50d0",
+    "34774cd08c045d92",
+    "a3c3be01bd675b41",
+    "3de452c5a98a5faf",
+    "e07dd506081d5425"
+  ]
+}

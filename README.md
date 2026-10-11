@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-11 — NC·DAC 지표별 시각 표현 pilot 완료, 개선 미확인.** 같은 native64/NAVVAL192에서 기존78.48·공유adapter78.23·지표별adapter78.34PDMS. 실제 frozen DINO patch1406×384캐시, 두조건126978parameter/500step, CPU6검사·실제gradient/OFF검사통과. Attention uniform/swap시최종선택불변, 초기→100→500시각화 포함 [실제 결과·PNG·재실행](results/metric_visual_evidence_v1/report.md). 원LPWM학습/등록source보존,추가학습미기동.
+
 **2026-10-11 — 선택 오류 중심 sampler·scorer 보정 pilot 완료, 개선 미확인.** 동일 고정64후보/NAVVAL192장면에서 기존78.48/A무작위78.00/B경계77.56/C조건부오류77.59PDMS. 학습1024·세조건500step·공식188,416후보평가·검증5pass. [결과·해석·재실행](results/scorer_selection_learning_v1/summary_ko.md). 기존LPWM학습유지,추가fullscale미기동.
 
 **2026-10-11 14:59 KST — frozen DrivoR scorer64장면 calibration 완료.** Native64 선택76.81/oracle98.84(regret22.03),near64 regret5.84로사전gate미충족. 새sampler학습은보류,원LPWM학습계속. CPU만사용/GPU0초/weights불변. [결과·불확실성·재실행](results/frozen_drivor_scorer_calibration_20261011/report.md). 과거192scene는pass3/1920였음을정정했고이번은pass5/3200별도검사다.

@@ -1,0 +1,39 @@
+{
+  "complete": true,
+  "traces": [
+    {
+      "step": 0,
+      "checkpoint_sha256": "a025764d5632081cea162d375e42d69b9ccb308d15a3d91d9917097577e2f055",
+      "mean_NC_DAC_attention_total_variation": 0.005008180586931606,
+      "mean_normalized_attention_entropy": 0.9998707622289658,
+      "diagnostic_scenes": 12
+    },
+    {
+      "step": 100,
+      "checkpoint_sha256": "8a0310c48f8b983cf4a8cc4d0a9baad73017571305f999331ffa57df3976f6e3",
+      "mean_NC_DAC_attention_total_variation": 0.02332998299971223,
+      "mean_normalized_attention_entropy": 0.9924279948075613,
+      "diagnostic_scenes": 12
+    },
+    {
+      "step": 250,
+      "checkpoint_sha256": "6b0d396e7fa6dc332e69bf4bd9cf2ff541a8144c24e6cbb39bb449c874be7d35",
+      "mean_NC_DAC_attention_total_variation": 0.028928791948904593,
+      "mean_normalized_attention_entropy": 0.9693720688422521,
+      "diagnostic_scenes": 12
+    },
+    {
+      "step": 500,
+      "checkpoint_sha256": "cf62eba3e0303d11fd57ea375969c72a7aff5442ac33f4d5fa55f993f5e72edf",
+      "mean_NC_DAC_attention_total_variation": 0.017438355134800076,
+      "mean_normalized_attention_entropy": 0.9620161255200704,
+      "diagnostic_scenes": 12
+    }
+  ],
+  "display_maximum": 4.630167484283447,
+  "same_registered_examples": true,
+  "training_steps_added": 0,
+  "gpu_seconds": 0,
+  "source_sha256": "02f716c19cf1e849f871f0ae3262ffcd06aa4e6b4a4e59d03dccf15b3174e3f2",
+  "interpretation": "No object semantics established by these attention maps"
+}

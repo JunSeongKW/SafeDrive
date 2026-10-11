@@ -1,0 +1,26 @@
+{
+  "train": {
+    "scenes": 1024,
+    "recordings": 101,
+    "NC_negative_fraction": 0.140289306640625,
+    "DAC_negative_fraction": 0.145538330078125,
+    "scenes_with_NC_variation": 810,
+    "scenes_with_DAC_variation": 660
+  },
+  "tuning": {
+    "scenes": 64,
+    "recordings": 15,
+    "NC_negative_fraction": 0.173095703125,
+    "DAC_negative_fraction": 0.26416015625,
+    "scenes_with_NC_variation": 46,
+    "scenes_with_DAC_variation": 46
+  },
+  "locked_development": {
+    "scenes": 192,
+    "recordings": 37,
+    "NC_negative_fraction": 0.097412109375,
+    "DAC_negative_fraction": 0.3314615885416667,
+    "scenes_with_NC_variation": 111,
+    "scenes_with_DAC_variation": 163
+  }
+}

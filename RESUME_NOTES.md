@@ -4720,3 +4720,47 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 - [VAD ICCV2023](https://openaccess.thecvf.com/content/ICCV2023/papers/Jiang_VAD_Vectorized_Scene_Representation_for_Efficient_Autonomous_Driving_ICCV_2023_paper.pdf): agent motion/map구조를planning에활용하는가까운개념. 이번제안은명시적semantic객체decoder를필수로두지않으며exactnovelty검색은완료되지않았다.
 
 현재 판단: 소규모연구로검증할가치는있지만"NC/DACfeature분리+heatmap"만으로는차별화가약하다. 강화할질문은candidate/metric/intent에맞춘evidence선택이일반공유attention대비실제선택오류를줄이는가이며, 성공·실패는미측정이다. Downstream 우선순위는 fixed-candidate scorer → 효과검증 후generatorconditioning검토. 별도learnedselector는아직필요성이입증되지않았다.
+
+## 2026-10-11 — 승인된 NC·DAC visual evidence pilot 구현·검증·실행 완료
+
+사용자의 “진행해줘”에 따라 앞서 추천한 shared 대 metric-specific 시각 reader 비교를 실행했다. 별도 출력은 `outputs/metric_visual_evidence_v1/`, 보고서는 `results/metric_visual_evidence_v1/report.md`다. 기존 LPWM 대기열과 등록된 source/config 289개를 보존했다.
+
+### 입력과 통제 조건
+
+- 기존 DrivoR 축소 비교의 pass5 체크포인트(3,200 update)를 사용했다. 백본·기존 planner·scorer를 고정하고 native 64개 후보와 공식 평가 라벨을 재사용했다.
+- NAVTRAIN 1,024장면/101 recording, NAVVAL 튜닝 64장면/15 recording, 별도 개발 평가 192장면/37 recording이다. 그룹 간 recording 중복은 없다. 평가 패널은 이전에 사용한 개발셋으로, 독립 최종 NAVTEST가 아니다.
+- 동일한 frozen DINO forward의 final norm에서 prefix를 제외한 공간 patch를 추출했다. 전방 1대, 과거·현재 2프레임, crop28 후 512×256, 우측6/하단10 padding이다. 공간 캐시는 장면당 1,406×384 FP16이며 1,280장면을 생성했다. 미래 프레임은 포함하지 않는다.
+- 원 scene 표현과 후보 경로의 live/cache 차이는 0, scorer 출력 차이는 최대 9.54e-7이다. FP16 상대 L2 오차는 최대 0.00020881이며 native tensor hash는 불변이다.
+
+### 모델과 학습
+
+- 새 모델 `models/metric_visual_evidence.py`: ego 11차원·후보 경로 24차원에서 query를 만들고 NC/DAC metric embedding을 추가한다. 공간 patch를 key/value로 사용해 cross-attention을 수행한다. Shared는 두 지표의 attention logit을 평균해 같은 공간을 읽고, Specific은 각각 읽는다.
+- 읽은 표현과 기존 candidate feature·ego·경로·logit으로 NC/DAC residual만 예측한다. 다른 네 점수 항목은 원 출력을 유지한다. Residual OFF와 초기 zero-head는 원 선택을 복원한다. 기존 candidate feature가 우회 경로가 될 수 있다는 한계를 명시했다.
+- 두 조건 모두 학습 파라미터 126,978개, seed0, batch8, 500 step, AdamW 3e-4다. 초기 state와 배치·pair 순서가 같다. NC/DAC BCE와 실제 PDMS 차이로 가중한 pair-ranking을 사용했다. NC의 0.5 soft target을 보존하며 공식 evaluator와 argmax를 미분하지 않는다.
+- 별도 튜닝에서 Shared 500 step, Specific 100 step을 선택했다. 두 조건의 학습량은 모두 500 step이다. Profiling의 가중치는 본 비교에 재사용하지 않았다.
+- 학습 함수는 deterministic algorithms를 켜지만, 별도 report 프로세스의 environment snapshot은 false다. 학습 시점의 플래그를 별도 저장하거나 bitwise replay를 확인하지 않았다. 코드 설정과 재현성 입증을 구분한다.
+
+### 실제 결과와 기능 진단
+
+- PDMS: 기존 78.4753, Shared 78.2336, Specific 78.3413. 같은 64개 후보의 최고 PDMS는 모두 97.5683이며 선택손실은 각각 19.0930/19.3346/19.2269다.
+- Specific−Shared는 +0.1077점, recording bootstrap 95% 구간 [-1.4462,+1.7385]다. 사전 등록한 gate를 통과하지 못했다. 개선 근거가 없으며 악화를 통계적으로 확정한 것도 아니다. NC 실패 1.56%, DAC 실패 10.94%는 세 조건 모두 같다.
+- 명령별 좌/직/우 장면수 49/106/37. 기존 PDMS 71.61/83.65/72.75, Specific 69.45/84.36/72.87이다.
+- Specific은 기존 scorer와 14.06% 장면에서 선택이 달라졌다. 하지만 uniform attention과 NC/DAC attention 교환은 192장면 모두 선택을 바꾸지 않았다. 추가 patch 분기에 train-only 평균 feature를 넣으면 4.69% 선택이 바뀌고 PDMS는 78.7172였다. 기존 candidate feature의 영상 정보는 유지하므로 영상 전체의 인과적 효과로 해석하지 않는다.
+- 고정 12장면(실제 명령별 첫 4개)에서 NC/DAC attention total variation은 0.02333, candidate variation은 0.01008, 정규화 entropy는 0.99243이다. 초기/100/250/500 step의 metric variation은 0.00501/0.02333/0.02893/0.01744다.
+- 상위 10% token mean 대체의 NC logit 변화는 0.00638(random 0.00201), DAC는 0.00442(random 0.00882)였다. 목적별 중요도에 대한 일관된 근거가 없다. 대표 이미지에서 NC 차량/DAC 도로의 뚜렷한 분리를 확인하지 못했으며 semantic 대응 지표 자체는 측정하지 않았다.
+- Loss는 0.66898에서 약 0.44373으로 감소하고 실제 reader/patch gradient는 유한했다. 개발셋의 ranking·calibration·PDMS 개선으로 이어지지 않았다.
+
+### 검증과 비용
+
+- CPU 검사 6개와 실제 캐시 2-step gradient 검사를 통과했다. 첫 zero-head 단계의 reader gradient는 0이며 head 업데이트 후에는 양수·유한했다. 캐시 학습 모델에 encoder/원 scorer가 포함되지 않아 backbone 호출은 0이다.
+- 물리 GPU0만 사용했고 process allocator 2.5GiB, 전체 카드 48 decimal GB 조건을 유지했다. 캐시 추출 loop 49.85초(모델 초기화 제외), 두 조건의 GPU 학습 step 합계 52.76초였다. 캐시·profiling·튜닝·평가 비용은 별도 저장했다. 전체 카드 관측 최대는 41.743GB다.
+- 기존 공식 라벨을 재사용하여 새로운 공식 candidate 평가 호출은 0이다. 기존 라벨 생성과 evaluator 동등성 8,300개 검사/최대오차0의 근거를 연결했다.
+- 초기 background shell은 출력 생성 전에 종료했다. 중복 작업이 없음을 확인하고 foreground nohup으로 실제 queue를 완료했다. 원 LPWM 작업의 process와 설정은 변경하지 않았다.
+
+### 산출물과 다음 권고
+
+등록한 config/source/입력/checkpoint hash, 환경, subset manifest, 검증 JSON, 결과 JSON/CSV/NPZ, attention overlay·density·학습 전후·score 비교 PNG, 보고서를 저장했다. 추가 후처리 두 개는 학습 이후 CPU 읽기 작업이며 원 등록 source를 보존했다.
+
+다음 권고는 **기존 scored feature와 logit 입력을 제외한 NC/DAC 직접 probe** 하나다. 같은 frozen 공간 patch+ego+후보로 지표를 예측해 시각 정보를 읽을 수 있는지 먼저 확인한다. 이 probe와 추가 본학습은 아직 실행하지 않았다.
+
+재실행: `bash scripts/run_metric_visual_evidence_pilot.sh`. 추가 CPU 시각화·packaging 명령은 보고서에 있다. 완료 phase는 건너뛰며 새 설정은 새 출력 경로에 등록한다.

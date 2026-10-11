@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "batch_size": 8,
+  "candidate_count": 64,
+  "spatial_tokens": 1406,
+  "profile_steps": 12,
+  "step_seconds": [
+    0.8928245389834046,
+    0.04681318599614315,
+    0.06690293899737298,
+    0.09422354600974359,
+    0.0637455029936973,
+    0.050197941018268466,
+    0.29300086601870134,
+    0.05530770300538279,
+    0.12728796299779788,
+    1.055345671979012,
+    0.28393056700588204,
+    0.05189870300819166
+  ],
+  "steady_median_step_seconds": 0.08056324250355829,
+  "estimated_combined_training_seconds": 80.56324250355829,
+  "measured_profile_gpu_seconds": 3.081479128013598,
+  "peak_allocated_bytes": 161933312,
+  "peak_reserved_bytes": 178257920,
+  "maximum_whole_card_bytes": 41650487296,
+  "trainable_parameters": 126978,
+  "profile_weights_used_for_training": false,
+  "physical_gpu": 0
+}
