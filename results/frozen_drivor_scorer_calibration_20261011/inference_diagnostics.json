@@ -1,0 +1,3675 @@
+{
+  "complete": true,
+  "scenes": 64,
+  "checkpoint_updates": 3200,
+  "gpu_seconds": 0,
+  "optimizer_steps": 0,
+  "encoder_calls_for_cache_creation": 64,
+  "encoder_calls_for_cached_diagnostics": 0,
+  "frozen_weights_unchanged": true,
+  "frozen_parameter_gradients_absent": true,
+  "scene_feature_shape": [
+    64,
+    16,
+    256
+  ],
+  "scene_feature_dtype": "float32",
+  "cache_creation_cpu_seconds": 219.27754762294353,
+  "scorer_diagnostics_cpu_seconds": 7.276240890932968,
+  "total_cpu_wall_seconds": 229.13479765300872,
+  "protected_training": {
+    "checked_files": 289,
+    "mismatches": [],
+    "running_training_completed_updates": 11028
+  },
+  "scene_diagnostics": [
+    {
+      "token": "22903ed6b4b45809",
+      "boundary": {
+        "past_acceleration": 0.5787023305892944,
+        "past_yaw_rate": 0.12077598310797481,
+        "previous_timestamp_offset_seconds": -0.49964,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.43897971510887146,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02191019058227539,
+          "control_displacement_rms": 0.004212430212646723
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.021968364715576172,
+          "control_displacement_rms": 0.004212430212646723
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04403221607208252,
+          "control_displacement_rms": 0.00842484924942255
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.043938279151916504,
+          "control_displacement_rms": 0.00842484924942255
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.11065089702606201,
+          "control_displacement_rms": 0.021062128245830536
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10947918891906738,
+          "control_displacement_rms": 0.021062128245830536
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.2925177812576294,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0007309913635253906,
+      "reference_std_minimum": 0.03858351334929466,
+      "reference_std_maximum": 0.5250325202941895
+    },
+    {
+      "token": "24531603f9315046",
+      "boundary": {
+        "past_acceleration": 1.07333505153656,
+        "past_yaw_rate": 0.012922150037917033,
+        "previous_timestamp_offset_seconds": -0.499839,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.10831093788146973,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0052759647369384766,
+          "control_displacement_rms": 0.0009223366505466402
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005440711975097656,
+          "control_displacement_rms": 0.0009223368251696229
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010211944580078125,
+          "control_displacement_rms": 0.001844673533923924
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010998249053955078,
+          "control_displacement_rms": 0.0018446733010932803
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02306842803955078,
+          "control_displacement_rms": 0.004611685872077942
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02880692481994629,
+          "control_displacement_rms": 0.004611686337739229
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4330391585826874,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0028121471405029297,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4576689600944519
+    },
+    {
+      "token": "43787161833d5f71",
+      "boundary": {
+        "past_acceleration": 0.22468461096286774,
+        "past_yaw_rate": 0.08553809336315489,
+        "previous_timestamp_offset_seconds": -0.500087,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.05376238375902176,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0027010440826416016,
+          "control_displacement_rms": 0.0038226237520575523
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0027277469635009766,
+          "control_displacement_rms": 0.0038226237520575523
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005394935607910156,
+          "control_displacement_rms": 0.007645240984857082
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005526304244995117,
+          "control_displacement_rms": 0.007645240984857082
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.01325535774230957,
+          "control_displacement_rms": 0.019113115966320038
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014349937438964844,
+          "control_displacement_rms": 0.019113115966320038
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.20012757182121277,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.004576206207275391,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3556631803512573
+    },
+    {
+      "token": "4d7fa90bd2805dc6",
+      "boundary": {
+        "past_acceleration": 0.37397661805152893,
+        "past_yaw_rate": -0.46223427844233966,
+        "previous_timestamp_offset_seconds": -0.499579,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.3649069666862488,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.018103599548339844,
+          "control_displacement_rms": 0.0012883866438642144
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.018349051475524902,
+          "control_displacement_rms": 0.0012883866438642144
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.035851478576660156,
+          "control_displacement_rms": 0.0025767823681235313
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.037137508392333984,
+          "control_displacement_rms": 0.0025767823681235313
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.08645892143249512,
+          "control_displacement_rms": 0.006441944278776646
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.09757030010223389,
+          "control_displacement_rms": 0.006441944278776646
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4563900828361511,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.024786829948425293,
+      "reference_std_minimum": 0.04508126899600029,
+      "reference_std_maximum": 0.41312697529792786
+    },
+    {
+      "token": "e7d800c5ad005d4f",
+      "boundary": {
+        "past_acceleration": 0.31432297825813293,
+        "past_yaw_rate": 0.27316421905432287,
+        "previous_timestamp_offset_seconds": -0.499921,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.11708709597587585,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0057353973388671875,
+          "control_displacement_rms": 0.003122352296486497
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00588679313659668,
+          "control_displacement_rms": 0.0031223511323332787
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.01116800308227539,
+          "control_displacement_rms": 0.006244706455618143
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.012079954147338867,
+          "control_displacement_rms": 0.006244708318263292
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.027057409286499023,
+          "control_displacement_rms": 0.015611759386956692
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03158414363861084,
+          "control_displacement_rms": 0.015611756592988968
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.14695589244365692,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.006472110748291016,
+      "reference_std_minimum": 0.02645322121679783,
+      "reference_std_maximum": 0.41138774156570435
+    },
+    {
+      "token": "c839df573acb5c23",
+      "boundary": {
+        "past_acceleration": 0.8631548285484314,
+        "past_yaw_rate": 0.17839798640316704,
+        "previous_timestamp_offset_seconds": -0.500191,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.02945178933441639,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0014696121215820312,
+          "control_displacement_rms": 0.0037428284995257854
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0014955997467041016,
+          "control_displacement_rms": 0.0037428284995257854
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0029261112213134766,
+          "control_displacement_rms": 0.007485656999051571
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.003019094467163086,
+          "control_displacement_rms": 0.007485656999051571
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.006714582443237305,
+          "control_displacement_rms": 0.018714148551225662
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.008125066757202148,
+          "control_displacement_rms": 0.01871415227651596
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.13546638190746307,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.002257823944091797,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4126335382461548
+    },
+    {
+      "token": "705a41f6d81c5bf6",
+      "boundary": {
+        "past_acceleration": -0.25066888332366943,
+        "past_yaw_rate": 0.01554531959399015,
+        "previous_timestamp_offset_seconds": -0.499298,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.0259567741304636,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0012745857238769531,
+          "control_displacement_rms": 0.002378166187554598
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0013523101806640625,
+          "control_displacement_rms": 0.002378166187554598
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0024404525756835938,
+          "control_displacement_rms": 0.004756337031722069
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.002801179885864258,
+          "control_displacement_rms": 0.004756337031722069
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005261659622192383,
+          "control_displacement_rms": 0.011890841647982597
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.007634162902832031,
+          "control_displacement_rms": 0.011890841647982597
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.08717185258865356,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0023484230041503906,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.31567198038101196
+    },
+    {
+      "token": "ff3bba0dd7d25848",
+      "boundary": {
+        "past_acceleration": 0.9628106951713562,
+        "past_yaw_rate": 0.17510758969793164,
+        "previous_timestamp_offset_seconds": -0.50027,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.07692528516054153,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003822803497314453,
+          "control_displacement_rms": 0.0037179533392190933
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.003916025161743164,
+          "control_displacement_rms": 0.0037179533392190933
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0075762271881103516,
+          "control_displacement_rms": 0.007435901556164026
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00793004035949707,
+          "control_displacement_rms": 0.007435901556164026
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.018347501754760742,
+          "control_displacement_rms": 0.01858976110816002
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.020557403564453125,
+          "control_displacement_rms": 0.01858976110816002
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.23202642798423767,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0011565685272216797,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4050893187522888
+    },
+    {
+      "token": "833e43f0df0b50c4",
+      "boundary": {
+        "past_acceleration": -0.05616191029548645,
+        "past_yaw_rate": 0.011801110790645703,
+        "previous_timestamp_offset_seconds": -0.500176,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.10709960013628006,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005327701568603516,
+          "control_displacement_rms": 0.0016308164922520518
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0053369998931884766,
+          "control_displacement_rms": 0.0016308120684698224
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010431528091430664,
+          "control_displacement_rms": 0.003261629259213805
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01130533218383789,
+          "control_displacement_rms": 0.0032616336829960346
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.025625228881835938,
+          "control_displacement_rms": 0.008154107257723808
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.030594825744628906,
+          "control_displacement_rms": 0.008154110983014107
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5085457563400269,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.005626201629638672,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3955676555633545
+    },
+    {
+      "token": "55d1a5793cda56a1",
+      "boundary": {
+        "past_acceleration": -0.6771806478500366,
+        "past_yaw_rate": 0.09686755875456389,
+        "previous_timestamp_offset_seconds": -0.499799,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.04342959076166153,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0020780563354492188,
+          "control_displacement_rms": 0.0009158832253888249
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.002297520637512207,
+          "control_displacement_rms": 0.0009158832253888249
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004031181335449219,
+          "control_displacement_rms": 0.0018317619105800986
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004650235176086426,
+          "control_displacement_rms": 0.0018317619105800986
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00865936279296875,
+          "control_displacement_rms": 0.004579409956932068
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.011762022972106934,
+          "control_displacement_rms": 0.004579409956932068
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.25731799006462097,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.00020968914031982422,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3657757341861725
+    },
+    {
+      "token": "51560d3a0ba05b2b",
+      "boundary": {
+        "past_acceleration": 0.5597639679908752,
+        "past_yaw_rate": 0.03787753497682445,
+        "previous_timestamp_offset_seconds": -0.500359,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.19736146926879883,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.009768009185791016,
+          "control_displacement_rms": 0.004796051420271397
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.009781122207641602,
+          "control_displacement_rms": 0.004796051420271397
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0192108154296875,
+          "control_displacement_rms": 0.009592077694833279
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.019618511199951172,
+          "control_displacement_rms": 0.009592077694833279
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0457758903503418,
+          "control_displacement_rms": 0.023980218917131424
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.04997384548187256,
+          "control_displacement_rms": 0.023980213329195976
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.3102796673774719,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.005088090896606445,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.514644205570221
+    },
+    {
+      "token": "adfe782c830952e6",
+      "boundary": {
+        "past_acceleration": -0.16217638552188873,
+        "past_yaw_rate": 0.16766189456330835,
+        "previous_timestamp_offset_seconds": -0.499741,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.0438641794025898,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002180337905883789,
+          "control_displacement_rms": 0.003515017218887806
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0022063255310058594,
+          "control_displacement_rms": 0.003515017218887806
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004317045211791992,
+          "control_displacement_rms": 0.007030033972114325
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004423856735229492,
+          "control_displacement_rms": 0.007030033972114325
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010617494583129883,
+          "control_displacement_rms": 0.0175750944763422
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.011206388473510742,
+          "control_displacement_rms": 0.0175750944763422
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.35296767950057983,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0022933483123779297,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3208611011505127
+    },
+    {
+      "token": "50ebd86102b353a7",
+      "boundary": {
+        "past_acceleration": 0.6725387573242188,
+        "past_yaw_rate": 0.2239514791193477,
+        "previous_timestamp_offset_seconds": -0.499847,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.018091151490807533,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0008916854858398438,
+          "control_displacement_rms": 0.0030498977284878492
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0009136199951171875,
+          "control_displacement_rms": 0.0030498977284878492
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0017466545104980469,
+          "control_displacement_rms": 0.0060997954569756985
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0018544197082519531,
+          "control_displacement_rms": 0.0060997954569756985
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003915309906005859,
+          "control_displacement_rms": 0.015249492600560188
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004955768585205078,
+          "control_displacement_rms": 0.015249491669237614
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.24962730705738068,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.00017380714416503906,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3957712650299072
+    },
+    {
+      "token": "3540cd6d18ab5857",
+      "boundary": {
+        "past_acceleration": 1.0889192819595337,
+        "past_yaw_rate": 0.10043542452865811,
+        "previous_timestamp_offset_seconds": -0.500147,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.030918212607502937,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0015523433685302734,
+          "control_displacement_rms": 0.0008204774931073189
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0015828609466552734,
+          "control_displacement_rms": 0.0008204774931073189
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003082275390625,
+          "control_displacement_rms": 0.0016409439267590642
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0033462047576904297,
+          "control_displacement_rms": 0.0016409439267590642
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.006727933883666992,
+          "control_displacement_rms": 0.0041023739613592625
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.009218931198120117,
+          "control_displacement_rms": 0.004102372098714113
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.11143166571855545,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0002334117889404297,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4794662594795227
+    },
+    {
+      "token": "cc2a583247c05212",
+      "boundary": {
+        "past_acceleration": 0.5625300407409668,
+        "past_yaw_rate": 0.13886301201321258,
+        "previous_timestamp_offset_seconds": -0.500079,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.040589261800050735,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0019512176513671875,
+          "control_displacement_rms": 0.000579088693484664
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0020682811737060547,
+          "control_displacement_rms": 0.000579088693484664
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003810405731201172,
+          "control_displacement_rms": 0.0011581755243241787
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004419803619384766,
+          "control_displacement_rms": 0.0011581755243241787
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008571863174438477,
+          "control_displacement_rms": 0.0028954478912055492
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.012426137924194336,
+          "control_displacement_rms": 0.0028954478912055492
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.22129149734973907,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0006093978881835938,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4352760910987854
+    },
+    {
+      "token": "48f52aa8772c55cb",
+      "boundary": {
+        "past_acceleration": 0.8548397421836853,
+        "past_yaw_rate": -0.06923070673381668,
+        "previous_timestamp_offset_seconds": -0.499889,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.09710945934057236,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004956245422363281,
+          "control_displacement_rms": 0.0008471180335618556
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004909634590148926,
+          "control_displacement_rms": 0.0008471180335618556
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00982201099395752,
+          "control_displacement_rms": 0.0016942309448495507
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.009863734245300293,
+          "control_displacement_rms": 0.0016942309448495507
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.023103833198547363,
+          "control_displacement_rms": 0.004235575441271067
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.025201916694641113,
+          "control_displacement_rms": 0.004235575441271067
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.46935927867889404,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.006093144416809082,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3571960926055908
+    },
+    {
+      "token": "3c67272121df5b60",
+      "boundary": {
+        "past_acceleration": 0.5531100034713745,
+        "past_yaw_rate": -0.13551576522017264,
+        "previous_timestamp_offset_seconds": -0.499541,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.21768851578235626,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010677933692932129,
+          "control_displacement_rms": 0.0026396375615149736
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010899901390075684,
+          "control_displacement_rms": 0.0026396375615149736
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02119266986846924,
+          "control_displacement_rms": 0.005279278848320246
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02199721336364746,
+          "control_displacement_rms": 0.005279278848320246
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.05223977565765381,
+          "control_displacement_rms": 0.013198202475905418
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.056604743003845215,
+          "control_displacement_rms": 0.013198202475905418
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.23801375925540924,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0030635595321655273,
+      "reference_std_minimum": 0.025615377351641655,
+      "reference_std_maximum": 0.39430516958236694
+    },
+    {
+      "token": "997185fb884c58cb",
+      "boundary": {
+        "past_acceleration": 0.39940860867500305,
+        "past_yaw_rate": 0.23702228344973184,
+        "previous_timestamp_offset_seconds": -0.499803,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.1407507210969925,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007006168365478516,
+          "control_displacement_rms": 0.001968887634575367
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.007077813148498535,
+          "control_displacement_rms": 0.0019688881002366543
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.01398766040802002,
+          "control_displacement_rms": 0.00393777247518301
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01438891887664795,
+          "control_displacement_rms": 0.00393777247518301
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.03503692150115967,
+          "control_displacement_rms": 0.009844427928328514
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03753471374511719,
+          "control_displacement_rms": 0.009844428859651089
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.275907963514328,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0035594701766967773,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4086401164531708
+    },
+    {
+      "token": "ad50d798cf59571f",
+      "boundary": {
+        "past_acceleration": -1.2914047241210938,
+        "past_yaw_rate": 0.12105734772042703,
+        "previous_timestamp_offset_seconds": -0.500028,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.008063970133662224,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0003974437713623047,
+          "control_displacement_rms": 0.0028420507442206144
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0004067420959472656,
+          "control_displacement_rms": 0.0028420507442206144
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.000797271728515625,
+          "control_displacement_rms": 0.0056840768083930016
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0008525848388671875,
+          "control_displacement_rms": 0.0056840768083930016
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0019409656524658203,
+          "control_displacement_rms": 0.014210209250450134
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0022187232971191406,
+          "control_displacement_rms": 0.014210209250450134
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.13154852390289307,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0002884864807128906,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3384040594100952
+    },
+    {
+      "token": "916346f483d65284",
+      "boundary": {
+        "past_acceleration": -0.6544772982597351,
+        "past_yaw_rate": 0.1389743673637781,
+        "previous_timestamp_offset_seconds": -0.5002,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.9183750152587891,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.044499754905700684,
+          "control_displacement_rms": 0.0008702146587893367
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.04723942279815674,
+          "control_displacement_rms": 0.0008702146587893367
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.08700835704803467,
+          "control_displacement_rms": 0.0017404296668246388
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.09726345539093018,
+          "control_displacement_rms": 0.0017404296668246388
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.2041102647781372,
+          "control_displacement_rms": 0.004351073410362005
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.2587766647338867,
+          "control_displacement_rms": 0.004351073410362005
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.24810168147087097,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0127488374710083,
+      "reference_std_minimum": 0.028156030923128128,
+      "reference_std_maximum": 0.37041470408439636
+    },
+    {
+      "token": "09460373ac855a25",
+      "boundary": {
+        "past_acceleration": 1.2405030727386475,
+        "past_yaw_rate": 0.00054468881303676,
+        "previous_timestamp_offset_seconds": -0.499706,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.015061558224260807,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0007441043853759766,
+          "control_displacement_rms": 0.0014102701097726822
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0008118152618408203,
+          "control_displacement_rms": 0.0014102703426033258
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0014519691467285156,
+          "control_displacement_rms": 0.0028205611743032932
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00170135498046875,
+          "control_displacement_rms": 0.0028205611743032932
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0033719539642333984,
+          "control_displacement_rms": 0.0070514073595404625
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004604339599609375,
+          "control_displacement_rms": 0.00705140782520175
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5993661880493164,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0014145374298095703,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4053177535533905
+    },
+    {
+      "token": "c215277e896a5f24",
+      "boundary": {
+        "past_acceleration": 0.5793873071670532,
+        "past_yaw_rate": -0.019190957800192712,
+        "previous_timestamp_offset_seconds": -0.500004,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.3314550817012787,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.015707731246948242,
+          "control_displacement_rms": 0.00041418836917728186
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01728188991546631,
+          "control_displacement_rms": 0.00041418836917728186
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.030391693115234375,
+          "control_displacement_rms": 0.000828357704449445
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0360715389251709,
+          "control_displacement_rms": 0.000828357704449445
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.06694436073303223,
+          "control_displacement_rms": 0.0020709040109068155
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10065710544586182,
+          "control_displacement_rms": 0.002070903778076172
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.24974212050437927,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.523809552192688,
+      "same_path_candidate_set_score_maximum_delta": 0.017168760299682617,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5177990794181824
+    },
+    {
+      "token": "2e175ffcc2cd57ba",
+      "boundary": {
+        "past_acceleration": 0.11697804927825928,
+        "past_yaw_rate": -0.03416473217946803,
+        "previous_timestamp_offset_seconds": -0.49996,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.06063856557011604,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002880573272705078,
+          "control_displacement_rms": 0.0005163808818906546
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0032274723052978516,
+          "control_displacement_rms": 0.0005163808818906546
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005483150482177734,
+          "control_displacement_rms": 0.001032760483212769
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.007086038589477539,
+          "control_displacement_rms": 0.001032760483212769
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.011471271514892578,
+          "control_displacement_rms": 0.0025819004513323307
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.020670413970947266,
+          "control_displacement_rms": 0.0025819004513323307
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.08839194476604462,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0025947093963623047,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4192398190498352
+    },
+    {
+      "token": "26b7cc5b93125dd9",
+      "boundary": {
+        "past_acceleration": 0.23464451730251312,
+        "past_yaw_rate": 0.04359295479619851,
+        "previous_timestamp_offset_seconds": -0.499759,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.09103639423847198,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004285573959350586,
+          "control_displacement_rms": 0.0007134989718906581
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004936695098876953,
+          "control_displacement_rms": 0.0007134989718906581
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008025884628295898,
+          "control_displacement_rms": 0.0014269949169829488
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010597705841064453,
+          "control_displacement_rms": 0.0014269949169829488
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.014808893203735352,
+          "control_displacement_rms": 0.0035674883984029293
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03548908233642578,
+          "control_displacement_rms": 0.0035674883984029293
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.07694746553897858,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.001668691635131836,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.472820520401001
+    },
+    {
+      "token": "528d36356ecb53af",
+      "boundary": {
+        "past_acceleration": -0.9221348166465759,
+        "past_yaw_rate": 0.0012548833351579097,
+        "previous_timestamp_offset_seconds": -0.499699,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.36027878522872925,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.017549514770507812,
+          "control_displacement_rms": 0.004377949051558971
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01842641830444336,
+          "control_displacement_rms": 0.004377949051558971
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.034040212631225586,
+          "control_displacement_rms": 0.008755901828408241
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0377354621887207,
+          "control_displacement_rms": 0.008755901828408241
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0776984691619873,
+          "control_displacement_rms": 0.021889757364988327
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10388422012329102,
+          "control_displacement_rms": 0.021889757364988327
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.2772199809551239,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.005741238594055176,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.44395172595977783
+    },
+    {
+      "token": "f9a3f1194ecf5691",
+      "boundary": {
+        "past_acceleration": -1.466223955154419,
+        "past_yaw_rate": -0.01138588183430874,
+        "previous_timestamp_offset_seconds": -0.500238,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.13423305749893188,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.006574153900146484,
+          "control_displacement_rms": 0.002761522773653269
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00681304931640625,
+          "control_displacement_rms": 0.002761522773653269
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.012902975082397461,
+          "control_displacement_rms": 0.005523014813661575
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.013831138610839844,
+          "control_displacement_rms": 0.005523014813661575
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.030744075775146484,
+          "control_displacement_rms": 0.013807554729282856
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03668093681335449,
+          "control_displacement_rms": 0.013807554729282856
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5942214131355286,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0039899349212646484,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3487968146800995
+    },
+    {
+      "token": "53adc99c616d5b83",
+      "boundary": {
+        "past_acceleration": 0.6568279266357422,
+        "past_yaw_rate": -0.00581712072532578,
+        "previous_timestamp_offset_seconds": -0.499603,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.060504138469696045,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0029556751251220703,
+          "control_displacement_rms": 0.004059908911585808
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0030965805053710938,
+          "control_displacement_rms": 0.004059908911585808
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005838632583618164,
+          "control_displacement_rms": 0.008119787089526653
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00630640983581543,
+          "control_displacement_rms": 0.008119787089526653
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.013250112533569336,
+          "control_displacement_rms": 0.02029946818947792
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01657891273498535,
+          "control_displacement_rms": 0.02029946818947792
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.7278328537940979,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.9841269850730896,
+      "same_path_candidate_set_score_maximum_delta": 0.0013616085052490234,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5612285733222961
+    },
+    {
+      "token": "1e1bb6eb92ef54c9",
+      "boundary": {
+        "past_acceleration": -0.7022721171379089,
+        "past_yaw_rate": 0.0007502718657107944,
+        "previous_timestamp_offset_seconds": -0.500223,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.3642658591270447,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.01762223243713379,
+          "control_displacement_rms": 0.004370300564914942
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.018902301788330078,
+          "control_displacement_rms": 0.004370300564914942
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.033965110778808594,
+          "control_displacement_rms": 0.008740581572055817
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.03907060623168945,
+          "control_displacement_rms": 0.008740581572055817
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.07676577568054199,
+          "control_displacement_rms": 0.021851470693945885
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.10779690742492676,
+          "control_displacement_rms": 0.021851470693945885
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.3462910056114197,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0017718076705932617,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4431721866130829
+    },
+    {
+      "token": "7c554f2629af5770",
+      "boundary": {
+        "past_acceleration": 1.4576908349990845,
+        "past_yaw_rate": 0.0035768976807352792,
+        "previous_timestamp_offset_seconds": -0.499744,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.025420449674129486,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0011594295501708984,
+          "control_displacement_rms": 0.0011942816199734807
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0013797283172607422,
+          "control_displacement_rms": 0.0011942815035581589
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0021750926971435547,
+          "control_displacement_rms": 0.002388594439253211
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.003057718276977539,
+          "control_displacement_rms": 0.002388594439253211
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004443645477294922,
+          "control_displacement_rms": 0.0059714713133871555
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.009249448776245117,
+          "control_displacement_rms": 0.0059714713133871555
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.7900483012199402,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0034906864166259766,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5036805868148804
+    },
+    {
+      "token": "ceee1351edc152f7",
+      "boundary": {
+        "past_acceleration": 0.7962120175361633,
+        "past_yaw_rate": -0.00033068539799706895,
+        "previous_timestamp_offset_seconds": -0.499965,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.01087687723338604,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004761219024658203,
+          "control_displacement_rms": 0.0030366878490895033
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0005495548248291016,
+          "control_displacement_rms": 0.0030366878490895033
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0009133815765380859,
+          "control_displacement_rms": 0.00607337849214673
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0011262893676757812,
+          "control_displacement_rms": 0.00607337849214673
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0020055770874023438,
+          "control_displacement_rms": 0.015183428302407265
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0031630992889404297,
+          "control_displacement_rms": 0.015183428302407265
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6455556750297546,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.002495288848876953,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4211476147174835
+    },
+    {
+      "token": "d2133889d04e5f16",
+      "boundary": {
+        "past_acceleration": 0.8717204928398132,
+        "past_yaw_rate": -0.3597045294314998,
+        "previous_timestamp_offset_seconds": -0.499883,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.005104239098727703,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0002548694610595703,
+          "control_displacement_rms": 0.004079942125827074
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.000255584716796875,
+          "control_displacement_rms": 0.004079942125827074
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004987716674804688,
+          "control_displacement_rms": 0.008159886114299297
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0005102157592773438,
+          "control_displacement_rms": 0.008159886114299297
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0012006759643554688,
+          "control_displacement_rms": 0.02039971575140953
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0012805461883544922,
+          "control_displacement_rms": 0.020399712026119232
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.09903626888990402,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.001409769058227539,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4461866617202759
+    },
+    {
+      "token": "e26f33c1dc1b5ff6",
+      "boundary": {
+        "past_acceleration": 0.861977756023407,
+        "past_yaw_rate": -0.268129156438869,
+        "previous_timestamp_offset_seconds": -0.50024,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.040549859404563904,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0019290447235107422,
+          "control_displacement_rms": 0.0005193135584704578
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0020835399627685547,
+          "control_displacement_rms": 0.0005193135584704578
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0037262439727783203,
+          "control_displacement_rms": 0.0010386299109086394
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004362344741821289,
+          "control_displacement_rms": 0.0010386299109086394
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008566856384277344,
+          "control_displacement_rms": 0.0025965780951082706
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01266169548034668,
+          "control_displacement_rms": 0.0025965780951082706
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.16975124180316925,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0008485317230224609,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4290942847728729
+    },
+    {
+      "token": "3a77b3e1683153ea",
+      "boundary": {
+        "past_acceleration": -0.3064296841621399,
+        "past_yaw_rate": -0.03112394046072488,
+        "previous_timestamp_offset_seconds": -0.500071,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.059418536722660065,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.00293731689453125,
+          "control_displacement_rms": 0.0024367624428123236
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.003070354461669922,
+          "control_displacement_rms": 0.0024367624428123236
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005695819854736328,
+          "control_displacement_rms": 0.004873520694673061
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.006268739700317383,
+          "control_displacement_rms": 0.004873520694673061
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.01306462287902832,
+          "control_displacement_rms": 0.012183788232505322
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.016832351684570312,
+          "control_displacement_rms": 0.012183788232505322
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.46354490518569946,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0013976097106933594,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.6643623113632202
+    },
+    {
+      "token": "c0921d509e2c502d",
+      "boundary": {
+        "past_acceleration": -1.1933313608169556,
+        "past_yaw_rate": -0.0028404059915191067,
+        "previous_timestamp_offset_seconds": -0.500131,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.22339852154254913,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010868072509765625,
+          "control_displacement_rms": 0.00389042473398149
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.011432647705078125,
+          "control_displacement_rms": 0.00389042473398149
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02104496955871582,
+          "control_displacement_rms": 0.007780851796269417
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02363753318786621,
+          "control_displacement_rms": 0.007780851796269417
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04353785514831543,
+          "control_displacement_rms": 0.019452126696705818
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.06618261337280273,
+          "control_displacement_rms": 0.019452126696705818
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.19893355667591095,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.004330158233642578,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4200098216533661
+    },
+    {
+      "token": "3dccebdee98856ee",
+      "boundary": {
+        "past_acceleration": -0.9461066126823425,
+        "past_yaw_rate": -0.006613910767233321,
+        "previous_timestamp_offset_seconds": -0.500167,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.08698133379220963,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004271984100341797,
+          "control_displacement_rms": 0.004752698354423046
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0043773651123046875,
+          "control_displacement_rms": 0.004752698354423046
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008448600769042969,
+          "control_displacement_rms": 0.0095054367557168
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.008865833282470703,
+          "control_displacement_rms": 0.0095054367557168
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.020244598388671875,
+          "control_displacement_rms": 0.023763585835695267
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.023144960403442383,
+          "control_displacement_rms": 0.023763585835695267
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.8515820503234863,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.00771641731262207,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5068681240081787
+    },
+    {
+      "token": "c0b230109883561b",
+      "boundary": {
+        "past_acceleration": 0.38260048627853394,
+        "past_yaw_rate": -0.027388352385841978,
+        "previous_timestamp_offset_seconds": -0.500102,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.04713849350810051,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0022003650665283203,
+          "control_displacement_rms": 0.002116547431796789
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0024154186248779297,
+          "control_displacement_rms": 0.002116547431796789
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0040340423583984375,
+          "control_displacement_rms": 0.004233087413012981
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00530242919921875,
+          "control_displacement_rms": 0.004233087413012981
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.006987094879150391,
+          "control_displacement_rms": 0.010582724586129189
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.017089128494262695,
+          "control_displacement_rms": 0.010582724586129189
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.22665396332740784,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0015957355499267578,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5003792643547058
+    },
+    {
+      "token": "fbf5b0da3ef6574e",
+      "boundary": {
+        "past_acceleration": -0.2727242410182953,
+        "past_yaw_rate": 0.044609463117963835,
+        "previous_timestamp_offset_seconds": -0.499895,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.04232494533061981,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0020275115966796875,
+          "control_displacement_rms": 0.0005515594966709614
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0021986961364746094,
+          "control_displacement_rms": 0.0005515594966709614
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0039010047912597656,
+          "control_displacement_rms": 0.0011031264439225197
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00465703010559082,
+          "control_displacement_rms": 0.0011031265603378415
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008645296096801758,
+          "control_displacement_rms": 0.0027578133158385754
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.013800621032714844,
+          "control_displacement_rms": 0.0027578130830079317
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.16671288013458252,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0023708343505859375,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.47489646077156067
+    },
+    {
+      "token": "223c47176e6057f5",
+      "boundary": {
+        "past_acceleration": 0.13831432163715363,
+        "past_yaw_rate": 0.0031050860371149487,
+        "previous_timestamp_offset_seconds": -0.500122,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.03535739332437515,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0017404556274414062,
+          "control_displacement_rms": 0.002424631267786026
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0017879009246826172,
+          "control_displacement_rms": 0.002424631267786026
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0033690929412841797,
+          "control_displacement_rms": 0.004849247634410858
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0035982131958007812,
+          "control_displacement_rms": 0.0048492467030882835
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007796764373779297,
+          "control_displacement_rms": 0.012123137712478638
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.009406328201293945,
+          "control_displacement_rms": 0.012123135849833488
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4200042486190796,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0006091594696044922,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.46608397364616394
+    },
+    {
+      "token": "fd23b08914635213",
+      "boundary": {
+        "past_acceleration": -0.14326360821723938,
+        "past_yaw_rate": 0.022896754979109958,
+        "previous_timestamp_offset_seconds": -0.500221,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.04722749814391136,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0024033784866333008,
+          "control_displacement_rms": 0.0010265185264870524
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0023953914642333984,
+          "control_displacement_rms": 0.0010265185264870524
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0045430660247802734,
+          "control_displacement_rms": 0.0020530361216515303
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005596160888671875,
+          "control_displacement_rms": 0.0020530361216515303
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008838415145874023,
+          "control_displacement_rms": 0.005132586695253849
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.016400575637817383,
+          "control_displacement_rms": 0.005132586695253849
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.546383798122406,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0004407167434692383,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5093143582344055
+    },
+    {
+      "token": "0695b36d39c75e1d",
+      "boundary": {
+        "past_acceleration": -0.31117740273475647,
+        "past_yaw_rate": -0.045228012185467945,
+        "previous_timestamp_offset_seconds": -0.499982,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.2008262723684311,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.009082436561584473,
+          "control_displacement_rms": 0.0005962360883131623
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010616660118103027,
+          "control_displacement_rms": 0.0005962361465208232
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.017501473426818848,
+          "control_displacement_rms": 0.0011924697319045663
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02269601821899414,
+          "control_displacement_rms": 0.0011924697319045663
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.036098599433898926,
+          "control_displacement_rms": 0.002981186844408512
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.06842577457427979,
+          "control_displacement_rms": 0.002981186844408512
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.587946891784668,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.010893702507019043,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5405226349830627
+    },
+    {
+      "token": "b671bff4f0885977",
+      "boundary": {
+        "past_acceleration": -0.26311245560646057,
+        "past_yaw_rate": -0.003205717872463459,
+        "previous_timestamp_offset_seconds": -0.499982,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.38586992025375366,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.018726706504821777,
+          "control_displacement_rms": 0.0009274609037674963
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.019885897636413574,
+          "control_displacement_rms": 0.0009274608455598354
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.035805344581604004,
+          "control_displacement_rms": 0.0018548903753980994
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.04169011116027832,
+          "control_displacement_rms": 0.0018548903753980994
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.08086860179901123,
+          "control_displacement_rms": 0.004637300036847591
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.111031174659729,
+          "control_displacement_rms": 0.004637300036847591
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.8287326693534851,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.2698412835597992,
+      "same_path_candidate_set_score_maximum_delta": 0.002209901809692383,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5333643555641174
+    },
+    {
+      "token": "7110b9e42a8a5ff7",
+      "boundary": {
+        "past_acceleration": -0.2942506968975067,
+        "past_yaw_rate": -0.011268163020097149,
+        "previous_timestamp_offset_seconds": -0.499859,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.38352176547050476,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.019487977027893066,
+          "control_displacement_rms": 0.0009972547413781285
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.019496798515319824,
+          "control_displacement_rms": 0.0009972547413781285
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.03798878192901611,
+          "control_displacement_rms": 0.0019945038948208094
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.041474103927612305,
+          "control_displacement_rms": 0.0019945038948208094
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.07788753509521484,
+          "control_displacement_rms": 0.004986249376088381
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.1195152997970581,
+          "control_displacement_rms": 0.004986249376088381
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.8246445655822754,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.01587301678955555,
+      "same_path_candidate_set_score_maximum_delta": 0.007537245750427246,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5205386877059937
+    },
+    {
+      "token": "9b2ecd661f315d8c",
+      "boundary": {
+        "past_acceleration": 0.8773758411407471,
+        "past_yaw_rate": 0.002206077025856973,
+        "previous_timestamp_offset_seconds": -0.500195,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.008438002318143845,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0003979206085205078,
+          "control_displacement_rms": 0.0030300882644951344
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00044155120849609375,
+          "control_displacement_rms": 0.0030300882644951344
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0007641315460205078,
+          "control_displacement_rms": 0.006060183048248291
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.000926971435546875,
+          "control_displacement_rms": 0.006060183048248291
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0016837120056152344,
+          "control_displacement_rms": 0.015150461345911026
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0026209354400634766,
+          "control_displacement_rms": 0.015150461345911026
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5807596445083618,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0007050037384033203,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.507512092590332
+    },
+    {
+      "token": "db439b1292395139",
+      "boundary": {
+        "past_acceleration": 0.778678834438324,
+        "past_yaw_rate": -0.07351289982008721,
+        "previous_timestamp_offset_seconds": -0.499509,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.21462245285511017,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010382652282714844,
+          "control_displacement_rms": 0.0037951485719531775
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01085817813873291,
+          "control_displacement_rms": 0.0037951485719531775
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.020477890968322754,
+          "control_displacement_rms": 0.007590286899358034
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02183997631072998,
+          "control_displacement_rms": 0.007590286899358034
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.04941976070404053,
+          "control_displacement_rms": 0.018975723534822464
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.053836941719055176,
+          "control_displacement_rms": 0.018975723534822464
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.09010174125432968,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.008015155792236328,
+      "reference_std_minimum": 0.04235699027776718,
+      "reference_std_maximum": 0.4969828426837921
+    },
+    {
+      "token": "c6cf2d03bc205f27",
+      "boundary": {
+        "past_acceleration": -0.609894871711731,
+        "past_yaw_rate": -0.04388512429763645,
+        "previous_timestamp_offset_seconds": -0.500003,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.0868569165468216,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004301548004150391,
+          "control_displacement_rms": 0.00505834212526679
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0043752193450927734,
+          "control_displacement_rms": 0.00505834212526679
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.008548498153686523,
+          "control_displacement_rms": 0.01011672057211399
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.008793830871582031,
+          "control_displacement_rms": 0.01011672057211399
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.020702838897705078,
+          "control_displacement_rms": 0.025291768833994865
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02288508415222168,
+          "control_displacement_rms": 0.025291768833994865
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.8677535057067871,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0017979145050048828,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.6299091577529907
+    },
+    {
+      "token": "3081ec3801a05c51",
+      "boundary": {
+        "past_acceleration": -0.2723371684551239,
+        "past_yaw_rate": -0.09247730107854786,
+        "previous_timestamp_offset_seconds": -0.500244,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.31617438793182373,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.015699267387390137,
+          "control_displacement_rms": 0.0015935985138639808
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01589381694793701,
+          "control_displacement_rms": 0.0015935985138639808
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.030663251876831055,
+          "control_displacement_rms": 0.003187215654179454
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.031857848167419434,
+          "control_displacement_rms": 0.003187215654179454
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.07366478443145752,
+          "control_displacement_rms": 0.007968045771121979
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.08037030696868896,
+          "control_displacement_rms": 0.007968045771121979
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.8581757545471191,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0015606880187988281,
+      "reference_std_minimum": 0.029963936656713486,
+      "reference_std_maximum": 0.37307626008987427
+    },
+    {
+      "token": "9e5f2c6ec3e65aa8",
+      "boundary": {
+        "past_acceleration": -1.2708370685577393,
+        "past_yaw_rate": 0.04189069132768872,
+        "previous_timestamp_offset_seconds": -0.499798,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.07123128324747086,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003428220748901367,
+          "control_displacement_rms": 0.0014810627326369286
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0035893917083740234,
+          "control_displacement_rms": 0.0014810629654675722
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0068817138671875,
+          "control_displacement_rms": 0.0029621312860399485
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.007061004638671875,
+          "control_displacement_rms": 0.0029621312860399485
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.017066478729248047,
+          "control_displacement_rms": 0.007405350916087627
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01736617088317871,
+          "control_displacement_rms": 0.007405351381748915
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.3154134452342987,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0013284683227539062,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.38382092118263245
+    },
+    {
+      "token": "5e516edc25b65483",
+      "boundary": {
+        "past_acceleration": 0.012854712083935738,
+        "past_yaw_rate": -0.03551878108517744,
+        "previous_timestamp_offset_seconds": -0.499474,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.047873303294181824,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.002340078353881836,
+          "control_displacement_rms": 0.006133996415883303
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0024232864379882812,
+          "control_displacement_rms": 0.006133996415883303
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0046024322509765625,
+          "control_displacement_rms": 0.012268011458218098
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004949331283569336,
+          "control_displacement_rms": 0.012268011458218098
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010886669158935547,
+          "control_displacement_rms": 0.030670031905174255
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.013052940368652344,
+          "control_displacement_rms": 0.030670031905174255
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.671908974647522,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0016214847564697266,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.6167934536933899
+    },
+    {
+      "token": "d6fa0346a65c5ec3",
+      "boundary": {
+        "past_acceleration": -0.24482989311218262,
+        "past_yaw_rate": -0.03755340426806588,
+        "previous_timestamp_offset_seconds": -0.499766,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.5285483598709106,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.026656389236450195,
+          "control_displacement_rms": 0.0007019083714112639
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.027069807052612305,
+          "control_displacement_rms": 0.0007019083714112639
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.05238473415374756,
+          "control_displacement_rms": 0.0014038170920684934
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.05307340621948242,
+          "control_displacement_rms": 0.0014038172084838152
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.12014567852020264,
+          "control_displacement_rms": 0.003509542439132929
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.12628161907196045,
+          "control_displacement_rms": 0.003509542439132929
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.10466156899929047,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.02234065532684326,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4001823663711548
+    },
+    {
+      "token": "886433702a2e5cf4",
+      "boundary": {
+        "past_acceleration": 0.5933575630187988,
+        "past_yaw_rate": -0.2769707895066504,
+        "previous_timestamp_offset_seconds": -0.499958,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.39693117141723633,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.019525527954101562,
+          "control_displacement_rms": 0.0028349501080811024
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.020064949989318848,
+          "control_displacement_rms": 0.0028349491767585278
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.038796067237854004,
+          "control_displacement_rms": 0.005669901613146067
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.04058825969696045,
+          "control_displacement_rms": 0.005669902544468641
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.09470462799072266,
+          "control_displacement_rms": 0.014174746349453926
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.1045769453048706,
+          "control_displacement_rms": 0.014174746349453926
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.363075315952301,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.022586941719055176,
+      "reference_std_minimum": 0.036967452615499496,
+      "reference_std_maximum": 0.4512554109096527
+    },
+    {
+      "token": "19068c380ce551b8",
+      "boundary": {
+        "past_acceleration": 0.04798392206430435,
+        "past_yaw_rate": -0.14774312967976144,
+        "previous_timestamp_offset_seconds": -0.500166,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.05938214436173439,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0029414892196655273,
+          "control_displacement_rms": 0.0039060330018401146
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0029374361038208008,
+          "control_displacement_rms": 0.0039060330018401146
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.005890965461730957,
+          "control_displacement_rms": 0.007812098134309053
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005921840667724609,
+          "control_displacement_rms": 0.007812098134309053
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.014589786529541016,
+          "control_displacement_rms": 0.019530219957232475
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.015015482902526855,
+          "control_displacement_rms": 0.019530219957232475
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6175352334976196,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0014524459838867188,
+      "reference_std_minimum": 0.04352391138672829,
+      "reference_std_maximum": 0.3951953053474426
+    },
+    {
+      "token": "a4e3f3603b2952fb",
+      "boundary": {
+        "past_acceleration": -0.6963703036308289,
+        "past_yaw_rate": -0.11051101845577732,
+        "previous_timestamp_offset_seconds": -0.49946,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.29061490297317505,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.014468789100646973,
+          "control_displacement_rms": 0.001289629959501326
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01471245288848877,
+          "control_displacement_rms": 0.0012896289117634296
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0288236141204834,
+          "control_displacement_rms": 0.002579240594059229
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.02956831455230713,
+          "control_displacement_rms": 0.0025792415253818035
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.07049882411956787,
+          "control_displacement_rms": 0.006448106840252876
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.07438814640045166,
+          "control_displacement_rms": 0.006448107771575451
+        }
+      ],
+      "roundtrip_xy_ADE_m": 1.1748099327087402,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.014650702476501465,
+      "reference_std_minimum": 0.031661562621593475,
+      "reference_std_maximum": 0.3719661831855774
+    },
+    {
+      "token": "e1d845f0d8ae59ae",
+      "boundary": {
+        "past_acceleration": -0.4790017008781433,
+        "past_yaw_rate": -0.07611489367820533,
+        "previous_timestamp_offset_seconds": -0.499851,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.047774460166692734,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0022263526916503906,
+          "control_displacement_rms": 0.0023753924760967493
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.002457857131958008,
+          "control_displacement_rms": 0.002375392708927393
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004308938980102539,
+          "control_displacement_rms": 0.0047507877461612225
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005133867263793945,
+          "control_displacement_rms": 0.0047507877461612225
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.009927034378051758,
+          "control_displacement_rms": 0.011876999400556087
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014497518539428711,
+          "control_displacement_rms": 0.011876999400556087
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5082805752754211,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0017459392547607422,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.44830256700515747
+    },
+    {
+      "token": "44dbdba9f1235c1d",
+      "boundary": {
+        "past_acceleration": 1.3566232919692993,
+        "past_yaw_rate": -0.34779081577566545,
+        "previous_timestamp_offset_seconds": -0.499922,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.016956333070993423,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0008418560028076172,
+          "control_displacement_rms": 0.002748088678345084
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0007724761962890625,
+          "control_displacement_rms": 0.002748088678345084
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.001699209213256836,
+          "control_displacement_rms": 0.005496181081980467
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0015168190002441406,
+          "control_displacement_rms": 0.005496181081980467
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004442930221557617,
+          "control_displacement_rms": 0.013740450143814087
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.003919363021850586,
+          "control_displacement_rms": 0.013740450143814087
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.21836817264556885,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.00024771690368652344,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.3295130133628845
+    },
+    {
+      "token": "ec19ebdee21159e6",
+      "boundary": {
+        "past_acceleration": 0.690798819065094,
+        "past_yaw_rate": -0.1640399163395021,
+        "previous_timestamp_offset_seconds": -0.499468,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.009275225922465324,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0004410743713378906,
+          "control_displacement_rms": 0.0025277489330619574
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00047206878662109375,
+          "control_displacement_rms": 0.0025277489330619574
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0008411407470703125,
+          "control_displacement_rms": 0.0050554824993014336
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0009694099426269531,
+          "control_displacement_rms": 0.005055476911365986
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0019452571868896484,
+          "control_displacement_rms": 0.012638717889785767
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0025839805603027344,
+          "control_displacement_rms": 0.012638714164495468
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4102233350276947,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.00020194053649902344,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.428135484457016
+    },
+    {
+      "token": "6eb85083d1c95494",
+      "boundary": {
+        "past_acceleration": -0.4139481782913208,
+        "past_yaw_rate": -0.12466472155396266,
+        "previous_timestamp_offset_seconds": -0.499988,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.04160555824637413,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0020558834075927734,
+          "control_displacement_rms": 0.004326666705310345
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0020711421966552734,
+          "control_displacement_rms": 0.004326666705310345
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004092693328857422,
+          "control_displacement_rms": 0.008653363212943077
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0041310787200927734,
+          "control_displacement_rms": 0.008653363212943077
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.009992361068725586,
+          "control_displacement_rms": 0.02163338102400303
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.010399580001831055,
+          "control_displacement_rms": 0.02163338102400303
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.6300357580184937,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0003707408905029297,
+      "reference_std_minimum": 0.02907373011112213,
+      "reference_std_maximum": 0.41144251823425293
+    },
+    {
+      "token": "dcf1485b15a758e9",
+      "boundary": {
+        "past_acceleration": 1.0620765686035156,
+        "past_yaw_rate": -0.023576256357175196,
+        "previous_timestamp_offset_seconds": -0.499842,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.138109028339386,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.006092071533203125,
+          "control_displacement_rms": 0.0014550156192854047
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.00749659538269043,
+          "control_displacement_rms": 0.0014550156192854047
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.011379718780517578,
+          "control_displacement_rms": 0.0029100337997078896
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.016030550003051758,
+          "control_displacement_rms": 0.002910034032538533
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02361321449279785,
+          "control_displacement_rms": 0.007275084964931011
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.048436641693115234,
+          "control_displacement_rms": 0.007275084964931011
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.19501270353794098,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0009343624114990234,
+      "reference_std_minimum": 0.04011507332324982,
+      "reference_std_maximum": 0.5034857392311096
+    },
+    {
+      "token": "a1a19416515c5b12",
+      "boundary": {
+        "past_acceleration": -1.038771629333496,
+        "past_yaw_rate": -0.07361580534907217,
+        "previous_timestamp_offset_seconds": -0.500163,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.3304343521595001,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.016364097595214844,
+          "control_displacement_rms": 0.0013197880471125245
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.016569018363952637,
+          "control_displacement_rms": 0.0013197880471125245
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.03241896629333496,
+          "control_displacement_rms": 0.0026395495515316725
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.033217787742614746,
+          "control_displacement_rms": 0.002639549085870385
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.07930922508239746,
+          "control_displacement_rms": 0.006598884239792824
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.08350098133087158,
+          "control_displacement_rms": 0.006598884239792824
+        }
+      ],
+      "roundtrip_xy_ADE_m": 1.240936040878296,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.02646195888519287,
+      "reference_std_minimum": 0.03311474248766899,
+      "reference_std_maximum": 0.36578017473220825
+    },
+    {
+      "token": "c889cd1a7cfe58b5",
+      "boundary": {
+        "past_acceleration": -0.20944932103157043,
+        "past_yaw_rate": -0.07886657079499493,
+        "previous_timestamp_offset_seconds": -0.499923,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.07385513186454773,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0036020278930664062,
+          "control_displacement_rms": 0.002989675384014845
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.003798842430114746,
+          "control_displacement_rms": 0.002989675384014845
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007131338119506836,
+          "control_displacement_rms": 0.005979353096336126
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.007693052291870117,
+          "control_displacement_rms": 0.005979353096336126
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.017178893089294434,
+          "control_displacement_rms": 0.014948390424251556
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.019834518432617188,
+          "control_displacement_rms": 0.014948392286896706
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.5379408597946167,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0023293495178222656,
+      "reference_std_minimum": 0.03105492703616619,
+      "reference_std_maximum": 0.38265305757522583
+    },
+    {
+      "token": "376e6ff7eccf5572",
+      "boundary": {
+        "past_acceleration": 0.3781560957431793,
+        "past_yaw_rate": -0.44483519653185666,
+        "previous_timestamp_offset_seconds": -0.500051,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.04799625650048256,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.0023431777954101562,
+          "control_displacement_rms": 0.0009646516991779208
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.0025479793548583984,
+          "control_displacement_rms": 0.0009646516991779208
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.004586458206176758,
+          "control_displacement_rms": 0.0019292968790978193
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.005286455154418945,
+          "control_displacement_rms": 0.0019292968790978193
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.010043144226074219,
+          "control_displacement_rms": 0.0048232427798211575
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.014291048049926758,
+          "control_displacement_rms": 0.0048232427798211575
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.16833555698394775,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0012469291687011719,
+      "reference_std_minimum": 0.027377650141716003,
+      "reference_std_maximum": 0.31134578585624695
+    },
+    {
+      "token": "8e2fd252b25b5d76",
+      "boundary": {
+        "past_acceleration": 1.0785391330718994,
+        "past_yaw_rate": 0.00035170919941342736,
+        "previous_timestamp_offset_seconds": -0.500075,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.08198826014995575,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003975868225097656,
+          "control_displacement_rms": 0.0010465402156114578
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004226207733154297,
+          "control_displacement_rms": 0.0010465402156114578
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007726192474365234,
+          "control_displacement_rms": 0.0020930622704327106
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.008660078048706055,
+          "control_displacement_rms": 0.0020930622704327106
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.016937732696533203,
+          "control_displacement_rms": 0.005232660565525293
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.023871660232543945,
+          "control_displacement_rms": 0.005232660565525293
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.7931510210037231,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0012347698211669922,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.47390860319137573
+    },
+    {
+      "token": "e3b93ebec6c15950",
+      "boundary": {
+        "past_acceleration": -0.24850642681121826,
+        "past_yaw_rate": 0.0010414892709683314,
+        "previous_timestamp_offset_seconds": -0.499942,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.36529091000556946,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.017540931701660156,
+          "control_displacement_rms": 0.004886085633188486
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.01934218406677246,
+          "control_displacement_rms": 0.004886086098849773
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.033800363540649414,
+          "control_displacement_rms": 0.009772174060344696
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.04095268249511719,
+          "control_displacement_rms": 0.009772173129022121
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.07508087158203125,
+          "control_displacement_rms": 0.02443043328821659
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.12051987648010254,
+          "control_displacement_rms": 0.02443043515086174
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.18162965774536133,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.015531063079833984,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.5460526347160339
+    },
+    {
+      "token": "c34bff3390275370",
+      "boundary": {
+        "past_acceleration": 0.06005757302045822,
+        "past_yaw_rate": -0.06984649046005112,
+        "previous_timestamp_offset_seconds": -0.498011,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.22698788344860077,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.011207222938537598,
+          "control_displacement_rms": 0.002682734513655305
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.011603116989135742,
+          "control_displacement_rms": 0.002682734513655305
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.02206254005432129,
+          "control_displacement_rms": 0.005365485791116953
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.023674368858337402,
+          "control_displacement_rms": 0.0053654867224395275
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.05245625972747803,
+          "control_displacement_rms": 0.0134136863052845
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.06308186054229736,
+          "control_displacement_rms": 0.0134136863052845
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.4215323328971863,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.009524941444396973,
+      "reference_std_minimum": 0.037732068449258804,
+      "reference_std_maximum": 0.4059232175350189
+    },
+    {
+      "token": "1c8da5542b095640",
+      "boundary": {
+        "past_acceleration": 0.014453083276748657,
+        "past_yaw_rate": -0.23578441565870012,
+        "previous_timestamp_offset_seconds": -0.5,
+        "latest_timestamp_offset_seconds": 0.0,
+        "source": "raw previous/current ego poses; actual frame interval"
+      },
+      "native_cached_score_maximum_error": 0.0,
+      "gradient_norm_in_reference_std_coordinates": 0.07972543686628342,
+      "gradient_nonzero": true,
+      "gradient_variants": [
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.003930807113647461,
+          "control_displacement_rms": 0.0015150385443121195
+        },
+        {
+          "reference_std_radius": 0.05,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.004101395606994629,
+          "control_displacement_rms": 0.0015150385443121195
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.007790565490722656,
+          "control_displacement_rms": 0.003030079882591963
+        },
+        {
+          "reference_std_radius": 0.1,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.008396625518798828,
+          "control_displacement_rms": 0.003030085004866123
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": 1,
+          "neural_score_delta": 0.018872618675231934,
+          "control_displacement_rms": 0.007575187832117081
+        },
+        {
+          "reference_std_radius": 0.25,
+          "gradient_sign": -1,
+          "neural_score_delta": -0.021876215934753418,
+          "control_displacement_rms": 0.007575187832117081
+        }
+      ],
+      "roundtrip_xy_ADE_m": 0.2315751314163208,
+      "nearby_clipped_control_fraction": 0.0,
+      "nearby_helper_comfort_violation_fraction": 0.0,
+      "same_path_candidate_set_score_maximum_delta": 0.0008831024169921875,
+      "reference_std_minimum": 0.02500000037252903,
+      "reference_std_maximum": 0.4068135917186737
+    }
+  ]
+}

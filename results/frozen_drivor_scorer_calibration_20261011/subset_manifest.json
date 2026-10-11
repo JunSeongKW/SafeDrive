@@ -1,0 +1,1545 @@
+{
+  "records": [
+    {
+      "token": "22903ed6b4b45809",
+      "log_name": "2021.10.05.08.11.15_veh-50_00437_00585",
+      "recording_group": "2021.10.05.08.11.15_veh-50",
+      "split": "navval",
+      "current_frame_index": 170,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10712,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_F0/c7c54437cb475b70.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_B0/acfd76d329035b52.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_L0/1170aa3c295a5f2c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_R0/66c95ed406fa5e4e.jpg"
+      ],
+      "index": 94957,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_F0/40e1544875bd50d2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_F0/c7c54437cb475b70.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.08.11.15_veh-50_00437_00585/unknown/22903ed6b4b45809/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "24531603f9315046",
+      "log_name": "2021.10.05.08.11.15_veh-50_00437_00585",
+      "recording_group": "2021.10.05.08.11.15_veh-50",
+      "split": "navval",
+      "current_frame_index": 40,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10718,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_F0/e4d2d2d939205da4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_B0/2b3bdc53719a5bee.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_L0/a8c89181f3f55bcf.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_R0/f18e4279e8665c08.jpg"
+      ],
+      "index": 94922,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_F0/30bd9b567a9f5f8b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00437_00585/CAM_F0/e4d2d2d939205da4.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.08.11.15_veh-50_00437_00585/unknown/24531603f9315046/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "43787161833d5f71",
+      "log_name": "2021.06.08.14.36.49_veh-38_00312_00694",
+      "recording_group": "2021.06.08.14.36.49_veh-38",
+      "split": "navval",
+      "current_frame_index": 538,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10384,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.36.49_veh-38_00312_00694/CAM_F0/f11b35a4a5cc59e1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.36.49_veh-38_00312_00694/CAM_B0/683720f25be05d13.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.36.49_veh-38_00312_00694/CAM_L0/080f0b584e435808.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.36.49_veh-38_00312_00694/CAM_R0/e1c7c976d4485109.jpg"
+      ],
+      "index": 5519,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.36.49_veh-38_00312_00694/CAM_F0/dd3e5e5e19e65ae7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.14.36.49_veh-38_00312_00694/CAM_F0/f11b35a4a5cc59e1.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.14.36.49_veh-38_00312_00694/unknown/43787161833d5f71/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "4d7fa90bd2805dc6",
+      "log_name": "2021.09.14.16.46.51_veh-45_00149_00900",
+      "recording_group": "2021.09.14.16.46.51_veh-45",
+      "split": "navval",
+      "current_frame_index": 874,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10588,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/19f06e8fbd8f53da.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_B0/19725df362ad569d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_L0/108b1aa3936656e3.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_R0/fda653ae71295551.jpg"
+      ],
+      "index": 81262,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/52084407a2985c7e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/19f06e8fbd8f53da.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.09.14.16.46.51_veh-45_00149_00900/unknown/4d7fa90bd2805dc6/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "e7d800c5ad005d4f",
+      "log_name": "2021.10.05.06.24.06_veh-50_00717_01300",
+      "recording_group": "2021.10.05.06.24.06_veh-50",
+      "split": "navval",
+      "current_frame_index": 977,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10959,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_F0/a249aa5c8f74537a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_B0/8b3e464579235f82.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_L0/cb327d7618145336.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_R0/ce16c1cf7d8f56c2.jpg"
+      ],
+      "index": 90635,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_F0/efd8465fa16a5fab.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_F0/a249aa5c8f74537a.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.24.06_veh-50_00717_01300/unknown/e7d800c5ad005d4f/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "c839df573acb5c23",
+      "log_name": "2021.10.05.08.11.15_veh-50_00970_01211",
+      "recording_group": "2021.10.05.08.11.15_veh-50",
+      "split": "navval",
+      "current_frame_index": 466,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10362,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00970_01211/CAM_F0/d0446620f8335fae.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00970_01211/CAM_B0/4b110c7b90195b6a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00970_01211/CAM_L0/bae1e8b61aa45165.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00970_01211/CAM_R0/1effb6a193f65b70.jpg"
+      ],
+      "index": 95218,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00970_01211/CAM_F0/a7f8370fb5a1580a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00970_01211/CAM_F0/d0446620f8335fae.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.08.11.15_veh-50_00970_01211/unknown/c839df573acb5c23/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "705a41f6d81c5bf6",
+      "log_name": "2021.06.08.12.54.54_veh-26_00015_00507",
+      "recording_group": "2021.06.08.12.54.54_veh-26",
+      "split": "navval",
+      "current_frame_index": 58,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10934,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/16e8ab11e0af57e0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_B0/688664fba64456bb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_L0/b17046c2a8745f7c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_R0/2cda92b4ceb85fcb.jpg"
+      ],
+      "index": 4465,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/704ff2509fb3572d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/16e8ab11e0af57e0.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.12.54.54_veh-26_00015_00507/unknown/705a41f6d81c5bf6/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "ff3bba0dd7d25848",
+      "log_name": "2021.10.05.07.10.04_veh-52_01442_01802",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 414,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10593,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_F0/6617986656dc5a0d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_B0/646aac288290510e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_L0/1319cff5d80a5f8c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_R0/fd85e84288e35d2a.jpg"
+      ],
+      "index": 93330,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_F0/e4f6a37f5250544f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_F0/6617986656dc5a0d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_01442_01802/unknown/ff3bba0dd7d25848/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "833e43f0df0b50c4",
+      "log_name": "2021.10.05.06.24.06_veh-50_00717_01300",
+      "recording_group": "2021.10.05.06.24.06_veh-50",
+      "split": "navval",
+      "current_frame_index": 510,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10257,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_F0/3003de29c925562d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_B0/c3fb9681807d54be.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_L0/c444a8e3d0385177.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_R0/c378129e97705fd3.jpg"
+      ],
+      "index": 90569,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_F0/fd581464a8de5b5b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.24.06_veh-50_00717_01300/CAM_F0/3003de29c925562d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.24.06_veh-50_00717_01300/unknown/833e43f0df0b50c4/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "55d1a5793cda56a1",
+      "log_name": "2021.10.05.04.38.41_veh-50_00014_00429",
+      "recording_group": "2021.10.05.04.38.41_veh-50",
+      "split": "navval",
+      "current_frame_index": 242,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10240,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00014_00429/CAM_F0/4505f7dbaf515685.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00014_00429/CAM_B0/db55386292ea5fe8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00014_00429/CAM_L0/2aa2007bbc6b59ed.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00014_00429/CAM_R0/b87e306f755a5afe.jpg"
+      ],
+      "index": 89693,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00014_00429/CAM_F0/8f59efb92e395068.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00014_00429/CAM_F0/4505f7dbaf515685.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.04.38.41_veh-50_00014_00429/unknown/55d1a5793cda56a1/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "51560d3a0ba05b2b",
+      "log_name": "2021.09.14.16.46.51_veh-45_00149_00900",
+      "recording_group": "2021.09.14.16.46.51_veh-45",
+      "split": "navval",
+      "current_frame_index": 1061,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11183,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/a8ac5ddb35ac5988.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_B0/baf318998e1d5043.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_L0/7fbeebff2f2c5141.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_R0/4575f1eac0235cfd.jpg"
+      ],
+      "index": 81295,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/b5c2b214c6745a4d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/a8ac5ddb35ac5988.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.09.14.16.46.51_veh-45_00149_00900/unknown/51560d3a0ba05b2b/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "adfe782c830952e6",
+      "log_name": "2021.07.24.16.48.51_veh-17_00016_00166",
+      "recording_group": "2021.07.24.16.48.51_veh-17",
+      "split": "navval",
+      "current_frame_index": 219,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10601,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.16.48.51_veh-17_00016_00166/CAM_F0/e2483f9c46295612.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.16.48.51_veh-17_00016_00166/CAM_B0/7e745117514055d0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.16.48.51_veh-17_00016_00166/CAM_L0/f3f2fd3a2b495b35.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.16.48.51_veh-17_00016_00166/CAM_R0/79934388f4915e6f.jpg"
+      ],
+      "index": 67079,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.16.48.51_veh-17_00016_00166/CAM_F0/3f70d3d6399f5c34.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.07.24.16.48.51_veh-17_00016_00166/CAM_F0/e2483f9c46295612.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.07.24.16.48.51_veh-17_00016_00166/unknown/adfe782c830952e6/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "50ebd86102b353a7",
+      "log_name": "2021.06.08.12.54.54_veh-26_00015_00507",
+      "recording_group": "2021.06.08.12.54.54_veh-26",
+      "split": "navval",
+      "current_frame_index": 298,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10994,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/32c851d76bab512a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_B0/c9a630a290de5e64.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_L0/1f7b5ee2721c5163.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_R0/422eb693bb1c5b34.jpg"
+      ],
+      "index": 4538,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/802d1843acd755f2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/32c851d76bab512a.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.12.54.54_veh-26_00015_00507/unknown/50ebd86102b353a7/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "3540cd6d18ab5857",
+      "log_name": "2021.08.31.14.40.58_veh-40_00125_00269",
+      "recording_group": "2021.08.31.14.40.58_veh-40",
+      "split": "navval",
+      "current_frame_index": 61,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10891,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00125_00269/CAM_F0/edd53b5a183f5325.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00125_00269/CAM_B0/2790a1c5ca275a70.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00125_00269/CAM_L0/c143b3b5dc3c5ea7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00125_00269/CAM_R0/83b674ccbae05a9c.jpg"
+      ],
+      "index": 79274,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00125_00269/CAM_F0/cc66046a59fe524f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00125_00269/CAM_F0/edd53b5a183f5325.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.14.40.58_veh-40_00125_00269/unknown/3540cd6d18ab5857/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "cc2a583247c05212",
+      "log_name": "2021.08.31.14.40.58_veh-40_01268_01618",
+      "recording_group": "2021.08.31.14.40.58_veh-40",
+      "split": "navval",
+      "current_frame_index": 29,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10437,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_F0/4ab6a84c5f6b5b76.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_B0/44448514356f5330.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_L0/a90d41e7d19e59e6.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_R0/6d5a9e7c2ee05559.jpg"
+      ],
+      "index": 79614,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_F0/4902725e86e551bb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_F0/4ab6a84c5f6b5b76.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.14.40.58_veh-40_01268_01618/unknown/cc2a583247c05212/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "48f52aa8772c55cb",
+      "log_name": "2021.10.05.06.57.40_veh-50_01131_01452",
+      "recording_group": "2021.10.05.06.57.40_veh-50",
+      "split": "navval",
+      "current_frame_index": 539,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10405,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01131_01452/CAM_F0/3273d75e9dbe55eb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01131_01452/CAM_B0/53cb6755ddc9523b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01131_01452/CAM_L0/f07e27e4891358e7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01131_01452/CAM_R0/170658579a0f5f71.jpg"
+      ],
+      "index": 92474,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01131_01452/CAM_F0/7733eebe818e5922.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01131_01452/CAM_F0/3273d75e9dbe55eb.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.57.40_veh-50_01131_01452/unknown/48f52aa8772c55cb/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "3c67272121df5b60",
+      "log_name": "2021.09.14.18.43.41_veh-45_00965_01195",
+      "recording_group": "2021.09.14.18.43.41_veh-45",
+      "split": "navval",
+      "current_frame_index": 432,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10368,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.18.43.41_veh-45_00965_01195/CAM_F0/454b7e338af65629.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.18.43.41_veh-45_00965_01195/CAM_B0/a5f31a0e93485556.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.18.43.41_veh-45_00965_01195/CAM_L0/496a0dcfab3e5e05.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.18.43.41_veh-45_00965_01195/CAM_R0/e0ae44ac288f558a.jpg"
+      ],
+      "index": 81595,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.18.43.41_veh-45_00965_01195/CAM_F0/15c88eba7ea75c0e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.18.43.41_veh-45_00965_01195/CAM_F0/454b7e338af65629.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.09.14.18.43.41_veh-45_00965_01195/unknown/3c67272121df5b60/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "997185fb884c58cb",
+      "log_name": "2021.10.05.04.38.41_veh-50_00576_00721",
+      "recording_group": "2021.10.05.04.38.41_veh-50",
+      "split": "navval",
+      "current_frame_index": 84,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10397,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00576_00721/CAM_F0/3baeac34371a537e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00576_00721/CAM_B0/af19b17b6f485462.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00576_00721/CAM_L0/502f29493a7853a0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00576_00721/CAM_R0/96751c44757658a4.jpg"
+      ],
+      "index": 89916,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00576_00721/CAM_F0/cfe03f9d903657a1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.04.38.41_veh-50_00576_00721/CAM_F0/3baeac34371a537e.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.04.38.41_veh-50_00576_00721/unknown/997185fb884c58cb/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "ad50d798cf59571f",
+      "log_name": "2021.10.05.07.10.04_veh-52_01442_01802",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 298,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10350,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_F0/cd1f31d924cd5082.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_B0/159ede3a1dc05fdb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_L0/b80162b82e6b519e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_R0/33ab6c8a3b66520b.jpg"
+      ],
+      "index": 93288,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_F0/0cdb3fced4945c4c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_01442_01802/CAM_F0/cd1f31d924cd5082.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_01442_01802/unknown/ad50d798cf59571f/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "916346f483d65284",
+      "log_name": "2021.10.05.07.10.04_veh-52_00689_01322",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 816,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10334,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/c6933a12c755584c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_B0/e55fb9b2b7545b9b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_L0/eb1bbd5a809358ab.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_R0/1a546619b4a25d46.jpg"
+      ],
+      "index": 93043,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/ec2316dee5d954f9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/c6933a12c755584c.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_00689_01322/unknown/916346f483d65284/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "09460373ac855a25",
+      "log_name": "2021.09.14.16.46.51_veh-45_00149_00900",
+      "recording_group": "2021.09.14.16.46.51_veh-45",
+      "split": "navval",
+      "current_frame_index": 929,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10263,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/1dcd99bb7bed5427.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_B0/6656c8c727265b55.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_L0/fa563da2e7445a01.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_R0/8dc663c75d6e5551.jpg"
+      ],
+      "index": 81281,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/6943d8117278517b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/1dcd99bb7bed5427.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.09.14.16.46.51_veh-45_00149_00900/unknown/09460373ac855a25/metric_cache.pkl",
+      "command_index": 0,
+      "command_name": "left_turn"
+    },
+    {
+      "token": "c215277e896a5f24",
+      "log_name": "2021.10.05.07.38.12_veh-50_01085_01463",
+      "recording_group": "2021.10.05.07.38.12_veh-50",
+      "split": "navval",
+      "current_frame_index": 373,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10854,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_01085_01463/CAM_F0/45ccfd0436e95c54.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_01085_01463/CAM_B0/19837139ffd65967.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_01085_01463/CAM_L0/5e643bf9fbf158e7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_01085_01463/CAM_R0/5468ae5b95e95591.jpg"
+      ],
+      "index": 93885,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_01085_01463/CAM_F0/83486f04c3285cdd.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_01085_01463/CAM_F0/45ccfd0436e95c54.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.38.12_veh-50_01085_01463/unknown/c215277e896a5f24/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "2e175ffcc2cd57ba",
+      "log_name": "2021.10.05.08.11.15_veh-50_00163_00321",
+      "recording_group": "2021.10.05.08.11.15_veh-50",
+      "split": "navval",
+      "current_frame_index": 76,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11007,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00163_00321/CAM_F0/737ffc126d04540b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00163_00321/CAM_B0/2aba055d99a5500d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00163_00321/CAM_L0/bcfd21c5d82b588a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00163_00321/CAM_R0/7a40b5bac8035b59.jpg"
+      ],
+      "index": 94751,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00163_00321/CAM_F0/fcc3a9839edb57e0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_00163_00321/CAM_F0/737ffc126d04540b.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.08.11.15_veh-50_00163_00321/unknown/2e175ffcc2cd57ba/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "26b7cc5b93125dd9",
+      "log_name": "2021.10.05.06.57.40_veh-50_00940_01105",
+      "recording_group": "2021.10.05.06.57.40_veh-50",
+      "split": "navval",
+      "current_frame_index": 52,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10817,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_00940_01105/CAM_F0/f14efd252e21590b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_00940_01105/CAM_B0/aeb5db4103be5b3f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_00940_01105/CAM_L0/e754cced1ef35b66.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_00940_01105/CAM_R0/8ec2aab21e2c5c7a.jpg"
+      ],
+      "index": 92218,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_00940_01105/CAM_F0/e55c2b61450e5973.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_00940_01105/CAM_F0/f14efd252e21590b.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.57.40_veh-50_00940_01105/unknown/26b7cc5b93125dd9/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "528d36356ecb53af",
+      "log_name": "2021.06.07.17.46.49_veh-35_04084_04828",
+      "recording_group": "2021.06.07.17.46.49_veh-35",
+      "split": "navval",
+      "current_frame_index": 1110,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11077,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_F0/763f6960e7ac596d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_B0/831ae878d9a1552d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_L0/08539b7527545c10.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_R0/e73504a9e4f45cef.jpg"
+      ],
+      "index": 3273,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_F0/a562e4e912a655ca.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_F0/763f6960e7ac596d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.07.17.46.49_veh-35_04084_04828/unknown/528d36356ecb53af/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "f9a3f1194ecf5691",
+      "log_name": "2021.08.31.16.37.21_veh-40_01655_01736",
+      "recording_group": "2021.08.31.16.37.21_veh-40",
+      "split": "navval",
+      "current_frame_index": 32,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10842,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01655_01736/CAM_F0/ad955f31f44f5567.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01655_01736/CAM_B0/35ce6a18b7985fc1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01655_01736/CAM_L0/ebd6dcf9b81e50cb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01655_01736/CAM_R0/0d312da914b551b5.jpg"
+      ],
+      "index": 80205,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01655_01736/CAM_F0/d89dcb0059f45a56.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01655_01736/CAM_F0/ad955f31f44f5567.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.16.37.21_veh-40_01655_01736/unknown/f9a3f1194ecf5691/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "53adc99c616d5b83",
+      "log_name": "2021.06.08.12.00.19_veh-35_01722_02119",
+      "recording_group": "2021.06.08.12.00.19_veh-35",
+      "split": "navval",
+      "current_frame_index": 253,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10853,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_F0/dd30007d656254ff.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_B0/fe7ed9f9df21500a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_L0/ebd5086d31b2581d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_R0/6bea2c5bef5d58a0.jpg"
+      ],
+      "index": 4027,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_F0/493023ef6b085fc8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_F0/dd30007d656254ff.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.12.00.19_veh-35_01722_02119/unknown/53adc99c616d5b83/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "1e1bb6eb92ef54c9",
+      "log_name": "2021.08.09.18.37.41_veh-28_00053_00548",
+      "recording_group": "2021.08.09.18.37.41_veh-28",
+      "split": "navval",
+      "current_frame_index": 857,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10687,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.09.18.37.41_veh-28_00053_00548/CAM_F0/985a5c1d3da15df0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.09.18.37.41_veh-28_00053_00548/CAM_B0/a0a94c4bc7085016.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.09.18.37.41_veh-28_00053_00548/CAM_L0/67b8a8897dca57ad.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.09.18.37.41_veh-28_00053_00548/CAM_R0/b0cd6df29c5959b8.jpg"
+      ],
+      "index": 68038,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.09.18.37.41_veh-28_00053_00548/CAM_F0/7a7993767c4057ff.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.09.18.37.41_veh-28_00053_00548/CAM_F0/985a5c1d3da15df0.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.09.18.37.41_veh-28_00053_00548/unknown/1e1bb6eb92ef54c9/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "7c554f2629af5770",
+      "log_name": "2021.09.14.16.46.51_veh-45_00149_00900",
+      "recording_group": "2021.09.14.16.46.51_veh-45",
+      "split": "navval",
+      "current_frame_index": 770,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10834,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/aa81ffb043ad5726.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_B0/a288eb93cc6e5009.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_L0/037bda9033f85595.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_R0/72b95dbbcdc15e5e.jpg"
+      ],
+      "index": 81216,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/f8e30095ae4b53cd.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.09.14.16.46.51_veh-45_00149_00900/CAM_F0/aa81ffb043ad5726.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.09.14.16.46.51_veh-45_00149_00900/unknown/7c554f2629af5770/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "ceee1351edc152f7",
+      "log_name": "2021.08.31.11.47.30_veh-40_00248_00376",
+      "recording_group": "2021.08.31.11.47.30_veh-40",
+      "split": "navval",
+      "current_frame_index": 87,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10532,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.11.47.30_veh-40_00248_00376/CAM_F0/80d9d19386bb595c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.11.47.30_veh-40_00248_00376/CAM_B0/4110465c85ed51b1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.11.47.30_veh-40_00248_00376/CAM_L0/06fa0e099341574b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.11.47.30_veh-40_00248_00376/CAM_R0/965a28e46c7c530f.jpg"
+      ],
+      "index": 77665,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.11.47.30_veh-40_00248_00376/CAM_F0/7e9e34a4770e5f91.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.11.47.30_veh-40_00248_00376/CAM_F0/80d9d19386bb595c.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.11.47.30_veh-40_00248_00376/unknown/ceee1351edc152f7/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "d2133889d04e5f16",
+      "log_name": "2021.10.05.06.31.40_veh-52_01316_01565",
+      "recording_group": "2021.10.05.06.31.40_veh-52",
+      "split": "navval",
+      "current_frame_index": 221,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10814,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01316_01565/CAM_F0/23e9065eb69a5174.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01316_01565/CAM_B0/48784461e19d5318.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01316_01565/CAM_L0/f7f0aff3ba8d5af8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01316_01565/CAM_R0/9f8b496c524e509d.jpg"
+      ],
+      "index": 91520,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01316_01565/CAM_F0/a63d09663dd45fbc.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01316_01565/CAM_F0/23e9065eb69a5174.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.31.40_veh-52_01316_01565/unknown/d2133889d04e5f16/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "e26f33c1dc1b5ff6",
+      "log_name": "2021.10.05.07.10.04_veh-52_00689_01322",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 74,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10438,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/efd98253f5d0512c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_B0/47ef93c43688502f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_L0/7569c1be63425da6.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_R0/ce709b15d4225acf.jpg"
+      ],
+      "index": 92808,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/44449ddfa52558a1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/efd98253f5d0512c.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_00689_01322/unknown/e26f33c1dc1b5ff6/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "3a77b3e1683153ea",
+      "log_name": "2021.10.05.07.10.04_veh-52_00689_01322",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 244,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10730,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/c7a9e42c0f3c52f8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_B0/c672538e64c4572d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_L0/fb5ecc831d8b5c2e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_R0/2cce47c5aa145085.jpg"
+      ],
+      "index": 92841,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/7b5d8fd488845c32.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/c7a9e42c0f3c52f8.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_00689_01322/unknown/3a77b3e1683153ea/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "c0921d509e2c502d",
+      "log_name": "2021.10.05.07.49.39_veh-52_00770_00905",
+      "recording_group": "2021.10.05.07.49.39_veh-52",
+      "split": "navval",
+      "current_frame_index": 40,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10414,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00770_00905/CAM_F0/a0fa53d4108759da.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00770_00905/CAM_B0/10c7988f69f654e5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00770_00905/CAM_L0/b6445c51d4a85536.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00770_00905/CAM_R0/3559ffd3596e57f0.jpg"
+      ],
+      "index": 94279,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00770_00905/CAM_F0/f418ff341d3856b5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00770_00905/CAM_F0/a0fa53d4108759da.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.49.39_veh-52_00770_00905/unknown/c0921d509e2c502d/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "3dccebdee98856ee",
+      "log_name": "2021.06.08.12.00.19_veh-35_01722_02119",
+      "recording_group": "2021.06.08.12.00.19_veh-35",
+      "split": "navval",
+      "current_frame_index": 85,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10572,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_F0/5d081303c72b5fc9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_B0/3179ad47adb5582d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_L0/3f0cc3e355575e60.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_R0/831b7f177551532a.jpg"
+      ],
+      "index": 3986,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_F0/3c8e8af8ee03597e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.00.19_veh-35_01722_02119/CAM_F0/5d081303c72b5fc9.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.12.00.19_veh-35_01722_02119/unknown/3dccebdee98856ee/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "c0b230109883561b",
+      "log_name": "2021.08.31.14.40.58_veh-40_00285_00456",
+      "recording_group": "2021.08.31.14.40.58_veh-40",
+      "split": "navval",
+      "current_frame_index": 311,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10425,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00285_00456/CAM_F0/102fa93eb020593d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00285_00456/CAM_B0/c4180de211dc5e3b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00285_00456/CAM_L0/03b1a138a8d05db5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00285_00456/CAM_R0/2289485dac9c5b7a.jpg"
+      ],
+      "index": 79347,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00285_00456/CAM_F0/bec00975775e5d3a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_00285_00456/CAM_F0/102fa93eb020593d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.14.40.58_veh-40_00285_00456/unknown/c0b230109883561b/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "fbf5b0da3ef6574e",
+      "log_name": "2021.10.05.08.11.15_veh-50_01566_01801",
+      "recording_group": "2021.10.05.08.11.15_veh-50",
+      "split": "navval",
+      "current_frame_index": 34,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10386,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_F0/afa39c905598502d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_B0/aebf417e83c950e0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_L0/4b0c147c224c5205.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_R0/1d869c809ec250d2.jpg"
+      ],
+      "index": 95358,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_F0/e467cdbee90057fe.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_F0/afa39c905598502d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.08.11.15_veh-50_01566_01801/unknown/fbf5b0da3ef6574e/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "223c47176e6057f5",
+      "log_name": "2021.06.08.18.59.48_veh-12_03122_03677",
+      "recording_group": "2021.06.08.18.59.48_veh-12",
+      "split": "navval",
+      "current_frame_index": 75,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10744,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.18.59.48_veh-12_03122_03677/CAM_F0/39528f8b8d695674.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.18.59.48_veh-12_03122_03677/CAM_B0/6f7f919306ba5c7a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.18.59.48_veh-12_03122_03677/CAM_L0/dac68933b0ad5d33.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.18.59.48_veh-12_03122_03677/CAM_R0/32bcfd71064c5370.jpg"
+      ],
+      "index": 6345,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.18.59.48_veh-12_03122_03677/CAM_F0/c6b5cc54856c500a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.18.59.48_veh-12_03122_03677/CAM_F0/39528f8b8d695674.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.18.59.48_veh-12_03122_03677/unknown/223c47176e6057f5/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "fd23b08914635213",
+      "log_name": "2021.10.05.06.31.40_veh-52_01598_02013",
+      "recording_group": "2021.10.05.06.31.40_veh-52",
+      "split": "navval",
+      "current_frame_index": 715,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10298,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/ec5a3955a7cb596d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_B0/615bc2c59ff8532d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_L0/d73587cc2e0c5edf.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_R0/5383b521ef875e18.jpg"
+      ],
+      "index": 91855,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/59db7198e877506e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/ec5a3955a7cb596d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.31.40_veh-52_01598_02013/unknown/fd23b08914635213/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "0695b36d39c75e1d",
+      "log_name": "2021.10.05.07.49.39_veh-52_00563_00680",
+      "recording_group": "2021.10.05.07.49.39_veh-52",
+      "split": "navval",
+      "current_frame_index": 84,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11150,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00563_00680/CAM_F0/264ea8978c1a5aeb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00563_00680/CAM_B0/109c601e846d55d9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00563_00680/CAM_L0/31228455fd6d5ca2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00563_00680/CAM_R0/abd9d82ec45550fe.jpg"
+      ],
+      "index": 94203,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00563_00680/CAM_F0/215dd69522d05401.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.49.39_veh-52_00563_00680/CAM_F0/264ea8978c1a5aeb.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.49.39_veh-52_00563_00680/unknown/0695b36d39c75e1d/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "b671bff4f0885977",
+      "log_name": "2021.10.05.06.31.40_veh-52_01598_02013",
+      "recording_group": "2021.10.05.06.31.40_veh-52",
+      "split": "navval",
+      "current_frame_index": 502,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10504,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/73edc05e0d565079.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_B0/4daff4bc58955cb1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_L0/5aed02726d9d50dc.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_R0/c2d980b62fc2581d.jpg"
+      ],
+      "index": 91752,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/7ac0b699cd945118.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/73edc05e0d565079.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.31.40_veh-52_01598_02013/unknown/b671bff4f0885977/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "7110b9e42a8a5ff7",
+      "log_name": "2021.10.05.06.31.40_veh-52_01598_02013",
+      "recording_group": "2021.10.05.06.31.40_veh-52",
+      "split": "navval",
+      "current_frame_index": 667,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10464,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/29bb46f602975ecb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_B0/ab28a771e0d35a8c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_L0/ba75b845c098584b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_R0/1ecdbbe19821595f.jpg"
+      ],
+      "index": 91819,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/eb0e0c85469a5e34.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.31.40_veh-52_01598_02013/CAM_F0/29bb46f602975ecb.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.31.40_veh-52_01598_02013/unknown/7110b9e42a8a5ff7/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "9b2ecd661f315d8c",
+      "log_name": "2021.06.07.17.46.49_veh-35_04084_04828",
+      "recording_group": "2021.06.07.17.46.49_veh-35",
+      "split": "navval",
+      "current_frame_index": 779,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10375,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_F0/ece20e992e205556.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_B0/7d13e51053415ff5.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_L0/ef96f329f15d5134.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_R0/6282524de28554e3.jpg"
+      ],
+      "index": 3214,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_F0/f90219d6af4c53b6.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.17.46.49_veh-35_04084_04828/CAM_F0/ece20e992e205556.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.07.17.46.49_veh-35_04084_04828/unknown/9b2ecd661f315d8c/metric_cache.pkl",
+      "command_index": 1,
+      "command_name": "straight"
+    },
+    {
+      "token": "db439b1292395139",
+      "log_name": "2021.06.08.12.54.54_veh-26_02994_03970",
+      "recording_group": "2021.06.08.12.54.54_veh-26",
+      "split": "navval",
+      "current_frame_index": 427,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10503,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_02994_03970/CAM_F0/fda88f8c862b5ae1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_02994_03970/CAM_B0/0531528ad6f75a3e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_02994_03970/CAM_L0/a90f8cddcb935014.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_02994_03970/CAM_R0/7892d823f9d45211.jpg"
+      ],
+      "index": 4783,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_02994_03970/CAM_F0/e4d5c266de085de1.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_02994_03970/CAM_F0/fda88f8c862b5ae1.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.12.54.54_veh-26_02994_03970/unknown/db439b1292395139/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "c6cf2d03bc205f27",
+      "log_name": "2021.08.31.16.37.21_veh-40_01405_01642",
+      "recording_group": "2021.08.31.16.37.21_veh-40",
+      "split": "navval",
+      "current_frame_index": 323,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11098,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01405_01642/CAM_F0/87c42b5422ba5f89.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01405_01642/CAM_B0/31a7aa0bf9b254d0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01405_01642/CAM_L0/4a44076307455928.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01405_01642/CAM_R0/89519eefed3b53f9.jpg"
+      ],
+      "index": 80146,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01405_01642/CAM_F0/a24571f005325815.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.16.37.21_veh-40_01405_01642/CAM_F0/87c42b5422ba5f89.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.16.37.21_veh-40_01405_01642/unknown/c6cf2d03bc205f27/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "3081ec3801a05c51",
+      "log_name": "2021.10.05.08.11.15_veh-50_01566_01801",
+      "recording_group": "2021.10.05.08.11.15_veh-50",
+      "split": "navval",
+      "current_frame_index": 110,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10882,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_F0/c551c888ad50517d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_B0/19155abec71a5344.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_L0/2661e862bbd4567a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_R0/a188feb8016054e7.jpg"
+      ],
+      "index": 95398,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_F0/4a1a4c5f60b757da.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.08.11.15_veh-50_01566_01801/CAM_F0/c551c888ad50517d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.08.11.15_veh-50_01566_01801/unknown/3081ec3801a05c51/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "9e5f2c6ec3e65aa8",
+      "log_name": "2021.10.05.07.10.04_veh-52_00596_00663",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 49,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10828,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00596_00663/CAM_F0/5899cc18e1045df7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00596_00663/CAM_B0/0149cd04f601575d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00596_00663/CAM_L0/f3d5425efb0653a8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00596_00663/CAM_R0/c36b6e5c4cc75a71.jpg"
+      ],
+      "index": 92762,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00596_00663/CAM_F0/cd2a4ed2d71c5a4a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00596_00663/CAM_F0/5899cc18e1045df7.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_00596_00663/unknown/9e5f2c6ec3e65aa8/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "5e516edc25b65483",
+      "log_name": "2021.06.07.19.43.00_veh-35_02298_02525",
+      "recording_group": "2021.06.07.19.43.00_veh-35",
+      "split": "navval",
+      "current_frame_index": 229,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10606,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.19.43.00_veh-35_02298_02525/CAM_F0/dbed6c7bfb565d32.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.19.43.00_veh-35_02298_02525/CAM_B0/6a5af92ef95c5d22.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.19.43.00_veh-35_02298_02525/CAM_L0/0902fa563a4d5bd9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.19.43.00_veh-35_02298_02525/CAM_R0/2c82ca919fa35e59.jpg"
+      ],
+      "index": 3929,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.19.43.00_veh-35_02298_02525/CAM_F0/32d95933928a5685.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.19.43.00_veh-35_02298_02525/CAM_F0/dbed6c7bfb565d32.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.07.19.43.00_veh-35_02298_02525/unknown/5e516edc25b65483/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "d6fa0346a65c5ec3",
+      "log_name": "2021.10.05.07.10.04_veh-52_00418_00563",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 119,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11024,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00418_00563/CAM_F0/68eaee821f425707.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00418_00563/CAM_B0/af29bd91ddde5759.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00418_00563/CAM_L0/eda07c994c4b508e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00418_00563/CAM_R0/3e5eeb0b422c547f.jpg"
+      ],
+      "index": 92727,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00418_00563/CAM_F0/45ae1cac1e0f5ec7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00418_00563/CAM_F0/68eaee821f425707.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_00418_00563/unknown/d6fa0346a65c5ec3/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "886433702a2e5cf4",
+      "log_name": "2021.10.05.07.10.04_veh-52_00689_01322",
+      "recording_group": "2021.10.05.07.10.04_veh-52",
+      "split": "navval",
+      "current_frame_index": 583,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10575,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/d0ba4ca52d425c26.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_B0/3fd9600ff2385f0f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_L0/658f0d0e896d5a60.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_R0/dd4e2d2d72105f2d.jpg"
+      ],
+      "index": 92935,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/b4fb9fc9802d509e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.10.04_veh-52_00689_01322/CAM_F0/d0ba4ca52d425c26.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.10.04_veh-52_00689_01322/unknown/886433702a2e5cf4/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "19068c380ce551b8",
+      "log_name": "2021.10.05.07.38.12_veh-50_00245_00433",
+      "recording_group": "2021.10.05.07.38.12_veh-50",
+      "split": "navval",
+      "current_frame_index": 324,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10885,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_00245_00433/CAM_F0/3421401ac24654af.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_00245_00433/CAM_B0/c746a9c254c75500.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_00245_00433/CAM_L0/44d1c9def45c5196.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_00245_00433/CAM_R0/11c9f826710e59b0.jpg"
+      ],
+      "index": 93582,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_00245_00433/CAM_F0/21831232632f5b15.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.07.38.12_veh-50_00245_00433/CAM_F0/3421401ac24654af.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.07.38.12_veh-50_00245_00433/unknown/19068c380ce551b8/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "a4e3f3603b2952fb",
+      "log_name": "2021.06.08.19.16.23_veh-26_00973_01139",
+      "recording_group": "2021.06.08.19.16.23_veh-26",
+      "split": "navval",
+      "current_frame_index": 278,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10395,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.19.16.23_veh-26_00973_01139/CAM_F0/a98682bc5ba35b1a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.19.16.23_veh-26_00973_01139/CAM_B0/dacba40f5f025a31.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.19.16.23_veh-26_00973_01139/CAM_L0/1212e307eb1f5b56.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.19.16.23_veh-26_00973_01139/CAM_R0/cff3536d82375975.jpg"
+      ],
+      "index": 6443,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.19.16.23_veh-26_00973_01139/CAM_F0/fe93f65af526545e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.19.16.23_veh-26_00973_01139/CAM_F0/a98682bc5ba35b1a.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.19.16.23_veh-26_00973_01139/unknown/a4e3f3603b2952fb/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "e1d845f0d8ae59ae",
+      "log_name": "2021.10.05.06.57.40_veh-50_01493_01624",
+      "recording_group": "2021.10.05.06.57.40_veh-50",
+      "split": "navval",
+      "current_frame_index": 206,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11058,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01493_01624/CAM_F0/45c5ca3f6fff5583.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01493_01624/CAM_B0/bdcd42a6f99e5b2f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01493_01624/CAM_L0/e4bec538d30d5155.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01493_01624/CAM_R0/ce67c43680895371.jpg"
+      ],
+      "index": 92575,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01493_01624/CAM_F0/94fa715e8d1458cc.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.10.05.06.57.40_veh-50_01493_01624/CAM_F0/45c5ca3f6fff5583.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.10.05.06.57.40_veh-50_01493_01624/unknown/e1d845f0d8ae59ae/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "44dbdba9f1235c1d",
+      "log_name": "2021.08.31.14.40.58_veh-40_01268_01618",
+      "recording_group": "2021.08.31.14.40.58_veh-40",
+      "split": "navval",
+      "current_frame_index": 123,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10845,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_F0/57811b57ac3255e2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_B0/0a1994e647f157f0.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_L0/eb2994cc609a5248.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_R0/e66aab70c62e51ca.jpg"
+      ],
+      "index": 79645,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_F0/1a2d7f7e7043544d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.40.58_veh-40_01268_01618/CAM_F0/57811b57ac3255e2.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.14.40.58_veh-40_01268_01618/unknown/44dbdba9f1235c1d/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "ec19ebdee21159e6",
+      "log_name": "2021.06.07.13.53.57_veh-35_02489_03145",
+      "recording_group": "2021.06.07.13.53.57_veh-35",
+      "split": "navval",
+      "current_frame_index": 368,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10253,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_F0/d853c58aa76c53c9.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_B0/b376c45ba6f65d90.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_L0/6625e9ac40445de7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_R0/6fb1eea28b785b4d.jpg"
+      ],
+      "index": 2776,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_F0/a499ff1837b25c80.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_F0/d853c58aa76c53c9.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.07.13.53.57_veh-35_02489_03145/unknown/ec19ebdee21159e6/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "6eb85083d1c95494",
+      "log_name": "2021.08.31.12.21.30_veh-40_00056_00155",
+      "recording_group": "2021.08.31.12.21.30_veh-40",
+      "split": "navval",
+      "current_frame_index": 125,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10801,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.12.21.30_veh-40_00056_00155/CAM_F0/28506aa077d95d0d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.12.21.30_veh-40_00056_00155/CAM_B0/9351f2824dbd54ed.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.12.21.30_veh-40_00056_00155/CAM_L0/5b64798ffade5779.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.12.21.30_veh-40_00056_00155/CAM_R0/c926352330f559c7.jpg"
+      ],
+      "index": 78160,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.12.21.30_veh-40_00056_00155/CAM_F0/93cca8b5c0ef5a22.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.12.21.30_veh-40_00056_00155/CAM_F0/28506aa077d95d0d.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.12.21.30_veh-40_00056_00155/unknown/6eb85083d1c95494/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "dcf1485b15a758e9",
+      "log_name": "2021.08.24.15.09.18_veh-45_00216_00862",
+      "recording_group": "2021.08.24.15.09.18_veh-45",
+      "split": "navval",
+      "current_frame_index": 786,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10287,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.15.09.18_veh-45_00216_00862/CAM_F0/c845cb33fe835506.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.15.09.18_veh-45_00216_00862/CAM_B0/f24614b5bf1f5940.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.15.09.18_veh-45_00216_00862/CAM_L0/84a8381a72745f6b.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.15.09.18_veh-45_00216_00862/CAM_R0/a047ed8163a952c1.jpg"
+      ],
+      "index": 76312,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.15.09.18_veh-45_00216_00862/CAM_F0/acedd9eea38b51f6.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.24.15.09.18_veh-45_00216_00862/CAM_F0/c845cb33fe835506.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.24.15.09.18_veh-45_00216_00862/unknown/dcf1485b15a758e9/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "a1a19416515c5b12",
+      "log_name": "2021.06.07.13.53.57_veh-35_02489_03145",
+      "recording_group": "2021.06.07.13.53.57_veh-35",
+      "split": "navval",
+      "current_frame_index": 215,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10545,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_F0/fc746c4efc4c5309.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_B0/b4d7c94927225fa2.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_L0/31c41aefdf69543e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_R0/ca99977e6c855c35.jpg"
+      ],
+      "index": 2689,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_F0/cb964c4525ed5264.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.07.13.53.57_veh-35_02489_03145/CAM_F0/fc746c4efc4c5309.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.07.13.53.57_veh-35_02489_03145/unknown/a1a19416515c5b12/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "c889cd1a7cfe58b5",
+      "log_name": "2021.08.31.14.01.15_veh-40_01109_01272",
+      "recording_group": "2021.08.31.14.01.15_veh-40",
+      "split": "navval",
+      "current_frame_index": 76,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11074,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.01.15_veh-40_01109_01272/CAM_F0/0f4d1f52cb425405.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.01.15_veh-40_01109_01272/CAM_B0/a2953f0fda10571f.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.01.15_veh-40_01109_01272/CAM_L0/b71aee0be5f75a12.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.01.15_veh-40_01109_01272/CAM_R0/88a275669bfe52cd.jpg"
+      ],
+      "index": 79157,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.01.15_veh-40_01109_01272/CAM_F0/f7595849d54a50da.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.14.01.15_veh-40_01109_01272/CAM_F0/0f4d1f52cb425405.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.14.01.15_veh-40_01109_01272/unknown/c889cd1a7cfe58b5/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "376e6ff7eccf5572",
+      "log_name": "2021.06.08.16.31.33_veh-38_01589_02072",
+      "recording_group": "2021.06.08.16.31.33_veh-38",
+      "split": "navval",
+      "current_frame_index": 939,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11063,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.16.31.33_veh-38_01589_02072/CAM_F0/a042610415685880.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.16.31.33_veh-38_01589_02072/CAM_B0/3b5a77d5a01a59cf.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.16.31.33_veh-38_01589_02072/CAM_L0/726d1e00930c550e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.16.31.33_veh-38_01589_02072/CAM_R0/b3a5e8425c61517c.jpg"
+      ],
+      "index": 5766,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.16.31.33_veh-38_01589_02072/CAM_F0/e2c66e867c8f57f4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.16.31.33_veh-38_01589_02072/CAM_F0/a042610415685880.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.16.31.33_veh-38_01589_02072/unknown/376e6ff7eccf5572/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "8e2fd252b25b5d76",
+      "log_name": "2021.08.31.13.27.52_veh-40_00186_00414",
+      "recording_group": "2021.08.31.13.27.52_veh-40",
+      "split": "navval",
+      "current_frame_index": 111,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11225,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.13.27.52_veh-40_00186_00414/CAM_F0/ca9d83ccaf64557e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.13.27.52_veh-40_00186_00414/CAM_B0/8f0dec28f1be56d4.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.13.27.52_veh-40_00186_00414/CAM_L0/0bb46be62c8252cb.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.13.27.52_veh-40_00186_00414/CAM_R0/6209104167165b58.jpg"
+      ],
+      "index": 78687,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.13.27.52_veh-40_00186_00414/CAM_F0/3c7efa3949ab5293.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.13.27.52_veh-40_00186_00414/CAM_F0/ca9d83ccaf64557e.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.13.27.52_veh-40_00186_00414/unknown/8e2fd252b25b5d76/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "e3b93ebec6c15950",
+      "log_name": "2021.08.31.18.15.54_veh-40_00579_00980",
+      "recording_group": "2021.08.31.18.15.54_veh-40",
+      "split": "navval",
+      "current_frame_index": 409,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 11186,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_00579_00980/CAM_F0/e017425cd5a8509c.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_00579_00980/CAM_B0/8daffb19ae9d5b5a.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_00579_00980/CAM_L0/7351454eb41653f7.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_00579_00980/CAM_R0/538a150072d35a2b.jpg"
+      ],
+      "index": 80752,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_00579_00980/CAM_F0/fe650cf115ed5b02.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_00579_00980/CAM_F0/e017425cd5a8509c.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.18.15.54_veh-40_00579_00980/unknown/e3b93ebec6c15950/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "c34bff3390275370",
+      "log_name": "2021.06.08.12.54.54_veh-26_00015_00507",
+      "recording_group": "2021.06.08.12.54.54_veh-26",
+      "split": "navval",
+      "current_frame_index": 18,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10493,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/01bf5d6297275cf8.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_B0/e838f73f8806592d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_L0/04bb0527d13f5021.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_R0/bd247029093f5d34.jpg"
+      ],
+      "index": 4444,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/73dfc0e4c80a5d67.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.06.08.12.54.54_veh-26_00015_00507/CAM_F0/01bf5d6297275cf8.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.06.08.12.54.54_veh-26_00015_00507/unknown/c34bff3390275370/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    },
+    {
+      "token": "1c8da5542b095640",
+      "log_name": "2021.08.31.18.15.54_veh-40_01143_01496",
+      "recording_group": "2021.08.31.18.15.54_veh-40",
+      "split": "navval",
+      "current_frame_index": 650,
+      "cache_directory": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/four_model_small_corpus_v1/corpus",
+      "cache_row": 10830,
+      "current_camera_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_01143_01496/CAM_F0/fdcf41ccc1195946.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_01143_01496/CAM_B0/10ba7fd6d2d551bc.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_01143_01496/CAM_L0/9c9eb93b5069506d.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_01143_01496/CAM_R0/dd41e34bca8d5254.jpg"
+      ],
+      "index": 80998,
+      "observed_front_paths": [
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_01143_01496/CAM_F0/50bc32cf781f522e.jpg",
+        "/rhome/junseong/PlanningAwareFuturePrediction/dataset/sensor_blobs/trainval/2021.08.31.18.15.54_veh-40_01143_01496/CAM_F0/fdcf41ccc1195946.jpg"
+      ],
+      "study_split": "dev",
+      "metric_cache_file": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_candidate_teacher_v1/metric_cache/2021.08.31.18.15.54_veh-40_01143_01496/unknown/1c8da5542b095640/metric_cache.pkl",
+      "command_index": 2,
+      "command_name": "right_turn"
+    }
+  ],
+  "train_development_recording_overlap": 0,
+  "used_previously_for_development": true,
+  "independent_final_test": false,
+  "manifest_sha256": "d08760b560235353da8f297d7beee6807e772f36c7d42c6c1b2ae73548896394",
+  "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252"
+}

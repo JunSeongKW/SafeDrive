@@ -155,5 +155,8 @@
     "estimated_remaining_seconds": 233860.91651775697
   },
   "pooled_Drivor_sampler_parameters": 59168,
-  "pooled_Drive_JEPA_sampler_parameters": 159008
+  "pooled_Drive_JEPA_sampler_parameters": 159008,
+  "historical_analysis_checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass3.pt",
+  "historical_analysis_checkpoint_updates": 1920,
+  "historical_analysis_uses_same_checkpoint_as_actual_gradient_diagnostic": false
 }

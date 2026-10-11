@@ -143,7 +143,9 @@ flowchart RL
 
 ### 기존 결과가 제기하는 경고
 
-별도 과거 192장면 balanced-command 진단에서 같은 local DrivoR는 selected PDMS **72.76099**, candidate oracle best **97.80808**, regret **25.04709점**이었다. [원본 참조와 요약](repository_evidence.json). 이는 **기존 후보 평가 로그 재검토**이며 이번 sampler의 성능 측정이 아니다. 전체 NAVTEST나 다른 1,024장면 점수로 바꿔 말하지 않는다.
+별도 과거 192장면 balanced-command 진단에서 같은 아키텍처의 local DrivoR는 selected PDMS **72.76099**, candidate oracle best **97.80808**, regret **25.04709점**이었다. [원본 참조와 요약](repository_evidence.json). 이는 **기존 후보 평가 로그 재검토**이며 이번 sampler의 성능 측정이 아니다. 전체 NAVTEST나 다른 1,024장면 점수로 바꿔 말하지 않는다.
+
+**2026-10-11 후속 감사 정정:** 해당192장면 분석은 `pass3.pt`의 **1,920update**에서 생성됐다(`scripts/diagnose_small_corpus_planner.py::load_model` 및 당시 `inference_complete.json`). 이번 gradient 진단에 사용한 `pass5.pt`의3,200update와 동일 checkpoint가 아니다. 과거수치·로그는 보존하며, pass5 scorer의 품질은 [새64장면 calibration](../frozen_drivor_scorer_calibration_20261011/report.md)에서 별도로 측정한다. 과거192장면의기준미충족을pass5의실측결과로귀속하지 않는다.
 
 확인 사실은 이미 좋은 후보가 있었는데 선택에서 상당한 손실이 났다는 것이다. 추정은 현재 frozen scorer를 gradient reward로 더 강하게 최적화하면 그 오평가를 이용할 가능성이 있다는 것이다. residual 밖 후보에 대한 정확도와 gradient 방향의 실제 안전성은 **미확인**이다.
 

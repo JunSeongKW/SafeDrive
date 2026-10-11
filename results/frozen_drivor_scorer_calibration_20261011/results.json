@@ -1,0 +1,293 @@
+{
+  "complete": true,
+  "benchmark": "NAVSIM v1 official navval development subset",
+  "scene_count": 64,
+  "recording_count": 29,
+  "full_navtest": false,
+  "independent_final_test": false,
+  "checkpoint_updates": 3200,
+  "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+  "groups": {
+    "native64": {
+      "scene_count": 64,
+      "candidate_count": 64,
+      "selected_pdms": 76.81087080392683,
+      "oracle_best_pdms": 98.84115279534458,
+      "selection_regret_pdms_points": 22.030281991417763,
+      "selection_regret_recording_bootstrap_95ci": [
+        17.09453609565313,
+        28.17452974455409
+      ],
+      "spearman_scene_mean": 0.3443876646883873,
+      "spearman_nonconstant_scene_count": 64,
+      "selected_collision_or_offroad_rate": 0.09375,
+      "unsafe_rate_change_from_native_percentage_points": 0.0,
+      "selected_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 0.90625,
+        "ego_progress": 0.6215858992942439,
+        "time_to_collision_within_bound": 0.953125,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "oracle_best_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 1.0,
+        "ego_progress": 0.9721876670882702,
+        "time_to_collision_within_bound": 1.0,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.828125
+      },
+      "candidate_unsafe_fraction": 0.41357421875,
+      "candidate_unsafe_but_ranked_top_quartile_fraction": 0.042724609375,
+      "by_command": {
+        "left_turn": {
+          "scenes": 21,
+          "selected_pdms": 73.07209193357076,
+          "oracle_best_pdms": 98.57789337802076,
+          "selection_regret_pdms_points": 25.50580144445001
+        },
+        "straight": {
+          "scenes": 22,
+          "selected_pdms": 84.43126173544022,
+          "oracle_best_pdms": 99.78493432911525,
+          "selection_regret_pdms_points": 15.353672593675038
+        },
+        "right_turn": {
+          "scenes": 21,
+          "selected_pdms": 72.56638298412602,
+          "oracle_best_pdms": 98.11568870109915,
+          "selection_regret_pdms_points": 25.549305716973127
+        }
+      }
+    },
+    "nearby64": {
+      "scene_count": 64,
+      "candidate_count": 64,
+      "selected_pdms": 78.82705817904213,
+      "oracle_best_pdms": 84.67119190773533,
+      "selection_regret_pdms_points": 5.844133728693217,
+      "selection_regret_recording_bootstrap_95ci": [
+        2.6549492195365922,
+        9.79509216974102
+      ],
+      "spearman_scene_mean": -0.365910346036083,
+      "spearman_nonconstant_scene_count": 53,
+      "selected_collision_or_offroad_rate": 0.0625,
+      "unsafe_rate_change_from_native_percentage_points": -3.125,
+      "selected_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 0.9375,
+        "ego_progress": 0.6418493962970111,
+        "time_to_collision_within_bound": 0.9375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.9453125
+      },
+      "oracle_best_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 0.96875,
+        "ego_progress": 0.6914836057856482,
+        "time_to_collision_within_bound": 0.984375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "candidate_unsafe_fraction": 0.071533203125,
+      "candidate_unsafe_but_ranked_top_quartile_fraction": 0.014404296875,
+      "by_command": {
+        "left_turn": {
+          "scenes": 21,
+          "selected_pdms": 75.47383944569589,
+          "oracle_best_pdms": 82.9578716321486,
+          "selection_regret_pdms_points": 7.484032186452707
+        },
+        "straight": {
+          "scenes": 22,
+          "selected_pdms": 86.19350190271179,
+          "oracle_best_pdms": 91.10147559525025,
+          "selection_regret_pdms_points": 4.907973692538465
+        },
+        "right_turn": {
+          "scenes": 21,
+          "selected_pdms": 74.46305015425823,
+          "oracle_best_pdms": 79.64802451068742,
+          "selection_regret_pdms_points": 5.1849743564291835
+        }
+      }
+    },
+    "nearby16": {
+      "scene_count": 64,
+      "candidate_count": 16,
+      "selected_pdms": 80.16368411764194,
+      "oracle_best_pdms": 84.5053769010334,
+      "selection_regret_pdms_points": 4.341692783391452,
+      "selection_regret_recording_bootstrap_95ci": [
+        1.0700747991081765,
+        8.540747840410878
+      ],
+      "spearman_scene_mean": -0.36562782952122225,
+      "spearman_nonconstant_scene_count": 53,
+      "selected_collision_or_offroad_rate": 0.0625,
+      "unsafe_rate_change_from_native_percentage_points": -3.125,
+      "selected_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 0.9375,
+        "ego_progress": 0.6426784188234067,
+        "time_to_collision_within_bound": 0.96875,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "oracle_best_mean_submetrics": {
+        "no_at_fault_collisions": 1.0,
+        "drivable_area_compliance": 0.96875,
+        "ego_progress": 0.6875040456248016,
+        "time_to_collision_within_bound": 0.984375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.953125
+      },
+      "candidate_unsafe_fraction": 0.072265625,
+      "candidate_unsafe_but_ranked_top_quartile_fraction": 0.0146484375,
+      "by_command": {
+        "left_turn": {
+          "scenes": 21,
+          "selected_pdms": 77.44067346728136,
+          "oracle_best_pdms": 82.72155435924033,
+          "selection_regret_pdms_points": 5.280880891958973
+        },
+        "straight": {
+          "scenes": 22,
+          "selected_pdms": 88.15800915050816,
+          "oracle_best_pdms": 90.97052910032859,
+          "selection_regret_pdms_points": 2.8125199498204414
+        },
+        "right_turn": {
+          "scenes": 21,
+          "selected_pdms": 74.5116875907141,
+          "oracle_best_pdms": 79.51618285308862,
+          "selection_regret_pdms_points": 5.004495262374514
+        }
+      }
+    }
+  },
+  "gradient_direction_tests": [
+    {
+      "reference_std_radius": 0.05,
+      "neural_score_plus_delta_mean": 0.007316071540117264,
+      "neural_score_plus_increase_fraction": 1.0,
+      "actual_pdms_plus_delta_mean": 0.623997074864589,
+      "actual_pdms_plus_delta_recording_bootstrap_95ci": [
+        -0.03202931821133155,
+        2.097056128030976
+      ],
+      "actual_pdms_minus_delta_mean": 0.02762691640475082,
+      "actual_pdms_plus_delta_median": -0.011597265026280779,
+      "actual_pdms_plus_delta_quantiles": [
+        -0.1495168270403524,
+        -0.04053094932529033,
+        -0.011597265026280779,
+        0.0,
+        41.555857323072836
+      ],
+      "actual_pdms_plus_drop_larger_than_point1_scene_count": 2,
+      "actual_pdms_plus_drop_larger_than_1_scene_count": 0,
+      "actual_pdms_plus_gain_larger_than_point1_scene_count": 1,
+      "actual_pdms_plus_gain_larger_than_1_scene_count": 1,
+      "actual_pdms_plus_improved_fraction": 0.046875,
+      "actual_pdms_plus_worsened_fraction": 0.71875,
+      "neural_score_up_actual_pdms_down_fraction": 0.71875,
+      "collision_or_offroad_plus_rate_delta_percentage_points": 0.0
+    },
+    {
+      "reference_std_radius": 0.1,
+      "neural_score_plus_delta_mean": 0.01431962475180626,
+      "neural_score_plus_increase_fraction": 1.0,
+      "actual_pdms_plus_delta_mean": 0.5972184275070097,
+      "actual_pdms_plus_delta_recording_bootstrap_95ci": [
+        -0.06427835179299178,
+        2.0569432293981538
+      ],
+      "actual_pdms_minus_delta_mean": 0.05464590410043518,
+      "actual_pdms_plus_delta_median": -0.028832538872608504,
+      "actual_pdms_plus_delta_quantiles": [
+        -0.29903319884855284,
+        -0.07700581826107777,
+        -0.028832538872608504,
+        0.0,
+        41.44525565785784
+      ],
+      "actual_pdms_plus_drop_larger_than_point1_scene_count": 12,
+      "actual_pdms_plus_drop_larger_than_1_scene_count": 0,
+      "actual_pdms_plus_gain_larger_than_point1_scene_count": 2,
+      "actual_pdms_plus_gain_larger_than_1_scene_count": 1,
+      "actual_pdms_plus_improved_fraction": 0.046875,
+      "actual_pdms_plus_worsened_fraction": 0.71875,
+      "neural_score_up_actual_pdms_down_fraction": 0.71875,
+      "collision_or_offroad_plus_rate_delta_percentage_points": 0.0
+    },
+    {
+      "reference_std_radius": 0.25,
+      "neural_score_plus_delta_mean": 0.033211614936590195,
+      "neural_score_plus_increase_fraction": 1.0,
+      "actual_pdms_plus_delta_mean": 1.986680987912123,
+      "actual_pdms_plus_delta_recording_bootstrap_95ci": [
+        -0.14396531232652873,
+        5.553614145364753
+      ],
+      "actual_pdms_minus_delta_mean": 0.1310858153397764,
+      "actual_pdms_plus_delta_median": -0.06758348294577665,
+      "actual_pdms_plus_delta_quantiles": [
+        -0.7476100930713936,
+        -0.1962213190817491,
+        -0.06758348294577665,
+        0.0,
+        93.8854884786365
+      ],
+      "actual_pdms_plus_drop_larger_than_point1_scene_count": 28,
+      "actual_pdms_plus_drop_larger_than_1_scene_count": 0,
+      "actual_pdms_plus_gain_larger_than_point1_scene_count": 3,
+      "actual_pdms_plus_gain_larger_than_1_scene_count": 2,
+      "actual_pdms_plus_improved_fraction": 0.0625,
+      "actual_pdms_plus_worsened_fraction": 0.71875,
+      "neural_score_up_actual_pdms_down_fraction": 0.71875,
+      "collision_or_offroad_plus_rate_delta_percentage_points": -1.5625
+    }
+  ],
+  "quality_gates": {
+    "native64": {
+      "regret_within_5_points": false,
+      "unsafe_rate_degradation_within_1_percentage_point": true
+    },
+    "nearby64": {
+      "regret_within_5_points": false,
+      "unsafe_rate_degradation_within_1_percentage_point": true
+    },
+    "nearby16": {
+      "regret_within_5_points": true,
+      "unsafe_rate_degradation_within_1_percentage_point": true
+    }
+  },
+  "quality_gate_passed": false,
+  "conditional_sampler_pilot_admitted": false,
+  "gradient_nonzero_scenes": 64,
+  "mean_BM_roundtrip_xy_ADE_m": 0.41123200266156346,
+  "same_path_candidate_set_score_maximum_delta": 0.02646195888519287,
+  "cost": {
+    "cache_creation_cpu_seconds": 219.27754762294353,
+    "scorer_diagnostics_cpu_seconds": 7.276240890932968,
+    "official_evaluation_cpu_wall_seconds": 37.028248896007426,
+    "gpu_seconds": 0,
+    "optimizer_steps": 0
+  },
+  "validation": {
+    "original_vs_cached_score_maximum_error": 0.0,
+    "official_pair_evaluator_maximum_error": 0.0,
+    "cached_encoder_calls": 0,
+    "frozen_weights_unchanged": true,
+    "protected_training": {
+      "checked_files": 289,
+      "mismatches": [],
+      "running_training_completed_updates": 11047
+    }
+  },
+  "historical_correction": "Previous 192-scene regret 25.0471 used pass3.pt/1920 updates, not this pass5.pt/3200-update checkpoint.",
+  "next_action": "Hold sampler training; inspect scorer ranking and off-support calibration before optimizing its reward"
+}

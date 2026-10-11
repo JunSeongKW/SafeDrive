@@ -37,6 +37,9 @@ def main():
             "complete", "count", "selected_pdms", "oracle_best_pdms", "selection_regret", "score_definition", "by_command")},
         "historical_analysis_path": "outputs/small_corpus_planning_diagnosis_20261010/drivor/candidate_analysis.json",
         "historical_analysis_is_new_sampler_result": False,
+        "historical_analysis_checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass3.pt",
+        "historical_analysis_checkpoint_updates": 1920,
+        "historical_analysis_uses_same_checkpoint_as_actual_gradient_diagnostic": False,
         "current_LPWM_registration_sha256": digest_file(registry_path),
         "source_files": {}, "unavailable_prescribed_TOAD_checkpoint": None}
     sources = ["src/planning_aware_future_prediction/object_centric/small_corpus_models.py",

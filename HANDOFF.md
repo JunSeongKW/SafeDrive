@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 14:20 KST (Codex)
+마지막 갱신: 2026-10-11 15:00 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 14:59 KST — 승인된 frozen scorer64장면 calibration 완료, sampler 학습 gate 미충족.**
+사용자의 진행 지시로 navval64개(좌21/직22/우21,29recording)를 점수확인전등록하고 pass5/3200update로 CPU검증했다. 새 calibration queue는완료, GPU0초/optimizer0step; 결과품질gate가실패했으므로 조건부A/B/C학습은미기동이다. 기존LPWM25epoch queue는그대로계속, 마지막조회11052/29425·epoch10. 등록289source/config불변. 아래이전새학습금지는이번calibration승인범위에한해갱신하며, 다른과거학습은재기동하지않는다.
 
 **2026-10-11 — 잔차 제어 sampler 연구 타당성 검토 완료, 새 학습 금지.**
 사용자는 novelty/기술 가능성/작은 gradient 진단만 요청했다. 새 optimizer·A/B/C·queue 없음, CPU2threads/GPU0초. 기존 LPWM stage2 학습·25epoch queue 유지, 마지막 읽기 snapshot10788update/epoch10. 원289개 source/config SHA 불변. 검토폴더 `results/residual_control_sampler_feasibility_20261011/` 참조. 아래 기존 학습 이력은 계속 유효하지만 sampler 본학습으로 연결하지 않는다.
@@ -1372,6 +1375,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 — frozen DrivoR pass5 실제scorer 품질 검사.**
+64navval/29recording, native64 selected76.8109/oracle98.8412/regret22.0303(기록bootstrap95%[17.0945,28.1745]); nearby64 78.8271/84.6712/5.8441; nearby16 80.1637/84.5054/4.3417. 모두meanregret≤5 gate는미충족(native/near64실패). Native/near Spearman +.3444/−.3659;선택offroad6/64→4/64/충돌0. 실제gradient64/64 finite/nonzero, 양의gradient neural score100%증가하지만PDMS평균변화CI모두0포함/median음수,1점초과하락0.0.25반경+1.9867평균/−.06758median/큰개선2scene,28scene에서.1점초과감소. BMroundtrip.4112m/후보context최대logscore차.02646. 공식8576후보/408개pair대조에서모든하위지표최대오차0; cachedscore차0/frozen불변/backbonecached호출0. 결과folder results/frozen_drivor_scorer_calibration_20261011/.
 
 **2026-10-11 — 잔차 제어 sampler: novelty 현재 형태로는 부족 / 기술적으로 현재 환경 가능.**
 TOAD·FlowPlan·POPLIN·learned MPC·DCEM 등11개 primary method 조사. 실제 local DrivoR pass5의 arbitrary coordinate scorer는 original forward에서 detach되지만 같은 weight로 입력detach를 생략한 wrapper에서 gradient 전달. CPU actual2scene×8candidate/finite difference6개 통과, original/cache score오차0, encoder cached호출0/모든 frozen weight불변. 159008파라미터 pooled-JEPA sampler 및59168 pooled-register 대안. Candidate self-attention 때문에 같은 경로 score가 동료 후보에 따라0.01551변함; base inversion/rollout ADE약0.34m;16candidate중1comfort위반. 과거192scene DrivoR native선택72.761/oracle97.808의25.047regret가 우선 위험. 새PDMS 없음. 원논문 TOAD 지정weight로 검사한 것이 아니다. `review.md`,비교CSV/MD,검색로그,실제진단JSON,scorer cache metadata,미실행후속protocol 저장.
@@ -2398,6 +2404,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 — 승인된 frozen scorer calibration 구현·실행·보고.**
+새 configs/residual_control_sampler/scorer_calibration_20261011.json 및 scripts/calibrate_frozen_drivor_scorer.py: subset사전등록→CPUfeaturecache→native/near/gradient→공식batch+referencepair대조→gate/report자동연결.64scene/8576candidate 실제평가와JSON/CSV/scoreNPZ/PNG/Markdown/sourceSHA/env/경계ego복원근거추가. Report에recordingCI·median·효과크기·oracle하위지표·NAV1 DDC0한계추가;측정함수AST불변/초기source snapshot보존. 이전192scene로그는pass3/1920였음을과거review·packaging/evidence에정정;숫자·원본로그불변. HANDOFF1–5/RESUME_NOTES/README갱신. 기존LPWMsource289개·queue/batch/LR불변/GPU0초/추가학습0.
+
 **2026-10-11 — residual control sampler feasibility review.**
 작은 유계 residual Gaussian sampler·frozen DrivoR arbitrary-trajectory wrapper, CPU synthetic/actual gradient/finite-difference/identity/backbone-call/comfort 진단, 근거 packaging script와diagnostic config 추가. TOAD 공식clone함수 수정 없이 재사용.11개선행연구 method 비교·검색기록·실제JSON·미실행후속설계·검토보고서 추가. 기존training source289개/config/queue불변,새학습0/GPU0초. HANDOFF1–5/RESUME_NOTES 갱신.
 
@@ -2457,6 +2466,9 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 — 조건부 sampler pilot 미진입.**
+사용자가calibration우선진행을승인했고완료했다. 품질gate는native22.03/near645.844regret로미충족하므로승인된조건부A/B/C를강제실행하지않는다. 먼저현재scorer의progress·DAC ranking/후보context·residual지원영역을교정할지,정확한공식TOAD checkpoint+NAVSIM입력조합을확보할지정한다. Offlineofficial-vettedfitting은역전파reward hacking을피하지만최종채점bottleneck을자동해결하지않는다. 새model학습·기준완화·fullscale자동확장없음. 원래LPWM25epoch/정기검증유지. 재실행은새report명령참조(완료phase재실행없음).
 
 **2026-10-11 — sampler 후속은 미실행 설계다.**
 먼저 native/near-residual 후보에서 neural scorer와공식PDMS의ranking·regret·안전 false-positive를 calibration한다. 사용자가 후속을 승인하기 전 학습·A/B/C·hyperparameter search를 시작하지 않는다. 통과하면 동일DrivoR register/scorer를 freeze한A원TOAD/Bego-base-spread/CB+pooledvisual을 동일예산으로 검토;목적은official-vetted offline candidate fitting우선. Dconditionalattention은C추가가치 확인후. 기존개발navval/navtest1024와독립최종평가recording 구분. 사전gate·반증조건은followup_protocol.json/review.md에있다.
@@ -3154,6 +3166,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 — calibration 해석 범위·정정.**
+기존navval에서명령균형64scene이며독립test/전체NAVTEST/학습후sampler개선아님. Nearby는TOADσ의.25배제어noise+exactbasefallback+BMcenter,nominalσ1.0/fullCEM은검사하지않음. Gradient는neural-only/다른63경로고정이며comfort·anchor전체TOAD목적의효과와구분한다.71.9%감소는극소차포함: median−.012~−.068점/1점초과감소0,평균CI는0포함. OraclePDMS의DDCweight0로최고점=모든안전조건충족아님. 과거192장면25.047regret는pass3/1920,새gradient/checkpoint는pass5/3200;이번64scene에서pass5regret22.030실측. 학습개선·novelty·시각추가가치·M16nominalTOAD/scorer보정학습은미확인.
 
 **2026-10-11 — sampler 검토 범위.**
 기계적 입력gradient존재와사전초기분포복원 통과는planning 개선근거가아니다. 실제checkpoint는localadaptedDrivoR이며paperTOADweight미확보. 기존JEPA128×1024cache는DrivoR16×256와직접호환하지않음;같은ID별scorer별도cache로검사. 미결은scorer일반화/rewardhacking/visual추가정보/CEM이득/GPU비용/EPDMS/독립최종split. 확정적으로새학습은금지이며기존LPWM학습유지.

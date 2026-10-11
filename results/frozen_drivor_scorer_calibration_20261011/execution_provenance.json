@@ -1,0 +1,50 @@
+{
+  "source_sha256": {
+    "scripts/calibrate_frozen_drivor_scorer.py": "e3139a84296a76abe0676e2c683b6db8ca9556750a037baa060b16b0f97b24a1",
+    "configs/residual_control_sampler/scorer_calibration_20261011.json": "ba92b98f5527bf7254111c33a49e76847eb1faaa7979a5dfcab9805a570dd090",
+    "src/planning_aware_future_prediction/models/residual_control_sampler.py": "eb041a9faaa8d7a9140dc93c17a42acbb6ca03d33b01b5974b19ce500853a795",
+    "src/planning_aware_future_prediction/object_centric/small_corpus_models.py": "366bdb366b4f40fcc99eff12a35e610c6a4ebb1903512053bd9841e977ec4197",
+    "reference_repositories/DrivoR/navsim/agents/drivoR/drivor_model.py": "bd530b606970fb72bd657363924cbbd4f5f072f8560f8a1cd3d39ee0bd91f59d",
+    "reference_repositories/TOAD/drivor_cem_portable/navsim/agents/utils/cem_utils.py": "5a3801b78a5900aee2ca79e00dae3fbaa1717505d0ee92bd7af79e2acc87ad05"
+  },
+  "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+  "manifest_sha256": "d08760b560235353da8f297d7beee6807e772f36c7d42c6c1b2ae73548896394",
+  "physical_gpu_devices_used": [],
+  "model_environment": {
+    "python": "3.12.13",
+    "torch": "2.8.0",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0"
+  },
+  "device": "cpu",
+  "model_cpu_threads": 2,
+  "official_worker_count": 2,
+  "cache_features": "DrivoR backbone temporal fusion after trained DINOv2 register projection; 16x256 FP32 per scene",
+  "cache_ego_token": "planner.hist_encoding of unchanged original 11-dimensional ego",
+  "observed_inputs": "front camera previous/current 2 frames; crop28 top/bottom;512x256 cv2 linear; normalize ImageNet;padright6/bottom10 inside original DrivoR front encoder",
+  "feature_creation_mode": "requires_grad=False, eval, no_grad; no encoder forward during cached scoring",
+  "history_boundary": "previous/current raw ego pose and actual timestamp interval; current acceleration; no future observation",
+  "sampler_or_scorer_training_performed": false,
+  "selection_preregistered_before_predictions": true,
+  "historical_checkpoint_correction": "192-scene calibration from pass3/1920updates, actual current checkpoint pass5/3200updates",
+  "official_environment": {
+    "python": "3.9.23",
+    "torch": "2.1.0+cu121",
+    "numpy": "1.24.0"
+  },
+  "initial_measurement_source_snapshot": "outputs/frozen_drivor_scorer_calibration_20261011/source_snapshot/calibrate_frozen_drivor_scorer.py",
+  "report_generation_source_sha256": "78a9a18151baf6d9c96d25ee0ff49066d66ff9c73a361dd02cca3126dc9f3daf",
+  "measurement_function_AST_sha256": {
+    "prepare": "9605ad714a13dcf3cc63e32538c45b1077178d8aa422dfd38cb1ca81ab527573",
+    "infer": "9b74919dcfb98aee1b8b721a3eb8e8bf2070cc2ac3c5eca5f0c22a653714eafb",
+    "ego_boundary": "da295d42fa9fbc84470afb99dc9b397b338ad0c1ce5510332a1910b8c7c0f17d",
+    "official_scene_scores": "e56c715f78ffc80d435afbf3a838c04be4c5321d80378af79cf480c6db725e9f",
+    "score": "8e900d193fc450ea83fc589a8fed1446da1e2515140cf10cef65a24cc0ed8a0a",
+    "recording_bootstrap": "c4e6942b5629fad293fa800c7891cad8183e03e7b5b52d085451e46a8ba8d1b7"
+  },
+  "measurement_function_AST_unchanged_after_report_interpretation_update": true,
+  "previous_current_image_frame_alignment_checked_scene_count": 64,
+  "future_input_frame_count": 0,
+  "report_supplement": "Added medians, effect magnitudes, uncertainty bands, and oracle submetrics; generated trajectories/official scores unchanged",
+  "report_refinement_details": "CIs and medians, oracle submetrics/DDC limits added after measurement; original scoring and inference AST unchanged."
+}

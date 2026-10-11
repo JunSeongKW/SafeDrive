@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-11 14:59 KST — frozen DrivoR scorer64장면 calibration 완료.** Native64 선택76.81/oracle98.84(regret22.03),near64 regret5.84로사전gate미충족. 새sampler학습은보류,원LPWM학습계속. CPU만사용/GPU0초/weights불변. [결과·불확실성·재실행](results/frozen_drivor_scorer_calibration_20261011/report.md). 과거192scene는pass3/1920였음을정정했고이번은pass5/3200별도검사다.
+
 **2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.** 공통NAVTEST1024 PDMS85.93 vs83.97, 학습조건차이있음. [경로·particle 시각화/지표](results/lpwm_drivor_navsim_visualization_epoch9_20261011/report.md). 원LPWM25epoch학습계속.
 
 **2026-10-11 02:17 KST — 중요도 출력 정규화만 추가한 A/B/C pilot 완료.** valid-token std 정규화 외 조건 동일. navval1000 PDMS A85.67/B86.68/C85.41; bias는171배 커졌으나 C 개입 영향·planning 이득은미미. A재실행변동과해석한계포함 [비교보고서](results/soft_token_reweighting_normalized_v2/normalization_comparison.md). 기존 LPWM학습은계속한다.

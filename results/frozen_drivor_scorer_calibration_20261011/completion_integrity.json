@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "finite_official_metrics": true,
+  "finite_generated_controls_features_paths_scores": true,
+  "candidate_count": 8576,
+  "unique_sample_IDs": 64,
+  "native_cached_scorer_max_error": 0.0,
+  "official_pair_evaluator_max_error": 0.0,
+  "quality_gate_admitted": false,
+  "existing_training_files_checked": 289,
+  "existing_training_file_mismatches": [],
+  "encoder_call_guard_passed": true,
+  "frozen_parameter_digest_unchanged": true,
+  "uncertainty_and_effect_magnitude_reported": true
+}

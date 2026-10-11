@@ -4642,3 +4642,21 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 산출물 `results/residual_control_sampler_feasibility_20261011/`: review.md, literature_comparison.md/csv,search_log.json,diagnostics.json,repository_evidence.json,actual_scorer_cache_metadata.json,미실행followup_protocol.json. 후속첫작업은native/nearresidualscorer공식PDMScalibration,통과시동일register/frozenbase-scorer/예산의A원TOAD/Bego-base-spread/C+Bpooledvisual;official-vettedofflinegoodcandidatefitting우선,Dconditionalattention은나중. 최초연구질문은기존경로·제어spread에없는visual정보의추가가치. independentfinalrecording/결정성·trainseed·samplingRNG/recordingbootstrap/동일walltime·candidateoracle vsselected·OFF복원/미리정한진행중단gate를문서화했다. 자동확장·학습안함.
 
 재실행: `CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 PYTHONPATH=src runtime/environments/kjs-lpwm-drivor-joint/bin/python -u scripts/diagnose_residual_control_sampler.py --configuration configs/residual_control_sampler/feasibility_20261011.json`.
+
+
+## 2026-10-11 14:59 KST — frozen scorer calibration 완료
+
+**2026-10-11 14:59 KST — 승인된 frozen scorer64장면 calibration 완료, sampler 학습 gate 미충족.**
+사용자의 진행 지시로 navval64개(좌21/직22/우21,29recording)를 점수확인전등록하고 pass5/3200update로 CPU검증했다. 새 calibration queue는완료, GPU0초/optimizer0step; 결과품질gate가실패했으므로 조건부A/B/C학습은미기동이다. 기존LPWM25epoch queue는그대로계속, 마지막조회11052/29425·epoch10. 등록289source/config불변. 아래이전새학습금지는이번calibration승인범위에한해갱신하며, 다른과거학습은재기동하지않는다.
+
+**2026-10-11 — frozen DrivoR pass5 실제scorer 품질 검사.**
+64navval/29recording, native64 selected76.8109/oracle98.8412/regret22.0303(기록bootstrap95%[17.0945,28.1745]); nearby64 78.8271/84.6712/5.8441; nearby16 80.1637/84.5054/4.3417. 모두meanregret≤5 gate는미충족(native/near64실패). Native/near Spearman +.3444/−.3659;선택offroad6/64→4/64/충돌0. 실제gradient64/64 finite/nonzero, 양의gradient neural score100%증가하지만PDMS평균변화CI모두0포함/median음수,1점초과하락0.0.25반경+1.9867평균/−.06758median/큰개선2scene,28scene에서.1점초과감소. BMroundtrip.4112m/후보context최대logscore차.02646. 공식8576후보/408개pair대조에서모든하위지표최대오차0; cachedscore차0/frozen불변/backbonecached호출0. 결과folder results/frozen_drivor_scorer_calibration_20261011/.
+
+**2026-10-11 — 승인된 frozen scorer calibration 구현·실행·보고.**
+새 configs/residual_control_sampler/scorer_calibration_20261011.json 및 scripts/calibrate_frozen_drivor_scorer.py: subset사전등록→CPUfeaturecache→native/near/gradient→공식batch+referencepair대조→gate/report자동연결.64scene/8576candidate 실제평가와JSON/CSV/scoreNPZ/PNG/Markdown/sourceSHA/env/경계ego복원근거추가. Report에recordingCI·median·효과크기·oracle하위지표·NAV1 DDC0한계추가;측정함수AST불변/초기source snapshot보존. 이전192scene로그는pass3/1920였음을과거review·packaging/evidence에정정;숫자·원본로그불변. HANDOFF1–5/RESUME_NOTES/README갱신. 기존LPWMsource289개·queue/batch/LR불변/GPU0초/추가학습0.
+
+**2026-10-11 — 조건부 sampler pilot 미진입.**
+사용자가calibration우선진행을승인했고완료했다. 품질gate는native22.03/near645.844regret로미충족하므로승인된조건부A/B/C를강제실행하지않는다. 먼저현재scorer의progress·DAC ranking/후보context·residual지원영역을교정할지,정확한공식TOAD checkpoint+NAVSIM입력조합을확보할지정한다. Offlineofficial-vettedfitting은역전파reward hacking을피하지만최종채점bottleneck을자동해결하지않는다. 새model학습·기준완화·fullscale자동확장없음. 원래LPWM25epoch/정기검증유지. 재실행은新report명령참조(완료phase재실행없음).
+
+**2026-10-11 — calibration 해석 범위·정정.**
+기존navval에서명령균형64scene이며독립test/전체NAVTEST/학습후sampler개선아님. Nearby는TOADσ의.25배제어noise+exactbasefallback+BMcenter,nominalσ1.0/fullCEM은검사하지않음. Gradient는neural-only/다른63경로고정이며comfort·anchor전체TOAD목적의효과와구분한다.71.9%감소는극소차포함: median−.012~−.068점/1점초과감소0,평균CI는0포함. OraclePDMS의DDCweight0로최고점=모든안전조건충족아님. 과거192장면25.047regret는pass3/1920,새gradient/checkpoint는pass5/3200;이번64scene에서pass5regret22.030실측. 학습개선·novelty·시각추가가치·M16nominalTOAD/scorer보정학습은미확인.
