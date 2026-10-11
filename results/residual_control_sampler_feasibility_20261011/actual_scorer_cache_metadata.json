@@ -1,0 +1,31 @@
+{
+  "scorer_checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass5.pt",
+  "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+  "checkpoint_completed_updates": 3200,
+  "scorer_feature_location": "RegisterFrontEncoder output after temporal fusion, original planner image_backbone output",
+  "scorer_feature_shape_per_scene": [
+    16,
+    256
+  ],
+  "scorer_feature_dtype": "torch.float32",
+  "visual_sampler_cache": "outputs/soft_token_reweighting_v1/cache/visual_tokens.npy",
+  "visual_sampler_metadata": "outputs/soft_token_reweighting_v1/cache/metadata.json",
+  "sample_manifest": "outputs/residual_control_sampler_feasibility_20261011/sample_manifest.json",
+  "preprocessing": "front two past/current 512x256; original cropped INTER_LINEAR RGB cache; /255, ImageNet normalize, pad right6/bottom10 for DINO patch14",
+  "encoder_compute_dtype": "CPU autocast bfloat16, final fusion float32",
+  "encoder_frozen": true,
+  "encoder_eval": true,
+  "future_inputs": false,
+  "observed_offsets_seconds": [
+    [
+      -0.499913,
+      0.0
+    ],
+    [
+      -0.500276,
+      0.0
+    ]
+  ],
+  "registers_have_direct_image_coordinates": false,
+  "cached_gradient_backbone_calls": 0
+}

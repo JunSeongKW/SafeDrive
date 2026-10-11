@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 13:39 KST (Codex)
+마지막 갱신: 2026-10-11 14:20 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 — 잔차 제어 sampler 연구 타당성 검토 완료, 새 학습 금지.**
+사용자는 novelty/기술 가능성/작은 gradient 진단만 요청했다. 새 optimizer·A/B/C·queue 없음, CPU2threads/GPU0초. 기존 LPWM stage2 학습·25epoch queue 유지, 마지막 읽기 snapshot10788update/epoch10. 원289개 source/config SHA 불변. 검토폴더 `results/residual_control_sampler_feasibility_20261011/` 참조. 아래 기존 학습 이력은 계속 유효하지만 sampler 본학습으로 연결하지 않는다.
 
 **2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
 새평가/렌더링 queue는완료. 원Stage2 queue1533508은 GPU0·1 epoch10, 누적10662/29425로 계속한다. 사용자요청은기존LPWM/DrivoR결과와NAVSIM시각화이며 새학습·batch/LR·대기열변경없다. 등록289 source/config hash불변, 별도평가최대whole-card43.297GB<48GB. 다른과거실험은중단유지.
@@ -1369,6 +1372,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 — 잔차 제어 sampler: novelty 현재 형태로는 부족 / 기술적으로 현재 환경 가능.**
+TOAD·FlowPlan·POPLIN·learned MPC·DCEM 등11개 primary method 조사. 실제 local DrivoR pass5의 arbitrary coordinate scorer는 original forward에서 detach되지만 같은 weight로 입력detach를 생략한 wrapper에서 gradient 전달. CPU actual2scene×8candidate/finite difference6개 통과, original/cache score오차0, encoder cached호출0/모든 frozen weight불변. 159008파라미터 pooled-JEPA sampler 및59168 pooled-register 대안. Candidate self-attention 때문에 같은 경로 score가 동료 후보에 따라0.01551변함; base inversion/rollout ADE약0.34m;16candidate중1comfort위반. 과거192scene DrivoR native선택72.761/oracle97.808의25.047regret가 우선 위험. 새PDMS 없음. 원논문 TOAD 지정weight로 검사한 것이 아니다. `review.md`,비교CSV/MD,검색로그,실제진단JSON,scorer cache metadata,미실행후속protocol 저장.
 
 **2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
 독립공통NAVTEST1024/44recording 공식v1 PDMS LPWM9epoch85.9317/ADE1.4212/FDE3.5233m, DrivoR5epoch83.9662/1.8092/4.3526m, 실패0. LPWM5epoch82.3243보다+3.6074점. 직진741/좌193/우90 각각 LPWM87.9285/81.7080/78.5485 vsDrivoR86.0802/80.1026/74.8466. LPWM진행·도로준수우세이나NC/TTC/DDC낮음. 내부노출dev1021의9epoch87.4335는별도점수. Particle고정4dev장면중심이동.7349inputpx/크기9.2899%/presence절대.0481이며attention/detection으로부르지않음.
@@ -2392,6 +2398,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 — residual control sampler feasibility review.**
+작은 유계 residual Gaussian sampler·frozen DrivoR arbitrary-trajectory wrapper, CPU synthetic/actual gradient/finite-difference/identity/backbone-call/comfort 진단, 근거 packaging script와diagnostic config 추가. TOAD 공식clone함수 수정 없이 재사용.11개선행연구 method 비교·검색기록·실제JSON·미실행후속설계·검토보고서 추가. 기존training source289개/config/queue불변,새학습0/GPU0초. HANDOFF1–5/RESUME_NOTES 갱신.
+
 **2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
 새 config configs/lpwm_front_history_stage1_lora/epoch9_navsim_visualization.json, 실행 scripts/run_lpwm_drivor_navsim_visualization.py, CPUrenderer scripts/visualize_lpwm_drivor_navsim.py 추가. 기존 loader/infer/officialscorer재사용, DrivoR기존예측/점수4파일SHA동일복사. nativeNAVSIM plot_bev_with_agent 12회+map/annotations/trajectory/camera helper로6장면·21PNG생성. 결과CSV/JSON/검증/소스SHA/조건/Markdown은 results/lpwm_drivor_navsim_visualization_epoch9_20261011/. NAVSIM버전SensorConfig부재수정후실행완료; 실패로그보존. 원학습scientificsource변경없음.
 
@@ -2448,6 +2457,9 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 — sampler 후속은 미실행 설계다.**
+먼저 native/near-residual 후보에서 neural scorer와공식PDMS의ranking·regret·안전 false-positive를 calibration한다. 사용자가 후속을 승인하기 전 학습·A/B/C·hyperparameter search를 시작하지 않는다. 통과하면 동일DrivoR register/scorer를 freeze한A원TOAD/Bego-base-spread/CB+pooledvisual을 동일예산으로 검토;목적은official-vetted offline candidate fitting우선. Dconditionalattention은C추가가치 확인후. 기존개발navval/navtest1024와독립최종평가recording 구분. 사전gate·반증조건은followup_protocol.json/review.md에있다.
 
 **2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
 이시각화평가는완료이므로자동재평가·DrivoR재학습을추가하지않는다. 원25epoch와500update/epoch검증queue유지. 재실행명령·대표/차량많은장면·원nativeBEV·particle전후겹침은공유report.md. 별도동일학습예산DriveoR대조는후속사용자지시가필요하다.
@@ -3142,6 +3154,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 — sampler 검토 범위.**
+기계적 입력gradient존재와사전초기분포복원 통과는planning 개선근거가아니다. 실제checkpoint는localadaptedDrivoR이며paperTOADweight미확보. 기존JEPA128×1024cache는DrivoR16×256와직접호환하지않음;같은ID별scorer별도cache로검사. 미결은scorer일반화/rewardhacking/visual추가정보/CEM이득/GPU비용/EPDMS/독립최종split. 확정적으로새학습은금지이며기존LPWM학습유지.
 
 **2026-10-11 13:39 KST — LPWM 9epoch와 DrivoR native NAVSIM 비교 완료.**
 LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,240scene×5/history2/512×256/DINO/seed47. 동일test장면의현재시스템비교이며공정한표현단독효과/원논문DriveoR재현/전체NAVTEST/EPDMS우위입증이아니다. 지도와객체박스는GT시각화용이며모델입력아님. 카메라경로는z=0평면투영근사,BEV경로는저장된ego좌표. Particle패널은별도dev4장면·glimpse박스이지객체검출아님.

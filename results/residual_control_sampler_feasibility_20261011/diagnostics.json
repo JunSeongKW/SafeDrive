@@ -1,0 +1,237 @@
+{
+  "scope": "feasibility diagnostics only; no optimizer or performance experiment",
+  "gpu_seconds": 0,
+  "optimizer_steps": 0,
+  "diagnostic_started_utc": "2026-10-11T04:59:48.633508+00:00",
+  "environment": {
+    "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]",
+    "torch": "2.8.0+cu128",
+    "numpy": "2.5.1",
+    "executable": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+    "cpu_threads": 2,
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "configuration": {
+    "scope": "feasibility diagnostics only; no optimizer or performance experiment",
+    "literature_cutoff_date": "2026-10-11",
+    "seed": 0,
+    "cpu_threads": 2,
+    "actual_samples": 2,
+    "sampled_candidates": 8,
+    "num_control_steps": 8,
+    "control_time_step_seconds": 0.5,
+    "hidden_dimension": 128,
+    "maximum_mean_correction_in_reference_std": 1.0,
+    "minimum_standard_deviation_multiplier": 0.5,
+    "maximum_standard_deviation_multiplier": 2.0,
+    "nonidentity_head_standard_deviation": 0.001,
+    "drivor_checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass5.pt",
+    "visual_cache_root": "outputs/soft_token_reweighting_v1",
+    "original_image_cache": "outputs/four_model_small_corpus_v1/corpus/images.npy",
+    "original_ego_cache": "outputs/four_model_small_corpus_v1/corpus/ego.npy",
+    "original_gt_cache": "outputs/four_model_small_corpus_v1/corpus/trajectory.npy",
+    "toad_repository": "reference_repositories/TOAD",
+    "results_directory": "results/residual_control_sampler_feasibility_20261011",
+    "local_cache_directory": "outputs/residual_control_sampler_feasibility_20261011",
+    "device": "cpu",
+    "maximum_gpu_minutes": 10,
+    "training_authorized": false
+  },
+  "TOAD_commit": "cfa88e008080d0799b2859b5935c257048ec0adf",
+  "TOAD_helpers_sha256": "5a3801b78a5900aee2ca79e00dae3fbaa1717505d0ee92bd7af79e2acc87ad05",
+  "synthetic": {
+    "status": "passed",
+    "identity": {
+      "raw_control_maximum_error": 0.0,
+      "original_TOAD_first_samples_trajectory_maximum_error": 0.0
+    },
+    "invalid_tokens_excluded_including_nan": true,
+    "exact_identity_first_backward_gradient_norms": {
+      "feature_adapter": 0.0,
+      "mean_head": 0.07669298350811005,
+      "scale_head": 0.015647731721401215
+    },
+    "nonidentity_untrained_probe_gradient_norms": {
+      "feature_adapter": 0.0028053876012563705,
+      "mean_head": 0.07672875374555588,
+      "scale_head": 0.015650156885385513
+    },
+    "sampler_OFF_restores_TOAD_controls_exactly": true,
+    "trainable_parameters": 159008,
+    "cpu_seconds": 0.04332157300086692,
+    "scope": "synthetic quadratic utility, not an actual planner scorer"
+  },
+  "actual": {
+    "status": "passed",
+    "samples": 2,
+    "candidates_per_scene": 8,
+    "tokens": [
+      "2991b6c6ca595856",
+      "6d18132d792b51fc"
+    ],
+    "checkpoint_updates": 3200,
+    "base_model": "local adapted DINOv2-S/front-history DrivoR, pass5; NOT TOAD published scorer checkpoint",
+    "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+    "sample_matching": {
+      "ego_exact_match": true,
+      "gt_exact_match": true,
+      "future_input_frames": false
+    },
+    "Drive_JEPA_visual_shape": [
+      2,
+      128,
+      1024
+    ],
+    "Drivor_scene_shape": [
+      2,
+      16,
+      256
+    ],
+    "dtype": "torch.float32",
+    "scorer_weights": {
+      "noc": 1.0,
+      "dac": 1.0,
+      "ddc": 0.0,
+      "ttc": 5.0,
+      "ep": 5.0,
+      "comfort": 2.0
+    },
+    "original_vs_cached_scorer_maximum_error": 0.0,
+    "identity": {
+      "raw_control_maximum_error": 0.0,
+      "original_TOAD_first_samples_trajectory_maximum_error": 0.0
+    },
+    "backbone_calls_cache_creation": 1,
+    "backbone_calls_cached_gradient_checks": 0,
+    "all_frozen_parameter_gradients_absent": true,
+    "all_model_weights_unchanged": true,
+    "scorer_only_trajectory_gradient_norm": 0.00647162226960063,
+    "surrogate_trajectory_gradient_norm": 0.0023821131326258183,
+    "sampling_module_gradient_norms": {
+      "feature_adapter": 0.001328818965703249,
+      "mean_head": 0.016888005658984184,
+      "scale_head": 0.02764524146914482
+    },
+    "finite_difference": {
+      "dtype": "float64",
+      "gradient_norm": 0.0064716221728877395,
+      "directions": [
+        {
+          "direction": 0,
+          "step_size": 0.0001,
+          "autograd_directional_derivative": -0.00043256709317636465,
+          "finite_difference_directional_derivative": -0.0004325670932558978,
+          "absolute_error": 7.953316824571566e-14,
+          "relative_error": 1.8386319598903348e-10,
+          "passed": true
+        },
+        {
+          "direction": 0,
+          "step_size": 1e-05,
+          "autograd_directional_derivative": -0.00043256709317636465,
+          "finite_difference_directional_derivative": -0.00043256711546035825,
+          "absolute_error": 2.2283993606538738e-11,
+          "relative_error": 5.15156904214114e-08,
+          "passed": true
+        },
+        {
+          "direction": 1,
+          "step_size": 0.0001,
+          "autograd_directional_derivative": 0.0002725543558996518,
+          "finite_difference_directional_derivative": 0.0002725543546411302,
+          "absolute_error": 1.258521607240548e-12,
+          "relative_error": 4.617506856885114e-09,
+          "passed": true
+        },
+        {
+          "direction": 1,
+          "step_size": 1e-05,
+          "autograd_directional_derivative": 0.0002725543558996518,
+          "finite_difference_directional_derivative": 0.00027255435686157625,
+          "absolute_error": 9.61924442009765e-13,
+          "relative_error": 3.529293947402584e-09,
+          "passed": true
+        },
+        {
+          "direction": 2,
+          "step_size": 0.0001,
+          "autograd_directional_derivative": 0.0006711774866438431,
+          "finite_difference_directional_derivative": 0.0006711774869216924,
+          "absolute_error": 2.778493581045982e-13,
+          "relative_error": 4.1397300046360976e-10,
+          "passed": true
+        },
+        {
+          "direction": 2,
+          "step_size": 1e-05,
+          "autograd_directional_derivative": 0.0006711774866438431,
+          "finite_difference_directional_derivative": 0.0006711774913625844,
+          "absolute_error": 4.718741348185007e-12,
+          "relative_error": 7.0305417105172885e-09,
+          "passed": true
+        }
+      ]
+    },
+    "scorer_only_sampling_module_gradient_norms": {
+      "feature_adapter": 0.000597589707467705,
+      "mean_head": 0.010489885695278645,
+      "scale_head": 0.009924781508743763
+    },
+    "untrained_probe_visual_shuffle": {
+      "mean_correction_mean_absolute_change": 0.0001406674855388701,
+      "log_scale_mean_absolute_change": 0.00013934558955952525,
+      "raw_controls_mean_absolute_change": 2.8385751647874713e-05,
+      "candidate_xy_mean_displacement_m": 0.00012833942309953272,
+      "interpretation": "functional sensitivity of untrained nonidentity probe; NOT learned visual utility or causal performance"
+    },
+    "candidate_set_dependence_maximum_score_difference": 0.015512704849243164,
+    "base_trajectory_control_roundtrip_ADE_m": [
+      0.3407560884952545,
+      0.3381994962692261
+    ],
+    "clamped_control_fraction": 0.0,
+    "zero_speed_fraction": 0.0,
+    "control_ranges": {
+      "acceleration_min": -1.8047988414764404,
+      "acceleration_max": 1.9391593933105469,
+      "yaw_rate_min": -0.15031886100769043,
+      "yaw_rate_max": 0.31341060996055603
+    },
+    "comfort_cost": {
+      "mean": 0.03578623756766319,
+      "maximum": 0.5725798010826111,
+      "violating_candidate_fraction": 0.0625,
+      "past_yaw_rate_assumption": "zero; only current ego status cached"
+    },
+    "cache_creation_cpu_seconds": 6.918111745995702,
+    "surrogate_backward_cpu_seconds": 0.009206793998600915,
+    "surrogate_forward_backward_including_score_gradient_probe_cpu_seconds": 0.03278671400039457,
+    "cached_scorer_cpu_profile": [
+      {
+        "scenes": 2,
+        "candidates_per_scene": 8,
+        "scorer_forward_backward_seconds": 0.030171923019224778,
+        "saved_tensor_bytes_sum": 53103232,
+        "measurement": "CPU one call; includes frozen weights saved for input backward; not GPU peak or training ETA"
+      },
+      {
+        "scenes": 2,
+        "candidates_per_scene": 16,
+        "scorer_forward_backward_seconds": 0.02502385398838669,
+        "saved_tensor_bytes_sum": 87971072,
+        "measurement": "CPU one call; includes frozen weights saved for input backward; not GPU peak or training ETA"
+      },
+      {
+        "scenes": 2,
+        "candidates_per_scene": 32,
+        "scorer_forward_backward_seconds": 0.03458957502152771,
+        "saved_tensor_bytes_sum": 157706752,
+        "measurement": "CPU one call; includes frozen weights saved for input backward; not GPU peak or training ETA"
+      }
+    ],
+    "total_cpu_seconds": 8.509037903015269,
+    "score_quality_validated": false,
+    "official_PDMS_or_EPDMS_measured": false
+  },
+  "maximum_resident_memory_bytes": 1172733952
+}

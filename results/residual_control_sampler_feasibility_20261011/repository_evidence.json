@@ -1,0 +1,159 @@
+{
+  "packaged_utc": "2026-10-11T05:13:30.621987+00:00",
+  "git_head_before_review_commit": "c73f966e81b22ef55af6d89829d0e638280371ac",
+  "visual_cache_metadata": {
+    "complete": true,
+    "feature_shape": [
+      11000,
+      128,
+      1024
+    ],
+    "dtype": "float32",
+    "feature_location": "official image_encoder output (512x1024), then original AvgPool2d2 to128x1024 before learned image_fc",
+    "preprocessing": "front only; past/current[-0.5,0]s; RGB crop28 top/bottom; cv2 INTER_LINEAR512x256; /255; ImageNet normalization",
+    "token_grid": [
+      8,
+      16
+    ],
+    "joint_observed_tubelet": true,
+    "future_inputs": false,
+    "encoder_frozen": true,
+    "encoder_eval": true,
+    "encoder_no_gradients": true,
+    "encoder_state_sha256": "111084687b754f21c48692f4e705f9aca701367bef6817a71db7616a2af49a02",
+    "full_planning_checkpoint": {
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/drive_jepa_official_evaluation/drive_jepa_perception_free_agent_vitl.ckpt",
+      "size_bytes": 3720285081,
+      "sha256": "982960aed9e82900584d20c676ba9a7498add912bed94a3e7fa5f4d22bff6237"
+    },
+    "strict_loading": "<All keys matched successfully>",
+    "official_source_commit": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e",
+    "planner_initial_sha256": "495497809b43d493f121641d5d36177229386a17ae02fdde0024a09e9295a07a",
+    "subset_manifest_sha256": "e195e8321e0b634ff71deb645e0629ca6cf919918e5108971dbf12217067ade1",
+    "cache_visual_tokens_sha256": "3e55c0dc91afd77f2a0e4ef7167611ca8ba5692b1b7240d220e91768c0a2a7cb",
+    "raw_vs_cache_checks": [
+      {
+        "tokens": [
+          "2991b6c6ca595856",
+          "6d18132d792b51fc",
+          "15c91dcebf5455b2",
+          "d6e09dfdcaed5bb0"
+        ],
+        "feature_max_difference": 0.0,
+        "prediction_max_difference": 1.9073486328125e-06
+      },
+      {
+        "tokens": [
+          "54ced13f54d45595",
+          "b182afe96eff545c",
+          "0ef905cf005e5c7f",
+          "9f95591656ee5812"
+        ],
+        "feature_max_difference": 0.0,
+        "prediction_max_difference": 1.9073486328125e-06
+      }
+    ],
+    "cache_seconds": 671.7908153533936,
+    "peak_allocated_bytes": 1416493568,
+    "peak_reserved_bytes": 1516240896,
+    "maximum_whole_card_bytes": 42938138624,
+    "environment": {
+      "python": "3.9.23 | packaged by conda-forge | (main, Jun  4 2025, 17:57:12) \n[GCC 13.3.0]",
+      "torch": "2.1.0+cu121",
+      "numpy": "1.24.0",
+      "gpu": "NVIDIA RTX A6000"
+    }
+  },
+  "visual_cache_manifest_sha256": "e195e8321e0b634ff71deb645e0629ca6cf919918e5108971dbf12217067ade1",
+  "visual_cache_samples": 11000,
+  "historical_scorer_analysis": {
+    "complete": true,
+    "count": 192,
+    "selected_pdms": 72.76099083399176,
+    "oracle_best_pdms": 97.80808481830445,
+    "selection_regret": 25.047093984312692,
+    "score_definition": "Official NAVSIM v1, each candidate paired with reference; not the training proxy",
+    "by_command": {
+      "0": {
+        "count": 64,
+        "selected_pdms": 72.64557963791418,
+        "oracle_best_pdms": 99.32395952400304
+      },
+      "1": {
+        "count": 64,
+        "selected_pdms": 77.47523584354656,
+        "oracle_best_pdms": 97.65908015952338
+      },
+      "2": {
+        "count": 64,
+        "selected_pdms": 68.16215702051454,
+        "oracle_best_pdms": 96.44121477138694
+      }
+    }
+  },
+  "historical_analysis_path": "outputs/small_corpus_planning_diagnosis_20261010/drivor/candidate_analysis.json",
+  "historical_analysis_is_new_sampler_result": false,
+  "current_LPWM_registration_sha256": "e9d8dad03398dc2e951b54dcaa849f89d071e4553244e8c7c36c34a713a390c7",
+  "source_files": {
+    "src/planning_aware_future_prediction/object_centric/small_corpus_models.py": "366bdb366b4f40fcc99eff12a35e610c6a4ebb1903512053bd9841e977ec4197",
+    "src/planning_aware_future_prediction/models/residual_control_sampler.py": "eb041a9faaa8d7a9140dc93c17a42acbb6ca03d33b01b5974b19ce500853a795",
+    "scripts/diagnose_residual_control_sampler.py": "56c85dbe4aa285ddcd7e363ce27de62af6cf04187fd438cba35eb454e8830753",
+    "scripts/package_residual_sampler_feasibility.py": "cea565876b2568125a2044d260e3afd509ee72d5668a3cf7e4fd1bf974520eb3",
+    "configs/residual_control_sampler/feasibility_20261011.json": "66127c81eb31f1b48e0216b5261664e4b43cf551f15135908230692ecefa09f9",
+    "reference_repositories/DrivoR/navsim/agents/drivoR/drivor_model.py": "bd530b606970fb72bd657363924cbbd4f5f072f8560f8a1cd3d39ee0bd91f59d",
+    "reference_repositories/DrivoR/navsim/agents/drivoR/transformer_decoder.py": "06207e844e801a6d8c16ccbcb7194d9c039cd13567f7b3b6b8ab0b3633ffe43f",
+    "reference_repositories/DrivoR/navsim/agents/drivoR/score_module/scorer.py": "f8f3c467d67cf6d593c06cbff71471749ccd92e14cbcc86a12b4a813ec3a4b54",
+    "reference_repositories/DriveJEPAOfficialEvaluation/navsim_v1/navsim/agents/drive_jepa_perception_based/score_module/scorer.py": "99d507dbb28d4aea3432ebb7a75590794dc23169605ff81cc4daa52f06c14049",
+    "reference_repositories/TOAD/drivor_cem_portable/navsim/agents/utils/cem_utils.py": "5a3801b78a5900aee2ca79e00dae3fbaa1717505d0ee92bd7af79e2acc87ad05",
+    "reference_repositories/TOAD/drivor_cem_portable/navsim/agents/utils/drivor_mpc.py": "8007c7dff42f9a22b500a40daf8d02bf5c6cc147dfd47044ae2579cc02d2d731",
+    "scripts/score_lpwm_drivor_navtest.py": "4e2ecc9cc0f1c3ac8f20dcc8bc0502bc879b759461d8a14014f20dbabf6dac5a"
+  },
+  "unavailable_prescribed_TOAD_checkpoint": {
+    "path": "reference_repositories/TOAD/drivor_cem_portable/checkpoints/epoch_29_54.6.ckpt",
+    "exists": false,
+    "scope": "checked this prescribed local path only; no claim that the authors have not released weights"
+  },
+  "current_LPWM_registration_keys": [
+    "sources",
+    "configurations",
+    "immutable_inputs",
+    "prior_registered_sources_unchanged",
+    "audit_weights_enter_main_training"
+  ],
+  "existing_training_source_preservation": {
+    "checked_source_and_configuration_files": 289,
+    "mismatches": []
+  },
+  "reference_commits": {
+    "TOAD": "cfa88e008080d0799b2859b5935c257048ec0adf",
+    "DrivoR": "fc6e5aa144bbcb5a046e22c18f1bd5cf3af8634a",
+    "DriveJEPAOfficialEvaluation": "548bb8215e3aae18e162a0f12f1ba83b4d3eb57e"
+  },
+  "full_Drive_JEPA_planning_checkpoint_exists": true,
+  "existing_training_read_only_snapshot": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 10827,
+    "epoch": 10,
+    "rank_scene_tokens_sha256": "5423e61f5334752d982738bb3f2fdb1106c16eda5abc93ba0fc4b06acecfd6f6",
+    "update_in_epoch": 234,
+    "seconds_this_update": 12.58790636062622,
+    "elapsed_seconds": 2942.437318086624,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "loss": 2.307089000940323,
+    "trajectory_loss": 0.715935155749321,
+    "final_score_loss": 1.5911538004875183,
+    "score": 0.8495703488588333,
+    "best_score": 0.9973091781139374,
+    "estimated_remaining_seconds": 233860.91651775697
+  },
+  "pooled_Drivor_sampler_parameters": 59168,
+  "pooled_Drive_JEPA_sampler_parameters": 159008
+}

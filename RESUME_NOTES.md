@@ -4624,3 +4624,21 @@ navtrain10000/navval1000, 단일seed0/batch32/1000step/공개PF planner부터추
 LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,240scene×5/history2/512×256/DINO/seed47. 동일test장면의현재시스템비교이며공정한표현단독효과/원논문DriveoR재현/전체NAVTEST/EPDMS우위입증이아니다. 지도와객체박스는GT시각화용이며모델입력아님. 카메라경로는z=0평면투영근사,BEV경로는저장된ego좌표. Particle패널은별도dev4장면·glimpse박스이지객체검출아님.
 
 실행: `runtime/environments/kjs-lpwm-drivor-joint/bin/python scripts/run_lpwm_drivor_navsim_visualization.py --config configs/lpwm_front_history_stage1_lora/epoch9_navsim_visualization.json`
+
+## 2026-10-11 — 잔차 제어 sampling distribution 연구 타당성 검토
+
+요청 범위는 조사·코드 감사·작은 gradient 진단이며 본학습/A-B-C/새queue는 실행하지 않았다. 기존 LPWM stage2/25epochqueue 유지, source/config289개 SHA 검사 불일치0. 새작업 CPU2threads, GPU사용0초/optimizer0step.
+
+가까운 primary method11개를 공개일≤2026-10-11 범위에서 조사했다. FlowPlan의 frozen perception→scene-conditioned flow→BM/cost gradient, POPLIN learned CEM initialization, TOAD 제어 CEM, Sacks/Boots NFMPC와DCEM이 직접 반박 근거다. Novelty판정 “현재 형태로는 부족”; 기술판정 “현재환경가능”, 다음학습은scorer품질gate이후만권고. 검색어/원문/공식코드확인수준을별도기록했고미확인공식코드URL을추측하지않았다.
+
+새코드 `models/residual_control_sampler.py`/`scripts/diagnose_residual_control_sampler.py`: 유계 residual Gaussian sampler(Drive-JEPA pooled159008,DrivoR pooled59168param)와원래DrivoR weight/scoring계산에서input detach만생략한wrapper. 공식TOAD clone `cfa88e008080d0799b2859b5935c257048ec0adf`(2026-09-11)의BM/clamp/CEM/comfort함수직접재사용.
+
+합성 및실제2scene×8candidate CPU검사완료. 동일epsilon·보정0의rawcontrols와원TOAD첫샘플 경로오차0; native64proposal원score/cache오차0; scorer경로gradient norm.0064716,score-only adapter/mean/scalegradient .0005976/.0104899/.0099248,FP64 3direction×2FD검사모두통과(최대relative약5.15e-8). cached단계encoder호출0,전체frozengrad없음/tensor불변,sampleroptimizerupdate없음. exactzeroheads의첫adaptergradient0과nonzeroheadprobe 통과를구분. 학습하지않은probevisualshuffle은candidatexy .128mm변화이며visual유용성증거아님.
+
+새실패위험: scorer candidate-self-attention으로동일첫경로singleton/8candidate score차이.01551; baseinverse/rolloutADE.34076/.33820m;16candidate중1comfort위반. 원TOADcontrolclip과speedclip은포화gradient0,low-speedheading물리제약별도미보장. 새PDMS없음. 과거192balanced-command scene의nativeDrivoRselected72.76099/oraclebest97.80808,regret25.04709를기존로그근거로재검토해현재scorer기반reward학습보류권고.
+
+기존PFViT-Lcache11k×128×1024FP32/실제encoderpool출력을재사용했으나DrivoR16×256memory와다른표현이다. 동일ID2frame RGB에서DrivoRmemory별도추출/ego·GT exact matching/입력future0 검사. localtinycache `outputs/residual_control_sampler_feasibility_20261011/`;원paperTOAD prescribed checkpoint없음,localDrivoRpass5(3200update)로기계적가능성검사. PF에는scorer없고proposal-centricJEPA는생성latent를채점하므로arbitrarypathscorer로가정하지않았다.
+
+산출물 `results/residual_control_sampler_feasibility_20261011/`: review.md, literature_comparison.md/csv,search_log.json,diagnostics.json,repository_evidence.json,actual_scorer_cache_metadata.json,미실행followup_protocol.json. 후속첫작업은native/nearresidualscorer공식PDMScalibration,통과시동일register/frozenbase-scorer/예산의A원TOAD/Bego-base-spread/C+Bpooledvisual;official-vettedofflinegoodcandidatefitting우선,Dconditionalattention은나중. 최초연구질문은기존경로·제어spread에없는visual정보의추가가치. independentfinalrecording/결정성·trainseed·samplingRNG/recordingbootstrap/동일walltime·candidateoracle vsselected·OFF복원/미리정한진행중단gate를문서화했다. 자동확장·학습안함.
+
+재실행: `CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 PYTHONPATH=src runtime/environments/kjs-lpwm-drivor-joint/bin/python -u scripts/diagnose_residual_control_sampler.py --configuration configs/residual_control_sampler/feasibility_20261011.json`.

@@ -1,0 +1,60 @@
+{
+  "investigation_date": "2026-10-11",
+  "public_evidence_cutoff": "2026-10-11",
+  "scope": "learned MPC/CEM initial distributions, visual or scene conditioned driving proposals, frozen scorer/generator adapters, residual controls, finite best-of-M, CVAE/flow/diffusion planning",
+  "queries": [
+    "\"learned\" \"CEM\" \"initialization\" sampling distribution visual planning",
+    "\"Diffusion-ES\" autonomous driving code",
+    "\"DrivoR\" autonomous driving paper",
+    "\"Reinforced\" diffusion planning driving scorer sampling",
+    "\"Learning Sampling Distributions for Model Predictive Control\" github",
+    "\"Differentiable Integrated Prediction and Planning\" github",
+    "\"DiffusionDrive\" truncated diffusion CVPR 2025 github",
+    "\"Learning Sampling Distribution\" CVAE autonomous driving 2023 Singh",
+    "TOAD Test-Time Trajectory Optimization github valeoai TOAD",
+    "\"Learning Sampling Distributions\" \"github.com\"",
+    "\"scene-conditioned\" \"sampling distribution\" planning learned CEM",
+    "\"residual\" \"sampling distribution\" autonomous driving Gaussian",
+    "\"Imitative Planning using Conditional Normalizing Flow\" arxiv",
+    "\"Learning Sampling Distributions for Model Predictive Control\" Sacks Boots code flowmpc",
+    "\"Deep Imitative Models\" autonomous driving 2019 github",
+    "\"learned CEM\" \"covariance\" neural planning",
+    "\"FlowPlan\" \"github\" autonomous driving",
+    "\"Sacks\" \"flow-mpc\" github",
+    "\"sacks\" \"sampling\" \"boots\" github mpc",
+    "\"Learning Sampling Distributions\" \"code\" jacob sacks",
+    "\"frozen\" \"scorer\" \"sampling\" autonomous driving adapter",
+    "\"scene-conditioned\" \"adaptive sampling\" autonomous driving trajectory",
+    "\"best-of\" \"sampling\" \"distribution\" differentiable driving",
+    "\"FlowPlan\" \"frozen\" backbone"
+  ],
+  "primary_method_urls": [
+    "https://arxiv.org/html/2606.07170",
+    "https://arxiv.org/html/2212.02587",
+    "https://proceedings.mlr.press/v205/sacks23a.html",
+    "https://proceedings.mlr.press/v119/amos20a/amos20a.pdf",
+    "https://arxiv.org/html/1906.08649",
+    "https://arxiv.org/html/2403.19461v2",
+    "https://arxiv.org/pdf/2007.16162",
+    "https://arxiv.org/html/1810.06544v4",
+    "https://openaccess.thecvf.com/content/CVPR2024/papers/Yang_Diffusion-ES_Gradient-free_Planning_with_Diffusion_for_Autonomous_and_Instruction-guided_Driving_CVPR_2024_paper.pdf",
+    "https://openaccess.thecvf.com/content/CVPR2025/papers/Liao_DiffusionDrive_Truncated_Diffusion_Model_for_End-to-End_Autonomous_Driving_CVPR_2025_paper.pdf",
+    "https://arxiv.org/html/2601.05083",
+    "https://arxiv.org/html/2605.12625v1"
+  ],
+  "official_code_urls": [
+    "https://github.com/valeoai/TOAD",
+    "https://github.com/facebookresearch/dcem/blob/main/dcem/dcem.py",
+    "https://github.com/WilsonWangTHU/POPLIN",
+    "https://github.com/cisimon7/VQOptMain/blob/master/train_vq.py",
+    "https://github.com/hustvl/DiffusionDrive",
+    "https://github.com/valeoai/DrivoR"
+  ],
+  "excluded_as_unverified_or_irrelevant": [
+    "unrelated LLM FlowPlan GitHub repository",
+    "secondary wiki/survey performance rankings",
+    "search results without verified original method and publication date",
+    "Sacks/FlowPlan official executable code URLs not located; not guessed"
+  ],
+  "limitations": "Not an exhaustive novelty proof. No priority/first claim. ArXiv submission dates were checked; later materials beyond the cutoff were not used. Only TOAD was cloned; other official code inspection was via the browser."
+}
