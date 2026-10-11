@@ -1,0 +1,32 @@
+[
+  {
+    "token": "9bc425de3f665d0b",
+    "C_minus_frozen_pdms": 100.0,
+    "selected_pdms": {
+      "unchanged": 0.0,
+      "A_uniform": 100.0,
+      "B_boundary": 100.0,
+      "C_selection_error": 100.0
+    }
+  },
+  {
+    "token": "9e5f2c6ec3e65aa8",
+    "C_minus_frozen_pdms": -100.0,
+    "selected_pdms": {
+      "unchanged": 100.0,
+      "A_uniform": 0.0,
+      "B_boundary": 100.0,
+      "C_selection_error": 0.0
+    }
+  },
+  {
+    "token": "ea1b384960385984",
+    "C_minus_frozen_pdms": 0.0,
+    "selected_pdms": {
+      "unchanged": 100.0,
+      "A_uniform": 100.0,
+      "B_boundary": 100.0,
+      "C_selection_error": 100.0
+    }
+  }
+]

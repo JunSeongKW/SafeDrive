@@ -1,0 +1,9 @@
+{
+  "command": "CUDA_VISIBLE_DEVICES=\"\" OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=1 PYTHONPATH=src runtime/environments/kjs-scorer-selection-pilot/bin/python -m pytest -q tests/test_scorer_selection_learning.py",
+  "passed": 5,
+  "failed": 0,
+  "wall_seconds_reported_by_pytest": 3.7,
+  "python": "3.12.13",
+  "torch": "2.8.0+cu128",
+  "torch_cuda_build": "12.8"
+}

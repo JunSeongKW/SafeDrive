@@ -4660,3 +4660,18 @@ LPWM75,297scene×9/history4/128/Stage1 23,126clip×20/seed2 vs DrivoR축소10,24
 
 **2026-10-11 — calibration 해석 범위·정정.**
 기존navval에서명령균형64scene이며독립test/전체NAVTEST/학습후sampler개선아님. Nearby는TOADσ의.25배제어noise+exactbasefallback+BMcenter,nominalσ1.0/fullCEM은검사하지않음. Gradient는neural-only/다른63경로고정이며comfort·anchor전체TOAD목적의효과와구분한다.71.9%감소는극소차포함: median−.012~−.068점/1점초과감소0,평균CI는0포함. OraclePDMS의DDCweight0로최고점=모든안전조건충족아님. 과거192장면25.047regret는pass3/1920,새gradient/checkpoint는pass5/3200;이번64scene에서pass5regret22.030실측. 학습개선·novelty·시각추가가치·M16nominalTOAD/scorer보정학습은미확인.
+
+## 2026-10-11 — 승인된 선택 오류 획득 sampler와 scorer 보정 pilot 완료
+
+사용자는 새 추천 방향을 진행하라고 승인했다. 기존 frozen-scorer reward 최적화 gate를 완화하지 않고, 고정backbone/generator/scorer 위의 추가6logit 보정기와 학습용 candidate acquisition sampler를 새로 구현했다.
+
+- 코드: models/scorer_selection_learning.py, cache builder, phase queue, visualization/acquisition/train-vs-dev diagnostics, shell replay, CPU5tests.
+- 데이터: NAVTRAIN1024/101recording, 공통128scout. NAVVAL64tuning/15recording과192lockeddevelopment/37recording. Recording 중복0, 이전 개발패널이므로 independent final test 아님.
+- 원pass5/3200/1front/2past-current/512×256/16×256FP32cache. Native64+acquired32 공식라벨96개/scene. Auniform/BGT-map-occupancygeometry/C조건부선택오류획득. B의기하학참고구현은Versatile Samples simulator solver정확재현아님.
+- Sampler56542param/128scout/300CPUstep. 보정기89222param/A-B-C각500step/같은seed0·init·batch16·AdamW3e-4·BCE+gap-weightedpairloss·batch순서.
+- 동일native64 실제PDMS baseline78.4753/A78.0014/B77.5620/C77.5871. Oracle모두97.5683; regret19.0930/19.5669/20.0063/19.9811. C−A−.4142 CI[−1.3969,+.0756]; C−baseline−.8881 CI[−3.4336,+1.7334]. 개선근거없고promotion gatefail; 통계적악화확정으로부르지않음.
+- C원래선택변경51.04%, A와다른획득family15.83%/896scene중860. C학습native+.6372vs개발−.8881; 일반화·proxy·context32/64·loss/최종선택불일치 원인미분리.
+- 실제공식188416candidate/8300pair검증모든7metrics오차0. cache선택1280/1280일치; OFF선택복원모든장면; gradientfinite. Encoder와원scorer는cache학습중호출0/원가중치불변.
+- GPU0cache루프35.18s/peakallocated.226GiB; CPUscorer학습합계19.35s+sampler.57s; CPUofficiallabels511.86s/4worker. CPUfallback부분cache·누락nuplan실패log·초기source snapshot 보존. 동일geometry전처리를기존officialenv로분리하고완료/학습함수AST·model/config불변검증후재개.
+- 산출물 results/scorer_selection_learning_v1/summary_ko.md·report.md·JSON/CSV/NPZ/2PNG/source-env-provenance. 재실행 bash scripts/run_scorer_selection_pilot.sh (완료단계skip).
+- 원LPWM25epoch학습/정기검증queue·source/config289개보존(완료조회11354update). 추가seed/fullscale/native-only대조 자동기동없음. 다음추천하나(미실행): 같은fixed native64에서보정기자체적응이득을확인해획득전략과문제를분리.

@@ -1,0 +1,80 @@
+{
+  "scientific_source_sha256": {
+    "scripts/build_scorer_selection_cache.py": "e32a1d6948f82c058f64aa90005f36ccb5043d5e27072b7707cd540173633dd2",
+    "scripts/run_scorer_selection_pilot.py": "a5a181652f732f46a0b88ad834fc758ab023466791a16daceffc9bbff9e2e999",
+    "scripts/run_scorer_selection_pilot.sh": "7850702a305b77abb1386773272c7ac0ec429d64f88160680a2e237e93ea9981",
+    "scripts/visualize_scorer_selection_pilot.py": "fcfc9316045d16c98791f53b38049468cc7d035dc41956ec5b0f2ed5fa1130a0",
+    "scripts/analyze_scorer_selection_acquisition.py": "fe2b529c965316af25b41bb7651588c87c0ed45987ccf558d561de03468c7e21",
+    "scripts/diagnose_scorer_correction_fit.py": "4eda0a7f8c84d5b282a1ed3df9ca5e51fb191502428b19890e2aa27047535e3b",
+    "tests/test_scorer_selection_learning.py": "7c5fe69457ab4b252f6cbc56c80b1cb75a3e4ba12d7c453db7fab60b348fe43b",
+    "src/planning_aware_future_prediction/models/scorer_selection_learning.py": "056a95c5281c7777ea5548c1beeae42623108daf9b307af834a5d99dc2d15658",
+    "configs/scorer_selection_learning/pilot_v1.json": "ed7742b4e5105031144b5aa4245a558bb23086233915c2b63814f90f2ede528c"
+  },
+  "model_environment": "runtime/environments/kjs-scorer-selection-pilot -> kjs-lpwm-drivor-joint",
+  "official_environment": "runtime/environments/drive_jepa_official_evaluation",
+  "cache_creation": "CUDA_VISIBLE_DEVICES=0; CUBLAS_WORKSPACE_CONFIG=:4096:8; OMP_NUM_THREADS=2; OPENBLAS_NUM_THREADS=1",
+  "learning": "CUDA_VISIBLE_DEVICES=empty; CPU2 threads; torch deterministic algorithms; seed0",
+  "original_learning_source_registration": {
+    "registered_utc": "2026-10-11T06:55:48.696459+00:00",
+    "sources": {
+      "scripts/run_scorer_selection_pilot.py": "b9898aeb7c41a47a1ca2720fb07fc8dec37a4095443c39412c644dec85c1c051",
+      "src/planning_aware_future_prediction/models/scorer_selection_learning.py": "056a95c5281c7777ea5548c1beeae42623108daf9b307af834a5d99dc2d15658",
+      "configs/scorer_selection_learning/pilot_v1.json": "ed7742b4e5105031144b5aa4245a558bb23086233915c2b63814f90f2ede528c"
+    }
+  },
+  "environment_amendment": {
+    "reason": "Model environment lacks nuplan; compute training-only boundary geometry in existing official evaluator environment",
+    "previous_sources": {
+      "scripts/run_scorer_selection_pilot.py": "b9898aeb7c41a47a1ca2720fb07fc8dec37a4095443c39412c644dec85c1c051",
+      "src/planning_aware_future_prediction/models/scorer_selection_learning.py": "056a95c5281c7777ea5548c1beeae42623108daf9b307af834a5d99dc2d15658",
+      "configs/scorer_selection_learning/pilot_v1.json": "ed7742b4e5105031144b5aa4245a558bb23086233915c2b63814f90f2ede528c"
+    },
+    "revised_sources": {
+      "scripts/run_scorer_selection_pilot.py": "a5a181652f732f46a0b88ad834fc758ab023466791a16daceffc9bbff9e2e999",
+      "src/planning_aware_future_prediction/models/scorer_selection_learning.py": "056a95c5281c7777ea5548c1beeae42623108daf9b307af834a5d99dc2d15658",
+      "configs/scorer_selection_learning/pilot_v1.json": "ed7742b4e5105031144b5aa4245a558bb23086233915c2b63814f90f2ede528c"
+    },
+    "unchanged_completed_and_training_function_AST": [
+      "validate_cache",
+      "acquire_scout",
+      "labels_scout",
+      "learn_sampler",
+      "control_family_candidates",
+      "evaluate_pool_job",
+      "evaluate_jobs",
+      "train_rankers",
+      "report"
+    ],
+    "configuration_unchanged": true,
+    "optimizer_scout_state_reused": true,
+    "new_official_labels_for_completed_phases": 0
+  },
+  "completed_learning_source_registration": {
+    "registered_utc": "2026-10-11T06:58:49.360134+00:00",
+    "sources": {
+      "scripts/run_scorer_selection_pilot.py": "a5a181652f732f46a0b88ad834fc758ab023466791a16daceffc9bbff9e2e999",
+      "src/planning_aware_future_prediction/models/scorer_selection_learning.py": "056a95c5281c7777ea5548c1beeae42623108daf9b307af834a5d99dc2d15658",
+      "configs/scorer_selection_learning/pilot_v1.json": "ed7742b4e5105031144b5aa4245a558bb23086233915c2b63814f90f2ede528c"
+    },
+    "amendment": "execution_environment_fix.json"
+  },
+  "checkpoints": {
+    "outputs/scorer_selection_learning_v1/B_boundary_step250.pt": "82ef30463f9779724c0ea26f74014b28577f9edae20aebdc00ba0788c65d1711",
+    "outputs/scorer_selection_learning_v1/C_selection_error_step500.pt": "40ddbe99f0a12c7c0ec53cfa02246f6e209eac74ec6d322f813728877eff7c89",
+    "outputs/scorer_selection_learning_v1/B_boundary_step100.pt": "e8b736fa9b93ca2d2574c01fb271df66f0c1f3857189e73b9e33646d9ca0ad1c",
+    "outputs/scorer_selection_learning_v1/B_boundary_step500.pt": "c8908063ef7e55420434aa8185dbf559679e32edf241294e7063534152bd5caa",
+    "outputs/scorer_selection_learning_v1/A_uniform_step500.pt": "dcec1c96d64690303b824a118caeaa7665bda9f6fd65c0d2fceecc5fe67bf79d",
+    "outputs/scorer_selection_learning_v1/C_selection_error_step100.pt": "eea66a4b8b5bfaaa44733afa8441400acf4ee053fcbfe85bcfb83d235fe752de",
+    "outputs/scorer_selection_learning_v1/C_selection_error_step250.pt": "dfcc386ff714b949b801746a481fac6e7524e8a6163ac16a0e5bd7e9afdc4e47",
+    "outputs/scorer_selection_learning_v1/A_uniform_step100.pt": "1ca52751469eb8f2fa446d4bdaccc9ffbd6ad56f955e10fc55f379dd1f1a5cce",
+    "outputs/scorer_selection_learning_v1/A_uniform_step250.pt": "1d951cbca0c5aa6485d3c946a233cfca245973b0153a53e7539688f519809f59"
+  },
+  "sampler_checkpoint_sha256": "0bf1ea52bf7fd7ea8204dd3387f1e28659cdda1711ebae7b567d930bba0659a2",
+  "CPU_fallback_partial_cache_preserved": true,
+  "CPU_fallback_last_progress": {
+    "completed_scenes": 64,
+    "total_scenes": 1280,
+    "elapsed_seconds": 257.7012400390231
+  },
+  "resource_timing_scope": "GPU cache occupancy field times the cache loop and final digest, excluding early model construction/device initialization; failed attempts are separate"
+}

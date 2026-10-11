@@ -1,0 +1,25 @@
+{
+  "additional_optimizer_steps": 0,
+  "training_scenes": 1024,
+  "baseline_training_pdms": 88.63809362569143,
+  "strategies": {
+    "A_uniform": {
+      "training_native_selected_pdms": 89.18862122087961,
+      "training_native_difference_from_frozen": 0.5505275951881942,
+      "locked_development_difference_from_frozen": -0.473890706828284,
+      "interpretation": "Descriptive in-sample/out-of-sample comparison; no causal attribution to overfitting alone"
+    },
+    "B_boundary": {
+      "training_native_selected_pdms": 88.42278629253045,
+      "training_native_difference_from_frozen": -0.21530733316096168,
+      "locked_development_difference_from_frozen": -0.9132736571544081,
+      "interpretation": "Descriptive in-sample/out-of-sample comparison; no causal attribution to overfitting alone"
+    },
+    "C_selection_error": {
+      "training_native_selected_pdms": 89.27527696093618,
+      "training_native_difference_from_frozen": 0.6371833352447633,
+      "locked_development_difference_from_frozen": -0.8881279157365912,
+      "interpretation": "Descriptive in-sample/out-of-sample comparison; no causal attribution to overfitting alone"
+    }
+  }
+}

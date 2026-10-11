@@ -1,0 +1,79 @@
+{
+  "fixed_native_pool": {
+    "unchanged": {
+      "nonconstant_spearman_scenes": 189,
+      "mean_within_scene_spearman": 0.3827289595785857,
+      "actual_score_gap_weighted_pair_accuracy": 0.8289872162851624,
+      "selection_changed_fraction_from_frozen": 0.0
+    },
+    "A_uniform": {
+      "nonconstant_spearman_scenes": 189,
+      "mean_within_scene_spearman": 0.37501857315614695,
+      "actual_score_gap_weighted_pair_accuracy": 0.8157193158565401,
+      "selection_changed_fraction_from_frozen": 0.5
+    },
+    "B_boundary": {
+      "nonconstant_spearman_scenes": 189,
+      "mean_within_scene_spearman": 0.3770458486831574,
+      "actual_score_gap_weighted_pair_accuracy": 0.8251745647657146,
+      "selection_changed_fraction_from_frozen": 0.5104166666666666
+    },
+    "C_selection_error": {
+      "nonconstant_spearman_scenes": 189,
+      "mean_within_scene_spearman": 0.37523473821220177,
+      "actual_score_gap_weighted_pair_accuracy": 0.8152288854582374,
+      "selection_changed_fraction_from_frozen": 0.5104166666666666
+    }
+  },
+  "later_acquisition": {
+    "A_uniform": {
+      "scenes": 896,
+      "mean_candidate_actual_pdms": 84.46122897147407,
+      "candidate_collision_or_offroad_fraction": 0.06815011160714286,
+      "helper_comfort_failure_fraction_official": 0.00010463169642857142,
+      "frozen_acquired_pool_regret_pdms": 7.80823041588327,
+      "family_frequencies": {
+        "0": 0.12625558035714285,
+        "1": 0.12503487723214285,
+        "2": 0.12730189732142858,
+        "3": 0.12322126116071429,
+        "4": 0.12357003348214286,
+        "5": 0.12353515625,
+        "6": 0.12234933035714286,
+        "7": 0.12873186383928573
+      }
+    },
+    "B_boundary": {
+      "scenes": 896,
+      "mean_candidate_actual_pdms": 55.24640849245755,
+      "candidate_collision_or_offroad_fraction": 0.35756138392857145,
+      "helper_comfort_failure_fraction_official": 0.2622767857142857,
+      "frozen_acquired_pool_regret_pdms": 12.000663125882916,
+      "family_frequencies": null
+    },
+    "C_selection_error": {
+      "scenes": 896,
+      "mean_candidate_actual_pdms": 84.94755389016656,
+      "candidate_collision_or_offroad_fraction": 0.061558314732142856,
+      "helper_comfort_failure_fraction_official": 0.00010463169642857142,
+      "frozen_acquired_pool_regret_pdms": 7.659664971584444,
+      "family_frequencies": {
+        "0": 0.11819893973214286,
+        "1": 0.11711774553571429,
+        "2": 0.10874720982142858,
+        "3": 0.14889090401785715,
+        "4": 0.11994280133928571,
+        "5": 0.11969866071428571,
+        "6": 0.14923967633928573,
+        "7": 0.1181640625
+      }
+    }
+  },
+  "C_minus_B": {
+    "selected_pdms_difference": 0.02514574141781682,
+    "paired_recording_bootstrap_95ci": [
+      -2.2950785789941124,
+      2.2837435783606774
+    ]
+  }
+}

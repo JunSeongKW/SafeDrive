@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-11 15:00 KST (Codex)
+마지막 갱신: 2026-10-11 16:16 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,9 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-11 — 사용자 승인으로 선택 오류 획득 sampler·scorer 보정 pilot 완료.**
+사용자는 새 추천 연구 방향을 진행하라고 승인했다. 별도 `outputs/scorer_selection_learning_v1/`에서 실제 cache/라벨/세조건학습/고정후보평가 완료, queue complete. 이전 gate를 완화해 frozen-scorer reward 최적화를 재개한 것이 아니라 작은 보정기를 새로 학습한 실험이다. 원래LPWM25epoch queue 유지/등록289파일불변(완료조회11354update). 새fullscale/추가seed/native-only 대조 미기동. 아래 이전sampler학습금지는이번고정예산pilot 승인범위에서만 갱신된다.
 
 **2026-10-11 14:59 KST — 승인된 frozen scorer64장면 calibration 완료, sampler 학습 gate 미충족.**
 사용자의 진행 지시로 navval64개(좌21/직22/우21,29recording)를 점수확인전등록하고 pass5/3200update로 CPU검증했다. 새 calibration queue는완료, GPU0초/optimizer0step; 결과품질gate가실패했으므로 조건부A/B/C학습은미기동이다. 기존LPWM25epoch queue는그대로계속, 마지막조회11052/29425·epoch10. 등록289source/config불변. 아래이전새학습금지는이번calibration승인범위에한해갱신하며, 다른과거학습은재기동하지않는다.
@@ -1375,6 +1378,9 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-11 — scorer selection-error acquisition pilot: 개선 미확인.**
+NAVTRAIN1024/101recording, 공통128scout에서C sampler56542param/300CPUstep, 동일89222param scorer 보정기A/B/C각500step/batch16/AdamW3e-4/seed0. 추가후보Auniform/BGT·geometryboundary/Cscene-conditional-error; 모두96label/scene. 동일native64·lockedNAVVAL192/37recording에서 baseline78.4753/oracle97.5683/regret19.0930; A78.0014/19.5669; B77.5620/20.0063; C77.5871/19.9811. C−A−.4142 CI[−1.3969,+.0756], C−baseline−.8881 CI[−3.4336,+1.7334]; promotion gate fail. C선택변화51.04%/학습native+.6372vs개발−.8881, 일반화원인미분리. 실제후보188416/공식pair8300대조오차0/기능검증5pass/캐시선택1280일치/OFF복원. GPU0cache루프35.18s/peak.226GiB, 학습CPU총19.35s+sampler.57s/라벨511.86s. B는논문solver정확재현아님; development재사용/단일seed/NAVSIMv1/독립finaltest아님. 공유폴더 `results/scorer_selection_learning_v1/summary_ko.md`.
 
 **2026-10-11 — frozen DrivoR pass5 실제scorer 품질 검사.**
 64navval/29recording, native64 selected76.8109/oracle98.8412/regret22.0303(기록bootstrap95%[17.0945,28.1745]); nearby64 78.8271/84.6712/5.8441; nearby16 80.1637/84.5054/4.3417. 모두meanregret≤5 gate는미충족(native/near64실패). Native/near Spearman +.3444/−.3659;선택offroad6/64→4/64/충돌0. 실제gradient64/64 finite/nonzero, 양의gradient neural score100%증가하지만PDMS평균변화CI모두0포함/median음수,1점초과하락0.0.25반경+1.9867평균/−.06758median/큰개선2scene,28scene에서.1점초과감소. BMroundtrip.4112m/후보context최대logscore차.02646. 공식8576후보/408개pair대조에서모든하위지표최대오차0; cachedscore차0/frozen불변/backbonecached호출0. 결과folder results/frozen_drivor_scorer_calibration_20261011/.
@@ -2404,6 +2410,9 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**2026-10-11 — 승인된 선택 오류 획득과 frozen scorer correction 비교 구현·실행.**
+`models/scorer_selection_learning.py`에6logit correction/8family sampler/score composition/ranking loss, cache builder와단계queue/공식pair-evaluator재사용/세조건동일학습/init/batch/step/예산/recording split 추가. CPU5검증,실제1024train+64tune+192helddevelopment/188416labels/3×500step 실행,JSON·CSV·cache/provenance·부정결과보고·경로PNG/획득진단/학습vs개발진단/재실행shell을저장했다. CUDA sandbox CPUfallback 중단·부분cache보존후GPU0추출,nuplan부재는기존officialenv의동일geometry전처리로수정;기존완료/학습함수AST·model/config불변과실패source/hash/log보존. 원LPWMsource289파일·queue·batch·LR보존. 추가학습미예약.
+
 **2026-10-11 — 승인된 frozen scorer calibration 구현·실행·보고.**
 새 configs/residual_control_sampler/scorer_calibration_20261011.json 및 scripts/calibrate_frozen_drivor_scorer.py: subset사전등록→CPUfeaturecache→native/near/gradient→공식batch+referencepair대조→gate/report자동연결.64scene/8576candidate 실제평가와JSON/CSV/scoreNPZ/PNG/Markdown/sourceSHA/env/경계ego복원근거추가. Report에recordingCI·median·효과크기·oracle하위지표·NAV1 DDC0한계추가;측정함수AST불변/초기source snapshot보존. 이전192scene로그는pass3/1920였음을과거review·packaging/evidence에정정;숫자·원본로그불변. HANDOFF1–5/RESUME_NOTES/README갱신. 기존LPWMsource289개·queue/batch/LR불변/GPU0초/추가학습0.
 
@@ -2466,6 +2475,9 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-11 — scorer 보정 pilot 완료 후 보류.**
+현재C의추가PDMS이득/selection-regret개선은없다. sampler규모확대/본학습/추가seed를자동실행하지않는다. 추천한다음하나(미실행)는같은1024scene·500step·평가192에서native64만사용하는작은scorer보정대조:보정기자체의이득과acquisition/context문제를분리한다. 기존LPWM25epoch/정기검증은계속한다. 결과해석과재실행 `results/scorer_selection_learning_v1/summary_ko.md` / `bash scripts/run_scorer_selection_pilot.sh`.
 
 **2026-10-11 — 조건부 sampler pilot 미진입.**
 사용자가calibration우선진행을승인했고완료했다. 품질gate는native22.03/near645.844regret로미충족하므로승인된조건부A/B/C를강제실행하지않는다. 먼저현재scorer의progress·DAC ranking/후보context·residual지원영역을교정할지,정확한공식TOAD checkpoint+NAVSIM입력조합을확보할지정한다. Offlineofficial-vettedfitting은역전파reward hacking을피하지만최종채점bottleneck을자동해결하지않는다. 새model학습·기준완화·fullscale자동확장없음. 원래LPWM25epoch/정기검증유지. 재실행은새report명령참조(완료phase재실행없음).
@@ -3166,6 +3178,9 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-11 — scorer 보정 연구의 현재 한계.**
+현재sampler는학습라벨획득용이며추론CEM분포를최적화하지않는다. 기존scorer가중치고정,추가6logit보정기만학습했으며future예측/encoderFT/객체감독없음. B훈련용GT·미래occupancy와geometryprobe비용은공개,Versatile Samples정확재현아님. 128scout획득proxy·경계샘플comfort26.2%실패·작은보정기의일반화·학습acquired32/평가native64context차이·BCE/ranking/최종선택목적불일치를원인으로확정하지않는다. C의functional변화·train이득은개발planning이득/시각인과효과/novelty증거가아님. CI는recording변동/학습seed변동미포함;기존NAVVAL재사용이며전체NAVTEST/EPDMS성능아님.
 
 **2026-10-11 — calibration 해석 범위·정정.**
 기존navval에서명령균형64scene이며독립test/전체NAVTEST/학습후sampler개선아님. Nearby는TOADσ의.25배제어noise+exactbasefallback+BMcenter,nominalσ1.0/fullCEM은검사하지않음. Gradient는neural-only/다른63경로고정이며comfort·anchor전체TOAD목적의효과와구분한다.71.9%감소는극소차포함: median−.012~−.068점/1점초과감소0,평균CI는0포함. OraclePDMS의DDCweight0로최고점=모든안전조건충족아님. 과거192장면25.047regret는pass3/1920,새gradient/checkpoint는pass5/3200;이번64scene에서pass5regret22.030실측. 학습개선·novelty·시각추가가치·M16nominalTOAD/scorer보정학습은미확인.
