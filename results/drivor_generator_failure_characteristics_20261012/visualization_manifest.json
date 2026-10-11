@@ -1,0 +1,26 @@
+{
+  "examples_selected_after_error_analysis": true,
+  "cases": [
+    {
+      "image": "results/drivor_generator_failure_characteristics_20261012/generator_error_vs_comparison_case1_navsim.png",
+      "failed_token": "075154c90a0a5d7c",
+      "comparison_token": "4e19d097005e55b5",
+      "selection": "Post-hoc largest regret; comparison shares observed command and matches speed/dispersion approximately, not a causal control."
+    },
+    {
+      "image": "results/drivor_generator_failure_characteristics_20261012/generator_error_vs_comparison_case2_navsim.png",
+      "failed_token": "e61adc75d7da50c3",
+      "comparison_token": "9f528c7bfca6509b",
+      "selection": "Post-hoc largest regret; comparison shares observed command and matches speed/dispersion approximately, not a causal control."
+    },
+    {
+      "image": "results/drivor_generator_failure_characteristics_20261012/generator_error_vs_comparison_case3_navsim.png",
+      "failed_token": "625a015c1f7c5170",
+      "comparison_token": "78c9157a55905d81",
+      "selection": "Post-hoc largest regret; comparison shares observed command and matches speed/dispersion approximately, not a causal control."
+    }
+  ],
+  "backend": "Upstream NAVSIM camera, configured BEV, trajectory overlay",
+  "cpu_wall_seconds": 21.847423689992866,
+  "gpu_seconds": 0
+}

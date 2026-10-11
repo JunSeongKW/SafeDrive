@@ -1,0 +1,31 @@
+{
+  "python": "3.12.13",
+  "numpy": "2.5.1",
+  "scipy": "1.18.0",
+  "analysis_device": "cpu",
+  "source_and_configuration_sha256": {
+    "scripts/report_drivor_generator_failure_characteristics.py": "47ba6975af440eab3a5f852b4a92b24ab8e57814a68020aadfcefc1882a888ff",
+    "scripts/diagnose_drivor_generator_failure_characteristics.py": "41acb9ed343364e26577ba801e623932c874d27b8acf30ed898a7d4ca3e2a667",
+    "scripts/visualize_drivor_generator_failure_characteristics.py": "9e84bf5812ad017d03535cd3ab83ab4eefacb1083f7e2ed88cad2fa076ac79c8",
+    "scripts/run_drivor_generator_failure_characteristics.sh": "ea1ae17ea431596035276de32e07d831481dd203e8be62ffe30d86cb30c37366",
+    "configs/frozen_planner_postprocessing/drivor_generator_failure_characteristics.json": "2f7cd3fecdea9cef3519ebb5fbaed5f372121d0b3327c11055e215e799419452"
+  },
+  "registered_analysis_source_sha256_match": true,
+  "artifact_sha256": {
+    "candidate_pair_diagnostics.csv": "c8c47ffa4b4b627b6c13945eac6f3ec7b49703dfc151f9e1732bb1c81232326e",
+    "configuration.json": "806135ee34f96a790ce27fbac3710f562e7051d42ff0c1b274bf35e21131c057",
+    "feature_associations.csv": "19baa638c9d59360f9a12d08be3fb0e64908f69c91ffc27af3994137f6cf75e0",
+    "feature_associations_recording_bootstrap.png": "2ebf2b787599b2e7a7003d2ac6864fa6745fa499f27635c16af2b57b2bb00e33",
+    "generator_error_vs_comparison_case1_navsim.png": "8dee28285107719dc3e1c979d086dc4e220aacf462a8084edaf8a3008124ad0c",
+    "generator_error_vs_comparison_case2_navsim.png": "d50ac0da015a16783c84a04e5f531d84810215f8c059c9b64080e85cf1e476e9",
+    "generator_error_vs_comparison_case3_navsim.png": "52b8e33b28dbc881d3e4f982d7b363fe3b24a9193b45934b81261f6b71adde41",
+    "report.md": "fd5e3767244ef8d76481bf2480df57129201d1f3e16942cc9e3ac0e6db91721e",
+    "results.json": "1602f9fb8f29956a893348f29824f01ba2d6534356b6a3ab4a0a4e460933edf2",
+    "scene_characteristics.csv": "7af6bbd3039b74a69a52c5d5bdeb914ab9bcb4dbd2196e1eb0854fd9ad801602",
+    "scene_characteristics_vs_scorer_error.png": "e3a57fccd091a1423aae0cd60384422baa8c313539290101ce531704033a31d5",
+    "sensitivity_and_validation.json": "21fdb89f4231b66724972e1783eb85fe9c2543c1b153955f82153be98cf0fcd5",
+    "subset_manifest.json": "5b307740ad53968cbabad7bd9be7cd49060abdc5712412987fb28e0b54eae3d2",
+    "visualization_manifest.json": "a6b97e1d8428f498bec4c10f7da9f0a3cbe7679152c04f50df33e258973759d2"
+  },
+  "reproduce_command": "bash scripts/run_drivor_generator_failure_characteristics.sh"
+}

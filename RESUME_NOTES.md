@@ -4938,3 +4938,26 @@ DriveVer IV-A.3은visual encoder를고정하고verifier decoder를학습한다�
 **원본 DrivoR 후보 분포 진단의 범위.** 이전노출NAVTEST64개발패널/38recording이며전체NAVTEST·독립final·EPDMS가아니다. 모든분포의scorer는원공식DrivoR동일weights;TOADgenerated는후보생성출처이며TOADscorer점수가아님. Native거리/heading/jerk는waypoint geometry proxy이고엄밀한trainingdensity/OOD·실제simulatorcomfort·인과설명아님. Oracle실제점수/위험label로조건화한분해는retrospective진단이며온라인분포분류기로쓸수없다. 각단독64context선택평가와고정256contextMAE분석을구분하며self-attentioncontext불일치를조용히섞지않았다. 64→256에서선택변동34/34/24/27scene이나candidate수도달라same-size안정성실험아님. Random/near는TOAD에서유래/새noise반복미실행. 실제0Native위험후보mean40.95과실제좋은randomMAE41.38이주요관측이며세계전체scorer실패나해결기법효과를증명한것은아님。
 
 재실행 `bash scripts/run_drivor_candidate_distribution_diagnosis.sh`. Results root `results/drivor_candidate_distribution_diagnosis_20261011/`,local cache `outputs/drivor_candidate_distribution_diagnosis_20261011/`. 원GPUcache score와CPU최대차7.629e−6,동일3scene×3context CPU1↔2 최대2.861e−6. 추가CPU모델검증8.23초,분석16.80초(표시정리재실행별도);완료된측정및원source snapshot SHA를보존했다. 기존293등록source/config/inputhash불일치0,LPWM누적13330update까지계속확인했다。
+
+
+## 2026-10-12 — DrivoR generator 후보 집합과 장면별 scorer 실패 특성
+
+사용자 요청: generator가 생성한 후보 set의 형태·분포 및 장면 특성에 따라 scorer가 언제 실패하는지 실제 확인. 원공개DrivoR native64를 주분석으로, TOAD 배포 generator64를 같은 원scorer로 보조확인했다. 각완전64 candidate self-attention 문맥을 유지하고 기존등록캐시/공식PDMS재사용;random/nearby후보의관계를generator특성으로혼동하지않았다.
+
+결과 root `results/drivor_generator_failure_characteristics_20261012/`,설정 `configs/frozen_planner_postprocessing/drivor_generator_failure_characteristics.json`,재실행 `bash scripts/run_drivor_generator_failure_characteristics.sh`. CPU분석35.40초/후속sensitivity약6.2초/마지막NAVSIM시각화21.85초,새GPU·학습·encoder/scorer/oracle호출0. 초기report단계는results.json이outputs에있다고가정해실패했지만원score registration의실제results_directory를읽도록수정했다. 오류log는outputs의report_initial_path_error.log로보존,최종전체실행성공. 분석source/confighash와환경·모든결과hash는provenance.json.
+
+원본64×64=4096후보:oracle99.8745/선택93.6087/선택손실6.2658/MAE17.4045. 좌21/우21/직진22장면MAE22.82/20.10/9.67,손실11.45/5.10/2.43. 선택손실10초과8/64,NC실패1/DAC0/TTC5. TTC실패장면이선택손실67.5%,최악1이24.9%/최악3이47.0%차지. 잘못선택한대표075154c90a0a5d7c의단독64context선택index53은예측98.8819/실제0,NC예측.996892/TTC.990644vs실제0/0. 기존128context는선택index34/예측98.6667이었으므로동일값으로고치거나합치지않음.
+
+후보endpoint lateral SD/heading원형SD/회전크기와MAE Spearman.346/.335/.365,recording CI0비포함. 그러나observedcommand와currentegospeed를고려한부분rank상관.117/.093/.156,각CI[-.150,.374]/[-.225,.397]/[-.074,.387]로0포함. 분포효과와회전장면효과의분리근거부족. 세geometry특성과선택손실CI는모두0포함. 전체RMS퍼짐·속도분산·jerk·객체수의연속관계도안정되지않았다. TOAD생성후보에서는보조partiallateral.294/CI[.049,.493]이남아모든출처에서분포효과가없다고확장하지않는다.
+
+30m currentGT vehicle0/1~2/3+ 장면7/14/43의손실.58/4.64/7.72점이나vehiclecount↔선택손실Spearman.154/CI[-.026,.337]이라단순crowded실패탐지기로확정불가. pedestrian/bicycle현재존재유무도단조악화미확인. Actor집계는vehicle/pedestrian/bicycle만사용하며center거리/전방|y|<=3m proxy는clearance/TTC아님. 교차로/가림/신호등유형을임의생성하지않았다. Waypointspeed/jerk도officialcomfort가아니다.
+
+동일scene native 후보쌍129024 중RMS<=1m은32383쌍;실제gap>5의5781쌍순위반전9.86%,>1m55255쌍22.88%. 가까운후보actualgap>50이3120쌍,그중predgap<5가363쌍으로위험경계인식오류존재하지만'닮은후보일수록실패'주장불가. 쌍을독립129024표본으로통계처리하지않음.
+
+NAVSIMupstreamcurrentcamera·map·currentGTbox·64trajectoryoverlay로최악3사례와같은command/비슷한speed·dispersion의성공비교장면을시각화했다. 3PNG의가운데actual0~100/오른쪽prediction0~100/보라낮음노랑높음/빨강selected/파랑점선oracle. 후보좌표동일,색만변경. 비교장면은사후선택설명예시이며causalcontrol아님. 별도scene/error산점도와bootstrapassociationPNG를포함해5PNG. results.json/scene_characteristics.csv/feature_associations.csv/candidate_pair_diagnostics.csv/sensitivity_and_validation.json/report.md/subset_manifest/configuration/provenance와코드보존.
+
+검사:tokensorder/currenttoken·ego·commandmatching,원cache4hash불변,이전단독64context MAE/선택점수차0.0,293등록LPWMsource/config/input불일치0. 기존LPWM25epochqueue/학습·checkpoint·공용원본보존;report최신13543update확인(그이후추가학습량은별도진행조회필요). 새train/scorer후처리/CEMqueue자동실행안함.
+
+추천한후속하나는공개DrivoR/native64문맥에서작은NC/TTC안전순위보정의유효성검증이며아직미실행. 이전다른축소모델BCE+pairwise보정78.4753→77.5871로개선실패를반드시제약으로유지한다. sampler/모듈규모부터자동확장하지않는다. 학습시공식train라벨·recording분리,현재노출NAVTEST64는개발진단으로만유지하고독립최종평가가필요하다.
+
+최종 재실행 검증에서 원LPWM13549update/293보호파일불일치0 확인. 앞선13543은최초성공report시점이고최종provenance/report는13549시점이다. 측정원sourceSHA일치·원4cacheSHA불변·이전64문맥수치차0을다시확인했다.

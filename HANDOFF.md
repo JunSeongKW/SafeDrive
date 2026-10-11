@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-12 00:05 KST (Codex)
+마지막 갱신: 2026-10-12 00:50 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-12 — generator 후보 집합·현재 장면별 scorer 실패 진단 완료.** 별도CPU분석만실행해새학습·scorer/encoder/oracle추론·GPU0. 원본DrivoR native64가주분석,TOAD생성64를동일원scorer로보조확인,각단독64context점수재사용. 원본cache4hash·기존MAE/선택PDMS정확일치·현재token/ego/명령검사통과. [보고서/5PNG/JSON/CSV](results/drivor_generator_failure_characteristics_20261012/report.md). 기존LPWM25epoch/원queue·checkpoint불변,293등록파일불일치0/최종report시13549update확인. 새diagnostic은완료이며후속학습자동기동없음。
 
 **2026-10-12 00:01 KST — 원본 DrivoR scorer 후보 분포별 진단 완료.** NAVTEST64/38recording·같은16,384경로/공식PDMS재사용. 모두같은원DrivoR scorer로단독64context와고정256context를채점했다. 자기64선택93.6087/oracle99.8745/선택손실6.2658,TOAD생성64 93.0929/99.8511/6.7583,random64 71.4072/93.8428/22.4356,near64 90.6614/99.5385/8.8771. MAE17.4045/17.9007/15.2358/19.9264로전체오차와선택손실의순위가다르다. [분포·정답조건별오류·PNG](results/drivor_candidate_distribution_diagnosis_20261011/report.md). CPU재채점52.56초/새GPU·학습·공식평가0. 기존LPWM학습·293보호파일유지。 새 diagnostic은 완료;기존LPWM원queue유지,최종추가검사시13330update확인. cached백본호출0/모델가중치불변/gradient0/CPUbatch동등성통과. source/config/checkpoint/queue변경없음。
 
@@ -1408,6 +1410,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-12 — 원본 generator64의 scorer 실패 특성 실측.** 후보최고99.8745/선택93.6087/선택손실6.2658/MAE17.4045,손실10점초과8/64. 좌21/우21/직진22장면MAE22.82/20.10/9.67·손실11.45/5.10/2.43. NC실패1/DAC0/TTC5,후자5장면이손실67.5%,최악3이47.0%차지. 끝횡방향SD/headingSD/회전크기↔MAE상관.346/.335/.365이나명령·속도partial.117/.093/.156의CI모두0포함;선택손실관계도미확인. 객체수/속도/전체RMS퍼짐만으로온라인실패분류불가. 최악현재전방차량사례선택예측98.88→실제0(NC예측.997/TTC.991vs실제0/0). NAVSIM현재camera+GT/map+후보64actual/pred동일색범위3사례비교및산점도/CI생성. [실측·통제·사례](results/drivor_generator_failure_characteristics_20261012/report.md)。
 
 **2026-10-12 00:01 KST — 후보 분포 진단 실측.** 같은원DrivoRweights로각분포64개씩채점:자기generator93.6087/oracle99.8745/regret6.2658,TOADgenerator93.0929/99.8511/6.7583,random71.4072/93.8428/22.4356,near90.6614/99.5385/8.8771. 각MAE17.4045/17.9007/15.2358/19.9264;random은평균실제28.27vsnative77.45로점수구성이다르다. 고정256context 실제90–100 random232후보MAE41.3795/signed−41.3195 vsnative2508후보MAE14.5298. Native실제0위험655후보예측mean40.9502. Native RMS거리.5–2mMAE22.6514/>10m5.7547(후자실제mean4.3564)라거리증가↔오류증가단조관계없음. Familyconstant/smooth/freeform15.6577/14.6164/15.1669이며CI겹침. 4PNG/개별16384CSV/JSON/보고서생성. 이전93.6972는합친128context이며새93.6087단독64와구분。
 
@@ -2470,6 +2474,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**이번 변경 — generator 후보 형태·장면별 scorer 실패 진단.** 원공개DrivoR native64의별도geometry/currentGT metadata추출·recordingbootstrap/부분상관·후보쌍순위·NAVSIM actual/pred분포시각화·검증/보고서script·config·재실행shell추가. 후보배열/원공식PDMS/관측cache/점수는재사용해새GPU·학습·모델/공식추론0. 실측JSON/CSV·5PNG·원입력hash/환경/provenance보존. 이전축소scorer BCE+ranking실패를후속제안의제약으로기록. README/HANDOFF1–5/RESUME_NOTES갱신,기존293source/config/input·LPWM학습/queue/공용원본보존。
+
 **이번 변경 — 원본 DrivoR candidate 분포별 CPU 진단 추가.** 별도config/CPUcached 재채점·요약·4PNG·보고서script/marker재실행shell추가. 원64×256캐시·공식PDMS를보존하며각원본관측cache와원public checkpoint strict467tensor전체freeze재사용. 4단독64context및고정256context·공식randomfamily·native거리/heading/jerkproxy·actualscore/safety분해·명령별·recordingCI를저장. 원측정source snapshot을outputs에보존한뒤plot행간격/범례/좌표방향과보고해석만추가,측정6함수AST/모든기존수치불변을확인했다. GPU↔CPU9context차7.63e−6/CPUbatch1↔2최대2.86e−6,encoder호출0/weightsgradient0/불변. 보호293파일·공용원본·학습/queue/이전결과수치보존。README/HANDOFF1–5/RESUME_NOTES갱신。
 
 **이번 변경 — 공통 후보의 Oracle·두 공개 scorer 실측 비교 추가.** 신규config/prepare-infer-score script/report script/공식NAVSIM시각화script/marker기반 재실행shell,실제JSON/CSV/manifest/provenance/4PNG/보고서추가. 원DrivoR 공개291MBasset을runtime에별도다운로드해releaseSHA일치검증했고467tensor전체freeze/strictload했다. 기존TOAD truefeaturecache·공통recordingpanel·원official evaluator를재사용,각checkpoint 자신의backbone출력을유지/전체후보context통제. 보호293파일/기존학습/queue/이전결과수치/공용원본 불변. README/HANDOFF1–5/RESUME_NOTES 갱신. 신규학습/fullCEM/후속queue0.
@@ -2565,6 +2571,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**generator 실패 특성 진단 후, 아직 미실행.** 현재사용자는특성확인을요청했고후속학습은시작하지않았다. 추가연구시공개DrivoR/native64문맥에서작은NC/TTC안전순위보정의유효성부터확인하는것이후보다. 이전축소모델BCE+pairwise보정은개선하지못했으므로이미성공한방법으로제시하거나sampler/규모를자동확대하지않는다. 공식train에서라벨/recording분리,현재노출NAVTEST64는dev진단으로만사용하고독립최종평가를별도유지한다. 기존LPWM25epoch대기열만계속。
 
 **원본 scorer 분포 진단 후 추천 하나, 미실행.** 단순히광범위한후보를거부하는것보다generator와가까운안전경계또는좋은random후보의인식실패를추가확인한다. 같은scene·점수구간·후보수에서작은위치/속도변화에대한NC/DAC판단과실제oracle변화를paired진단하는것이우선이다. Geometry거리threshold만으로성능향상을확정하지않는다. 신규sampling/scorer학습·CEM/fullscale평가/후속queue는자동기동하지않았고기존LPWM25epoch만계속。
 
@@ -3298,6 +3306,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**generator 실패 진단 범위.** NAVTEST64/38recording의반복노출개발패널·원공개DrivoR generator와scorer단독64context다. 점수MAE와선택손실을구분;분포·명령·현재GT객체특성은oracle라벨없이계산하고오류를사후연결했다. 회전과MAE연관은관측사실이나분포자체/객체수의인과효과는미확정,15×2탐색비교/소수큰오류/명령·속도교란남음. 같은명령비교이미지는사후설명사례이며공정한대조실험이아니다. 실제1m이하유사후보간큰점수차는있지만순위반전9.86%vs먼후보22.88%로'유사함이원인'주장불가. 교차로/가림/신호등분류는신뢰라벨없어미실시. 새GPU/학습0·원학습/queue보존。
 
 **원본 DrivoR 후보 분포 진단의 범위.** 이전노출NAVTEST64개발패널/38recording이며전체NAVTEST·독립final·EPDMS가아니다. 모든분포의scorer는원공식DrivoR동일weights;TOADgenerated는후보생성출처이며TOADscorer점수가아님. Native거리/heading/jerk는waypoint geometry proxy이고엄밀한trainingdensity/OOD·실제simulatorcomfort·인과설명아님. Oracle실제점수/위험label로조건화한분해는retrospective진단이며온라인분포분류기로쓸수없다. 각단독64context선택평가와고정256contextMAE분석을구분하며self-attentioncontext불일치를조용히섞지않았다. 64→256에서선택변동34/34/24/27scene이나candidate수도달라same-size안정성실험아님. Random/near는TOAD에서유래/새noise반복미실행. 실제0Native위험후보mean40.95과실제좋은randomMAE41.38이주요관측이며세계전체scorer실패나해결기법효과를증명한것은아님。
 

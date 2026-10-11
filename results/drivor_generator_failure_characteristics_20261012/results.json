@@ -1,0 +1,2788 @@
+{
+  "registered_utc": "2026-10-11T15:39:27.659041+00:00",
+  "scene_count": 64,
+  "recording_count": 38,
+  "full_navtest": false,
+  "independent_final_test": false,
+  "candidate_count_per_source": 64,
+  "annotation_names_observed": [
+    "barrier",
+    "bicycle",
+    "czone_sign",
+    "generic_object",
+    "pedestrian",
+    "traffic_cone",
+    "vehicle"
+  ],
+  "current_metadata_used_only_for_diagnosis": true,
+  "candidate_attention_context": "complete standalone64 for each source",
+  "results": {
+    "drivor_generated64": {
+      "summary": {
+        "scene_count": 64,
+        "recording_count": 38,
+        "mean_oracle_pdms": 99.87450959523161,
+        "mean_selected_pdms": 93.60869148973171,
+        "mean_selection_regret_pdms_points": 6.265818105499901,
+        "mean_prediction_mae_pdms_points": 17.40453683786319,
+        "regret_95ci_recording_bootstrap": [
+          2.4527595661781043,
+          11.988669679607323
+        ],
+        "mae_95ci_recording_bootstrap": [
+          13.204414916405645,
+          21.81053495644714
+        ],
+        "scenes_with_regret_over10": 8,
+        "selected_nc_failure_scene_count": 1,
+        "selected_dac_failure_scene_count": 0,
+        "selected_ttc_failure_scene_count": 5
+      },
+      "associations": [
+        {
+          "predictor": "median_path_length_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.11514317167376005,
+          "recording_bootstrap95ci": [
+            -0.3431589833466705,
+            0.1098901904215434
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.147507611286262,
+            -0.07665874641551414
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.36493125221155753,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "median_path_length_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.03722527472527472,
+          "recording_bootstrap95ci": [
+            -0.28017803739455954,
+            0.21000626045230852
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.07560483870967742,
+            0.03155297020976556
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7702606429368674,
+          "naive_fdr_q_value_not_for_claims": 0.9471470537938232
+        },
+        {
+          "predictor": "pairwise_rms_distance_median_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.1182219999598193,
+          "recording_bootstrap95ci": [
+            -0.41688862519753533,
+            0.1806022488504569
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.20678870973344587,
+            -0.0485874348972266
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.35216203539580504,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "pairwise_rms_distance_median_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.03406593406593406,
+          "recording_bootstrap95ci": [
+            -0.25554338728428205,
+            0.3444841856483241
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.029236231774571277,
+            0.11651683412656445
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7892892114948526,
+          "naive_fdr_q_value_not_for_claims": 0.9471470537938232
+        },
+        {
+          "predictor": "endpoint_lateral_standard_deviation_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.01947421468743159,
+          "recording_bootstrap95ci": [
+            -0.2690328577178912,
+            0.20429452187350777
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.049280437640227874,
+            0.01959780438104771
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.878605218435198,
+          "naive_fdr_q_value_not_for_claims": 0.9669374316464096
+        },
+        {
+          "predictor": "endpoint_lateral_standard_deviation_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.3456501831501831,
+          "recording_bootstrap95ci": [
+            0.09288839197573256,
+            0.550173100617733
+          ],
+          "leave_one_recording_out_min_max": [
+            0.31544156530936013,
+            0.42580141522500065
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.005150167220813197,
+          "naive_fdr_q_value_not_for_claims": 0.06736728891613115
+        },
+        {
+          "predictor": "endpoint_heading_circular_standard_deviation_deg",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.09369686100856894,
+          "recording_bootstrap95ci": [
+            -0.15151229263361093,
+            0.324877497540952
+          ],
+          "leave_one_recording_out_min_max": [
+            0.05044289409380016,
+            0.13579791822554396
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.4614728867445785,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "endpoint_heading_circular_standard_deviation_deg",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.3354358656974294,
+          "recording_bootstrap95ci": [
+            0.11653552197410803,
+            0.5229891930723178
+          ],
+          "leave_one_recording_out_min_max": [
+            0.3092303451194785,
+            0.3847141779109556
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.006736728891613115,
+          "naive_fdr_q_value_not_for_claims": 0.06736728891613115
+        },
+        {
+          "predictor": "terminal_speed_standard_deviation_m_per_s",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.07566908868908188,
+          "recording_bootstrap95ci": [
+            -0.3642257060508935,
+            0.22452688415257957
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.17175391421587946,
+            -0.019655958103246666
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.5523283971076015,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "terminal_speed_standard_deviation_m_per_s",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.06176739926739926,
+          "recording_bootstrap95ci": [
+            -0.24876123338901537,
+            0.3887668097624043
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.006925033366069855,
+            0.1344463750598071
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.6277731670220195,
+          "naive_fdr_q_value_not_for_claims": 0.9471470537938232
+        },
+        {
+          "predictor": "median_endpoint_heading_abs_deg",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.07794692099828017,
+          "recording_bootstrap95ci": [
+            -0.3031174310708562,
+            0.13866963482091313
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.10884411266926734,
+            -0.04075080760861759
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.5403936837569976,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "median_endpoint_heading_abs_deg",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.36538461538461536,
+          "recording_bootstrap95ci": [
+            0.14934804528154424,
+            0.5421430615937958
+          ],
+          "leave_one_recording_out_min_max": [
+            0.32934955050237963,
+            0.4195059303467553
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.002989122014575238,
+          "naive_fdr_q_value_not_for_claims": 0.06736728891613115
+        },
+        {
+          "predictor": "median_longitudinal_jerk_proxy_m_per_s3",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.0585728308079562,
+          "recording_bootstrap95ci": [
+            -0.20195245249648092,
+            0.32356239213442495
+          ],
+          "leave_one_recording_out_min_max": [
+            0.007090375283317024,
+            0.11944774539665283
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.6457011930133616,
+          "naive_fdr_q_value_not_for_claims": 0.9471470537938232
+        },
+        {
+          "predictor": "median_longitudinal_jerk_proxy_m_per_s3",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.022298534798534796,
+          "recording_bootstrap95ci": [
+            -0.2950397301540033,
+            0.26675418857389055
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.07763591951852133,
+            0.04653622421998942
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.8611628554223781,
+          "naive_fdr_q_value_not_for_claims": 0.9669374316464096
+        },
+        {
+          "predictor": "ego_speed_m_per_s",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.042377693400799075,
+          "recording_bootstrap95ci": [
+            -0.18283805569546202,
+            0.2515530325476921
+          ],
+          "leave_one_recording_out_min_max": [
+            0.00923093651805886,
+            0.09848251606364036
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7395199516985183,
+          "naive_fdr_q_value_not_for_claims": 0.9471470537938232
+        },
+        {
+          "predictor": "ego_speed_m_per_s",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.0879120879120879,
+          "recording_bootstrap95ci": [
+            -0.31945798867748737,
+            0.14262001699073962
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.11986662961933874,
+            -0.046377578001057636
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.48970726112623364,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "ego_longitudinal_acceleration_abs_m_per_s2",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.1624269654328324,
+          "recording_bootstrap95ci": [
+            -0.07721507446501057,
+            0.3662421139681056
+          ],
+          "leave_one_recording_out_min_max": [
+            0.12424080209841874,
+            0.2168599332459009
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.19972335160286636,
+          "naive_fdr_q_value_not_for_claims": 0.838966418964692
+        },
+        {
+          "predictor": "ego_longitudinal_acceleration_abs_m_per_s2",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.11153846153846153,
+          "recording_bootstrap95ci": [
+            -0.16183905929695958,
+            0.3953684966265554
+          ],
+          "leave_one_recording_out_min_max": [
+            0.06807446512920257,
+            0.17569439198207046
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.38023497427456837,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "past_yaw_rate_abs_rad_per_s",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.0895863937870407,
+          "recording_bootstrap95ci": [
+            -0.3267275582125157,
+            0.1445766974644997
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.14494091263153164,
+            -0.05688974131500079
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.48144324815006,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "past_yaw_rate_abs_rad_per_s",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.23305860805860804,
+          "recording_bootstrap95ci": [
+            -0.04059733217189922,
+            0.44296852021748184
+          ],
+          "leave_one_recording_out_min_max": [
+            0.19780413487446805,
+            0.29037294452418727
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.06383467809906354,
+          "naive_fdr_q_value_not_for_claims": 0.38300806859438125
+        },
+        {
+          "predictor": "vehicle_count_within30m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.15421321250008163,
+          "recording_bootstrap95ci": [
+            -0.026075392571765752,
+            0.33685292827397434
+          ],
+          "leave_one_recording_out_min_max": [
+            0.12192296096120583,
+            0.1845571211202226
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.22372437839058454,
+          "naive_fdr_q_value_not_for_claims": 0.838966418964692
+        },
+        {
+          "predictor": "vehicle_count_within30m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.00819817155533339,
+          "recording_bootstrap95ci": [
+            -0.20285097798650506,
+            0.24225023668468698
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.0339184462691752,
+            0.05663927551901103
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.9487362962822248,
+          "naive_fdr_q_value_not_for_claims": 0.9669374316464096
+        },
+        {
+          "predictor": "vulnerable_actor_count_within30m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.054213344843862844,
+          "recording_bootstrap95ci": [
+            -0.330324034068508,
+            0.2112406781423473
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.13981307356978717,
+            -0.023960278469107317
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.6704927122528759,
+          "naive_fdr_q_value_not_for_claims": 0.9471470537938232
+        },
+        {
+          "predictor": "vulnerable_actor_count_within30m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.04806482941887063,
+          "recording_bootstrap95ci": [
+            -0.28627489772319875,
+            0.1672840989657186
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.10274867215481788,
+            -0.005702188039288665
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7060560444990346,
+          "naive_fdr_q_value_not_for_claims": 0.9471470537938232
+        },
+        {
+          "predictor": "forward_actor_count_within30m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.12360677401022133,
+          "recording_bootstrap95ci": [
+            -0.11633970731062296,
+            0.36675272245482454
+          ],
+          "leave_one_recording_out_min_max": [
+            0.054099361167214144,
+            0.15885785483994588
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.3305021427131153,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "forward_actor_count_within30m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.015095886130570689,
+          "recording_bootstrap95ci": [
+            -0.23983731952711274,
+            0.25522373910409735
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.029010686566166562,
+            0.08217617194907252
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.9057558189600843,
+          "naive_fdr_q_value_not_for_claims": 0.9669374316464096
+        },
+        {
+          "predictor": "nearest_forward_actor_center_distance_capped_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.19557150261971595,
+          "recording_bootstrap95ci": [
+            -0.4385907086197368,
+            0.04349665455072248
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.23567426479847978,
+            -0.14517078878199138
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.12144593598369224,
+          "naive_fdr_q_value_not_for_claims": 0.6072296799184612
+        },
+        {
+          "predictor": "nearest_forward_actor_center_distance_capped_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.0052853420596851745,
+          "recording_bootstrap95ci": [
+            -0.2508094299932155,
+            0.28569485035806624
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.055886196484857965,
+            0.06789544938118276
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.9669374316464096,
+          "naive_fdr_q_value_not_for_claims": 0.9669374316464096
+        },
+        {
+          "predictor": "predicted_top1_top2_margin_pdms_points",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.08247755449239987,
+          "recording_bootstrap95ci": [
+            -0.1892407622318677,
+            0.34141440294941405
+          ],
+          "leave_one_recording_out_min_max": [
+            0.03530391748271326,
+            0.1612434755606095
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.5170359166851567,
+          "naive_fdr_q_value_not_for_claims": 0.9205473285126692
+        },
+        {
+          "predictor": "predicted_top1_top2_margin_pdms_points",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.25315934065934065,
+          "recording_bootstrap95ci": [
+            -0.042760516325944437,
+            0.5030586146732331
+          ],
+          "leave_one_recording_out_min_max": [
+            0.21600444567935542,
+            0.3455213920576163
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.043553034660145075,
+          "naive_fdr_q_value_not_for_claims": 0.3266477599510881
+        }
+      ],
+      "strata": [
+        {
+          "feature": "command_name",
+          "stratum": "left_turn",
+          "scene_count": 21,
+          "recording_count": 17,
+          "mean_oracle_pdms": 99.94464807147163,
+          "mean_selected_pdms": 88.49720025038427,
+          "mean_selection_regret_pdms_points": 11.447447821087351,
+          "mean_prediction_mae_pdms_points": 22.81820779175433,
+          "regret_95ci_recording_bootstrap": [
+            0.8433338107101411,
+            25.910958583492572
+          ],
+          "mae_95ci_recording_bootstrap": [
+            13.555218403636296,
+            34.873830170436634
+          ],
+          "scenes_with_regret_over10": 4,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 4
+        },
+        {
+          "feature": "command_name",
+          "stratum": "right_turn",
+          "scene_count": 21,
+          "recording_count": 19,
+          "mean_oracle_pdms": 99.6729049806628,
+          "mean_selected_pdms": 94.57538877665245,
+          "mean_selection_regret_pdms_points": 5.097516204010371,
+          "mean_prediction_mae_pdms_points": 20.097375741265548,
+          "regret_95ci_recording_bootstrap": [
+            1.8833859912917463,
+            9.371990840875517
+          ],
+          "mae_95ci_recording_bootstrap": [
+            14.515867485248892,
+            25.407745468460586
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "command_name",
+          "stratum": "straight",
+          "scene_count": 22,
+          "recording_count": 19,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 97.56508571704812,
+          "mean_selection_regret_pdms_points": 2.4349142829518855,
+          "mean_prediction_mae_pdms_points": 9.666504701355763,
+          "regret_95ci_recording_bootstrap": [
+            1.1578949620517947,
+            4.246113344369522
+          ],
+          "mae_95ci_recording_bootstrap": [
+            6.360193450422389,
+            13.67217434151895
+          ],
+          "scenes_with_regret_over10": 1,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 0
+        },
+        {
+          "feature": "pairwise_rms_distance_median_m",
+          "stratum": "[0.0, 2.0)",
+          "scene_count": 30,
+          "recording_count": 21,
+          "mean_oracle_pdms": 99.73228713649412,
+          "mean_selected_pdms": 95.22943561923346,
+          "mean_selection_regret_pdms_points": 4.502851517260648,
+          "mean_prediction_mae_pdms_points": 16.285660625706992,
+          "regret_95ci_recording_bootstrap": [
+            2.07793023289744,
+            8.558453913532514
+          ],
+          "mae_95ci_recording_bootstrap": [
+            12.141696367166915,
+            21.074608760938546
+          ],
+          "scenes_with_regret_over10": 4,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "pairwise_rms_distance_median_m",
+          "stratum": "[2.0, 5.0)",
+          "scene_count": 34,
+          "recording_count": 28,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 92.17862314017135,
+          "mean_selection_regret_pdms_points": 7.8213768598286535,
+          "mean_prediction_mae_pdms_points": 18.391780554471605,
+          "regret_95ci_recording_bootstrap": [
+            1.3167115512805625,
+            17.314223342880833
+          ],
+          "mae_95ci_recording_bootstrap": [
+            11.66666683766939,
+            25.698586537370932
+          ],
+          "scenes_with_regret_over10": 4,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 4
+        },
+        {
+          "feature": "median_endpoint_heading_abs_deg",
+          "stratum": "[0.0, 10.0)",
+          "scene_count": 25,
+          "recording_count": 21,
+          "mean_oracle_pdms": 99.93257011232373,
+          "mean_selected_pdms": 93.1942822181716,
+          "mean_selection_regret_pdms_points": 6.7382878941521245,
+          "mean_prediction_mae_pdms_points": 11.18222887403615,
+          "regret_95ci_recording_bootstrap": [
+            1.6861644633758242,
+            16.01093996997177
+          ],
+          "mae_95ci_recording_bootstrap": [
+            6.864633095563987,
+            17.3024432389761
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "median_endpoint_heading_abs_deg",
+          "stratum": "[10.0, 30.0)",
+          "scene_count": 16,
+          "recording_count": 11,
+          "mean_oracle_pdms": 99.60339758042063,
+          "mean_selected_pdms": 95.65318165413821,
+          "mean_selection_regret_pdms_points": 3.9502159262824263,
+          "mean_prediction_mae_pdms_points": 21.484892386050824,
+          "regret_95ci_recording_bootstrap": [
+            0.4967017390120276,
+            10.112735290488695
+          ],
+          "mae_95ci_recording_bootstrap": [
+            14.026094920887537,
+            30.689513190848842
+          ],
+          "scenes_with_regret_over10": 2,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "median_endpoint_heading_abs_deg",
+          "stratum": "[30.0, 180.0001)",
+          "scene_count": 23,
+          "recording_count": 19,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 92.63688232270992,
+          "mean_selection_regret_pdms_points": 7.363117677290075,
+          "mean_prediction_mae_pdms_points": 21.329406851979453,
+          "regret_95ci_recording_bootstrap": [
+            2.190092707492768,
+            14.331768133474133
+          ],
+          "mae_95ci_recording_bootstrap": [
+            15.692835402314744,
+            28.14559050065128
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 3
+        },
+        {
+          "feature": "ego_speed_m_per_s",
+          "stratum": "[0.0, 2.0)",
+          "scene_count": 16,
+          "recording_count": 15,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 92.43470547572193,
+          "mean_selection_regret_pdms_points": 7.565294524278084,
+          "mean_prediction_mae_pdms_points": 15.768512721685347,
+          "regret_95ci_recording_bootstrap": [
+            0.5697427660226189,
+            21.121006255790874
+          ],
+          "mae_95ci_recording_bootstrap": [
+            9.22342980017698,
+            24.483986917828513
+          ],
+          "scenes_with_regret_over10": 1,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "ego_speed_m_per_s",
+          "stratum": "[2.0, 6.0)",
+          "scene_count": 25,
+          "recording_count": 19,
+          "mean_oracle_pdms": 99.74617445146922,
+          "mean_selected_pdms": 91.76374133774198,
+          "mean_selection_regret_pdms_points": 7.982433113727235,
+          "mean_prediction_mae_pdms_points": 21.495915266509268,
+          "regret_95ci_recording_bootstrap": [
+            2.899295915901716,
+            14.147518504390256
+          ],
+          "mae_95ci_recording_bootstrap": [
+            15.936161770834895,
+            27.72722883229215
+          ],
+          "scenes_with_regret_over10": 5,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 3
+        },
+        {
+          "feature": "ego_speed_m_per_s",
+          "stratum": "[6.0, 1000000.0)",
+          "scene_count": 23,
+          "recording_count": 20,
+          "mean_oracle_pdms": 99.92670664383014,
+          "mean_selected_pdms": 96.43075801250998,
+          "mean_selection_regret_pdms_points": 3.495948631320148,
+          "mean_prediction_mae_pdms_points": 14.095490104936824,
+          "regret_95ci_recording_bootstrap": [
+            0.8739163893589463,
+            7.8335273408493
+          ],
+          "mae_95ci_recording_bootstrap": [
+            8.84545166685415,
+            20.895525181327294
+          ],
+          "scenes_with_regret_over10": 2,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "vehicle_count_within30m",
+          "stratum": "[0, 1)",
+          "scene_count": 7,
+          "recording_count": 5,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 99.42312368363874,
+          "mean_selection_regret_pdms_points": 0.5768763163612769,
+          "mean_prediction_mae_pdms_points": 15.321033462676153,
+          "regret_95ci_recording_bootstrap": [
+            0.0,
+            1.101309331235165
+          ],
+          "mae_95ci_recording_bootstrap": [
+            8.732948580530415,
+            22.402676399828916
+          ],
+          "scenes_with_regret_over10": 0,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 0
+        },
+        {
+          "feature": "vehicle_count_within30m",
+          "stratum": "[1, 3)",
+          "scene_count": 14,
+          "recording_count": 9,
+          "mean_oracle_pdms": 99.5467400919093,
+          "mean_selected_pdms": 94.90180241557212,
+          "mean_selection_regret_pdms_points": 4.644937676337169,
+          "mean_prediction_mae_pdms_points": 19.11849230928255,
+          "regret_95ci_recording_bootstrap": [
+            0.9276198733381961,
+            9.645593812327814
+          ],
+          "mae_95ci_recording_bootstrap": [
+            11.19789224083093,
+            28.046055785168985
+          ],
+          "scenes_with_regret_over10": 2,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "vehicle_count_within30m",
+          "stratum": "[3, 1000000)",
+          "scene_count": 43,
+          "recording_count": 32,
+          "mean_oracle_pdms": 99.96079657693241,
+          "mean_selected_pdms": 92.24114315672904,
+          "mean_selection_regret_pdms_points": 7.7196534202033575,
+          "mean_prediction_mae_pdms_points": 17.185679791966407,
+          "regret_95ci_recording_bootstrap": [
+            2.842305203011158,
+            15.185268883870473
+          ],
+          "mae_95ci_recording_bootstrap": [
+            12.273605593511439,
+            23.1320769715434
+          ],
+          "scenes_with_regret_over10": 6,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 4
+        },
+        {
+          "feature": "vulnerable_actor_present_within30m",
+          "stratum": "False",
+          "scene_count": 29,
+          "recording_count": 23,
+          "mean_oracle_pdms": 99.94187078648598,
+          "mean_selected_pdms": 92.57685202316311,
+          "mean_selection_regret_pdms_points": 7.3650187633228565,
+          "mean_prediction_mae_pdms_points": 19.154709239224644,
+          "regret_95ci_recording_bootstrap": [
+            2.062758471811497,
+            16.2517122926602
+          ],
+          "mae_95ci_recording_bootstrap": [
+            14.332138190196961,
+            25.306682997387558
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 2
+        },
+        {
+          "feature": "vulnerable_actor_present_within30m",
+          "stratum": "True",
+          "scene_count": 35,
+          "recording_count": 28,
+          "mean_oracle_pdms": 99.81869603676373,
+          "mean_selected_pdms": 94.46364419060284,
+          "mean_selection_regret_pdms_points": 5.35505184616088,
+          "mean_prediction_mae_pdms_points": 15.954393991020847,
+          "regret_95ci_recording_bootstrap": [
+            1.6385565529816304,
+            9.877775533420538
+          ],
+          "mae_95ci_recording_bootstrap": [
+            10.897231740592288,
+            21.583592825245805
+          ],
+          "scenes_with_regret_over10": 5,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 3
+        }
+      ],
+      "worst_scenes": [
+        {
+          "token": "075154c90a0a5d7c",
+          "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+          "recording_group": "2021.06.28.18.03.27_veh-14",
+          "command_name": "left_turn",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 8,
+          "vulnerable_actor_count_within30m": 0,
+          "pedestrian_count_within30m": 0,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 1,
+          "nearest_forward_actor_center_distance_capped_m": 10.660920189556942,
+          "ego_speed_m_per_s": 0.31011047567806194,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.6456606550377397,
+          "past_yaw_rate_abs_rad_per_s": 0.001057609471111718,
+          "current_gt_object_count": 71,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1624904879700224,
+          "median_path_length_m": 12.797348394895131,
+          "pairwise_rms_distance_median_m": 2.217599294586992,
+          "endpoint_lateral_standard_deviation_m": 0.32215206103331473,
+          "endpoint_forward_standard_deviation_m": 4.521432294287576,
+          "endpoint_heading_circular_standard_deviation_deg": 2.406668186187744,
+          "terminal_speed_standard_deviation_m_per_s": 2.372655593571219,
+          "median_endpoint_heading_abs_deg": 1.465065598487854,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.5301418726461147,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 0.0,
+          "selected_predicted_pdms": 98.88187071798593,
+          "selection_regret_pdms_points": 100.0,
+          "candidate_prediction_mae_pdms_points": 68.82625591939842,
+          "candidate_signed_error_pdms_points": 66.43581533533155,
+          "selected_candidate_index": 53,
+          "oracle_candidate_index": 4,
+          "predicted_top1_top2_margin_pdms_points": 0.0061529553623955735,
+          "official_unsafe_candidate_fraction": 0.875,
+          "official_actual90plus_candidate_fraction": 0.03125,
+          "selected_no_at_fault_collisions": 0.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9968920350074768,
+          "selected_dac_prediction": 0.9998874664306641,
+          "selected_ttc_prediction": 0.9906442165374756
+        },
+        {
+          "token": "e61adc75d7da50c3",
+          "log_name": "2021.09.16.15.12.03_veh-42_01037_01434",
+          "recording_group": "2021.09.16.15.12.03_veh-42",
+          "command_name": "left_turn",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 8,
+          "vulnerable_actor_count_within30m": 0,
+          "pedestrian_count_within30m": 0,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 0,
+          "nearest_forward_actor_center_distance_capped_m": 60.0,
+          "ego_speed_m_per_s": 5.203468977822807,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.361959707015508,
+          "past_yaw_rate_abs_rad_per_s": 0.4384413851730979,
+          "current_gt_object_count": 27,
+          "map_location": "us-pa-pittsburgh-hazelwood",
+          "current_traffic_light_record_count": 6,
+          "current_annotation_timestamp": 1631806553500458,
+          "median_path_length_m": 25.647677461469577,
+          "pairwise_rms_distance_median_m": 2.3054324830520443,
+          "endpoint_lateral_standard_deviation_m": 2.6505666611514065,
+          "endpoint_forward_standard_deviation_m": 3.5329298444913806,
+          "endpoint_heading_circular_standard_deviation_deg": 0.6135802865028381,
+          "terminal_speed_standard_deviation_m_per_s": 2.2031263819369302,
+          "median_endpoint_heading_abs_deg": 34.83692169189453,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.37434473431992143,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 53.122988242869795,
+          "selected_predicted_pdms": 84.60097593627732,
+          "selection_regret_pdms_points": 46.877011757130205,
+          "candidate_prediction_mae_pdms_points": 56.004347908475616,
+          "candidate_signed_error_pdms_points": -52.677019958637885,
+          "selected_candidate_index": 17,
+          "oracle_candidate_index": 0,
+          "predicted_top1_top2_margin_pdms_points": 0.7899954174902746,
+          "official_unsafe_candidate_fraction": 0.0,
+          "official_actual90plus_candidate_fraction": 0.921875,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.8749517178288749,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9786016941070557,
+          "selected_dac_prediction": 0.9749006628990173,
+          "selected_ttc_prediction": 0.9084683656692505
+        },
+        {
+          "token": "625a015c1f7c5170",
+          "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+          "recording_group": "2021.06.28.18.03.27_veh-14",
+          "command_name": "left_turn",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 9,
+          "vulnerable_actor_count_within30m": 10,
+          "pedestrian_count_within30m": 10,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 1,
+          "nearest_forward_actor_center_distance_capped_m": 19.37656878311985,
+          "ego_speed_m_per_s": 9.770242822042633,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.6139386676910447,
+          "past_yaw_rate_abs_rad_per_s": 0.05753033023770905,
+          "current_gt_object_count": 215,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 18,
+          "current_annotation_timestamp": 1624904147700005,
+          "median_path_length_m": 45.003294695299815,
+          "pairwise_rms_distance_median_m": 3.599413787653316,
+          "endpoint_lateral_standard_deviation_m": 4.757073533327581,
+          "endpoint_forward_standard_deviation_m": 3.78165339689036,
+          "endpoint_heading_circular_standard_deviation_deg": 9.837566375732422,
+          "terminal_speed_standard_deviation_m_per_s": 2.748795396173743,
+          "median_endpoint_heading_abs_deg": 65.607421875,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.7760281123473665,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 58.333333333333336,
+          "selected_predicted_pdms": 98.18123215222938,
+          "selection_regret_pdms_points": 41.666666666666664,
+          "candidate_prediction_mae_pdms_points": 52.26380215133244,
+          "candidate_signed_error_pdms_points": 49.32416117392276,
+          "selected_candidate_index": 10,
+          "oracle_candidate_index": 1,
+          "predicted_top1_top2_margin_pdms_points": 0.019263083229844824,
+          "official_unsafe_candidate_fraction": 0.5,
+          "official_actual90plus_candidate_fraction": 0.15625,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 1.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.994384765625,
+          "selected_dac_prediction": 0.9999350309371948,
+          "selected_ttc_prediction": 0.9872016906738281
+        },
+        {
+          "token": "f23073987e7956e3",
+          "log_name": "2021.09.29.19.02.14_veh-28_00964_01689",
+          "recording_group": "2021.09.29.19.02.14_veh-28",
+          "command_name": "right_turn",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 9,
+          "vulnerable_actor_count_within30m": 6,
+          "pedestrian_count_within30m": 5,
+          "bicycle_count_within30m": 1,
+          "forward_actor_count_within30m": 2,
+          "nearest_forward_actor_center_distance_capped_m": 11.227094168377,
+          "ego_speed_m_per_s": 3.213133509625629,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 1.3717290049952138,
+          "past_yaw_rate_abs_rad_per_s": 0.002815431623302656,
+          "current_gt_object_count": 43,
+          "map_location": "us-ma-boston",
+          "current_traffic_light_record_count": 6,
+          "current_annotation_timestamp": 1632943672299804,
+          "median_path_length_m": 21.30382626626315,
+          "pairwise_rms_distance_median_m": 2.6693559289699555,
+          "endpoint_lateral_standard_deviation_m": 3.1279491734654297,
+          "endpoint_forward_standard_deviation_m": 3.8393091635600665,
+          "endpoint_heading_circular_standard_deviation_deg": 20.615846633911133,
+          "terminal_speed_standard_deviation_m_per_s": 2.3178991638086095,
+          "median_endpoint_heading_abs_deg": 35.24439239501953,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.6433162263895169,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 58.333333333333336,
+          "selected_predicted_pdms": 83.01464484806894,
+          "selection_regret_pdms_points": 41.666666666666664,
+          "candidate_prediction_mae_pdms_points": 30.401351814731314,
+          "candidate_signed_error_pdms_points": -10.722498154774852,
+          "selected_candidate_index": 55,
+          "oracle_candidate_index": 0,
+          "predicted_top1_top2_margin_pdms_points": 0.15500642395925013,
+          "official_unsafe_candidate_fraction": 0.25,
+          "official_actual90plus_candidate_fraction": 0.4375,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 1.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9849219918251038,
+          "selected_dac_prediction": 0.9735522270202637,
+          "selected_ttc_prediction": 0.8296647667884827
+        },
+        {
+          "token": "14769a8e472350cc",
+          "log_name": "2021.06.28.15.02.02_veh-38_02398_02848",
+          "recording_group": "2021.06.28.15.02.02_veh-38",
+          "command_name": "left_turn",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 1,
+          "vulnerable_actor_count_within30m": 6,
+          "pedestrian_count_within30m": 6,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 1,
+          "nearest_forward_actor_center_distance_capped_m": 19.58190703840623,
+          "ego_speed_m_per_s": 3.7419966845602937,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.06164139436985662,
+          "past_yaw_rate_abs_rad_per_s": 0.15277183530133293,
+          "current_gt_object_count": 75,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1624895314999735,
+          "median_path_length_m": 15.526196215665298,
+          "pairwise_rms_distance_median_m": 1.5322023442813326,
+          "endpoint_lateral_standard_deviation_m": 1.5323876820129247,
+          "endpoint_forward_standard_deviation_m": 2.514670288568346,
+          "endpoint_heading_circular_standard_deviation_deg": 6.011968612670898,
+          "terminal_speed_standard_deviation_m_per_s": 1.3169660169555517,
+          "median_endpoint_heading_abs_deg": 27.967853546142578,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.1651254933807927,
+          "oracle_pdms": 98.83760950090425,
+          "selected_actual_pdms": 58.333333333333336,
+          "selected_predicted_pdms": 98.32480606746513,
+          "selection_regret_pdms_points": 40.504276167570914,
+          "candidate_prediction_mae_pdms_points": 41.672487712452565,
+          "candidate_signed_error_pdms_points": 41.282716800742996,
+          "selected_candidate_index": 34,
+          "oracle_candidate_index": 37,
+          "predicted_top1_top2_margin_pdms_points": 0.21882592889522812,
+          "official_unsafe_candidate_fraction": 0.5,
+          "official_actual90plus_candidate_fraction": 0.015625,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 1.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.998571515083313,
+          "selected_dac_prediction": 0.9999903440475464,
+          "selected_ttc_prediction": 0.964236855506897
+        },
+        {
+          "token": "62d339c4086d51ba",
+          "log_name": "2021.06.28.15.02.02_veh-38_02398_02848",
+          "recording_group": "2021.06.28.15.02.02_veh-38",
+          "command_name": "straight",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 6,
+          "vulnerable_actor_count_within30m": 6,
+          "pedestrian_count_within30m": 6,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 2,
+          "nearest_forward_actor_center_distance_capped_m": 17.777106245176345,
+          "ego_speed_m_per_s": 4.860177494739287,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.6743301672765976,
+          "past_yaw_rate_abs_rad_per_s": 0.005090463766946765,
+          "current_gt_object_count": 124,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1624895078999940,
+          "median_path_length_m": 13.535368410940226,
+          "pairwise_rms_distance_median_m": 1.3515341304835826,
+          "endpoint_lateral_standard_deviation_m": 0.028989746168324254,
+          "endpoint_forward_standard_deviation_m": 2.7957472192936748,
+          "endpoint_heading_circular_standard_deviation_deg": 0.18451762199401855,
+          "terminal_speed_standard_deviation_m_per_s": 1.2892562510653847,
+          "median_endpoint_heading_abs_deg": 0.5145865082740784,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.43528632178319127,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 84.74775715742156,
+          "selected_predicted_pdms": 90.01129026389457,
+          "selection_regret_pdms_points": 15.25224284257844,
+          "candidate_prediction_mae_pdms_points": 26.995627119063165,
+          "candidate_signed_error_pdms_points": -24.205439372459796,
+          "selected_candidate_index": 23,
+          "oracle_candidate_index": 25,
+          "predicted_top1_top2_margin_pdms_points": 0.04690013270833049,
+          "official_unsafe_candidate_fraction": 0.015625,
+          "official_actual90plus_candidate_fraction": 0.484375,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.6339461717781175,
+          "selected_time_to_collision_within_bound": 1.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.99845290184021,
+          "selected_dac_prediction": 0.9999997615814209,
+          "selected_ttc_prediction": 0.9899688363075256
+        },
+        {
+          "token": "94683fc69ce4599c",
+          "log_name": "2021.10.06.08.16.17_veh-52_01949_02501",
+          "recording_group": "2021.10.06.08.16.17_veh-52",
+          "command_name": "right_turn",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 2,
+          "vulnerable_actor_count_within30m": 3,
+          "pedestrian_count_within30m": 3,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 0,
+          "nearest_forward_actor_center_distance_capped_m": 60.0,
+          "ego_speed_m_per_s": 4.131609022384352,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.3806984228893299,
+          "past_yaw_rate_abs_rad_per_s": 0.02341227234439625,
+          "current_gt_object_count": 6,
+          "map_location": "sg-one-north",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1633510212200014,
+          "median_path_length_m": 16.321835533230004,
+          "pairwise_rms_distance_median_m": 1.8828257296599502,
+          "endpoint_lateral_standard_deviation_m": 1.1747326126501167,
+          "endpoint_forward_standard_deviation_m": 3.573914732243884,
+          "endpoint_heading_circular_standard_deviation_deg": 5.4834442138671875,
+          "terminal_speed_standard_deviation_m_per_s": 1.769504310474254,
+          "median_endpoint_heading_abs_deg": 15.511029243469238,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.2667781323988632,
+          "oracle_pdms": 94.81675178582586,
+          "selected_actual_pdms": 82.2055468395447,
+          "selected_predicted_pdms": 81.76691404750926,
+          "selection_regret_pdms_points": 12.611204946281163,
+          "candidate_prediction_mae_pdms_points": 19.059736503675225,
+          "candidate_signed_error_pdms_points": -14.551949366287053,
+          "selected_candidate_index": 26,
+          "oracle_candidate_index": 28,
+          "predicted_top1_top2_margin_pdms_points": 0.2371405183860702,
+          "official_unsafe_candidate_fraction": 0.1875,
+          "official_actual90plus_candidate_fraction": 0.078125,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.5729331241490727,
+          "selected_time_to_collision_within_bound": 1.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9990335702896118,
+          "selected_dac_prediction": 0.9552132487297058,
+          "selected_ttc_prediction": 0.9977407455444336
+        },
+        {
+          "token": "9a15d775514e5018",
+          "log_name": "2021.09.16.15.47.30_veh-45_01199_01391",
+          "recording_group": "2021.09.16.15.47.30_veh-45",
+          "command_name": "right_turn",
+          "candidate_source": "drivor_generated64",
+          "vehicle_count_within30m": 14,
+          "vulnerable_actor_count_within30m": 0,
+          "pedestrian_count_within30m": 0,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 0,
+          "nearest_forward_actor_center_distance_capped_m": 60.0,
+          "ego_speed_m_per_s": 6.022233240667907,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.16716898259313467,
+          "past_yaw_rate_abs_rad_per_s": 0.003268184387097837,
+          "current_gt_object_count": 38,
+          "map_location": "us-pa-pittsburgh-hazelwood",
+          "current_traffic_light_record_count": 6,
+          "current_annotation_timestamp": 1631808550299819,
+          "median_path_length_m": 20.721045020172994,
+          "pairwise_rms_distance_median_m": 1.5532575305357583,
+          "endpoint_lateral_standard_deviation_m": 0.31350734308432787,
+          "endpoint_forward_standard_deviation_m": 2.975520213854192,
+          "endpoint_heading_circular_standard_deviation_deg": 2.638063907623291,
+          "terminal_speed_standard_deviation_m_per_s": 1.2623222136127912,
+          "median_endpoint_heading_abs_deg": 1.1818742752075195,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.5088121196287766,
+          "oracle_pdms": 98.31425280809322,
+          "selected_actual_pdms": 88.12466986625716,
+          "selected_predicted_pdms": 88.6657966810115,
+          "selection_regret_pdms_points": 10.18958294183605,
+          "candidate_prediction_mae_pdms_points": 6.6782930257358215,
+          "candidate_signed_error_pdms_points": 3.497766072690391,
+          "selected_candidate_index": 54,
+          "oracle_candidate_index": 30,
+          "predicted_top1_top2_margin_pdms_points": 0.05557965049565894,
+          "official_unsafe_candidate_fraction": 0.109375,
+          "official_actual90plus_candidate_fraction": 0.09375,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.7149920767901721,
+          "selected_time_to_collision_within_bound": 1.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9978596568107605,
+          "selected_dac_prediction": 0.9974815249443054,
+          "selected_ttc_prediction": 0.9769213795661926
+        }
+      ],
+      "pairwise_boundary_summary": [
+        {
+          "distance_group": "within1m",
+          "pair_count": 32383,
+          "meaningful_pair_count": 5781,
+          "reversed_ranking_pair_count": 570,
+          "actual_gap_over50_pair_count": 3120,
+          "predicted_gap_below5_among_actual_gap_over50_count": 363,
+          "meaningful_pair_ranking_error_fraction": 0.09859885832900882
+        },
+        {
+          "distance_group": "over1m",
+          "pair_count": 96641,
+          "meaningful_pair_count": 55255,
+          "reversed_ranking_pair_count": 12643,
+          "actual_gap_over50_pair_count": 19001,
+          "predicted_gap_below5_among_actual_gap_over50_count": 1897,
+          "meaningful_pair_ranking_error_fraction": 0.22881187222875757
+        }
+      ],
+      "worst_scene_fraction_of_total_regret": 0.24936887309711336,
+      "worst3_fraction_of_total_regret": 0.47016924618126754
+    },
+    "toad_generated64": {
+      "summary": {
+        "scene_count": 64,
+        "recording_count": 38,
+        "mean_oracle_pdms": 99.85110682943349,
+        "mean_selected_pdms": 93.09285027027735,
+        "mean_selection_regret_pdms_points": 6.758256559156122,
+        "mean_prediction_mae_pdms_points": 17.900700840428154,
+        "regret_95ci_recording_bootstrap": [
+          2.8271471823390937,
+          12.034595114577238
+        ],
+        "mae_95ci_recording_bootstrap": [
+          13.783769036245673,
+          21.966034289766384
+        ],
+        "scenes_with_regret_over10": 9,
+        "selected_nc_failure_scene_count": 1,
+        "selected_dac_failure_scene_count": 0,
+        "selected_ttc_failure_scene_count": 6
+      },
+      "associations": [
+        {
+          "predictor": "median_path_length_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.12027863346559402,
+          "recording_bootstrap95ci": [
+            -0.3368532644423149,
+            0.10961918200586838
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.1497104991370687,
+            -0.07940854210112135
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.34378804246950806,
+          "naive_fdr_q_value_not_for_claims": 0.8594701061737702
+        },
+        {
+          "predictor": "median_path_length_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.03287545787545787,
+          "recording_bootstrap95ci": [
+            -0.2796906244187525,
+            0.2086877251431993
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.07070852534562212,
+            0.03125078693560978
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7964919864558363,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "pairwise_rms_distance_median_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.08811395791793004,
+          "recording_bootstrap95ci": [
+            -0.3525579613225104,
+            0.18966072315495036
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.17393216184118201,
+            -0.04534007936957384
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.48870694221622407,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "pairwise_rms_distance_median_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.015567765567765566,
+          "recording_bootstrap95ci": [
+            -0.2822459929168262,
+            0.32413735148069495
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.04565485633703508,
+            0.08921961169449272
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.9028238955072261,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "endpoint_lateral_standard_deviation_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.04042150796794554,
+          "recording_bootstrap95ci": [
+            -0.23365087302422827,
+            0.29462690334192854
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.020358124206077077,
+            0.08514823517970206
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7511462493978863,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "endpoint_lateral_standard_deviation_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.4208333333333333,
+          "recording_bootstrap95ci": [
+            0.1824715999822827,
+            0.6041632594573128
+          ],
+          "leave_one_recording_out_min_max": [
+            0.39573417944650097,
+            0.4950517488856992
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.0005349693462766874,
+          "naive_fdr_q_value_not_for_claims": 0.00802454019415031
+        },
+        {
+          "predictor": "endpoint_heading_circular_standard_deviation_deg",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.13644879857561498,
+          "recording_bootstrap95ci": [
+            -0.13535277958392253,
+            0.37174650844448953
+          ],
+          "leave_one_recording_out_min_max": [
+            0.07525769128272503,
+            0.1720398232955672
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.2823236820954104,
+          "naive_fdr_q_value_not_for_claims": 0.7699736784420285
+        },
+        {
+          "predictor": "endpoint_heading_circular_standard_deviation_deg",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.33393239393664376,
+          "recording_bootstrap95ci": [
+            0.1182878533047562,
+            0.5310169009283529
+          ],
+          "leave_one_recording_out_min_max": [
+            0.2954093324267835,
+            0.38580532123219374
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.00700322379822355,
+          "naive_fdr_q_value_not_for_claims": 0.05252417848667663
+        },
+        {
+          "predictor": "terminal_speed_standard_deviation_m_per_s",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.10201501309715034,
+          "recording_bootstrap95ci": [
+            -0.33951034131681634,
+            0.151791555545923
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.1624550985303735,
+            -0.06757672679530699
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.42247726585221396,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "terminal_speed_standard_deviation_m_per_s",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.06437728937728937,
+          "recording_bootstrap95ci": [
+            -0.24565238901738415,
+            0.397721094048364
+          ],
+          "leave_one_recording_out_min_max": [
+            0.02120571126388154,
+            0.13751857168039083
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.6132831909403204,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "median_endpoint_heading_abs_deg",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.035664586603425114,
+          "recording_bootstrap95ci": [
+            -0.2898098623467706,
+            0.20519879899360363
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.07697883508938798,
+            0.009560958908522163
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7796445056523976,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "median_endpoint_heading_abs_deg",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.39821428571428563,
+          "recording_bootstrap95ci": [
+            0.19255168082822016,
+            0.5656950821811813
+          ],
+          "leave_one_recording_out_min_max": [
+            0.3649391856160761,
+            0.4486666163027876
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.001118676765963514,
+          "naive_fdr_q_value_not_for_claims": 0.01118676765963514
+        },
+        {
+          "predictor": "median_longitudinal_jerk_proxy_m_per_s3",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.015133418227023509,
+          "recording_bootstrap95ci": [
+            -0.31846131019746304,
+            0.3040874263342576
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.0879634923749827,
+            0.06097135360032103
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.9055225747862704,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "median_longitudinal_jerk_proxy_m_per_s3",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.01575091575091575,
+          "recording_bootstrap95ci": [
+            -0.2922153962700105,
+            0.29712125185840066
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.07990229407468964,
+            0.055420412480169205
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.9016862764483105,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "ego_speed_m_per_s",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.036182179083502464,
+          "recording_bootstrap95ci": [
+            -0.19257712146001219,
+            0.24338436087690077
+          ],
+          "leave_one_recording_out_min_max": [
+            0.00029706892719083306,
+            0.08937852966633696
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.7765288600496055,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "ego_speed_m_per_s",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.07083333333333332,
+          "recording_bootstrap95ci": [
+            -0.3056314361021576,
+            0.1532687663466969
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.10887096774193548,
+            -0.03167636171337916
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.5780758343711886,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "ego_longitudinal_acceleration_abs_m_per_s2",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.07648045074666768,
+          "recording_bootstrap95ci": [
+            -0.1709479751056871,
+            0.3076860221531516
+          ],
+          "leave_one_recording_out_min_max": [
+            0.03760966311886022,
+            0.13108983948010888
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.5480628250523468,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "ego_longitudinal_acceleration_abs_m_per_s2",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.1374084249084249,
+          "recording_bootstrap95ci": [
+            -0.13985027421916763,
+            0.415667871170755
+          ],
+          "leave_one_recording_out_min_max": [
+            0.09541539316476802,
+            0.19855959305985746
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.278920505174206,
+          "naive_fdr_q_value_not_for_claims": 0.7699736784420285
+        },
+        {
+          "predictor": "past_yaw_rate_abs_rad_per_s",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.06161815239016088,
+          "recording_bootstrap95ci": [
+            -0.31608118999292706,
+            0.18339126784674992
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.11460239020514913,
+            -0.029619113057855008
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.6286060954745343,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "past_yaw_rate_abs_rad_per_s",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.2772435897435897,
+          "recording_bootstrap95ci": [
+            -0.006116149262709764,
+            0.49160919166528605
+          ],
+          "leave_one_recording_out_min_max": [
+            0.2355098638510698,
+            0.33101659489813906
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.02656104010580349,
+          "naive_fdr_q_value_not_for_claims": 0.1593662406348209
+        },
+        {
+          "predictor": "vehicle_count_within30m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.17343140976824065,
+          "recording_bootstrap95ci": [
+            -0.0158294676778295,
+            0.34353973986227415
+          ],
+          "leave_one_recording_out_min_max": [
+            0.14304887992635396,
+            0.2042313040858612
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.17052560955117688,
+          "naive_fdr_q_value_not_for_claims": 0.7308240409336152
+        },
+        {
+          "predictor": "vehicle_count_within30m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.0343312786420824,
+          "recording_bootstrap95ci": [
+            -0.2384188762339306,
+            0.20041095207225376
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.07874182948649544,
+            0.012859654768568485
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.78768615725709,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "vulnerable_actor_count_within30m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.03189675924806896,
+          "recording_bootstrap95ci": [
+            -0.25335764129574484,
+            0.2765842716538855
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.04789819448015662,
+            0.06519741992385861
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.8024261594257536,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "vulnerable_actor_count_within30m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.014711262391124478,
+          "recording_bootstrap95ci": [
+            -0.24343879801027712,
+            0.19807302243806044
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.07467329173629873,
+            0.03312573423754205
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.9081465266646597,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "forward_actor_count_within30m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.15675828899824423,
+          "recording_bootstrap95ci": [
+            -0.09225402235583895,
+            0.38799452278543145
+          ],
+          "leave_one_recording_out_min_max": [
+            0.09580186735142748,
+            0.19883690405706708
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.2160818675892362,
+          "naive_fdr_q_value_not_for_claims": 0.7699736784420285
+        },
+        {
+          "predictor": "forward_actor_count_within30m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": -0.02400451280966598,
+          "recording_bootstrap95ci": [
+            -0.26771833282629215,
+            0.22649475832019056
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.06708119556717433,
+            0.04619370612521829
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.8506584875282417,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "nearest_forward_actor_center_distance_capped_m",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": -0.2367412288406488,
+          "recording_bootstrap95ci": [
+            -0.4497249385929888,
+            0.0073201569086262
+          ],
+          "leave_one_recording_out_min_max": [
+            -0.2738662092400699,
+            -0.19059533324290476
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.05963632171978621,
+          "naive_fdr_q_value_not_for_claims": 0.29818160859893106
+        },
+        {
+          "predictor": "nearest_forward_actor_center_distance_capped_m",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.0654860991520634,
+          "recording_bootstrap95ci": [
+            -0.20180742443937416,
+            0.3292499289960398
+          ],
+          "leave_one_recording_out_min_max": [
+            0.003976920349109741,
+            0.12969469849037493
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.6071710478809391,
+          "naive_fdr_q_value_not_for_claims": 0.9081465266646597
+        },
+        {
+          "predictor": "predicted_top1_top2_margin_pdms_points",
+          "outcome": "selection_regret_pdms_points",
+          "spearman": 0.14578854855512063,
+          "recording_bootstrap95ci": [
+            -0.1062257278084081,
+            0.3988840017859547
+          ],
+          "leave_one_recording_out_min_max": [
+            0.11016762763659343,
+            0.21606937999657913
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.2503600248520422,
+          "naive_fdr_q_value_not_for_claims": 0.7699736784420285
+        },
+        {
+          "predictor": "predicted_top1_top2_margin_pdms_points",
+          "outcome": "candidate_prediction_mae_pdms_points",
+          "spearman": 0.4281593406593406,
+          "recording_bootstrap95ci": [
+            0.1701171605283341,
+            0.6363326917773405
+          ],
+          "leave_one_recording_out_min_max": [
+            0.3975976429704616,
+            0.5133338369721236
+          ],
+          "naive_scene_independent_p_value_not_for_claims": 0.0004165644754745307,
+          "naive_fdr_q_value_not_for_claims": 0.00802454019415031
+        }
+      ],
+      "strata": [
+        {
+          "feature": "command_name",
+          "stratum": "left_turn",
+          "scene_count": 21,
+          "recording_count": 17,
+          "mean_oracle_pdms": 99.70772827102532,
+          "mean_selected_pdms": 86.48614732235674,
+          "mean_selection_regret_pdms_points": 13.221580948668583,
+          "mean_prediction_mae_pdms_points": 23.147140309431197,
+          "regret_95ci_recording_bootstrap": [
+            2.7200167314437427,
+            27.27761035884741
+          ],
+          "mae_95ci_recording_bootstrap": [
+            14.118157197359757,
+            33.876617222460126
+          ],
+          "scenes_with_regret_over10": 5,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 5
+        },
+        {
+          "feature": "command_name",
+          "stratum": "right_turn",
+          "scene_count": 21,
+          "recording_count": 19,
+          "mean_oracle_pdms": 99.83850206629577,
+          "mean_selected_pdms": 94.76389333319699,
+          "mean_selection_regret_pdms_points": 5.07460873309878,
+          "mean_prediction_mae_pdms_points": 20.322775310595823,
+          "regret_95ci_recording_bootstrap": [
+            1.84926888510202,
+            9.389101453214652
+          ],
+          "mae_95ci_recording_bootstrap": [
+            14.37700647795018,
+            25.792458829736596
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "command_name",
+          "stratum": "straight",
+          "scene_count": 22,
+          "recording_count": 19,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 97.8041619786874,
+          "mean_selection_regret_pdms_points": 2.195838021312599,
+          "mean_prediction_mae_pdms_points": 10.580755716674298,
+          "regret_95ci_recording_bootstrap": [
+            1.0219509141746372,
+            3.8688128924435494
+          ],
+          "mae_95ci_recording_bootstrap": [
+            6.858561161465906,
+            15.143316847221563
+          ],
+          "scenes_with_regret_over10": 1,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 0
+        },
+        {
+          "feature": "pairwise_rms_distance_median_m",
+          "stratum": "[0.0, 2.0)",
+          "scene_count": 29,
+          "recording_count": 20,
+          "mean_oracle_pdms": 99.88305322042109,
+          "mean_selected_pdms": 94.46419799934641,
+          "mean_selection_regret_pdms_points": 5.418855221074659,
+          "mean_prediction_mae_pdms_points": 17.169294642276814,
+          "regret_95ci_recording_bootstrap": [
+            1.8319076424636602,
+            9.792562034005202
+          ],
+          "mae_95ci_recording_bootstrap": [
+            12.117588776989896,
+            22.680897540707395
+          ],
+          "scenes_with_regret_over10": 5,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 2
+        },
+        {
+          "feature": "pairwise_rms_distance_median_m",
+          "stratum": "[2.0, 5.0)",
+          "scene_count": 35,
+          "recording_count": 28,
+          "mean_oracle_pdms": 99.82463696261519,
+          "mean_selected_pdms": 91.95659072333444,
+          "mean_selection_regret_pdms_points": 7.868046239280763,
+          "mean_prediction_mae_pdms_points": 18.50672311889641,
+          "regret_95ci_recording_bootstrap": [
+            1.7216955468211748,
+            16.668806353504273
+          ],
+          "mae_95ci_recording_bootstrap": [
+            12.276681950212085,
+            25.470746322280473
+          ],
+          "scenes_with_regret_over10": 4,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 4
+        },
+        {
+          "feature": "median_endpoint_heading_abs_deg",
+          "stratum": "[0.0, 10.0)",
+          "scene_count": 25,
+          "recording_count": 21,
+          "mean_oracle_pdms": 99.7038334782176,
+          "mean_selected_pdms": 93.50722127222193,
+          "mean_selection_regret_pdms_points": 6.196612205995673,
+          "mean_prediction_mae_pdms_points": 11.270481980550457,
+          "regret_95ci_recording_bootstrap": [
+            1.4401794770285963,
+            14.897538517995443
+          ],
+          "mae_95ci_recording_bootstrap": [
+            6.927792734906917,
+            17.04176245865765
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "median_endpoint_heading_abs_deg",
+          "stratum": "[10.0, 30.0)",
+          "scene_count": 16,
+          "recording_count": 11,
+          "mean_oracle_pdms": 99.86718750801894,
+          "mean_selected_pdms": 93.01485354006101,
+          "mean_selection_regret_pdms_points": 6.852333967957941,
+          "mean_prediction_mae_pdms_points": 21.917734376247523,
+          "regret_95ci_recording_bootstrap": [
+            1.224445479098056,
+            15.677749538577313
+          ],
+          "mae_95ci_recording_bootstrap": [
+            14.652193975605757,
+            30.245437771826687
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 2
+        },
+        {
+          "feature": "median_endpoint_heading_abs_deg",
+          "stratum": "[30.0, 180.0001)",
+          "scene_count": 23,
+          "recording_count": 19,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 92.6967056022273,
+          "mean_selection_regret_pdms_points": 7.303294397772737,
+          "mean_prediction_mae_pdms_points": 22.31300235885566,
+          "regret_95ci_recording_bootstrap": [
+            2.040177059890521,
+            14.330254852558566
+          ],
+          "mae_95ci_recording_bootstrap": [
+            16.56081794960497,
+            29.340494683219372
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 3
+        },
+        {
+          "feature": "ego_speed_m_per_s",
+          "stratum": "[0.0, 2.0)",
+          "scene_count": 16,
+          "recording_count": 15,
+          "mean_oracle_pdms": 99.61639335572073,
+          "mean_selected_pdms": 92.50707573128645,
+          "mean_selection_regret_pdms_points": 7.109317624434285,
+          "mean_prediction_mae_pdms_points": 14.73414277502576,
+          "regret_95ci_recording_bootstrap": [
+            0.5124173182889753,
+            19.79808799715396
+          ],
+          "mae_95ci_recording_bootstrap": [
+            8.382429031586,
+            22.661196513231403
+          ],
+          "scenes_with_regret_over10": 1,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "ego_speed_m_per_s",
+          "stratum": "[2.0, 6.0)",
+          "scene_count": 25,
+          "recording_count": 19,
+          "mean_oracle_pdms": 99.91500000513213,
+          "mean_selected_pdms": 90.26834821681449,
+          "mean_selection_regret_pdms_points": 9.646651788317644,
+          "mean_prediction_mae_pdms_points": 22.934870743763735,
+          "regret_95ci_recording_bootstrap": [
+            4.072669673783775,
+            16.397724693889828
+          ],
+          "mae_95ci_recording_bootstrap": [
+            17.284205172871474,
+            29.003005569959253
+          ],
+          "scenes_with_regret_over10": 6,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 4
+        },
+        {
+          "feature": "ego_speed_m_per_s",
+          "stratum": "[6.0, 1000000.0)",
+          "scene_count": 23,
+          "recording_count": 20,
+          "mean_oracle_pdms": 99.94493666364819,
+          "mean_selected_pdms": 96.57045652942635,
+          "mean_selection_regret_pdms_points": 3.374480134221833,
+          "mean_prediction_mae_pdms_points": 14.631600034473756,
+          "regret_95ci_recording_bootstrap": [
+            0.7992682387153521,
+            7.7006815824338455
+          ],
+          "mae_95ci_recording_bootstrap": [
+            9.151997084942254,
+            21.62249160040095
+          ],
+          "scenes_with_regret_over10": 2,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "vehicle_count_within30m",
+          "stratum": "[0, 1)",
+          "scene_count": 7,
+          "recording_count": 5,
+          "mean_oracle_pdms": 100.0,
+          "mean_selected_pdms": 99.78184957913429,
+          "mean_selection_regret_pdms_points": 0.2181504208656995,
+          "mean_prediction_mae_pdms_points": 17.158739433827815,
+          "regret_95ci_recording_bootstrap": [
+            0.0,
+            0.41753365929292274
+          ],
+          "mae_95ci_recording_bootstrap": [
+            9.751354382143024,
+            26.824709704918007
+          ],
+          "scenes_with_regret_over10": 0,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 0
+        },
+        {
+          "feature": "vehicle_count_within30m",
+          "stratum": "[1, 3)",
+          "scene_count": 14,
+          "recording_count": 9,
+          "mean_oracle_pdms": 99.84821429487879,
+          "mean_selected_pdms": 95.25698305272014,
+          "mean_selection_regret_pdms_points": 4.5912312421586705,
+          "mean_prediction_mae_pdms_points": 20.542502315105374,
+          "regret_95ci_recording_bootstrap": [
+            0.5829995443613214,
+            9.97853572716189
+          ],
+          "mae_95ci_recording_bootstrap": [
+            13.089932460186674,
+            28.82538596464491
+          ],
+          "scenes_with_regret_over10": 2,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 1
+        },
+        {
+          "feature": "vehicle_count_within30m",
+          "stratum": "[3, 1000000)",
+          "scene_count": 43,
+          "recording_count": 32,
+          "mean_oracle_pdms": 99.82781016175441,
+          "mean_selected_pdms": 91.29934203501698,
+          "mean_selection_regret_pdms_points": 8.528468126737453,
+          "mean_prediction_mae_pdms_points": 17.16136384509609,
+          "regret_95ci_recording_bootstrap": [
+            3.391878834755514,
+            15.731969192430821
+          ],
+          "mae_95ci_recording_bootstrap": [
+            12.383479010272184,
+            22.65145863803636
+          ],
+          "scenes_with_regret_over10": 7,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 5
+        },
+        {
+          "feature": "vulnerable_actor_present_within30m",
+          "stratum": "False",
+          "scene_count": 29,
+          "recording_count": 23,
+          "mean_oracle_pdms": 99.74468403294621,
+          "mean_selected_pdms": 92.70781971659417,
+          "mean_selection_regret_pdms_points": 7.036864316352023,
+          "mean_prediction_mae_pdms_points": 19.485437151583717,
+          "regret_95ci_recording_bootstrap": [
+            1.93082651000235,
+            15.467707164074817
+          ],
+          "mae_95ci_recording_bootstrap": [
+            14.578862058761224,
+            25.318041021590787
+          ],
+          "scenes_with_regret_over10": 3,
+          "selected_nc_failure_scene_count": 1,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 2
+        },
+        {
+          "feature": "vulnerable_actor_present_within30m",
+          "stratum": "True",
+          "scene_count": 35,
+          "recording_count": 28,
+          "mean_oracle_pdms": 99.93928571795152,
+          "mean_selected_pdms": 93.41187558618628,
+          "mean_selection_regret_pdms_points": 6.527410131765232,
+          "mean_prediction_mae_pdms_points": 16.587633611184977,
+          "regret_95ci_recording_bootstrap": [
+            2.387455677363862,
+            11.37475086701071
+          ],
+          "mae_95ci_recording_bootstrap": [
+            11.572707811828746,
+            21.97021198308677
+          ],
+          "scenes_with_regret_over10": 6,
+          "selected_nc_failure_scene_count": 0,
+          "selected_dac_failure_scene_count": 0,
+          "selected_ttc_failure_scene_count": 4
+        }
+      ],
+      "worst_scenes": [
+        {
+          "token": "075154c90a0a5d7c",
+          "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+          "recording_group": "2021.06.28.18.03.27_veh-14",
+          "command_name": "left_turn",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 8,
+          "vulnerable_actor_count_within30m": 0,
+          "pedestrian_count_within30m": 0,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 1,
+          "nearest_forward_actor_center_distance_capped_m": 10.660920189556942,
+          "ego_speed_m_per_s": 0.31011047567806194,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.6456606550377397,
+          "past_yaw_rate_abs_rad_per_s": 0.001057609471111718,
+          "current_gt_object_count": 71,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1624904879700224,
+          "median_path_length_m": 12.179101446343426,
+          "pairwise_rms_distance_median_m": 2.2911358857901942,
+          "endpoint_lateral_standard_deviation_m": 1.811690085206003,
+          "endpoint_forward_standard_deviation_m": 3.972387795819491,
+          "endpoint_heading_circular_standard_deviation_deg": 15.142074584960938,
+          "terminal_speed_standard_deviation_m_per_s": 2.023246242288419,
+          "median_endpoint_heading_abs_deg": 3.334014415740967,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.5470360728514199,
+          "oracle_pdms": 93.86229369153179,
+          "selected_actual_pdms": 0.0,
+          "selected_predicted_pdms": 98.37669792106328,
+          "selection_regret_pdms_points": 93.86229369153179,
+          "candidate_prediction_mae_pdms_points": 62.02501335881714,
+          "candidate_signed_error_pdms_points": 58.612216311482115,
+          "selected_candidate_index": 49,
+          "oracle_candidate_index": 43,
+          "predicted_top1_top2_margin_pdms_points": 0.009287675234816106,
+          "official_unsafe_candidate_fraction": 0.765625,
+          "official_actual90plus_candidate_fraction": 0.015625,
+          "selected_no_at_fault_collisions": 0.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9968487620353699,
+          "selected_dac_prediction": 0.9999220371246338,
+          "selected_ttc_prediction": 0.9939424395561218
+        },
+        {
+          "token": "e61adc75d7da50c3",
+          "log_name": "2021.09.16.15.12.03_veh-42_01037_01434",
+          "recording_group": "2021.09.16.15.12.03_veh-42",
+          "command_name": "left_turn",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 8,
+          "vulnerable_actor_count_within30m": 0,
+          "pedestrian_count_within30m": 0,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 0,
+          "nearest_forward_actor_center_distance_capped_m": 60.0,
+          "ego_speed_m_per_s": 5.203468977822807,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.361959707015508,
+          "past_yaw_rate_abs_rad_per_s": 0.4384413851730979,
+          "current_gt_object_count": 27,
+          "map_location": "us-pa-pittsburgh-hazelwood",
+          "current_traffic_light_record_count": 6,
+          "current_annotation_timestamp": 1631806553500458,
+          "median_path_length_m": 25.26925025416827,
+          "pairwise_rms_distance_median_m": 2.485303569224162,
+          "endpoint_lateral_standard_deviation_m": 2.888723679956729,
+          "endpoint_forward_standard_deviation_m": 3.8899443646596907,
+          "endpoint_heading_circular_standard_deviation_deg": 1.1138527393341064,
+          "terminal_speed_standard_deviation_m_per_s": 2.4406948699893656,
+          "median_endpoint_heading_abs_deg": 36.318458557128906,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.3289783860104183,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 51.91942184984053,
+          "selected_predicted_pdms": 83.96176100081476,
+          "selection_regret_pdms_points": 48.08057815015947,
+          "candidate_prediction_mae_pdms_points": 54.99776738374088,
+          "candidate_signed_error_pdms_points": -50.459046081296705,
+          "selected_candidate_index": 36,
+          "oracle_candidate_index": 0,
+          "predicted_top1_top2_margin_pdms_points": 1.2180838561760936,
+          "official_unsafe_candidate_fraction": 0.0,
+          "official_actual90plus_candidate_fraction": 0.875,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.8460661243961728,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9780116081237793,
+          "selected_dac_prediction": 0.9803865551948547,
+          "selected_ttc_prediction": 0.9029948115348816
+        },
+        {
+          "token": "625a015c1f7c5170",
+          "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+          "recording_group": "2021.06.28.18.03.27_veh-14",
+          "command_name": "left_turn",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 9,
+          "vulnerable_actor_count_within30m": 10,
+          "pedestrian_count_within30m": 10,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 1,
+          "nearest_forward_actor_center_distance_capped_m": 19.37656878311985,
+          "ego_speed_m_per_s": 9.770242822042633,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.6139386676910447,
+          "past_yaw_rate_abs_rad_per_s": 0.05753033023770905,
+          "current_gt_object_count": 215,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 18,
+          "current_annotation_timestamp": 1624904147700005,
+          "median_path_length_m": 43.88475878090137,
+          "pairwise_rms_distance_median_m": 3.553541027567001,
+          "endpoint_lateral_standard_deviation_m": 4.8690410610070085,
+          "endpoint_forward_standard_deviation_m": 3.2454972995009967,
+          "endpoint_heading_circular_standard_deviation_deg": 9.4083251953125,
+          "terminal_speed_standard_deviation_m_per_s": 2.575040555871605,
+          "median_endpoint_heading_abs_deg": 66.97738647460938,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.8913277303838424,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 58.333333333333336,
+          "selected_predicted_pdms": 98.37538445920966,
+          "selection_regret_pdms_points": 41.666666666666664,
+          "candidate_prediction_mae_pdms_points": 48.73536866409188,
+          "candidate_signed_error_pdms_points": 44.02299456682651,
+          "selected_candidate_index": 47,
+          "oracle_candidate_index": 4,
+          "predicted_top1_top2_margin_pdms_points": 0.02232616861985548,
+          "official_unsafe_candidate_fraction": 0.453125,
+          "official_actual90plus_candidate_fraction": 0.1875,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 1.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9967944025993347,
+          "selected_dac_prediction": 0.9999111890792847,
+          "selected_ttc_prediction": 0.9835377335548401
+        },
+        {
+          "token": "14769a8e472350cc",
+          "log_name": "2021.06.28.15.02.02_veh-38_02398_02848",
+          "recording_group": "2021.06.28.15.02.02_veh-38",
+          "command_name": "left_turn",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 1,
+          "vulnerable_actor_count_within30m": 6,
+          "pedestrian_count_within30m": 6,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 1,
+          "nearest_forward_actor_center_distance_capped_m": 19.58190703840623,
+          "ego_speed_m_per_s": 3.7419966845602937,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.06164139436985662,
+          "past_yaw_rate_abs_rad_per_s": 0.15277183530133293,
+          "current_gt_object_count": 75,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1624895314999735,
+          "median_path_length_m": 14.921406967486856,
+          "pairwise_rms_distance_median_m": 1.6627968532819555,
+          "endpoint_lateral_standard_deviation_m": 1.8475874546863076,
+          "endpoint_forward_standard_deviation_m": 2.661449021996261,
+          "endpoint_heading_circular_standard_deviation_deg": 7.073979377746582,
+          "terminal_speed_standard_deviation_m_per_s": 1.5344973617570314,
+          "median_endpoint_heading_abs_deg": 27.644742965698242,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.18390990827312406,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 58.333333333333336,
+          "selected_predicted_pdms": 99.55000147935463,
+          "selection_regret_pdms_points": 41.666666666666664,
+          "candidate_prediction_mae_pdms_points": 37.263601767857466,
+          "candidate_signed_error_pdms_points": 36.18856234553914,
+          "selected_candidate_index": 27,
+          "oracle_candidate_index": 3,
+          "predicted_top1_top2_margin_pdms_points": 0.18860587814205587,
+          "official_unsafe_candidate_fraction": 0.3125,
+          "official_actual90plus_candidate_fraction": 0.0625,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 1.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9990463852882385,
+          "selected_dac_prediction": 0.999994158744812,
+          "selected_ttc_prediction": 0.9922131896018982
+        },
+        {
+          "token": "f3f9f7a6f8f15f49",
+          "log_name": "2021.06.28.16.29.11_veh-38_03263_03766",
+          "recording_group": "2021.06.28.16.29.11_veh-38",
+          "command_name": "left_turn",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 6,
+          "vulnerable_actor_count_within30m": 7,
+          "pedestrian_count_within30m": 7,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 1,
+          "nearest_forward_actor_center_distance_capped_m": 11.346115454180485,
+          "ego_speed_m_per_s": 3.7595226309012246,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.12665072841569253,
+          "past_yaw_rate_abs_rad_per_s": 0.09041007446608876,
+          "current_gt_object_count": 81,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1624901537800287,
+          "median_path_length_m": 15.463337264477406,
+          "pairwise_rms_distance_median_m": 1.5321976757711284,
+          "endpoint_lateral_standard_deviation_m": 1.4866581812395663,
+          "endpoint_forward_standard_deviation_m": 2.726772896941337,
+          "endpoint_heading_circular_standard_deviation_deg": 6.306041240692139,
+          "terminal_speed_standard_deviation_m_per_s": 1.4040388985452437,
+          "median_endpoint_heading_abs_deg": 27.067424774169922,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.13672456531618454,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 58.333333333333336,
+          "selected_predicted_pdms": 99.92585784327117,
+          "selection_regret_pdms_points": 41.666666666666664,
+          "candidate_prediction_mae_pdms_points": 58.08726663832737,
+          "candidate_signed_error_pdms_points": 56.38020540619911,
+          "selected_candidate_index": 37,
+          "oracle_candidate_index": 1,
+          "predicted_top1_top2_margin_pdms_points": 0.002358566087991676,
+          "official_unsafe_candidate_fraction": 0.546875,
+          "official_actual90plus_candidate_fraction": 0.296875,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 1.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9998387098312378,
+          "selected_dac_prediction": 0.9999876022338867,
+          "selected_ttc_prediction": 0.9992671608924866
+        },
+        {
+          "token": "f23073987e7956e3",
+          "log_name": "2021.09.29.19.02.14_veh-28_00964_01689",
+          "recording_group": "2021.09.29.19.02.14_veh-28",
+          "command_name": "right_turn",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 9,
+          "vulnerable_actor_count_within30m": 6,
+          "pedestrian_count_within30m": 5,
+          "bicycle_count_within30m": 1,
+          "forward_actor_count_within30m": 2,
+          "nearest_forward_actor_center_distance_capped_m": 11.227094168377,
+          "ego_speed_m_per_s": 3.213133509625629,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 1.3717290049952138,
+          "past_yaw_rate_abs_rad_per_s": 0.002815431623302656,
+          "current_gt_object_count": 43,
+          "map_location": "us-ma-boston",
+          "current_traffic_light_record_count": 6,
+          "current_annotation_timestamp": 1632943672299804,
+          "median_path_length_m": 23.16871916231178,
+          "pairwise_rms_distance_median_m": 2.744387183042016,
+          "endpoint_lateral_standard_deviation_m": 2.471281342037852,
+          "endpoint_forward_standard_deviation_m": 4.621418598746203,
+          "endpoint_heading_circular_standard_deviation_deg": 14.631019592285156,
+          "terminal_speed_standard_deviation_m_per_s": 2.4490845923574054,
+          "median_endpoint_heading_abs_deg": 35.52899169921875,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.6003954929168558,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 58.333333333333336,
+          "selected_predicted_pdms": 84.7617659590339,
+          "selection_regret_pdms_points": 41.666666666666664,
+          "candidate_prediction_mae_pdms_points": 33.167189941604505,
+          "candidate_signed_error_pdms_points": -8.208000138573713,
+          "selected_candidate_index": 53,
+          "oracle_candidate_index": 0,
+          "predicted_top1_top2_margin_pdms_points": 0.5648445815472058,
+          "official_unsafe_candidate_fraction": 0.15625,
+          "official_actual90plus_candidate_fraction": 0.5,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 1.0,
+          "selected_time_to_collision_within_bound": 0.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9785874485969543,
+          "selected_dac_prediction": 0.9803918600082397,
+          "selected_ttc_prediction": 0.829149067401886
+        },
+        {
+          "token": "94683fc69ce4599c",
+          "log_name": "2021.10.06.08.16.17_veh-52_01949_02501",
+          "recording_group": "2021.10.06.08.16.17_veh-52",
+          "command_name": "right_turn",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 2,
+          "vulnerable_actor_count_within30m": 3,
+          "pedestrian_count_within30m": 3,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 0,
+          "nearest_forward_actor_center_distance_capped_m": 60.0,
+          "ego_speed_m_per_s": 4.131609022384352,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.3806984228893299,
+          "past_yaw_rate_abs_rad_per_s": 0.02341227234439625,
+          "current_gt_object_count": 6,
+          "map_location": "sg-one-north",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1633510212200014,
+          "median_path_length_m": 17.239571910768102,
+          "pairwise_rms_distance_median_m": 1.799734579794858,
+          "endpoint_lateral_standard_deviation_m": 1.2586734420507049,
+          "endpoint_forward_standard_deviation_m": 3.2055881089186773,
+          "endpoint_heading_circular_standard_deviation_deg": 5.532339572906494,
+          "terminal_speed_standard_deviation_m_per_s": 1.6173746151923036,
+          "median_endpoint_heading_abs_deg": 17.003515243530273,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.13011295600459988,
+          "oracle_pdms": 97.87500012830313,
+          "selected_actual_pdms": 82.68457150024568,
+          "selected_predicted_pdms": 81.8337888828935,
+          "selection_regret_pdms_points": 15.190428628057447,
+          "candidate_prediction_mae_pdms_points": 24.696064636053563,
+          "candidate_signed_error_pdms_points": -18.10769806209273,
+          "selected_candidate_index": 41,
+          "oracle_candidate_index": 57,
+          "predicted_top1_top2_margin_pdms_points": 0.8867795595554071,
+          "official_unsafe_candidate_fraction": 0.21875,
+          "official_actual90plus_candidate_fraction": 0.140625,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.5844297160058962,
+          "selected_time_to_collision_within_bound": 1.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9993391633033752,
+          "selected_dac_prediction": 0.9587415456771851,
+          "selected_ttc_prediction": 0.9984533786773682
+        },
+        {
+          "token": "62d339c4086d51ba",
+          "log_name": "2021.06.28.15.02.02_veh-38_02398_02848",
+          "recording_group": "2021.06.28.15.02.02_veh-38",
+          "command_name": "straight",
+          "candidate_source": "toad_generated64",
+          "vehicle_count_within30m": 6,
+          "vulnerable_actor_count_within30m": 6,
+          "pedestrian_count_within30m": 6,
+          "bicycle_count_within30m": 0,
+          "forward_actor_count_within30m": 2,
+          "nearest_forward_actor_center_distance_capped_m": 17.777106245176345,
+          "ego_speed_m_per_s": 4.860177494739287,
+          "ego_longitudinal_acceleration_abs_m_per_s2": 0.6743301672765976,
+          "past_yaw_rate_abs_rad_per_s": 0.005090463766946765,
+          "current_gt_object_count": 124,
+          "map_location": "us-nv-las-vegas-strip",
+          "current_traffic_light_record_count": 0,
+          "current_annotation_timestamp": 1624895078999940,
+          "median_path_length_m": 13.054380988428118,
+          "pairwise_rms_distance_median_m": 1.6200943207576337,
+          "endpoint_lateral_standard_deviation_m": 0.050183040350393227,
+          "endpoint_forward_standard_deviation_m": 3.4370364326449527,
+          "endpoint_heading_circular_standard_deviation_deg": 0.18662646412849426,
+          "terminal_speed_standard_deviation_m_per_s": 1.6355130874473045,
+          "median_endpoint_heading_abs_deg": 0.12822121381759644,
+          "median_longitudinal_jerk_proxy_m_per_s3": 0.3981881252329862,
+          "oracle_pdms": 100.0,
+          "selected_actual_pdms": 84.86179020692126,
+          "selected_predicted_pdms": 90.22604237619288,
+          "selection_regret_pdms_points": 15.138209793078744,
+          "candidate_prediction_mae_pdms_points": 26.980402930746564,
+          "candidate_signed_error_pdms_points": -22.992746045183992,
+          "selected_candidate_index": 37,
+          "oracle_candidate_index": 6,
+          "predicted_top1_top2_margin_pdms_points": 0.1896185178011507,
+          "official_unsafe_candidate_fraction": 0.03125,
+          "official_actual90plus_candidate_fraction": 0.390625,
+          "selected_no_at_fault_collisions": 1.0,
+          "selected_drivable_area_compliance": 1.0,
+          "selected_ego_progress": 0.6366829649661099,
+          "selected_time_to_collision_within_bound": 1.0,
+          "selected_comfort": 1.0,
+          "selected_nc_prediction": 0.9981122016906738,
+          "selected_dac_prediction": 0.9999997615814209,
+          "selected_ttc_prediction": 0.9901078939437866
+        }
+      ],
+      "pairwise_boundary_summary": [
+        {
+          "distance_group": "within1m",
+          "pair_count": 32789,
+          "meaningful_pair_count": 6180,
+          "reversed_ranking_pair_count": 756,
+          "actual_gap_over50_pair_count": 3030,
+          "predicted_gap_below5_among_actual_gap_over50_count": 441,
+          "meaningful_pair_ranking_error_fraction": 0.12233009708737864
+        },
+        {
+          "distance_group": "over1m",
+          "pair_count": 96235,
+          "meaningful_pair_count": 56123,
+          "reversed_ranking_pair_count": 13505,
+          "actual_gap_over50_pair_count": 19140,
+          "predicted_gap_below5_among_actual_gap_over50_count": 2165,
+          "meaningful_pair_ranking_error_fraction": 0.2406321828840226
+        }
+      ],
+      "worst_scene_fraction_of_total_regret": 0.21700838464666292,
+      "worst3_fraction_of_total_regret": 0.4245028305867277
+    }
+  },
+  "examples": [
+    {
+      "failed": {
+        "token": "075154c90a0a5d7c",
+        "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+        "recording_group": "2021.06.28.18.03.27_veh-14",
+        "command_name": "left_turn",
+        "candidate_source": "drivor_generated64",
+        "vehicle_count_within30m": 8,
+        "vulnerable_actor_count_within30m": 0,
+        "pedestrian_count_within30m": 0,
+        "bicycle_count_within30m": 0,
+        "forward_actor_count_within30m": 1,
+        "nearest_forward_actor_center_distance_capped_m": 10.660920189556942,
+        "ego_speed_m_per_s": 0.31011047567806194,
+        "ego_longitudinal_acceleration_abs_m_per_s2": 0.6456606550377397,
+        "past_yaw_rate_abs_rad_per_s": 0.001057609471111718,
+        "current_gt_object_count": 71,
+        "map_location": "us-nv-las-vegas-strip",
+        "current_traffic_light_record_count": 0,
+        "current_annotation_timestamp": 1624904879700224,
+        "median_path_length_m": 12.797348394895131,
+        "pairwise_rms_distance_median_m": 2.217599294586992,
+        "endpoint_lateral_standard_deviation_m": 0.32215206103331473,
+        "endpoint_forward_standard_deviation_m": 4.521432294287576,
+        "endpoint_heading_circular_standard_deviation_deg": 2.406668186187744,
+        "terminal_speed_standard_deviation_m_per_s": 2.372655593571219,
+        "median_endpoint_heading_abs_deg": 1.465065598487854,
+        "median_longitudinal_jerk_proxy_m_per_s3": 0.5301418726461147,
+        "oracle_pdms": 100.0,
+        "selected_actual_pdms": 0.0,
+        "selected_predicted_pdms": 98.88187071798593,
+        "selection_regret_pdms_points": 100.0,
+        "candidate_prediction_mae_pdms_points": 68.82625591939842,
+        "candidate_signed_error_pdms_points": 66.43581533533155,
+        "selected_candidate_index": 53,
+        "oracle_candidate_index": 4,
+        "predicted_top1_top2_margin_pdms_points": 0.0061529553623955735,
+        "official_unsafe_candidate_fraction": 0.875,
+        "official_actual90plus_candidate_fraction": 0.03125,
+        "selected_no_at_fault_collisions": 0.0,
+        "selected_drivable_area_compliance": 1.0,
+        "selected_ego_progress": 0.0,
+        "selected_time_to_collision_within_bound": 0.0,
+        "selected_comfort": 1.0,
+        "selected_nc_prediction": 0.9968920350074768,
+        "selected_dac_prediction": 0.9998874664306641,
+        "selected_ttc_prediction": 0.9906442165374756
+      },
+      "comparison": {
+        "token": "4e19d097005e55b5",
+        "log_name": "2021.10.06.08.16.17_veh-52_01949_02501",
+        "recording_group": "2021.10.06.08.16.17_veh-52",
+        "command_name": "left_turn",
+        "candidate_source": "drivor_generated64",
+        "vehicle_count_within30m": 2,
+        "vulnerable_actor_count_within30m": 2,
+        "pedestrian_count_within30m": 2,
+        "bicycle_count_within30m": 0,
+        "forward_actor_count_within30m": 0,
+        "nearest_forward_actor_center_distance_capped_m": 60.0,
+        "ego_speed_m_per_s": 0.0006422003953360726,
+        "ego_longitudinal_acceleration_abs_m_per_s2": 0.013413967166820518,
+        "past_yaw_rate_abs_rad_per_s": 4.202861583948205e-05,
+        "current_gt_object_count": 12,
+        "map_location": "sg-one-north",
+        "current_traffic_light_record_count": 0,
+        "current_annotation_timestamp": 1633510237200406,
+        "median_path_length_m": 11.059101233012099,
+        "pairwise_rms_distance_median_m": 1.7780143953020673,
+        "endpoint_lateral_standard_deviation_m": 1.5018005050483434,
+        "endpoint_forward_standard_deviation_m": 3.230487762223121,
+        "endpoint_heading_circular_standard_deviation_deg": 8.693323135375977,
+        "terminal_speed_standard_deviation_m_per_s": 1.868928459127833,
+        "median_endpoint_heading_abs_deg": 29.266281127929688,
+        "median_longitudinal_jerk_proxy_m_per_s3": 1.1670186203613793,
+        "oracle_pdms": 100.0,
+        "selected_actual_pdms": 100.0,
+        "selected_predicted_pdms": 98.74240353709426,
+        "selection_regret_pdms_points": 0.0,
+        "candidate_prediction_mae_pdms_points": 3.403835167950107,
+        "candidate_signed_error_pdms_points": 0.5566307031334774,
+        "selected_candidate_index": 52,
+        "oracle_candidate_index": 13,
+        "predicted_top1_top2_margin_pdms_points": 0.04606099356055893,
+        "official_unsafe_candidate_fraction": 0.03125,
+        "official_actual90plus_candidate_fraction": 0.390625,
+        "selected_no_at_fault_collisions": 1.0,
+        "selected_drivable_area_compliance": 1.0,
+        "selected_ego_progress": 1.0,
+        "selected_time_to_collision_within_bound": 1.0,
+        "selected_comfort": 1.0,
+        "selected_nc_prediction": 0.998561441898346,
+        "selected_dac_prediction": 0.9998461008071899,
+        "selected_ttc_prediction": 0.9950196743011475
+      },
+      "selection": "Post-hoc largest regret; comparison shares observed command and matches speed/dispersion approximately, not a causal control."
+    },
+    {
+      "failed": {
+        "token": "e61adc75d7da50c3",
+        "log_name": "2021.09.16.15.12.03_veh-42_01037_01434",
+        "recording_group": "2021.09.16.15.12.03_veh-42",
+        "command_name": "left_turn",
+        "candidate_source": "drivor_generated64",
+        "vehicle_count_within30m": 8,
+        "vulnerable_actor_count_within30m": 0,
+        "pedestrian_count_within30m": 0,
+        "bicycle_count_within30m": 0,
+        "forward_actor_count_within30m": 0,
+        "nearest_forward_actor_center_distance_capped_m": 60.0,
+        "ego_speed_m_per_s": 5.203468977822807,
+        "ego_longitudinal_acceleration_abs_m_per_s2": 0.361959707015508,
+        "past_yaw_rate_abs_rad_per_s": 0.4384413851730979,
+        "current_gt_object_count": 27,
+        "map_location": "us-pa-pittsburgh-hazelwood",
+        "current_traffic_light_record_count": 6,
+        "current_annotation_timestamp": 1631806553500458,
+        "median_path_length_m": 25.647677461469577,
+        "pairwise_rms_distance_median_m": 2.3054324830520443,
+        "endpoint_lateral_standard_deviation_m": 2.6505666611514065,
+        "endpoint_forward_standard_deviation_m": 3.5329298444913806,
+        "endpoint_heading_circular_standard_deviation_deg": 0.6135802865028381,
+        "terminal_speed_standard_deviation_m_per_s": 2.2031263819369302,
+        "median_endpoint_heading_abs_deg": 34.83692169189453,
+        "median_longitudinal_jerk_proxy_m_per_s3": 0.37434473431992143,
+        "oracle_pdms": 100.0,
+        "selected_actual_pdms": 53.122988242869795,
+        "selected_predicted_pdms": 84.60097593627732,
+        "selection_regret_pdms_points": 46.877011757130205,
+        "candidate_prediction_mae_pdms_points": 56.004347908475616,
+        "candidate_signed_error_pdms_points": -52.677019958637885,
+        "selected_candidate_index": 17,
+        "oracle_candidate_index": 0,
+        "predicted_top1_top2_margin_pdms_points": 0.7899954174902746,
+        "official_unsafe_candidate_fraction": 0.0,
+        "official_actual90plus_candidate_fraction": 0.921875,
+        "selected_no_at_fault_collisions": 1.0,
+        "selected_drivable_area_compliance": 1.0,
+        "selected_ego_progress": 0.8749517178288749,
+        "selected_time_to_collision_within_bound": 0.0,
+        "selected_comfort": 1.0,
+        "selected_nc_prediction": 0.9786016941070557,
+        "selected_dac_prediction": 0.9749006628990173,
+        "selected_ttc_prediction": 0.9084683656692505
+      },
+      "comparison": {
+        "token": "9f528c7bfca6509b",
+        "log_name": "2021.10.06.08.16.17_veh-52_00181_00574",
+        "recording_group": "2021.10.06.08.16.17_veh-52",
+        "command_name": "left_turn",
+        "candidate_source": "drivor_generated64",
+        "vehicle_count_within30m": 1,
+        "vulnerable_actor_count_within30m": 0,
+        "pedestrian_count_within30m": 0,
+        "bicycle_count_within30m": 0,
+        "forward_actor_count_within30m": 0,
+        "nearest_forward_actor_center_distance_capped_m": 60.0,
+        "ego_speed_m_per_s": 4.372045974250132,
+        "ego_longitudinal_acceleration_abs_m_per_s2": 0.4377400642077888,
+        "past_yaw_rate_abs_rad_per_s": 0.25885359050253665,
+        "current_gt_object_count": 9,
+        "map_location": "sg-one-north",
+        "current_traffic_light_record_count": 0,
+        "current_annotation_timestamp": 1633508488200310,
+        "median_path_length_m": 24.078959864633614,
+        "pairwise_rms_distance_median_m": 2.0134001179563925,
+        "endpoint_lateral_standard_deviation_m": 1.6062905764562407,
+        "endpoint_forward_standard_deviation_m": 3.5706879616882237,
+        "endpoint_heading_circular_standard_deviation_deg": 1.0855567455291748,
+        "terminal_speed_standard_deviation_m_per_s": 1.9670921236316354,
+        "median_endpoint_heading_abs_deg": 24.341806411743164,
+        "median_longitudinal_jerk_proxy_m_per_s3": 0.42711952716070656,
+        "oracle_pdms": 100.0,
+        "selected_actual_pdms": 100.0,
+        "selected_predicted_pdms": 99.29049423915977,
+        "selection_regret_pdms_points": 0.0,
+        "candidate_prediction_mae_pdms_points": 12.679190906412924,
+        "candidate_signed_error_pdms_points": 0.04861316739069599,
+        "selected_candidate_index": 56,
+        "oracle_candidate_index": 5,
+        "predicted_top1_top2_margin_pdms_points": 0.6328997131966503,
+        "official_unsafe_candidate_fraction": 0.421875,
+        "official_actual90plus_candidate_fraction": 0.4375,
+        "selected_no_at_fault_collisions": 1.0,
+        "selected_drivable_area_compliance": 1.0,
+        "selected_ego_progress": 1.0,
+        "selected_time_to_collision_within_bound": 1.0,
+        "selected_comfort": 1.0,
+        "selected_nc_prediction": 0.9997476935386658,
+        "selected_dac_prediction": 0.9978869557380676,
+        "selected_ttc_prediction": 0.9989670515060425
+      },
+      "selection": "Post-hoc largest regret; comparison shares observed command and matches speed/dispersion approximately, not a causal control."
+    },
+    {
+      "failed": {
+        "token": "625a015c1f7c5170",
+        "log_name": "2021.06.28.18.03.27_veh-14_00620_01581",
+        "recording_group": "2021.06.28.18.03.27_veh-14",
+        "command_name": "left_turn",
+        "candidate_source": "drivor_generated64",
+        "vehicle_count_within30m": 9,
+        "vulnerable_actor_count_within30m": 10,
+        "pedestrian_count_within30m": 10,
+        "bicycle_count_within30m": 0,
+        "forward_actor_count_within30m": 1,
+        "nearest_forward_actor_center_distance_capped_m": 19.37656878311985,
+        "ego_speed_m_per_s": 9.770242822042633,
+        "ego_longitudinal_acceleration_abs_m_per_s2": 0.6139386676910447,
+        "past_yaw_rate_abs_rad_per_s": 0.05753033023770905,
+        "current_gt_object_count": 215,
+        "map_location": "us-nv-las-vegas-strip",
+        "current_traffic_light_record_count": 18,
+        "current_annotation_timestamp": 1624904147700005,
+        "median_path_length_m": 45.003294695299815,
+        "pairwise_rms_distance_median_m": 3.599413787653316,
+        "endpoint_lateral_standard_deviation_m": 4.757073533327581,
+        "endpoint_forward_standard_deviation_m": 3.78165339689036,
+        "endpoint_heading_circular_standard_deviation_deg": 9.837566375732422,
+        "terminal_speed_standard_deviation_m_per_s": 2.748795396173743,
+        "median_endpoint_heading_abs_deg": 65.607421875,
+        "median_longitudinal_jerk_proxy_m_per_s3": 0.7760281123473665,
+        "oracle_pdms": 100.0,
+        "selected_actual_pdms": 58.333333333333336,
+        "selected_predicted_pdms": 98.18123215222938,
+        "selection_regret_pdms_points": 41.666666666666664,
+        "candidate_prediction_mae_pdms_points": 52.26380215133244,
+        "candidate_signed_error_pdms_points": 49.32416117392276,
+        "selected_candidate_index": 10,
+        "oracle_candidate_index": 1,
+        "predicted_top1_top2_margin_pdms_points": 0.019263083229844824,
+        "official_unsafe_candidate_fraction": 0.5,
+        "official_actual90plus_candidate_fraction": 0.15625,
+        "selected_no_at_fault_collisions": 1.0,
+        "selected_drivable_area_compliance": 1.0,
+        "selected_ego_progress": 1.0,
+        "selected_time_to_collision_within_bound": 0.0,
+        "selected_comfort": 1.0,
+        "selected_nc_prediction": 0.994384765625,
+        "selected_dac_prediction": 0.9999350309371948,
+        "selected_ttc_prediction": 0.9872016906738281
+      },
+      "comparison": {
+        "token": "78c9157a55905d81",
+        "log_name": "2021.06.28.15.10.57_veh-16_02438_02580",
+        "recording_group": "2021.06.28.15.10.57_veh-16",
+        "command_name": "left_turn",
+        "candidate_source": "drivor_generated64",
+        "vehicle_count_within30m": 7,
+        "vulnerable_actor_count_within30m": 2,
+        "pedestrian_count_within30m": 2,
+        "bicycle_count_within30m": 0,
+        "forward_actor_count_within30m": 0,
+        "nearest_forward_actor_center_distance_capped_m": 60.0,
+        "ego_speed_m_per_s": 8.622663239514432,
+        "ego_longitudinal_acceleration_abs_m_per_s2": 0.882095826775407,
+        "past_yaw_rate_abs_rad_per_s": 0.2553655547491472,
+        "current_gt_object_count": 107,
+        "map_location": "us-nv-las-vegas-strip",
+        "current_traffic_light_record_count": 12,
+        "current_annotation_timestamp": 1624895696299929,
+        "median_path_length_m": 45.733484582567094,
+        "pairwise_rms_distance_median_m": 3.157092817472839,
+        "endpoint_lateral_standard_deviation_m": 3.2210921159446397,
+        "endpoint_forward_standard_deviation_m": 4.767666199259592,
+        "endpoint_heading_circular_standard_deviation_deg": 0.7058299779891968,
+        "terminal_speed_standard_deviation_m_per_s": 2.7216066548363576,
+        "median_endpoint_heading_abs_deg": 33.841976165771484,
+        "median_longitudinal_jerk_proxy_m_per_s3": 0.4082755967796634,
+        "oracle_pdms": 100.0,
+        "selected_actual_pdms": 100.0,
+        "selected_predicted_pdms": 99.75994119786039,
+        "selection_regret_pdms_points": 0.0,
+        "candidate_prediction_mae_pdms_points": 1.7379924234076178,
+        "candidate_signed_error_pdms_points": 0.22572291022897528,
+        "selected_candidate_index": 38,
+        "oracle_candidate_index": 0,
+        "predicted_top1_top2_margin_pdms_points": 0.011725130250297866,
+        "official_unsafe_candidate_fraction": 0.0,
+        "official_actual90plus_candidate_fraction": 0.8125,
+        "selected_no_at_fault_collisions": 1.0,
+        "selected_drivable_area_compliance": 1.0,
+        "selected_ego_progress": 1.0,
+        "selected_time_to_collision_within_bound": 1.0,
+        "selected_comfort": 1.0,
+        "selected_nc_prediction": 0.9997026324272156,
+        "selected_dac_prediction": 0.9999232292175293,
+        "selected_ttc_prediction": 0.9978089928627014
+      },
+      "selection": "Post-hoc largest regret; comparison shares observed command and matches speed/dispersion approximately, not a causal control."
+    }
+  ],
+  "cost": {
+    "cpu_analysis_wall_seconds": 35.4011651899782,
+    "gpu_seconds": 0,
+    "optimizer_steps": 0,
+    "new_backbone_calls": 0,
+    "new_scorer_calls": 0,
+    "new_official_evaluator_calls": 0
+  },
+  "validation": {
+    "token_order_and_current_observation_verified": true,
+    "all_rows_finite": true,
+    "source_candidate_arrays_unchanged": true,
+    "protected_training_after": {
+      "checked_files": 293,
+      "mismatches": [],
+      "running_training_completed_updates": 13511
+    }
+  }
+}

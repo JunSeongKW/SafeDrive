@@ -1,0 +1,40 @@
+{
+  "source_candidate_directory": "outputs/common_candidate_scorer_comparison_20261011",
+  "source_score_directory": "outputs/drivor_candidate_distribution_diagnosis_20261011",
+  "protected_training_configuration": "configs/frozen_planner_postprocessing/official_toad_navsim_v1_scorer_calibration.json",
+  "output_directory": "outputs/drivor_generator_failure_characteristics_20261012",
+  "results_directory": "results/drivor_generator_failure_characteristics_20261012",
+  "candidate_sources": {"drivor_generated64": [0, 64], "toad_generated64": [64, 128]},
+  "bootstrap_seed": 20261012,
+  "bootstrap_repetitions": 2000,
+  "selection_regret_threshold_pdms_points": 10.0,
+  "pairwise_rms_distance_edges_m": [0.0, 2.0, 5.0, 1000000.0],
+  "heading_edges_deg": [0.0, 10.0, 30.0, 180.0001],
+  "ego_speed_edges_m_per_s": [0.0, 2.0, 6.0, 1000000.0],
+  "vehicle_count_edges": [0, 1, 3, 1000000],
+  "nearby_actor_radius_m": 30.0,
+  "forward_actor_corridor_half_width_m": 3.0,
+  "forward_actor_distance_cap_m": 60.0,
+  "close_candidate_pair_threshold_m": 1.0,
+  "meaningful_pairwise_pdms_gap": 5.0,
+  "predictor_names": [
+    "median_path_length_m", "pairwise_rms_distance_median_m",
+    "endpoint_lateral_standard_deviation_m", "endpoint_heading_circular_standard_deviation_deg",
+    "terminal_speed_standard_deviation_m_per_s", "median_endpoint_heading_abs_deg",
+    "median_longitudinal_jerk_proxy_m_per_s3", "ego_speed_m_per_s",
+    "ego_longitudinal_acceleration_abs_m_per_s2", "past_yaw_rate_abs_rad_per_s",
+    "vehicle_count_within30m", "vulnerable_actor_count_within30m",
+    "forward_actor_count_within30m", "nearest_forward_actor_center_distance_capped_m",
+    "predicted_top1_top2_margin_pdms_points"
+  ],
+  "gpu_seconds": 0,
+  "optimizer_steps": 0,
+  "notes": [
+    "Retrospective exploratory analysis on the already exposed 64-scene, 38-recording NAVTEST development panel, not independent testing.",
+    "Primary input is the original public DrivoR generator's own 64 candidates and its scorer in the complete standalone64 attention context.",
+    "TOAD-released generated64 is a within-panel secondary check with the same original DrivoR scorer, not another scorer method.",
+    "Candidate set and observed scene predictors use no future frames or official future labels. Current GT annotations are diagnostic metadata, not model input.",
+    "Thresholds and predictor list are recorded before this new association analysis; hypotheses were informed by earlier analyses of this same panel.",
+    "No semantic intersection, occlusion, or traffic-light labels are invented from images. Actor distance means current GT center distance, not clearance or TTC."
+  ]
+}
