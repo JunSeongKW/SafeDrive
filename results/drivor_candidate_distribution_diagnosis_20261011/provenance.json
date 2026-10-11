@@ -1,0 +1,111 @@
+{
+  "created_kst": "2026-10-12T00:01:47.596666",
+  "configuration": {
+    "research_question": "Which candidate distributions does the frozen original public DrivoR scorer rank and calibrate reliably, and does distance from its own proposals explain errors?",
+    "comparison_configuration": "configs/frozen_planner_postprocessing/common_candidate_scorer_comparison.json",
+    "source_output_directory": "outputs/common_candidate_scorer_comparison_20261011",
+    "output_directory": "outputs/drivor_candidate_distribution_diagnosis_20261011",
+    "results_directory": "results/drivor_candidate_distribution_diagnosis_20261011",
+    "cpu_threads": 2,
+    "cpu_microbatch_scenes": 2,
+    "source_distributions": {
+      "drivor_generated64": [
+        0,
+        64
+      ],
+      "toad_generated64": [
+        64,
+        128
+      ],
+      "random_bouquet64": [
+        128,
+        192
+      ],
+      "nearby64": [
+        192,
+        256
+      ]
+    },
+    "random_family_offsets": {
+      "constant_controls22": [
+        128,
+        150
+      ],
+      "smooth_controls21": [
+        150,
+        171
+      ],
+      "freeform_controls21": [
+        171,
+        192
+      ]
+    },
+    "nearest_native_distance_edges_m": [
+      0.0,
+      0.5,
+      2.0,
+      5.0,
+      10.0,
+      1000000000.0
+    ],
+    "endpoint_heading_edges_deg": [
+      0.0,
+      10.0,
+      30.0,
+      60.0,
+      180.0001
+    ],
+    "control_proxy_jerk_edges_m_per_s3": [
+      0.0,
+      2.0,
+      5.0,
+      10.0,
+      1000000000.0
+    ],
+    "actual_pdms_edges": [
+      0.0,
+      1e-06,
+      50.0,
+      90.0,
+      100.0001
+    ],
+    "prediction_safety_threshold": 0.9,
+    "meaningful_pairwise_pdms_gap": 5.0,
+    "bootstrap_seed": 20261011,
+    "bootstrap_repetitions": 2000,
+    "cache_replay_tolerance_log_score": 0.0001,
+    "optimizer_steps": 0,
+    "device": "cpu",
+    "full_navtest": false,
+    "independent_final_test": false,
+    "notes": [
+      "Reuse every trajectory and official PDMS from the previous 64-scene development panel; no new trajectory generation or evaluator calls.",
+      "Operational comparison uses four separate full 64-candidate contexts, with the same original scorer and its own frozen observation cache.",
+      "The second protocol scores all 256 identical candidates together, holding candidate attention context fixed for conditional error analysis.",
+      "Family labels follow the official family_mix generator's concatenation order, not inferred scene semantics.",
+      "Geometry and native-distance bins are descriptive analyses fixed before this run; they do not prove the training density or OOD membership.",
+      "All later score-band/safety stratification uses oracle labels for retrospective diagnosis and is not an inference-time classifier."
+    ]
+  },
+  "checkpoint_sha256": "617e22c5ebcf8b24c542d42a470514b09c3cadce1a2630071d49f2d422d76672",
+  "source_cache_sha256": "4d63a99ae8b93db36791c1725ef8e48826b89785ca757d127de81ab3190ec64f",
+  "source_official_metrics_sha256": "f516bd53161d82da5f7493f90f08e15a7bfef2e487b523a7ea14e558ccc29be1",
+  "measurement_source_sha256_before_presentation_changes": "f760f21e40fd825547928f9437eb4e96a2df05f9359b9b01b37f1dc136b24677",
+  "current_code_sha256": {
+    "scripts/diagnose_drivor_candidate_distributions.py": "70fd3084ef55307516f81cc80892ab486b0eae39d3e8f60b703f5a98b75fb1d0",
+    "scripts/run_drivor_candidate_distribution_diagnosis.sh": "730f101145799c69df93eb5cf7519ec9748784711ce8e450c8ba4759ba893576",
+    "configs/frozen_planner_postprocessing/drivor_candidate_distribution_diagnosis.json": "07401dcb68a7e1817415f90f0862f7bb8a91058b01ce216b127167a730964505"
+  },
+  "measurement_functions_unchanged": [
+    "load_registered_inputs",
+    "prepare_and_rescore_cached_candidates",
+    "compute_candidate_geometry",
+    "summarize_score_subset",
+    "summarize_masked_errors",
+    "analyze_distributions_and_plot"
+  ],
+  "source_snapshot_path": "outputs/drivor_candidate_distribution_diagnosis_20261011/source_before_presentation_adjustment.py",
+  "base_model_and_original_benchmark_provenance": "results/common_candidate_scorer_comparison_20261011/provenance.json",
+  "gpu_seconds": 0,
+  "new_official_candidate_evaluations": 0
+}

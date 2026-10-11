@@ -1,0 +1,12 @@
+[
+  {
+    "token": "be87511d69ba58e7",
+    "selection_rule": "First stored scene of observed command; not chosen by scorer error",
+    "current_command": "straight"
+  },
+  {
+    "token": "a8dacf347a605f0d",
+    "selection_rule": "First stored scene of observed command; not chosen by scorer error",
+    "current_command": "left_turn"
+  }
+]

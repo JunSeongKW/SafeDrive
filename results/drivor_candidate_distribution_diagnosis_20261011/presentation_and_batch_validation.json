@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "measurement_functions_ast_unchanged": [
+    "load_registered_inputs",
+    "prepare_and_rescore_cached_candidates",
+    "compute_candidate_geometry",
+    "summarize_score_subset",
+    "summarize_masked_errors",
+    "analyze_distributions_and_plot"
+  ],
+  "all_numerical_results_unchanged_by_presentation_edits": true,
+  "maximum_cpu_single_scene_vs_microbatch_score_error": 2.86102294921875e-06,
+  "maximum_probability_error": 6.556510925292969e-07,
+  "checked_scene_count": 3,
+  "checked_contexts_per_scene": 3,
+  "backbone_calls": 0,
+  "parameter_gradients_absent": true,
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13330
+  },
+  "cpu_seconds": 8.230869546008762,
+  "gpu_seconds": 0,
+  "measurement_source_before_presentation_sha256": "f760f21e40fd825547928f9437eb4e96a2df05f9359b9b01b37f1dc136b24677",
+  "current_analysis_source_sha256": "70fd3084ef55307516f81cc80892ab486b0eae39d3e8f60b703f5a98b75fb1d0"
+}

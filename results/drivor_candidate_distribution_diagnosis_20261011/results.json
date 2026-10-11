@@ -1,0 +1,1098 @@
+{
+  "complete": true,
+  "benchmark": "NAVSIM v1 NAVTEST64 previously used development diagnostic",
+  "scene_count": 64,
+  "recording_count": 38,
+  "full_navtest": false,
+  "independent_final_test": false,
+  "model": "Original public DrivoR Scaling checkpoint (epoch index28, global53911)",
+  "operational_separate64_context": {
+    "drivor_generated64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 17.40453683786319,
+      "prediction_rmse_pdms_points": 29.783003319157096,
+      "mean_signed_error_pdms_points": -1.0542142161536612,
+      "predicted_mean_pdms": 76.39445499497955,
+      "actual_mean_pdms": 77.44866921113322,
+      "prediction_within5_points_fraction": 0.482666015625,
+      "unsafe_candidate_count": 655,
+      "unsafe_candidate_fraction": 0.159912109375,
+      "false_safe_candidate_count": 154,
+      "false_safe_fraction_among_unsafe": 0.23511450381679388,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.08392624855528652,
+        "drivable_area_compliance": 0.08584997585186471,
+        "ego_progress": 0.16778022561920353,
+        "time_to_collision_within_bound": 0.1485915334677017,
+        "comfort": 0.004877021313287565,
+        "driving_direction_compliance": 0.032230022262391245
+      },
+      "mae_recording_bootstrap_95ci": [
+        13.076876963280478,
+        21.992161992601414
+      ],
+      "within_scene_spearman_mean": 0.4369902048473881,
+      "spearman_valid_scene_count": 63,
+      "meaningful_pair_count": 61036,
+      "discordant_pair_fraction": 0.21647879939707715,
+      "selected_pdms": 93.60869148973171,
+      "oracle_best_pdms": 99.87450959523161,
+      "selection_regret_pdms_points": 6.265818105499901,
+      "regret_recording_bootstrap_95ci": [
+        2.520998588536771,
+        11.758407908021436
+      ],
+      "selected_nc_failure_count": 1,
+      "selected_dac_failure_count": 0,
+      "selected_ttc_failure_count": 5
+    },
+    "toad_generated64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 17.900700840428158,
+      "prediction_rmse_pdms_points": 30.202830078528848,
+      "mean_signed_error_pdms_points": -0.4777312602869923,
+      "predicted_mean_pdms": 76.83460380008233,
+      "actual_mean_pdms": 77.31233506036932,
+      "prediction_within5_points_fraction": 0.47607421875,
+      "unsafe_candidate_count": 639,
+      "unsafe_candidate_fraction": 0.156005859375,
+      "false_safe_candidate_count": 145,
+      "false_safe_fraction_among_unsafe": 0.2269170579029734,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.08252382721197193,
+        "drivable_area_compliance": 0.08692731049163172,
+        "ego_progress": 0.16902716210817223,
+        "time_to_collision_within_bound": 0.15938057447360254,
+        "comfort": 0.0030518642585907873,
+        "driving_direction_compliance": 0.036127221450556135
+      },
+      "mae_recording_bootstrap_95ci": [
+        13.713222784075962,
+        22.00526513430892
+      ],
+      "within_scene_spearman_mean": 0.415085683327239,
+      "spearman_valid_scene_count": 63,
+      "meaningful_pair_count": 62303,
+      "discordant_pair_fraction": 0.22889748487231754,
+      "selected_pdms": 93.09285027027735,
+      "oracle_best_pdms": 99.85110682943349,
+      "selection_regret_pdms_points": 6.758256559156122,
+      "regret_recording_bootstrap_95ci": [
+        2.8638586317124584,
+        12.046676642791022
+      ],
+      "selected_nc_failure_count": 1,
+      "selected_dac_failure_count": 0,
+      "selected_ttc_failure_count": 6
+    },
+    "random_bouquet64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 15.235753920502066,
+      "prediction_rmse_pdms_points": 26.52584003409493,
+      "mean_signed_error_pdms_points": -1.9486766769504282,
+      "predicted_mean_pdms": 26.31861539534063,
+      "actual_mean_pdms": 28.267292072291056,
+      "prediction_within5_points_fraction": 0.546142578125,
+      "unsafe_candidate_count": 2470,
+      "unsafe_candidate_fraction": 0.60302734375,
+      "false_safe_candidate_count": 99,
+      "false_safe_fraction_among_unsafe": 0.04008097165991903,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.23815862384896036,
+        "drivable_area_compliance": 0.13077495228343583,
+        "ego_progress": 0.1360556329196096,
+        "time_to_collision_within_bound": 0.2556210204062568,
+        "comfort": 0.025853509126232965,
+        "driving_direction_compliance": 0.1647395091254944
+      },
+      "mae_recording_bootstrap_95ci": [
+        13.279955689494019,
+        17.42789239306082
+      ],
+      "within_scene_spearman_mean": 0.5835532950166229,
+      "spearman_valid_scene_count": 63,
+      "meaningful_pair_count": 56781,
+      "discordant_pair_fraction": 0.14562970007572956,
+      "selected_pdms": 71.4072407631282,
+      "oracle_best_pdms": 93.84280622434,
+      "selection_regret_pdms_points": 22.435565461211787,
+      "regret_recording_bootstrap_95ci": [
+        15.159003381730681,
+        30.487070419332138
+      ],
+      "selected_nc_failure_count": 5,
+      "selected_dac_failure_count": 6,
+      "selected_ttc_failure_count": 10
+    },
+    "nearby64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 19.92642585899108,
+      "prediction_rmse_pdms_points": 32.62425962362855,
+      "mean_signed_error_pdms_points": -4.027605114326317,
+      "predicted_mean_pdms": 55.09714797633005,
+      "actual_mean_pdms": 59.12475309065636,
+      "prediction_within5_points_fraction": 0.427734375,
+      "unsafe_candidate_count": 1496,
+      "unsafe_candidate_fraction": 0.365234375,
+      "false_safe_candidate_count": 123,
+      "false_safe_fraction_among_unsafe": 0.08221925133689839,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.12814318524489465,
+        "drivable_area_compliance": 0.11017664100252667,
+        "ego_progress": 0.19025273569256987,
+        "time_to_collision_within_bound": 0.19982069057572804,
+        "comfort": 0.004612823938671351,
+        "driving_direction_compliance": 0.08521479200572997
+      },
+      "mae_recording_bootstrap_95ci": [
+        17.533956233871322,
+        22.952981088425876
+      ],
+      "within_scene_spearman_mean": 0.5694782115226015,
+      "spearman_valid_scene_count": 64,
+      "meaningful_pair_count": 63580,
+      "discordant_pair_fraction": 0.14141239383453916,
+      "selected_pdms": 90.66139953317926,
+      "oracle_best_pdms": 99.5385379462241,
+      "selection_regret_pdms_points": 8.877138413044825,
+      "regret_recording_bootstrap_95ci": [
+        3.0253870512885657,
+        16.932701647362983
+      ],
+      "selected_nc_failure_count": 1,
+      "selected_dac_failure_count": 3,
+      "selected_ttc_failure_count": 3
+    }
+  },
+  "fixed_shared256_context": {
+    "drivor_generated64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 18.478407707024175,
+      "prediction_rmse_pdms_points": 30.151258394545085,
+      "mean_signed_error_pdms_points": -3.1122788194500925,
+      "predicted_mean_pdms": 74.33639039168312,
+      "actual_mean_pdms": 77.44866921113322,
+      "prediction_within5_points_fraction": 0.431640625,
+      "unsafe_candidate_count": 655,
+      "unsafe_candidate_fraction": 0.159912109375,
+      "false_safe_candidate_count": 141,
+      "false_safe_fraction_among_unsafe": 0.2152671755725191,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.08293637954039923,
+        "drivable_area_compliance": 0.09732124082039117,
+        "ego_progress": 0.17662091852006823,
+        "time_to_collision_within_bound": 0.1516379213106518,
+        "comfort": 0.006196743136605031,
+        "driving_direction_compliance": 0.03805556793892961
+      },
+      "mae_recording_bootstrap_95ci": [
+        14.559279032295414,
+        22.409226160175418
+      ],
+      "within_scene_spearman_mean": 0.3669156713916386,
+      "spearman_valid_scene_count": 63,
+      "meaningful_pair_count": 61036,
+      "discordant_pair_fraction": 0.2458221377547677
+    },
+    "toad_generated64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 19.24060843128146,
+      "prediction_rmse_pdms_points": 30.970809010843904,
+      "mean_signed_error_pdms_points": -2.549246411357412,
+      "predicted_mean_pdms": 74.76308864901192,
+      "actual_mean_pdms": 77.31233506036932,
+      "prediction_within5_points_fraction": 0.4228515625,
+      "unsafe_candidate_count": 639,
+      "unsafe_candidate_fraction": 0.156005859375,
+      "false_safe_candidate_count": 140,
+      "false_safe_fraction_among_unsafe": 0.2190923317683881,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.08165191317412734,
+        "drivable_area_compliance": 0.0986490783157592,
+        "ego_progress": 0.17798176002448401,
+        "time_to_collision_within_bound": 0.16490741322043778,
+        "comfort": 0.003862590112453968,
+        "driving_direction_compliance": 0.042472017881323154
+      },
+      "mae_recording_bootstrap_95ci": [
+        15.198180037819359,
+        23.032520526624815
+      ],
+      "within_scene_spearman_mean": 0.3386011388917433,
+      "spearman_valid_scene_count": 63,
+      "meaningful_pair_count": 62303,
+      "discordant_pair_fraction": 0.2608863136606584
+    },
+    "random_bouquet64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 15.154975552326379,
+      "prediction_rmse_pdms_points": 26.42160459850107,
+      "mean_signed_error_pdms_points": -5.360791727554673,
+      "predicted_mean_pdms": 22.906500344736383,
+      "actual_mean_pdms": 28.267292072291056,
+      "prediction_within5_points_fraction": 0.54638671875,
+      "unsafe_candidate_count": 2470,
+      "unsafe_candidate_fraction": 0.60302734375,
+      "false_safe_candidate_count": 77,
+      "false_safe_fraction_among_unsafe": 0.031174089068825912,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.2496695249544274,
+        "drivable_area_compliance": 0.1292236845971147,
+        "ego_progress": 0.10878467089352252,
+        "time_to_collision_within_bound": 0.2524366486989429,
+        "comfort": 0.023832423185179974,
+        "driving_direction_compliance": 0.1583352166414412
+      },
+      "mae_recording_bootstrap_95ci": [
+        13.216225637739905,
+        17.429783002907293
+      ],
+      "within_scene_spearman_mean": 0.5889924808988906,
+      "spearman_valid_scene_count": 63,
+      "meaningful_pair_count": 56781,
+      "discordant_pair_fraction": 0.13714094503443053
+    },
+    "nearby64": {
+      "candidate_count_total": 4096,
+      "candidates_per_scene": 64,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 20.159530516769813,
+      "prediction_rmse_pdms_points": 32.435501269127755,
+      "mean_signed_error_pdms_points": -2.7248742809266595,
+      "predicted_mean_pdms": 56.39987880972971,
+      "actual_mean_pdms": 59.12475309065636,
+      "prediction_within5_points_fraction": 0.416259765625,
+      "unsafe_candidate_count": 1496,
+      "unsafe_candidate_fraction": 0.365234375,
+      "false_safe_candidate_count": 137,
+      "false_safe_fraction_among_unsafe": 0.09157754010695188,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.12363235876274814,
+        "drivable_area_compliance": 0.11681429081637032,
+        "ego_progress": 0.19332461843208867,
+        "time_to_collision_within_bound": 0.19809130976876954,
+        "comfort": 0.004864614636113984,
+        "driving_direction_compliance": 0.08779554189439416
+      },
+      "mae_recording_bootstrap_95ci": [
+        17.740689006919187,
+        23.340342654407664
+      ],
+      "within_scene_spearman_mean": 0.5610384612317136,
+      "spearman_valid_scene_count": 64,
+      "meaningful_pair_count": 63580,
+      "discordant_pair_fraction": 0.1434885184020132
+    }
+  },
+  "random_generator_families_shared256": {
+    "constant_controls22": {
+      "candidate_count_total": 1408,
+      "candidates_per_scene": 22,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 15.657699441454893,
+      "prediction_rmse_pdms_points": 27.308958027272975,
+      "mean_signed_error_pdms_points": -7.177324586067905,
+      "predicted_mean_pdms": 21.60252940730933,
+      "actual_mean_pdms": 28.779853993377234,
+      "prediction_within5_points_fraction": 0.5440340909090909,
+      "unsafe_candidate_count": 837,
+      "unsafe_candidate_fraction": 0.5944602272727273,
+      "false_safe_candidate_count": 20,
+      "false_safe_fraction_among_unsafe": 0.023894862604540025,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.25281231569310464,
+        "drivable_area_compliance": 0.14394252126554766,
+        "ego_progress": 0.107594008324536,
+        "time_to_collision_within_bound": 0.2639551023537685,
+        "comfort": 0.04018826642322925,
+        "driving_direction_compliance": 0.1621111038447072
+      },
+      "mae_recording_bootstrap_95ci": [
+        13.648940593881663,
+        17.969124471589957
+      ],
+      "within_scene_spearman_mean": 0.582352045303952,
+      "spearman_valid_scene_count": 63,
+      "meaningful_pair_count": 6523,
+      "discordant_pair_fraction": 0.13736011037866014
+    },
+    "smooth_controls21": {
+      "candidate_count_total": 1344,
+      "candidates_per_scene": 21,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 14.616371716610084,
+      "prediction_rmse_pdms_points": 25.147209796489566,
+      "mean_signed_error_pdms_points": -3.75195826087237,
+      "predicted_mean_pdms": 25.883729299146943,
+      "actual_mean_pdms": 29.63568756001931,
+      "prediction_within5_points_fraction": 0.5327380952380952,
+      "unsafe_candidate_count": 790,
+      "unsafe_candidate_fraction": 0.5877976190476191,
+      "false_safe_candidate_count": 26,
+      "false_safe_fraction_among_unsafe": 0.03291139240506329,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.2289362516007497,
+        "drivable_area_compliance": 0.11020512358569838,
+        "ego_progress": 0.1130507450919665,
+        "time_to_collision_within_bound": 0.23399310468673884,
+        "comfort": 0.00796172764828606,
+        "driving_direction_compliance": 0.15548548880218116
+      },
+      "mae_recording_bootstrap_95ci": [
+        12.549109444593638,
+        17.043729543071322
+      ],
+      "within_scene_spearman_mean": 0.5684408103368145,
+      "spearman_valid_scene_count": 61,
+      "meaningful_pair_count": 6199,
+      "discordant_pair_fraction": 0.15115341184061945
+    },
+    "freeform_controls21": {
+      "candidate_count_total": 1344,
+      "candidates_per_scene": 21,
+      "scene_count": 64,
+      "prediction_mae_pdms_points": 15.166916266098518,
+      "prediction_rmse_pdms_points": 26.718380165926416,
+      "mean_signed_error_pdms_points": -5.066590771032638,
+      "predicted_mean_pdms": 21.295336181916067,
+      "actual_mean_pdms": 26.36192695294871,
+      "prediction_within5_points_fraction": 0.5625,
+      "unsafe_candidate_count": 843,
+      "unsafe_candidate_fraction": 0.6272321428571429,
+      "false_safe_candidate_count": 31,
+      "false_safe_fraction_among_unsafe": 0.036773428232502965,
+      "submetric_mae": {
+        "no_at_fault_collisions": 0.2671103508675861,
+        "drivable_area_compliance": 0.1328225119558869,
+        "ego_progress": 0.10576595748163581,
+        "time_to_collision_within_bound": 0.25881324126323435,
+        "comfort": 0.02256842580602227,
+        "driving_direction_compliance": 0.15722925312489874
+      },
+      "mae_recording_bootstrap_95ci": [
+        13.065619829290956,
+        17.601218597998002
+      ],
+      "within_scene_spearman_mean": 0.6103775781793185,
+      "spearman_valid_scene_count": 59,
+      "meaningful_pair_count": 5590,
+      "discordant_pair_fraction": 0.12880143112701253
+    }
+  },
+  "actual_score_band_errors_shared256": {
+    "drivor_generated64": [
+      {
+        "actual_pdms_lower": 0.0,
+        "actual_pdms_upper": 1e-06,
+        "candidate_count": 655,
+        "scene_count": 42,
+        "recording_count": 28,
+        "candidate_weighted_mae": 40.950206189549725,
+        "scene_macro_mae": 32.92542327913208,
+        "signed_error": 40.950206189549725,
+        "actual_mean_pdms": 0.0,
+        "prediction_within5_points_fraction": 0.1633587786259542
+      },
+      {
+        "actual_pdms_lower": 1e-06,
+        "actual_pdms_upper": 50.0,
+        "candidate_count": 17,
+        "scene_count": 7,
+        "recording_count": 7,
+        "candidate_weighted_mae": 23.449370107128477,
+        "scene_macro_mae": 22.236860138841127,
+        "signed_error": -6.5937171111418875,
+        "actual_mean_pdms": 42.67611823205458,
+        "prediction_within5_points_fraction": 0.0
+      },
+      {
+        "actual_pdms_lower": 50.0,
+        "actual_pdms_upper": 90.0,
+        "candidate_count": 916,
+        "scene_count": 60,
+        "recording_count": 37,
+        "candidate_weighted_mae": 13.128631375909144,
+        "scene_macro_mae": 14.381521856513583,
+        "signed_error": -4.1461401067299715,
+        "actual_mean_pdms": 77.98530799891897,
+        "prediction_within5_points_fraction": 0.50764192139738
+      },
+      {
+        "actual_pdms_lower": 90.0,
+        "actual_pdms_upper": 100.0001,
+        "candidate_count": 2508,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 14.529787592369212,
+        "scene_macro_mae": 16.078777503778586,
+        "signed_error": -14.218629015138989,
+        "actual_mean_pdms": 97.71519655177313,
+        "prediction_within5_points_fraction": 0.4768740031897927
+      }
+    ],
+    "toad_generated64": [
+      {
+        "actual_pdms_lower": 0.0,
+        "actual_pdms_upper": 1e-06,
+        "candidate_count": 639,
+        "scene_count": 39,
+        "recording_count": 25,
+        "candidate_weighted_mae": 43.24983316221144,
+        "scene_macro_mae": 37.94930634147051,
+        "signed_error": 43.24983316221144,
+        "actual_mean_pdms": 0.0,
+        "prediction_within5_points_fraction": 0.13458528951486698
+      },
+      {
+        "actual_pdms_lower": 1e-06,
+        "actual_pdms_upper": 50.0,
+        "candidate_count": 18,
+        "scene_count": 9,
+        "recording_count": 8,
+        "candidate_weighted_mae": 23.067869552192835,
+        "scene_macro_mae": 22.790026445604212,
+        "signed_error": 0.21657818281928382,
+        "actual_mean_pdms": 42.77658264969889,
+        "prediction_within5_points_fraction": 0.0
+      },
+      {
+        "actual_pdms_lower": 50.0,
+        "actual_pdms_upper": 90.0,
+        "candidate_count": 961,
+        "scene_count": 59,
+        "recording_count": 37,
+        "candidate_weighted_mae": 14.43711145044568,
+        "scene_macro_mae": 15.582336485720885,
+        "signed_error": -1.9774179999936798,
+        "actual_mean_pdms": 76.66730468819189,
+        "prediction_within5_points_fraction": 0.4713839750260146
+      },
+      {
+        "actual_pdms_lower": 90.0,
+        "actual_pdms_upper": 100.0001,
+        "candidate_count": 2478,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 14.884424127545591,
+        "scene_macro_mae": 15.989635020760929,
+        "signed_error": -14.601273769519729,
+        "actual_mean_pdms": 97.74982490485303,
+        "prediction_within5_points_fraction": 0.4814366424535916
+      }
+    ],
+    "random_bouquet64": [
+      {
+        "actual_pdms_lower": 0.0,
+        "actual_pdms_upper": 1e-06,
+        "candidate_count": 2469,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 7.57509948057907,
+        "scene_macro_mae": 8.64177130603361,
+        "signed_error": 7.57509948057907,
+        "actual_mean_pdms": 0.0,
+        "prediction_within5_points_fraction": 0.7679222357229648
+      },
+      {
+        "actual_pdms_lower": 1e-06,
+        "actual_pdms_upper": 50.0,
+        "candidate_count": 59,
+        "scene_count": 27,
+        "recording_count": 21,
+        "candidate_weighted_mae": 21.173462405034538,
+        "scene_macro_mae": 20.71557586487001,
+        "signed_error": -1.533966732058369,
+        "actual_mean_pdms": 35.975378983084674,
+        "prediction_within5_points_fraction": 0.15254237288135594
+      },
+      {
+        "actual_pdms_lower": 50.0,
+        "actual_pdms_upper": 90.0,
+        "candidate_count": 1336,
+        "scene_count": 62,
+        "recording_count": 37,
+        "candidate_weighted_mae": 24.343253652797962,
+        "scene_macro_mae": 25.561336490177307,
+        "signed_error": -23.191683803732882,
+        "actual_mean_pdms": 67.99829815662153,
+        "prediction_within5_points_fraction": 0.23203592814371257
+      },
+      {
+        "actual_pdms_lower": 90.0,
+        "actual_pdms_upper": 100.0001,
+        "candidate_count": 232,
+        "scene_count": 52,
+        "recording_count": 33,
+        "candidate_weighted_mae": 41.379474494586276,
+        "scene_macro_mae": 38.125924540995726,
+        "signed_error": -41.31952558032367,
+        "actual_mean_pdms": 98.3385975467923,
+        "prediction_within5_points_fraction": 0.09913793103448276
+      }
+    ],
+    "nearby64": [
+      {
+        "actual_pdms_lower": 0.0,
+        "actual_pdms_upper": 1e-06,
+        "candidate_count": 1496,
+        "scene_count": 63,
+        "recording_count": 37,
+        "candidate_weighted_mae": 20.729129252994646,
+        "scene_macro_mae": 21.777143078693328,
+        "signed_error": 20.729129252994646,
+        "actual_mean_pdms": 0.0,
+        "prediction_within5_points_fraction": 0.5020053475935828
+      },
+      {
+        "actual_pdms_lower": 1e-06,
+        "actual_pdms_upper": 50.0,
+        "candidate_count": 12,
+        "scene_count": 5,
+        "recording_count": 5,
+        "candidate_weighted_mae": 34.51417034007744,
+        "scene_macro_mae": 33.2390349526265,
+        "signed_error": 3.161590672106017,
+        "actual_mean_pdms": 47.269229736237286,
+        "prediction_within5_points_fraction": 0.0
+      },
+      {
+        "actual_pdms_lower": 50.0,
+        "actual_pdms_upper": 90.0,
+        "candidate_count": 448,
+        "scene_count": 49,
+        "recording_count": 32,
+        "candidate_weighted_mae": 22.845370611798426,
+        "scene_macro_mae": 22.3283573639032,
+        "signed_error": -3.5763911333768954,
+        "actual_mean_pdms": 68.22117517318831,
+        "prediction_within5_points_fraction": 0.171875
+      },
+      {
+        "actual_pdms_lower": 90.0,
+        "actual_pdms_upper": 100.0001,
+        "candidate_count": 2140,
+        "scene_count": 63,
+        "recording_count": 38,
+        "candidate_weighted_mae": 19.118581100954454,
+        "scene_macro_mae": 22.49099835151401,
+        "signed_error": -18.975503867975707,
+        "actual_mean_pdms": 98.61900533874076,
+        "prediction_within5_points_fraction": 0.4098130841121495
+      }
+    ]
+  },
+  "safety_conditioned_errors_shared256": {
+    "drivor_generated64": {
+      "nc_dac_compliant": {
+        "candidate_count": 3441,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 14.200863967979059,
+        "scene_macro_mae": 15.195431539836083,
+        "signed_error": -11.499645189951364,
+        "actual_mean_pdms": 92.19115056344135,
+        "prediction_within5_points_fraction": 0.48270851496657946
+      },
+      "nc_or_dac_noncompliant": {
+        "candidate_count": 655,
+        "scene_count": 42,
+        "recording_count": 28,
+        "candidate_weighted_mae": 40.950206189549725,
+        "scene_macro_mae": 32.92542327913208,
+        "signed_error": 40.950206189549725,
+        "actual_mean_pdms": 0.0,
+        "prediction_within5_points_fraction": 0.1633587786259542
+      }
+    },
+    "toad_generated64": {
+      "nc_dac_compliant": {
+        "candidate_count": 3457,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 14.802686937771405,
+        "scene_macro_mae": 15.721192796820326,
+        "signed_error": -11.014855855242425,
+        "actual_mean_pdms": 91.60292866857759,
+        "prediction_within5_points_fraction": 0.4761353774949378
+      },
+      "nc_or_dac_noncompliant": {
+        "candidate_count": 639,
+        "scene_count": 39,
+        "recording_count": 25,
+        "candidate_weighted_mae": 43.24983316221144,
+        "scene_macro_mae": 37.94930634147051,
+        "signed_error": 43.24983316221144,
+        "actual_mean_pdms": 0.0,
+        "prediction_within5_points_fraction": 0.13458528951486698
+      }
+    },
+    "random_bouquet64": {
+      "nc_dac_compliant": {
+        "candidate_count": 1626,
+        "scene_count": 63,
+        "recording_count": 38,
+        "candidate_weighted_mae": 26.65862491360072,
+        "scene_macro_mae": 27.200412707842993,
+        "signed_error": -25.02193030066299,
+        "actual_mean_pdms": 71.19915065943013,
+        "prediction_within5_points_fraction": 0.21033210332103322
+      },
+      "nc_or_dac_noncompliant": {
+        "candidate_count": 2470,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 7.5821278351474,
+        "scene_macro_mae": 8.6477440064841,
+        "signed_error": 7.5821278351474,
+        "actual_mean_pdms": 0.0052669456966649986,
+        "prediction_within5_points_fraction": 0.7676113360323886
+      }
+    },
+    "nearby64": {
+      "nc_dac_compliant": {
+        "candidate_count": 2600,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 19.83179216700352,
+        "scene_macro_mae": 21.40387862663603,
+        "signed_error": -16.21994708352138,
+        "actual_mean_pdms": 93.14422640743402,
+        "prediction_within5_points_fraction": 0.3669230769230769
+      },
+      "nc_or_dac_noncompliant": {
+        "candidate_count": 1496,
+        "scene_count": 63,
+        "recording_count": 37,
+        "candidate_weighted_mae": 20.729129252994646,
+        "scene_macro_mae": 21.777143078693328,
+        "signed_error": 20.729129252994646,
+        "actual_mean_pdms": 0.0,
+        "prediction_within5_points_fraction": 0.5020053475935828
+      }
+    }
+  },
+  "geometric_error_slices_shared256": {
+    "nearest_drivor_proposal_rms_distance_m": [
+      {
+        "lower": 0.0,
+        "upper": 0.5,
+        "candidate_count": 10074,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 18.830290919051627,
+        "scene_macro_mae": 19.089405558487158,
+        "signed_error": -2.745719212458751,
+        "actual_mean_pdms": 77.46124988306939,
+        "prediction_within5_points_fraction": 0.4266428429620806
+      },
+      {
+        "lower": 0.5,
+        "upper": 2.0,
+        "candidate_count": 3077,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 22.65142414366675,
+        "scene_macro_mae": 21.596305815050776,
+        "signed_error": -5.911553141621463,
+        "actual_mean_pdms": 47.884499558511784,
+        "prediction_within5_points_fraction": 0.341566460838479
+      },
+      {
+        "lower": 2.0,
+        "upper": 5.0,
+        "candidate_count": 1547,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 14.259837216123303,
+        "scene_macro_mae": 13.457263759734428,
+        "signed_error": -3.1742741644739976,
+        "actual_mean_pdms": 22.50247458842938,
+        "prediction_within5_points_fraction": 0.5953458306399483
+      },
+      {
+        "lower": 5.0,
+        "upper": 10.0,
+        "candidate_count": 1249,
+        "scene_count": 60,
+        "recording_count": 37,
+        "candidate_weighted_mae": 12.150320406429136,
+        "scene_macro_mae": 9.59544865308396,
+        "signed_error": -4.874273770358077,
+        "actual_mean_pdms": 21.984463627880423,
+        "prediction_within5_points_fraction": 0.6541232986389112
+      },
+      {
+        "lower": 10.0,
+        "upper": 1000000000.0,
+        "candidate_count": 437,
+        "scene_count": 48,
+        "recording_count": 31,
+        "candidate_weighted_mae": 5.754704329419742,
+        "scene_macro_mae": 4.34753711394318,
+        "signed_error": 1.2363824223572712,
+        "actual_mean_pdms": 4.356363296115476,
+        "prediction_within5_points_fraction": 0.8146453089244852
+      }
+    ],
+    "endpoint_heading_abs_deg": [
+      {
+        "lower": 0.0,
+        "upper": 10.0,
+        "candidate_count": 5288,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 14.39010421670877,
+        "scene_macro_mae": 13.136696123639851,
+        "signed_error": -2.8349607686076315,
+        "actual_mean_pdms": 74.49835769069733,
+        "prediction_within5_points_fraction": 0.5145612708018155
+      },
+      {
+        "lower": 10.0,
+        "upper": 30.0,
+        "candidate_count": 3962,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 19.82789493034102,
+        "scene_macro_mae": 18.688195410124962,
+        "signed_error": -2.6797250405790143,
+        "actual_mean_pdms": 60.49271443950873,
+        "prediction_within5_points_fraction": 0.43336698637051996
+      },
+      {
+        "lower": 30.0,
+        "upper": 60.0,
+        "candidate_count": 3735,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 18.018839836862966,
+        "scene_macro_mae": 15.943510116992018,
+        "signed_error": -4.037880785042532,
+        "actual_mean_pdms": 57.66902491006674,
+        "prediction_within5_points_fraction": 0.44712182061579653
+      },
+      {
+        "lower": 60.0,
+        "upper": 180.0001,
+        "candidate_count": 3399,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 22.710193986133447,
+        "scene_macro_mae": 16.717042346048515,
+        "signed_error": -4.595077207655786,
+        "actual_mean_pdms": 42.02578180837504,
+        "prediction_within5_points_fraction": 0.39276257722859664
+      }
+    ],
+    "rms_longitudinal_jerk_proxy_m_per_s3": [
+      {
+        "lower": 0.0,
+        "upper": 2.0,
+        "candidate_count": 15715,
+        "scene_count": 64,
+        "recording_count": 38,
+        "candidate_weighted_mae": 18.36529958995264,
+        "scene_macro_mae": 18.387684797543272,
+        "signed_error": -3.4327355942925752,
+        "actual_mean_pdms": 61.84732567867189,
+        "prediction_within5_points_fraction": 0.4503340757238307
+      },
+      {
+        "lower": 2.0,
+        "upper": 5.0,
+        "candidate_count": 669,
+        "scene_count": 62,
+        "recording_count": 37,
+        "candidate_weighted_mae": 15.746821981184059,
+        "scene_macro_mae": 16.899633271902722,
+        "signed_error": -3.5322204063068314,
+        "actual_mean_pdms": 29.78799318860727,
+        "prediction_within5_points_fraction": 0.547085201793722
+      },
+      {
+        "lower": 5.0,
+        "upper": 10.0,
+        "candidate_count": 0,
+        "scene_count": 0,
+        "recording_count": 0,
+        "candidate_weighted_mae": null,
+        "scene_macro_mae": null,
+        "signed_error": null,
+        "actual_mean_pdms": null,
+        "prediction_within5_points_fraction": null
+      },
+      {
+        "lower": 10.0,
+        "upper": 1000000000.0,
+        "candidate_count": 0,
+        "scene_count": 0,
+        "recording_count": 0,
+        "candidate_weighted_mae": null,
+        "scene_macro_mae": null,
+        "signed_error": null,
+        "actual_mean_pdms": null,
+        "prediction_within5_points_fraction": null
+      }
+    ]
+  },
+  "by_current_driving_command_separate64": {
+    "left_turn": {
+      "drivor_generated64": {
+        "scenes": 21,
+        "selected_pdms": 88.49720025038427,
+        "oracle_best_pdms": 99.94464807147163,
+        "selection_regret_pdms_points": 11.447447821087351
+      },
+      "toad_generated64": {
+        "scenes": 21,
+        "selected_pdms": 86.48614732235674,
+        "oracle_best_pdms": 99.70772827102532,
+        "selection_regret_pdms_points": 13.221580948668583
+      },
+      "random_bouquet64": {
+        "scenes": 21,
+        "selected_pdms": 80.91409110588359,
+        "oracle_best_pdms": 94.79731244940379,
+        "selection_regret_pdms_points": 13.883221343520193
+      },
+      "nearby64": {
+        "scenes": 21,
+        "selected_pdms": 87.92579878331574,
+        "oracle_best_pdms": 99.91818202061434,
+        "selection_regret_pdms_points": 11.992383237298611
+      }
+    },
+    "straight": {
+      "drivor_generated64": {
+        "scenes": 22,
+        "selected_pdms": 97.56508571704812,
+        "oracle_best_pdms": 100.0,
+        "selection_regret_pdms_points": 2.4349142829518855
+      },
+      "toad_generated64": {
+        "scenes": 22,
+        "selected_pdms": 97.8041619786874,
+        "oracle_best_pdms": 100.0,
+        "selection_regret_pdms_points": 2.195838021312599
+      },
+      "random_bouquet64": {
+        "scenes": 22,
+        "selected_pdms": 63.63071615526567,
+        "oracle_best_pdms": 90.56186175315615,
+        "selection_regret_pdms_points": 26.931145597890495
+      },
+      "nearby64": {
+        "scenes": 22,
+        "selected_pdms": 93.07532359309234,
+        "oracle_best_pdms": 99.71864732671737,
+        "selection_regret_pdms_points": 6.643323733625054
+      }
+    },
+    "right_turn": {
+      "drivor_generated64": {
+        "scenes": 21,
+        "selected_pdms": 94.57538877665245,
+        "oracle_best_pdms": 99.6729049806628,
+        "selection_regret_pdms_points": 5.097516204010371
+      },
+      "toad_generated64": {
+        "scenes": 21,
+        "selected_pdms": 94.76389333319699,
+        "oracle_best_pdms": 99.83850206629577,
+        "selection_regret_pdms_points": 5.07460873309878
+      },
+      "random_bouquet64": {
+        "scenes": 21,
+        "selected_pdms": 70.04722572384786,
+        "oracle_best_pdms": 96.32547992146878,
+        "selection_regret_pdms_points": 26.278254197620942
+      },
+      "nearby64": {
+        "scenes": 21,
+        "selected_pdms": 90.86812745837199,
+        "oracle_best_pdms": 98.9702078541742,
+        "selection_regret_pdms_points": 8.102080395802227
+      }
+    }
+  },
+  "candidate_context_effect": {
+    "drivor_generated64": {
+      "selected_candidate_changed_scenes": 34,
+      "mean_pdms_change_shared_minus_separate": 0.30950248913042067,
+      "maximum_prediction_change_pdms_points": 39.014157199369436
+    },
+    "toad_generated64": {
+      "selected_candidate_changed_scenes": 34,
+      "mean_pdms_change_shared_minus_separate": 1.0272343783462488,
+      "maximum_prediction_change_pdms_points": 43.73924918064721
+    },
+    "random_bouquet64": {
+      "selected_candidate_changed_scenes": 24,
+      "mean_pdms_change_shared_minus_separate": 0.2676162183925883,
+      "maximum_prediction_change_pdms_points": 76.63046171742086
+    },
+    "nearby64": {
+      "selected_candidate_changed_scenes": 27,
+      "mean_pdms_change_shared_minus_separate": 1.4440161036351837,
+      "maximum_prediction_change_pdms_points": 58.6438059304445
+    }
+  },
+  "score_conversion": "Predicted PDMS estimate = 100*exp(neural_log_score)/12; soft metric composition, not certified probability",
+  "cost_and_checks": {
+    "complete": true,
+    "loading": {
+      "strict_loading": "<All keys matched successfully>",
+      "checkpoint_tensor_count": 467,
+      "checkpoint_epoch": 28,
+      "checkpoint_global_step": 53911,
+      "parameters": 40787582,
+      "trainable_parameters": 0,
+      "configuration": {
+        "b2d": false,
+        "shared_refiner": false,
+        "ref_num": 4,
+        "scorer_ref_num": 4,
+        "proposal_num": 64,
+        "num_poses": 8,
+        "num_scene_tokens": 16,
+        "one_token_per_traj": true,
+        "full_history_status": false,
+        "long_trajectory_additional_poses": 2,
+        "noc": 1.0,
+        "dac": 1.0,
+        "ddc": 0.0,
+        "ttc": 5.0,
+        "ep": 5.0,
+        "comfort": 2.0,
+        "tf_d_model": 256,
+        "tf_d_ffn": 1024,
+        "cam_f0": [
+          3
+        ],
+        "cam_l0": [
+          3
+        ],
+        "cam_l1": [],
+        "cam_l2": [],
+        "cam_r0": [
+          3
+        ],
+        "cam_r1": [],
+        "cam_r2": [],
+        "cam_b0": [
+          3
+        ],
+        "lidar_pc": [],
+        "use_cem": false,
+        "cem_seed_topk": 64,
+        "cem_num_samples": 64,
+        "cem_num_iterations": 5,
+        "cem_num_elites": null,
+        "proposal_augment_random": 0,
+        "random_bouquet_control_mode": "family_mix",
+        "image_size": [
+          1148,
+          672
+        ],
+        "image_backbone": {
+          "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+          "model_weights": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/four_model_small_corpus/dinov2_vits_reg4.safetensors",
+          "use_lora": true,
+          "finetune": false,
+          "lora_rank": 32,
+          "focus_front_cam": false,
+          "use_feature_pooling": false,
+          "compress_fc": false,
+          "image_size": [
+            1148,
+            672
+          ],
+          "num_scene_tokens": 16,
+          "tf_d_model": 256
+        },
+        "lidar_min_x": -35,
+        "lidar_max_x": 35,
+        "lidar_min_y": -35,
+        "lidar_max_y": 35,
+        "lidar_image_size": [
+          518,
+          518
+        ],
+        "lidar_hist_max_per_pixel": 5,
+        "lidar_max_height": 100.0,
+        "lidar_split_height": 0.2,
+        "lidar_use_ground_plane": true,
+        "lidar_backbone": {
+          "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+          "model_weights": "weights/vit_small_patch14_reg4_dinov2.lvd142m/model.safetensors",
+          "use_lora": true,
+          "finetune": false,
+          "lora_rank": 32,
+          "in_chans": 2
+        },
+        "double_score": false,
+        "agent_pred": false,
+        "area_pred": false,
+        "bev_map": false,
+        "bev_agent": false,
+        "refiner_num_heads": 1,
+        "refiner_ls_values": 0.0,
+        "trajectory_sampling": {
+          "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+          "time_horizon": 4,
+          "interval_length": 0.5
+        }
+      },
+      "source_path": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/TOADNav1OfficialCalibration/navsim/agents/drivoR/drivor_model.py",
+      "source_sha256": "9e33b0bc0438d8554d90fe6d532d0f3512c666ebdc60a2aaeb71312b077e3e5a"
+    },
+    "maximum_cached_gpu_vs_cpu_replay_error": 7.62939453125e-06,
+    "cached_backbone_calls": 0,
+    "all_weights_frozen_and_unchanged": true,
+    "all_parameter_gradients_absent": true,
+    "optimizer_steps": 0,
+    "device": "cpu",
+    "gpu_seconds": 0,
+    "new_official_evaluator_calls": 0,
+    "reuse_official_candidate_count": 16384,
+    "cpu_phase_wall_seconds": 52.55804871098371,
+    "cached_replay_seconds": 0.2592394380189944,
+    "cpu_rescoring_seconds": 45.21859132501413,
+    "mean_seconds_per_scene_for_three_scorer_calls": 0.7027011916711672,
+    "new_scorer_calls": 96,
+    "new_scorer_scene_forwards": 192,
+    "cpu_threads": 2,
+    "microbatch_scenes": 2,
+    "protected_training": {
+      "checked_files": 293,
+      "mismatches": [],
+      "running_training_completed_updates": 13305
+    },
+    "environment": {
+      "torch": "2.8.0+cu128",
+      "numpy": "2.5.1"
+    }
+  },
+  "notes": [
+    "Reuse every trajectory and official PDMS from the previous 64-scene development panel; no new trajectory generation or evaluator calls.",
+    "Operational comparison uses four separate full 64-candidate contexts, with the same original scorer and its own frozen observation cache.",
+    "The second protocol scores all 256 identical candidates together, holding candidate attention context fixed for conditional error analysis.",
+    "Family labels follow the official family_mix generator's concatenation order, not inferred scene semantics.",
+    "Geometry and native-distance bins are descriptive analyses fixed before this run; they do not prove the training density or OOD membership.",
+    "All later score-band/safety stratification uses oracle labels for retrospective diagnosis and is not an inference-time classifier."
+  ]
+}

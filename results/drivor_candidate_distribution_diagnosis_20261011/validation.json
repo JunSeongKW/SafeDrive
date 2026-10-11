@@ -1,0 +1,135 @@
+{
+  "complete": true,
+  "loading": {
+    "strict_loading": "<All keys matched successfully>",
+    "checkpoint_tensor_count": 467,
+    "checkpoint_epoch": 28,
+    "checkpoint_global_step": 53911,
+    "parameters": 40787582,
+    "trainable_parameters": 0,
+    "configuration": {
+      "b2d": false,
+      "shared_refiner": false,
+      "ref_num": 4,
+      "scorer_ref_num": 4,
+      "proposal_num": 64,
+      "num_poses": 8,
+      "num_scene_tokens": 16,
+      "one_token_per_traj": true,
+      "full_history_status": false,
+      "long_trajectory_additional_poses": 2,
+      "noc": 1.0,
+      "dac": 1.0,
+      "ddc": 0.0,
+      "ttc": 5.0,
+      "ep": 5.0,
+      "comfort": 2.0,
+      "tf_d_model": 256,
+      "tf_d_ffn": 1024,
+      "cam_f0": [
+        3
+      ],
+      "cam_l0": [
+        3
+      ],
+      "cam_l1": [],
+      "cam_l2": [],
+      "cam_r0": [
+        3
+      ],
+      "cam_r1": [],
+      "cam_r2": [],
+      "cam_b0": [
+        3
+      ],
+      "lidar_pc": [],
+      "use_cem": false,
+      "cem_seed_topk": 64,
+      "cem_num_samples": 64,
+      "cem_num_iterations": 5,
+      "cem_num_elites": null,
+      "proposal_augment_random": 0,
+      "random_bouquet_control_mode": "family_mix",
+      "image_size": [
+        1148,
+        672
+      ],
+      "image_backbone": {
+        "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+        "model_weights": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/four_model_small_corpus/dinov2_vits_reg4.safetensors",
+        "use_lora": true,
+        "finetune": false,
+        "lora_rank": 32,
+        "focus_front_cam": false,
+        "use_feature_pooling": false,
+        "compress_fc": false,
+        "image_size": [
+          1148,
+          672
+        ],
+        "num_scene_tokens": 16,
+        "tf_d_model": 256
+      },
+      "lidar_min_x": -35,
+      "lidar_max_x": 35,
+      "lidar_min_y": -35,
+      "lidar_max_y": 35,
+      "lidar_image_size": [
+        518,
+        518
+      ],
+      "lidar_hist_max_per_pixel": 5,
+      "lidar_max_height": 100.0,
+      "lidar_split_height": 0.2,
+      "lidar_use_ground_plane": true,
+      "lidar_backbone": {
+        "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+        "model_weights": "weights/vit_small_patch14_reg4_dinov2.lvd142m/model.safetensors",
+        "use_lora": true,
+        "finetune": false,
+        "lora_rank": 32,
+        "in_chans": 2
+      },
+      "double_score": false,
+      "agent_pred": false,
+      "area_pred": false,
+      "bev_map": false,
+      "bev_agent": false,
+      "refiner_num_heads": 1,
+      "refiner_ls_values": 0.0,
+      "trajectory_sampling": {
+        "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+        "time_horizon": 4,
+        "interval_length": 0.5
+      }
+    },
+    "source_path": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/TOADNav1OfficialCalibration/navsim/agents/drivoR/drivor_model.py",
+    "source_sha256": "9e33b0bc0438d8554d90fe6d532d0f3512c666ebdc60a2aaeb71312b077e3e5a"
+  },
+  "maximum_cached_gpu_vs_cpu_replay_error": 7.62939453125e-06,
+  "cached_backbone_calls": 0,
+  "all_weights_frozen_and_unchanged": true,
+  "all_parameter_gradients_absent": true,
+  "optimizer_steps": 0,
+  "device": "cpu",
+  "gpu_seconds": 0,
+  "new_official_evaluator_calls": 0,
+  "reuse_official_candidate_count": 16384,
+  "cpu_phase_wall_seconds": 52.55804871098371,
+  "cached_replay_seconds": 0.2592394380189944,
+  "cpu_rescoring_seconds": 45.21859132501413,
+  "mean_seconds_per_scene_for_three_scorer_calls": 0.7027011916711672,
+  "new_scorer_calls": 96,
+  "new_scorer_scene_forwards": 192,
+  "cpu_threads": 2,
+  "microbatch_scenes": 2,
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 13305
+  },
+  "environment": {
+    "torch": "2.8.0+cu128",
+    "numpy": "2.5.1"
+  }
+}
