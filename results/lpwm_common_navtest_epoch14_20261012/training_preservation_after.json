@@ -1,0 +1,100 @@
+{
+  "training_progress_before": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 17178,
+    "epoch": 15,
+    "rank_scene_tokens_sha256": "f6c6fdaafebdfe0b3e7261d08593b40f455146232cbadf7f17ba2de12ec93c10",
+    "update_in_epoch": 700,
+    "seconds_this_update": 12.702623128890991,
+    "elapsed_seconds": 9884.36492228508,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.008499860763549805,
+      "forward": 2.6446456909179688,
+      "oracle": 2.803394079208374,
+      "backward": 6.3372673988342285
+    },
+    "learning_rates": [
+      4.411495751957598e-06,
+      4.411495751957586e-05
+    ],
+    "loss": 2.2922325134277344,
+    "trajectory_loss": 0.7075172364711761,
+    "final_score_loss": 1.5847152769565582,
+    "score": 0.904734343290329,
+    "best_score": 0.9962767511606216,
+    "estimated_remaining_seconds": 172934.0285429457
+  },
+  "training_progress_after": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 17274,
+    "epoch": 15,
+    "rank_scene_tokens_sha256": "f5080c6d1b6a43bc23d3b14da76f2288eb42ceb01cc2a7f590865f38994c78d8",
+    "update_in_epoch": 796,
+    "seconds_this_update": 28.587504148483276,
+    "elapsed_seconds": 11276.40381860733,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.0006709098815917969,
+      "forward": 2.7271289825439453,
+      "oracle": 14.41802453994751,
+      "backward": 11.263229131698608
+    },
+    "learning_rates": [
+      4.3549900778687264e-06,
+      4.354990077868716e-05
+    ],
+    "loss": 1.9486531615257263,
+    "trajectory_loss": 0.765278548002243,
+    "final_score_loss": 1.1833746135234833,
+    "score": 0.9549437463283539,
+    "best_score": 0.9997291713953018,
+    "estimated_remaining_seconds": 172135.15898799116
+  },
+  "queue_pid_unchanged": true,
+  "scientific_configuration_hashes_unchanged": true,
+  "protected_files_audit": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 17274
+  },
+  "baseline_artifacts_unchanged": true,
+  "evaluation_results_consistency_passed": true,
+  "new_training_steps_for_evaluation": 0
+}

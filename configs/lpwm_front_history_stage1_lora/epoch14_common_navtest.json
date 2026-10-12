@@ -1,0 +1,86 @@
+{
+  "purpose": "User-requested latest completed LPWM checkpoint evaluation on the unchanged common NAVTEST1024 subset",
+  "output_directory": "outputs/lpwm_front_history_stage1_lora_v1/epoch14_common_navtest_20261012",
+  "training_configuration": "configs/lpwm_front_history_stage1_lora/experiment.json",
+  "training_execution": "configs/lpwm_front_history_stage1_lora/execution_microbatch8.json",
+  "panel": "outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/panel.json",
+  "inputs": "outputs/lpwm_preserved_checkpoint_same_panels_20261009/shared_navtest/inputs",
+  "scene_count": 1024,
+  "full_navtest": false,
+  "gpu": 0,
+  "inference_batch_size": 4,
+  "maximum_total_card_bytes": 48000000000,
+  "maximum_process_bytes": 4000000000,
+  "scoring_workers": 2,
+  "conditions": {
+    "lpwm": {
+      "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_14.pt",
+      "completed_updates": 16478,
+      "planning_training_scenes": 75297,
+      "official_training_split_composition": "navtrain 60561 + navval 14736",
+      "effective_batch": 64,
+      "observed_frames": 4,
+      "image_size_width_height": [
+        128,
+        128
+      ],
+      "planner_memory_tokens": 64,
+      "seed": 2,
+      "local_stage1": "23126 clips, 20 epochs; reused completed LPWM SSL checkpoint",
+      "planning_epoch": 14
+    },
+    "drivor": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass5.pt",
+      "completed_updates": 3200,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "None; public DINOv2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/drivor/validation/pass5.pdms.json",
+      "planning_epoch": 5
+    },
+    "jepa": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/jepa/pass5.pt",
+      "stage1_checkpoint": "outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt",
+      "completed_updates": 3200,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "10480 clips, 5 passes, V-JEPA2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/jepa/validation/pass5.pdms.json",
+      "planning_epoch": 5
+    }
+  },
+  "interpretation": "LPWM planning epoch14 versus preserved small-corpus DrivoR and Drive-JEPA-style epoch5 checkpoints. Same NAVTEST1024 scenes and official NAVSIM v1 evaluator; unequal training datasets, presentations, history, resolution, memory, seed and SSL. Not a matched-budget representation comparison, full NAVTEST, or original-paper reproduction.",
+  "selection_policy": "The latest completed LPWM epoch14 is fixed before evaluating NAVTEST scores. Preserve ongoing epoch15 training, batch, learning rate, optimizer, checkpoint and queue. Reuse baseline predictions and official scores byte-for-byte.",
+  "planning_epoch": 14,
+  "first_epoch_comparison": "outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison/comparison_complete.json",
+  "previous_common_comparison": "outputs/lpwm_front_history_stage1_lora_v1/epoch3_common_comparison/comparison_complete.json",
+  "previous_lpwm_comparison": "outputs/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison/comparison_complete.json",
+  "results_directory": "results/lpwm_common_navtest_epoch14_20261012",
+  "reuse_baseline_evaluations": {
+    "drivor": "outputs/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison/drivor",
+    "jepa": "outputs/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison/jepa"
+  },
+  "previous_lpwm_same_panel": "outputs/lpwm_front_history_stage1_lora_v1/epoch9_navsim_visualization/lpwm",
+  "command_names": {
+    "0": "left_turn",
+    "1": "straight",
+    "2": "right_turn",
+    "3": "unknown"
+  },
+  "bootstrap_seed": 71,
+  "bootstrap_repetitions": 5000
+}

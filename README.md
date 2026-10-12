@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-12 15:18 KST — 최신LPWM14epoch 공통NAVTEST 평가 완료.** 같은1,024장면/44recording에서 LPWM85.2586/ADE1.2824m/FDE3.2062m,보존된축소DrivoR5epoch83.9662/Drive-JEPA방식5epoch85.3751. 이전LPWM9epoch85.9317보다−.6731점(recording95%CI[-2.1966,+.8607]);도로준수 평균.957031→.942383. 전체NAVTEST·동일학습예산·원논문모델비교가아니다. [보고서·실측·시각화](results/lpwm_common_navtest_epoch14_20261012/report.md). GPU0 batch4추론239.24초/전체카드최대43.297GB,CPU2worker공식채점50.87초/실패0. 기존학습·queue·293등록파일보존.
+
 **2026-10-12 14:48 KST — LPWM 중간 결과 조회.** 기존 Stage2는17,150/29,425 update(58.28%),15번째epoch672/1177 진행 중이다. 새로 완료된14epoch의 동일 내부개발1021 유효장면 PDMS88.0149/ADE1.2163m/FDE3.0565m;13epoch88.1786 대비−0.1637점이며 궤적 오차는 감소했다. 공통NAVTEST1024 최신 결과는9epoch85.9317로 구분한다. 양rank 최근500loss 유한·17,100의18gradient그룹 유한양수,카드당41.08GB/유효64/보호293SHA 불일치0. 남은 본학습 약47.9h(검증 별도). [조회근거](results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_1448.json). 학습·평가·설정·queue 변경없음.
 
 **2026-10-12 09:49 KST — LPWM 중간 결과 조회.** 기존 전방4프레임 Stage2 LoRA 학습은 15,887/29,425 update(53.99%), 14번째 epoch 진행 중이다. 완료된 13 epoch의 동일 내부 개발셋 PDMS는88.1786/ADE1.3202m/FDE3.3408m이며 12 epoch87.4761 대비+0.7025점이다. 공통 NAVTEST1,024의 최신 기존 결과는9 epoch85.9317로 구분한다. 양rank 최근500loss 비유한0·18gradient그룹 유한양수, 카드당41.08GB, 보호293파일 불일치0. 16장면 미래 RGB MSE는 Stage1 대비+5.53%여서 표현 유지 점검은 필요하다. [상태·검증·비용 근거](results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_0949.json). 이번에는 새학습/평가·설정·queue 변경이 없다.

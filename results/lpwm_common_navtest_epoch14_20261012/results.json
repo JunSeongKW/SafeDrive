@@ -1,0 +1,366 @@
+{
+  "complete": true,
+  "benchmark": "NAVSIM v1",
+  "full_navtest": false,
+  "scope": "Repeatedly exposed fixed NAVTEST development subset, not independent final evaluation",
+  "count": 1024,
+  "recording_count": 44,
+  "planning_epochs_by_condition": {
+    "lpwm": 14,
+    "drivor": 5,
+    "jepa": 5
+  },
+  "results": {
+    "lpwm": {
+      "checkpoint_sha256": "71464dea0f28f60199565372949856946e674cc83aa5e438aac52cfa89c2fa04",
+      "completed_updates": 16478,
+      "strict_state_load": true,
+      "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.2823740243911743,
+      "fde_meters": 3.2062432765960693,
+      "seconds": 239.23917531967163,
+      "images": "historical_adapter_images.npy",
+      "ego": "historical_joint_ego.npy",
+      "peak_reserved_bytes": 1872756736,
+      "largest_sampled_total_card_bytes": 43296751616,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 85.25859475910973,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.97802734375,
+        "drivable_area_compliance": 0.9423828125,
+        "ego_progress": 0.7907375242186333,
+        "time_to_collision_within_bound": 0.94140625,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.96044921875,
+        "score": 0.8525859475910973
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 81.73129678967493
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 77.00444902562167
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 87.17983851634973
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    },
+    "drivor": {
+      "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+      "completed_updates": 3200,
+      "strict_state_load": true,
+      "frozen_native_sha256": null,
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.8091833591461182,
+      "fde_meters": 4.352607727050781,
+      "seconds": 36.66040086746216,
+      "images": "rectangular_images.npy",
+      "ego": "rectangular_ego.npy",
+      "peak_reserved_bytes": 306184192,
+      "largest_sampled_total_card_bytes": 41725984768,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 83.96620868119717,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.98779296875,
+        "drivable_area_compliance": 0.9404296875,
+        "ego_progress": 0.7612321478623008,
+        "time_to_collision_within_bound": 0.943359375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.96875,
+        "score": 0.8396620868119717
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 80.10261789024406
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 74.84659867219112
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 86.08015999491444
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    },
+    "jepa": {
+      "checkpoint_sha256": "aa7b86b690e18bcd45e3b5a4c67854e6b6c53e9fde95dbf4e298b34d54c62d7f",
+      "completed_updates": 3200,
+      "strict_state_load": true,
+      "frozen_native_sha256": null,
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.6928892135620117,
+      "fde_meters": 3.9387526512145996,
+      "seconds": 65.32102274894714,
+      "images": "rectangular_images.npy",
+      "ego": "rectangular_ego.npy",
+      "peak_reserved_bytes": 1415577600,
+      "largest_sampled_total_card_bytes": 42835378176,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 85.3751334812971,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.98583984375,
+        "drivable_area_compliance": 0.947265625,
+        "ego_progress": 0.7778626773453972,
+        "time_to_collision_within_bound": 0.94921875,
+        "comfort": 0.9990234375,
+        "driving_direction_compliance": 0.97265625,
+        "score": 0.853751334812971
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 83.2351101498876
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 81.01961325874964
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 86.46153202784407
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    }
+  },
+  "conditions": {
+    "lpwm": {
+      "checkpoint": "outputs/lpwm_front_history_stage1_lora_v1/stage2/epoch_14.pt",
+      "completed_updates": 16478,
+      "planning_training_scenes": 75297,
+      "official_training_split_composition": "navtrain 60561 + navval 14736",
+      "effective_batch": 64,
+      "observed_frames": 4,
+      "image_size_width_height": [
+        128,
+        128
+      ],
+      "planner_memory_tokens": 64,
+      "seed": 2,
+      "local_stage1": "23126 clips, 20 epochs; reused completed LPWM SSL checkpoint",
+      "planning_epoch": 14
+    },
+    "drivor": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/drivor/pass5.pt",
+      "completed_updates": 3200,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "None; public DINOv2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/drivor/validation/pass5.pdms.json",
+      "planning_epoch": 5
+    },
+    "jepa": {
+      "checkpoint": "outputs/four_model_small_corpus_v1/jepa/pass5.pt",
+      "stage1_checkpoint": "outputs/four_model_small_corpus_v1/jepa_ssl/latest.pt",
+      "completed_updates": 3200,
+      "planning_training_scenes": 10240,
+      "effective_batch": 16,
+      "observed_frames": 2,
+      "image_size_width_height": [
+        512,
+        256
+      ],
+      "planner_memory_tokens": 16,
+      "seed": 47,
+      "local_stage1": "10480 clips, 5 passes, V-JEPA2 initialization",
+      "historical_development_scores": "outputs/four_model_small_corpus_v1/jepa/validation/pass5.pdms.json",
+      "planning_epoch": 5
+    }
+  },
+  "previous_lpwm_epoch9": {
+    "checkpoint_sha256": "4624e94b0ddca42aa5e00eafc83404919ac526636449107790e5790071b4badb",
+    "completed_updates": 10593,
+    "strict_state_load": true,
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "complete": true,
+    "count": 1024,
+    "ade_meters": 1.4211902618408203,
+    "fde_meters": 3.5233306884765625,
+    "seconds": 301.82167768478394,
+    "images": "historical_adapter_images.npy",
+    "ego": "historical_joint_ego.npy",
+    "peak_reserved_bytes": 1872756736,
+    "largest_sampled_total_card_bytes": 43296751616,
+    "allocator_limit_bytes": 4000000000,
+    "precision_matches_original_evaluation": true,
+    "training_unchanged": true,
+    "pdms": 85.93170049544132,
+    "mean_metrics": {
+      "no_at_fault_collisions": 0.9775390625,
+      "drivable_area_compliance": 0.95703125,
+      "ego_progress": 0.7922436243905919,
+      "time_to_collision_within_bound": 0.9326171875,
+      "comfort": 1.0,
+      "driving_direction_compliance": 0.9560546875,
+      "score": 0.8593170049544132
+    },
+    "by_scene_type": {
+      "left_turn": {
+        "count": 193,
+        "pdms": 81.70804172635856
+      },
+      "right_turn": {
+        "count": 90,
+        "pdms": 78.54852242145697
+      },
+      "straight": {
+        "count": 741,
+        "pdms": 87.9285320326769
+      }
+    },
+    "failed": 0,
+    "full_navtest": false,
+    "benchmark": "NAVSIM v1 fixed independent navtest subset"
+  },
+  "lpwm_mean_submetric_change_since_epoch9": {
+    "no_at_fault_collisions": 0.00048828125,
+    "drivable_area_compliance": -0.0146484375,
+    "ego_progress": -0.0015061001719586242,
+    "time_to_collision_within_bound": 0.0087890625,
+    "comfort": 0.0,
+    "driving_direction_compliance": 0.00439453125,
+    "score": -0.006731057363315918
+  },
+  "paired_pdms_differences": {
+    "lpwm_epoch9": {
+      "mean_pdms_difference_points": -0.6731057363316085,
+      "recording_bootstrap_95ci_points": [
+        -2.1965846557541995,
+        0.8606758738232583
+      ]
+    },
+    "drivor_epoch5": {
+      "mean_pdms_difference_points": 1.2923860779125411,
+      "recording_bootstrap_95ci_points": [
+        -1.5174382211468729,
+        3.9957666506722958
+      ]
+    },
+    "jepa_epoch5": {
+      "mean_pdms_difference_points": -0.11653872218738459,
+      "recording_bootstrap_95ci_points": [
+        -2.323951022675038,
+        1.9849063710103176
+      ]
+    }
+  },
+  "by_current_ego_command": {
+    "left_turn": {
+      "count": 205,
+      "pdms_by_model": {
+        "lpwm": 83.37114131001468,
+        "drivor": 82.4199505058713,
+        "jepa": 84.3095548375893
+      }
+    },
+    "straight": {
+      "count": 710,
+      "pdms_by_model": {
+        "lpwm": 86.75635560047499,
+        "drivor": 86.39686836103928,
+        "jepa": 86.18399388056855
+      }
+    },
+    "right_turn": {
+      "count": 109,
+      "pdms_by_model": {
+        "lpwm": 79.05233567374412,
+        "drivor": 71.04157155508635,
+        "jepa": 82.11047970586013
+      }
+    }
+  },
+  "expert_trajectory_turn_strata": {
+    "lpwm": {
+      "left_turn": {
+        "count": 193,
+        "pdms": 81.73129678967493
+      },
+      "right_turn": {
+        "count": 90,
+        "pdms": 77.00444902562167
+      },
+      "straight": {
+        "count": 741,
+        "pdms": 87.17983851634973
+      }
+    },
+    "drivor": {
+      "left_turn": {
+        "count": 193,
+        "pdms": 80.10261789024406
+      },
+      "right_turn": {
+        "count": 90,
+        "pdms": 74.84659867219112
+      },
+      "straight": {
+        "count": 741,
+        "pdms": 86.08015999491444
+      }
+    },
+    "jepa": {
+      "left_turn": {
+        "count": 193,
+        "pdms": 83.2351101498876
+      },
+      "right_turn": {
+        "count": 90,
+        "pdms": 81.01961325874964
+      },
+      "straight": {
+        "count": 741,
+        "pdms": 86.46153202784407
+      }
+    }
+  },
+  "scene_type_definition": "Expert terminal yaw >0.25rad left, <-0.25rad right, else straight. Distinct from observed driving command.",
+  "current_command_source": "Cached current ego_status[:,7:11] one-hot driving command; 0 left, 1 straight, 2 right",
+  "overlap": {
+    "lpwm_planning_tokens": 0,
+    "lpwm_planning_recordings": 0,
+    "lpwm_stage1_recordings": 0,
+    "baseline_planning_tokens": 0,
+    "baseline_planning_recordings": 0,
+    "jepa_stage1_recordings": 0
+  },
+  "interpretation": "LPWM planning epoch14 versus preserved small-corpus DrivoR and Drive-JEPA-style epoch5 checkpoints. Same NAVTEST1024 scenes and official NAVSIM v1 evaluator; unequal training datasets, presentations, history, resolution, memory, seed and SSL. Not a matched-budget representation comparison, full NAVTEST, or original-paper reproduction.",
+  "selection_policy": "The latest completed LPWM epoch14 is fixed before evaluating NAVTEST scores. Preserve ongoing epoch15 training, batch, learning rate, optimizer, checkpoint and queue. Reuse baseline predictions and official scores byte-for-byte.",
+  "bootstrap_scope": "Recording resampling of this evaluation panel, not training-seed uncertainty",
+  "training_protection_audit": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 17267
+  }
+}

@@ -5023,3 +5023,20 @@ C 전체train MMD.0363583→.0251934,개발평균waypoint이동.213489m. B .0293
 16scene Stage1대비reconstructionMSE+.4308797%/futureMSE+4.6293341%;이전13epoch+.8115%/+5.5315%보다낮으나작은진단으로일반적표현개선단정안함. 고정4scene epoch14중심평균이동.7549663inputpx/크기9.1659203%/presence절대.0427072. 이미지 outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_14/particles_before_after_overlay.png. 위치/크기변화는객체중요도·planning인과효용의증거아님.
 
 최근200update평균14.038914초,잔여12275update학습47.8688h/trainer47.9111h,15epoch잔여505update약1.969h. 검증·자원변화시간별도조건부외삽. 기존25epoch queue의epoch검증→다음epoch유지. 새학습/평가/GPU연산·source/config/weights/batch/LR/queue변경없음. Snapshot results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_1448.json에이전status링크·실측·세계/particle검사·hash근거저장,README/HANDOFF1–5/RESUME_NOTES갱신.
+
+
+## 2026-10-12 15:18 KST — 최신 LPWM14epoch 공통NAVTEST 평가 완료
+
+사용자 입력 navtest rufrhk vkdkrgownj를 “NAVTEST 결과 파악해줘”로 해석. 최신완료14epoch checkpoint를점수확인전에고정하고동일고정NAVTEST1024/44recording 평가를실행했다. 기준 14epoch16478update/SHA71464dea0f28f60199565372949856946e674cc83aa5e438aac52cfa89c2fa04,원front1/history4/128/64FG+1BG/LoRA설정/Stage1재사용. 기존5epoch축소DrivoR/JEPA예측·점수를sha대조해그대로복사,baseline모델재추론0. 새config configs/lpwm_front_history_stage1_lora/epoch14_common_navtest.json,output epoch14_common_navtest_20261012,report script scripts/report_lpwm_common_navtest_checkpoint.py. 기존registerSource/비교코드는수정하지 않았다.
+
+NAVSIMv1공식PDMS결과 LPWM14 85.2585948/ADE1.282374/FDE3.206243m/실패0;DrivoR5 83.9662087/1.809183/4.352608;Drive-JEPA방식5 85.3751335/1.692889/3.938753. 모두같은1024선택top1경로의장면평균이며후보평균/oracle아님. LPWM9 85.9317대비−.6731057점,44recordingpairedbootstrap5000/seed71CI[-2.196585,+.860676]. LPWM−DrivoR+1.292386CI[-1.517438,+3.995767],−JEPA−.116539CI[-2.323951,+1.984906]. 모든CI0포함이라명확한우열·일관된개선·통계적악화단정불가.
+
+LPWM14 mean NC.978027/DAC.942383/진행.790738/TTC.941406/comfort1/DDC.960449. 9epoch DAC.957031→14 .942383로1.4648pp낮아지고,TTC는.932617→.941406 높아졌다. ADE/FDE는낮아졌으나PDMS는낮음;하락을DAC만의독립원인으로확정하지 않는다. 내부dev14epoch88.0149는다른패널이다.
+
+현재ego관측command인덱스0左/1直/2右를cache7:11에서읽어좌205/직710/우109장면으로분해. LPWM83.371141/86.756356/79.052336;DrivoR82.419951/86.396868/71.041572;JEPA84.309555/86.183994/82.110480. 기존panel.scene_type는expert미래경로terminalyaw±.25rad로정의된左193/直741/右90이며이분해와다르다. 이전epoch9시각화report의Actual driving command제목은오류다;기존수치를수정하지않고새보고서와JSON에서현재명령/미래GT회전분해를따로명시했다.
+
+성능비교는같은평가장면의시스템진단:LPWM75297×14epoch/16478update/effective64/seed2/front1history4/128×128/Stage1 23126×20,대조군10240×5/3200/effective16/seed47/front1history2/512×256. 원논문공개완성모델비교/동일예산particle효과증명이아님. 공개원DrivoR/TOAD64scene93–96점과이점수를혼동하지 않는다. NAVTEST1,024반복노출개발부분집합/전체12,146아님/독립final아님. RecordingCI는trainseed변동CI가아님.
+
+GPU0 별도batch4추론239.239초(모델load별도)/peakreserved1.872757GB/전체카드최대43.296752GB<48decimalGB,프로세스allocator4GB cap및512MiB메모리guard. GPU1새작업없음. 원training와병행해최종17274/29425,queue1533508유지·원config/execution/native/Stage1hash불변·보호293등록SHA불일치0. CPU2worker official scorer50.8669초. Strict checkpoint/native digest·동일token/shape/finite·overlap0·baseline4파일각bytehash·결과score평균동등검사통과. Report syntax검사통과/PNG직접확인. 신규 학습0step,추가CEM/13epoch평가/신규trainqueue0.
+
+Results results/lpwm_common_navtest_epoch14_20261012/에report.md/results.json/summary.csv/모델별scores.csv/subset_manifest.json/configuration.json/provenance.json/training_preservation_after.json/common_navtest_results.png. Output에registration·원prediction·officialscores·timing·학습보존marker. Report재실행: runtime/environments/kjs-lpwm-drivor-joint/bin/python scripts/report_lpwm_common_navtest_checkpoint.py --config configs/lpwm_front_history_stage1_lora/epoch14_common_navtest.json. GPU재추론은기존compare_planning_epoch_checkpoints.py --mode infer --condition lpwm(완료예측은assert로보존),공식CPUscore는동일script --mode score/drive_jepa_official_evaluation환경. 이번NAVTEST결과로학습구성/LR/선택을바꾸지않고기존25epochqueue계속.

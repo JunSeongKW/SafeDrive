@@ -1,0 +1,82 @@
+{
+  "reported_at_utc": "2026-10-12T06:16:52.485626+00:00",
+  "python_executable": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+  "python_version": "3.12.13",
+  "numpy_version": "2.5.1",
+  "configuration_sha256": "65e7844f0d8b4f9acec01df878e012aa847c82740f3496524b3dfc834f975957",
+  "report_source_sha256": "886ded5870ac60a168e457c4cfb6e18971f6208b4af8199705bfdcbac39d6e76",
+  "checkpoint_sha256_by_condition": {
+    "lpwm": "71464dea0f28f60199565372949856946e674cc83aa5e438aac52cfa89c2fa04",
+    "drivor": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+    "jepa": "aa7b86b690e18bcd45e3b5a4c67854e6b6c53e9fde95dbf4e298b34d54c62d7f"
+  },
+  "registration_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/epoch14_common_navtest_20261012/registration.json",
+  "training_protection_audit": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 17267
+  },
+  "prediction_checks": "token alignment, shape, finite official scores, strict state/checkpoint hashes",
+  "inference_cost": {
+    "checkpoint_sha256": "71464dea0f28f60199565372949856946e674cc83aa5e438aac52cfa89c2fa04",
+    "completed_updates": 16478,
+    "strict_state_load": true,
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "complete": true,
+    "count": 1024,
+    "ade_meters": 1.2823740243911743,
+    "fde_meters": 3.2062432765960693,
+    "seconds": 239.23917531967163,
+    "images": "historical_adapter_images.npy",
+    "ego": "historical_joint_ego.npy",
+    "peak_reserved_bytes": 1872756736,
+    "largest_sampled_total_card_bytes": 43296751616,
+    "allocator_limit_bytes": 4000000000,
+    "precision_matches_original_evaluation": true,
+    "training_unchanged": true,
+    "pdms": 85.25859475910973,
+    "mean_metrics": {
+      "no_at_fault_collisions": 0.97802734375,
+      "drivable_area_compliance": 0.9423828125,
+      "ego_progress": 0.7907375242186333,
+      "time_to_collision_within_bound": 0.94140625,
+      "comfort": 1.0,
+      "driving_direction_compliance": 0.96044921875,
+      "score": 0.8525859475910973
+    },
+    "by_scene_type": {
+      "left_turn": {
+        "count": 193,
+        "pdms": 81.73129678967493
+      },
+      "right_turn": {
+        "count": 90,
+        "pdms": 77.00444902562167
+      },
+      "straight": {
+        "count": 741,
+        "pdms": 87.17983851634973
+      }
+    },
+    "failed": 0,
+    "full_navtest": false,
+    "benchmark": "NAVSIM v1 fixed independent navtest subset"
+  },
+  "official_scoring_timing": {
+    "wall_seconds": 50.866906174022006,
+    "worker_count": 2,
+    "gpu_used": false,
+    "return_code": 0,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/drive_jepa_official_evaluation/bin/python",
+      "-u",
+      "scripts/compare_planning_epoch_checkpoints.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/epoch14_common_navtest.json",
+      "--mode",
+      "score",
+      "--condition",
+      "lpwm"
+    ]
+  }
+}
