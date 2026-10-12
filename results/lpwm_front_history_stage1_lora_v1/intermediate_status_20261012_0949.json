@@ -1,0 +1,324 @@
+{
+  "checked_time_kst": "2026-10-12T09:49:05.415642+09:00",
+  "task": "read-only LPWM intermediate status",
+  "progress": {
+    "configuration_sha256": "166af98524e058314023b943fe8b21e62cd9962de12dc2dc647c8cdfd36c71cf",
+    "benchmark": "navsim_v1",
+    "execution_sha256": "76882fe7eb9abe4637c10181cb9099b423a2f0dc5485acebb34f3159370e9450",
+    "execution_overrides": {
+      "microbatch_per_gpu": 8,
+      "loader_workers_per_rank": 2,
+      "oracle_workers_per_rank": 8
+    },
+    "runtime_optimizations": {
+      "sdpa_training": false,
+      "batched_gradient_finite_check": true
+    },
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "stage1_checkpoint_sha256": "71478ee548376bec21a4a22bc219929955aa0bfdd876f704676ade169fb4831f",
+    "training_scene_count": 75297,
+    "updates_per_epoch": 1177,
+    "total_updates": 29425,
+    "completed_updates": 15887,
+    "epoch": 14,
+    "rank_scene_tokens_sha256": "c3e7ec49e8671d133bad1f5e733fba6d39b07ba26efa22179bddd31d2ab1cb08",
+    "update_in_epoch": 586,
+    "seconds_this_update": 12.430602550506592,
+    "elapsed_seconds": 7807.219203472137,
+    "card_used_bytes": 41075867648,
+    "peak_reserved_bytes": 40508588032,
+    "gradient_norms": null,
+    "timing_seconds": {
+      "between_updates_including_sync_and_data": 0.001004934310913086,
+      "forward": 2.9471890926361084,
+      "oracle": 2.355833053588867,
+      "backward": 6.302494049072266
+    },
+    "learning_rates": [
+      5.175827922280229e-06,
+      5.175827922280219e-05
+    ],
+    "loss": 1.9801420271396637,
+    "trajectory_loss": 0.7520591169595718,
+    "final_score_loss": 1.2280829101800919,
+    "score": 0.8703460991382599,
+    "best_score": 0.9972771108150482,
+    "estimated_remaining_seconds": 180365.42095296213
+  },
+  "progress_file_age_seconds": 0.10183405876159668,
+  "progress_percent": 53.99150382327952,
+  "completed_epochs": 13,
+  "ongoing_epoch_progress_percent": 49.78759558198811,
+  "queue_state": {
+    "status": "training_epoch_14",
+    "queue_pid": 1533508,
+    "active_pid": 1613515,
+    "command": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/runtime/environments/kjs-lpwm-drivor-joint/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nproc_per_node=2",
+      "scripts/train_lpwm_front_history_stage1_lora.py",
+      "--config",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/experiment.json",
+      "--execution",
+      "/rhome/junseong/PlanningAwareFuturePrediction/configs/lpwm_front_history_stage1_lora/execution_microbatch8.json",
+      "--stop-after-epoch"
+    ],
+    "started_at_unix": 1791758314.4834802
+  },
+  "rank_health": {
+    "0": {
+      "last_update": 15887,
+      "checked_loss_records": 500,
+      "nonfinite_losses": 0,
+      "mean_update_seconds_last_200": 12.566460698843002,
+      "latest_gradient_check_update": 15800,
+      "gradient_norms": {
+        "particle_interaction_lora": 2.4123265155168814,
+        "context_prior_lora": 5.369312664315139,
+        "particle_dynamics_lora": 1.0022452238480393,
+        "particle_xy_head_lora": 21.857883945902298,
+        "particle_scale_xy_head_lora": 5.19761836635382,
+        "particle_obj_on_head_lora": 0.2308991466417438,
+        "current_prior_cnn_lora": 17.015402316756497,
+        "current_attribute_cnn_lora": 22.116724674659935,
+        "appearance_encoder_lora": 17.04362924407108,
+        "background_appearance_lora": 0.27018423252435797,
+        "interaction_visual_and_output_lora": 7.38630010145774,
+        "context_prior_projection_and_output_lora": 11.593690331023064,
+        "dynamics_projection_and_ffn_lora": 3.689641840766464,
+        "future_particle_heads_lora": 5.2197021214541,
+        "encoder_command": 3.7522904741091923,
+        "scene_projection": 5.497116877497041,
+        "trajectory_generator": 7.514179499196932,
+        "scorer": 2.1170278697235183
+      },
+      "gradient_groups_all_finite_positive": true
+    },
+    "1": {
+      "last_update": 15887,
+      "checked_loss_records": 500,
+      "nonfinite_losses": 0,
+      "mean_update_seconds_last_200": 12.568797476291657,
+      "latest_gradient_check_update": 15800,
+      "gradient_norms": {
+        "particle_interaction_lora": 2.4123265155168814,
+        "context_prior_lora": 5.369312664315139,
+        "particle_dynamics_lora": 1.0022452238480393,
+        "particle_xy_head_lora": 21.857883945902298,
+        "particle_scale_xy_head_lora": 5.19761836635382,
+        "particle_obj_on_head_lora": 0.2308991466417438,
+        "current_prior_cnn_lora": 17.015402316756497,
+        "current_attribute_cnn_lora": 22.116724674659935,
+        "appearance_encoder_lora": 17.04362924407108,
+        "background_appearance_lora": 0.27018423252435797,
+        "interaction_visual_and_output_lora": 7.38630010145774,
+        "context_prior_projection_and_output_lora": 11.593690331023064,
+        "dynamics_projection_and_ffn_lora": 3.689641840766464,
+        "future_particle_heads_lora": 5.2197021214541,
+        "encoder_command": 3.7522904741091923,
+        "scene_projection": 5.497116877497041,
+        "trajectory_generator": 7.514179499196932,
+        "scorer": 2.1170278697235183
+      },
+      "gradient_groups_all_finite_positive": true
+    }
+  },
+  "latest_validation": {
+    "epoch": 13,
+    "completed_updates": 15301,
+    "validation": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_015301",
+    "pdms": 88.1785796341834,
+    "ade_meters": 1.3201676607131958,
+    "fde_meters": 3.3407578468322754,
+    "learning_quality_requires_review": true
+  },
+  "validation_history": [
+    {
+      "epoch": 1,
+      "completed_updates": 1177,
+      "pdms": 69.74366946017395,
+      "ade_meters": 3.5841193199157715,
+      "fde_meters": 8.924787521362305,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_001177/validation_complete.json"
+    },
+    {
+      "epoch": 2,
+      "completed_updates": 2354,
+      "pdms": 77.46779454209883,
+      "ade_meters": 1.8604743480682373,
+      "fde_meters": 4.554338455200195,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_002354/validation_complete.json"
+    },
+    {
+      "epoch": 3,
+      "completed_updates": 3531,
+      "pdms": 81.72250838495911,
+      "ade_meters": 1.6244981288909912,
+      "fde_meters": 3.9799752235412598,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_003531/validation_complete.json"
+    },
+    {
+      "epoch": 4,
+      "completed_updates": 4708,
+      "pdms": 81.83002594946208,
+      "ade_meters": 2.0899879932403564,
+      "fde_meters": 5.225548267364502,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_004708/validation_complete.json"
+    },
+    {
+      "epoch": 5,
+      "completed_updates": 5885,
+      "pdms": 83.9881877993076,
+      "ade_meters": 1.7462801933288574,
+      "fde_meters": 4.2488837242126465,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_005885/validation_complete.json"
+    },
+    {
+      "epoch": 6,
+      "completed_updates": 7062,
+      "pdms": 85.48840876520283,
+      "ade_meters": 1.6863800287246704,
+      "fde_meters": 3.985008716583252,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_007062/validation_complete.json"
+    },
+    {
+      "epoch": 7,
+      "completed_updates": 8239,
+      "pdms": 85.63988782023874,
+      "ade_meters": 1.6395004987716675,
+      "fde_meters": 4.076857566833496,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_008239/validation_complete.json"
+    },
+    {
+      "epoch": 8,
+      "completed_updates": 9416,
+      "pdms": 85.82147629221727,
+      "ade_meters": 1.6021747589111328,
+      "fde_meters": 3.995117664337158,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_009416/validation_complete.json"
+    },
+    {
+      "epoch": 9,
+      "completed_updates": 10593,
+      "pdms": 87.43345675540293,
+      "ade_meters": 1.3611421585083008,
+      "fde_meters": 3.421414852142334,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_010593/validation_complete.json"
+    },
+    {
+      "epoch": 10,
+      "completed_updates": 11770,
+      "pdms": 87.40519276067192,
+      "ade_meters": 1.4208587408065796,
+      "fde_meters": 3.5434794425964355,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_011770/validation_complete.json"
+    },
+    {
+      "epoch": 11,
+      "completed_updates": 12947,
+      "pdms": 87.51193724596997,
+      "ade_meters": 1.2509500980377197,
+      "fde_meters": 3.199169158935547,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_012947/validation_complete.json"
+    },
+    {
+      "epoch": 12,
+      "completed_updates": 14124,
+      "pdms": 87.47607658738522,
+      "ade_meters": 1.3840959072113037,
+      "fde_meters": 3.5797643661499023,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_014124/validation_complete.json"
+    },
+    {
+      "epoch": 13,
+      "completed_updates": 15301,
+      "pdms": 88.1785796341834,
+      "ade_meters": 1.3201676607131958,
+      "fde_meters": 3.3407578468322754,
+      "pdms_count": 1021,
+      "path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_015301/validation_complete.json"
+    }
+  ],
+  "latest_validation_scope": "previously exposed internal navtrain development subset, not full navtest",
+  "latest_validation_submetrics": {
+    "no_at_fault_collisions": 0.9833496571988247,
+    "drivable_area_compliance": 0.9627815866797258,
+    "ego_progress": 0.8235337074985604,
+    "time_to_collision_within_bound": 0.9480901077375122,
+    "comfort": 1.0,
+    "driving_direction_compliance": 0.970617042115573,
+    "score": 0.881785796341834
+  },
+  "latest_validation_execution_and_finiteness_passed": true,
+  "frozen_native_unchanged_at_validation": true,
+  "world_diagnostic_count": 16,
+  "world_means": {
+    "stage1": {
+      "reconstruction_mse": 0.008039972046390176,
+      "future_mse": 0.01871084945742041
+    },
+    "stage2": {
+      "reconstruction_mse": 0.008105217188131064,
+      "future_mse": 0.019745833531487733
+    }
+  },
+  "world_error_changes": {
+    "reconstruction_mse_increase_percent": 0.8115095595411015,
+    "future_mse_increase_percent": 5.531464920513618
+  },
+  "particle_diagnostics": {
+    "label": "epoch_13",
+    "tokens": [
+      "ddbde9d6bfda5a6e",
+      "782e2832bd025494",
+      "df19480a94ec58ff",
+      "85f0514810285441"
+    ],
+    "mean_center_shift_input_pixels": 0.8347709774971008,
+    "mean_relative_size_change_percent": 10.64245891571045,
+    "mean_absolute_presence_change": 0.05134492740035057,
+    "scene_selection": "fixed first four of registered development panel",
+    "dots": "all 64 foreground particle centers; radius indicates presence",
+    "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+  },
+  "particle_visualization": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_13/particles_before_after_overlay.png",
+  "latest_existing_common_navtest": {
+    "epoch": 9,
+    "scene_count": 1024,
+    "pdms": 85.9317,
+    "report": "/rhome/junseong/PlanningAwareFuturePrediction/results/lpwm_drivor_navsim_visualization_epoch9_20261011/report.md",
+    "scope": "previously exposed fixed NAVTEST subset; not full NAVTEST",
+    "epoch_13_navtest_new_evaluation_performed": false
+  },
+  "estimated_remaining_training_hours_recent_speed": 47.2568735947046,
+  "estimated_remaining_training_hours_trainer": 50.101505820267256,
+  "estimated_ongoing_epoch_remaining_training_hours": 2.062993964726726,
+  "eta_excludes_validation_and_resource_interruptions": true,
+  "whole_card_memory_decimal_gb": 41.075867648,
+  "effective_batch_size": 64,
+  "physical_gpus": [
+    0,
+    1
+  ],
+  "protected_files_audit": {
+    "checked_files": 293,
+    "mismatches": []
+  },
+  "training_configuration_checkpoint_queue_modified": false,
+  "new_training_or_evaluation_launched": false
+}

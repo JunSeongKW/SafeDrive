@@ -427,7 +427,7 @@ GPU0·1/batch8×누적4×2=유효64/seed2. v1 공식 navtrain85,109+navval18,179
 Backend/원본loss는 DrivoR, perception은 공개LPWM의활성원래가중치를업데이트; DINOv2+LoRA와미세조정/해상도는같지않다.
 아래 DrivoR/추가epoch/navtest 보류 및 모든작업종료 문장은 과거 승인·완료 이력이다.
 
-마지막 갱신: 2026-10-12 09:26 KST (Codex)
+마지막 갱신: 2026-10-12 09:50 KST (Codex)
 
 **최신 완료(2026-10-05 23:11 KST): NAVSIM Stage1의 planning 효과 확인.**
 공개LPWM고정+planner78.9161 → NAVSIM적응LPWM고정+동일planner82.5238, PDMS+3.6077점(CI[+1.5065,+5.8539]).
@@ -594,6 +594,8 @@ WA-JEPA native spatial-tube 기반을 추천했으나 범위 승인/full strict 
 - 과거 “모든 기존 JEPA 마스크는 입력과 무관” / “두 비교 열이 아니오면 novelty 확보” 주장은 철회한다.
 
 ## 1. 실행 중인 작업
+
+**2026-10-12 09:49 KST — LPWM 학습 중간상태 조회.** 기존 Stage2 root `outputs/lpwm_front_history_stage1_lora_v1/stage2/`에서 15,887/29,425 update(53.99%)를 확인했다. 13 epoch 완료,14번째 epoch586/1177 진행; queue1533508/torchrun1613515 유지. 양rank 최근500loss 비유한0,15,800의18gradient그룹 모두 유한양수. GPU0·1 카드당41.08decimalGB, micro8×acc4×GPU2=유효64 유지. 기존 source/config/input293개 SHA 불일치0. 새학습/평가/배치·LR·checkpoint·queue 변경없음. 조회근거 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_0949.json`.
 
 **2026-10-12 — 승인된 scorer-compatible generator A/B/C 및 추가 D pilot 완료.** GPU0의 최초 캐시 생성 측정 구간은 약208초(전체카드42.01GB/새 peak reserved0.598GB), 이후 학습·채점·진단은 모두 CPU다. 공개 DrivoR의 scene64×256·final decoder64×256 FP32를 캐싱하고 원래 출력 head 복사본1.341M을 B/C/D 각각300step 학습했다. 10/10 tensor의 실제 업데이트와 finite gradient를 확인했다. 변경된64경로는 새로운 공식 PDMS로 평가했다. [A/B/C 단계 보고](results/scorer_compatible_generator_v1/report.md), [D·공통4조건 비교](results/scorer_compatible_generator_accuracy_only_v2/report.md). 모든 새 작업은 종료됐고 새 fullscale·scorer 학습·CEM 대기열은 없다. 기존 LPWM25epoch·원본 checkpoint·queue는 유지했으며 최종 검사15749update/293등록파일 불일치0이다. 완료 marker는 outputs/scorer_compatible_generator_v1/pilot_complete.json과 outputs/scorer_compatible_generator_accuracy_only_v2/complete.json이다.
 
@@ -1412,6 +1414,8 @@ WA-JEPA는 source/weight 메타데이터/tiny attention만 확인했고, full we
 큰 cache 재생성이나 SafeDrive 재학습은 새 연구 방향을 확인한 다음 별도 결정한다.
 
 ## 2. 최근 결과와 조사 사실
+
+**2026-10-12 09:49 KST — LPWM 최신 완료13 epoch 내부 개발PDMS88.1786.** 같은1024예측/공식cache 유효1021/실패0. Epoch9 87.4335→10 87.4052→11 87.5119→12 87.4761→13 88.1786(+0.7025점), 최신ADE1.3202/FDE3.3408m. 실행·finite·native불변 검사는 통과했지만 quality 검토 flag는 남는다. 16장면 Stage1 대비 reconstruction MSE+0.8115%/future MSE+5.5315%. 고정4scene particle중심 평균0.8348inputpx/크기10.6425%/presence절대0.05134 변화; 객체 중요도 이득의 입증이 아니다. 내부개발점수이며 최신 별도공통NAVTEST1024는9 epoch85.9317 그대로,13 epoch NAVTEST 새평가 없음. 상세 `stage2/validation/update_015301/validation_complete.json`.
 
 **2026-10-12 — Generator를 scorer 정확도 분포에 맞추는 실험: 현재 조건의 효용 미확인.** 같은 공개 scorer/NAVTEST64·38recording의 선택 PDMS는 A93.6087/B92.0348/C92.1240/D91.3739, oracle99.8745/99.8906/99.8574/99.8376이다. 후보 MAE17.4045/17.2452/16.7826/16.6068은 줄었지만 선택손실6.2658/7.8558/7.7334/8.4637은 늘었다. C−B+0.0892/recordingCI[-0.0774,+0.3017], D−C−0.7502/CI[-2.1404,+0.0235]. 선택 NC/DAC/TTC 실패 수는 A1/0/5, B·C1/1/5, D1/1/6으로 등록 promotion은 실패했다. C의 train MMD0.03636→0.02519, 개발 waypoint 평균 이동0.2135m. 같은 query37이 평균0.1325m 이동한 후 PDMS100→0/DAC1→0인데 scorer는 DAC0.8428/PDMS63.59로 예측했다. 실제 tracked footprint는2.3s에 처음 offroad/10timestep, 그때 중심 차0.1073m이었다. 학습하지 않은 head의 CPU/GPU 캐시64경로 공식7지표 차이는0이어서 정밀도 원인 근거는 없다. [단계별8PNG·JSON·CSV](results/scorer_compatible_generator_v1/report.md). D 학습 teacher는 실제 품질83.5856/MAE5.3845/실제0점 mass10.71%였다. 이는 inference planning 성능이 아니다.
 
@@ -2478,6 +2482,8 @@ Swap donor120slot의availability confound 및 JPEG export미확인을 명시했�
 
 ## 3. 마지막 커밋 이후 바뀐 것
 
+**이번 변경 — LPWM 상태 조회 기록만 추가.** 09:49 KST 진행파일·양rank 최근500log·완료epoch별검증·world/particle진단·기존NAVTEST보고서를 재사용해 `results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_0949.json`을 저장했다. 보호293파일 hash 불일치0 확인, README/HANDOFF1–5/RESUME_NOTES 갱신. 실제 모델추론·새학습·평가·학습코드/설정/가중치/queue 변경 없음.
+
 **이번 변경 — scorer-compatible generator 실제 학습·평가와 accuracy-only D 추가.** 별도 config2개, teacher 품질·정확도 가중과 MMD/anchor/coverage 모듈, 공개 checkpoint feature 캐시, NAVTRAIN128/점검32 등록, 실제 gradient/300step B·C·D 학습, scorer 완전64문맥 재채점, 새 경로 공식 PDMS, recording CI, 단계별 시각화와 tracked footprint, CPU 원head 정밀도 검사, 재실행 shell을 추가했다. A/B/C를 보존하고 D는 별도 root에서 같은 원초기화·배치·예산으로 학습했으며 품질항과 coverage를 껐다. D 보고서만 보충한 뒤 초기 source SHA와 snapshot을 복원 대조해 학습·예측·라벨링 관련4함수 AST 불변을 확인했다. 공개모델·캐시·293기존 LPWM파일·queue·공용원본을 보존했다. README/HANDOFF1–5/RESUME_NOTES와 provenance·실측JSON·CSV·10PNG를 남겼다.
 
 **이번 변경 — generator 후보 형태·장면별 scorer 실패 진단.** 원공개DrivoR native64의별도geometry/currentGT metadata추출·recordingbootstrap/부분상관·후보쌍순위·NAVSIM actual/pred분포시각화·검증/보고서script·config·재실행shell추가. 후보배열/원공식PDMS/관측cache/점수는재사용해새GPU·학습·모델/공식추론0. 실측JSON/CSV·5PNG·원입력hash/환경/provenance보존. 이전축소scorer BCE+ranking실패를후속제안의제약으로기록. README/HANDOFF1–5/RESUME_NOTES갱신,기존293source/config/input·LPWM학습/queue/공용원본보존。
@@ -2577,6 +2583,8 @@ warmup구간2942update/약2.5epoch와첫epoch40%LR·baseline160update차이를�
 - 기존 연구 문서와 HANDOFF1–5/RESUME_NOTES를 갱신했다. 새학습·추론·평가 없이2264중단상태를 유지했다.
 
 ## 4. 다음 단계 — 기반 추천 검토 후 (최신 사용자 지시가 아래 과거 계획에 우선)
+
+**2026-10-12 09:49 KST — 상태조회 후 기존LPWM25epoch queue 유지.** 현재14번째 epoch 학습→원래epoch 검증→다음epoch을 계속한다. 최근200update12.566초로 남은 본학습약47.26h, trainer추정약50h; 검증·자원중단은 별도다. 14epoch잔여591update 학습은약2.06h 외삽이다. 이번 상태요청으로 별도 NAVTEST평가나새조건·새queue를 자동시작하지 않았다.
 
 **Generator 분포 pilot 후속: 아직 미실행.** C−B CI 하한 양수/후보 oracle 손실≤1점/NC·DAC 추가 실패0의 등록 gate가 미충족이므로 fullscale이나 seed 확대를 자동 시작하지 않는다. 다음 후보는 학습용 생성 경로의 official label을 한 번 갱신해 원 native teacher와 새 경로 정확도 차이를 검사하는 것이다. NAVTEST 라벨로 target을 갱신하지 않는다. 새 gradient·scorer 적응·CEM을 기정사실화하지 않는다. 사용자가 추가 요청한 D는 완료됐으므로 같은 실험을 다시 학습하지 말고 결과를 읽는다. 기존 LPWM25epoch 대기열은 계속 유지한다.
 
@@ -3314,6 +3322,8 @@ navtest는 개발·진단용이며 최종 독립 평가가 아니다. navhard �
 등록된 `pilot_foundation_decision_v1.json` 확대 계획은 후속 사용자 지시로 보류됐다. GPU가 비어도 자동 재개 금지.
 
 ## 5. 확정 범위 / 미결
+
+**2026-10-12 LPWM 중간결과 해석.** 내부개발13epoch PDMS상승은 확인되나 LPWM적응 단독효과·최종독립NAVTEST·미래표현 정확도·particle객체 중요도는 미입증이다. 16scene 미래MSE+5.53%와 learning_quality_requires_review를 숨기지 않는다. 13epoch88.18 내부dev와9epoch85.93 NAVTEST부분집합, 다른 공개scorer64scene 점수를 직접 동일벤치마크처럼 비교하지 않는다. ETA는 현재처리량의 외삽이며 epoch검증/자원중단 포함 확정종료일이 아니다.
 
 **Generator 분포 학습의 범위·해석.** 공개 DrivoR의 backbone·ego·query·trajectory decoder·scorer를 고정하고 원 final pose head1.341M만 미세조정한 작은 pilot이다. NAVTRAIN128/53recording 학습, 같은 공식 split의 별도32/15recording 점검, 기존 NAVTEST64/38recording 개발평가이며 중복0이다. 공개 checkpoint는 trainval 학습이므로 NAVTRAIN 점검을 완전히 미관측인 최종 검증으로 부르지 않는다. qB는 실제 품질, qC는 품질+원후보 error(target 품질 guard 최대1점), qD는 error만 사용하고 품질 coverage도 껐다. Teacher 오차/MMD/새 후보 MAE 감소가 Top1 PDMS 증가를 보장하지 않음을 측정했다. C−D는 target 품질과 명시적 coverage를 둘 다 제거한 비교라 한 항만의 순수 효과가 아니다. 생성된 새 경로를 official로 재평가했지만 학습 중 on-policy 라벨 갱신은 하지 않았다. 같은 query37의 새 위험 경로를 scorer가0점으로 채점하지 못한 것은 실제 오류이고 원head CPU 재생은100점으로 복원됐다. 전체 NAVTEST·독립 final·EPDMS·전체 generator 학습·CEM 성능이나 이 방향 전체의 불가능성으로 주장하지 않는다.
 

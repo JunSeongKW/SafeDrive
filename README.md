@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-12 09:49 KST — LPWM 중간 결과 조회.** 기존 전방4프레임 Stage2 LoRA 학습은 15,887/29,425 update(53.99%), 14번째 epoch 진행 중이다. 완료된 13 epoch의 동일 내부 개발셋 PDMS는88.1786/ADE1.3202m/FDE3.3408m이며 12 epoch87.4761 대비+0.7025점이다. 공통 NAVTEST1,024의 최신 기존 결과는9 epoch85.9317로 구분한다. 양rank 최근500loss 비유한0·18gradient그룹 유한양수, 카드당41.08GB, 보호293파일 불일치0. 16장면 미래 RGB MSE는 Stage1 대비+5.53%여서 표현 유지 점검은 필요하다. [상태·검증·비용 근거](results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_0949.json). 이번에는 새학습/평가·설정·queue 변경이 없다.
+
 **2026-10-12 — Scorer가 정확히 평가하는 후보 분포를 학습하는 pilot 완료, 개선 미확인.** 공개 DrivoR의 backbone·decoder·scorer를 고정하고 캐싱한 뒤, 원래 최종 경로 출력 head(1.341M)만 학습했다. NAVTRAIN 128장면 학습·32장면 점검, seed 0·300 step·64후보, NAVTEST 개발64장면에서 선택 PDMS는 A 원본93.6087 / B 품질분포92.0348 / C 품질+정확도92.1240 / D 정확도만91.3739였다. C/D 후보 MAE는16.7826/16.6068로 A17.4045보다 낮았지만 선택손실·안전은 개선하지 못했다. [A/B/C 설계·단계별 측정/시각화](results/scorer_compatible_generator_v1/report.md), [추가 D 결과·공통4조건표](results/scorer_compatible_generator_accuracy_only_v2/report.md). MMD 감소와 주행 성능을 구분했고, 같은 query37 경로의 13.3cm 이동 후 DAC1→0을 실제 tracked footprint로 확인했다. 기존 LPWM25epoch·293보호파일은 보존했고 새 fullscale 학습은 시작하지 않았다.
 
 **2026-10-12 — DrivoR generator 후보 형태·장면별 scorer 실패 진단 완료.** 원본 native64/NAVTEST64·38recording에서 oracle99.87/선택93.61, 좌·우·직진 MAE22.82/20.10/9.67·선택손실11.45/5.10/2.43점. TTC실패5장면이전체선택손실67.5%를차지했다. 횡방향·heading퍼짐은MAE와연관되지만명령·속도를고려하면약해지고,분포다양성·객체수만으로선택오류를설명하는안정된관계는미확인이다. [실측·한계·NAVSIM 사례](results/drivor_generator_failure_characteristics_20261012/report.md). 기존캐시/공식PDMS재사용,새GPU·학습0,LPWM원학습·293보호파일유지。

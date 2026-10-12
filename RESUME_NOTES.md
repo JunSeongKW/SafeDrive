@@ -4999,3 +4999,16 @@ C 전체train MMD.0363583→.0251934,개발평균waypoint이동.213489m. B .0293
 사용자 중간질문 정리: 앞선93.70/95.95는동일한 128후보에서각scorerTop1선택경로를official평가한64장면평균이며128후보평균아님. CEM OFF에서도차이가있어공개weight차이를CEM재샘플링원인으로설명불가;scorer구조동일/학습recipe차이남음. CEM은frozenweight를변경하지않고neuralreward를높이는탐색;정확한분포가되는지는oracle오차/순위를독립검사해야함.
 
 다음후속은학습용  생성경로의officiallabel을한번갱신해stale native-target와새경로정확도의차이를진단하는것이후보다. 새 학습/CEM/scorer적응을자동시작하지않았다. D까지완료했으므로현재source/config로동일한 학습을중복실행하지않는다. 기존LPWM25epoch대기열은계속한다.
+
+
+## 2026-10-12 09:49 KST — LPWM 중간 진행과 epoch13 검증 결과 조회
+
+사용자 요청은 현재 LPWM 중간 결과 보고다. 기존 학습과 대기열을 변경하지 않고 진행파일/양rank JSONL/기존완료검증을 읽었다. 누적15,887/29,425 update(53.9915%),13epoch완료/14epoch586/1177 진행. Queue1533508/torchrun1613515,전방1대·과거현재4frame·128×128·64FG+1BG,Stage1완료checkpoint재사용. Geometry·CNN·appearance·context·dynamics LoRA와planner학습/native고정. Micro8×acc4×GPU2=유효64,loader2/oracle8/48decimalGB상한 유지. 최신progress 카드41.0759GB,host query GPU0·1 각39173MiB. 순간util0%도 있었지만 양rank 실제update가15881→15887 증가했으므로 중단으로 해석하지 않았다.
+
+같은 내부개발1024예측/공식cache유효1021,epoch9 PDMS87.4335/10 87.4052/11 87.5119/12 87.4761/13 88.1786(+0.7025점). 최신ADE1.32017m/FDE3.34076m/실패0,NC.983350/DAC.962782/진행.823534/TTC.948090/comfort1/DDC.970617. 전체NAVTEST가 아니며 최신기존공통NAVTEST1024는epoch9 85.9317/ADE1.4212/FDE3.5233;13epoch NAVTEST 새평가 없음. 다른 공개DrivoR/TOAD64scene 점수와동일패널로혼동하지 않는다.
+
+양rank 최근500loss 모두유한,15,800의18gradient그룹 모두유한양수. 실행/finite/native보존gate통과,보호등록293개SHA불일치0. 16scene Stage1대비reconstructionMSE .00803997→.00810522(+.8115%)/futureMSE .01871085→.01974583(+5.5315%). Learning_quality_requires_review=true여서 표현유지 검토필요. 미래현재반복개입ADE+.383606m는12scene기능적미래분기사용검사이며 실제미래정확도·인과적planning개선의증거로과장하지 않음.
+
+고정첫4devscene epoch13 particle중심평균이동.834771inputpx/크기변화10.64246%/presence절대.051345. PNG는 outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_13/particles_before_after_overlay.png. 점은64foreground/크기는presence,사각형은초기top16의glimpse범위이지객체detection이아님. 새로운시각화렌더링은 하지 않았다.
+
+최근200update 평균12.56646초,잔여13,538update 본학습약47.26h/trainer약50h;현재14epoch잔여591update 약2.06h. 검증대기/자원변화별도외삽이다. Snapshot results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_0949.json에 progress/queue/검증이력/submetrics/world/particle/ETA/293hash근거저장. README/HANDOFF1–5갱신,공용원본·학습source/config/weights·배치/LR·queue보존. 새GPU계산·학습·평가0.
