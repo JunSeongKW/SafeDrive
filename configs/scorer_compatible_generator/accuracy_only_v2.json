@@ -1,0 +1,25 @@
+{
+  "source_configuration": "configs/scorer_compatible_generator/pilot_v1.json",
+  "output_directory": "outputs/scorer_compatible_generator_accuracy_only_v2",
+  "results_directory": "results/scorer_compatible_generator_accuracy_only_v2",
+  "condition": "D_accuracy_only",
+  "training_steps": 300,
+  "checkpoint_steps": [100, 300],
+  "batch_size": 8,
+  "learning_rate": 0.00001,
+  "reliability_temperature": 0.15,
+  "anchor_loss_weight": 0.1,
+  "quality_distribution_weight": 0.0,
+  "quality_guard_enabled": false,
+  "quality_coverage_loss_weight": 0.0,
+  "seed": 0,
+  "notes": [
+    "Explicit user follow-up: add one condition that targets only small scorer prediction error.",
+    "Use exactly the original native-head initialization, frozen cache, NAVTRAIN128 and source batch order; never warm-start from B/C.",
+    "No actual-quality weighting, no target-quality mixture guard, no quality coverage loss. Preserve only the same native-coordinate anchor for stability.",
+    "Actual PDMS is required to define prediction error during training; NAVTEST labels never enter the teacher or gradients.",
+    "This control intentionally changes both quality terms in the target and the explicit quality-preservation coverage term. D vs C is a quality-free objective comparison, not an isolated one-term ablation.",
+    "All D predictions are rescored as full64 contexts with the same frozen public scorer and receive new official PDMS labels.",
+    "No new encoder calls or GPU use, no full-scale expansion. Retain all A/B/C checkpoints and results unchanged."
+  ]
+}

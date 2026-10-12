@@ -1,0 +1,98 @@
+{
+  "development_decomposition": {
+    "B_quality": {
+      "mean_coordinate_change_under_original_query_selection_pdms": -1.4790657465948345,
+      "mean_reselection_change_on_modified_set_pdms": -0.09478425496825915,
+      "mean_total_pdms_change": -1.5738500015630936,
+      "decomposition_meanings": "Query IDs match because only the output head changes. This is algebraic bookkeeping, not causal identification.",
+      "native_safe_queries_becoming_unsafe_candidate_count": 53,
+      "native_unsafe_queries_becoming_safe_candidate_count": 71,
+      "worst_scene": {
+        "token": "131ab0263b07507c",
+        "command": "left_turn",
+        "original_selected_index": 37,
+        "current_selected_index": 37,
+        "selected_query_unchanged": true,
+        "original_selected_pdms": 100.0,
+        "modified_same_query_pdms": 0.0,
+        "modified_final_pdms": 0.0,
+        "current_selected_dac_estimate": 0.8738415241241455,
+        "current_selected_actual_dac": 0.0,
+        "same_query_mean_waypoint_movement_m": 0.060493405908346176,
+        "same_query_max_waypoint_movement_m": 0.1708991378545761
+      },
+      "sum_other_scene_changes_excluding_worst_for_diagnosis_only": -0.726400100037992,
+      "all_64_scenes_kept_in_primary_result": true
+    },
+    "C_compatible": {
+      "mean_coordinate_change_under_original_query_selection_pdms": -1.04632116725449,
+      "mean_reselection_change_on_modified_set_pdms": -0.4383436297894171,
+      "mean_total_pdms_change": -1.4846647970439073,
+      "decomposition_meanings": "Query IDs match because only the output head changes. This is algebraic bookkeeping, not causal identification.",
+      "native_safe_queries_becoming_unsafe_candidate_count": 51,
+      "native_unsafe_queries_becoming_safe_candidate_count": 113,
+      "worst_scene": {
+        "token": "131ab0263b07507c",
+        "command": "left_turn",
+        "original_selected_index": 37,
+        "current_selected_index": 37,
+        "selected_query_unchanged": true,
+        "original_selected_pdms": 100.0,
+        "modified_same_query_pdms": 0.0,
+        "modified_final_pdms": 0.0,
+        "current_selected_dac_estimate": 0.8428196310997009,
+        "current_selected_actual_dac": 0.0,
+        "same_query_mean_waypoint_movement_m": 0.13254764676094055,
+        "same_query_max_waypoint_movement_m": 0.3670186400413513
+      },
+      "sum_other_scene_changes_excluding_worst_for_diagnosis_only": 4.98145298918994,
+      "all_64_scenes_kept_in_primary_result": true
+    }
+  },
+  "full_training_set_target_matching": {
+    "B_quality": [
+      {
+        "step": 0,
+        "distribution_mmd": 0.029366385191679,
+        "native_anchor": 5.705745392218381e-14,
+        "quality_coverage": 1.4545577764511108
+      },
+      {
+        "step": 100,
+        "distribution_mmd": 0.02536100707948208,
+        "native_anchor": 0.0004353190306574106,
+        "quality_coverage": 1.4314957857131958
+      },
+      {
+        "step": 300,
+        "distribution_mmd": 0.021743550896644592,
+        "native_anchor": 0.0009623997611925006,
+        "quality_coverage": 1.4117575883865356
+      }
+    ],
+    "C_compatible": [
+      {
+        "step": 0,
+        "distribution_mmd": 0.0363583117723465,
+        "native_anchor": 5.705745392218381e-14,
+        "quality_coverage": 1.4545577764511108
+      },
+      {
+        "step": 100,
+        "distribution_mmd": 0.029620353132486343,
+        "native_anchor": 0.0012532492401078343,
+        "quality_coverage": 1.4364947080612183
+      },
+      {
+        "step": 300,
+        "distribution_mmd": 0.025193355977535248,
+        "native_anchor": 0.002219103742390871,
+        "quality_coverage": 1.4187343120574951
+      }
+    ]
+  },
+  "optimizer_steps": 0,
+  "encoder_calls": 0,
+  "gpu_seconds": 0,
+  "cpu_wall_seconds": 1.213848657993367
+}

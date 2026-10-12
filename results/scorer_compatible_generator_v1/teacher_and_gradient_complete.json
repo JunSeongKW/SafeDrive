@@ -1,0 +1,38 @@
+{
+  "complete": true,
+  "training_target_statistics": {
+    "B_quality": {
+      "target_mean_actual_pdms": 97.0916519165039,
+      "target_mean_absolute_prediction_error_pdms_points": 12.403715133666992,
+      "median_effective_candidate_count": 51.33606719970703,
+      "mean_effective_candidate_count": 48.3526725769043
+    },
+    "C_compatible": {
+      "target_mean_actual_pdms": 96.85176849365234,
+      "target_mean_absolute_prediction_error_pdms_points": 8.873527526855469,
+      "median_effective_candidate_count": 48.91048049926758,
+      "mean_effective_candidate_count": 46.05339050292969
+    }
+  },
+  "target_quality_guard_maximum_drop_pdms_points": 1.0000109672546387,
+  "native_head_identity_error_m_or_rad": 5.7220458984375e-06,
+  "uniform_empirical_mmd_identity_error": 0.0,
+  "synthetic_coordinate_gradient_norm": 0.025287382304668427,
+  "actual_head_gradient_norms": {
+    "mlp.0.weight": 0.18031667172908783,
+    "mlp.0.bias": 0.0018415068043395877,
+    "mlp.1.weight": 0.0249006524682045,
+    "mlp.1.bias": 0.01929318532347679,
+    "mlp.3.weight": 0.11213557422161102,
+    "mlp.3.bias": 0.005037873052060604,
+    "mlp.4.weight": 0.014581072144210339,
+    "mlp.4.bias": 0.027127444744110107,
+    "mlp.6.weight": 0.14957295358181,
+    "mlp.6.bias": 0.009610193781554699
+  },
+  "native_head_trainable_parameters": 1341464,
+  "navtest_rows_in_teacher_construction": 0,
+  "encoder_calls": 0,
+  "gpu_seconds": 0,
+  "frozen_original_checkpoint_sha256_unchanged": true
+}

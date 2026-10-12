@@ -4961,3 +4961,41 @@ NAVSIMupstreamcurrentcamera·map·currentGTbox·64trajectoryoverlay로최악3사
 추천한후속하나는공개DrivoR/native64문맥에서작은NC/TTC안전순위보정의유효성검증이며아직미실행. 이전다른축소모델BCE+pairwise보정78.4753→77.5871로개선실패를반드시제약으로유지한다. sampler/모듈규모부터자동확장하지않는다. 학습시공식train라벨·recording분리,현재노출NAVTEST64는개발진단으로만유지하고독립최종평가가필요하다.
 
 최종 재실행 검증에서 원LPWM13549update/293보호파일불일치0 확인. 앞선13543은최초성공report시점이고최종provenance/report는13549시점이다. 측정원sourceSHA일치·원4cacheSHA불변·이전64문맥수치차0을다시확인했다.
+
+
+## 2026-10-12 — Scorer-compatible generator 단계별 pilot 및 예측오차-only D 완료
+
+사용자가 scorer가 정확히 평가하는 후보 분포로 generator를 학습하도록 요청했고, 진행 중 예측오차만 고려하는 D도 추가 요청했다. 연구 가설을 실제 품질을 유지하는 조건부 분포 증류로 구체화했다. TOAD 원문 §3·§5, Sacks/Boots CoRL2022/PMLR2023 §3, MOPO 원문과 원 DrivoR/TOAD 공식 코드를 확인했다. 현재 novelty는 조건부다. 단순 좋은 후보 증류·학습 sampling과 겹치며, 품질-only B 대비 정확도 항의 이득이 있어야 한다. 검색일2026-10-12·질의·원문링크·수식·등록 gate는 results/scorer_compatible_generator_v1/stage0_research_design.md에 있다. MMD의 Gretton2012 출처는 결과 확인 후 설명을 보충했으며 원loss/gate는 변경하지 않았다.
+
+공개 DrivoR Scaling SHA617e22c5, checkpoint epoch28/global53911 원본은 고정·보존했다. 원 encoder/ego/query/trajectory decoder/scorer는 freeze·eval하고 현재4camera/1148×672·실제 scene64×256/final decoder trajectory token64×256/ego1×256 FP32 cache를 만들었다. 원 traj_head[-1] 복사본 MLP256→1024→1024→24,1,341,464parameters만 B/C/D 각300step 학습했다. 이는 새 sampler 필터를 학습한 것이 아니라 실제 원 generator 경로 출력 head를 미세조정한 것이다. 전체 generator/encoder 학습·CEM 최적화 검증으로 확대하지 않는다.
+
+NAVTRAIN128/53recording 학습, 같은 공식 NAVTRAIN32/15recording 점검, 이미 노출된 NAVTEST64/38recording 개발평가. 집합 간 recording 중복0. 원publiccheckpoint가trainval학습이어서NAVVAL을독립검증으로쓰지않았다. NAVTRAIN 점검은 기존 모델이 완전히 보지 못한 데이터가 아니며, NAVTEST64는 독립 최종평가/전체NAVTEST가 아니다. NAVTEST 라벨은 teacher/gradient/checkpoint선택에 사용0;두학습조건final300으로고정했다.
+
+B teacher q=softmax(actual_PDMS/.10). C는 B에 exp(-abs(prediction-actual)/.15) 정확도 가중을 적용해 정규화한 분포를 최대.8 혼합하고, target 평균 실제 품질 손실≤1PDMS점이 되도록 scene별 혼합량을 낮췄다. Cteacher는 품질97.0917→96.8518점/오차12.4037→8.8735,유효candidate수중앙값51.34→48.91. 이는 학습용 teacher 통계이며 inference planning 성능이 아니다. Teacher target는 원native64에서 만든 정답을 포함하므로 stop-gradient다. Loss=MMD²(생성uniform64,가중원native64)+.1native-coordinate anchor+.01quality-coverage. RBF1/2/4m/XY+sin/cosheading(2m scale),coverage는B/C공통qualityteacher에대한soft-nearest XY RMS. Gradient는loss→generatedcoords→원outputhead,official evaluator/scorer를통한역전파없음. Seed0·batch8·AdamW1e-5·300step·동일초기화/배치순서;사후100/300checkpoint평가했으나최종비교는300고정.
+
+사용자 추가 D는 q=softmax(-abs(predicted-actual)/.15)만 사용. 실제 품질 가중/target-qualityguard/explicitqualitycoverage모두OFF,anchor.1만유지했다. 원nativehead에서새로시작하며B/C에서이어받지않았다. 같은cache·NAVTRAIN128·batch순서·300step·LR/seed/모듈을유지했다. C−D는target품질과coverage둘다제거한quality-free비교라한항만의순수효과로부르지않는다. Dteacher실제품질83.5856/예측오차5.3845,실제PDMS0점후보확률mass10.7118%,target유효후보수중앙값56.08이다. 0점 후보를0점으로예측해도target확률을받을수있음을명시했다.
+
+실제 최종 공통 NAVTEST64 결과(선택PDMS/oracle최고/선택손실/후보MAE):
+- A 원본93.6086915/99.8745096/6.2658181/17.4045369.
+- B 품질matching92.0348415/99.8906268/7.8557853/17.2452090.
+- C 품질+정확도92.1240267/99.8574317/7.7334050/16.7826309.
+- D 정확도만91.3738723/99.8375793/8.4637070/16.6067822.
+C−B +.0891852/paired recording95%CI[-.0774276,+.3016813],C−A−1.4846648/CI[-5.0202381,+.2364274]. D−C−.7501544/CI[-2.1404412,+.0235294],D−A−2.2348192/CI[-5.8283972,+.0789312]. 평균은낮지만작은표본CI가0을포함하므로평균악화의통계적확정으로부르지않는다. 개선근거는없다. 선택NC/DAC/TTC실패수A1/0/5,B·C1/1/5,D1/1/6. C의registrationpromotion(C−B95%하한>0/oracle손실≤1점/추가NC·DAC없음)은미충족이며새fullscale·scorer학습·CEM·seed확대queue를자동시작하지않았다.
+
+전역MAE↓와선택성능을구분했다. 원candidatequery37(A와C가같이선택)의요청경로가평균.132548m/최대.367019m이동한뒤실제DAC1→0/PDMS100→0. Scorer는새경로의DAC.842820/PDMS63.5889로잘못예측했다. 실제trackedrollout에서는2.3초첫offroad/10timestep,그때footprint중심차.107250m. OfficialDAC는4corner중하나라도drivable union밖에나가면0이다. 따라서새경로의scorer오류가존재하며,원native후보오차로구축한target이변경된경로에서도정확도를보장한다는가정은미검증/실패위험이다. 학습中newlabelrefresh는안했다. 원head를CPU재생한64경로/GPUcached64의official7metric차0,원query37양쪽100점/좌표차6.68e-6이라정밀도원인근거없음. 이사례를제외해평균을좋게보이지않았고모든64장면유지했다.
+
+C 전체train MMD.0363583→.0251934,개발평균waypoint이동.213489m. B .0293664→.0217436/개발이동.166146m,D개발이동.179436m. B/C양상중간100checkpoint도결과에있다. 총PDMS변화는원query선택에서좌표변경효과+새set재선택효과로정확분해했다(C−1.046321+−.438344=−1.484665). 이는queryidentity를활용한점수차회계이고인과효과분리실험이아니다. D의낮은품질targetmass가실제선택악화의직접원인이라는인과분리도미실시.
+
+비용/검증: GPU0 최초cache 측정구간207.99초(모델초기화별도),전체카드42.010GB/새allocated.505GB/reserved.598GB;GPU1새작업없음. B/C CPU학습22.94초,D10.97초,실제head1.341M/cache훈련이라빠른시간이다. 공식native10240후보62.44초/5checkpoint조건30720후보120.31초/D12288후보평가별도,CPU2worker. 모델추론CPU원본 A/B/C6.94초및D별도,head추론평균1.82ms(고정backbone/decoder/scorer전체추론시간아님). 생성좌표는모든조건각64완전한 context로재채점/새official라벨계산;수정없는pair evaluator차0. 실제gradient/원head복원/frozenweight검사통과. 학습B/C/D각10/10tensors변경/optimizer10states/유한weights확인. 원본 initialhead와7cacheSHA·공개checkpointSHA불변,기존 LPWM293등록파일불일치0/최종15749update. 공용 원본·원본 LPWM학습/queue·기존scienceconfig/weights보존.
+
+저장 root:
+- results/scorer_compatible_generator_v1/: Stage0검토·설계/Stage1teacher/Stage2loss·좌표이동/Stage3PDMS·NAVSIM성공·실패/Stage4MMD·손실분해/실제trackedfootprint 총8PNG,report/results/CSV/subset/config/검사/provenance.
+- results/scorer_compatible_generator_accuracy_only_v2/: D teacher/4조건비교2PNG/report/results/CSV/subset/config/검사/provenance.
+- outputs/scorer_compatible_generator_v1/: 원본 cache7파일/원headstate/B·C100·300checkpoint/teacher/native·evaluationofficial라벨/queue완료marker.
+- outputs/scorer_compatible_generator_accuracy_only_v2/: D100·300checkpoint/teacher/evaluationofficial라벨/complete.json. 학습초기 source snapshot을training_source_initial.py로복원해registrationSHA와정확일치,보고설명만추가한후4개train/predict/label/helper함수AST불변검사.
+
+재실행: bash scripts/run_scorer_compatible_generator_pilot.sh ; bash scripts/run_scorer_compatible_accuracy_only.sh. 완료학습은marker로건너뛰고보고/시각화만갱신한다. 원본 cache없는환경의GPU생성은prepare_scorer_compatible_generator.py --phase register/cache(물리 GPU0만)이며sourcecheckpoint/rawNAVSIM/metriccache필요. GPU환경 kjs-lpwm-drivor-joint,official CPU환경 drive_jepa_official_evaluation/LD_LIBRARY_PATH를script에명시했다.
+
+사용자 중간질문 정리: 앞선93.70/95.95는동일한 128후보에서각scorerTop1선택경로를official평가한64장면평균이며128후보평균아님. CEM OFF에서도차이가있어공개weight차이를CEM재샘플링원인으로설명불가;scorer구조동일/학습recipe차이남음. CEM은frozenweight를변경하지않고neuralreward를높이는탐색;정확한분포가되는지는oracle오차/순위를독립검사해야함.
+
+다음후속은학습용  생성경로의officiallabel을한번갱신해stale native-target와새경로정확도의차이를진단하는것이후보다. 새 학습/CEM/scorer적응을자동시작하지않았다. D까지완료했으므로현재source/config로동일한 학습을중복실행하지않는다. 기존LPWM25epoch대기열은계속한다.

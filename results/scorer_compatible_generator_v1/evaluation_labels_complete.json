@@ -1,0 +1,9 @@
+{
+  "complete": true,
+  "official_candidates": 30720,
+  "unchanged_pair_checks": 626,
+  "maximum_pair_evaluator_difference": 0.0,
+  "cpu_wall_seconds": 120.30679678899469,
+  "gpu_seconds": 0,
+  "original_same_paths_official_metric_difference": 0.0
+}

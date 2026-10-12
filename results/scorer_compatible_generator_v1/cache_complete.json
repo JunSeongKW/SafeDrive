@@ -1,0 +1,176 @@
+{
+  "complete": true,
+  "loading": {
+    "strict_loading": "<All keys matched successfully>",
+    "checkpoint_tensor_count": 467,
+    "checkpoint_epoch": 28,
+    "checkpoint_global_step": 53911,
+    "parameters": 40787582,
+    "trainable_parameters": 0,
+    "configuration": {
+      "b2d": false,
+      "shared_refiner": false,
+      "ref_num": 4,
+      "scorer_ref_num": 4,
+      "proposal_num": 64,
+      "num_poses": 8,
+      "num_scene_tokens": 16,
+      "one_token_per_traj": true,
+      "full_history_status": false,
+      "long_trajectory_additional_poses": 2,
+      "noc": 1.0,
+      "dac": 1.0,
+      "ddc": 0.0,
+      "ttc": 5.0,
+      "ep": 5.0,
+      "comfort": 2.0,
+      "tf_d_model": 256,
+      "tf_d_ffn": 1024,
+      "cam_f0": [
+        3
+      ],
+      "cam_l0": [
+        3
+      ],
+      "cam_l1": [],
+      "cam_l2": [],
+      "cam_r0": [
+        3
+      ],
+      "cam_r1": [],
+      "cam_r2": [],
+      "cam_b0": [
+        3
+      ],
+      "lidar_pc": [],
+      "use_cem": false,
+      "cem_seed_topk": 64,
+      "cem_num_samples": 64,
+      "cem_num_iterations": 5,
+      "cem_num_elites": null,
+      "proposal_augment_random": 0,
+      "random_bouquet_control_mode": "family_mix",
+      "image_size": [
+        1148,
+        672
+      ],
+      "image_backbone": {
+        "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+        "model_weights": "/rhome/junseong/PlanningAwareFuturePrediction/runtime/checkpoints/four_model_small_corpus/dinov2_vits_reg4.safetensors",
+        "use_lora": true,
+        "finetune": false,
+        "lora_rank": 32,
+        "focus_front_cam": false,
+        "use_feature_pooling": false,
+        "compress_fc": false,
+        "image_size": [
+          1148,
+          672
+        ],
+        "num_scene_tokens": 16,
+        "tf_d_model": 256
+      },
+      "lidar_min_x": -35,
+      "lidar_max_x": 35,
+      "lidar_min_y": -35,
+      "lidar_max_y": 35,
+      "lidar_image_size": [
+        518,
+        518
+      ],
+      "lidar_hist_max_per_pixel": 5,
+      "lidar_max_height": 100.0,
+      "lidar_split_height": 0.2,
+      "lidar_use_ground_plane": true,
+      "lidar_backbone": {
+        "model_name": "timm/vit_small_patch14_reg4_dinov2.lvd142m",
+        "model_weights": "weights/vit_small_patch14_reg4_dinov2.lvd142m/model.safetensors",
+        "use_lora": true,
+        "finetune": false,
+        "lora_rank": 32,
+        "in_chans": 2
+      },
+      "double_score": false,
+      "agent_pred": false,
+      "area_pred": false,
+      "bev_map": false,
+      "bev_agent": false,
+      "refiner_num_heads": 1,
+      "refiner_ls_values": 0.0,
+      "trajectory_sampling": {
+        "_target_": "nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling",
+        "time_horizon": 4,
+        "interval_length": 0.5
+      }
+    },
+    "source_path": "/rhome/junseong/PlanningAwareFuturePrediction/reference_repositories/TOADNav1OfficialCalibration/navsim/agents/drivoR/drivor_model.py",
+    "source_sha256": "9e33b0bc0438d8554d90fe6d532d0f3512c666ebdc60a2aaeb71312b077e3e5a"
+  },
+  "cache_shapes": {
+    "scene_features": [
+      64,
+      256
+    ],
+    "ego_tokens": [
+      1,
+      256
+    ],
+    "ego_history": [
+      2,
+      11
+    ],
+    "trajectory_tokens": [
+      64,
+      256
+    ],
+    "native_trajectories": [
+      64,
+      8,
+      3
+    ],
+    "native_log_scores": [
+      64
+    ],
+    "native_probabilities": [
+      64,
+      6
+    ]
+  },
+  "dtype": "float32",
+  "input_cameras": 4,
+  "image_resolution": [
+    1148,
+    672
+  ],
+  "observed_image_frames": 1,
+  "future_image_inputs": 0,
+  "frozen_final_decoder_tokens_are_head_inputs": true,
+  "maximum_original_vs_cached_head_error_m_or_rad": 0.0,
+  "encoder_calls_during_cache": 161,
+  "encoder_calls_during_cached_training": 0,
+  "gpu_phase_wall_seconds": 207.99287152197212,
+  "mean_gpu_forward_seconds_per_scene": 0.3052512047126584,
+  "maximum_card_used_bytes": 42010214400,
+  "peak_allocated_bytes": 505153536,
+  "peak_reserved_bytes": 597688320,
+  "all_original_weights_frozen_and_unchanged": true,
+  "cache_sha256": {
+    "scene_features": "76481fe902e89a5572db4fb13a27adbd2c5b02083079742d7c23f7ce8e0496d9",
+    "ego_tokens": "9c1bc33724c0691c69876c34f07996c8126de110d3df70c077ff042200516290",
+    "ego_history": "7985611d26a5005acb4665b9d2b2836858d10801e9875b74c67d1f66ddfec2b7",
+    "trajectory_tokens": "bec2feead664ba36b7dd202c6f393c75aaf231ba48381f49035c79c10ac09b5a",
+    "native_trajectories": "df256c59eaa96b31e2568b2ce84cff9f556b2e11787ebade2ee1a7686da201b8",
+    "native_log_scores": "3b1d68cc8ecd4f08e692668f0474ede7af4c13cc9d0e629190c039c44841cccf",
+    "native_probabilities": "685272e926f9d2e0e1943201dbe0bf7560bf96c48f09b145dfa46dca06fbc8bc"
+  },
+  "native_head_initialization_sha256": "1b82979934802c87cb08583fded15ded4211f32fc2591246a48397e93ead2383",
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 15625
+  },
+  "environment": {
+    "torch": "2.8.0+cu128",
+    "numpy": "2.5.1"
+  }
+}

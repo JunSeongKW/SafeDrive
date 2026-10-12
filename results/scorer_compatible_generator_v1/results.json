@@ -1,0 +1,556 @@
+{
+  "complete": true,
+  "benchmark": "NAVSIM v1 PDMS",
+  "full_navtest": false,
+  "independent_final_test": false,
+  "registered_before_learning": "2026-10-11T23:49:31.254872+00:00",
+  "seed": 0,
+  "adaptation_counts": {
+    "train": 128,
+    "tuning": 32,
+    "locked_development": 64
+  },
+  "recording_counts": {
+    "train": 53,
+    "tuning": 15,
+    "locked_development": 38
+  },
+  "recording_overlap": 0,
+  "candidate_count": 64,
+  "updated_module": "Copy of native DrivoR traj_head[-1]",
+  "teacher": {
+    "complete": true,
+    "training_target_statistics": {
+      "B_quality": {
+        "target_mean_actual_pdms": 97.0916519165039,
+        "target_mean_absolute_prediction_error_pdms_points": 12.403715133666992,
+        "median_effective_candidate_count": 51.33606719970703,
+        "mean_effective_candidate_count": 48.3526725769043
+      },
+      "C_compatible": {
+        "target_mean_actual_pdms": 96.85176849365234,
+        "target_mean_absolute_prediction_error_pdms_points": 8.873527526855469,
+        "median_effective_candidate_count": 48.91048049926758,
+        "mean_effective_candidate_count": 46.05339050292969
+      }
+    },
+    "target_quality_guard_maximum_drop_pdms_points": 1.0000109672546387,
+    "native_head_identity_error_m_or_rad": 5.7220458984375e-06,
+    "uniform_empirical_mmd_identity_error": 0.0,
+    "synthetic_coordinate_gradient_norm": 0.025287382304668427,
+    "actual_head_gradient_norms": {
+      "mlp.0.weight": 0.18031667172908783,
+      "mlp.0.bias": 0.0018415068043395877,
+      "mlp.1.weight": 0.0249006524682045,
+      "mlp.1.bias": 0.01929318532347679,
+      "mlp.3.weight": 0.11213557422161102,
+      "mlp.3.bias": 0.005037873052060604,
+      "mlp.4.weight": 0.014581072144210339,
+      "mlp.4.bias": 0.027127444744110107,
+      "mlp.6.weight": 0.14957295358181,
+      "mlp.6.bias": 0.009610193781554699
+    },
+    "native_head_trainable_parameters": 1341464,
+    "navtest_rows_in_teacher_construction": 0,
+    "encoder_calls": 0,
+    "gpu_seconds": 0,
+    "frozen_original_checkpoint_sha256_unchanged": true
+  },
+  "results": {
+    "tuning": {
+      "conditions": [
+        {
+          "condition": "A_original",
+          "completed_steps": 0,
+          "scene_count": 32,
+          "recording_count": 15,
+          "selected_pdms": 98.74949323317807,
+          "oracle_best_pdms": 99.80170789488241,
+          "selection_regret_pdms_points": 1.0522146617043266,
+          "prediction_mae_pdms_points": 8.340284021351502,
+          "mean_actual_candidate_pdms": 82.64012514367182,
+          "mean_pairwise_rms_dispersion_m": 1.9378354003495035,
+          "mean_waypoint_change_from_original_m": 0.0,
+          "selected_nc_failure_count": 0,
+          "selected_dac_failure_count": 0,
+          "selected_ttc_failure_count": 0,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 1.0,
+            "drivable_area_compliance": 1.0,
+            "ego_progress": 0.9699878375962739,
+            "time_to_collision_within_bound": 1.0,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.953125
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 11,
+              "selected_pdms": 99.52952028082728
+            },
+            "straight": {
+              "scene_count": 11,
+              "selected_pdms": 97.42094325150248
+            },
+            "right_turn": {
+              "scene_count": 10,
+              "selected_pdms": 99.3528684606071
+            }
+          }
+        },
+        {
+          "condition": "B_quality",
+          "completed_steps": 100,
+          "scene_count": 32,
+          "recording_count": 15,
+          "selected_pdms": 98.7407086311866,
+          "oracle_best_pdms": 99.81258447694557,
+          "selection_regret_pdms_points": 1.0718758457589588,
+          "prediction_mae_pdms_points": 8.100286663575133,
+          "mean_actual_candidate_pdms": 83.55095522727693,
+          "mean_pairwise_rms_dispersion_m": 1.867585856319319,
+          "mean_waypoint_change_from_original_m": 0.09984763165655318,
+          "selected_nc_failure_count": 0,
+          "selected_dac_failure_count": 0,
+          "selected_ttc_failure_count": 0,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 1.0,
+            "drivable_area_compliance": 1.0,
+            "ego_progress": 0.9697770071484786,
+            "time_to_collision_within_bound": 1.0,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.953125
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 11,
+              "selected_pdms": 99.51095332949308
+            },
+            "straight": {
+              "scene_count": 11,
+              "selected_pdms": 97.45732006908057
+            },
+            "right_turn": {
+              "scene_count": 10,
+              "selected_pdms": 99.30516688136613
+            }
+          }
+        },
+        {
+          "condition": "C_compatible",
+          "completed_steps": 100,
+          "scene_count": 32,
+          "recording_count": 15,
+          "selected_pdms": 98.66548039035237,
+          "oracle_best_pdms": 99.81183825418614,
+          "selection_regret_pdms_points": 1.1463578638337757,
+          "prediction_mae_pdms_points": 7.562716079090505,
+          "mean_actual_candidate_pdms": 84.55016563264654,
+          "mean_pairwise_rms_dispersion_m": 1.8455907660120856,
+          "mean_waypoint_change_from_original_m": 0.1733804816875009,
+          "selected_nc_failure_count": 0,
+          "selected_dac_failure_count": 0,
+          "selected_ttc_failure_count": 0,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 1.0,
+            "drivable_area_compliance": 1.0,
+            "ego_progress": 0.967971529368457,
+            "time_to_collision_within_bound": 1.0,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.953125
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 11,
+              "selected_pdms": 99.47334302144485
+            },
+            "straight": {
+              "scene_count": 11,
+              "selected_pdms": 97.32714846238402
+            },
+            "right_turn": {
+              "scene_count": 10,
+              "selected_pdms": 99.24899661691583
+            }
+          }
+        },
+        {
+          "condition": "B_quality",
+          "completed_steps": 300,
+          "scene_count": 32,
+          "recording_count": 15,
+          "selected_pdms": 98.7436413330927,
+          "oracle_best_pdms": 99.82470779183379,
+          "selection_regret_pdms_points": 1.0810664587410859,
+          "prediction_mae_pdms_points": 7.879770912553875,
+          "mean_actual_candidate_pdms": 84.57064206305306,
+          "mean_pairwise_rms_dispersion_m": 1.817517308319435,
+          "mean_waypoint_change_from_original_m": 0.14760310319447503,
+          "selected_nc_failure_count": 0,
+          "selected_dac_failure_count": 0,
+          "selected_ttc_failure_count": 0,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 1.0,
+            "drivable_area_compliance": 1.0,
+            "ego_progress": 0.9698473919942247,
+            "time_to_collision_within_bound": 1.0,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.953125
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 11,
+              "selected_pdms": 99.50841768506756
+            },
+            "straight": {
+              "scene_count": 11,
+              "selected_pdms": 97.40787287636873
+            },
+            "right_turn": {
+              "scene_count": 10,
+              "selected_pdms": 99.37173264831671
+            }
+          }
+        },
+        {
+          "condition": "C_compatible",
+          "completed_steps": 300,
+          "scene_count": 32,
+          "recording_count": 15,
+          "selected_pdms": 98.62135630331983,
+          "oracle_best_pdms": 99.80322447853044,
+          "selection_regret_pdms_points": 1.1818681752106106,
+          "prediction_mae_pdms_points": 7.388259225148825,
+          "mean_actual_candidate_pdms": 85.29271756013635,
+          "mean_pairwise_rms_dispersion_m": 1.783457963947972,
+          "mean_waypoint_change_from_original_m": 0.23284883536548115,
+          "selected_nc_failure_count": 0,
+          "selected_dac_failure_count": 0,
+          "selected_ttc_failure_count": 0,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 1.0,
+            "drivable_area_compliance": 1.0,
+            "ego_progress": 0.9669125512796761,
+            "time_to_collision_within_bound": 1.0,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.953125
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 11,
+              "selected_pdms": 99.40357694394284
+            },
+            "straight": {
+              "scene_count": 11,
+              "selected_pdms": 97.29807011868806
+            },
+            "right_turn": {
+              "scene_count": 10,
+              "selected_pdms": 99.2165284017295
+            }
+          }
+        }
+      ],
+      "paired_comparisons": {
+        "C_minus_B": {
+          "selected_pdms_difference": -0.1222850297728586,
+          "selected_pdms_difference95ci_recording_bootstrap": [
+            -0.2036756840239608,
+            -0.05272875930709388
+          ],
+          "selection_regret_difference": 0.10080171646952474,
+          "oracle_best_pdms_difference": -0.021483313303333862,
+          "same_selected_candidate_index_fraction": 0.78125
+        },
+        "C_minus_A": {
+          "selected_pdms_difference": -0.1281369298582442,
+          "selected_pdms_difference95ci_recording_bootstrap": [
+            -0.21393297925126598,
+            -0.05454023245531961
+          ],
+          "selection_regret_difference": 0.12965351350628396,
+          "oracle_best_pdms_difference": 0.0015165836480397488,
+          "same_selected_candidate_index_fraction": 0.78125
+        },
+        "B_minus_A": {
+          "selected_pdms_difference": -0.0058519000853856085,
+          "selected_pdms_difference95ci_recording_bootstrap": [
+            -0.03341807152344659,
+            0.02849450447804136
+          ],
+          "selection_regret_difference": 0.02885179703675922,
+          "oracle_best_pdms_difference": 0.02299989695137361,
+          "same_selected_candidate_index_fraction": 0.71875
+        }
+      }
+    },
+    "locked_development": {
+      "conditions": [
+        {
+          "condition": "A_original",
+          "completed_steps": 0,
+          "scene_count": 64,
+          "recording_count": 38,
+          "selected_pdms": 93.60869148973171,
+          "oracle_best_pdms": 99.87450959523161,
+          "selection_regret_pdms_points": 6.265818105499901,
+          "prediction_mae_pdms_points": 17.40453687293293,
+          "mean_actual_candidate_pdms": 77.44866921113322,
+          "mean_pairwise_rms_dispersion_m": 2.0604163252633767,
+          "mean_waypoint_change_from_original_m": 0.0,
+          "selected_nc_failure_count": 1,
+          "selected_dac_failure_count": 0,
+          "selected_ttc_failure_count": 5,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 0.984375,
+            "drivable_area_compliance": 1.0,
+            "ego_progress": 0.930983595753561,
+            "time_to_collision_within_bound": 0.921875,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.953125
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 21,
+              "selected_pdms": 88.49720025038427
+            },
+            "straight": {
+              "scene_count": 22,
+              "selected_pdms": 97.56508571704812
+            },
+            "right_turn": {
+              "scene_count": 21,
+              "selected_pdms": 94.57538877665245
+            }
+          }
+        },
+        {
+          "condition": "B_quality",
+          "completed_steps": 100,
+          "scene_count": 64,
+          "recording_count": 38,
+          "selected_pdms": 92.10808693063413,
+          "oracle_best_pdms": 99.89111318584303,
+          "selection_regret_pdms_points": 7.783026255208891,
+          "prediction_mae_pdms_points": 17.3963904300257,
+          "mean_actual_candidate_pdms": 77.55579062106533,
+          "mean_pairwise_rms_dispersion_m": 1.9856301331492245,
+          "mean_waypoint_change_from_original_m": 0.10714374654466033,
+          "selected_nc_failure_count": 1,
+          "selected_dac_failure_count": 1,
+          "selected_ttc_failure_count": 5,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 0.984375,
+            "drivable_area_compliance": 0.984375,
+            "ego_progress": 0.9168440863352192,
+            "time_to_collision_within_bound": 0.921875,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.953125
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 21,
+              "selected_pdms": 83.68797594791299
+            },
+            "straight": {
+              "scene_count": 22,
+              "selected_pdms": 97.72863240056395
+            },
+            "right_turn": {
+              "scene_count": 21,
+              "selected_pdms": 94.64000742104784
+            }
+          }
+        },
+        {
+          "condition": "C_compatible",
+          "completed_steps": 100,
+          "scene_count": 64,
+          "recording_count": 38,
+          "selected_pdms": 92.06973880897378,
+          "oracle_best_pdms": 99.86170749162824,
+          "selection_regret_pdms_points": 7.791968682654444,
+          "prediction_mae_pdms_points": 16.92157947984955,
+          "mean_actual_candidate_pdms": 78.94111134776797,
+          "mean_pairwise_rms_dispersion_m": 1.9642918335653523,
+          "mean_waypoint_change_from_original_m": 0.15840994449056667,
+          "selected_nc_failure_count": 1,
+          "selected_dac_failure_count": 1,
+          "selected_ttc_failure_count": 5,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 0.984375,
+            "drivable_area_compliance": 0.984375,
+            "ego_progress": 0.9159237314153708,
+            "time_to_collision_within_bound": 0.921875,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.9609375
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 21,
+              "selected_pdms": 83.77152757667899
+            },
+            "straight": {
+              "scene_count": 22,
+              "selected_pdms": 97.53662008702271
+            },
+            "right_turn": {
+              "scene_count": 21,
+              "selected_pdms": 94.64074108331256
+            }
+          }
+        },
+        {
+          "condition": "B_quality",
+          "completed_steps": 300,
+          "scene_count": 64,
+          "recording_count": 38,
+          "selected_pdms": 92.03484148816861,
+          "oracle_best_pdms": 99.89062680340972,
+          "selection_regret_pdms_points": 7.8557853152411,
+          "prediction_mae_pdms_points": 17.24520898372537,
+          "mean_actual_candidate_pdms": 78.04476230957735,
+          "mean_pairwise_rms_dispersion_m": 1.9309985287467473,
+          "mean_waypoint_change_from_original_m": 0.16614603062057193,
+          "selected_nc_failure_count": 1,
+          "selected_dac_failure_count": 1,
+          "selected_ttc_failure_count": 5,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 0.984375,
+            "drivable_area_compliance": 0.984375,
+            "ego_progress": 0.9150861957160468,
+            "time_to_collision_within_bound": 0.921875,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.9609375
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 21,
+              "selected_pdms": 83.6779883179304
+            },
+            "straight": {
+              "scene_count": 22,
+              "selected_pdms": 97.60489400197629
+            },
+            "right_turn": {
+              "scene_count": 21,
+              "selected_pdms": 94.55640154870358
+            }
+          }
+        },
+        {
+          "condition": "C_compatible",
+          "completed_steps": 300,
+          "scene_count": 64,
+          "recording_count": 38,
+          "selected_pdms": 92.1240266926878,
+          "oracle_best_pdms": 99.85743168330922,
+          "selection_regret_pdms_points": 7.733404990621414,
+          "prediction_mae_pdms_points": 16.78263085818353,
+          "mean_actual_candidate_pdms": 79.05193598858901,
+          "mean_pairwise_rms_dispersion_m": 1.8961786198773005,
+          "mean_waypoint_change_from_original_m": 0.21348933327745356,
+          "selected_nc_failure_count": 1,
+          "selected_dac_failure_count": 1,
+          "selected_ttc_failure_count": 5,
+          "selected_comfort_failure_count": 0,
+          "selected_submetric_means": {
+            "no_at_fault_collisions": 0.984375,
+            "drivable_area_compliance": 0.984375,
+            "ego_progress": 0.9172266406245073,
+            "time_to_collision_within_bound": 0.921875,
+            "comfort": 1.0,
+            "driving_direction_compliance": 0.96875
+          },
+          "by_observed_command": {
+            "left_turn": {
+              "scene_count": 21,
+              "selected_pdms": 83.72901680290646
+            },
+            "straight": {
+              "scene_count": 22,
+              "selected_pdms": 97.78865268012942
+            },
+            "right_turn": {
+              "scene_count": 21,
+              "selected_pdms": 94.58466650038746
+            }
+          }
+        }
+      ],
+      "paired_comparisons": {
+        "C_minus_B": {
+          "selected_pdms_difference": 0.08918520451918643,
+          "selected_pdms_difference95ci_recording_bootstrap": [
+            -0.07742758113577661,
+            0.3016813284513116
+          ],
+          "selection_regret_difference": -0.12238032461968518,
+          "oracle_best_pdms_difference": -0.03319512010049874,
+          "same_selected_candidate_index_fraction": 0.71875
+        },
+        "C_minus_A": {
+          "selected_pdms_difference": -1.4846647970439073,
+          "selected_pdms_difference95ci_recording_bootstrap": [
+            -5.0202381230380855,
+            0.23642737805187697
+          ],
+          "selection_regret_difference": 1.4675868851215135,
+          "oracle_best_pdms_difference": -0.01707791192239383,
+          "same_selected_candidate_index_fraction": 0.59375
+        },
+        "B_minus_A": {
+          "selected_pdms_difference": -1.5738500015630936,
+          "selected_pdms_difference95ci_recording_bootstrap": [
+            -5.056027035012847,
+            0.0885169633391539
+          ],
+          "selection_regret_difference": 1.5899672097411985,
+          "oracle_best_pdms_difference": 0.016117208178104914,
+          "same_selected_candidate_index_fraction": 0.625
+        }
+      }
+    }
+  },
+  "promotion": {
+    "C_minus_B_selected95ci_lower_above0": false,
+    "C_minus_A_oracle_drop_at_most1point": true,
+    "C_no_extra_selected_nc_or_dac_failure": false,
+    "all_passed": false
+  },
+  "cost": {
+    "cache_gpu_wall_seconds": 207.99287152197212,
+    "cache_maximum_card_used_bytes": 42010214400,
+    "head_training_cpu_seconds": 22.94079414900625,
+    "prediction_cpu_seconds": 6.938855982996756,
+    "native_labels_cpu_seconds": 62.44275539700175,
+    "modified_labels_cpu_seconds": 120.30679678899469,
+    "native_official_candidates": 10240,
+    "evaluation_official_candidates": 30720,
+    "training_gpu_seconds": 0,
+    "head_cpu_inference_mean_seconds": 0.0018224219892848245
+  },
+  "validation": {
+    "cache_sample_matching": true,
+    "native_gradient_checks_passed": true,
+    "original_checkpoint_unchanged": true,
+    "no_encoder_calls_during_learning_or_cached_evaluation": true,
+    "same_init_batch_order_steps_and_losses_except_target": true,
+    "frozen_scorer_weights_and_gradients_unchanged": true,
+    "new_coordinates_have_new_official_labels": true,
+    "maximum_official_pair_difference": 0.0,
+    "protected_training": {
+      "checked_files": 293,
+      "mismatches": [],
+      "running_training_completed_updates": 15690
+    }
+  }
+}

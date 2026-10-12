@@ -1,0 +1,55 @@
+{
+  "source_sha256": {
+    "configs/scorer_compatible_generator/pilot_v1.json": "8f2000996324039fc0bf7fbc6bec7d5af45825667616db7fead7fb36ce371397",
+    "configs/scorer_compatible_generator/accuracy_only_v2.json": "9fc9c082cdcec27b992eb7cfb0ac9cc9bafcb411085f87f2f2c42dd79fdec2d1",
+    "src/planning_aware_future_prediction/models/scorer_compatible_generator.py": "edb7655e8b1d3e2680a715ae3d118300bf8c9b14df493b9d5a250ba61b2ea4d2",
+    "scripts/diagnose_scorer_compatible_generator_outcomes.py": "f896731c29357b1d775f08a1ce529b02670063cb8de2b663323f301d28ff3eea",
+    "scripts/prepare_scorer_compatible_generator.py": "725febcbf834a60df2bbafcbdd025c22c5266b4e73f2fceef1e5c5ebd9781ba8",
+    "scripts/report_scorer_compatible_generator.py": "e8df4ae867827035743f480e0946d3e60b5e28dd8533f0cf3494edf614704f8b",
+    "scripts/run_scorer_compatible_accuracy_only.py": "2092e6bb509545732ce0f606e326c74d4d4874057106ce58ed732f1564634d75",
+    "scripts/run_scorer_compatible_generator.py": "468e6b73e1cb3d7f7dd259f3d012fcaae4a643e6dcaa00e1ffc12d6c3b14c5c5",
+    "scripts/visualize_scorer_compatible_generator.py": "d4b5e2e71cdafe2692f26882ae3797c6bec00329faf3351a6e188c70724352eb",
+    "scripts/visualize_scorer_compatible_road_boundary.py": "951533c6a3f47b1a1eca3a231bcc9285c68afa9809b4f86e835c2dac61e37429",
+    "scripts/run_scorer_compatible_accuracy_only.sh": "0dba279f5aae053a578dd785f20420bfcb16f117e1786b9092f0d1cb116110ea",
+    "scripts/run_scorer_compatible_generator_pilot.sh": "53d023b7c9430b553d720fb7976009dca7c8641bb79fec9f859a50723c8d7212"
+  },
+  "head_weight_audit": {
+    "B_quality": {
+      "checkpoint_sha256": "6aec3e35aae803078f7f57118a9275502c1ee248f7e1b3db4615a7f46808bee0",
+      "completed_steps": 300,
+      "updated_tensor_count": 10,
+      "tensor_count": 10,
+      "optimizer_state_count": 10,
+      "all_weights_finite": true
+    },
+    "C_compatible": {
+      "checkpoint_sha256": "2152df937e9c63999b55257d1a3644ee1e7a255b50f40179be6bf44b4ba8df38",
+      "completed_steps": 300,
+      "updated_tensor_count": 10,
+      "tensor_count": 10,
+      "optimizer_state_count": 10,
+      "all_weights_finite": true
+    },
+    "D_accuracy_only": {
+      "checkpoint_sha256": "be6e62d3e0a104b8b1adca89af03196070199aa560638d4974ed0e392276bccb",
+      "completed_steps": 300,
+      "updated_tensor_count": 10,
+      "tensor_count": 10,
+      "optimizer_state_count": 10,
+      "all_weights_finite": true
+    }
+  },
+  "native_initialization_and_all7_feature_cache_hashes_unchanged": true,
+  "original_checkpoint_unchanged": true,
+  "protected_training": {
+    "checked_files": 293,
+    "mismatches": [],
+    "running_training_completed_updates": 15749
+  },
+  "torch": "2.8.0+cu128",
+  "python": "3.12.13",
+  "no_full_scale_extension": true,
+  "registered_training_source_snapshot_matches": true,
+  "D_training_prediction_label_AST_unchanged_after_reporting_update": true,
+  "batch_order_sha256_matches": true
+}

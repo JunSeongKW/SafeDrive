@@ -1,5 +1,7 @@
 # Planning-Aware Future Prediction
 
+**2026-10-12 — Scorer가 정확히 평가하는 후보 분포를 학습하는 pilot 완료, 개선 미확인.** 공개 DrivoR의 backbone·decoder·scorer를 고정하고 캐싱한 뒤, 원래 최종 경로 출력 head(1.341M)만 학습했다. NAVTRAIN 128장면 학습·32장면 점검, seed 0·300 step·64후보, NAVTEST 개발64장면에서 선택 PDMS는 A 원본93.6087 / B 품질분포92.0348 / C 품질+정확도92.1240 / D 정확도만91.3739였다. C/D 후보 MAE는16.7826/16.6068로 A17.4045보다 낮았지만 선택손실·안전은 개선하지 못했다. [A/B/C 설계·단계별 측정/시각화](results/scorer_compatible_generator_v1/report.md), [추가 D 결과·공통4조건표](results/scorer_compatible_generator_accuracy_only_v2/report.md). MMD 감소와 주행 성능을 구분했고, 같은 query37 경로의 13.3cm 이동 후 DAC1→0을 실제 tracked footprint로 확인했다. 기존 LPWM25epoch·293보호파일은 보존했고 새 fullscale 학습은 시작하지 않았다.
+
 **2026-10-12 — DrivoR generator 후보 형태·장면별 scorer 실패 진단 완료.** 원본 native64/NAVTEST64·38recording에서 oracle99.87/선택93.61, 좌·우·직진 MAE22.82/20.10/9.67·선택손실11.45/5.10/2.43점. TTC실패5장면이전체선택손실67.5%를차지했다. 횡방향·heading퍼짐은MAE와연관되지만명령·속도를고려하면약해지고,분포다양성·객체수만으로선택오류를설명하는안정된관계는미확인이다. [실측·한계·NAVSIM 사례](results/drivor_generator_failure_characteristics_20261012/report.md). 기존캐시/공식PDMS재사용,새GPU·학습0,LPWM원학습·293보호파일유지。
 
 **2026-10-12 00:01 KST — 원본 DrivoR scorer 후보 분포별 진단 완료.** NAVTEST64/38recording·같은16,384경로/공식PDMS재사용. 모두같은원DrivoR scorer로단독64context와고정256context를채점했다. 자기64선택93.6087/oracle99.8745/선택손실6.2658,TOAD생성64 93.0929/99.8511/6.7583,random64 71.4072/93.8428/22.4356,near64 90.6614/99.5385/8.8771. MAE17.4045/17.9007/15.2358/19.9264로전체오차와선택손실의순위가다르다. [분포·정답조건별오류·PNG](results/drivor_candidate_distribution_diagnosis_20261011/report.md). CPU재채점52.56초/새GPU·학습·공식평가0. 기존LPWM학습·293보호파일유지。

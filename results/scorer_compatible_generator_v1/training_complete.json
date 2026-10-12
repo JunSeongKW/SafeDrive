@@ -1,0 +1,22 @@
+{
+  "complete": true,
+  "conditions": {
+    "B_quality": {
+      "cpu_wall_seconds": 10.934678969002562,
+      "steps": 300,
+      "parameters": 1341464,
+      "finite_gradients_every_step": true
+    },
+    "C_compatible": {
+      "cpu_wall_seconds": 12.00611518000369,
+      "steps": 300,
+      "parameters": 1341464,
+      "finite_gradients_every_step": true
+    }
+  },
+  "encoder_calls": 0,
+  "gpu_seconds": 0,
+  "same_batch_order": true,
+  "same_initial_weights": true,
+  "original_checkpoint_sha256_unchanged": true
+}

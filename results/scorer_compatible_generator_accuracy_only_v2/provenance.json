@@ -1,0 +1,29 @@
+{
+  "artifact_sha256": {
+    "accuracy_only_comparison_and_training.png": "eb4ff70aac7aeb5bde722b5f7ee1ead27fc99749d37c828c91687bc3718d409e",
+    "accuracy_only_teacher_distribution.png": "c27061427185fa952717775394a5af698a7e51d66ed7d3aa14966a6bbfaf2094",
+    "comparison.csv": "285551d07f0e619e00720c3f16e485b07a8bb9adbcb6a2532dcd4e5f2e899167",
+    "configuration.json": "5429db0f8f98196ee090a8c1a4146232b8d7088908e1099678942595271d0553",
+    "final_validation.json": "5e6421e2438b61c311157b25704c0c9046bf29c36501c631e9336f9e0b587e50",
+    "report.md": "9fbdb17243785c3d741a44c7b999b993443c477600289a2a55bef752b22681a3",
+    "results.json": "62920f4cca4b5e79157e16909b77a5c1559c6b413b4cd2456f2363b8d6faf88a",
+    "scene_results.csv": "79ae99ff5af863bc59e9b7c058c399ac05dc9830ef55d862eb877d18b4cd5eb1",
+    "subset_manifest.json": "6e529f410c638527d914080a2f295f248c2922eb58ad4f0809c1fdc4b06d6fa6"
+  },
+  "source_sha256": {
+    "configs/scorer_compatible_generator/pilot_v1.json": "8f2000996324039fc0bf7fbc6bec7d5af45825667616db7fead7fb36ce371397",
+    "configs/scorer_compatible_generator/accuracy_only_v2.json": "9fc9c082cdcec27b992eb7cfb0ac9cc9bafcb411085f87f2f2c42dd79fdec2d1",
+    "src/planning_aware_future_prediction/models/scorer_compatible_generator.py": "edb7655e8b1d3e2680a715ae3d118300bf8c9b14df493b9d5a250ba61b2ea4d2",
+    "scripts/diagnose_scorer_compatible_generator_outcomes.py": "f896731c29357b1d775f08a1ce529b02670063cb8de2b663323f301d28ff3eea",
+    "scripts/prepare_scorer_compatible_generator.py": "725febcbf834a60df2bbafcbdd025c22c5266b4e73f2fceef1e5c5ebd9781ba8",
+    "scripts/report_scorer_compatible_generator.py": "e8df4ae867827035743f480e0946d3e60b5e28dd8533f0cf3494edf614704f8b",
+    "scripts/run_scorer_compatible_accuracy_only.py": "2092e6bb509545732ce0f606e326c74d4d4874057106ce58ed732f1564634d75",
+    "scripts/run_scorer_compatible_generator.py": "468e6b73e1cb3d7f7dd259f3d012fcaae4a643e6dcaa00e1ffc12d6c3b14c5c5",
+    "scripts/visualize_scorer_compatible_generator.py": "d4b5e2e71cdafe2692f26882ae3797c6bec00329faf3351a6e188c70724352eb",
+    "scripts/visualize_scorer_compatible_road_boundary.py": "951533c6a3f47b1a1eca3a231bcc9285c68afa9809b4f86e835c2dac61e37429",
+    "scripts/run_scorer_compatible_accuracy_only.sh": "0dba279f5aae053a578dd785f20420bfcb16f117e1786b9092f0d1cb116110ea",
+    "scripts/run_scorer_compatible_generator_pilot.sh": "53d023b7c9430b553d720fb7976009dca7c8641bb79fec9f859a50723c8d7212"
+  },
+  "final_validation": "final_validation.json",
+  "public_checkpoint_sha256": "617e22c5ebcf8b24c542d42a470514b09c3cadce1a2630071d49f2d422d76672"
+}

@@ -1,0 +1,57 @@
+{
+  "post_hoc_examples": [
+    {
+      "role": "largest_improvement",
+      "token": "46369836a9b654ee",
+      "image": "results/scorer_compatible_generator_v1/stage3_largest_improvement_navsim.png",
+      "models": [
+        {
+          "condition": "A original",
+          "selected_actual_pdms": 96.67316777240909,
+          "selected_predicted_pdms": 93.05670261383057,
+          "oracle_pdms": 100.0
+        },
+        {
+          "condition": "B quality matching",
+          "selected_actual_pdms": 96.69479011559523,
+          "selected_predicted_pdms": 93.17837556203207,
+          "oracle_pdms": 100.0
+        },
+        {
+          "condition": "C quality + reliability",
+          "selected_actual_pdms": 100.0,
+          "selected_predicted_pdms": 93.23387145996094,
+          "oracle_pdms": 100.0
+        }
+      ]
+    },
+    {
+      "role": "largest_degradation",
+      "token": "131ab0263b07507c",
+      "image": "results/scorer_compatible_generator_v1/stage3_largest_degradation_navsim.png",
+      "models": [
+        {
+          "condition": "A original",
+          "selected_actual_pdms": 100.0,
+          "selected_predicted_pdms": 64.1806443532308,
+          "oracle_pdms": 100.0
+        },
+        {
+          "condition": "B quality matching",
+          "selected_actual_pdms": 0.0,
+          "selected_predicted_pdms": 64.81773853302002,
+          "oracle_pdms": 100.0
+        },
+        {
+          "condition": "C quality + reliability",
+          "selected_actual_pdms": 0.0,
+          "selected_predicted_pdms": 63.5888934135437,
+          "oracle_pdms": 100.0
+        }
+      ]
+    }
+  ],
+  "backend": "Upstream NAVSIM camera / configured BEV / trajectory overlay",
+  "cpu_wall_seconds": 3.4024284039915074,
+  "gpu_seconds": 0
+}

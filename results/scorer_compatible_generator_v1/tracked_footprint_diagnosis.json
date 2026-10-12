@@ -1,0 +1,15 @@
+{
+  "token": "131ab0263b07507c",
+  "first_C_offroad_time_seconds": 2.3000000000000003,
+  "A_offroad_timestep_count": 0,
+  "C_offroad_timestep_count": 10,
+  "tracked_footprint_center_difference_at_failure_m": 0.10725049504376734,
+  "A_C_actual_dac": [
+    1.0,
+    0.0
+  ],
+  "diagnostic_tracked_trajectories_including_reference": 3,
+  "cpu_wall_seconds": 2.964559856976848,
+  "gpu_seconds": 0,
+  "image": "results/scorer_compatible_generator_v1/stage4_tracked_footprint_road_boundary.png"
+}

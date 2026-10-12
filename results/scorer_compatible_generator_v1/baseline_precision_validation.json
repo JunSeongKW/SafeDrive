@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "official_candidates": 128,
+  "unchanged_pair_checks": 7,
+  "maximum_pair_evaluator_difference": 0.0,
+  "cpu_wall_seconds": 3.8906770960020367,
+  "gpu_seconds": 0,
+  "token": "131ab0263b07507c",
+  "maximum_unchanged_head_coordinate_replay_error_m_or_rad": 6.67572021484375e-06,
+  "binary_nc_dac_ttc_comfort_identical_for_all64": true,
+  "maximum_all_metric_difference": 0.0,
+  "original_selected_path_gpu_cache_pdms": 100.0,
+  "original_selected_path_unchanged_head_cpu_pdms": 100.0
+}
