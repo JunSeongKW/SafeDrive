@@ -5012,3 +5012,14 @@ C 전체train MMD.0363583→.0251934,개발평균waypoint이동.213489m. B .0293
 고정첫4devscene epoch13 particle중심평균이동.834771inputpx/크기변화10.64246%/presence절대.051345. PNG는 outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_13/particles_before_after_overlay.png. 점은64foreground/크기는presence,사각형은초기top16의glimpse범위이지객체detection이아님. 새로운시각화렌더링은 하지 않았다.
 
 최근200update 평균12.56646초,잔여13,538update 본학습약47.26h/trainer약50h;현재14epoch잔여591update 약2.06h. 검증대기/자원변화별도외삽이다. Snapshot results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_0949.json에 progress/queue/검증이력/submetrics/world/particle/ETA/293hash근거저장. README/HANDOFF1–5갱신,공용원본·학습source/config/weights·배치/LR·queue보존. 새GPU계산·학습·평가0.
+
+
+## 2026-10-12 14:48 KST — LPWM14epoch 완료 결과와15epoch중간조회
+
+사용자 중간결과 요청으로 기존학습/queue를 보존하며 진행·양rankJSONL·완료검증을 조회했다. 17,150/29,425update(58.2838%),14epoch완료/15epoch672/1177(57.0943%). 이전09:49 15,887대비+1263update,queue1533508/torchrun2996590. GPU0·1각39173MiB=41.0759decimalGB/48상한,유효64=micro8×acc4×2GPU유지. Host util순간35%/77%;기타GPU새작업없음. 양rank최근500loss 비유한0,17,100의18gradient그룹 유한양수. 원293등록source/config/input SHA불일치0.
+
+동일내부개발1024예측/유효1021공식PDMS/실패0의새14epoch PDMS88.0149166/ADE1.2163315/FDE3.0565128m. 13epoch88.1785796/ADE1.3201677/FDE3.3407578대비PDMS−.1636630점이지만궤적오차감소. 최고내부PDMS는13epoch유지. 11/12epoch87.51194/87.47608은같은패널의과거결과. 모든실행·finite·native보존검사통과하나qualityreviewflag=true. 별도공통NAVTEST1024는기존9epoch85.9317유지,14epoch새NAVTEST평가없음;전체NAVTEST점수아님.
+
+16scene Stage1대비reconstructionMSE+.4308797%/futureMSE+4.6293341%;이전13epoch+.8115%/+5.5315%보다낮으나작은진단으로일반적표현개선단정안함. 고정4scene epoch14중심평균이동.7549663inputpx/크기9.1659203%/presence절대.0427072. 이미지 outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_14/particles_before_after_overlay.png. 위치/크기변화는객체중요도·planning인과효용의증거아님.
+
+최근200update평균14.038914초,잔여12275update학습47.8688h/trainer47.9111h,15epoch잔여505update약1.969h. 검증·자원변화시간별도조건부외삽. 기존25epoch queue의epoch검증→다음epoch유지. 새학습/평가/GPU연산·source/config/weights/batch/LR/queue변경없음. Snapshot results/lpwm_front_history_stage1_lora_v1/intermediate_status_20261012_1448.json에이전status링크·실측·세계/particle검사·hash근거저장,README/HANDOFF1–5/RESUME_NOTES갱신.
