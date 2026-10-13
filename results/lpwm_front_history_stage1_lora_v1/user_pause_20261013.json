@@ -1,0 +1,59 @@
+{
+  "requested_at_kst": "2026-10-13T20:10:29.457161+09:00",
+  "verified_at_kst": "2026-10-13T20:12:37.258539+09:00",
+  "status": "paused_by_explicit_user_request",
+  "completed_updates": 24377,
+  "completed_epochs": 20,
+  "interrupted_epoch": 21,
+  "next_update_in_epoch": 837,
+  "checkpoint": {
+    "checkpoint_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/latest.pt",
+    "completed_updates": 24377,
+    "completed_epochs": 20,
+    "next_update_in_epoch": 837,
+    "optimizer_state_count": 796,
+    "rng_rank_count": 2,
+    "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+    "resume_state_verified": true
+  },
+  "checkpoint_sha256": "f137bfaadac24f6adda12c0161432518d9ca493f7a644b0ea29bf0847b6be9b0",
+  "queue_state": {
+    "status": "paused",
+    "epoch": 21
+  },
+  "pause_markers": [
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/pause.requested",
+    "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/pause.requested"
+  ],
+  "automatic_resume_authorized": false,
+  "gpu_snapshot": {
+    "physical_gpu_0": {
+      "memory_used_mib": 15,
+      "utilization_percent": 0
+    },
+    "physical_gpu_1": {
+      "memory_used_mib": 15,
+      "utilization_percent": 0
+    }
+  },
+  "original_queue_and_training_pids_exited": [
+    1533508,
+    3736026,
+    3736235,
+    3736236
+  ],
+  "stop_method": "native pause marker; save complete model/optimizer/scheduler and both rank RNG before orderly exit",
+  "latest_completed_internal_validation": {
+    "epoch": 20,
+    "completed_updates": 23540,
+    "validation": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_023540",
+    "pdms": 89.10057598759366,
+    "ade_meters": 1.2011514902114868,
+    "fde_meters": 3.1150503158569336,
+    "learning_quality_requires_review": true
+  },
+  "training_configuration_and_existing_checkpoints_preserved": true,
+  "remaining_process_audit": {
+    "remaining_owned_lpwm_training_or_queue_processes": []
+  }
+}

@@ -1,0 +1,502 @@
+{
+  "recorded_at_kst": "2026-10-13T20:16:47.366189+09:00",
+  "status": "paused by explicit user request",
+  "pause": {
+    "requested_at_kst": "2026-10-13T20:10:29.457161+09:00",
+    "verified_at_kst": "2026-10-13T20:12:37.258539+09:00",
+    "status": "paused_by_explicit_user_request",
+    "completed_updates": 24377,
+    "completed_epochs": 20,
+    "interrupted_epoch": 21,
+    "next_update_in_epoch": 837,
+    "checkpoint": {
+      "checkpoint_path": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/latest.pt",
+      "completed_updates": 24377,
+      "completed_epochs": 20,
+      "next_update_in_epoch": 837,
+      "optimizer_state_count": 796,
+      "rng_rank_count": 2,
+      "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+      "resume_state_verified": true
+    },
+    "checkpoint_sha256": "f137bfaadac24f6adda12c0161432518d9ca493f7a644b0ea29bf0847b6be9b0",
+    "queue_state": {
+      "status": "paused",
+      "epoch": 21
+    },
+    "pause_markers": [
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/pause.requested",
+      "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/pause.requested"
+    ],
+    "automatic_resume_authorized": false,
+    "gpu_snapshot": {
+      "physical_gpu_0": {
+        "memory_used_mib": 15,
+        "utilization_percent": 0
+      },
+      "physical_gpu_1": {
+        "memory_used_mib": 15,
+        "utilization_percent": 0
+      }
+    },
+    "original_queue_and_training_pids_exited": [
+      1533508,
+      3736026,
+      3736235,
+      3736236
+    ],
+    "stop_method": "native pause marker; save complete model/optimizer/scheduler and both rank RNG before orderly exit",
+    "latest_completed_internal_validation": {
+      "epoch": 20,
+      "completed_updates": 23540,
+      "validation": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_023540",
+      "pdms": 89.10057598759366,
+      "ade_meters": 1.2011514902114868,
+      "fde_meters": 3.1150503158569336,
+      "learning_quality_requires_review": true
+    },
+    "training_configuration_and_existing_checkpoints_preserved": true
+  },
+  "development_history": [
+    {
+      "epoch": 1,
+      "completed_updates": 1177,
+      "pdms": 69.74366946017395,
+      "ade_meters": 3.5841193199157715,
+      "fde_meters": 8.924787521362305,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_001177/validation_complete.json"
+    },
+    {
+      "epoch": 2,
+      "completed_updates": 2354,
+      "pdms": 77.46779454209883,
+      "ade_meters": 1.8604743480682373,
+      "fde_meters": 4.554338455200195,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_002354/validation_complete.json"
+    },
+    {
+      "epoch": 3,
+      "completed_updates": 3531,
+      "pdms": 81.72250838495911,
+      "ade_meters": 1.6244981288909912,
+      "fde_meters": 3.9799752235412598,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_003531/validation_complete.json"
+    },
+    {
+      "epoch": 4,
+      "completed_updates": 4708,
+      "pdms": 81.83002594946208,
+      "ade_meters": 2.0899879932403564,
+      "fde_meters": 5.225548267364502,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_004708/validation_complete.json"
+    },
+    {
+      "epoch": 5,
+      "completed_updates": 5885,
+      "pdms": 83.9881877993076,
+      "ade_meters": 1.7462801933288574,
+      "fde_meters": 4.2488837242126465,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_005885/validation_complete.json"
+    },
+    {
+      "epoch": 6,
+      "completed_updates": 7062,
+      "pdms": 85.48840876520283,
+      "ade_meters": 1.6863800287246704,
+      "fde_meters": 3.985008716583252,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_007062/validation_complete.json"
+    },
+    {
+      "epoch": 7,
+      "completed_updates": 8239,
+      "pdms": 85.63988782023874,
+      "ade_meters": 1.6395004987716675,
+      "fde_meters": 4.076857566833496,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_008239/validation_complete.json"
+    },
+    {
+      "epoch": 8,
+      "completed_updates": 9416,
+      "pdms": 85.82147629221727,
+      "ade_meters": 1.6021747589111328,
+      "fde_meters": 3.995117664337158,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_009416/validation_complete.json"
+    },
+    {
+      "epoch": 9,
+      "completed_updates": 10593,
+      "pdms": 87.43345675540293,
+      "ade_meters": 1.3611421585083008,
+      "fde_meters": 3.421414852142334,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_010593/validation_complete.json"
+    },
+    {
+      "epoch": 10,
+      "completed_updates": 11770,
+      "pdms": 87.40519276067192,
+      "ade_meters": 1.4208587408065796,
+      "fde_meters": 3.5434794425964355,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_011770/validation_complete.json"
+    },
+    {
+      "epoch": 11,
+      "completed_updates": 12947,
+      "pdms": 87.51193724596997,
+      "ade_meters": 1.2509500980377197,
+      "fde_meters": 3.199169158935547,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_012947/validation_complete.json"
+    },
+    {
+      "epoch": 12,
+      "completed_updates": 14124,
+      "pdms": 87.47607658738522,
+      "ade_meters": 1.3840959072113037,
+      "fde_meters": 3.5797643661499023,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_014124/validation_complete.json"
+    },
+    {
+      "epoch": 13,
+      "completed_updates": 15301,
+      "pdms": 88.1785796341834,
+      "ade_meters": 1.3201676607131958,
+      "fde_meters": 3.3407578468322754,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_015301/validation_complete.json"
+    },
+    {
+      "epoch": 14,
+      "completed_updates": 16478,
+      "pdms": 88.01491661208179,
+      "ade_meters": 1.2163314819335938,
+      "fde_meters": 3.0565128326416016,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_016478/validation_complete.json"
+    },
+    {
+      "epoch": 15,
+      "completed_updates": 17655,
+      "pdms": 87.87373412600068,
+      "ade_meters": 1.2535771131515503,
+      "fde_meters": 3.2200565338134766,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_017655/validation_complete.json"
+    },
+    {
+      "epoch": 16,
+      "completed_updates": 18832,
+      "pdms": 88.32203325514793,
+      "ade_meters": 1.3685264587402344,
+      "fde_meters": 3.4660274982452393,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_018832/validation_complete.json"
+    },
+    {
+      "epoch": 17,
+      "completed_updates": 20009,
+      "pdms": 88.59726397493228,
+      "ade_meters": 1.2454876899719238,
+      "fde_meters": 3.180509567260742,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_020009/validation_complete.json"
+    },
+    {
+      "epoch": 18,
+      "completed_updates": 21186,
+      "pdms": 88.35448983454175,
+      "ade_meters": 1.2197566032409668,
+      "fde_meters": 3.1437227725982666,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_021186/validation_complete.json"
+    },
+    {
+      "epoch": 19,
+      "completed_updates": 22363,
+      "pdms": 88.53708359118774,
+      "ade_meters": 1.2348599433898926,
+      "fde_meters": 3.198209047317505,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_022363/validation_complete.json"
+    },
+    {
+      "epoch": 20,
+      "completed_updates": 23540,
+      "pdms": 89.10057598759366,
+      "ade_meters": 1.2011514902114868,
+      "fde_meters": 3.1150503158569336,
+      "scene_count": 1021,
+      "scope": "internal development subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_023540/validation_complete.json"
+    }
+  ],
+  "navtest_history": [
+    {
+      "epoch": 1,
+      "completed_updates": 1177,
+      "pdms": 70.16673137162185,
+      "ade_meters": 3.7750589847564697,
+      "fde_meters": 9.440553665161133,
+      "scene_count": 1024,
+      "scope": "repeated common NAVTEST subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/epoch1_common_comparison/lpwm/evaluation_complete.json"
+    },
+    {
+      "epoch": 3,
+      "completed_updates": 3531,
+      "pdms": 80.2827837575524,
+      "ade_meters": 1.697371006011963,
+      "fde_meters": 4.112218856811523,
+      "scene_count": 1024,
+      "scope": "repeated common NAVTEST subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/epoch3_common_comparison/lpwm/evaluation_complete.json"
+    },
+    {
+      "epoch": 4,
+      "completed_updates": 4708,
+      "pdms": 81.56099610428691,
+      "ade_meters": 2.1683969497680664,
+      "fde_meters": 5.380219459533691,
+      "scene_count": 1024,
+      "scope": "repeated common NAVTEST subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/epoch4_common_comparison/lpwm/evaluation_complete.json"
+    },
+    {
+      "epoch": 5,
+      "completed_updates": 5885,
+      "pdms": 82.32430320916171,
+      "ade_meters": 1.840775728225708,
+      "fde_meters": 4.437598705291748,
+      "scene_count": 1024,
+      "scope": "repeated common NAVTEST subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/epoch5_common_comparison/lpwm/evaluation_complete.json"
+    },
+    {
+      "epoch": 9,
+      "completed_updates": 10593,
+      "pdms": 85.93170049544132,
+      "ade_meters": 1.4211902618408203,
+      "fde_meters": 3.5233306884765625,
+      "scene_count": 1024,
+      "scope": "repeated common NAVTEST subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/epoch9_navsim_visualization/lpwm/evaluation_complete.json"
+    },
+    {
+      "epoch": 14,
+      "completed_updates": 16478,
+      "pdms": 85.25859475910973,
+      "ade_meters": 1.2823740243911743,
+      "fde_meters": 3.2062432765960693,
+      "scene_count": 1024,
+      "scope": "repeated common NAVTEST subset",
+      "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/epoch14_common_navtest_20261012/lpwm/evaluation_complete.json"
+    }
+  ],
+  "best_development_pdms": {
+    "epoch": 20,
+    "completed_updates": 23540,
+    "pdms": 89.10057598759366,
+    "ade_meters": 1.2011514902114868,
+    "fde_meters": 3.1150503158569336,
+    "scene_count": 1021,
+    "scope": "internal development subset",
+    "source": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/validation/update_023540/validation_complete.json"
+  },
+  "latest_development_submetrics": {
+    "no_at_fault_collisions": 0.9799216454456415,
+    "drivable_area_compliance": 0.970617042115573,
+    "ego_progress": 0.83008865230166,
+    "time_to_collision_within_bound": 0.9539666993143977,
+    "comfort": 0.9990205680705191,
+    "driving_direction_compliance": 0.9701273261508325,
+    "score": 0.8910057598759366
+  },
+  "world_diagnostic_count": 16,
+  "world_error_changes_percent_since_stage1": {
+    "reconstruction_mse": 1.0994082577034048,
+    "future_mse": 4.310842068083587
+  },
+  "particle_diagnostics": {
+    "label": "epoch_20",
+    "tokens": [
+      "ddbde9d6bfda5a6e",
+      "782e2832bd025494",
+      "df19480a94ec58ff",
+      "85f0514810285441"
+    ],
+    "mean_center_shift_input_pixels": 0.8910407423973083,
+    "mean_relative_size_change_percent": 11.448054313659668,
+    "mean_absolute_presence_change": 0.05478735268115997,
+    "scene_selection": "fixed first four of registered development panel",
+    "dots": "all 64 foreground particle centers; radius indicates presence",
+    "boxes": "LPWM glimpse extents, fixed initial top16 presence indices; not detected boxes"
+  },
+  "particle_visualization": "/rhome/junseong/PlanningAwareFuturePrediction/outputs/lpwm_front_history_stage1_lora_v1/stage2/particles/epoch_20/particles_before_after_overlay.png",
+  "latest_navtest_baselines": {
+    "lpwm": {
+      "checkpoint_sha256": "71464dea0f28f60199565372949856946e674cc83aa5e438aac52cfa89c2fa04",
+      "completed_updates": 16478,
+      "strict_state_load": true,
+      "frozen_native_sha256": "d582ee4941c4f305277d0eebb0ccbe553d45374b6dfcf5c741d756b207ee2a2e",
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.2823740243911743,
+      "fde_meters": 3.2062432765960693,
+      "seconds": 239.23917531967163,
+      "images": "historical_adapter_images.npy",
+      "ego": "historical_joint_ego.npy",
+      "peak_reserved_bytes": 1872756736,
+      "largest_sampled_total_card_bytes": 43296751616,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 85.25859475910973,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.97802734375,
+        "drivable_area_compliance": 0.9423828125,
+        "ego_progress": 0.7907375242186333,
+        "time_to_collision_within_bound": 0.94140625,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.96044921875,
+        "score": 0.8525859475910973
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 81.73129678967493
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 77.00444902562167
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 87.17983851634973
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    },
+    "drivor": {
+      "checkpoint_sha256": "00227778d68d770403c4bfbe2b639891f4cc6bacd38fc8d51109e40430965252",
+      "completed_updates": 3200,
+      "strict_state_load": true,
+      "frozen_native_sha256": null,
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.8091833591461182,
+      "fde_meters": 4.352607727050781,
+      "seconds": 36.66040086746216,
+      "images": "rectangular_images.npy",
+      "ego": "rectangular_ego.npy",
+      "peak_reserved_bytes": 306184192,
+      "largest_sampled_total_card_bytes": 41725984768,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 83.96620868119717,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.98779296875,
+        "drivable_area_compliance": 0.9404296875,
+        "ego_progress": 0.7612321478623008,
+        "time_to_collision_within_bound": 0.943359375,
+        "comfort": 1.0,
+        "driving_direction_compliance": 0.96875,
+        "score": 0.8396620868119717
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 80.10261789024406
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 74.84659867219112
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 86.08015999491444
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    },
+    "jepa": {
+      "checkpoint_sha256": "aa7b86b690e18bcd45e3b5a4c67854e6b6c53e9fde95dbf4e298b34d54c62d7f",
+      "completed_updates": 3200,
+      "strict_state_load": true,
+      "frozen_native_sha256": null,
+      "complete": true,
+      "count": 1024,
+      "ade_meters": 1.6928892135620117,
+      "fde_meters": 3.9387526512145996,
+      "seconds": 65.32102274894714,
+      "images": "rectangular_images.npy",
+      "ego": "rectangular_ego.npy",
+      "peak_reserved_bytes": 1415577600,
+      "largest_sampled_total_card_bytes": 42835378176,
+      "allocator_limit_bytes": 4000000000,
+      "precision_matches_original_evaluation": true,
+      "training_unchanged": true,
+      "pdms": 85.3751334812971,
+      "mean_metrics": {
+        "no_at_fault_collisions": 0.98583984375,
+        "drivable_area_compliance": 0.947265625,
+        "ego_progress": 0.7778626773453972,
+        "time_to_collision_within_bound": 0.94921875,
+        "comfort": 0.9990234375,
+        "driving_direction_compliance": 0.97265625,
+        "score": 0.853751334812971
+      },
+      "by_scene_type": {
+        "left_turn": {
+          "count": 193,
+          "pdms": 83.2351101498876
+        },
+        "right_turn": {
+          "count": 90,
+          "pdms": 81.01961325874964
+        },
+        "straight": {
+          "count": 741,
+          "pdms": 86.46153202784407
+        }
+      },
+      "failed": 0,
+      "full_navtest": false,
+      "benchmark": "NAVSIM v1 fixed independent navtest subset"
+    }
+  },
+  "interpretation": "Internal development and NAVTEST are different panels. Latest measured NAVTEST checkpoint is epoch14, not epoch20 or the paused partial-epoch21 checkpoint. Baseline training budgets and inputs differ. No new model evaluation or GPU work."
+}
